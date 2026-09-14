@@ -1,0 +1,132 @@
+Item 3.11 quality pass (seventeenth), Gordon Short Chemist (Crosby)
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-14
+
+SELECTION
+All eight unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] first, so the
+quality-pass fallback applied. Rotation pool re-derived fresh rather than
+trusted from the previous run's forward note: dates were pulled from every
+candidate item's own AGENT_WORKLIST.md block (3.11-3.13, 4.1-4.15, 5.1, 5.2).
+19 of those were last touched 2026-09-11; one (4.15) was last touched
+2026-09-12. Among the 19 tied at 2026-09-11, item 3.11 is lowest by item
+number, matching the sixteenth pass's own forward note. Selected.
+
+TARGET
+check-branch-links.js had never been proven by injection against Gordon
+Short Chemist Crosby's own branches.json record across sixteen prior passes
+of this item, despite the checker's own file header naming this exact
+branch as the discovery example that caused the checker to be written:
+thirteen of fourteen trading branches carried a correct nhsReviewUrl ending
+"/leave-a-review"; Gordon Short Crosby stopped one segment short, at the
+ODS code, landing a patient on the NHS profile page instead of the review
+form. That defect was fixed at source on the item 3.8 quality pass,
+2026-08-10, and check-branch-links.js was written the same day. This
+branch's own record had never been the subject of an injection against
+that checker since.
+
+Unlike the sixteen checkers proven on this item's prior passes (check-nap,
+check-jsonld-adjacent checks, etc.), check-branch-links.js reads
+branches.json directly and prints no page output, so the injections below
+mutate the DATA RECORD rather than a generated HTML file.
+
+METHOD
+Full 36-checker suite run on the tracked repo before any work: 0 failures.
+branches.json sha256 confirmed matching the standing regression anchor
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+
+Scratch copy built via `git archive HEAD | tar -x` to /tmp/scratch312,
+entirely outside the tracked tree. branches.json and check-branch-links.js
+sha256-confirmed matching the tracked repo before any injection. Baseline
+check-branch-links.js confirmed clean on the scratch copy.
+
+Ten injections, each restored from an in-memory baseline and sha256-
+reconfirmed identical before the next, run via the reproducible instrument
+audits/verify-3.11-2026-09-14-seventeenth.js (full output in the sibling
+-output.txt):
+
+ 1. odsCode duplicated to another branch's real code - CAUGHT, plus the
+    expected collateral on nhsEmail and nhsReviewUrl, both derived from
+    odsCode. Collateral by design, not a second independent bug (the same
+    shape as the item 3.9 pass's RULE 3/4 pairing on check-map-embeds.js).
+ 2. nhsEmail malformed (missing the "pharmacy." prefix) - CAUGHT.
+ 3. nhsReviewUrl truncated at the ODS code, recreating the ORIGINAL
+    historic defect this checker exists to catch - CAUGHT.
+ 4. googleReviewUrl malformed (wrong domain) - CAUGHT.
+ 5. googleReviewUrl duplicated to another real branch's value - CAUGHT,
+    "would land on the other's listing".
+ 6. website given a trailing slash - CAUGHT, plus the expected collateral
+    on pfLink's host-prefix test, since pfLink is compared against
+    website + "/".
+ 7. pfLink moved off this branch's own host, resolving to no real page -
+    CAUGHT, "not on this branch's own site".
+ 8. pfLink missing .html - CAUGHT.
+ 9. pfLink resolving to a real page owned by another branch
+    (fishlocks_ainsdale), written under Gordon Short's own host string -
+    CAUGHT, proving the OWNERSHIP rule independently of the host rule.
+    Gordon Short has no sister branch on a shared domain, so the "both
+    branches are served from the same host, so the link resolves live"
+    sub-case (the original item 2.1 Fishlocks Ainsdale/Eccleston exploit
+    this rule was built against) has no natural injection point on this
+    branch - a genuine scope limit of the branch chosen, the same shape as
+    item 3.10's RULE 3 limit on Riddings (no branch landing page) and item
+    3.9's RULE 6 limit on Coleman and Leighs (also no branch landing
+    page). The ownership rule itself still fires correctly regardless of
+    host.
+10. Stale KNOWN entry: a KNOWN key added for gordonshorts_crosby.odsCode
+    that no longer breaks any rule - CAUGHT, "it no longer breaks any
+    rule, so remove it from KNOWN".
+
+CONTROL: branchNumber changed with no link field touched - correctly
+PASSED, exit 0.
+
+All ten fired or passed on exactly their intended rule, first attempt, no
+unexplained cross-firing beyond the two documented collateral pairs
+(odsCode -> nhsEmail/nhsReviewUrl, website -> pfLink host prefix), both of
+which are correct behaviour given the fields' real dependency, not bugs.
+
+A minor wording observation, not a defect: injection 9's failure message
+ends "It also sits off this branch's own host", which is technically about
+whether the FOREIGN branch's real host matches this branch's host (it
+doesn't - fishlockpharmacy.co.uk vs gordonshortchemist.co.uk), not about
+whether the literal pfLink string sits on this branch's own domain (it
+does, since the injected URL was deliberately built starting with Gordon
+Short's own website field, and the earlier host-prefix check passed
+silently as intended, confirmed by only one failure line being printed).
+The rule fires correctly regardless; the message's ternary is answering a
+narrower question than its final clause suggests. Not raised as a
+question because it does not change what the checker fails or passes, and
+does not affect the two branches (Fishlocks, Scorah, McCanns pairs) where
+the field's danger is real.
+
+RESTORE AND FINAL STATE
+branches.json and check-branch-links.js sha256-reconfirmed byte-identical
+to the pre-run baseline after every injection and at the end. Full
+36-checker suite re-run on the scratch copy after cleanup: 35/35 pass
+excluding the expected check-cdn-pins.js artefact (no .git in a scratch
+copy, standing convention). Tracked repo confirmed untouched throughout via
+`git status --porcelain -- modules core branches.json gbp-packs tools`
+(only the two pre-existing untracked strays, unchanged: the
+notarealservice-fishlocks-ainsdale.html.bak stray and a FUSE mount
+artefact in gbp-packs/, neither created by this run) and by direct sha256
+comparison of branches.json and check-branch-links.js against the pre-run
+baseline (exact match). Full 36-checker suite re-run individually against
+the tracked repo after cleanup: 36/36 exit 0.
+
+RESULT
+Zero in-repo defect. check-branch-links.js was already correctly holding
+Gordon Short Chemist Crosby's own branches.json record to all six of its
+field rules (odsCode uniqueness, nhsEmail format, nhsReviewUrl format,
+googleReviewUrl format and uniqueness, website shape, pfLink host/
+extension/ownership) plus the stale-KNOWN-entry guard, now proven by
+injection for the first time in this item's seventeen-pass history. No new
+question raised.
+
+LIVE HALF: attempted, unavailable. mcp__claude-in-chrome__tabs_context_mcp
+reported "Claude in Chrome is not connected" (standing Q59, one attempt, no
+retry, no alternative route). Prior live findings on this branch (switch
+banner mojibake, Q22 estate-wide weight loss tagline, the cosmetic "Great
+Crosby" sidebar line, the STOP-standing "Gordon Shorts Chemist" misspelling
+on the live weight-loss-clinic and travel-clinic pages) neither re-checked
+nor contradicted this pass.
+
+Evidence: audits/verify-3.11-2026-09-14-seventeenth.js and its
+-output.txt (this file).

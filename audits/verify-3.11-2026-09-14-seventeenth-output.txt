@@ -1,0 +1,60 @@
+=== verify-3.11-2026-09-14-seventeenth.js ===
+REPO = /tmp/scratch312
+branches.json sha256 baseline: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+check-branch-links.js sha256 baseline: 79117b80bb94889570e69fc6ea38fff98d345b5f0e21fedcb69896dccbe4980d
+Baseline: checker clean (exit 0) before any injection.
+
+--- 1. odsCode duplicated (set to smartts_bootle's FQN70) ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.odsCode: duplicate of smartts_bootle (FQN70). An ODS code identifies one pharmacy contract.
+    FAIL  gordonshorts_crosby.nhsEmail: is "pharmacy.FPD45@nhs.net", expected "pharmacy.FQN70@nhs.net".
+    FAIL  gordonshorts_crosby.nhsReviewUrl: is "https://www.nhs.uk/services/pharmacy/gordon-short-chemist/XFPD45/leave-a-review". Expected https://www.nhs.uk/services/pharmacy/<slug>/XFQN70/leave-a-review. Anything short of /leave-a-review lands the patient on the profile page instead of the review form.
+    NOTE: Expected to also cross-fire nhsEmail and nhsReviewUrl, both derived from odsCode, so the pair is collateral by design, not a second independent bug.
+
+--- 2. nhsEmail wrong format (missing pharmacy. prefix) ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.nhsEmail: is "FPD45@nhs.net", expected "pharmacy.FPD45@nhs.net".
+
+--- 3. nhsReviewUrl truncated at the ODS code - the ORIGINAL historic defect this checker exists to catch ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.nhsReviewUrl: is "https://www.nhs.uk/services/pharmacy/gordon-short-chemist/XFPD45". Expected https://www.nhs.uk/services/pharmacy/<slug>/XFPD45/leave-a-review. Anything short of /leave-a-review lands the patient on the profile page instead of the review form.
+
+--- 4. googleReviewUrl malformed (wrong domain, not g.page) ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.googleReviewUrl: is "https://maps.google.com/r/CZcVDM6emi6OEAE/review", expected https://g.page/r/<id>/review.
+
+--- 5. googleReviewUrl duplicated (set to riddings_timperley's real value) ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.googleReviewUrl: is the same link as riddings_timperley, so a review meant for one branch would land on the other's listing.
+
+--- 6. website given a trailing slash ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.website: is "https://www.gordonshortchemist.co.uk/". Expected https, a bare host, no trailing slash and no path, because other fields are compared against it.
+    FAIL  gordonshorts_crosby.pfLink: is "https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby.html", which is not on this branch's own site (https://www.gordonshortchemist.co.uk/).
+    NOTE: Expected to also cross-fire pfLink's host-prefix test, since pfLink is compared against website + '/'.
+
+--- 7. pfLink off this branch's own host (wrong domain, resolves to no real page) ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.pfLink: is "https://www.fishlockpharmacy.co.uk/pharmacy-first-service-crosby.html", which is not on this branch's own site (https://www.gordonshortchemist.co.uk).
+
+--- 8. pfLink missing .html ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.pfLink: is "https://www.gordonshortchemist.co.uk/pharmacy-first-service-crosby" and does not end .html, which Weebly pages normally need.
+
+--- 9. pfLink resolves to a real page owned by another branch (fishlocks_ainsdale), written under Gordon Short's own host string - proves the OWNERSHIP rule independently of the host rule ---
+OK exit=1 (expected failure)
+    FAIL  gordonshorts_crosby.pfLink: is "https://www.gordonshortchemist.co.uk/pharmacy-first-fishlocks-ainsdale.html", a Pharmacy First page belonging to fishlocks_ainsdale ("Fishlocks Chemist Ainsdale"), not to this branch ("Gordon Short Chemist"). It also sits off this branch's own host.
+    NOTE: Gordon Short has no sister branch on a shared domain, so the 'both branches are served from the same host, so the link resolves live' sub-case (the original item 2.1 Fishlocks Ainsdale/Eccleston exploit) has no natural injection point on this branch - a genuine scope limit of the branch chosen, not a gap in the rule. The ownership rule itself still fires correctly.
+
+--- CONTROL: unrelated field (branchNumber) changed, no link field touched ---
+OK exit=0 (expected clean)
+
+branches.json restored, sha256: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e (matches baseline: true)
+--- 10. stale KNOWN entry (add a key that no longer breaks any rule) ---
+OK exit=1 (expected failure)
+    FAIL  stale KNOWN entry gordonshorts_crosby.odsCode: it no longer breaks any rule, so remove it from KNOWN in this checker.
+check-branch-links.js restored, sha256: 79117b80bb94889570e69fc6ea38fff98d345b5f0e21fedcb69896dccbe4980d (matches baseline: true)
+
+=== SUMMARY ===
+All 10 injections fired or passed on their intended rule.
+Final restore check: branches.json sha256 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e, check-branch-links.js sha256 79117b80bb94889570e69fc6ea38fff98d345b5f0e21fedcb69896dccbe4980d

@@ -11173,6 +11173,69 @@ Done 2026-09-14 (seventeenth pass).
       same standing Q87/Q96 mechanism, not re-raised. Evidence:
       audits/gordon-short-item-3.11-quality-pass-2026-09-11-sixteenth.txt.
       Done 2026-09-11
+      Seventeenth quality pass 2026-09-14 (unattended run), fresh angle only.
+      All eight unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] first.
+      Rotation pool re-derived fresh, not inherited: 19 candidate items tied
+      at 2026-09-11 or earlier, 3.11 lowest by item number among them,
+      matching the sixteenth pass's own forward note.
+      FRESH ANGLE: check-branch-links.js had never been proven by injection
+      against this branch's own branches.json record across sixteen prior
+      passes, despite the checker's own file header naming Gordon Short
+      Crosby BY NAME as the discovery example that caused it to be written
+      (a truncated nhsReviewUrl stopping at the ODS code instead of
+      /leave-a-review, fixed at source on the item 3.8 quality pass,
+      2026-08-10). This checker reads branches.json directly rather than a
+      generated page, so the injections mutate the data record, not HTML.
+      Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch312,
+      entirely outside the tracked tree; branches.json and
+      check-branch-links.js sha256-confirmed matching the tracked repo
+      before any injection, and branches.json confirmed matching the
+      standing regression anchor. Ten injections, each restored from an
+      in-memory baseline and sha256-reconfirmed before the next, via the
+      reproducible instrument audits/verify-3.11-2026-09-14-seventeenth.js:
+      odsCode duplicated to another branch's real code (CAUGHT, plus
+      expected collateral on nhsEmail and nhsReviewUrl, both derived from
+      odsCode); nhsEmail malformed (CAUGHT); nhsReviewUrl truncated at the
+      ODS code, recreating the ORIGINAL historic defect this checker exists
+      to catch (CAUGHT); googleReviewUrl malformed (CAUGHT); googleReviewUrl
+      duplicated to another real branch's value (CAUGHT); website given a
+      trailing slash (CAUGHT, plus expected collateral on pfLink's host
+      test); pfLink moved off this branch's own host (CAUGHT); pfLink
+      missing .html (CAUGHT); pfLink resolving to a real page owned by
+      another branch while still written under Gordon Short's own host
+      string, proving the OWNERSHIP rule independently of the host rule
+      (CAUGHT - Gordon Short has no sister branch on a shared domain, so the
+      "both branches share one host, link resolves live" sub-case from the
+      original item 2.1 Fishlocks exploit has no natural injection point
+      here, a genuine scope limit of the branch chosen, not a gap in the
+      rule); and a stale KNOWN entry (CAUGHT, "no longer breaks any rule").
+      Control (an unrelated field change) correctly passed, exit 0. All ten
+      fired or passed on exactly their intended rule, first attempt, no
+      unexplained cross-firing beyond the two documented collateral pairs.
+      A wording-only observation on injection 9's failure message is
+      recorded in the evidence file; it does not change what the checker
+      fails or passes and was not raised as a question.
+      Final restore sha256-reconfirmed identical to baseline for both files.
+      Full 36-checker suite re-run on the scratch copy after cleanup: 35/35
+      pass excluding the expected check-cdn-pins.js artefact (no .git in a
+      scratch copy, standing convention). Tracked repo confirmed untouched
+      throughout via `git status --porcelain -- modules core branches.json
+      gbp-packs tools` (only the two pre-existing untracked strays,
+      unchanged) and by direct sha256 comparison of branches.json and
+      check-branch-links.js against the pre-run baseline (exact match).
+      Full 36-checker suite re-run individually against the tracked repo
+      after cleanup: 36/36 exit 0.
+      ZERO IN-REPO DEFECT. check-branch-links.js was already correctly
+      holding Gordon Short Chemist Crosby's own record to all six of its
+      field rules plus the stale-KNOWN-entry guard, now proven by injection
+      for the first time in this item's seventeen-pass history.
+      LIVE HALF: attempted, unavailable. Claude in Chrome not connected
+      (standing Q59, one attempt, no retry). Prior live findings on this
+      branch neither re-checked nor contradicted this pass. No new
+      question; QUESTIONS.json unchanged (102 total, 49 open). Evidence in
+      audits/verify-3.11-2026-09-14-seventeenth.js, its -output.txt, and
+      audits/gordon-short-item-3.11-quality-pass-2026-09-14-seventeenth.txt.
+      Done 2026-09-14
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
