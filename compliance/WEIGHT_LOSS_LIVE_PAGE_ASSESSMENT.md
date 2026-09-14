@@ -942,3 +942,53 @@ against the sitemap-sweep methodology: Riddings (Timperley), Gordon Short
 (Crosby), Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context
 only). Clear Chemist Aintree (Q104) still has twelve online-doctor/weight-loss
 branded-product sub-pages and seven az-health/obesity articles unread.
+
+## 2026-09-14 addition: Riddings Pharmacy (Timperley) - twelfth instance
+
+Unattended scheduled run, continuing the sitemap-sweep methodology
+(sitemap listing and homepage link context, both required per the
+2026-08-12 addendum) on the next unread branch in forward-note order.
+
+riddingspharmacy.co.uk/sitemap.xml lists 30 URLs, two weight-loss-shaped:
+weight-loss-clinic-riddings-timperley.html (this repo's own generated page,
+filename confirmed against build-weight-loss-pages.js's
+`weight-loss-clinic-<brandSlug>-<townSlug>.html` convention and present at
+modules/service/pages/weight-loss-clinic-riddings-timperley.html) and
+weight-loss-clinic-timperley.html, which matches no generator's naming
+convention and is the twelfth live legacy page found.
+
+Link context, read from the live homepage DOM rather than visible menu text
+alone: weight-loss-clinic-timperley.html is linked from the desktop top nav
+("Weight Loss Clinic"), the mobile nav (same anchor, separate DOM node), and
+a homepage content image tile - three independent on-page slots, the same
+severity class as Hirshmans (Q85), McCanns (Q103) and Coleman and Leighs -
+alongside, not instead of, the correct generated page
+weight-loss-clinic-riddings-timperley.html ("Weight Loss Clinic
+(Timperley)"), which is linked from the desktop nav and mobile nav only (no
+content tile).
+
+weight-loss-clinic-timperley.html carries all six elements the 2026-08-10
+assessment tests for: named medicines (Wegovy, Mounjaro, Orlistat) under an
+"Explore treatments" picker; a superlative claim ("Mounjaro (tirzepatide) is
+one of the most effective weight loss treatments available"); a "Real
+Results with Mounjaro" heading citing "up to 22.5% of your body weight over
+72 weeks"; an interactive outcome slider (tested value 116kg starting
+weight returning "You could lose up to: 26kg (22.5% of your body weight)");
+and a lead price above the fold, "From £39.99 including your consultation."
+
+weight-loss-clinic-riddings-timperley.html (the correct generated page) was
+also read. It is clean of all six legacy elements and correctly framed as a
+private, non-NHS clinical service with an eligibility section, but its own
+booking block reads "Private consultation at Riddings Pharmacy, from
+£39.99. Choose a time that suits you." ahead of the "Is this service right
+for you?" eligibility section - a re-confirmation of the Q88 lead-price
+pattern already on record since the 2026-09-05 Scorah addition, not a new
+finding.
+
+QUESTIONS.json Q103 extended with this evidence (same shared-template
+pattern as the ninth, tenth and eleventh instances it already tracks)
+rather than opened as a new question. Item 5.8 stays [BLOCKED]. Branches
+still unread against the sitemap-sweep methodology: Gordon Short (Crosby),
+Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context only). Clear
+Chemist Aintree (Q104) still has twelve online-doctor/weight-loss
+branded-product sub-pages and seven az-health/obesity articles unread.

@@ -25648,6 +25648,29 @@ rather than trust this note - as computed by this pass, the two remaining
       (sitemap and link context unread), Tiffenbergs (link context only),
       and Clear Chemist Aintree's remaining twelve branded sub-pages and
       seven obesity articles. Item 5.8 stays [BLOCKED].
+      2026-09-14 (unattended scheduled run, eighteenth run today): sweep
+      continued to Riddings Pharmacy (Timperley), the next unread branch in
+      forward-note order, following the same sitemap-and-link-context
+      methodology. A TWELFTH live legacy instance found,
+      weight-loss-clinic-timperley.html, linked from the homepage's desktop
+      top nav, mobile nav AND a content image tile (three independent
+      slots), alongside the correct generated page rather than instead of
+      it - the same severity class as Hirshmans (Q85), McCanns (Q103) and
+      Coleman and Leighs. All six known template elements present (named
+      Wegovy/Mounjaro/Orlistat, superlative Mounjaro claim, "Real Results
+      with Mounjaro" heading, outcome slider tested at 116kg returning "26kg
+      (22.5%)", named treatment picker, lead price "From £39.99" above the
+      fold). The correct generated page
+      (weight-loss-clinic-riddings-timperley.html) is clean of the six
+      legacy elements but re-confirms the existing Q88 lead-price pattern in
+      its own booking block. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14
+      Riddings addition. QUESTIONS.json Q103 extended with this evidence
+      rather than opened as a new question, same shared-template pattern.
+      Sweep still owes: Gordon Short, Cherry Lane (sitemap and link context
+      unread), Tiffenbergs (link context only), and Clear Chemist Aintree's
+      remaining twelve branded sub-pages and seven obesity articles. Item
+      5.8 stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
