@@ -25562,6 +25562,37 @@ rather than trust this note - as computed by this pass, the two remaining
       Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and
       link context unread), and Tiffenbergs (link context only). Item 5.8
       stays [BLOCKED].
+      2026-09-14 (later, unattended scheduled run, sweep continued to Clear
+      Chemist Aintree): a materially different and more severe finding, NOT
+      simply an eleventh instance of the same template. clearchemist.co.uk is
+      not a Weebly branch site, it is ClearChem Ltd's own e-commerce platform
+      (a separate group entity, Rishi is SI), and it is not built by any
+      generator in this repo. Its sitemap lists 31+ weight-loss URLs; the
+      homepage links directly to weight-loss-clinic.html (anchor text
+      "Weight Loss Clinic - Free Consultation") and to
+      services/weight-loss-clinic.html. The first carries a repeated "£35 OFF
+      your first pen" banner and a "Mounjaro 2.5mg Pen Price Comparison"
+      table; the second is a live, paginated shop selling named Wegovy and
+      Mounjaro injections at displayed unit prices (£179 to £299) with
+      add-to-basket checkout copy. The "Learn More" path leads to
+      weight-loss-clinic-new.html, which carries every element the 2026-08-10
+      assessment tested for (superlative Mounjaro claim, "Real Results"
+      heading, outcome slider, named treatment picker) PLUS a named,
+      GPhC-numbered prescriber writing in the first person, PLUS six named
+      customer testimonials quoting specific kilograms lost on specific
+      Mounjaro doses - an outcome-claim class with no precedent elsewhere in
+      this audit. No compliant generated page for this branch
+      (weight-loss-clinic-clear-aintree.html) was found live on this domain.
+      Nothing on this platform was touched: there is no source file in this
+      repo to fix, and any remedy is a direct edit by whoever administers
+      clearchemist.co.uk. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14
+      Clear Chemist addition. Raised as Q104, recommended for handling AHEAD
+      of the Weebly branch instances given the combination of live POM retail
+      pricing and quantified personal-result testimonials. Sweep still owes:
+      Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and
+      link context unread), and Tiffenbergs (link context only). Item 5.8
+      stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

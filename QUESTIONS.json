@@ -1607,5 +1607,20 @@
     "status": "open",
     "answer": null,
     "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14 addition for McCanns Chemist. Branches still unread against this methodology after this pass: Clear Chemist Aintree, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and link context both unread), and Tiffenbergs (link context only, sitemap already confirmed 2026-08-11/12)."
+  },
+  {
+    "id": "Q104",
+    "date": "2026-09-14",
+    "item": "5.8 weight loss advertising exposure (found during the sitemap sweep, Clear Chemist Aintree)",
+    "question": "Decision needed, and flagged more urgent than the ten Weebly-branch instances already tracked under Q16/Q22/Q85/Q98/Q103: clearchemist.co.uk (ClearChem Ltd t/a Clear Chemist, a separate group entity, not a Weebly branch site and not built by any generator in this repo) is running a live e-commerce weight loss operation reachable directly from its homepage. weight-loss-clinic.html carries a repeated \"£35 OFF your first pen\" discount banner and a Mounjaro pen price-comparison table. services/weight-loss-clinic.html is a live, paginated shop selling named Wegovy and Mounjaro injections at displayed unit prices (£179 to £299) with add-to-basket checkout copy. weight-loss-clinic-new.html (reached via a \"Learn More\" button) carries the same superlative claim, results heading, outcome slider and treatment picker already found on the Weebly branch pages, plus two elements with no precedent elsewhere in this audit: a named, GPhC-numbered prescriber writing in the first person, and six named customer testimonials quoting specific kilograms lost on specific Mounjaro doses. No compliant generated page for this branch was found live on the domain. Nothing was edited; this is outside repo scope entirely (no source file exists here for any of it) and the platform is administered separately from the Weebly branch sites.",
+    "options": [
+      "Treat this as the most urgent single item in the whole weight loss exposure list and have it reviewed (ideally with the superintendent pharmacist and/or external compliance advice) ahead of the ten Weebly branch instances, given live retail pricing of a named POM plus quantified personal-result testimonials",
+      "Fold it into the same tracking and timeline as the ten Weebly branch instances (Q16/Q22/Q85/Q98/Q103), treating it as one more item on the same backlog rather than escalating it separately",
+      "Leave it on record only for now and revisit once the Weebly branch fix approach is decided, on the basis that a single combined weight loss compliance decision should cover every property at once"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14 addition for Clear Chemist Aintree. Not checked this pass: weight-loss-clinic-switch.html, weight-loss-medication.html, weight-loss-enquiry.html, weight-loss-register-interest, the online-doctor/weight-loss branded-product sub-pages, and pharmacy/weight-loss/slimming.html - any could repeat or extend the same pattern. Sitemap sweep for item 5.8 still owes: Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and link context unread), and Tiffenbergs (link context only)."
   }
 ]

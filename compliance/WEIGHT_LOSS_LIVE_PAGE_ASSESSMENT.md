@@ -702,3 +702,113 @@ Clear Chemist Aintree, Coleman and Leighs (Walton), Riddings (Timperley),
 Gordon Short (Crosby), Cherry Lane (Walton), and Tiffenbergs (Longmoor,
 link-context only - its sitemap listing was already confirmed on
 2026-08-11/12).
+
+## 2026-09-14 addition: Clear Chemist Aintree - a different platform, and the most severe instance found
+
+Continuing the sitemap sweep to Clear Chemist Aintree (clearchemist.co.uk)
+found something the other nine instances did not prepare for: this domain is
+not a Weebly branch site at all. It is a full e-commerce platform with its own
+checkout, basket and online prescribing flow, and it carries every element the
+2026-08-10 assessment tested for, plus two the branch sites never had:
+displayed retail pricing with an add-to-basket product catalogue, and
+named-customer testimonials quoting specific weight lost. ClearChem Ltd t/a
+Clear Chemist is a separate group entity from the pharmacy branches (Rishi is
+its superintendent), so this sits outside the branch-by-branch fix scope
+Q16/Q22/Q85/Q98/Q103 have been building.
+
+Read live, read only, 2026-09-14, via Claude in Chrome (GET and DOM read only,
+nothing clicked, typed or submitted):
+
+clearchemist.co.uk/sitemap.xml resolves to a sitemap index with two child
+sitemaps. sitemap-1-1.xml is the product catalogue (no weight loss clinic
+pages, only unrelated products whose names happen to contain the word
+"weight"). sitemap-1-2.xml lists at least thirty-one weight-loss-related URLs,
+including weight-loss-clinic.html, services/weight-loss-clinic.html,
+weight-loss-clinic-new.html, weight-loss-clinic-switch.html,
+weight-loss-medication.html, weight-loss-enquiry.html,
+weight-loss-register-interest, online-doctor/weight-loss.html and its
+sub-pages (branded product pages for Celebrity Slim, Slim-Fast, XLS, Alli,
+Lipotrim, and a page literally named
+online-doctor/weight-loss/prescription-medications.html), and
+pharmacy/weight-loss/slimming.html. No URL matching this repo's own generated
+weight-loss-clinic-clear-aintree.html naming convention was found anywhere in
+either sitemap, so the compliant generated page for this branch does not
+appear to be live on this domain at all (not checked further this pass -
+would need a direct fetch of the generated filename to confirm it is
+genuinely absent rather than unindexed).
+
+Homepage link context: the live homepage (clearchemist.co.uk) was fetched and
+every anchor whose href or text matched weight/mounjaro/wegovy/slim was read
+from the DOM. Two links point at weight-loss-clinic.html, one of them with
+the anchor text "Weight Loss Clinic - Free Consultation", and a further two
+point at services/weight-loss-clinic.html with anchor text "Weight Loss".
+This is Regime 1 on the plainest possible grounds: the advertising standards'
+own definition of the strict regime is "the landing page an ad points at" and
+"the homepage", and this is both at once for two different pages.
+
+weight-loss-clinic.html (the homepage-linked landing page) carries a "£35 OFF
+your first pen (Wegovy tablets not included in discount)" banner repeated
+twice above the fold, and a "Mounjaro 2.5mg Pen Price Comparison" table
+showing four prices (£177, £179, £168, £144) with no attribution of which
+retailer each belongs to visible in the extracted text. Its own page title is
+"Achieve Your Goals at Clear Chemist Aintree | Expert Weight Loss Clinic".
+
+services/weight-loss-clinic.html is a live product listing/category page: a
+sortable, paginated shop grid ("Items 1-8 of 11") selling Wegovy 1.7mg
+Injection (£199.00), and Mounjaro 2.5mg/5mg/7.5mg/10mg/12.5mg/15mg Injection
+(£179 to £299) as individually priced, presumably add-to-basket SKUs, with
+page copy reading "If you DO have a prescription already, then click on the
+prescribed pen, below, and add it to your basket... then check out." This is
+not an information page about a service; it is a retail shop window for named
+POM injectables with unit prices displayed to the public, one click from the
+homepage.
+
+weight-loss-clinic-new.html, reached via the "Learn More" button on
+weight-loss-clinic.html, carries every element the 2026-08-10 assessment
+tested for on the branch pages, in a more elaborate form: a "Real Results with
+Mounjaro" heading stating Mounjaro (tirzepatide) "is one of the most effective
+weight loss treatments available" and "can help you lose up to 22.5% of your
+body weight over 72 weeks"; an interactive slider ("Estimate Your Weight
+Loss", tested reading 75kg down to a stated "Potential Weight After 72 Weeks:
+58kg, Estimated Weight Loss: 17kg"); a named treatment picker under "Explore
+treatments" listing Wegovy (semaglutide), Mounjaro (tirzepatide) and Orlistat;
+and a real named prescriber with a GPhC number ("Meet Dane, Our Weight Loss
+Service Pharmacist, GPhC Number 2072668") writing in the first person about
+his approach to care. None of the five branch legacy pages carried a named,
+GPhC-numbered staff member.
+
+The one element with no precedent anywhere else in this audit: six named
+customer testimonials, each quoting a specific dose and a specific quantity of
+weight lost in a specific timeframe - "I started Mounjaro 5mg just two months
+ago and I've already lost 9kg", "down over a stone in just eight weeks",
+"lost 7kg since starting Mounjaro 5mg", "within two months on Mounjaro 10mg
+I've lost nearly 10kg", "down 8kg", "dropped 12kg" - attributed to first
+names and cities (Sarah/Manchester, James/Liverpool, Emma/Leeds,
+Daniel/Birmingham, Laura/Glasgow, Michael/London). Whether these are genuine
+patients or illustrative copy was not established this pass (out of scope for
+a read-only sweep) and does not change the assessment either way: quantified
+individual outcome claims for a named POM, presented as reviews, are a
+distinct and more specific breach class than the "up to 22.5%" clinical-trial
+statistic the branch pages carry, because they read as a personal guarantee
+of results rather than a population statistic with the standard caveat
+("your actual results will depend on...") that the same page carries two
+paragraphs above them.
+
+Not checked this pass, for the record: weight-loss-clinic-switch.html (the
+"Switch Now" destination), weight-loss-medication.html, weight-loss-enquiry.html,
+weight-loss-register-interest, the online-doctor/weight-loss branded-product
+sub-pages, and pharmacy/weight-loss/slimming.html. Any of these could repeat
+or extend the same pattern; the sweep stopped here on time and did not attempt
+a full audit of a live e-commerce platform in one pass.
+
+No page or repo content changed. Clear Chemist is not built by any generator
+in this repo - it is a separate platform entirely, so there is no source file
+here to fix even once a decision is made; any remedy is a direct edit on
+whatever platform runs clearchemist.co.uk, made by whoever administers it.
+Raised as Q104, flagged as materially more severe than the Weebly branch
+pages tracked under Q16/Q22/Q85/Q98/Q103 and recommended for handling ahead of
+them given the combination of live retail sale of a named POM with displayed
+pricing and quantified personal-result testimonials. Item 5.8 stays
+[BLOCKED]. Branches still unread against the sitemap-sweep methodology:
+Coleman and Leighs (Walton), Riddings (Timperley), Gordon Short (Crosby),
+Cherry Lane (Walton), and Tiffenbergs (Longmoor, link-context only).
