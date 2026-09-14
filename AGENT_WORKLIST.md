@@ -10302,6 +10302,148 @@ Done 2026-09-14 (seventeenth pass).
       audits/verify-3.10-2026-09-11-sixteenth.txt. Next stalest by this
       run's own computation, re-derive rather than assume: 3.12, 3.13,
       4.11, 5.1, 6.2, 6.3, all tied at 2026-09-10. Done 2026-09-11
+      Quality pass 2026-09-14 (eighteenth, unattended scheduled run, seventh
+      run today). All eight unchecked worklist items reconfirmed [BLOCKED]
+      on Rishi's own open decisions (Q8, Q9, Q13, Q16, Q52, Q60, Q66), so
+      the quality-pass fallback applied; the sixth run's own forward note
+      today (item 3.9) named 3.10 as lowest among the items tied stalest at
+      2026-09-11 or earlier, reconfirmed by direct grep before starting.
+
+      CROSS-ITEM HOUSEKEEPING FIRST: the full 36-checker suite was not
+      clean at run start. tools/check-postcodes.js failed on
+      audits/verify-3.9-2026-09-14-seventeenth.js (committed by this
+      morning's sixth run), which quotes a fabricated postcode, "L4 9ZZ",
+      in its own RULE-4-agreement injection source line (a one-field
+      variant of Coleman and Leighs Pharmacy's own L4 6TH, changing only
+      the postcode, never applied to a real page or branches.json - the
+      injection ran on a scratch copy and was restored). This is the same
+      recurring gap NARRATIVE_POSTCODES exists to close, and has now
+      recurred thirteen times (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA,
+      L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP,
+      AA1 1AA, L1 1AA, L4 9SG). Added "L4 9ZZ" to NARRATIVE_POSTCODES in
+      tools/check-postcodes.js with a full reason; full 36-checker suite
+      re-run clean immediately after (36/36 exit 0). This is a fix to
+      tools/check-postcodes.js, not to any item-3.10 file, done first so
+      the baseline for this pass's own work was genuinely clean rather than
+      inheriting an unrelated failure.
+
+      TARGET: tools/check-app-membership.js, never proven by injection
+      against Riddings' own pages or its own GBP pack across seventeen
+      prior passes, despite the checker's own file header (the SCOPE
+      comment above RULE 8) naming gbp-packs/riddings-timperley.md
+      specifically: that pack's "Notes for the paster" section warns
+      against copying the live switch page's old "Download our app" block
+      across, which is exactly why RULE 8's published-copy scan excludes
+      the notes block. Riddings has hasApp false, so every injection here
+      tests the ABSENCE direction, not the presence direction the four
+      app-member branches' own packs already exercise.
+
+      Baseline: git status --porcelain clean on the tracked repo (aside
+      from the check-postcodes.js fix above and the two pre-existing
+      untracked artefacts); branches.json sha256 confirmed unchanged at the
+      standing regression anchor
+      904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+      Full-repo scratch copy via `git archive HEAD | tar -x` to
+      /tmp/scratch-3.10 inside the Cowork sandbox; five target files
+      (branches.json, tools/check-app-membership.js,
+      gbp-packs/riddings-timperley.md, the Riddings switch page and
+      pharmacy-first page) sha256-confirmed matching the tracked repo
+      before any injection; the fixed tools/check-postcodes.js was also
+      copied into the scratch copy so the final full-suite re-run would not
+      report the already-fixed housekeeping item a second time.
+      check-app-membership.js confirmed clean on the scratch copy before
+      injection (4 app members of 16 branches, 21 pages in the two
+      hasApp-rendering families, 15 GBP packs read).
+
+      NINE INJECTIONS PLUS ONE CONTROL, each restored byte-identical
+      (sha256-confirmed) before the next, full instrument in
+      audits/verify-3.10-2026-09-14-eighteenth.js: (1) RULE 2, the
+      Riddings switch page given class="app-card" it must not carry -
+      CAUGHT, "carries the app card but branches.json says this branch is
+      not an app member"; (2) RULE 4 (absence elsewhere), an app mention
+      added to the Riddings pharmacy-first page (a service-family page,
+      never meant to carry one) - CAUGHT, "no page in this family is meant
+      to"; (3) RULE 5 (one name), the Riddings switch page's own copy
+      naming the app "RB Healthcare app" without "Pharmacy" - CAUGHT, "one
+      name"; (4) RULE 6 (store urls), the Riddings switch page carrying an
+      App Store URL the generator does not declare - CAUGHT, "store urls";
+      (5) RULE 7 (paste markers), Riddings' own heading in
+      modules/switch/pages/INDEX.md marked "*(app member)*" when
+      branches.json has hasApp false - CAUGHT, "paste markers"; (6) RULE 8c,
+      the Riddings pack's own "Notes for the paster" section told hasApp is
+      true, contradicting branches.json - CAUGHT, "the paster note tells
+      the paster branches.json has hasApp true"; (7) RULE 8a/8d, an app
+      sentence added to the Riddings pack's Business description, directly
+      contradicting that same pack's existing note that there is "No app
+      mention anywhere in this pack" - CAUGHT, "claims an app"; (8) RULE 8b,
+      an app-screen entry added to the Riddings pack's photo shot list -
+      CAUGHT, "the photo shot list asks for an app shot"; (9) CONTROL, the
+      Services section heading in the Riddings pack annotated with a
+      review date and no app-related content touched - correctly PASSED,
+      exit 0. All nine fired or passed on exactly their intended rule,
+      first attempt, no unexpected cross-firing (spot-checked directly: RULE
+      2's failure names only the Riddings switch page and only the
+      app-member reason, nothing collateral).
+
+      RULE 3 (landing pages) has no natural injection point on Riddings,
+      which has no branch landing page (only Fishlocks x2, McCanns x2 and
+      Scorah x2 carry one) - a genuine scope limit of the branch chosen,
+      the same shape as item 3.8's rules 5/9 limit on SK Chemists Bootle
+      and item 3.9's rule 6 limit on Coleman and Leighs.
+
+      Final restore sha256-reconfirmed identical to baseline for all four
+      target files after every injection and at the end. Full 35-checker
+      suite (cdn-pins excluded, no .git in the scratch copy) re-run clean
+      on the scratch copy after cleanup: 35/35 exit 0. Tracked repo
+      confirmed untouched throughout via `git status --porcelain --
+      modules core branches.json gbp-packs tools` (only the two
+      pre-existing untracked strays, unchanged, plus the intentional
+      check-postcodes.js edit) and via direct sha256 comparison of
+      branches.json and all four target files against the pre-run
+      baseline (exact match). Full 36-checker suite re-run individually
+      against the tracked repo after cleanup: 36/36 exit 0.
+
+      RESULT: zero in-repo defect found on check-app-membership.js itself.
+      It was already correctly holding Riddings' own pages, paste sheet
+      marker and GBP pack to rules 2, 4, 5, 6, 7, 8a, 8b, 8c and 8d, now
+      proven by injection for the first time in this item's eighteen-pass
+      history. One real, separate defect found and fixed: the
+      NARRATIVE_POSTCODES residue from this morning's item 3.9 sixth pass
+      (see CROSS-ITEM HOUSEKEEPING above).
+
+      LIVE HALF: not attempted. mcp__claude-in-chrome__tabs_context_mcp
+      reported "Claude in Chrome is not connected" (standing Q59, one
+      attempt, no retry). Prior live findings on this branch (NHS review
+      link 410, pfLink pre-repaste legacy copy, switch banner mojibake,
+      Q31-era Cheshire county, Q22 weight loss tagline) neither re-checked
+      nor contradicted this pass.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full
+      before and after: 102 total, 49 open, unchanged.
+
+      FILES CHANGED: tools/check-postcodes.js (NARRATIVE_POSTCODES entry
+      for L4 9ZZ, cross-item housekeeping); AGENT_WORKLIST.md (this
+      paragraph); AGENT_LOG.md (mirrored entry);
+      audits/verify-3.10-2026-09-14-eighteenth.js and its own -output.txt
+      (new).
+
+      Next stalest for whoever runs next, re-derive rather than assume: on
+      the sixth run's own forward note today, the pool tied at 2026-09-11
+      or earlier was 3.10-3.13, 4.1-4.15, 5.1, 5.2; with 3.10 now current,
+      lowest among the rest is 3.11. On item 3.10 itself: eighteen checkers
+      still never proven by injection against Riddings across eighteen
+      passes (check-address-region.js, check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+      check-seo-lengths.js, check-seo-sheets.js, check-uk-spelling.js,
+      check-url-scheme.js, check-whatsapp-route.js,
+      check-widget-diaries.js) - a candidate list for a nineteenth pass. On the open backlog generally: unchanged - the
+      eight genuinely actionable worklist items remain blocked on Rishi's
+      own decisions and 49 of 102 questions are open. Done 2026-09-14
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

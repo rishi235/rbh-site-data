@@ -1,0 +1,66 @@
+BASELINE sha256:
+  sw modules/switch/pages/switch-prescriptions-riddings-timperley.html 8ca1fb2e8cb48e14e911c204c0ffadd50b799413c2f09e1098ea327f870912d8
+  pf modules/service/pages/pharmacy-first-riddings-timperley.html e6dcc42e54155d56b12564738f14cf6fd2f0e10c22c61dd0612b3c3aa54906b7
+  idx modules/switch/pages/INDEX.md 32378c46cd72978fd590a5dc3423d55c54419a21905a0e83458e735430c384dd
+  pack gbp-packs/riddings-timperley.md 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+Baseline check-app-membership: clean (exit 0).
+
+=== INJECTIONS ===
+PASS 1 RULE-2-switch-card (Riddings switch page gains class="app-card") -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 2 RULE-4-absence (pharmacy-first page gains an app mention) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 3 RULE-5-one-name (Riddings switch page names "RB Healthcare app", drops Pharmacy) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 4 RULE-6-store-urls (Riddings switch page carries an undeclared App Store URL) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 5 RULE-7-paste-marker (Riddings' own INDEX.md heading marked *(app member)*) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 6 RULE-8c-note-vs-field (Riddings pack notes claim hasApp true) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 7 RULE-8a-8d-published-claim (Riddings pack description gains an app sentence) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 8 RULE-8b-shot-list (Riddings pack shot list asks for an app screen) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 9 CONTROL (Riddings pack Services section, unrelated line duplicated with no app content) -> exit 0
+  restored, sha256 MATCHES baseline
+
+=== SUMMARY: 9 pass, 0 fail ===
+
+=== FULL 35-CHECKER SUITE ON SCRATCH (cdn-pins excluded, no .git) ===
+  OK    check-address-region.js
+  OK    check-app-membership.js
+  OK    check-booking-routes.js
+  OK    check-branch-identity.js
+  OK    check-branch-links.js
+  OK    check-brand-spelling.js
+  OK    check-contraception-copy.js
+  OK    check-editor-snapshot.js
+  OK    check-em-dashes.js
+  OK    check-fragment-targets.js
+  OK    check-gbp-packs.js
+  OK    check-gbp-pharmacy-first.js
+  OK    check-jsonld.js
+  OK    check-live-hours.js
+  OK    check-map-embeds.js
+  OK    check-nap.js
+  OK    check-opening-hours.js
+  OK    check-page-coverage.js
+  OK    check-pharmacy-first-cost.js
+  OK    check-pharmacy-first-eligibility.js
+  OK    check-pharmacy-first-safety-net.js
+  OK    check-pharmacy-first-symptoms.js
+  OK    check-postcodes.js
+  OK    check-seo-keywords.js
+  OK    check-seo-lengths.js
+  OK    check-seo-pattern.js
+  OK    check-seo-sheets.js
+  OK    check-service-links.js
+  OK    check-switch-copy.js
+  OK    check-travel-clinic-copy.js
+  OK    check-uk-spelling.js
+  OK    check-url-scheme.js
+  OK    check-weight-loss-copy.js
+  OK    check-whatsapp-route.js
+  OK    check-widget-diaries.js
+35 checkers run, 0 failing.
