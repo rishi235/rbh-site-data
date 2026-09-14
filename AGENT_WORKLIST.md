@@ -25542,6 +25542,26 @@ rather than trust this note - as computed by this pass, the two remaining
       into Q98's note rather than raised separately. Full evidence in
       compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05
       addition for Scorah Chemists. Item 5.8 stays [BLOCKED].
+      2026-09-14 (unattended scheduled run): a TENTH live instance found,
+      weight-loss-clinic.html on mccannspharmacy.co.uk, shared by both McCanns
+      branches (Aigburth and Sandringham) through one page, the same shared-
+      page shape as Scorah (Q98). All six legacy-template elements present
+      (named Wegovy/Mounjaro/Orlistat, superlative Mounjaro claim under a
+      "Real Results with Mounjaro" heading, outcome slider, treatment picker,
+      lead price "From £39.99" above the fold). Link context is the clearest
+      regime-1 case found yet: the homepage's desktop top nav, mobile nav AND
+      a promotional content tile all proactively link to the legacy page,
+      alongside (not instead of) the two correct branch pages, matching or
+      exceeding Hirshmans' severity (Q85). Confirmed via live DOM read, not
+      visible text alone. Separately re-confirmed, not newly found: McCanns
+      Aigburth's correct generated page still carries the Q88 lead-price
+      pattern, already on record from the 2026-09-05 Scorah addition. Full
+      evidence in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the
+      2026-09-14 addition. Raised as Q103, folding into this item's eventual
+      fix alongside the other nine. Sweep still owes: Clear Chemist Aintree,
+      Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and
+      link context unread), and Tiffenbergs (link context only). Item 5.8
+      stays [BLOCKED].
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 

@@ -632,3 +632,73 @@ No page or repo content changed; this file only records what was read and
 what the checker proved. Raised as Q98, cross-referencing Q16/Q85 for the
 legacy-page instance and Q83/Q88 for the lead-price instance. Item 5.8
 stays [BLOCKED].
+
+## 2026-09-14 addition: McCanns Chemist (Aigburth and Sandringham) - a tenth instance
+
+Read as part of an unattended run's sweep of the branch sitemaps still
+outstanding against the "sitemap listing and link context" methodology set
+out in the 2026-08-12 addendum above. mccannspharmacy.co.uk had never been
+read against the house weight loss advertising standard before this pass.
+
+### The shared legacy page: a tenth instance, third shared-page shape
+
+mccannspharmacy.co.uk/sitemap.xml lists three weight loss URLs:
+weight-loss-clinic-mccanns-aigburth.html and
+weight-loss-clinic-mccanns-sandringham.html (the two compliant, repo-generated
+inner pages, one per branch) and a third, weight-loss-clinic.html, carrying no
+branch qualifier and not a page this repo generates. This is the same old
+template already found at Cherry Lane (Q5, fixed), the original five under
+Q16, Fishlocks (Q57), SK Chemists (Q58), Hirshmans (Q85) and Scorah (Q98).
+McCanns is the second branch pair, after Scorah, where one legacy page
+carries the exposure for both branches on a shared Weebly site rather than
+one page per branch.
+
+Read via GET (Claude in Chrome connected and available this run, no
+interaction beyond navigation and DOM read). All six elements the
+2026-08-10 assessment identified as breaches are present: a "Real Results
+with Mounjaro" heading states Mounjaro "can help you lose up to 22.5% of
+your body weight over 72 weeks in clinical studies"; an interactive slider
+under "How much weight could you lose? Drag the slider to your start
+weight" returns a personalised kilogram and percentage figure (tested at
+116kg, returning "up to 26kg (22.5% of your body weight)"); a named
+treatment picker under "Explore treatments" lists Wegovy (semaglutide),
+Mounjaro (tirzepatide) and Orlistat; and a lead price, "From £39.99
+including your consultation", sits above the fold ahead of any eligibility
+content.
+
+### Link context: the clearest exposure found yet, matching Hirshmans
+
+The homepage (mccannspharmacy.co.uk/index.html) was fetched and every anchor
+resolving to a weight-loss URL was read from the live DOM (not the visible
+menu text alone, since McCanns renders duplicate desktop/mobile menu
+structures). The legacy weight-loss-clinic.html link appears in the desktop
+top nav, the mobile nav, AND a homepage content image tile - three separate
+on-page slots, none of which is a footer. The two correct branch-specific
+pages are also linked from the same nav dropdown, alongside rather than
+instead of the legacy page, the same "orphaned compliant page" shape as
+Hirshmans (Q85) and Scorah (Q98). Meets the Q58 stricter-regime test on the
+strongest possible grounds: no ad spend needs establishing when the
+homepage's own primary navigation, on both desktop and mobile, and a
+promotional tile all proactively link to the page. It applies to both
+Aigburth and Sandringham simultaneously since one homepage and one legacy
+page serve both.
+
+### The separate, cleaner check: Q88's lead-price pattern, already recorded
+
+weight-loss-clinic-mccanns-aigburth.html, the correct generated page, was
+also read for completeness. It is clean of all six legacy-template elements
+and carries the standard compliant eligibility wording. Its booking block
+reads "Private consultation at McCanns Chemist, from £39.99. Choose a time
+that suits you," which is the Q88 lead-price pattern - but this is not a new
+finding: the Scorah addition above already records this exact page and
+branch (McCanns Aigburth) as one of Q88's two originally-confirmed
+instances. Read again here only to confirm it is unchanged, not raised
+again.
+
+No page or repo content changed; this file only records what was read.
+Raised as Q103, cross-referencing Q16/Q85/Q98 for the legacy-page instance.
+Item 5.8 stays [BLOCKED]. Branches still unread against this methodology:
+Clear Chemist Aintree, Coleman and Leighs (Walton), Riddings (Timperley),
+Gordon Short (Crosby), Cherry Lane (Walton), and Tiffenbergs (Longmoor,
+link-context only - its sitemap listing was already confirmed on
+2026-08-11/12).

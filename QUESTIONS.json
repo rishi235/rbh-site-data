@@ -1592,5 +1592,20 @@
     "status": "open",
     "answer": null,
     "note": "Not decided autonomously: this changes the standing operating procedure for every future unattended run, which is Rishi's call. In the meantime this run and recent prior runs have continued using the Windows-MCP route as the documented fallback, so nothing is blocked either way."
+  },
+  {
+    "id": "Q103",
+    "date": "2026-09-14",
+    "item": "5.8 weight loss advertising exposure (found during an unattended sitemap sweep of the branches still unread)",
+    "question": "Decision needed: how should the newly found McCanns Chemist legacy weight loss page be handled, and should it be added to item 5.8's fix scope now? Found on an unattended run's sweep of the branch sitemaps still outstanding against the 2026-08-12 sitemap-and-link-context methodology. mccannspharmacy.co.uk (shared by McCanns Aigburth and McCanns Sandringham, one Weebly site) links to weight-loss-clinic.html, a page carrying no branch qualifier and matching neither branch's own URL convention, alongside the two correct generated pages weight-loss-clinic-mccanns-aigburth.html and weight-loss-clinic-mccanns-sandringham.html. This is the tenth confirmed instance of the same old template already tracked at Cherry Lane (Q5, fixed), the original five under Q16, Fishlocks (Q57), SK Chemists (Q58), Hirshmans (Q85) and Scorah (Q98): named Wegovy/Mounjaro/Orlistat, a superlative claim under a 'Real Results with Mounjaro' heading stating Mounjaro can help lose 'up to 22.5%' of body weight over 72 weeks, an interactive outcome slider, a named treatment picker, and a lead price of 'From £39.99 including your consultation' above the fold. Link context here is the clearest regime-1 case found yet: the legacy page is linked from the homepage's desktop top nav, its mobile nav, AND a separate promotional content tile, all three confirmed by reading the live DOM rather than visible menu text alone. Like Scorah, this is a page shared by two branches, so fixing it clears the exposure for both McCanns Aigburth and McCanns Sandringham at once. Separately and not a new finding, McCanns Aigburth's own correct generated page was re-read and still carries the Q88 lead-price pattern already on record since the 2026-09-05 Scorah addition. Nothing was edited: this is a live Weebly page outside this repo's build process, and weight loss advertising copy calls are reserved for Rishi.",
+    "options": [
+      "Fold the finding into the existing tracking under item 5.8 as the tenth instance, no new fix timeline created, consistent with how the sixth through ninth instances (Fishlocks, SK, Hirshmans, Scorah) were each added without re-litigating the fix approach",
+      "Give the McCanns and Scorah shared-page instances their own standalone fix task ahead of the single-branch instances, on the reasoning that unlinking or fixing a shared page clears exposure for two branches at once per fix",
+      "Leave it on record and take no scoping action until Q16/Q22/Q85/Q98 (legacy pages generally) are themselves acted on, since this finding adds evidence rather than a new decision"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-14 addition for McCanns Chemist. Branches still unread against this methodology after this pass: Clear Chemist Aintree, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane (sitemap and link context both unread), and Tiffenbergs (link context only, sitemap already confirmed 2026-08-11/12)."
   }
 ]
