@@ -12737,6 +12737,123 @@ Done 2026-09-14 (seventeenth pass).
       reported "Claude in Chrome is not connected" (standing Q59, one
       attempt, no retry). Live state not re-confirmed this pass and should
       not be assumed unchanged from the last live read.
+      Quality pass 2026-09-14 (fifteenth), unattended scheduled run, Cowork
+      sandboxed shell (mcp__workspace__bash) throughout for reads, checker
+      runs, the injection instrument and git; Claude in Chrome connected this
+      run (rare recently) and used for both the answer-pickup fetch and a
+      short live read of this branch. All 8 unblocked worklist items
+      confirmed [BLOCKED] by direct grep, so this was the fallback quality
+      pass, picked by the rotation-pool method: dates extracted
+      programmatically from every 3.x/4.x/5.1-5.2 item's own
+      AGENT_WORKLIST.md block (excluding [BLOCKED] lines); 18 items came back
+      tied stalest at 2026-09-11, 3.13 lowest by item number among them,
+      independently confirming the fourteenth pass's own forward note.
+      ANSWER PICKUP (this run's step 3): tabs_context_mcp reported no tab
+      group; navigate to https://data.rbhealth.co.uk/api/feedback and
+      get_page_text returned the feedback JSON directly, no Cloudflare Access
+      login page. Newest entry dated 2026-09-01T22:44:51.524Z (Q52), matching
+      QUESTIONS.json's current state exactly - no answer has arrived since
+      the last successful read. Q37 and Q43 re-confirmed still correctly
+      "open": both portal replies present in the feed exactly as already
+      quoted in each question's own note, neither selecting one of the
+      listed options. No QUESTIONS.json change made.
+      FRESH ANGLE. Fourteen prior passes proved tools/check-switch-copy.js,
+      tools/check-weight-loss-copy.js, tools/check-travel-clinic-copy.js,
+      tools/check-jsonld.js, tools/check-seo-pattern.js,
+      tools/check-seo-keywords.js, tools/check-branch-links.js,
+      tools/check-app-membership.js and tools/check-booking-routes.js against
+      Clear Chemist Aintree's own pages and records by direct injection. A
+      grep of this item's own fourteen-pass history for "check-map-embeds.js"
+      returns zero hits; the ninth pass (2026-09-05) named it explicitly as
+      untouched against this branch while closing the equivalent gap for
+      check-jsonld.js instead. check-map-embeds.js is CLAUDE.md's own
+      "silent fault" checker: the map iframe and directions button are the
+      one surface that can point a patient at the wrong shop while every
+      text-based checker (check-nap, check-jsonld's own PostalAddress) still
+      reads correctly. Closed this pass.
+      BASELINE. All 36 checkers ran individually before any work, 0
+      failures. sha256 recorded for branches.json (904de09b...969e1e,
+      matching the standing regression anchor) and for all three of Clear's
+      pages (switch-prescriptions-clear-aintree.html still
+      96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9,
+      unchanged since the fifth pass first recorded it).
+      New instrument, audits/verify-3.13-2026-09-14-fifteenth.js (own sha256
+      baseline of all three pages and branches.json captured before any
+      mutation, every injection restored via fs.writeFileSync from an
+      in-memory buffer, not git, sha256-reconfirmed after every restore and
+      again at the end). Four injections plus one control: (1) RULE 2
+      coverage - the switch page's map iframe duplicated - caught, "carries 2
+      map embed(s), expected exactly 1"; (2) RULE 3 the address -
+      clearchemist_aintree.postalCode swapped in branches.json to Fishlocks
+      Ainsdale's real postcode (PR8 3HN), all three pages left unregenerated
+      - caught on all three pages simultaneously, each naming the branch's
+      new (wrong) expected address, the correct estate-wide blast radius for
+      a data-only change; (3) RULE 4 agreement - the travel clinic page's
+      contact-card address changed to a one-character-off variant (L9 7AZ),
+      map iframe left untouched - caught, "contact card reads ... and the
+      map underneath it points at ..."; (4) RULE 5 encoding - the weight loss
+      page's map src lost "&output=embed" - caught, "map src is not the
+      shape https://www.google.com/maps?q=<encoded>&output=embed"; CONTROL -
+      an unrelated HTML comment added before </body> on the switch page -
+      correctly passed, exit 0. All four injections fired on the expected
+      rule tag on the first attempt; the control passed clean; no
+      cross-firing. RULE 6 (directions button) has no natural injection
+      point on this branch: Clear has no branch landing page, the only page
+      family that carries one, the same shape of scope limit CLAUDE.md
+      records for other single-page-family branches.
+      ONE REAL, SEPARATE DEFECT FOUND AND FIXED, cross-item housekeeping
+      alongside this item's own work: the RULE 4 injection's L9 7AZ value
+      (a one-character-off variant of Clear's own L9 7AS) tripped
+      check-postcodes.js once the instrument existed in the working tree,
+      the same NARRATIVE_POSTCODES residue shape this repo has now hit
+      fourteen times before. Added "L9 7AZ" to NARRATIVE_POSTCODES in
+      tools/check-postcodes.js with a full reason before committing, so this
+      pass's own baseline-after check was genuinely clean rather than
+      leaving a fifteenth undocumented occurrence for a later pass to find.
+      node tools/check-postcodes.js re-run clean immediately after (0
+      failures, 3 pre-existing UNOWNED warnings, unchanged).
+      VERIFICATION. Full 36-checker suite re-run individually after the
+      round and after the NARRATIVE_POSTCODES fix: 36/36 exit 0. All six
+      generators rebuilt; a combined sha256 of every .html/.js/.css file
+      under modules/ and core/ was taken before and after and is identical
+      (fec0ef2e...31fa3), confirming byte-identical output - correct, since
+      no page, generator or branches.json content was touched, only
+      tools/check-postcodes.js's own exemption list. git status --porcelain
+      -- modules core tools branches.json gbp-packs: only tools/check-
+      postcodes.js changed, plus the same two pre-existing untracked strays
+      every recent pass has recorded (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched this pass. Evidence:
+      audits/verify-3.13-2026-09-14-fifteenth.js and its saved output,
+      audits/verify-3.13-2026-09-14-fifteenth-output.txt.
+      LIVE HALF, READ ONLY, third time this item has had one: one browser
+      tab, four addresses read, nothing clicked, typed or submitted. Root
+      (https://www.clearchemist.co.uk/) trades normally, still shows 0151 203
+      6535 nowhere adverse. All three generated slugs
+      (switch-prescriptions-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html,
+      travel-clinic-clear-aintree.html) still return the store's own 404
+      page, unchanged from the 2026-08-30/31 and 2026-09-04 reads and
+      consistent with Q29's standing answer; the 404 page's own contact
+      number reads 0151 203 6535, matching branches.json. No drift found.
+      The 2026-09-04 eighth pass's isolated observation about unstable HTTP
+      client behaviour on these three slugs did not reproduce this pass: a
+      real browser session (not a raw HTTP client) returned a clean,
+      consistent 404 on all three on the first attempt each.
+      RESULT. No in-repo defect on check-map-embeds.js itself - it was
+      already correctly holding Clear Chemist Aintree's three pages to all
+      four rules tested, now proven directly by injection against this
+      branch specifically for the first time in fifteen passes. One real,
+      separate defect found and fixed: the NARRATIVE_POSTCODES residue
+      (cross-item housekeeping above). Q65 (the pages' walk-in wording
+      against the branch's own no-physical-branch-resource record) re-read
+      from QUESTIONS.json: still "open", correctly
+      not re-litigated here (a live patient-facing regulatory claim, carved
+      out of autonomous decisions regardless of window state, and no
+      autonomous window was open this run - no "Standing authorisation"
+      heading present at the top of AGENT_LOG.md at the start of the run).
+      Q28 and Q29 re-read from QUESTIONS.json: both still "answered",
+      unchanged. No new question raised.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

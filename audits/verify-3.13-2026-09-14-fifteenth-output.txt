@@ -1,0 +1,21 @@
+=== BASELINE ===
+  switch: 96db1824436b7f8c4e37bc576fe539f48f7a9fdbd30debfccb3c6a6dd5dd78f9
+  travel: a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796
+  weight: bc59665be986a853cc6b6ab8406f17a3ecdc5710c26e22a9eff30ec8c4dd98aa
+  branches: 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e
+Pre-injection checker run: exit 0
+
+=== RESULTS ===
+  CAUGHT: RULE 2 coverage - duplicate map iframe on switch page [coverage]
+  CAUGHT: RULE 3 address - clearchemist_aintree.postalCode swapped to Fishlocks Ainsdale's real postcode [the address]
+  CAUGHT: RULE 4 agreement - travel clinic contact-card address diverges from its own map [agreement]
+  CAUGHT: RULE 5 encoding - weight loss map iframe loses output=embed [encoding]
+  PASSED (correct): CONTROL - unrelated HTML comment before </body> on switch page
+
+Final restore check switch: OK byte-identical
+Final restore check travel: OK byte-identical
+Final restore check weight: OK byte-identical
+Final restore check branches: OK byte-identical
+Final checker run after full restore: exit 0
+
+Summary: 5 correct outcome(s) (caught or correctly passed), 0 unexpected outcome(s).
