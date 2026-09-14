@@ -5406,6 +5406,56 @@ Evidence in
 audits/hirshmans-item-3.5-quality-pass-2026-09-11-seventeenth.txt. No
 in-repo defect found, no new question. Q44 stands as previously recorded.
 
+Quality pass 2026-09-14 (eighteenth): NEW LEG, tools/check-switch-copy.js,
+never named once across seventeen prior passes on this item despite CLAUDE.md
+describing the switch pages as the highest-commitment pages in the estate and
+this item's own ninth pass already having used switch-prescriptions-hirshmans-
+ainsdale.html for injection (against check-seo-pattern.js and
+check-whatsapp-route.js), but never against check-switch-copy.js's own eleven
+rules. Baseline: branches.json sha256 unchanged at the standing regression
+anchor 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e;
+check-switch-copy.js reports OK (15 pages, 33 copy lines, 15 banners, 5
+accepted breaches). Independent extraction (audits/verify-3.5-2026-09-14-
+eighteenth.py, freshly written, no import from tools/, __dirname-relative)
+re-implemented rules 6, 8, 9, 10 and a presence check on the two KNOWN-pinned
+rules 4/5 (expected PRESENT, matching Q49, not silently resolved) plus rule
+11a (banner self-reference): 46 checks, 0 failures. GUARD RE-PROOF BY
+INJECTION, four rounds against the live tracked files (this checker reads the
+whole switch-page folder as one estate-wide pass, so a single-branch scratch
+copy cannot exercise rule 6's cross-page or rule 11b's cross-host
+comparisons; each restored by direct copy from a recorded baseline and
+sha256-reconfirmed byte-identical before the next): (1) RULE 8 - "also
+serving Bramhall" (scorah_bramhall's own seoTown) appended to the trust-bar
+line - CAUGHT, exactly one failure, rule 3 correctly silent since the
+original sentence survived as a substring; (2) RULE 6 - H1's "30 seconds"
+changed to "45 seconds", form-sub left at "about 30 seconds" - CAUGHT,
+exactly two failures, both the per-page and the estate-wide time-claim
+checks; (3) RULE 9 - email input marked `required` while step 1's copy still
+called it optional - CAUGHT, exactly one failure, naming email precisely;
+(4) RULE 11a - the Hirshmans banner's SWITCH_URL repointed to Riddings
+Timperley's switch page - CAUGHT, exactly one failure, naming both branches.
+All four fired on their intended rule(s) only, first attempt, no
+cross-firing. Full 36-checker suite re-run clean after the final restore; all
+seven page generators rebuilt, 182 modules/**/*.html files sha256-hashed
+before and after, zero diff; git status --porcelain on modules, core,
+branches.json, tools, gbp-packs, status showed only the two pre-existing
+untracked strays throughout, at no point either injection target. LIVE HALF
+NOT PERFORMED: Claude in Chrome not connected (Q59); mcp__workspace__web_fetch
+refused the live URL ("URL not in provenance set"); this session's own
+standing instruction not to route around a failed/refused web fetch via
+bash/curl/PowerShell was followed rather than the curl/Invoke-WebRequest
+fallback several recent passes on this item used, so hirshmanspharmacy.co.uk
+was NOT reconfirmed this pass - the seventeenth pass's live findings (Q44
+collision confirmed live 2026-09-11) should not be assumed unchanged or
+re-verified. Evidence in
+audits/hirshmans-item-3.5-quality-pass-2026-09-14-eighteenth.txt,
+audits/verify-3.5-2026-09-14-eighteenth.py and
+audits/verify-3.5-2026-09-14-eighteenth-output.txt. No in-repo defect found.
+The two standing Q49 accepted breaches (GP-story contradiction, unhedged
+continuity promise) are reconfirmed present, not silently resolved; no
+change to QUESTIONS.json needed since neither KNOWN entry's status changed.
+No new question.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

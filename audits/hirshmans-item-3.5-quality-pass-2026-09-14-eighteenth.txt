@@ -1,0 +1,150 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - quality pass 2026-09-14 (eighteenth)
+Target: tools/check-switch-copy.js
+=============================================================================
+
+WHY THIS CHECKER
+----------------
+Never named once across the seventeen prior passes on this item (confirmed by
+grep of every tools/check-*.js basename against the item's full history
+block). Hirshmans' own switch page had already been used for injection twice
+before (ninth pass: seoTown/data-wa corruption caught by check-seo-pattern.js
+and check-whatsapp-route.js) but never against check-switch-copy.js's own
+eleven rules, despite CLAUDE.md describing the switch pages as the
+highest-commitment pages in the estate (they collect a name, a date of birth
+and a contact method to start moving a patient's prescriptions) and the
+checker's own header naming this exact gap: "Every other page asks somebody
+to book, read or call, and this one asks them to change where their
+medication comes from... Every one of [the other checkers] reads the frame.
+None reads what the page promises inside it."
+
+BASELINE
+--------
+branches.json sha256 unchanged at the standing regression anchor
+904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e.
+node tools/check-switch-copy.js on the tracked repo:
+  "check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy,
+  15 banner(s) read for where they send people, 11 rules, 5 accepted
+  breach(es) pinned to a question."
+Full 36-checker suite: 36/36 exit 0 (see full-suite-2026-09-14.txt run inline
+below - all tools/check-*.js scripts run individually, no failures).
+
+INDEPENDENT EXTRACTION
+-----------------------
+audits/verify-3.5-2026-09-14-eighteenth.py, freshly written, no import from
+tools/. Reads switch-prescriptions-hirshmans-ainsdale.html and branches.json
+directly and re-implements, independently:
+  - rule 8 (town): pill, trust bar and step 2 all name Ainsdale; none of the
+    other fourteen branches' towns (Aigburth, Aintree, Bootle x3 town words,
+    Bramhall, Crosby, Hazel Grove, Liverpool x3, Longmoor/Aintree, Timperley,
+    Walton x2, St Michael's) appear in any of the three.
+  - rule 6 (time claim): exactly one seconds figure on the page, and it is
+    30, the estate-wide figure.
+  - rule 9 (form/copy agreement): five real inputs (first_name, last_name,
+    dob, mobile, email); all five have a describing word in step 1; mobile
+    and email are both un-required and both correctly called optional in the
+    copy; first_name, last_name and dob are all required.
+  - rule 10 (collection notice): present, inside the form (between
+    <form id="switch-form"> and </form>), states a use-word ("use") and the
+    purpose ("switch request").
+  - rules 4/5 (KNOWN Q49, expected PRESENT not absent): the page still
+    carries at least one unconditional GP-side promise ("We handle the full
+    switch", "We handle everything", "You do nothing") AND at least one
+    hedged statement ("We help guide", "handle what we can"), and the
+    unhedged continuity promise ("No interruption to your medication") is
+    still present with no qualifying word nearby - matching the standing
+    accepted breach (Q49) exactly rather than assuming it has been quietly
+    resolved without QUESTIONS.json being updated.
+  - rule 11a (banner): SWITCH_URL in the Hirshmans banner file resolves to
+    Hirshmans' own switch page; confirmed Hirshmans is not one of the three
+    shared-domain hosts rule 11b exists for.
+46 checks, 0 failures. Output in
+audits/verify-3.5-2026-09-14-eighteenth-output.txt.
+
+GUARD RE-PROOF BY INJECTION
+----------------------------
+All four injections run against the live tracked file (each restored by
+direct copy from a pre-injection baseline and sha256-reconfirmed byte-
+identical before the next), because check-switch-copy.js reads the whole
+modules/switch/pages/ folder as one estate-wide pass (rule 6's cross-page
+figure comparison and rule 11b's cross-host banner comparison both need the
+other fourteen branches' real files present, which a single-branch scratch
+copy would not have). Baseline sha256 of both target files recorded first:
+  switch-prescriptions-hirshmans-ainsdale.html:
+    6eaa21b533fb36a22e62f5ad0959d1044fbf3b7b93d8f671b32de1def17a1bd1
+  banners/switch-prescriptions-hirshmans-ainsdale.txt:
+    7495d5381de5ec5f490f5939b912a8ddac297d92e868ff627255e5fcdfc3ee1e
+
+Injection 1, RULE 8 (town): the trust-bar "Simple switching" line appended
+with ", also serving Bramhall" (scorah_bramhall's own seoTown, a different
+shared-domain branch). CAUGHT: exit 1, exactly one failure -
+"[town] ... the body copy names Bramhall, which is scorah_bramhall's town,
+not this branch's." Rule 3 (verbatim) correctly did NOT also fire, because
+rule 3 tests substring presence and the original sentence survived intact
+inside the extended one - a clean isolation of rule 8 alone, first attempt.
+Restored by direct copy from baseline; sha256-reconfirmed identical.
+
+Injection 2, RULE 6 (time claim): the H1's "30 seconds" changed to "45
+seconds", the form-sub's "about 30 seconds" left untouched. CAUGHT: exit 1,
+exactly two failures, both rule time-claim - the per-page check ("the page
+states 45 and 30 seconds in different places") and the estate-wide check
+("30 on 15 page(s), 45 on 1 page(s)"), both firing on their intended
+condition, no cross-firing into any other rule. Restored; sha256-
+reconfirmed identical.
+
+Injection 3, RULE 9 (form/copy agreement): the email <input> given a
+`required` attribute while step 1's copy was left unchanged (still calling
+email optional). CAUGHT: exit 1, exactly one failure - "[form-copy] ... step
+1 calls email optional and the input is marked required." Restored; sha256-
+reconfirmed identical.
+
+Injection 4, RULE 11a (banner self-reference): the Hirshmans banner file's
+SWITCH_URL repointed to "/switch-prescriptions-riddings-timperley.html".
+CAUGHT: exit 1, exactly one failure - "[banner] ... SWITCH_URL is
+'/switch-prescriptions-riddings-timperley.html' but this banner belongs to
+hirshmans_ainsdale, whose switch page is
+'/switch-prescriptions-hirshmans-ainsdale.html'." Restored; sha256-
+reconfirmed identical.
+
+All four injections caught on their intended rule(s) only, first attempt,
+with no unexplained cross-firing. Full 36-checker suite re-run clean after
+the final restore. All six page generators rebuilt: 182 modules/**/*.html
+files sha256-hashed before and after the full regeneration run, zero diff
+(see verification below). git status --porcelain -- modules core
+branches.json tools gbp-packs status showed only the two pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+unchanged throughout, at no point either target file.
+
+REGENERATION CHECK
+-------------------
+All seven tools/build-*.js scripts run (build-audit-status.js excluded - it
+is the portal publisher, not a page generator, and its hardcoded Windows
+path only resolves on the real host per the standing Q87/Q96/Q102 finding).
+182 files under modules/**/*.html sha256-hashed before and after: identical
+in every case. git status --porcelain on modules/, core/, branches.json,
+tools/, gbp-packs/, status/ empty (bar the two pre-existing untracked
+strays) both before and after regeneration.
+
+LIVE HALF
+---------
+NOT PERFORMED. Claude in Chrome reported "not connected" (Q59, unchanged).
+mcp__workspace__web_fetch refused the live URL ("URL not in provenance
+set"). Per this session's own standing instruction not to retrieve content
+through an alternative route (bash/curl/PowerShell) once a web-fetch call
+has failed or been refused, no fallback fetch was attempted this pass. This
+differs from several recent passes on this item that used a curl or
+PowerShell Invoke-WebRequest fallback; this run's own environment applies a
+stricter rule than that convention assumed, so the live state of
+hirshmanspharmacy.co.uk was NOT reconfirmed this pass and should not be
+assumed unchanged from the seventeenth pass's own live findings (2026-09-11).
+
+RESULT
+------
+No in-repo defect found. check-switch-copy.js's rules 4, 5, 6, 8, 9, 10 and
+11a are now proven sound against Hirshmans Chemist Ainsdale's own switch
+page and banner file, by both independent extraction and injection, for the
+first time in this item's eighteen-pass history. The two standing accepted
+breaches (Q49: GP-story contradiction and unhedged continuity promise) are
+reconfirmed present and unresolved, not silently changed - no update to
+QUESTIONS.json needed since neither KNOWN entry's status changed. No new
+question raised.
