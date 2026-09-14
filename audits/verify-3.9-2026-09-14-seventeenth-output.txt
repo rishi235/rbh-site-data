@@ -1,0 +1,75 @@
+BASELINE sha256:
+  pf modules/service/pages/pharmacy-first-coleman-leigh-walton.html cfa4ad9fd8f3e6b17b034e7e574646415d738f18bf3d8151f153b00e2cd3fa2d
+  wl modules/service/pages/weight-loss-clinic-coleman-leigh-walton.html 87c630fb384147da7ad49c8b708f0955d599f3e1c1fc9f8dc58fda0bbf56409d
+  sw modules/switch/pages/switch-prescriptions-coleman-leigh-walton.html 5fa85c6f659bdd4e1f30638982c2fa32b9b477f76008b2443632dd115bf274c3
+Baseline check-map-embeds: clean (exit 0).
+
+=== INJECTIONS ===
+PASS 1 RULE-3-address (pf page, map repointed to Fishlocks Ainsdale's address) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 2 RULE-4-agreement (pf page, map postcode diverges from contact card) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 3 RULE-5-encoding-raw-comma (weight loss page, unencoded comma in query) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 4 RULE-5-encoding-no-output-embed (switch page, output=embed removed) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 5 RULE-2-coverage-missing-map (switch page, iframe removed) -> exit 1 (substring found)
+  restored, sha256 MATCHES baseline
+PASS 6 CONTROL-unrelated-field (pf page, review link text only) -> exit 0
+  restored, sha256 MATCHES baseline
+
+=== SUMMARY: 6 pass, 0 fail (out of 6) ===
+
+FINAL sha256 (should match baseline exactly):
+  pf OK cfa4ad9fd8f3e6b17b034e7e574646415d738f18bf3d8151f153b00e2cd3fa2d
+  wl OK 87c630fb384147da7ad49c8b708f0955d599f3e1c1fc9f8dc58fda0bbf56409d
+  sw OK 5fa85c6f659bdd4e1f30638982c2fa32b9b477f76008b2443632dd115bf274c3
+
+Final full run of check-map-embeds on the restored scratch copy: exit 0
+check-map-embeds
+  16 trading branch(es), 16 map address(es) read from branches.json
+  177 generated page(s), 177 map embed(s), 6 directions button(s)
+  6 generator(s) checked for how the query is composed
+
+check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+
+Supplementary collateral check (run separately, not part of the scripted
+pass above but recorded here for completeness): counted FAIL lines per
+injection to confirm no unexpected cross-firing beyond what the checker's
+own design implies.
+
+RULE3 -> exit 1, 2 failures: [the address] (map vs branches.json) and
+  [agreement] (map vs contact card) both fire together, because changing
+  the map to a different real address necessarily disagrees with both the
+  branch's true address and the unchanged contact-card line. Expected
+  collateral, not a defect.
+RULE4 -> exit 1, 2 failures: same pair, same reason (a postcode-only edit
+  still disagrees with both branches.json and the contact card).
+RULE5a (raw comma) -> exit 1, exactly 1 failure: [encoding] only.
+RULE5b (missing output=embed) -> exit 1, exactly 1 failure: [encoding] only.
+RULE2 (iframe removed) -> exit 1, exactly 1 failure: [coverage] only,
+  "carries 0 map embed(s), expected exactly 1".
+
+All five caught on their intended rule(s), with the two-rule collateral on
+3/4 explained by the checker's own design (RULE 3 and RULE 4 cannot be
+independently triggered on a page whose contact card always holds the true
+address) rather than by any unrelated cross-firing. CONTROL correctly
+produced 0 failures.
+
+Rule 1 (generator composition) and Rule 6 (directions button) had no natural
+per-branch injection point on Coleman and Leighs: Rule 1 is estate-wide by
+construction (it reads the six generator source files, not any one branch's
+pages) and Rule 6 needs a branch landing page, which Coleman and Leighs does
+not have (only Fishlocks x2, McCanns x2 and Scorah x2 carry one, per
+modules/branch/pages/). Genuine scope limits of the branch chosen, not gaps
+left untested by choice - the same shape of limit recorded on item 3.8's
+eighteenth pass (SK Chemists Bootle, rules 5/9 of check-branch-identity.js).
+
+Post-injection verification: tracked repo (C:\dev\rbh-site-data) confirmed
+untouched throughout via git status --porcelain -- modules core branches.json
+gbp-packs tools (only the two pre-existing untracked strays,
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, unchanged)
+and via direct sha256 comparison of branches.json and the three target pages
+against the pre-run baseline (all matched exactly). Full 36-checker suite
+re-run individually against the tracked repo after cleanup: 36/36 exit 0.

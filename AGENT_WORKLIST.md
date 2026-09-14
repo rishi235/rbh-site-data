@@ -9281,6 +9281,122 @@ Done 2026-09-14 (seventeenth pass).
       remaining seven items tied at 2026-09-10 are 3.10, 3.12, 3.13, 4.11,
       5.1, 6.2, 6.3 - re-derive fresh rather than assume, since other runs
       may land in between. Done 2026-09-11.
+
+      Quality pass 2026-09-14 (unattended scheduled run, sixth run today,
+      seventeenth pass on this item): target tools/check-map-embeds.js,
+      never proven by injection against Coleman and Leighs' own pages across
+      sixteen prior passes, despite the checker's own file header naming
+      Coleman and Leighs by name as the worked example for why the map value
+      and the contact-card value have to be checked against each other (its
+      addressLocality is Liverpool, its seoTown is Walton, so a rule reading
+      only the town would not see the map go wrong). Re-derived the
+      never-named list independently with a whitespace-collapsed substring
+      match over this item's full AGENT_WORKLIST.md block (guards against the
+      mid-word line-wrap scan hazard the 2026-09-14 fourth run flagged on
+      item 3.7): 21 checkers never named, both a plain and a whitespace-safe
+      pass agreeing exactly. check-map-embeds.js chosen as the strongest
+      candidate for the reason above.
+
+      Baseline: branches.json sha256 unchanged at the standing regression
+      anchor 904de09bc3118cefcfd7ae3f8e045b9ea1d090c634c70114f135101f0b969e1e;
+      full 36-checker suite clean on the tracked repo before any work;
+      git status --porcelain clean except the two pre-existing untracked
+      strays. Scratch copy via `git archive HEAD | tar -x` to the outputs
+      mount; branches.json and tools/check-map-embeds.js sha256-confirmed
+      matching the tracked repo before any injection; 35/36 checkers clean on
+      the scratch copy (check-cdn-pins.js excluded by established convention
+      for a .git-less copy).
+
+      Three target files: pharmacy-first-coleman-leigh-walton.html,
+      weight-loss-clinic-coleman-leigh-walton.html (both modules/service/
+      pages/) and switch-prescriptions-coleman-leigh-walton.html (modules/
+      switch/pages/). Coleman and Leighs has no branch landing page (only
+      Fishlocks x2, McCanns x2 and Scorah x2 carry one), so RULE 6
+      (directions button) had no natural injection point on this branch -
+      a genuine scope limit, same shape as item 3.8's rules 5/9 limit on SK
+      Chemists Bootle. RULE 1 (generator composition) is estate-wide by
+      construction, reading the six generator source files rather than any
+      one branch's pages, so it was not force-injected either.
+
+      Six injections against the scratch copy, each restored by direct copy
+      from an in-memory original and sha256-reconfirmed identical before the
+      next: (1) RULE 3, the pf page's map query repointed to a different real
+      branch's full address (Fishlocks Ainsdale) - CAUGHT, "the address"
+      naming both the wrong value and branches.json's true value, with the
+      expected RULE 4 collateral firing alongside it since the contact card
+      still read the true address; (2) RULE 4, the pf page's map query
+      postcode changed to a value belonging to no real branch while the
+      contact card was left untouched - CAUGHT, the same address/agreement
+      pair, confirming the two rules cannot be independently triggered on a
+      page whose contact card always holds the true address (expected
+      checker design, not cross-firing); (3) RULE 5, an unencoded comma
+      inserted into the weight-loss page's map query - CAUGHT, exactly one
+      failure, "encoding", "carries a raw space or comma"; (4) RULE 5,
+      `&output=embed` dropped from the switch page's map src - CAUGHT,
+      exactly one failure, "encoding", wrong URL shape; (5) RULE 2, the
+      switch page's map iframe removed entirely - CAUGHT, exactly one
+      failure, "coverage", "carries 0 map embed(s), expected exactly 1";
+      (6) CONTROL, the pf page's review-link text changed with no address or
+      map field touched - correctly PASSED, exit 0, confirming no
+      cross-firing on unrelated content. All six fired or passed on exactly
+      their intended rule(s), first attempt, no unexplained behaviour beyond
+      the documented RULE 3/RULE 4 pairing.
+
+      Final restore sha256-reconfirmed identical to baseline for all three
+      files after every injection and at the end; full 36-checker suite
+      re-run on the scratch copy after cleanup (35/35 excluding the expected
+      cdn-pins artefact). Tracked repo confirmed untouched throughout via
+      `git status --porcelain -- modules core branches.json gbp-packs tools`
+      (only the two pre-existing untracked strays, unchanged) and via direct
+      sha256 comparison of branches.json and all three target pages against
+      the pre-run baseline (exact match). Full 36-checker suite re-run
+      individually against the tracked repo after cleanup: 36/36 exit 0.
+
+      RESULT: no in-repo defect. tools/check-map-embeds.js was already
+      correctly holding Coleman and Leighs' own pages to rules 2, 3, 4 and 5,
+      now proven directly by injection against the exact branch the checker's
+      own header names as its worked example, for the first time.
+
+      LIVE HALF: attempted, unavailable. `mcp__claude-in-chrome__
+      tabs_context_mcp` reported "Claude in Chrome is not connected" (one
+      attempt, no retry, standing Q59). `mcp__workspace__web_fetch` tried
+      directly for the live homepage as a second read-only route; refused
+      with "URL not in provenance set". This session's own system
+      instructions state that once a web-fetch call fails or is refused,
+      content must not be retrieved through an alternative route (bash,
+      curl, PowerShell), so no fallback was attempted, matching the stricter
+      reading several other runs today applied on this same recurring
+      divergence (not a new finding; already flagged for Rishi's attention
+      under the second run's forward note today). Live half not performed
+      this pass; prior passes' live findings (dual-spelling `<title>` still
+      live, Q1 outstanding) stand unclaimed and unchanged, not re-verified.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read in full before
+      and after: 102 total, 49 open, unchanged.
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.9-2026-09-14-seventeenth.js and its
+      -output.txt (new).
+
+      Next stalest for whoever runs next: with 3.9 now touched today,
+      re-derive the rotation pool fresh rather than assume - candidates
+      tied stalest before this pass were 3.10-3.13, 4.1-4.15, 5.1, 5.2 at
+      2026-09-11 or earlier; with 3.9 now current, lowest among the rest is
+      3.10. On item 3.9 itself: twenty checkers still never named across
+      seventeen passes (check-address-region.js, check-app-membership.js,
+      check-booking-routes.js, check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-live-hours.js, check-nap.js, check-opening-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-seo-keywords.js, check-seo-sheets.js, check-uk-spelling.js,
+      check-url-scheme.js, check-whatsapp-route.js, check-widget-diaries.js)
+      - a strong candidate list for an eighteenth pass. On the open backlog
+      generally: unchanged - the eight genuinely actionable worklist items
+      remain blocked on Rishi's own decisions (Q8, Q9, Q13, Q16, Q52, Q60,
+      Q66) and 49 of 102 questions are open; further quality passes on
+      already-proven items are increasingly low yield compared with Rishi
+      answering the open questions. Done 2026-09-14.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
