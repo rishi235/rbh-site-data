@@ -1,0 +1,124 @@
+Item 1.3 (McCanns Sandringham postcode sweep) - quality pass (nineteenth), 2026-09-15
+Unattended scheduled run, audit-backlog-worker.
+
+SCOPE OF THIS PASS
+Eighteen prior passes exercised: rule 0 MALFORMED, rule 1 UNKNOWN (plus the
+NARRATIVE_POSTCODES/NARRATIVE_FILES staleness halves), rule 2 MISSING, rule 3
+FOREIGN, rule 4 DISPOSED, rule 5 UNOWNED, rule 6 MISATTRIB (branchName, alias,
+case-insensitivity, bare-stem widening, MISATTRIB_KNOWN), the EXTRA_FORCE_INCLUDE
+extension-less-file fix, and rule 7 DUPLICATE's basic two-way collision plus its
+STALE half via a wrong-id SUBSTITUTION (eleventh pass, 2026-09-03: one of the two
+excused ids swapped for a wrong one, same group size).
+
+Grepped AGENT_LOG.md and AGENT_WORKLIST.md for "DELIBERATE_SHARED_POSTCODES":
+three hits, all from the eleventh pass's own substitution test and the
+definition comment. No prior pass had tested what happens when the GROUP SIZE
+itself changes rather than one id being swapped for another of the same count:
+neither a third branch joining an already-excused pair, nor one of the two
+excused members leaving so only one remains. Both are live code paths in rule 7
+(the `allowed.ids.length === ids.length` guard at line 843, and the separate
+STALE check at lines 855-865) that had never been exercised by injection.
+
+Why it matters: the excused check is `allowed && allowed.ids.length === ids.length
+&& allowed.ids.slice().sort().every((id,i) => id === ids[i])`. A pure
+substitution (11th pass) proves the array-equality half. It does not prove the
+length-mismatch guard actually short-circuits correctly when a real third
+branch's postalCode accidentally collides with an already-legitimised shared
+value (Unit 20 Brookfield, L9 7AS, clearchemist_aintree + rbh_head_office_aintree) -
+if that guard were missing or wrong, a genuine new duplication error could hide
+behind an existing legitimate exemption and never be reported.
+
+METHOD
+Tree-clean guard: git status --porcelain confirmed no changes outside the usual
+pre-existing untracked debris (lock-test probes, .fuse_hidden, .bak) before
+starting. Full repo archived via `git archive HEAD` to a disposable scratch copy
+at /tmp/pc-1.3-19th-scratch, entirely outside the tracked working tree. Scratch
+branches.json sha256 (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102)
+confirmed identical to the tracked repo's own before any mutation. Baseline run
+of tools/check-postcodes.js against the scratch copy: 0 failures, 3 warnings
+(the three standing UNOWNED notices), matching the tracked repo's own baseline
+exactly (only the files-scanned count differs, 960 vs 1062, because git archive
+excludes the untracked debris - the same difference every prior scratch-copy
+pass on this item has recorded).
+
+TEST A - three-way collision (group grows from 2 to 3):
+gordonshorts_crosby's postalCode (real value L23 3AT) changed, on the scratch
+copy only, to L9 7AS - the postcode already legitimately shared by
+clearchemist_aintree and rbh_head_office_aintree per DELIBERATE_SHARED_POSTCODES.
+Result: BOTH fired, correctly -
+  DUPLICATE branches.json: postcode L9 7AS is shared by live branches
+  clearchemist_aintree, gordonshorts_crosby, rbh_head_office_aintree, with no
+  DELIBERATE_SHARED_POSTCODES entry excusing it.
+  STALE DELIBERATE_SHARED_POSTCODES names L9 7AS as shared by
+  clearchemist_aintree, rbh_head_office_aintree, but branches.json's live
+  branches at that postcode are now [clearchemist_aintree, gordonshorts_crosby,
+  rbh_head_office_aintree]. Update or remove the entry.
+The existing two-id exemption did NOT silently swallow the third branch. The
+length-mismatch guard works as designed. (52 total failures this test run,
+the other 50 being the expected UNKNOWN/FOREIGN cascade from gordonshorts_crosby's
+real pages still correctly carrying its true postcode L23 3AT while
+branches.json now disagreed with them - not the subject of this test, and an
+expected side effect of mutating branches.json without regenerating pages on
+a scratch copy, same convention as every prior pass's isolated data-only
+mutation.)
+
+Restored branches.json from the pre-mutation backup (byte copy), re-ran:
+0 failures, 3 warnings, identical to baseline.
+
+TEST B - shrink from 2 to 1 (one excused member leaves without any collision):
+rbh_head_office_aintree's postalCode changed, on the scratch copy only, from
+L9 7AS to L9 9AA (chosen without checking NARRATIVE_POSTCODES first - see note
+below). Result:
+  MISSING postcode L9 9AA (rbh_head_office_aintree) is only declared or
+  narrated (...): no page, pack or paste block carries this branch's address
+  (expected and correct: head office carries no phone, email, odsCode or
+  nhsEmail per CLAUDE.md's own note, and now no other page references its new,
+  fictitious postcode either)
+  STALE DELIBERATE_SHARED_POSTCODES names L9 7AS as shared by
+  clearchemist_aintree, rbh_head_office_aintree, but branches.json's live
+  branches at that postcode are now [clearchemist_aintree]. Update or remove
+  the entry.
+  STALE NARRATIVE_POSTCODES names L9 9AA, which is now a real branches.json
+  postcode (rbh_head_office_aintree). Remove the entry: it is excusing a value
+  that no longer needs excusing.
+The third failure is a test-construction artefact, not a new class of gap:
+L9 9AA was already in NARRATIVE_POSTCODES (item 3.12 quality pass, ninth,
+2026-09-05) as an injection value, and choosing it for this test's fictitious
+postcode created a genuine, correct collision between two unrelated exemption
+lists - itself a small confirmation that NARRATIVE_POSTCODES' own staleness
+check reacts properly to a real branch acquiring a value it excuses, which is
+exactly the behaviour that check exists to guarantee. No fix needed; noted so
+a future pass does not mistake it for a new finding.
+
+The STALE DELIBERATE_SHARED_POSTCODES message is the one under test in TEST B,
+and it fired correctly on the shrink-to-one case, which the eleventh pass's
+substitution test did not exercise (that test kept the group at exactly two
+members, one of them wrong).
+
+Restored branches.json from the pre-mutation backup (byte copy), re-ran:
+0 failures, 3 warnings, identical to baseline. Scratch directory deleted in
+full after use (rm -rf /tmp/pc-1.3-19th-scratch).
+
+VERDICT
+No in-repo defect. Rule 7's length-mismatch guard (line 843) and its STALE
+half (lines 855-865) both behave correctly at the two boundary conditions
+never before exercised by injection: a third branch's postcode accidentally
+colliding with an already-excused pair is still reported as DUPLICATE (not
+silently swallowed by the existing exemption), and one of two excused members
+moving away is still reported as STALE (not silently left excusing a group
+that no longer exists). Tracked repo confirmed untouched throughout: sha256 of
+branches.json unchanged (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102)
+before, during and after; git status --porcelain -- modules/ core/ branches.json
+gbp-packs/ tools/ shows only the two pre-existing untracked stray artefacts
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched by this pass. No generator rebuild needed (no generator, page, pack,
+paste block or branches.json field changed). No new question.
+
+LIVE HALF
+Not read this pass. This item's own live half (the McCanns Aigburth/Sandringham
+Pharmacy First page and both GBP packs) was already re-verified on the
+seventeenth pass (2026-09-11, HTTP 200, both correct postcodes, no CH49 1SX)
+and the eighteenth pass made no live-facing change (checker-only fix). This
+pass is a pure checker-logic proof with no data or generator change, so there
+is nothing new for a live re-read to confirm; standing live state unchanged.

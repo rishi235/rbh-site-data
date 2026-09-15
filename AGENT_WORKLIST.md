@@ -22926,6 +22926,36 @@ appended to the line. Do not move them; the status page reads them in place.
       regression anchor. No live branch, page, pack or paste block carries a
       wrong postcode today. No new question. Done 2026-09-12. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-12-eighteenth.txt.
+      Quality pass 2026-09-15 (nineteenth pass, unattended scheduled run): no
+      in-repo defect found; checker logic re-proved, nothing changed. The
+      eighteen prior passes had proved rule 7 (DUPLICATE)'s basic two-way
+      collision and its STALE half via a wrong-id SUBSTITUTION (eleventh pass,
+      2026-09-03, one of the two excused ids swapped for a different wrong one,
+      group size unchanged); none had tested what happens when the GROUP SIZE
+      itself changes. Proved on a git-archive scratch copy outside the tracked
+      tree (branches.json sha256 169bb5a2...1102, matching the tracked repo
+      exactly; baseline 0 failures, 3 warnings, matching tracked): TEST A,
+      gordonshorts_crosby's postalCode changed to L9 7AS (the postcode already
+      excused for clearchemist_aintree and rbh_head_office_aintree under
+      DELIBERATE_SHARED_POSTCODES) - the existing two-id exemption did NOT
+      silently swallow the third branch; both DUPLICATE (naming all three ids)
+      and STALE (length mismatch) fired correctly. TEST B, restored then
+      rbh_head_office_aintree's postalCode changed away from L9 7AS to L9 9AA,
+      shrinking the excused group to one member - STALE fired correctly,
+      naming the group as now just [clearchemist_aintree]; a third failure
+      (STALE NARRATIVE_POSTCODES) was a test-construction artefact from
+      choosing an injection value already listed as a historical narrative
+      postcode, not a new class of gap, and is noted in the evidence file so
+      it is not mistaken for one on a future pass. Both mutations restored
+      from a pre-mutation backup by byte copy; re-run confirmed clean and
+      identical to baseline both times. Tracked repo confirmed untouched
+      throughout (branches.json sha256 169bb5a2...1102 unchanged; git status
+      --porcelain -- modules/ core/ branches.json gbp-packs/ tools/ shows only
+      the two pre-existing untracked strays, neither touched). No generator
+      rebuild needed. Live half not re-read (no data or generator change this
+      pass; standing live state from the seventeenth pass, 2026-09-11, still
+      current). No new question. Done 2026-09-15. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-15-nineteenth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
