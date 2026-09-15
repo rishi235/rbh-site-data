@@ -25874,6 +25874,100 @@ all at 2026-09-12.
       3.8, 3.9, 3.10, 3.12, 3.13, 4.11, 5.1, 6.2, 6.3 - none carrying a more
       specific same-day forward note as of this pass. Other runs may land in
       between before the next pass.
+      Quality pass 2026-09-15 (seventeenth, unattended run, rotation-pool
+      pick): every remaining unchecked worklist line was [BLOCKED] this run
+      (5.3, 5.4, 5.5, 5.8, 6.1, and the Q60/Q66 lines under 6.4/6.5/6.6), so
+      a quality pass was required. Rotation pool re-derived fresh with a
+      Python header-to-next-header block scan of every completed item's own
+      embedded dates (standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8 excluded): 5.2 came out uniquely stalest at 2026-09-11,
+      sixteen days (in run-count terms) since its own sixteenth pass, ahead
+      of the next tier at 2026-09-12. This item's own forward note above had
+      pointed at a different twelve-item pool, but none of those items were
+      re-touched since, and this run's fresh scan confirms 5.2 itself was
+      simply skipped over by the rotation for several days and is now the
+      genuine oldest.
+      Before starting: re-tried Q52's outstanding data gap (the "Page in
+      multiple sitemaps" Ahrefs Site Audit detail) now that Ahrefs API tools
+      are present in this session (mcp__c3d7ef63... site-audit-projects).
+      Called site-audit-projects with no filter: still "Insufficient plan",
+      the same block Q52 already recorded. No new data obtained; QUESTIONS.json
+      not changed on this point, since the finding is a reconfirmation of an
+      existing note, not new information.
+      NEW ANGLE: of the sixteen prior passes on this item, tools/check-em-
+      dashes.js had never been named at all, despite that checker's own
+      PAGE_DIRS constant explicitly including modules/branch/pages, which is
+      exactly the four generated pages this item covers (McCanns Aigburth,
+      McCanns Sandringham, Scorah Bramhall, Scorah Hazel Grove). Proved by
+      direct injection for the first time against one of this item's own
+      pages, using a page never previously used as an injection target in
+      this item's history (passes 14 to 16 all targeted pharmacy-mccanns-
+      aigburth.html; this pass used pharmacy-scorah-hazel-grove.html instead,
+      spreading the proven coverage across the item's page set rather than
+      re-testing the same file a fourth time).
+      METHOD. New instrument, audits/verify-5.2-2026-09-15-seventeenth.js,
+      same discipline as passes 14 to 16: refuses to run on a dirty tree
+      (allowing only the two long-standing pre-existing untracked artefacts,
+      gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak, neither created nor
+      touched by this or any prior pass), captures the target's original
+      bytes and sha256 before any mutation, shells out to the real
+      tools/check-em-dashes.js as a child process, restores by direct
+      fs.writeFileSync immediately after capturing each injection's output
+      and before any assertion, and sha256-reconfirms byte-identical
+      restoration after every injection and again at the end.
+      THREE INJECTIONS against the hero-sub visible paragraph on line 21,
+      each restored byte-identical before the next: (1) a literal em dash
+      (U+2014) inserted mid-sentence - CAUGHT, "FAIL modules/branch/pages/
+      pharmacy-scorah-hazel-grove.html line 21 (em dash)"; (2) the same
+      position with the HTML entity "&mdash;" instead of the literal
+      character - CAUGHT, "(em dash (HTML entity))", proving the checker
+      catches both encodings named in its own title, not only the literal
+      character; (3) a control injection rewording the same sentence with a
+      standard hyphen only - stayed clean as expected, confirming the first
+      two catches are genuine dash detections and not a false positive on
+      any edit to that line. All three fired first attempt with the expected
+      result; target file confirmed sha256-identical to the pre-injection
+      baseline (89159a1b1c7a60e6c4f5da457435a6feb25de374b61962cf6940b44fa67e
+      5c0d) after each restore and at the end.
+      Full 36-checker suite run clean before and after (36/36). All six page
+      generators (branch landing, contraception, service, switch, travel
+      clinic, weight loss) rebuilt from their own build-*.js scripts; sha256
+      of all 177 generated .html files under modules/*/pages/ taken before
+      and after: byte-identical, zero diff. git status --porcelain -- modules
+      core branches.json gbp-packs empty before and after aside from the two
+      pre-existing untracked artefacts already logged on every prior pass,
+      neither created nor touched by this pass.
+      LIVE HALF. Read-only curl GET with -L (nothing clicked, typed or
+      submitted anywhere), all four of this item's own landing URLs: still
+      404, unchanged from every prior pass - mccannspharmacy.co.uk/pharmacy-
+      mccanns-aigburth.html, /pharmacy-mccanns-sandringham.html, and
+      scorah-chemists.co.uk/pharmacy-scorah-bramhall.html, /pharmacy-scorah-
+      hazel-grove.html. Not a new finding, reconfirmation of the item's own
+      standing OUTSTANDING note only (the six pages, four of them this
+      item's own, remain unpasted to Weebly).
+      RESULT: no in-repo defect. check-em-dashes.js was already correctly
+      holding Scorah Chemists Hazel Grove's own generated landing page to
+      its no-dash rule, in both the literal-character and HTML-entity forms,
+      now proven directly by injection for the first time in this item's
+      seventeen-pass history. No checker logic, page, generator or data
+      field changed anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-15-seventeenth.js (script and full console
+      output both retained in the one file; script is self-documenting and
+      was run to completion with no manual editing between injections).
+      Guard coverage for this item now extends to 16 of the estate's 36
+      checkers proven by direct injection against one of its own four pages
+      (up from 15): check-address-region, check-app-membership (trivial, no
+      module root), check-branch-identity, check-branch-links,
+      check-brand-spelling, check-em-dashes (new this pass), check-jsonld,
+      check-live-hours, check-map-embeds, check-nap, check-opening-hours,
+      check-pharmacy-first-eligibility, check-postcodes, check-seo-keywords,
+      check-weight-loss-copy (trivial, not a weight loss page family),
+      check-whatsapp-route (trivial, no module root).
+      FORWARD NOTE: next stalest by this run's own re-derivation is the pool
+      tied at 2026-09-12 (1.3, 2.3, 3.1, 3.2, 6.2, 6.3), since 5.2 itself now
+      moves to the back of the queue at 2026-09-15. Other runs may land in
+      between before the next pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
