@@ -1,0 +1,118 @@
+Item 1.2 (Hirshmans Chemist Ainsdale address verification) - nineteenth quality pass
+Run: 2026-09-15, unattended scheduled run (audit-backlog-worker)
+
+ROTATION POOL SELECTION
+Re-derived fresh from AGENT_WORKLIST.md's own embedded "- [x] N.N" headers,
+taking the latest 2026-MM-DD date string inside each item's own block, with
+the standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) excluded.
+Tied-oldest at 2026-09-12: {1.2, 1.3, 2.3, 3.1, 3.2, 6.2, 6.3}. 1.2 taken on
+the lowest-item-number tiebreak, per the established convention (see e.g. the
+thirteenth/eighteenth runs' own ties on other items).
+
+BASELINE
+Full repo archived via `git archive HEAD` to a disposable scratch copy at
+/sessions/eloquent-eager-cerf/scratch/audit-1.2; the tracked repo was never
+opened for writing during the repo-side work. branches.json sha256 confirmed
+identical between the scratch copy and the tracked repo before any injection:
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+Full 36-checker suite run individually on the scratch copy before any change:
+35/36 exit 0, the sole exception being check-cdn-pins.js, which resolves refs
+via `.git` and fails on any bare `git archive` output regardless of content -
+a scratch-copy artifact recorded on prior passes (e.g. the eighteenth pass on
+this same item), not a defect. Re-confirmed clean against the tracked repo
+separately (which has `.git`).
+
+FRESH ANGLE
+tools/check-seo-keywords.js had never been proven by direct injection against
+hirshmans_ainsdale in eighteen prior passes (18 of 19 checkers already proven
+against this branch per the eighteenth pass's own tally covered other rule
+families; this checker was the one item 1.2's own rotation-pool text had not
+yet reached). It is a strong fit for this item's own scope - address/postcode
+accuracy - because three of its eight rules (3, 4, 6) test exactly that: the
+branch's own seoTown must be present, another live branch's seoTown must be
+absent unless it is a genuine catchment word, and any UK-outward-code-shaped
+token must be the branch's own.
+
+Target: modules/service/pages/SEO.md, block "Hirshmans Chemist - Ainsdale -
+Overview" (permalink pharmacy-first-hirshmans-ainsdale), Meta Keywords line:
+  "Pharmacy First Ainsdale, NHS Pharmacy First, Hirshmans Chemist, pharmacy
+  Ainsdale, PR8"
+Backed up to /sessions/eloquent-eager-cerf/scratch/SEO.md.orig
+(sha256 of modules/service/pages/SEO.md before any injection:
+2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5)
+
+Four rounds, each: inject on the scratch copy only -> run check-seo-keywords.js
+-> record result -> restore from the sha256-confirmed backup -> re-confirm
+sha256 identical before the next round.
+
+1. RULE 6 (postcode): "PR8" changed to "L20" (Bootle's outward code, a real,
+   live, foreign one). CAUGHT first attempt:
+   "Meta Keywords carry 'L20', which is not this branch's outward code 'PR8'."
+2. RULE 4 (absence): "Bootle" inserted into the line. Bootle is a live
+   seoTown (smartts_bootle, skchemists_bootle) and is not in Hirshmans'
+   serviceAreaList (Ainsdale, Birkdale, Southport). CAUGHT first attempt:
+   "Meta Keywords name 'Bootle', the seoTown of smartts_bootle and
+   skchemists_bootle, and 'Bootle' is not in this branch's serviceAreaList."
+3. RULE 3 (presence): "Ainsdale" removed from both places it appears in the
+   line. CAUGHT first attempt:
+   "Meta Keywords do not carry this branch's own seoTown 'Ainsdale'."
+4. CONTROL: benign rewording ("NHS Pharmacy First service", "local pharmacy
+   Ainsdale") that changes wording without touching any town, brand or
+   postcode token. PASSED as expected (exit 0, "check-seo-keywords: clean").
+   Confirms the three failures above are genuine rule hits, not the checker
+   failing on any edit to the line.
+
+All three injections fired on their intended rule only, first attempt, naming
+the branch and the exact consequence. Final restore sha256-reconfirmed
+identical to the pre-injection file
+(2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5). Full
+36-checker suite re-run on the scratch copy after final restore: 0 unexpected
+failures (check-cdn-pins.js's scratch-artifact exception unchanged).
+
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs` empty bar the two pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, both
+already recorded by prior runs as out-of-scope debris). branches.json sha256
+unchanged: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102.
+
+No in-repo defect found.
+
+LIVE HALF (Claude in Chrome, connected, single tab, read-only throughout;
+nothing clicked, typed or submitted)
+- Navigated to https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html
+  and read document.title, meta[name=keywords], meta[name=description] and h1
+  via javascript_tool (a meta tag is invisible to get_page_text's plain-text
+  extraction, the same reason prior passes on other items have used this
+  method for meta descriptions). Live Meta Keywords:
+  "Pharmacy First Ainsdale, NHS Pharmacy First, Hirshmans Chemist, pharmacy
+  Ainsdale, PR8" - byte-identical to the sheet, and to the exact string this
+  pass proved check-seo-keywords.js protects. Title, H1 and description also
+  match branches.json/the sheet exactly.
+- Navigated to https://www.hirshmanspharmacy.co.uk/contact-us.html and read it
+  in full via get_page_text: address "56-62 Sherwood House, Station Road,
+  Ainsdale, PR8 3HW" correct on both the left contact block and the footer
+  strip; phone "01704 577376" (spaced) and "01704577376" (unspaced, the tel:
+  href) both correct; NHS mailbox pharmacy.FW378@nhs.net correct; opening
+  hours match branches.json's specification exactly, including both weekday
+  and Saturday lunch closures (Mon-Fri 8:30am-1pm/2pm-6pm, Sat 9am-1pm/
+  2pm-5:30pm, Sun closed). Standing cosmetics unchanged, all already on file
+  in Q41's note: "Station Road" still splits across a line break in the left
+  contact block, that same block still omits the postcode, and the footer
+  strip's hours line still uses en dashes with no in-repo source (a hand edit
+  for the next Weebly visit, not a repo defect). The switch banner's mojibake
+  close icon ("├ù") is present on this page too - this is the estate-wide
+  Q33 finding (fixed in the repo, awaiting a repaste at all 15 sites), not
+  specific to Hirshmans and not new; not actioned here as it is outside this
+  item's own scope (address verification) and outside this run's remit
+  (a live Weebly repaste).
+- Fetched sitemap.xml directly: 28 URLs, every <lastmod> identical at
+  2026-08-14T16:09:17+00:00 - no republish on this domain since the sixth
+  pass, confirming the live findings above are reconfirmations rather than
+  new drift.
+
+No new live fault found. No new question raised.
+
+Guard coverage for this item now extends to 20 of 36 checkers proven by
+direct injection against hirshmans_ainsdale specifically (up from 19 after
+the eighteenth pass).

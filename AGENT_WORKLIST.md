@@ -23554,6 +23554,50 @@ appended to the line. Do not move them; the status page reads them in place.
       injection. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-12-eighteenth.txt.
       Done 2026-09-12
+      Nineteenth quality pass 2026-09-15 (unattended scheduled run, rotation
+      pool - tied-oldest at 2026-09-12 was {1.2, 1.3, 2.3, 3.1, 3.2, 6.2, 6.3},
+      1.2 taken on the lowest-item-number tiebreak). REPO HALF: FRESH ANGLE -
+      tools/check-seo-keywords.js had never been proven by direct injection
+      against hirshmans_ainsdale in eighteen prior passes, and three of its
+      eight rules (presence, absence, postcode) test exactly what this item is
+      about. Full repo archived via git archive HEAD to a disposable scratch
+      copy (tracked repo never opened for writing this pass); branches.json
+      sha256 matched the tracked repo exactly; full 36-checker suite clean
+      before any edit (35/36, the sole exception check-cdn-pins.js's known
+      scratch-archive artifact). Three injections against the Overview block's
+      Meta Keywords line in modules/service/pages/SEO.md, each restored from a
+      sha256-confirmed backup and reconfirmed identical before the next: (1)
+      "PR8" changed to "L20" (Bootle's real, live, foreign outward code) -
+      CAUGHT, RULE 6, naming both codes; (2) "Bootle" inserted (a live seoTown
+      not in Hirshmans' own serviceAreaList of Ainsdale/Birkdale/Southport) -
+      CAUGHT, RULE 4, naming both owning branches and the missing
+      serviceAreaList entry; (3) "Ainsdale" removed from the line entirely -
+      CAUGHT, RULE 3, naming the missing seoTown. A fourth, benign-rewording
+      control (no town/brand/postcode token touched) PASSED as expected,
+      confirming the three catches are genuine rule hits rather than the
+      checker failing on any edit. All three fired first attempt, on their
+      intended rule only. Final restore sha256-reconfirmed identical to
+      pre-injection (2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5);
+      full 36-checker suite re-run clean. Tracked repo confirmed untouched
+      throughout: git status --porcelain -- branches.json tools modules core
+      gbp-packs empty bar the two pre-existing untracked strays; branches.json
+      sha256 unchanged. No in-repo defect found.
+      LIVE HALF via Claude in Chrome (connected, single tab, read-only
+      throughout): pharmacy-first-hirshmans-ainsdale.html's live Meta Keywords
+      tag read via javascript_tool (invisible to plain-text extraction) is
+      byte-identical to the sheet and to the exact string this pass proved the
+      checker protects; title, H1 and description also match. contact-us.html
+      read in full: address, both phone formats, NHS mailbox and opening hours
+      (including both weekday and Saturday lunch closures) all correct and
+      matching branches.json; every Q41 standing cosmetic unchanged and
+      already on file; the estate-wide Q33 switch-banner mojibake close icon
+      is present here too but is not new, not Hirshmans-specific and outside
+      this item's own address-verification scope. sitemap.xml: 28 URLs, no
+      republish since 2026-08-14, confirming reconfirmation rather than new
+      drift. No new live fault, no new question. Guard coverage for this item
+      now extends to 20 of 36 checkers proven by direct injection. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-15-nineteenth.txt.
+      Done 2026-09-15
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
