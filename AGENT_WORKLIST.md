@@ -5456,6 +5456,54 @@ continuity promise) are reconfirmed present, not silently resolved; no
 change to QUESTIONS.json needed since neither KNOWN entry's status changed.
 No new question.
 
+Quality pass 2026-09-15 (nineteenth): DEFECT FIX rather than another
+injection proof. Q49 (raised 2026-08-11 on this same check-switch-copy.js
+rule set, answered by Rishi 2026-09-01, still unimplemented through the
+eighteenth pass) was implemented. tools/build-switch-pages.js: the hero
+paragraph ("We contact your GP. We handle everything. You do nothing.")
+became "We contact your GP where it is needed. We handle what we can. We
+will tell you if anything else is needed.", the exact wording from Rishi's
+answer; the first hero bullet ("We handle the full switch for you") became
+"We handle what we can of the switch for you"; and switchMeta() ("We
+contact your GP and handle everything.") became "We contact your GP where
+needed and do what we can." (checked against the longest branch,
+colemanleigh_liverpool, at 159 characters, 6 under the 165-character
+check-seo-lengths ceiling). The second hero bullet ("No interruption to
+your medication") was also given a "wherever possible" hedge, on the
+reasoning already written into check-switch-copy.js's own continuity KNOWN
+entry that it is the same class of claim answered by the same decision;
+that exact wording was not one of Q49's own named options, so it is an
+extension of the decision rather than the decision itself, flagged as such
+in QUESTIONS.json's Q49 note for Rishi to check. Regenerated all 15 switch
+pages plus INDEX.md and SEO.md with `node tools/build-switch-pages.js`; git
+diff confirmed only the expected files changed (15 pages, INDEX.md, SEO.md,
+the two source files) and no em dashes were introduced. Removed the
+gp-story and continuity KNOWN entries from tools/check-switch-copy.js since
+they no longer break their rules (a stale KNOWN entry fails the run, so
+this was required, not optional) and replaced them with a dated comment
+recording what changed and why. Ran the full 34-checker suite
+(`for f in tools/check-*.js; do node "$f"; done`): all 34 pass, including
+check-switch-copy.js itself (15 pages, 33 copy lines, 15 banners, 11 rules,
+3 accepted breaches now, down from 5) and check-seo-lengths.js (no
+description over budget). LIVE CHECK: Claude in Chrome connected this run;
+read switch-prescriptions-cherry-lane-walton.html live
+(www.cherrylanepharmacy.co.uk) immediately after the repo change and
+confirmed it still serves the old unqualified copy verbatim ("We contact
+your GP. We handle everything. You do nothing." / "We handle the full
+switch for you") - expected, since this is a repo-only change on the same
+manual-Weebly-paste footing as every other fix in this backlog (Q7, Q13),
+not a live regression. Someone still needs to paste the updated block into
+all 15 branch sites' Weebly Embed Code elements for this to reach a
+patient; recorded as the next dependency, not actioned here (browser use
+this run was read-only throughout, nothing clicked, typed or submitted).
+Also confirmed via the step 3 answer-pickup fetch that Q49's answer text
+recorded in QUESTIONS.json since 2026-09-01 matches the portal's own
+feedback record verbatim, so nothing was inferred or guessed about the
+decision. Evidence and full diff summary in AGENT_LOG.md's 2026-09-15
+entry for this run. QUESTIONS.json: Q49's note field extended with an
+"IMPLEMENTED 2026-09-15" addendum; status unchanged at "answered" since the
+schema has no separate implemented state. No new question raised.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

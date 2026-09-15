@@ -117,24 +117,20 @@ var BRANCHES = path.join(ROOT, "branches.json");
 // Accepted breaches, keyed "<rule>::<what>", each with the reason it stands.
 // A key that no longer breaks its rule fails the run, so this list cannot rot.
 var KNOWN = {
-  "gp-story::hero promises unconditionally and the FAQ hedges":
-    "Raised as Q49 on 2026-08-11. All fifteen switch pages carry three " +
-    "unconditional statements about the GP side of a switch, in the hero " +
-    "paragraph, the first hero bullet and the Weebly SEO description Google " +
-    "shows, and three hedged statements about the same thing, in the trust " +
-    "bar, step 2 and the FAQ answer to \"Do I need to contact my GP myself?\". " +
-    "Whether we do in fact contact every patient's GP is an operational fact " +
-    "about how the switch is run, and which of the two versions goes on the " +
-    "page is a public advertising decision. Neither is an agent's to take, so " +
-    "the contradiction is pinned here and the copy is left untouched. Remove " +
-    "this entry when the answer lands and one version is used throughout.",
-  "continuity::no interruption to your medication":
-    "Raised as Q49 on 2026-08-11, same question. The first hero bullet list " +
-    "promises \"No interruption to your medication\" without qualification, on " +
-    "all fifteen pages. Continuity across a pharmacy transfer depends on where " +
-    "the patient is in their cycle and on the GP practice acting, so this is " +
-    "the same class of claim as the GP promise above and is answered by the " +
-    "same decision. Remove this entry when that copy is settled.",
+  // gp-story and continuity (Q49, raised 2026-08-11) were both pinned here
+  // because the fix was a public advertising decision, not an agent's to
+  // take. Rishi answered Q49 on 2026-09-01 (option 2: qualify the hero and
+  // leave the hedged lines alone). Applied 2026-09-15: the hero paragraph,
+  // the first hero bullet and the Weebly SEO/meta description were reworded
+  // to match the hedged version already used by the trust bar, step 2 and
+  // the FAQ, and the "No interruption to your medication" bullet was given
+  // the same wherever-possible hedge, on the reasoning already recorded in
+  // this file that it is the same class of claim answered by the same
+  // decision. Both KNOWN entries removed as no longer breaking their rule;
+  // see AGENT_LOG.md 2026-09-15 for the exact wording change and QUESTIONS.json
+  // Q49 for the decision record. The Weebly paste run to take this live on
+  // all fifteen branch sites is separate, unactioned, manual work (Q49's own
+  // note), not something this repo change can complete on its own.
 
   // The three shared-domain sites. See RULE 11 below for why the conflict is
   // pinned rather than failed: which branch a shared banner should point at is

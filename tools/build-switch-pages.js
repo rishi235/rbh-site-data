@@ -70,8 +70,13 @@ function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").rep
 // Used for the page <meta name="description"> and for the Weebly SEO description
 // in the paste sheet, so the two can never drift apart. House rule: no em dashes,
 // so the sentence is split at a full stop rather than joined with a dash.
+// Wording qualified per Q49 (answered 2026-09-01, applied 2026-09-15): the
+// unconditional "we contact your GP and handle everything" contradicted the
+// hedged FAQ answer on the same page, so this now matches the hedged version
+// rather than the promise-in-full version. See tools/check-switch-copy.js
+// RULE 4 and CLAUDE.md's "The page answers the same question twice" section.
 function switchMeta(c){
-  return `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy. We contact your GP and handle everything.`;
+  return `Switch your prescriptions to ${c.brand} in ${c.town} in under 30 seconds. Local NHS pharmacy. We contact your GP where needed and do what we can.`;
 }
 
 function page(id){
@@ -156,13 +161,13 @@ function page(id){
           <span class="pill">Your local independent pharmacy in ${esc(c.town)}</span>
 
           <h1>${esc(pat.switchH1(c))}</h1>
-          <p class="hero-proof">We contact your GP. We handle everything. You do nothing.</p>
+          <p class="hero-proof">We contact your GP where it is needed. We handle what we can. We will tell you if anything else is needed.</p>
 
           <p class="hero-sub">${esc(c.brand)} is a local NHS pharmacy in ${esc(c.town)}. Switching your prescriptions to us is quick, free, and means your medication comes to a pharmacy team you can actually speak to.</p>
 
           <ul class="hero-points">
-            <li>We handle the full switch for you</li>
-            <li>No interruption to your medication</li>
+            <li>We handle what we can of the switch for you</li>
+            <li>No interruption to your medication wherever possible</li>
             <li>Local ${esc(c.town)} pharmacy support, not a call centre</li>
             <li>Speak to a pharmacist when you need help</li>
           </ul>
