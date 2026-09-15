@@ -21775,6 +21775,53 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       sixteenth pass. No new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-11-seventeenth.txt.
       Done 2026-09-11.
+      Eighteenth quality pass 2026-09-15 (unattended scheduled run,
+      twenty-first run today). Taken because all 8 unchecked worklist lines
+      are still [BLOCKED]; selection method unchanged - tied-oldest pool at
+      2026-09-11 was {4.14, 4.15, 5.1, 5.2} after excluding today's earlier
+      picks (4.7, 4.9, 4.11, 4.12), and 4.14 was chosen on the lowest-
+      numbered tie-break, with the deciding factor being that its live half
+      had gone the longest (13 days, since the eighth/ninth pass on
+      2026-09-02) without a genuine Claude-in-Chrome content read, every
+      pass since having fallen back to a curl/web_fetch status-only check.
+      Repo half: pack sha256 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+      unchanged, matching all seventeen prior passes; full 36-checker suite
+      0 failures; no new injection round (every applicable rule family
+      already proven against this pack across the sixteenth/seventeenth
+      passes). LIVE HALF performed via Claude in Chrome (single connected
+      instance, no Q59 block, confirmed working at this run's own step 3
+      answer-pickup fetch): read all four post-linked pages in full via
+      get_page_text rather than status-only. pfLink
+      (pharmacy-first-service-crosby.html) still correctly reads Gordon
+      Short Chemist throughout, Post A remains safe as written.
+      pharmacy-first-gordon-short-crosby.html still reads "Gordon Shorts
+      Chemist" (wrong, plural) throughout its hero, body and contact-card
+      heading, though the structured footer strip and address block are
+      correct - the STOP on repointing Post A stands, unchanged, now 36
+      days. switch-prescriptions-gordon-short-crosby.html: brand name now
+      correct throughout (fixed since the sixth pass), but the mojibake em
+      dash in "How switching...works" is still present and unchanged, 16
+      days stale. weight-loss-clinic-gordon-short-crosby.html and
+      travel-clinic-gordon-short-crosby.html both still carry the same
+      wrong plural name pattern as the Pharmacy First page, unchanged since
+      2026-08-10. sitemap.xml: 28 URLs, every lastmod still
+      2026-08-15T07:41:55+00:00, confirming no republish in 30 days - every
+      finding above is a reconfirmation, now genuinely proven by full page
+      reads rather than inferred from status codes. Q90 RE-CHECK (open
+      since 2026-09-01): weight-loss-clinic-crosby.html's real <title> and
+      meta description re-read via document.title/querySelectorAll rather
+      than get_page_text (a meta description does not render in visible
+      text) - both the medicine-naming meta description ("Offering options
+      like Wegovy, Mounjaro weekly injections...") and the embedded
+      Wilmslow booking-widget's own second title/description pair are
+      confirmed byte-identical to the eighth pass's own recorded text, 14
+      days unchanged. No action taken (live-only Weebly content, and a
+      live patient-facing weight-loss advertising claim is exactly the
+      class of decision reserved for Rishi); Q90's own note field extended
+      with this reconfirmation rather than raising a duplicate question. No
+      in-repo defect, no new live fault, no new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-15-eighteenth.txt.
+      Done 2026-09-15.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
