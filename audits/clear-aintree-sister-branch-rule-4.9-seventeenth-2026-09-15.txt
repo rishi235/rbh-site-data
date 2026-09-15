@@ -1,0 +1,143 @@
+Item 4.9 (Clear Chemist Aintree GBP pack), seventeenth quality pass, 2026-09-15
+================================================================================
+
+ROTATION SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5 under Q60, 6.6), so the quality-pass
+fallback applied. Rotation pool computed by python scan of every checked
+AGENT_WORKLIST.md item block for its own newest date string, excluding the
+seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Oldest tied group: 4.9, 4.14, 4.15, 5.1, 5.2, all last touched 2026-09-11.
+Lowest-numbered of the tied set: 4.9. Picked.
+
+BASELINE
+git status --porcelain -- gbp-packs/clear-aintree.md tools/check-gbp-packs.js
+branches.json: clean (aside from the standing sandbox .git/index.lock
+unlink warning, Q87/Q96/Q102).
+sha256(gbp-packs/clear-aintree.md) =
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+- matches every one of the sixteen prior passes' own recorded value exactly.
+Full 36-checker suite run individually on the tracked repo: 0/36 nonzero exits.
+
+FRESH ANGLE
+Sixteen prior passes (2026-08-04 to 2026-09-11) had proven all ten checkers
+that genuinely scan gbp-packs/ as a directory (check-app-membership.js,
+check-brand-spelling.js, check-em-dashes.js, check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js) against this pack's own copy by direct injection, and
+several specific rule families inside check-gbp-packs.js besides (the
+branch-without-hours else-if rule, the SERVICE_RULES reverse-for-posts
+extension). The "a sister branch named in prose must be a real, live sister"
+rule (tools/check-gbp-packs.js, from line 3015) had never been proven by
+injection against clear-aintree.md specifically - confirmed by grepping this
+item's full seventeen-pass AGENT_WORKLIST.md history and the matching
+AGENT_LOG.md entries for "sister" combined with "aintree"/"4.9"/"clear-aintree":
+every hit belongs to a different pack (mccanns-aigburth.md, mccanns-
+sandringham.md, scorah-bramhall.md, scorah-hazel-grove.md, riddings-
+timperley.md, sk-chemists-bootle.md). Clear Chemist is a standalone brand -
+branches.json carries no other trading branch with brandLabel "Clear
+Chemist" - so this pack is the one place in the estate that can exercise the
+rule's "no sister exists at all" breach path (check-gbp-packs.js line 3148,
+`if (!sisters.length)`) rather than the wrong-town-named path every other
+pack's own proof has exercised.
+
+METHOD
+Full repo copied by byte copy (with .git, the established method note: excluding
+.git makes check-cdn-pins.js fail falsely on a scratch copy) to
+/tmp/rbh-scratch-49-17th. Tracked repo's own gbp-packs/clear-aintree.md never
+opened for writing at any point; sha256 reconfirmed identical before, between
+and after every injection. All checker runs and edits performed against the
+scratch copy only.
+
+INJECTIONS (three, plus one control), each restored from a pristine byte
+backup (/tmp/clear-aintree.orig.md) and sha256-reconfirmed identical before
+the next:
+
+(1) TRIGGER "sister ... branch", business description. Appended "We also
+    have a sister branch in Bootle." to the end of Section 1 (published
+    copy, pasted verbatim to the public Google profile).
+    RESULT: node tools/check-gbp-packs.js exited 1.
+    FAIL clear-aintree.md: "the pack claims a sister or second branch, but
+    no other live branch in branches.json carries the brand Clear Chemist.
+    A pack description is pasted verbatim into a public Google profile, so
+    this would send patients to a pharmacy the group does not have"
+    - CAUGHT, first attempt, exact expected breach message, naming the
+    correct brand. A second, independent FAIL also fired on the
+    character-count rule (the description's declared 669 no longer matched
+    the now-709-character text) - a distinct, correctly-firing rule
+    reacting to the same edit, not a masking of the sister rule, matching
+    the convention prior passes on sibling packs have recorded for this
+    exact side effect.
+
+(2) TRIGGER "second branch", Post A body (also published copy). Restored
+    to baseline first. Appended "There is a second branch opening soon in
+    Fazakerley." to Post A's closing sentence, ahead of the Button: line.
+    RESULT: node tools/check-gbp-packs.js exited 1.
+    FAIL clear-aintree.md: identical breach message as (1), this time
+    located via Post A rather than the description - CAUGHT, first
+    attempt, no character-count side effect this time (Post A carries no
+    declared-count rule). Confirms the rule's postsOf() scope reads Post A
+    as well as the description for this pack, and that the "second branch"
+    phrasing variant (not just "sister branch") fires correctly here too.
+
+(3) CONTROL, restored to baseline first. Appended "This is our second
+    decade serving Aintree, and our sister company ClearChem Ltd runs our
+    online store." to the same Post A location - contains both "second"
+    and "sister" as words, but neither instance is immediately followed by
+    "branch" within the rule's own trigger window.
+    RESULT: node tools/check-gbp-packs.js exited 0 (0 failures; only the
+    pre-existing 17 WARNs, unchanged). Correctly PASSED - confirms the
+    trigger regex (/\b(?:sister\b[^.]{0,30}?\bbranch(?:es)?\b|second\s+
+    branch(?:es)?\b)/gi) is specific to an actual sister/second-branch
+    claim and does not false-positive on "second decade" or "sister
+    company" on this pack's own copy.
+
+RESTORE AND RE-VERIFY
+Final restore: cp /tmp/clear-aintree.orig.md over the scratch copy's
+gbp-packs/clear-aintree.md. sha256 reconfirmed identical to the pre-run
+baseline (a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4).
+Full 36-checker suite re-run on the scratch copy after the final restore:
+0/36 nonzero exits. Tracked repo's own copy separately re-hashed: identical,
+confirming it was never opened for writing at any point in this pass.
+git status --porcelain on the tracked repo shows no change to gbp-packs/,
+modules/, core/, branches.json or tools/ from this injection work (only the
+new evidence file and the worklist/log edits, added afterwards).
+
+VERDICT
+No in-repo defect found. The sister-branch rule's "no sister exists at all"
+breach path, its "second branch" phrasing trigger, and its specificity
+(no false positive on unrelated uses of "second"/"sister") are all now
+proven correct against this specific pack for the first time in seventeen
+passes, closing the last untested rule-family gap this item's own history
+had recorded (AGENT_LOG.md line 6189, item 4.4's fifteenth pass, listing all
+ten real gbp-packs checkers as already exhausted against sibling packs by
+that date).
+
+LIVE HALF
+Performed via Claude in Chrome, read-only, one tab, closed after use,
+nothing clicked, typed or submitted beyond navigation and text extraction.
+All three Post-target URLs (switch-prescriptions-clear-aintree.html,
+weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html)
+still return the branch's own 404 template (Q29, unchanged, homepage-button
+workaround in the pack remains correct and necessary). The 404 template
+itself republishes the corrected phone number 0151 203 6535 and
+customerservices@clearchemist.co.uk (Q28 fix, still live and unchanged).
+Full homepage text extraction returned only nav categories (JS-rendered
+storefront, limited to what get_page_text's article-first extraction
+surfaces); not re-read in full this pass since Q21's WhatsApp-number finding
+and the branch's own contact-page phone number were both last confirmed live
+on the sixteenth pass (2026-09-11) and this pass's chosen angle was
+repo-only. No new live finding.
+
+ANSWER PICKUP
+https://data.rbhealth.co.uk/api/feedback fetched successfully (single Chrome
+instance connected, no Q59 dual-extension block this run). Newest entry
+AUDIT ANSWER Q52, 2026-09-01T22:44:51Z - matches the newest entry every
+recent run has already recorded. Spot-checked Q37 (the one open question
+with a portal reply that is not a decision - "i need further explanation...")
+against QUESTIONS.json: already fully reconciled by a prior run (its note
+field already carries the "PORTAL REPLY RECEIVED 2026-09-01, NOT A DECISION"
+annotation and the plain-English restatement). No new answers to process.
+
+No new question raised.

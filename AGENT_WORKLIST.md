@@ -18065,6 +18065,53 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       decision. Evidence:
       audits/clear-aintree-eligibility-rule9-and-post-servicerules-4.9-sixteenth-2026-09-11.txt.
       Done 2026-09-11
+      Seventeenth quality pass 2026-09-15: fresh angle, proving
+      tools/check-gbp-packs.js's "a sister branch named in prose must be a
+      real, live sister" rule (from line 3015) against this pack's own copy
+      for the first time in seventeen passes. Sixteen prior passes had
+      exhausted all ten checkers that genuinely scan gbp-packs/ as a
+      directory, but this specific rule family had only ever been proven
+      against other packs (mccanns-aigburth.md, mccanns-sandringham.md,
+      scorah-bramhall.md, scorah-hazel-grove.md, riddings-timperley.md,
+      sk-chemists-bootle.md). Clear Chemist is the one standalone brand in
+      the estate (no other trading branch shares brandLabel "Clear
+      Chemist"), so this pack is the only one that can exercise the rule's
+      "no sister exists at all" breach path rather than the wrong-town
+      path every other proof has used. Full repo copied with .git to a
+      scratch directory; tracked pack never opened for writing throughout
+      (sha256 a5b90f58...321f4 unchanged, reconfirmed after every restore,
+      matching all sixteen prior passes exactly). Baseline clean, 36/36
+      checkers. Three injections plus one control, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) "We also have a
+      sister branch in Bootle." appended to the business description -
+      CAUGHT, "no other live branch in branches.json carries the brand
+      Clear Chemist... would send patients to a pharmacy the group does
+      not have", plus an independent, correctly-firing character-count
+      FAIL as a side effect of the added text, not a masking; (2) "There
+      is a second branch opening soon in Fazakerley." appended to Post A -
+      CAUGHT, identical breach message, confirming both the "second
+      branch" phrasing and Post A's inclusion in the rule's scope; (3)
+      CONTROL, "This is our second decade serving Aintree, and our sister
+      company ClearChem Ltd runs our online store." appended to Post A -
+      correctly PASSED, exit 0, confirming the trigger pattern does not
+      false-positive on "second decade" or "sister company". All three
+      fired or passed on the first attempt, on the intended path only.
+      Full 36-checker suite re-run clean after the final restore on the
+      scratch copy; tracked repo's own copy confirmed sha256-identical
+      throughout; no in-repo defect found. LIVE HALF performed via Claude
+      in Chrome (connected, single instance, no Q59 block this run),
+      read-only: all three post-target URLs still return the branch's own
+      404 template (Q29 unchanged), which itself still republishes the
+      corrected phone 0151 203 6535 (Q28 fix, still live). Full homepage
+      re-read not repeated this pass (WhatsApp/Q21 last confirmed live on
+      the sixteenth pass, this pass's angle was repo-only). ANSWER PICKUP
+      succeeded (single Chrome instance): newest portal entry still Q52,
+      2026-09-01T22:44:51Z; spot-checked Q37 (the one open question with a
+      non-decision portal reply) and confirmed already fully reconciled by
+      a prior run. No new answers to process, no new question raised.
+      Evidence:
+      audits/clear-aintree-sister-branch-rule-4.9-seventeenth-2026-09-15.txt.
+      Done 2026-09-15
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
