@@ -3771,6 +3771,38 @@ audits/seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt.
       Q37 set, opening hours text) reconfirmed unchanged and still correct
       against branches.json. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-12-seventeenth.txt.
+Quality pass 2026-09-15 (eighteenth), but as a DEFECT FIX not another
+      injection proof, same shape as item 3.5's nineteenth pass: implemented
+      Q44 (answered by Rishi 2026-08-30, unimplemented through every prior
+      pass since), the cross-branch H1 collision this item's own quality pass
+      first found on 2026-08-11. Edited tools/seo-pattern.js: added
+      townCounts()/townIsShared(), computing from branches.json (excluding
+      disposed branches and head office) which seoTowns are held by more than
+      one live branch; searchH1() now appends " - <brandLabel>" to the family
+      A H1 only where townIsShared() is true, everywhere else unchanged.
+      Computed generically rather than hardcoding the three towns named in
+      Q44's own text, and that mattered immediately: re-deriving the shared-
+      town set against today's branches.json found a FOURTH shared town,
+      Aintree (Clear Chemist Aintree and Tiffenbergs Chemist Aintree), that
+      did not exist or was not counted when Q44 was answered. Ran
+      tools/build-service-pages.js and tools/build-contraception-pages.js:
+      regenerated all 112 + 14 pages; git diff confirmed exactly 56 pages
+      changed (7 branches - the three original pairs plus Tiffenbergs -
+      times 8 family A page types each), each a single H1 line, no other
+      line, no em dashes introduced (checked by Perl-regex grep for U+2013/
+      U+2014/U+2015 on the diff). Ran all 36 checkers: all pass.
+      check-seo-lengths.js's own H1 rule (4c, the one Q44 lives under) now
+      reports "177 page H1s read, 0 sharing an H1 with a page at another
+      pharmacy", down from the warning this item's own 2026-08-11 pass
+      raised the question on. Fishlocks Ainsdale (this item's own branch)
+      picked up the fix as one of the three original pairs: its seven
+      pfCondition H1s and its contraception H1 now read e.g. "UTI treatment
+      in Ainsdale - Fishlocks Chemist" rather than the bare "UTI treatment in
+      Ainsdale" that collided with Hirshmans Ainsdale's own pages. Not yet
+      live pending a Weebly paste, same footing as every other repo-only fix
+      in this backlog (Q7, Q13, Q49). QUESTIONS.json: Q44's answer extended
+      with an "APPLIED 2026-09-15" addendum. Full detail in
+      AGENT_LOG.md's dated entry for this pass.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

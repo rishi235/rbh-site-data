@@ -84,6 +84,65 @@ function pick(b) {
 }
 
 // ---------------------------------------------------------------------------
+// Cross-branch town sharing (Q44, answered by Rishi 2026-08-30)
+// ---------------------------------------------------------------------------
+// Family A search-phrase H1s (searchH1) carry no brand by design - the search
+// phrase and town lead, the brand only ever appears in the title, where
+// fitTitle can trim it. That is right at the twelve-to-fourteen branches that
+// are the only RBH shop in their town, and wrong wherever two of our own
+// shops share one: both shops then publish a byte-identical H1 for the same
+// condition, so the pages compete with each other instead of each owning its
+// catchment. Item 3.3's quality pass found this live on 48 pages across
+// Ainsdale, Bootle and Walton (Fishlocks/Hirshmans, SK Chemists/Smartts,
+// Cherry Lane/Coleman and Leighs), raised as Q44.
+//
+// Rishi's answer: put the brand into the family A H1, but ONLY where another
+// live branch shares this branch's own seoTown - computed from branches.json
+// here, the single source of truth, rather than a hardcoded list of the three
+// town names found on the day the question was raised. That is not a
+// cosmetic preference: re-running this against the current branches.json
+// while implementing the fix found a FOURTH shared town, Aintree (Clear
+// Chemist Aintree and Tiffenbergs Chemist Aintree), that did not exist or
+// was not counted when Q44 was answered. A hardcoded three-town list would
+// have missed it silently, which is exactly the "list is a snapshot of what
+// somebody could remember on the day they wrote it" fault this repo has hit
+// and fixed repeatedly elsewhere (see CLAUDE.md, "the sheets nothing
+// opened"). A future same-town pair, or a seoTown move like the one that
+// created Q15, is picked up automatically with no further decision.
+//
+// Excludes disposed branches and head office, matching every other
+// buildable-branch filter in this file and in the generators. Deliberately
+// counts EVERY live branch sharing the town, not only branches that happen
+// to have family A pages built today (Clear Chemist Aintree has none), so
+// Tiffenbergs Chemist Aintree's H1 carries its own brand even though nothing
+// currently collides with it - the rule is "does another live branch share
+// this town", not "does another live branch's page collide with mine today",
+// which is what keeps it correct as new pages are added rather than only
+// reacting after a second collision is found.
+var _townCounts = null;
+function townCounts() {
+  if (_townCounts) return _townCounts;
+  var data = require(path.join(__dirname, "..", "branches.json"));
+  var counts = {};
+  data.branches.forEach(function (b) {
+    if (b.disposed) return;
+    if (b.id === "rbh_head_office_aintree") return;
+    if (!b.seoTown) return;
+    counts[b.seoTown] = (counts[b.seoTown] || 0) + 1;
+  });
+  _townCounts = counts;
+  return counts;
+}
+
+// Exposed for tests/checkers that want to reason about sharing without
+// reimplementing the count.
+function townIsShared(b) {
+  var s = pick(b);
+  if (!s.town) return false;
+  return (townCounts()[s.town] || 0) > 1;
+}
+
+// ---------------------------------------------------------------------------
 // Length-aware brand suffix (Q14, answered by Rishi 2026-08-10)
 // ---------------------------------------------------------------------------
 // Google truncates a title past TITLE_WARN_LEN characters, and the brand sits
@@ -148,7 +207,12 @@ function searchTitle(phrase, b) {
 }
 function searchH1(phrase, b) {
   var s = pick(b);
-  return phrase + " in " + s.town;
+  var base = phrase + " in " + s.town;
+  // Q44: brand joins the H1 only where another live branch shares this
+  // branch's own seoTown (townIsShared, above). Everywhere else the H1 stays
+  // exactly as it read before this change, so a branch that is the only RBH
+  // shop in its town regenerates byte-identical.
+  return townIsShared(b) ? base + " - " + s.brand : base;
 }
 
 // Branch landing page: family A with phrase "Pharmacy", brand kept in the
@@ -309,6 +373,7 @@ module.exports = {
   hasServiceWord: hasServiceWord,
   shortenBrand: shortenBrand,
   fitTitle: fitTitle,
+  townIsShared: townIsShared,
   TITLE_WARN_LEN: TITLE_WARN_LEN,
   PAGE_TYPES: PAGE_TYPES
 };
