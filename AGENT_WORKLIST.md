@@ -16944,6 +16944,53 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       unchanged at 2026-08-14T23:05:25Z, confirming no republish since the sixteenth
       pass's own reading. No new question. Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-11-seventeenth.txt.
+      Quality pass 2026-09-15 (eighteenth, unattended scheduled run). Taken because
+      all remaining unchecked worklist lines are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+      and the three Q60/Q66 lines under 6.4/6.5/6.6, confirmed by direct grep).
+      Rotation pick re-derived from the file's own embedded dates (block-bounded
+      scan, one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded): 4.7 tied oldest at
+      2026-09-11 alongside 4.9, 4.12, 4.14, 4.15 and 5.1 (4.11 had already moved to
+      today's date on the seventeenth run of the day). 4.7 taken as the
+      lowest-numbered of the tied set, following the thirteenth/eighteenth runs' own
+      precedent, and because seventeen prior passes had proven every rule family in
+      this checker suite against this pack by injection at least once, while the
+      LIVE half had been performed via Chrome (rather than curl) on comparatively
+      few of those seventeen passes, so a Chrome-based live read was the angle most
+      likely to add real information this run.
+      Baseline: pack sha256 bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd
+      65e1a893e, matching every one of the seventeen prior passes exactly, no drift.
+      All 36 checkers run individually: 0 failures. All six generators (service,
+      switch, weight loss, travel clinic, contraception, branch landing) rebuilt to
+      a zero-diff worktree; `git status --porcelain -- modules/` showed only the
+      pre-existing untracked `.bak` stray, no real page changed. No injection run
+      this pass, since the repo half is unchanged from seventeen passes' worth of
+      proof and no new rule has been added to this checker suite since the
+      seventeenth pass; this pass's value is the live half.
+      LIVE HALF performed via Claude in Chrome (connected and working this run, no
+      repeat of Q59's dual-extension block): fetched
+      mccannspharmacy.co.uk/sitemap.xml directly (not curl) - lastmod unchanged at
+      2026-08-14T23:05:25Z across all 44 URLs, confirming no republish since the
+      ninth pass's own first reading of that timestamp. pharmacy-mccanns-
+      sandringham.html (the pack's declared GBP profile website, section "Profile
+      basics") still returns a live 404 page and remains absent from the sitemap -
+      Q35 unchanged, seven passes running. The four Post A-D target pages
+      (pharmacy-first-mccanns-sandringham.html, switch-prescriptions-mccanns-
+      sandringham.html, weight-loss-clinic-mccanns-sandringham.html, travel-clinic-
+      mccanns-sandringham.html) are all present in the sitemap. Read Post A's live
+      page in full via get_page_text rather than a HEAD/GET status check alone: the
+      browser tab title still renders the unpasted default "Pharmacy First at
+      McCanns Chemist, Sandringham - MCCANNS PHARMACY" construction rather than the
+      repo's corrected SEO title, matching the queued-repaste lag every prior pass
+      recorded; the page body's seven condition cards, age ranges and self-refer
+      banner all read correctly and match the generated page. The Weebly-native
+      contact block and legal footer at the foot of the same page still name the
+      business "McCann's Pharmacy - Aigburth" / "McCann's Pharmacy - Sandringham
+      Medical Centre" (apostrophe, wrong brand string) and still misspell the
+      medical centre "Sandrigham" - Q39's finding, unchanged, still pending the
+      estate-wide Weebly furniture sweep Rishi already approved (portal answer
+      2026-09-01). No new live fault found; every finding this pass reconfirms a
+      state already recorded, nothing regressed and nothing newly broken. No new
+      question. Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-15-eighteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

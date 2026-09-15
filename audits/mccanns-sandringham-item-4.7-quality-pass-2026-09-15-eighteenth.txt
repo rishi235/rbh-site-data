@@ -1,0 +1,74 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - eighteenth quality pass
+Run: 2026-09-15, unattended scheduled run (audit-backlog-worker)
+
+SELECTION
+All remaining unchecked AGENT_WORKLIST.md lines are [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6). Quality pass
+required. Rotation pool re-derived from the file's own embedded dates,
+excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8):
+tied-oldest set at 2026-09-11 is {4.7, 4.9, 4.12, 4.14, 4.15, 5.1} (4.11 moved
+to 2026-09-15 by an earlier run today). 4.7 taken as lowest-numbered of the
+tied set.
+
+REPO HALF
+Pack sha256 before this pass:
+  bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e
+  gbp-packs/mccanns-sandringham.md
+Matches every one of the seventeen prior passes exactly. No drift.
+
+Full checker suite (36 files under tools/check-*.js), each run individually:
+  0 failures.
+
+Six generators rebuilt (build-service-pages.js, build-switch-pages.js,
+build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js):
+  git status --porcelain -- modules/ shows only the pre-existing untracked
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak stray.
+  No real generated page changed. Zero-diff worktree confirmed.
+
+No injection run this pass: every rule family in this checker suite has
+already been proven against this specific pack by injection across the
+seventeen prior passes, and no new checker rule has landed since the
+seventeenth pass. This pass's marginal value is the live half below, which
+several recent passes could not perform (Claude in Chrome unavailable, the
+Q59 dual-extension block).
+
+LIVE HALF (via Claude in Chrome, connected and working this run)
+1. https://www.mccannspharmacy.co.uk/sitemap.xml fetched directly.
+   44 URLs listed, lastmod unchanged at 2026-08-14T23:05:25+00:00 throughout -
+   confirms no republish since the ninth pass's own first reading of that
+   timestamp.
+
+2. https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html
+   (the pack's declared GBP profile website, "Profile basics" section) -
+   live 404, "Error - Page Not Found". Absent from the sitemap. Q35
+   unchanged, seventh pass to record it.
+
+3. https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html
+   (Post A target) - loads 200. Read in full via get_page_text (not a bare
+   status check):
+   - Browser tab title: "Pharmacy First at McCanns Chemist, Sandringham -
+     MCCANNS PHARMACY" - the unpasted default construction, not the repo's
+     corrected SEO title. Matches the queued-repaste lag every prior pass
+     recorded.
+   - Page body: self-refer banner present, all seven Pharmacy First
+     conditions listed with correct age ranges (UTI women 16-64, sore throat
+     5+, sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, insect bite
+     1+), matching branches.json and the generated page content.
+   - Weebly-native contact block / legal footer at the foot of the page
+     still reads "McCann's Pharmacy - Aigburth" / "McCann's Pharmacy -
+     Sandringham Medical Centre" (apostrophe brand form, not "McCanns
+     Chemist") and still misspells "Sandrigham" for "Sandringham Medical
+     Centre" - Q39's finding, unchanged, pending the approved estate-wide
+     Weebly furniture sweep (Rishi's portal answer, 2026-09-01).
+
+4. Sitemap presence confirmed for all four Post A-D targets:
+   pharmacy-first-mccanns-sandringham.html,
+   switch-prescriptions-mccanns-sandringham.html,
+   weight-loss-clinic-mccanns-sandringham.html,
+   travel-clinic-mccanns-sandringham.html - all listed.
+
+RESULT
+No new in-repo defect. No new live fault. Every finding this pass reconfirms
+an already-recorded state (Q35, Q39, the unpasted Post A title); nothing
+regressed, nothing newly broken. No new question raised.
