@@ -1,0 +1,159 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - Quality pass (twentieth), 2026-09-15
+Fresh angle: tools/check-opening-hours.js, never named once across the prior
+nineteen passes on this item (confirmed by grepping the item's own worklist
+block for "check-opening" and "opening-hours" before starting: zero hits).
+
+BASELINE
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the standing regression anchor used throughout this item's history)
+Full 36-script check-*.js suite run individually against the tracked repo: 36/36 exit 0.
+tools/check-opening-hours.js baseline output:
+  6 landing page(s) checked against 16 trading branches
+  rule 7 swept 88 clock time(s)
+  rule 8 swept 177 switch/service-family/pasted-copy file(s)
+  rule 10 checked 171 switch/service-family page(s)
+  clean, every visible and structured opening time matches branches.json.
+
+STRUCTURAL FINDING (not a defect): Cherry Lane has no file in
+modules/branch/pages/ - only Fishlocks Ainsdale/Eccleston, McCanns
+Aigburth/Sandringham and Scorah Bramhall/Hazel Grove have branch landing
+pages (item 2.2's shared-domain build). check-opening-hours.js's rules 1-3
+and 7 (the visible hours card and its containment rule) are scoped to
+LANDING_DIR via a bare existsSync-and-return, so they are silently
+inapplicable to Cherry Lane and to every other single-host branch without a
+landing page - correct behaviour, matching the same convention documented
+elsewhere in this checker (rule 9's odsCode gate, rule 6's data-only scope).
+This pass therefore targeted the six rules that DO reach Cherry Lane: 4
+(clash), 5 (closes-before-opens), 6 (unstated day), 8 (no clock time outside
+an hours card, on switch/service-family pages), 9 (odsCode branch with no
+openingHours block) and 10 (JSON-LD hours schema on Cherry Lane's own 12
+service-family pages and 1 switch page).
+
+METHOD
+Tar-based scratch copy (excluding .git) at an isolated path outside the
+tracked tree; tracked repo never opened for writing at any point. Baseline
+branches.json sha256 in the scratch copy confirmed identical to the tracked
+anchor before any mutation. Each injection below was written, the checker
+run, the failure text captured, then the file restored from a pre-injection
+backup (direct byte copy) and sha256-reconfirmed identical before the next
+injection began.
+
+INJECTION 1 (RULE 10, switch page). File:
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html. The
+Monday-Friday session's JSON-LD "closes" changed from 18:30 to 19:00.
+CAUGHT: "JSON-LD opening hours do not match branches.json for
+cherrylane_liverpool", page/data lines printed correctly (page showing
+19:00, data showing 18:30 on all five weekdays, Saturday unaffected).
+Restored; sha256 reconfirmed identical to pre-injection backup.
+
+INJECTION 2 (RULE 10, service-family page). File:
+modules/service/pages/pharmacy-first-cherry-lane-walton.html. Saturday
+session's JSON-LD "opens" changed from 09:00 to 10:00.
+CAUGHT: same message, page/data lines correctly isolating the Saturday
+mismatch only. Restored; sha256 reconfirmed identical.
+
+INJECTION 3 (RULE 8, switch page). File:
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html. FAQ
+answer text widened with "We are also open 9am to 6pm on weekdays for
+walk-ins." (the same class of sentence CLAUDE.md's own worked example uses
+for this fault - Smartts Bootle's real "9:00am to 6:00pm" straight-through
+claim).
+CAUGHT: two separate FAILs, one per clock time found ("9am" and "6pm"),
+each naming the file and explaining a switch/service-family page has no
+hours card to compare a time against. Restored; sha256 reconfirmed
+identical.
+
+INJECTION 4 (RULE 6, data). branches.json, cherrylane_liverpool: the
+Saturday session removed from openingHours.specification entirely, without
+adding Saturday to closedDays.
+CAUGHT: "Saturday is in neither closedDays nor specification. An unstated
+day is published as \"Closed\" ...". Correct, single-cause collateral: all
+12 of Cherry Lane's own switch/service-family pages also failed rule 10,
+since their baked JSON-LD still carries the (now-removed) Saturday session
+while branches.json no longer does - the two rules independently catching
+the same underlying data change from different directions, not
+cross-firing. branches.json restored from the pre-injection backup; sha256
+reconfirmed identical to the standing anchor.
+
+INJECTION 5 (RULE 4, data). branches.json, cherrylane_liverpool: "Monday"
+added to closedDays while Monday remained in specification (the clash rule
+guards against exactly this).
+CAUGHT: "Monday is listed in closedDays and also carries opening times."
+Exactly one failure, no rule-10 collateral this time (the page-side JSON-LD
+for Monday still correctly matches the now-unchanged specification; only
+the closedDays list was touched, and rule 10 does not read closedDays).
+Restored; sha256 reconfirmed identical.
+
+INJECTION 6 (RULE 5, data). branches.json, cherrylane_liverpool: Saturday
+session's "closes" changed to 08:00 (opens stays 09:00, so closes before it
+opens).
+CAUGHT: "session 09:00 to 08:00 does not close after it opens", plus the
+same class of correct rule-10 collateral across all 12 Cherry Lane pages
+(their baked schema still shows the old, valid 09:00-17:00 Saturday session
+disagreeing with the now-invalid data). Restored; sha256 reconfirmed
+identical.
+
+INJECTION 7 (RULE 9, data). branches.json, cherrylane_liverpool: the entire
+openingHours block deleted (odsCode FA226 retained, so the branch stays a
+"real dispensing pharmacy" under the rule's own gate).
+CAUGHT: "carries an odsCode (a real dispensing pharmacy) but has no
+openingHours block at all. Rules 4 to 6 read openingHours and return
+immediately when it is absent...". Also fired rule 10 across all 12 of
+Cherry Lane's own pages ("data: (none)"), which is worth recording
+specifically: rule 9 was written on the 6.3 quality pass (2026-09-12)
+after finding that deleting a branch's openingHours left this checker
+silently clean, backstopped only incidentally by check-gbp-packs.js on a
+branch that happened to carry a GBP pack. Rule 10 did not exist yet at that
+time (it landed later the same day as this pass, per item 6.3's own
+fifteenth-pass write-up and Q38's implementation). This injection shows
+that, for any branch with generated service-family/switch pages, the same
+"delete openingHours entirely" fault is now caught twice over by two
+independent rules in this same file, not once by an unrelated checker.
+branches.json restored from the pre-injection backup; full diff against the
+saved original confirmed empty; sha256 reconfirmed identical to
+169bb5a2...b102.
+
+VERIFICATION AFTER THE ROUND
+Full 36-script suite re-run individually in the scratch copy: 35/35 clean
+except tools/check-cdn-pins.js, which fails with its standing, documented
+"ref does not resolve in git" shape on every scratch copy in this repo's
+history (a git-archive/tar copy carries no .git, so CDN ref resolution
+cannot run) - not a live breach, not related to this pass's injections.
+Tracked repo (real working copy) reconfirmed separately and independently:
+branches.json sha256 unchanged (169bb5a2...b102), git status --porcelain --
+modules core branches.json gbp-packs tools showing only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched, and the full 36-check-*.js suite run individually against the
+tracked repo: 36/36 exit 0.
+
+NO IN-REPO DEFECT FOUND. All six rules exercised (4, 5, 6, 8, 9, 10) behaved
+exactly as documented against Cherry Lane's own data and pages, on first
+attempt, with no unexplained cross-firing. Rules 1, 2, 3 and 7 are
+structurally inapplicable to this branch (no branch landing page exists for
+Cherry Lane), which is itself now a proven, not merely assumed, property of
+this checker for a single-host branch without one.
+
+Guard coverage for item 3.4 now extends to 18 of 36 checkers proven by
+direct injection (up from 17): check-address-region.js,
+check-booking-routes.js, check-branch-identity.js, check-branch-links.js,
+check-em-dashes.js, check-gbp-packs.js, check-jsonld.js, check-map-embeds.js,
+check-nap.js, check-opening-hours.js (new this pass), check-postcodes.js,
+check-seo-keywords.js, check-seo-pattern.js, check-seo-sheets.js,
+check-service-links.js, check-switch-copy.js, check-weight-loss-copy.js,
+check-whatsapp-route.js.
+
+LIVE HALF
+Claude in Chrome connected this run (one browser instance, no Q59
+two-instance conflict). Not spent on a live read this pass: this pass's
+scope was a data/schema-layer checker (opening hours JSON-LD and the data
+rules), and the standing live findings for this item (Q86's two live-only
+Weebly faults; the Q36 footer typo) were last reconfirmed status is
+unchanged since no run has had a chance to fix them, being live-only Weebly
+content outside this repo's write scope. Not re-read this pass to keep
+scope tight to the fresh angle actually under test; not claimed fixed or
+newly reconfirmed either.
+
+QUESTIONS: no new question raised. This pass proved a checker's rules sound
+against a specific branch's data and pages rather than surfacing a decision
+for Rishi.

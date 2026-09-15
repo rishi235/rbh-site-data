@@ -5090,6 +5090,91 @@ whether any OTHER item has similar orphaned evidence files from a run that
 stalled before reaching its own worklist/log/commit steps, since this
 worker's own procedure has no step that goes looking for that.
 
+Quality pass 2026-09-15 (twentieth): REPO HALF CLEAN, ZERO IN-REPO DEFECTS.
+Selected via the standard rotation-pool derivation: all eight remaining
+`[ ]` worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines
+under 6.4/6.5/6.6) still `[BLOCKED]`, so the quality-pass fallback applied;
+the tied-oldest pool at 2026-09-14 was {3.4, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11,
+3.12, 4.1} (every other item having already been taken by one of the day's
+many prior runs), lowest item number 3.4.
+ANSWER PICKUP: one Chrome browser instance connected (no Q59 two-instance
+conflict this run). Newest portal entry still the Q52 answer, dated
+2026-09-01T22:44:51.524Z, unchanged since every run since 2026-09-01. No new
+answer. Q37 and Q43 already correctly recorded as portal replies received
+but not clean decisions; not re-touched.
+WORK DONE: this branch has now had nineteen prior quality passes across
+seventeen checkers, but tools/check-opening-hours.js had never been named
+once (confirmed by grepping the item's own block for "check-opening" and
+"opening-hours" before starting: zero hits), despite it being the checker
+CLAUDE.md's own "locked door" section treats as carrying real patient
+safety weight.
+STRUCTURAL FINDING, not a defect: Cherry Lane has no file in
+modules/branch/pages/ at all - only the six shared-domain branches from
+item 2.2 (Fishlocks x2, McCanns x2, Scorah x2) have one. This checker's
+rules 1-3 and 7 (the visible hours card and its containment rule) are
+scoped to that directory via a bare existsSync-and-return, so they are
+structurally inapplicable to Cherry Lane - correct, not a gap, and now a
+proven property of the checker for a single-host branch rather than an
+assumption. This pass targeted the six rules that DO reach Cherry Lane:
+4 (clash), 5 (closes-before-opens), 6 (unstated day), 8 (no clock time
+outside an hours card, on switch/service-family pages), 9 (odsCode branch
+with no openingHours block) and 10 (JSON-LD hours schema on Cherry Lane's
+own 12 service-family pages and its switch page).
+Baseline: branches.json sha256 confirmed at the standing anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102; full
+36-script suite clean. Tar-based scratch copy outside the tracked tree,
+tracked repo never opened for writing. Seven injections, each restored by
+direct byte copy and sha256-reconfirmed identical before the next: (1)
+switch page's Mon-Fri JSON-LD closing time changed from 18:30 to 19:00 -
+CAUGHT by rule 10, page/data lines correctly isolating the five weekdays;
+(2) Pharmacy First page's Saturday JSON-LD opening time changed from 09:00
+to 10:00 - CAUGHT by rule 10, correctly isolating Saturday only; (3) a "9am
+to 6pm" sentence added to the switch page's FAQ (the same shape as the
+real, already-tracked Smartts Bootle live fault) - CAUGHT by rule 8 as two
+separate FAILs, one per clock time; (4) Saturday's session removed from
+branches.json's specification without adding it to closedDays - CAUGHT by
+rule 6 ("in neither closedDays nor specification"), with correct rule-10
+collateral across all 12 of Cherry Lane's own pages (independent detection
+of the same change, not cross-firing); (5) "Monday" added to closedDays
+while still present in specification - CAUGHT by rule 4 (clash), exactly
+one failure, no collateral; (6) Saturday's closes changed to 08:00 (before
+its own 09:00 opens) - CAUGHT by rule 5, plus the same correct rule-10
+collateral pattern as (4); (7) Cherry Lane's entire openingHours block
+deleted (odsCode retained) - CAUGHT by rule 9 ("carries an odsCode ... but
+has no openingHours block at all"), plus rule 10 firing across all 12 pages
+("data: (none)"). Worth recording: rule 9 was written on item 6.3's
+fourteenth pass (2026-09-12) after finding this exact fault silently clean,
+backstopped only incidentally by check-gbp-packs.js on a branch that
+happened to carry a GBP pack; rule 10 did not exist at that time (it landed
+later the same day, per Q38). This injection shows the same fault is now
+independently caught twice over in this one file for any branch with
+generated pages, not once by an unrelated checker. All seven caught first
+attempt, on their intended rule(s), no unexplained cross-firing.
+Full 36-script suite re-run in the scratch copy: 35/35 clean bar
+check-cdn-pins.js's standing, documented "ref does not resolve in git"
+shape on any scratch copy with no .git (unrelated to this pass). Tracked
+repo reconfirmed independently: branches.json sha256 unchanged, git status
+--porcelain -- modules core branches.json gbp-packs tools showing only the
+two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; full 36-check-*.js suite re-run individually against the tracked
+repo, 36/36 exit 0.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 18 of
+36 checkers proven by direct injection (up from 17).
+LIVE HALF: not spent this pass (Claude in Chrome connected, no Q59
+conflict, but this pass's scope was the data/schema layer and the standing
+live findings - Q86's two Weebly-only faults, the Q36 footer typo - are
+outside this repo's write reach regardless; not re-read this pass to keep
+scope tight, not claimed fixed or freshly reconfirmed either way).
+Evidence: audits/verify-3.4-2026-09-15-twentieth.txt.
+QUESTIONS.json re-read (107 total, 54 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data and pages rather than surfacing a decision for Rishi.
+Next stalest by this run's own computation, for whoever runs next: 3.6,
+3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 4.1 remain tied at 2026-09-14 - re-derive
+rather than assume, since other runs may land in between.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
