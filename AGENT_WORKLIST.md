@@ -25725,6 +25725,40 @@ rather than trust this note - as computed by this pass, the two remaining
       complete. Item 5.8 stays [BLOCKED] (fix choice for the thirteen
       confirmed legacy instances still pending Q16/Q22/Q85/Q98/Q103).
 
+      2026-09-15 (third run today) CORRECTION, not a new sitemap read:
+      "Tiffenbergs (link context only)" above, and the same phrase carried
+      through Q103's note across at least six run entries since
+      2026-08-14, is stale. Tiffenbergs' link context was already read and
+      closed on 2026-09-02, cross-referenced into Q58's own note rather
+      than written up as a fresh addition - "Two link slots point at the
+      legacy page: the top nav item... and a separate body link elsewhere
+      on the same page... Tiffenbergs now sits alongside SK and Hirshmans
+      as a confirmed regime 1 case rather than an unresolved sitemap
+      listing." No later run appears to have re-read Q58's note before
+      copying the "still owes... Tiffenbergs" line forward from its
+      predecessor, so a closed item kept being reported open. Re-read live
+      this run to check for drift rather than trust either record blindly:
+      the homepage (tiffenbergschemist.co.uk) carries four anchors to
+      weight-loss-clinic-aintree.html - a hidden dummy-menu duplicate, the
+      visible desktop nav item, a content image tile, and a hidden mobile
+      nav duplicate - the same desktop-nav/mobile-nav/tile three-slot shape
+      already recorded on 2026-09-02, unchanged. The legacy page itself was
+      not re-fetched this run (its content was already read in full on
+      2026-09-02 and is not the thing that was in question). Correcting the
+      record here: the fourteen-branch Weebly sitemap-and-link-context
+      sweep for item 5.8 has been fully complete since 2026-09-02, not
+      "otherwise complete bar Tiffenbergs" as every run since has stated.
+      The only unread ground left for item 5.8 is Clear Chemist Aintree's
+      remaining twelve online-doctor/weight-loss branded-product sub-pages
+      and seven az-health/obesity articles (Q104), which is not a Weebly
+      branch and sits outside the fourteen-branch sweep proper. QUESTIONS
+      .json Q103's note corrected in place (see QUESTIONS.json step 8 log
+      for this run). No page or repo content changed; documentation-only
+      correction plus one live re-check. Item 5.8 stays [BLOCKED] (fix
+      choice for the fourteen confirmed legacy instances still pending
+      Q16/Q22/Q85/Q98/Q103; only remaining unread ground is Clear Chemist
+      Aintree per Q104).
+
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
 - [ ] [BLOCKED] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
