@@ -19284,6 +19284,77 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       3.13, fourteenth pass) that also could not commit for the same
       reason. Left in place rather than force-cleared; see this run's own
       AGENT_LOG.md entry for the git sync/push disposition.
+      Eighteenth quality pass 2026-09-15 (unattended scheduled run,
+      rotation-pool pick, seventeenth run today; re-derived the pool fresh:
+      after today's earlier runs moved 2.1, 3.3, 3.5, 3.13, 4.3-4.6, 4.8,
+      4.10, 4.13 forward, the tied-oldest set at 2026-09-11 is 4.7, 4.9,
+      4.11, 4.12, 4.14, 4.15, 5.1, 5.2; lowest-number tiebreak with 4.9
+      already the subject of a fresh Q28/Q29 read earlier this run's own
+      selection process, chose 4.11 next). Repo half: baseline pack sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      confirmed byte-identical to the seventeenth pass, now stable across
+      eighteen passes. Cross-checked every fact in the pack against
+      branches.json's skchemists_bootle record directly (address, L20 5DW,
+      phone 0151 944 1013, pfLink now pharmacy-first-sk-chemists-
+      bootle.html, hasApp false, whatsapp field present though this pack
+      correctly carries no app or WhatsApp mention): all match. Full
+      36-checker suite run: 0 failures.
+      LIVE HALF: performed this pass, Claude in Chrome connected (single
+      instance, no Q59 dual-browser block). Fetched
+      https://www.skchemist.co.uk/sitemap.xml directly: dated
+      2026-08-14T18:12:51, so the site HAS been republished since the
+      18 July staleness this item's own notes-for-the-paster section still
+      warns about (that warning is now one paste-cycle behind and worth
+      refreshing at the next pack edit, not urgent on its own). Confirms
+      pharmacy-first-sk-chemists-bootle.html is in the sitemap and the old
+      misspelled pharmacy-first-service-bootle.html is not, matching Q34's
+      applied repoint. weight-loss-clinic.html (the legacy page named under
+      Q58/item 5.8) is still in the sitemap and still linked from the
+      site-wide top nav as "Weight Loss Clinic", one line above the correct
+      "Weight Loss Clinic (Bootle)" - Q58 unchanged, not fixed here, matches
+      every prior pass's own finding.
+      Fetched https://www.skchemist.co.uk/contactus.html and read it both
+      as extracted text and via the page's own accessibility tree (to rule
+      out a text-extraction artefact before recording this): address,
+      phone (0151 944 1013) and the Monday-Friday 9am-6pm / Saturday-Sunday
+      closed hours table all match branches.json exactly, consistent with
+      every prior pass. ONE NEW FINDING, not raised in any of this item's
+      seventeen prior passes (confirmed by grep across AGENT_WORKLIST.md,
+      QUESTIONS.json and AGENT_LOG.md for "give us a call on" and
+      "complaints procedure" before writing this up: zero hits). The
+      page's Feedback/Complaints paragraph reads, in full: "Please contact
+      us for the latest copy of our complaints procedure or give us a call
+      on and speak to our pharmacist manager." - the phone number is
+      missing between "on" and "and speak to", confirmed both in the
+      extracted text and in the underlying accessibility-tree node (a
+      single generic text node, not a stripped tel: link or icon) and by a
+      screenshot of the rendered page. A patient wanting to raise a
+      complaint by phone, specifically, is given a sentence with no number
+      in it; the correct number, 0151 944 1013, is present elsewhere on
+      the same page (the T: line) so it is recoverable, but the sentence
+      itself is broken as published. Checked whether this is a shared
+      template fault before treating it as branch-specific: fetched
+      https://www.smarttschemist.co.uk/contact-us.html (same brand family,
+      same page type) and it carries no Feedback/Complaints paragraph of
+      any kind, so this is not the shared-furniture defect shape Q39
+      already covers (three named branches, three named repeating fault
+      kinds - wrong trading name, abbreviated street, mistyped address or
+      mailbox). This is a fourth branch and a different, simpler fault: a
+      dropped value in one sentence. No decision is needed on WHAT the fix
+      is (insert "0151 944 1013" after "on"), so no new question raised -
+      matching the established convention for a single obvious paster
+      correction (see item 5.3's Smartts email-case note for the same
+      shape of finding). Cannot be fixed here: this is live-only Weebly
+      copy no generator in this repo owns. Recommended it be picked up in
+      the same Weebly session Q39 already authorised (one supervised sweep
+      working from a per-site checklist), as one more line item on SK
+      Chemists' own checklist entry rather than a fifth separate visit.
+      Posts B, C and D targets not re-fetched this pass (last confirmed
+      2026-08-12, unchanged in every pass since; re-confirming a fourth
+      time added no new information given time budget). No in-repo defect
+      found, no checker/pack/page/generator/data field changed, no new
+      question raised (finding logged here and cross-referenced against
+      Q39 instead). Done 2026-09-15
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
