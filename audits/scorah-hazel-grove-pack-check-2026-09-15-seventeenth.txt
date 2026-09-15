@@ -1,0 +1,185 @@
+Item 4.5 quality pass (seventeenth), Scorah Chemists Hazel Grove GBP pack
+Unattended scheduled run, audit-backlog-worker, 2026-09-15 (seventh run today)
+
+SELECTION
+All eight remaining unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] via
+grep -n "^- \[ \]" (5.3, 5.4, 5.5, 5.8, 6.1, 6.4/6.5, 6.6). Rotation pool
+re-derived fresh with a Python pass over every "- [x]" item header in
+AGENT_WORKLIST.md, taking the maximum date anywhere in each item's own block
+text and excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8). Thirteen items tied on 2026-09-11 once 4.3 and 4.6 (both touched by
+earlier runs today, 2026-09-15) are excluded: 4.4, 4.5, 4.7, 4.8, 4.9, 4.10,
+4.11, 4.12, 4.13, 4.14, 4.15, 5.1, 5.2. Broke the tie with git log commit
+timestamps for each item's own most recent pass on 2026-09-11: 4.5 committed
+04:42:59+01:00, the earliest of the thirteen (next was 4.13 at 05:41:36).
+4.5 (Scorah Chemists Hazel Grove GBP pack) selected.
+
+BASELINE
+sha256 of gbp-packs/scorah-hazel-grove.md at run start: 968a86dce9de706e
+2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a - changed since the
+sixteenth pass's own recorded sha (64fd2ae6...b7a4038). Checked git log:
+the change is commit e03e9fb (2026-09-14, item 5.3's Q34-driven repoint),
+which repointed Post A's button from the shared
+pharmacy-first-service-hazel-grove-bramhall.html link to the branch's own
+generated pharmacy-first-scorah-hazel-grove.html page and replaced the
+paster note accordingly. A legitimate, already-recorded edit under a
+different worklist item, not a regression; nothing further to do about it
+here.
+
+Full node tools/check-*.js suite run individually against the tracked repo
+before touching anything: 36/36 exit 0. node tools/check-gbp-packs.js on its own: 0 failures, 7
+pre-existing WARNs (5 KNOWN address-post-town entries against Q64, 2 live-only
+link targets on other branches), none naming this pack as new since the
+sixteenth pass.
+
+NEW ANGLE: three real changes to tools/check-gbp-packs.js since the
+sixteenth pass's own commit (2026-09-11T04:42:59+01:00), found via git log
+--since on the file:
+  - adf7a398 (2026-09-11, item 3.4 seventeenth pass): fixed a dead mojibake
+    EM_DASH character class, replaced with a proper codepoint-based one.
+    Proved at birth only against gbp-packs/cherry-lane-walton.md, later
+    proved against McCanns Aigburth (item 4.6, this morning) - never yet
+    proved against this pack.
+  - 03dd8761 (2026-09-11, item 4.9 sixteenth pass): widened the reverse
+    SERVICE_RULES check (a Services-bullet claim for a widget the branch
+    does not hold) to also scan POST BODIES, not just the Services section
+    bullets. Proved at birth against clear-aintree.md, later proved against
+    Hirshmans Ainsdale (item 4.3, this morning) - never yet proved against
+    this pack.
+  - 9dd79bbf (2026-09-11, item 4.10 fifteenth pass): fixed a CLINIC_QUALIFIERS
+    word-order false positive (the private/paid qualifier regex only
+    accepted "private, paid service", not "paid, private service"). Proved
+    at birth against smartts-bootle.md by showing the OLD code failed that
+    order - never yet proved against this pack, and Hirshmans (item 4.3,
+    this morning) turned out structurally exempt (KNOWN_CLINIC_QUALIFIER),
+    so this pack is the first genuine test of the fix's post-fix behaviour
+    against a non-exempt pack's own real prose.
+
+None of the three had been proven against gbp-packs/scorah-hazel-grove.md
+specifically. All three tested this pass, using a disposable rsync scratch
+copy of the whole repo (excluding .git) at
+/sessions/gifted-great-volta/scratch45/repo, built and torn down entirely
+within this run; the tracked repo's own gbp-packs/scorah-hazel-grove.md and
+branches.json were never opened for writing.
+
+TEST 1 - EM_DASH (adf7a398)
+Inserted a literal U+2014 into Post A's body ("No GP appointment or referral
+needed - book or just walk in." -> "...needed — book or just walk in.").
+RESULT: node tools/check-gbp-packs.js exited 1, exactly one FAIL naming line
+84 and the correct context ("needed — book or just walk in. Age ranges set
+by the NHS apply to each"), all pre-existing WARNs unchanged. Restored by
+byte copy from the tracked repo's own file; sha256 reconfirmed identical
+(968a86dc...61045a).
+
+TEST 2 - CLINIC_QUALIFIERS word order (9dd79bbf), regression proof
+Swapped Post C's "This is a private, paid service and it is not right for
+everyone" to "This is a paid, private service and it is not right for
+everyone" (the order the pre-fix regex used to reject). RESULT: exit 0, 0
+failures - the widened rule correctly accepts this order against a second
+real pack's own prose, not just the synthetic Smartts Bootle proof. Restored
+by byte copy.
+
+TEST 2b - negative control (same rule, same pack)
+Removed the qualifier sentence entirely from Post C ("This is a paid,
+private service and it is not right for everyone - the pharmacist will
+advise." deleted). RESULT: exit 1, two FAILs, both naming "Post C - Weight
+loss clinic" and quoting the exact missing-qualifier wording
+(weightLossPaid and weightLossSuitability), confirming the rule still
+catches a genuine absence and did not become permissive across the board.
+Restored by byte copy; sha256 reconfirmed identical.
+
+TEST 3 - SERVICE_RULES reverse check on post bodies (03dd8761)
+This pack holds all five widgets (bloodPressure, contraception,
+pharmacyFirst, weightLoss, travelClinic - confirmed against branches.json's
+scorah_hazel entry), so there is no real missing-service case in the
+tracked data to exploit. Built the same scratch-branches.json / scratch-pack
+combination the item 4.3 pass used against Hirshmans: removed the
+contraception key from scorah_hazel's widgets block in the scratch copy of
+branches.json, and added a false contraception claim to Post B's body ("A
+local team on Macclesfield Road you can actually speak to," -> "...you can
+actually speak to, and we also offer the NHS contraception service.").
+RESULT: exit 1, two FAILs - the pre-existing Services-section rule (Section
+3 genuinely lists NHS contraception service, so that rule fires regardless)
+plus the new post-body rule naming "Post B - Switch your prescriptions"
+specifically, confirming the post-body scan is a real independent check
+rather than redundant with the Services-section rule. Both scratch files
+restored by byte copy; sha256 reconfirmed identical to the pre-injection
+backups (branches.json 169bb5a2...ad91f2ad1b102, pack
+968a86dc...61045a).
+
+Scratch directory deleted in full afterwards
+(/sessions/gifted-great-volta/scratch45). Full 36-checker suite re-run
+against the tracked repo after all three tests: 36/36 exit 0. git status
+--porcelain -- gbp-packs branches.json modules core tools: empty (the two
+pre-existing untracked artefacts other recent passes have already noted,
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, present
+throughout and not touched).
+
+SCRATCH-COPY LIMITATION NOTED
+tools/check-cdn-pins.js failed when run inside the .git-less rsync scratch
+copy (6 FAILs, all "ref does not resolve in git" / "fetches branches.json
+from ref main and that ref does not resolve in git") because the checker
+resolves refs via git against a repository that was deliberately excluded
+from the scratch copy (--exclude='.git', to keep the copy small and fast).
+Re-ran node tools/check-cdn-pins.js directly against the tracked repo (which
+does have .git and network access to the real GitHub remote) to confirm this
+was a scratch-copy artefact, not a real finding: clean, 3 warnings, 7 known
+issues awaiting Q45, matching every other pass's baseline. Not logged as a
+new finding; recorded here so a future pass does not waste time rediscovering
+the same scratch-copy quirk.
+
+LIVE HALF
+Claude in Chrome connected this run, read-only throughout (navigate,
+get_page_text, tabs_close_mcp only; nothing clicked, typed or submitted).
+Read all five of the pack's own live targets:
+  - Landing page (pharmacy-scorah-hazel-grove.html): still 404s, unchanged
+    since the seventh pass (Q35 class - six branch landing pages queued for
+    a single Weebly paste session, already answered 2026-09-01, not yet
+    actioned).
+  - Post A (pharmacy-first-scorah-hazel-grove.html): 200, correct branch
+    name, address, phone and NHSmail throughout, all seven Pharmacy First
+    conditions with correct age cohorts, correct Bramhall sister-branch
+    footer block - confirms the 2026-09-14 repoint (item 5.3) is holding.
+    Still carries the live em-dash mojibake ("You can refer yourself — just
+    book below or walk in.") against the repo's own corrected full stop -
+    the already-tracked Q7/5.1 paste lag, not new, not actionable from this
+    repo until service-module-phase1 is fast-forwarded (item 5.5/Q13,
+    already answered by Rishi but blocked pending his own supervised
+    session).
+  - Post B (switch-prescriptions-scorah-hazel-grove.html): 200. Confirms
+    the already-tracked Q49 contradiction is still live and unchanged: the
+    hero reads the unconditional "We contact your GP. We handle everything.
+    You do nothing." while the FAQ two sections down hedges ("Not always...
+    if anything extra is needed, we will tell you clearly" - worded
+    slightly differently live than the repo's own FAQ text, but the same
+    substantive hedge). Checked QUESTIONS.json: Q49 has carried status
+    "answered" since 2026-09-01 (Rishi's own portal reply, recommended
+    option: qualify the hero, leave the hedged lines alone, one edit at
+    source), but the fix has not been applied to tools/build-switch-pages.js
+    and the contradiction is still pinned in KNOWN in
+    tools/check-switch-copy.js against this question. NOT implemented this
+    pass: it is an estate-wide generator change affecting all 15 switch
+    pages (item 3.12's own territory, not item 4.5's), and switch pages are
+    pinned to the immutable CDN ref 6a275e1 (CLAUDE.md, "CDN pins"), so even
+    a same-session repo fix would not reach a live patient until the
+    blocked item 5.5/Q13 re-pin happens anyway - the same shape as the
+    already-fixed-but-not-live Q7 em dash. Flagged below as a forward note
+    for a future run to pick up as its own selected item, rather than folded
+    into this pass's scope.
+  - Post C (weight-loss-clinic-scorah-hazel-grove.html): 200, names no
+    medicines, states the private/paid/supervised/not-right-for-everyone
+    qualifiers correctly, matches the pack.
+  - Post D (travel-clinic-scorah-hazel-grove.html): 200, states the
+    subject-to-availability-and-clinical-suitability qualifier correctly,
+    matches the pack.
+
+RESULT
+Zero in-repo defect. Three genuinely new checker rules (EM_DASH,
+CLINIC_QUALIFIERS word order, SERVICE_RULES post-body reverse check) proven
+against this pack's own copy for the first time, all behaving correctly (two
+positive catches, one regression-proof pass, one negative-control catch). No
+new live finding beyond what earlier passes already track. No new question.
+One forward-note-only item surfaced: Q49's already-answered fix remains
+unimplemented estate-wide; recommended as a future run's own selected item
+rather than actioned here.

@@ -15508,6 +15508,44 @@ No new question: this was a mechanical fix to a checker's own text-reading
 shape, the same class of fix CLAUDE.md already documents repeatedly for this
 repo (map iframe, phone number, meta keywords), not a decision for Rishi.
 See audits/scorah-hazel-grove-pack-check-2026-09-11-sixteenth.txt.
+Quality pass 2026-09-15 (seventeenth pass, unattended scheduled run): pack's
+sha256 changed since the sixteenth pass to 968a86dc...61045a, confirmed as a
+legitimate edit under item 5.3 (2026-09-14, Post A repointed to the
+branch-specific Pharmacy First page under Q34), not a regression. Baseline:
+36/36 checkers 0 failures. Three tools/check-gbp-packs.js rules that changed
+since the sixteenth pass (EM_DASH codepoint fix, CLINIC_QUALIFIERS word-order
+fix, SERVICE_RULES reverse check widened onto post bodies) had none yet been
+proven against this pack specifically; all three tested by injection against
+a disposable rsync scratch copy (tracked files never opened for writing).
+EM_DASH: inserted U+2014 into Post A, caught cleanly (line 84), restored.
+CLINIC_QUALIFIERS: swapped Post C's "private, paid" to "paid, private" -
+passed cleanly (0 failures), proving the widened rule accepts this order
+against a second real pack; negative control (removed the qualifier
+sentence entirely) still failed correctly, two FAILs naming Post C. Restored.
+SERVICE_RULES reverse: this pack holds all five widgets, so no real
+missing-service case exists in the tracked data; built a scratch
+branches.json with the contraception widget removed and a false
+contraception claim added to Post B's body - caught cleanly, two FAILs (the
+pre-existing Services-section rule plus the new post-body rule naming Post B
+specifically). Restored, sha256 reconfirmed identical throughout. Scratch
+copy noted a check-cdn-pins.js false-positive of its own making (the .git-less
+rsync copy cannot resolve refs); confirmed clean on the tracked repo, not a
+finding. Full 36-checker suite re-run clean after all tests; git status on
+gbp-packs/branches.json/modules/core/tools empty bar the two pre-existing
+untracked artefacts other passes already note. LIVE HALF: Claude in Chrome
+connected, read-only. Landing page still 404s (Q35, unchanged). Post A
+confirms the 2026-09-14 repoint holding, still carries the pre-Q7-fix live
+em dash (paste lag, blocked on 5.5/Q13). Post B still carries the Q49
+contradiction (hero unconditional, FAQ hedged) - Q49 has been "answered" by
+Rishi since 2026-09-01 (qualify the hero, one edit to tools/build-switch-
+pages.js) but the fix has never been applied; NOT implemented this pass, as
+it is estate-wide scope belonging to item 3.12/Q49 rather than this item,
+and switch pages are CDN-pinned to an immutable ref so a repo fix alone
+would not reach a live patient until 5.5/Q13 anyway. Flagged as a strong
+candidate for a future run's own selected item rather than folded in here.
+Posts C and D correct, no medicines named, qualifiers present. No in-repo
+defect, no new live finding beyond what is already tracked, no new
+question. See audits/scorah-hazel-grove-pack-check-2026-09-15-seventeenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
