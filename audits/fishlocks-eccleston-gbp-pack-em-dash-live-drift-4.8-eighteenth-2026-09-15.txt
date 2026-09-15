@@ -1,0 +1,125 @@
+Item 4.8 quality pass (eighteenth), Fishlocks Chemist Eccleston GBP pack
+Unattended scheduled run, audit-backlog-worker, 2026-09-15
+
+SELECTION
+All unchecked AGENT_WORKLIST.md items confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4/6.5 under Q60, 6.6). Quality-pass fallback applied. Rotation pool
+re-derived fresh: 42 [x] item headers parsed, dates extracted from each item's
+own block text, standing one-offs excluded (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8),
+items already touched today excluded (4.3, 4.5, 4.6, 4.13). Ten items tied on
+2026-09-11: 4.4, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 4.14, 4.15, 5.1. Tie broken by
+git commit timestamp of each item's own most recent pass that day:
+
+  4.8   2026-09-11 06:10:19 +0100  <- earliest, selected
+  4.10  2026-09-11 06:41:39 +0100
+  4.9   2026-09-11 07:18:47 +0100
+  4.12  2026-09-11 07:42:17 +0100
+  4.15  2026-09-11 08:09:25 +0100
+  4.7   2026-09-11 10:13:45 +0100
+  4.14  2026-09-11 10:40:47 +0100
+  4.4   2026-09-11 14:14:36 +0100
+  4.11  2026-09-11 23:37:29 +0100 (backlog catch-up commit, not true pass time)
+  5.1   2026-09-11 23:46:02 +0100 (backlog catch-up commit, not true pass time)
+
+Item 4.8 (Fishlocks Chemist Eccleston GBP pack) selected.
+
+BASELINE
+sha256 of gbp-packs/fishlocks-eccleston.md: confirmed unchanged since the
+seventeenth pass -
+5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+All 36 tools/check-*.js run individually against the tracked repo: 36/36
+exit 0. node tools/check-gbp-packs.js: 0 failures, 14 known WARNs (all
+concerning other branches or already-tracked Q64/Q72 exemptions).
+
+NEW ANGLE
+Checked git log for tools/check-gbp-packs.js changes since the seventeenth
+pass's own commit (19bd41d, 2026-09-11 06:10:19+01:00): adf7a39 (EM_DASH
+codepoint fix, item 3.4 seventeenth pass, proven at birth only against
+gbp-packs/cherry-lane-walton.md) had not yet been tested against this pack's
+own copy. Other checker changes in the window (03dd876 SERVICE_RULES reverse
+check, 9dd79bb CLINIC_QUALIFIERS word order, 3bdb4cd check-opening-hours rule
+9, 49b3b15 check-postcodes rule 6, 7a5034b check-service-links RULE 1 scope)
+either do not read gbp-packs/ at all or have already been proven against this
+pack on an earlier pass.
+
+INJECTION
+Backed up gbp-packs/fishlocks-eccleston.md byte for byte before editing.
+Inserted a literal U+2014 into Post A's published copy: "No GP appointment or
+referral needed - book or just walk in." became "...needed — book or just
+walk in." (line 93). Ran node tools/check-gbp-packs.js: exit 1, exactly one
+FAIL naming line 93 and the correct context, all 14 pre-existing WARNs
+unchanged. Restored by byte copy (cp, not git checkout); sha256 reconfirmed
+identical to the pre-injection backup
+(5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa). Full
+36-checker suite re-run clean after restore (36/36 exit 0). git status
+--porcelain -- gbp-packs branches.json modules core tools showed only the two
+pre-existing untracked artefacts every recent pass already notes
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. gbp-packs is not a generator input, so no rebuild was needed.
+
+LIVE HALF
+Claude in Chrome connected this run, read-only throughout (navigate,
+get_page_text, browser_batch; nothing clicked, typed or submitted). Read all
+five of the pack's own live targets on www.fishlockpharmacy.co.uk.
+
+- Profile-website landing page (pharmacy-fishlocks-eccleston.html): still
+  404, unchanged, known queued-paste state (5.3/5.4).
+- Post A (pharmacy-first-fishlocks-eccleston.html): 200. All seven Pharmacy
+  First conditions present with correct age ranges. Carries the known live
+  em-dash mojibake in service.js's runtime-rendered banner ("You can refer
+  yourself — just book below or walk in.") - already-tracked Q7/5.1 paste
+  lag, not re-raised.
+- Post B (switch-prescriptions-fishlocks-eccleston.html): 200. Hero carries
+  the unqualified "We contact your GP. We handle everything. You do
+  nothing." against the FAQ's own hedged answer two sections down - the
+  already-tracked, already-answered-but-unimplemented Q49 contradiction, not
+  re-raised. App card present and correctly named "RB Healthcare Pharmacy
+  app" (fishlocks_eccleston is hasApp true).
+- Post C (weight-loss-clinic-fishlocks-eccleston.html): 200. No medicine
+  named, no superlative or efficacy claim, no Buy Now button, eligibility
+  section balanced - consistent with prior passes' "clean" verdict on those
+  elements.
+
+  NEW FINDING this pass: two sentences on this live page carry a live en
+  dash (U+2013) joined to a lower-case continuation where the repo's own
+  generated page uses a plain full stop and a capital letter. Confirmed by
+  direct comparison against modules/service/pages/weight-loss-clinic-
+  fishlocks-eccleston.html:
+
+  Repo (line 24): "...and it is not right for everyone. See below."
+  Live:            "...and it is not right for everyone – see below."
+
+  Repo (line 59): "...will assess your suitability at consultation. Nothing
+                    below is a guarantee of treatment, a specific medicine,
+                    or a specific outcome."
+  Live:            "...will assess your suitability at consultation –
+                    nothing below is a guarantee of treatment, a specific
+                    medicine, or a specific outcome."
+
+  This is the identical wording pattern and character Q92 already found on
+  Cherry Lane Pharmacy Walton's own weight loss page (tenth pass on item 4.2,
+  2026-09-02) - the second branch now confirmed with this exact drift. Same
+  class of fault as the already-tracked Q7/5.1 switch-page em dash paste-lag:
+  a full stop replaced by a dash somewhere between the generator and the live
+  Weebly paste. Compliance substance unaffected: both qualifying phrases
+  ("not right for everyone", "nothing below is a guarantee") survive intact,
+  no medicine named, no claim added. Raised as Q105, recommending it fold
+  into the existing paste-lag backlog (Q7/5.1, Q36, Q92) and flagging that a
+  future pass should sweep the remaining branches' own live weight loss pages
+  for the same pattern to establish scope.
+
+- Post D (travel-clinic-fishlocks-eccleston.html): 200. Private/paid framing
+  present, "subject to availability and clinical suitability" throughout, no
+  medicine or vaccine named by brand, four safety cohorts present. No
+  punctuation drift found on this page (checked the same way; its own
+  sentences did not show the en-dash pattern).
+
+RESULT
+Zero in-repo defect. One genuinely new checker rule (EM_DASH codepoint fix)
+proven against this pack's own copy for the first time. One new live-side
+finding: en dash punctuation drift on the weight loss page, second branch
+confirmed with this exact pattern, raised as Q105. No page or repo content
+changed as a result of the live finding (live Weebly paste, outside this
+repo's build process; pricing/regulatory copy timing is not an unattended
+run's decision to make).

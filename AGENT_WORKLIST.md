@@ -17224,6 +17224,49 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       McCanns/Scorah pack) remains open for whichever of those items' own
       passes comes next.
       See audits/fishlocks-eccleston-gbp-pack-app-membership-4.8-seventeenth-2026-09-11.txt.
+      Quality pass 2026-09-15 (eighteenth, unattended run): stalest item in a
+      ten-way tie re-derived fresh for the rotation pool (4.4, 4.7, 4.8, 4.9,
+      4.10, 4.11, 4.12, 4.14, 4.15, 5.1, all last touched 2026-09-11), broken
+      by git commit timestamp - 4.8's own seventeenth pass at 06:10:19+01:00
+      was the earliest. Baseline: sha256 of the pack unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), all
+      36 checkers green, check-gbp-packs.js 0 failures/14 known WARNs.
+      NEW ANGLE: the EM_DASH codepoint fix (commit adf7a39, item 3.4
+      seventeenth pass) had been proven against four sibling packs but never
+      against this pack's own copy. Inserted a literal em dash into Post A's
+      published copy ("...needed - book or just walk in." ->
+      "...needed — book or just walk in.") - CAUGHT cleanly, one FAIL naming
+      line 93 and the correct context. Restored by byte copy, sha256
+      reconfirmed identical; full 36-checker suite re-run clean; git status
+      on gbp-packs/branches.json/modules/core/tools empty bar the two
+      pre-existing untracked artefacts every recent pass already notes. No
+      in-repo defect.
+      LIVE HALF: Claude in Chrome connected this run, read-only throughout.
+      Landing page still 404 (known queued-paste state, 5.3/5.4). Post A
+      carries the known service.js runtime em-dash mojibake (Q7/5.1, not
+      re-raised). Post B's hero still carries the unqualified "We contact
+      your GP. We handle everything. You do nothing." against its own FAQ's
+      hedged answer (Q49, already answered but unimplemented, not
+      re-raised); app card correct. Post C (weight loss) still names no
+      medicine and makes no efficacy or pricing claim, but a direct
+      comparison against modules/service/pages/weight-loss-clinic-
+      fishlocks-eccleston.html found a NEW live-side finding: two sentences
+      that read as a plain full stop plus capital letter in the repo
+      ("...it is not right for everyone. See below." and "...consultation.
+      Nothing below is a guarantee...") instead render live with an en dash
+      joined to a lower-case continuation ("...it is not right for everyone
+      – see below" and "...consultation – nothing below is a
+      guarantee..."). This is the identical pattern and character Q92 found
+      on Cherry Lane's own weight loss page (tenth pass on item 4.2,
+      2026-09-02) - the second branch now confirmed with this exact drift.
+      Compliance substance unaffected: both qualifiers survive, no medicine
+      named, no claim added. Post D (travel clinic) checked the same way,
+      no drift found. Raised as Q105, recommending it fold into the
+      existing paste-lag backlog (Q7/5.1, Q36, Q92) and flagging that a
+      future pass should sweep the remaining branches' own live weight loss
+      pages for the same pattern to establish scope before any repaste
+      decision is actioned.
+      See audits/fishlocks-eccleston-gbp-pack-em-dash-live-drift-4.8-eighteenth-2026-09-15.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
