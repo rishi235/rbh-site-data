@@ -3320,6 +3320,63 @@ audits/seo-pattern-branchof-untyped-3.1-eighteenth-2026-09-15.txt.
       name, first found 2026-09-06) were not re-checked this pass and should
       not be assumed unchanged. No in-repo defect, no new question. Evidence
       in audits/scorah-item-3.2-quality-pass-2026-09-12-seventeenth.txt.
+      Quality pass 2026-09-15 (eighteenth, unattended scheduled run via
+      Cowork, independently re-derived as tied-oldest of the rotation pool
+      after excluding the standing one-off set - 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8 - via a header-to-next-header date scan of every completed
+      item's own embedded dates: tied-oldest at 2026-09-12 was {3.2, 6.2,
+      6.3} once the day's twenty-nine other runs had each taken every other
+      item in the prior tied-oldest pool; lowest item number chosen as
+      tiebreak). Seventeen prior passes had proved check-seo-pattern,
+      check-seo-lengths, check-seo-sheets, check-seo-keywords,
+      check-branch-identity, check-fragment-targets, check-jsonld,
+      check-opening-hours, check-branch-links, check-booking-routes,
+      check-gbp-packs and check-app-membership against Scorah's own pages or
+      data by direct injection; check-switch-copy.js had never been named
+      once. Baseline: all 36 checkers exit 0, branches.json sha256 matches
+      the standing anchor. Full repo copied by tar (excluding .git) to a
+      scratch directory under the outputs mount, tracked repo never opened
+      for writing. Three injections against Scorah's two switch pages, each
+      restored by direct copy and sha256-reconfirmed byte-identical before
+      the next: (1) rule 8 (town) - the trust-bar line on
+      switch-prescriptions-scorah-bramhall.html changed from "Local
+      Bramhall team" to "Local Ainsdale team" - CAUGHT, missing own town
+      plus naming both fishlocks_ainsdale's and hirshmans_ainsdale's shared
+      town, plus the expected rule-3 verbatim collateral; (2) rule 9
+      (form-copy) - the mobile input on
+      switch-prescriptions-scorah-hazel-grove.html marked `required` while
+      step 1 still calls it optional - CAUGHT, exactly one failure; (3) rule
+      10 (collection notice) - the privacy-notice paragraph deleted from
+      switch-prescriptions-scorah-bramhall.html - CAUGHT, the collection-
+      notice failure plus the expected rule-3 verbatim collateral. All three
+      fired on their intended rule(s) only, first attempt. Full 36-checker
+      suite and all six generators re-run clean after the final restore;
+      tracked repo confirmed untouched by sha256 and git status --porcelain
+      (only the two pre-existing untracked strays). No in-repo defect, no
+      new fault class, no new question. LIVE HALF PERFORMED (Claude in
+      Chrome connected this run): both switch pages' hero copy and meta
+      description still carry the pre-Q49 unconditional wording, matching
+      the repo's own pre-fix state and confirming the expected paste-lag
+      (Q49 answered 2026-09-01, applied in the repo earlier today, Weebly
+      paste still outstanding, queued under 5.3/5.4). Incidentally, and not
+      a new question, reconfirmed the standing Q7/item-5.1 em-dash
+      paste-lag on Scorah for the first time: the live Bramhall page's "How
+      switching ... works" lead paragraph still carries the pre-5.1
+      generator's em dash, corrupted to a THIRD distinct mojibake pattern
+      (differing from the one already recorded on Cherry Lane, 2026-08-31),
+      while the Hazel Grove sister page and a spot-check of Fishlocks
+      Ainsdale's own switch page both carry the same pre-5.1 sentence as a
+      clean, correctly rendered em dash rather than mojibake - confirming
+      this is an estate-wide paste-lag (three of fifteen branches now
+      sampled, two different domains) rather than a Scorah- or
+      Bramhall-specific fault, with the mojibake itself being a per-site
+      paste artefact on top of the already-tracked em-dash lag rather than
+      a separate defect. Already fully covered by Q7/item 5.1; no repo
+      action possible on live-only Weebly content; recorded only to sharpen
+      the evidence trail for the eventual paste sweep. Guard coverage for
+      item 3.2 now extends to 13 of 36 checkers proven by direct injection
+      (up from 12). Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-15-eighteenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

@@ -1,0 +1,156 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - eighteenth quality pass, 2026-09-15
+Fresh angle: tools/check-switch-copy.js against Scorah's two switch pages
+
+BASELINE
+--------
+- All 36 tools/check-*.js exit 0 on the tracked repo before any work.
+- branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the standing regression anchor).
+- switch-prescriptions-scorah-bramhall.html sha256
+  f876fc5e5f305af2de1c2ca8ddf69754ff9b2d7150e32baaf0b2a5f73dbb34c5
+- switch-prescriptions-scorah-hazel-grove.html sha256
+  f5357da81e5af2eac7803ef634058e75fb65b19a6d4cdc06152c6b9828c3f754
+- check-switch-copy.js alone: "OK - 15 switch page(s), 33 line(s) of body copy,
+  15 banner(s) read for where they send people, 11 rules, 3 accepted breach(es)
+  pinned to a question."
+
+WHY THIS CHECKER, WHY NOW
+--------------------------
+Seventeen prior passes on item 3.2 had proved, by direct injection against
+Scorah's own pages or data: check-seo-pattern, check-seo-lengths,
+check-seo-sheets, check-seo-keywords, check-branch-identity,
+check-fragment-targets, check-jsonld, check-opening-hours, check-branch-links,
+check-booking-routes, check-gbp-packs and check-app-membership (grep count of
+each checker's own filename inside item 3.2's worklist block, confirmed by a
+Python scan of the block text). check-switch-copy.js had a zero count. It is
+the checker CLAUDE.md documents as reading the page that "asks for the most"
+(name, date of birth, contact details) and it holds eleven rules, three of
+them (8 town, 9 form-copy, 10 collection-notice) not yet proven against either
+Scorah switch page.
+
+METHOD
+------
+Full repo copied by tar (excluding .git) to a scratch directory under the
+outputs mount (tracked repo never opened for writing). Baseline check on the
+scratch copy matched the tracked repo exactly. Three injections, each restored
+by direct copy from the tracked repo and sha256-reconfirmed byte-identical
+before the next injection and after the last:
+
+1. RULE 8 (town). switch-prescriptions-scorah-bramhall.html: the trust-bar
+   line "Local Bramhall team" changed to "Local Ainsdale team".
+   CAUGHT - 4 failures: [verbatim] the generator's exact line no longer
+   present (expected collateral from RULE 3, since the same substring is also
+   part of the static-copy match); [town] trust bar does not name Bramhall;
+   [town] body copy names Ainsdale, which is fishlocks_ainsdale's town;
+   [town] body copy names Ainsdale, which is hirshmans_ainsdale's town (two
+   branches share that town, so both fire). All four on the intended rule
+   family, first attempt.
+   Restored by copy from the tracked repo; sha256 back to
+   f876fc5e5f305af2de1c2ca8ddf69754ff9b2d7150e32baaf0b2a5f73dbb34c5 before the
+   next injection; check-switch-copy.js clean again.
+
+2. RULE 9 (form-copy). switch-prescriptions-scorah-hazel-grove.html: the
+   mobile <input> given a `required` attribute while step 1's sentence still
+   reads "Mobile and email are optional."
+   CAUGHT - exactly 1 failure: [form-copy] "step 1 calls mobile optional and
+   the input is marked required." No cross-fire on the 36-checker suite.
+   Restored by copy; sha256 back to
+   f5357da81e5af2eac7803ef634058e75fb65b19a6d4cdc06152c6b9828c3f754; clean
+   again.
+
+3. RULE 10 (collection notice). switch-prescriptions-scorah-bramhall.html:
+   the `<p class="privacy">We will only use your details to help process
+   your switch request.</p>` line deleted outright.
+   CAUGHT - 2 failures: [verbatim] the same line missing from RULE 3's
+   static-copy check (expected collateral, same line is both the collection
+   notice and part of the exact body copy); [collection-notice] "the form
+   collects a name, a date of birth and contact details and the page carries
+   no statement of what they are used for at the point of collection."
+   Restored by copy; sha256 back to
+   f876fc5e5f305af2de1c2ca8ddf69754ff9b2d7150e32baaf0b2a5f73dbb34c5; clean
+   again.
+
+All three fired on their intended rule(s) only, first attempt, no
+unexplained cross-firing beyond the expected RULE 3 (verbatim) collateral,
+which is intrinsic to how the checker composes its own static-copy list (the
+same line often serves two of the checker's own rules at once). Rules 1
+(source), 2 (pages), 3 (verbatim), 4 (one-answer-per-question), 5
+(continuity), 6 (time claim), 7 (no medicines/clinical claim) and 11 (banner)
+are estate-wide or generator-wide rather than branch-specific and were judged
+out of scope for a branch-targeted injection pass; rules 4 and 5 are also
+currently pinned in the checker's own KNOWN list pending the Weebly paste run
+that applies Q49's answer live (see LIVE HALF below - the repo side of Q49
+was already applied earlier today, 2026-09-15, per the checker's own header
+comment).
+
+Full 36-checker suite re-run clean after the final restore (identical to
+baseline). All six generators re-run from branches.json: sha256 of every
+file under modules/ before and after, byte-identical, zero diff. Tracked
+repo confirmed untouched throughout: git status --porcelain -- modules/
+core/ branches.json gbp-packs/ tools/ status/ showed only the two
+long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Scratch directory renamed rather than deleted afterwards (this
+sandbox mount rejects unlink() estate-wide, standing Q87/Q96), not a
+tracked-repo change.
+
+LIVE HALF (Claude in Chrome connected this run)
+------------------------------------------------
+Both Scorah switch pages read live, plus a comparison fetch of Fishlocks
+Ainsdale's switch page to scope a finding correctly before writing it up.
+
+- Both landing pages (pharmacy-scorah-bramhall.html,
+  pharmacy-scorah-hazel-grove.html) not re-checked this pass; standing since
+  2026-08-12/2026-09-06 (both 404) and not assumed unchanged.
+- Hero paragraph and hero bullets on both live switch pages still read the
+  PRE-Q49 unconditional wording ("We contact your GP. We handle everything.
+  You do nothing." / "We handle the full switch for you" / "No interruption
+  to your medication" with no "wherever possible" hedge), and the live meta
+  description still reads "we contact your GP and handle everything" with no
+  hedge. The repo's own generator and generated pages already carry the
+  hedged Q49 wording (confirmed by grep: build-switch-pages.js line 177 and
+  the tracked switch-prescriptions-scorah-bramhall.html line 21 both read
+  "We contact your GP where it is needed. We handle what we can. We will
+  tell you if anything else is needed."). This is the expected, already-
+  documented paste-lag: Q49 was answered 2026-09-01 and applied in the repo
+  earlier today, 2026-09-15, but the Weebly paste run that takes it live on
+  all fifteen branches is separate, unactioned, manual work (per the
+  checker's own KNOWN-list comment). Not a new finding.
+- INCIDENTAL, ALREADY KNOWN, RECONFIRMED ON A BRANCH NOT PREVIOUSLY SAMPLED:
+  the "How switching ... works" lead paragraph on the live Bramhall page
+  reads "...it usually is not \xE2\x82\xAC\x94 we make the first step quick
+  and easy" (an em dash mangled to the mojibake sequence "a-notation" for
+  a-circumflex, euro sign, em-dash - i.e. a UTF-8 string that has been
+  re-encoded through Windows-1252 and back), which decodes from the em dash
+  the PRE-5.1 generator emitted (confirmed by git log -S"usually is not" on
+  tools/build-switch-pages.js: the original generator literally wrote
+  "...it usually is not \xE2\x80\x94 we make the first step..." with a real
+  em dash, before item 5.1/Q7 rewrote it to two full-stop sentences on
+  2026-08-04). This is the SAME defect already raised as Q7 and actioned as
+  item 5.1, already reconfirmed live on Cherry Lane on 2026-08-31 (mojibake
+  variant "\xC3\x94\xC3\x87\xC3\x96" there) and noted there as "paste-lag
+  already tracked elsewhere, no repo action possible." This pass reconfirms
+  it on Scorah Bramhall for the first time (mojibake variant "\xE2\x82\xAC\x94",
+  a THIRD distinct corruption pattern across the two branches sampled so
+  far, consistent with each site's own Weebly paste history mangling the
+  original em dash differently rather than a single shared cause). The
+  Hazel Grove sister page and a spot-check of Fishlocks Ainsdale's switch
+  page both carry the SAME pre-5.1 sentence but as a clean, correctly
+  rendered em dash (not mojibake) - live confirmation that this is an
+  ESTATE-WIDE paste-lag (at least 3 of 15 branches sampled, spanning two
+  different domains) rather than a Scorah-specific or Bramhall-specific
+  fault, and that the mojibake corruption itself is a per-site paste
+  artefact layered on top of the underlying, already-tracked em-dash
+  paste-lag rather than a separate defect. No new question raised: Q7/item
+  5.1 already covers the decision (fixed at source, live paste outstanding
+  and queued under 5.3/5.4/the paste run) and no repo action is possible for
+  live-only Weebly content. Recorded here only to sharpen the evidence trail
+  already open on Q7/5.1/Cherry Lane, in case whoever runs the eventual
+  paste sweep wants to know it reaches beyond Cherry Lane and Scorah.
+
+CONCLUSION
+----------
+No in-repo defect found. No new fault class in check-switch-copy.js itself.
+No new question. Guard coverage for item 3.2 now extends to 13 of 36
+checkers proven by direct injection (up from 12).
