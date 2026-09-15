@@ -1053,3 +1053,78 @@ unread against the sitemap-sweep methodology: Cherry Lane (Walton), and
 Tiffenbergs (Longmoor, link-context only). Clear Chemist Aintree (Q104)
 still has twelve online-doctor/weight-loss branded-product sub-pages and
 seven az-health/obesity articles unread.
+
+## 2026-09-15 addition: Cherry Lane (Walton) - first clean instance, sweep otherwise complete
+
+Unattended scheduled run (second run today), continuing the sitemap-sweep
+methodology on the next unread branch in forward-note order.
+
+cherrylanepharmacy.co.uk/sitemap.xml lists 28 URLs, two weight-loss-shaped:
+weight-loss-clinic-cherry-lane-walton.html (this repo's own generated
+page, filename confirmed against build-weight-loss-pages.js's
+`weight-loss-clinic-<brandSlug>-<townSlug>.html` convention and present at
+modules/service/pages/weight-loss-clinic-cherry-lane-walton.html) and
+weight-loss-clinic-walton.html, which matches no generator's naming
+convention, the same shape of legacy filename found live at every other
+branch swept so far.
+
+Link context, read from the live homepage DOM: unlike all thirteen prior
+instances, weight-loss-clinic-walton.html is linked from exactly ONE
+homepage slot (a content image tile, no anchor text), not from either
+nav, while the correct generated page weight-loss-clinic-cherry-lane-walton.html
+is linked from both the desktop top nav and the mobile nav ("Weight Loss
+Clinic (Walton)") - the reverse of the pattern found at every other branch,
+where the legacy page held all three slots and the correct page held only
+the two nav slots.
+
+weight-loss-clinic-walton.html was fetched in full via `get_page_text` and
+carries NONE of the six template elements this assessment tests for: no
+named medicine, no superlative claim, no "Real Results" heading, no
+outcome slider, no treatment picker, no lead price. Its entire body reads:
+"Our weight loss clinic has moved to a new page with current information
+about the pharmacist-led service, eligibility and how to book. Visit the
+Weight Loss Clinic page" with that link (confirmed via a DOM read of its
+href) pointing straight at weight-loss-clinic-cherry-lane-walton.html, the
+correct generated page. This matches the fix Rishi specified in the Q5
+answer (2026-08-04: "Strip the POM content from the old weight loss page
+and keep both URLs live pointing visitors at the new pages - keeps the
+rank, removes the exposure, needs a hand edit per page") applied in full.
+This is the first of fourteen branches swept where the legacy URL carries
+no compliance exposure at all - a hand fix has already reached this
+branch, unlike the other thirteen. Not a new finding for Q103, since there
+is no shared-template instance to add; recorded here so the sweep's
+coverage is complete rather than silently skipping a branch that turned
+out clean.
+
+weight-loss-clinic-cherry-lane-walton.html (the correct generated page)
+was also read in full and is clean of all six legacy elements, correctly
+framed as a private, non-NHS clinical service with an eligibility section;
+its own booking block reads "Private consultation at Cherry Lane Pharmacy,
+from £39.99. Choose a time that suits you." ahead of the "Is this service
+right for you?" eligibility section - a re-confirmation of the Q88
+lead-price pattern, not a new finding.
+
+Separately, and NOT a new finding: both pages read this pass (the legacy
+redirect stub and the correct generated page) carry the same live Weebly
+footer publishing the NHS mailbox as "pharmacy.FA226@mhs.net" - the
+transposed-letter typo already tracked under Q36 (correct address per
+branches.json and check-branch-links.js is pharmacy.FA226@nhs.net). Q36 was
+answered 2026-09-01 (sweep every page of cherrylanepharmacy.co.uk and the
+other twelve branch footers in the next Weebly session) but its note
+records the live fix has so far reached only index.html and
+contact-us.html, with the bouncing address still confirmed live on
+contraception-cherry-lane-walton.html, switch-prescriptions-cherry-lane-walton.html
+and pharmacy-first-cherry-lane-walton.html as of 2026-08-31. This run adds
+a fourth and fifth confirmed page carrying the same bouncing address:
+weight-loss-clinic-walton.html and weight-loss-clinic-cherry-lane-walton.html.
+QUESTIONS.json Q36's note extended with this evidence; the question stays
+answered (the fix is already decided, only the Weebly sweep to execute it
+is outstanding) rather than being reopened.
+
+QUESTIONS.json Q103 NOT extended (no legacy-template instance found at
+this branch to add). Item 5.8 stays [BLOCKED] (fix choice for the thirteen
+confirmed instances still pending Q16/Q22/Q85/Q98/Q103). Sweep now owes
+only Tiffenbergs (link context only; its sitemap already confirmed
+2026-08-11/12) and Clear Chemist Aintree's remaining twelve branded
+sub-pages and seven obesity articles - the fourteen-branch Weebly sweep is
+otherwise complete.

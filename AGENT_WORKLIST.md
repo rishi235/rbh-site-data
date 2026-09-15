@@ -25704,6 +25704,27 @@ rather than trust this note - as computed by this pass, the two remaining
       remaining twelve branded sub-pages and seven obesity articles. Item
       5.8 stays [BLOCKED].
 
+      2026-09-15 (second run today) continuation: swept Cherry Lane
+      (Walton) - the first of fourteen branches where the legacy URL
+      (weight-loss-clinic-walton.html) carries no compliance exposure at
+      all. It has already been hand-fixed into a clean redirect stub
+      ("Our weight loss clinic has moved to a new page...") pointing at
+      the correct generated page, matching Rishi's Q5 answer applied in
+      full, and is now linked from only one homepage slot (a content
+      tile) rather than all three. The correct generated page
+      weight-loss-clinic-cherry-lane-walton.html is clean as expected.
+      Not a new Q103 instance. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-15
+      Cherry Lane addition. Separately, and not a new finding: both pages
+      read this pass still carry the Q36 bouncing NHS mailbox typo
+      (pharmacy.FA226@mhs.net for @nhs.net) - a fourth and fifth confirmed
+      page for that already-answered question; Q36's note extended, status
+      unchanged. Sweep now owes only Tiffenbergs (link context only) and
+      Clear Chemist Aintree's remaining twelve branded sub-pages and seven
+      obesity articles - the fourteen-branch Weebly sweep is otherwise
+      complete. Item 5.8 stays [BLOCKED] (fix choice for the thirteen
+      confirmed legacy instances still pending Q16/Q22/Q85/Q98/Q103).
+
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
 - [ ] [BLOCKED] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
