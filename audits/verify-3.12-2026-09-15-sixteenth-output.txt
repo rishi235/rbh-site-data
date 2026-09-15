@@ -1,0 +1,11 @@
+Baseline hashes: seo=2d04b0440e97 shingles=2df3f698e7f3 impetigo=27853a21f498
+Pre-injection run: clean (exit 0)
+(1) RULE 1 title-length: CAUGHT
+(2) RULE 2 desc-length: CAUGHT
+(3) RULE 3a duplicate-title: CAUGHT
+(4) RULE 3b duplicate-permalink: CAUGHT
+(5) RULE 4a duplicate-H1-same-branch: CAUGHT
+(6) CONTROL benign reword: PASSED (correct)
+Post-run restore: clean (exit 0), all three files sha256-confirmed back to baseline.
+
+Summary: 6/6 legs behaved as expected.

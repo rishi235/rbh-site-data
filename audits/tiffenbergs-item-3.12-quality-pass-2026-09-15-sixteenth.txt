@@ -1,0 +1,147 @@
+Item 3.12 quality pass, sixteenth pass, 2026-09-15
+Branch: Tiffenbergs Chemist (id tiffenbergs_longmoor, seoTown Aintree)
+Fresh angle: tools/check-seo-lengths.js
+
+Context
+-------
+Fifteen prior passes (2026-08-04 through 2026-09-14) exercised, in order:
+check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js, check-pharmacy-first-eligibility.js,
+check-weight-loss-copy.js, check-branch-links.js, check-opening-hours.js,
+check-switch-copy.js, check-travel-clinic-copy.js and
+check-contraception-copy.js against Tiffenbergs' own pages.
+check-seo-lengths.js had never been proven against this branch by direct
+injection, despite guarding all 12 of Tiffenbergs' own paste-sheet entries
+(title length, description length, title/description/permalink uniqueness)
+and all 12 of its page H1s (same-branch and cross-branch repeat rules).
+
+Item selection this run: all 8 remaining AGENT_WORKLIST.md lines are
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), unchanged from prior runs, so step 5 required a quality pass.
+Rotation pool re-derived via a Python header-to-next-header scan of every
+completed item's own "Quality pass"/"Done" dates, standing out-of-rotation
+set {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} excluded. Tied-oldest pool at
+2026-09-14 was {3.12, 3.13, 4.1} (3.11 dropped out of the pool after the
+fortieth run's eighteenth pass moved it to 2026-09-15). Took 3.12 on the
+lowest-item-number tiebreak.
+
+Baseline
+--------
+Full 36-checker suite (every tools/check-*.js) run individually before any
+change, on the tracked repo: 36/36 exit 0.
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac9
+1f2ad1b102 (standing anchor, unchanged throughout the run).
+All six generators rebuilt first (build-service-pages, build-switch-pages,
+build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages): combined sha256 of
+every file under modules/ and core/ unchanged before and after
+(a64a32e2c0b777eb1401a28b78678dbab1367171dbffe21ba795ef7f0f7ee9ad).
+Full-repo scratch copy taken via `git archive HEAD | tar -x`; the tracked
+working copy was never opened for writing during the injection round.
+Target files backed up by byte copy before any injection, baseline sha256:
+  modules/service/pages/SEO.md
+    2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+  modules/service/pages/shingles-treatment-tiffenbergs-aintree.html
+    2df3f698e7f3ba9b948c16ed354b2b2e7d2b735c415566dffbcfe03b4b40d39b
+  modules/service/pages/impetigo-treatment-tiffenbergs-aintree.html
+    27853a21f49858624803b2a3712e1ce5dc3ea044662bb47539e1633a6edb59c8
+
+Injections
+----------
+Reproducible instrument: audits/verify-3.12-2026-09-15-sixteenth.js. Each
+injection restored by byte copy (not git checkout) and sha256-reconfirmed
+identical to baseline immediately after, before the next injection ran.
+Manual pass (against a first scratch copy) and the instrument's own
+automated pass (against a second, fresh scratch copy) agreed on all six
+legs.
+
+(1) RULE 1, title length: the UTI page's title extended from 46 to 75
+    characters ("UTI treatment in Aintree - Tiffenbergs Chemist and
+    Pharmacy Services Centre") - CAUGHT, "over the 65 limit", naming the
+    permalink and the sheet.
+
+(2) RULE 2, description length: the Sore throat page's description
+    shortened from 174 to 37 characters ("Sore throat treatment at
+    Tiffenbergs.") - CAUGHT, "under the 80 minimum".
+
+(3) RULE 3a, duplicate title (same branch): the Sinusitis entry's title
+    set to the Earache entry's own title, permalinks left untouched -
+    CAUGHT, "duplicate title shared by 2 pages", naming both headings
+    ("Tiffenbergs Chemist — Aintree — Sinusitis" and "— Earache")
+    distinctly rather than ambiguously.
+
+(4) RULE 3b, duplicate permalink (same branch): the Impetigo entry's
+    permalink set to the Shingles entry's own permalink - CAUGHT,
+    "duplicate permalink shared by 2 pages", again naming both headings
+    distinctly, reconfirming the item 3.9 fifteenth-pass message fix
+    (naming the heading and sheet, not the colliding value twice) still
+    holds on a second branch.
+
+(5) RULE 4a, duplicate H1 (one branch, two of its own pages): the
+    Shingles page's H1 set to the Insect-bite page's own H1 - CAUGHT,
+    "one branch uses the same H1 on two of its own pages -
+    tiffenbergs_longmoor: insect-bite-treatment-tiffenbergs-aintree.html
+    and shingles-treatment-tiffenbergs-aintree.html". First time this
+    specific rule leg has been proven against Tiffenbergs; the branch is
+    a single-site brand so rule 4b (two branches on one host) has no
+    natural injection point here, the same structural scope limit
+    recorded for other single-site brands on prior items' passes.
+
+Control: the Impetigo description reworded (Impetigo treatment available
+at Tiffenbergs Chemist, Aintree. This free NHS Pharmacy First service
+means no GP appointment is needed before assessment.), kept unique and
+inside the 80-165 window - correctly PASSED, exit 0, no cross-firing.
+
+All five injections caught on the first attempt with the expected
+rule-specific failure tag; the control passed clean.
+
+Restore and re-verification
+----------------------------
+Final restore sha256-reconfirmed identical to baseline on all three files.
+Full 36-checker suite re-run individually on the scratch copy afterwards:
+35/36 clean, the one failure being check-cdn-pins.js's documented
+.git-less scratch artefact (no .git directory in a git-archive export for
+that checker to compare pinned refs against; recorded on every prior pass
+that has used this method).
+Tracked repo reconfirmed untouched throughout: branches.json sha256
+unchanged; `git status --porcelain -- modules core branches.json gbp-packs
+tools` showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; full 36-checker suite re-run individually against the tracked
+repo, 36/36 exit 0; all six generators rebuilt again on the tracked repo,
+combined sha256 of modules/ and core/ unchanged.
+
+Result
+------
+Zero in-repo defect. check-seo-lengths.js was already correctly holding
+all four of Tiffenbergs' own rules: title length, description length,
+title/description/permalink uniqueness (both same-branch legs proven), and
+the same-branch H1 repeat rule. No page, generator, checker, pack or
+branches.json byte changed.
+
+Guard coverage for item 3.12 now extends to all four of
+check-seo-lengths.js's rules proven by direct injection against
+Tiffenbergs specifically (up from zero for this checker on this branch),
+on top of the fifteen other checkers proven across the fifteen earlier
+passes. 20 of the 36 checkers remain unproven by direct injection against
+this specific branch: check-address-region.js, check-app-membership.js,
+check-brand-spelling.js, check-cdn-pins.js, check-editor-snapshot.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js, check-live-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-seo-pattern.js, check-seo-sheets.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js,
+check-whatsapp-route.js and check-widget-diaries.js - carried forward for a
+future pass.
+
+Live half: not attempted this pass. Answer pickup (this run): navigate to
+https://data.rbhealth.co.uk/api/feedback then get_page_text succeeded on
+the first attempt. Newest entry still the Q52 answer, dated
+2026-09-01T22:44:51.524Z - unchanged since every run since 2026-09-01. No
+answer arrived this run for any of the 54 open questions. Full 12-of-12
+live coverage already stands on this item from the fifth/sixth passes
+(2026-09-02); not re-read this pass. No new question raised - this pass
+proved a checker's rules sound against data already known correct, not a
+live-facing decision.

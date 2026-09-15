@@ -12865,6 +12865,75 @@ Done 2026-09-15 (eighteenth pass).
       Evidence: audits/verify-3.12-2026-09-14-fifteenth.js, its
       -output.txt, and audits/tiffenbergs-item-3.12-quality-pass-2026-09-
       14-fifteenth.txt. Done 2026-09-14 (fifteenth pass)
+      Quality pass 2026-09-15, SIXTEENTH PASS, FRESH ANGLE: tools/check-
+      seo-lengths.js proven by injection against Tiffenbergs' own paste-
+      sheet entries and page H1s for the first time in this item's
+      sixteen-pass history (fifteen prior passes exercised check-nap.js,
+      check-postcodes.js, check-em-dashes.js, check-booking-routes.js,
+      check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+      check-map-embeds.js, check-pharmacy-first-eligibility.js, check-
+      weight-loss-copy.js, check-branch-links.js, check-opening-hours.js,
+      check-switch-copy.js, check-travel-clinic-copy.js and check-
+      contraception-copy.js against this branch, but never the checker
+      guarding SERP title/description length, title/description/
+      permalink uniqueness, or H1 uniqueness across Tiffenbergs' own 12
+      pages). Baseline: all 36 checkers 0 failures, all six generators
+      rebuilt first, combined sha256 of every file under modules/ and
+      core/ unchanged (a64a32e2c0b777eb1401a28b78678dbab1367171dbffe21ba
+      795ef7f0f7ee9ad). branches.json sha256 169bb5a2...b102 unchanged
+      throughout (standing anchor). Full-repo scratch copy via `git
+      archive HEAD | tar -x`, tracked repo never opened for writing
+      during the injection round. Target files (SEO.md, the Shingles
+      page, the Impetigo page) backed up by byte copy, baseline sha256
+      recorded in the evidence file. Five injections plus one control,
+      each restored by byte copy and sha256-reconfirmed identical
+      immediately after: (1) RULE 1 title length, UTI title extended
+      from 46 to 75 characters - CAUGHT; (2) RULE 2 description length,
+      Sore throat description shortened from 174 to 37 characters -
+      CAUGHT; (3) RULE 3a duplicate title (same branch), Sinusitis
+      entry's title set to Earache's own title - CAUGHT, both headings
+      named distinctly; (4) RULE 3b duplicate permalink (same branch),
+      Impetigo entry's permalink set to Shingles' own permalink -
+      CAUGHT, both headings named distinctly, reconfirming the item 3.9
+      fifteenth-pass message fix still holds on a second branch; (5)
+      RULE 4a duplicate H1 (one branch, two of its own pages), Shingles
+      page's H1 set to the Insect-bite page's own H1 - CAUGHT, "one
+      branch uses the same H1 on two of its own pages -
+      tiffenbergs_longmoor", naming both files; first time this rule leg
+      has been proven against Tiffenbergs. CONTROL: Impetigo description
+      reworded, kept unique and inside the 80-165 window - correctly
+      PASSED, exit 0, no cross-firing. All five injections caught first
+      attempt on the expected rule-specific tag; the control passed
+      clean. Rule 4b (two branches on one host sharing an H1) has no
+      natural injection point on Tiffenbergs, a single-site brand with
+      no sister sharing its website host, the same structural scope
+      limit recorded for other single-site brands on prior passes.
+      Final restore sha256-reconfirmed identical to baseline on all
+      three files; full 36-checker suite re-run on the scratch copy
+      afterwards: 35/36 clean, the one failure being check-cdn-pins.js's
+      documented .git-less scratch artefact. Tracked repo reconfirmed
+      untouched throughout: branches.json sha256 unchanged; git status
+      --porcelain on modules, core, branches.json, gbp-packs and tools
+      showing only the two long-standing pre-existing untracked strays,
+      neither touched; full 36-checker suite re-run individually against
+      the tracked repo, 36/36 exit 0; all six generators rebuilt again,
+      combined sha256 unchanged. Zero in-repo defect - check-seo-
+      lengths.js was already correctly holding all four of its rules
+      against Tiffenbergs. No page, generator, checker, pack or
+      branches.json byte changed. Guard coverage for item 3.12 now
+      extends to 16 of the 36 checkers proven by direct injection
+      against this branch specifically; 20 remain unproven, listed in
+      full in the evidence file and carried forward. Answer pickup this
+      run: Claude in Chrome connected, feedback endpoint read
+      successfully first attempt; no new answers found for any of the
+      54 open questions, newest entry still Q52 (2026-09-01). Live half
+      not attempted: full 12-of-12 live coverage already stands from the
+      fifth/sixth passes (2026-09-02), not re-read this pass. No new
+      question raised - checker proof against data already known
+      correct, not a live-facing decision. Evidence: audits/verify-3.12-
+      2026-09-15-sixteenth.js, its -output.txt, and audits/tiffenbergs-
+      item-3.12-quality-pass-2026-09-15-sixteenth.txt. Done 2026-09-15
+      (sixteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
