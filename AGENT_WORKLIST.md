@@ -2651,6 +2651,55 @@ ainsdale.html HTTP 200, title and H1 both the pattern verbatim, unchanged;
 mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html (Q71) HTTP 404,
 unchanged. No new question. Evidence in
 audits/seo-pattern-known-non-page-builder-stale-3.1-seventeenth-2026-09-12.txt.
+Quality pass (eighteenth), 2026-09-15 (unattended scheduled run, Cowork
+sandbox). Baseline: check-seo-pattern.js 177/0/0 exit 0; all 36 checkers
+clean; all six generators byte-identical (sha256 of every file under
+modules/ and core/ unchanged, zero diff); git status --porcelain clean but
+for the two pre-existing untracked strays. Re-read the full 822-line checker
+against all seventeen prior passes' own accounts and found the one path
+never isolated by injection: expectationsFor()'s seven page-type branches
+all resolve via branchOf() -> bySlug, and bySlug excludes any branch with
+disposed:true, so a filename that MATCHES one of the seven page-type
+regexes but whose slug resolves to a disposed (or otherwise absent) branch
+falls through to null and becomes untyped - a different code path from the
+"matches no regex at all" case already proved on the 9th and 11th passes.
+This is the exact mechanism that has to hold the day a live branch is
+disposed and its generated pages are not deleted immediately - the real
+Wilmslow case (disposed 1 July 2026, per Q2's answer "Remove Wilmslow from
+branches.json and take its pages down"), though branches.json today holds
+no live Wilmslow record to reuse since Q2 removed it outright rather than
+flagging it disposed:true. Proved on a git-archive scratch copy outside the
+tracked tree (branches.json sha256 169bb5a2...1102, confirmed identical to
+the tracked repo before any mutation): a synthetic branch
+"test_disposed_18th_pass" (brandSlug fishlocks, townSlug testdispose18th,
+disposed:true) added, with two stub pages -
+pharmacy-first-fishlocks-testdispose18th.html and
+switch-prescriptions-fishlocks-testdispose18th.html - both CAUGHT by name
+as "untyped file", 177/2/2/exit 1 (177 real pages still checked correctly,
+2 stub files correctly excluded from that count). Negative control: same
+two files, same branch record, disposed flipped to false - both files then
+TYPED and CHECKED normally (failing only on ordinary content grounds
+against the stub HTML), isolating the disposed flag as the specific cause
+rather than some other malformation of the synthetic record. Scratch
+directory deleted after use; tracked repo confirmed untouched throughout
+(branches.json sha256 unchanged, git status --porcelain showing only the
+two pre-existing untracked strays); full 36-checker suite and all six
+generators re-confirmed clean on the tracked repo afterwards. RESULT: zero
+in-repo defect - the disposed-branch exclusion correctly routes through the
+same untyped-file-fails rule as an unrecognised filename, rather than
+silently ignoring the file, crashing, or mis-resolving it to another
+branch. No checker, page, generator or branches.json entry changed.
+Separate infrastructure note, not a defect in this checker: running
+tools/build-audit-status.js directly from this Cowork sandbox fails,
+because it hardcodes the native Windows path C:/Dev/rbh-site-data (line 10)
+and this sandbox's bash is Linux - consistent with the standing Q96/Q102
+record that the publish/push step needs the real host. Step 10 of this run
+uses Windows-MCP PowerShell for that reason. LIVE HALF: read-only HTTPS GET
+- fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html HTTP 200,
+title and H1 both the pattern verbatim, unchanged from every prior pass.
+The Q71/mccannspharmacy.co.uk 404 finding not re-read this pass, treated as
+unchanged. No new question. Evidence in
+audits/seo-pattern-branchof-untyped-3.1-eighteenth-2026-09-15.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
