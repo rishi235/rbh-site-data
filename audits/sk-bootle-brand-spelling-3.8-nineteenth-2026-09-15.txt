@@ -1,0 +1,178 @@
+Item 3.8 (SK Chemists, Bootle) - nineteenth quality pass
+Date: 2026-09-15 (unattended scheduled run, audit-backlog-worker)
+Fresh angle: tools/check-brand-spelling.js, never named against SK Chemists
+Bootle across eighteen prior passes.
+
+ROTATION
+--------
+Rotation pool re-derived via a header-to-next-header date scan of every
+completed AGENT_WORKLIST.md item (standing out-of-rotation set 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8 excluded). Tied-oldest pool at 2026-09-14:
+{3.8, 3.9, 3.10, 3.11, 3.12, 4.1}. Took 3.8 on the lowest-item-number
+tiebreak.
+
+WHY THIS CHECKER, THIS BRANCH
+------------------------------
+check-brand-spelling.js pins SK Chemists' canonical trading name
+("SK Chemists") in its own CANONICAL table and, via seo-pattern.js's
+fitTitle(), SK Chemists is confirmed to shorten to the bare two-letter
+form "SK" when a title overruns 65 characters (see seo-pattern.js query
+below). SK Chemists Bootle is therefore the sharpest available test of
+rule 6 (SHORT) in the estate: every other shortenable brand in
+CANONICAL keeps at least one full word (Scorah, McCanns, Fishlocks,
+Clear, Smartts, Hirshmans, Coleman and Leighs, Riddings, Gordon Short,
+Cherry Lane, Tiffenbergs), whereas "SK" alone is the kind of short
+token most likely to produce an accidental collision if the mask logic
+were ever too narrow. Despite this, no prior pass had run
+check-brand-spelling.js against this branch's own files at all.
+
+  $ node -e "
+  var pat = require('./tools/seo-pattern.js');
+  var PAD = new Array(pat.TITLE_WARN_LEN + 2).join('x') + ' ';
+  var got = pat.fitTitle(function(brand){ return PAD + brand; }, 'SK Chemists');
+  console.log(got.slice(PAD.length));
+  "
+  SK
+
+BASELINE
+--------
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing regression anchor, unchanged throughout this pass)
+
+Full 36-checker suite on the tracked repo before any work: 36/36 exit 0.
+
+SCRATCH COPY
+------------
+`git archive HEAD | tar -x` into ~/scratch/audit38/repo (NOT /tmp - see
+note below). Scratch branches.json sha256 matched the tracked anchor
+exactly. 35/36 checkers clean on the scratch copy before injection
+(check-cdn-pins.js fails with its documented .git-less scratch
+artefact - two FAILs, both "ref 'main' does not resolve in git" for
+modules/service/service.js and core/site-data.js - unrelated to this
+pass, matching every prior scratch-copy pass in this audit).
+
+NOTE ON /tmp: this pass began by writing intermediate comm/diff files to
+/tmp (e.g. /tmp/all_checkers.txt). Every write to /tmp in this sandbox
+returned "Permission denied", yet subsequent `cat`/`comm` calls against
+those same paths returned content anyway - stale data from some earlier
+session's cache, not from this run's writes. This produced a visibly
+contradictory result (check-switch-copy.js appeared in both the "used
+for 3.8" and "never named for 3.8" lists from two different reads of the
+supposedly same file). Recognised and corrected immediately by switching
+all scratch work to ~/scratch (a real, writable path under this
+session's home), which produced internally consistent results on
+re-run. Recorded here as a general note for any future run: do not trust
+/tmp for anything that must be read back in the same session; use
+~/scratch or an explicit path under the session's mounted home instead.
+
+INJECTIONS
+----------
+Six attempts against SK Chemists Bootle's own files, targeting rules 1,
+2, 4 and 6 plus one control. Each restored by direct byte copy from a
+saved original immediately after its check ran, and reconfirmed
+identical (sha256 for branches.json, diff for the two other files)
+before the next injection began.
+
+(1) RULE 1 CANON
+    File: branches.json (scratch copy only)
+    Change: skchemists_bootle.brandLabel "SK Chemists" -> "SK Chemist"
+            (trailing s dropped), branchName left at "SK Chemists"
+    Result: CAUGHT, 2 failures
+      - brandLabel "SK Chemist" vs pinned canonical "SK Chemists"
+      - collateral: branchName "SK Chemists" no longer equals the (now
+        changed) brandLabel "SK Chemist" and does not start with it
+        followed by a qualifier
+    Restore: sha256 169bb5a2...b102, matched baseline.
+
+(2) RULE 2 VARIANT
+    File: modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html
+    Change: the page's SEO-title line's "SK Chemists" changed to
+            "Sk Chemists" (case-drift on the internal capital)
+    Result: CAUGHT first attempt.
+      FAIL modules/service/pages/sore-throat-treatment-sk-chemists-
+      bootle.html:2: reads "Sk Chemists". The trading name is
+      "SK Chemists"
+    Note: the generator's own leading all-caps heading on line 2
+    ("SK CHEMISTS -- Sore throat treatment...") was correctly left
+    untouched by maskGeneratedHeading's masking of the pre-separator
+    heading text; the injected string sat in the SAME line but after
+    the em dash separator, in text the mask does not reach, and was
+    caught correctly rather than being accidentally hidden by the mask.
+    Restore: diff clean, byte-identical to saved original.
+
+(3) RULE 4 MISSPELT
+    File: gbp-packs/sk-chemists-bootle.md
+    Change: inserted a fresh, unquoted sentence "Also known locally as
+            S K Chemists on Stanley Road." after the file's H1
+    Result: CAUGHT first attempt.
+      FAIL gbp-packs/sk-chemists-bootle.md:3: reads "S K Chemists", a
+      known misspelling. The trading name is "SK Chemists"
+    Restore: diff clean, byte-identical to saved original.
+
+(4) RULE 6 SHORT
+    File: modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html
+    Change: inserted "Ask for SK today." at the start of the page's
+            hero-proof paragraph (visible body copy, not a title-role
+            line)
+    Result: CAUGHT first attempt.
+      FAIL modules/service/pages/sore-throat-treatment-sk-chemists-
+      bootle.html:22: reads "SK" without its shop-type word, on a line
+      that is not the page SEO title. [...] the trading name here is
+      "SK Chemists"
+    Restore: diff clean, byte-identical to saved original.
+
+(5) CONTROL
+    File: branches.json (scratch copy only)
+    Change: skchemists_bootle.phone changed to an unrelated value
+            ("0151 999 9999")
+    Result: correctly PASSED, 0 failures - confirms no cross-firing
+    from an unrelated field edit.
+    Restore: sha256 169bb5a2...b102, matched baseline.
+
+RULES NOT EXERCISED (scope limit, not a gap)
+---------------------------------------------
+Rule 3 CONFIG: since Q19 (answered and applied 2026-08-30),
+tools/build-switch-pages.js's CONFIG table carries no per-branch
+hardcoded brand literal at all - the rule now asserts the negative
+(no literal "brand": "..." may reappear). There is no SK-specific
+literal to inject against; the rule is estate-wide, not branch-scoped.
+
+Rule 5 FALLBACK: core/site-data.js's FALLBACK carries exactly one
+hardcoded branch record, for rbh_head_office_aintree, not
+skchemists_bootle. There is no SK-specific FALLBACK record to inject
+against.
+
+Both confirmed by direct inspection this pass (grep for
+"skchemists_bootle" in core/site-data.js returned nothing; the file's
+only `id:` match is rbh_head_office_aintree).
+
+FULL SUITE RE-RUN
+-----------------
+Scratch copy after all injections and the control: 35/36 exit 0 (same
+documented check-cdn-pins.js artefact only).
+
+Tracked repo reconfirmed untouched throughout:
+- branches.json sha256 unchanged: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+- `git status --porcelain -- modules core branches.json gbp-packs tools`
+  showed only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither touched by this pass
+- full 36-checker suite re-run individually against the tracked repo:
+  36/36 exit 0
+
+CONCLUSION
+----------
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.8 now extends to all
+six rules of check-brand-spelling.js proven by direct injection against
+SK Chemists Bootle's own files (rules 1, 2, 4, 6 caught by injection;
+rules 3, 5 confirmed structurally out of scope for this branch; the
+control confirmed no cross-firing), on top of the fifteen other
+checkers proven across this item's eighteen prior passes.
+
+LIVE HALF
+---------
+Not attempted this pass. Scope was the repo/data-schema layer only
+(branches.json, generated pages, a GBP pack source document), matching
+the precedent set earlier today by item 3.6's nineteenth pass on the
+same checker.

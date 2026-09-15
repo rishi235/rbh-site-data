@@ -8865,6 +8865,88 @@ Done 2026-09-15 (eighteenth pass).
       invisible to a visual spot-check in any case. No new question raised;
       QUESTIONS.json unchanged (102 total, 49 open). Evidence in
       audits/sk-bootle-item-3.8-quality-pass-2026-09-14-eighteenth.txt.
+      Quality pass 2026-09-15 (nineteenth, unattended scheduled run).
+      Rotation pool re-derived fresh via a header-to-next-header scan of
+      every completed item's own embedded dates (standing out-of-rotation
+      set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded): tied-oldest pool at
+      2026-09-14 was {3.8, 3.9, 3.10, 3.11, 3.12, 4.1}; took 3.8 on the
+      lowest-item-number tiebreak. FRESH ANGLE: tools/check-brand-
+      spelling.js (all six of its rules) had never been named against SK
+      Chemists Bootle across eighteen prior passes, despite skchemists_
+      bootle carrying its own pinned CANONICAL entry ("SK Chemists") and
+      being the one branch in the estate whose Q14 shortened form is a
+      bare two-letter abbreviation ("SK"), making it the sharpest test of
+      rule 6's mask logic in the estate. ANSWER PICKUP (step 3): one
+      connected browser (no Q59 conflict); navigate + get_page_text on
+      https://data.rbhealth.co.uk/api/feedback succeeded on the second
+      call after the standing transient "Cannot access a chrome:// URL"
+      on the first; newest entry still the Q52 answer, 2026-09-01T22:44:
+      51.524Z, unchanged since every run since 2026-09-01; no new answer
+      for any of the 54 open questions. AUTONOMOUS WINDOW CHECK: no
+      "Standing authorisation" section at the top of AGENT_LOG.md; not
+      applicable. BASELINE: branches.json sha256 169bb5a2...b102 (standing
+      anchor, unchanged throughout); full 36-checker suite clean on the
+      tracked repo before any work. Scratch copy via `git archive HEAD |
+      tar -x` into a disposable directory outside the tracked tree
+      (~/scratch, not /tmp - this session's /tmp silently serves stale
+      cached reads rather than fresh ones, discovered this pass when an
+      early /tmp-based comm diff returned a checker as both "used" and
+      "never named" for this item at once; switched to ~/scratch and
+      re-ran clean); scratch branches.json sha256 matched the tracked
+      anchor exactly; 35/36 checkers clean on the scratch copy before
+      injection (check-cdn-pins.js's documented .git-less scratch
+      artefact only). SIX ATTEMPTS, targeting rules 1, 2, 4 and 6 plus one
+      control, each restored by direct byte copy and sha256-reconfirmed
+      identical before the next (rules 3 and 5 are estate-wide/single-
+      record rules with no SK-specific injection point - rule 3's CONFIG
+      table carries no per-branch literal since Q19, and rule 5's FALLBACK
+      in core/site-data.js holds exactly one hardcoded record, for
+      rbh_head_office_aintree, not skchemists_bootle, so neither has a
+      natural SK-specific angle; a genuine scope limit, not a gap left
+      untested by choice): (1) RULE 1 CANON, skchemists_bootle.brandLabel
+      changed to "SK Chemist" (dropped trailing s) in the scratch
+      branches.json only - CAUGHT, 2 failures (the brandLabel-vs-CANONICAL
+      mismatch plus the collateral branchName-no-longer-matches-brand
+      check, since branchName was left at "SK Chemists"); (2) RULE 2
+      VARIANT, "Sk Chemists" case-drift inserted into sore-throat-
+      treatment-sk-chemists-bootle.html on the line reading the page's SEO
+      title (not the generator's own all-caps heading, which is correctly
+      masked by maskGeneratedHeading) - CAUGHT first attempt, exact line
+      and exact wrong string named; (3) RULE 4 MISSPELT, the spaced "S K
+      Chemists" transliteration inserted as a fresh unquoted sentence into
+      gbp-packs/sk-chemists-bootle.md - CAUGHT first attempt; (4) RULE 6
+      SHORT, a bare "SK" (no shop-type word) inserted into the same sore-
+      throat page's visible hero paragraph, well outside any title-role
+      line - CAUGHT first attempt, message correctly named "SK" as the
+      Q14-shortened form and "SK Chemists" as the full trading name; (5)
+      CONTROL, skchemists_bootle.phone changed to an unrelated value in
+      the scratch branches.json - correctly zero failures, confirming no
+      cross-firing from an unrelated field edit. All caught/passed
+      injections fired on exactly their intended rule, first attempt, no
+      unexplained collateral. NO IN-REPO DEFECT FOUND. Final restores
+      sha256/diff-confirmed byte-identical to baseline for all three
+      touched files (branches.json, the sore-throat page, the gbp pack);
+      full 36-checker suite re-run on the scratch copy afterwards, 35/36
+      clean (same documented artefact). Tracked repo reconfirmed untouched
+      throughout: branches.json sha256 unchanged; `git status --porcelain
+      -- modules core branches.json gbp-packs tools` showed only the two
+      long-standing pre-existing untracked strays (gbp-packs/.fuse_
+      hidden0000000400000001, modules/service/pages/notarealservice-
+      fishlocks-ainsdale.html.bak), neither touched; full 36-checker suite
+      re-run individually against the tracked repo, 36/36 exit 0. No
+      generator, page, checker or branches.json content changed. Guard
+      coverage for item 3.8 now extends to check-brand-spelling.js's six
+      rules proven by direct injection against SK Chemists Bootle
+      specifically (rules 1, 2, 4, 6 caught; rules 3, 5 out of scope for a
+      single-brand, no-sister-domain branch; control confirmed no cross-
+      firing), on top of the fifteen other checkers proven across the
+      eighteen prior passes. LIVE HALF: not attempted this pass; scope was
+      the repo/data-schema layer only, consistent with the precedent set
+      by item 3.6's nineteenth pass on the same checker earlier today. No
+      new question raised; QUESTIONS.json re-read via the standing answer-
+      pickup step: 107 total, 54 open, unchanged; newest answer still Q52
+      (2026-09-01). Evidence in audits/sk-bootle-brand-spelling-3.8-
+      nineteenth-2026-09-15.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
