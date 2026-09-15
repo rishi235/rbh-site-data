@@ -1,0 +1,118 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - eighteenth quality pass, 2026-09-15
+Checker under test: tools/check-jsonld.js (never previously named against this
+branch across seventeen prior passes; the seventeenth pass proved
+check-branch-links.js instead).
+
+METHOD
+Full-repo scratch copy via `git archive HEAD | tar -x` into ~/scratch-311
+(not /tmp, per the standing item 3.8 nineteenth-pass finding that this
+sandbox's /tmp gives back stale reads later in the same session). Tracked
+repo at C:\Dev\rbh-site-data never opened for writing during the injection
+round. Baseline: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged throughout this run and matching every recent run's
+anchor). Full 36-checker suite clean on the tracked repo before starting.
+
+Five of Gordon Short Chemist's own twelve generated pages used as injection
+targets (Gordon Short carries no branch landing page - single-site brand,
+same structural shape recorded for this branch on prior passes):
+  - modules/service/pages/sore-throat-treatment-gordon-short-crosby.html
+  - modules/switch/pages/switch-prescriptions-gordon-short-crosby.html
+  - modules/service/pages/uti-treatment-gordon-short-crosby.html
+  - modules/service/pages/impetigo-treatment-gordon-short-crosby.html
+  - modules/service/pages/travel-clinic-gordon-short-crosby.html
+Each restored from a saved original (/tmp/*.orig) and sha256-reconfirmed
+identical to its own pre-injection hash before the next injection began.
+
+INJECTIONS (seven, covering seven of check-jsonld.js's eight rules)
+
+1. RULE 2 (@type), sore-throat page: "Pharmacy" changed to "MedicalBusiness"
+   on this page's JSON-LD block only. CAUGHT - "\"@type\" is \"MedicalBusiness\"
+   but every branch page must declare \"Pharmacy\"", named this file
+   specifically. This is the exact historic defect class the checker was
+   built against (the weight-loss-page @type divergence found 2026-08-10);
+   Gordon Short's own weight-loss page was independently confirmed still
+   declaring Pharmacy (grep, not injected).
+
+2. RULE 3 (name), switch page: "name" changed from "Gordon Short Chemist" to
+   "Riddings Pharmacy" (a real, different branch's branchName). CAUGHT -
+   "\"name\" is \"Riddings Pharmacy\" but a switch page must declare
+   branchName, which branches.json gives as \"Gordon Short Chemist\"".
+
+3. RULE 6 (telephone), UTI page: "0151 924 3449" changed to "0161 973 1234".
+   CAUGHT - "\"telephone\" is \"0161 973 1234\" but branches.json says
+   \"0151 924 3449\"".
+
+4. RULE 5 (PostalAddress), impetigo page: addressRegion changed from
+   "Merseyside" to "Cheshire" - the same wrong-county shape recorded live at
+   Scorah Bramhall (Q43) and Riddings Timperley, injected here into the
+   JSON-LD rather than found live. CAUGHT - "address.addressRegion is
+   \"Cheshire\" but branches.json says \"Merseyside\"".
+
+5. RULE 8 (map iframe), travel clinic page: the Google Maps iframe query
+   changed from Gordon Short's own encoded address to Scorah Bramhall's
+   ("61-63 North Park Road, Bramhall, SK7 3LQ"), with the JSON-LD address and
+   all other visible copy on the page left untouched. CAUGHT - "the map
+   iframe points at \"61-63 North Park Road, Bramhall, SK7 3LQ\" but
+   branches.json gives \"159 College Road, Liverpool, L23 3AT\"". This is the
+   fault class the checker exists specifically to catch: every visible NAP
+   line on the page would still have read correctly to a text-only check.
+
+6. RULE 1 (parses), impetigo page (second injection on this file, after
+   injection 4 was restored and reconfirmed): the closing brace immediately
+   before the block's </script> tag removed, breaking JSON.parse. CAUGHT -
+   "JSON-LD block does not parse as JSON (Expected ',' or '}' after property
+   value in JSON at position 1244 (line 59 column 1))", and the page count in
+   the summary line correctly dropped by one (177 -> 176) rather than the
+   parse failure being silently absorbed.
+
+7. RULE 4 (url), UTI page: "url" changed to the sore-throat page's own URL
+   (a real, different page on the same branch's own site). CAUGHT - "\"url\"
+   is \"...sore-throat-treatment-gordon-short-crosby.html\" but the branch
+   website and this filename give
+   \"...uti-treatment-gordon-short-crosby.html\"".
+
+CONTROL: an unrelated visible-copy reword on the sore-throat page's FAQ
+answer ("a set time" -> "a convenient time", "seen quickly" -> "seen
+promptly"), nowhere near the JSON-LD block or the map iframe. check-jsonld.js
+correctly reported clean, exit 0 - confirms no cross-firing from ordinary
+copy edits.
+
+RULE 7 (email / areaServed) NOT INJECTED THIS PASS: Gordon Short's generated
+pages carry no "email" or "areaServed" key inside their JSON-LD blocks at
+all (only HTML form <input> fields named "email", which the checker does not
+read as JSON-LD). Rule 7 is conditional ("where present") in the checker's
+own rule text, so this is a structural scope limit for this branch's page
+set, not a gap left untested - the same "correct behaviour, now confirmed
+rather than assumed" shape recorded for other conditional rules on prior
+passes. Worth naming as a forward note: no branch's pages currently emit
+areaServed/email inside their own JSON-LD, so rule 7 has never fired on any
+branch across the whole audit; whether that is a generator scope decision or
+worth revisiting is outside this pass.
+
+RESTORE VERIFICATION
+All five files sha256-reconfirmed byte-identical to their pre-injection
+originals after every individual injection and again at the end of the full
+round. Full 36-checker suite re-run on the scratch copy after final restore:
+35/36 clean, the one failure being check-cdn-pins.js's documented .git-less
+scratch-copy artefact (standing convention, not a real failure).
+
+TRACKED REPO
+Confirmed untouched throughout: branches.json sha256 unchanged
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102);
+`git status --porcelain -- modules core branches.json gbp-packs tools`
+showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; full 36-checker suite re-run individually against the tracked repo,
+36/36 exit 0.
+
+RESULT: ZERO IN-REPO DEFECT. check-jsonld.js was already correctly holding
+Gordon Short Chemist Crosby's own JSON-LD blocks and map iframes to seven of
+its eight rules (1, 2, 3, 4, 5, 6, 8), now proven by direct injection against
+this branch specifically for the first time. Rule 7 confirmed structurally
+out of scope for this branch's page set rather than untested by omission.
+
+No generator, page, checker or branches.json content was changed. No
+worklist item was newly ticked (3.11 was already [x]; this is its eighteenth
+quality pass). No question raised.
