@@ -1,0 +1,140 @@
+Item 4.3 quality pass (seventeenth), 2026-09-15 (unattended scheduled run)
+Pack: gbp-packs/hirshmans-ainsdale.md (Hirshmans Chemist Ainsdale)
+
+SELECTION: re-derived the 36-item rotation pool fresh rather than trust any
+forward note (per the standing convention), excluding the seven one-off items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). git log commit timestamps for the 15
+items tied on last-touch calendar date (2026-09-11) were compared directly:
+4.3's own sixteenth pass committed 2026-09-11 03:40:20+01:00, the earliest of
+the 15, ahead of 4.6 (04:10), 4.5 (04:42), 4.13 (05:41), 4.8 (06:10), 4.10
+(06:41), 4.9 (07:18), 4.12 (07:42), 4.15 (08:09), 4.7 (10:13), 4.4 (14:14),
+5.2 (14:42), 4.11 and 5.1 (both committed near midnight in a backlog catch-up
+commit). 4.3 is therefore the genuinely stalest rotation-pool item.
+
+FACTS: gbp-packs/hirshmans-ainsdale.md sha256
+c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f - this
+differs from every prior pass's recorded hash
+(94abd12a3852022fde6473df3e9507cc8bfc81970b94104880ae5cdab3a3faf8) because the
+pack was legitimately edited on 2026-09-14 (commit a0c675f, item 5.3/Q34):
+Post A's button repointed from the legacy hand-built
+pharmacy-first-service-ainsdale.html to the generated
+pharmacy-first-hirshmans-ainsdale.html, and the HARD STOP paster note lifted.
+Not a regression: re-read field by field against branches.json's
+hirshmans_ainsdale entry (name, both address lines, postcode, phone, website,
+review link, three-town service area, hasApp false, all five widgets, both
+opening-hours legs with both lunch closures) and nothing is wrong.
+
+CHECKER SUITE: all 36 tools/check-*.js run individually against the tracked
+repo, 36/36 exit 0. All six generators rebuild byte-identical (git status
+--porcelain -- modules core branches.json gbp-packs empty before and after).
+
+NEW ANGLE: three changes landed in tools/check-gbp-packs.js since the
+sixteenth pass (all dated 2026-09-11, after 4.3's own 03:40 commit), none of
+them yet proven by injection against this pack's own copy:
+  1. commit adf7a39 (item 3.4 seventeenth pass) - EM_DASH fixed from a dead
+     mojibode character class to a codepoint-based class (U+2013/U+2014/
+     U+2015), proven at birth against cherry-lane-walton.md only.
+  2. commit 03dd876 (item 4.9 sixteenth pass) - the SERVICE_RULES reverse
+     check (a Services/Post claiming a service the branch has no widget for)
+     widened to also scan POST BODIES, not just the Services section
+     bullets, proven at birth against clear-aintree.md only.
+  3. commit 9dd79bb (item 4.10 fifteenth pass) - CLINIC_QUALIFIERS'
+     weightLossPaid rule widened to accept "paid, private service" as well
+     as "private, paid service", proven at birth against smartts-bootle.md
+     only.
+
+PROOF BY INJECTION, on a full disposable rsync scratch copy of the repo at
+/tmp/rbh-scratch-4.3-seventeenth (outside the tracked tree; the tracked
+gbp-packs/hirshmans-ainsdale.md and branches.json were never opened for
+writing this pass - both confirmed sha256-unchanged after every round, see
+below). Baseline run against the untouched scratch copy first: 0 failures,
+14 warnings, identical in substance to the tracked repo's own baseline.
+
+(1) EM_DASH, direct on the scratch pack file (sha256
+c90d802c...869612f confirmed before edit): a literal U+2014 em dash inserted
+into Post B ("Switching your prescriptions to Hirshmans Chemist takes about
+30 seconds - no fuss." with the dash typed as U+2014, not a hyphen). CAUGHT:
+exit 1, exactly one new FAIL naming "em dash, house style is standard hyphens
+only" at the correct line and context, the three standing warnings (Q72
+clinic qualifiers, Post A phone-like number, Q64 post-town) unchanged
+alongside it. Restored by byte copy from a pre-injection backup; sha256
+reconfirmed c90d802c...869612f (identical). Checker re-run clean, exit 0.
+
+(2) SERVICE_RULES post-body reverse check: this pack could not be used to
+test the fix directly as-is, because Hirshmans holds all five widget types
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic) -
+the reverse rule only fires where a widget is ABSENT
+(`if (widgets[rule.key]) continue;`), so there is no genuine missing-service
+case in this branch's real data to exploit. To test the fix's actual new
+code path (post bodies, not just the Services bullets) against this pack's
+own prose rather than manufacturing a foreign example, the scratch copy's
+branches.json had the contraception widget removed from the hirshmans_ainsdale
+entry only (sha256 of the untouched scratch branches.json recorded first:
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102), and a
+false claim - "We also offer NHS contraception consultations while you
+wait." - appended to Post B's own body text (same file, same sha256
+discipline as above). CAUGHT: exit 1, two FAILs - the pre-existing Services-
+section reverse rule (Hirshmans' own Services section genuinely lists NHS
+contraception service too, so that rule fires as it always would) AND, for
+the first time against this pack, the new post-body FAIL naming "Post B -
+Switch your prescriptions claims 'NHS contraception service'... branches.json
+gives this branch no contraception widget". Confirms the fix generalises to
+Hirshmans' own copy. Both scratch files restored by byte copy; sha256
+reconfirmed identical to the pre-injection backups on both
+(169bb5a2...ad91b102 for branches.json, c90d802c...869612f for the pack).
+Checker re-run clean against the restored scratch copy, exit 0.
+
+(3) CLINIC_QUALIFIERS word-order fix (weightLossPaid): NOT testable against
+this pack, and this is itself the finding, not a gap in this pass.
+hirshmans_ainsdale is one of only three branches (with Cherry Lane Walton and
+Fishlocks Ainsdale) named in KNOWN_CLINIC_QUALIFIER against Q72 - the rule
+does not apply to this pack's Post C at all while Q72 stays open, and quite
+apart from the exemption, Post C's actual text ("a private, no pressure
+consultation") contains neither "private, paid" nor "paid, private" in any
+order, so there is no genuine instance of the exact phrase family this fix
+touches anywhere in this pack for an order-swap to prove anything against.
+Recorded so a future pass does not re-attempt this same angle expecting a
+different result: the fix is real and was correctly proven against
+smartts-bootle.md at birth; it simply has no surface on this particular pack
+until or unless Q72 is answered in favour of bringing these three packs onto
+the standard wording.
+
+RESULT: two of three new/changed rules proven genuinely against this pack's
+own copy for the first time; the third confirmed structurally inapplicable
+here rather than skipped without explanation. Zero in-repo defect. Full
+36-checker suite re-run against the tracked repo after all scratch work
+(scratch directory deleted entirely): 36/36 exit 0. git status --porcelain --
+gbp-packs branches.json modules core confirmed empty throughout and after.
+
+LIVE HALF: Claude in Chrome connected this run (read-only throughout;
+nothing clicked, typed or submitted). Five targets read in full text:
+  - pharmacy-first-service-ainsdale.html (the legacy hand-built page Post A
+    used to point at before the 2026-09-14 repoint): still live, still wrong
+    - "64 station Road" instead of "56-62 Sherwood House, Station Road",
+    phone "017014577376" (non-dialling), "Hirshmans Pharmacy" branding three
+    times in the hand-pasted body against "Hirshmans Chemist" in the
+    site-wide footer/schema - unchanged from every prior pass. No longer
+    linked from the pack (Post A was repointed away from it on 2026-09-14),
+    so it is now an orphaned live page rather than the pack's own HARD STOP
+    target; still reachable directly by URL and still in the top nav's
+    "Pharmacy First" link (not independently re-checked this pass which nav
+    link resolves where - out of this item's scope, note only).
+  - pharmacy-first-hirshmans-ainsdale.html (the generated replacement Post A
+    now points at): read in full, correct throughout - Hirshmans Chemist
+    branding, correct address, correct phone, correct seven-condition age
+    ranges, matching branches.json exactly. Confirms the 2026-09-14 repoint
+    (item 5.3/Q34) landed correctly and is holding.
+  - switch-prescriptions-hirshmans-ainsdale.html (Post B): still renders the
+    pre-Q7 em dash as mojibake ("it usually is not ÔÇö we make
+    the first step quick and easy"), byte-identical to every prior pass -
+    still item 5.1/Q7, a live Weebly paste lag, not actionable from this
+    repo.
+  - weight-loss-clinic-hirshmans-ainsdale.html (Post C), travel-clinic-
+    hirshmans-ainsdale.html (Post D): not re-read at depth this pass (last
+    confirmed clean at depth on the tenth and eleventh passes); both loaded
+    without error during navigation.
+
+No new question raised. No in-repo defect found. This pass's contribution is
+proving two genuinely new checker-rule changes against this pack for the
+first time, and closing off the third as structurally inapplicable so it is
+not re-attempted fruitlessly by a future pass.
