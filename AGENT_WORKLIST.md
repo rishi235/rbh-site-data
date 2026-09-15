@@ -13956,6 +13956,75 @@ Done 2026-09-15 (eighteenth pass).
       did not address them by number, but their notes now record that Q51's
       operative decision has been applied estate-wide and will reach both
       branches on the same repaste.
+      Quality pass 2026-09-15 (sixteenth pass). All 8 unblocked worklist
+      items still [BLOCKED] this run (5.3, 5.4, 5.5, 5.8, 6.1, and the three
+      Q60/Q66 lines under 6.4/6.5/6.6), so this is the fallback quality pass.
+      Rotation pool re-derived via a Python header-to-next-header quality-
+      pass/Done-date scan of every completed item's own block; standing
+      out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded;
+      tied-oldest pool at 2026-09-14 was {3.13, 4.1} (3.12 dropped out of the
+      pool after the forty-first run's sixteenth pass moved it to
+      2026-09-15); took 3.13 on the lowest-item-number tiebreak.
+      NO IN-REPO DEFECT FOUND: tools/check-seo-lengths.js, never once named
+      against this branch across fifteen prior passes (which exercised
+      check-switch-copy.js, check-weight-loss-copy.js,
+      check-travel-clinic-copy.js, check-jsonld.js, check-seo-pattern.js,
+      check-seo-keywords.js, check-branch-links.js, check-app-membership.js,
+      check-booking-routes.js, check-nap.js, check-postcodes.js,
+      check-em-dashes.js, check-cdn-pins.js, check-branch-identity.js and
+      check-map-embeds.js), is now proven by five injections covering all
+      four of its rules (title length, description length, duplicate title,
+      duplicate permalink, and same-branch H1 repeat), all caught first
+      attempt, plus a clean control.
+      BASELINE. Full 36-checker suite ran individually before any work, 0
+      failures. New instrument, audits/verify-3.13-2026-09-15-sixteenth.js
+      (own sha256 baseline of the three paste sheets it touches -
+      modules/switch/pages/SEO.md, modules/service/pages/WEIGHT-LOSS-SEO.md,
+      modules/service/pages/TRAVEL-CLINIC-SEO.md - and the switch page,
+      captured before any mutation, every injection restored via
+      fs.writeFileSync from an in-memory buffer, not git, sha256-reconfirmed
+      after every restore and again at the end). Five injections plus one
+      control: (1) RULE 1 title length - the switch sheet's own Page Title
+      extended from 51 to 75 characters - CAUGHT, "over the 65 limit"; (2)
+      RULE 2 description length - the weight loss sheet's own Page
+      Description shortened from 132 to 37 characters - CAUGHT, "under the
+      80 minimum"; (3) RULE 3a duplicate title - the travel clinic sheet's
+      title set to the weight loss sheet's own title (same branch, two
+      sheets) - CAUGHT, "duplicate title"; (4) RULE 3b duplicate permalink -
+      the switch sheet's permalink set to the travel clinic sheet's own
+      permalink (same branch, two sheets) - CAUGHT, "duplicate permalink";
+      (5) RULE 4a same-branch H1 repeat - the switch page's own H1 set to
+      the weight loss page's own H1 (both Clear Aintree's own pages) -
+      CAUGHT, "one branch uses the same H1 on two of its own pages -
+      clearchemist_aintree". CONTROL - a benign Meta Keywords addition on
+      the switch sheet, a field this checker does not read - correctly
+      passed, exit 0, no cross-firing. All five injections caught first
+      attempt on their intended rule; the control passed clean; no
+      cross-firing. STRUCTURAL FINDING, not a defect: rule 4b (two branches
+      on one host sharing an H1) has no natural injection point on Clear
+      Aintree, a single-site brand with no sister sharing its website host,
+      the same scope-limit shape recorded for other single-site brands on
+      prior items' passes.
+      VERIFICATION. Full 36-checker suite re-run individually after the
+      round: 36/36 exit 0. git status --porcelain -- modules core tools
+      branches.json gbp-packs audits showed only the two new audit files
+      (the instrument and its saved output) plus the same pre-existing
+      untracked strays every recent pass has recorded, none touched this
+      pass. sha256 of all four touched files reconfirmed byte-identical to
+      their pre-injection baseline. No generator, page, checker or
+      branches.json content changed. Evidence:
+      audits/verify-3.13-2026-09-15-sixteenth.js and its saved output,
+      audits/verify-3.13-2026-09-15-sixteenth-output.txt.
+      LIVE HALF: not attempted this pass, matching the precedent set by
+      several other items' recent passes on the same checker family (a
+      paste-sheet and on-page length/uniqueness rule has no live-only
+      surface separate from what the repo-half proof already covers).
+      QUESTIONS: none raised this run. Answer pickup re-checked via
+      https://data.rbhealth.co.uk/api/feedback: newest entry still the Q52
+      answer, dated 2026-09-01T22:44:51.524Z, unchanged since every run
+      since 2026-09-01; no answer arrived this run for any of the 54 open
+      questions. Q65, Q28 and Q29 re-read from QUESTIONS.json: all still in
+      their prior status, correctly not re-litigated here.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

@@ -1,0 +1,22 @@
+=== BASELINE ===
+  switchSheet: 0ae6e1443e66a472c3f175f0eb58e2f343dcc108656c5d81900fed89f6f3e68a
+  weightSheet: 4ff908bcf82d0886a5598f1ec2a0669aa16b3a770152a859f823026c62d58e2a
+  travelSheet: f81114a431f711ce879bcb7e014f60b52e1e1fc0ac5c1829623696660bcf7e21
+  switchPage: 8e18d9019416aee8a45818d6c2018637edece63bd4db5973695aab69880c199a
+Pre-injection checker run: exit 0
+
+=== RESULTS ===
+  CAUGHT: RULE 1 title length - switch page title extended past 65 characters [over the 65 limit]
+  CAUGHT: RULE 2 description length - weight loss description shortened under 80 characters [under the 80 minimum]
+  CAUGHT: RULE 3a duplicate title - travel clinic title set to Clear Aintree's own weight loss title [duplicate title]
+  CAUGHT: RULE 3b duplicate permalink - switch permalink set to Clear Aintree's own travel clinic permalink [duplicate permalink]
+  CAUGHT: RULE 4a same-branch H1 repeat - switch page H1 set to Clear Aintree's own weight loss H1 [one branch uses the same H1 on two of its own pages - clearchemist_aintree]
+  PASSED (correct): CONTROL - benign Meta Keywords addition on switch sheet (not read by this checker)
+
+Final restore check switchSheet: OK byte-identical
+Final restore check weightSheet: OK byte-identical
+Final restore check travelSheet: OK byte-identical
+Final restore check switchPage: OK byte-identical
+Final checker run after full restore: exit 0
+
+Summary: 6 correct outcome(s) (caught or correctly passed), 0 unexpected outcome(s).
