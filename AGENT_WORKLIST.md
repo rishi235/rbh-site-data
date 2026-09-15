@@ -1165,6 +1165,94 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Q49 - a live check today would show the old JSON-LD with no hours
       still serving and that is expected, not a finding, per the convention
       those entries recorded.
+      Quality pass 2026-09-15 (nineteenth pass): rotation pool re-derived
+      fresh via a Python header-to-next-header block scan of every
+      completed item's own embedded dates (standing out-of-rotation set
+      1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded). All items other than
+      those seven carried a 2026-09-14 or 2026-09-15 date except this one,
+      last touched 2026-09-12 (the eighteenth pass and the same-day Q38
+      rollout note above) - the single oldest in-rotation item, no tie.
+      Took 2.1. All 8 remaining unchecked worklist lines (5.3, 5.4, 5.5,
+      5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6) reconfirmed
+      [BLOCKED] by direct grep first, so the quality-pass fallback applied.
+      Answer pickup (step 3) performed first: exactly one Chrome browser
+      connected, https://data.rbhealth.co.uk/api/feedback fetched clean,
+      newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged since
+      every run since 2026-09-01; none of the 54 open questions answered
+      this run. No "Standing authorisation - autonomous window" section at
+      the top of AGENT_LOG.md, so step 4 does not apply.
+      FRESH ANGLE: the eighteenth pass's own forward note named two
+      untested angles. Took the first: check-page-coverage.js's
+      ORPHAN_PAGE rule (a page on disk that branches.json earns no such
+      page for) had never been exercised specifically via a Fishlocks
+      Ainsdale page across eighteen prior passes, only NOT_BUILT,
+      PAGE_MISSING and LANDING_NOT_BUILT.
+      Baseline: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged throughout), full 36-checker suite clean
+      on the tracked repo. Full-repo scratch copy via tar (--exclude=
+      '.git') to a disposable directory under the sandbox home mount
+      (/sessions/.../scratch, not /tmp, which this session cannot write
+      to), tracked repo never opened for writing during the injection
+      round; scratch branches.json sha256 confirmed identical before any
+      mutation; scratch baseline for check-page-coverage.js alone: clean,
+      177 pages accounted for.
+      TWO INJECTIONS against Fishlocks Ainsdale's own pages, each in a
+      different expectedByDir bucket, each restored by deleting the
+      injected file (scratch copy, not the tracked tree) and re-confirmed
+      clean before the next: (1) modules/service/pages/impetigo-treatment-
+      fishlocks-ainsdale.html copied to impetigo-treatment-fishlocks-
+      ainsdale-old.html, the renamed-slug shape the rule's own message
+      names - CAUGHT first attempt, ORPHAN_PAGE naming the exact injected
+      path; (2) modules/branch/pages/pharmacy-fishlocks-ainsdale.html
+      copied to pharmacy-fishlocks-ainsdale-renamed.html - CAUGHT first
+      attempt, same rule, naming the exact injected path in the other
+      directory. Both fired on ORPHAN_PAGE only, no unexplained collateral.
+      Full 36-checker suite re-run on the scratch copy after both restores:
+      35/36 clean, the one failure being check-cdn-pins.js's documented
+      .git-less scratch artefact ("ref does not resolve in git" /
+      "fetches branches.json from ref main"), the same shape recorded on
+      every prior scratch-copy pass using this method - not a new finding.
+      Scratch directory deleted in full after use.
+      Tracked repo reconfirmed untouched throughout: branches.json sha256
+      unchanged; git status --porcelain -- modules core branches.json
+      gbp-packs tools showed only the two long-standing pre-existing
+      untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak -
+      the second of these already carries almost exactly this pass's own
+      injection shape, a stale extra Fishlocks Ainsdale page, but as a
+      .bak rather than .html so it cannot itself trip ORPHAN_PAGE; left
+      alone per every prior pass's convention), neither touched; a direct
+      run of all 36 tools/check-*.js against the tracked repo was clean,
+      36/36 exit 0, both before and after.
+      LIVE HALF (Claude in Chrome connected this run, read-only, nothing
+      clicked or submitted): fishlockpharmacy.co.uk/sitemap.xml still 200,
+      all 40 URLs still fixed at lastmod 2026-08-14T17:32:10 (Q35's
+      underlying non-publish, now 32 days). pharmacy-fishlocks-ainsdale
+      .html still 404 (Q35, unchanged). contact.html still names the
+      business "Fishlock Pharmacy" (x4) and "Fishlock Chemist" (x1) and
+      abbreviates "17 Station Rd" (x2) alongside the correct "Fishlocks
+      Chemist" footer mentions (Q37, unchanged). weight-loss-services-
+      eccleston-ainsdale.html, linked straight off the homepage nav
+      ("WEIGHT LOSS CLINIC" buttons), still 200 and still carries "Real
+      Results with Mounjaro", the body-weight-percentage slider and all
+      three POM names (Mounjaro, Wegovy, Orlistat) (Q57, feeding 5.8,
+      unchanged). No new question raised; all live findings are
+      reconfirmation of existing standing state, none newly discovered.
+      RESULT: zero in-repo defect. check-page-coverage.js's ORPHAN_PAGE
+      rule is now proven directly by injection against Fishlocks Ainsdale
+      specifically, in both of the two page directories it owns pages in,
+      for the first time in nineteen passes.
+      FORWARD NOTE: the eighteenth pass's other named angle - re-proving
+      check-seo-lengths.js rule 4a (same-branch H1 reuse) against a
+      different Fishlocks Ainsdale page pair than the sixteenth pass used,
+      since 4a was flagged as "worth re-confirming rather than assumed
+      durable" - remains open for a future pass. Separately,
+      check-page-coverage.js's ORPHAN_PAGE rule has still not been
+      exercised via the switch or Pharmacy-First-condition directories
+      specifically (this pass used the plain service and branch-landing
+      dirs); a future pass could inject into modules/switch/pages instead.
+      Done 2026-09-15.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
