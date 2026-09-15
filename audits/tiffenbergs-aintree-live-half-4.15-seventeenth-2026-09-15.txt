@@ -1,0 +1,92 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) - seventeenth quality pass, live half
+Run: 2026-09-15, unattended scheduled run, audit-backlog-worker, twenty-second run today
+Method: Claude in Chrome (mcp__claude-in-chrome__*), read-only throughout - nothing
+clicked, typed or submitted. Single connected tab. No Q59 dual-extension block this run.
+
+PURPOSE
+Repo half (pack sha256, all 36 checkers, all six generators) has been re-verified clean
+sixteen times, most recently the sixteenth pass on 2026-09-11 (checker-scope proof only,
+no live read attempted that pass). The live half's last genuine browser-based read was
+the ninth pass, 2026-09-03 - twelve days stale before this run. This pass's fresh angle
+is closing that gap: re-walk the same live surfaces the eighth/ninth passes read and
+confirm nothing has drifted in the intervening twelve days, using direct DOM inspection
+(document.body.innerText / innerHTML with codepoint dumps) rather than relying only on
+get_page_text, so a genuine live defect cannot be mistaken for a text-extraction artifact
+or vice versa.
+
+REPO HALF (re-confirmed before the live read)
+- gbp-packs/tiffenbergs-aintree.md sha256:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+  - identical to the baseline recorded on the ninth pass (2026-09-03) and every pass since.
+- All 36 tools/check-*.js run individually against the tracked repo: 0 failures, 0
+  unexpected output.
+- No file in gbp-packs/, modules/, core/, tools/ or branches.json touched this pass.
+
+LIVE HALF
+1. https://www.tiffenbergschemist.co.uk/pharmacy-first-tiffenbergs-aintree.html
+   - Loads live (not a 404). Title: "Pharmacy First at Tiffenbergs Chemist, Aintree".
+   - All seven Pharmacy First conditions present with the correct NHS age cohorts,
+     matching branches.json and the pack: UTI (women 16-64), sore throat (5+),
+     sinusitis (12+), earache (1-17), impetigo (1+), shingles (18+), infected insect
+     bite (1+).
+   - Contact card: 388 Longmoor Lane, Liverpool, L9 9DB; phone 0151 525 3462 - both match
+     branches.json exactly.
+   - Opening hours block correctly carries both weekday sessions (9:00am-6:00pm shown
+     with "(closed 1-2pm)" annotation) and Saturday/Sunday closed - matches the
+     split-hours rule and branches.json's specification.
+   - CONFIRMED VIA DOM CODEPOINTS (new evidence this pass, not attempted on any prior
+     pass): the site-wide switch banner's close icon renders as literal mojibake text
+     in document.body.innerText, not just in the extraction tool's own output. Captured
+     the exact string immediately after "...Switch now" and before "Home": codepoints
+     0x0a, 0x251c ("├"), 0xf9 ("ù"), 0x0a - i.e. the banner's close control literally
+     reads "├ù" as visible page text between the banner line and the nav. This proves
+     the eighth-pass finding ("switch banner ... literal multiplication sign ... mangles
+     non-ASCII characters") is a genuine live DOM defect, not an artifact of any one
+     extraction method - reconfirmed unchanged, now on firmer evidence.
+   - Footer: "Tiffenbergs Chemist * 388 Longmoor Lane, Liverpool, L9 9DB * 0151 525 3462
+     * tiffenbergs@rbhealth.co.uk * Switch your prescriptions Open Mon-Fri 9am-6pm
+     (closed 1-2pm), Sat & Sun closed * Superintendent Pharmacist: Dr S K Kochhar (GPhC
+     2039034) * Owned and operated by RB Healthcare Ltd * Company No 06223421"
+     (separators rendered as middle dots on screen).
+
+2. https://www.tiffenbergschemist.co.uk/switch-prescriptions-tiffenbergs-aintree.html
+   - Loads live. Contact card and footer both publish "tiffenbergs@rbhealth.co.uk"
+     (plural, lower case t) twice on this page - reconfirms the Q56 email split
+     (branches.json holds "Tiffenberg@rbhealth.co.uk", singular) unchanged, 35 days
+     open with no portal answer beyond the "not a decision" note already on file.
+   - No switch-now banner present on this page (it would be redundant on the switch
+     page itself) so the mojibake close icon was not re-observed here; it was however
+     directly reconfirmed on the Pharmacy First page above.
+   - Footer hours line uses en dashes ("Mon-Fri 9am-6pm", "closed 1-2pm") rendered
+     correctly on screen - not the same defect class as the banner's mojibake close
+     icon, and not flagged as broken by any checker (en dashes in a website footer are
+     outside this repo's no-em-dash rule, which governs generated repo copy, not
+     Weebly-native furniture).
+
+3. https://www.tiffenbergschemist.co.uk/index.html (homepage)
+   - Read all <a> elements whose href matches /weight-loss/i via
+     document.querySelectorAll: seven links total, four pointing at the old
+     weight-loss-clinic-aintree.html template (top nav "Weight Loss Clinic", a repeated
+     body link, and a hidden/duplicate menu link with empty text), three pointing at
+     the compliant generated page weight-loss-clinic-tiffenbergs-aintree.html.
+   - Reconfirms the eighth-pass finding (2026-09-02) unchanged: the prominent,
+     first-encountered links still route to the regime 1 non-compliant template: this
+     feeds Q58 (open, live patient-facing weight-loss advertising exposure, not this
+     run's to act on). No new question raised - Q58 already asks the operative
+     question this evidence reconfirms.
+
+4. https://www.tiffenbergschemist.co.uk/sitemap.xml
+   - 28 URLs, every <lastmod> identical at 2026-08-15T07:39:10+00:00 - no republish on
+     this domain in 31 days. pharmacy-first-tiffenbergs-aintree.html and all seven
+     condition pages present and correctly named; both weight-loss URLs (the old
+     template and the compliant generated page) present, matching the homepage link
+     read above.
+
+RESULT
+No new in-repo defect. No new live fault. All previously recorded live-only findings
+(switch banner mojibake close icon, tiffenbergs@ vs Tiffenberg@ email split feeding Q56,
+regime 1 weight loss link exposure feeding Q58, no republish since 2026-08-15) reconfirmed
+unchanged, twelve days after the last genuine browser-based read (ninth pass, 2026-09-03).
+No page, pack, generator output or branches.json entry changed this pass. No new question
+raised - both open questions this evidence touches (Q56, Q58) already ask the correct
+operative question and neither is this pass's to answer or implement.

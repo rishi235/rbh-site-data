@@ -22280,6 +22280,40 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       verdicts (2026-09-03) stand, not re-verified this pass. No new question
       raised. Evidence in
       audits/tiffenbergs-aintree-phone-published-copy-4.15-sixteenth-2026-09-11.txt.
+      Quality pass 2026-09-15 (seventeenth re-verification, live half only):
+      pack re-confirmed byte-identical to baseline (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) and all
+      36 checkers re-run clean before the live read; nothing in the repo
+      touched. Fresh angle: the last genuine browser-based live read was the
+      ninth pass, 2026-09-03 (twelve days stale); this pass closes that gap
+      via Claude in Chrome (connected, single tab, no Q59 block), reading
+      document.body.innerText/innerHTML with codepoint dumps rather than
+      relying on text extraction alone, so a genuine live defect cannot be
+      mistaken for an extraction artifact. Pharmacy First page
+      (pharmacy-first-tiffenbergs-aintree.html) loads live, not a 404; all
+      seven conditions and their NHS age cohorts, the address, phone and the
+      split opening hours all match branches.json exactly. NEW EVIDENCE: the
+      site-wide switch banner's close icon was captured by codepoint on this
+      page for the first time - 0x251c ("├"), 0xf9 ("ù") sit as literal text
+      in document.body.innerText itself, immediately after "Switch now" and
+      before "Home", proving the eighth-pass "literal multiplication sign /
+      mangles non-ASCII characters" finding is a genuine live DOM defect and
+      not an artifact of any one extraction tool. Switch page
+      (switch-prescriptions-tiffenbergs-aintree.html) reconfirms the Q56
+      email split unchanged: both the contact card and the footer publish
+      "tiffenbergs@rbhealth.co.uk" (plural) against branches.json's
+      "Tiffenberg@rbhealth.co.uk" (singular), 35 days open, no portal answer
+      beyond the existing "not a decision" note. Homepage link read via
+      querySelectorAll (not inferred from the sitemap): seven weight-loss
+      links, four still routing to the old weight-loss-clinic-aintree.html
+      regime 1 template (top nav, a body link and a hidden duplicate-menu
+      link) against three routing to the compliant generated page - the
+      eighth-pass Q58 finding reconfirmed unchanged, not this run's to act
+      on. sitemap.xml: 28 URLs, every lastmod still 2026-08-15T07:39:10+00:00,
+      31 days with no republish. No new in-repo defect, no new live fault, no
+      new question - Q56 and Q58 already ask the correct operative questions
+      this evidence reconfirms. Evidence in
+      audits/tiffenbergs-aintree-live-half-4.15-seventeenth-2026-09-15.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
