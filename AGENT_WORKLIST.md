@@ -15161,6 +15161,45 @@ directly by injection for the first time. No new question; QUESTIONS.json
 unchanged (101 total, 48 open). No checker logic, generator, page, pack or
 branches.json content changed. See
 audits/scorah-bramhall-item-4.4-quality-pass-2026-09-11-eighteenth.txt.
+Quality pass 2026-09-15 (nineteenth pass, unattended scheduled run): fresh
+angle, the LIVE half, which passes 13 through 18 all skipped or only
+partly covered because Claude in Chrome was unreachable in those sessions.
+Chrome was reachable this run, so all five URLs the pack references were
+fetched live read-only via browser_batch: the profile website
+(pharmacy-scorah-bramhall.html, still 404, unchanged since first found
+2026-08-11 and now reconfirmed on the sixth separate date), Post A
+(pharmacy-first-scorah-bramhall.html, 200, correct trading name, address,
+phone and all seven Pharmacy First conditions with the right NHS age
+cohorts - consistent with the 2026-09-14 repoint note already in the pack),
+Post B (switch-prescriptions-scorah-bramhall.html, 200, NAP correct,
+the pre-Q7 em-dash mojibake in the "How switching works" intro still present
+and unchanged since 2026-09-02 - live-paste-lag, not a repo defect, module
+source and paste sheet both already correct), and Posts C and D
+(weight-loss-clinic-scorah-bramhall.html and travel-clinic-scorah-bramhall.html,
+both 200, last checked live on the 12th/13th passes over a month ago and not
+re-verified since). Posts C and D read in full against
+RBH_WeightLoss_Advertising_Standards.md: neither names a specific medicine,
+vaccine or drug brand, both carry the required "not medical advice / no
+guaranteed outcome" and "not right for everyone" hedges, neither headlines a
+price (the weight loss page states "from £39.99" only inside the booking
+card, not the hero), and the weight loss page's eligibility and exclusion
+lists match the pattern already found compliant elsewhere in the estate.
+Compliant under either regime in the house standard since no brand or drug
+name appears at all. One live finding reconfirmed, not new: both pages'
+Weebly-native footer still prints "Cheshire" against this branch's own
+addressRegion of Greater Manchester in branches.json, which is Q43's
+existing tracked finding (open, Rishi's 2026-09-01 portal reply on it is
+"Unsure... need advise", not yet a decision) - same fault, same two pages,
+unchanged since first found. RESULT: zero NEW in-repo or live defect; the
+live half is now current across all five referenced URLs for the first
+time since 2026-08-13, and gbp-packs/scorah-bramhall.md's paster notes
+updated in place with today's re-confirmation dates so the next pass knows
+exactly how stale each URL's live check is rather than relying on this
+paragraph. No new question raised (Q43 already covers the one live finding
+seen). QUESTIONS.json unchanged. tools/check-gbp-packs.js and
+branches.json untouched; only gbp-packs/scorah-bramhall.md's prose notes
+edited (three bullets: profile-website re-confirm date, switch-page
+re-confirm date, and a new bullet for Posts C/D).
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster

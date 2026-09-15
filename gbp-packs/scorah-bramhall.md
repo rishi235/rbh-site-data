@@ -121,8 +121,8 @@ Notes for the paster:
   website and the page's own links will 404. See modules/branch/pages/
   INDEX.md and SEO.md. Checked live again 2026-09-02: still returns 404,
   unchanged since first found 2026-08-11 and re-confirmed on every pass
-  since (2026-08-12, 2026-08-31, 2026-09-01). Do not set the profile
-  website until this resolves.
+  since (2026-08-12, 2026-08-31, 2026-09-01, 2026-09-15). Do not set the
+  profile website until this resolves.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Post A repointed 2026-09-14 (unattended run) to the branch-specific page,
@@ -142,7 +142,21 @@ Notes for the paster:
   live-paste-lag family already tracked on Cherry Lane, Coleman and Leighs,
   Gordon Short and Tiffenberg. Not a repo defect: the module source and the
   paste sheet both hold a correct, plain em dash, and check-em-dashes.js
-  already reads both clean. Needs a repaste, not a source fix.
+  already reads both clean. Needs a repaste, not a source fix. Re-checked
+  live 2026-09-15 (item 4.4 nineteenth pass): unchanged, same mojibake still
+  present, NAP still correct.
+- Posts C and D (weight loss clinic, travel clinic) re-checked live for the
+  first time since 2026-08-12/13 on the 2026-09-15 pass (item 4.4 nineteenth
+  pass, Claude in Chrome reachable this run unlike the 13th-18th passes):
+  both resolve (200), name no specific medicine, vaccine or drug brand, carry
+  the required "not medical advice, eligibility and outcomes decided
+  individually at consultation" and "not right for everyone" hedges, and lead
+  with no price or discount in the hero. Compliant under both the Regime 1 and
+  Regime 2 tests in RBH_WeightLoss_Advertising_Standards.md regardless of
+  where the page sits, since no brand or drug name appears at all. The
+  Weebly-native footer on both pages still prints "Cheshire" against this
+  branch's own addressRegion of Greater Manchester in branches.json - this is
+  Q43's tracked finding, reconfirmed unchanged, not a new defect.
 - Post buttons: if GBP only offers "Learn more", use it with the same links.
 - Check category names against what GBP's picker actually offers on the day;
   pick the closest match.
