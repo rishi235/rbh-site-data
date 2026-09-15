@@ -1199,3 +1199,107 @@ stays [BLOCKED]. With this addition, item 5.8's full sitemap-and-link-
 context sweep (fourteen Weebly branches plus the Clear Chemist Aintree
 e-commerce platform) is now complete; no branch or platform remains
 unread against the sweep methodology.
+
+## 2026-09-15 addition (item 4.10 sixteenth pass): simpleweightloss.co.uk - a third platform, not a Weebly branch and not Clear Chemist, found live and Google-indexed while doing item 4.10's live half for the first time
+
+The claim two additions above ("no branch or platform remains unread
+against the sweep methodology") is now known to be wrong, not because that
+sweep was done carelessly, but because it never had this platform in its
+scope at all: it enumerated the fourteen Weebly branch domains plus the one
+Clear Chemist e-commerce platform, and nobody had reason to add a third
+kind of property to that list until it turned up by accident.
+
+It turned up during item 4.10's own quality pass, on its sixteenth
+attempt, doing the "verify against the live site" half of the item that
+the previous fifteen passes had never reached (Claude in Chrome was
+unavailable to every one of them; Q59). A plain Google search for "Smartts
+Chemist Bootle Fernhill Road" - the same search a patient would run -
+returned, among the branch's own website and NHS.uk listing, an organic
+result from simpleweightloss.co.uk: "Simple Weight Loss at Smartts Chemist
+- 5(star)", linking to /weight-loss-bootle.html.
+
+That page, read live and read-only:
+
+- Headline: "Discover personalised weight loss solutions tailored to your
+  needs at Smartts Pharmacy in Bootle, Liverpool."
+- Names Wegovy (Semaglutide) and Mounjaro (Tirzepatide) by brand and by INN,
+  each with its own paragraph.
+- States a quantified efficacy claim for each: "help users lose an average
+  of 15% of their body weight over a year" (Wegovy), "help patients lose an
+  average of 22% of their body weight, making it one of the most effective
+  treatments available" (Mounjaro) - the last clause is a superlative claim
+  on top of the number.
+- A side-by-side comparison table, columns Wegovy vs Mounjaro, rows
+  including Average Weight Loss, Mechanism of Action, NHS Availability and
+  Common Side Effects - a treatment picker in substance, the same shape as
+  the pickers already found on the Weebly branch pages and at Clear
+  Chemist, just laid out as a table instead of a selector control.
+- Two named "success stories" quoting first-person outcomes ("I started
+  Mounjaro a few weeks ago... I've already lost weight and feel more
+  energetic", "I started my Wegovy treatment... I've already noticed
+  positive changes in my weight and health"), attributed to "Rachel,
+  Bootle" and "Chris, Bootle" - quantified-outcome-shaped testimonials of
+  the kind Q104 flagged as having no precedent elsewhere in the audit
+  until Clear Chemist; this is a second instance, on a third platform.
+- "BOOK NOW" / "START YOUR CONSULTATION" calls to action throughout, no
+  wording anywhere on the page that the consultation may or may not lead
+  to a prescription.
+
+This is not an inner page a patient chooses to click into from a branch's
+own site; it is simpleweightloss.co.uk's own dedicated landing page for
+this branch, found directly from a plain search, which puts it squarely in
+Regime 1 territory under the house reference, the strictest test, not the
+limited Regime 2 exemption.
+
+The domain's own sitemap.xml (read in full, one call, no crawl needed) shows
+this is not a Smartts-only page. It lists a dedicated weight-loss-<branch>
+page for at least: Smartts Bootle, McCanns Aigburth, Fishlocks Ainsdale
+(two URLs, weight-loss-ainsdale-southport.html and
+weight-loss-ainsdale-southport-fishlocks.html), McCanns Sandringham,
+Fishlocks Eccleston, Cherry Lane (Walton Village), Gordon Short Crosby,
+Scorah Hazel Grove, Scorah Bramhall, Clear Chemist Aintree, a
+Longmoor Lane page with no obvious branch match in branches.json, Riddings
+Timperley, and - the one that matters most - Wilmslow, the branch RB
+Healthcare disposed of on 1 July 2026. weight-loss-wilmslow.html is still
+in the live sitemap, still indexed, over a year after this site's own
+lastmod timestamp of 2025-08-27 stopped updating. The homepage
+(index.html), read separately, is worse than any single branch page: it
+is titled "NHS Weight Loss Injections at 16 UK Pharmacies", opens "we
+provide safe, effective weight loss injections like Mounjaro and Wegovy"
+in its own welcome paragraph - a superlative efficacy claim naming both
+medicines on the site's own front door, the least defensible possible
+location under Regime 1 - and names Wilmslow again, alongside Bramhall,
+Hazel Grove and "Liverpool", as one of the places offering in-person
+support "if you prefer", continuing to advertise a location this group no
+longer owns or operates as though it still does.
+
+Per CLAUDE.md's own standing identity section, Simple Weight Loss (SWL) is
+"brand parked formally for 90 days, decision pending" - Rishi's own words,
+written into the instructions this worker follows every run. Nothing on
+the live site reflects that: no closure notice, no "temporarily
+unavailable" banner, working navigation throughout, a working newsletter
+signup, and search-visible marketing copy exactly as if the brand were
+fully active. Whatever "parked" was meant to mean operationally, the
+public-facing site is not parked in any way a visitor or a regulator could
+see.
+
+Not read this pass, and owed to a future pass before this can be called
+swept the way Clear Chemist's platform now is: the remaining eleven or so
+per-branch pages beyond Smartts Bootle, /wegovy.html and
+/mounjaro-weight-lossuk.html (both listed in the sitemap, contents
+unknown), the /prices.html page, and the ten blog posts under /blog/ that
+name individual branches by name in their URLs (Scorah Bramhall, Scorah
+Hazel Grove, Tiffenbergs, Smartts, Hirshmans, McCanns Aigburth, McCanns
+Sandringham, SK Chemists, Coleman and Leighs, Gordon Short) - a second,
+separate, dated content stream on the same domain that has not been looked
+at at all.
+
+Raised as Q106, not folded into Q104, because it is a different platform,
+a different group entity (Simple Weight Loss, not ClearChem Ltd or a
+Weebly branch site), and carries a standing instruction (the 90-day park)
+that the live evidence contradicts, none of which was true of extending
+Q104 to a fourth Clear Chemist sub-page. Item 4.10 itself: no in-repo
+defect, no change needed to gbp-packs/smartts-bootle.md or any generator,
+since this platform is not built by or referenced from this repo. Item
+4.10's own sixteenth-pass writeup is in AGENT_WORKLIST.md; this addition
+is the supporting evidence for Q106.

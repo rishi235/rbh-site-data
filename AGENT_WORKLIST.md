@@ -18310,6 +18310,59 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Chrome not connected (standing Q59). No new question. Evidence in
       audits/smartts-bootle-clinic-qualifiers-4.10-fifteenth-2026-09-11.txt.
       Done 2026-09-11.
+      Sixteenth quality pass 2026-09-15 (unattended scheduled run via Cowork;
+      mcp__claude-in-chrome__* used throughout and confirmed connected this
+      run, only one browser instance signed in, no repeat of the standing
+      Q59 dual-instance block): fresh angle - the LIVE HALF, explicitly
+      recorded as "not performed" on all fifteen prior passes because Claude
+      in Chrome was never connected, was finally carried out this pass.
+      Pack re-verified against branches.json first (unchanged: address,
+      phone, both hours sessions, website, review link, widget set).
+      Read live, read-only: weight-loss-clinic-smartts-bootle.html,
+      travel-clinic-smartts-bootle.html,
+      switch-prescriptions-smartts-bootle.html, and
+      pharmacy-first-service-bootle.html (Post A's live-only target). Every
+      previously-recorded live finding for this branch reconfirmed present
+      and UNCHANGED, none newly found: the Q55 hours contradiction (all four
+      pages print "9:00am - 6:00pm" Monday to Friday with no lunch closure,
+      contradicting this pack's own split-day paster guidance and the
+      branches.json specification); the Q51/Q83/Q88 lead-price-position
+      finding ("Private consultation at Smartts Chemist, from £39.99" above
+      the eligibility section); the stale pre-cleanup en dashes in "not
+      right for everyone" and "at consultation" on the weight loss page,
+      first flagged on this branch on the sixth pass and still unrepasted;
+      the Q48 yellow fever gap (branches.json has no yellowFeverCentre field
+      for smartts_bootle, and the travel clinic page still advertises yellow
+      fever); the Q16 "Weight Loss Clinic - Support that delivers results"
+      tile on the switch page, still held in check-service-links.js's
+      KNOWN_CLAIM pending Rishi's wording decision; and the Q49 hero/bullet
+      copy on the switch page ("We contact your GP. We handle everything.
+      You do nothing.", "No interruption to your medication") still reading
+      the old unconditional wording live, expected since Q49's answered fix
+      (commit 99dcad3) is repo-only and not yet pushed or repasted. ONE
+      GENUINELY NEW FINDING, not previously recorded anywhere in this
+      item's history: a plain Google search for "Smartts Chemist Bootle
+      Fernhill Road" - the same search a patient would run - surfaces an
+      organic result from simpleweightloss.co.uk, a third platform (not a
+      Weebly branch site, not the Clear Chemist e-commerce platform, and
+      not built by or referenced from this repo) carrying a dedicated
+      weight-loss-bootle.html page for this exact branch: named Wegovy and
+      Mounjaro with quantified efficacy claims, a treatment comparison
+      table, and named first-person outcome testimonials. The domain's
+      sitemap shows this is estate-wide (at least thirteen more per-branch
+      pages) and, more seriously, still lists the disposed Wilmslow branch
+      as a live in-person location, and the site's own homepage opens with
+      an efficacy claim naming both medicines - Regime 1 territory with no
+      exemption. This sits directly against the standing CLAUDE.md note
+      that SWL is "brand parked formally for 90 days, decision pending":
+      nothing on the live site reflects any park. Full write-up in
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (2026-09-15 addition).
+      Raised as Q106, not folded into Q104, since it is a different
+      platform and entity and carries the parked-brand contradiction Q104
+      does not. No in-repo defect on item 4.10 itself: gbp-packs/
+      smartts-bootle.md and every generator are unchanged, since none of
+      this platform is built from or referenced by this repo. Item 5.8
+      stays [BLOCKED]. Done 2026-09-15.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
