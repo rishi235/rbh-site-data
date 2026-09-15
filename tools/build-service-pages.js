@@ -464,22 +464,30 @@ function contactCard(store, b) {
 }
 
 function pharmacySchema(store, b, url) {
-  return '<script type="application/ld+json">\n' +
-    JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Pharmacy",
-      "name": b.branchName,
-      "url": url,
-      "telephone": b.phone || "",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": b.streetAddress || "",
-        "addressLocality": b.addressLocality || "",
-        "postalCode": b.postalCode || "",
-        "addressRegion": b.addressRegion || "",
-        "addressCountry": b.addressCountry || "GB"
-      }
-    }, null, 2) + "\n</script>";
+  var obj = {
+    "@context": "https://schema.org",
+    "@type": "Pharmacy",
+    "name": b.branchName,
+    "url": url,
+    "telephone": b.phone || "",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": b.streetAddress || "",
+      "addressLocality": b.addressLocality || "",
+      "postalCode": b.postalCode || "",
+      "addressRegion": b.addressRegion || "",
+      "addressCountry": b.addressCountry || "GB"
+    }
+  };
+  // Item 2.1 gap (Q38, answered 2026-08-30): only the six branch landing
+  // pages carried openingHoursSpecification; the 171 service-family and
+  // switch pages declared none. Built the same way as
+  // build-branch-landing-pages.js's pharmacySchema().
+  var ohSpec = ((b.openingHours || {}).specification || []).map(function (s) {
+    return { "@type": "OpeningHoursSpecification", "dayOfWeek": s.dayOfWeek, "opens": s.opens, "closes": s.closes };
+  });
+  if (ohSpec.length) obj.openingHoursSpecification = ohSpec;
+  return '<script type="application/ld+json">\n' + JSON.stringify(obj, null, 2) + "\n</script>";
 }
 
 // --- overview page ----------------------------------------------------------

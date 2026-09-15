@@ -37,6 +37,30 @@
  *      documented exception in KNOWN_NO_HOURS. Rules 4 to 6 all read
  *      openingHours and return immediately when it is absent, so a missing
  *      block is not checked leniently, it is not checked at all.
+ *   10. The JSON-LD openingHoursSpecification on every switch page and every
+ *      service-family page (Pharmacy First overview and condition pages,
+ *      weight loss, travel clinic, contraception) carries exactly the
+ *      sessions in branches.json for its own branch, no more and no fewer -
+ *      the same comparison as rule 3, widened from the six landing pages to
+ *      the other 171.
+ *
+ * The gap that prompted rule 10 (Q38, answered 2026-08-30, 2026-09-15): when
+ * item 2.1 built the landing pages it logged that the other 171 generated
+ * pages carry no opening-hours schema at all and deferred the fix to Phase 3
+ * regeneration; Phase 3 finished the same night and the hours never arrived,
+ * so for six weeks Google could resolve hours for six of the estate's
+ * sixteen branches from their pages and had to fall back to the (still
+ * unpasted, per Q35) landing page or the GBP pack for the rest. Q38 answered
+ * "add it now, the 171 pages are already in the repaste queue for other
+ * reasons", and its own note is explicit that taking that option without
+ * widening this file leaves 171 pages of hours nothing reads. All five
+ * service-family generators and the switch generator now emit
+ * openingHoursSpecification the same way build-branch-landing-pages.js's
+ * pharmacySchema() already did, and this rule is the other half: proving the
+ * new schema is correct rather than merely present, the same way rule 3 did
+ * for the six landing pages it already covered. Branches with no hours at
+ * all (rule 9's KNOWN_NO_HOURS) correctly need no exception here: dataSessions
+ * returns empty and a page with no openingHoursSpecification matches it.
  *
  * The gap that prompted rule 9 (found on the 6.3 quality pass, 2026-09-12,
  * fourteenth pass on this item): rules 4, 5 and 6 open with "var oh =
@@ -274,6 +298,21 @@ function dataSessions(branch) {
 var data = JSON.parse(fs.readFileSync(DATA, "utf8"));
 var branches = data.branches.filter(function (b) { return !b.disposed; });
 
+// Rule 10's own page->branch resolver, same shape as check-jsonld.js's
+// branchFor(): the longest matching slug pair wins, so a shorter slug that
+// happens to be a substring of a longer one (e.g. "bootle") cannot steal a
+// file that belongs to a different branch on the same town.
+function branchFor(file) {
+  var hits = branches.filter(function (b) {
+    return b.brandSlug && b.townSlug &&
+      file.indexOf(b.brandSlug) !== -1 && file.indexOf(b.townSlug) !== -1;
+  });
+  hits.sort(function (a, b) {
+    return (b.brandSlug.length + b.townSlug.length) - (a.brandSlug.length + a.townSlug.length);
+  });
+  return hits[0] || null;
+}
+
 console.log("check-opening-hours");
 
 // Item 6.7 (Q79). Bank holidays are one-off closures and live deliberately
@@ -504,6 +543,49 @@ if (estateTimeFilesSwept === 0) {
   fail("rule 8 found no switch, service-family or pasted public-copy file to sweep. Check the ESTATE_TIME_FILES paths");
 }
 
+// Rule 10. Same session comparison as rule 3 (schemaSessions vs
+// dataSessions), widened from the six branch landing pages to the switch
+// pages and the four service-family folders that share modules/service/pages
+// with the landing pages' own sibling (Pharmacy First, weight loss, travel
+// clinic, contraception all write into modules/service/pages; only the
+// branch landing pages themselves live in modules/branch/pages and are
+// already covered by rules 1-7). A file that cannot be resolved to exactly
+// one branch is reported, not silently skipped, on the same convention as
+// check-jsonld.js's own unmatched count.
+var SCHEMA_HOURS_DIRS = [
+  path.join(ROOT, "modules", "service", "pages"),
+  path.join(ROOT, "modules", "switch", "pages")
+];
+var schemaHoursChecked = 0;
+var schemaHoursUnmatched = 0;
+SCHEMA_HOURS_DIRS.forEach(function (dir) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir).forEach(function (file) {
+    if (!/\.html$/i.test(file)) return;
+    var full = path.join(dir, file);
+    var rel = path.relative(ROOT, full).replace(/\\/g, "/");
+    var b = branchFor(file);
+    if (!b) { schemaHoursUnmatched++; return; }
+    schemaHoursChecked++;
+    var html = fs.readFileSync(full, "utf8");
+    var onPage = schemaSessions(html, rel);
+    var inData = dataSessions(b);
+    if (onPage === null) {
+      if (inData.length) fail(rel + ": branches.json carries opening hours for " + b.id + " but the page has no openingHoursSpecification");
+    } else if (onPage.join(" | ") !== inData.join(" | ")) {
+      fail(rel + ": JSON-LD opening hours do not match branches.json for " + b.id);
+      fail("    page: " + (onPage.join(", ") || "(none)"));
+      fail("    data: " + (inData.join(", ") || "(none)"));
+    }
+  });
+});
+if (schemaHoursChecked === 0) {
+  fail("rule 10 found no switch or service-family page to check. Check SCHEMA_HOURS_DIRS");
+}
+if (schemaHoursUnmatched > 0) {
+  fail("rule 10 could not resolve " + schemaHoursUnmatched + " switch/service-family page(s) to exactly one branch, so their opening hours schema is unproven. Check branchFor() against the filename(s)");
+}
+
 // Coverage floor for rule 7. A sweep that reads nothing passes everything, so
 // the rule must prove it actually found the times it is policing before its
 // silence is allowed to mean anything.
@@ -514,6 +596,7 @@ if (checkedPages > 0 && cardTimeCount === 0) {
 console.log("  " + checkedPages + " landing page(s) checked against " + branches.length + " trading branches");
 console.log("  rule 7 swept " + cardTimeCount + " clock time(s) on those pages, all of which must sit inside the hours card");
 console.log("  rule 8 swept " + estateTimeFilesSwept + " switch/service-family/pasted-copy file(s) with no hours card, for any clock time at all");
+console.log("  rule 10 checked " + schemaHoursChecked + " switch/service-family page(s) JSON-LD opening hours against branches.json");
 if (splitDayBranches.length) {
   notes.push("branches with a split day (lunch closure), the case that caused the defect: " + splitDayBranches.join(", "));
 }

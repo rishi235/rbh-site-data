@@ -91,6 +91,19 @@ function page(id){
   const title = pat.switchTitle(c);
   const meta = switchMeta(c);
 
+  // Item 2.1 gap (Q38, answered 2026-08-30): only the six branch landing
+  // pages carried openingHoursSpecification in JSON-LD; this page family
+  // (and the other four service-family generators) declared none. Same
+  // shape as build-branch-landing-pages.js's pharmacySchema() so
+  // check-opening-hours.js's existing session comparison can be widened to
+  // this folder without reading the generator.
+  const ohSpec = ((b.openingHours || {}).specification || []).map(function (s) {
+    return { "@type": "OpeningHoursSpecification", "dayOfWeek": s.dayOfWeek, "opens": s.opens, "closes": s.closes };
+  });
+  const ohJsonLd = ohSpec.length
+    ? ',\n  "openingHoursSpecification": ' + JSON.stringify(ohSpec, null, 2).split("\n").join("\n  ")
+    : "";
+
   const appCard = b.hasApp ? `
             <div class="app-card">
               <div class="app-head"><strong>Download our app</strong></div>
@@ -282,7 +295,7 @@ function page(id){
     "postalCode": "${b.postalCode||""}",
     "addressRegion": "${b.addressRegion||""}",
     "addressCountry": "${b.addressCountry||"GB"}"
-  }
+  }${ohJsonLd}
 }
 </script>
 `;

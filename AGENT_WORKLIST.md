@@ -1112,6 +1112,59 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       a Fishlocks Ainsdale page, only NOT_BUILT, PAGE_MISSING and
       LANDING_NOT_BUILT (sixteenth pass) - a candidate fresh angle for a
       future pass. Done 2026-09-12.
+      Q38 implemented 2026-09-15 (unattended run): the item's own deferred
+      JSON-LD opening-hours gap, open since 2026-08-04 and answered by Rishi
+      on 2026-08-30 (option 0: add it to all five service-family generators
+      now, the 171 pages already being in the repaste queue for other
+      reasons). Added an openingHoursSpecification block, built from
+      branches.json the same way build-branch-landing-pages.js's own
+      pharmacySchema() already does, to the JSON-LD emitted by
+      tools/build-service-pages.js, build-switch-pages.js,
+      build-weight-loss-pages.js, build-travel-clinic-pages.js and
+      build-contraception-pages.js. Regenerated: 112 Pharmacy First pages, 15
+      switch pages, 15 weight loss pages, 15 travel clinic pages and 14
+      contraception pages, 171 in total, the exact set Q38 named. git diff
+      confirmed 168 of those 171 files actually changed, plus the five
+      generators themselves; the other three (clearchemist_aintree's travel
+      clinic, weight loss and switch pages - it holds no Pharmacy First or
+      contraception page) correctly gained nothing, because that branch
+      carries no openingHours block at all in branches.json, the same
+      KNOWN_NO_HOURS exception rule 9 of tools/check-opening-hours.js already
+      tracks. No SEO/INDEX sheet touched (hours are not part of the paste
+      sheets), and the one pre-existing untracked stray
+      (modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak)
+      left alone. Sampled diffs (a plain weekday branch, a split-day branch
+      MCCanns Sandringham with two OpeningHoursSpecification entries in
+      opening-time order, and clearchemist_aintree which correctly gained
+      nothing since it carries no openingHours block at all) all read as the
+      schema addition alone, checked for em/en dashes across the full diff:
+      none. Per Q38's own note ("check-opening-hours.js should be widened to
+      the service and switch folders in the same commit, or the estate gains
+      171 pages of hours that nothing reads"), added rule 10 to
+      tools/check-opening-hours.js: the same schemaSessions()/dataSessions()
+      comparison rule 3 already runs against the six branch landing pages,
+      widened to modules/service/pages and modules/switch/pages via a
+      branchFor() filename resolver copied from check-jsonld.js's own, with a
+      coverage floor (fails if it reads zero pages) and an unmatched-file
+      count (fails if a filename cannot be resolved to exactly one branch).
+      Proved by two injections on the live tracked files, each restored by
+      byte copy and diff-confirmed identical before the next: (1) changed one
+      weekday's opens time on pharmacy-first-fishlocks-ainsdale.html from
+      08:45 to 07:45 - caught, page/data mismatch printed for all five
+      weekdays; (2) removed the openingHoursSpecification block entirely from
+      switch-prescriptions-mccanns-sandringham.html - caught, "branches.json
+      carries opening hours ... but the page has no openingHoursSpecification".
+      Full 36-checker suite re-run clean after each restore and after the
+      final restore. Rule 10's own output: "171 switch/service-family page(s)
+      JSON-LD opening hours against branches.json", matching the 171 pages
+      the generator change touched exactly, with rule 8's own count (177
+      files swept for a stray am/pm clock time) unchanged, confirming the new
+      24-hour JSON-LD times do not false-fire rule 8's am/pm sweep.
+      LIVE HALF: not performed. This is a repo-only schema change pending a
+      Weebly paste of all 171 pages, the same footing as Q7, Q13, Q44 and
+      Q49 - a live check today would show the old JSON-LD with no hours
+      still serving and that is expected, not a finding, per the convention
+      those entries recorded.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
