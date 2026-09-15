@@ -1,0 +1,151 @@
+Item 4.13, seventeenth quality pass, 2026-09-15
+Riddings Pharmacy Timperley GBP pack (gbp-packs/riddings-timperley.md)
+
+SELECTION
+All eight remaining unchecked AGENT_WORKLIST.md items are [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, Q60 6.4/6.5, 6.6). No autonomous window active
+at the top of AGENT_LOG.md. Quality pass required. Rotation pool: every
+[x] item excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8), each item's own max in-block date. Twelve items tied on
+2026-09-11 once 4.3, 4.5 and 4.6 (all touched earlier today) were
+excluded: 4.4, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 4.13, 4.14, 4.15, 5.1, 5.2.
+Tie broken by git log commit timestamp for each item's own most recent
+pass on 2026-09-11 (git log --since/--until, grepped per item number):
+4.13 earliest at 05:41:36+01:00 (next was 4.8 at 06:10:19). 4.11's only
+2026-09-11 commit (23:37:29+01:00, a backlog commit covering a pass done
+earlier the same day) is not its true pass time and does not change the
+ordering. 4.13 selected: Riddings Pharmacy Timperley GBP pack.
+
+ENVIRONMENT NOTE (carried forward, Q87/Q96/Q102): this mount cannot
+unlink files git itself creates (.git/HEAD.lock, .git/index.lock are
+recreated by almost every git invocation, including read-only ones, and
+left behind because the final unlink in git's own lockfile rollback
+fails with EPERM). Renaming them out of the way (mv, not rm) works and
+was done before every git command this run. This also explains the large
+number of "*.orphaned-*", "*.released-*" and similar files already
+sitting untracked in the repo root from prior runs hitting the same
+wall; none of that debris was touched this run, consistent with every
+other quality pass on this item leaving stray files noted and not acted
+on.
+
+BASELINE. git status --porcelain (scoped to tracked directories) empty
+before and after. All 36 tools/check-*.js run individually: 36/36 exit 0.
+sha256 of gbp-packs/riddings-timperley.md throughout:
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+(unchanged since the tenth pass, confirmed identical before, during and
+after every injection below).
+
+NEW ANGLE. Sixteen prior passes on this item had proven check-gbp-
+packs.js (extensively), check-brand-spelling.js (fifteenth pass) and
+check-gbp-pharmacy-first.js (sixteenth pass, the CLINICAL content of the
+Pharmacy First blocks: completeness, conditions outside the seven,
+UTI age range, free/no-price wording, condition words outside the PF
+blocks) against this pack's own copy. tools/check-pharmacy-first-
+eligibility.js is a DIFFERENT file with its own rules 9, 10 and 11
+specifically aimed at gbp-packs/: rule 9 pins the two age cohorts a pack
+may state (UTI "women aged 16 to 64", blood pressure "adults aged 40 and
+over") and requires each to be attached to the right service by
+sentence; rule 10 requires a pack that enumerates the seven Pharmacy
+First conditions to name all seven and nothing outside them; rule 11
+requires a pack that enumerates the conditions to also carry the age-
+caveat sentence covering the five conditions no pack states an age for.
+Confirmed by grep of this item's own AGENT_WORKLIST.md block (19596-
+20437) for "check-pharmacy-first-eligibility": zero mentions across all
+sixteen prior passes. Riddings enumerates the seven conditions twice
+(Services section, Post A) and states both pinned cohorts (UTI in Post
+A, blood pressure in the business description), so all three rules are
+directly live on this pack and previously unproven against it.
+
+METHOD. Five injections run directly on the tracked file, restored by
+byte copy from a saved baseline (/tmp/rbh-scratch/riddings-
+timperley.baseline.md, this mount rejects unlink so restoration is a
+cp over the tracked file, not a git checkout) and sha256-reconfirmed
+identical to baseline before the next injection:
+
+  1. Rule 9 (blood pressure cohort). Business description "adults aged
+     40 and over" -> "adults aged 35 and over". CAUGHT first attempt:
+     "states age 35, which is not part of any NHS cohort this copy may
+     state (rule 9)", quoting the exact sentence and both pinned
+     cohorts.
+
+  2. Rule 9 (UTI cohort). Post A "women aged 16 to 64" -> "women aged
+     14 to 64". CAUGHT first attempt, both ends of the drifted range
+     flagged separately: "states age 14..." and "states age 64...",
+     each against the same quoted sentence. (14 is the drifted low end;
+     64 no longer matches because the PACK_COHORTS regex for this
+     cohort requires the literal phrase "aged 16 to 64", so changing
+     either number breaks the match and strands both numbers as
+     unaccounted, not just the one that moved.)
+
+  3. Rule 10 (completeness). Post A's condition list: dropped
+     "shingles". CAUGHT first attempt: "lists the Pharmacy First
+     conditions but omits shingles, so the profile advertises 6 of the
+     7 NHS pathways this branch is commissioned for (rule 10)".
+
+  4. Rule 10 (near-miss list). Post A's condition list: added
+     "conjunctivitis" alongside the genuine seven. CAUGHT first
+     attempt: "names \"conjunctivitis\" in its list of Pharmacy First
+     conditions, which is not one of the 7 NHS pathways, so the profile
+     advertises an NHS service the pharmacy cannot deliver (rule 10)".
+
+  5. Rule 11 (age caveat). Post A: deleted "Age ranges set by the NHS
+     apply to each condition." CAUGHT first attempt: "lists all 7
+     Pharmacy First conditions but nowhere says the NHS age ranges
+     apply to each of them (rule 11)", with the full explanatory
+     message the rule carries.
+
+All five fired on the intended rule only, first attempt, with the exact
+pack sentence quoted in every failure message. CONTROL: after the fifth
+restore, ran the checker with no injection - clean, "15 GBP packs
+checked against the pinned cohorts and the 7 pathways", matching the
+pre-injection baseline exactly. sha256 of gbp-packs/riddings-
+timperley.md confirmed identical to the saved baseline after every one
+of the five restores and after the control run.
+
+Full 36-checker suite re-run clean after the final restore (36/36 exit
+0). git status --porcelain (scoped to gbp-packs/, modules/, core/,
+tools/, branches.json, status/, AGENT_WORKLIST.md, AGENT_LOG.md,
+QUESTIONS.json, audits/) empty throughout. gbp-packs/ is not a generator
+input, so no build script was re-run.
+
+No in-repo defect found. Three rules (9, 10, 11) proven directly against
+this pack's own copy for the first time in seventeen passes, rather than
+only proven against the packs (mccanns-sandringham.md, cherry-lane-
+walton.md, sk-chemists-bootle.md) named in the checker's own header
+comments as where they were originally written and proved.
+
+STRAY FILES NOTED, NOT TOUCHED (unchanged from the sixteenth pass):
+gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak. Out of scope for this item.
+
+LIVE HALF. Claude in Chrome connected this run (used successfully for
+the answer-pickup fetch in step 3). Three URLs re-read:
+  - https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-
+    timperley.html - still returns 404 (Post B's canonical URL, matching
+    every prior pass since 2026-08-10).
+  - https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-
+    timperley.html - live, and the seven condition tiles state exactly
+    the pinned NHS ages this pass's own injections are built around
+    (UTI women 16-64, sore throat 5+, sinusitis 12+, earache 1-17,
+    impetigo 1+, shingles 18+, infected insect bite 1+). No live drift.
+  - https://www.riddingspharmacy.co.uk/sitemap.xml - lastmod still
+    2026-08-14T22:45:05+00:00 throughout, still no switch-prescriptions-
+    riddings-timperley.html entry, matching the sixteenth pass's own
+    record exactly. No republish since that date.
+No new live-side finding. Nothing clicked, typed or submitted anywhere.
+
+ANSWER PICKUP (step 3). Claude in Chrome navigate + get_page_text to
+https://data.rbhealth.co.uk/api/feedback succeeded, no Cloudflare Access
+login page. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z,
+already recorded as answered in QUESTIONS.json. No reply newer than what
+QUESTIONS.json already holds for any of the 51 open questions. No
+QUESTIONS.json change from this step.
+
+AUTONOMOUS WINDOW CHECK (step 4). No "Standing authorisation -
+autonomous window" section at the top of AGENT_LOG.md. Not applicable.
+
+No new question raised: pure re-verification of documented checker
+behaviour against this pack's own copy on two previously untested
+checker files (five of check-pharmacy-first-eligibility.js's eleven
+rules), no business, legal, pricing or regulatory content changed, no
+judgement call for Rishi.

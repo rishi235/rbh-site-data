@@ -20435,6 +20435,68 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       changed, no judgement call for Rishi. Evidence: audits/riddings-
       timperley-pharmacy-first-copy-4.13-sixteenth-2026-09-11.txt.
       Done 2026-09-11.
+      Seventeenth quality pass 2026-09-15: pack clean and byte-stable
+      across all seventeen passes (sha256 8cc587968d3f6b83a3509aa27151c7
+      dc30172b626b9d0fed824630a775917c04, unchanged since the tenth
+      pass). Selected as stalest in the rotation pool by the same
+      commit-timestamp tie-break as recent passes: twelve items tied on
+      2026-09-11 once 4.3, 4.5 and 4.6 (touched earlier today) were
+      excluded, and 4.13's own most recent 2026-09-11 pass (05:41:36+01
+      :00) was earliest of the twelve.
+      BASELINE. All 36 tools/check-*.js run individually: 36/36 exit 0.
+      NEW ANGLE. Sixteen prior passes proved check-gbp-packs.js, check-
+      brand-spelling.js (fifteenth) and check-gbp-pharmacy-first.js
+      (sixteenth, the Pharmacy First blocks' clinical content) against
+      this pack. tools/check-pharmacy-first-eligibility.js is a separate
+      file, and its rules 9-11 (the age cohorts a pack may state, the
+      seven-condition enumeration, and the age-caveat sentence a pack
+      that enumerates must carry) had never been individually proven
+      against this pack across any of the sixteen prior passes, confirmed
+      by grepping this item's own block: zero mentions. Riddings
+      enumerates the seven conditions twice and states both pinned
+      cohorts, so all three rules are directly live here.
+      METHOD. Five injections run directly on the tracked file, restored
+      by byte copy from a saved baseline and sha256-reconfirmed identical
+      before the next: (1) Rule 9, blood pressure cohort "aged 40 and
+      over" to "aged 35 and over" - CAUGHT, age 35 named as outside any
+      pinned cohort; (2) Rule 9, UTI cohort "aged 16 to 64" to "aged 14 to
+      64" - CAUGHT, both drifted numbers named separately since the
+      cohort regex requires the exact phrase; (3) Rule 10, dropped
+      "shingles" from Post A's list - CAUGHT, "omits shingles... 6 of the
+      7 NHS pathways"; (4) Rule 10, added "conjunctivitis" to Post A's
+      list - CAUGHT, named as not one of the 7 NHS pathways; (5) Rule 11,
+      deleted the "Age ranges set by the NHS apply to each condition"
+      sentence from Post A - CAUGHT, the full explanatory message. All
+      five fired on the intended rule only, first attempt, with the exact
+      pack sentence quoted. CONTROL: restored to baseline and re-run with
+      no injection - clean, matching the pre-injection baseline exactly;
+      sha256 reconfirmed identical to baseline after every restore.
+      Full 36-checker suite re-run clean; git status on tracked
+      directories empty throughout. gbp-packs/ is not a generator input,
+      so no build script was re-run. No in-repo defect: three rules (9,
+      10, 11) proven directly for the first time in seventeen passes.
+      STRAY FILES NOTED, NOT TOUCHED (unchanged from the sixteenth pass):
+      gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak.
+      LIVE HALF. Claude in Chrome connected this run. Three URLs
+      re-read: Post B's canonical URL still 404; the branch's Pharmacy
+      First page still live and its seven condition tiles still state
+      exactly the pinned NHS ages this pass's injections are built
+      around, no live drift; sitemap.xml lastmod still
+      2026-08-14T22:45:05+00:00 throughout, still no switch-prescriptions-
+      riddings-timperley.html entry. No new live-side finding; nothing
+      clicked, typed or submitted anywhere.
+      ANSWER PICKUP (step 3): Claude in Chrome navigate + get_page_text to
+      the feedback endpoint succeeded. Newest entry still Q52, dated
+      2026-09-01, already recorded as answered. No reply newer than
+      QUESTIONS.json already holds for any of the 51 open questions; no
+      QUESTIONS.json change from this step.
+      No new question raised: pure re-verification of documented checker
+      behaviour against this pack's own copy on two previously untested
+      checker files, no business, legal, pricing or regulatory content
+      changed, no judgement call for Rishi. Evidence: audits/riddings-
+      timperley-pharmacy-first-eligibility-4.13-seventeenth-2026-09-15.txt.
+      Done 2026-09-15.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
