@@ -24907,6 +24907,116 @@ FORWARD NOTE for whoever runs next: with 5.1 now touched today (alongside
 rather than trust this note - as computed by this pass, the two remaining
 2026-09-10 candidates are 6.2 and 6.3.
 
+Quality pass 2026-09-15 (nineteenth). UNATTENDED SCHEDULED RUN.
+
+ITEM SELECTION: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), unchanged from every recent run. Quality-pass fallback applied.
+Rotation pool re-derived fresh with a Python header-to-next-header block scan
+of every `- [x] N.N` item's own newest embedded date, standing out-of-rotation
+set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) excluded: 5.1 came out uniquely
+stalest at 2026-09-11, with the next-oldest tier (2.3, 3.1, 3.2, 1.2, 1.3, 6.2,
+6.3) all at 2026-09-12 - no tie this time, so no tiebreak needed.
+
+ANSWER PICKUP (step 3, this run, recorded here since it precedes selection):
+`mcp__claude-in-chrome__navigate` to https://data.rbhealth.co.uk/api/feedback,
+`get_page_text` returned the feedback JSON directly, no Cloudflare Access
+login page. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z, matching
+every run since 2026-09-01 - no answer has arrived since the last successful
+read. No QUESTIONS.json status change made from this step. Tab closed.
+
+BASELINE: all 36 `tools/check-*.js` run individually before any work, 36/36
+exit 0. `node tools/check-em-dashes.js` reported the same steady-state counts
+as every prior pass (233 files scanned; 200/591/1; zero failures).
+
+FRESH ANGLE: rather than go another level deeper into the embedding chain
+this item has now mined nineteen times (files, code, data, sheets, sheet
+lines, numeric entity padding, embedded HTML blocks, embedded attributes,
+embedded attributes inside .js/.css), asked this item's own recurring
+question ("when a checker passes, ask which files it read") of a file that
+did not exist until the run immediately before this one:
+WEEBLY_FURNITURE_CHECKLIST.md, written at the repo root by the twenty-third
+run today (tools/build-weebly-furniture-checklist.js, implementing Q39).
+That file's whole purpose is to be read by a human during a live Weebly
+session and typed straight into the site: its "Correct values" table per
+branch is literally the string that ends up live. check-em-dashes.js's own
+scan scope is exactly five things - PAGE_DIRS, EXTRA_HTML, CODE_DIRS,
+BANNER_DIR, PACK_DIR - and the repo root is in none of them, so a file
+placed there the run before is invisible to every dash rule in this repo by
+construction, not by any decision anyone made about it.
+
+Proved by injection rather than argued, directly against the tracked file
+(sha256 confirmed identical before, during and after each round, and
+byte-for-byte identical to a /tmp backup taken first): a literal em dash
+written into the real "Trading name" value for Scorah Chemists Bramhall
+passed the unfixed checker with exit 0, wrongly clean; a separate round
+writing "&mdash;" into the real "Address" value for the same branch also
+passed clean. Both are exactly the class of value a human would carry
+straight into Weebly's furniture fields during the sweep Q39 approved -
+the same live-facing risk this item found on GBP packs on the 4.3 pass,
+one repo-root file over.
+
+FIXED IN REPO, no sign-off needed, same as this item's fifteen prior
+checker-widening fixes: added a `FURNITURE_CHECKLIST` constant pointing at
+WEEBLY_FURNITURE_CHECKLIST.md and wired it into the scan, held to the
+IDENTICAL rule as a GBP pack (non-ASCII character AND dash entity both fail,
+whole file, no exemption for prose) rather than the narrower paste-sheet
+rule, because unlike a paste sheet this file mixes a "Value" table column
+with free-text "Known live faults" notes and nothing here can safely tell
+the two apart the way PASTEABLE_LINE does for a labelled bullet line - the
+same reasoning that already justifies the GBP pack pairing, reused rather
+than re-argued. `checkPackFile()` generalised to take an optional `label`
+parameter (defaulting to "GBP pack", so its own 16 existing calls are
+unaffected) so the failure text correctly reads "in Weebly furniture
+checklist" rather than misleadingly "in GBP pack". A missing file fails
+rather than being skipped quietly, same convention as every other list in
+this checker. Header doc comment and the constant's own comment both
+updated with the finding and the injection proof.
+
+Re-ran the fixed checker against both injected copies: both CAUGHT, correctly
+named "in Weebly furniture checklist (non-ASCII U+2014)" and "in Weebly
+furniture checklist (em dash (HTML entity), which would paste literally)" at
+the right line each time. File restored by direct write-back from the /tmp
+backup after each round; sha256 confirmed identical
+(0f601ffa41a4bab5314cce0ba757049bdb4491b45194ea99a7eff73d64ff985b) to the
+pre-injection copy both times.
+
+Full 36-checker suite re-run individually both before and after the fix:
+36/36 exit 0 both times. `node tools/check-em-dashes.js` on the real,
+uninjected file now reports 234 files scanned (233 plus the new furniture
+checklist) with the same 200/591/1 note counts as every prior pass and zero
+failures - the fix changes scan scope, not any verdict on real content,
+since WEEBLY_FURNITURE_CHECKLIST.md was clean throughout. No generator,
+branches.json, page, pack or paste sheet touched;
+`git status --porcelain -- modules core branches.json gbp-packs` confirmed
+empty aside from the same two pre-existing untracked strays every recent
+pass has recorded and left alone. Own diff checked for em/en dashes (added
+lines only): zero.
+
+RESULT: genuine repo defect found and fixed - twelfth of this item's
+nineteen passes to find one. No sign-off needed, checker widening only, no
+live/patient-facing copy affected (the furniture checklist itself was clean
+throughout, and the sweep it supports has not happened yet).
+
+LIVE HALF: not attempted. This pass's target was a repo-only checker gap in
+a file that itself describes a not-yet-performed live session; there was no
+distinct live surface for this pass to check beyond what the answer-pickup
+step and other items' own live halves already cover today.
+
+WORKLIST (step 7): this paragraph appended in place; item 5.1 stays `[x]`
+(quality pass, not a state change, matching every prior pass's own
+convention on this item).
+
+QUESTIONS (step 8): no new question raised. QUESTIONS.json not edited this
+run (no answer arrived in step 3, and this pass's finding is a checker
+widening with nothing for Rishi to decide). Verified the file still parses
+as valid JSON and the open/total counts are unchanged: 107 total, 54 open.
+
+FORWARD NOTE for whoever runs next: with 5.1 now touched today, re-derive the
+rotation pool fresh rather than trust this note - as computed by this pass
+before selection, the next tier up was {2.3, 3.1, 3.2, 1.2, 1.3, 6.2, 6.3},
+all at 2026-09-12.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

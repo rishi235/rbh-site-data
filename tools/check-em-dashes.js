@@ -76,6 +76,14 @@
       every other rule here and is explained below
     - an empty or missing gbp-packs folder, so that rule cannot quietly stop
       covering anything either
+    - the SAME pairing (non-ASCII plus dash entities) in
+      WEEBLY_FURNITURE_CHECKLIST.md at the repo root, for the same reason: a
+      human reads a "Correct value" cell out of that file and types it
+      straight into Weebly, with no build step in between. Added on the item
+      5.1 quality pass (nineteenth), 2026-09-15 - see the FURNITURE_CHECKLIST
+      constant's own comment below for the injection proof
+    - a missing WEEBLY_FURNITURE_CHECKLIST.md, so that rule cannot quietly
+      stop covering anything either
 
   Why the banners get an ASCII-only rule rather than a dash rule. A banner is
   not pasted into a page. It goes into Weebly > Settings > SEO > Header Code,
@@ -653,6 +661,33 @@ const NON_ASCII_RE = /[^\x00-\x7F]/g;
 // See "Why the GBP packs fail on non-ASCII AND on dash entities" above.
 const PACK_DIR = path.join(REPO, "gbp-packs");
 
+// WEEBLY_FURNITURE_CHECKLIST.md, added on the item 5.1 quality pass
+// (nineteenth), 2026-09-15. Built by tools/build-weebly-furniture-checklist.js
+// (Q39) as the working document for the estate-wide Weebly furniture sweep:
+// a "Correct values" table per branch whose second column is the exact string
+// a human reads out of this file and types into Weebly during that session.
+// That is the same risk profile as a GBP pack, for the same reason: no build
+// step stands between this file and the paste, so a dash in it is a dash
+// carried into the field, and it is held to the identical rule as a GBP pack
+// (checkPackFile, non-ASCII and dash entities both fail, whole file, no
+// exemption for prose) rather than to the narrower paste-sheet rule, because
+// unlike a paste sheet this file mixes "Value" table cells with free-text
+// "Known live faults" notes and nothing here can safely tell those apart the
+// way PASTEABLE_LINE does for a labelled bullet line.
+//
+// Repo root was never in this checker's scan scope at all: PAGE_DIRS,
+// EXTRA_HTML, CODE_DIRS, BANNER_DIR and PACK_DIR are every directory this file
+// reads, and none of them is the repo root. Proved by injection rather than
+// argued: an em dash written into the real "Trading name" value for Scorah
+// Chemists Bramhall, and separately an "&mdash;" written into the real
+// "Address" value for the same branch, each passed the unfixed checker with
+// exit 0, wrongly clean. The file was clean throughout (confirmed by
+// sha256-identical restore after each injection), so this closes a latent
+// hole rather than a live breach - the same shape as every other "ask which
+// files it read" finding this checker's own header already documents, this
+// time on a file that did not exist until the run before this one.
+const FURNITURE_CHECKLIST = path.join(REPO, "WEEBLY_FURNITURE_CHECKLIST.md");
+
 // The live module code. Every generated page loads modules/<name>/<name>.js
 // and .css, plus core/site-data.js, from jsDelivr, and three of those files
 // build sentences with innerHTML at run time. That copy is on the page a
@@ -854,7 +889,8 @@ function checkBannerFile(file){
 // human who copies out of it, there is no build step to strip anything, and a
 // dash in a paster note is a dash the paster can carry into the field. Nothing
 // in the folder is generated, so a failure is fixed in the pack by hand.
-function checkPackFile(file){
+function checkPackFile(file, label){
+  label = label || "GBP pack";
   const raw = fs.readFileSync(file, "utf8");
   notes.filesScanned++;
   raw.split(/\r?\n/).forEach(function(line, i){
@@ -873,7 +909,7 @@ function checkPackFile(file){
     failures.push({
       file: rel(file),
       line: i + 1,
-      kind: "in GBP pack (" + parts.join("; ") + ")",
+      kind: "in " + label + " (" + parts.join("; ") + ")",
       text: line.trim().slice(0, 140)
     });
   });
@@ -1161,6 +1197,22 @@ if (!fs.existsSync(PACK_DIR)) {
   }
 }
 
+// WEEBLY_FURNITURE_CHECKLIST.md, held to the same rule as a GBP pack. See
+// the constant's own comment above for why. A missing file fails rather than
+// being skipped quietly, same convention as PACK_DIR and EXTRA_HTML.
+let furnitureCount = 0;
+if (!fs.existsSync(FURNITURE_CHECKLIST)) {
+  failures.push({
+    file: rel(FURNITURE_CHECKLIST),
+    line: 0,
+    kind: "missing file",
+    text: "WEEBLY_FURNITURE_CHECKLIST.md is gone, so the furniture-checklist rule covers nothing. Remove this check or restore the file."
+  });
+} else {
+  checkPackFile(FURNITURE_CHECKLIST, "Weebly furniture checklist");
+  furnitureCount = 1;
+}
+
 let pageCount = 0;
 let sheetCount = 0;
 PAGE_DIRS.forEach(function(dir){
@@ -1209,7 +1261,8 @@ console.log("check-em-dashes: " + pageCount + " generated pages, " + extraCount
   + " non-generated copy file(s), " + codeCount
   + " live module code file(s), " + bannerCount
   + " switch banner(s) held to ASCII only, " + packCount
-  + " GBP pack(s) held to ASCII only plus no dash entities, " + sheetCount
+  + " GBP pack(s) held to ASCII only plus no dash entities, " + furnitureCount
+  + " Weebly furniture checklist file(s) held to the same rule, " + sheetCount
   + " paste sheet(s) discovered, " + dataCount
   + " run-time data file(s) (" + notes.filesScanned + " files scanned)");
 console.log("  " + notes.commentDashes + " dash(es) inside build or code comments - not public, not a failure");
