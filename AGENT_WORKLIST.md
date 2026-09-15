@@ -10140,6 +10140,80 @@ Done 2026-09-15 (eighteenth pass).
       Q66) and 49 of 102 questions are open; further quality passes on
       already-proven items are increasingly low yield compared with Rishi
       answering the open questions. Done 2026-09-14.
+
+      Quality pass 2026-09-15 (eighteenth, unattended scheduled run,
+      audit-backlog-worker): rotation pool re-derived fresh via a Python
+      header-to-next-header scan of every completed item's own embedded
+      dates (standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8
+      excluded); tied-oldest pool at 2026-09-14 was {3.9, 3.10, 3.11, 3.12,
+      4.1}, every other item having been taken by one of today's prior
+      runs; took 3.9 on the lowest-item-number tiebreak (numeric: 3.9 sorts
+      before 3.10). Checker under fresh test: tools/check-nap.js, named by
+      the seventeenth pass's own forward note as never once tested against
+      this branch's own files across seventeen prior passes.
+
+      Full detail in audits/coleman-leighs-nap-3.9-eighteenth-2026-09-15.txt.
+      In brief: baseline branches.json sha256 169bb5a2...b102 (standing
+      anchor, unchanged throughout), full 36-checker suite clean on the
+      tracked repo before starting. Full-repo scratch copy via
+      `git archive HEAD | tar -x`, tracked repo never opened for writing
+      during the injection round. Four injections against Coleman and
+      Leighs's own page (sore-throat-treatment-coleman-leigh-walton.html),
+      each restored from a saved original and sha256-reconfirmed identical
+      before the next: (1) both tel: hrefs changed to Cherry Lane
+      Pharmacy's number - CAUGHT, two tel-link mismatches plus two
+      independent phone-sweep mismatches naming Cherry Lane Pharmacy; (2)
+      Cherry Lane's own postcode inserted in lower case into body copy -
+      CAUGHT by the case-insensitive foreign-postcode rule; (3) "Cherry
+      Lane Pharmacy" inserted into body copy - CAUGHT by the foreign-name
+      sweep; (4) Cherry Lane's own street address "202 Cherry Lane"
+      inserted into body copy - CAUGHT by the foreign-street sweep.
+      CONTROL: an unrelated wording change to the same paragraph - zero
+      mismatches, confirming no cross-firing. All four caught first
+      attempt, on their intended rule, no unexplained collateral.
+
+      STRUCTURAL FINDING, not a defect: Coleman and Leighs has no branch
+      landing page, no Weebly paste block, and no mailto link on any
+      generated page, so three of check-nap.js's own sub-areas (the
+      landing-page mailto sweep, the entire paste-block half of the file,
+      and the generated-page email sweep) are structurally inapplicable to
+      this branch rather than untested - the same "correct behaviour, now
+      proven rather than assumed" shape recorded for Cherry Lane's missing
+      landing page on the item 3.4 twentieth pass.
+
+      Full 36-checker suite re-run on the scratch copy after all
+      injections: 35/36 exit 0, the one failure being check-cdn-pins.js's
+      documented .git-less scratch artefact (unrelated). Tracked repo
+      reconfirmed untouched throughout: branches.json sha256 unchanged,
+      `git status --porcelain -- modules core branches.json gbp-packs
+      tools` showing only the two long-standing pre-existing untracked
+      strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched; full 36-checker suite re-run individually against
+      the tracked repo, 36/36 exit 0. No generator, page, checker or
+      branches.json content changed; no defect found.
+
+      LIVE HALF: not attempted this pass. Scope was the repo/data-schema
+      layer only.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read via the
+      standing answer-pickup step: 107 total, 54 open, unchanged; newest
+      answer still Q52 (2026-09-01).
+
+      Guard coverage for item 3.9 now extends to 1 of the 20 previously-
+      untested checkers proven by direct injection against Coleman and
+      Leighs specifically (check-nap.js's phone, foreign-postcode,
+      foreign-name and foreign-street rules all four covered in this one
+      pass). Nineteen of the twenty remain untested: check-address-region.js,
+      check-app-membership.js, check-booking-routes.js,
+      check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-opening-hours.js, check-page-coverage.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+      check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+      check-whatsapp-route.js, check-widget-diaries.js - a candidate list
+      for a nineteenth pass. Done 2026-09-15.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

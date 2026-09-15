@@ -1,0 +1,99 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton) - eighteenth quality pass, 2026-09-15
+Checker under fresh test: tools/check-nap.js (never once named against this
+branch's own files across seventeen prior passes; flagged as a candidate by
+the seventeenth pass's own forward note).
+
+Baseline
+--------
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged throughout this pass)
+Full 36-checker suite on the tracked repo before starting: 36/36 exit 0.
+
+Method
+------
+Scratch copy of the full repo via `git archive HEAD | tar -x` into a
+disposable directory under the sandbox home mount (not /tmp - this sandbox's
+/tmp is not writable this session, "Permission denied"). Tracked repo never
+opened for writing during the injection round. Branch under test:
+colemanleigh_liverpool (Coleman and Leighs Pharmacy, Walton; brandSlug
+coleman-leigh, townSlug walton). Target page:
+modules/service/pages/sore-throat-treatment-coleman-leigh-walton.html,
+restored from a saved original and sha256-reconfirmed byte-identical before
+each subsequent injection.
+
+Injections (each caught first attempt, each restored and reconfirmed before
+the next)
+---------------------------------------------------------------------------
+1. TEL LINK MISMATCH: both tel: hrefs on the page (hero button and contact
+   card) changed from 01515253522 (Coleman and Leighs's own number) to
+   01512262051 (Cherry Lane Pharmacy's number, a different branch entirely).
+   CAUGHT: two "tel link ... vs phone" mismatches plus two "phone ...
+   belongs to Cherry Lane Pharmacy, not Coleman and Leighs Pharmacy" -  the
+   phone sweep and the structured tel-link check both fired independently,
+   confirming they are not redundant.
+
+2. FOREIGN POSTCODE, LOWER CASE: "l4 8sg" (Cherry Lane's own postcode,
+   lower case) inserted into a body sentence. CAUGHT: "postcode 'l4 8sg'
+   belongs to Cherry Lane Pharmacy, not Coleman and Leighs Pharmacy. Written
+   in mixed or lower case, so the upper-case postcode sweep could not see
+   it" - proves the case-insensitive foreign-postcode rule specifically
+   against this branch pair.
+
+3. FOREIGN BRAND NAME: "Cherry Lane Pharmacy" inserted into a body sentence.
+   CAUGHT: "names another pharmacy 'Cherry Lane Pharmacy' (cherrylane_liverpool)
+   in page copy, but this page belongs to Coleman and Leighs Pharmacy".
+
+4. FOREIGN STREET ADDRESS: "202 Cherry Lane" (Cherry Lane's own street)
+   inserted into a body sentence. CAUGHT: "carries another branch's street
+   address '202 Cherry Lane' (cherrylane_liverpool), but this page belongs
+   to Coleman and Leighs Pharmacy at '241 Walton Village'".
+
+5. CONTROL: an unrelated wording change to the same paragraph ("call us"
+   -> "give us a ring"), no NAP fact touched. Zero mismatches reported for
+   this file, confirming no cross-firing from the four injections above or
+   from ordinary prose editing.
+
+Structural findings (not defects)
+----------------------------------
+Coleman and Leighs Pharmacy has no branch landing page (only six of sixteen
+branches carry one) and no Weebly paste block under
+modules/service/weebly-paste/, and no mailto link appears on any of its
+generated pages. So three of check-nap.js's own sub-areas - the branch
+landing page's mailto sweep, the paste-block half of the file entirely, and
+the mailto/email sweep on generated pages - are structurally inapplicable to
+this branch rather than untested. This mirrors the same "correct behaviour,
+now proven rather than assumed" shape recorded for Cherry Lane's missing
+landing page against check-opening-hours.js on the item 3.4 twentieth pass.
+
+Re-verification
+----------------
+Full 36-checker suite re-run on the scratch copy after all four injections
+and the control: 35/36 exit 0, the sole failure being check-cdn-pins.js's
+documented .git-less scratch artefact (unrelated to this pass).
+
+Tracked repo reconfirmed untouched throughout:
+- branches.json sha256 unchanged (169bb5a2...b102)
+- `git status --porcelain -- modules core branches.json gbp-packs tools`
+  shows only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither touched
+- full 36-checker suite re-run individually against the tracked repo:
+  36/36 exit 0
+
+No generator, page, checker or branches.json content changed. No defect
+found. Guard coverage for item 3.9 now extends to check-nap.js's phone
+(tel-link and sweep), foreign-postcode (case-insensitive), foreign-name and
+foreign-street rules, proven by direct injection against Coleman and Leighs
+Pharmacy specifically (up from zero for this checker on this branch).
+
+Forward note: nineteen of the twenty checkers named as never-tested against
+this branch by the seventeenth pass's forward note remain untested
+(check-address-region.js, check-app-membership.js, check-booking-routes.js,
+check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-opening-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-seo-sheets.js, check-uk-spelling.js,
+check-url-scheme.js, check-whatsapp-route.js, check-widget-diaries.js) - a
+candidate list for a nineteenth pass.
