@@ -28745,6 +28745,63 @@ all at 2026-09-12.
       this worker's write scope, not re-raised. No new question. Evidence:
       audits/verify-6.3-2026-09-12-fourteenth.txt,
       audits/live-hours-check-2026-09-11.json. Done 2026-09-12.
+      Quality pass (fifteenth), 2026-09-15 (unattended scheduled run,
+      Cowork sandbox mcp__workspace__bash throughout, Claude in Chrome
+      used only for step 3's answer pickup). FRESH ANGLE: rule 10 (the
+      widened JSON-LD opening-hours check across the 171 switch/service-
+      family pages) was added to tools/check-opening-hours.js earlier
+      today as part of implementing Q38 under item 2.1's own block, so
+      none of this item's first fourteen passes could have touched it.
+      Q38's own write-up already proved rule 10's basic mismatch and
+      missing-schema paths by injection; two of its fail paths were
+      still unexercised, confirmed by grep across both worklist files
+      turning up zero prior hits on "schemaHoursUnmatched", "could not
+      resolve" or "found no switch or service-family page": the
+      schemaHoursUnmatched count (a switch/service-family filename
+      resolving to no branch) and the schemaHoursChecked===0 coverage
+      floor (both SCHEMA_HOURS_DIRS missing). BASELINE: 36/36 checkers
+      clean; branches.json sha256 169bb5a2...b102 (standing hash);
+      generated tree hash a663980287...c02265d; git status --porcelain
+      empty bar the two pre-existing untracked strays. Both tests run on
+      disposable tar-archive scratch copies under the outputs mount,
+      never the tracked tree, because this mount's standing no-unlink
+      quirk (Q87/Q96/Q102) means an added scratch file cannot be deleted
+      afterwards either, and a scratch copy sidesteps that entirely.
+      TEST A: a switch page copied to a new filename resolving to no
+      branch (switch-prescriptions-nonexistent-nowhereton.html) inside a
+      fresh scratch copy's own modules/switch/pages/ - CAUGHT, "rule 10
+      could not resolve 1 switch/service-family page(s) to exactly one
+      branch"; rule 10's own checked count stayed exactly 171 (the
+      unresolved file correctly excluded, not miscounted as a 172nd),
+      rule 8's sweep count rose 177 to 178 as the expected side effect.
+      TEST B: SCHEMA_HOURS_DIRS patched to two non-existent paths in a
+      second fresh scratch copy's own checker file only (diff-confirmed
+      the tracked checker was untouched) - CAUGHT, "rule 10 found no
+      switch or service-family page to check"; rule 8's own sweep count
+      stayed at 177, confirming the two coverage floors fire
+      independently, the same property the eleventh pass proved for
+      rules 7 and 8. Both caught first attempt with the exact intended
+      message. RESULT: zero in-repo defect; rule 10's fail-path coverage
+      now closed to the same standard the twelfth pass closed for the
+      file's other nine rules, the same day the rule itself landed.
+      Tracked repo confirmed untouched throughout: branches.json sha256,
+      generated tree hash and the 36-checker suite all unchanged after
+      both tests; git status --porcelain showing only the same two
+      pre-existing untracked strays. LIVE HALF: network egress confirmed
+      directly, no browser needed for this half (Claude in Chrome used
+      only for step 3). tools/check-live-hours.js re-run across all 14
+      branches, evidence audits/live-hours-check-2026-09-15.json. No
+      bank holiday within 14 days of this run (2026-08-31 now 15 days
+      past). gordonshorts_crosby read live as a control, correctly still
+      shows its lunch closure throughout, including the switch-page
+      footer line. smartts_bootle remains the sole live mismatch,
+      straight-through "9:00am - 6:00pm" / "09:00 - 18:00" unchanged
+      since 2026-08-11 across all fifteen passes now. Q55 (answered
+      2026-09-02, option 1) stands as answered-but-not-yet-actioned,
+      live Weebly edit outside this worker's write scope, not
+      re-raised. No new question. Evidence:
+      audits/verify-6.3-2026-09-15-fifteenth.txt,
+      audits/live-hours-check-2026-09-15.json. Done 2026-09-15.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

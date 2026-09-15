@@ -1,0 +1,119 @@
+Item 6.3, fifteenth quality pass, 2026-09-15 (unattended scheduled run, audit-backlog-worker, thirty-second run today).
+
+FRESH ANGLE: rule 10 (widened JSON-LD opening-hours check across the 171
+switch/service-family pages) was added to tools/check-opening-hours.js earlier
+TODAY, 2026-09-15, as part of implementing Q38 under item 2.1's own block. It
+did not exist during any of this item's first fourteen passes (2026-08-12
+through 2026-09-12), so none of them could have exercised it. Q38's own
+implementation write-up already proved rule 10's basic mismatch path (a
+changed opening time) and its "page has no openingHoursSpecification at all"
+path by injection. Two of rule 10's own fail paths were still unexercised:
+the schemaHoursUnmatched count (a switch/service-family filename that
+resolves to no branch at all) and the schemaHoursChecked===0 coverage floor
+(both SCHEMA_HOURS_DIRS missing or empty). Confirmed by grep: no prior
+mention of "schemaHoursUnmatched" or "could not resolve" or "found no switch
+or service-family page" anywhere in AGENT_WORKLIST.md or AGENT_LOG.md before
+this pass.
+
+BASELINE (tracked repo, C:\dev\rbh-site-data / the sandbox mount of it):
+  branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+    (matches the standing hash every recent pass has recorded)
+  generated tree hash (sha256 of the sorted sha256 list of every .html/.js/.css
+  under modules/ and core/): a663980287b3802015ae6b27dc124f448c49026789d935304bd84b86fc02265d
+  36/36 tools/check-*.js exit 0.
+  git status --porcelain -- modules core branches.json gbp-packs tools: only
+  the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+  touched this pass.
+
+METHOD: both tests run against full tar-archive scratch copies of the repo
+under the outputs mount (never the tracked tree), per the item's own standing
+convention. This sandbox's FUSE mount rejects unlink() on any file
+("Operation not permitted") and only permits rename, the standing quirk
+recorded under Q87/Q96/Q102, so an ADDED scratch file cannot be deleted
+afterwards either; using disposable scratch copies for both tests, rather
+than adding anything to the tracked tree, sidesteps that entirely.
+
+TEST A (schemaHoursUnmatched, first time proved): fresh tar scratch copy of
+the whole repo. Baseline run on the untouched scratch copy: "171
+switch/service-family page(s)" checked, clean, matching the tracked repo
+exactly. Copied an existing switch page
+(switch-prescriptions-fishlocks-ainsdale.html) to a new filename whose
+brand/town slugs match no branch,
+switch-prescriptions-nonexistent-nowhereton.html, inside the SCRATCH COPY's
+own modules/switch/pages/ (an addition, not an edit to any tracked file).
+Re-ran check-opening-hours.js against the scratch copy:
+  FAIL  rule 10 could not resolve 1 switch/service-family page(s) to exactly
+  one branch, so their opening hours schema is unproven. Check branchFor()
+  against the filename(s)
+Rule 8's own file count rose from 177 to 178 (the stray file also swept for a
+stray clock time, correctly finding none, since the copied page's own hours
+card times sit inside TIME_ROW_RE-blanked markup); rule 10's own "171 ...
+checked" count stayed exactly 171 (the unresolved file correctly excluded
+from the checked count, not miscounted as a 172nd checked page). Re-ran the
+same scratch copy a second time immediately after: identical single failure,
+confirming determinism. Caught first attempt, exact intended message.
+
+TEST B (schemaHoursChecked===0 coverage floor, first time proved): second,
+independent fresh tar scratch copy. Confirmed the copied checker was
+byte-identical to the tracked tools/check-opening-hours.js by diff before any
+edit. Patched SCHEMA_HOURS_DIRS in the SCRATCH COPY's own checker file only
+(never the tracked file) to point at two non-existent directory names
+("pages-does-not-exist-6-3-test"). Confirmed by diff that the tracked repo's
+checker was unaffected (the only difference was the two deliberately
+mistyped path segments). Re-ran the patched checker against the scratch
+copy's own (untouched) modules/ tree:
+  FAIL  rule 10 found no switch or service-family page to check. Check
+  SCHEMA_HOURS_DIRS
+Rule 8's own sweep count stayed at 177 in this run (its own ESTATE_TIME_FILES
+paths untouched), confirming the two coverage floors fire independently of
+each other, the same property the eleventh pass (2026-09-08) proved for
+rules 7 and 8's own floors.
+
+RESULT: both fail paths caught first attempt with the exact intended message;
+zero in-repo defect. Rule 10 was already correctly built; both of its
+previously-unexercised failure modes now proven by injection the day the
+rule itself landed, closing its fail-path coverage to the same standard the
+twelfth pass (2026-09-09) closed for the file's other nine rules.
+
+TRACKED REPO CONFIRMED UNTOUCHED AFTER BOTH TESTS: branches.json sha256
+unchanged (169bb5a2...b102); generated tree hash unchanged
+(a663980287...c02265d); git status --porcelain -- modules core branches.json
+gbp-packs tools showing only the same two pre-existing untracked strays; all
+36 checkers re-run individually on the tracked repo, 36/36 exit 0.
+
+Neither scratch copy could be deleted afterwards (rm/mv-off-tree both refused
+"Operation not permitted" on this mount for the newly added file, the
+standing quirk); both scratch directories live under the outputs mount
+outside the tracked repo and were never part of any git operation, so this
+carries no repo consequence.
+
+LIVE HALF (network egress confirmed directly from this sandbox via
+tools/check-live-hours.js, no browser needed; answer pickup at step 3 this
+run used Claude in Chrome successfully, tab closed before this section).
+tools/check-live-hours.js run against the tracked repo, evidence
+audits/live-hours-check-2026-09-15.json. Bank holiday note: no bank holiday
+falls within 14 days of this run (2026-08-31 Summer bank holiday is now 15
+days past), so no Closed snippet in this pass's read can be explained by
+one - consistent with the tool's own reader note. All 14 branches' expected
+rows cross-checked programmatically against branches.json (matches the
+standing data exactly, no drift). Two branches read snippet-by-snippet by
+hand as in every prior pass: gordonshorts_crosby (control) correctly
+publishes "9:00am - 6:00pm (closed 1-2pm)" throughout both pages (homepage
+card, footer widget, contact page, and the site-wide switch-page footer
+line "Open Mon-Fri 9am-6pm (closed 1-2pm), Sat 9am-5pm (closed 1-2pm), Sun
+closed"); smartts_bootle remains the sole live mismatch, both pages still
+publishing straight-through "9:00am - 6:00pm" / "09:00 - 18:00" with no
+lunch closure across the homepage hours card, the homepage footer widget and
+the contact page, unchanged since first found 2026-08-11 across all fifteen
+passes now. Q55 (raised 2026-08-11, answered by Rishi via the portal
+2026-09-02 choosing option 1, edit the live Smartts pages) stands as
+answered-but-not-yet-actioned; the live Weebly edit is outside this worker's
+write scope (browser use stays read-only), not re-raised. No new question.
+
+No page, generator, checker rule, data field or patient-facing copy left
+changed by this pass; only tools/check-opening-hours.js's header comment
+(rule 10's own provenance note, already present from the Q38 implementation
+earlier today) and this evidence file plus the AGENT_WORKLIST.md write-up are
+new. Evidence: this file, audits/live-hours-check-2026-09-15.json.
