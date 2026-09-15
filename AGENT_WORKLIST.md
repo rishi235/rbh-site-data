@@ -7846,6 +7846,78 @@ was a tracked-file injection proof, not a live comparison). No in-repo
 defect found, no copy changed anywhere in the repo, no new question.
 Evidence in audits/smartts-item-3.7-quality-pass-2026-09-14-seventeenth.txt.
 Done 2026-09-14 (seventeenth pass).
+Quality pass 2026-09-15 (eighteenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash, thirty-fifth run today).
+Picked as the least recently verified rotation-pool item: all eight [ ]
+worklist lines still [BLOCKED]; rotation pool re-derived fresh (excluding the
+standing out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8), tied-oldest pool at
+2026-09-14 was {3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 4.1} (3.6 already taken by
+the thirty-fourth run today), lowest item number 3.7.
+FRESH ANGLE: tools/check-branch-links.js, the only checker that reads the
+contact/link fields directly out of branches.json rather than off a
+generated page, had never been named against Smartts once across seventeen
+prior passes (confirmed against the seventeenth pass's own explicit
+never-named list).
+Baseline: all 36 checkers clean on the tracked repo; branches.json sha256
+confirmed at the standing regression anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102. Full repo
+copied by tar (--exclude='.git') to a scratch directory outside the tracked
+tree; scratch branches.json sha256-confirmed matching the tracked repo before
+any injection; 35/36 checkers clean on the scratch copy (check-cdn-pins.js
+fails only on the documented .git-less-copy artefact, already confirmed clean
+against the tracked repo).
+Six injections against smartts_bootle's own record in the scratch copy, one
+per sub-rule, each restored from a saved original and sha256-reconfirmed
+before the next: (1) odsCode changed to skchemists_bootle's own code - CAUGHT,
+3 failures (smartts_bootle.nhsEmail and .nhsReviewUrl both flagged as no
+longer matching the changed code, plus skchemists_bootle.odsCode flagged
+"duplicate of smartts_bootle" - worth recording as the rule's actual
+behaviour: the duplicate message names the SECOND branch in array order, not
+the branch whose value was actually changed, though nothing is silently
+missed since all three lines fire); (2) nhsEmail changed to a non-conforming
+address - CAUGHT, exactly one isolated failure; (3) nhsReviewUrl truncated to
+stop at the ODS code, the exact historical Gordon Short Crosby defect shape -
+CAUGHT, exactly one isolated failure; (4) googleReviewUrl changed to
+scorah_bramhall's own value - CAUGHT, exactly one failure, "same link as
+scorah_bramhall"; (5) website given a trailing slash - CAUGHT, 2 failures
+(the format failure itself plus the expected pfLink collateral, since
+pfLink's host check derives from website - confirms the two rules are
+correctly coupled, not a defect); (6) pfLink repointed to
+"pharmacy-first-sk-chemists-bootle.html" on Smartts's own host - CAUGHT,
+exactly one failure naming skchemists_bootle as the true owner and adding
+"It also sits off this branch's own host", the first time this specific
+different-host-ownership-mismatch message has been exercised for any
+single-site brand, since Smartts has no sister branch sharing its domain to
+trigger it naturally. CONTROL: smartts_bootle.phone changed to an unrelated
+value - correctly produced zero failures from this checker, confirming no
+cross-firing; restored and reconfirmed byte-identical to the tracked repo's
+own branches.json by direct diff.
+Full 36-checker suite re-run on the scratch copy after all six injections and
+the control, in its final restored state: 35/36 exit 0 (same documented
+cdn-pins artefact). Tracked repo reconfirmed untouched throughout:
+branches.json sha256 unchanged, git status --porcelain -- modules core
+branches.json gbp-packs tools showing only the two long-standing pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; full 36-checker suite re-run individually against the tracked repo,
+36/36 exit 0. No generator, page, checker or branches.json content changed;
+no regeneration needed.
+All six of check-branch-links.js's sub-rules now proven by direct injection
+against Smartts specifically (up from zero). Checkers still never named
+against Smartts, for a future pass: check-address-region.js,
+check-brand-spelling.js, check-editor-snapshot.js, check-live-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-seo-lengths.js, check-travel-clinic-copy.js,
+check-uk-spelling.js, check-url-scheme.js, check-weight-loss-copy.js; plus
+check-switch-copy.js's remaining 6/11 rules and check-seo-pattern.js's
+service-word/H1-exact-match rules (unchanged carry-over from the seventeenth
+pass).
+Live half not attempted (this pass's scope was a tracked-file injection
+proof, not a live comparison). No in-repo defect found, no copy changed
+anywhere in the repo, no new question. Evidence in
+audits/smartts-item-3.7-quality-pass-2026-09-15-eighteenth.txt.
+Done 2026-09-15 (eighteenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
