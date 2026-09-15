@@ -20071,6 +20071,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       tagline) stand as written, not re-verified this pass. No new
       question; QUESTIONS.json unchanged (101 total, 48 open). Done
       2026-09-11.
+      Seventeenth quality pass 2026-09-15 (unattended run, rotation-pool
+      pick, tied-oldest set at 2026-09-11 was {4.9, 4.12, 4.14, 4.15, 5.1,
+      5.2}; 4.9 and 5.2 both thoroughly repo-exhausted at sixteen passes
+      each; 4.12 taken as the item with the stalest genuine Chrome-verified
+      live half in the tied set - last true browser read was the seventh
+      pass, 2026-09-01, fourteen days stale - with this run's Chrome
+      connection confirmed working). Pack sha256 unchanged
+      (6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      seventeen passes byte-identical). Full 36-checker suite: 0 failures.
+      No new injection round: every rule family in this checker suite
+      applicable to a .md pack file has already been proven against this
+      pack's own copy across the sixteen prior passes, so this pass's
+      value is entirely the live half.
+      LIVE HALF performed via Claude in Chrome (connected, single tab, no
+      Q59 block): Post A's pfLink (pharmacy-first-service-walton.html)
+      still a live 404, unchanged since 2026-08-10. The replacement page
+      pharmacy-first-coleman-leigh-walton.html and the homepage both still
+      show the identical mixed-name paste recorded on every pass since
+      2026-08-11: title, H1, the estate-wide switch banner and the footer
+      all read "Coleman & Leigh Pharmacy", while each page's own
+      contact-card address block correctly reads "Coleman and Leighs
+      Pharmacy". The homepage still carries the Q22 estate-wide weight
+      loss tagline, unchanged (Q22 answered 2026-08-30 as "Unsure,
+      guidance pending", no repo action due). sitemap.xml read directly:
+      28 URLs, every lastmod identical at 2026-08-14T23:21:20+00:00,
+      confirming no republish on this domain since 14 August, which is why
+      every finding above is unchanged rather than new; the old pfLink
+      target is correctly absent from the sitemap and the replacement page
+      is correctly present, matching Q34's applied repoint. No new in-repo
+      defect, no new live fault, no new question - this pass closes the
+      fourteen-day gap in Chrome-verified confirmation rather than finding
+      fresh drift. Q76 (open, a checker-scope decision, not a live fact)
+      not re-tested this pass; it stands as raised. Evidence:
+      audits/coleman-leigh-walton-item-4.12-quality-pass-2026-09-15-seventeenth.txt.
+      Done 2026-09-15.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

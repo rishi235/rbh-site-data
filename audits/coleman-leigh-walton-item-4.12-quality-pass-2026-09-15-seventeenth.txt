@@ -1,0 +1,94 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton GBP pack) - seventeenth quality pass
+Run: 2026-09-15 (unattended scheduled run, audit-backlog-worker)
+
+SELECTION
+All AGENT_WORKLIST.md unchecked items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6). Quality pass required.
+Re-derived the rotation pool from every [x] item's own embedded dates,
+excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8):
+tied-oldest set at 2026-09-11 = {4.9, 4.12, 4.14, 4.15, 5.1, 5.2}.
+
+4.9 (sixteen passes) and 5.2 (sixteen passes) are both thoroughly repo-side
+exhausted per their own write-ups. Compared the live-half staleness across
+the remaining candidates: 4.12's last genuine Chrome-based live read was the
+seventh pass, 2026-09-01 (fourteen days stale); 4.14's was the ninth pass,
+2026-09-03; 4.15's was the ninth pass, 2026-09-03. 4.12 has the stalest
+Chrome-verified live half of the tied set, and this run's Chrome connection
+was confirmed working (single connected tab, no Q59 dual-instance block,
+no Cloudflare Access login page on the earlier answer-pickup fetch). Took
+4.12 on that basis - freshest opportunity to add real information via the
+live half.
+
+REPO HALF
+gbp-packs/coleman-leigh-walton.md sha256:
+  6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88
+Matches the value recorded on every prior pass since the pack was first
+hashed - byte-identical, seventeen passes running.
+
+Ran all 36 tools/check-*.js files individually against the repo as checked
+out on agents/audit-backlog: 0 failures across the full suite.
+
+No new injection round performed this pass. Every rule family this
+checker suite holds relevant to a .md pack file (check-gbp-packs.js's own
+rule set, check-brand-spelling.js, check-em-dashes.js, check-postcodes.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-cost.js) has
+already been proven against this specific pack's own copy by direct
+injection across the sixteen prior passes (see this item's own history in
+AGENT_WORKLIST.md, particularly the sixth, seventh, fifteenth and sixteenth
+passes). This pass's marginal repo-side value would have been near zero;
+its value is the live half below.
+
+LIVE HALF (via Claude in Chrome, read-only - nothing clicked, typed or
+submitted)
+
+1. https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-walton.html
+   (Post A's pfLink target, branches.json's own pfLink field)
+   -> still a live 404 ("Error - Page Not Found"). Unchanged since the
+   first quality pass, 2026-08-10. The paster note's hard stop on Post A
+   still stands and is still correct.
+
+2. https://www.colemanandleighspharmacy.co.uk/pharmacy-first-coleman-leigh-walton.html
+   (the confirmed-live replacement page, in the sitemap)
+   -> still the pre-item-1.1-correction paste. Page title, H1, the
+   estate-wide switch banner at the top of every page, and the page footer
+   all read "Coleman & Leigh Pharmacy" (ampersand form). The contact-card
+   address block on the SAME page correctly reads "Coleman and Leighs
+   Pharmacy" - the identical mixed state recorded on 2026-08-11, 2026-08-12,
+   2026-08-30 and 2026-09-01, unchanged today. Phone (0151 525 3522),
+   address (241 Walton Village, Liverpool, L4 6TH) and the seven Pharmacy
+   First condition cards with their age ranges all read correctly and match
+   branches.json and the generated page.
+
+3. https://www.colemanandleighspharmacy.co.uk/ (homepage)
+   -> same mixed-name pattern: page title and body copy correctly read
+   "Coleman and Leighs Pharmacy", the switch banner and footer read
+   "Coleman & Leigh Pharmacy". The Q22 estate-wide weight loss tagline
+   ("Innovative solutions that deliver results. Tried the rest? Now try
+   the best.") is still present under "Weight Loss Clinic" in the services
+   list - unchanged; Q22 was answered 2026-08-30 as "Unsure, guidance
+   pending", so no repo action is due on it.
+
+4. https://www.colemanandleighspharmacy.co.uk/sitemap.xml
+   -> 28 URLs, every <lastmod> identical at 2026-08-14T23:21:20+00:00 -
+   confirming no republish/repaste has happened on this domain since 14
+   August, which is why every finding above is unchanged rather than new.
+   pharmacy-first-service-walton.html (the old pfLink target) is correctly
+   ABSENT from the sitemap; pharmacy-first-coleman-leigh-walton.html (the
+   replacement) is correctly present - matching Q34's applied repoint.
+
+RESULT
+No new in-repo defect, no new live fault, no new question. This pass's
+contribution is closing the fourteen-day gap since 2026-09-01 in
+Chrome-verified live confirmation for this pack: every standing finding
+(pfLink 404, mixed trading-name paste, Q22 tagline, Q76's still-open
+checker-scope question) is reconfirmed unchanged. Q76 itself is a
+checker-design decision, not a live-page fact, so it was not re-tested
+live this pass (it was last re-proven by injection against the tracked
+pack's own copy on the sixth quality pass, 2026-08-30, and stands as an
+open question awaiting Rishi's choice of scope).
+
+git status --porcelain -- modules core branches.json gbp-packs tools:
+empty (aside from the two pre-existing untracked strays every recent pass
+has already logged: gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+touched this pass).
