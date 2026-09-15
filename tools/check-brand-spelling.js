@@ -685,8 +685,32 @@ if (!fs.existsSync(siteData)) {
 var SHORT_SCAN_DIRS = [
   path.join(ROOT, "modules", "service", "pages"),
   path.join(ROOT, "modules", "switch", "pages"),
-  path.join(ROOT, "modules", "branch", "pages")
+  path.join(ROOT, "modules", "branch", "pages"),
+  path.join(ROOT, "gbp-packs")
 ];
+
+// gbp-packs is an operational instruction document, not a patient-facing
+// page, so whole-file scanning is wrong for it: measured directly (item 3.6
+// quality pass, 2026-09-15) before this was written, a naive whole-file scan
+// produced 46 failures across 15 packs, every one a legitimate cross-branch
+// or sister-branch mention in paster prose ("our sister branch in Hazel
+// Grove", "The mccannspharmacy.co.uk domain is shared with Sandringham"),
+// none a real leak. The one part of a pack that IS pasted verbatim onto the
+// public Google profile is the business description (section 1), the same
+// field check-gbp-packs.js's own descriptionOf() extracts and holds to the
+// 750-character GBP limit. GBP_DESC_RE mirrors that function's regex exactly
+// (check-gbp-packs.js is a standalone script, not a requireable module, so
+// the pattern is duplicated rather than imported - keep the two in sync if
+// either changes). Scoping to just that field, re-measured the same pass,
+// produced 0 false positives across all 16 packs while still reaching the
+// only genuinely public-facing prose in the file.
+var GBP_DESC_RE = /^##\s*1\.\s*Business description[^\n]*\n([\s\S]*?)(?=^##\s)/m;
+// TEMPLATE.md is a template, not a real branch's pack - it has no branch of
+// its own to check a leak against, and its own description section uses
+// several trading names as worked examples on purpose. Excluded the same
+// way check-jsonld.js and check-whatsapp-route.js exclude DRAFT-* by name:
+// "a template has no branch to resolve against".
+var GBP_PACK_TEMPLATE = path.join(ROOT, "gbp-packs", "TEMPLATE.md");
 
 // The shapes the six generators write when they declare a page's SEO title.
 var TITLE_ROLE = /(?:Weebly page SEO title:|\*\*SEO title:\*\*|\*\*Page Title:\*\*|<title>|\(SEO-first)/i;
@@ -719,7 +743,23 @@ if (typeof pat.fitTitle !== "function" || typeof pat.TITLE_WARN_LEN !== "number"
 
 var shortMasks = [];
 branches.forEach(function (b) {
-  if (b.streetAddress) shortMasks.push(b.streetAddress);
+  if (b.streetAddress) {
+    shortMasks.push(b.streetAddress);
+    // Narrative prose (the GBP packs' own business descriptions) drops the
+    // house number that every generated page keeps ("home on Cherry Lane"
+    // rather than "202 Cherry Lane"), so the bare street name is masked too
+    // wherever it differs from the full address. Same tradeoff the full
+    // address mask already accepts: this can also hide a genuine leak that
+    // happens to reuse the street name as the business name in running
+    // prose, exactly as document above for Cherry Lane and Riddings, so it
+    // is not a wider net than the original design already casts, only the
+    // same net over a second phrasing. Measured directly (item 3.6 quality
+    // pass, 2026-09-15): this mask is what closes the two remaining false
+    // positives ("on Cherry Lane", "on Riddings Road") once gbp-packs joined
+    // the scan.
+    var bare = b.streetAddress.replace(/^\d+[a-zA-Z]?\s+/, "");
+    if (bare && bare !== b.streetAddress) shortMasks.push(bare);
+  }
 });
 var shortTowns = [];
 branches.forEach(function (b) {
@@ -742,7 +782,10 @@ SHORT_SCAN_DIRS.forEach(function (dir) {
     return;
   }
   fs.readdirSync(dir).forEach(function (f) {
-    if (/\.(html|md)$/i.test(f)) shortFiles.push(path.join(dir, f));
+    if (!/\.(html|md)$/i.test(f)) return;
+    var full = path.join(dir, f);
+    if (full === GBP_PACK_TEMPLATE) return;
+    shortFiles.push(full);
   });
 });
 
@@ -757,8 +800,26 @@ if (!shortFiles.length) {
 } else {
   var shortTitleLines = 0;
   shortFiles.forEach(function (fp) {
-    var lines = fs.readFileSync(fp, "utf8").split(/\r?\n/);
-    lines.forEach(function (raw, i) {
+    var rawFile = fs.readFileSync(fp, "utf8");
+    var isGbpPack = rel(fp).indexOf("gbp-packs/") === 0;
+    var body = rawFile;
+    var lineOffset = 0;
+    if (isGbpPack) {
+      var descMatch = rawFile.match(GBP_DESC_RE);
+      if (!descMatch) {
+        failures.push(rel(fp) + ": rule 6 could not find a '## 1. Business " +
+          "description' section to scope the shortened-brand check to. " +
+          "check-gbp-packs.js's own descriptionOf() would also fail to read " +
+          "this pack, so this is a real structural problem with the file, " +
+          "not a rule 6 gap");
+        return;
+      }
+      body = descMatch[1];
+      lineOffset = rawFile.slice(0, descMatch.index).split(/\r\n|\r|\n/).length - 1;
+    }
+    var lines = body.split(/\r?\n/);
+    lines.forEach(function (raw, i0) {
+      var i = i0 + lineOffset;
       if (TITLE_ROLE.test(raw)) { shortTitleLines++; return; }
       var ln = raw;
       shortMasks.forEach(function (mask) { ln = ln.split(mask).join(" "); });

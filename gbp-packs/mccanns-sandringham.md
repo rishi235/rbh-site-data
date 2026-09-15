@@ -23,7 +23,7 @@ Profile basics (for checking, not pasting):
   the profile stays local to St Michael's. Check it resolves before pasting.)
 - Review link: https://g.page/r/CbMDr1qOLqnrEAE/review
 
-## 1. Business description (max 750 chars - this is 713)
+## 1. Business description (max 750 chars - this is 721)
 At 1b Aigburth Road, McCanns Chemist Sandringham is an independent pharmacy
 providing NHS services to St Michael's, Aigburth, Lark Lane and Dingle. NHS
 prescriptions are dispensed on site, free NHS blood pressure checks are
@@ -32,8 +32,9 @@ means you can start or continue oral contraception at the pharmacy.
 Pharmacy First, free on the NHS, allows our pharmacists to assess and treat
 seven common conditions with no need for a GP appointment. We also offer
 two private clinics: travel health, including vaccinations and malaria
-prevention advice, and pharmacist-led weight loss. Our sister McCanns
-branch is further along Aigburth Road. Everyone is welcome.
+prevention advice, and pharmacist-led weight loss. Our sister
+McCanns Chemist branch is further along Aigburth Road. Everyone is
+welcome.
 
 ## 2. Categories
 - Primary: Pharmacy

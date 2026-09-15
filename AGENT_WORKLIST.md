@@ -6906,6 +6906,72 @@ passes' live findings (Sandringham UTI page still "Sandringham" live, queued
 stand unclaimed and unchanged, not re-verified this pass.
 QUESTIONS: none raised this pass (49 open, unchanged). Evidence:
 audits/mccanns-opening-hours-3.6-eighteenth-2026-09-14.txt.
+Quality pass 2026-09-15 (nineteenth, unattended scheduled run via Cowork,
+sandbox mcp__workspace__bash throughout). Selected as the least recently
+verified item in the standing rotation pool: all 8 unblocked
+AGENT_WORKLIST.md lines confirmed [BLOCKED], quality-pass fallback applied;
+tied-oldest pool at 2026-09-14 was {3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12,
+4.1}, took 3.6 on the lowest-item-number tiebreak. Baseline: 36/36 checkers
+clean, branches.json sha256 169bb5a2...b102 (standing anchor).
+FRESH ANGLE, ONE REAL DEFECT FOUND AND FIXED: comm -23 against this item's
+own eighteen-pass history gave 17 checkers never named for it;
+check-brand-spelling.js chosen since McCanns Chemist is explicitly pinned
+in that checker's own CANONICAL and MISSPELT tables yet had never been
+proven against this item's own files. Four injections on a tar scratch
+copy against McCanns's own files, each restored and sha256-reconfirmed:
+RULE 4 MISSPELT ("Mc Cann Chemist" in the Aigburth landing page) - CAUGHT;
+RULE 2 VARIANT case-drift ("Mccanns Chemist" in the Sandringham sore
+throat page) - CAUGHT; RULE 1 CANON (mccanns_aigburth brandLabel changed to
+"McCann's Chemist" in the scratch branches.json) - CAUGHT on both of rule
+1's own sub-checks; RULE 6 SHORT (an unquoted bare "McCanns" added to
+mccanns-aigburth.md's paster notes) - NOT caught. Investigated: rule 6's
+SHORT_SCAN_DIRS never included gbp-packs at all, unlike rules 2 and 4 on
+the same checker, though the checker's own header names "the GBP packs" as
+one of the venues it exists to protect - a real, unstated gap. Measured
+before fixing: a naive whole-file widening produced 46 false positives
+across 15 packs (legitimate cross-branch prose and bare street names -
+"home on Cherry Lane", "on Riddings Road" - the same brand/street ambiguity
+the rule's own header already names for generated pages, just not yet
+extended to bare street names). FIX: scoped the new gbp-packs coverage to
+just the business description field (section 1, the one part of a pack
+pasted verbatim to the public Google profile), via GBP_DESC_RE mirroring
+check-gbp-packs.js's own descriptionOf() regex exactly; TEMPLATE.md
+excluded by name (a template has no branch to resolve against, same
+precedent as DRAFT-* elsewhere); shortMasks extended to also mask the bare
+street name (house number stripped). This brought false positives to
+exactly one REAL finding: gbp-packs/mccanns-sandringham.md's own business
+description read "Our sister McCanns branch is further along Aigburth
+Road" - the shortened form naming the Aigburth sister ambiguously, on the
+one field that pastes straight onto the public profile, inconsistent with
+Aigburth's own reciprocal sentence which correctly uses the full brand.
+FIXED AT SOURCE: changed to "Our sister McCanns Chemist branch...",
+rewrapped so the two words are not split across a line break (rule 6 reads
+line by line, so a wrap splitting "McCanns" from "Chemist" defeats the
+shop-type lookahead even when logically adjacent - found and corrected
+during this pass); header count updated 713 -> 721 chars, well under the
+750 limit; GBP profile itself not touched (browser read-only, this is a
+queued-paste source document). RE-VERIFICATION: all four original
+injections re-run against the fixed checker in the tracked repo, all still
+caught, all restores byte-identical; a fifth new injection (dropping
+"Chemist" from Aigburth's own sister-branch sentence) caught correctly,
+proving the new gbp-packs coverage directly. Full 36-checker suite re-run
+clean; branches.json sha256 unchanged; git status --porcelain -- modules
+core branches.json gbp-packs tools shows only the two intentional files
+(gbp-packs/mccanns-sandringham.md, tools/check-brand-spelling.js) plus the
+two long-standing pre-existing untracked strays, neither touched. No
+generator, generated page or branches.json field changed. Guard coverage
+for item 3.6 now extends to 20 of 36 checkers proven by direct injection
+(up from 18).
+LIVE HALF: not performed this pass; the finding and fix are both source
+documents (a checker and a not-yet-pasted GBP pack), so there was no live
+page to re-read for this angle. Prior passes' standing live findings
+(Sandringham UTI page still "Sandringham" live, queued 5.7/Q15; both branch
+landing pages still HTTP 404, Q35; Q39 footer set) not re-verified this
+pass.
+QUESTIONS: none raised this pass. QUESTIONS.json re-read via the standing
+answer-pickup step: 107 total, 54 open, unchanged; newest answer still Q52
+(2026-09-01), no new answer since. Evidence:
+audits/mccanns-brand-spelling-3.6-nineteenth-2026-09-15.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
