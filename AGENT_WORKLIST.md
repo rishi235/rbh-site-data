@@ -27938,6 +27938,97 @@ all at 2026-09-12.
       taken. No new question raised.
       Evidence: audits/verify-6.2-2026-09-12-fourteenth.js and
       audits/verify-6.2-2026-09-12-fourteenth-output.txt.
+      Fifteenth quality pass, 2026-09-15 (unattended scheduled run, thirty-first
+      run today). ONE REAL DEFECT FOUND AND FIXED, in check-service-links.js,
+      the checker rather than a page. Rotation pool derived fresh: tied-oldest
+      at 2026-09-12 was {1.3, 2.3, 3.1, 3.2, 6.2, 6.3} and the day's prior
+      thirty runs had already taken 1.2, 5.2, 1.3, 2.3, 3.1 and 3.2, leaving
+      {6.2, 6.3} tied-oldest; took 6.2 on the lowest-item-number tiebreak.
+      FRESH ANGLE: EXTRA_FILES and EXTRA_JS_COPY_FILES have both carried a
+      "file listed but not present" FAIL since the eighth quality pass
+      (2026-09-04), proved by injection that pass (all eight listed files
+      renamed away one at a time, all eight caught). Grepped this item's own
+      fourteen-pass history for "PAGE_DIRS", "existsSync(dir)", "dir missing",
+      "directory removed" and "entire directory" before starting: seven hits
+      on the bare string "PAGE_DIRS" (all in unrelated context), zero on any
+      of the others - no prior pass had ever tested the same fail-safe
+      convention against PAGE_DIRS itself, the three directories (switch,
+      service, branch) RULE 1, RULE 2 and RULE 3 all read the 177 generated
+      pages from in the first place, and the one list this checker exists
+      around.
+      METHOD: full repo copied by tar (excluding .git) to a scratch directory
+      under the outputs mount, tracked repo never opened for writing during
+      the probe. Baseline confirmed clean first (both check-service-links.js
+      and check-page-coverage.js exit 0 on the unmutated scratch copy).
+      modules/branch/pages (6 branch landing pages) renamed away entire with
+      mv, both checkers re-run, directory renamed back immediately afterwards.
+      RESULT (pre-fix checker, reconstructed from the tracked repo's own
+      2026-09-12 state before any edit was made): check-service-links.js
+      exited 0, "clean", reporting 171 of the estate's 177 pages with no
+      mention anywhere that six pages and their links had vanished from
+      coverage - pageCount, linkCount and every failure tally were simply
+      smaller, silently. check-page-coverage.js, run against the identical
+      injection, correctly failed with 7 failures (6 PAGE_MISSING naming each
+      missing page plus its own DIR_MISSING), so the fault class was
+      backstopped estate-wide and no live breach was hiding on the day this
+      was found - but every one of the 36 checkers in this repo is also run
+      standalone, individually, on every quality pass (the convention this
+      very run follows), and a standalone run of check-service-links.js would
+      have reported false confidence with no warning at all, the same
+      "silently narrows rather than stops" shape as the ninth pass's
+      EXTRA_LINK_HOST_SLUG finding and the fourteenth pass's unstamped-token
+      gap, just on the checker's own primary input list rather than a
+      secondary one.
+      FIX: a missingPageDirs guard added immediately after estateHosts/
+      hostOfSlug are built and before PAGE_DIRS is read for the first time,
+      mirroring the missingExtra/missingJsCopy convention exactly - FAILS
+      outright, naming every missing directory, before a single page is
+      counted. The two now-redundant `if (!fs.existsSync(dir)) return;` lines
+      inside the two PAGE_DIRS.forEach loops removed, since the new guard
+      already stops the process before either loop can run against a missing
+      directory; a one-line comment left in each place explaining why.
+      VERIFICATION, both directions, all three PAGE_DIRS entries: on the
+      scratch copy with the FIXED checker copied in, modules/branch/pages,
+      modules/service/pages and modules/switch/pages were each renamed away
+      in turn - all three caught first attempt, "FAIL page director(y/ies) in
+      PAGE_DIRS but not present:" naming the correct directory each time -
+      and a control run with all three restored stayed clean (0 known-issue
+      count unchanged, 177/1000/423 counts unchanged). Full 36-checker suite
+      re-run individually on the TRACKED repo (real .git, so check-cdn-pins.js
+      resolves properly, unlike the scratch copy's own six-failure git-archive
+      artefact, itself reconfirmed as that known exclusion and not a new
+      defect): 36/36 exit 0. git status --porcelain -- modules core tools
+      branches.json gbp-packs showed only tools/check-service-links.js
+      changed, plus the two pre-existing untracked strays
+      (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither touched. All six
+      generators (build-service-pages, build-switch-pages,
+      build-branch-landing-pages, build-weight-loss-pages,
+      build-travel-clinic-pages, build-contraception-pages) re-run against the
+      tracked repo: sha256 of all 177 generated pages identical before and
+      after, confirmed by full-estate hash comparison rather than eyeballing
+      git status alone. No generator, page, branches.json field or
+      patient-facing copy changed; only checker logic in tools/ changed.
+      Automated evidence script (audits/verify-6.2-2026-09-15-fifteenth.js)
+      re-run against the now-fixed tracked-repo checker after the fix landed:
+      confirms the fixed checker fails the injection and check-page-coverage.js
+      backstops it, and is annotated to explain it demonstrates the FIXED
+      behaviour, not a reproduction of the historical gap (which was
+      established by hand against the pre-fix source, recorded above, before
+      any edit was made) - a 0-exit from this script on the injection step
+      would itself signal a regression, not the original finding.
+      LIVE HALF (Claude in Chrome connected this run): re-read the three
+      standing 2026-08-14 findings this item has carried since the original
+      sweep. All three unchanged, ninth day running since the last live
+      re-read: riddingspharmacy.co.uk/clinic-prices still 404s, tiffenbergs-
+      chemist.co.uk/book-now.html still 404s, and the Riddings canonical
+      switch permalink (switch-prescriptions-riddings-timperley.html) still
+      404s while the old permalink continues to serve the full switch page
+      (not re-opened this pass to avoid repeating the already-recorded
+      Q53-noted weight loss tile finding). Q53 and Q54 stay open, nothing new
+      to add to either.
+      Evidence: audits/verify-6.2-2026-09-15-fifteenth.js and
+      audits/verify-6.2-2026-09-15-fifteenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

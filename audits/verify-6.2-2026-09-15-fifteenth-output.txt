@@ -1,0 +1,46 @@
+Copying tracked repo to scratch (excluding .git): /sessions/friendly-adoring-einstein/tmp/verify-6.2-fifteenth-H46O04
+
+=== BASELINE (scratch, unmutated) ===
+check-service-links.js exit 0
+
+=== INJECTION: modules/branch/pages renamed away entire ===
+check-service-links.js exit 1
+check-service-links
+  FAIL  page director(y/ies) in PAGE_DIRS but not present: modules/branch/pages
+
+check-page-coverage.js exit 1 (expected 1, backstop)
+check-page-coverage
+  branches.json: 16 branches, 16 trading, 0 disposed
+  conditions:    7 built
+  Pharmacy First   earns 14 branches, list holds 14
+  Contraception    earns 14 branches, list holds 14
+  Travel clinic    earns 15 branches, list holds 15
+  Weight loss      earns 15 branches, list holds 15
+  Switch           earns 15 branches, list holds 15
+  Branch landing   earns  6 branches, list holds  6
+  expected page set: 177 pages across 3 folders
+
+FAILURES (7):
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-fishlocks-ainsdale.html is listed for fishlocks_ainsdale but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-fishlocks-eccleston.html is listed for fishlocks_eccleston but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-mccanns-aigburth.html is listed for mccanns_aigburth but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-mccanns-sandringham.html is listed for mccanns_sandringham but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-scorah-bramhall.html is listed for scorah_bramhall but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-scorah-hazel-grove.html is listed for scorah_hazel but is not on disk. Re-run tools/build-branch-landing-pages.js.
+  DIR_MISSING: modules/branch/pages does not exist
+
+check-page-coverage: FAILED
+
+
+=== RESTORE ===
+branches.json sha256 unchanged: true
+
+=== CONTROL: directory restored, checker clean again ===
+check-service-links.js exit 0 (expected 0)
+
+=== CLEANUP ===
+scratch deleted
+
+=== SUMMARY ===
+Pre-fix behaviour reproduced (this script ran against the CURRENT, already-fixed tools/check-service-links.js, so a 0-exit above on the injection step would actually indicate a REGRESSION, not the historical gap). See AGENT_WORKLIST.md item 6.2 fifteenth-pass entry for the actual pre-fix reproduction, run by hand against a copy of the pre-2026-09-15 checker source before the fix was written, and the post-fix injection re-run against the fixed checker confirming all three PAGE_DIRS entries (branch, service, switch) now FAIL correctly when removed.
+check-page-coverage.js backstop confirmed: true

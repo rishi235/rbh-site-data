@@ -164,6 +164,24 @@
   gap was latent, not a live breach, the same shape every 6.2 pass before this
   one has found.
 
+  MISSING PAGE DIRECTORY, added on the item 6.2 quality pass (fifteenth),
+  2026-09-15. EXTRA_FILES and EXTRA_JS_COPY_FILES have both carried a "file
+  listed but not present" FAIL since the eighth quality pass (2026-09-04), but
+  PAGE_DIRS itself - the three directories RULE 1, RULE 2 and RULE 3 all read
+  the 177 generated pages from - never had the same fail-safe. A directory
+  going missing entirely (modules/branch/pages, say) was silently treated as
+  zero pages: pageCount, linkCount and every failure count simply came out
+  smaller, with no FAIL, no WARN and no line naming what had vanished. Proved
+  by injection: with modules/branch/pages renamed away entire on a scratch
+  copy, this checker exited 0, "clean", 171 of 177 pages, no mention of the
+  missing six or their links. tools/check-page-coverage.js correctly failed
+  the identical injection (6 PAGE_MISSING plus its own DIR_MISSING), so the
+  fault class was backstopped estate-wide, not a live breach - but every one
+  of the 36 checkers in this repo is also run standalone, individually, on
+  every quality pass, and a standalone run of this file would have reported
+  false confidence with no warning at all. PAGE_DIRS now fails the run
+  outright, naming every missing directory, before a single page is counted.
+
   Run:  node tools/check-service-links.js
 */
 const fs = require("fs");
@@ -322,13 +340,39 @@ data.branches.forEach(function (b) {
   if (b.brandSlug && b.townSlug) hostOfSlug.set((b.brandSlug + "-" + b.townSlug).toLowerCase(), host);
 });
 
+// PAGE_DIRS itself must exist in full before anything is counted from it. Added
+// on the item 6.2 quality pass (fifteenth), 2026-09-15, after the same "stop
+// rather than quietly weaken the rule" convention already applied to
+// EXTRA_FILES and EXTRA_JS_COPY_FILES (both FAIL outright if a listed file is
+// missing) was found NEVER to have been applied to PAGE_DIRS itself, the list
+// RULE 1, RULE 2 and RULE 3 all depend on for the 177 generated pages. Until
+// this pass, `if (!fs.existsSync(dir)) return;` inside the loop below meant an
+// entire missing page directory was silently treated as zero pages: pageCount,
+// linkCount and every failure count would simply be smaller, with no FAIL, no
+// WARN and no line in the output naming what went missing. Proved by injection
+// on a scratch copy (renamed modules/branch/pages away entire, restored
+// afterwards): this checker exited 0, "clean", scanning 171 of the estate's
+// 177 pages with no indication six pages and their links had vanished from
+// coverage, while a sibling, tools/check-page-coverage.js, correctly failed
+// the same injection with 7 failures (6 PAGE_MISSING plus its own DIR_MISSING)
+// naming every missing page - so the fault class was backstopped estate-wide,
+// but this checker's own silence was still real: a script run standalone (as
+// every one of the 36 checkers is, individually, on every quality pass) would
+// have reported false confidence with no warning at all. Now FAILS outright,
+// naming every missing directory, before a single page is counted.
+const missingPageDirs = PAGE_DIRS.filter(function (dir) { return !fs.existsSync(dir); });
+if (missingPageDirs.length) {
+  console.log("check-service-links");
+  console.log("  FAIL  page director(y/ies) in PAGE_DIRS but not present: " + missingPageDirs.map(rel).join(", "));
+  process.exit(1);
+}
+
 // Every page this repo generates, mapped to the ONE host that publishes it.
 // Longest slug first, so scorah-hazel-grove is not swallowed by a shorter match.
 const slugs = Array.from(hostOfSlug.keys()).sort(function (a, b) { return b.length - a.length; });
 const generated = new Map();    // "<basename>.html" -> host
 const unattributed = [];
 PAGE_DIRS.forEach(function (dir) {
-  if (!fs.existsSync(dir)) return;
   fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
     const name = f.toLowerCase();
     const slug = slugs.find(function (s) { return name.replace(/\.html$/, "").endsWith("-" + s); });
@@ -529,8 +573,10 @@ function scanLinks(file, selfHost, visible) {
   }
 }
 
+// PAGE_DIRS is already confirmed to exist in full by the missingPageDirs guard
+// above, which runs and can exit the process before this second pass over the
+// same list, so no existsSync guard is repeated here.
 PAGE_DIRS.forEach(function (dir) {
-  if (!fs.existsSync(dir)) return;
   fs.readdirSync(dir).filter(function (f) { return f.endsWith(".html"); }).forEach(function (f) {
     const file = path.join(dir, f);
     pageCount++;
