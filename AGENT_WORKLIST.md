@@ -11261,6 +11261,120 @@ Done 2026-09-15 (eighteenth pass).
       check-widget-diaries.js) - a candidate list for a nineteenth pass. On the open backlog generally: unchanged - the
       eight genuinely actionable worklist items remain blocked on Rishi's
       own decisions and 49 of 102 questions are open. Done 2026-09-14
+
+      Quality pass 2026-09-15 (nineteenth, unattended scheduled run,
+      thirty-ninth run today). All eight unchecked worklist items
+      reconfirmed [BLOCKED] on Rishi's own open decisions (Q8, Q9, Q13, Q16,
+      Q52/Q60/Q66 and the rest of the 54 now-open questions), so the
+      quality-pass fallback applied. Rotation pool re-derived fresh via a
+      Python header-to-next-header date scan of every completed item's own
+      embedded dates (standing out-of-rotation set 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8 excluded): tied-oldest pool at 2026-09-14 was {3.10, 3.11,
+      3.12, 4.1}; took 3.10 on the lowest-item-number tiebreak.
+
+      ANSWER PICKUP (step 3): exactly one connected browser (no Q59
+      two-instance conflict this run). https://data.rbhealth.co.uk/api/feedback
+      read cleanly on the second attempt (first hit the standing transient
+      "Cannot access a chrome:// URL", a fresh tabs_context_mcp then
+      get_page_text on the same tab succeeded). Newest entry still the Q52
+      answer, dated 2026-09-01T22:44:51.524Z - unchanged since every run
+      since 2026-09-01. No answer arrived for any of the 54 open questions
+      this run.
+
+      NO IN-REPO DEFECT FOUND: tools/check-seo-lengths.js, named by the
+      eighteenth pass's own forward note as never once proven against
+      Riddings across eighteen prior passes despite this branch carrying
+      twelve paste-sheet entries and eleven pages, is now proven by five
+      injections plus a control, covering all four of its rules.
+
+      Baseline: full 36-checker suite clean on the tracked repo before
+      starting; branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged throughout). Full-repo scratch copy via
+      `git archive HEAD | tar -x` into ~/scratch-3.10 (outside the tracked
+      repo and outside /tmp, matching the more cautious precedent several
+      recent passes record, though /tmp was in fact writable this session);
+      tracked repo never opened for writing during the injection round.
+      check-seo-lengths.js confirmed clean on the scratch copy before
+      injection (177 paste-sheet entries across 6 sheets, 177 page H1s, 0
+      shared).
+
+      FIVE INJECTIONS PLUS ONE CONTROL against Riddings' own paste-sheet
+      entries and pages, each restored from a saved original and
+      sha256-reconfirmed identical before the next, full instrument in
+      audits/verify-3.10-2026-09-15-nineteenth.js: (1) RULE 1, the Riddings
+      UTI title extended from 46 to 89 characters - CAUGHT first attempt,
+      "over the 65 limit"; (2) RULE 2, the Riddings Sinusitis description
+      shortened from 146 to 41 characters - CAUGHT first attempt, "under the
+      80 minimum"; (3) RULE 3a, the Riddings Impetigo title set to Riddings
+      Shingles's own title (a same-branch title collision) - CAUGHT first
+      attempt, "duplicate title", both entries named by their own heading
+      and sheet path; (4) RULE 3b, the Riddings Earache permalink set to
+      Riddings Sore throat's own permalink (a same-branch permalink
+      collision) - CAUGHT first attempt, "duplicate permalink", both entries
+      again named distinctly by heading rather than by the colliding value
+      itself, confirming the item 3.9 fifteenth-pass fix to this exact
+      failure message still holds; (5) RULE 4a, the Riddings Sinusitis H1
+      set to Riddings UTI's own H1 (one branch repeating an H1 on two of its
+      own pages) - CAUGHT first attempt, "one branch uses the same H1 on two
+      of its own pages - riddings_timperley: sinusitis-treatment-...html and
+      uti-treatment-...html". CONTROL: a harmless reword of the Riddings
+      Impetigo description, kept unique and inside the 80-165 window -
+      correctly passed clean, exit 0, no cross-firing. All five injections
+      caught on the first attempt naming the correct rule; the control
+      passed cleanly.
+
+      RULE 4b (two branches on one host sharing an H1) has no natural
+      injection point on Riddings, a single-site brand with no sister branch
+      sharing its website host (only Fishlocks, McCanns and Scorah share a
+      domain) - a genuine scope limit of the branch chosen, the same shape
+      recorded for other single-site brands on prior passes of this and
+      other items.
+
+      Final restore sha256-reconfirmed identical to baseline for both target
+      files (modules/service/pages/SEO.md,
+      modules/service/pages/sinusitis-treatment-riddings-timperley.html)
+      after every injection and at the end. Full 35-checker suite (cdn-pins
+      excluded, no .git in the scratch copy) re-run clean on the scratch
+      copy after cleanup: 35/35 exit 0. Tracked repo confirmed untouched
+      throughout via `git status --porcelain -- modules core branches.json
+      gbp-packs tools` (only the two long-standing pre-existing untracked
+      strays, gbp-packs/.fuse_hidden0000000400000001 and
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+      neither touched) and via direct sha256 comparison of branches.json
+      against the pre-run baseline (exact match). Full 36-checker suite
+      re-run individually against the tracked repo after cleanup: 36/36 exit
+      0. No generator, page, checker or branches.json content changed.
+      Scratch directory and its copy of the verify script deleted after use.
+
+      LIVE HALF: not attempted this pass. Scope was the repo/paste-sheet
+      layer only, matching the precedent set by several other items' recent
+      passes on the same checker family.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read via the
+      standing answer-pickup step: 107 total, 54 open, unchanged; newest
+      answer still Q52 (2026-09-01).
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.10-2026-09-15-nineteenth.js and its
+      own -output.txt (new).
+
+      Next stalest for whoever runs next, re-derive rather than assume: with
+      3.10 now current, the tied-oldest pool at 2026-09-14 that remains is
+      {3.11, 3.12, 4.1}; lowest is 3.11. On item 3.10 itself: seventeen
+      checkers still never proven by injection against Riddings across
+      nineteen passes (check-address-region.js, check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+      check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+      check-whatsapp-route.js, check-widget-diaries.js) - a candidate list
+      for a twentieth pass. On the open backlog generally: unchanged - the
+      eight genuinely actionable worklist items remain blocked on Rishi's
+      own decisions and 54 of 107 questions are open. Done 2026-09-15
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

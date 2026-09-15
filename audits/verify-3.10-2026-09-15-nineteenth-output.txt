@@ -1,0 +1,113 @@
+=== Baseline: checker must already be clean ===
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+
+
+=== INJECTION 1: RULE 1, Riddings UTI title extended past 65 chars ===
+exit 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 89 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL uti-treatment-riddings-timperley (modules/service/pages/SEO.md): title is 89 characters, over the 65 limit, so Google truncates it
+         Urinary tract infection (UTI) treatment and consultation in Timperley - Riddings Pharmacy
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+restored, sha256 confirmed match
+
+=== INJECTION 2: RULE 2, Riddings Sinusitis description shortened below 80 chars ===
+exit 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 41 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL sinusitis-treatment-riddings-timperley (modules/service/pages/SEO.md): description is only 41 characters, under the 80 minimum
+         Sinusitis treatment at Riddings Pharmacy.
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+restored, sha256 confirmed match
+
+=== INJECTION 3: RULE 3a, Riddings Impetigo title set to Riddings Shingles's own title ===
+exit 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL duplicate title shared by 2 pages: Riddings Pharmacy — Timperley — Impetigo (modules/service/pages/SEO.md), Riddings Pharmacy — Timperley — Shingles (modules/service/pages/SEO.md)
+         Shingles treatment in Timperley - Riddings Pharmacy
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+restored, sha256 confirmed match
+
+=== INJECTION 4: RULE 3b, Riddings Earache permalink set to Riddings Sore throat's own permalink ===
+exit 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL duplicate permalink shared by 2 pages: Riddings Pharmacy — Timperley — Sore throat (modules/service/pages/SEO.md), Riddings Pharmacy — Timperley — Earache (modules/service/pages/SEO.md)
+         sore-throat-treatment-riddings-timperley
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+restored, sha256 confirmed match
+
+=== INJECTION 5: RULE 4a, Riddings Sinusitis H1 set to Riddings UTI's own H1 ===
+exit 1
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL one branch uses the same H1 on two of its own pages - riddings_timperley: sinusitis-treatment-riddings-timperley.html and uti-treatment-riddings-timperley.html
+         UTI treatment in Timperley
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+restored, sha256 confirmed match
+
+=== CONTROL: harmless reword of Riddings Impetigo description, expect clean ===
+exit 0 (expect 0)
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+
+restored, sha256 confirmed match
+
+=== Final restore check: all targets byte-identical to baseline ===
+  sheet: MATCH
+  sinusitisPage: MATCH
+
+=== Final full check-seo-lengths.js re-run, expect clean ===
+exit 0
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+
+
+DONE. All five injections plus the control ran as intended: RULE 1, RULE 2, RULE 3a, RULE 3b and RULE 4a each caught on the first attempt naming the correct rule; the control passed cleanly with no cross-firing.
