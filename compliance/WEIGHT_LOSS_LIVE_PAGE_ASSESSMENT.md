@@ -1128,3 +1128,74 @@ only Tiffenbergs (link context only; its sitemap already confirmed
 2026-08-11/12) and Clear Chemist Aintree's remaining twelve branded
 sub-pages and seven obesity articles - the fourteen-branch Weebly sweep is
 otherwise complete.
+
+## 2026-09-15 addition (unattended run, fourth run today): Clear Chemist Aintree - the remaining sub-pages read, Q104's domain now fully swept
+
+Read the last unread ground on clearchemist.co.uk flagged by the two
+2026-09-14 additions above: all eighteen online-doctor/weight-loss URLs
+found in sitemap-1-2.xml (re-fetched and enumerated directly by
+`<loc>` tag rather than trusting the earlier "twelve" estimate, which
+undercounted) and all seven az-health/obesity URLs. Read live, read only,
+via Claude in Chrome (`navigate` and `get_page_text`, and one `fetch()`
+from the page's own origin to enumerate the sitemap; nothing clicked,
+typed or submitted).
+
+Sixteen of the eighteen online-doctor/weight-loss URLs are the branded
+category placeholders the two prior additions left unread: the eight
+celebrity-slim sub-pages (root, accessories, meal-bars, shakes, smoothie,
+meals, snack-bars, soups) and slim-fast, sweeteners, xls, biggest-loser,
+pharmanord, adios, alli, lipotrim. Every one of the sixteen renders
+"We can't find products matching the selection" with no product grid, no
+price, no claim and no medicine name - empty Magento category pages, still
+live and still indexed in the sitemap for product ranges the shop no
+longer stocks. This is a data-hygiene finding (dead pages left indexed),
+not a new advertising-standards exposure: there is nothing on any of the
+sixteen for CAP rule 12.12 or the Regime 1/2 test to apply to.
+
+The seventeenth URL, online-doctor/weight-loss.html (the hub page, distinct
+from online-doctor/weight-loss/prescription-medications.html which the
+first 2026-09-14 addition already read), is NOT empty: it renders the
+identical four-item Orlistat/Xenical listing already documented above
+(Generic Orlistat 120mg x168 £75.60, x84 £37.80; Xenical (Orlistat) 120mg
+x168 £74.99, x84 £37.99). Same SKUs, same prices, same retail-sale-of-a-
+named-POM-with-displayed-pricing pattern already counted under Q104 - not
+a new instance, but confirmation that this one retail listing is reachable
+from at least two separately indexed, sitemap-listed URLs rather than one.
+
+The seven az-health/obesity URLs (the hub plus causes-of-obesity,
+diagnosing-obesity, treating-obesity, complications-of-obesity,
+'life-is-so-much-better-at-a-healthy-weight', and 'see what the doctor
+sees with Map of Medicine') are syndicated NHS Choices content, every page
+marked "© Crown Copyright 2009". All are factual and non-promotional: BMI
+definitions, causes, GP-referral advice, complications, a patient
+case-study, and a Map of Medicine signpost. Orlistat is mentioned twice,
+both times hedged correctly ("Your GP will know whether orlistat is
+suitable for you"; prescribing criteria, dosage, side effects and the
+under-16 restriction all stated factually) with no brand name, no price
+and no claim of the kind this assessment otherwise tests for. A DOM read
+of the outbound links on these pages found only the same global
+site-wide navigation and footer every page on the domain carries (Weight
+Loss Clinic, Travel Clinic), not a contextual in-article link to the
+commercial clinic pages - so this is the site's standing nav structure,
+already implicit in every other page read on this domain, not a new
+funnel to flag. No compliance exposure found on any of the seven.
+
+This closes out the unread ground both 2026-09-14 additions flagged.
+Clear Chemist Aintree's sitemap is now fully read for weight-loss-shaped
+content: the four live retail/claims pages already tracked
+(weight-loss-clinic.html, services/weight-loss-clinic.html,
+weight-loss-clinic-switch.html, weight-loss-clinic-new.html), the two
+POM retail listings for Orlistat (prescription-medications.html and now
+confirmed duplicated at online-doctor/weight-loss.html), the
+stale /wegovy placeholder, sixteen empty category pages, and seven clean
+NHS-syndicated articles. Nothing found this pass changes Q104's
+recommended urgency or its options; the additional evidence is entirely
+either confirmatory (the second Orlistat URL) or negative (the sixteen
+empty pages and seven articles carry no exposure). QUESTIONS.json Q104
+extended with a summary of this addition rather than opened as a new
+question, for the same reason as the prior addition: same platform, same
+entity, no qualitatively new finding requiring a fresh decision. Item 5.8
+stays [BLOCKED]. With this addition, item 5.8's full sitemap-and-link-
+context sweep (fourteen Weebly branches plus the Clear Chemist Aintree
+e-commerce platform) is now complete; no branch or platform remains
+unread against the sweep methodology.

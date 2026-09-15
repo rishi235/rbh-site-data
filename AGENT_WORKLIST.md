@@ -25758,6 +25758,28 @@ rather than trust this note - as computed by this pass, the two remaining
       choice for the fourteen confirmed legacy instances still pending
       Q16/Q22/Q85/Q98/Q103; only remaining unread ground is Clear Chemist
       Aintree per Q104).
+      2026-09-15 (fourth run today): read the remaining unread ground on
+      Clear Chemist Aintree flagged above. All eighteen online-doctor/
+      weight-loss sitemap URLs and all seven az-health/obesity URLs read in
+      full (see compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-15
+      addition, for the full write-up). Sixteen of the eighteen are empty
+      Magento category placeholders with no product, price, claim or
+      medicine name (a data-hygiene finding, not a new advertising-
+      standards exposure). The seventeenth, online-doctor/weight-loss.html,
+      duplicates the same four-item Orlistat/Xenical retail listing already
+      counted under prescription-medications.html - confirms a second
+      indexed URL for the same sale, not a new instance. The seven az-
+      health/obesity URLs are syndicated NHS Choices content (Crown
+      Copyright 2009), factual and non-promotional, with orlistat mentioned
+      twice and correctly hedged both times; no compliance exposure found.
+      QUESTIONS.json Q104's note extended with this addition rather than a
+      new question raised, since nothing here changes the recommended
+      option. With this run, Clear Chemist Aintree's sitemap is fully read
+      and item 5.8's entire sitemap-and-link-context sweep (fourteen Weebly
+      branches plus this platform) is complete; no branch or platform
+      remains unread against the sweep methodology. Item 5.8 stays
+      [BLOCKED] (fix choice for all confirmed instances still pending
+      Q16/Q22/Q85/Q98/Q103/Q104).
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
