@@ -606,7 +606,10 @@ Object.keys(KNOWN_NON_PAGE).forEach(function (file) {
 // failure naming the generator that stopped composing at the moment it stops
 // rather than surfacing later as an unexplained page mismatch.
 var KNOWN_NON_PAGE_BUILDER = {
-  "build-audit-status.js": "publishes the audit status page to the data portal. Generates no branch page."
+  "build-audit-status.js": "publishes the audit status page to the data portal. Generates no branch page.",
+  "build-weebly-furniture-checklist.js": "generates WEEBLY_FURNITURE_CHECKLIST.md, a single repo-root reference " +
+    "document for the Q39 Weebly furniture sweep. Not a branch page, has no title or H1, composes nothing " +
+    "through tools/seo-pattern.js."
 };
 // build-status-page.js and status/index.html, the repo-local progress board
 // it generated, were retired 2026-09-01 per Q42's answer: the portal page

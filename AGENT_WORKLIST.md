@@ -16991,6 +16991,46 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       2026-09-01). No new live fault found; every finding this pass reconfirms a
       state already recorded, nothing regressed and nothing newly broken. No new
       question. Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-15-eighteenth.txt.
+IMPLEMENTED Q39 2026-09-15 (nineteenth pass, twenty-third run today): Q39's
+answer (portal, 2026-09-01) approved "One Weebly furniture sweep across all
+14 sites in a single supervised session, working from a per-site correction
+checklist this repo generates from branches.json", and its note explicitly
+invited an unattended run to build that checklist ("The checklist in options
+1 and 2 is work an unattended run can do... Say the word and a later run can
+build it"). It had not been built as of the 2026-09-15 SK Chemists addendum.
+Built it. New tools/build-weebly-furniture-checklist.js reads branches.json
+and generates WEEBLY_FURNITURE_CHECKLIST.md at the repo root: one section
+per trading branch (15, head office excluded) giving the correct trading
+name, full address, county, phone, NHS mailbox and general email straight
+from branches.json, plus - for the 10 branches with a live furniture fault
+already confirmed and recorded in QUESTIONS.json - the exact wrong string
+read live, what it should say, the source question id and the date last
+reconfirmed. Every fact quoted in the checklist was cross-checked against
+branches.json and the QUESTIONS.json note it cites before being written in;
+one drafting slip was caught and fixed before commit (a fabricated
+"0161 872 2267" phone number for Scorah Hazel Grove that did not match any
+source - corrected to the real branches.json value, 01625 872267, spaced).
+Sites with no confirmed finding yet (Clear Chemist Aintree, Smartts Bootle,
+Coleman and Leighs Walton, Gordon Short Crosby, Tiffenbergs Longmoor) are
+marked "not yet read for furniture faults" rather than left blank or implied
+clean - the file is explicit that absence of a listed fault means nobody has
+checked, not that the site is right. The Scorah and Riddings Timperley
+entries carry a DECISION PENDING flag on the Cheshire-vs-Greater-Manchester
+county wording (Q43, still open) so the sweep fixes the unambiguous faults
+(truncated house numbers, unspaced phones) without pre-empting that open
+question. tools/check-seo-pattern.js's own reverse-direction rule (every
+tools/build-*.js must be named by a PAGE_TYPES entry or excused in
+KNOWN_NON_PAGE_BUILDER with a reason, per the Q42 precedent for
+build-audit-status.js) correctly caught the new generator as unaccounted for
+on first run; added it to KNOWN_NON_PAGE_BUILDER with a one-line reason
+(generates a reference document, not a branch page, composes nothing
+through seo-pattern.js). Full 36-checker suite re-run after that fix: 0
+failures. No em dashes in either new file (Perl U+2013/U+2014/U+2015 scan).
+This is a repo-only artefact for a still-outstanding Weebly session, not a
+live change - nothing on any live site is touched or claimed fixed by this
+entry. Q39's note extended with "CHECKLIST BUILT 2026-09-15" recording the
+file path and inviting Rishi or whoever runs the sweep to work from it
+directly rather than re-deriving the same facts by hand.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
