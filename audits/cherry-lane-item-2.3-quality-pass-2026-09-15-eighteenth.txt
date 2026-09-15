@@ -1,0 +1,107 @@
+Item 2.3 (Cherry Lane Pharmacy Walton) - eighteenth quality pass
+Run: unattended scheduled run, audit-backlog-worker, twenty-eighth run today, 2026-09-15
+
+SELECTION
+Rotation pool re-derived from run 27's own entry rather than re-scanned from
+scratch (run 27 had just re-derived it fresh via the header-to-next-header
+block scan): tied-oldest at 2026-09-12 was {1.3, 2.3, 3.1, 3.2, 6.2, 6.3}
+before run 27 took 1.3 on the lowest-item-number tiebreak. With 1.3 removed,
+the remaining tied-oldest pool is {2.3, 3.1, 3.2, 6.2, 6.3}; took 2.3 on the
+lowest-item-number tiebreak, the same established convention.
+Confirmed independently: item 2.3's own worklist block records its
+seventeenth pass as "Done 2026-09-12", matching the claimed tie.
+
+FRESH ANGLE
+tools/check-branch-links.js had never been proven by injection against
+Cherry Lane's own branches.json record in seventeen prior passes (confirmed
+by grepping the item's own worklist block for check-*.js names: booking-routes,
+branch-identity, brand-spelling, cdn-pins, em-dashes, jsonld, map-embeds, nap,
+page-coverage, pharmacy-first-eligibility, seo-pattern, switch-copy,
+travel-clinic-copy, uk-spelling, url-scheme and weight-loss-copy had all been
+used; branch-links had not). This checker reads branches.json directly rather
+than any generated page, so it is the one checker whose subject is the DATA
+FIELD itself (odsCode uniqueness, nhsEmail, nhsReviewUrl, googleReviewUrl,
+website shape, and pfLink host/ownership) rather than a page's rendering of it.
+
+METHOD
+Full repo exported via `git archive HEAD` to a scratch directory outside the
+tracked tree (/tmp/scratch_2.3_18); the tracked repo was never opened for
+writing. branches.json sha256 confirmed identical between the tracked repo
+and the scratch copy before any mutation: 169bb5a2...1102.
+
+BASELINE: full 36-checker suite run against the scratch copy. 35 clean, 1
+expected exclusion: check-cdn-pins.js fails with 6 FAILs, all "ref does not
+resolve in git" / "fetches branches.json from ref main and that ref does not
+resolve" - the known, already-documented scratch-copy limitation (a git
+archive export has no .git directory, so nothing in git history is
+resolvable). Every prior pass on this item that used a scratch copy has
+recorded and excluded the same six failures; this is not a new finding.
+
+THREE INJECTIONS, each against cherrylane_liverpool in the scratch copy's
+branches.json only, each restored by a full-file copy from a saved original
+immediately after its result was recorded, sha256-reconfirmed against the
+saved baseline hash after every restore:
+
+1. nhsReviewUrl truncated to end at the ODS code (the exact historical Gordon
+   Short Crosby defect check-branch-links.js was written to catch):
+   "https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226"
+   (dropping "/leave-a-review").
+   CAUGHT: FAIL cherrylane_liverpool.nhsReviewUrl, quoting the malformed
+   value and the expected pattern, first attempt.
+   Restored; sha256 matched baseline exactly.
+
+2. googleReviewUrl duplicated with mccanns_aigburth's own review link
+   (https://g.page/r/CdDj9KyelDVyEAE/review).
+   CAUGHT: FAIL cherrylane_liverpool.googleReviewUrl: "is the same link as
+   mccanns_aigburth, so a review meant for one branch would land on the
+   other's listing." First attempt, on the intended DUPLICATE rule.
+   Restored; sha256 matched baseline exactly.
+
+3. pfLink swapped to mccanns_aigburth's own Pharmacy First page, on a
+   different host (mccannspharmacy.co.uk vs cherrylanepharmacy.co.uk):
+   CAUGHT TWICE, both intended: FAIL on the host rule ("is ... which is not
+   on this branch's own site") and FAIL on the ownership-resolution rule
+   ("a Pharmacy First page belonging to mccanns_aigburth ... It also sits
+   off this branch's own host"), proving both the plain host check and the
+   filename-resolution ownership check that item 2.1's pass added for the
+   shared-domain case, exercised here against a genuinely different-host
+   swap rather than a same-brand sister swap.
+   Restored; sha256 matched baseline exactly.
+
+All three injections caught first attempt, on their intended rule(s). Final
+full 36-checker suite run on the restored scratch copy: 0 unexpected
+failures (check-cdn-pins.js's same six known exclusions, unchanged).
+No checker gap found, no in-repo defect, no rule or data byte changed.
+
+Guard coverage for this item now extends to 17 of 36 checkers proven by
+direct injection against this branch's own data or pages (up from 16).
+
+TRACKED REPO INTEGRITY
+git status --porcelain -- modules/ core/ branches.json gbp-packs/ tools/
+showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. branches.json sha256 in the tracked repo confirmed unchanged before
+and after this pass: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102.
+Scratch directory deleted in full after use.
+
+LIVE HALF (read-only; mcp__claude-in-chrome not attempted this pass, standing
+Q59 unchanged, no login attempted; read-only curl GET from the Cowork sandbox
+shell against two live Cherry Lane pages, no click, no submit, no login)
+Checked the exact fields check-branch-links.js's injections targeted, on the
+live site:
+  - switch-prescriptions-cherry-lane-walton.html: HTTP 200. Carries
+    https://g.page/r/CRF-ODLpmvUAEAE/review, matching branches.json's
+    cherrylane_liverpool.googleReviewUrl exactly. No nhsReviewUrl or
+    other-branch pfLink string present (expected - neither field is printed
+    onto a generated page by any generator, only into GBP packs, which is
+    outside this checker's own scope).
+  - pharmacy-first-cherry-lane-walton.html: HTTP 200. Same googleReviewUrl
+    confirmed present and correct. The page's own self-link back to
+    pharmacy-first-cherry-lane-walton.html on cherrylanepharmacy.co.uk
+    resolves 200 and matches branches.json's pfLink field exactly; no link
+    to another branch's host or another branch's Pharmacy First page found
+    anywhere on the page.
+No live fault found on this checker's subject. No new question raised.
+
+Evidence: this file.

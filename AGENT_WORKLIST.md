@@ -1989,6 +1989,55 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-12-seventeenth.txt.
       Done 2026-09-12.
+      Eighteenth quality pass 2026-09-15 (unattended scheduled run, Cowork
+      sandbox shell). Rotation-selected: tied-oldest pool at 2026-09-12 was
+      {1.3, 2.3, 3.1, 3.2, 6.2, 6.3}; the twenty-seventh run today took 1.3,
+      leaving {2.3, 3.1, 3.2, 6.2, 6.3}; took 2.3 on the lowest-item-number
+      tiebreak. FRESH ANGLE: tools/check-branch-links.js had never been
+      proven by injection against Cherry Lane in seventeen prior passes -
+      the one checker whose subject is the branches.json DATA FIELD itself
+      (odsCode, nhsEmail, nhsReviewUrl, googleReviewUrl, website, pfLink)
+      rather than a page's rendering of it. Full repo exported via git
+      archive to a scratch directory, tracked repo never opened for
+      writing; branches.json sha256 confirmed identical to the tracked repo
+      before any mutation. Baseline: full 36-checker suite clean bar the
+      known scratch-copy exclusion (check-cdn-pins.js, 6 "ref does not
+      resolve in git" failures - a git archive export has no .git history,
+      already documented on every prior scratch-copy pass on this item).
+      Three injections against cherrylane_liverpool, each restored by full
+      file copy and sha256-reconfirmed before the next and after the last:
+      (1) nhsReviewUrl truncated to end at the ODS code, the exact
+      historical Gordon Short Crosby defect this checker exists to catch -
+      caught, FAIL on the /leave-a-review pattern; (2) googleReviewUrl
+      duplicated with mccanns_aigburth's own link - caught, FAIL naming the
+      DUPLICATE and the branch it collides with; (3) pfLink swapped to
+      mccanns_aigburth's own Pharmacy First page on a different host -
+      caught twice as intended, both the plain host-mismatch FAIL and the
+      filename-resolution ownership FAIL naming the true owning branch and
+      noting it also sits off this branch's own host. All three caught
+      first attempt, on their intended rule(s); full 36-checker suite clean
+      after final restore (same known cdn-pins exclusion only); tracked
+      repo confirmed untouched throughout (git status --porcelain showed
+      only the two long-standing pre-existing untracked strays; branches.json
+      sha256 unchanged before and after). No checker gap found, no in-repo
+      defect, no rule or data byte changed. Guard coverage for this item now
+      extends to 17 of 36 checkers proven by direct injection (up from 16).
+      LIVE HALF PERFORMED (Claude in Chrome not attempted this pass, standing
+      Q59 unchanged, no login attempted; read-only curl GET from the Cowork
+      sandbox shell against two live pages, no click, no submit, no login):
+      checked the exact fields the injections targeted, on the live site.
+      switch-prescriptions-cherry-lane-walton.html and
+      pharmacy-first-cherry-lane-walton.html both HTTP 200 and both carry
+      https://g.page/r/CRF-ODLpmvUAEAE/review, matching branches.json's
+      googleReviewUrl exactly; the Pharmacy First page's own self-link
+      resolves 200 on cherrylanepharmacy.co.uk and matches the pfLink field
+      exactly, with no link to another branch's host or Pharmacy First page
+      found anywhere on either page. nhsReviewUrl is correctly absent from
+      both pages, since no generator prints it onto a page (it feeds only
+      the GBP pack, outside this checker's scope). No live fault found on
+      this checker's subject. No new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-15-eighteenth.txt.
+      Done 2026-09-15.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
