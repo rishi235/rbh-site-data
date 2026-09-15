@@ -1,0 +1,114 @@
+Item 4.6 quality pass (seventeenth) - McCanns Chemist Aigburth GBP pack
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-15
+
+SELECTION
+All eight remaining unchecked AGENT_WORKLIST.md items confirmed [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4/Q60, 6.5/Q60, 6.6) via
+grep -n "^- \[ \]" AGENT_WORKLIST.md. Rotation pool re-derived fresh by
+parsing every item block's own dates (python script over AGENT_WORKLIST.md),
+excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Fourteen items tied at 2026-09-11 once 4.3 (touched by today's fifth run) is
+excluded: 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, 4.13, 4.14, 4.15,
+5.1, 5.2. Tie broken with git log commit timestamps on 2026-09-11 for
+tools/check-gbp-packs.js / AGENT_WORKLIST.md / gbp-packs changes: 4.6's own
+pass committed 04:10:13+01:00, the earliest of the fourteen (next was 4.5 at
+04:42:59). 4.11 and 5.1's commits were both after 23:00 (a backlog
+catch-up commit, not representative of when the pass work happened), so even
+taken at face value they are later than 4.6's. 4.6 (McCanns Chemist Aigburth
+GBP pack) selected, confirming the prior run's own forward note.
+
+BASELINE
+sha256 of gbp-packs/mccanns-aigburth.md: unchanged since 2026-08-04,
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693.
+node tools/check-gbp-packs.js: 0 failures, 14 known WARNs (down from 17 at
+the sixteenth pass - three have since closed as other packs were fixed;
+none concern this branch). Full 36-checker suite: 36/36 exit 0.
+
+NEW ANGLE
+Checked git log for tools/check-gbp-packs.js changes since the sixteenth
+pass's own commit (2026-09-11T04:10:13+01:00). Exactly one: commit adf7a39
+(item 3.4 quality pass, seventeenth, 2026-09-11T17:45:51+01:00), which fixed
+a dead EM_DASH regex - the old character class was mojibake
+(/[Ã¢â‚¬â€Ã¢â‚¬â€œÃ¢â‚¬â€¢]/) that could never match a real em dash, replaced
+with a codepoint-based class (/[–—―]/) matching
+check-em-dashes.js's own discipline. That fix was proven at birth only
+against gbp-packs/cherry-lane-walton.md. Not yet proven against this pack's
+own prose, so this pass tested it here for the first time.
+
+INJECTION
+Backed up gbp-packs/mccanns-aigburth.md to /tmp/mccanns-aigburth.md.bak
+first. Edited the tracked file with a Python string replace, inserting a
+literal U+2014 into Post B (published copy, not a heading or comment):
+"Grassendale." became "Grassendale — just around the corner." immediately
+before the Button: line.
+
+RESULT: node tools/check-gbp-packs.js exited 1, exactly one FAIL:
+  FAIL  mccanns-aigburth.md: line 94: em dash, house style is standard
+  hyphens only. Context: Grassendale — just around the corner.
+Caught cleanly, correct line, correct context, on the first genuine test of
+the fixed rule against this pack. All 14 pre-existing WARNs unchanged
+alongside the new FAIL (confirmed by grepping the run's own output for
+"mccanns-aigburth" separately from the FAIL count).
+
+RESTORE
+Restored by byte copy from the /tmp backup (not git checkout, per the
+standing lesson recorded elsewhere in this repo's history about git
+checkout silently destroying uncommitted work). sha256 reconfirmed
+identical: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693.
+Full 36-checker suite re-run: 36/36 exit 0. git status --porcelain on
+gbp-packs, branches.json, modules, core showed only two pre-existing
+untracked artifacts (gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched, neither created by this pass - both predate this run and
+are already noted in the sixteenth pass's own writeup as untouched debris.
+
+gbp-packs is not a generator input, so no generator rebuild was needed or
+run.
+
+LIVE HALF (read-only throughout via Claude in Chrome; nothing clicked,
+typed or submitted)
+- https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html (the
+  profile-website target the pack asks the paster to set): still 404,
+  unchanged from every prior pass since 2026-08-11. Awaiting the queued
+  Weebly paste run (item 5.3/5.4).
+- https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html
+  (Post A): 200, full text read. Content correct against branches.json and
+  the pack. Confirmed two already-tracked live drifts, neither new: (1) the
+  "Sandrigham Medical Centre" site-furniture typo (open furniture question,
+  Q36's family) appears twice in the shared contact-card footer; (2) the
+  page still renders three em-dash sentences from modules/service/service.js
+  at run time - "You can refer yourself — just book below or walk in.",
+  "Just pop in and ask about Pharmacy First — no appointment or GP referral
+  needed.", "See how the free NHS service works — no GP appointment or
+  referral needed." This is the exact Q7/item-5.1 fix already committed to
+  agents/audit-backlog on 2026-08-11 (commit abcf0f5), but it reaches a
+  patient only once service-module-phase1 is fast-forwarded to main and the
+  switch/service pages are re-pinned at the next Weebly paste run - which is
+  precisely item 5.5/Q13, already answered by Rishi (fast-forward
+  service-module-phase1 to main) and already [BLOCKED] in this same
+  worklist because both halves (pushing a branch other than
+  agents/audit-backlog, and a Weebly paste) sit outside an unattended run's
+  authorisation. Reconfirming this live is not a new finding; it is the
+  expected state until that supervised session happens, and is recorded
+  here only so the next pass does not waste time re-discovering it as if
+  it were new.
+- https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-aigburth.html
+  (Post B): 200, full text read. Hero still reads the unqualified "We
+  contact your GP. We handle everything. You do nothing." against the
+  hedged FAQ answer a few paragraphs down - this is Q49's own finding
+  (already open, already answered by Rishi to qualify the hero, not yet
+  applied pending the same Weebly session). No new instance beyond what
+  Q49 already documents for this page family.
+- https://www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-aigburth.html
+  (Post C): 200, full text read. Compliant Regime 2 wording throughout -
+  balanced factual framing, no superlative, no results heading, no outcome
+  slider, no treatment picker, price stated once ("from £39.99") rather
+  than headlined. Consistent with every prior pass on this page.
+- https://www.mccannspharmacy.co.uk/travel-clinic-mccanns-aigburth.html
+  (Post D): 200, full text read. Correct throughout, no vaccine claimed
+  guaranteed in stock, cohorts and lead-time wording present and correct.
+
+RESULT: zero in-repo defect, one genuinely new checker rule proven against
+this pack's own copy for the first time, no new live finding (three
+reconfirmations of already-tracked, already-answered items). No new
+question raised.

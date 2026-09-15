@@ -16023,6 +16023,40 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       no new question; open question count unchanged at 48 of 101.
       Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-11-sixteenth.txt.
+      Quality pass 2026-09-15 (unattended run, seventeenth pass): stalest
+      item in the rotation pool, re-derived mechanically (fourteen items
+      tied at 2026-09-11 once today's earlier 4.3 pass is excluded; tie
+      broken by git commit timestamp, 4.6's own 2026-09-11 pass at
+      04:10:13+01:00 the earliest). Baseline: sha256 of the pack unchanged
+      since 2026-08-04; node tools/check-gbp-packs.js 0 failures, 14 known
+      WARNs (down from 17, unrelated packs); all 36 checkers 36/36 exit 0.
+      NEW ANGLE: the only tools/check-gbp-packs.js change since the
+      sixteenth pass is commit adf7a39 (item 3.4, 2026-09-11), which fixed a
+      dead mojibake EM_DASH regex to a proper codepoint class - proven at
+      birth only against Cherry Lane's pack, never against this one.
+      INJECTION: byte-backed up the tracked file, inserted a literal em
+      dash into Post B's published copy ("Grassendale." became
+      "Grassendale — just around the corner."). RESULT: exit 1, exactly one
+      FAIL, correct line and context, all 14 pre-existing WARNs unchanged.
+      RESTORED by byte copy (not git checkout); sha256 reconfirmed
+      identical. Full 36-checker suite re-run clean, 36/36 exit 0. git
+      status showed only the same two pre-existing untracked artifacts
+      already noted in the sixteenth pass, neither touched. gbp-packs is
+      not a generator input, no rebuild needed. LIVE HALF (Claude in
+      Chrome, read-only): profile-website landing page still 404,
+      unchanged, awaiting the queued paste run (5.3/5.4). Post A, B, C, D
+      all 200 with correct content. Three already-tracked live drifts
+      reconfirmed, none new: the "Sandrigham Medical Centre" furniture typo
+      in the contact-card footer; service.js's three live em-dash sentences
+      on the Pharmacy First page, which is the Q7 fix already committed to
+      this branch on 2026-08-11 but which reaches a patient only once
+      service-module-phase1 is fast-forwarded to main and re-pasted, i.e.
+      exactly item 5.5/Q13, already answered and already [BLOCKED] for the
+      same reason; and Post B's unqualified hero copy against Q49's own
+      hedged FAQ answer, already open and already answered pending the same
+      Weebly session. No new in-repo defect, no new live finding, no new
+      question. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-15-seventeenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
