@@ -15022,6 +15022,66 @@ Pharmacy First wording to the NHS service description.
       pharmacy.FA226@mhs.net). No new question; QUESTIONS.json unchanged at 101
       total, 48 open.
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-11-eighteenth.txt.
+      Quality pass 2026-09-15 (nineteenth, unattended run): fresh angle - proved
+      the bank-holiday special-hours Notes-for-the-paster rule in
+      tools/check-gbp-packs.js against this pack by injection for the first
+      time in nineteen passes (found and fixed against Scorah Bramhall on the
+      item 4.5 pass, 2026-08-30; proved against Fishlocks Ainsdale on item
+      4.1's own eighteenth pass, 2026-09-14, in the same shared checkbox
+      block; never against Cherry Lane Walton). Baseline clean (36/36
+      checkers; sha256
+      831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching every prior pass, no drift since the tenth pass's Q40 rename
+      edit). Full repo byte-copied with .git via `git archive HEAD | tar -x`
+      into /tmp/scratch-42-bankholiday; tracked repo never opened for writing
+      during the injection round.
+      STRUCTURAL FINDING FIRST, not a defect: the item 4.9 sixteenth pass's
+      newer "reverse SERVICE_RULES on post bodies" rule, proved only against
+      clear-aintree.md when added, cannot be tested against Cherry Lane at
+      all - branches.json gives cherrylane_liverpool all five of the widgets
+      the rule's table covers (pharmacyFirst, bloodPressure, contraception,
+      weightLoss, travelClinic), and the rule only fires where a branch's own
+      set is missing one of the five. Recorded so a future pass does not
+      re-attempt it here.
+      Four injections plus one control against the scratch copy's own pack,
+      each restored from a saved byte copy and sha256-reconfirmed identical
+      before the next: (1) clause 1 - the entire "Bank holiday special
+      hours:" bullet removed from the Notes block - CAUGHT first attempt,
+      "no bank holiday special-hours instruction"; (2) clause 3 - the literal
+      "bankHolidays.dates2026" citation replaced with a plain "branches.json"
+      reference, clauses 1 and 2 left intact - CAUGHT first attempt, same
+      message, confirming the checker requires the exact field-name citation
+      rather than a vague pointer; (3) first attempt at clause 2 - only the
+      instruction sentence reworded, leaving the bullet's own heading and
+      closing line still carrying "special hours" - correctly did NOT fire,
+      informative rather than a gap: the regex is checked over the whole
+      notes block, not per-sentence, so the two untouched occurrences kept
+      the clause satisfied; (4) clause 2 properly isolated - all three
+      occurrences of "special hours" removed from the bullet (heading,
+      sentence, closing line) with "bank holiday" and "bankHolidays.dates2026"
+      both verified still present before running the checker - CAUGHT first
+      attempt, first time this clause has been proved independently of the
+      other two against any pack. CONTROL - an unrelated bullet in the same
+      Notes block reworded, bank holiday bullet untouched - correctly PASSED
+      clean, no cross-firing. All caught/passed as designed; no checker logic
+      edited, no pack content byte changed. Full 36-checker suite re-run
+      clean on the scratch copy after the final restore (35/36, the
+      documented cdn-pins .git-less artefact); tracked repo confirmed
+      sha256-unchanged and git-status-clean throughout (only the two
+      long-standing pre-existing untracked strays present, neither touched);
+      full 36-checker suite re-run individually against the tracked repo
+      afterwards, 36/36 exit 0.
+      No in-repo defect found - the rule already protects this pack on all
+      three AND-ed clauses; now proven directly, with the middle clause
+      cleanly isolated after an informative first attempt.
+      LIVE HALF: read via the built-in Claude Browser MCP (Claude in Chrome
+      not loaded this run). Light reachability check only, since this rule
+      governs copy pasted into a GBP special-hours picker during manual
+      paste: cherrylanepharmacy.co.uk and its Pharmacy First page both
+      loaded correctly. Q92 and Q36 not re-independently reconfirmed this
+      pass, standing as last recorded on the eighteenth pass (2026-09-11).
+      No new question; QUESTIONS.json unchanged at 107 total, 54 open.
+      Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-15-nineteenth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

@@ -1,0 +1,158 @@
+Item 4.2 (Cherry Lane Pharmacy, Walton) - nineteenth quality pass, 2026-09-15
+(unattended scheduled run, audit-backlog-worker)
+
+ROTATION
+Standing out-of-rotation set: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8. All 8 remaining
+unchecked worklist lines are [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, and the three
+Q60/Q66 lines under 6.4/6.5/6.6), so a quality pass was required per step 5.
+
+Rotation pool derived by a Python header-to-next-header scan of every
+completed item's own "Quality pass"/"Done" dates in AGENT_WORKLIST.md. Item
+4.1's checkbox block actually holds TWO independently-numbered pass sequences:
+item 4.1 (Fishlocks Ainsdale) proper, last touched 2026-09-14 (its own
+eighteenth pass), and item 4.2 (Cherry Lane Walton pack), which shares the
+same top-level checkbox but keeps its own separate pass count and was last
+touched 2026-09-11 (its own eighteenth pass) - one script pass naively taking
+the block's single latest date would have missed that 4.2 is the more stale of
+the two. Every other item in the pool had already been touched today
+(2026-09-15) across the day's prior 42 runs. So 4.2 is the correctly stalest
+item in the pool; taken.
+
+BASELINE
+gbp-packs/cherry-lane-walton.md sha256:
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+- matches every prior pass's recorded value; no drift since the tenth pass's
+Q40 rename edit.
+Full 36-checker suite run individually against the tracked repo before any
+work: 36/36 exit 0 (one pre-existing WARN on this pack, the standing Q72
+known exception, present on every pass and not a fail).
+
+FRESH ANGLE THIS PASS
+Proved the "reverse rule on POST BODIES, on the SERVICE_RULES set" and, more
+usefully for this specific branch, the bank-holiday special-hours
+Notes-for-the-paster rule in tools/check-gbp-packs.js (lines ~979-1000)
+against cherry-lane-walton.md by injection for the first time in nineteen
+passes.
+
+The post-bodies reverse-SERVICE_RULES check (added on the item 4.9 sixteenth
+pass, 2026-09-11, proved only against clear-aintree.md at the time) turned out
+to be STRUCTURALLY UNTESTABLE against Cherry Lane: branches.json gives
+cherrylane_liverpool all five of the widgets the rule's SERVICE_RULES table
+covers (pharmacyFirst, bloodPressure, contraception, weightLoss,
+travelClinic), and the rule only ever fires where a branch's OWN widget set
+is missing one of the five. A branch running the full flagship set can never
+trip it. Not a defect - a genuine scope limit, the same shape recorded for
+several single-site brands against other checkers on earlier passes. Recorded
+here so a future pass does not spend time re-attempting it against this
+branch.
+
+Pivoted to the bank-holiday rule instead, which DOES apply here (Cherry Lane
+trades normally; branches.json bankHolidays.tradingPolicy is "closed"
+estate-wide with no branch exception) and had never been proved against this
+pack specifically - the rule was found and fixed against Scorah Bramhall on
+the item 4.5 quality pass (2026-08-30) and proved against Fishlocks Ainsdale
+on item 4.1's own eighteenth pass (2026-09-14, earlier the same day as this
+pass, in the same shared checkbox block), but never against Cherry Lane
+Walton.
+
+METHOD
+Full repo copied via `git archive HEAD | tar -x` into /tmp/scratch-42-bankholiday
+(a scratch directory outside the tracked tree); the tracked repo was never
+opened for writing during the injection round. Baseline 36-checker suite on
+the scratch copy: 35/36 exit 0, the one failure being check-cdn-pins.js's
+documented .git-less scratch artefact (git archive does not include .git, and
+that checker needs it) - the standard, already-documented shape, not a new
+finding.
+
+FOUR INJECTIONS PLUS ONE CONTROL against the scratch copy's own
+gbp-packs/cherry-lane-walton.md, each restored from a saved byte copy
+(/tmp/cherry-lane-walton.md.orig) and sha256-reconfirmed identical
+(831e72c1...052ec2) before the next:
+
+1. RULE CLAUSE 1 (/bank holiday/i) and the whole instruction - the entire
+   "- Bank holiday special hours: ..." bullet removed from the end of the
+   Notes-for-the-paster block. CAUGHT first attempt: 'the "Notes for the
+   paster:" block has no bank holiday special-hours instruction'. The
+   pre-existing Q72 WARN on this pack still fired alongside it, unaffected.
+
+2. RULE CLAUSE 3 (must literally include "bankHolidays.dates2026") - bullet
+   kept, but the phrase "bankHolidays.dates2026" replaced with a plain
+   "branches.json" reference, leaving "bank holiday" and "special hours" both
+   still present. CAUGHT first attempt, same message. Proves the checker
+   requires the literal field-name citation, not just a vague pointer at the
+   data file - the anti-drift guard the rule's own header describes ("a fact
+   retyped is a fact that drifts").
+
+3. FIRST ATTEMPT AT RULE CLAUSE 2 (/special hours/i), INFORMATIVE NON-FIRE -
+   reworded only the instruction sentence ("open Google's special hours and
+   mark" to "open Google's own settings and mark"), but left the bullet's own
+   heading ("Bank holiday special hours:") and closing line ("unless special
+   hours say otherwise") both carrying the phrase. Correctly did NOT fire
+   (exit 0): the regex is checked against the whole notes block, not
+   per-sentence, so two other untouched occurrences of "special hours" in the
+   same bullet kept the clause satisfied. Not a checker gap - confirms the
+   three clauses are ANDed over the whole block rather than requiring all
+   three inside one sentence, which is looser but still correct: the pack as
+   a whole either carries the instruction or it does not.
+
+4. RULE CLAUSE 2 PROPERLY ISOLATED - redone removing all three occurrences of
+   "special hours" in the bullet (heading, instruction sentence, closing
+   line) while keeping "bank holiday" and "bankHolidays.dates2026" both
+   intact and verified present by an assertion before running the checker.
+   CAUGHT first attempt, same message. This is the first time this specific
+   clause has been isolated and proved independently of the other two,
+   against any pack.
+
+CONTROL - reworded an unrelated bullet in the same Notes-for-the-paster block
+("Check category names against what GBP's picker offers on the day." to
+"...against whatever GBP's picker currently offers.") with the bank holiday
+bullet left completely untouched. Correctly PASSED clean (exit 0, only the
+standing Q72 WARN), confirming no cross-firing from an unrelated edit in the
+same section.
+
+All four injections caught on the first attempt on their intended clause (one
+of the four needed a second, better-isolated attempt to test its own clause
+cleanly, itself an informative result rather than a failure); the control
+passed. No checker logic edited, no pack content byte changed at any point.
+
+RESTORE / VERIFICATION
+Scratch copy's pack sha256 reconfirmed identical to baseline after the final
+restore. Full 36-checker suite re-run on the scratch copy: 35/36 exit 0 (same
+documented cdn-pins .git-less artefact). Tracked repo's own copy of the pack
+confirmed sha256-unchanged throughout
+(831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2) and
+`git status --porcelain -- modules core branches.json gbp-packs tools` on the
+tracked repo showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Full 36-checker suite re-run individually against the tracked repo
+after the scratch work: 36/36 exit 0. No generator, page, checker or
+branches.json content changed.
+
+LIVE HALF
+Read via the built-in Claude Browser MCP (Claude in Chrome tools were not
+loaded this run). Light reachability check only, since this rule governs copy
+pasted into a GBP profile's special-hours picker during manual paste, not
+something a URL fetch can verify: cherrylanepharmacy.co.uk loaded, and
+https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+loaded with title "Pharmacy First at Cherry Lane Pharmacy, Walton". The
+previously-tracked live findings (Q92 live en dash on the weight loss page;
+Q36 footer NHS mailbox typo) were not re-independently re-verified this pass
+and stand as last recorded on the eighteenth pass (2026-09-11).
+
+OUTCOME
+No in-repo defect found. The bank-holiday special-hours rule already protects
+this pack on all three of its AND-ed clauses; now proven directly for the
+first time, with the middle clause isolated cleanly on the second attempt
+after an informative first attempt showed the clause is checked over the
+whole notes block rather than per-sentence. The post-bodies reverse-
+SERVICE_RULES rule was confirmed structurally out of scope for this specific
+branch rather than untested - Cherry Lane holds every one of the five
+flagship widgets the rule's table covers. No new question raised.
+QUESTIONS.json unchanged: 107 total, 54 open (re-read via the standing
+answer-pickup step this run; newest portal answer still Q52, 2026-09-01).
+
+Files changed by this pass: none inside gbp-packs/modules/core/tools/
+branches.json (all injections made and restored on the scratch copy only).
+This evidence file, plus the AGENT_WORKLIST.md item 4.2 paragraph and this
+AGENT_LOG.md entry, are the only tracked changes.
