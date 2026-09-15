@@ -21,6 +21,12 @@ const PIN = "service-module-phase1";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/service";
 const APPOINTEDD_SDK = "https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js";
 const CONSULT_FEE = "from £39.99";
+// Q51 (answered by Rishi 2026-09-01, option 1 of 4): the booking-card fee
+// sentence carries ", subject to a clinical assessment" so the price never
+// stands above the eligibility section without that qualifier beside it.
+// Step 1 of "how it works" and the cost FAQ are unchanged - both already sit
+// below the eligibility section, which is where the question's own
+// objection did not apply.
 
 // Every active, non-disposed brand with a widgets.weightLoss id in branches.json.
 const BUILD = [
@@ -106,7 +112,7 @@ function bookingCard(store, b) {
   return '' +
     '<div class="booking-card pad" id="book">\n' +
     '          <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>\n' +
-    '          <p class="booking-sub">Private consultation at ' + esc(store.brand) + ', ' + CONSULT_FEE + '. Choose a time that suits you.</p>\n' +
+    '          <p class="booking-sub">Private consultation at ' + esc(store.brand) + ', ' + CONSULT_FEE + ', subject to a clinical assessment. Choose a time that suits you.</p>\n' +
     '          ' + inner + '\n' +
     '        </div>';
 }

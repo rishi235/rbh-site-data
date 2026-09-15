@@ -13049,6 +13049,36 @@ Done 2026-09-14 (seventeenth pass).
       heading present at the top of AGENT_LOG.md at the start of the run).
       Q28 and Q29 re-read from QUESTIONS.json: both still "answered",
       unchanged. No new question raised.
+      IMPLEMENTED Q51 2026-09-15 (quality-pass finding, not specific to Clear
+      Chemist Aintree, but this is the item Q51 was raised under): Rishi's
+      2026-09-01 answer to Q51 - keep the fee in the weight loss booking card
+      but qualify it - had gone unimplemented through two weeks and several
+      "answered but unapplied" scans by other runs. Added the qualifier to
+      tools/build-weight-loss-pages.js's booking-card sentence, which now
+      reads "Private consultation at <brand>, from £39.99, subject to a
+      clinical assessment. Choose a time that suits you." on all 15 branches;
+      step 1 of "how it works" and the cost FAQ are unchanged, both already
+      sitting below the eligibility section that was the substance of Q51's
+      own question. Regenerated all 15 weight-loss-clinic-*.html pages:
+      `git diff --stat` showed exactly the 15 pages (one line each) plus the
+      generator changed, no other page touched. Checked the diff for em/en
+      dashes: none. Widened tools/check-weight-loss-copy.js RULE 7 with a new
+      per-page assertion, composing the exact expected booking-card sentence
+      from branches.json's own brandLabel (not hardcoded) and failing if a
+      page's text does not contain it. Ran the full 36-checker suite clean.
+      INJECTION PROOF: stripped ", subject to a clinical assessment" from
+      weight-loss-clinic-scorah-bramhall.html with sed; check-weight-loss-
+      copy.js failed, naming the page and the exact missing sentence; restored
+      from a /tmp backup, diff confirmed byte-identical, full 36-checker suite
+      re-run clean. LIVE HALF: not performed - repo-only change pending a
+      Weebly repaste of all 15 pages, same footing as Q7/Q13/Q38/Q44/Q46/Q49.
+      Cross-referenced Q83 (McCanns Aigburth) and Q88 (Fishlocks Eccleston),
+      two open questions describing the identical lead-price-position finding
+      on specific live branches and proposing a different remedy (drop the
+      price entirely rather than qualify it): both left "open" since Rishi
+      did not address them by number, but their notes now record that Q51's
+      operative decision has been applied estate-wide and will reach both
+      branches on the same repaste.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

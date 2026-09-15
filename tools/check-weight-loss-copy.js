@@ -78,7 +78,10 @@
     RULE 7  price discipline: one fee string, identical across all 15 pages,
             "from"-qualified, in the three places the generator writes it, with
             the separate-medication-cost answer and the indicative-price
-            disclaimer beside it, and no offer, discount or price-led wording.
+            disclaimer beside it, no offer, discount or price-led wording, and
+            (Q51) the booking-card mention, the one that sits above the
+            eligibility section, qualified with "subject to a clinical
+            assessment".
     RULE 8  no medicine named, from tools/pom-names.js.
     RULE 9  no efficacy or results claim, from tools/claim-patterns.js.
     RULE 10 the governance promise is still in the page's own paste comment.
@@ -508,6 +511,20 @@ pages.forEach(function (p) {
   if (p.text.indexOf("Prices shown are indicative and may change; your clinician will confirm current pricing at consultation.") === -1) {
     fail("price", p.name + "::indicative",
       rel(p.file) + " states a price without the indicative-pricing sentence beside it.");
+  }
+
+  // Q51 (answered by Rishi 2026-09-01): the booking-card fee sentence, the
+  // only one of the three fee mentions that sits above the eligibility
+  // section, must carry the "subject to a clinical assessment" qualifier so
+  // the price never stands there unqualified. Composed from branches.json's
+  // own brandLabel, the same source the generator itself reads, rather than
+  // hardcoded, so a brand rename still resolves correctly.
+  const expectedBookingSub = "Private consultation at " + p.branch.brandLabel +
+    ", " + CONSULT_FEE + ", subject to a clinical assessment. Choose a time that suits you.";
+  if (p.text.indexOf(expectedBookingSub) === -1) {
+    fail("price", p.name + "::booking-qualifier",
+      rel(p.file) + ' booking-card fee sentence does not read "' + expectedBookingSub +
+      '" (Q51).');
   }
   PRICE_LED.forEach(function (re) {
     const m = p.text.match(re);
