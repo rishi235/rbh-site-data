@@ -5589,6 +5589,68 @@ entry for this run. QUESTIONS.json: Q49's note field extended with an
 "IMPLEMENTED 2026-09-15" addendum; status unchanged at "answered" since the
 schema has no separate implemented state. No new question raised.
 
+IMPLEMENTED 2026-09-15 (fifteenth run today): Q46 (raised on this item's
+2026-08-11 pass), answered by Rishi 2026-09-01 - "Add the cohort to the meta
+description only, leaving all 14 titles untouched." His answer addresses the
+earache pathway by name and does not say whether to extend the same
+treatment to the other six age-restricted conditions, which his own note
+explicitly asked him to state; implemented for earache only, matching the
+literal scope of the answer, and Q107 raised alongside this to ask whether
+to extend it. Added `metaCohort: "for children aged 1 to 17"` to the earache
+entry in tools/build-service-pages.js's CONDITIONS table, and a new
+`conditionMeta(c, store)` function (used by both the page's own meta tag and
+the paste-sheet manifest's `seoDesc`, replacing what used to be the same
+string composed twice inline - the exact "a generator composing a
+description twice cannot let the two drift" shape check-seo-sheets.js
+already exists to catch, removed at the root here rather than left for that
+checker to keep proving). Conditions with no metaCohort return the byte-
+identical string as before. New description: "Earache treatment for
+children aged 1 to 17 at <brand> in <town>. Free NHS service, assessed by a
+pharmacist, no GP appointment needed." - shorter than the old sentence
+("Free NHS Pharmacy First service, be assessed by a pharmacist with no GP
+appointment needed") by enough that adding the cohort still fits comfortably
+under the 165-character cap (worst case Coleman and Leighs at 155, verified
+computationally against all 14 branches' brand/town strings before
+committing). Regenerated with `node tools/build-service-pages.js`: `git
+diff --stat` confirmed exactly the 14 earache pages (2 lines each: head
+comment + meta tag) plus INDEX.md and SEO.md changed, all other 84 condition
+pages and 14 overviews byte-identical. Checked the diff for em/en dashes
+(Perl-regex U+2013/U+2014/U+2015 across the diff): none. Ran the full
+36-checker suite: all 36 pass.
+
+Per the same "note explicitly required the checker to be widened in the
+same commit" convention as Q38/Q44/Q49's own implementations, added rule 13
+to tools/check-pharmacy-first-eligibility.js: for any condition whose
+generator entry sets `metaCohort` (earache only today), the page's own
+"Weebly page SEO description" line must carry that exact phrase, catching
+the two compositions (the eligibility copy rules 5/6 already guard, and the
+SEO description this fix adds) drifting apart independently in future.
+`metaCohort` is extracted from the generator source by the same regex-per-
+key mechanism rules 1-8 already use for ageNote/yesFirst, not hardcoded, so
+a future condition gaining a metaCohort is picked up with no further
+checker change. Proved by injection: stripped "for children aged 1 to 17 "
+from `earache-treatment-scorah-bramhall.html`'s description with `sed`,
+confirmed rule 13 failed with the exact page and the missing phrase named,
+restored the file from a pre-injection `/tmp` backup, `diff` confirmed
+byte-identical, and re-ran the full 36-checker suite clean.
+
+LIVE HALF: not performed. This is a repo-only meta description change
+pending a Weebly repaste of the 14 earache pages, the same footing Q7, Q13,
+Q44 and Q49's own entries recorded for exactly this situation - a live
+check today would show the old unqualified description still serving,
+which is expected and not a finding.
+
+QUESTIONS.json: Q46's `note` field extended with an "APPLIED 2026-09-15"
+addendum recording exactly what changed (earache only, the two files, the
+new checker rule, the injection proof) and that the fix is repo-only
+pending a Weebly paste; `status` left at "answered" per the Q38/Q44/Q49
+convention. New Q107 raised: does Rishi want the same treatment (age cohort
+in the meta description only) extended to the other six Pharmacy First
+conditions NHS also restricts by age (sore throat, sinusitis, shingles,
+impetigo, insect bite, UTI), or is earache the only pathway he intended,
+since it is the only one NHS restricts at BOTH ends and the closest to a
+patient being actively misled by the snippet.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

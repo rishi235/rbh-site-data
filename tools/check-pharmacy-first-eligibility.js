@@ -273,7 +273,8 @@ marks.forEach(function (mark, i) {
   var ageNote = (block.match(/ageNote:\s*"([^"]*)"/) || [])[1];
   var yesTitle = (block.match(/eligibleYes:\s*\{[\s\S]*?title:\s*"([^"]*)"/) || [])[1];
   var yesFirst = (block.match(/eligibleYes:\s*\{[\s\S]*?points:\s*\[\s*"([^"]*)"/) || [])[1];
-  conditions[mark.key] = { key: mark.key, ready: ready, name: name, ageNote: ageNote, yesTitle: yesTitle, yesFirst: yesFirst };
+  var metaCohort = (block.match(/metaCohort:\s*"([^"]*)"/) || [])[1];
+  conditions[mark.key] = { key: mark.key, ready: ready, name: name, ageNote: ageNote, yesTitle: yesTitle, yesFirst: yesFirst, metaCohort: metaCohort };
 });
 
 // Every pinned condition must exist in the generator, and vice versa.
@@ -427,6 +428,30 @@ pages.forEach(function (p) {
   if (pin.excluded && !pin.excluded.test(text)) {
     failures.push(name + ": the safety redirect for the excluded cohort is missing (rule 8)\n" +
       "         expected to match: " + pin.excluded);
+  }
+
+  // Rule 13 (Q46, answered 2026-09-01): a condition whose generator entry
+  // sets metaCohort must carry that phrase in its own SEO description line,
+  // not just in the eligibility copy rules 5/6 already guard. Q46 found the
+  // search RESULT (title + description) said only "Earache treatment in
+  // <town>", giving no hint the pathway does not cover adults, while the
+  // page BODY already stated the cohort correctly - the two are composed
+  // separately (conditionMeta() vs ageNote/eligibleYes) and can drift
+  // independently, the same shape check-seo-sheets already guards for
+  // title/description-vs-paste-sheet drift. Only earache sets metaCohort
+  // today (Rishi's answer did not extend this to the other six
+  // age-restricted conditions, see Q46's own note and the follow-up
+  // question raised alongside this rule), so it fires on nothing else and
+  // stays silent until that is decided or a future edit drops the phrase.
+  if (c.metaCohort) {
+    var descMatch = /Weebly page SEO description:\s*(.+?)\s*$/m.exec(html);
+    var gotDesc = descMatch ? descMatch[1].trim() : "";
+    if (!descMatch) {
+      failures.push(name + ": no SEO description line found, so rule 13 could not check for the metaCohort phrase (rule 13)");
+    } else if (gotDesc.toLowerCase().indexOf(c.metaCohort.toLowerCase()) === -1) {
+      failures.push(name + ": SEO description does not carry the metaCohort phrase \"" + c.metaCohort +
+        "\" the generator sets for this condition (rule 13, Q46)\n         got: " + gotDesc);
+    }
   }
 });
 

@@ -228,6 +228,19 @@ const CONDITIONS = {
   earache: {
     name: "Earache", longName: "Acute otitis media (earache)", slug: "earache",
     ready: true, ageNote: "Age 1 to 17",
+    // Q46, answered by Rishi 2026-09-01: earache is the only Pharmacy First
+    // pathway NHS restricts at both ends (1 to 17), and the SEO title and
+    // meta description said only "Earache treatment in <town>", giving an
+    // adult searcher no hint the service does not cover them. Recommended
+    // option 3 (add the cohort to the meta description only, leave all 14
+    // titles untouched) is implemented via metaCohort below, read only by
+    // conditionMeta() so the other six conditions' descriptions are
+    // untouched. Scope is earache only: Rishi's answer did not say whether
+    // to extend this to the other six age-restricted conditions (sore
+    // throat, sinusitis, shingles, impetigo, insect bite, UTI), which his
+    // own note asked him to state - see Q46's "note" field and the new
+    // follow-up question raised alongside this change.
+    metaCohort: "for children aged 1 to 17",
     blurb: "Ear pain in children, often alongside a cold or temperature.",
     metaCondition: "Earache treatment",
     h1Phrase: "Earache treatment for children",
@@ -573,6 +586,22 @@ function overviewPage(storeId) {
 
 // --- condition page ---------------------------------------------------------
 
+// Meta description composer, ONE place for both the page head and the
+// paste-sheet manifest below (they used to compose this string separately,
+// which is exactly the "a generator composing a description twice cannot
+// let the two drift" fault check-seo-sheets.js exists to catch - removed
+// here rather than left for that checker to keep proving). Conditions with
+// no metaCohort (everything except earache, per Q46) regenerate byte-
+// identical to before this change.
+function conditionMeta(c, store) {
+  if (c.metaCohort) {
+    return c.name + " treatment " + c.metaCohort + " at " + store.brand + " in " + store.town +
+      ". Free NHS service, assessed by a pharmacist, no GP appointment needed.";
+  }
+  return c.name + " treatment at " + store.brand + " in " + store.town +
+    ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.";
+}
+
 function conditionPage(storeId, key) {
   var store = storeOf(storeId);
   var b = byId[storeId];
@@ -581,8 +610,7 @@ function conditionPage(storeId, key) {
   var url = store.site + "/" + slug;
   var overviewSlug = "pharmacy-first-" + store.brandSlug + "-" + store.townSlug + ".html";
   var title = pat.searchTitle(c.metaCondition, store);
-  var meta = c.name + " treatment at " + store.brand + " in " + store.town +
-    ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.";
+  var meta = conditionMeta(c, store);
 
   var symptoms = c.symptoms.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("\n            ");
   var yesPoints = c.eligibleYes.points.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("\n              ");
@@ -699,7 +727,7 @@ BUILD.forEach(function (storeId) {
       permalink: slug.replace(/\.html$/, ""),
       liveUrl: store.site + "/" + slug,
       seoTitle: pat.searchTitle(c.metaCondition, store),
-      seoDesc: c.name + " treatment at " + store.brand + " in " + store.town + ". Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.",
+      seoDesc: conditionMeta(c, store),
       keywords: [c.name + " " + store.town, c.name + " treatment " + store.town, "Pharmacy First " + store.town, "pharmacy " + store.town, b_outward(storeId)].filter(Boolean).join(", "),
       html: condHtml
     });

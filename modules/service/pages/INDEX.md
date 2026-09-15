@@ -27,7 +27,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Cherry Lane Pharmacy — Walton — Earache
 - **Page slug / URL:** `earache-treatment-cherry-lane-walton.html` -> https://www.cherrylanepharmacy.co.uk/earache-treatment-cherry-lane-walton.html
 - **SEO title:** Earache treatment in Walton - Cherry Lane Pharmacy
-- **SEO description:** Earache treatment at Cherry Lane Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Cherry Lane Pharmacy in Walton. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Cherry Lane Pharmacy — Walton — Impetigo
 - **Page slug / URL:** `impetigo-treatment-cherry-lane-walton.html` -> https://www.cherrylanepharmacy.co.uk/impetigo-treatment-cherry-lane-walton.html
@@ -67,7 +67,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Coleman and Leighs Pharmacy — Walton — Earache
 - **Page slug / URL:** `earache-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/earache-treatment-coleman-leigh-walton.html
 - **SEO title:** Earache treatment in Walton - Coleman and Leighs Pharmacy
-- **SEO description:** Earache treatment at Coleman and Leighs Pharmacy in Walton. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Coleman and Leighs Pharmacy in Walton. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Coleman and Leighs Pharmacy — Walton — Impetigo
 - **Page slug / URL:** `impetigo-treatment-coleman-leigh-walton.html` -> https://www.colemanandleighspharmacy.co.uk/impetigo-treatment-coleman-leigh-walton.html
@@ -107,7 +107,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Fishlocks Chemist — Ainsdale — Earache
 - **Page slug / URL:** `earache-treatment-fishlocks-ainsdale.html` -> https://www.fishlockpharmacy.co.uk/earache-treatment-fishlocks-ainsdale.html
 - **SEO title:** Earache treatment in Ainsdale - Fishlocks Chemist
-- **SEO description:** Earache treatment at Fishlocks Chemist in Ainsdale. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Fishlocks Chemist in Ainsdale. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Fishlocks Chemist — Ainsdale — Impetigo
 - **Page slug / URL:** `impetigo-treatment-fishlocks-ainsdale.html` -> https://www.fishlockpharmacy.co.uk/impetigo-treatment-fishlocks-ainsdale.html
@@ -147,7 +147,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Fishlocks Chemist — Eccleston — Earache
 - **Page slug / URL:** `earache-treatment-fishlocks-eccleston.html` -> https://www.fishlockpharmacy.co.uk/earache-treatment-fishlocks-eccleston.html
 - **SEO title:** Earache treatment in Eccleston - Fishlocks Chemist
-- **SEO description:** Earache treatment at Fishlocks Chemist in Eccleston. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Fishlocks Chemist in Eccleston. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Fishlocks Chemist — Eccleston — Impetigo
 - **Page slug / URL:** `impetigo-treatment-fishlocks-eccleston.html` -> https://www.fishlockpharmacy.co.uk/impetigo-treatment-fishlocks-eccleston.html
@@ -187,7 +187,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Gordon Short Chemist — Crosby — Earache
 - **Page slug / URL:** `earache-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/earache-treatment-gordon-short-crosby.html
 - **SEO title:** Earache treatment in Crosby - Gordon Short Chemist
-- **SEO description:** Earache treatment at Gordon Short Chemist in Crosby. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Gordon Short Chemist in Crosby. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Gordon Short Chemist — Crosby — Impetigo
 - **Page slug / URL:** `impetigo-treatment-gordon-short-crosby.html` -> https://www.gordonshortchemist.co.uk/impetigo-treatment-gordon-short-crosby.html
@@ -227,7 +227,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Hirshmans Chemist — Ainsdale — Earache
 - **Page slug / URL:** `earache-treatment-hirshmans-ainsdale.html` -> https://www.hirshmanspharmacy.co.uk/earache-treatment-hirshmans-ainsdale.html
 - **SEO title:** Earache treatment in Ainsdale - Hirshmans Chemist
-- **SEO description:** Earache treatment at Hirshmans Chemist in Ainsdale. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Hirshmans Chemist in Ainsdale. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Hirshmans Chemist — Ainsdale — Impetigo
 - **Page slug / URL:** `impetigo-treatment-hirshmans-ainsdale.html` -> https://www.hirshmanspharmacy.co.uk/impetigo-treatment-hirshmans-ainsdale.html
@@ -267,7 +267,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## McCanns Chemist — Aigburth — Earache
 - **Page slug / URL:** `earache-treatment-mccanns-aigburth.html` -> https://www.mccannspharmacy.co.uk/earache-treatment-mccanns-aigburth.html
 - **SEO title:** Earache treatment in Aigburth - McCanns Chemist
-- **SEO description:** Earache treatment at McCanns Chemist in Aigburth. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at McCanns Chemist in Aigburth. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## McCanns Chemist — Aigburth — Impetigo
 - **Page slug / URL:** `impetigo-treatment-mccanns-aigburth.html` -> https://www.mccannspharmacy.co.uk/impetigo-treatment-mccanns-aigburth.html
@@ -307,7 +307,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## McCanns Chemist — St Michael's — Earache
 - **Page slug / URL:** `earache-treatment-mccanns-sandringham.html` -> https://www.mccannspharmacy.co.uk/earache-treatment-mccanns-sandringham.html
 - **SEO title:** Earache treatment in St Michael's - McCanns Chemist
-- **SEO description:** Earache treatment at McCanns Chemist in St Michael's. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at McCanns Chemist in St Michael's. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## McCanns Chemist — St Michael's — Impetigo
 - **Page slug / URL:** `impetigo-treatment-mccanns-sandringham.html` -> https://www.mccannspharmacy.co.uk/impetigo-treatment-mccanns-sandringham.html
@@ -347,7 +347,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Riddings Pharmacy — Timperley — Earache
 - **Page slug / URL:** `earache-treatment-riddings-timperley.html` -> https://www.riddingspharmacy.co.uk/earache-treatment-riddings-timperley.html
 - **SEO title:** Earache treatment in Timperley - Riddings Pharmacy
-- **SEO description:** Earache treatment at Riddings Pharmacy in Timperley. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Riddings Pharmacy in Timperley. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Riddings Pharmacy — Timperley — Impetigo
 - **Page slug / URL:** `impetigo-treatment-riddings-timperley.html` -> https://www.riddingspharmacy.co.uk/impetigo-treatment-riddings-timperley.html
@@ -387,7 +387,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Scorah Chemists — Bramhall — Earache
 - **Page slug / URL:** `earache-treatment-scorah-bramhall.html` -> https://www.scorah-chemists.co.uk/earache-treatment-scorah-bramhall.html
 - **SEO title:** Earache treatment in Bramhall - Scorah Chemists
-- **SEO description:** Earache treatment at Scorah Chemists in Bramhall. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Scorah Chemists in Bramhall. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Scorah Chemists — Bramhall — Impetigo
 - **Page slug / URL:** `impetigo-treatment-scorah-bramhall.html` -> https://www.scorah-chemists.co.uk/impetigo-treatment-scorah-bramhall.html
@@ -427,7 +427,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Scorah Chemists — Hazel Grove — Earache
 - **Page slug / URL:** `earache-treatment-scorah-hazel-grove.html` -> https://www.scorah-chemists.co.uk/earache-treatment-scorah-hazel-grove.html
 - **SEO title:** Earache treatment in Hazel Grove - Scorah Chemists
-- **SEO description:** Earache treatment at Scorah Chemists in Hazel Grove. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Scorah Chemists in Hazel Grove. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Scorah Chemists — Hazel Grove — Impetigo
 - **Page slug / URL:** `impetigo-treatment-scorah-hazel-grove.html` -> https://www.scorah-chemists.co.uk/impetigo-treatment-scorah-hazel-grove.html
@@ -467,7 +467,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## SK Chemists — Bootle — Earache
 - **Page slug / URL:** `earache-treatment-sk-chemists-bootle.html` -> https://www.skchemist.co.uk/earache-treatment-sk-chemists-bootle.html
 - **SEO title:** Earache treatment in Bootle - SK Chemists
-- **SEO description:** Earache treatment at SK Chemists in Bootle. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at SK Chemists in Bootle. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## SK Chemists — Bootle — Impetigo
 - **Page slug / URL:** `impetigo-treatment-sk-chemists-bootle.html` -> https://www.skchemist.co.uk/impetigo-treatment-sk-chemists-bootle.html
@@ -507,7 +507,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Smartts Chemist — Bootle — Earache
 - **Page slug / URL:** `earache-treatment-smartts-bootle.html` -> https://www.smarttschemist.co.uk/earache-treatment-smartts-bootle.html
 - **SEO title:** Earache treatment in Bootle - Smartts Chemist
-- **SEO description:** Earache treatment at Smartts Chemist in Bootle. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Smartts Chemist in Bootle. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Smartts Chemist — Bootle — Impetigo
 - **Page slug / URL:** `impetigo-treatment-smartts-bootle.html` -> https://www.smarttschemist.co.uk/impetigo-treatment-smartts-bootle.html
@@ -547,7 +547,7 @@ Before publishing each page: drop the store's Appointedd "Pharmacy 1st" widget i
 ## Tiffenbergs Chemist — Aintree — Earache
 - **Page slug / URL:** `earache-treatment-tiffenbergs-aintree.html` -> https://www.tiffenbergschemist.co.uk/earache-treatment-tiffenbergs-aintree.html
 - **SEO title:** Earache treatment in Aintree - Tiffenbergs Chemist
-- **SEO description:** Earache treatment at Tiffenbergs Chemist in Aintree. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+- **SEO description:** Earache treatment for children aged 1 to 17 at Tiffenbergs Chemist in Aintree. Free NHS service, assessed by a pharmacist, no GP appointment needed.
 
 ## Tiffenbergs Chemist — Aintree — Impetigo
 - **Page slug / URL:** `impetigo-treatment-tiffenbergs-aintree.html` -> https://www.tiffenbergschemist.co.uk/impetigo-treatment-tiffenbergs-aintree.html
