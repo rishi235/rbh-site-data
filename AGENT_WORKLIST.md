@@ -14569,6 +14569,72 @@ Pharmacy First wording to the NHS service description.
       Weebly job, which is Weebly-session work outside this unattended
       worker's remit). No new question raised.
       Done 2026-09-14
+      Quality pass 2026-09-16 (nineteenth, unattended run): least recently
+      verified rotation-pool item - every other pool item (2.1, 2.3, 3.1-3.13,
+      4.3-4.15, 1.2, 1.3, 5.1, 5.2, 6.2, 6.3) carried a quality-pass mention
+      dated 2026-09-15 in its own block; this item's own pass sequence
+      (separate from 4.2's, which shares this checkbox and was itself taken
+      2026-09-15) last stood at 2026-09-14, making it the sole one-day-stale
+      pool item. Baseline confirmed: sha256 of gbp-packs/fishlocks-ainsdale.md
+      7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30,
+      unchanged since the twelfth pass. Repo half re-verified fact by fact
+      against the fishlocks_ainsdale entry in branches.json: name, address,
+      phone, hours, review link, pfLink, catchment order, hasApp, and all
+      five widgets, all clean. Full 36-checker suite re-run directly against
+      the tracked repo, 0 failures, the same two known WARNs as every prior
+      pass (Q72 qualifier wording, Q64 address post-town divergence).
+      FRESH ANGLE: the business-description length pair in
+      tools/check-gbp-packs.js (the hard 750-character GBP limit, and the
+      "description heading claims N characters" exact-match rule that
+      replaced a +/-5 tolerance after the item 4.12 fourth pass found the
+      tolerance let a stale claim stand) had been proven generically
+      elsewhere but never by injection against this pack's own copy in
+      eighteen prior passes - notable because the same code comment names
+      fishlocks-ainsdale as one of five packs sitting closest to the 750
+      limit (746 characters), the exact position where the old tolerance
+      bug bit hardest. Three injections plus one control, run via
+      `git archive HEAD | tar -x` into a scratch copy so the tracked repo
+      was never opened for writing, each restored from a saved byte copy
+      and sha256-reconfirmed identical before the next: (1) description
+      body lengthened by 82 characters, heading claim untouched - CAUGHT
+      first attempt, "business description is 828 characters, over the 750
+      GBP limit"; (2) heading claim changed from 746 to 741, description
+      body untouched - CAUGHT first attempt, "description heading claims
+      741 characters, actual is 746"; (3) description body lengthened by
+      exactly 4 characters ("call centre." to "call centre now."), heading
+      claim left at 746, reproducing the historical bug's shape (a small
+      drift the old +/-5 tolerance would have passed silently) - CAUGHT
+      first attempt, "description heading claims 746 characters, actual is
+      750", proving the exact-match fix holds against this pack specifically
+      for the first time. CONTROL: two unrelated Services-section bullets
+      reordered, description untouched - correctly PASSED, exit 0, no new
+      FAIL lines, only the two known WARNs. All four fired or passed on
+      their intended rule, first attempt, no cross-firing. Final restore
+      sha256-reconfirmed identical to baseline. Full 36-checker suite re-run
+      clean on the scratch copy after the final restore (35/36, the
+      documented cdn-pins .git-less artefact - see item 4.2's nineteenth
+      pass for the same finding); full 36-checker suite re-run individually
+      against the tracked repo afterwards, 36/36 exit 0. Tracked repo
+      confirmed sha256-unchanged and git-status-clean throughout (only the
+      two long-standing pre-existing untracked strays present, neither
+      touched).
+      RESULT: zero in-repo defect - both description-length rules already
+      correctly protect this pack, now proven directly for the first time,
+      including the specific small-drift shape the historical tolerance bug
+      exploited.
+      LIVE HALF: read via Claude in Chrome. pharmacy-fishlocks-ainsdale.html
+      (the profile-website target) re-fetched: still 404, unchanged (Q35,
+      answered 2026-09-01, not yet applied - Weebly-session work outside
+      this unattended worker's remit). switch-prescriptions-fishlocks-
+      ainsdale.html re-read in full: the shared Weebly footer still
+      misspells the brand "Fishlock Pharmacy"/"Fishlock Chemist" and still
+      abbreviates "17 Station Rd" (Q91/Q37, unchanged, hand-built site
+      furniture no generator or checker here can reach), sitting alongside
+      the separately-correct "Fishlocks Chemist" trust bar lower on the same
+      page exactly as recorded on Q37's addendum. No new live fault found.
+      No new question; QUESTIONS.json unchanged at 107 total, 54 open.
+      Evidence: this AGENT_LOG.md entry, 2026-09-16.
+      Done 2026-09-16
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
       Quality pass 2026-08-11: the pack verified fact by fact against
