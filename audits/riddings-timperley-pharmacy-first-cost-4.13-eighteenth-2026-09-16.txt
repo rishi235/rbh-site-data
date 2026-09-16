@@ -1,0 +1,144 @@
+Item 4.13 (Riddings Pharmacy Timperley GBP pack), eighteenth quality pass, 2026-09-16
+=======================================================================================
+
+SELECTION
+---------
+No unchecked, unblocked worklist item available (all 8 remaining AGENT_WORKLIST.md
+lines still [BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6). Quality pass required. Rotation pool re-derived by a Python full-text
+scan of AGENT_LOG.md (not header-line-only, which an earlier run's method missed a
+mid-block entry with), matching "item <N>" or "took <N>" anywhere in the file and
+taking the first (most recent, topmost) line number per pool item. 4.13's most
+recent own quality pass resolved to line 867 (the eighth run of 2026-09-15,
+"Item 4.13 quality pass (seventeenth)"), the single largest (oldest) line number
+of the 36-item pool - the next stalest, 4.8, resolved to line 841 (ninth run,
+2026-09-15), clearly more recent. Taken.
+
+BASELINE
+--------
+sha256 of gbp-packs/riddings-timperley.md: unchanged since the tenth pass
+(8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04). git status
+--porcelain on gbp-packs/, modules/, core/, tools/, branches.json empty except the
+two long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither touched.
+All 36 tools/check-*.js run individually on the untouched tracked repo: 36/36 exit 0.
+
+NEW ANGLE
+---------
+Eighteen prior quality passes on this item had proven check-gbp-packs.js (many
+rules), check-brand-spelling.js (fifteenth), check-gbp-pharmacy-first.js
+(sixteenth) and check-pharmacy-first-eligibility.js rules 9-11 (seventeenth)
+against this pack's own copy. tools/check-pharmacy-first-cost.js (added item 4.15
+quality pass, 2026-08-13) - which guards the free-NHS claim, the no-cost-qualifier
+rule and the no-price rule on both the 112 generated Pharmacy First pages AND the
+14 GBP packs that advertise the service - had never been individually mentioned or
+injection-tested against this pack's own copy across any of the seventeen prior
+passes (confirmed by grepping the item's full block text for "pharmacy-first-cost",
+"COST_QUALIFIER" and "PRICE_PATTERN": zero hits). Riddings runs Pharmacy First and
+states the free claim in three separate places in its own pack (the business
+description, the Services bullet and Post A), making it a directly relevant,
+previously untested surface, and a sharp test of the rule's file-wide scope.
+
+METHOD
+------
+Four injections plus one control run directly on the tracked file, each restored
+from a saved byte copy (/tmp/riddings-baseline.md) and sha256-reconfirmed identical
+to the baseline hash above before the next:
+
+(1) Rule 6 (free claim), Post A only: "Pharmacy First is a free NHS service" ->
+    "Pharmacy First is an NHS service". MISSED at first: the checker still passed,
+    because it reads the free claim across the WHOLE pack, not per-post, and the
+    Services bullet ("NHS Pharmacy First: free NHS assessment...") still carried
+    it.
+
+(1b) Same, extended to also strip "free" from the Services bullet. STILL MISSED:
+    the business description's own sentence ("we offer Pharmacy First, the free
+    NHS service that lets a pharmacist assess...") also names Pharmacy First and
+    carries the free claim, and was not touched by this round.
+
+(1c) Same, extended a third time to also strip "free" from the business
+    description sentence, so all three of the pack's independent free-claim
+    mentions were gone at once. CAUGHT: exit 1, "[free] gbp-packs/riddings-
+    timperley.md: advertises NHS Pharmacy First but never calls it free (rule 6)".
+
+    This is not a checker gap. Rule 6's own header comment says the pack is
+    "pasted into a Google Business Profile" - and on inspection that is true of
+    the WHOLE pack, not only Post A: the business description becomes the
+    profile's About text, the Services bullet becomes a profile Services-section
+    entry, and Post A becomes one Google Post among several. All three are live,
+    independently-read fields on the finished profile, so a patient can see the
+    free claim in the About text or the Services list even on a day Post A
+    itself is not the thing they read. The pack's redundant wording (three
+    independent free-claim sentences) is a real defence-in-depth property, now
+    proven directly rather than assumed, and rule 6's file-wide scope is the
+    correct design for a source document that becomes several separate profile
+    fields, not a narrower per-post scope that would have to be told which post
+    is "the" post.
+
+(2) Rule 4 (cost qualifier), Post A: added ", an affordable way to be seen,"
+    before "book or just walk in". CAUGHT first attempt: "[qualifier] ... describes
+    NHS Pharmacy First as \"affordable\"...".
+
+(3) Rule 5 (price), Post A: appended "Consultations from 5 pounds." after the
+    age-ranges sentence. CAUGHT first attempt: "[price] ... states \"5 pounds\" on
+    NHS Pharmacy First copy...".
+
+CONTROL: a genuine lead-price sentence ("Consultations from 49 pounds a month.")
+    added to Post C, the weight loss clinic post, which is a private paid service
+    and does not name Pharmacy First. check-pharmacy-first-cost.js correctly
+    PASSED (no false positive - the PF-cost rules do not reach a private-service
+    post). check-gbp-packs.js, run in the same injected state, correctly FAILED
+    it instead, via its own separate no-lead-pricing rule for weight loss copy
+    ("Post C - Weight loss clinic carries a price written in words..."), matching
+    the finding the item 4.10 tenth pass made on a different pack. This proves
+    the two checkers divide the pack's PF and private-service copy cleanly
+    between them, with no gap and no double-coverage confusion, on this pack's
+    own copy specifically.
+
+All five injections restored and sha256-reconfirmed identical to the baseline
+hash immediately after each round. Final diff against /tmp/riddings-baseline.md:
+identical. Full 36-checker suite re-run clean after final restore: 36/36 exit 0.
+git status --porcelain empty except the two pre-existing untouched strays noted
+above. No generator, checker rule or branches.json content changed - this pass
+is a proof, not a fix.
+
+LIVE HALF
+---------
+Claude in Chrome connected and used read-only, one tab, nothing clicked, typed or
+submitted beyond navigation and text extraction.
+- https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
+  re-read in full: carries the free claim repeatedly and prominently ("Free NHS
+  service at your local Timperley pharmacy", "Pharmacy First is a free NHS
+  service", "Free NHS consultation with a pharmacist", "Pharmacy First, no
+  charge to be seen", an FAQ item "Is Pharmacy First really free?"), no cost
+  qualifier and no price anywhere on the page - the live analogue of what this
+  pass proved in the pack, holding correctly. All seven condition tiles and their
+  age ranges match the pinned NHS cohorts these injections and the seventeenth
+  pass's injections are both built around; no live drift.
+- https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+  still returns 404, unchanged since the first pass (2026-08-10); the pack's
+  hard stop on Post B remains necessary.
+No new live-side finding. Previously logged live state (old switch permalink,
+"Timperley, Cheshire" footer contact block, weight-loss-clinic-timperley.html's
+Regime 1 breach under item 5.8/Q5, sitemap gap) not independently re-verified
+this pass beyond the two checks above; nothing in this pass's own subject bears
+on any of them.
+
+ANSWER PICKUP (step 3, this run - shared across the whole run, not item-specific)
+-----------------------------------------------------------------------------
+mcp__claude-in-chrome navigate + get_page_text to
+https://data.rbhealth.co.uk/api/feedback succeeded first attempt. Newest entry
+still Q52, dated 2026-09-01. Cross-checked Q37 and Q43 (the two open questions
+with feed replies) against QUESTIONS.json: both already carry a 2026-09-01
+"PORTAL REPLY RECEIVED, NOT A DECISION" note recording the same non-selecting
+text visible in this feed. No new answer for any of the 54 open questions.
+
+RESULT
+------
+No in-repo defect. check-pharmacy-first-cost.js's rules 4, 5 and 6 all proven
+directly against this pack's own copy for the first time in eighteen passes,
+including a genuine three-round injection sequence that shows rule 6 is correctly
+scoped to the whole pack (all of which becomes separate live profile fields) and
+not to Post A alone, and a control proving check-gbp-packs.js and
+check-pharmacy-first-cost.js divide PF and private-service pricing rules cleanly
+with no gap. No new question raised.
