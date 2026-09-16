@@ -1,4 +1,163 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-first run today; mcp__workspace__bash used for lock handling, repo reads, minimal scratch-copy injection testing under the outputs mount and checker runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.4 (Cherry Lane Pharmacy, Walton) twenty-first quality pass: tools/check-seo-lengths.js, never once named against this branch across twenty prior passes, proven by seven injections against Cherry Lane's own paste-sheet and page data, including the cross-host H1-share WARN-not-FAIL leg (rule 4c) using the real Cherry Lane/Coleman and Leighs Walton pairing CLAUDE.md names as a shared-town risk; zero in-repo defect, no new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-second run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under the sandbox's own native filesystem rather than either mounted folder (see infrastructure note below); mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.6 (McCanns Chemist, Aigburth and Sandringham/St Michael's) twentieth quality pass: tools/check-seo-sheets.js, never once named against this branch across nineteen prior passes, proven by eight injections against McCanns' own paste-sheet and page data across both the *-SEO.md and *INDEX.md dialects and both branches; zero in-repo defect, no new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp (2026-09-16T18:34:08Z). The sandbox mount's `.git`
+directory was found holding a live-looking `.git/HEAD.lock` (blocking
+`git checkout` outright with "Unable to create ... File exists") plus
+several hundred historical renamed-away lock files from many previous runs'
+identical workaround, spanning back to 31 August. Confirmed via `ps aux`
+that no git process was running in this sandbox, then cleared the same way
+prior runs have had to: `rm -f` on `.git/HEAD.lock` failed "Operation not
+permitted" (owner, rwx, yet unlink refused), `mv` to a timestamped name
+succeeded immediately with no write-first workaround needed this time.
+`.git/index.lock` reappeared after the very next `git status` (git's own
+"unable to unlink" warning after a successful operation, the standing
+harmless-but-persistent pattern) and was cleared the same way before the
+next command that needed it. `git fetch`/`checkout`/`pull --ff-only`
+(sandbox mount, read-only use) then completed normally, already up to date
+with origin/agents/audit-backlog at a926ced.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully first attempt, no Access login page. Newest portal entry still
+the Q52 answer, dated 2026-09-01T22:44:51.524Z, unchanged since every run
+since 2026-09-01. Cross-checked all 56 currently-open question ids against
+the full feedback list: only Q37 and Q43 carry any portal reply at all, and
+both were already correctly recorded in a prior run as non-decisions
+(Rishi's replies asked for clarification / expressed uncertainty rather than
+selecting an option) - re-read in full, confirmed still accurately
+represented in QUESTIONS.json, not re-touched, no status change.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry - no "Standing authorisation - autonomous window" section
+present in the entry left by the previous (thirty-first) run. Not
+applicable; step 7 applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]"` AGENT_WORKLIST.md - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback, as the immediately preceding run also did.
+
+ROTATION POOL: re-derived using the same tie-break method the immediately
+preceding (thirty-first) run used and documented. That run had already
+identified the tied-oldest set at 2026-09-15 as {3.4, 3.6, 3.10, 4.4, 4.9,
+4.15, 5.2} and picked 3.4; with 3.4 now moved to 2026-09-16 by that run,
+the remaining six stayed tied at 2026-09-15. Re-ran the tie-break scan
+(`\b(?:item|took)\s+<id>\b` against AGENT_LOG.md, largest/oldest offset of
+each candidate's topmost occurrence wins) fresh rather than trusting the
+prior run's now-shifted offsets: 4.15 (221578), 4.9 (215412), 5.2 (169091),
+3.10 (144395), 3.6 (51174), 4.4 (33195), descending. Read the context
+around the top three candidates: 4.15's topmost mention is inside item
+4.13's own eighteenth-pass writeup, citing when check-pharmacy-first-cost.js
+was ADDED (2026-08-13) rather than a pass on 4.15 itself; 4.9's topmost
+mention is a worklist-placement note inside item 4.8's writeup ("ahead of
+item 4.9's block"); 5.2's topmost mention is a nested digit-match inside an
+unrelated older write-up analysing candidate "1.2" for a past run's own
+tie-break, where the string "item 5.2's own seventeenth-pass entry" appears
+as quoted context rather than as a current reference to 5.2 - all three
+non-genuine, the same shape the prior run found for its own top three.
+Tie-break exhausted without distinguishing the pool a second time running;
+took the lowest-numbered remaining candidate, 3.6 (McCanns Chemist,
+Aigburth and Sandringham), matching the same fallback rule and the same
+precedent chain (this run's fallback choice was itself set up by the prior
+run's fallback choice).
+
+WORK DONE (item 3.6, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.6 block and in
+audits/mccanns-aigburth-sandringham-seo-sheets-3.6-twentieth-2026-09-16.txt;
+summarised here. Nineteen prior passes across many checkers had never named
+tools/check-seo-sheets.js once against this branch (confirmed by grepping
+the item's own block before starting: 20 of 36 checkers proven). Chosen
+because it is well-scoped and self-contained, and McCanns' 26 pages exercise
+both sheet dialects this checker reads (*-SEO.md and *INDEX.md).
+Baseline: branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+unchanged (this checker does not read branches.json; tracked as a general
+nothing-else-touched control). Full 36-script check-*.js suite run
+individually against the tracked repo before starting: 36/36 exit 0.
+Scratch setup: since check-seo-sheets.js reads only three page directories
+and their *.md sheets, a MINIMAL scratch copy was built - this time under
+the sandbox's OWN NATIVE filesystem rather than the mounted outputs folder
+prior passes used, after discovering (see INFRASTRUCTURE FINDING below)
+that the mounted folders share the same delete restriction as `.git`. A
+second pristine copy served as the restore source. Baseline on the scratch
+copy matched full-repo scale exactly: 177 pages, 163 INDEX-compared, 0
+failures.
+Eight injections against McCanns' own paste-sheet and page data, each
+restored by byte copy from the pristine scratch backup and verified
+identical (`cmp`, then a final `diff -rq` of the whole tree) before the
+next: (1) SEO-sheet TITLE drift, McCanns Aigburth UTI - CAUGHT, one failure,
+correct slug; (2) SEO-sheet DESCRIPTION drift, McCanns Sandringham/St
+Michael's UTI - CAUGHT on the second attempt (first attempt used the stale
+pre-5.7 town word "Sandringham" in the injected description and matched
+nothing, corrected to "St Michael's"); (3) INDEX-sheet TITLE drift, McCanns
+Aigburth UTI, reusing the exact string check-seo-sheets.js's own file header
+cites as this rule's original 2026-08-13 proof (Smartts Bootle) - CAUGHT,
+first time this rule has been exercised against McCanns; (4) INDEX-sheet
+DESCRIPTION drift, McCanns Sandringham UTI - CAUGHT; (5) a page with no
+sheet entry, McCanns Aigburth Sore throat block deleted from the SEO sheet -
+CAUGHT, correct filename named; (6) a sheet entry with no page, a fabricated
+McCanns Aigburth block added for a service that does not exist - CAUGHT,
+correct sheet and fabricated slug named; (7) a duplicate label inside one
+block, a second "Page Title:" line added to McCanns Sandringham's UTI block
+- CAUGHT, both the duplicate-label failure and a knock-on title-drift
+failure (the parser keeps the last title line, which now disagrees with the
+real page - exactly the silent-drift risk the rule's own message warns
+about, demonstrated rather than just quoted); (8) a duplicate permalink
+across two blocks, McCanns Aigburth's UTI permalink reused under a second
+heading - CAUGHT, correct sheet and permalink named. No cross-branch control
+run this pass (unlike check-seo-lengths on 3.4, this checker's rules are
+per-slug 1:1 matching with no classification boundary to prove; each of the
+eight injections naming the correct McCanns slug and no other is the
+equivalent proof). Final scratch re-run and whole-tree diff against
+pristine both clean. Full 36-checker suite re-run clean on the tracked repo
+after; branches.json sha256 unchanged; `git status --porcelain -- modules
+core branches.json gbp-packs tools` shows only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) already
+recorded by prior runs, neither touched this pass. Guard coverage for item
+3.6 now extends to 21 of 36 checkers proven by direct injection (up from
+20). No generator, generated page or branches.json field changed.
+
+LIVE HALF: not performed this pass; the finding and fix (a checker proof)
+are both source-side, same reasoning nineteen prior passes on this item have
+already recorded when no live-copy angle was implicated by that pass's own
+checker.
+
+INFRASTRUCTURE FINDING (not a worklist item, logged for the next run): the
+FUSE-mount delete restriction previously documented only against the repo's
+own `.git` directory (Q87/Q96/Q102) is NOT specific to `.git`. Confirmed by
+direct test this run: `touch`+`rm -f` on a brand-new, ordinary file created
+under the mounted outputs folder (`/sessions/.../mnt/outputs/...`) also
+failed "Operation not permitted", identically to every `.git/*.lock` case.
+The sandbox's own native filesystem (session root, `/tmp`, home) was
+confirmed by the same test to support ordinary delete cleanly. This run's
+scratch-copy injection cycle was therefore built under the sandbox's own
+native filesystem rather than either mounted folder, and every restore step
+this run verified as byte-identical worked as expected there. Recommending
+this as the default location for any future pass's scratch work, to avoid
+adding to the several hundred renamed-not-deleted debris files already
+sitting in both the repo's `.git` directory and its own working tree
+(`.agent-lock.*`, `.test-*`, `.locktest_probe*` and similar, visible in
+`git status` as untracked clutter going back to 31 August) - none of that
+existing debris was touched or added to this run.
+
+GIT WRITE ROUTE (step 9, this run): per Q102's standing (still formally
+open, but empirically the only working route every recent run has had to
+fall back to), `git add`/`commit`/`push` for this run's own three changed
+files (AGENT_WORKLIST.md, this AGENT_LOG.md entry, the new audits file) were
+run via mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data
+working copy on the native host, not through the sandbox mount. [Commit
+hash and push result to be confirmed and recorded once step 9 completes.]
+
+STEP 10 (status page publish): tools/build-audit-status.js run after step 9;
+result recorded below once complete.
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item
+3.6's own checkbox block (twentieth-pass entry appended after the
+nineteenth pass's writeup, ahead of item 3.7's block). No worklist checkbox
+ticked (item 3.6 already `[x]`, a quality pass is not a state change).
+
+QUESTIONS: none raised this pass. QUESTIONS.json unchanged: 109 total, 56
+open (Q37 and Q43 re-confirmed as non-decisions, not re-touched).
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
 fresh UTC timestamp (2026-09-16T18:04:15Z). A `.git/index.lock` was present

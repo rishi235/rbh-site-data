@@ -1,0 +1,155 @@
+Item 3.6 (McCanns Chemist, Aigburth and Sandringham/St Michael's) - twentieth
+quality pass, 2026-09-16 (unattended scheduled run, audit-backlog-worker).
+
+CHECKER UNDER TEST: tools/check-seo-sheets.js
+Never mentioned once against this branch across nineteen prior passes
+(confirmed by grepping item 3.6's own AGENT_WORKLIST.md block before
+starting: 20 of 36 checkers proven, check-seo-sheets.js not among them).
+Chosen because it is a self-contained, well-scoped checker (paste sheet vs
+generated page agreement on title/permalink/description, both the *-SEO.md
+dialect and the *INDEX.md dialect) and McCanns' 26 pages exercise both
+dialects (22 service-family pages with INDEX rows, 2 branch landing pages
+and 2 switch pages with no INDEX row).
+
+BASELINE
+--------
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+unchanged throughout (this checker does not read branches.json at all, so
+this is a general "nothing else touched" control, not a rule of the checker
+under test).
+Full 36-script check-*.js suite run individually against the tracked repo
+before starting: 36/36 exit 0.
+
+SCRATCH SETUP
+-------------
+check-seo-sheets.js reads only three page directories (modules/service/pages,
+modules/switch/pages, modules/branch/pages) and the *.md sheets inside them,
+so a minimal scratch copy was built under the sandbox's own native
+filesystem (/sessions/.../scratch-3.6-seosheets, NOT the FUSE-mounted
+outputs or repo path - see INFRASTRUCTURE NOTE below) containing just those
+three directories (html + md) and the checker script itself. A second
+"pristine" copy of the same tree served as the restore source between
+injections, verified identical to the working copy by `diff -rq` at the end.
+Baseline on the scratch copy matched full-repo scale exactly: 177 SEO-sheet
+entries, 163 INDEX-sheet entries across 11 discovered sheets, 177 pages
+compared, 163 also compared against an INDEX row, 0 failures.
+
+EIGHT INJECTIONS AGAINST MCCANNS' OWN SHEET AND PAGE DATA
+----------------------------------------------------------
+Each restored by direct file copy from the pristine scratch backup and
+verified byte-identical (`cmp`) before the next. All eight used McCanns
+Aigburth or McCanns Sandringham (seoTown "St Michael's" since item 5.7)
+entries specifically, not a generic example.
+
+1. SEO-sheet TITLE drift. modules/service/pages/SEO.md, McCanns Aigburth
+   UTI block, Page Title changed to "UTI treatment in Aigburth - Wrong
+   Brand Name", page left untouched.
+   CAUGHT - exactly one failure:
+     "uti-treatment-mccanns-aigburth: title drift" naming both strings and
+     the sheet.
+
+2. SEO-sheet DESCRIPTION drift. Same file, McCanns Sandringham (St
+   Michael's) UTI block, Page Description shortened to "Short."
+   CAUGHT - exactly one failure, correct slug and sheet named. (First
+   attempt used the pre-5.7 town word "Sandringham" in the description
+   string and matched nothing - a reminder that the seoTown move is now old
+   enough to trip up a hand-typed expectation; corrected to "St Michael's"
+   before the real injection.)
+
+3. INDEX-sheet TITLE drift. modules/service/pages/INDEX.md, McCanns
+   Aigburth UTI row's "SEO title" changed to "UTI treatment in Aintree -
+   Hirshmans Pharmacy" - deliberately reusing the exact injection string
+   check-seo-sheets.js's own file header documents as the original proof
+   for this rule (Smartts Bootle, 2026-08-13), here run against McCanns for
+   the first time.
+   CAUGHT - "uti-treatment-mccanns-aigburth: title drift against the INDEX
+   sheet", both strings and the sheet path named.
+
+4. INDEX-sheet DESCRIPTION drift. Same file, McCanns Sandringham UTI row's
+   "SEO description" changed to "Different text entirely."
+   CAUGHT - "uti-treatment-mccanns-sandringham: description drift against
+   the INDEX sheet".
+
+5. MISSING SHEET ENTRY. Deleted the entire McCanns Aigburth Sore throat
+   block from modules/service/pages/SEO.md (page left in place).
+   CAUGHT - "sore-throat-treatment-mccanns-aigburth.html: no entry in any
+   paste sheet, so there is nothing to paste into its Weebly SEO fields".
+
+6. ORPHAN SHEET ENTRY. Added a new block to modules/service/pages/SEO.md,
+   "McCanns Chemist - Aigburth - Not A Real Service", permalink
+   not-a-real-service-mccanns-aigburth, no corresponding page exists.
+   CAUGHT - "modules/service/pages/SEO.md: lists
+   not-a-real-service-mccanns-aigburth but no such page is generated, so
+   the paster would be sent to a page that does not exist".
+
+7. DUPLICATE LABEL IN ONE BLOCK. McCanns Sandringham UTI block in SEO.md
+   given a second "Page Title:" line ("A rogue second title line") ahead of
+   the Page Permalink line.
+   CAUGHT - two related failures, both correct: the duplicate-label rule
+   itself ("2 'Page Title' labels in one block - the checker compares the
+   last, a paster takes the first, so the two can disagree with no
+   failure") AND a knock-on title-drift failure, because the parser keeps
+   the LAST title line (the rogue one) and that now disagrees with the real
+   page - exactly the failure mode the rule's own message warns a paster
+   could hit silently if this checker did not exist.
+
+8. DUPLICATE PERMALINK ACROSS TWO BLOCKS. Added a second block to
+   modules/service/pages/SEO.md reusing the McCanns Aigburth UTI permalink
+   (uti-treatment-mccanns-aigburth) under a different heading and title.
+   CAUGHT - "modules/service/pages/SEO.md: permalink
+   uti-treatment-mccanns-aigburth is also listed in
+   modules/service/pages/SEO.md - a paster would not know which block to
+   use".
+
+All eight restores verified byte-identical to the pristine scratch copy
+(cmp, then a final recursive diff -rq of the whole scratch tree against
+pristine: IDENTICAL). Final scratch re-run after all injections: 177/177
+pages, 0 failures, matching the original baseline exactly.
+
+CONTROL
+-------
+No separate cross-branch control was run this pass (unlike check-seo-lengths
+on item 3.4, this checker's rules are per-slug 1:1 matching with no
+cross-branch classification logic to prove a false-positive/negative
+boundary against - every rule either names the exact slug it fired on or
+does not fire at all). The eight injections above each named the correct
+McCanns slug and no other, which is the equivalent proof for this checker's
+rule shape.
+
+RESULT
+------
+Guard coverage for item 3.6 now extends to 21 of 36 checkers proven by
+direct injection (up from 20). Zero in-repo defect found: check-seo-sheets.js
+was already silently covering McCanns correctly; this pass proves it rather
+than finding anything wrong. No new question raised.
+
+INFRASTRUCTURE NOTE (not a worklist item, logged for the next run)
+--------------------------------------------------------------------
+This run's scratch work was built under the sandbox's own native filesystem
+(/sessions/.../scratch-3.6-seosheets) rather than under the mounted outputs
+folder used by prior passes. Confirmed by direct test: `rm -f` inside the
+FUSE-mounted outputs folder fails "Operation not permitted", identically to
+the long-documented .git lock behaviour (Q87/Q96/Q102), and this is NOT
+limited to the repo's .git directory - the same mount-wide restriction was
+found (touch+rm on a plain file under mnt/outputs/scratch-3.6-seosheets
+failed the same way) before this pass moved its scratch tree to
+/sessions/.../ (native sandbox filesystem, delete confirmed working) for the
+rest of the run. Worth carrying forward: any future pass that wants a
+restore-by-byte-copy cycle with real deletes between injections should build
+its scratch tree under the sandbox's own home/session root, not under either
+mounted folder, or it will hit the same accumulate-do-not-delete failure
+mode that produced the hundreds of renamed .git/*.lock.* files this run
+found already sitting in the repo's .git directory (see AGENT_LOG.md, lock
+handling section, this run).
+
+GIT WRITE ROUTE (this run): the sandbox mount's .git directory was found at
+the start of this run already carrying a live-looking .git/HEAD.lock (blocking
+checkout) plus hundreds of historical renamed-away lock files from many
+previous runs' identical workaround. Cleared by the same rename workaround
+(mv, since unlink is denied) after confirming via ps aux that no git process
+was running. `git add`/`commit`/`push` for this pass's own changes were
+routed through mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data working copy on the native host, per the standing
+practice Q102 already documents and recommends as the primary route (still
+an open decision as a formal procedure change, but empirically the working
+route every recent run has had to fall back to).

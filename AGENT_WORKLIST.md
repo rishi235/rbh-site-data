@@ -7485,6 +7485,27 @@ QUESTIONS: none raised this pass. QUESTIONS.json re-read via the standing
 answer-pickup step: 107 total, 54 open, unchanged; newest answer still Q52
 (2026-09-01), no new answer since. Evidence:
 audits/mccanns-brand-spelling-3.6-nineteenth-2026-09-15.txt.
+Quality pass 2026-09-16 (twentieth). tools/check-seo-sheets.js, never
+mentioned once against this branch across nineteen prior passes, proven by
+eight injections against McCanns' own paste-sheet and page data (both the
+*-SEO.md and *INDEX.md dialects, both Aigburth and Sandringham/St Michael's):
+SEO-sheet title drift, SEO-sheet description drift, INDEX-sheet title
+drift, INDEX-sheet description drift, a page with no sheet entry, a sheet
+entry with no page, a duplicate label inside one block, and a duplicate
+permalink across two blocks - all eight CAUGHT, each naming the correct
+McCanns slug and no other, each restored byte-identical from a pristine
+scratch backup before the next. Baseline and final re-run both 177/177
+pages, 0 failures, matching exactly. Full 36-checker suite re-run clean on
+the tracked repo before and after; branches.json sha256 unchanged
+(169bb5a2...). Guard coverage for item 3.6 now extends to 21 of 36
+checkers proven by direct injection (up from 20). Zero in-repo defect,
+no new question. LIVE HALF: not performed this pass, same reasoning as the
+nineteenth pass (finding and fix are both source documents, no live page
+implicated by this checker's own rules). Full detail in
+audits/mccanns-aigburth-sandringham-seo-sheets-3.6-twentieth-2026-09-16.txt,
+including an infrastructure note on where this run built its scratch copy
+(the sandbox's own native filesystem, not either FUSE-mounted folder, after
+confirming the mount-wide delete restriction is not limited to .git).
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
