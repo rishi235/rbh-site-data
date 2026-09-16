@@ -14600,6 +14600,57 @@ Done 2026-09-16 (nineteenth pass).
       since 2026-09-01; no answer arrived this run for any of the 54 open
       questions. Q65, Q28 and Q29 re-read from QUESTIONS.json: all still in
       their prior status, correctly not re-litigated here.
+      Quality pass 2026-09-16 (seventeenth), unattended scheduled run.
+      NO IN-REPO DEFECT FOUND: tools/check-whatsapp-route.js, never once
+      named against this branch across sixteen prior passes, is now proven
+      by four injections covering four of its six rules (page agreement,
+      orphan button, unreplaced token, runtime default agreement), all
+      caught first attempt, plus a clean control. Full repo git-archived to
+      a disposable scratch copy under the outputs mount; tracked repo never
+      opened for writing. BASELINE: 34/34 checkers exit 0 individually, all
+      six generators rebuilt to zero diff (only the two long-standing
+      untracked strays present, untouched), branches.json sha256
+      169bb5a2...b102 matching the value on record. Four injections against
+      Clear Aintree's own three pages and the service-family runtime
+      default they depend on, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) RULE 4 page agreement -
+      switch-prescriptions-clear-aintree.html's data-wa changed to a wrong
+      number - CAUGHT, "data-wa but branches.json agrees on 447521775631";
+      (2) RULE 6 orphan button - weight-loss-clinic-clear-aintree.html's
+      data-wa removed, button left in place - CAUGHT, "carries a WhatsApp
+      button but no data-wa on its module root"; (3) RULE 5 unreplaced
+      token - travel-clinic-clear-aintree.html given a trailing
+      {{BRANCH_PROMO_CODE}} placeholder - CAUGHT, "still carries the
+      template placeholder"; (4) RULE 2 runtime default agreement -
+      modules/service/service.js's DEFAULT_WHATSAPP changed to a different
+      number, directly relevant since both of Clear Aintree's
+      service-family pages fall back to this exact default - CAUGHT, "falls
+      back to ... but branches.json agrees on 447521775631". CONTROL - the
+      switch page's visible postcode changed (check-nap.js/check-postcodes.js
+      territory) - check-whatsapp-route.js ran clean, zero mentions of the
+      page, confirming no cross-firing. All four injections caught on the
+      intended rule, control silent, sha256 of all seven touched files
+      reconfirmed byte-identical to baseline after every restore. Full
+      34-checker suite re-run on the scratch copy after the round: 33/34
+      exit 0, the sole exception check-cdn-pins.js failing only because the
+      scratch copy has no .git (long-documented, unrelated); re-run
+      individually against the tracked repo: exit 0, clean. Tracked repo
+      reconfirmed untouched throughout: git status showing only the two
+      pre-existing untracked strays, sha256 of all six target files
+      byte-identical to the pre-pass baseline. No generator, page, checker
+      or branches.json content changed; no defect found. Guard coverage for
+      item 3.13 now extends to 17 of the 34 checkers proven by direct
+      injection against this branch specifically; 17 remain (the four
+      Pharmacy First checkers and check-contraception-copy.js and
+      check-opening-hours.js do not apply to this branch - no PF widget, no
+      contraception widget, no public NHS profile hours - leaving 12 that do
+      apply and are still untested), listed in full in the evidence file.
+      STEP 3 answer pickup: portal feed read via a single Claude-in-Chrome
+      tab, opened and closed cleanly; newest entry still Q52 (2026-09-01),
+      already applied; no answer present for any of the 56 currently open
+      questions (Q53 onward); no status change made, no new question
+      raised. See audits/clear-aintree-whatsapp-3.13-seventeenth-2026-09-16.txt
+      for full detail.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

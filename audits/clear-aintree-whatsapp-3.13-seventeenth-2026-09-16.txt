@@ -1,0 +1,119 @@
+Item 3.13 (Clear Chemist, Aintree/Liverpool) - seventeenth quality pass
+2026-09-16, unattended scheduled run (audit-backlog-worker, twenty-second run today)
+Checker under test: tools/check-whatsapp-route.js
+Never previously named against this branch across sixteen prior passes (which
+exercised check-switch-copy.js, check-weight-loss-copy.js,
+check-travel-clinic-copy.js, check-jsonld.js, check-seo-pattern.js,
+check-seo-keywords.js, check-branch-links.js, check-app-membership.js,
+check-booking-routes.js, check-nap.js, check-postcodes.js, check-em-dashes.js,
+check-cdn-pins.js, check-branch-identity.js, check-map-embeds.js and
+check-seo-lengths.js).
+
+METHOD
+Full repo git-archived (git archive HEAD) to a disposable scratch copy under
+the outputs mount (/sessions/.../mnt/outputs/scratch313/repo-copy). Tracked
+repo at C:\Dev\rbh-site-data never opened for writing during injection testing.
+
+BASELINE (tracked repo, before any work)
+  34/34 checkers exit 0 individually (node tools/check-*.js each).
+  All six generators (build-service-pages, build-switch-pages,
+  build-weight-loss-pages, build-travel-clinic-pages,
+  build-contraception-pages, build-branch-landing-pages) rebuilt in place:
+  git status --porcelain -- modules core tools branches.json gbp-packs showed
+  only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+  touched. All pages byte-identical to committed content.
+  branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the value on record from prior passes).
+
+Clear Chemist Aintree's three pages, sha256 baseline (scratch copy, identical
+to tracked repo, reconfirmed by diff):
+  modules/switch/pages/switch-prescriptions-clear-aintree.html
+    8e18d9019416aee8a45818d6c2018637edece63bd4db5973695aab69880c199a
+  modules/service/pages/travel-clinic-clear-aintree.html
+    a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796
+  modules/service/pages/weight-loss-clinic-clear-aintree.html
+    240b32e42ef9b3050f75ba15d184bf30a711b9b4c81128eb1e939ec95e443224
+  modules/switch/switch.js
+    3a1d7df1b5c52d8a388a6387cbfd4d2a50156b6efd62fe3087fa2dbcde312393
+  modules/service/service.js
+    eb9c47212719f7d5592b42faf4083c7ac233085303373d0da4397ba9a3930d6a
+
+check-whatsapp-route.js baseline on scratch copy: clean, 16 branches declaring
+whatsapp, 3 runtime defaults, 171/177 pages carry data-wa, agreed number
+447521775631, 1 known exception (modules/emar/emar.js, deliberate).
+
+INJECTIONS (all against Clear Aintree's own pages / the service-family
+runtime default that its two service-family pages depend on), each restored
+by byte copy (not git) and sha256-reconfirmed before the next:
+
+1. RULE 4 (page agreement) - switch-prescriptions-clear-aintree.html's
+   data-wa changed 447521775631 -> 447999888777.
+   CAUGHT: "FAIL [page agreement] modules/switch/pages/switch-prescriptions-
+   clear-aintree.html: data-wa=\"447999888777\" but branches.json agrees on
+   447521775631". Exit 1. Restored, sha256 back to 8e18d901... .
+
+2. RULE 6 (orphan button) - weight-loss-clinic-clear-aintree.html's data-wa
+   attribute removed entirely, WhatsApp button (id="svc-wa") left in place.
+   CAUGHT: "FAIL [orphan button] modules/service/pages/weight-loss-clinic-
+   clear-aintree.html: carries a WhatsApp button but no data-wa on its module
+   root, so it would fall back to the runtime default". Exit 1. Restored,
+   sha256 back to 240b32e4... .
+
+3. RULE 5 (unreplaced token) - travel-clinic-clear-aintree.html given a
+   trailing HTML comment carrying a template placeholder,
+   <!-- {{BRANCH_PROMO_CODE}} -->.
+   CAUGHT: "FAIL [unreplaced token] modules/service/pages/travel-clinic-
+   clear-aintree.html: still carries the template placeholder
+   {{BRANCH_PROMO_CODE}}". Exit 1. Restored, sha256 back to a42a3d3a... .
+
+4. RULE 2 (runtime default agreement) - modules/service/service.js's
+   DEFAULT_WHATSAPP changed 447521775631 -> 447111222333. Directly relevant
+   to this branch because both of Clear Aintree's service-family pages
+   (weight loss, travel clinic) fall back to this exact default if their own
+   data-wa were ever lost.
+   CAUGHT: "FAIL [runtime default] modules/service/service.js: falls back to
+   447111222333 but branches.json agrees on 447521775631, so a page with no
+   data-wa would reach a different number". Exit 1. Restored, sha256 back to
+   eb9c4721... .
+
+CONTROL - switch-prescriptions-clear-aintree.html's visible postcode text
+changed L9 7AS -> L9 9ZZ (check-nap.js/check-postcodes.js territory, not
+check-whatsapp-route.js's). check-whatsapp-route.js ran clean, exit 0, no
+mention of the switch page or Clear Aintree anywhere in its output - confirms
+no cross-firing with the address checkers' own territory. Restored, sha256
+back to 8e18d901... .
+
+VERIFICATION
+sha256 of all seven touched files re-checked against the pre-injection
+baseline after every restore: IDENTICAL (diff clean).
+Full 34-checker suite re-run on the scratch copy after the round: 33/34 exit
+0, the sole exception check-cdn-pins.js, which fails on any .git-less scratch
+copy by design (documented estate-wide behaviour, unrelated to this pass) -
+re-run individually against the TRACKED repo (which has .git): exit 0, clean.
+Tracked repo git status --porcelain -- modules core tools branches.json
+gbp-packs reconfirmed after the whole pass: only the same two long-standing
+untracked strays, neither touched. sha256 of the six target files in the
+tracked repo diffed against the pre-pass scratch baseline: byte-identical.
+
+RESULT: no defect found. check-whatsapp-route.js proven clean and correctly
+firing on four independent fault injections (one per distinct rule that has
+a natural injection point on this branch's own pages/dependencies) plus a
+silent control, against Clear Chemist Aintree specifically for the first time
+across seventeen passes on this item.
+
+Guard coverage for item 3.13 now extends to 17 of the 34 checkers proven by
+direct injection against this branch specifically. Untested: check-address-
+region.js, check-app-membership.js (estate-wide only, Clear Aintree is a
+hasApp:true member already covered in the app-membership item's own pass),
+check-brand-spelling.js, check-contraception-copy.js (n/a - no contraception
+widget), check-editor-snapshot.js, check-fragment-targets.js, check-gbp-
+packs.js, check-gbp-pharmacy-first.js, check-live-hours.js, check-opening-
+hours.js (n/a - Clear Aintree has no public NHS profile hours, see the
+branch's own schemaNote), check-page-coverage.js, check-pharmacy-first-
+cost.js, check-pharmacy-first-eligibility.js, check-pharmacy-first-safety-
+net.js, check-pharmacy-first-symptoms.js (the four Pharmacy First checkers
+are n/a - Clear Aintree has pfBooking:false and no Pharmacy First widget),
+check-seo-sheets.js, check-service-links.js, check-uk-spelling.js, check-
+url-scheme.js, check-widget-diaries.js.

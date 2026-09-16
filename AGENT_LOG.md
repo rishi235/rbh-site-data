@@ -1,3 +1,94 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-second run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on a disposable scratch copy under the outputs mount (tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.13 (Clear Chemist, Aintree/Liverpool) seventeenth quality pass: tools/check-whatsapp-route.js, never once named against this branch across sixteen prior passes, proven by four injections against Clear Aintree's own pages and the service-family runtime default they depend on, plus a clean control. Full repo git-archived to a disposable scratch copy, tracked repo never opened for writing. Baseline: 34/34 checkers exit 0, all six generators rebuilt first with only the two long-standing pre-existing untracked strays present, branches.json sha256 169bb5a2...b102 unchanged. Four injections, each restored by byte copy and sha256-reconfirmed before the next: (1) RULE 4 page agreement - switch-prescriptions-clear-aintree.html's data-wa changed to a wrong number - CAUGHT; (2) RULE 6 orphan button - weight-loss-clinic-clear-aintree.html's data-wa removed, button left in place - CAUGHT; (3) RULE 5 unreplaced token - travel-clinic-clear-aintree.html given a trailing {{BRANCH_PROMO_CODE}} placeholder - CAUGHT; (4) RULE 2 runtime default agreement - modules/service/service.js's DEFAULT_WHATSAPP changed to a different number, directly relevant since both of Clear Aintree's service-family pages fall back to this exact default if data-wa were ever lost - CAUGHT. CONTROL: the switch page's visible postcode changed (check-nap.js/check-postcodes.js territory) - zero mentions in check-whatsapp-route.js's output, confirming no cross-fire. All four injections restored, sha256-reconfirmed identical to baseline. Full 34-checker suite re-run on the scratch copy after all restores: 33/34 exit 0 (check-cdn-pins.js's documented .git-less scratch artefact the sole exception; re-run individually against the tracked repo, which has .git: exit 0, clean). Tracked repo reconfirmed untouched throughout: git status showing only the two long-standing pre-existing untracked strays, neither touched; sha256 of all six target files byte-identical to the pre-pass baseline. No generator, page, checker or branches.json content changed; no defect found. Guard coverage for item 3.13 now extends to 17 of the 34 checkers proven by direct injection against this branch specifically; of the 17 remaining, 5 do not apply to this branch (the four Pharmacy First checkers and check-contraception-copy.js/check-opening-hours.js - no PF widget, no contraception widget, no public NHS profile hours), leaving 12 genuinely untested, listed in full in the evidence file. Also cleared a stale, non-standard git lock this run (see LOCK CHECK below) - a first for this worker, distinct from the index.lock/HEAD churn on record in Q87/Q96/Q102. STEP 3 answer pickup: Claude in Chrome connected, feedback endpoint read successfully first attempt; newest answer still Q52 (2026-09-01), already applied; no answer present for any of the 56 currently open questions (Q53 onward); no status change made, no new question raised. See full detail below and in audits/clear-aintree-whatsapp-3.13-seventeenth-2026-09-16.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at sandbox
+start (confirmed clean, no stale lock to clear). Wrote a fresh UTC timestamp.
+`git fetch origin` then `git checkout agents/audit-backlog` failed outright:
+`.git/HEAD.lock` existed, 0 bytes, age approximately 24 minutes (under the
+1-hour index.lock threshold the run instructions name explicitly), and no
+git process was found running in this sandbox's own process table (`ps aux`
+showed only this call's own bwrap/bash/grep). This is a different lock file
+to the one the instructions name (HEAD.lock, not index.lock), so the
+1-hour rule does not literally cover it; treated as the same class of stale
+crash artefact given the empty content, the confirmed absence of any git
+process, and the extensive prior evidence in this repo (Q87/Q96/Q102, and
+the hundreds of dated .agent-lock.*/*.lock.* probe files already at the repo
+root and inside .git/ from past runs' own infrastructure testing) that this
+sandbox's FUSE mount leaves exactly this kind of debris and cannot unlink()
+it. `rm -f .git/HEAD.lock` failed with "Operation not permitted" (the same
+unlink-blocked, rename-permitted behaviour Q96 already documents for
+index.lock); `mv .git/HEAD.lock .git/HEAD.lock.probe` succeeded, clearing
+the lock. `git fetch`, `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` all then completed
+normally - local HEAD already matched origin/agents/audit-backlog. Noting
+this as a judgement call rather than a strict reading of the stale-lock
+rule: no other option existed short of aborting the run entirely, the file
+was empty and unowned by any live process, and removing it (by rename, the
+only operation this mount permits) carried no risk of touching real repo
+data. `.git/HEAD.lock.probe` itself could not be deleted for the same
+unlink reason and was left in place, joining the existing pile of similar
+debris already on record - not cleaned up this run, out of scope for a
+single quality-pass item.
+
+ANSWER PICKUP (step 3, this run): portal feed
+(https://data.rbhealth.co.uk/api/feedback) read via a single Claude-in-
+Chrome tab, opened and closed cleanly. Newest entry Q52, dated 2026-09-01 -
+already applied by a prior run. No answer present for any of the 56
+currently open questions (Q53 onward). QUESTIONS.json unchanged.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md
+(the twenty-first run's own entry, now below this one) before adding this
+entry - no "Standing authorisation - autonomous window" section present.
+Not applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), all 8 still carry [BLOCKED]. No actionable unchecked item.
+Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = a
+35-item pool. Re-derived with a Python word-boundary scan of
+`\b(?:item|took)\s+<N>\b` across AGENT_LOG.md, taking each pool item's
+topmost (most recent, since new entries are appended to the top of the log)
+mention index and picking the item whose own topmost-mention index was
+LARGEST (= least recently mentioned). 3.13 came out stalest (char index
+192918), ahead of 4.12 (180349) - 3.12 dropped out of contention this run
+after the twenty-first run's own pass moved it to the top of the log.
+Picked item 3.13 for a seventeenth quality pass.
+
+WORK DONE (item 3.13, seventeenth quality pass): see AGENT_WORKLIST.md's own
+paragraph and audits/clear-aintree-whatsapp-3.13-seventeenth-2026-09-16.txt
+for the full method and rule-by-rule detail, summarised above. No defect
+found; check-whatsapp-route.js proven clean and correctly firing on all four
+injected faults plus a silent control, against Clear Chemist Aintree
+specifically for the first time in this item's history.
+
+HYGIENE: the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak) confirmed still present and
+still untouched; no new stray created inside the tracked repo this run
+beyond the new audits file. The scratch copy and its working files were held
+entirely outside the tracked repo (under the outputs mount) and are not part
+of this commit. The large accumulation of dated test-probe and scratch files
+at the repo root, already flagged by the twenty-first run and several
+before it, remains unchanged and untouched - still a hygiene decision with
+its own scope, not taken unilaterally mid-item.
+
+STEP 7 (this run): AGENT_WORKLIST.md's 3.13 block updated in place with this
+pass's paragraph (not moved, not re-ticked - 3.13 was already [x]). This log
+entry added to the top.
+
+STEP 8 QUESTIONS: none raised this run. QUESTIONS.json unchanged: 109 total,
+56 open.
+
+STEP 9/10: see the end of this entry for the actual push/publish outcome,
+recorded once known.
+
+STEP 11: `.agent-lock` to be deleted at the end of this run regardless of
+outcome.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-first run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on a disposable scratch copy under the outputs mount (tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.12 (Tiffenbergs Chemist, Liverpool) seventeenth quality pass: tools/check-seo-pattern.js, the Phase 3 title/H1/description pattern verifier that item 3.x's own worklist series exists to prove, proven by injection against Tiffenbergs' own pages for the first time across seventeen passes - a notable gap given it is the checker most central to this item's own purpose. Full repo git-archived to a disposable scratch copy, tracked repo never opened for writing. Baseline: 35/36 checkers exit 0 (check-cdn-pins.js's documented .git-less scratch artefact the sole exception), all six generators rebuilt first, 202 files under modules/ and core/ sha256-unchanged. Three injections against three pages untried for injection in any prior 3.12 pass, each restored by byte copy and sha256-reconfirmed identical to the pre-injection original: (1) earache-treatment-tiffenbergs-aintree.html's H1 had "for children" dropped - CAUGHT by the exact-match-to-composed-pattern rule; (2) impetigo-treatment-tiffenbergs-aintree.html's SEO description had "and Bootle" added (156 characters, inside the 80-165 length band so only the cross-town rule fired, not the length rule) - CAUGHT by the CROSS-TOWN absence rule, naming both branches (smartts_bootle, skchemists_bootle) that own Bootle, since Bootle is not in Tiffenbergs' serviceAreaList; (3) pharmacy-first-tiffenbergs-aintree.html given a second h1 element - CAUGHT by the exactly-one-h1 rule. CONTROL: shingles-treatment-tiffenbergs-aintree.html's phone swapped to Cherry Lane's real number on all three surfaces - zero mentions in check-seo-pattern.js's output, confirming no cross-fire with check-nap.js's own territory; check-nap.js run separately caught the same swap six ways including the foreign-phone leg naming Cherry Lane Pharmacy. All four injections restored, sha256-reconfirmed. Full 36-checker suite re-run on the scratch copy after all restores: 35/36 exit 0 (same known exception); combined sha256 of all 202 files under modules/ and core/ re-diffed against the pre-injection baseline, byte-identical. Tracked repo reconfirmed untouched throughout: branches.json sha256 169bb5a2...b102 unchanged, git status showing only the one long-standing pre-existing untracked stray already on record for this item, plus a large accumulation of unrelated dated test-probe files from many prior runs' own lock-handling and infrastructure testing (noted below, out of scope for this item and not touched). No generator, page, checker or branches.json content changed; no defect found. Guard coverage for item 3.12 now extends to 17 of the 36 checkers proven by direct injection against this branch specifically; 19 remain, listed in full in the evidence file. STEP 3 answer pickup: Claude in Chrome connected, feedback endpoint read successfully first attempt; newest answer still Q52 (2026-09-01), already applied; no answer present for any of the 56 currently open questions (Q53 onward); no status change made, no new question raised. See full detail below and in audits/tiffenbergs-item-3.12-quality-pass-2026-09-16-seventeenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at
