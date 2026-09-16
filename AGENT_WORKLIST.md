@@ -6073,6 +6073,61 @@ impetigo, insect bite, UTI), or is earache the only pathway he intended,
 since it is the only one NHS restricts at BOTH ends and the closest to a
 patient being actively misled by the snippet.
 
+Quality pass 2026-09-16 (twentieth): FRESH ANGLE, tools/check-brand-
+spelling.js (born item 1.1's eighth pass, 2026-08-31, widened through the
+ninth 1.1 pass 2026-09-06), never before named against this item's own
+Hirshmans Ainsdale data across nineteen prior numbered passes plus the two
+2026-09-15 implementation addenda (eighteen other checker files had been).
+Q107 (the Q46 scope-extension decision) is untouched - a decision for
+Rishi, not attempted or assumed this pass; no autonomous window open this
+run (checked top of AGENT_LOG.md).
+PROOF BY INJECTION - full detail in
+audits/hirshmans-ainsdale-item-3.5-quality-pass-2026-09-16-twentieth.txt.
+All work on a full `git archive HEAD | tar -x` scratch copy at
+/tmp/scratch-3.5, tracked repo never opened for writing. Baseline: 36/36
+checkers clean, branches.json sha256 169bb5a21cf62b196600d61260e0689fee040
+491fd0c3637eb2ac91f2ad1b102 (matches every prior pass). Six injections plus
+one control, each targeting Hirshmans Ainsdale's own files or its own
+branches.json record, each restored and sha256-reconfirmed before the next:
+(1) branches.json hirshmans_ainsdale.brandLabel "Hirshmans Chemist" ->
+"Hirshmans Chemists" - CAUGHT, both the CANONICAL mismatch and the
+branchName-now-disagrees sub-rules fired; (2) earache-treatment page hero-sub
+"Hirshmans Chemist offers" -> "Hirshmans Pharmacy offers" - CAUGHT, shop-type
+swap; (3) the switch banner's CONFIG BRAND literal changed to "HIRSHMANS
+CHEMIST" (all-caps) - CAUGHT, proving the ninth 1.1 pass's all-caps rule
+against Hirshmans's own banner for the first time; (4) the GBP pack's
+business-description opening changed to "Hirschman Chemist is Ainsdale's..."
+- CAUGHT as a known transliteration misspelling, while the pack's own
+pre-existing quoted "Hirshmans Pharmacy" reading two rules away continued to
+pass correctly as evidence throughout, unsuppressed; (5) the UTI page's h2
+"How it works at Hirshmans Chemist" -> "How it works at Hirshmans" (shop-type
+dropped, non-title line) - CAUGHT by the Q14 SHORT-leak guard, Hirshmans
+confirmed one of the checker's own 12 shortenable trading names so this was a
+live rule, not a no-op; (6) build-switch-pages.js's hirshmans_ainsdale CONFIG
+entry widened from `{}` to `{ brand: "Hirshmans Chemist" }`, reintroducing a
+literal Q19 (2026-08-30) removed - CAUGHT, naming the branch id and string.
+CONTROL: an unrelated benign sentence appended to the sore-throat page's
+hero-sub, no brand or shop-type word - correctly PASSED clean, no
+cross-firing, identical NOTE lines to baseline. All seven fired or passed on
+the intended rule, first attempt. Final restore sha256-reconfirmed identical
+on all six touched files; scratch-copy 36-checker re-run 35/36 (the
+documented .git-less check-cdn-pins.js artefact, not a finding); tracked
+repo's branches.json sha256-unchanged throughout, `git status --porcelain`
+on branches.json/modules/core/tools/gbp-packs empty bar the two long-standing
+pre-existing untracked strays (neither touched), full 36-checker suite
+re-run individually against the tracked repo afterwards: 36/36 exit 0. No
+in-repo defect: check-brand-spelling.js already correctly protects Hirshmans
+Ainsdale's own brand spelling on all six rules tested, now proven under this
+item's own pass for the first time.
+LIVE HALF: Claude in Chrome connected, read-only. earache-treatment-
+hirshmans-ainsdale.html re-read in full text: title and every visible brand
+mention (hero, booking sub, "how it works", the Pharmacy First cross-link,
+contact card, both footers, and the switch banner at the top of the page)
+all read "Hirshmans Chemist" consistently, matching the repo source exactly
+as proven by injection 3. No new live finding.
+QUESTIONS: no new QUESTIONS.json entry raised. Total unchanged at 107, 54
+open. Q107 remains open, untouched - not this pass's to resolve.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

@@ -1,0 +1,148 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - twentieth quality pass, 2026-09-16
+Fresh angle: tools/check-brand-spelling.js proven by injection against
+Hirshmans Ainsdale's own data for the first time in twenty passes.
+
+CONTEXT
+-------
+Rotation pool re-derivation (36-item pool = 43 checked AGENT_WORKLIST.md
+items minus the standing out-of-rotation seven: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) via a full-text scan of AGENT_LOG.md matching (?:item|took)\s+<N> and
+taking each pool item's topmost (most recent) line index, then picking the
+item whose own most-recent-mention line index is the LARGEST (= stalest):
+item 3.5 resolved to line 755, the "IMPLEMENTED 2026-09-15 (fifteenth run
+today)" Q46 entry, with 4.7 as runner-up at line 593. Confirmed by reading
+line 755 directly. Taken.
+
+Item 3.5's own block (AGENT_WORKLIST.md lines 5360-6075) records nineteen
+numbered "Quality pass (Nth)" entries plus two same-day unnumbered
+"IMPLEMENTED 2026-09-15" addenda (Q49, then Q46) tacked on after the
+nineteenth. Eighteen distinct checker files were named against this item's
+own Hirshmans Ainsdale data across those twenty entries: check-switch-copy,
+check-whatsapp-route, check-seo-pattern, check-travel-clinic-copy,
+check-pharmacy-first-eligibility, check-seo-lengths, check-seo-sheets,
+check-seo-keywords, check-opening-hours, check-map-embeds, check-jsonld,
+check-gbp-packs, check-contraception-copy, check-branch-links, check-postcodes,
+check-nap, check-live-hours, check-editor-snapshot. check-brand-spelling.js
+(added item 1.1's eighth pass, 2026-08-31, widened repeatedly through the
+ninth 1.1 pass 2026-09-06) had never been named against this item's own pass.
+Genuinely untested angle, not a synthetic gap.
+
+Q107 (raised on the 2026-09-15 Q46 implementation, still open, asks whether
+to extend the meta-description age-cohort treatment to six more Pharmacy
+First conditions) is a scope decision for Rishi, not something this pass
+attempts to resolve or implement around - no autonomous window is open this
+run (checked top of AGENT_LOG.md, no "Standing authorisation" section
+present), and it is not the kind of call this worker makes unprompted in any
+case.
+
+BASELINE
+--------
+Full 36-checker suite run fresh on the tracked repo before any work: 36/36
+exit 0. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (matches
+every prior pass's recorded value). All work below done on a full
+`git archive HEAD | tar -x` scratch copy at /tmp/scratch-3.5; the tracked
+repo's branches.json, modules/, core/, tools/ and gbp-packs/ were never
+opened for writing.
+
+PROOF BY INJECTION
+-------------------
+Six injections plus one control, each targeting Hirshmans Ainsdale's own
+files or its own branches.json record specifically (not a generic estate-wide
+probe), each restored from a saved byte copy and sha256-reconfirmed identical
+before the next:
+
+1. CANON (branches.json): hirshmans_ainsdale.brandLabel changed "Hirshmans
+   Chemist" -> "Hirshmans Chemists" (trailing s added). CAUGHT, both the
+   brandLabel-vs-CANONICAL sub-rule and the branchName-no-longer-matches
+   sub-rule fired together, correctly, since branchName was left untouched.
+
+2. VARIANT, shop-type swap (modules/service/pages/earache-treatment-
+   hirshmans-ainsdale.html line 23, hero-sub paragraph): "Hirshmans Chemist
+   offers..." -> "Hirshmans Pharmacy offers...". CAUGHT, exact line and
+   expected-value message.
+
+3. VARIANT, all-caps (modules/switch/pages/banners/switch-prescriptions-
+   hirshmans-ainsdale.txt line 21, the CONFIG BRAND literal): "Hirshmans
+   Chemist" -> "HIRSHMANS CHEMIST". CAUGHT. This is the ninth 1.1 pass's
+   all-caps rule (added 2026-09-06 after an all-caps brand in a Cherry Lane
+   switch banner passed all 36 checkers), proven against Hirshmans's own
+   banner for the first time - the banner family had never been the subject
+   of an injection under this item's own pass before.
+
+4. MISSPELT (gbp-packs/hirshmans-ainsdale.md line 22, business description
+   opening sentence): "Hirshmans Chemist is Ainsdale's..." -> "Hirschman
+   Chemist is Ainsdale's...". CAUGHT, named as a known transliteration
+   misspelling. Confirms the checker's quote-masking is correctly scoped:
+   the pack's own existing (correct, pre-injection) quoted reading of
+   "Hirshmans Pharmacy" at lines 38 and 128 continued to pass as evidence
+   throughout, never suppressing this unquoted, unrelated injection two rules
+   away.
+
+5. SHORT leak (modules/service/pages/uti-treatment-hirshmans-ainsdale.html
+   line 87, an h2 heading, not the page's SEO title line): "How it works at
+   Hirshmans Chemist" -> "How it works at Hirshmans" (shop-type word
+   dropped). CAUGHT - the Q14/rule 6 guard against the one brand variant this
+   repo manufactures on purpose (the shortened SERP-title form) leaking
+   outside a title line, proven against Hirshmans's own copy for the first
+   time. Hirshmans is confirmed one of the 12 shortenable trading names (the
+   checker's own NOTE line lists it), so this was a live rule for this
+   branch, not a no-op.
+
+6. CONFIG (tools/build-switch-pages.js line 39): hirshmans_ainsdale's CONFIG
+   entry widened from `{}` to `{ brand: "Hirshmans Chemist" }`, reintroducing
+   a hardcoded literal brand exactly where Q19 (2026-08-30) removed one.
+   CAUGHT, naming the branch id and the exact string, first attempt.
+
+CONTROL: modules/service/pages/sore-throat-treatment-hirshmans-ainsdale.html
+line 23 (hero-sub), appended ". Please allow five minutes for your
+consultation." - no brand word, no shop-type word, nothing matching any of
+the six rules' patterns. Correctly PASSED clean, exit 0, identical NOTE lines
+to baseline (the same 10 quoted-evidence readings, the same Hirshmans
+shortenable-brand count), no cross-firing from any rule.
+
+All seven fired or passed on the intended rule, first attempt, no
+cross-contamination between rounds.
+
+RESTORE AND RE-VERIFICATION
+----------------------------
+All six touched files restored byte-identical after every round (sha256
+reconfirmed each time) and a final sha256 pass across all six confirmed
+identical to the recorded baseline hashes. Full 36-checker suite re-run on
+the scratch copy after the final restore: 35/36 - the one non-zero is
+tools/check-cdn-pins.js, the documented .git-less-scratch-copy artefact
+already recorded on other items' passes (e.g. item 4.1's nineteenth pass),
+not a real finding.
+
+Tracked repo re-confirmed throughout: branches.json sha256 unchanged
+(169bb5a2...), `git status --porcelain -- branches.json modules core tools
+gbp-packs` empty bar the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched. Full
+36-checker suite re-run individually against the tracked repo: 36/36 exit 0.
+
+RESULT: no in-repo defect. check-brand-spelling.js already correctly
+protects Hirshmans Ainsdale's own brand spelling across all six rules
+tested (CANON, VARIANT shop-type-swap, VARIANT all-caps, MISSPELT, the Q14
+SHORT-leak guard, and the Q19 CONFIG-literal guard), now proven under this
+item's own pass for the first time.
+
+LIVE HALF
+---------
+Claude in Chrome connected, read-only. earache-treatment-hirshmans-
+ainsdale.html read in full text: title "Earache treatment in Ainsdale -
+Hirshmans Chemist"; every visible brand mention (hero, booking sub, "How it
+works at Hirshmans Chemist", "See all conditions... at Hirshmans Chemist",
+contact card, both footers) reads "Hirshmans Chemist" consistently, no
+variant, no misspelling; the switch banner at the top of the page ("Change
+to Hirshmans Chemist in 30 seconds") also reads correctly, matching the
+repo source exactly as proven by injection 3 above. No new live finding.
+
+QUESTIONS
+---------
+No new QUESTIONS.json entry raised. Total unchanged at 107, 54 open. Q107
+(the Q46 scope-extension decision) remains open and untouched - not this
+pass's to resolve. Nothing found this pass met the bar for a new decision:
+pure re-verification of documented checker behaviour against this item's own
+branch data on a previously untested checker file, no business, legal,
+pricing or regulatory content changed.
