@@ -81,11 +81,28 @@ entry added to the top.
 STEP 8 QUESTIONS: none raised this run. QUESTIONS.json unchanged: 109 total,
 56 open.
 
-STEP 9/10: see the end of this entry for the actual push/publish outcome,
-recorded once known.
+STEP 9/10: committed to agents/audit-backlog via the sandbox shell
+(mcp__workspace__bash) as hash 3f03852 (both `git add` and `git commit`
+threw "unable to unlink" warnings on .git/index.lock and stray
+tmp_obj_* files, the same standing FUSE-mount limitation as ever - commit
+still succeeded, files intact). `git push` from the sandbox failed
+outright with "fatal: could not read Username for 'https://github.com'",
+reconfirming Q87/Q96/Q102's standing finding that the Cowork sandbox has
+no working route to GitHub. Switched to mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy on ProDeskAi per
+Q102's documented route: `git push origin agents/audit-backlog` moved
+origin/agents/audit-backlog from 8afeeff to 3f03852 (git's own progress
+output landed on PowerShell's error stream, which looked like a failure
+at first glance but the push line itself read
+"8afeeff..3f03852  agents/audit-backlog -> agents/audit-backlog"; a
+follow-up `git fetch` + `git rev-parse origin/agents/audit-backlog`
+confirmed the remote now matches local HEAD exactly, "ahead 0"). Then
+`node tools/build-audit-status.js` from the same host published
+reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal via
+the GitHub API, reporting 42/48 done (88%). Both steps completed
+successfully this run.
 
-STEP 11: `.agent-lock` to be deleted at the end of this run regardless of
-outcome.
+STEP 11: `.agent-lock` deleted at the end of this run.
 
 ---
 
