@@ -18167,6 +18167,32 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Weebly session. No new in-repo defect, no new live finding, no new
       question. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-15-seventeenth.txt.
+      Quality pass 2026-09-16 (unattended run, eighteenth pass): stalest item
+      in the rotation pool (35-item pool minus the seven standing
+      out-of-rotation one-offs, re-derived mechanically). Baseline: sha256 of
+      the pack unchanged since 2026-08-04; 36/36 checkers exit 0. NEW ANGLE:
+      the only checker change since the seventeenth pass not yet proven
+      against this pack is commit 6beb676 (item 3.6 nineteenth pass,
+      2026-09-15 19:50:44+01:00, landing after this item's own seventeenth
+      pass the same day), which added gbp-packs to check-brand-spelling.js's
+      rule 6, scoped to the "## 1. Business description" section only.
+      INJECTION: byte-backed up the pack, changed "McCanns Chemist" to
+      "Mc Canns Chemist" in the business description's opening line. RESULT:
+      exit 1, exactly one FAIL, correct line and wording. The same edit also
+      tripped check-gbp-packs.js's pre-existing description-length rule (the
+      added space changed the character count by one) - expected, not a
+      second defect. Full suite: 34/36 exit 0 with the injection in place
+      (the two above), 36/36 after restore. RESTORED by byte copy; sha256
+      reconfirmed identical (fdb1429d...693); git status/diff on the file
+      empty throughout. LIVE HALF (Claude in Chrome, read-only): profile
+      landing page still 404, awaiting the queued paste run; Posts A-D all
+      200 with correct NAP and content; three already-tracked live drifts
+      reconfirmed, none new - the service.js em-dash sentence on Post A
+      (item 5.5/Q13), Post B's unqualified hero copy against the hedged FAQ
+      (Q49, answered, pending Weebly session), and the "Sandrigham Medical
+      Centre" footer typo. No new in-repo defect, no new live finding, no
+      new question; open question count unchanged at 56 of 109. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-16-eighteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
