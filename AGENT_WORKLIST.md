@@ -27363,6 +27363,100 @@ rotation pool fresh rather than trust this note - as computed by this pass
 before selection, the next tier up was {2.3, 3.1, 3.2, 1.2, 1.3, 6.2, 6.3},
 all at 2026-09-12.
 
+ITEM 5.1, TWENTIETH QUALITY PASS (2026-09-16, twenty-seventh unattended run
+today). Rotation pool re-derived fresh per the standing method (Python
+word-boundary scan of AGENT_LOG.md for `\b(?:item|took)\s+<N>\b`, taking each
+of the 35 in-rotation items' topmost/most-recent mention index, picking the
+LARGEST): 5.1 itself came out stalest at char index 190729, ahead of 4.1
+(184923) and 4.14 (180686) - its own nineteenth pass had dropped out of the
+"next tier" the note above named, because five intervening runs (3.13, 6.7,
+4.12, 4.6, 4.11) each mentioned other items without incidentally mentioning
+5.1, pushing its last real mention deeper into the file than any of them.
+
+BASELINE: 36/36 checkers exit 0 before any change.
+
+FRESH ANGLE: rather than mine check-em-dashes.js's own scan scope an
+eleventh level deeper, asked this item's other recurring question of a
+NEIGHBOURING file instead - "two copies that agree are indistinguishable
+from one source of truth right up to the moment somebody edits one," the
+exact reasoning tools/extra-public-copy-files.js's own header gives for why
+it was created on the item 6.2 quality pass (fourth), 2026-08-31: "the
+single source of truth for the six files that carry live estate copy
+without being a generated page," created specifically so check-em-dashes.js
+and check-cdn-pins.js (both scan the same six extra-public-copy files, for
+different reasons) could not drift apart on which files count as public
+copy. Checked which callers actually import it: check-em-dashes.js and
+check-service-links.js both do; tools/check-cdn-pins.js does not - its own
+EXTRA_PASTE (added item 3.4, 2026-08-09; the modules/emar/weebly entry added
+this item's own eleventh pass, 2026-08-31, the SAME day the shared module
+was created) remained a hardcoded six-entry literal that happened to still
+agree with the shared list, six for six, rather than being wired to it.
+Exactly the risk pattern the shared module exists to remove, one checker
+over from where it was fixed.
+
+FIXED IN REPO: tools/check-cdn-pins.js's EXTRA_PASTE now reads
+`require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS.map(segs =>
+segs.join("/"))` instead of its own literal array. Verified content-neutral
+first (both lists compared entry-for-entry, identical) before changing
+anything. `node tools/check-cdn-pins.js` output captured before and after:
+byte-identical (diff empty), same 348 page pins, same "12 reference(s) in 9
+non-generated file(s)" count, same 7 KNOWN lines, same 2 WARN lines. Proved
+the wire is live rather than coincidental by injection: added a seventh,
+nonexistent entry (["modules","does-not-exist","injection-probe.html"]) to
+the shared module and re-ran both dependent checkers - check-cdn-pins.js
+correctly FAILed ("is listed in EXTRA_PASTE but is not in the repo") and,
+independently, check-em-dashes.js also correctly FAILed on the same
+injected entry via its own pre-existing wiring, confirming both checkers
+now move together. Restored the shared module from a pre-edit byte copy;
+sha256 reconfirmed identical (ba376cd7...bcbdaa38); both checkers re-run
+clean, output identical to baseline.
+
+SEPARATE DEFECT FOUND AND FIXED during this pass's own full-36-checker
+re-run (not part of 5.1's own scope, same as the item 6.7 pass's own
+precedent for L9 9ZZ the same day): check-postcodes.js failed with one
+UNKNOWN, because item 4.11's nineteenth pass earlier today quoted its own
+CONTROL injection value "L20 9ZZ" (SK Chemists Bootle's real L20 5DW,
+changed on uti-treatment-sk-chemists-bootle.html to prove no cross-fire
+with check-whatsapp-route.js) in AGENT_LOG.md and its own audit file
+without adding it to NARRATIVE_POSTCODES - the identical gap this list has
+now closed eighteen times over. Fixed in place: added "L20 9ZZ" with the
+standard reason/attribution text, following the L9 9ZZ entry immediately
+above it. `node tools/check-postcodes.js` after: 0 failures, 3 pre-existing
+UNOWNED warnings unrelated to this fix.
+
+Full 36-checker suite re-run after both fixes: 36/36 exit 0 (was 35/36
+before the postcode fix; the cdn-pins rewire alone was already output-
+identical to baseline throughout, never a failure). `git status --porcelain
+-- tools modules core branches.json gbp-packs` shows only the two files
+this pass intended to touch (check-cdn-pins.js, check-postcodes.js) plus
+the same two long-standing pre-existing untracked strays every recent pass
+has recorded and left alone. No generator, page, pack or branches.json
+content changed.
+
+RESULT: one real repo defect fixed (the EXTRA_PASTE list-drift risk, the
+twentieth pass's own finding) plus one separate, already-familiar checker
+gap closed opportunistically (L20 9ZZ) rather than left for tomorrow. No
+sign-off needed for either: both are checker/list maintenance with no
+live/patient-facing copy affected.
+
+LIVE HALF: not attempted. Both fixes are repo-internal (a checker's own
+source-of-truth wiring, and a checker's own exemption list); neither has a
+distinct live surface beyond what other items' own live halves already
+cover today.
+
+WORKLIST (step 7): this paragraph appended in place; item 5.1 stays `[x]`
+(quality pass, not a state change, matching every prior pass's own
+convention).
+
+QUESTIONS (step 8): no new question raised; nothing here needs Rishi's
+decision. QUESTIONS.json not edited this run (step 3 found no new answer;
+see AGENT_LOG.md for the pickup detail).
+
+FORWARD NOTE: with 5.1 now touched again today, re-derive the rotation pool
+fresh rather than trust this note. As computed before selection this pass,
+the next tier up (excluding 5.1 itself and the seven standing one-offs) was
+led by 4.1 (184923) and 4.14 (180686).
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

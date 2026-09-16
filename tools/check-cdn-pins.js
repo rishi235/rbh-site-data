@@ -129,15 +129,26 @@ var KNOWN_DRIFT = [
 // entirely outside the one checker whose job is proving a pin still holds
 // current code. See GENERATORLESS_MODULES below for why modules/emar/emar.css
 // and .js need a further carve-out once they are actually read.
+//
+// Sourced from tools/extra-public-copy-files.js since the item 5.1 quality
+// pass (twentieth), 2026-09-16, rather than kept as this file's own literal
+// copy. That shared module was created on the item 6.2 quality pass (fourth),
+// 2026-08-31 - the SAME day the modules/emar/weebly fix above landed - as
+// "the single source of truth for the six files that carry live estate copy
+// without being a generated page", specifically so check-em-dashes.js and
+// check-cdn-pins.js could not drift apart on which files count as public
+// copy. check-em-dashes.js and check-service-links.js were both wired to it
+// that day; this file was not, and was left holding its own hardcoded
+// EXTRA_PASTE literal that merely happened to still agree, six entries
+// against six, the exact "two copies that agree are indistinguishable from
+// one source of truth right up to the moment somebody edits one" risk this
+// repo's own CLAUDE.md names for the WhatsApp number. No content changed by
+// this fix - both lists were verified identical, six-for-six, before the
+// rewire - only the source of the list.
 // ---------------------------------------------------------------------------
-var EXTRA_PASTE = [
-  "modules/switch/weebly.html",
-  "modules/emar/weebly",
-  "modules/service/weebly-paste/cherry-lane-old-pharmacy-first-replacement.html",
-  "modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html",
-  "modules/service/DRAFT-weight-loss-copy.html",
-  "modules/service/DRAFT-travel-clinic-copy.html"
-];
+var EXTRA_PASTE = require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS.map(function (segs) {
+  return segs.join("/");
+});
 
 var EXTRA_RUNTIME = [
   "modules/service/service.js",

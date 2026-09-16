@@ -1,3 +1,103 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-seventh run today; mcp__workspace__bash used for lock handling, repo reads, checker runs and injection/restore testing directly against the tracked repo via /tmp byte backups (no scratch copy needed, both fixes were single-file edits); mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab; Read/Edit used for tools/check-cdn-pins.js, tools/check-postcodes.js, AGENT_WORKLIST.md, this entry) - Item 5.1 (em dashes / public-copy checker maintenance) twentieth quality pass.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp. `git checkout agents/audit-backlog` failed on
+`.git/HEAD.lock` (0 bytes, ~17 minutes old, no git process running in this
+sandbox's own process table) - the same standing FUSE-mount
+unlink-blocked-rename-permitted shape Q87/Q96/Q102 and every recent entry
+document. `rm -f` failed "Operation not permitted"; `mv .git/HEAD.lock
+.git/HEAD.lock.<ts>` succeeded. Retry then hit `.git/index.lock`, auto-created
+and auto-cleared by git's own retry with only a harmless "unable to unlink"
+warning, no separate action needed. `git fetch`/`checkout`/`pull --ff-only`
+then completed normally, already up to date with origin/agents/audit-backlog
+at 14abce033b732a978b51213c6b6ebf36977044fd.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully first attempt. Newest entry still Q52 (2026-09-01), already
+applied. Cross-checked all 56 currently-open questions (of 109 total)
+against the full feedback payload by id: no answer present for any of them.
+Confirmed Q37 and Q43 specifically remain correctly open (both have portal
+replies already recorded and already judged non-actionable - "i need further
+explanation..." and "Unsure..." respectively - no new reply since). No
+QUESTIONS.json change made.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md (the
+twenty-sixth run's own entry, now below this one) before adding this entry -
+no "Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked
+lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still
+`[BLOCKED]`. No actionable unchecked item; fell to the quality-pass
+fallback.
+
+ROTATION POOL: 35 checked items (42 total minus the seven standing
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), re-derived with
+the standard Python word-boundary scan of `\b(?:item|took)\s+<N>\b` across
+AGENT_LOG.md, taking each item's topmost (most recent) mention index and
+picking the LARGEST (= least recently mentioned). 5.1 came out stalest at
+char index 190729, ahead of 4.1 (184923) and 4.14 (180686) - verified this
+wasn't a false read by grepping the raw "5.1" substring (not just the
+word-bounded phrase) across the first 190729 characters of the file: the
+only hits were incidental ("ahead of 5.1 (...)" inside other items' own
+rotation-pool writeups), none an actual "item 5.1" mention, so the
+computation is sound. Picked item 5.1 for a twentieth quality pass.
+
+WORK DONE (item 5.1, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 5.1 paragraph; summarised here. Baseline: 36/36
+checkers exit 0. Fresh angle: checked which of the three checkers that read
+tools/extra-public-copy-files.js (created item 6.2's fourth pass,
+2026-08-31, explicitly to stop check-em-dashes.js and check-cdn-pins.js
+disagreeing on which six files carry live estate copy without being a
+generated page) actually import it. check-em-dashes.js and
+check-service-links.js both do; tools/check-cdn-pins.js did not - its own
+EXTRA_PASTE, whose sixth entry (modules/emar/weebly) was added on this
+item's own eleventh pass the SAME day the shared module was created, stayed
+a hardcoded literal that merely happened to still agree with it, six for
+six. FIXED: check-cdn-pins.js's EXTRA_PASTE now derives from
+`require("./extra-public-copy-files.js").EXTRA_HTML_SEGMENTS`. Verified
+content-neutral before changing anything (both lists compared, identical);
+`node tools/check-cdn-pins.js` output captured before and after the rewire -
+byte-identical, diff empty. Proved the wire is live, not coincidental: added
+a fake seventh entry to the shared module, re-ran both dependent checkers -
+check-cdn-pins.js and check-em-dashes.js both correctly FAILed on it
+independently; restored the shared module from a pre-edit byte copy, sha256
+reconfirmed identical (ba376cd7...bcbdaa38), both checkers back to clean,
+output identical to baseline.
+
+SEPARATE DEFECT FOUND AND FIXED during this pass's own full-36-checker
+re-run, one file over from 5.1's own scope (same precedent as the item 6.7
+pass's own same-day fix for L9 9ZZ): check-postcodes.js FAILed with one
+UNKNOWN, because item 4.11's nineteenth pass earlier today (this run's
+immediate predecessor) quoted its own CONTROL injection value "L20 9ZZ" in
+AGENT_LOG.md and its own audit file without adding it to
+NARRATIVE_POSTCODES - the same gap this list has now closed eighteen times.
+Fixed in place: added "L20 9ZZ" with the standard reason/attribution text.
+`node tools/check-postcodes.js` after: 0 failures (3 pre-existing UNOWNED
+warnings, unrelated).
+
+Full 36-checker suite re-run after both fixes: 36/36 exit 0 (was 35/36
+before the postcode fix). `git status --porcelain -- tools modules core
+branches.json gbp-packs`: only the two intended files
+(tools/check-cdn-pins.js, tools/check-postcodes.js) plus the same two
+long-standing pre-existing untracked strays every recent pass has recorded
+and left alone (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak). No
+generator, page, pack or branches.json content changed.
+
+LIVE HALF: not attempted - both fixes are repo-internal checker/source-of-
+truth maintenance with no distinct live surface.
+
+WORKLIST (step 7): AGENT_WORKLIST.md's item 5.1 paragraph appended in place;
+stays `[x]` (quality pass, not a state change).
+
+QUESTIONS (step 8): no new question raised; QUESTIONS.json not edited this
+run (no answer arrived in step 3; nothing this pass found needs Rishi's
+decision - both fixes are checker/list maintenance with no live or
+patient-facing copy affected).
+
+Full detail in AGENT_WORKLIST.md's item 5.1 entry.
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-sixth run today; mcp__workspace__bash used for lock handling, repo reads, byte-copy scratch-directory injection testing under the outputs mount and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool/tabs_close_mcp used for both the step 3 answer-pickup fetch and the item 4.11 brief live-half DOM read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.11 (SK Chemists Bootle pack) nineteenth quality pass: tools/check-whatsapp-route.js, never once named against this branch across eighteen prior passes, proven by three injections against SK Chemists Bootle's own generated pages plus one control, matching the method item 3.13 established for Clear Chemist Aintree. First scratch-copy attempt (tar piped through a subshell) produced a corrupted copy - modules/service/pages/weight-loss-clinic-tiffenbergs-aintree.html landed as 0 bytes against the tracked file's 14107, caught by a baseline 36-checker run showing 9 unexpected failures rather than the expected single .git-less exception, traced to the empty file via check-nap.js's own MISMATCH output, and the corrupted scratch copy abandoned outright (not trusted, not partially reused) rather than patched. Redone as a direct per-directory cp -r of the working tree only (modules, tools, gbp-packs, core, brand, compliance, scripts, status, branches.json, and the root markdown/JSON files the checkers read; .git deliberately excluded, matching the documented check-cdn-pins.js exception) under a fresh scratch directory; 291/291 files sha256-verified byte-identical to the tracked repo, including the previously-corrupted file. Baseline confirmed clean this time: branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing regression anchor), pack sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da (matching all eighteen prior passes), 35/36 checkers exit 0 on the scratch copy (check-cdn-pins.js's known .git-less exception; re-run separately against the tracked repo, exit 0 clean, 3 known warnings). Three injections, each restored by byte copy and sha256-reconfirmed before the next: (1) rule 4, page agreement - earache-treatment-sk-chemists-bootle.html's data-wa changed to "447000000000" - CAUGHT; (2) rule 6, orphan button - shingles-treatment-sk-chemists-bootle.html's data-wa removed, its svc-wa button left in place - CAUGHT (first attempt at the token injection below used a </body>-anchored sed against a fragment-style page with no </body> tag, silently matched nothing; caught by re-grepping for the token post-edit before drawing a conclusion, corrected by appending the line directly); (3) rule 5, unreplaced token - sinusitis-treatment-sk-chemists-bootle.html given a trailing {{BRANCH_PROMO_CODE}} placeholder - CAUGHT. CONTROL: uti-treatment-sk-chemists-bootle.html's visible postcode changed to L20 9ZZ (two occurrences, contact line and JSON-LD) - zero mentions in check-whatsapp-route.js's output, confirming no cross-fire; independently confirmed check-nap.js (four MISMATCH lines) and check-postcodes.js (one UNKNOWN line) both do catch the same injection by name, so the control was a real fault in someone else's territory, not untested ground. All four pages restored, sha256-reconfirmed identical to their pre-injection originals (earache 1c3813eb...41575, shingles 12fa2ecb...002a40c5, sinusitis bc281d57...0a0b55a7, uti 03add12e...8db98a718f). Final 36-checker suite re-run on the scratch copy: 35/36 exit 0 (same known exception). Tracked repo reconfirmed untouched throughout: git status --porcelain showed only the long-standing pile of pre-existing untracked debris from prior runs' own lock/infrastructure testing (none of it new this run; all scratch work stayed under the outputs mount); git diff --stat empty; sha256 of the four touched pages, the pack and branches.json all unchanged from their tracked-repo values. No in-repo defect found; no checker, pack, page, generator or data field changed; no new question raised. Guard coverage for item 4.11 now extends to 12 of the 36 checkers proven by direct injection against this branch specifically. LIVE HALF (brief, time-budgeted): fetched earache-treatment-sk-chemists-bootle.html live via Claude in Chrome and read the DOM directly (not just extracted text) - data-wa="447521775631" matches branches.json and the agreed number, the svc-wa button is present; the button's raw href attribute is a same-page anchor rather than a wa.me link, consistent with service.js building the wa.me destination via a click handler at runtime rather than a static href and outside this checker's repo-side scope, not treated as a defect (matches the shape already accepted in item 3.13's own live-half read). Full sitemap/contactus.html re-read not repeated this pass (done fully on the eighteenth pass one day earlier, 2026-09-15, including the still-open complaints-phone-number finding cross-referenced against Q39; unchanged in one day, not worth a third same-day fetch given the run's own time budget). LOCK CHECK: `.agent-lock` absent at start, wrote a fresh UTC timestamp; `git fetch`/`checkout`/`pull` completed normally, already up to date with origin/agents/audit-backlog. A fresh `.git/index.lock` appeared during this run's own `git status` calls (0 bytes, matching the standing FUSE-mount unlink-blocked-rename-permitted shape Q87/Q96/Q102 document); cleared once by `mv` to a `.probe-<timestamp>` suffix, then observed regenerating harmlessly on subsequent git commands (each one warns "unable to unlink" but still completes and reports correctly) - not chased further, consistent with every prior run's own finding that these warnings do not block the underlying command. ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read successfully first attempt; newest entry still Q52 (2026-09-01), already applied; no answer present for any of the 56 currently open questions (of 109 total); no status change made, no new question raised. AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before adding this entry - no "Standing authorisation - autonomous window" section present. Not applicable; step 7 applies as written. WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still `[BLOCKED]`. No actionable unchecked item; fell to the quality-pass fallback. ROTATION POOL: 35 checked items (42 total minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), re-derived with the standard Python word-boundary scan of `\b(?:item|took)\s+<N>\b` across AGENT_LOG.md taking each item's topmost mention index; 4.11 came out stalest at char index 190108, ahead of 5.1 (183556) and 4.1 (177750) - 4.6 dropped out of contention this run after the twenty-fifth run's own pass moved it to the top of the log. Full detail in AGENT_WORKLIST.md's item 4.11 entry and audits/sk-chemists-bootle-whatsapp-4.11-nineteenth-2026-09-16.txt.
 
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-fifth run today; mcp__workspace__bash used for lock handling, repo reads, byte-copy scratch backup/injection testing under the outputs mount and checker runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for both the step 3 answer-pickup fetch and the item 4.6 live-half four-post/landing-page read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, tools/check-brand-spelling.js (read only, not edited), this entry and the new audits file) - Item 4.6 (McCanns Chemist Aigburth GBP pack) eighteenth quality pass: check-brand-spelling.js's rule 6 gbp-packs coverage, added item 3.6's nineteenth pass (commit 6beb676, 2026-09-15 19:50:44+01:00, landing after this item's own seventeenth pass the same day) and proven only against McCanns Sandringham and the Cherry Lane/Riddings street-name mask, never against this pack. Baseline: sha256 of the pack unchanged since 2026-08-04 (fdb1429d...693), 36/36 checkers exit 0. INJECTION: byte-backed up the tracked pack under the outputs scratch directory (not git stash/checkout), changed "McCanns Chemist" to "Mc Canns Chemist" in the opening line of the "## 1. Business description" section, the one part of the file the new rule actually scans and the exact near-miss its own /\bMc\s+Canns?(?:'s)?\b/g pattern targets. RESULT: exit 1, exactly one FAIL, correct line ("gbp-packs/mccanns-aigburth.md:21") and correct wording. The same one-character-longer edit also tripped check-gbp-packs.js's pre-existing declared-vs-actual description length rule (725 claimed, 726 actual) - expected collateral from a text-length change, not a second defect, recorded so the two-checker failure count is not mistaken for a wider break. Full 36-checker suite with the injection in place: 34/36 exit 0, both explained failures the only ones, no cross-fire elsewhere. RESTORED by byte copy; sha256 reconfirmed identical to baseline; git status --porcelain and git diff --stat on the file both empty throughout. Full 36-checker suite re-run after restore: 36/36 exit 0. LIVE HALF via Claude in Chrome (read-only): profile-website landing page (pharmacy-mccanns-aigburth.html) still 404, unchanged, awaiting the queued paste run (items 5.3/5.4); Posts A, B, C, D all 200 with correct NAP, trading name and content. Three already-tracked live drifts reconfirmed, none new: an em dash in Post A's "New to Pharmacy First?" video prompt ("...works — no GP appointment..."), part of the standing service.js finding tied to item 5.5/Q13 (blocked pending the service-module-phase1 fast-forward and a repaste); Post B's unqualified hero copy ("We contact your GP. We handle everything. You do nothing.") against Q49's own hedged FAQ answer, already open and already answered pending the same Weebly session; and the "Sandrigham Medical Centre" footer typo on all four live pages. No new in-repo defect, no new live finding, no new question. LOCK CHECK: `.agent-lock` absent at start, wrote a fresh UTC timestamp. `git fetch` succeeded but `git checkout agents/audit-backlog` then failed on `.git/HEAD.lock` (0 bytes, dated 15:12:55 same day, matching the timestamp of the branch's own latest commit exactly - almost certainly a prior run's own commit-lock cleanup that itself failed to unlink rather than any live process; `ps aux` showed no git process running in this sandbox). `rm -f`/`chmod+rm` both failed with "Operation not permitted" on this FUSE mount, the same unlink-blocked-rename-permitted shape Q87/Q96/Q102 already document; `ls .git/ | grep -c "\.lock\."` counted 1056 similar dated debris files already accumulated since 2026-09-04 from prior runs' identical workaround, confirming this is long-standing mount behaviour rather than a new fault. Cleared via `mv .git/HEAD.lock .git/HEAD.lock.<ts>`; retry then hit `.git/index.lock` (auto-created and auto-cleared successfully by the same `git status`/`checkout` call, no separate action needed) and afterwards a fresh `.git/ORIG_HEAD.lock` left by the successful `git pull`, cleared the same way. `git checkout`/`git pull --ff-only` then completed normally, already up to date with origin/agents/audit-backlog. None of the renamed lock artefacts could be deleted for the same reason and were left in place, joining the existing pile - out of scope for a single quality-pass item to clean up. ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read successfully first attempt; newest entry still Q52 (2026-09-01), already applied; no answer present for any of the 56 currently open questions (of 109 total); no status change made, no new question raised. AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before adding this entry - no "Standing authorisation - autonomous window" section present. Not applicable; step 7 applies as written. WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still `[BLOCKED]`. No actionable unchecked item; fell to the quality-pass fallback. ROTATION POOL: 35 checked items (42 total minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), re-derived with the standard Python word-boundary scan of `\b(?:item|took)\s+<N>\b` across AGENT_LOG.md taking each item's topmost mention index; 4.6 came out stalest at char index 191285 (an incidental "ahead of item 4.6's block" mention in 4.5's own seventeenth-pass entry, not substantive prior work on 4.6 itself, but the same mechanical method prior runs have always used), ahead of 4.11 (184321) and 5.1 (177769). Full detail in AGENT_WORKLIST.md's item 4.6 entry and audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-16-eighteenth.txt.
