@@ -1,0 +1,107 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton) - nineteenth quality pass
+2026-09-16, unattended scheduled run, audit-backlog-worker (twentieth run today)
+
+CHECKER UNDER FRESH TEST: tools/check-opening-hours.js, named by the
+eighteenth pass's own forward note as untested against this branch across
+eighteen prior passes. Chosen from that pass's 19-item candidate list because
+Coleman and Leighs (colemanleigh_liverpool) is one of the seven branches in
+the estate that closes for lunch (a split Monday-Friday day: 09:00-13:00 and
+14:00-18:00), which is exactly the shape check-opening-hours.js was written
+to protect (the original McCanns defect it was built against). The branch has
+no landing page (confirmed on the eighteenth pass, check-nap.js), so rules
+1-7 and 9 do not apply to it directly; rule 10 (JSON-LD opening hours on its
+12 switch/service-family pages checked against branches.json) is the rule
+this branch is actually exposed through, and is where this pass concentrated.
+
+METHOD
+Baseline: full 36-checker suite run individually against the tracked repo
+before starting - 36/36 exit 0. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, matches every prior pass, unchanged throughout this one).
+
+Full repo git-archived (`git archive HEAD | tar -x`) to a disposable scratch
+directory outside the tracked tree; the tracked repo was never opened for
+writing during the injection round. Scratch check-opening-hours.js run first
+to confirm it reproduced the tracked baseline exactly: 6 landing pages
+checked, 171 rule-10 pages checked, colemanleigh_liverpool correctly named
+among the seven split-day branches, clean.
+
+Four injections against three of Coleman and Leighs's own 12 generated
+pages, each restored from a saved original and sha256-reconfirmed identical
+before the next:
+
+1. sore-throat-treatment-coleman-leigh-walton.html: the first Monday-Friday
+   session's JSON-LD "closes" changed from "13:00" to "14:00" (collapsing the
+   lunch closure). CAUGHT: "JSON-LD opening hours do not match branches.json
+   for colemanleigh_liverpool", page and data rows printed and correctly
+   different only on the tampered close time.
+
+2. pharmacy-first-coleman-leigh-walton.html: the entire
+   openingHoursSpecification key removed from the page's JSON-LD object
+   (surgical removal via json.loads/dump so the block stayed valid JSON,
+   isolating this from a parse-error result). CAUGHT: "branches.json carries
+   opening hours for colemanleigh_liverpool but the page has no
+   openingHoursSpecification" - the missing-schema half of rule 10, not
+   merely the mismatch half tested in (1).
+
+   (A first attempt at this injection used a regex that left the surrounding
+   JSON malformed; check-opening-hours.js caught that too, via its own
+   JSON.parse failure path, but that tested a different code path than
+   intended, so it was restored and redone with a clean key deletion to
+   isolate rule 10's own missing-schema branch specifically.)
+
+3. switch-prescriptions-coleman-leigh-walton.html: an extra Saturday
+   09:00-12:00 session appended to the JSON-LD array. Coleman and Leighs is
+   closed Saturday and Sunday (closedDays). CAUGHT: "JSON-LD opening hours do
+   not match branches.json for colemanleigh_liverpool", the injected Saturday
+   session named on the page side and absent from the data side.
+
+4. CONTROL: on the same switch page, the JSON-LD telephone field changed to
+   an unrelated number (0151 525 9999), leaving hours untouched. check-
+   opening-hours.js: clean, zero mentions of the switch page - confirms the
+   checker is not cross-firing on an unrelated JSON-LD edit (a phone mismatch
+   here is check-nap.js's and check-jsonld.js's job, not this checker's).
+
+All four injections caught on the intended rule with no unexplained
+collateral; the control fired nothing. Every injected file restored from its
+saved original and sha256-reconfirmed byte-identical to the pre-injection
+scratch copy before the next injection began.
+
+Full 36-checker suite re-run on the scratch copy after all four injections
+and restores: 35/36 exit 0, the one failure being check-cdn-pins.js's
+long-documented .git-less scratch artefact (git archive extraction carries no
+.git, so ref resolution against the pinned CDN refs fails; unrelated to this
+pass and previously recorded on numerous prior quality passes).
+
+Tracked repo reconfirmed untouched throughout: branches.json sha256
+unchanged; `git status --porcelain -- modules core branches.json gbp-packs
+tools` showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; full
+36-checker suite re-run individually against the tracked repo after the
+injection round, 36/36 exit 0.
+
+RESULT: no in-repo defect found. check-opening-hours.js's rule 10 (JSON-LD
+opening hours vs branches.json on service-family and switch pages) is now
+proven by direct injection against Coleman and Leighs specifically, on both
+the mismatch and missing-schema failure paths, with a clean control.
+
+Guard coverage for item 3.9: 2 of the 20 previously-untested checkers now
+proven by direct injection against this branch (check-nap.js from the
+eighteenth pass, check-opening-hours.js from this one). Eighteen remain:
+check-address-region.js, check-app-membership.js, check-booking-routes.js,
+check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-keywords.js, check-seo-sheets.js,
+check-uk-spelling.js, check-url-scheme.js, check-whatsapp-route.js,
+check-widget-diaries.js - a candidate list for a twentieth pass.
+
+LIVE HALF: not attempted this pass. Scope was the repo/data-schema layer
+only, matching the eighteenth pass's own scoping.
+
+STEP 3 answer pickup (this run): portal feed read in full via a single
+Claude-in-Chrome tab (navigate + get_page_text), one tab, opened and closed
+cleanly. Newest entry still Q52 (2026-09-01), already applied. No answer
+present for any of the 56 currently open questions (Q53 onward). QUESTIONS.json
+unchanged: 109 total, 56 open. No new question raised this pass.

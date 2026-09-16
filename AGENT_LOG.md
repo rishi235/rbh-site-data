@@ -1,3 +1,77 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twentieth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on a disposable scratch copy under the outputs mount (tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.9 (Coleman and Leighs Pharmacy, Walton) nineteenth quality pass: checker under fresh test tools/check-opening-hours.js, named by the eighteenth pass's own forward note as untested against this branch across eighteen prior passes. Chosen because Coleman and Leighs is one of the seven split-day (lunch closure) branches in the estate, the exact shape this checker was originally built to protect (the 2026-08-10 McCanns defect). The branch has no landing page, so rules 1-7 and 9 do not apply; rule 10 (JSON-LD opening hours on its 12 switch/service-family pages vs branches.json) is what actually exposes it, and is where this pass concentrated. Full repo git-archived to a disposable scratch copy, tracked repo never opened for writing. Four injections against three of its own pages, each restored and sha256-reconfirmed before the next: (1) sore-throat-treatment-coleman-leigh-walton.html's morning session closing time changed 13:00 to 14:00, collapsing the lunch closure - CAUGHT, JSON-LD/branches.json mismatch named exactly; (2) pharmacy-first-coleman-leigh-walton.html's entire openingHoursSpecification key surgically removed from otherwise-valid JSON-LD - CAUGHT by rule 10's missing-schema branch specifically (a first attempt left the JSON malformed and was caught by a different code path instead, so it was redone as a clean key deletion to isolate the intended rule); (3) switch-prescriptions-coleman-leigh-walton.html given an extra Saturday session the branch does not trade (closed Sat/Sun) - CAUGHT, injected session named on the page side, absent from the data side. CONTROL: the same switch page's JSON-LD telephone changed to an unrelated number, hours untouched - zero mentions of the page, confirming no cross-fire with check-nap.js/check-jsonld.js's own territory. All three injections caught on the intended rule, control silent. Full 36-checker suite re-run on the scratch copy after all injections and restores: 35/36 exit 0, the one failure being check-cdn-pins.js's long-documented .git-less scratch artefact (unrelated). Tracked repo reconfirmed untouched throughout: branches.json sha256 169bb5a2...b102 unchanged, git status showing only the two long-standing pre-existing untracked strays, neither touched; full 36-checker suite re-run individually against the tracked repo after the injection round, 36/36 exit 0. No generator, page, checker or branches.json content changed; no defect found. Guard coverage for item 3.9 now extends to 2 of the 20 previously-untested checkers (check-nap.js from the eighteenth pass, check-opening-hours.js from this one); eighteen remain, listed as a candidate list for a twentieth pass. STEP 3 answer pickup: portal feed read in full via a single Claude-in-Chrome tab, no dual sign-in issue this run; newest answer still Q52 (2026-09-01), already applied; no answer present for any of the 56 currently open questions (Q53 onward); no status change made, no new question raised. See full detail below and in audits/coleman-leighs-opening-hours-3.9-nineteenth-2026-09-16.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at
+sandbox start (confirmed clean, no stale lock to clear). Wrote a fresh UTC
+timestamp. `git fetch origin`, `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` all completed normally
+with no lock contention - local HEAD already matched
+`origin/agents/audit-backlog` before and after. A fresh `.git/index.lock`
+created by this run's own `git status` call was cleared by rename
+(`.git/index.lock.cleared-<timestamp>`) before staging the commit, since
+this sandbox's FUSE mount cannot unlink it directly (standing limitation,
+Q87/Q96/Q102) - it was 32 seconds old, not stale, simply in the way.
+
+ANSWER PICKUP (step 3, this run): see the summary line above. Portal feed
+read via mcp__claude-in-chrome__navigate + get_page_text against
+https://data.rbhealth.co.uk/api/feedback, one tab, opened and closed
+cleanly. Newest entry Q52, dated 2026-09-01 - already applied. No answer
+present for any of the 56 currently open questions. QUESTIONS.json
+unchanged.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of
+AGENT_LOG.md (the nineteenth run's own entry, now below this one) before
+adding this entry - no "Standing authorisation - autonomous window"
+section present. Not applicable; step 7 applies as written, no autonomous
+decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` -
+8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines
+under 6.4/6.5/6.6), all 8 still carry [BLOCKED], unchanged since the
+nineteenth run. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL (this run): 42 checked AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) = a 35-item pool. Re-derived with a Python word-boundary scan of
+`\b(?:item|took)\s+<N>\b` across AGENT_LOG.md, taking each pool item's
+topmost (most recent, since new entries are appended to the top of the
+log) mention index and picking the item whose own topmost-mention index
+was LARGEST (= least recently mentioned). 3.9 came out stalest (index
+189348), just ahead of 3.12 (185445). Picked item 3.9 for a nineteenth
+quality pass.
+
+WORK DONE (item 3.9, nineteenth quality pass): see AGENT_WORKLIST.md's own
+paragraph and audits/coleman-leighs-opening-hours-3.9-nineteenth-2026-09-16.txt
+for the full method and rule-by-rule detail, summarised above. No defect
+found; checker proven clean and correctly firing on all three injected
+faults plus a silent control.
+
+HYGIENE: the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak) confirmed still present and
+still untouched; no new stray created this run beyond the scratch copy and
+backup files, both held outside the tracked repo (under the outputs mount)
+and deleted before this entry was written.
+
+STEP 7 (this run): AGENT_WORKLIST.md's 3.9 block updated in place with
+this pass's paragraph (not moved, not re-ticked - 3.9 was already [x]).
+This log entry added to the top.
+
+STEP 8 QUESTIONS: none raised this run. QUESTIONS.json unchanged: 109
+total, 56 open.
+
+STEP 9/10: committed and pushed to agents/audit-backlog; status page
+republished via tools/build-audit-status.js. See `git log` on this branch
+for the exact hash - this entry was written before the commit was made,
+per the established running order (write the log entry describing the
+intended commit, then commit everything including the log entry itself in
+one shot).
+
+STEP 11: `.agent-lock` deleted at the end of this run regardless of
+outcome.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, nineteenth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on a disposable scratch copy under the outputs mount (tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for tools/check-service-links.js, AGENT_WORKLIST.md, this entry and the new audits files) - Item 6.2 (broken internal links / link-target integrity) sixteenth quality pass: ONE REAL DEFECT FOUND AND FIXED in tools/check-service-links.js, the checker rather than a page. FRESH ANGLE, found by grepping this item's own fifteen-pass history for "disposed"/"disposedHosts"/"Wilmslow" first (all hits were narrative references to the actual 1 July 2026 Wilmslow disposal, none a test of the checker's own behaviour): estateHosts is built with `if (b.disposed || !b.website) return;`, so once a branch is marked disposed its domain drops out of estateHosts - correct for every rule asking "is this a current branch domain" - but RULE 1's absolute-link branch then treats ANY link to that now-excluded host as "external, out of scope by design" and skips it silently, forever, with no rule in the checker ever looking at it again. Proved by injection on a git-archived scratch copy: marked gordonshorts_crosby disposed, removed its own eleven generated pages (the correct disposal order per every build-*.js's own `if (b.disposed) throw ...` guard), appended an absolute link on a live Riddings page to the now-disposed host - the pre-fix checker exited 0, "clean", no mention of the injected link anywhere. FIXED checker, same injection: exit 1, "FAIL [disposed-branch target] ...: links to www.gordonshortchemist.co.uk/..., a branch domain no longer in the group". Sister-host edge case also tested (scorah_hazel disposed while scorah_bramhall keeps the same host live): correctly falls through to the PRE-EXISTING "stale target"/"page(s) not attributable" rules rather than being misclassified, since a still-live sister keeps the shared host out of the new disposedHosts set. Zero live branches are disposed today (Wilmslow was removed from branches.json entirely rather than marked disposed), so this is a latent gap, not a live breach - the same shape every 6.2 finding before this one has taken. Full 36-checker suite clean on the tracked repo before and after; check-service-links.js's own output on the tracked repo is byte-identical to the pre-fix baseline (177 pages, 1000 links, 423 estate links, 13 domains, 6 known issues, clean) - zero behaviour change on the live tree, since 0 branches are currently disposed. git status confirms only tools/check-service-links.js changed, plus the two pre-existing untracked strays already documented in prior entries. STEP 3 answer pickup: portal feed (https://data.rbhealth.co.uk/api/feedback) read in full via a single Claude-in-Chrome tab, no dual sign-in issue this run; newest answer in the feed is Q52 (2026-09-01), already applied by a prior run; none of the 56 currently open questions (Q53 onward) have any portal answer yet; Q37 and Q43 confirmed still correctly left "open" as non-decisions ("i need further explanation..." / "Unsure..."), matching the eighteenth run's own note - no status change made, no new question raised. See full detail below and in audits/verify-6.2-2026-09-16-sixteenth.js / audits/verify-6.2-2026-09-16-sixteenth-output.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at

@@ -10627,6 +10627,68 @@ Done 2026-09-16 (nineteenth pass).
       check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
       check-whatsapp-route.js, check-widget-diaries.js - a candidate list
       for a nineteenth pass. Done 2026-09-15.
+
+      Quality pass 2026-09-16 (nineteenth, unattended scheduled run,
+      audit-backlog-worker, twentieth run today). Checker under fresh test:
+      tools/check-opening-hours.js, chosen from the eighteenth pass's own
+      19-item candidate list because Coleman and Leighs is one of the seven
+      split-day (lunch closure) branches in the estate, the exact shape this
+      checker was built to protect. The branch has no landing page, so rules
+      1-7 and 9 do not apply; rule 10 (JSON-LD hours on its 12 switch/service-
+      family pages vs branches.json) is what actually exposes it, and is
+      where this pass concentrated.
+
+      Full detail in
+      audits/coleman-leighs-opening-hours-3.9-nineteenth-2026-09-16.txt. In
+      brief: baseline branches.json sha256 169bb5a2...b102 (standing anchor,
+      unchanged throughout), full 36-checker suite clean on the tracked repo
+      before starting. Full-repo scratch copy via `git archive HEAD | tar -x`,
+      tracked repo never opened for writing during the injection round. Four
+      injections, each restored and sha256-reconfirmed before the next: (1)
+      sore-throat-treatment-coleman-leigh-walton.html's morning session
+      closing time changed 13:00 to 14:00 (collapsing the lunch closure) -
+      CAUGHT, JSON-LD/branches.json mismatch named exactly; (2) pharmacy-
+      first-coleman-leigh-walton.html's entire openingHoursSpecification key
+      removed from otherwise-valid JSON-LD - CAUGHT by rule 10's missing-
+      schema branch specifically (a first attempt left the JSON malformed and
+      was caught by a different code path, so it was redone as a clean key
+      deletion to isolate the intended rule); (3) switch-prescriptions-
+      coleman-leigh-walton.html given an extra Saturday session the branch
+      does not trade - CAUGHT, injected session named on the page side,
+      absent from the data side. CONTROL: the same switch page's JSON-LD
+      telephone changed to an unrelated number, hours untouched - zero
+      mentions of the page, confirming no cross-fire with check-nap.js/
+      check-jsonld.js's own territory. All three injections caught on the
+      intended rule, control silent.
+
+      Full 36-checker suite re-run on the scratch copy after all injections
+      and restores: 35/36 exit 0, the one failure being check-cdn-pins.js's
+      documented .git-less scratch artefact (unrelated). Tracked repo
+      reconfirmed untouched: branches.json sha256 unchanged, `git status
+      --porcelain -- modules core branches.json gbp-packs tools` showing only
+      the two long-standing pre-existing untracked strays
+      (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither touched; full
+      36-checker suite re-run individually against the tracked repo, 36/36
+      exit 0. No generator, page, checker or branches.json content changed;
+      no defect found.
+
+      LIVE HALF: not attempted this pass, repo/data-schema scope only.
+
+      Guard coverage for item 3.9 now extends to 2 of the 20 previously-
+      untested checkers proven by direct injection against Coleman and
+      Leighs specifically (check-nap.js from the eighteenth pass,
+      check-opening-hours.js from this one). Eighteen remain:
+      check-address-region.js, check-app-membership.js,
+      check-booking-routes.js, check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-live-hours.js, check-page-coverage.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+      check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+      check-whatsapp-route.js, check-widget-diaries.js - a candidate list
+      for a twentieth pass. No question raised. QUESTIONS.json unchanged:
+      109 total, 56 open. Done 2026-09-16.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
