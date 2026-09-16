@@ -60,12 +60,33 @@ This log entry added to the top.
 STEP 8 QUESTIONS: none raised this run. QUESTIONS.json unchanged: 109
 total, 56 open.
 
-STEP 9/10: committed and pushed to agents/audit-backlog; status page
-republished via tools/build-audit-status.js. See `git log` on this branch
-for the exact hash - this entry was written before the commit was made,
-per the established running order (write the log entry describing the
-intended commit, then commit everything including the log entry itself in
-one shot).
+STEP 9/10: committed to agents/audit-backlog via the sandbox shell
+(mcp__workspace__bash) as hash c8b29bb. `git push` from the sandbox failed
+outright with "fatal: could not read Username for 'https://github.com'" -
+no credential helper, no .netrc, no GITHUB_TOKEN-shaped variable in this
+session, reconfirming Q87/Q96's standing finding that the Cowork sandbox
+has no working route to GitHub. Per Q102's already-documented route (which
+this run independently reconfirms rather than re-discovers), switched to
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy on ProDeskAi: `git push origin agents/audit-backlog` succeeded
+cleanly with no credential prompt (host's credential.helper=manager, per
+Q102), moving origin/agents/audit-backlog from 920065e to c8b29bb, then
+`git fetch` + `git status` from the same host confirmed "up to date with
+origin/agents/audit-backlog". `node tools/build-audit-status.js` run the
+same way published reports/digital/Digital_Audit_Status.html cleanly
+(42/48 done, 88%) with no ENOENT - the hardcoded `C:/Dev/rbh-site-data`
+path Q87 flagged resolves correctly from the real host, as Q87/Q102 said
+it would. Zero git-write lock churn on the host route (no index.lock
+contention at all there, matching Q102's own observation); the sandbox
+route needed two lock-file renames (`.git/index.lock`, `.git/HEAD.lock`)
+mid-commit before `git commit` itself succeeded there, consistent with the
+FUSE-mount unlink restriction already documented against Q87/Q96/Q102. No
+new question raised: Q87, Q96 and Q102 already capture this exactly and
+remain open for Rishi's own decision on which route should be the
+standing default. This paragraph itself, describing the actual push and
+publish outcome, is recorded in a short follow-up commit rather than
+folded into c8b29bb, since the true outcome was only known after that
+commit had already been made and pushed.
 
 STEP 11: `.agent-lock` deleted at the end of this run regardless of
 outcome.
