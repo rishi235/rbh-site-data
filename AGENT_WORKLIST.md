@@ -12652,6 +12652,45 @@ Done 2026-09-16 (nineteenth pass).
       passes. No new question; QUESTIONS.json unchanged (107 total, 54 open).
       Evidence in audits/gordon-short-jsonld-3.11-eighteenth-2026-09-15.txt.
       Done 2026-09-15
+      Quality pass 2026-09-16 (nineteenth). Stalest item in the 35-item
+      rotation pool this run. Proved tools/check-seo-lengths.js by direct
+      injection against this branch for the first time (never previously
+      proven against it across eighteen prior passes, though proven
+      yesterday against its Bootle-pair comparator SK Chemists). Scratch
+      copy via git archive, sha256-confirmed matching the tracked repo
+      before and after. Seven injections against Gordon Short Crosby's own
+      entries: title over 65 chars (rule 1, caught), description under 80
+      chars (rule 2a, caught), description over 165 chars (rule 2b,
+      caught), Earache title overwritten with Impetigo's (rule 3 duplicate
+      title, caught, both headings named), Shingles permalink overwritten
+      with Infected insect bite's (rule 3 duplicate permalink, caught,
+      both headings named), the Pharmacy First overview page's H1
+      overwritten with the UTI page's own H1 (rule 4a, one branch reusing
+      its own H1, caught, "gordonshorts_crosby:
+      pharmacy-first-gordon-short-crosby.html and
+      uti-treatment-gordon-short-crosby.html" named exactly), and a
+      control (Meta Keywords line changed, a field this checker never
+      reads) correctly producing zero failures. Rule 4b/4c not
+      re-injected: already proven with a genuine positive on item 3.8's
+      pass immediately before this one, and this branch has no town-pair
+      sister to produce a cross-branch collision without corrupting a
+      second branch's data. Zero in-repo defect. Tracked branches.json,
+      SEO.md, the affected page and the checker itself confirmed
+      byte-identical throughout by sha256; full 35-checker suite clean on
+      the tracked repo before and after. LIVE HALF (secondary, lower
+      effort): a fresh check-live-hours.js snapshot read for this branch,
+      both live pages agree with branches.json's expected hours exactly,
+      no new finding (already the clean control in numerous prior runs).
+      STEP 3 answer pickup: portal feed read in full, only Q37 and Q43 of
+      the currently open questions appear in it, both already correctly
+      recorded as non-decisions, no new answer to apply, no status change.
+      HYGIENE NOTE: an untracked stray file qtmp.json (a scratch dump of
+      QUESTIONS.json, dated 2026-09-01) sits in the repo root; deletion
+      attempted and blocked by the same FUSE-mount unlink restriction as
+      .git/index.lock (Q87/Q96/Q102) - harmless, untracked, not blocking,
+      left in place. No new question raised. Evidence in
+      audits/gordon-short-item-3.11-quality-pass-2026-09-16-nineteenth.txt.
+      Done 2026-09-16
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

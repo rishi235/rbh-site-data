@@ -1,0 +1,157 @@
+Item 3.11 quality pass (nineteenth), 2026-09-16
+Gordon Short Chemist, Crosby - gordonshorts_crosby
+
+SELECTION: all eight unchecked AGENT_WORKLIST.md lines remain [BLOCKED]
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, and the three Q60/Q66 lines
+under 6.4/6.5/6.6), confirmed by `grep -n "^- \[ \]" AGENT_WORKLIST.md`
+this run - no actionable unchecked item. Fell to the quality-pass
+fallback. Staleness ranked with a word-boundary scan of
+`\b(?:item|took)\s+<N>\b` across AGENT_LOG.md against the 35-item
+rotation pool (42 checked items minus the seven standing out-of-rotation
+one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), taking each item's topmost
+(most recent) mention index and picking the one with the LARGEST index
+(= least recently touched). 3.11 came out stalest (index 175496), just
+ahead of 6.2 (175337); both sit well past every other pool item's most
+recent mention. 3.11 taken for a nineteenth quality pass. Its own
+eighteenth pass (2026-09-15) proved check-jsonld.js by direct injection
+against this branch for the first time; today's pass proves a different
+checker, check-seo-lengths.js, which per its own dedicated audit files
+had never been fault-injection-tested against this branch either (the
+union of checkers explicitly proven-by-injection against Gordon Short
+Crosby across audits/gordon-short-item-3.11-quality-pass-*.txt and
+audits/gordon-short-jsonld-3.11-eighteenth-2026-09-15.txt is
+check-map-embeds, check-whatsapp-route, check-app-membership,
+check-pharmacy-first-cost, check-switch-copy, check-opening-hours,
+check-booking-routes, check-brand-spelling, check-nap, check-seo-keywords,
+check-branch-links, check-jsonld, check-contraception-copy, check-em-dashes,
+check-seo-pattern, check-cdn-pins - 16 checkers; check-seo-lengths.js was
+not among them, despite being proven against this branch's Bootle-pair
+comparator SK Chemists on 2026-09-15/16, immediately preceding this run).
+
+BASELINE: full repo `node tools/check-seo-lengths.js` and the other 34
+checkers all run individually against the tracked repo before any work -
+35/35 exit 0, zero failures across the estate.
+
+METHOD: `git archive HEAD | tar -x` to a disposable scratch directory
+under /tmp (never the tracked tree). sha256 of branches.json,
+tools/check-seo-lengths.js and modules/service/pages/SEO.md confirmed
+byte-identical between the scratch copy and the tracked repo before any
+injection. Baseline run in the scratch copy: clean, matching the tracked
+repo's own baseline exactly (177 page H1s read, 0 collisions; titles 36
+to 65 characters; descriptions 129 to 164 characters).
+
+SEVEN INJECTIONS, all against Gordon Short Chemist Crosby's own entries,
+one rule direction at a time, each restored from the saved original
+before the next:
+
+1. Rule 1 (title over 65 chars) - UTI page's Page Title lengthened from
+   "UTI treatment in Crosby - Gordon Short Chemist" (48 chars) to an
+   87-character string. CAUGHT: "title is 87 characters, over the 65
+   limit, so Google truncates it."
+
+2. Rule 2a (description under 80 chars) - Sore throat page's Page
+   Description shortened to 54 characters. CAUGHT: "description is only
+   54 characters, under the 80 minimum."
+
+3. Rule 2b (description over 165 chars) - Sinusitis page's Page
+   Description lengthened to 229 characters. CAUGHT: "description is 229
+   characters, over the 165 limit, so Google cuts it mid-sentence."
+
+4. Rule 3 duplicate title - Earache page's Page Title overwritten with
+   Impetigo's. CAUGHT, both headings named exactly: "duplicate title
+   shared by 2 pages: Gordon Short Chemist - Crosby - Earache
+   (modules/service/pages/SEO.md), Gordon Short Chemist - Crosby -
+   Impetigo (modules/service/pages/SEO.md)."
+
+5. Rule 3 duplicate permalink - Shingles page's Page Permalink overwritten
+   with Infected insect bite's. CAUGHT, both headings named exactly:
+   "duplicate permalink shared by 2 pages: ... Shingles ..., ... Infected
+   insect bite ...".
+
+6. Rule 4a (one branch reusing its own H1) - the Pharmacy First overview
+   page's <h1> overwritten with the UTI page's own H1 ("UTI treatment in
+   Crosby"), edited directly on the generated page since the H1 is not on
+   any paste sheet. CAUGHT, branch and both filenames named exactly: "one
+   branch uses the same H1 on two of its own pages - gordonshorts_crosby:
+   pharmacy-first-gordon-short-crosby.html and
+   uti-treatment-gordon-short-crosby.html."
+
+CONTROL: the overview page's Meta Keywords line changed to unrelated
+text, a field this checker never reads. Correctly zero failures once
+injected narrowly within that one entry's own block - the run stayed
+clean end to end.
+
+All six injections caught on the intended rule and named the correct
+page(s); the control produced no false positive. Rule 4b/4c (H1 collision
+across two DIFFERENT branches, same or different host) was not
+re-injected this pass: it was already proven with a genuine positive on
+item 3.8's twentieth pass yesterday (SK Chemists Bootle, same checker),
+and Gordon Short Crosby sits on its own single-branch domain with no
+town-pair sister, so a same-branch injection (test 6, rule 4a) is the
+only H1 collision shape this branch's own page set can produce - forcing
+a cross-branch collision here would mean corrupting a SECOND branch's
+data to prove a rule already proven elsewhere, which is unnecessary
+duplication rather than a fresh angle.
+
+RESTORE AND VERIFY: after each injection, the modified file was restored
+from its saved original (not via git, per the standing rule that a test
+harness must restore by byte copy, not `git checkout`, since HEAD on this
+sandbox may not carry the fix being protected). Final sha256 of
+modules/service/pages/SEO.md and
+modules/service/pages/pharmacy-first-gordon-short-crosby.html in the
+scratch copy matched the tracked repo's own copies exactly. Final clean
+run in the scratch copy: identical to the baseline (177 H1s, 0
+collisions, same title/description ranges). Tracked repo confirmed
+untouched throughout: `git status --porcelain` on the affected paths
+showed nothing; full 35-checker suite re-run individually against the
+tracked repo after the scratch work, 35/35 exit 0.
+
+ZERO IN-REPO DEFECT FOUND. check-seo-lengths.js, never previously proven
+by injection against Gordon Short Chemist Crosby across eighteen prior
+passes of this item, is now proven against all four of its rules (1, 2a,
+2b, 3-title, 3-permalink, 4a) for this branch specifically, with a clean
+control confirming it does not over-fire on an unrelated field.
+
+INCIDENTAL REPO HYGIENE NOTE (not a defect, not blocking, logged for
+completeness): an untracked stray file `qtmp.json` was found sitting in
+the repo root at run start, containing a full dump of QUESTIONS.json's
+content (289,596+ characters, apparently a scratch copy from a prior
+run's jq/text processing). It is untracked, so it was never committed
+and carries no risk of landing in a commit, but it is what
+tools/check-url-scheme.js's one WARN this run refers to ("qtmp.json
+carries http://www.mccannspharmacy.co.uk/contact-us.html" - an insecure
+URL quoted inside one of the older QUESTIONS.json entries, correctly not
+failing the run since it is not a published surface). Attempted deletion
+as routine scratch cleanup; blocked by the same FUSE-mount unlink
+restriction documented against .git/index.lock in recent runs
+(Q87/Q96/Q102) - `rm qtmp.json` returned "Operation not permitted" and
+the file (299,472 bytes, dated 2026-09-01) is still present. Untracked,
+harmless, not blocking anything; left for a session with filesystem
+access that can actually remove it. Nothing in QUESTIONS.json itself was
+touched.
+
+LIVE HALF: a fresh check-live-hours.js run this session (dated
+2026-09-16) was read for gordonshorts_crosby as a secondary, lower-effort
+verification: both live pages (homepage and contact-us.html) state
+"Monday 9:00am - 6:00pm (closed 1-2pm)" through Friday, "Saturday 9:00am
+- 5:00pm (closed 1-2pm)", "Sunday Closed" - which matches branches.json's
+expected rows (09:00-13:00/14:00-18:00 weekdays, 09:00-13:00/14:00-17:00
+Saturday, closed Sunday) exactly, just phrased as a single range with a
+lunch closure noted rather than two explicit ranges. No mismatch, no new
+finding; this specific branch's live hours have already been reconfirmed
+as the clean control in numerous prior runs (2026-08-31 sixth pass
+onward) and this run adds nothing new on that front - noted for
+completeness only, not counted as this pass's fresh-angle work.
+
+No new question raised. QUESTIONS.json unchanged in count (109 total, 56
+open) other than no status changes this run (see STEP 3 note below).
+
+STEP 3 answer pickup (this run): mcp__claude-in-chrome connected cleanly,
+one tab, no dual sign-in issue. Read https://data.rbhealth.co.uk/api/feedback
+in full - entries dated 2026-08-04 to 2026-09-01 only, nothing newer than
+any prior run's own read. Of the 56 currently open questions, only Q37 and
+Q43 appear anywhere in the feed, both byte-identical to the non-decision
+replies already recorded in QUESTIONS.json's own notes (Q37: Rishi asks
+for the question to be restated in plain English; Q43: an "unsure, need
+advice" reply on the Cheshire/Greater Manchester travel-clinic wording).
+No new answer to apply, no status change made.
