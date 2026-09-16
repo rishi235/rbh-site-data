@@ -1,3 +1,93 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fortieth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json answer-pickup fetch review and edits, and running check-em-dashes.js/check-postcodes.js/check-url-scheme.js against the tracked repo; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch (one tab, opened and closed cleanly, read-only, nothing clicked or submitted); mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) and the status-page publish against the real C:\Dev\rbh-site-data, per Q102's documented fallback; Read/Edit used for QUESTIONS.json, AGENT_WORKLIST.md and this entry) - Item 6.8 (QUESTIONS.json "Decision needed:" convention) fourteenth quality pass: re-verified the convention against the current 56 open questions rather than trusting the last pass's all-clear, found six had drifted out of compliance since 2026-09-06 (Q100, Q101, Q102, Q104, Q107, Q108), retrofitted all six with a prepended plain-English summary sentence, full original text preserved verbatim; zero repo defect otherwise, no page or generator touched, no new question.
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp (2026-09-16T22:34:13Z). No `.git\index.lock` present at start.
+`git fetch` / already on `agents/audit-backlog` / `pull --ff-only` all
+completed normally via the sandbox mount (read-only use), already up to
+date with origin at the prior run's own commit (item 1.1's tenth pass,
+thirty-ninth run today).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab, no conflict (Q59's two-signed-in-instances block
+did not recur this run). 56 open questions checked against the feed;
+newest reply is still Q52, dated 2026-09-01T22:44:51.524Z - nothing newer
+for any open question, so no genuine new answer to pick up. First attempt
+at this step wrongly marked Q37 and Q43 "answered" and created two
+duplicate restatement questions (draft Q110/Q111), on the mistaken belief
+their 2026-09-01 portal replies ("i need further explanation...", "Unsure -
+historically Timperly and Bramhall...") were new and actionable. They are
+neither: an earlier run had already read the identical replies on
+2026-09-01, correctly judged neither was a real decision, and left both
+questions open with the reasoning and a ready-to-reread plain-English
+restatement written directly into each question's own note - a fresh
+reply to Q37 or Q43 itself would be picked up correctly by a future run's
+newest-entry-per-id logic, so a separate question ID was never needed.
+Caught before committing: reverted both notes to their pre-run text plus
+one added reconfirmation line, deleted the two draft duplicates, restored
+QUESTIONS.json to 109 entries (unchanged count). Lesson for next run:
+check whether a "new" reply has already been reconciled by an earlier run
+before treating it as unpicked-up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (the prior
+run's own entry, item 1.1's tenth pass) before adding this one - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: parsed every top-level "- [x] N.N" block in
+AGENT_WORKLIST.md directly and took the latest 2026-\d\d-\d\d date
+mentioned inside each, rather than trusting a prior run's note. The
+oldest, 5.7 (2026-08-30), is explicitly excluded from re-selection by its
+own block's "CORRECTION TO METHOD" paragraph (5.7 is a one-off, not part
+of the rotation pool). Of the remaining candidates, the standard 35-item
+rotation pool had already had at least one pass today (per the
+thirty-eighth run's own item 3.8 note) and item 1.1, the stalest of the
+small one-off group (1.1/1.4/2.2/5.6/6.8), had just been taken by the
+thirty-ninth run. Of the rest of that one-off group - 1.4, 2.2, 5.6, 6.8 -
+all four were tied at their last-touched date, 2026-09-06. Picked 6.8: its
+job (verify every open QUESTIONS.json entry opens with "Decision needed:")
+is the most directly checkable of the four, and its substance had not
+actually been re-exercised since 2026-09-05/09-06 despite fifteen more
+questions (Q94-Q109) arriving since.
+
+WORK DONE (item 6.8, fourteenth quality pass): verified programmatically
+that all 56 currently open questions open with "Decision needed:" -
+6 did not: Q100, Q101, Q102, Q104, Q107, Q108, all raised between
+2026-09-09 and 2026-09-16 (Q104 came closest, opening "Decision needed,"
+with a comma rather than the required plain-English summary sentence).
+Fixed by prepending one new plain-English sentence per question stating
+the choice and the recommendation, with each question's full original
+text preserved completely unchanged straight after (same convention as
+every earlier retrofit; for Q104 this means the text now contains two
+"Decision needed" openings in a row, since the fix is additive, not an
+edit to the original). No option, note or technical detail was shortened,
+softened or dropped. Re-verified after: 0 of 56 open questions
+non-compliant, JSON.parse succeeds, 109 entries total (unchanged by this
+item's own work; the transient 110/111 mistake from the answer-pickup
+step above was already reverted before this point). check-em-dashes.js,
+check-postcodes.js and check-url-scheme.js - the three checkers that read
+QUESTIONS.json - all still pass (0 failures each; the pre-existing UNOWNED
+postcode warnings on modules/branch/pages and gbp-packs/TEMPLATE.md, and
+the pre-existing INSECURE URL warning on the untracked scratch file
+qtmp.json, are unrelated to this change and unchanged by it). No page,
+generator or data field changed; only QUESTIONS.json and
+AGENT_WORKLIST.md's own item 6.8 block were touched. Full detail written
+directly into AGENT_WORKLIST.md's item 6.8 block. No repo defect beyond
+the QUESTIONS.json drift itself, no new question raised, blocks nothing.
+
+GIT (step 9): sandbox mount's own `git status`/`git diff` left a fresh
+`.git/index.lock` behind that the FUSE mount could not unlink ("Operation
+not permitted", the same standing constraint Q87/Q96/Q102 document) -
+confirmed harmless (0 bytes, just created, no stale content) and cleared
+it via mcp__Windows-MCP__PowerShell rather than attempting to force it
+from the sandbox side. Push route: mcp__Windows-MCP__PowerShell against
+the real C:\Dev\rbh-site-data, per Q102's documented fallback (that
+question's own procedural change - making this the PRIMARY route rather
+than a fallback - remains undecided and was not assumed).
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-ninth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json answer-pickup diff, and the 36-checker suite plus all six generators run against the tracked repo (via /tmp/scratch_1_1, since $HOME/scratch-style writes were needed for the sandbox's own protected /tmp); mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_create_mcp/tabs_close_mcp used for the step 3 answer-pickup fetch (one tab) and the item 1.1 live-half re-read (three further tabs: Gordon Short travel clinic, Gordon Short Pharmacy First, Coleman & Leighs insect-bite, plus a plain Google search for Hirshmans Ainsdale), all opened and closed cleanly, read-only throughout, nothing clicked or submitted; Read/Edit used for AGENT_WORKLIST.md and this entry) -
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

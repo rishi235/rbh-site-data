@@ -32261,6 +32261,58 @@ led by 4.1 (184923) and 4.14 (180686).
       on this item should keep re-checking the live count rather than
       trusting the last pass's "no open question remains unretrofitted"
       line at face value.
+      Quality pass 2026-09-16 (fourteenth): all eight unchecked worklist
+      items still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both 6.4/6.5 lines,
+      6.6), so fell to the quality-pass fallback. Re-derived the least
+      recently touched item directly from AGENT_WORKLIST.md's own dated
+      entries rather than trusting a prior run's rotation-pool note: the
+      standard 35-item rotation pool had already had at least one pass
+      today (item 3.8's twenty-first pass, run thirty-eight), and item 1.1
+      (the stalest of the small one-off group: 1.1/1.4/2.2/5.6/6.8) had
+      just been taken by run thirty-nine. Of the remaining one-off group,
+      1.4, 2.2, 5.6 and 6.8 were all tied at their last-touched date,
+      2026-09-06; picked 6.8 since its own job (checking every open
+      QUESTIONS.json entry opens with "Decision needed:") was the most
+      directly checkable and the least recently exercised in substance -
+      the last real retrofit was 2026-08-31/09-05, and fifteen more
+      questions (Q94 to Q109) had been added since without a re-check.
+      Re-verified programmatically rather than trusting the last pass's
+      "all open questions now carry Decision needed:" claim: of 56
+      currently open questions, six had drifted out of compliance since
+      the last check - Q100, Q101, Q102, Q104, Q107 and Q108, all raised
+      between 2026-09-09 and 2026-09-16, none opening with the required
+      "Decision needed:" sentence (Q104 came closest, opening "Decision
+      needed," with a comma rather than the plain-English summary sentence
+      the rule asks for). Fixed by prepending one new plain-English
+      sentence stating the choice and the recommendation to each of the
+      six, with the full original question text preserved completely
+      unchanged straight after (for Q104 this means the retrofitted text
+      now contains two "Decision needed" openings in a row - the new
+      summary sentence, then the original text's own - since the rule is
+      to add a summary, not edit the original, and the original already
+      began that way). No option, note or technical detail was shortened,
+      softened or dropped from any of the six. Verified programmatically
+      afterwards that all 56 currently open questions now open with
+      "Decision needed:" and that JSON.parse still succeeds (109 entries
+      total, same count as before - two candidate duplicate questions
+      drafted mid-run for Q37/Q43 were caught as wrong before being kept:
+      an earlier run had already deliberately left both open with the
+      portal's inconclusive reply recorded in each one's own note rather
+      than marking them answered, and the correct fix for a fresh
+      inconclusive reply is a fresh reply to the same question ID, not a
+      new one - reverted before committing). check-em-dashes.js,
+      check-postcodes.js and check-url-scheme.js, the three checkers that
+      read QUESTIONS.json, all still pass (0 failures each; the
+      pre-existing UNOWNED postcode warnings on modules/branch/pages,
+      gbp-packs/TEMPLATE.md and the pre-existing INSECURE URL warning on
+      the untracked scratch file qtmp.json are unrelated to this change
+      and unchanged by it). No page, generator or data field changed
+      anywhere in the repo; only QUESTIONS.json was edited. Fifteenth
+      confirmation the "genuinely complete" claim on this item drifts out
+      of date on its own simply because new questions keep arriving - the
+      same finding as every prior pass, now with a concrete count (6 of
+      56) rather than a restated warning. No new question raised; blocks
+      nothing.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
