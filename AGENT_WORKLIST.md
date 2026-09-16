@@ -22169,6 +22169,64 @@ directly rather than re-deriving the same facts by hand.
       not re-tested this pass; it stands as raised. Evidence:
       audits/coleman-leigh-walton-item-4.12-quality-pass-2026-09-15-seventeenth.txt.
       Done 2026-09-15.
+      Eighteenth quality pass 2026-09-16 (unattended scheduled run,
+      audit-backlog-worker; rotation-pool pick, all remaining unchecked
+      worklist items still [BLOCKED], fell to the quality-pass fallback;
+      re-derived stalest item with a Python word-boundary scan of
+      \b(?:item|took)\s+<N>\b across AGENT_LOG.md over the 35-item pool,
+      4.12 uniquely stalest by a wide margin, ahead of 4.6). FRESH ANGLE:
+      seventeen prior passes proved branches.json facts, the character-count
+      exactness rule, the medicine-name union, OUTCOME_PROMISE,
+      check-url-scheme.js, check-uk-spelling.js, check-brand-spelling.js,
+      check-app-membership.js, check-em-dashes.js, the hours-day-presence
+      rule, check-gbp-pharmacy-first.js rules 5/7/8, the category/service
+      allowlist, the photo shot list rule, check-pharmacy-first-
+      eligibility.js rules 9/10/11 and check-pharmacy-first-cost.js rules
+      4/5/6 against this pack's own copy, but the bank holiday
+      special-hours rule in tools/check-gbp-packs.js (added on the item 4.5
+      quality pass, 2026-08-30, answering Q79) had never been pointed at
+      THIS pack specifically - confirmed by grepping this item's full
+      history for "bank holiday", zero hits before this pass. Full repo
+      copied (excl. .git) to a scratch directory under the outputs mount;
+      tracked pack never opened for writing, confirmed unchanged throughout
+      (sha256 6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all seventeen prior passes). Baseline: 35 of 36 checkers exit
+      0 on the scratch copy (check-cdn-pins.js excluded, needs live git ref
+      resolution the .git-free scratch copy cannot provide; run separately
+      against the tracked repo instead, clean: 0 failures, 3 warnings, 7
+      known issues). Four rounds on the scratch copy, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) removed both
+      occurrences of "bank holiday" from the note, leaving "special hours"
+      and "bankHolidays.dates2026" both present - CAUGHT, the standing FAIL
+      message naming the missing instruction; (2) removed all occurrences
+      of "special hours", leaving "bank holiday" and "bankHolidays.dates2026"
+      both present - CAUGHT, same message, confirming this leg fires
+      independently; (3) replaced the literal "bankHolidays.dates2026"
+      reference with retyped dates, leaving "bank holiday" and "special
+      hours" both present elsewhere in the note - CAUGHT, same message,
+      confirming the dates2026 leg fires independently of the other two;
+      (4) CONTROL, the whole note reworded in different sentence order
+      while keeping all three required elements - correctly PASSED, exit 0,
+      only the standing pfLink live-only-page WARN, confirming the rule
+      accepts a genuine paraphrase rather than depending on today's exact
+      wording. All four rounds fired or passed first attempt, each on its
+      intended leg only. Full 36-checker suite re-run after the final
+      restore: 35/36 exit 0 (same documented cdn-pins exception); pack
+      sha256 reconfirmed identical to baseline; tracked repo's own copy of
+      the pack, tools/ and branches.json confirmed to carry no diff
+      throughout (git diff --stat empty on all three paths). No in-repo
+      defect: the rule and its paraphrase tolerance both proven correct on
+      this pack for the first time. Evidence:
+      audits/coleman-leigh-walton-bank-holiday-note-4.12-eighteenth-2026-09-16.txt.
+      LIVE HALF performed via Claude in Chrome (connected, single tab):
+      sitemap.xml read directly, 28 URLs, every lastmod still
+      2026-08-14T23:21:20+00:00, identical to the seventeenth pass's read
+      one day earlier, confirming no republish since 14 August; Post A's
+      pfLink confirmed still a live 404. The fuller 2026-09-01/2026-09-15
+      live verdicts (mixed old/new trading name, Q76's sister-branch-name
+      gap, the Q22 tagline) stand as written, not re-verified page-by-page
+      this pass. No new question; QUESTIONS.json unchanged (109 total, 56
+      open). Done 2026-09-16.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

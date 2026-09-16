@@ -1,0 +1,95 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton pack), eighteenth quality pass, 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+FRESH ANGLE
+Seventeen prior passes proved branches.json facts, the character-count
+exactness rule, the medicine-name union, OUTCOME_PROMISE, check-url-scheme.js,
+check-uk-spelling.js, check-brand-spelling.js, check-app-membership.js,
+check-em-dashes.js, the hours-day-presence rule, check-gbp-pharmacy-first.js
+rules 5/7/8, the category/service allowlist, the photo shot list rule,
+check-pharmacy-first-eligibility.js rules 9/10/11 and check-pharmacy-first-
+cost.js rules 4/5/6 against this pack's own copy. The bank holiday
+special-hours rule in tools/check-gbp-packs.js (lines 979-1000, added on the
+item 4.5 quality pass, 2026-08-30, in response to Q79) had never been proven
+by injection against THIS pack specifically - grepped this item's full
+AGENT_WORKLIST.md history for "bank holiday", zero hits before this pass.
+
+RULE UNDER TEST
+tools/check-gbp-packs.js, lines 979-1000: where branches.json
+bankHolidays.tradingPolicy is "closed" (confirmed estate-wide, no branch
+exception), the pack's "Notes for the paster:" block must contain all three
+of: the phrase "bank holiday" (case-insensitive), the phrase "special hours"
+(case-insensitive), and the literal string "bankHolidays.dates2026". Missing
+any one of the three fails the rule.
+
+BASELINE
+Pack sha256 (tracked repo):
+6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, matching all
+seventeen prior passes. Full 36-checker suite on the tracked repo: 0 failures
+(check-cdn-pins.js gives 3 warnings and 7 known issues, all pre-existing and
+unchanged). Method: full repo rsync-copied (excluding .git) to a disposable
+scratch directory under the outputs mount; tracked repo never opened for
+writing during injection testing. Baseline sweep on the scratch copy: 35 of 36
+checkers exit 0 (check-cdn-pins.js fails on the scratch copy for its
+documented reason - it needs live git ref resolution the .git-free scratch
+copy cannot provide; re-run separately against the tracked repo, clean).
+
+INJECTIONS (all against the scratch copy's gbp-packs/coleman-leigh-walton.md,
+each restored from a /tmp byte copy of the true original and sha256-
+reconfirmed identical before the next round)
+
+1. Removed both occurrences of the phrase "bank holiday" (heading "Bank
+   holiday special hours:" -> "Special hours:"; prose "Google shows a bank
+   holiday as Open" -> "Google shows this as Open"), leaving "special hours"
+   and "bankHolidays.dates2026" both present. CAUGHT: FAIL, "the 'Notes for
+   the paster:' block has no bank holiday special-hours instruction."
+   Restored, sha256 reconfirmed identical to baseline.
+
+2. Removed all occurrences of "special hours" (heading "Bank holiday special
+   hours:" -> "Bank holiday hours:"; "open Google's special hours" -> "open
+   Google's holiday hours"; "unless special hours say otherwise" -> "unless
+   told otherwise"), leaving "bank holiday" and "bankHolidays.dates2026"
+   both present. CAUGHT: same FAIL message, first attempt. Restored, sha256
+   reconfirmed identical.
+
+3. Replaced the literal "bankHolidays.dates2026" reference with retyped
+   dates ("mark 31 Aug, 25 Dec and 28 Dec 2026 as Closed"), leaving "bank
+   holiday" and "special hours" both present elsewhere in the note. CAUGHT:
+   same FAIL message, first attempt - confirms the rule fires on the
+   dates2026 leg independently of the other two. Restored, sha256
+   reconfirmed identical.
+
+4. CONTROL: reworded the whole note in different sentence order and
+   phrasing while keeping all three required elements present (led with the
+   estate-wide bank holiday fact, then the special-hours instruction, then
+   the bankHolidays.dates2026 reference, then the anti-drift rationale).
+   Correctly PASSED: exit 0, only the standing WARN naming this pack's
+   Post A pfLink as a live-only page (unchanged, pre-existing, every prior
+   pass). Full 36-checker suite re-run with this control edit still in
+   place: 0 failures (cdn-pins' scratch-only exception unchanged). Confirms
+   the rule accepts a genuine paraphrase and does not depend on the exact
+   wording used in the pack today, only the three required elements.
+   Restored, sha256 reconfirmed identical.
+
+RESULT
+All three fault legs of the bank-holiday rule fire independently and
+correctly on this pack's own copy for the first time; the control paraphrase
+confirms no false positive on reworded-but-complete copy. No in-repo defect.
+Full 36-checker suite re-run on the scratch copy after the final restore:
+35/36 exit 0 (same documented cdn-pins exception); tracked repo's own copy of
+the pack, tools/, branches.json unconfirmed to have any diff throughout
+(git diff --stat empty on all three paths); pack sha256 unchanged
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88).
+
+LIVE HALF
+Performed via Claude in Chrome (connected, single tab). sitemap.xml read
+directly: 28 URLs, every lastmod still 2026-08-14T23:21:20+00:00, identical
+to the seventeenth pass's read one day earlier - confirms no republish on
+this domain since 14 August, so nothing below is new. Post A's pfLink
+(pharmacy-first-service-walton.html) confirmed still a live 404. Given the
+sitemap is frozen, the fuller 2026-09-01/2026-09-15 live verdicts (mixed
+old/new trading name on the homepage and the replacement Pharmacy First
+page, Q76's sister-branch-name gap, the Q22 tagline) stand as written, not
+re-verified page-by-page this pass.
+
+No new question raised. QUESTIONS.json unchanged.
