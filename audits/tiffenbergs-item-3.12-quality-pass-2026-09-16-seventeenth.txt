@@ -1,0 +1,139 @@
+Item 3.12 (Tiffenbergs Chemist, Liverpool) - SEVENTEENTH quality pass, 2026-09-16
+Unattended scheduled run (audit-backlog-worker, twenty-first run today).
+
+SELECTION
+Rotation pool re-derived: 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 35-item
+pool. Python word-boundary scan of \b(?:item|took)\s+<N>\b across AGENT_LOG.md,
+topmost (most recent) mention index per pool item, picking the item whose
+topmost-mention index was LARGEST (= least recently mentioned). 3.12 came out
+stalest (index 194247), ahead of 3.13 (185522). All 8 unchecked worklist lines
+confirmed [BLOCKED] before falling to this rotation (5.3, 5.4, 5.5, 5.8, 6.1,
+and the three Q60/Q66 lines under 6.4/6.5/6.6) - no actionable unchecked item.
+
+FRESH ANGLE
+tools/check-seo-pattern.js - the Phase 3 title/H1/description pattern verifier,
+the checker that item 3.x's whole worklist series exists to prove - had never
+been proven by direct injection against Tiffenbergs specifically across the
+prior sixteen passes, despite being the most central checker to this item's
+own purpose. Sixteen prior passes had exercised check-nap.js, check-
+postcodes.js, check-em-dashes.js, check-booking-routes.js, check-jsonld.js,
+check-gbp-packs.js, check-branch-identity.js, check-map-embeds.js, check-
+pharmacy-first-eligibility.js, check-weight-loss-copy.js, check-branch-
+links.js, check-opening-hours.js, check-switch-copy.js, check-travel-clinic-
+copy.js, check-contraception-copy.js and check-seo-lengths.js against this
+branch, but never check-seo-pattern.js itself.
+
+METHOD
+Full repo git-archived (git archive HEAD) to a disposable scratch copy under
+the outputs mount (/sessions/awesome-wizardly-goodall/scratch312); tracked
+repo never opened for writing during the injection work.
+
+BASELINE: all 36 checkers run individually on the scratch copy before any
+change - 35/36 exit 0, the sole failure being check-cdn-pins.js's long-
+documented .git-less scratch artefact (unrelated to this pass). All six page
+generators (build-branch-landing-pages, build-contraception-pages, build-
+service-pages, build-switch-pages, build-travel-clinic-pages, build-weight-
+loss-pages) rebuilt first; every file under modules/ and core/ (202 files)
+sha256-hashed before and after rebuild - byte-identical, nothing to commit
+from the rebuild itself.
+
+THREE INJECTIONS, each on a page untried for injection in any of the sixteen
+prior 3.12 passes, each backed up by byte copy before mutation and restored
+by byte copy (not git checkout) with sha256 reconfirmed identical to the
+pre-injection original immediately after:
+
+1. earache-treatment-tiffenbergs-aintree.html - H1 changed from "Earache
+   treatment for children in Aintree - Tiffenbergs Chemist" to "Earache
+   treatment in Aintree - Tiffenbergs Chemist" (dropping "for children",
+   which the composed pattern for this condition specifically requires).
+   CAUGHT: "h1 'Earache treatment in Aintree - Tiffenbergs Chemist' !=
+   'Earache treatment for children in Aintree - Tiffenbergs Chemist'" -
+   the exact-match-to-composed-pattern rule fired precisely.
+
+2. impetigo-treatment-tiffenbergs-aintree.html - SEO description comment
+   changed from "...in Aintree. Free NHS..." to "...in Aintree and Bootle.
+   Free NHS..." (156 characters, within the 80-165 length band, so only the
+   cross-town rule was exercised, not the length rule). Bootle is a live
+   seoTown (Smartts Chemist Bootle and SK Chemists Bootle) and is not in
+   Tiffenbergs' serviceAreaList (["Aintree","Fazakerley","Liverpool"]).
+   CAUGHT: "description names 'Bootle', the seoTown of smartts_bootle and
+   skchemists_bootle, and 'Bootle' is not in this branch's serviceAreaList" -
+   the CROSS-TOWN absence rule fired precisely, naming both branches that
+   own Bootle.
+
+3. pharmacy-first-tiffenbergs-aintree.html - a second <h1> element
+   ("Duplicate Test Heading") inserted immediately after the genuine one.
+   CAUGHT: "2 h1 elements, expected exactly 1. Every h1 rule in this repo
+   reads the first h1 only, so the others go unchecked by the pattern
+   match, the seoTown and service-word rules and the cross-town rule." -
+   the ONE-H1 rule fired precisely.
+
+CONTROL: shingles-treatment-tiffenbergs-aintree.html's phone number changed
+from Tiffenbergs' own 0151 525 3462 to Cherry Lane's real 0151 226 2051 (all
+three appearances: visible contact-line text, tel: href, JSON-LD telephone).
+check-seo-pattern.js's output made zero mention of shingles or of the phone
+change on any of the four touched pages beyond the three intended rules -
+confirming no cross-fire with check-nap.js's own territory. check-nap.js run
+separately on the same mutated tree correctly caught the phone swap six ways
+(visible phone, tel: href, JSON-LD telephone, and the "belongs to Cherry Lane
+Pharmacy, not Tiffenbergs Chemist" foreign-phone leg, each duplicated by the
+checker's own two-pass structure). Rule ownership confirmed clean between the
+two checkers.
+
+RESTORE AND RE-VERIFY: all four files restored by byte copy from the pre-
+injection backups; sha256 of each restored file reconfirmed identical to its
+backup (earache e536edb3..., impetigo 27853a21..., pharmacy-first 0260ba71...,
+shingles 2df3f698... - full digests in the run transcript). Full 36-checker
+suite re-run on the scratch copy after restore: 35/36 exit 0 (check-cdn-pins.js
+the same known scratch-only exception). Combined sha256 listing of every file
+under modules/ and core/ (202 files) re-taken and diffed against the pre-
+injection baseline listing: zero differences, byte-identical.
+
+TRACKED REPO: never opened for writing during the injection work (all
+mutation happened on the scratch copy only). branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 unchanged
+throughout, matching the value recorded by the sixteenth pass. git status on
+the tracked repo shows only the one long-standing pre-existing untracked
+stray this item's own history already tracks
+(modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) plus a
+large accumulation of unrelated dated test-probe files from many prior runs'
+own lock-handling and infrastructure testing (.agent-lock.released-*,
+scratch/probe/test files at repo root) - noted here for visibility since it
+was seen while confirming git status, but out of scope for this item's own
+verification and not touched; a hygiene sweep of that accumulation is a
+separate, larger decision (candidate for its own worklist item or a direct
+question to Rishi, not raised here since it blocks no worklist item and no
+live page). A fresh .git/index.lock, created by this run's own `git status`
+calls and 11-24 seconds old each time (not stale under the 1-hour threshold),
+was cleared by rename before staging the commit, the standard workaround for
+this sandbox's FUSE-mount unlink restriction (Q87/Q96/Q102).
+
+RESULT: zero in-repo defect found. check-seo-pattern.js was already correctly
+holding all three of the rules tested (exact title/H1 pattern match, cross-
+town seoTown absence, exactly-one-h1) against Tiffenbergs specifically.
+
+GUARD COVERAGE for item 3.12 now extends to 17 of the 36 checkers proven by
+direct injection against this branch: check-nap.js, check-postcodes.js,
+check-em-dashes.js, check-booking-routes.js, check-jsonld.js, check-gbp-
+packs.js, check-branch-identity.js, check-map-embeds.js, check-pharmacy-
+first-eligibility.js, check-weight-loss-copy.js, check-branch-links.js,
+check-opening-hours.js, check-switch-copy.js, check-travel-clinic-copy.js,
+check-contraception-copy.js, check-seo-lengths.js and (this pass) check-
+seo-pattern.js. 19 remain unproven by direct injection against this branch
+specifically: check-address-region.js, check-app-membership.js, check-
+brand-spelling.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js, check-
+pharmacy-first-symptoms.js, check-seo-keywords.js, check-seo-sheets.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js, check-
+whatsapp-route.js and check-widget-diaries.js.
+
+ANSWER PICKUP this run: Claude in Chrome connected, feedback endpoint read
+successfully on the first attempt. Newest entry still Q52 (2026-09-01),
+already applied by a prior run. No answer present for any of the 56
+currently open questions (Q53 onward). No status change made, no new
+question raised.
+
+No new question raised for this item - the checker was proven clean, not a
+live-facing decision.

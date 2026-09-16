@@ -13448,6 +13448,67 @@ Done 2026-09-16 (nineteenth pass).
       2026-09-15-sixteenth.js, its -output.txt, and audits/tiffenbergs-
       item-3.12-quality-pass-2026-09-15-sixteenth.txt. Done 2026-09-15
       (sixteenth pass)
+      Quality pass 2026-09-16, SEVENTEENTH PASS, FRESH ANGLE: tools/check-
+      seo-pattern.js - the Phase 3 title/H1/description pattern verifier
+      that item 3.x's own worklist series exists to prove - proven by
+      injection against Tiffenbergs' own pages for the first time in this
+      item's seventeen-pass history (sixteen prior passes exercised check-
+      nap.js, check-postcodes.js, check-em-dashes.js, check-booking-
+      routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-
+      identity.js, check-map-embeds.js, check-pharmacy-first-
+      eligibility.js, check-weight-loss-copy.js, check-branch-links.js,
+      check-opening-hours.js, check-switch-copy.js, check-travel-clinic-
+      copy.js, check-contraception-copy.js and check-seo-lengths.js
+      against this branch, but never the checker that owns the exact
+      title/H1 pattern match, the cross-town seoTown absence rule and the
+      one-h1 rule). Baseline: all 36 checkers run individually on a
+      git-archived scratch copy, 35/36 exit 0 (check-cdn-pins.js's
+      documented .git-less scratch artefact the sole exception); all six
+      generators rebuilt first, 202 files under modules/ and core/
+      sha256-unchanged. Three injections, each on a page untried for
+      injection in any prior 3.12 pass, each restored by byte copy (not
+      git checkout) and sha256-confirmed identical to the pre-injection
+      original immediately after: (1) earache-treatment-tiffenbergs-
+      aintree.html's H1 had "for children" dropped - caught by the exact-
+      match-to-composed-pattern rule, naming both strings; (2) impetigo-
+      treatment-tiffenbergs-aintree.html's SEO description had "and
+      Bootle" added (156 characters, inside the 80-165 band so only the
+      cross-town rule was exercised, not the length rule) - caught by the
+      CROSS-TOWN absence rule, naming both branches (smartts_bootle,
+      skchemists_bootle) that own Bootle, since Bootle is not in
+      Tiffenbergs' serviceAreaList; (3) pharmacy-first-tiffenbergs-
+      aintree.html given a second h1 element - caught by the exactly-one-
+      h1 rule. CONTROL: shingles-treatment-tiffenbergs-aintree.html's
+      phone swapped to Cherry Lane's real number (all three surfaces) -
+      zero mentions in check-seo-pattern.js's output, confirming no
+      cross-fire with check-nap.js's own territory; check-nap.js run
+      separately caught the same swap six ways including the foreign-
+      phone leg naming Cherry Lane Pharmacy by name. All four injections
+      restored, sha256-reconfirmed against backup. Full 36-checker suite
+      re-run on the scratch copy after all restores: 35/36 exit 0 (same
+      known exception). Combined sha256 of all 202 files under modules/
+      and core/ re-diffed against the pre-injection baseline: byte-
+      identical. Tracked repo reconfirmed untouched throughout:
+      branches.json sha256 169bb5a2...b102 unchanged; git status showing
+      only the one long-standing pre-existing untracked stray already on
+      record for this item (notarealservice-fishlocks-ainsdale.html.bak),
+      plus a large accumulation of unrelated dated test-probe files from
+      many prior runs' own lock-handling and infrastructure testing,
+      noted for visibility but out of scope for this item and not
+      touched - a hygiene sweep of that pile is a separate decision, not
+      raised as a new question here since it blocks no worklist item and
+      no live page. Zero in-repo defect. Guard coverage for item 3.12 now
+      extends to 17 of the 36 checkers proven by direct injection against
+      this branch specifically; 19 remain, listed in full in the evidence
+      file. STEP 3 answer pickup: Claude in Chrome connected, feedback
+      endpoint read successfully first attempt; no new answers found for
+      any of the 56 currently open questions, newest entry still Q52
+      (2026-09-01). Live half not attempted: full 12-of-12 live coverage
+      already stands from the fifth/sixth passes (2026-09-02), not
+      re-read this pass. No new question raised - checker proven clean
+      against data already known correct, not a live-facing decision.
+      Evidence: audits/tiffenbergs-item-3.12-quality-pass-2026-09-16-
+      seventeenth.txt. Done 2026-09-16 (seventeenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
