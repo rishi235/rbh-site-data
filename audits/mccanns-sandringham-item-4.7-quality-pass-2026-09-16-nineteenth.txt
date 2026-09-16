@@ -1,0 +1,158 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - quality pass (nineteenth)
+Date: 2026-09-16 (unattended scheduled run, audit-backlog-worker)
+
+ROTATION PICK
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6) - grep -n "^- \[ \]"
+AGENT_WORKLIST.md. Fell to the quality-pass fallback.
+
+Rotation pool: 43 checked AGENT_WORKLIST.md items minus the seven standing
+out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 35-item pool
+(1.2, 1.3, 2.1, 2.3, 3.1-3.13, 4.1, 4.3-4.15, 5.1, 5.2, 6.2, 6.3).
+
+Derived by a Python full-text scan of AGENT_LOG.md, matching
+(?:item|took)\s+<N> word-bounded anywhere in the file, taking each pool
+item's topmost (most recent) mention line index, then picking the item
+whose own most-recent-mention line index was the LARGEST among the pool
+(= least recently mentioned even in passing). 4.7 resolved to line 620,
+confirmed by reading that line directly - it names item 4.7's own
+2026-09-15 (twenty-third run) pass, the eighteenth. No other pool item's
+most-recent mention was older. Taken.
+
+BASELINE
+gbp-packs/mccanns-sandringham.md sha256 before this pass's edit:
+bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e - matches
+every one of the eighteen prior passes' own recorded value, no drift.
+Full 36-checker suite run individually on the tracked repo before any
+edit: 0 failures. All six page generators rebuilt to a zero-diff worktree.
+
+FRESH ANGLE
+Eighteen prior passes proved essentially every rule in check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-brand-spelling.js, check-url-scheme.js, check-em-dashes.js and
+check-app-membership.js against this specific pack by injection. The
+fourteenth pass's own write-up recorded, explicitly, that "Windows-MCP not
+loaded this run, so no cross-check against RBH_DIGITAL_BUILD_PACK_v2.md was
+possible, as in every prior pass on this item" - confirmed by grep across
+the item's full eighteen-pass block: RBH_DIGITAL_BUILD_PACK_v2.md is named
+exactly once in the whole history, in that same "not possible" sentence.
+No pass has ever actually opened the Build Pack v2 spec, the Master Plan v2,
+or the Digital Audit Context Pack and checked this pack's content against
+them directly. Windows-MCP was loaded this run, so this pass did that for
+the first time.
+
+METHOD
+mcp__Windows-MCP__PowerShell used to read, from the real host filesystem
+(not the sandbox mount):
+- RBH_DIGITAL_BUILD_PACK_v2.md (12,504 chars, 1 "Sandringham" mention)
+- RBH_DIGITAL_MASTER_PLAN_v2.md (14,077 chars, 2 mentions)
+- 00_DIGITAL_AUDIT_CONTEXT_PACK.md (17,558 chars, 3 mentions)
+Each mention read with 500-1000 chars of surrounding context via
+[regex]::Matches and .Substring, not just grep-style single lines, so nothing
+was read out of context.
+
+FINDINGS AGAINST THE SPEC, CROSS-CHECKED FACT BY FACT
+1. Build Pack v2 section 4.2 "Fix profile data": "Sandringham management-
+   record postcode (CH49 1SX should be L17 4JP)". Pack's own Profile basics
+   line 16 reads "1b Aigburth Road, Liverpool L17 4JP" - correct, matches.
+   Confirmed independently in branches.json (mccanns_sandringham.postalCode)
+   and by check-postcodes.js's own clean run. Already fixed (Q15/item 5.7,
+   answered 2026-08-10); this pass is the first to trace the fix back to
+   its own originating spec line rather than only to branches.json.
+2. Build Pack v2 section 4.2 also names "add Cherry Lane's missing shop
+   code" and "standardise brand-name spelling across profiles" - both are
+   estate-wide items belonging to other worklist items (Q36/Cherry Lane,
+   Q37/Fishlocks, item 1.1's brand-spelling rotation), not this pack
+   specifically. Not this pass's business; noted for completeness only.
+3. Build Pack v2 section 4.1 "Complete every profile": secondary
+   categories, services section, description, 10+ photos including the new
+   vinyl storefront, action pending Google updates. Cross-checked against
+   the pack directly: section 2 lists Travel clinic, Weight loss service,
+   Vaccination centre as categories to add; section 3 has a full NHS-first
+   then private services list; section 1 is a 721-character description;
+   section 4's photo shot list gives exactly 10 shots and explicitly
+   instructs "if the new vinyl has been fitted at this branch, make it the
+   lead exterior shot (Build Pack 4.1 asks for the vinyl storefront in the
+   photo set)"; the same section and the paster notes both instruct
+   actioning pending Google updates. All four Build Pack 4.1 requirements
+   are already present in the pack, confirmed by direct comparison rather
+   than assumed from check-gbp-packs.js's passive coverage.
+4. Master Plan v2, section "Data accuracy to fix": repeats the Sandringham
+   postcode fix (already covered above) and the brand-spelling item
+   (out of scope for this pack).
+5. Digital Audit Context Pack, review-volume section (data as of
+   2026-06-27): "Cherry Lane (1 review), McCanns Sandringham (4), and
+   Smartts (13) are critically thin - on the map pack, review count and
+   recency are heavy ranking factors, so these three are GBP-priority
+   irrespective of how good their website is." Cross-checked against the
+   pack and against the other 15 packs (grep -i for "review count",
+   "thin", "solicit", "generate.*review", "more reviews", "review volume",
+   "GBP-priority" across gbp-packs/*.md): NONE of the 16 files, including
+   Cherry Lane's own pack, say anything about review generation as an
+   operational priority. This is a genuine gap between the spec's own
+   documented Tier-0 priority and every pack's content - not a data-
+   integrity defect any of the 36 checkers would ever catch, because it is
+   a business-priority statement, not a fact check-gbp-packs.js's
+   completeness/identity/eligibility/cost rules are designed to verify.
+
+FIX MADE (this pack only, in scope for this item)
+Added one paster note to gbp-packs/mccanns-sandringham.md's "Notes for the
+paster" section, quoting the Context Pack finding and the Master Plan's
+Tier-0 listing, and recommending a review-generation routine at this branch
+(in person, a till QR code, or a follow-up text/email) as a live
+operational priority separate from the paste work this pack covers. The
+exact 2026-06-27 review counts were deliberately NOT retyped as current
+facts (they are now three months stale and this pack is not the place to
+track a moving count); the note points at the finding and the reason
+("review count and recency are heavy ranking factors") rather than
+asserting today's number.
+
+Cherry Lane and Smartts are the other two branches the same Context Pack
+paragraph names. Adding the equivalent note to their own packs is
+explicitly NOT done this pass - out of scope for a single-item run, and
+raised as Q108 instead (see below) so the scope decision (both sister
+packs now, or leave the estate-wide sweep to whichever run next takes
+those items) is Rishi's rather than assumed.
+
+VERIFICATION
+- Non-ASCII scan of the edited file: zero bytes over U+007F (Node
+  codePointAt sweep), so still pure ASCII, no em dash.
+- Full 36-checker suite re-run individually after the edit: 0 failures.
+- All six page generators (service, switch, weight loss, travel clinic,
+  contraception, branch landing) rebuilt: exit 0 each, zero-diff worktree
+  confirmed by `git status --porcelain -- gbp-packs branches.json modules
+  core tools`, which shows only the intended edit
+  (gbp-packs/mccanns-sandringham.md) plus the two long-standing pre-existing
+  untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither touched.
+- No injection/restore cycle was run this pass, because nothing in this
+  pass touches a checker rule - the fresh angle was a spec cross-check and
+  a one-line content addition, not a new or newly-proven rule.
+
+LIVE HALF
+Claude in Chrome, read-only, single connected tab:
+- pharmacy-mccanns-sandringham.html (the pack's declared GBP profile
+  website): still returns a live 404, still confirming Q35, nineteen
+  passes running now (this pass plus the eighteen before it).
+- sitemap.xml: all 44 URLs still lastmod 2026-08-14T23:05:25+00:00,
+  confirming no republish since the ninth pass's first reading of that
+  timestamp; the landing page remains absent from the sitemap.
+No new live finding; both reconfirm states already on record.
+
+QUESTIONS
+Q108 raised: whether to extend the same review-generation paster note to
+Cherry Lane's and Smartts's own GBP packs now (the other two branches the
+Context Pack names in the same Tier-0 finding), or leave it to whichever
+run next takes those two items under their own rotation slot. Recommended:
+extend now, since the finding, the source quote and the wording are already
+drafted and proven clean against all 36 checkers on this pack - the marginal
+cost of two more one-line additions is near zero and the three branches
+were named together in the source document. Left open rather than actioned
+autonomously (no autonomous window present in AGENT_LOG.md this run), since
+it touches two packs outside this run's own single-item scope.
+
+No repo defect found in any checker - this pass's finding is a gap between
+the pack's content and the spec's own documented priority, not a checker
+gap, so no new rule was written and none of the 36 checkers needed a change.

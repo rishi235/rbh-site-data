@@ -18362,6 +18362,62 @@ live change - nothing on any live site is touched or claimed fixed by this
 entry. Q39's note extended with "CHECKLIST BUILT 2026-09-15" recording the
 file path and inviting Rishi or whoever runs the sweep to work from it
 directly rather than re-deriving the same facts by hand.
+      Quality pass 2026-09-16 (nineteenth, unattended scheduled run). Taken
+      because all remaining unchecked worklist lines are [BLOCKED] (5.3, 5.4,
+      5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6, confirmed by
+      direct grep). Rotation pick re-derived by a Python full-text scan of
+      AGENT_LOG.md (word-bounded "item|took <N>" match, topmost/most-recent
+      mention line index per pool item, largest index = stalest): 4.7 uniquely
+      stalest, last mentioned at its own eighteenth pass (2026-09-15). Baseline:
+      pack sha256 bc9ab580dd9a5532a3fec55d05c599f9d5fc98f3a3bb9ba9f5882bd65e1a893e,
+      matching all eighteen prior passes exactly, no drift; all 36 checkers clean
+      before any edit.
+      FRESH ANGLE: the fourteenth pass's own write-up recorded "Windows-MCP not
+      loaded this run, so no cross-check against RBH_DIGITAL_BUILD_PACK_v2.md was
+      possible, as in every prior pass on this item" - confirmed by grep that this
+      is the ONLY mention of the Build Pack anywhere across all eighteen prior
+      passes, and it had genuinely never been opened. Windows-MCP was loaded this
+      run, so this pass read RBH_DIGITAL_BUILD_PACK_v2.md, RBH_DIGITAL_MASTER_PLAN_v2.md
+      and 00_DIGITAL_AUDIT_CONTEXT_PACK.md directly from the real host filesystem via
+      mcp__Windows-MCP__PowerShell, and cross-checked this pack against all three
+      fact by fact for the first time.
+      Confirmed already correct: the Sandringham postcode fix (Build Pack 4.2:
+      "CH49 1SX should be L17 4JP") matches the pack's own Profile basics line and
+      branches.json; Build Pack 4.1's four profile-completeness requirements
+      (secondary categories, services section, description, 10+ photos including
+      the vinyl storefront, pending Google updates) are all present in the pack's
+      sections 1-4 and paster notes, confirmed by direct comparison rather than
+      assumed from passive checker coverage.
+      ONE GENUINE GAP FOUND: the Digital Audit Context Pack names Cherry Lane (1
+      review), McCanns Sandringham (4) and Smartts (13) as "critically thin" on
+      reviews and a Tier-0 GBP priority "irrespective of how good their website
+      is" (2026-06-27 data). A grep across all 16 gbp-packs/*.md files for any
+      review-generation language found none - this is a genuine gap between the
+      spec's own documented priority and every pack's content, not a checker gap
+      (no data-integrity rule would ever cover a business-priority statement).
+      Fixed for THIS pack only, in scope for this item: added a paster note to
+      gbp-packs/mccanns-sandringham.md quoting the finding and recommending a
+      review-generation routine (in person, till QR code, or follow-up
+      text/email), without retyping the now three-month-stale exact counts.
+      Cherry Lane and Smartts are separate worklist items and were deliberately
+      not touched; Q108 raised asking whether to extend the same note to their
+      own packs now or leave it to their own rotation slots.
+      VERIFICATION: non-ASCII sweep of the edited file clean (still pure ASCII,
+      no em dash); full 36-checker suite re-run individually after the edit, 0
+      failures; all six page generators rebuilt to a zero-diff worktree;
+      `git status --porcelain -- gbp-packs branches.json modules core tools`
+      shows only the intended edit plus the two long-standing pre-existing
+      untracked strays, neither touched. No injection/restore cycle run this
+      pass - the fresh angle was a spec cross-check and a one-line content
+      addition, not a new or newly-proven checker rule, so nothing needed
+      negative-testing.
+      LIVE HALF via Claude in Chrome, read-only: pharmacy-mccanns-sandringham.html
+      still 404 (Q35, nineteen passes running); sitemap.xml's 44 URLs still
+      lastmod 2026-08-14T23:05:25Z, landing page still absent from it - both
+      reconfirm states already on record, no new live finding.
+      No in-repo checker defect found this pass - the finding is a content gap
+      against the spec's own priority, not a rule gap, so no checker changed.
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-nineteenth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

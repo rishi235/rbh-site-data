@@ -181,3 +181,16 @@ Notes for the paster:
   unless special hours say otherwise. The dates are deliberately not retyped
   here so they cannot drift; read them from branches.json at paste time.
   Added on the item 4.5 quality pass, 2026-08-30.
+- Review volume here is one of the lowest in the 14-branch estate
+  (00_DIGITAL_AUDIT_CONTEXT_PACK.md, reading against 2026-06-27 data: "Cherry
+  Lane (1 review), McCanns Sandringham (4), and Smartts (13) are critically
+  thin - on the map pack, review count and recency are heavy ranking factors,
+  so these three are GBP-priority irrespective of how good their website
+  is"), and RBH_DIGITAL_MASTER_PLAN_v2.md names the same three as a Tier 0
+  fix. This pack alone cannot raise the count - while in the profile, start
+  or keep up a review-generation routine at this branch (asked in person, a
+  QR code at the till, or a follow-up text/email), separately from any
+  paste work here. Added on the item 4.7 quality pass (nineteenth),
+  2026-09-16, the first pass on this item to cross-check the pack against
+  the master plan and audit context pack directly rather than only against
+  branches.json and this repo's own checkers.
