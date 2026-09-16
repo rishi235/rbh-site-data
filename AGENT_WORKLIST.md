@@ -25208,6 +25208,64 @@ appended to the line. Do not move them; the status page reads them in place.
       now extends to 20 of 36 checkers proven by direct injection. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-15-nineteenth.txt.
       Done 2026-09-15
+      Twentieth quality pass 2026-09-16 (unattended scheduled run, rotation
+      pool - 1.2's only mention anywhere in AGENT_LOG.md resolved to a
+      cross-reference inside item 5.2's own seventeenth-pass entry, the
+      single stalest line in the 36-item pool). REPO HALF: FRESH ANGLE -
+      tools/check-jsonld.js had never been proven by injection against
+      Hirshmans Ainsdale in nineteen prior passes, and it is squarely on
+      point for an address item: it is the only checker reading the JSON-LD
+      PostalAddress block and the Google Maps iframe query, both invisible
+      to a text search. Full git-archive scratch copy, tracked repo never
+      opened for writing; branches.json sha256 matched
+      (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102);
+      36/36 checkers clean before any edit. Seven injections against
+      pharmacy-first-hirshmans-ainsdale.html's JSON-LD block plus one
+      control, each restored from a sha256-confirmed backup before the
+      next: @type Pharmacy->MedicalBusiness (CAUGHT, rule 2); @context
+      https->http (CAUGHT, straight fail); name ->"Hirshmans Pharmacy"
+      (CAUGHT, rule 3); postalCode -> wrong (CAUGHT, rule 5); addressRegion
+      Merseyside->Lancashire (CAUGHT, rule 5); telephone last digit changed
+      (CAUGHT, rule 6); map iframe query postcode changed to a live foreign
+      outward code while the JSON-LD address itself was left untouched
+      (CAUGHT, rule 8, and independently confirmed rules 5 and 8 fire
+      independently of each other); whitespace-only control PASSED clean.
+      All eight fired or passed on the intended rule, first attempt. Final
+      restore sha256-reconfirmed identical
+      (fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468);
+      full 36-checker suite re-run on the scratch copy afterwards (35/36,
+      the sole exception the documented scratch-archive check-cdn-pins.js
+      artifact) and individually on the tracked repo (36/36); tracked repo
+      confirmed untouched throughout (git status clean bar the two
+      long-standing pre-existing untracked strays). No in-repo defect.
+      Guard coverage for this item now extends to 21 of 36 checkers.
+      LIVE HALF via Claude in Chrome (read-only): read
+      pharmacy-first-hirshmans-ainsdale.html and
+      uti-treatment-hirshmans-ainsdale.html live. GENUINE NEW FINDING: both
+      pages carry TWO application/ld+json Pharmacy blocks, not one. Block A
+      (445/444 chars) is the pre-Q38 shape of this repo's own generator
+      output (no opening hours) - confirms yesterday's Q38 regeneration has
+      not yet been pasted, the already-expected repo-ahead-of-live state,
+      not new. Block B (843 bytes, byte-identical across both pages
+      checked) matches no generator this repo has ever run: it carries an
+      "email" field this page family has never declared, sets "url" to the
+      bare domain root rather than the page's own address (would fail this
+      repo's own rule 4 if it were a generated page), and its PostalAddress
+      has no addressRegion at all. Consistent with a single script pasted
+      once into a Weebly site-wide header/footer embed, entirely outside
+      this repo's pipeline, repeating unchanged on every page - so every
+      Hirshmans Ainsdale page currently declares one Pharmacy entity twice,
+      under two different URLs and two different address shapes, the same
+      entity-resolution risk check-jsonld.js was built to prevent for the
+      item 3.10 @type divergence, arriving here through a second hand-placed
+      block rather than a generator inconsistency. No checker in this repo
+      can see it, because every checker reads modules/*/pages/*.html on
+      disk, never a live page's rendered DOM. Not investigated further this
+      pass: whether other branches carry the same sitewide block, or its
+      origin. Q109 raised (not actioned - needs a Weebly session this run's
+      read-only browser access does not have). Evidence:
+      audits/hirshmans-ainsdale-item-1.2-quality-pass-2026-09-16-twentieth.txt.
+      Done 2026-09-16
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

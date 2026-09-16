@@ -1,0 +1,130 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale - address verification) - twentieth quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-16
+
+ROTATION POOL SELECTION
+Derived by a full-text scan of AGENT_LOG.md matching (?:item|took)\s+<N> anywhere in the
+file (word-bounded), taking each pool item's topmost (most recent) mention line index, and
+picking the item whose own most-recent-mention line index was the LARGEST among the 36-item
+pool (43 checked AGENT_WORKLIST.md items minus the seven standing out-of-rotation items 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Item 1.2 resolved to line 603, the single largest index in the
+pool (its only mention in the whole log being a cross-reference inside item 5.2's own
+seventeenth-pass entry, "per item 1.2's own nineteenth-pass entry above") - confirmed by
+reading that line directly. Every other pool item had a more recent mention. Taken.
+
+BASELINE
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(matches every prior pass on this item, including the nineteenth). Full 36-checker suite
+clean on the tracked repo before any edit (36/36 exit 0).
+
+FRESH ANGLE
+Item 1.2's own block records nineteen prior passes naming 20 of 36 checkers. check-jsonld.js
+had never been proven by direct injection against Hirshmans Ainsdale under this item's own
+pass. It is squarely on point for an address-verification item: it is the only checker that
+reads the JSON-LD PostalAddress block (a machine-only surface check-nap's text scan cannot
+see) and the Google Maps iframe query (the one element on the page that can point a patient
+at another building while every visible line still reads correctly, per the checker's own
+header comment).
+
+PROOF BY INJECTION - all work on a full git-archive scratch copy at /tmp/scratch-1.2, tracked
+repo never opened for writing. Baseline on the scratch copy: 177 pages checked, 177 map
+queries decoded and compared, clean. Seven injections plus one control against
+modules/service/pages/pharmacy-first-hirshmans-ainsdale.html, each restored from a
+sha256-confirmed backup (fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468)
+before the next:
+
+ 1. "@type": "Pharmacy" -> "MedicalBusiness" - CAUGHT (rule 2), naming the entity-split risk.
+ 2. "@context": "https://schema.org" -> "http://schema.org" - CAUGHT (straight fail, no
+    KNOWN gate on this rule).
+ 3. "name": "Hirshmans Chemist" -> "Hirshmans Pharmacy" - CAUGHT (rule 3), naming the
+    required branchName value from branches.json.
+ 4. address.postalCode "PR8 3HW" -> "PR9 3HW" - CAUGHT (rule 5).
+ 5. address.addressRegion "Merseyside" -> "Lancashire" - CAUGHT (rule 5), the schema.org
+    PostalAddress field CLAUDE.md flags as the one Google actually reads for the county.
+ 6. telephone "01704 577376" -> "01704 577377" - CAUGHT (rule 6).
+ 7. Map iframe query postcode changed to a live, real, foreign outward code (L20 1DN,
+    Bootle's) while the JSON-LD address block itself was left untouched - CAUGHT (rule 8),
+    and independently confirmed the JSON-LD address still read PR8 3HW throughout, proving
+    rule 8 (the map) and rule 5 (the JSON-LD address) are genuinely independent checks
+    exactly as the checker's own design intends - a wrong map query does not hide behind a
+    correct JSON-LD address or vice versa.
+ CONTROL - whitespace-only change to the opening-hours block ("opens": "08:30" ->
+    "opens":  "08:30", double space, no semantic change) - correctly PASSED clean, no
+    cross-firing from any of the eight rules.
+
+All eight fired or passed on the intended rule, first attempt. Final restore diff-empty and
+sha256-reconfirmed identical to the pre-injection backup. Full 36-checker suite re-run on the
+scratch copy afterwards: 35/36, the sole exception being check-cdn-pins.js's documented
+scratch-archive artifact (refs cannot resolve without a .git directory) - not a finding, the
+same shape recorded on every other item's recent scratch-copy passes. Tracked repo confirmed
+untouched throughout: git status --porcelain -- branches.json modules core tools gbp-packs
+empty bar the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither touched;
+branches.json and the injected file both sha256-unchanged. Full 36-checker suite re-run
+individually against the tracked repo afterwards: 36/36 exit 0.
+
+No in-repo defect: check-jsonld.js already correctly protects Hirshmans Ainsdale's own
+JSON-LD block and map query on every rule tested. Guard coverage for this item now extends to
+21 of 36 checkers proven by direct injection.
+
+LIVE HALF (Claude in Chrome, read-only throughout)
+Read pharmacy-first-hirshmans-ainsdale.html and uti-treatment-hirshmans-ainsdale.html live.
+
+GENUINE NEW FINDING: both live pages carry TWO <script type="application/ld+json"> blocks,
+not one.
+
+  Block A (445 chars on the pharmacy-first page, 444 on the UTI page - the one-character
+  difference is just the filename length inside the "url" field): "@type": "Pharmacy",
+  correct branchName, correct address INCLUDING addressRegion "Merseyside", correct
+  page-specific "url", correct telephone. No "openingHoursSpecification" and no "email".
+  This is the pre-Q38 shape of this repo's own generator output - Q38 (raised 2026-08-11,
+  implemented 2026-09-15, yesterday) added openingHoursSpecification to exactly this page
+  family. The live block matches the OLD, pre-Q38 generated output exactly, meaning
+  yesterday's regeneration has not yet reached Weebly. This half is not a new finding: it is
+  the expected, already-documented "repo ahead of live pending a paste" state Q38's own
+  write-up anticipated, now directly confirmed on this branch for the first time.
+
+  Block B (843 bytes, byte-identical on both pages checked): "@type": "Pharmacy", the correct
+  branchName and telephone, but "url": "https://www.hirshmanspharmacy.co.uk/" (the bare
+  domain root, not this page's own address - this fails check-jsonld.js's own rule 4, which
+  every one of the 177 repo-generated pages passes), an "email" field this page family's
+  generator has never declared at any point in its history, and a PostalAddress with NO
+  addressRegion at all (fails rule 5's own addressRegion sub-check). It DOES carry
+  openingHoursSpecification, matching the four sessions branches.json holds for this branch
+  exactly.
+
+  Block B matches no version of any of this repo's six page generators at any point in their
+  history: no generator has ever emitted an "email" field on a Pharmacy schema block, and no
+  generator composes "url" as the bare domain root (rule 4 always composes
+  branch.website + "/" + filename). Cross-checked on a second page
+  (uti-treatment-hirshmans-ainsdale.html): block B is present there too, byte-identical
+  (same 843-character content, confirmed by direct string comparison, not just matching
+  length). This is consistent with a single sitewide script placed once in a Weebly
+  site-wide header or footer HTML embed, entirely outside this repo's generator pipeline,
+  appearing unchanged on every page of the site rather than being composed per-page.
+
+  Consequence: every Hirshmans Ainsdale page currently declares the same Pharmacy entity
+  twice, under two different "url" values and two different address shapes, which is exactly
+  the "business that describes itself two different ways across its own pages is harder for
+  Google to resolve to one entity" risk check-jsonld.js's own header comment was written
+  against for the @type divergence found on the item 3.10 pass - here the mechanism is a
+  second, hand-placed block rather than a generator inconsistency, and no checker in this
+  repo can see it because every checker reads modules/*/pages/*.html on disk, never a live
+  page's actual rendered DOM.
+
+  Not investigated further this pass (out of scope for a single item's rotation slot, and
+  fixing it needs Weebly site-wide-embed access this run does not have): whether block B is
+  present on other branches' sites too, whether it predates this repo's own generator
+  entirely, or who added it and why.
+
+QUESTIONS: Q109 raised - what to do about the sitewide duplicate/incorrect JSON-LD block.
+See QUESTIONS.json. Not decided autonomously: no autonomous window open this run, and fixing
+either half needs a Weebly session this run does not have.
+
+sitemap.xml not re-read this pass (checked in depth by a recent pass on a neighbouring item
+with no new angle to add here).
+
+WRITE-UP
+AGENT_WORKLIST.md updated in place under item 1.2's own checkbox block (twentieth-pass entry
+appended after the nineteenth pass's write-up). No worklist checkbox change (item 1.2 already
+[x], a quality pass is not a state change).
