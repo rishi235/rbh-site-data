@@ -15891,6 +15891,54 @@ Pharmacy First wording to the NHS service description.
       this pass (last confirmed clean at depth on the tenth and eleventh
       passes). No new question raised. Evidence:
       audits/gbp-pack-refresh-4.3-seventeenth-2026-09-15.txt. Done 2026-09-15
+      Quality pass 2026-09-16 (eighteenth pass, unattended scheduled run):
+      re-verified as the stalest rotation-pool item. Pack sha256
+      c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f -
+      unchanged since the seventeenth pass, branches.json also unchanged.
+      All 36 checkers exit 0. NEW ANGLE: check-brand-spelling.js gained
+      gbp-packs coverage since the seventeenth pass (commit 6beb676, item
+      3.6 nineteenth pass, born against mccanns-sandringham.md), not yet
+      proven against this pack. PROOF BY INJECTION on a disposable scratch
+      copy (tracked files never opened for writing, sha256-confirmed
+      unchanged throughout): (1) a near-miss "Hirshman Chemist" (dropped
+      trailing s) injected into the business description - CAUGHT, exit 1,
+      one new FAIL at the correct line. (2) tested the quote/claim boundary
+      against this pack's own real prose rather than a synthetic string:
+      the pack legitimately quotes the wrong live GBP listing name twice as
+      evidence ("the current GBP listing name is \"Hirshmans Pharmacy -
+      Travel Vaccination...\""); both quoted mentions read as NOTE, not
+      FAIL, at baseline. Stripped the quotation marks from one of the two
+      mentions only, leaving the other as a control - CAUGHT, exit 1, only
+      the unquoted mention was promoted to FAIL, the quoted control stayed
+      a NOTE, proving the two are read independently and the quote
+      exemption is genuinely load-bearing on this pack's own content, not
+      just untested. Both restored, hash reconfirmed, scratch deleted.
+      Q38 (openingHoursSpecification JSON-LD, landed 2026-09-15) spot-
+      checked directly on the generated Pharmacy First page: four
+      OpeningHoursSpecification blocks correctly split both lunch closures
+      (weekday and Saturday), matching branches.json field for field.
+      LIVE HALF: Claude in Chrome connected, read-only. contact-us.html
+      re-read against WEEBLY_FURNITURE_CHECKLIST.md's Hirshmans entry
+      (generated the day before, 2026-09-15, never checked against live
+      before now) - all four documented faults confirmed present and
+      unchanged (page block: address wraps, postcode omitted, phone
+      unspaced, NHS mailbox given as patient contact; site-wide footer
+      block below it: address and phone correct but the NHS mailbox is
+      repeated there too instead of the general email; locality split
+      across lines in both; the later compact footer strip is fully
+      correct). pharmacy-first-hirshmans-ainsdale.html (Post A's live
+      target) re-read in full, unchanged and correct.
+      switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders
+      the pre-Q7 em dash as mojibake, unchanged, still item 5.1/Q7. NEW: the
+      same live page still carries the pre-Q49 unconditional hero wording
+      ("We contact your GP. We handle everything. You do nothing.") against
+      the repo's now-qualified generated page (commit 99dcad3, 2026-09-15,
+      "We contact your GP where it is needed. We handle what we can...") -
+      not a new defect, this is the paste lag that commit already recorded
+      as expected across all 15 branches, now specifically confirmed at
+      Hirshmans. No new question raised. Full 36-checker suite re-run clean
+      after all scratch work. Evidence:
+      audits/gbp-pack-refresh-4.3-eighteenth-2026-09-16.txt. Done 2026-09-16
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

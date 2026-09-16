@@ -1,0 +1,143 @@
+Item 4.3 (Hirshmans Chemist, Ainsdale GBP pack) - eighteenth quality pass
+Run: 2026-09-16, unattended scheduled run (audit-backlog-worker)
+
+ROTATION: pool re-derived from AGENT_LOG.md "Item X.Y" header mentions across
+the 36-item pool (43 checked worklist items minus the 7 standing
+out-of-rotation items 1.1/1.4/2.2/5.6/5.7/6.7/6.8). 4.3's own seventeenth pass
+(commit dated 2026-09-15) was the oldest last-touch entry point among all pool
+items tied on 2026-09-15; every other pool item's most recent mention resolves
+to a later (lower-index) log entry. Taken as stalest.
+
+BASELINE FACTS
+- gbp-packs/hirshmans-ainsdale.md sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+  - unchanged since the seventeenth pass (2026-09-15).
+- branches.json: no commits touching it since 2026-09-15.
+- Full tools/check-*.js suite (36 checkers) re-run fresh this pass: 36/36 exit 0.
+
+NEW ANGLE: commits landed in tools/ since the seventeenth pass (2026-09-15)
+were reviewed for relevance to this pack/branch before checking:
+  - 6beb676 (item 3.6 nineteenth pass): check-brand-spelling.js gained
+    gbp-packs coverage for its main near-miss brand rule (previously only its
+    rule 6 shortened-brand check touched gbp-packs). Born and proven against
+    gbp-packs/mccanns-sandringham.md; NOT yet proven against
+    hirshmans-ainsdale.md specifically. Taken as this pass's angle.
+  - f362a7d (item 6.2): check-service-links.js PAGE_DIRS fail-safe - generic
+    infrastructure hardening, not applicable to a single GBP pack.
+  - 3213951 (item 5.1 nineteenth pass): check-em-dashes.js now scans
+    WEEBLY_FURNITURE_CHECKLIST.md - already covered by the full-suite green run.
+  - cfc1c18 (Q39): generated WEEBLY_FURNITURE_CHECKLIST.md, which carries a
+    Hirshmans section documenting known live furniture faults - used as the
+    basis for this pass's live-site re-check (see LIVE HALF below).
+  - ce4e595 (Q38): openingHoursSpecification added to JSON-LD on all 171
+    service/switch pages, including Hirshmans's. Spot-verified below.
+  - 2c6878d (Q44, item 3.3 eighteenth pass): brand added into family-A H1 on
+    pages where seoTown is shared with another live branch. Hirshmans Ainsdale
+    shares "Ainsdale" with Fishlocks Ainsdale, so seven of its condition pages
+    changed (contraception, earache, impetigo, and others). Already covered by
+    the full-suite green run (check-seo-pattern.js etc.); not separately
+    re-proven this pass since it is a generic, already-checker-guarded change.
+  - 99dcad3 (Q49): switch-page GP/continuity copy qualified. Affects the
+    generated Hirshmans switch page. Checked against the live page below.
+
+PROOF BY INJECTION (check-brand-spelling.js gbp-packs coverage, against this
+pack for the first time) - all work done on an rsync scratch copy at
+/tmp/scratch-4.3; tracked gbp-packs/hirshmans-ainsdale.md and branches.json
+never opened for writing; sha256-confirmed identical before, during (via the
+scratch-only copy) and after; scratch directory deleted at the end.
+
+(1) Injected a near-miss brand spelling into the business description prose:
+    "Hirshmans Chemist is Ainsdale's independent pharmacy" -> "Hirshman
+    Chemist is Ainsdale's independent pharmacy" (dropped trailing s).
+    RESULT: CAUGHT. Exit 1. Exactly one new FAIL:
+      "gbp-packs/hirshmans-ainsdale.md:22: reads "Hirshman Chemist". The
+      trading name is "Hirshmans Chemist""
+    Standing NOTE/PASS lines unchanged otherwise. Restored, hash reconfirmed
+    against the tracked copy.
+
+(2) Tested the quote-scoping boundary using this pack's own real prose rather
+    than a synthetic string. The pack legitimately quotes the live (wrong)
+    GBP listing name twice, as evidence of what Google currently shows, not as
+    a claim the pack itself makes:
+      Line 38:  the current GBP listing name is "Hirshmans Pharmacy - Travel
+                Vaccination and Simple Weight Loss Clinic".
+      Line 128: old "Hirshmans Pharmacy" branding
+    Baseline (quotes intact): both lines produce a NOTE, not a FAIL - correctly
+    read as citations of live-page wording, not this pack's own claim.
+    Removed the quotation marks around the line 38 mention only (leaving line
+    128's quoting untouched, as a control).
+    RESULT: CAUGHT. Exit 1. Line 38 was promoted from NOTE to:
+      "gbp-packs/hirshmans-ainsdale.md:38: reads "Hirshmans Pharmacy". The
+      trading name is "Hirshmans Chemist""
+    Line 128 remained a NOTE throughout, confirming the two lines are being
+    read independently rather than the file being handled as all-quoted or
+    all-bare. This proves the quote/claim boundary is genuinely load-bearing
+    on this pack's own real content, not just untested.
+    Restored (quotes re-added), hash reconfirmed against the tracked copy.
+
+Full 36-checker suite re-run against the tracked repo after both injections and
+restores: 36/36 exit 0. git status --porcelain -- gbp-packs branches.json
+modules core tools: empty (aside from pre-existing unrelated FUSE-mount debris
+noted separately in AGENT_LOG.md, not touched by this pass).
+
+Q38 SPOT-CHECK: read modules/service/pages/pharmacy-first-hirshmans-ainsdale.html's
+JSON-LD openingHoursSpecification directly. Four OpeningHoursSpecification
+blocks: Mon-Fri 08:30-13:00, Mon-Fri 14:00-18:00, Sat 09:00-13:00, Sat
+14:00-17:30. Compared field for field against branches.json's
+hirshmans_ainsdale.openingHours.specification: identical. Both lunch closures
+(weekday and Saturday) correctly represented as split sessions, not collapsed
+into one span - the exact fault class check-opening-hours.js and this addition
+exist to prevent.
+
+LIVE HALF (Claude in Chrome, read-only, nothing clicked/typed/submitted beyond
+navigation and reading):
+
+- https://www.hirshmanspharmacy.co.uk/contact-us.html re-read in full against
+  WEEBLY_FURNITURE_CHECKLIST.md's Hirshmans entry (generated one day earlier,
+  2026-09-15, never checked against live before now). All four documented
+  faults confirmed present and unchanged:
+    - Page-specific "Contact Us" block: address wraps "56-62 Sherwood House,
+      Station / Road" across two lines, POSTCODE OMITTED entirely, phone
+      unspaced "01704577376", and the NHS mailbox pharmacy.FW378@nhs.net given
+      as the patient contact address.
+    - Site-wide footer block (appears again below the page-specific block):
+      address correct on one line with postcode, phone correctly spaced
+      "01704 577376", but the NHS mailbox pharmacy.FW378@nhs.net is repeated
+      here too (rather than the general Hirshmans@rbhealth.co.uk), so the NHS
+      mailbox is published as the patient-facing address TWICE on one page.
+    - Locality split across separate lines ("Ainsdale" / "Southport") in both
+      blocks.
+    - Bottom compact footer strip (a third, later element): fully correct -
+      single-line address with postcode, spaced phone, and the general email
+      Hirshmans@rbhealth.co.uk.
+  No drift from the checklist's description; nothing newly broken, nothing
+  newly fixed. First live confirmation this checklist entry is accurate.
+
+- https://www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html
+  (Post A's live target since the 2026-09-14 repoint): re-read in full.
+  Branding, address, phone, all seven Pharmacy First conditions and the
+  contact card all correct and unchanged from the seventeenth pass.
+
+- https://www.hirshmanspharmacy.co.uk/switch-prescriptions-hirshmans-ainsdale.html
+  (Post B): still renders the pre-Q7 em dash as mojibake ("is not ÔÇö we make"),
+  unchanged - still item 5.1/Q7, live Weebly paste lag, not actionable from
+  this repo.
+  NEW: separately, this live page still reads the pre-Q49 unconditional hero
+  copy ("We contact your GP. We handle everything. You do nothing." and "We
+  handle the full switch for you") against the repo's now-qualified generated
+  page ("We contact your GP where it is needed. We handle what we can. We
+  will tell you if anything else is needed." / "We handle what we can of the
+  switch for you"), confirmed by reading
+  modules/switch/pages/switch-prescriptions-hirshmans-ainsdale.html directly.
+  This is not a new defect: commit 99dcad3 (2026-09-15) explicitly recorded
+  the Q49 change as "not yet live... pending a manual Weebly paste run on all
+  15 branch sites" and verified that expectation once, at Cherry Lane. This is
+  simply the first time that same expected paste-lag has been specifically
+  confirmed at Hirshmans Ainsdale, alongside the existing Post A/B paste-lag
+  items already tracked here.
+
+RESULT: zero in-repo defect. One genuinely new checker capability
+(check-brand-spelling.js's gbp-packs coverage) proven against this pack for
+the first time, two ways, including a proof against the pack's own real quoted
+prose rather than a synthetic string. Q38's JSON-LD addition verified correct
+field-for-field. Live half re-confirmed with one incidental, expected
+paste-lag confirmation (Q49) added to the record. No new question raised.
