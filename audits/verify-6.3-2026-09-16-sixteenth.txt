@@ -1,0 +1,254 @@
+Item 6.3 - sixteenth quality pass, 2026-09-16 (unattended scheduled run, Cowork
+sandbox mcp__workspace__bash throughout for repo work; Claude in Chrome used
+only for step 3's answer pickup, one tab, no dual-sign-in issue this run).
+
+FRESH ANGLE: rules 9 and 10 (added 2026-09-12 and 2026-09-15 respectively)
+both depend on `branches` being pre-filtered to exclude disposed branches
+(line 299, `data.branches.filter(b => !b.disposed)`), and neither had ever
+been tested against that filter. The thirteenth pass (2026-09-10) proved the
+disposed filter's effect on rules 1-7 using fishlocks_ainsdale, and explicitly
+flagged as untested "whether every other checker's own disposed handling
+behaves the same way", but that note was about OTHER checkers, not about
+this file's own rules 9 and 10, which did not exist yet at the time. Grepped
+this file and AGENT_LOG.md for "rule 9" + "disposed" and "rule 10" +
+"disposed" together first: zero hits.
+
+BASELINE (tracked repo, before any scratch work):
+  - 35/35 static checkers clean (all tools/check-*.js except check-live-hours.js,
+    which is network-dependent and run separately below).
+  - branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+    (standing hash, matching the fifteenth pass exactly - unchanged since
+    2026-09-15).
+  - generated tree hash (sha256 of the sha256 list of every .html/.css/.js
+    under modules/ and core/): a663980287b3802015ae6b27dc124f448c49026789d935304bd84b86fc02265d
+    (also matching the fifteenth pass exactly).
+  - git status --porcelain on modules, core, branches.json, gbp-packs, tools,
+    status empty throughout (bar the long-standing untracked scratch/test
+    debris already present at session start, none of it touched).
+
+TEST A - rule 9's KNOWN_NO_HOURS anti-rot, "is disposed" path, and rule 10's
+branchFor() resolver, both exercised together on a real branch with real
+generated pages (never done before - the thirteenth pass used
+fishlocks_ainsdale, which was tested against rules 1-7 only, not the full
+36-checker suite, and pre-dated rules 9/10).
+
+Method: repo copied whole (tar --exclude='.git') to a disposable scratch
+directory under /tmp, never the tracked tree. Scratch branches.json sha256
+confirmed identical to the tracked file before any edit
+(169bb5a2...b102). clearchemist_aintree.disposed set to true in the scratch
+copy only (the one branch that is both odsCode-bearing and hours-less today,
+already carried in KNOWN_NO_HOURS with a documented reason, and the only
+disposed-eligible branch with real generated pages: three exist -
+modules/service/pages/travel-clinic-clear-aintree.html,
+modules/service/pages/weight-loss-clinic-clear-aintree.html and
+modules/switch/pages/switch-prescriptions-clear-aintree.html, none of them a
+branch landing page since Clear Aintree has none).
+
+Ran tools/check-opening-hours.js against the scratch copy:
+
+  6 landing page(s) checked against 15 trading branches
+  rule 7 swept 88 clock time(s)
+  rule 8 swept 177 switch/service-family/pasted-copy file(s)
+  rule 10 checked 168 switch/service-family page(s) (down from 171 - the
+    three Clear Aintree files no longer resolve)
+
+  FAIL  KNOWN_NO_HOURS carries "clearchemist_aintree" but that branch now
+        has an openingHours block, is disposed, or no longer exists in
+        branches.json. Remove the entry now the gap is resolved
+  FAIL  rule 10 could not resolve 3 switch/service-family page(s) to exactly
+        one branch, so their opening hours schema is unproven. Check
+        branchFor() against the filename(s)
+
+Both fired exactly as designed, first attempt:
+  - Rule 9's own forEach iterates the already-filtered `branches` array, so
+    disposing clearchemist_aintree removes it from that loop entirely; the
+    NOTE branch that would have set seenKnownNoHours['clearchemist_aintree']
+    never runs, and the anti-rot check two blocks later correctly reports the
+    branch as one of its three named states ("is disposed") rather than
+    silently leaving a stale exception in place or throwing on a missing key.
+    This is the specific "is disposed" wording proved for the first time;
+    the tenth pass proved the anti-rot's sibling lists (rule 7/8) going stale
+    for other reasons, but never this one, and it did not exist until the
+    fourteenth pass added rule 9.
+  - Rule 10's branchFor() also reads the filtered `branches` array, so the
+    three real Clear Aintree pages correctly stop resolving to any branch
+    the moment it is marked disposed, incrementing schemaHoursUnmatched
+    rather than either matching them to a dead branch or crashing. This is
+    the fifteenth pass's own resolver, proved against the disposed filter
+    for the first time (the fifteenth pass proved schemaHoursUnmatched
+    against an unresolvable FILENAME; this proves it against a
+    now-unresolvable BRANCH, a different cause of the same count).
+
+CROSS-FIRING CHECK (full 35-checker sweep on the same scratch copy, the
+first time this item has swept every OTHER checker's disposed handling
+rather than only this file's own): 15 of the other 34 checkers also failed
+on the same injection, each for its own stated reason - check-booking-routes,
+check-branch-identity, check-brand-spelling (a stale CANONICAL entry),
+check-editor-snapshot (branches-editor.html snapshot now stale on the
+disposed flag), check-gbp-packs, check-map-embeds, check-nap,
+check-page-coverage (DISPOSED_LISTED and ORPHAN_PAGE, both naming all three
+Clear Aintree generator entries and files), check-postcodes (a stale
+DELIBERATE_SHARED_POSTCODES entry), check-seo-keywords, check-seo-lengths,
+check-seo-pattern, check-service-links, check-switch-copy and
+check-weight-loss-copy - plus check-cdn-pins, which also failed on this
+scratch copy but for unrelated, pre-existing reasons (see note below), not
+counted in the 15. All of them are the correct,
+expected consequence of marking a branch disposed while its generator BUILD
+lists and generated pages still exist - this is exactly the gap the CLAUDE.md
+Wilmslow precedent describes ("the generators had to learn to skip a disposed
+branch"), and the thirteenth pass's side note ("whether every other checker's
+own disposed handling behaves the same way is untested") is now answered for
+this specific injection: yes, the estate's checkers do catch an incomplete
+disposal, in aggregate, across many independent rules. This is confirmation,
+not a defect to fix - a synthetic single-field flip on a real trading branch
+is expected to cascade until the generators and pages are updated together,
+and no real disposal was made. NOTE: check-cdn-pins.js's six failures on this
+scratch copy are pre-existing and unrelated to the injection - they are the
+standing "ref does not resolve in git" state on a copy taken outside a git
+working tree (no .git directory in the tar copy at all, so git ls-remote/
+rev-parse cannot resolve anything); the same six failures occur on ANY
+scratch copy of this repo regardless of branches.json content, and are why
+recent passes routinely exclude check-cdn-pins.js (like check-live-hours.js)
+from scratch-copy sweeps. Confirmed by running it against the UNMODIFIED
+scratch-6.3-tiebreak copy (test B below) before any edit: identical six
+failures, same messages, same refs.
+
+RESTORE: scratch copy discarded (disposable, under /tmp, outside both the
+tracked repo and the workspace folder). Tracked branches.json never opened
+for writing; confirmed unchanged by sha256 (169bb5a2...b102) both before and
+after this test. Tracked tools/check-opening-hours.js confirmed byte-identical
+to the scratch copy's own (unedited) checker by diff before test B's patch
+was applied (test B uses a SEPARATE scratch copy, below).
+
+TEST B - branchFor()'s longest-match tie-break (rule 10), proved by
+injection for the first time. The function's own comment (lines 301-304)
+states the tie-break exists "so a shorter slug that happens to be a
+substring of a longer one (e.g. 'bootle') cannot steal a file that belongs
+to a different branch on the same town" - a risk named in the source since
+the fifteenth pass added rule 10, and never itself tested. Two real branches
+share the literal town "bootle": smartts_bootle (brandSlug "smartts",
+combined length 13) and skchemists_bootle (brandSlug "sk-chemists",
+combined length 17). smartts_bootle appears EARLIER in branches.json's own
+array order, so a naive "first match wins" resolver would pick the wrong
+branch; only the explicit length-sort (hits.sort by combined slug length,
+descending) picks correctly.
+
+Method: a second, separate scratch copy of the whole repo (fresh tar
+extraction, branches.json sha256 reconfirmed 169bb5a2...b102, no disposed
+flag set - kept clean of test A's edit so the two tests cannot contaminate
+each other). Added one file,
+modules/service/pages/service-tiebreak-smartts-sk-chemists-bootle-test.html,
+whose filename deliberately contains all three substrings "smartts",
+"sk-chemists" and "bootle" - not a real branch's actual filename, purely to
+construct the ambiguity the comment describes - carrying a real
+application/ld+json Pharmacy block copied from a genuine SK Chemists page.
+This scratch copy's own tools/check-opening-hours.js (never the tracked
+file, confirmed by diff throughout) was patched with one diagnostic
+console.log immediately after the `var b = branchFor(file);` line, printing
+the filename and the resolved branch id whenever the filename contains
+"tiebreak" - purely to observe the resolver's choice directly, the same
+technique the eleventh and fifteenth passes used to patch a scratch-only
+checker copy for diagnostic purposes.
+
+Round 1 - JSON-LD carries skchemists_bootle's own real hours (09:00-18:00
+Mon-Fri straight through, closedDays Saturday/Sunday):
+
+  DIAGNOSTIC tiebreak resolve: service-tiebreak-smartts-sk-chemists-bootle-test.html -> skchemists_bootle
+  ...
+  check-opening-hours: clean, every visible and structured opening time matches branches.json.
+
+Resolved to skchemists_bootle (the longer combined slug, "sk-chemists" +
+"bootle" = 17 characters, beating "smartts" + "bootle" = 13) despite
+smartts_bootle sitting earlier in branches.json's own array - proving the
+sort genuinely overrides array order rather than the pass being a coincidence
+of iteration order. Since the injected JSON-LD carries skchemists_bootle's
+own real (non-split) hours, correct resolution produces a clean rule 10
+result for this file; had the resolver instead picked smartts_bootle (whose
+real hours are a split lunch closure, structurally different), the same data
+would have mismatched loudly.
+
+Round 2 - control, same file, same scratch copy, JSON-LD changed to
+smartts_bootle's own real hours (09:00-13:00 and 14:00-18:00 Mon-Fri, the
+split-lunch pattern) instead, to remove any doubt that round 1's clean
+result was a coincidence of the data rather than the resolution:
+
+  DIAGNOSTIC tiebreak resolve: service-tiebreak-smartts-sk-chemists-bootle-test.html -> skchemists_bootle
+  FAIL  modules/service/pages/service-tiebreak-smartts-sk-chemists-bootle-test.html: JSON-LD opening hours do not match branches.json for skchemists_bootle
+  FAIL      page: Friday 09:00-13:00, Friday 14:00-18:00, Monday 09:00-13:00, Monday 14:00-18:00, Thursday 09:00-13:00, Thursday 14:00-18:00, Tuesday 09:00-13:00, Tuesday 14:00-18:00, Wednesday 09:00-13:00, Wednesday 14:00-18:00
+  FAIL      data: Friday 09:00-18:00, Monday 09:00-18:00, Thursday 09:00-18:00, Tuesday 09:00-18:00, Wednesday 09:00-18:00
+
+Still resolved to skchemists_bootle (proving the tie-break is stable and
+independent of the page's own data content, driven only by the filename),
+and now correctly FAILS naming skchemists_bootle explicitly, because the
+injected split-lunch data does not match that branch's real straight-through
+hours. Round 1 pass plus round 2 fail, both naming the same resolved branch,
+together prove branchFor()'s length-sort tie-break directly rather than by
+inference from a single clean or single failing run.
+
+RESTORE: both test-B scratch copies (the diagnostic-patched checker and the
+test file) were disposable, under /tmp, never inside the tracked repo. The
+tracked tools/check-opening-hours.js confirmed byte-identical to the
+untouched scratch-copy-A checker by diff at the point test B began, and the
+tracked repo's own copy was never opened for writing at any point in either
+test.
+
+FINAL CONFIRMATION (tracked repo): git status --porcelain on modules, core,
+branches.json, gbp-packs, tools, status empty throughout this pass (the
+recurring FUSE-mount .git/index.lock artefact, Q87/Q96/Q102, appeared once
+during a git status call and was renamed aside rather than deleted, per
+the standing convention - a fresh empty lock is git's own normal per-command
+artefact and did not block any command). branches.json sha256 reconfirmed
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, generated
+tree hash reconfirmed a663980287b3802015ae6b27dc124f448c49026789d935304bd84b86fc02265d,
+both identical to this pass's own baseline above. Full 35-checker suite
+re-run individually on the tracked repo after all scratch work: 35/35 exit 0.
+
+RESULT: zero in-repo defect. Both fresh angles - rule 9's anti-rot "is
+disposed" path, and rule 10's branchFor() tie-break - were already correct;
+now proven directly by injection for the first time in this item's
+sixteen-pass history. No page, generator, data field, checker or
+patient-facing copy changed anywhere in the tracked repo.
+
+LIVE HALF: network egress confirmed directly (curl 200 from google.com; no
+browser needed for this half - Claude in Chrome was used only for step 3's
+answer pickup and worked cleanly this run, one tab, no dual sign-in). Ran
+tools/check-live-hours.js directly against the tracked repo (never a scratch
+copy, since it only reads branches.json and fetches live pages); report
+written to audits/live-hours-check-2026-09-16.json. No bank holiday falls
+within 14 days of this run (nearThisRun: [], readerNote confirms). All 14
+branches read against branches.json by address/phone where a page interleaves
+two branches' contact blocks: thirteen match exactly, including every
+lunch-closure branch (mccanns_aigburth, mccanns_sandringham, hirshmans_ainsdale,
+colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor) and both
+split-domain pairs (Scorah, Fishlocks) read by their own address. gordonshorts_crosby
+read as the live control for test A's injection target's sibling branch and
+correctly still shows its lunch closure throughout ("9:00am - 6:00pm (closed
+1-2pm)"), confirming the in-repo scratch-only test never touched anything
+live. smartts_bootle remains the sole live mismatch: the homepage hours card
+("Monday 9:00am - 6:00pm" through "Friday 9:00am - 6:00pm", no lunch closure
+shown), the contact page's widget ("Weekdays / 09:00 - 18:00") and the site
+footer ("Open Mon-Fri 9am-6pm, Sat & Sun closed") all still publish
+straight-through hours with no lunch closure, unchanged since first found
+2026-08-11 across all sixteen passes now. Q55 (raised 2026-08-11, answered by
+Rishi via the portal 2026-09-02 choosing option 1, edit the live Smartts
+pages) stands as answered-but-not-yet-actioned - the live Weebly edit is
+outside this worker's write scope (browser use stays read-only) - not
+re-raised.
+
+ANSWER PICKUP (step 3, this run): Claude in Chrome connected cleanly, one tab,
+no dual sign-in this run. Read https://data.rbhealth.co.uk/api/feedback in
+full (entries dated 2026-08-04 to 2026-09-01 only). Cross-checked every
+"AUDIT ANSWER Qn" entry against QUESTIONS.json's currently-open questions
+(Q37, Q43, and Q53-Q109): only Q37 and Q43 appear in the feed at all, both
+byte-identical to the non-decision replies already recorded in QUESTIONS.json
+(Rishi's Q37 reply asks for the question to be explained; his Q43 reply is a
+partial, non-binary comment), both correctly left "open" by prior runs. Q52
+(the only other question referenced by any feed entry) is already correctly
+recorded as "answered" in QUESTIONS.json. No new answer to apply, no status
+change made, matching this morning's earlier scheduled run's own finding on
+the same feed (the item 3.2 nineteenth-pass run, logged at the top of
+AGENT_LOG.md before this run started).
+
+No new question raised. No page, generator, data field, checker or
+patient-facing copy changed. Evidence: this file,
+audits/live-hours-check-2026-09-16.json.

@@ -1,3 +1,101 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fifteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing on two separate disposable scratch copies (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 6.3 (Opening hours vs branches.json) sixteenth quality pass: two never-before-exercised fail paths in tools/check-opening-hours.js proved by injection, both tied to rules 9 and 10 (added the fourteenth and fifteenth passes) interacting with the disposed-branch filter, which the thirteenth pass had proved for rules 1-7 only and explicitly flagged as untested elsewhere. TEST A (clearchemist_aintree marked disposed on a scratch copy, the one branch that is both odsCode-bearing, hours-less and carries three real generated pages): rule 9's KNOWN_NO_HOURS anti-rot correctly fired its "is disposed" wording for the first time, and rule 10's branchFor() correctly stopped resolving the three real Clear Aintree pages to any branch (schemaHoursUnmatched +3) rather than mismatching them to a dead branch. Full 35-checker sweep of the same injection found 15 other checkers correctly cross-firing for their own reasons (an incomplete disposal, not a defect - the CLAUDE.md Wilmslow precedent), answering the thirteenth pass's own side note. TEST B (separate clean scratch copy): branchFor()'s longest-match tie-break, named in its own comment as guarding against a "bootle"-type substring collision but never tested, proved directly with a diagnostic-patched scratch-only checker copy and a filename containing both "smartts" and "sk-chemists" substrings - correctly resolved to skchemists_bootle (the longer combined slug) despite smartts_bootle sitting earlier in branches.json's array order, confirmed both when the file's data matched (clean) and did not match (named FAIL) skchemists_bootle's real hours. Zero in-repo defect either test; tracked branches.json and checker confirmed byte-identical throughout by sha256/diff. LIVE HALF (network egress direct, no browser needed for this half): all 14 branches read, smartts_bootle remains the sole live mismatch unchanged since 2026-08-11 across all sixteen passes, gordonshorts_crosby read correctly as the live control. STEP 3 answer pickup: portal feed read in full, only Q37/Q43/Q52 of the open or recently-answered questions appear in it, all already correctly recorded, no new answer applied. No new question raised. See full detail below and in audits/verify-6.3-2026-09-16-sixteenth.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run
+start. Wrote a fresh UTC timestamp. `git fetch origin`, `git checkout
+agents/audit-backlog` and `git pull --ff-only origin agents/audit-backlog`
+completed cleanly, "Already up to date", HEAD matching
+`origin/agents/audit-backlog`. A `.git/index.lock` (the standing FUSE-mount
+unlink restriction, Q87/Q96/Q102) appeared once during a mid-run `git
+status` call and was renamed aside rather than deleted, per the standing
+convention; it did not block any command.
+
+ANSWER PICKUP (step 3, this run): `mcp__claude-in-chrome` connected cleanly
+this run, one tab, no dual sign-in refusal encountered (unlike the standing
+Q59 note, which did not apply this run). Read
+https://data.rbhealth.co.uk/api/feedback in full - entries dated 2026-08-04
+to 2026-09-01 only, nothing newer. Cross-checked every "AUDIT ANSWER Qn"
+entry against QUESTIONS.json's currently-open questions (Q37, Q43, and
+Q53-Q109): only Q37 and Q43 appear in the feed among the open set, both
+byte-identical to the non-decision replies already recorded (Rishi's Q37
+reply asks for the question to be explained; his Q43 reply is a partial,
+non-binary comment), both correctly left "open". Q52, the only other
+question named in any feed entry, is already correctly recorded as
+"answered". No new answer to apply, no status change made - matching the
+same-day earlier run's own finding on this feed.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md
+(the run-14 entry, now below this one) before adding this entry - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` -
+8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines
+under 6.4/6.5/6.6), all 8 still carry `[BLOCKED]`, unchanged. No actionable
+unchecked item. Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): derived the 34-item pool the same way recent runs
+have (42 checked AGENT_WORKLIST.md items minus the seven standing
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), then a Python
+scan of AGENT_LOG.md matching `(?:item|took)\s+<N>\b` word-bounded anywhere
+in the file, taking each pool item's topmost (most recent) mention line
+index and picking the item whose own most-recent-mention line index was the
+LARGEST (= least recently mentioned). 6.3 came out clearly stalest (index
+838, last mentioned at the very bottom of the scanned file - its own
+fifteenth-pass write-up from 2026-09-15), against 3.7 as next-stalest (784).
+3.2 (this morning's own pick, index 0, most recently mentioned) correctly
+excluded. Picked item 6.3 for a sixteenth quality pass.
+
+WORK DONE (item 6.3, sixteenth quality pass): see AGENT_WORKLIST.md's own
+paragraph for the full method and rule-by-rule detail; full transcript in
+audits/verify-6.3-2026-09-16-sixteenth.txt. Summary: read
+tools/check-opening-hours.js end to end again looking for genuinely
+untested ground after fifteen prior passes had proved every numbered rule,
+every fail path, the bank-holiday block validation and rule 10's own
+coverage floors and unmatched-file count. Found two: rules 9 and 10 (the
+two newest rules, added the fourteenth and fifteenth passes respectively)
+had never been tested against the disposed-branch filter their own
+`branches` array depends on, and branchFor()'s longest-match tie-break
+(named in the function's own comment as the reason a "bootle"-type
+substring cannot steal a file, but never itself exercised) had never been
+proved. Both closed by injection on disposable tar-copy scratch repos,
+never the tracked tree: TEST A disposed clearchemist_aintree (the one
+branch that is odsCode-bearing, hours-less and still carries three real
+generated pages) and caught rule 9's KNOWN_NO_HOURS anti-rot "is disposed"
+path plus rule 10's branchFor() correctly dropping three real pages to
+unmatched, both for the first time; a full 35-checker sweep of the same
+injection (the first time this item swept every OTHER checker's disposed
+handling rather than only this file's) found 15 other checkers correctly
+cross-firing on the same incomplete-disposal shape, answering the
+thirteenth pass's own side note that this was untested. TEST B built a
+filename containing both "smartts" and "sk-chemists" substrings on a
+separate clean scratch copy, patched only that copy's checker with one
+diagnostic log line, and proved across two rounds (matching data: clean;
+mismatched data: named FAIL) that branchFor() resolves to skchemists_bootle
+(the longer combined slug) regardless of smartts_bootle's earlier position
+in branches.json's own array. Zero in-repo defect in either test; both were
+the checker already being correct, now proven rather than assumed. Tracked
+branches.json (sha256 169bb5a2...b102) and tools/check-opening-hours.js
+confirmed byte-identical to baseline throughout by sha256 and diff; full
+35-checker suite re-run clean (35/35) on the tracked repo after both tests;
+git status --porcelain empty bar the same pre-existing untracked debris,
+untouched.
+
+LIVE HALF (network egress confirmed directly via curl, no browser needed
+for this half - Claude in Chrome was used only for step 3 this run and
+worked cleanly). tools/check-live-hours.js re-run across all 14 branches,
+evidence audits/live-hours-check-2026-09-16.json. No bank holiday within 14
+days of this run. All 14 branches read against branches.json: thirteen
+match exactly, including every lunch-closure branch and both split-domain
+pairs. gordonshorts_crosby read live as the control for test A's injection
+target's sibling branch, correctly still shows its lunch closure throughout,
+confirming the scratch-only test never touched anything live. smartts_bootle
+remains the sole live mismatch, straight-through hours unchanged since
+2026-08-11 across all sixteen passes now. Q55 (answered 2026-09-02, option
+1: edit the live Smartts pages) stands as answered-but-not-yet-actioned,
+live Weebly edit outside this worker's write scope, not re-raised. No new
+question. Evidence: audits/verify-6.3-2026-09-16-sixteenth.txt,
+audits/live-hours-check-2026-09-16.json.
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fourteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing (byte-copy restore, sha256-verified) and checker runs; mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_context_mcp used for the answer-pickup fetch and the live half; Read/Edit used for AGENT_WORKLIST.md and this entry, plus the new audits file) - Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) nineteenth quality pass: tools/check-weight-loss-copy.js proven by five injections against Scorah's own two weight loss pages and, for the first time, Scorah Bramhall's own Regime 1 branch landing page (rules 6, 7, 8, 9 and 11), all caught cleanly, no cross-firing, tracked repo confirmed untouched throughout. Guard coverage for item 3.2 now 14 of 36 checkers. LIVE HALF (Claude in Chrome connected this run): both live weight loss pages read clean and compliant on every visible line, the cleanest Scorah page family found live so far, but their JSON-LD blocks are confirmed stale on TWO counts - the standing Q18-era bare-brandLabel name, and (new) "@type": "MedicalBusiness" rather than "Pharmacy", the item-3.10 fault class, meaning these two pages have not been repasted since before 2026-08-10. Both are paste lag, not repo defects; no new question, feeds the standing 5.3/5.4 paste backlog. No in-repo defect found on item 3.2 itself. See full detail below and in audits/scorah-item-3.2-quality-pass-2026-09-16-nineteenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run

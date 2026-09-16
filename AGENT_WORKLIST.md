@@ -30476,6 +30476,94 @@ all at 2026-09-12.
       re-raised. No new question. Evidence:
       audits/verify-6.3-2026-09-15-fifteenth.txt,
       audits/live-hours-check-2026-09-15.json. Done 2026-09-15.
+      Quality pass (sixteenth), 2026-09-16 (unattended scheduled run, Cowork
+      sandbox mcp__workspace__bash throughout, Claude in Chrome connected
+      cleanly for step 3 only, one tab, no dual sign-in this run). FRESH
+      ANGLE: rules 9 and 10 (added fourteenth and fifteenth pass
+      respectively) both read the disposed-filtered `branches` array, and
+      neither had been tested against the disposed filter - the thirteenth
+      pass proved the filter's effect on rules 1-7 using fishlocks_ainsdale,
+      before rules 9 and 10 existed, and its own side note flagged other
+      checkers' disposed handling as untested. BASELINE: 35/35 static
+      checkers clean; branches.json sha256 169bb5a2...b102 (standing hash,
+      unchanged since the fifteenth pass); generated tree hash
+      a663980287...c02265d (also unchanged); git status --porcelain empty
+      throughout bar pre-existing untracked debris, untouched.
+      TEST A, on a disposable tar-copy scratch repo (never the tracked
+      tree): set clearchemist_aintree.disposed = true (the one branch that
+      is both odsCode-bearing, hours-less, in KNOWN_NO_HOURS, AND carries
+      three real generated pages - travel-clinic-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html,
+      switch-prescriptions-clear-aintree.html - unlike the thirteenth
+      pass's fishlocks_ainsdale injection, which was tested against this
+      file alone). CAUGHT, two new fail paths, both never exercised before:
+      (1) rule 9's KNOWN_NO_HOURS anti-rot correctly fired its "is disposed"
+      wording for the first time - disposing the branch removes it from the
+      filtered array rule 9 iterates, so the NOTE that would have marked the
+      exception as seen never runs, and the stale-key-fails check catches
+      it; (2) rule 10's branchFor() correctly stopped resolving all three
+      real Clear Aintree pages to any branch (168 checked, down from 171,
+      schemaHoursUnmatched +3) rather than matching them to a disposed
+      branch or crashing. CROSS-FIRING CHECK (first full 35-checker sweep of
+      a disposed-branch injection on this item, not just this file): 15
+      other checkers also failed, each for its own stated reason
+      (check-booking-routes, check-branch-identity, check-brand-spelling,
+      check-editor-snapshot, check-gbp-packs, check-map-embeds, check-nap,
+      check-page-coverage, check-postcodes, check-seo-keywords,
+      check-seo-lengths, check-seo-pattern, check-service-links,
+      check-switch-copy, check-weight-loss-copy), all the expected
+      consequence of a generator BUILD list and generated pages outliving a
+      disposed flag
+      (the CLAUDE.md Wilmslow precedent), answering the thirteenth pass's
+      side note for this injection: yes, other checkers do catch it, in
+      aggregate. check-cdn-pins.js's six failures on the same scratch copy
+      are unrelated pre-existing noise (no .git directory in a tar copy, so
+      git ref resolution always fails there regardless of branches.json
+      content) and are why cdn-pins is routinely excluded from scratch-copy
+      sweeps, same as check-live-hours.js. Not a defect: a synthetic
+      single-field flip on a real trading branch, no real disposal made.
+      TEST B, a separate clean scratch copy: branchFor()'s own comment
+      names a "bootle" substring risk as the reason for its longest-match
+      tie-break, never itself tested. smartts_bootle (combined slug length
+      13) sits earlier in branches.json than skchemists_bootle (combined
+      slug length 17); a naive first-match resolver would pick wrong. Added
+      one file with a filename containing all of "smartts", "sk-chemists"
+      and "bootle", plus a diagnostic console.log patched into this
+      scratch-only checker copy (never the tracked file, diff-confirmed) to
+      print the resolved branch id. Round 1 (JSON-LD carrying
+      skchemists_bootle's real straight-through hours): resolved to
+      skchemists_bootle, checker clean for that file - proving the length
+      sort beats array order. Round 2 (same file, JSON-LD switched to
+      smartts_bootle's real split-lunch hours): still resolved to
+      skchemists_bootle, now correctly FAILED naming skchemists_bootle and
+      quoting the mismatched split-vs-straight sessions - proving the
+      tie-break is stable and driven by the filename alone, not a
+      coincidence of one data shape happening to match. RESTORE: both test
+      scratch copies discarded (disposable, under /tmp); tracked
+      branches.json and tools/check-opening-hours.js confirmed untouched by
+      sha256 and diff throughout both tests. FINAL CONFIRMATION: branches.json
+      sha256 and generated tree hash reconfirmed identical to this pass's own
+      baseline; full 35-checker suite re-run clean (35/35) on the tracked
+      repo after both tests; git status --porcelain empty. RESULT: zero
+      in-repo defect - both fresh angles were already correct, now proven by
+      injection for the first time.
+      LIVE HALF: network egress confirmed directly (curl 200), no browser
+      needed for this half. tools/check-live-hours.js re-run across all 14
+      branches, evidence audits/live-hours-check-2026-09-16.json. No bank
+      holiday within 14 days of this run. gordonshorts_crosby read live as
+      control, correctly still shows its lunch closure, confirming test A's
+      scratch-only injection never touched anything live. smartts_bootle
+      remains the sole live mismatch, straight-through hours unchanged
+      since 2026-08-11 across all sixteen passes now. Q55 (answered
+      2026-09-02, option 1) stands as answered-but-not-yet-actioned, live
+      Weebly edit outside this worker's write scope, not re-raised.
+      ANSWER PICKUP this run (step 3): Chrome connected cleanly, one tab,
+      no dual sign-in. Read the portal feed in full; only Q37, Q43 and Q52
+      of the currently-open/recently-open questions appear in it, all
+      already correctly recorded (Q37/Q43 as non-decision replies left
+      open, Q52 as answered). No new answer applied. No new question
+      raised. Evidence: audits/verify-6.3-2026-09-16-sixteenth.txt,
+      audits/live-hours-check-2026-09-16.json. Done 2026-09-16.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
