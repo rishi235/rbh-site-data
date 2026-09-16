@@ -1,0 +1,29 @@
+Scratch dir: /sessions/sleepy-pensive-bell/tmp/verify-6.2-16th-71uV8U
+
+=== BASELINE (unmutated scratch copy, fix already present) ===
+exit: 0
+
+
+=== PRE-FIX RECONSTRUCTION: gordonshorts_crosby disposed, its own pages removed, ===
+=== cross-link injected on a Riddings page pointing at its old domain          ===
+exit: 0
+(no matching lines in output - confirms the injected link is invisible)
+
+=== SAME INJECTION, FIXED CHECKER ===
+exit: 1
+FAILURES (1):
+  FAIL  [disposed-branch target] modules/service/pages/contraception-riddings-timperley.html: links to www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html, a branch domain no longer in the group (marked disposed in branches.json)
+
+=== RESTORED, FIXED CHECKER, CONTROL RUN (should match baseline exactly) ===
+exit: 0
+
+
+=== SISTER-HOST EDGE CASE: scorah_hazel disposed, scorah_bramhall (same host) stays live ===
+exit: 1
+FAILURES (1):
+  FAIL  [stale target] modules/branch/pages/pharmacy-scorah-bramhall.html: links to www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html, which this repo does not generate
+(expect the EXISTING 'stale target' rule to fire on Bramhall's own cross-link to the removed
+ Hazel Grove page, NOT the new 'disposed-branch target' rule, since scorah-chemists.co.uk is
+ still a live estate host via Bramhall.)
+
+Done. Scratch copy left at /sessions/sleepy-pensive-bell/tmp/verify-6.2-16th-71uV8U for inspection; tracked repo never opened for writing.

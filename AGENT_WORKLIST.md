@@ -29842,6 +29842,92 @@ all at 2026-09-12.
       to add to either.
       Evidence: audits/verify-6.2-2026-09-15-fifteenth.js and
       audits/verify-6.2-2026-09-15-fifteenth-output.txt.
+      Sixteenth quality pass, 2026-09-16 (unattended scheduled run). ONE REAL
+      DEFECT FOUND AND FIXED, in check-service-links.js, the checker rather
+      than a page. Rotation pool derived fresh (35 items, the standing seven
+      out-of-rotation one-offs excluded): topmost-mention scan of AGENT_LOG.md
+      for "item N"/"took N" put 6.2 stalest (index 184033), just ahead of 3.9,
+      since the item 3.11 run immediately before this one pushed 3.11 itself
+      to most-recent.
+      FRESH ANGLE: grepped this item's own fifteen-pass history for
+      "disposed", "disposedHosts" and "Wilmslow" before starting - all hits
+      were narrative references to the actual 1 July 2026 Wilmslow disposal
+      (Q2/Q3), none tested what RULE 1 does with a link to a domain that has
+      SINCE dropped out of estateHosts. estateHosts is built with
+      `if (b.disposed || !b.website) return;`, correct for every rule asking
+      "is this a current branch domain" - but once a host is gone from
+      estateHosts, RULE 1's absolute-link branch treats any link to it as
+      "external, out of scope by design" and skips it silently, forever, with
+      no rule in the checker ever looking at it again.
+      METHOD: full repo git-archived (`git archive HEAD | tar -x`, never the
+      tracked tree) to a disposable scratch copy under the outputs mount, the
+      working tree's own (pre-commit) fixed checker copied in over the
+      archived one so the scratch copy always reflects the fix under test.
+      Baseline confirmed clean first (177 pages, 1000 links, 423 estate, 6
+      known, exit 0). PRE-FIX reconstruction (disposedHosts guard stripped
+      back out programmatically from the fixed source, not hand-retyped):
+      marked gordonshorts_crosby disposed in a scratch branches.json, removed
+      its own eleven generated pages (switch/service/branch - the correct
+      disposal order, matching every build-*.js's own
+      `if (b.disposed) throw ...` guard), then appended an absolute link on a
+      live Riddings page to https://www.gordonshortchemist.co.uk/pharmacy-
+      first-gordon-short-crosby.html (these generated pages are Weebly embed
+      fragments with no `</body>` tag - confirmed 0 of 177 carry one - so the
+      link was appended at end of file rather than spliced before a closing
+      tag that does not exist). PRE-FIX checker exited 0, "clean", no mention
+      of Gordon Short or the injected link anywhere in the output - confirmed
+      silent. FIXED checker, same injection, same scratch state: exited 1,
+      "FAIL [disposed-branch target] ...: links to
+      www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html, a
+      branch domain no longer in the group (marked disposed in
+      branches.json)". Restored (page, branches.json, Gordon Short's pages
+      all put back) and re-run: clean, page/link counts identical to
+      baseline.
+      SISTER-HOST EDGE CASE tested separately, since a shared-domain disposal
+      (one of the Scorah/Fishlocks/McCanns pairs) has not happened yet but is
+      possible: marked scorah_hazel disposed while scorah_bramhall (same host,
+      www.scorah-chemists.co.uk) stayed live. With Hazel Grove's pages left in
+      place this correctly hit the PRE-EXISTING "page(s) not attributable to a
+      branch host" fail (unrelated to this fix, confirms the existing
+      safeguard still fires first). With Hazel Grove's pages then also
+      removed, Bramhall's own landing page still carries a real cross-link to
+      the now-gone pharmacy-scorah-hazel-grove.html - correctly caught by the
+      EXISTING "stale target" rule, NOT misclassified as "disposed-branch
+      target", because www.scorah-chemists.co.uk remains a live estate host
+      via Bramhall. Confirms disposedHosts only fires for a host with NO live
+      occupant left, not for a shared domain where a sister branch remains.
+      FIX: a new disposedHostsRaw/disposedHosts pair built alongside
+      estateHosts (any disposed branch's host, minus any host still held by a
+      live branch), and a new check in RULE 1's absolute-href branch, ahead of
+      the existing `if (!estateHosts.has(host)) continue;`, reporting a link
+      to a disposedHosts member as a new rule "disposed-branch target" (KNOWN-
+      escapable, same convention as every other RULE 1 finding). Zero live
+      branches are disposed today - Wilmslow was removed from branches.json
+      entirely rather than marked disposed, so this exact code path had never
+      fired against real data - so this is a latent gap, not a live breach,
+      the same shape every 6.2 finding before this one has taken.
+      VERIFICATION: full 36-checker suite re-run individually against the
+      TRACKED repo after the fix: 36/36 exit 0. check-service-links.js against
+      the tracked repo (0 disposed branches, disposedHosts always empty)
+      produces byte-identical counts to the pre-fix baseline (177 pages, 1000
+      links, 423 estate, 13 domains, 6 known, clean) - confirms zero behaviour
+      change on the live tree. git status --porcelain -- tools modules core
+      branches.json gbp-packs compliance: only tools/check-service-links.js
+      changed, plus the two pre-existing untracked strays
+      (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither touched. No
+      generator, page, branches.json field or patient-facing copy changed;
+      no regeneration needed, since the fix is checker logic only.
+      HYGIENE: `.git/index.lock`, a 0-byte stale lock left over from a
+      `git status` call earlier in this run, could not be unlinked by this
+      sandbox's FUSE mount ("Operation not permitted") - the same standing
+      limitation as Q87/Q96/Q102 - and was cleared by rename rather than
+      delete before staging this pass's commit.
+      STEP 3 answer pickup: portal feed read in full this run (see this run's
+      AGENT_LOG.md entry); no new answer for any currently open question, no
+      status change made.
+      Evidence: audits/verify-6.2-2026-09-16-sixteenth.js and
+      audits/verify-6.2-2026-09-16-sixteenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

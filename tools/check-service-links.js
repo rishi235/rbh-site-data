@@ -34,6 +34,10 @@
       that is not a .html page, so there is no generated file it can be matched
       against. Riddings /clinic-prices, cross-linked from eight sites and dead
       on all eight, is this shape. Added by the item 6.2 quality pass.
+    - RULE 1, disposed-branch target: an absolute link to a domain that used to
+      be one of ours but belongs only to a now-disposed branch. Added by the
+      item 6.2 quality pass (sixteenth), 2026-09-16 - see "DISPOSED-BRANCH
+      HOSTS" below.
     - RULE 2, claim: efficacy or results-claim wording in visible page copy.
     - RULE 3, medicine: a POM name from tools/pom-names.js in visible page
       copy, whole page, every generated page. Added by the item 3.9 quality
@@ -340,6 +344,52 @@ data.branches.forEach(function (b) {
   if (b.brandSlug && b.townSlug) hostOfSlug.set((b.brandSlug + "-" + b.townSlug).toLowerCase(), host);
 });
 
+// DISPOSED-BRANCH HOSTS, added on the item 6.2 quality pass (sixteenth),
+// 2026-09-16. A disposed branch's domain is excluded from estateHosts above by
+// the same `if (b.disposed ...) return;` guard, which is correct for every
+// rule that reads "is this one of our current branch domains" - but it has a
+// side effect nothing tested until this pass: once a host drops out of
+// estateHosts, RULE 1's absolute-link branch treats ANY link to it as
+// "external, out of scope by design" and skips it without a second look,
+// forever, with no rule anywhere in this checker ever looking at it again.
+// A cross-link some other branch's page still carries to a domain the group
+// no longer owns - exactly the shape the 1 July 2026 Wilmslow disposal needed
+// cleaning up by hand (Q2/Q3) - is invisible to RULE 1 from the moment of
+// disposal onward, not just on the day it happens. Proved by injection on a
+// scratch copy: marked gordonshorts_crosby disposed, removed its own
+// generated pages (the correct disposal order, per every build-*.js's own
+// `if (b.disposed) throw ...` guard), then added an absolute link from a
+// Riddings page to www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-
+// crosby.html - the pre-fix checker exited 0, "clean", no mention of Gordon
+// Short or the injected link anywhere in the output. Zero live branches are
+// disposed today (Wilmslow was removed from branches.json entirely rather
+// than marked disposed, so this exact code path has never fired against real
+// data), so this is a latent gap, not a live breach - the same shape every
+// 6.2 finding before this one has taken.
+//
+// disposedHosts is deliberately its own set, not folded into estateHosts:
+// RULE 1 needs to tell "current branch domain" and "former branch domain"
+// apart to report the right failure text. A host is only treated as disposed
+// if NO live branch also publishes there, so a future sister-branch disposal
+// (one of a shared-domain pair going while the other stays, which has not
+// happened yet but which the Scorah/Fishlocks/McCanns pairing makes possible)
+// correctly leaves the still-live sister's domain alone. Proved by injection,
+// both directions: marking scorah_hazel disposed while scorah_bramhall (same
+// host) stayed live and scorah_hazel's own pages were left in place correctly
+// hit the PRE-EXISTING "page(s) not attributable to a branch host" fail
+// (unrelated to this fix); with scorah_hazel's pages then removed too, a
+// cross-link from Bramhall's own landing page to the now-gone Hazel Grove page
+// was still caught, correctly, by the existing "stale target" rule rather than
+// misclassified as "disposed-branch target", because www.scorah-chemists.co.uk
+// is still a live estate host via Bramhall.
+const disposedHostsRaw = new Set();
+data.branches.forEach(function (b) {
+  if (!b.disposed || !b.website) return;
+  const host = b.website.replace(/^https?:\/\//, "").replace(/\/+$/, "").toLowerCase();
+  disposedHostsRaw.add(host);
+});
+const disposedHosts = new Set(Array.from(disposedHostsRaw).filter(function (h) { return !estateHosts.has(h); }));
+
 // PAGE_DIRS itself must exist in full before anything is counted from it. Added
 // on the item 6.2 quality pass (fifteenth), 2026-09-15, after the same "stop
 // rather than quietly weaken the rule" convention already applied to
@@ -500,6 +550,22 @@ function scanLinks(file, selfHost, visible) {
 
       if (abs) {
         host = abs[1].toLowerCase();
+        if (disposedHosts.has(host)) {
+          // A domain that used to be one of ours. RULE 1's own "cross-host
+          // target" and "stale target" rules below cannot see this shape,
+          // since both only run once a link has already been accepted as
+          // pointing at a CURRENT estate host - see "DISPOSED-BRANCH HOSTS"
+          // above for how this was found and proved.
+          const disposedPth = (abs[2] || "/").replace(/^\/+/, "");
+          const disposedKey = host + (disposedPth ? "/" + disposedPth.toLowerCase() : "");
+          if (KNOWN[disposedKey]) { knownHits[disposedKey] = (knownHits[disposedKey] || 0) + 1; continue; }
+          failures.push({
+            file: rel(file),
+            rule: "disposed-branch target",
+            text: "links to " + disposedKey + ", a branch domain no longer in the group (marked disposed in branches.json)"
+          });
+          continue;
+        }
         if (!estateHosts.has(host)) continue;   // external, out of scope by design
         pth = abs[2] || "/";
       } else {

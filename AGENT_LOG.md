@@ -1,3 +1,105 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, nineteenth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on a disposable scratch copy under the outputs mount (tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for tools/check-service-links.js, AGENT_WORKLIST.md, this entry and the new audits files) - Item 6.2 (broken internal links / link-target integrity) sixteenth quality pass: ONE REAL DEFECT FOUND AND FIXED in tools/check-service-links.js, the checker rather than a page. FRESH ANGLE, found by grepping this item's own fifteen-pass history for "disposed"/"disposedHosts"/"Wilmslow" first (all hits were narrative references to the actual 1 July 2026 Wilmslow disposal, none a test of the checker's own behaviour): estateHosts is built with `if (b.disposed || !b.website) return;`, so once a branch is marked disposed its domain drops out of estateHosts - correct for every rule asking "is this a current branch domain" - but RULE 1's absolute-link branch then treats ANY link to that now-excluded host as "external, out of scope by design" and skips it silently, forever, with no rule in the checker ever looking at it again. Proved by injection on a git-archived scratch copy: marked gordonshorts_crosby disposed, removed its own eleven generated pages (the correct disposal order per every build-*.js's own `if (b.disposed) throw ...` guard), appended an absolute link on a live Riddings page to the now-disposed host - the pre-fix checker exited 0, "clean", no mention of the injected link anywhere. FIXED checker, same injection: exit 1, "FAIL [disposed-branch target] ...: links to www.gordonshortchemist.co.uk/..., a branch domain no longer in the group". Sister-host edge case also tested (scorah_hazel disposed while scorah_bramhall keeps the same host live): correctly falls through to the PRE-EXISTING "stale target"/"page(s) not attributable" rules rather than being misclassified, since a still-live sister keeps the shared host out of the new disposedHosts set. Zero live branches are disposed today (Wilmslow was removed from branches.json entirely rather than marked disposed), so this is a latent gap, not a live breach - the same shape every 6.2 finding before this one has taken. Full 36-checker suite clean on the tracked repo before and after; check-service-links.js's own output on the tracked repo is byte-identical to the pre-fix baseline (177 pages, 1000 links, 423 estate links, 13 domains, 6 known issues, clean) - zero behaviour change on the live tree, since 0 branches are currently disposed. git status confirms only tools/check-service-links.js changed, plus the two pre-existing untracked strays already documented in prior entries. STEP 3 answer pickup: portal feed (https://data.rbhealth.co.uk/api/feedback) read in full via a single Claude-in-Chrome tab, no dual sign-in issue this run; newest answer in the feed is Q52 (2026-09-01), already applied by a prior run; none of the 56 currently open questions (Q53 onward) have any portal answer yet; Q37 and Q43 confirmed still correctly left "open" as non-decisions ("i need further explanation..." / "Unsure..."), matching the eighteenth run's own note - no status change made, no new question raised. See full detail below and in audits/verify-6.2-2026-09-16-sixteenth.js / audits/verify-6.2-2026-09-16-sixteenth-output.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at
+sandbox start (confirmed clean, no stale lock to clear). Wrote a fresh UTC
+timestamp. `git fetch origin`, `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` all completed normally
+with no lock contention - local HEAD already matched
+`origin/agents/audit-backlog` before and after.
+
+ANSWER PICKUP (step 3, this run): see the summary line above. Portal feed
+read via mcp__claude-in-chrome__navigate + get_page_text against
+https://data.rbhealth.co.uk/api/feedback, one tab, opened and closed
+cleanly, no dual-sign-in error this run. Newest entry Q52, dated
+2026-09-01 - already applied. No answer present for any of the 56
+currently open questions. QUESTIONS.json unchanged.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of
+AGENT_LOG.md (the eighteenth run's own entry, now below this one) before
+adding this entry - no "Standing authorisation - autonomous window"
+section present. Not applicable; step 7 applies as written, no autonomous
+decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` -
+8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines
+under 6.4/6.5/6.6), all 8 still carry [BLOCKED], unchanged since the
+eighteenth run. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL (this run): 42 checked AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) = a 35-item pool. Re-derived with the same word-boundary scan of
+`\b(?:item|took)\s+<N>\b` across AGENT_LOG.md used by every recent run,
+taking each pool item's topmost (most recent) mention index and picking
+the item whose own topmost-mention index was LARGEST (least recently
+mentioned). 6.2 came out stalest (index 184033), just ahead of 3.9 -
+the eighteenth run's own 3.11 pass pushed 3.11 itself far up the log,
+which is why 6.2 rather than 3.11 was picked this time. Picked item 6.2
+for a sixteenth quality pass.
+
+WORK DONE (item 6.2, sixteenth quality pass): see AGENT_WORKLIST.md's own
+paragraph for the full method and rule-by-rule detail; full narrative and
+console output in audits/verify-6.2-2026-09-16-sixteenth.js and
+audits/verify-6.2-2026-09-16-sixteenth-output.txt. FRESH ANGLE chosen by
+grepping this item's own fifteen-pass history in AGENT_WORKLIST.md for
+"disposed", "disposedHosts" and "Wilmslow" before starting - only
+narrative mentions of the real Wilmslow disposal turned up, never a test
+of what check-service-links.js itself does when a branch is marked
+disposed. Full repo git-archived (`git archive HEAD | tar -x`, a fresh
+disposable directory under the outputs mount, never the tracked tree) to
+a scratch copy; the working tree's own pre-commit fix copied over the
+archived (pre-commit) checker so the scratch copy tested the actual fix
+under review, not a stale committed version. Baseline confirmed clean
+first. Pre-fix behaviour reconstructed programmatically (the
+disposedHosts guard stripped back out of the fixed source with a regex,
+not hand-retyped from memory) and proved silent on the injected
+disposed-host cross-link; the fixed source proved it caught, named and
+failed on the same injection; a full restore proved the checker returns
+to the exact baseline counts; a second, independent injection proved the
+fix does not misfire on a shared-domain sister-branch disposal. Full
+36-checker suite re-run individually against the TRACKED repo after the
+fix landed: 36/36 exit 0. `git status --porcelain -- tools modules core
+branches.json gbp-packs compliance` showed only tools/check-service-links.js
+changed, plus the two pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched. No
+generator, page, branches.json field or patient-facing copy changed; no
+regeneration needed, since the fix touches only checker logic in tools/.
+Never fires on the live tree today: 0 branches are currently disposed, so
+disposedHosts is always the empty set and check-service-links.js's output
+on the tracked repo is byte-identical to its pre-fix baseline. Latent-gap
+closure, not a live breach, the same shape every 6.2 finding before this
+one has taken. No new question raised.
+
+HYGIENE: a stale 0-byte `.git/index.lock`, left over from an earlier
+`git status` call this run, could not be unlinked by this sandbox's FUSE
+mount ("Operation not permitted") - the same standing limitation already
+documented against Q87/Q96/Q102 - and was cleared by rename
+(`.git/index.lock.cleared-<timestamp>`) rather than delete before staging
+this pass's commit. The two pre-existing untracked strays noted above
+were confirmed still present and still untouched; no new stray created
+this run.
+
+STEP 7 (this run): AGENT_WORKLIST.md's 6.2 block updated in place with
+this pass's paragraph (not moved, not re-ticked - 6.2 was already [x]).
+This log entry added to the top.
+
+STEP 8 QUESTIONS: none raised this run. QUESTIONS.json unchanged: 109
+total, 56 open (Q37 and Q43 confirmed still correctly open per the answer
+pickup above; no other question touched).
+
+STEP 9/10: committed and pushed to agents/audit-backlog; status page
+republished via tools/build-audit-status.js. See `git log` on this branch
+for the exact hash - this entry was written before the commit was made,
+per the established running order (write the log entry describing the
+intended commit, then commit everything including the log entry itself in
+one shot).
+
+STEP 11: `.agent-lock` deleted at the end of this run regardless of
+outcome.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, eighteenth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on one disposable scratch copy (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.11 (Gordon Short Chemist, Crosby) nineteenth quality pass: tools/check-seo-lengths.js, never proven by injection against this branch across eighteen prior passes despite being proven yesterday against its Bootle-pair-style comparator work (item 3.8's twentieth pass, immediately above), proved by six injections against modules/service/pages/SEO.md and one generated page in a disposable scratch copy, all restored and sha256-reconfirmed between tests: UTI title lengthened to 87 characters (rule 1, caught), Sore throat description shortened to 54 characters (rule 2a, caught), Sinusitis description lengthened to 229 characters (rule 2b, caught), Earache's title overwritten with Impetigo's (rule 3 duplicate title, caught, both headings named), Shingles' permalink overwritten with Infected insect bite's (rule 3 duplicate permalink, caught, both headings named), and the Pharmacy First overview page's H1 overwritten with the UTI page's own H1 (rule 4a, one branch reusing its own H1, caught, "gordonshorts_crosby: pharmacy-first-gordon-short-crosby.html and uti-treatment-gordon-short-crosby.html" named exactly). CONTROL: the overview page's Meta Keywords line changed to unrelated text, a field this checker never reads - correctly zero failures. Rule 4b/4c (H1 collision across two different branches) deliberately not re-injected: already proven with a genuine positive on item 3.8's pass immediately before this one, and Gordon Short Crosby has no town-pair sister on its own domain, so a same-branch injection (rule 4a) is the only H1 collision shape available without corrupting a second branch's data. Zero in-repo defect. Tracked branches.json, SEO.md, the affected page and the checker itself confirmed byte-identical throughout by sha256; full 35-checker suite clean on the tracked repo before and after. LIVE HALF (secondary): a fresh check-live-hours.js snapshot read for gordonshorts_crosby, both live pages agree with branches.json's expected hours exactly, no new finding - this branch has been the clean live-hours control in numerous prior runs. HYGIENE NOTE: an untracked stray file qtmp.json (scratch dump of QUESTIONS.json, dated 2026-09-01) sits in the repo root; deletion attempted and blocked by the same FUSE-mount unlink restriction as .git/index.lock (Q87/Q96/Q102) - harmless, untracked, not blocking, left in place. STEP 3 answer pickup: portal feed read in full, only Q37 and Q43 of the currently open questions appear in it, both already correctly recorded as non-decisions with status left "open" by prior runs, no new answer to apply, no status change made. No new question raised. See full detail below and in audits/gordon-short-item-3.11-quality-pass-2026-09-16-nineteenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at
