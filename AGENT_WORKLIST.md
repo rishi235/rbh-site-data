@@ -2841,6 +2841,47 @@ title and H1 both the pattern verbatim, unchanged from every prior pass.
 The Q71/mccannspharmacy.co.uk 404 finding not re-read this pass, treated as
 unchanged. No new question. Evidence in
 audits/seo-pattern-branchof-untyped-3.1-eighteenth-2026-09-15.txt.
+Quality pass (nineteenth), 2026-09-16 (unattended scheduled run, Cowork
+sandbox). Baseline: check-seo-pattern.js 177/0/0 exit 0; all six generators
+byte-identical (git status --porcelain -- modules/ core/ empty bar the
+pre-existing untracked .bak stray); 35/35 checkers clean (check-cdn-pins.js
+excluded per standing convention). Re-read the full 821-line checker against
+all eighteen prior passes' own accounts and found the two untested clauses
+of the bySlug exclusion guard (line 64: `if (b.disposed || !b.brandSlug ||
+!b.townSlug) return;`) - the eighteenth pass proved only the first
+(b.disposed); `!b.brandSlug` and `!b.townSlug` had never been exercised by
+injection, confirmed absent from every prior pass's own text by grep.
+rbh_head_office_aintree already carries both fields undefined by design, so
+the clauses are REACHED on every run, but head office generates no pages, so
+no page file had ever tested the OBSERVABLE effect: a live branch whose
+brandSlug or townSlug gets cleared or corrupted in branches.json while its
+previously generated pages are still on disk. Proved on a git-archive
+scratch copy outside the tracked tree (branches.json sha256
+169bb5a2...1102, confirmed identical to the tracked repo before any
+mutation), two rounds, each restored by byte copy and sha256-reconfirmed
+before the next: (1) Gordon Short Chemist Crosby's brandSlug blanked - all
+twelve of its own pages CAUGHT by name as untyped files, checked count
+177 to 165, untyped 0 to 12, 12 failures, no other branch affected; (2)
+Riddings Pharmacy Timperley's townSlug blanked (a different branch, to keep
+the two clauses independent) - the same shape, its own twelve pages caught,
+177 to 165, 12 untyped, 12 failures. Both caught first attempt, no
+cross-firing onto any other branch's pages. Scratch directory deleted after
+use; tracked repo confirmed untouched throughout (branches.json sha256
+unchanged, git status --porcelain showing only the same pre-existing
+untracked stray); full 35-checker suite and all six generators
+re-confirmed clean on the tracked repo afterwards. RESULT: zero in-repo
+defect - both untested clauses behave identically and safely to the
+already-proven disposed clause, correctly routing a page whose slug no
+longer resolves to a branch through the same untyped-file-fails rule rather
+than crashing, silently narrowing the untyped count, or mis-attributing the
+page to another branch. No checker, page, generator or branches.json entry
+changed. LIVE HALF: Claude in Chrome connected this run - navigated to
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html, page title
+"Pharmacy First at Fishlocks Chemist, Ainsdale" and on-page heading
+"Pharmacy First at Fishlocks Chemist in Ainsdale", both matching the pattern
+verbatim, unchanged from every prior pass. The Q71/mccannspharmacy.co.uk 404
+finding not re-read this pass, treated as unchanged. No new question.
+Evidence in audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

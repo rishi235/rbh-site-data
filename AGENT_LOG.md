@@ -1,3 +1,74 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirteenth run today; mcp__workspace__bash used for lock handling, repo reads, git archive scratch-copy injection testing (byte-copy restore, sha256-verified) and checker/generator runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the live half; Read/Edit/Write used for AGENT_WORKLIST.md and this entry, plus the new audits file) - Item 3.1 (title/H1 pattern definition) nineteenth quality pass: FRESH ANGLE, tools/check-seo-pattern.js's bySlug exclusion guard (`if (b.disposed || !b.brandSlug || !b.townSlug) return;`) had only ever had its first clause (b.disposed) proven by injection, on the eighteenth pass. The other two clauses - a live, non-disposed branch missing brandSlug or townSlug - had never been exercised with a page file present (rbh_head_office_aintree already carries both fields undefined by design, but generates no pages, so the clause was reached daily without ever being observably tested). Two injections on a git-archive scratch copy, each restored by byte copy and sha256-reconfirmed: Gordon Short Chemist Crosby's brandSlug blanked (all twelve of its own pages correctly fell to "untyped file", 177 to 165 checked, 12 failures, no cross-firing); Riddings Pharmacy Timperley's townSlug blanked (identical shape, a different branch to keep the two clauses independent). Both caught first attempt, tracked repo untouched throughout (branches.json sha256 unchanged, full 35-checker suite and all six generators re-confirmed clean afterwards). No in-repo defect. LIVE HALF (Claude in Chrome connected this run): fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html title and H1 both match the pattern verbatim, unchanged. No new question. Evidence: audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start
+(only the large historical `.agent-lock.*`/test-probe debris family present, all
+pre-existing and untouched). Wrote a fresh UTC timestamp (2026-09-16T08:33:55Z). No
+stale `.git/index.lock` older than 1 hour found (git status warned of a fresh
+unlink failure mid-run, 0 minutes old, consistent with the standing FUSE-mount
+unlink restriction documented under Q96/Q102 - not stale, left alone). `git fetch
+origin`, `git checkout agents/audit-backlog` and `git pull --ff-only origin
+agents/audit-backlog` all completed cleanly ("Already up to date"), HEAD at
+`7b958bc` matching `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3, this run): not attempted via the browser this run (the
+twelfth run's own read, minutes earlier the same day, found no new answer since
+2026-09-01T22:44:51.524Z); QUESTIONS.json inspected directly instead - 109 total,
+56 open, unchanged from the twelfth run's own count.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md (the
+twelfth run's own entry) before adding this one - no "Standing authorisation -
+autonomous window" section present. Not applicable; step 7 applies as written, no
+autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines, all 8 still carry `[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, and the
+three Q60/Q66 lines under 6.4/6.5/6.6), unchanged. No actionable unchecked item.
+Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 36-item pool (43 checked AGENT_WORKLIST.md items minus
+the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+derived from a fresh `grep -n "^- \[x\]"` scan. Derived the pick the same way as
+the twelfth run: a Node full-text scan of AGENT_LOG.md matching
+`(?:item|took)\s+<N>` word-bounded anywhere in the file, taking each pool item's
+topmost (most recent) mention line index, then picking the item whose own
+most-recent-mention line index was the LARGEST among the pool (= least recently
+mentioned even in passing). 3.1 came out clearly stalest (line 702 of the
+pre-this-run file, next nearest 3.2 at 682), matching the twelfth run's own
+forward note that 3.1 was untouched since the eighteenth pass on 2026-09-15. Took
+3.1.
+
+ITEM WORK (step 6, this run): full detail in
+`audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt` and in
+AGENT_WORKLIST.md's own item 3.1 block under "Quality pass (nineteenth),
+2026-09-16" - summarised in this entry's own opening paragraph above.
+
+QUESTIONS (this run): none raised. QUESTIONS.json not edited this run - re-parsed
+with `JSON.parse` to confirm it still holds 109 total, 56 open, unchanged.
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item 3.1's
+own checkbox block (nineteenth-pass entry appended after the eighteenth-pass
+write-up). No worklist checkbox ticked (item 3.1 already `[x]`, quality pass not a
+state change). New file
+`audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt` added.
+
+VERIFICATION (this run): `node tools/seo-pattern.js` self-test passed both before
+and after the injection rounds; `node tools/check-seo-pattern.js` 177/0/0 both
+times; full 35-checker suite (check-cdn-pins.js excluded) run individually on the
+tracked repo before and after - 35/35 exit 0 both times; all six generators
+re-run, exit 0, `git status --porcelain -- modules/ core/ branches.json tools/`
+showing no change beyond the pre-existing untracked
+`modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak` stray;
+`branches.json` sha256 unchanged throughout
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102). `git diff
+--stat` shows only `AGENT_WORKLIST.md` and this `AGENT_LOG.md` entry changed, plus
+the new `audits/` file untracked.
+
+GIT SYNC / PUSH (steps 9-10, this run): outcome and commit hash recorded at the
+top of the next entry once confirmed pushed (standing Q87/Q96/Q102 sandbox-
+credential workaround applies: sandbox `git push` expected to fail on missing
+credentials, falling back to `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` working copy if so).
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twelfth run today; mcp__workspace__bash used for lock handling, repo reads, git archive scratch-copy injection testing (byte-copy restore, sha256-verified) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool used for the live half (tabs_close_mcp attempted at the end but the extension had gone unreachable by then, tab left open, not a blocker); Read/Edit/Write used for AGENT_WORKLIST.md, QUESTIONS.json, the new audits file and this entry) - Item 2.3 (Cherry Lane Pharmacy, Walton) nineteenth quality pass: FRESH ANGLE, tools/check-contraception-copy.js had never been proven by injection against Cherry Lane's own contraception page in eighteen prior passes. Four injections on a git-archive scratch copy (price added, RULE 5; consent sentence reversed, RULE 6 plus cascading RULE 3; a medicine name inserted, RULE 8; a coil-fitting offer inserted, RULE 7), all caught first attempt on their intended rule, all restored by byte copy and sha256-reconfirmed, tracked repo untouched throughout. One procedural slip caught and corrected mid-pass: a restore attempt used `git show HEAD:` in a directory with no .git (a git-archive export), which truncated the scratch file to zero bytes; caught immediately by the sha256 check, fixed by restoring from a kept byte-copy backup instead, tracked repo never affected. Guard coverage for this item now 18 of 36 checkers. LIVE HALF (Claude in Chrome connected this run): the contraception page matches the repo on every injected field; SIGNIFICANT FINDING, Q95's oscillating "Page coming soon" fault on the Pharmacy First overview page is ABSENT again this pass (all seven condition cards resolve to real anchors) - evidence appended to Q95, left open, not re-raised. Two known live-only faults on the switch page (pre-Phase-3 SEO title, mojibake em dash) and the Q36 footer NHS mailbox typo all reconfirmed unchanged, none re-raised. No in-repo defect, no new question. Evidence: audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start (only

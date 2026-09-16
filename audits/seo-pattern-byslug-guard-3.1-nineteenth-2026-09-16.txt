@@ -1,0 +1,111 @@
+Item 3.1 quality pass (nineteenth), 2026-09-16 (unattended scheduled run, Cowork sandbox)
+tools/check-seo-pattern.js / tools/seo-pattern.js
+
+FRESH ANGLE
+Read the full 821-line checker against all eighteen prior passes' own accounts in
+AGENT_WORKLIST.md (item 3.1's own block). The eighteenth pass (2026-09-15) proved
+that expectationsFor() -> branchOf() -> bySlug correctly excludes a DISPOSED branch,
+so a page filename that matches one of the seven page-type regexes but resolves to
+a disposed branch falls through to null and is reported as an untyped file rather
+than silently ignored or mis-resolved.
+
+bySlug is built by one guard with three OR'd conditions (line 64):
+
+    if (b.disposed || !b.brandSlug || !b.townSlug) return;
+
+Only the first condition (b.disposed) had ever been exercised by injection. The
+other two - a live, non-disposed branch missing brandSlug or missing townSlug -
+had not, confirmed by grep across AGENT_LOG.md and AGENT_WORKLIST.md for
+"brandSlug" and "townSlug" near the word "missing/blank/empty/undefined" (no hit
+inside item 3.1's own history; the only other mention was the eighteenth pass's own
+synthetic disposed-branch record, which SET brandSlug/townSlug rather than blanking
+them).
+
+This is not a hypothetical data shape. rbh_head_office_aintree already carries
+brandSlug/townSlug as undefined in branches.json today (by design, per CLAUDE.md -
+head office has no phone, email, odsCode or nhsEmail either), so the `!b.brandSlug`
+and `!b.townSlug` clauses already fire on every single run. But head office
+generates no pages at all, so that live case never puts a page file in front of
+bySlug's absence - it proves the clause is REACHED, not that a page which matches a
+page-type regex and finds no branch behaves safely. The realistic fault this closes
+is different: a branch's brandSlug or townSlug field gets cleared or corrupted in
+branches.json (a bad edit, a merge, a copy-paste slip) while its previously
+generated .html files are still sitting in modules/*/pages/ from before the edit -
+exactly the same "page outlives the data that named it" shape as the disposed case,
+just reached through a different field.
+
+BASELINE
+node tools/seo-pattern.js: self-test passed, no length warnings.
+node tools/check-seo-pattern.js: 177 pages checked, 0 untyped, 0 failures (3 PINNED
+Q71 sister-town entries on Scorah Bramhall/Hazel Grove, unchanged).
+Full 35-checker suite (check-cdn-pins.js excluded per standing convention): 35/35
+exit 0.
+All six generators (build-branch-landing-pages.js, build-contraception-pages.js,
+build-service-pages.js, build-switch-pages.js, build-travel-clinic-pages.js,
+build-weight-loss-pages.js) re-run: exit 0, git status --porcelain -- modules/
+core/ empty (only the pre-existing untracked
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak stray, unchanged
+from prior passes).
+branches.json sha256 before any mutation:
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing anchor,
+unchanged across recent passes).
+
+METHOD
+Scratch copy via `git archive HEAD | tar -x` into /tmp/scratch-3.1-19th, outside
+the tracked working tree. Scratch baseline confirmed to match the tracked repo
+exactly first (177/0/0, branches.json sha256 identical) before any mutation.
+branches.json backed up to /tmp/branches.json.orig19 (byte copy) before each round;
+restored from that backup and sha256-reconfirmed before the next round.
+
+ROUND 1 - brandSlug blanked. Gordon Short Chemist Crosby (gordonshorts_crosby,
+brandSlug "gordon-short", not disposed) had brandSlug set to "" in the scratch
+branches.json. Re-ran check-seo-pattern.js: exit 1. All twelve of Gordon Short
+Crosby's own pages (contraception, earache, impetigo, insect-bite, pharmacy-first,
+shingles, sinusitis, sore-throat, travel-clinic, uti, weight-loss-clinic,
+switch-prescriptions) CAUGHT by name as "FAIL untyped file - ... this checker
+cannot type it, so nothing verifies its title, H1 or description", checked count
+correctly dropping from 177 to 165, untyped correctly rising from 0 to 12, 12
+failures. No other branch's pages affected. Restored by byte copy from
+/tmp/branches.json.orig19; sha256 reconfirmed identical
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102);
+check-seo-pattern.js re-run on the restored scratch copy: back to 177/0/0.
+
+ROUND 2 - townSlug blanked, a different branch to keep the two clauses
+independent. Riddings Pharmacy Timperley (riddings_timperley, townSlug
+"timperley", not disposed) had townSlug set to "" in the scratch branches.json.
+Re-ran check-seo-pattern.js: exit 1. All twelve of Riddings Timperley's own pages
+CAUGHT the same way, checked count 165, untyped 12, failures 12, identical shape
+to round 1 but via the other OR clause. Restored by byte copy; sha256
+reconfirmed identical; check-seo-pattern.js re-run: back to 177/0/0.
+
+Full 35-checker suite re-run on the scratch copy after both rounds restored:
+35/35 exit 0.
+
+Tracked repo re-confirmed untouched throughout and after: branches.json sha256
+unchanged (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102),
+git status --porcelain -- modules/ core/ branches.json tools/ showing only the
+same pre-existing untracked .bak stray, node tools/seo-pattern.js self-test
+passed, node tools/check-seo-pattern.js 177/0/0, all six generators re-run exit
+0 with no diff under modules/ or core/.
+
+RESULT
+Zero in-repo defect. Both untested clauses of the bySlug exclusion guard
+(!b.brandSlug, !b.townSlug) behave identically and safely to the already-proven
+b.disposed clause: a page file whose filename matches a page-type regex but whose
+slug no longer resolves to a branch record correctly falls through expectationsFor()
+to null and is reported as an untyped file (a FAILURE, not a silent skip), rather
+than crashing on the string concatenation, being silently dropped from the untyped
+count, or being mis-attributed to another branch. No checker, page, generator or
+branches.json entry changed.
+
+LIVE HALF
+Claude in Chrome connected this run. Navigated to
+https://fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html (redirected
+to www.fishlockpharmacy.co.uk) - page title "Pharmacy First at Fishlocks Chemist,
+Ainsdale" and on-page heading "Pharmacy First at Fishlocks Chemist in Ainsdale",
+both matching tools/seo-pattern.js's brandTitle/brandH1 output verbatim, unchanged
+from every prior pass. Tab closed. The Q71/mccannspharmacy.co.uk 404 finding not
+re-read this pass (time budget), treated as unchanged per the eighteenth pass's
+own convention.
+
+No new question raised.
