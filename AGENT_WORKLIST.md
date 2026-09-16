@@ -15774,6 +15774,63 @@ Pharmacy First wording to the NHS service description.
       pass, standing as last recorded on the eighteenth pass (2026-09-11).
       No new question; QUESTIONS.json unchanged at 107 total, 54 open.
       Evidence: audits/cherry-lane-item-4.2-quality-pass-2026-09-15-nineteenth.txt.
+      Quality pass 2026-09-16 (twentieth, unattended run): fresh angle -
+      proved check-gbp-packs.js's sisterBranch rule (no-sister leg) against
+      this pack's own copy for the first time in twenty passes, the same
+      rule item 4.10's own seventeenth pass proved against Smartts Bootle
+      earlier the same day. A full-text search of this item's own history
+      for "sister" found only one unrelated incidental hit. branches.json
+      confirms Cherry Lane Pharmacy is a single-site brand, so only the
+      no-sister leg applies. Baseline clean (36/36 checkers against the
+      tracked repo; sha256(cherry-lane-walton.md) =
+      831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching every prior pass exactly, no drift since the tenth pass's
+      Q40 rename edit). Full repo copied via `git archive HEAD | tar -x`
+      to a disposable scratch directory; tracked repo never opened for
+      writing during the injection phase; scratch baseline 35/36 (the
+      documented cdn-pins .git-less exception).
+      Four cases against the scratch copy's own pack, each restored from a
+      saved byte copy and sha256-reconfirmed identical before the next: (1)
+      "Our sister branch is in Waterloo." appended to the business
+      description - CAUGHT, exact expected message, with the description-
+      length rule co-firing as an honest side effect of the added text (736
+      to 770 characters), not masking; (2) "There is a second branch in
+      Bootle." appended to Post B's body - CAUGHT, identical message, no
+      length side effect this time, proving the rule reaches post bodies
+      and the "second branch" trigger phrasing on this pack too; CONTROL A -
+      the identical false sister sentence placed only inside "Notes for the
+      paster:" (never pasted into the public profile) - correctly PASSED
+      clean, confirming the notes-versus-published-copy scope boundary
+      holds on this pack's own copy; CONTROL B - an unrelated benign reword
+      of the Blood testing services bullet - correctly PASSED clean, full
+      36-checker suite 0 cross-firing. All four behaved exactly as designed
+      on the first attempt. No in-repo defect: the rule and its notes-
+      exclusion already protect this pack correctly on both detection
+      paths, now proven directly for the first time rather than assumed
+      from sister packs. Full 36-checker suite re-run clean on the scratch
+      copy after the final restore (35/36, same exception); tracked repo
+      confirmed sha256-unchanged and git-status-clean throughout (only the
+      two long-standing pre-existing untracked strays present, neither
+      touched); full 36-checker suite re-run individually against the
+      tracked repo afterwards, 36/36 exit 0. No generator, page, checker or
+      branches.json content changed.
+      LIVE HALF: read via Claude in Chrome (connected this run). Homepage
+      fetched and read in full: no sister- or second-branch claim appears
+      anywhere live, correctly. Two already-tracked findings reconfirmed
+      unchanged, neither re-raised: the footer NHS mailbox still reads
+      "pharmacy.FA226@mhs.net" (Q36, answered but not yet live-corrected);
+      and the homepage's Weight Loss Clinic line still reads "Innovative
+      solutions that deliver results. Tried the rest? Now try the best." -
+      the estate-wide template phrase already tracked under Q22/item 5.8,
+      reconfirmed present here too, not a new finding.
+      Also a process note worth carrying: rotation-pool selection this run
+      found the header-only-scan trap (documented on an earlier run today
+      against item 4.13) recurs whenever a run's item is touched only as a
+      secondary/incidental mention inside another item's own entry; a
+      direct read of each item's own AGENT_WORKLIST.md paragraph dates
+      remains the reliable method.
+      No new question; QUESTIONS.json unchanged at 109 total, 56 open.
+      Evidence: audits/cherry-lane-item-4.2-sister-branch-quality-pass-2026-09-16-twentieth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

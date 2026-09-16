@@ -1,3 +1,109 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-eighth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.2 live-half homepage read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.2 (Cherry Lane Pharmacy Walton GBP pack) twentieth quality pass: check-gbp-packs.js's sisterBranch rule (no-sister leg) proven by injection against this pack's own copy for the first time in twenty passes; zero in-repo defect, no new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp. `git fetch`/`checkout`/`pull --ff-only` completed
+normally, already up to date with origin/agents/audit-backlog at
+9d1da24 (the twenty-seventh run's own commit).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully first attempt. Newest entry still Q52 (2026-09-01), already
+applied. No answer present for any of the 56 currently open questions (of
+109 total). No status change made, no new question raised.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md (the
+twenty-seventh run's own entry, now below this one) before adding this
+entry - no "Standing authorisation - autonomous window" section present.
+Not applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked
+lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still
+`[BLOCKED]`. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL: 36-item pool (43 checked checkbox-line items, including 4.2
+which shares item 4.1's own checkbox but runs its own numbered pass
+sequence, minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8). Read every pool item's own AGENT_WORKLIST.md paragraph
+directly rather than trusting an AGENT_LOG.md header-only scan, which the
+fifth run today already found unsafe on this log (it missed item 4.10's own
+seventeenth pass because that entry sits mid-block under an earlier entry's
+"## " header). Extracted the maximum YYYY-MM-DD date in each pool item's own
+paragraph range: ten items tied at 2026-09-15 (2.1, 3.4, 3.6, 3.10, 4.2, 4.4,
+4.9, 4.14, 4.15, 5.2), every other pool item already re-touched today.
+Tie-broken with a full-text case-insensitive scan of AGENT_LOG.md for
+`\b(?:item|took)\s+<id>\b`, taking the largest (oldest) character offset per
+candidate: 4.2 came out clearly stalest (offset 219250), well ahead of the
+runner-up 4.14 (187151). Verified the 4.2 hit at that offset was itself only
+an incidental comparison inside a different item's own entry, not a new pass
+on 4.2 - consistent with AGENT_WORKLIST.md's own record that item 4.2's true
+last pass is the nineteenth, 2026-09-15, one full day stalest of the pool.
+Chosen: 4.2 (Cherry Lane Pharmacy Walton GBP pack).
+
+WORK DONE (item 4.2, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.2 paragraph and in
+audits/cherry-lane-item-4.2-sister-branch-quality-pass-2026-09-16-twentieth.txt;
+summarised here. Cross-checked every tools/check-*.js for a literal
+`"gbp-packs"` directory constant (not just an incidental comment mention) to
+confirm which checkers actually read gbp-packs/ content as data: exactly ten
+do, and all ten had already been individually proven against this pack by
+direct injection across the nineteen prior passes. What remained untested
+was check-gbp-packs.js's sisterBranch rule (born item 4.4 thirteenth pass,
+2026-09-06; most recently re-proven against Smartts Bootle on item 4.10's
+own seventeenth pass earlier TODAY) - a full-text search of this item's own
+history for "sister" found only one unrelated incidental hit. Cherry Lane
+Pharmacy is a single-site brand per branches.json, so only the no-sister leg
+applies. Baseline: 36/36 checkers exit 0 on the tracked repo, sha256(cherry-
+lane-walton.md) = 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef
+052ec2, matching every prior pass exactly. Full repo copied via `git archive
+HEAD | tar -x` to a disposable scratch directory (note: git archive does NOT
+include .git, confirmed this pass after an initial shell-redirection
+permission error into /tmp momentarily produced 36 false FAILs, traced to a
+corrupted exit-code capture rather than a real checker failure and corrected
+by redirecting into the outputs mount instead); scratch baseline 35/36 (the
+documented cdn-pins .git-less exception, matching every prior pass's own
+scratch-copy baseline). Four cases against the scratch copy's own pack, each
+restored from a saved byte copy and sha256-reconfirmed identical before the
+next: (1) "Our sister branch is in Waterloo." appended to the business
+description - CAUGHT, exact expected message, with the description-length
+rule co-firing as an honest side effect (736 to 770 characters), not
+masking; (2) "There is a second branch in Bootle." appended to Post B's body
+- CAUGHT, identical message, no length side effect this time, proving the
+rule reaches post bodies and the "second branch" trigger phrasing on this
+pack too; CONTROL A - the identical false sister sentence placed only inside
+"Notes for the paster:" (never pasted into the public profile) - correctly
+PASSED clean; CONTROL B - an unrelated benign reword of the Blood testing
+bullet - correctly PASSED clean, full 36-checker suite 0 cross-firing. All
+four behaved exactly as designed on the first attempt. No in-repo defect:
+the rule and its notes-exclusion already protect this pack correctly on both
+detection paths, now proven directly for the first time. Full 36-checker
+suite re-run clean on the scratch copy after the final restore (35/36, same
+exception); tracked repo confirmed sha256-unchanged and git-status-clean
+throughout (only the two long-standing pre-existing untracked strays,
+neither touched); full 36-checker suite re-run individually against the
+tracked repo afterwards, 36/36 exit 0. No generator, page, checker or
+branches.json content changed.
+
+LIVE HALF: read via Claude in Chrome, connected this run.
+https://www.cherrylanepharmacy.co.uk fetched and read in full: no sister- or
+second-branch claim appears anywhere live, correctly. Two already-tracked
+findings reconfirmed unchanged, neither re-raised: the footer NHS mailbox
+still reads "pharmacy.FA226@mhs.net" (Q36, answered but not yet
+live-corrected); and the homepage's Weight Loss Clinic line still reads
+"Innovative solutions that deliver results. Tried the rest? Now try the
+best." - the estate-wide template phrase already tracked under Q22/item 5.8,
+reconfirmed present here too, not a new finding.
+
+WORKLIST (step 7): AGENT_WORKLIST.md's item 4.2 paragraph appended in place
+(within item 4.1's shared checkbox block); stays `[x]` (quality pass, not a
+state change).
+
+QUESTIONS (step 8): no new question raised; QUESTIONS.json not edited this
+run (no answer arrived in step 3; nothing this pass found needs Rishi's
+decision - the sisterBranch rule already protects this pack correctly, and
+the two live findings reconfirmed are both already tracked elsewhere).
+
+Full detail in AGENT_WORKLIST.md's item 4.2 entry.
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-seventh run today; mcp__workspace__bash used for lock handling, repo reads, checker runs and injection/restore testing directly against the tracked repo via /tmp byte backups (no scratch copy needed, both fixes were single-file edits); mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab; Read/Edit used for tools/check-cdn-pins.js, tools/check-postcodes.js, AGENT_WORKLIST.md, this entry) - Item 5.1 (em dashes / public-copy checker maintenance) twentieth quality pass.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a

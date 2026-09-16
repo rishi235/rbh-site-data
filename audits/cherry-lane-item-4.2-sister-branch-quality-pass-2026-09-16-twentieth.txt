@@ -1,0 +1,187 @@
+Item 4.2 (Cherry Lane Pharmacy Walton GBP pack) twentieth quality pass, 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+ROTATION POOL SELECTION
+All 8 remaining AGENT_WORKLIST.md unchecked lines confirmed [BLOCKED] (5.3, 5.4,
+5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Quality-pass fallback applied.
+
+Rotation pool = 36 checked AGENT_WORKLIST.md items (43 checked checkbox-line
+items, including 4.2 which shares item 4.1's own checkbox but runs its own
+numbered pass sequence, minus the seven standing out-of-rotation one-offs
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+
+Method: for every pool item, the item's own paragraph block in
+AGENT_WORKLIST.md was read directly (not inferred from AGENT_LOG.md header
+text alone, which a prior run today already found unsafe: the header-only
+method missed item 4.10's seventeenth pass because that entry is embedded
+mid-block under an earlier entry's own "## " header rather than carrying its
+own). Every YYYY-MM-DD date in each item's own paragraph range was extracted
+and the maximum taken as that item's last-touched date.
+
+Ten items tied at 2026-09-15 as their latest recorded date: 2.1, 3.4, 3.6,
+3.10, 4.2, 4.4, 4.9, 4.14, 4.15, 5.2. Every other pool item had already been
+given a fresh pass earlier TODAY (2026-09-16), confirmed by twenty-six prior
+runs' own log entries. Tie broken with a full-text case-insensitive scan of
+AGENT_LOG.md for `\b(?:item|took)\s+<id>\b`, taking the largest (oldest, since
+entries are prepended) character offset per candidate: 4.2 came out clearly
+stalest at offset 219250, well ahead of the runner-up 4.14 (187151). The
+4.2 mention at that offset was itself checked and found to be an incidental
+comparison inside a DIFFERENT item's own entry ("...same as item 4.2's
+nineteenth pass)"), not a new pass on 4.2 - consistent with AGENT_WORKLIST.md's
+own record that item 4.2's actual last pass is "Quality pass 2026-09-15
+(nineteenth, unattended run)", genuinely one full day stalest of the pool.
+
+Chosen: 4.2 (Cherry Lane Pharmacy Walton GBP pack, gbp-packs/cherry-lane-
+walton.md), for a twentieth quality pass.
+
+FRESH ANGLE
+Nineteen prior passes had proven, by direct injection against this pack's own
+copy: the pack's own facts (repeatedly, against branches.json), the profile-
+basics name/website rule, the branch-name-as-place rule, the condition-
+enumeration rule (check-pharmacy-first-eligibility.js rule 10), the AREA_LEADIN
+catchment rule, check-uk-spelling.js, check-brand-spelling.js, check-url-
+scheme.js, check-pharmacy-first-cost.js rule 6, check-app-membership.js rule 8a
+(8d explicitly ruled out as not testable, this pack's notes lack the exact
+phrase 8d checks for), check-gbp-pharmacy-first.js rules 3/4/6, check-
+postcodes.js rules 3 (FOREIGN) and 6 (MISATTRIB), check-em-dashes.js (all
+three detection paths), the photo shot list rule, the categories/services
+allowlist rule, the outcome-promise and POM_CLASS rules, and the bank-holiday
+special-hours Notes-for-the-paster rule.
+
+Cross-checked against every checker that actually reads gbp-packs/ content as
+data (confirmed by grepping every tools/check-*.js for a literal `"gbp-packs"`
+directory constant, not just an incidental comment mention - check-nap.js and
+check-address-region.js both mention "gbp-packs" only in prose, in check-nap's
+case referencing this exact pack as a historical example, but neither actually
+reads a gbp-packs/*.md file as data): exactly ten checkers do -
+check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js. All ten have now been individually proven against this
+pack by direct injection.
+
+What remained untested was a RULE inside the most heavily-used of those ten:
+check-gbp-packs.js's sisterBranch rule (born item 4.4 thirteenth pass,
+2026-09-06 against scorah-bramhall.md; most recently re-proven against
+smartts-bootle.md on item 4.10's own seventeenth pass earlier TODAY). A
+full-text search of this item's own nineteen-pass paragraph history for
+"sister" found only one incidental, unrelated hit ("the right sister checker's
+namesake"). branches.json confirms Cherry Lane Pharmacy is a single-site
+brand (exactly one branch, cherrylane_liverpool, carries brandLabel "Cherry
+Lane Pharmacy"), so only the rule's no-sister leg (branch claims a sister but
+none exists) genuinely applies here - the same shape proven against Smartts
+Bootle today, now proven against this pack specifically for the first time.
+
+BASELINE
+sha256(gbp-packs/cherry-lane-walton.md) =
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+- matches every one of the nineteen prior passes' own recorded value exactly,
+no drift since the tenth pass's Q40 rename edit (2026-09-02).
+Facts re-confirmed against branches.json's cherrylane_liverpool record:
+brandLabel/branchName "Cherry Lane Pharmacy", streetAddress "202 Cherry Lane",
+addressLocality "Liverpool", postalCode "L4 8SG", phone "0151 226 2051",
+website "https://www.cherrylanepharmacy.co.uk", googleReviewUrl
+"https://g.page/r/CRF-ODLpmvUAEAE/review", seoTown "Walton", serviceAreaList
+["Liverpool","Walton","Everton"], hasApp false - unchanged.
+Full 36-checker suite re-run fresh against the tracked repo: 36/36 exit 0.
+
+METHOD
+Full repo copied via `git archive HEAD | tar -x` into a disposable scratch
+directory outside the tracked mount (/tmp/scratch-42-sister); tracked repo
+never opened for writing during the injection phase. Note for future passes:
+`git archive` does NOT include a .git directory (confirmed this pass - an
+earlier attempt to run the full checker suite against a scratch copy with a
+broken /tmp redirect momentarily suggested 36/36 failures; traced to a shell
+redirection permission error corrupting the captured exit codes, not a real
+checker failure, and corrected by redirecting into the outputs mount instead).
+With that corrected, scratch baseline: 35/36 checkers exit 0 (the single
+documented check-cdn-pins.js .git-less artefact, matching every prior pass's
+own scratch-copy baseline exactly).
+
+INJECTIONS (four cases, each restored from a saved byte copy and sha256-
+reconfirmed identical to baseline before the next)
+
+(1) Sister sentence in the business description (published, scope-in):
+appended "Our sister branch is in Waterloo." to the end of the description
+("...Come and see us. Our sister branch is in Waterloo.")
+RESULT: CAUGHT. check-gbp-packs.js failed with the exact expected message:
+"the pack claims a sister or second branch, but no other live branch in
+branches.json carries the brand Cherry Lane Pharmacy. A pack description is
+pasted verbatim into a public Google profile, so this would send patients to
+a pharmacy the group does not have". Two additional failures co-fired as an
+honest side effect of the added text pushing the description from 736 to 770
+characters, over the stated 750-character GBP limit and past its own declared
+count - not masking, a distinct and independently correct rule reacting to
+the same edit, the same pattern recorded on item 4.10's own seventeenth pass
+today.
+
+(2) Second-branch sentence in a post body (published, scope-in, alternate
+surface and alternate trigger phrasing): appended "There is a second branch
+in Bootle." to the end of Post B ("...Open Saturdays too. There is a second
+branch in Bootle.")
+RESULT: CAUGHT. Exactly one failure, the identical sisterBranch message, no
+length side-effect this time (Post B stayed well under its own limit),
+confirming the rule reaches post bodies and the "second branch" trigger
+phrasing on this pack too.
+
+(3) CONTROL A - identical false sister claim placed only inside "Notes for
+the paster:" (an instruction block, never pasted into the public profile):
+inserted "- Our sister branch is in Waterloo, mentioned here only as an
+internal note, never pasted." as the first bullet under "Notes for the
+paster:".
+RESULT: correctly PASSED. 0 failures (only the three long-standing WARNs
+naming other packs - Q64 on Scorah Bramhall/Hazel Grove, the live-only pfLink
+target on Smartts Bootle - none new, none naming this pack). Confirms the
+notes-versus-published-copy scope boundary the rule's own design relies on
+holds on Cherry Lane's copy too.
+
+(4) CONTROL B - unrelated benign reword, no sister or branch wording
+anywhere: "Blood testing: private blood tests with fast results." reworded to
+"Blood testing: private blood tests with results provided quickly."
+RESULT: correctly PASSED. Full 36-checker suite re-run on the scratch copy
+with this edit in place: 35/36 exit 0 (same known cdn-pins exception), 0
+cross-firing anywhere else in the suite.
+
+All four cases behaved exactly as designed on the first attempt: the two
+real injections caught on their intended rule and no other, the two controls
+passed clean.
+
+REGRESSION
+Scratch copy restored byte-identical after every injection (sha256
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 reconfirmed
+before each next step and after the final restore). Full 36-checker suite
+re-run clean on the scratch copy after the final restore (35/36, the same
+known exception). Tracked repo's own copy of the pack confirmed
+sha256-unchanged throughout (never opened for writing); `git status
+--porcelain -- tools modules core branches.json gbp-packs` on the tracked
+repo showed only the two long-standing pre-existing untracked strays every
+recent pass has recorded (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Full 36-checker suite re-run directly against the tracked repo
+afterwards: 36/36 exit 0.
+
+No in-repo defect found. The sisterBranch rule and its notes-exclusion scope
+boundary already correctly protect this pack on both detection paths; now
+proven directly for the first time rather than assumed from sister packs.
+No checker logic edited, no pack content byte changed.
+
+LIVE HALF
+Read via Claude in Chrome (connected this run, unlike several recent passes):
+https://www.cherrylanepharmacy.co.uk fetched and read in full. No sister- or
+second-branch claim appears anywhere on the live homepage (correctly, since
+none should be present - consistent with the injection testing above). Two
+already-tracked findings reconfirmed unchanged, neither re-raised: the footer
+NHS mailbox still reads "pharmacy.FA226@mhs.net" (Q36, answered but not yet
+live-corrected); and the homepage's Weight Loss Clinic line still reads
+"Innovative solutions that deliver results. Tried the rest? Now try the
+best." - the exact estate-wide template phrase already tracked under Q22/
+item 5.8's weight loss advertising exposure work (verified identical at
+Smartts, Riddings and SK Chemists per Q22's own record), reconfirmed present
+on Cherry Lane too, not a new finding.
+
+No new question raised. QUESTIONS.json unchanged: 109 total, 56 open.
+
+Files changed this pass: AGENT_WORKLIST.md (item 4.2's own paragraph, twentieth
+pass), AGENT_LOG.md (this run's entry), this evidence file. gbp-packs/
+cherry-lane-walton.md and tools/check-gbp-packs.js both confirmed
+sha256-unchanged throughout - no edit made to either.
