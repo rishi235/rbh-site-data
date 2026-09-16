@@ -29568,6 +29568,48 @@ led by 4.1 (184923) and 4.14 (180686).
       remains unconfirmed for an eighth run running, still exactly Q14's
       outstanding fix. No new question: Q59 already covers browser
       unavailability and Q14 already covers the repaste.
+Quality pass 2026-09-17 (eighth pass, unattended, audit-backlog-worker run 41;
+stalest of the tied 1.4/2.2/5.6 one-off group, all last touched 2026-09-06,
+picked because 1.4 and 2.2 had already had ten and nine passes respectively
+proving the repo-half checker logic by injection, while 5.6's own live half
+had gone unread for seven straight runs on browser unavailability alone -
+the more informative gap to close this run). REPO HALF: clean for the
+eighth pass running. All 36 checkers exit 0 (check-seo-lengths.js and
+check-seo-pattern.js both report 177 pages, 0 failures, KNOWN empty on
+both). All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) rebuilt to a
+byte-identical tree: sha256 of all 217 files under modules/ and core/
+unchanged before and after, git status --porcelain on modules/core/
+branches.json/tools empty (the only untracked entries anywhere in the repo
+are pre-existing sandbox scratch debris from unrelated earlier runs -
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak and the
+literal "C:/Users/rishi/..." paste-pack directory build-service-pages.js
+writes when run outside the real host - neither touched by this pass).
+LIVE HALF: read this run for the first time since 2026-08-31 (eight
+calendar days, six runs unable to reach it on Q59-shaped browser
+failures). Claude in Chrome connected cleanly this run (also used for
+step 3's answer pickup with no conflict). Read
+https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+via document.title, the meta description and the H1, in page. Result:
+UNCHANGED from every prior live read since 2026-08-10/11. Title is still
+"Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy", 67
+characters (not the repo's rescued 61-character "...- Coleman and
+Leighs"), still carrying the ampersand and singular "Leigh" that Q14/1.1
+both flag as matching no version this repo has ever shipped. Meta
+description still reads "Coleman & Leigh Pharmacy" against the repo's
+"Coleman and Leighs Pharmacy". H1 is still correct and carries no brand
+("Infected insect bite treatment in Walton"), exactly as the family A
+pattern requires and as every prior pass found. So the finding itself has
+not moved in over five weeks and nine live reads: the Q14 repaste (title
+and description together, from modules/service/pages/SEO.md) remains the
+whole fix and remains outstanding. No new question: Q14 already describes
+this exactly and already recommends the repaste; Q59 already covers the
+browser-availability pattern that had blocked this specific check for the
+seven passes in between. No repo defect found, no page, generator or data
+field changed. Evidence gathered inline via javascript_tool against the
+live DOM, not saved to a separate audit file (same convention as the
+2026-08-14 and 2026-08-31 live reads of this item).
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a

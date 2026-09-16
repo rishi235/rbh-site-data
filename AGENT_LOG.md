@@ -1,3 +1,84 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 41; mcp__workspace__bash used for lock handling, repo reads, the 36-checker suite and all six generators run against the tracked repo, and the AGENT_WORKLIST.md/AGENT_LOG.md edits; mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 5.6 live-half re-read, two tabs total, both opened and closed cleanly, read-only throughout, nothing clicked or submitted; Read/Edit used for AGENT_WORKLIST.md and this entry) - Item 5.6 (Coleman and Leighs insect-bite title fix, Q14) eighth quality pass: repo half clean for the eighth pass running, 36/36 checkers, six-generator rebuild byte-identical; live half read for the first time in eight days (seven prior runs blocked on browser unavailability) and found UNCHANGED - the live page still carries the pre-repaste 67-character title with the ampersand/singular "Coleman & Leigh Pharmacy", not the repo's rescued 61-character form, so the Q14 Weebly repaste remains outstanding. No repo defect, no new question.
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp (2026-09-16T23:03:59Z). No `.git/index.lock` present at start (a
+FUSE-unlinkable index.lock did surface later, during git status checks in
+this run, consistent with the standing Q87/Q96/Q102 constraint - see GIT
+below). `git fetch` / already on `agents/audit-backlog` / `pull --ff-only`
+all completed normally, already up to date with origin at the prior run's
+own commit (item 6.8's fourteenth pass, run 40, commit 31925a0).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab, no conflict. 56 open questions checked against
+the feed; newest reply is still Q52, dated 2026-09-01T22:44:51.524Z -
+nothing newer for any open question, so no genuine new answer to pick up.
+Consistent with the prior two runs' own findings on the same feed.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (the prior
+run's own entry, item 6.8's fourteenth pass) before adding this one - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: of the small one-off rotation group (1.1/1.4/2.2/5.6/6.8),
+1.1 and 6.8 had each just been taken by the two prior runs today. Of the
+remaining three - 1.4, 2.2, 5.6 - all three were tied at their
+last-touched date, 2026-09-06, per that date's own log entries. Read all
+three items' most recent quality-pass notes in full before choosing: 1.4
+had just completed its tenth pass (closing a shared-template street-sweep
+gap), 2.2 its ninth (a from-scratch proof of check-jsonld's five untested
+rules against an isolated scratch copy), both already exhaustively proving
+the repo-half checker logic by injection. 5.6's most recent note recorded
+something different and more useful to close this run: its live half had
+gone unread for seven straight passes purely on browser unavailability
+(Q59-shaped failures each time), not because the repo half needed proving
+again. Since this run's own step 3 had already confirmed Claude in Chrome
+was reachable, picking 5.6 let the run close a genuine seven-run
+information gap rather than add an eleventh or tenth injection proof to
+items already proven thoroughly. Picked 5.6 on that basis.
+
+WORK DONE (item 5.6, eighth quality pass): REPO HALF - ran all 36
+checkers individually (each exits 0; check-seo-lengths.js and
+check-seo-pattern.js both report 177 pages, 0 failures, KNOWN empty on
+both) and rebuilt all six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages). sha256 of all 217
+files under modules/ and core/ unchanged before and after the rebuild;
+`git status --porcelain modules core branches.json tools` empty throughout
+(the only untracked items anywhere in the working tree are pre-existing
+sandbox scratch debris from unrelated earlier runs - noted, not touched,
+not committed). LIVE HALF - navigated Claude in Chrome to
+https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+and read document.title, the meta description and the H1 via
+javascript_tool. Result unchanged from every live read since 2026-08-10/11:
+title still "Infected insect bite treatment in Walton - Coleman & Leigh
+Pharmacy" (67 characters, ampersand, singular "Leigh", "Pharmacy" suffix -
+not the repo's rescued 61-character "...- Coleman and Leighs"); meta
+description still "Coleman & Leigh Pharmacy" against the repo's "Coleman
+and Leighs Pharmacy"; H1 still correct and brand-free ("Infected insect
+bite treatment in Walton"), exactly as required. So the underlying finding
+has not moved in over five weeks and nine live reads - the Q14 Weebly
+repaste (title and description together, from
+modules/service/pages/SEO.md) remains the whole fix and remains
+outstanding. No repo defect found, no page/generator/data field changed,
+no new question (Q14 already covers the repaste, Q59 already covers the
+browser-availability pattern that blocked this exact check for the seven
+runs before this one). Full detail written directly into
+AGENT_WORKLIST.md's item 5.6 block.
+
+GIT (step 9): sandbox mount's own `git status` left a fresh
+`.git/index.lock` behind that the FUSE mount could not unlink ("Operation
+not permitted", the same standing constraint Q87/Q96/Q102 document) -
+confirmed harmless (0 bytes, just created, no stale content) and cleared
+via mcp__Windows-MCP__PowerShell rather than attempting to force it from
+the sandbox side. Push route: mcp__Windows-MCP__PowerShell against the
+real C:\Dev\rbh-site-data, per Q102's documented fallback (that question's
+own procedural change - making this the PRIMARY route rather than a
+fallback - remains undecided and was not assumed).
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fortieth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json answer-pickup fetch review and edits, and running check-em-dashes.js/check-postcodes.js/check-url-scheme.js against the tracked repo; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch (one tab, opened and closed cleanly, read-only, nothing clicked or submitted); mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) and the status-page publish against the real C:\Dev\rbh-site-data, per Q102's documented fallback; Read/Edit used for QUESTIONS.json, AGENT_WORKLIST.md and this entry) - Item 6.8 (QUESTIONS.json "Decision needed:" convention) fourteenth quality pass: re-verified the convention against the current 56 open questions rather than trusting the last pass's all-clear, found six had drifted out of compliance since 2026-09-06 (Q100, Q101, Q102, Q104, Q107, Q108), retrofitted all six with a prepended plain-English summary sentence, full original text preserved verbatim; zero repo defect otherwise, no page or generator touched, no new question.
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
