@@ -24536,6 +24536,33 @@ appended to the line. Do not move them; the status page reads them in place.
       pass; standing live state from the seventeenth pass, 2026-09-11, still
       current). No new question. Done 2026-09-15. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-15-nineteenth.txt.
+      Quality pass 2026-09-16 (twentieth pass, unattended scheduled run): a
+      real, LIVE defect found and fixed, not a latent one. The baseline check
+      on the tracked repo (before any edit this pass) was not clean: 3
+      failures. Traced to the same morning's item 1.2 twentieth pass (commit
+      d73af5d/8f3b2a7), which had injected PR9 3HW and L20 1DN on a scratch
+      copy to prove check-jsonld.js's rules 5 and 8, quoted both values in
+      AGENT_LOG.md and its own new audits/ file, but never added either to
+      NARRATIVE_POSTCODES - the same committed-without-being-added gap this
+      list's own history already records fifteen times, this time arriving via
+      a different item's pass. Fixed: both values added to NARRATIVE_POSTCODES
+      with reasons following the file's established convention; tracked repo
+      re-run clean afterwards (0 failures, the standing 3 UNOWNED warnings
+      only). Separately, a fresh angle: nineteen prior passes exercised rule 3
+      (FOREIGN) and rule 6 (MISATTRIB) only against single-owner postcodes;
+      none had tested rank(), which picks a display owner when two live
+      branches share a postcode (the deliberate L9 7AS case, Clear Chemist
+      Aintree and head office). Proved on a scratch copy: an injected line on
+      gbp-packs/riddings-timperley.md naming Riddings Pharmacy but carrying the
+      shared L9 7AS fired both FOREIGN and MISATTRIB, and both messages
+      correctly named clearchemist_aintree (the trading branch), not
+      rbh_head_office_aintree, matching rank()'s own tie-break formula by hand
+      calculation. Restored by byte copy and sha256-reconfirmed identical.
+      Full 36-checker suite re-run clean on the tracked repo (36/36); all six
+      generators re-run, git status --porcelain -- modules/ empty afterwards;
+      only tools/check-postcodes.js changed (2 insertions), branches.json
+      untouched. No new question. Done 2026-09-16. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-16-twentieth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

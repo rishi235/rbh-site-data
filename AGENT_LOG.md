@@ -1,3 +1,68 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, eleventh run today; mcp__workspace__bash used for lock handling, repo reads, python3 rotation-pool derivation via full-text log scan, scratch-copy injection testing (plain recursive copy, sha256-verified) and checker/generator runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_context_mcp/tabs_close_mcp used for the answer-pickup fetch; Read/Edit/Write used for tools/check-postcodes.js, AGENT_WORKLIST.md, the new audits file and this entry) - Item 1.3 (McCanns Sandringham postcode sweep) twentieth quality pass: found and fixed a LIVE defect on the tracked repo (check-postcodes.js was failing with 3 failures before this pass touched anything, because the same morning's item 1.2 twentieth pass had committed two injection postcodes, PR9 3HW and L20 1DN, quoted in AGENT_LOG.md and its own audits file but never added to NARRATIVE_POSTCODES - the fifteen-times-recorded committed-without-being-added gap, this time via a different item's pass); fixed by adding both values with reasons, tracked repo re-run clean (0 failures, 3 standing warnings). Also closed a previously-untested angle: rank()'s tie-break for the deliberate shared L9 7AS postcode (Clear Chemist Aintree vs head office) had never been proven by injection in nineteen prior passes - proved on a scratch copy that both FOREIGN and MISATTRIB correctly attribute the shared postcode to the trading branch (clearchemist_aintree), not head office, matching the rank() formula by hand calculation. No new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start (only the
+large historical `.agent-lock.*`/test-probe debris family present, all pre-existing and
+untouched). Wrote a fresh UTC timestamp (2026-09-16T07:35:02Z). No `.git/index.lock` or
+`.git/HEAD.lock` present. `git fetch origin` and `git pull --ff-only origin agents/audit-
+backlog` both completed cleanly ("Already up to date"), HEAD at `8f3b2a7` matching
+`origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3, this run): `mcp__claude-in-chrome__navigate` to
+https://data.rbhealth.co.uk/api/feedback then `get_page_text` returned the feedback JSON
+directly, no Cloudflare Access login page. Newest entry still the Q52 answer, dated
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01 - no answer has arrived since
+the last successful read. 56 open questions before this run (Q37 onward), status unchanged.
+Tab closed via `tabs_close_mcp`.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md before adding
+this entry (the tenth run's own entry, below) - no "Standing authorisation - autonomous
+window" section present. Not applicable; step 7 applies as written, no autonomous decisions
+taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked lines,
+all 8 still carry `[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), unchanged. No actionable unchecked item. Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): full detail in the evidence file's own "ROTATION POOL SELECTION"
+section - 35-item pool, three-way tie at line index 564 (1.3, 2.3, 3.1), took 1.3 on the
+lowest-item-number tiebreak.
+
+ITEM WORK (step 6, this run): full detail in
+`audits/mccanns-sandringham-postcode-check-2026-09-16-twentieth.txt` and in
+AGENT_WORKLIST.md's own item 1.3 block, both written up in full this run - summarised in this
+entry's own opening paragraph above. In short: baseline check on the TRACKED repo (not a
+scratch copy) was red before this pass touched anything - 3 failures left behind by the same
+morning's item 1.2 pass, which had quoted two injection postcodes (PR9 3HW, L20 1DN) in
+AGENT_LOG.md and a new audits/ file without adding them to check-postcodes.js's own
+NARRATIVE_POSTCODES exemption list. Fixed at source (2 insertions in
+tools/check-postcodes.js), re-verified clean. Separately, proved a previously-untested
+mechanism (rank()'s shared-postcode tie-break) correct by injection on a scratch copy, fully
+restored, tracked repo untouched by that half of the pass.
+
+QUESTIONS (this run): none raised. Both halves of this pass (the live-defect fix and the
+rank() proof) resolved cleanly with no ambiguity requiring Rishi's decision.
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item 1.3's own
+checkbox block (twentieth-pass entry appended after the nineteenth-pass write-up, ahead of
+item 1.2's block). No worklist checkbox ticked (item 1.3 already `[x]`, quality pass not a
+state change). New file `audits/mccanns-sandringham-postcode-check-2026-09-16-twentieth.txt`
+added with full detail.
+
+VERIFICATION (this run): full 36-checker suite run individually on the tracked repo after
+the fix - 36/36 exit 0. All six page generators (service, switch, weight loss, travel
+clinic, contraception, branch landing) re-run to exit 0 each; `git status --porcelain --
+modules/` shows only the two long-standing pre-existing untracked strays
+(`gbp-packs/.fuse_hidden0000000400000001`,
+`modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak`), neither touched.
+`git diff --stat` shows only `tools/check-postcodes.js` changed (2 insertions);
+`branches.json` untouched throughout, sha256 `169bb5a21cf62b196600d61260e0689fee040491fd0c
+3637eb2ac91f2ad1b102` unchanged, matching every prior pass on this item.
+
+GIT SYNC / PUSH (steps 9-10, this run): outcome and commit hash recorded at the top of the
+next entry once confirmed pushed (standing Q87/Q96/Q102 sandbox-credential workaround
+applies: sandbox `git push` expected to fail on missing credentials, falling back to
+`mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data` working copy if so).
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, tenth run today; mcp__workspace__bash used for lock handling (HEAD.lock orphaned at run start with no git process running, unlink "Operation not permitted" as usual on this FUSE mount), repo reads, python3 rotation-pool derivation via full-text log scan and QUESTIONS.json append, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_close_mcp used for the answer-pickup fetch and the live half; Read/Edit/Write used for QUESTIONS.json, AGENT_WORKLIST.md, the new audits file and this entry) - Item 1.2 (Hirshmans Chemist Ainsdale, address verification) twentieth quality pass: tools/check-jsonld.js proven by injection against Hirshmans Ainsdale's own JSON-LD block and map query for the first time in twenty passes (seven injections plus one control, all fired or passed on the intended rule), no in-repo defect; live half found a genuine new fault outside this repo's own reach - both live pages checked carry TWO JSON-LD Pharmacy blocks, the repo's own (correctly stale, pending yesterday's Q38 paste) plus a second, byte-identical-across-pages sitewide block that matches no generator this repo has ever run, wrongly urls to the bare domain root and carries no addressRegion; Q109 raised.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start. Wrote a fresh UTC timestamp (2026-09-16T07:04:55Z). `.git/HEAD.lock` present at run start with no git process running (confirmed via `ps aux`); `rm`/`os.remove` both returned "Operation not permitted" (EPERM, not the usual FUSE mount `mv`-workaround shape reported by other recent runs - this attempt used a plain delete first and hit the same underlying restriction). Rather than force anything, confirmed via `git status`/`git branch` that the working copy was already on `agents/audit-backlog` and already up to date with `origin/agents/audit-backlog` before the lock was encountered, so the explicit `git checkout` re-affirmation (which is what actually touches `HEAD.lock`) was skipped as unnecessary rather than forced; `git fetch origin` and `git pull --ff-only origin agents/audit-backlog` (neither of which needs to rewrite `HEAD` itself) both completed cleanly, confirming no drift. Consistent with Q87/Q96/Q102's standing diagnosis of this mount's lock/unlink behaviour.

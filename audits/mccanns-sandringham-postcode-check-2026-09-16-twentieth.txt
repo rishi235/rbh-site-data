@@ -1,0 +1,106 @@
+Item 1.3 (McCanns Sandringham postcode sweep) - twentieth quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-16 (eleventh run today)
+
+ROTATION POOL SELECTION
+Fresh Python full-text scan of AGENT_LOG.md matching (?:item|took)\s+<N> anywhere in the
+file (word-bounded), taking each pool item's topmost (most recent) mention line index, over
+the 35-item pool (42 checked AGENT_WORKLIST.md items minus the seven standing out-of-rotation
+items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Three items tied for the largest (= least recently
+mentioned) index, 564: 1.3, 2.3, 3.1, all inside the same 2026-09-15 (twenty-ninth run) log
+block. Took 1.3 on the lowest-item-number tiebreak, the same convention the twenty-ninth run's
+own entry records having used the day before ("took 3.1 on the lowest-item-number tiebreak").
+
+BASELINE (BEFORE ANY EDIT)
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(matches all nineteen prior passes on this item). tools/check-postcodes.js run directly on
+the TRACKED repo, before touching anything: 3 FAILURES, not clean -
+
+  UNKNOWN  AGENT_LOG.md: postcode L20 1DN is in no branches.json entry and is not a named
+           historical value.
+  UNKNOWN  audits/hirshmans-ainsdale-item-1.2-quality-pass-2026-09-16-twentieth.txt: postcode
+           PR9 3HW is in no branches.json entry and is not a named historical value.
+  UNKNOWN  audits/hirshmans-ainsdale-item-1.2-quality-pass-2026-09-16-twentieth.txt: postcode
+           L20 1DN is in no branches.json entry and is not a named historical value.
+
+This is a live, currently-failing state on the tracked agents/audit-backlog branch, not a
+scratch-copy finding. Traced to this morning's tenth run (item 1.2's own twentieth pass,
+commit d73af5d / 8f3b2a7): that pass injected PR9 3HW (a one-character-off variant of
+Hirshmans Chemist Ainsdale's own PR8 3HW) into a JSON-LD address.postalCode, and L20 1DN (a
+fabricated, Bootle-shaped postcode matching neither Bootle branch's real value) into a map
+iframe query, both on a scratch copy, to prove check-jsonld.js's rules 5 and 8. Both values
+were quoted in AGENT_LOG.md and/or the new audits/ file that pass wrote, but neither was added
+to tools/check-postcodes.js's own NARRATIVE_POSTCODES exemption list - the exact same
+committed-without-being-added gap this list's own history already records fifteen times over
+(L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB,
+L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ), just arriving via a different
+item's own pass this time rather than this item's.
+
+FIX (applied directly to the tracked repo, in scope for this item)
+Added "PR9 3HW" and "L20 1DN" to NARRATIVE_POSTCODES in tools/check-postcodes.js, each with a
+reason following the file's own established convention (what the value is, where it was
+injected, which rule it proved, which files quote it, and the running count of times this
+gap has now been closed). Re-ran on the tracked repo: 0 failures, 3 warnings (the three
+standing UNOWNED notices for gbp-packs/TEMPLATE.md and the two shared branch-family sheets),
+matching every prior clean pass on this item.
+
+FRESH ANGLE (in addition to the fix above)
+Nineteen prior passes tested every numbered rule (0-7), every exemption list's staleness
+check, the scanner's file-visibility boundary (EXTRA_FORCE_INCLUDE) and both halves of rule
+6's naming logic (branchName, alias, bare stem, case-insensitivity). None had ever tested
+rank() (line 319) by injection. rank() exists to pick a single "owner" branch when two live
+branches.json entries share a postcode - the deliberate L9 7AS case, Clear Chemist Aintree
+and head office, both Unit 20 Brookfield - and it feeds byPostcode[pc], which both rule 3
+(FOREIGN) and rule 6 (MISATTRIB) use to name the offending branch in their failure messages.
+Every pass that has ever exercised rule 3 or rule 6 has done so against a postcode with only
+ONE owning branch; none has exercised the shared-postcode case, so rank()'s tie-break - prefer
+a live trading branch over head office - had only ever been described in the rule 7 comment,
+never proven to actually resolve correctly in a real failure message.
+
+PROOF BY INJECTION - full directory copy at /tmp/pcscratch-rank (outside the tracked tree;
+this session's sandbox git mount has no usable index for `git archive` cross-copy issues seen
+on other passes, so a plain recursive copy was used instead, immediately sha256-verified
+against the tracked file before any edit). Baseline on the copy: 1093 files scanned, 0
+failures, 3 warnings, matching the tracked repo post-fix exactly.
+
+Appended one line to gbp-packs/riddings-timperley.md (sha256 8cc587968d3f6b83a3509aa2715
+1c7dc30172b626b9d0fed824630a775917c04 before edit): "RANK-TEST: Riddings Pharmacy is also
+registered at postcode L9 7AS for this test only." Riddings Pharmacy Timperley's own real
+postcode is WA15 6BP; L9 7AS is the shared postcode, owned jointly by clearchemist_aintree and
+rbh_head_office_aintree in branches.json.
+
+RESULT - both rules fired, and both independently named clearchemist_aintree, not
+rbh_head_office_aintree, as the owner of L9 7AS:
+
+  FOREIGN   gbp-packs/riddings-timperley.md: owned by riddings_timperley (WA15 6BP) but
+            carries L9 7AS (clearchemist_aintree)
+  MISATTRIB gbp-packs/riddings-timperley.md:179: line names Riddings Pharmacy (WA15 6BP) but
+            carries L9 7AS (clearchemist_aintree)
+
+This matches the hand-derived expectation from rank()'s own formula (disposed ? 0 : 2) +
+(id === "rbh_head_office_aintree" ? 0 : 1): both branches are live so both start at 2;
+clearchemist_aintree then adds 1 (not head office) for a rank of 3, rbh_head_office_aintree
+adds 0 for a rank of 2, so Clear wins the tie and is the branch byPostcode["L9 7AS"] resolves
+to. Confirmed correct: a human reading either failure message is pointed at the trading
+branch that actually operates from Unit 20 Brookfield, not the head-office record that
+carries no phone, email, odsCode or nhsEmail (per CLAUDE.md, "Head office ... has no phone,
+email, odsCode or nhsEmail. That is correct, not missing data") and so would be a dead end
+for anyone following up a misattribution report.
+
+RESTORE: gbp-packs/riddings-timperley.md restored by copy from the tracked repo and
+sha256-reconfirmed identical (8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a
+775917c04) both times. Re-run on the scratch copy after restore: 0 failures, 3 warnings,
+matching the pre-injection baseline exactly. Tracked repo's own copy of
+gbp-packs/riddings-timperley.md confirmed sha256-identical throughout and never opened for
+writing. Scratch directory deleted after the test.
+
+VERIFICATION (tracked repo)
+Full 36-checker suite re-run individually: 36/36 exit 0. All six page generators re-run:
+exit 0 each, git status --porcelain -- modules/ empty afterwards (only the two long-standing
+pre-existing untracked strays present throughout, gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither touched).
+git diff --stat shows only tools/check-postcodes.js changed (2 insertions). branches.json
+untouched, sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 unchanged.
+
+No new question. This pass both fixed a real, live defect (the tracked repo's own checker was
+failing before this pass ran) and closed a previously-untested angle (rank()'s tie-break,
+proven correct on first attempt). Done 2026-09-16.
