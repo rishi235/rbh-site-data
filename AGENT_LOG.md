@@ -1,3 +1,105 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, seventeenth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing on one disposable scratch copy (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.8 (SK Chemists, Bootle) twentieth quality pass: tools/check-seo-lengths.js, never named against SK Chemists Bootle across nineteen prior passes despite being proven today against its Bootle town-pair sister Smartts Chemist on item 3.7's nineteenth pass (immediately above), proved by six injections against modules/service/pages/SEO.md and two SK pages in a disposable scratch copy, all restored and sha256/diff-reconfirmed between tests: UTI title lengthened to 80 characters (rule 1, caught), Sore throat description shortened to 37 characters (rule 2a, caught), Sinusitis description lengthened to 242 characters (rule 2b, caught), Earache's title overwritten with Impetigo's (rule 3 duplicate title, caught, both headings named), Shingles' permalink overwritten with Infected insect bite's (rule 3 duplicate permalink, caught, both headings named), and the overview page's H1 overwritten with the UTI page's own H1 (rule 4a, one branch reusing its own H1, caught, "skchemists_bootle: pharmacy-first-sk-chemists-bootle.html and uti-treatment-sk-chemists-bootle.html" named exactly). CONTROL: SK UTI's Meta Keywords line changed to unrelated text, a field this checker never reads - correctly zero failures once injected narrowly within that one entry's own block (a naive whole-file replace was not unique: an unrelated pre-existing duplicate keywords string exists elsewhere in the estate, itself outside this checker's scope). Rule 4b/4c (H1 collision across the Bootle pair) deliberately not re-examined: already read live/statically from the Smartts side in the immediately preceding run and confirmed all four H1 strings distinct (the item 3.3/Q44 brand-in-H1 fix) - repeating it from SK's side would be the identical fact, not a fresh angle. Zero in-repo defect. Tracked branches.json, SEO.md, the two SK pages and the checker itself confirmed byte-identical throughout by sha256/diff; full 36-checker suite clean on the tracked repo before and after (35/36 on the scratch copy, the documented cdn-pins artefact only). STEP 3 answer pickup: portal feed read in full, only Q37 and Q43 of the currently open questions appear in it, both already correctly recorded as non-decisions with status left "open" by prior runs, no new answer to apply, no status change made. No new question raised. See full detail below and in audits/sk-bootle-seo-lengths-3.8-twentieth-2026-09-16.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run
+start. Wrote a fresh UTC timestamp. `git fetch origin`, `git checkout
+agents/audit-backlog` and `git pull --ff-only origin agents/audit-backlog`
+hit the same standing FUSE-mount unlink restriction as every recent run
+(Q87/Q96/Q102): a `.git/ORIG_HEAD.lock` from an earlier, unrelated session
+blocked the pull with "cannot lock ref 'ORIG_HEAD'"; confirmed via `ps aux`
+that no git process was running in this sandbox, and local HEAD already
+exactly matched `origin/agents/audit-backlog` (5c09f4d) via `git fetch` +
+`git rev-parse` alone, so the blocked pull was moot rather than worked
+around. A fresh, self-clearing `.git/index.lock` also appeared once during
+an ordinary `git status` call and did not block anything, the same pattern
+prior runs have documented.
+
+ANSWER PICKUP (step 3, this run): `mcp__claude-in-chrome` connected
+cleanly, one tab, no dual sign-in issue. Read
+https://data.rbhealth.co.uk/api/feedback in full - entries dated 2026-08-04
+to 2026-09-01 only, nothing newer than any prior run's own read. Only Q37
+and Q43 of the 56 currently open questions appear anywhere in the feed,
+both byte-identical to the non-decision replies already recorded in
+QUESTIONS.json's own notes (Q37: Rishi asks for the question to be
+restated in plain English; Q43: a partial, non-binary comment on only one
+of two sub-questions). No new answer to apply, no status change made.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md
+(the sixteenth run's own entry, now below this one) before adding this
+entry - no "Standing authorisation - autonomous window" section present.
+Not applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), all 8 still carry `[BLOCKED]`, unchanged since the previous
+run. No actionable unchecked item. Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 42 checked AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+= a 35-item pool. Re-derived fresh with a Python scan of AGENT_LOG.md
+matching `\b(?:item|took)\s+<N>\b` word-bounded, taking each pool item's
+topmost (most recent, since new entries are appended to the TOP of the
+log) mention line index and picking the item whose own topmost-mention
+index was LARGEST (= least recently mentioned). 3.8 came out stalest
+(index 958, last touched on its own nineteenth pass, 2026-09-15); 3.11 and
+6.2 tied next (892) - both had been mentioned more recently than 3.8
+because they were named as tie-break comparators in other runs' own
+write-ups without a fresh pass being taken on them. Picked item 3.8 for a
+twentieth quality pass.
+
+WORK DONE (item 3.8, twentieth quality pass): see AGENT_WORKLIST.md's own
+paragraph for the full method and rule-by-rule detail; full narrative in
+audits/sk-bootle-seo-lengths-3.8-twentieth-2026-09-16.txt. FRESH ANGLE
+chosen by cross-referencing all 36 checker names against the full text of
+item 3.8's own nineteen-pass history: tools/check-seo-lengths.js had never
+been named against SK Chemists Bootle, and the immediately preceding run
+today had just proven the same checker against Smartts Chemist, SK's
+Bootle town-pair sister - closing the loop from the other side was the
+obvious next step rather than a fresh checker at random. Full repo
+git-archived (`git archive HEAD | tar -x`, not /tmp) to a disposable
+scratch directory, never the tracked tree; scratch branches.json
+sha256-confirmed matching the tracked repo before any injection; 35/36
+checkers clean on the scratch copy baseline (check-cdn-pins.js failing
+only on the documented .git-less-copy artefact). Six injections against
+SK's own paste-sheet entries and two of its own pages, each restored from
+a saved byte-copy and sha256/diff-reconfirmed before the next: title
+lengthened to 80 characters (rule 1, caught); description shortened to 37
+characters (rule 2a, caught); description lengthened to 242 characters
+(rule 2b, caught); SK Earache title overwritten with SK Impetigo's title
+(rule 3 duplicate title, caught, both sheet headings named); SK Shingles
+permalink overwritten with SK Infected insect bite's permalink (rule 3
+duplicate permalink, caught, both sheet headings named); SK overview page
+H1 overwritten with the SK UTI page's own H1 (rule 4a, one branch reusing
+its own H1, caught, "skchemists_bootle: pharmacy-first-sk-chemists-
+bootle.html and uti-treatment-sk-chemists-bootle.html"). CONTROL: SK UTI's
+Meta Keywords line changed to unrelated text - a field this checker never
+reads - correctly zero failures, after discovering mid-run that a naive
+whole-file string replace on the target keywords line was not unique (an
+unrelated pre-existing duplicate keywords string sits elsewhere in the
+estate, itself outside this checker's scope since it never parses
+keywords) and switching to a heading-scoped replace instead. Zero in-repo
+defect in any of the six injections; all were the checker already being
+correct, now proven rather than assumed. Tracked branches.json (sha256
+169bb5a2...b102), modules/service/pages/SEO.md, the two SK pages touched
+and tools/check-seo-lengths.js itself all confirmed byte-identical to
+baseline throughout by sha256/diff; full 36-checker suite re-run clean (35
+of 36 on the scratch copy post-restore, same cdn-pins artefact; 36 of 36
+on the tracked repo) after all injections; `git status --porcelain --
+modules core branches.json gbp-packs tools` showing only the two
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched. Scratch directory and backups deleted at the end of the
+run.
+
+RESULT: item 3.8 ticked in place in AGENT_WORKLIST.md (twentieth pass
+appended under the existing checked line, per the established convention
+- "Done" date and pass count updated, item never moved to another
+section). No worklist item newly blocked. No new question raised -
+QUESTIONS.json unchanged this run bar no changes at all (Q37/Q43
+confirmed already correct and left open, no write needed). Status page
+will be republished in step 10 below with this run's outcome.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, sixteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing on one disposable scratch copy (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.7 (Smartts Chemist, Bootle) nineteenth quality pass: tools/check-seo-lengths.js, never named against Smartts across eighteen prior passes, proved by six injections against modules/service/pages/SEO.md and two Smartts pages in a disposable scratch copy, all restored and sha256-reconfirmed between tests: title over 65 chars, description under 80 and over 165 chars, duplicate title and duplicate permalink between two of Smartts's own pages, and one branch reusing its own H1 across two of its own pages (Smartts overview overwritten with its own UTI page's H1) - all six CAUGHT cleanly, one isolated failure each, and a Meta Keywords control change produced zero false positives. Rule 4b/4c (H1 collision across the Smartts/SK Chemists Bootle town pair) was read live instead of injected: both branches' overview and UTI H1s carry their own brand name and are therefore distinct, confirming the item 3.3/Q44 brand-in-H1 fix holds for this specific pair rather than only being assumed from the estate-wide "0 sharing an H1" summary line - a genuine first-time branch-level confirmation, not previously checked. Zero in-repo defect. Tracked branches.json, SEO.md, the two Smartts pages and the checker itself confirmed byte-identical throughout by sha256; full 36-checker suite clean on the tracked repo before and after. STEP 3 answer pickup: portal feed read in full, only Q37 and Q43 of the currently open questions appear in it, both already correctly recorded as non-decisions with status left "open" by prior runs, no new answer to apply, no status change made. No new question raised. See full detail below and in audits/smartts-item-3.7-quality-pass-2026-09-16-nineteenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run

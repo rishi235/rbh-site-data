@@ -1,0 +1,133 @@
+Item 3.8 (SK Chemists, Bootle) - twentieth quality pass - 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+SELECTION
+---------
+All 8 remaining unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1,
+and the three Q60/Q66 lines under 6.4/6.5/6.6) are still [BLOCKED],
+unchanged. Fell to the quality-pass fallback. Rotation pool re-derived
+fresh: 42 checked items minus the 7 standing out-of-rotation one-offs
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 35-item pool. For each pool item,
+found the topmost (most recent) line index in AGENT_LOG.md matching
+/\b(?:item|took)\s+<N>\b/ word-bounded; picked the item whose topmost
+mention had the LARGEST index (= least recently touched). 3.8 came out
+stalest (its own nineteenth pass, on check-brand-spelling.js, was the
+2026-09-15 thirty-seventh run - the most recent thing to touch it since
+then was item 3.7's nineteenth pass and item 6.3's sixteenth pass earlier
+today, both later in the pool ranking). Took item 3.8 for a twentieth pass.
+
+FRESH ANGLE
+-----------
+Cross-referenced every one of the 36 tools/check-*.js checker names
+against the full text of item 3.8's own AGENT_WORKLIST.md block (all
+nineteen prior passes): tools/check-seo-lengths.js had never once been
+named against SK Chemists Bootle specifically, despite being proven
+today (earlier run) against its sister town-pair branch, Smartts Chemist
+Bootle, on item 3.7's nineteenth pass. Closes the loop: both sides of the
+Bootle town pair now separately proven for this checker's rules 1-4a.
+Rule 4b/4c (H1 collision across the pair) was deliberately NOT
+re-examined this pass - the earlier Smartts pass today already read both
+branches' H1s live/statically and confirmed all four strings distinct
+(the item 3.3/Q44 brand-in-H1 fix), so repeating it from SK's side would
+be the identical fact re-confirmed, not a fresh angle.
+
+METHOD
+------
+Full-repo scratch copy via `git archive HEAD | tar -x` into
+~/scratch/rbh-3.8-pass20 (NOT /tmp, per the standing note on this sandbox
+about stale reads from /tmp - see item 3.8's own eighteenth-pass entry).
+Scratch branches.json sha256 169bb5a2...b102, matching the tracked repo
+exactly. Baseline: full 36-checker suite clean on the tracked repo before
+any change; 35/36 clean on the scratch copy (check-cdn-pins.js failing
+only on the documented .git-less-copy artefact, same as every prior
+scratch-copy pass).
+
+Six injections against SK Chemists Bootle's own paste-sheet entries
+(modules/service/pages/SEO.md) and two of its own pages, each restored
+from a saved byte-copy and sha256/diff-reconfirmed identical to baseline
+before the next injection began:
+
+  1. RULE 1 (title length). UTI page title lengthened from "UTI treatment
+     in Bootle - SK Chemists" (39 chars) to an 80-character string.
+     CAUGHT: "title is 80 characters, over the 65 limit".
+
+  2. RULE 2a (description too short). Sore throat description shortened
+     from its real 166-character text to a 37-character stub.
+     CAUGHT: "description is only 37 characters, under the 80 minimum".
+
+  3. RULE 2b (description too long). Sinusitis description lengthened
+     from 165 to 242 characters.
+     CAUGHT: "description is 242 characters, over the 165 limit".
+
+  4. RULE 3 (duplicate title). Earache's Page Title overwritten with
+     Impetigo's Page Title, verbatim.
+     CAUGHT: "duplicate title shared by 2 pages: SK Chemists — Bootle —
+     Earache ..., SK Chemists — Bootle — Impetigo ...", both headings
+     named distinctly (the fix landed on item 3.9's fifteenth pass,
+     2026-09-10, so that two same-value collisions are always
+     distinguishable even when the colliding field itself is a
+     permalink).
+
+  5. RULE 3 (duplicate permalink). Shingles' Page Permalink overwritten
+     with Infected insect bite's Page Permalink.
+     CAUGHT: "duplicate permalink shared by 2 pages: SK Chemists — Bootle
+     — Shingles ..., SK Chemists — Bootle — Infected insect bite ...",
+     again both headings named distinctly rather than the same string
+     twice.
+
+  6. RULE 4a (one branch reusing its own H1). pharmacy-first-sk-chemists-
+     bootle.html's H1 overwritten with uti-treatment-sk-chemists-
+     bootle.html's own H1 text.
+     CAUGHT: "one branch uses the same H1 on two of its own pages -
+     skchemists_bootle: pharmacy-first-sk-chemists-bootle.html and
+     uti-treatment-sk-chemists-bootle.html".
+
+  CONTROL: SK UTI's Meta Keywords line changed to unrelated text (a
+  field this checker never parses at all). Injected narrowly within the
+  "## SK Chemists — Bootle — UTI" block only, after discovering the
+  naive whole-file string replace was not unique (two branches in the
+  estate happen to share the exact keywords string "UTI Bootle, UTI
+  treatment Bootle, Pharmacy First Bootle, pharmacy Bootle, L20" -
+  itself outside this checker's scope, since check-seo-lengths.js never
+  reads Meta Keywords). Correctly zero failures both before and after
+  the injection - confirms no cross-firing.
+
+All six attempts caught/passed on exactly the intended rule, first
+attempt, with no unexplained collateral failures. Every restore verified
+byte-identical to the saved baseline by sha256 (SEO.md, the overview
+page, the UTI page) and by `diff` before the next injection began.
+
+RESULT
+------
+NO IN-REPO DEFECT FOUND. Final state: full 36-checker suite re-run on
+the scratch copy, 35/36 clean (same documented cdn-pins artefact); full
+36-checker suite re-run individually against the TRACKED repo, 36/36
+exit 0. Tracked branches.json sha256 confirmed unchanged
+(169bb5a2...b102) throughout; tracked SEO.md, pharmacy-first-sk-
+chemists-bootle.html and uti-treatment-sk-chemists-bootle.html all
+confirmed byte-identical to their pre-run hashes; `git status --porcelain
+-- modules core branches.json gbp-packs tools` on the tracked repo shows
+only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched. No generator, page, checker or branches.json content
+changed. Scratch directory and backups deleted at the end of the run.
+
+Guard coverage for item 3.8 now extends to tools/check-seo-lengths.js's
+rules 1, 2a, 2b, 3 (title), 3 (permalink) and 4a, proven by direct
+injection against SK Chemists Bootle specifically, on top of the fifteen
+other checkers already proven across nineteen prior passes.
+
+LIVE HALF: not attempted this pass. Scope was the repo/data-schema layer
+only, matching the precedent the nineteenth pass itself set on the same
+checker earlier today (item 3.7). The browser this run was used only for
+the standing step-3 answer-pickup fetch, not for a live read of any SK
+Chemists Bootle page; the fifth pass's (2026-08-31) two live-only findings
+(pfLink page awaiting the 5.3/5.4 repaste; switch page's pre-Q7/5.1
+mojibake em dash) were not re-confirmed this run and should not be
+assumed unchanged or resolved.
+
+No new question raised. QUESTIONS.json unchanged this run bar no writes
+at all (Q37/Q43 - the only currently-open questions appearing anywhere in
+the portal feed - re-confirmed already correctly recorded as non-decisions
+and left "open", no new answer to apply).

@@ -9301,6 +9301,65 @@ Done 2026-09-16 (nineteenth pass).
       pickup step: 107 total, 54 open, unchanged; newest answer still Q52
       (2026-09-01). Evidence in audits/sk-bootle-brand-spelling-3.8-
       nineteenth-2026-09-15.txt.
+      Quality pass 2026-09-16 (twentieth, unattended scheduled run). Taken
+      because all 8 remaining unchecked worklist lines are still
+      [BLOCKED]; rotation pool re-derived fresh (35 items, the 7 standing
+      out-of-rotation one-offs excluded), 3.8 came out stalest (last
+      touched on its own nineteenth pass, 2026-09-15; items 3.7 and 6.3
+      had both been touched earlier today). FRESH ANGLE:
+      tools/check-seo-lengths.js, never once named against SK Chemists
+      Bootle across nineteen prior passes despite being proven today
+      against its Bootle town-pair sister Smartts Chemist on item 3.7's
+      nineteenth pass - closes the loop on both sides of the pair for
+      this checker. Full-repo scratch copy via `git archive HEAD | tar
+      -x` into ~/scratch (not /tmp, per the standing sandbox note); 35/36
+      checkers clean on the scratch copy baseline (check-cdn-pins.js's
+      documented .git-less artefact only), 36/36 clean on the tracked
+      repo throughout. SIX ATTEMPTS against SK's own SEO.md entries and
+      two of its own pages, each restored by byte copy and sha256/diff-
+      reconfirmed before the next: (1) RULE 1, UTI title lengthened to 80
+      characters - CAUGHT; (2) RULE 2a, Sore throat description shortened
+      to 37 characters - CAUGHT; (3) RULE 2b, Sinusitis description
+      lengthened to 242 characters - CAUGHT; (4) RULE 3 title, Earache's
+      title overwritten with Impetigo's - CAUGHT, both headings named
+      distinctly; (5) RULE 3 permalink, Shingles' permalink overwritten
+      with Infected insect bite's - CAUGHT, both headings named
+      distinctly; (6) RULE 4a, the overview page's H1 overwritten with
+      the UTI page's own H1 - CAUGHT, "skchemists_bootle:
+      pharmacy-first-sk-chemists-bootle.html and
+      uti-treatment-sk-chemists-bootle.html" named exactly. CONTROL: SK
+      UTI's Meta Keywords line changed to unrelated text (a field this
+      checker never reads), injected narrowly within that entry's own
+      block after discovering the naive whole-file replace was not
+      unique (an unrelated pre-existing duplicate keywords string exists
+      elsewhere in the estate, itself outside this checker's scope) -
+      correctly zero failures. Rule 4b/4c (H1 collision across the
+      Bootle pair) deliberately not re-examined: already read live/
+      statically from the Smartts side earlier today and confirmed all
+      four H1 strings distinct (the item 3.3/Q44 brand-in-H1 fix);
+      re-doing it from SK's side would be the identical fact, not a
+      fresh angle. NO IN-REPO DEFECT FOUND. All six injections caught on
+      exactly the intended rule, first attempt, no collateral failures.
+      Final restores sha256/diff-confirmed byte-identical to baseline for
+      all three touched files; full 36-checker suite re-run clean on both
+      the scratch copy (35/36, same artefact) and the tracked repo
+      (36/36). `git status --porcelain -- modules core branches.json
+      gbp-packs tools` on the tracked repo showed only the two long-
+      standing pre-existing untracked strays, neither touched. No
+      generator, page, checker or branches.json content changed. Guard
+      coverage for item 3.8 now extends to check-seo-lengths.js's rules
+      1, 2a, 2b, 3 (title and permalink) and 4a, proven by direct
+      injection against SK Chemists Bootle specifically, on top of the
+      fifteen other checkers proven across nineteen prior passes. LIVE
+      HALF: not attempted this pass, scope was the repo/data-schema layer
+      only, matching the precedent set by this same checker's pass on
+      item 3.7 earlier today; the fifth pass's (2026-08-31) two live-only
+      findings were not re-confirmed and should not be assumed unchanged.
+      No new question raised; portal feed read in full via
+      mcp__claude-in-chrome, only Q37 and Q43 of the open set appear in
+      it, both already correctly recorded as non-decisions and left
+      open, no new answer to apply. Evidence in
+      audits/sk-bootle-seo-lengths-3.8-twentieth-2026-09-16.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
