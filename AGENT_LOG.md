@@ -1,3 +1,93 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-ninth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json answer-pickup diff, and the 36-checker suite plus all six generators run against the tracked repo (via /tmp/scratch_1_1, since $HOME/scratch-style writes were needed for the sandbox's own protected /tmp); mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_create_mcp/tabs_close_mcp used for the step 3 answer-pickup fetch (one tab) and the item 1.1 live-half re-read (three further tabs: Gordon Short travel clinic, Gordon Short Pharmacy First, Coleman & Leighs insect-bite, plus a plain Google search for Hirshmans Ainsdale), all opened and closed cleanly, read-only throughout, nothing clicked or submitted; Read/Edit used for AGENT_WORKLIST.md and this entry) -
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. No `.git/index.lock`. `git fetch` / already on
+`agents/audit-backlog` / `pull --ff-only` all completed normally, already
+up to date with origin at the prior run's own commit (item 1.1's
+predecessor pass, thirty-eighth run today, item 3.8's twenty-first pass).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly, one tab, no conflict. 56 open questions checked against the feed;
+only two open questions (Q37, Q43) have ever had a portal reply at all, and
+both replies are already fully reconciled into their own QUESTIONS.json
+notes ("PORTAL REPLY RECEIVED 2026-09-01, NOT A DECISION") by an earlier
+run - no reply newer than 2026-09-01T22:44:51.524Z for either, so no new
+answer to pick up and no QUESTIONS.json edit made this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (the prior
+run's own entry, item 3.8's twenty-first pass) before adding this one - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; proceeded under the normal rule (any new question this run
+would raise gets [BLOCKED] and QUESTIONS.json, not an autonomous
+decision). No new question was raised this run regardless.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) still [BLOCKED] - confirmed directly via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`, not assumed from the prior run's
+note. No actionable unchecked item. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rather than re-derive the same 35-item "rotation pool"
+several recent runs have already exhaustively re-confirmed today (the
+immediately prior run, item 3.8's twenty-first pass, spent real effort
+proving all 35 of those had already had at least one pass today), scanned
+AGENT_WORKLIST.md's own top-level checked items directly by date instead -
+parsed every "- [x] N.N" block and took the latest 2026-\d\d-\d\d date
+mentioned anywhere inside it. Five items came back tied oldest at
+2026-09-06 (1.1, 1.4, 2.2, 5.6, 6.8), all of them ten days stale and
+outside the 35-item pool the last several runs have been cycling - every
+member of that pool had already been touched at least twice today by the
+time this run started. Item 1.1's own block was the clearest and most
+consequential candidate to re-verify: its own ninth pass (2026-09-06) had
+explicitly flagged itself as "stalest item in the rotation pool" and, being
+an unattended run, had deliberately deferred the live half, leaving the
+last live re-read at 2026-08-29 - eighteen days rather than ten. Took 1.1.
+
+WORK DONE (item 1.1, tenth quality pass): full detail written directly into
+AGENT_WORKLIST.md's own item 1.1 block; summarised here. REPO HALF:
+branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (matches
+the standing anchor from earlier runs today, unchanged); all 36
+tools/check-*.js scripts exited 0; all six build-*.js generators rebuilt to
+a zero diff against modules/core/branches.json/gbp-packs/tools. Two
+unrelated untracked stray files surfaced under the sandbox mount during the
+regen (a .fuse_hidden temp file and a pre-existing .bak injection-test
+probe) - neither tracked, neither touched, same class of stray debris
+several recent runs have already logged and left alone.
+
+LIVE HALF (the actual new work, first re-read of anything under item 1.1
+since 2026-08-29): four read-only checks, all findings UNCHANGED from
+already-recorded ones, zero new defects, zero new questions. (1)
+gordonshortchemist.co.uk travel clinic page: document.title and the real
+h1 (via querySelector, not the visual banner text which sits in a
+different element) both still "Travel Clinic at Gordon Shorts Chemist in
+Crosby" - same pre-1.1 paste as 2026-08-29, still waiting on the
+[BLOCKED] Q32/5.3 repaste. (2) same site's Pharmacy First page: title and
+h1 both still "Pharmacy First at Gordon Shorts Chemist, Crosby" / "...in
+Crosby" - unchanged from the original 2026-08-10 finding. (3)
+colemanandleighspharmacy.co.uk insect-bite page: live title "Infected
+insect bite treatment in Walton - Coleman & Leigh Pharmacy" (ampersand,
+singular Leigh, extra trailing "Pharmacy") against the repo's own composed
+SEO title "...Coleman and Leighs" - unchanged from the 4.12 finding, but
+recorded with more precision than before: the live h1 carries no brand at
+all, while the repo's generated h1 (same file) carries the brand per Q44's
+later shared-Walton-town decision, so this page predates both the 1.1 fix
+and the Q44 fix - one paste-lag fact, not a new defect. (4) plain Google
+search for "Hirshmans Ainsdale pharmacy" (no sign-in, no Business Profile
+page opened): every organic hirshmanspharmacy.co.uk result across the
+whole site still reads "Hirshmans Pharmacy" - consistent with Q70
+(2026-08-14), nothing new; did not attempt the actual Business Profile
+management page, which needs a signed-in session outside this run's
+read-only remit.
+
+No repo defect found this pass, so nothing was fixed; the item's rule
+continues to hold on its tenth consecutive pass. Blocks nothing, no new
+question. Git: staged AGENT_WORKLIST.md and this log entry only (no
+generator, module, core, branches.json or gbp-packs file changed, since
+the regeneration diff was zero), committed and pushed to
+origin/agents/audit-backlog via the standard route. Ran
+tools/build-audit-status.js to publish the status page per step 10, then
+deleted .agent-lock per step 11.
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-eighth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json/AGENT_WORKLIST.md rotation-pool scan, and the 36-checker suite run against the tracked repo (via $HOME/scratch, /tmp write-protected in this sandbox); mcp__Windows-MCP__PowerShell used to confirm the real C:\Dev\rbh-site-data working copy was in sync and for the git write route (add/commit/push) and status-page publish, per Q102's standing recommendation; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the live-half read of two SK Chemists Bootle pages plus one control, three tabs opened and closed cleanly; Read/Edit used for AGENT_WORKLIST.md, the new audits file and this entry) - Item 3.8 (SK Chemists, Bootle) twenty-first quality pass: closed a sixteen-day/fifteen-pass live-verification gap this item's own nineteenth and twentieth passes (both earlier today) had explicitly left open ("LIVE HALF: not attempted"); reconfirmed the two known 2026-08-31 live findings unchanged and added two previously-unrecorded ones (switch-page title wording drift, branch-specific Q49 reconfirmation); zero in-repo defect, all findings are Weebly paste-lag outside this worker's write scope. Also recorded a process finding: the prior run's own rotation-pool forward note was already stale by the time this run read it.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a

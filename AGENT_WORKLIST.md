@@ -26654,6 +26654,68 @@ appended to the line. Do not move them; the status page reads them in place.
       commits already ahead from the item 6.8 run, aa4f30c and a097ae7) all
       reached origin/agents/audit-backlog in this run, not left local-only.
       Done 2026-09-06.
+      Quality pass 2026-09-16 (tenth, repo half AND a live re-read, unattended
+      run - stalest completed item in the whole worklist, last touched
+      2026-09-06, ten days, well past every item in the 35-item rotation
+      pool the last 27 runs today had already cycled through at least once):
+      REPO HALF reconfirmed clean before anything else was touched.
+      branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102,
+      matching the standing anchor from earlier today's runs, unchanged. All
+      36 checker scripts exited 0. All six generators
+      (build-branch-landing-pages, build-contraception-pages,
+      build-service-pages, build-switch-pages, build-travel-clinic-pages,
+      build-weight-loss-pages) rebuilt to a zero diff against
+      modules/core/branches.json/gbp-packs/tools - `git status --porcelain`
+      on those paths showed nothing, confirming the repo was clean going in.
+      (Two unrelated untracked stray files appeared under the sandbox mount
+      during the regen, a .fuse_hidden temp file in gbp-packs/ and a
+      pre-existing .bak probe file in modules/service/pages/ from earlier
+      injection-testing debris; neither is tracked, neither was touched,
+      same "not this run's concern" class the last several runs have
+      logged.)
+      LIVE HALF, the actual point of this pass: the last live read of
+      anything under item 1.1 was 2026-08-29 (repo-only checks on
+      2026-08-31 and 2026-09-06 both explicitly deferred it), so it had gone
+      18 days. Read three pages plus one search, all read-only via Claude in
+      Chrome, nothing clicked or submitted. (1) gordonshortchemist.co.uk's
+      travel clinic page: document.title and the true <h1> (read via
+      querySelector, not the visual heading text, which comes from a
+      different element) both still read "Travel Clinic at Gordon Shorts
+      Chemist in/,, Crosby", and the "Contact Gordon Shorts Chemist" h2 and
+      body copy agree - unchanged from the 2026-08-29 finding, still the
+      same pre-1.1 paste, still waiting on the Q32/item 5.3 repaste (itself
+      [BLOCKED]). (2) The same site's Pharmacy First page: title and h1 both
+      still "Pharmacy First at Gordon Shorts Chemist, Crosby" /"...in
+      Crosby" - unchanged from the original 2026-08-10 finding. (3)
+      colemanandleighspharmacy.co.uk's insect-bite page: live title is
+      "Infected insect bite treatment in Walton - Coleman & Leigh Pharmacy"
+      (ampersand, singular Leigh, plus a trailing "Pharmacy" the repo's
+      composed title does not even carry) against the repo's own SEO title
+      comment "Infected insect bite treatment in Walton - Coleman and
+      Leighs" (modules/service/pages/insect-bite-treatment-coleman-leigh-walton.html
+      line 4) - unchanged from the 4.12 finding. Worth recording precisely
+      once, because it had not been: the live h1 on this page carries NO
+      brand at all ("Infected insect bite treatment in Walton"), while the
+      repo's generated h1 (same file, line 21) reads "...in Walton - Coleman
+      and Leighs Pharmacy", carrying the brand per Q44's decision that a
+      shared Walton town gets the brand in the H1. So this live page
+      predates not only item 1.1's spelling fix but also the later Q44 H1
+      change - it is not a new defect, just a slightly older paste than the
+      travel clinic page above, both riding the same blocked repaste queue.
+      (4) A plain Google search for "Hirshmans Ainsdale pharmacy" (no
+      sign-in, no Business Profile page opened) shows every organic result
+      for hirshmanspharmacy.co.uk still branded "Hirshmans Pharmacy" across
+      the whole site (home, contact, Pharmacy First, prescriptions, switch,
+      book-now) - consistent with the shop-type-word variant Q70 already
+      logged on 2026-08-14, nothing new; did not attempt to open the actual
+      Business Profile management page, which needs a signed-in session and
+      is outside this run's read-only remit anyway.
+      Net result: zero new defects, zero drift since the last live read,
+      zero new question. Every one of the four live findings is the exact
+      same paste-lag this item has already recorded, just reconfirmed
+      current after 18 days rather than assumed. Blocks nothing. No repo
+      file changed this pass other than this worklist entry and the log.
+      Done 2026-09-16.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
