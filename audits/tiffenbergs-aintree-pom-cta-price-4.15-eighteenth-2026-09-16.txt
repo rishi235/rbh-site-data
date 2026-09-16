@@ -1,0 +1,106 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack), eighteenth quality pass, 2026-09-16
+=======================================================================================
+
+Scope: prove, by direct injection against gbp-packs/tiffenbergs-aintree.md's own
+copy, three tools/check-gbp-packs.js rules never yet pointed at this pack across
+seventeen prior passes: the transactional-CTA button label rule (POM_POSTS /
+TRANSACTIONAL_CTAS), the no-lead-pricing/offer rule (PRICE_PATTERNS /
+OFFER_PATTERNS), and the POM-class allusion rule (tools/pom-class-patterns.js,
+both SELF_SCOPING and IN_CONTEXT). All three were proven today against
+gbp-packs/scorah-bramhall.md (item 4.4, twentieth pass) but never against this
+branch's own pack.
+
+Baseline
+--------
+Pack sha256 before starting: 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+(unchanged since the ninth pass, 2026-09-03). Full 36-checker suite run against
+the tracked repo and separately against a scratch copy: all 36 exit 0.
+
+Method
+------
+Full repo copied with .git (cp -a) to /tmp/rbh-scratch-4.15, outside both mounted
+folders and the tracked repo. All injections and checker runs performed against
+the scratch copy only. Tracked repo's gbp-packs/tiffenbergs-aintree.md never
+opened for writing. Each injection restored by byte copy from a pristine backup
+(/tmp/tiffenbergs-pristine.md) and sha256-reconfirmed identical before the next
+round.
+
+Injection 1 - transactional CTA on the weight loss post (Post C)
+------------------------------------------------------------------
+Post C's "Button: Book -> .../weight-loss-clinic-tiffenbergs-aintree.html"
+changed to "Button: Buy now -> ...". node tools/check-gbp-packs.js exited 1,
+exactly one FAIL naming Post C as "the weight loss post" and its button
+labelled "Buy now", citing the near-total advertising-regime prohibition and
+directing back to "Book" or "Learn more". Caught first attempt.
+
+Injection 2 - lead price in Post C's body
+------------------------------------------
+Inserted "Weight loss treatments start from just £99 a month." into Post C's
+body (between the "not right for everyone" sentence and "Confidential and
+judgement-free"). node tools/check-gbp-packs.js exited 1, exactly one FAIL
+naming Post C - Weight loss clinic and quoting the matched price fragment,
+citing compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5. Caught first
+attempt, matching both the £-sign pattern and the "from ... just" lead-price
+pattern.
+
+Injection 3 - POM-class SELF_SCOPING, outside any post body
+--------------------------------------------------------------
+Inserted "This clinic offers the skinny jab as part of its plan." into the
+"Notes for the paster" section (not inside Post C or any post at all). node
+tools/check-gbp-packs.js exited 1, exactly one FAIL naming the phrase "skinny
+jab" and the ASA ruling on alluding to a POM without naming it. Confirms
+SELF_SCOPING reads the whole pack regardless of location, as its own header
+comment states, proven on this pack's own copy for the first time.
+
+Injection 4 - POM-class IN_CONTEXT, weekly injectable in a weight-loss sentence
+----------------------------------------------------------------------------------
+Inserted "Ask about the weekly injection option to support your weight loss
+journey." into Post C's body. node tools/check-gbp-packs.js exited 1, exactly
+one FAIL naming "a weekly injectable" and quoting the sentence in full. Caught
+first attempt.
+
+Control - contraceptive injection mention, no weight-loss context
+----------------------------------------------------------------------
+Changed the Services section's NHS contraception bullet to "...start or
+continue oral contraception, including a contraceptive injection option, at
+the pharmacy without a GP appointment." node tools/check-gbp-packs.js exited 0,
+0 failures for tiffenbergs-aintree.md (the pre-existing estate-wide WARN set on
+other packs, e.g. Q64 and Q72 KNOWN entries, unchanged). Confirms the
+sentence-gate exemption for the NHS contraception service - which the rule's
+own header comment names as the reason IN_CONTEXT is scoped to sentences
+naming weight loss rather than read across the whole pack - holds on this
+pack's own copy specifically.
+
+All five rounds fired or correctly passed on the first attempt, each on its
+intended rule only, no side-effect failures anywhere else in the 15-pack
+suite. No checker gap found.
+
+Restore and re-verification
+----------------------------
+Final restore: gbp-packs/tiffenbergs-aintree.md sha256 reconfirmed
+59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b, identical to
+baseline. Full 36-checker suite re-run clean on the scratch copy after
+restore: 36/36 exit 0. Tracked repo confirmed untouched throughout: `git
+status --short gbp-packs/ tools/ modules/ core/ branches.json status/` empty
+of any change to those paths, and `diff -rq` of gbp-packs/ and tools/ between
+the scratch copy and the tracked repo showed no differences.
+
+No in-repo defect found; no checker, pack, page, generator or branches.json
+entry changed; no new question raised. Guard coverage for item 4.15 now
+extends to three more distinct rules proven by direct injection against this
+branch specifically (the transactional-CTA rule, the lead-pricing/offer rule,
+and both halves of the POM-class allusion rule), on top of the twelve already
+proven across the seventeen prior passes.
+
+Answer pickup (step 3): exactly one connected browser this run, no Q59
+conflict. https://data.rbhealth.co.uk/api/feedback read cleanly. Newest
+portal entry still the Q52 answer, dated 2026-09-01T22:44:51.524Z - unchanged
+since every run since 2026-09-01. No answer arrived for any of the 56
+currently-open questions this run.
+
+Live half: not repeated this pass. The rules proven here govern text pasted
+into Google Business Profile's post and services fields, not a URL a
+read-only fetch could verify regardless (the same position the 13th, 14th,
+15th and 16th passes recorded for their own pack-copy-only rules). The
+seventeenth pass's live verdicts (2026-09-15, full browser codepoint read)
+stand and are not re-verified this pass.

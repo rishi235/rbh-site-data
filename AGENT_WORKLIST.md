@@ -25004,6 +25004,48 @@ directly rather than re-deriving the same facts by hand.
       new question - Q56 and Q58 already ask the correct operative questions
       this evidence reconfirms. Evidence in
       audits/tiffenbergs-aintree-live-half-4.15-seventeenth-2026-09-15.txt.
+      Quality pass 2026-09-16 (eighteenth re-verification, repo half only):
+      pack re-confirmed byte-identical to baseline (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) and all
+      36 checkers re-run clean before and after testing. Fresh angle: three
+      tools/check-gbp-packs.js rules proven today against gbp-packs/scorah-
+      bramhall.md (item 4.4, twentieth pass) - the transactional-CTA button
+      label rule, the no-lead-pricing/offer rule, and the POM-class allusion
+      rule (tools/pom-class-patterns.js) - had never been proven by injection
+      against THIS pack's own copy across seventeen prior passes. Full repo
+      copied with .git to a scratch directory outside the tracked tree; all
+      injections and checker runs against the scratch copy only, tracked file
+      never opened for writing. Four injections plus one control, each
+      restored by byte copy and sha256-reconfirmed identical before the next:
+      (1) Post C's "Book" button changed to "Buy now" - CAUGHT, naming Post C
+      as the weight loss post and the near-total advertising-regime
+      prohibition; (2) "Weight loss treatments start from just £99 a month."
+      inserted into Post C's body - CAUGHT by the lead-price rule, quoting the
+      matched fragment; (3) "This clinic offers the skinny jab as part of its
+      plan." inserted into the paster notes, outside any post body - CAUGHT by
+      POM_CLASS SELF_SCOPING, confirming it reads the whole pack regardless of
+      location; (4) "Ask about the weekly injection option to support your
+      weight loss journey." inserted into Post C's body - CAUGHT by POM_CLASS
+      IN_CONTEXT, naming "a weekly injectable"; (5) CONTROL, the NHS
+      contraception Services bullet extended to mention "a contraceptive
+      injection option" (no weight-loss wording in the sentence) - correctly
+      PASSED, exit 0, confirming the sentence-gate exemption for the
+      contraception service holds on this pack's own copy too. All five
+      rounds fired or passed on the first attempt, each on its intended rule
+      only. No checker gap found; no in-repo defect. Full 36-checker suite
+      re-run clean after the final restore; pack sha256 reconfirmed identical
+      to baseline; `git status --short` and `diff -rq` against the tracked
+      repo's gbp-packs/ and tools/ both empty. Guard coverage for item 4.15
+      now extends to three more distinct rules proven by direct injection
+      against this branch specifically, on top of the twelve already proven.
+      Live half not repeated: these rules govern text pasted into Google's
+      post and services fields, not a URL a read-only fetch could verify
+      regardless; the seventeenth pass's live verdicts (2026-09-15) stand.
+      Answer pickup: exactly one connected browser, no Q59 conflict; newest
+      portal entry still the Q52 answer (2026-09-01), unchanged; no answer
+      arrived for any of the 56 currently-open questions. No new question
+      raised. Evidence in
+      audits/tiffenbergs-aintree-pom-cta-price-4.15-eighteenth-2026-09-16.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

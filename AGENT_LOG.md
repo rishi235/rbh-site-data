@@ -1,4 +1,93 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-fifth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.9 live-half read, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.9 (Clear Chemist Aintree pack) eighteenth quality pass: tools/check-gbp-packs.js's scoped "phone in PUBLISHED copy" rule proved by three injections against this pack's own copy for the first time in eighteen passes, despite this pack being the rule's own stated motivating case (its in-code comment names clear-aintree.md by filename); zero in-repo defect. Live half reconfirms Q28, Q21 and Q29 all unchanged. No new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-sixth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.15 (Tiffenbergs Chemist Aintree pack) eighteenth quality pass: three tools/check-gbp-packs.js rules (transactional-CTA button label, lead pricing, POM-class allusion) proved by injection against this pack's own copy for the first time in eighteen passes, despite each rule already being proven elsewhere in the estate earlier today (item 4.4, Scorah Bramhall); zero in-repo defect. Live half not repeated, seventeenth pass's verdicts stand. No new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
+LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp
+(2026-09-16T20:34:08Z). No `.git/index.lock` present this run. `git fetch`/
+`checkout agents/audit-backlog`/`pull --ff-only` (sandbox mount, read-only
+use) completed normally, already up to date with origin/agents/audit-backlog
+(item 4.9's own eighteenth-pass commit, confirmed pushed by the prior run).
+
+ANSWER PICKUP (step 3): exactly one connected browser
+(f153c338-0ebe-43a6-b7b1-dbede00f431e), no Q59 conflict this run.
+https://data.rbhealth.co.uk/api/feedback read cleanly first attempt. Newest
+portal entry still the Q52 answer, dated 2026-09-01T22:44:51.524Z - unchanged
+since every run since 2026-09-01. No answer arrived for any of the 56
+currently-open questions this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry (i.e. the prior run's own entry, for item 4.9) - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]"` AGENT_WORKLIST.md - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback, as every recent run also has.
+
+ROTATION POOL: re-derived from first principles by reading each of the 35
+in-rotation item ids' own block in AGENT_WORKLIST.md (42 completed items
+minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) and taking the latest `2026-\d\d-\d\d` date appearing inside each
+block, done programmatically rather than by text-scanning AGENT_LOG.md (the
+prior run's own entry recorded a false-positive risk in that method). Tied-
+oldest at 2026-09-15: {4.15, 5.2} (4.4, 4.9 and 3.10 already taken by
+earlier runs today). Took the lower-numbered candidate, 4.15 (Tiffenbergs
+Chemist Aintree pack), matching the standing tie-break convention.
+
+WORK DONE (item 4.15, eighteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.15 block and in
+audits/tiffenbergs-aintree-pom-cta-price-4.15-eighteenth-2026-09-16.txt;
+summarised here. Seventeen prior passes had proven twelve distinct rules/
+checkers against this pack by direct injection; this pass targeted three
+rules within tools/check-gbp-packs.js proven earlier today against a sibling
+pack (scorah-bramhall.md, item 4.4's twentieth pass) but never against THIS
+pack's own copy: the transactional-CTA button label rule (RECOGNISED_CTAS/
+TRANSACTIONAL_CTAS/POM_POSTS), the no-lead-pricing/offer rule
+(PRICE_PATTERNS/OFFER_PATTERNS), and the POM-class allusion rule
+(tools/pom-class-patterns.js, both SELF_SCOPING and IN_CONTEXT halves).
+Baseline: full 36-checker suite run against the tracked repo before
+starting, all exit 0. Pack sha256
+59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b unchanged
+throughout, matching all seventeen prior passes.
+Full repo copied with .git (cp -a) into /tmp/rbh-scratch-4.15, outside both
+mounted folders and the tracked repo. FOUR INJECTIONS plus a control, each
+restored from a pristine backup and sha256-reconfirmed identical before the
+next: (1) Post C's "Book" button changed to "Buy now" - CAUGHT, exactly one
+FAIL naming Post C as the weight loss post and the near-total advertising-
+regime prohibition on a transactional CTA for a POM-adjacent service; (2)
+"Weight loss treatments start from just £99 a month." inserted into Post
+C's body - CAUGHT by the lead-price rule, quoting the matched fragment and
+citing compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5; (3) "This
+clinic offers the skinny jab as part of its plan." inserted into the
+paster-notes section, outside any post body - CAUGHT by POM_CLASS
+SELF_SCOPING, confirming the rule reads the whole pack regardless of
+location rather than only post bodies; (4) "Ask about the weekly injection
+option to support your weight loss journey." inserted into Post C's body -
+CAUGHT by POM_CLASS IN_CONTEXT, naming "a weekly injectable" in a sentence
+that names weight loss; (5) CONTROL, the NHS contraception Services bullet
+extended to mention "a contraceptive injection option" with no weight-loss
+wording in the same sentence - correctly PASSED, exit 0, zero failures for
+this pack, proving the sentence-gate exemption the rule's own header
+comment names for the contraception service holds on this pack's own copy
+specifically. All five rounds fired or passed on the first attempt, each on
+its intended rule only, no side-effect failures elsewhere in the 15-pack
+suite. Final restore sha256-reconfirmed identical to the pristine backup.
+Full 36-checker suite re-run clean on the scratch copy after cleanup, and
+separately re-run clean against the tracked repo; `git status --short` and
+`diff -rq` of gbp-packs/ and tools/ against the tracked repo both empty
+throughout. No in-repo defect found; no checker, pack, page, generator or
+data field changed; no new question raised. Guard coverage for item 4.15
+now extends to fifteen distinct rules/checkers proven by direct injection
+against this branch specifically.
+LIVE HALF: not repeated this pass. The three rules proven here govern text
+pasted into Google Business Profile's post and services fields, not a URL a
+read-only fetch could verify regardless - the same position the 13th, 14th,
+15th and 16th passes recorded for their own pack-copy-only rules. The
+seventeenth pass's live verdicts (2026-09-15, full Chrome codepoint read,
+confirming the switch-banner mojibake, the Q56 email spelling split and the
+Q58 weight-loss homepage-link finding all unchanged) stand and are not
+re-verified this pass. Evidence:
+audits/tiffenbergs-aintree-pom-cta-price-4.15-eighteenth-2026-09-16.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
 LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp
