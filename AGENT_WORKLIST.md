@@ -31167,6 +31167,51 @@ all at 2026-09-12.
       files was empty throughout. Full 36-checker suite re-run against the
       tracked repo after: 36/36 exit 0. Zero in-repo defect found, no new
       question raised.
+      Quality pass 2026-09-16 (second, unattended scheduled run; the stalest
+      completed item in the pool, last touched 2026-09-04, twelve days
+      without a re-check - two rules landed in check-opening-hours.js since
+      then, item 6.3's fourteenth pass adding rule 9 (missing openingHours
+      block) and Q38/item 2.1 adding rule 10 (JSON-LD hours on the other 171
+      pages), neither previously proven not to interact with this item's
+      bank-holiday exemption). Data first: fetched gov.uk/bank-holidays live
+      and confirmed all eight dates in branches.json's bankHolidays.dates2026
+      exactly against the published "Past bank holidays in England and Wales
+      2026" (1 Jan, 3 Apr, 6 Apr, 4 May, 25 May, 31 Aug) and "Upcoming... 2026"
+      (25 Dec, 28 Dec) tables - no drift since Q79. check-opening-hours.js run
+      clean against the tracked repo (6 landing pages, rule 7's 88 clock-time
+      sweep, rule 8's 177-file sweep, rule 10's 171-page JSON-LD sweep, all
+      pass). check-live-hours.js run live: today (2026-09-16) sits 16 days
+      after the 31 August bank holiday and over 90 days before 25 December,
+      so nearThisRun correctly returned [] for the first time this item has
+      exercised the "nothing near" path against real live data rather than a
+      synthetic one (audits/live-hours-check-2026-09-16.json); swept every
+      live snippet for "Closed" and found none, so there was nothing this run
+      to mislabel either way. Re-ran all six of the item's standing negative
+      tests on a disposable /tmp scratch copy (outside the tracked tree,
+      tracked repo never opened for writing): invalid ISO date, duplicated
+      date, invalid tradingPolicy and emptied dates2026 each FAILed by name;
+      the whole bankHolidays block deleted degraded correctly to a NOTE and
+      exit 0; and a genuine Tuesday hours mismatch injected into
+      modules/branch/pages/pharmacy-mccanns-aigburth.html still FAILed with
+      the exact mismatch quoted, proving rules 9 and 10's addition has not
+      let the bank-holiday exemption start swallowing a real defect. Scratch
+      copy deleted after each restoration; sha256 of the tracked branches.json
+      unchanged throughout (169bb5a2...b102); git status --porcelain on every
+      touched tracked file empty throughout.
+      Full 36-checker suite re-run against the tracked repo turned up one
+      genuine in-repo defect, unrelated to this item: check-postcodes.js
+      failed because audits/clear-aintree-whatsapp-3.13-seventeenth-2026-09-16.txt
+      (written by this morning's earlier item 3.13 seventeenth pass, before
+      this pass started) quotes its own CONTROL injection value "L9 9ZZ"
+      (Clear Chemist Aintree's real L9 7AS, changed on
+      switch-prescriptions-clear-aintree.html to prove no cross-fire with
+      check-whatsapp-route.js) without adding it to NARRATIVE_POSTCODES - the
+      identical gap this list has now closed seventeen times (Q1.3, Q3.8,
+      Q3.11 and thirteen more, see the entries themselves). Fixed in place:
+      added "L9 9ZZ" to tools/check-postcodes.js's NARRATIVE_POSTCODES with
+      the standard reason/attribution text. Full 36-checker suite re-run
+      after the fix: 36/36 exit 0. No new question raised; no answer pickup
+      available beyond Q52 (already applied).
 
 - [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
