@@ -1,4 +1,143 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-seventh run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json/AGENT_WORKLIST.md scan, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used to confirm the real C:\Dev\rbh-site-data working copy was already in sync and will be used for the git write route (add/commit/push), per Q102's standing recommendation; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab opened and closed cleanly; Read/Edit used for AGENT_WORKLIST.md and this entry) - Item 5.2 (McCanns Aigburth/Sandringham and Scorah Bramhall/Hazel Grove branch landing pages) eighteenth quality pass: tools/check-page-coverage.js's "branch landing pages" section proved by injection against this item's own BUILD list and branches.json records for the first time in eighteen passes, despite being the exact checker whose warnings created this item; zero in-repo defect, two genuine cross-rule overlaps documented (not defects). No new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-eighth run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json/AGENT_WORKLIST.md rotation-pool scan, and the 36-checker suite run against the tracked repo (via $HOME/scratch, /tmp write-protected in this sandbox); mcp__Windows-MCP__PowerShell used to confirm the real C:\Dev\rbh-site-data working copy was in sync and for the git write route (add/commit/push) and status-page publish, per Q102's standing recommendation; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the live-half read of two SK Chemists Bootle pages plus one control, three tabs opened and closed cleanly; Read/Edit used for AGENT_WORKLIST.md, the new audits file and this entry) - Item 3.8 (SK Chemists, Bootle) twenty-first quality pass: closed a sixteen-day/fifteen-pass live-verification gap this item's own nineteenth and twentieth passes (both earlier today) had explicitly left open ("LIVE HALF: not attempted"); reconfirmed the two known 2026-08-31 live findings unchanged and added two previously-unrecorded ones (switch-page title wording drift, branch-specific Q49 reconfirmation); zero in-repo defect, all findings are Weebly paste-lag outside this worker's write scope. Also recorded a process finding: the prior run's own rotation-pool forward note was already stale by the time this run read it.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp (2026-09-16T21:33:59Z). No `.git/index.lock` present.
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` (sandbox
+mount, read-only use) completed normally, already up to date with
+origin/agents/audit-backlog at e5527a2 (item 5.2's own commit, confirmed
+pushed by the prior run). Separately confirmed via
+mcp__Windows-MCP__PowerShell that the real host's C:\Dev\rbh-site-data
+working copy was already at the same commit, branch agents/audit-backlog,
+clean working tree aside from the same long-standing untracked test/scratch
+debris both mounts show (not touched, not this run's concern - a much
+larger backlog of stray test/probe files than usual was visible in `git
+status`, worth a dedicated cleanup pass at some point but out of scope for
+a single work item and not raised as a question since it costs nothing to
+leave and touching dozens of stray files unrelated to this run's own work
+is exactly the kind of scope creep the standing procedure warns against).
+
+ANSWER PICKUP (step 3): one connected browser tab, no Q59 conflict.
+https://data.rbhealth.co.uk/api/feedback read cleanly. 54 entries, Q2
+through Q52, identical to the set the prior run (item 5.2) had already
+read and reconciled this same day. No answer newer than
+2026-09-01T22:44:51.524Z (Q52) for any of the 56 open questions. No
+QUESTIONS.json edit made this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry (the prior run's own entry, item 5.2) - no "Standing
+authorisation - autonomous window" section present. Not applicable.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) still [BLOCKED]. No actionable unchecked
+item. Fell to the quality-pass fallback.
+
+ROTATION POOL / PROCESS FINDING: the prior run's own forward note (item
+5.2's entry, immediately above this one in the file) named the tied-oldest
+pool as {1.3, 2.3, 3.1, 3.2, 6.2, 6.3} at 2026-09-12, "unchanged from the
+seventeenth pass's own forward note". Before trusting it, each of the six
+items' own AGENT_WORKLIST.md blocks was read directly rather than assumed:
+every one of them already carried a 2026-09-16 pass of its own (1.3's
+twentieth pass, done earlier today, had in fact found and fixed a real
+live defect - a NARRATIVE_POSTCODES gap left by item 1.2's own twentieth
+pass the same morning). The same direct-read method was then applied more
+broadly: checked 3.4, 3.6, 4.1, 4.2, 4.4, 4.5, 4.6, 4.7, 4.9, 4.10, 6.3 one
+at a time, and every single one of the 35 in-rotation items had already
+been quality-passed at least once today - the entire rotation has cycled
+within one day at the current run frequency (thirty-seven prior runs
+before this one). This means the forward-note shortcut several recent
+passes have relied on (skip re-deriving the pool, trust what the last run
+wrote) is not safe at this cadence: prose left by one run can already be
+wrong by the time the next run reads it, a sharper version of the
+"header-only-scan trap" item 4.2's own twentieth pass flagged earlier
+today. Not raised as a new QUESTIONS.json entry - it blocks no worklist
+item and does not need Rishi's judgement, only a note for whoever writes
+the next forward note to re-derive rather than trust prose more than one
+run old. Given the true same-day tie, this run selected on a different,
+concrete signal instead: which item's own most recent passes had left a
+genuine gap on record. Item 3.8's nineteenth and twentieth passes (both
+earlier today) each explicitly wrote "LIVE HALF: not attempted this pass,"
+leaving its live state resting on the fifth pass, 2026-08-31 - sixteen
+days and fifteen repo-only passes without a live re-read, the longest such
+gap found among the candidates checked. Took 3.8.
+
+WORK DONE (item 3.8, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.8 block and in
+audits/sk-bootle-live-half-3.8-twentyfirst-2026-09-16.txt; summarised
+here. BASELINE reconfirmed rather than assumed: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged); all 36 checkers run individually against the tracked
+repo (`for f in tools/check-*.js; do node "$f"; done`, via $HOME/scratch
+since this sandbox's /tmp is not writable this session - `echo test >
+/tmp/x` itself returned Permission denied despite `drwxrwxrwt`, a new
+observation worth carrying if a future run hits the same wall), 0
+failures; `git status --porcelain -- modules core branches.json gbp-packs
+tools` showed only the two long-standing pre-existing untracked strays,
+neither touched. No repo file changed.
+
+LIVE HALF (the actual fresh work this pass): Claude in Chrome connected
+cleanly throughout, read-only, nothing clicked, typed or submitted. Read
+branches.json's own skchemists_bootle record first to get the live
+hostname (skchemist.co.uk) rather than assume it. Fetched
+uti-treatment-sk-chemists-bootle.html: `document.title` reads "UTI
+treatment in Bootle - SK Chemists - SK CHEMIST" against the paste sheet's
+"UTI treatment in Bootle - SK Chemists" (modules/service/pages/SEO.md line
+541) - the stale Weebly-default " - SK CHEMIST" site-title suffix first
+recorded on the fifth pass (2026-08-31) is UNCHANGED sixteen days later,
+still awaiting the 5.3/5.4 Weebly session. Fetched
+switch-prescriptions-sk-chemists-bootle.html and read it in full via
+get_page_text: two findings, not the one previously tracked. (a) the
+identical stale " - SK CHEMIST" suffix; (b) the title WORDING has also
+drifted from the current repo source - live "Switch Your Prescriptions -
+SK Chemists Bootle" against repo "Switch Your Prescriptions to SK
+Chemists, Bootle" (modules/switch/pages/SEO.md line 61 / INDEX.md line
+56), not previously called out as its own finding on this item. Body copy
+still carries the pre-Q7/5.1 mojibake em dash in "it usually is not
+[mojibake] we make the first step quick and easy", unchanged, the same
+estate-wide switch-page paste lag already tracked on five other branches.
+Also newly reconfirmed at this specific branch (read but not previously
+logged here): the live hero still reads the pre-Q49 unconditional wording
+("We contact your GP. We handle everything. You do nothing.", "No
+interruption to your medication") while the FAQ answer hedges ("Not
+always...") - the same estate-wide Q49 hero/FAQ contradiction, answered by
+Rishi 2026-09-01 and fixed in commit 99dcad3, not yet repasted to any of
+the fifteen switch pages including this one. Fetched the homepage
+(skchemist.co.uk/) as a control only: its title carries "SK CHEMIST" as a
+PREFIX rather than a SUFFIX, confirming the site-wide Weebly title
+fallback is real and mechanical (an unset per-page SEO title falls back to
+the site title in whichever position that page's own title-field template
+puts it) rather than a one-off rendering glitch. RESULT: zero in-repo
+defect - every live finding is a Weebly paste gap this worker cannot
+write to (5.3/5.4 for both title issues, 5.1/Q7 for the em dash, Q49 for
+the hero/FAQ contradiction), none has silently resolved or worsened since
+2026-08-31, and the title-wording drift plus the branch-specific Q49
+reconfirmation are the two facts this pass adds that no prior pass on this
+item had recorded.
+
+QUESTIONS: none raised this run. QUESTIONS.json re-read in full before and
+after: 109 total, 56 open, unchanged.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.8 paragraph); AGENT_LOG.md (this
+entry); audits/sk-bootle-live-half-3.8-twentyfirst-2026-09-16.txt (new).
+No generator, checker, page, sheet or branches.json content changed.
+
+STEP 9/10 (commit, push, publish): handled via mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy per Q102's standing
+recommendation - see the commit immediately following this entry's push
+for the exact command and hash.
+
+Next stalest for whoever runs next: re-derive rather than trust any
+forward note more than a few runs old, per this run's own process finding
+above. As of this run, every one of the 35 in-rotation items carries at
+least one 2026-09-16 pass; the most useful signal going forward is likely
+which items' own passes recorded an explicit gap (a skipped live half, an
+untested checker, a deferred angle) rather than which calendar date last
+touched them, since date alone no longer discriminates within a single
+day at this run frequency. On the open backlog generally: unchanged - the
+eight genuinely actionable worklist items remain blocked on Rishi's own
+decisions or a supervised Weebly session, and 56 of 109 questions are
+open.
+
+
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
 LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp

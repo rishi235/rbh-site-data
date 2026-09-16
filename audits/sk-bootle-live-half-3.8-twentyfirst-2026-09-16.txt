@@ -1,0 +1,115 @@
+Item 3.8 (SK Chemists, Bootle) - twenty-first quality pass - LIVE HALF
+Run: 2026-09-16, unattended scheduled run (audit-backlog-worker)
+
+SELECTION
+All 8 remaining worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines,
+6.6) reconfirmed [BLOCKED]. Rotation-pool re-derivation this run repeatedly
+found every candidate item already carrying a same-day (2026-09-16) pass in
+its own AGENT_WORKLIST.md block, including several items an earlier run's
+own "forward note" had claimed were still stale from 2026-09-12 (1.3, 2.3,
+3.1, 3.2, 6.2 all independently confirmed done today by direct block read).
+This is a process finding in its own right, recorded in AGENT_LOG.md rather
+than re-litigated here. Given the true tie, this run picked on genuine
+remaining gap rather than pass-count alone: item 3.8's own nineteenth and
+twentieth passes (both today) explicitly recorded "LIVE HALF: not attempted
+this pass" and flagged the live state as last confirmed 2026-08-31 (fifth
+pass) - sixteen days and fifteen repo-only passes stale. That is the gap
+this pass closes.
+
+BASELINE (repo half, reconfirmed, not the fresh angle this pass)
+- branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (standing anchor, unchanged)
+- Full 36-checker suite run individually against the tracked repo: 0
+  failures, all 36 exit 0.
+- git status --porcelain -- modules core branches.json gbp-packs tools:
+  only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither touched.
+No repo file changed this pass (verification only).
+
+LIVE HALF (the fresh angle: first re-read of these two pages since
+2026-08-31, sixteen days / fifteen passes prior)
+
+1. https://www.skchemist.co.uk/uti-treatment-sk-chemists-bootle.html
+   document.title (live): "UTI treatment in Bootle - SK Chemists - SK CHEMIST"
+   Expected (modules/service/pages/SEO.md line 541):
+     "UTI treatment in Bootle - SK Chemists"
+   Finding UNCHANGED since the fifth pass (2026-08-31): the page still
+   carries the Weebly-default site-title suffix " - SK CHEMIST" appended
+   after the correct paste-sheet title, meaning this page's own SEO Title
+   field in Weebly has never been set to the paste sheet's value (or was
+   cleared), so Weebly falls back to appending the site title. Paste-lag,
+   not a repo defect; tracked under items 5.3/5.4 (Weebly session queue,
+   both [BLOCKED]).
+
+2. https://www.skchemist.co.uk/switch-prescriptions-sk-chemists-bootle.html
+   document.title (live): "Switch Your Prescriptions - SK Chemists Bootle - SK CHEMIST"
+   Expected (modules/switch/pages/SEO.md line 61 / INDEX.md line 56):
+     "Switch Your Prescriptions to SK Chemists, Bootle"
+   TWO findings, not one:
+   (a) the same stale " - SK CHEMIST" suffix as page 1, unchanged since
+       2026-08-31;
+   (b) the title WORDING itself differs from the current repo source, not
+       only the suffix - live reads "Switch Your Prescriptions - SK
+       Chemists Bootle", repo reads "Switch Your Prescriptions to SK
+       Chemists, Bootle". This page has not been repasted since an older
+       title-wording convention was in use; not previously called out as a
+       separate finding on this item, recorded here for the paste queue.
+   Body copy: the mojibake em dash first flagged 2026-08-31 is still
+   present, unchanged - "...it usually is not ÔÇÖ we make the
+   first step quick and easy" (byte sequence is the pre-Q7/5.1 UTF-8
+   mis-decode of an em dash). Same estate-wide switch-page paste-lag
+   already tracked (Cherry Lane, both Scorah branches, Gordon Short
+   Crosby, Hirshmans).
+   Also reconfirmed (not previously recorded specifically for this
+   branch): the live hero still reads the pre-Q49 unconditional wording
+   "We contact your GP. We handle everything. You do nothing." and "No
+   interruption to your medication", while the FAQ answer hedges ("Not
+   always. We help guide the process..."). This is the same Q49
+   hero/FAQ contradiction already tracked estate-wide (answered
+   2026-09-01, fix committed 99dcad3, not yet repasted to any of the
+   fifteen switch pages including this one) - reconfirmed present at SK
+   Chemists Bootle specifically for the first time in this item's own
+   history, not a new defect.
+
+3. https://www.skchemist.co.uk/ (homepage, read as a control)
+   document.title (live): "SK CHEMIST - SK Chemists | Trusted Local
+   Pharmacy & Travel Clinic in Bootle, Liverpool"
+   Read only to establish that the site-wide Weebly title ("SK CHEMIST")
+   is a real global fallback, not a one-off glitch: the homepage carries
+   it as a PREFIX (its own title field is presumably built around it
+   deliberately), while the two service pages above carry it as an
+   unwanted SUFFIX (their own title fields are empty or unset). Confirms
+   the mechanism, not a new finding.
+
+RESULT
+No in-repo defect - nothing in this repo caused either live finding, both
+are pasting gaps in pages this worker cannot write to. No checker,
+generator, page or branches.json content changed. All three live findings
+were already tracked (5.3/5.4 paste queue for the title suffix and title
+wording; 5.1/Q7 for the switch-page em dash; Q49 for the hero/FAQ
+contradiction) - this pass's contribution is confirming none of the three
+has silently resolved or worsened in the sixteen days since the item's own
+live half was last read, and adding the previously-unrecorded title-wording
+drift and the previously-unrecorded Q49 reconfirmation at this specific
+branch.
+
+QUESTIONS: none raised. QUESTIONS.json re-read: 109 total, 56 open,
+unchanged.
+
+PROCESS NOTE (see AGENT_LOG.md for the full write-up): the rotation-pool
+"next stalest" forward note left by the immediately prior run (item 5.2,
+eighteenth pass) named {1.3, 2.3, 3.1, 3.2, 6.2, 6.3} as tied-oldest at
+2026-09-12. Direct inspection of all six items' own AGENT_WORKLIST.md
+blocks found every one of them already carrying a 2026-09-16 pass, several
+with real work done today (1.3's twentieth pass fixed a genuine live
+defect the same morning). The forward-note mechanism, which several
+recent passes rely on to save a full re-derivation, does not reliably
+survive a day with dozens of runs on it, because "next stalest" is tracked
+in prose rather than recomputed structurally each time, and the shared
+checkbox block for items 4.1/4.2 has previously produced the same kind of
+miscount. Recorded as a process observation, not a new formal question,
+since it does not block any worklist item and several prior runs have
+already informally flagged the same "header-only-scan trap" shape (item
+4.2's twentieth pass, 2026-09-16, and item 4.4's earlier notes).

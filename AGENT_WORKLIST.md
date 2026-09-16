@@ -9493,6 +9493,61 @@ Done 2026-09-16 (nineteenth pass).
       it, both already correctly recorded as non-decisions and left
       open, no new answer to apply. Evidence in
       audits/sk-bootle-seo-lengths-3.8-twentieth-2026-09-16.txt.
+      Quality pass 2026-09-16 (twenty-first, unattended scheduled run,
+      later the same day). All 8 remaining worklist lines reconfirmed
+      [BLOCKED]. The rotation-pool forward note left by the immediately
+      prior run (item 5.2's eighteenth pass) named {1.3, 2.3, 3.1, 3.2,
+      6.2, 6.3} as tied-oldest at 2026-09-12; direct inspection of all six
+      found every one already carrying a 2026-09-16 pass of its own, so
+      that pool was stale (see AGENT_LOG.md for the full process note).
+      Picked on genuine remaining gap instead: this item's own nineteenth
+      and twentieth passes, both earlier today, explicitly recorded "LIVE
+      HALF: not attempted this pass", leaving the live state last
+      confirmed on the fifth pass, 2026-08-31 - sixteen days and fifteen
+      repo-only passes stale, the longest live-verification gap of any
+      candidate checked. BASELINE reconfirmed: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged); full 36-checker suite run individually
+      against the tracked repo, 0 failures; git status --porcelain --
+      modules core branches.json gbp-packs tools showed only the two
+      long-standing pre-existing untracked strays, neither touched. No
+      repo file changed this pass.
+      LIVE HALF (the fresh angle, first re-read since 2026-08-31): Claude
+      in Chrome connected cleanly, read-only, nothing clicked, typed or
+      submitted. uti-treatment-sk-chemists-bootle.html: live title "UTI
+      treatment in Bootle - SK Chemists - SK CHEMIST" against the paste
+      sheet's "UTI treatment in Bootle - SK Chemists" (SEO.md line 541) -
+      the stale Weebly-default " - SK CHEMIST" site-title suffix first
+      found on the fifth pass is UNCHANGED, still awaiting the 5.3/5.4
+      repaste. switch-prescriptions-sk-chemists-bootle.html: TWO findings.
+      (a) the identical stale suffix, unchanged; (b) the title WORDING
+      itself has also drifted from the current repo source - live reads
+      "Switch Your Prescriptions - SK Chemists Bootle", repo reads
+      "Switch Your Prescriptions to SK Chemists, Bootle" (SEO.md line 61) -
+      not previously recorded as a distinct finding on this item. Body
+      copy: the pre-Q7/5.1 mojibake em dash in "it usually is not [mojibake]
+      we make the first step quick and easy" is still present, unchanged
+      since 2026-08-31, the same estate-wide switch-page paste-lag already
+      tracked on Cherry Lane, both Scorah branches, Gordon Short Crosby and
+      Hirshmans. Also reconfirmed, not previously logged specifically for
+      this branch: the live hero still carries the pre-Q49 unconditional
+      wording ("We contact your GP. We handle everything. You do nothing.")
+      against the FAQ's hedged answer, the same estate-wide Q49
+      hero/FAQ contradiction (answered 2026-09-01, fix committed 99dcad3,
+      not yet repasted to any of the fifteen switch pages) now specifically
+      confirmed present at SK Chemists Bootle. Homepage read as a control
+      only: its title carries "SK CHEMIST" as a PREFIX rather than a
+      SUFFIX, confirming the site-wide Weebly title is a real global
+      fallback and not a one-off glitch. RESULT: no in-repo defect -
+      nothing in this repo caused any of the three live findings, all are
+      pasting gaps in pages this worker cannot write to (5.3/5.4 for the
+      two title issues, 5.1/Q7 for the em dash, Q49 for the hero/FAQ
+      contradiction), none silently resolved or worsened in sixteen days,
+      and the title-wording drift and branch-specific Q49 reconfirmation
+      are the two previously-unrecorded facts this pass adds. No new
+      question; QUESTIONS.json re-read: 109 total, 56 open, unchanged.
+      Evidence: audits/sk-bootle-live-half-3.8-twentyfirst-2026-09-16.txt.
+      Done 2026-09-16 (twenty-first).
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
