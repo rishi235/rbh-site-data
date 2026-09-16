@@ -18800,6 +18800,50 @@ directly rather than re-deriving the same facts by hand.
       pages for the same pattern to establish scope before any repaste
       decision is actioned.
       See audits/fishlocks-eccleston-gbp-pack-em-dash-live-drift-4.8-eighteenth-2026-09-15.txt.
+      Quality pass 2026-09-16 (nineteenth, unattended run): no unchecked, unblocked
+      worklist item available (all 8 remaining lines still [BLOCKED]); rotation pool
+      re-derived by a Python full-text scan of AGENT_LOG.md matching
+      `(?:item|took)\s+<N>` anywhere in the file, taking the first (topmost, most
+      recent) line per pool item over the 36-item pool. Item 4.8's own most recent
+      mention (its eighteenth pass) sat at line 866, the single largest line number
+      of the pool - stalest, and confirmed by reading that line's header text
+      directly. Taken.
+      NEW ANGLE: tools/check-gbp-pharmacy-first.js (born item 4.4 pass, 2026-08-14)
+      had never once been named or exercised against this pack across all eighteen
+      prior passes (checked by grepping the item's full history: zero hits, versus
+      16 for check-gbp-packs.js). Baseline: pack sha256 unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), checker OK
+      (7 pathways, 28 PF blocks across 14 packs), full 36-checker suite clean. Seven
+      injections direct on the tracked file, each restored from a byte backup and
+      sha256-reconfirmed before the next: (1) dropped "shingles" from Post A's
+      condition list - CAUGHT (Rule 3, completeness); (2) added "cystitis" into the
+      Services section's Pharmacy First bullet - CAUGHT (Rule 4, outside NHS scope);
+      (3) changed Post A's UTI age range to "16 to 60" against the canon's "16 to
+      64" - CAUGHT (Rule 6); (4) removed "where appropriate" from Post A only,
+      leaving the Services section's own hedge intact - CAUGHT, correctly scoped to
+      Post A alone (Rule 7, proving the rule reads each scope independently rather
+      than the whole pack); (5) added a "£5 admin fee" to Post A - CAUGHT (Rule 8,
+      free/no price); (6) changed the business description's "seven common
+      conditions" to "eight", leaving Post A's own "seven" untouched - CAUGHT (Rule
+      5, the count claim deliberately read across all published copy rather than
+      the two PF scopes, the exact historical defect class this rule's own header
+      comment describes an earlier draft missing, now proven against this pack's
+      business description for the first time); (7) added "including general
+      shingles guidance" to the private consultation room bullet, outside both PF
+      scopes - CAUGHT (Rule 9, stray condition word). One control (a benign photo
+      shot list reword) correctly PASSED clean with no cross-firing. All seven
+      injections and the control behaved exactly as documented on the first
+      attempt. File restored byte-identical (sha256 reconfirmed, diff empty); full
+      36-checker suite re-run clean (36/36); git status on gbp-packs/branches.json/
+      modules/core/tools empty throughout bar the two pre-existing untracked
+      strays, neither touched. No in-repo defect.
+      LIVE HALF: pharmacy-first-fishlocks-eccleston.html re-read in full (Claude in
+      Chrome, read-only) - all seven conditions and NHS age ranges correct, free/
+      hedge language present, no price, unchanged since the eighteenth pass. Weight
+      loss and travel clinic live pages not re-read (checked in depth one day
+      earlier on the eighteenth pass; Q105 unchanged, not re-raised).
+      QUESTIONS: none raised. Total questions unchanged at 107, 54 open.
+      See audits/fishlocks-eccleston-gbp-pharmacy-first-4.8-nineteenth-2026-09-16.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

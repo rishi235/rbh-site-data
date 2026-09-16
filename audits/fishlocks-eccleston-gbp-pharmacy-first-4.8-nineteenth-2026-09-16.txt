@@ -1,0 +1,115 @@
+Item 4.8 quality pass (nineteenth), Fishlocks Chemist Eccleston GBP pack
+Date: 2026-09-16
+Checker under test: tools/check-gbp-pharmacy-first.js (born item 4.4 quality pass, 2026-08-14)
+
+WHY THIS ANGLE
+Across all eighteen prior quality passes on item 4.8, tools/check-gbp-pharmacy-first.js
+was never once named or exercised against this pack specifically (confirmed by a
+case-insensitive grep of the item's full AGENT_WORKLIST.md history: zero hits, versus
+16 hits for check-gbp-packs.js, the file it was deliberately split out from). This
+checker owns the clinical Pharmacy First copy in every pack - the seven condition
+names, the age ranges, the free/no-price rule and the "where appropriate" hedge - none
+of which check-gbp-packs.js reads at all. A genuinely untested checker against this
+pack's own copy, not a synthetic gap.
+
+BASELINE
+- gbp-packs/fishlocks-eccleston.md sha256:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+  (unchanged since at least the seventeenth/eighteenth passes)
+- node tools/check-gbp-pharmacy-first.js: OK - 7 pathways read from the generator,
+  28 Pharmacy First blocks across 14 packs, all clean.
+- Full suite: for f in tools/check-*.js; do node "$f"; done -> 36/36 exit 0.
+- git status --porcelain -- gbp-packs branches.json modules core tools: only the two
+  long-standing pre-existing untracked debris files (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither touched.
+
+METHOD
+All work done by editing the tracked file directly (this checker reads gbp-packs/
+from disk, not a scratch copy), each injection restored from a byte-identical backup
+(/tmp/fishlocks-eccleston.md.backup) and sha256-reconfirmed before the next round.
+
+INJECTIONS (7 total: 6 catches across 6 distinct rules, 1 correctly-passing control)
+
+1. RULE 3 (completeness). Removed "shingles" from Post A's condition list.
+   CAUGHT: "Post A names 6 of the 7 Pharmacy First conditions and omits shingles."
+   Restored; sha256 reconfirmed.
+
+2. RULE 4 (no condition outside NHS scope). Added "cystitis" (an OUTSIDE_PF entry)
+   into the Services section's NHS Pharmacy First bullet.
+   CAUGHT: "Services section \"NHS Pharmacy First\" bullet names \"cystitis\" inside
+   the Pharmacy First copy... not one of the 7 conditions..."
+   Restored; sha256 reconfirmed.
+
+3. RULE 6 (UTI age range, read from the canon). Changed Post A's "aged 16 to 64" to
+   "aged 16 to 60".
+   CAUGHT: "Post A publishes the urinary tract infection service for \"women aged 16
+   to 60\", but the canon holds \"Women aged 16 to 64\"..."
+   Restored; sha256 reconfirmed.
+
+4. RULE 7 (the hedge, per-scope not per-pack). Removed "where appropriate," from
+   Post A only ("can assess and, where appropriate, treat" -> "can assess and treat"),
+   leaving the Services section's own "where appropriate" untouched.
+   CAUGHT, scoped correctly to Post A only: "Post A promises treatment for the
+   Pharmacy First conditions without the \"where appropriate\" qualifier."
+   Confirms the rule reads scope.body independently per block rather than the whole
+   pack, which the Services section's still-intact hedge would otherwise have masked.
+   Restored; sha256 reconfirmed.
+
+5. RULE 8 (free/no price). Added "A £5 admin fee applies." to the end of Post A.
+   CAUGHT: "Post A carries a price (\"£5\") inside the Pharmacy First copy."
+   Restored; sha256 reconfirmed.
+
+6. RULE 5 (the count claim, deliberately read across ALL published copy, not just
+   the two scopes - this rule's own header comment records that an earlier draft
+   missed exactly this case). Changed the business description's "seven common
+   conditions" to "eight common conditions", leaving Post A's own "seven common
+   conditions" untouched.
+   CAUGHT: "published copy says \"eight common conditions\", but the canon...holds
+   7 Pharmacy First pathways (\"seven\"). The pack then lists them, so the profile
+   contradicts its own sentence."
+   This is the specific historical defect class rule 5 was moved out of the block
+   loop to catch, now proven against this pack's own business description for the
+   first time (previously only asserted from the rule's own design comment, not
+   exercised here).
+   Restored; sha256 reconfirmed.
+
+7. RULE 9 (stray condition word outside the Pharmacy First blocks). Added "including
+   general shingles guidance" to the private consultation room bullet in Services
+   (outside both located PF scopes).
+   CAUGHT: "names \"shingles\" outside the Pharmacy First blocks, in copy that is not
+   the service bullet or Post A..."
+   Restored; sha256 reconfirmed.
+
+CONTROL (correctly passing)
+Benign edit unrelated to any clinical rule: "Team photo behind the counter." ->
+"Team photo behind the counter, smiling and approachable." in the photo shot list.
+PASSED clean, exit 0, no cross-firing from any of the twelve rules.
+Restored; sha256 reconfirmed.
+
+FINAL STATE
+gbp-packs/fishlocks-eccleston.md restored byte-identical to backup (diff empty,
+sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa). Full
+36-checker suite re-run clean (36/36 exit 0). git status unchanged from baseline.
+No generator, page, checker or branches.json content edited. No in-repo defect found:
+every rule tested behaved exactly as documented on the first attempt.
+
+RULES NOT YET TESTED AGAINST THIS PACK
+Rules 1, 2, 2b, 10, 11, 12 are either structural/estate-wide guards (the two-way
+canon pin, stale KNOWN_NON_PF entries, coverage counts) rather than per-pack content
+rules, or require a pack in a different state (e.g. rule 2's non-PF branch needs a
+branch with no pharmacyFirst widget, which this branch is not) to exercise
+meaningfully. Not pursued here as out of scope for a single pack's own content.
+
+LIVE HALF
+Re-read https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html in
+full (Claude in Chrome, read-only). All seven conditions and their NHS age ranges
+present and correct (UTI: women 16-64, sore throat: 5+, sinusitis: 12+, earache: 1-17,
+impetigo: 1+, shingles: 18+, infected insect bite: 1+); "free NHS service" and "where
+appropriate" language both present; no price; no drift since the eighteenth pass
+(2026-09-15). Not re-read: the weight loss and travel clinic live pages, already
+checked in depth one day earlier on the eighteenth pass (Q105 raised there, unchanged
+today, not re-raised).
+
+QUESTIONS
+None raised. Pure checker-proof-by-injection against previously untested rules; no
+business, legal, pricing or regulatory content changed; no new live-side finding.
