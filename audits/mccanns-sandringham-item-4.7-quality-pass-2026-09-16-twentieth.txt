@@ -1,0 +1,103 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - twentieth quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-16/17
+Branch: agents/audit-backlog
+
+SELECTION
+All 8 remaining unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6).
+Quality-pass fallback applied. Rotation pool re-derived: 35 items (42 checked
+AGENT_WORKLIST.md items minus the seven standing out-of-rotation one-offs
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), Python word-boundary scan of AGENT_LOG.md
+matching (?:item|took)\s+<N> case-insensitive, topmost (most recent) match
+index per pool item, largest index = least recently mentioned even in
+passing. 4.7 resolved to char index 255161 (its own nineteenth pass entry),
+the single largest in the pool - next stalest was 1.3 at 237103. Taken.
+
+REPO HALF
+sha256 of gbp-packs/mccanns-sandringham.md: 02502ad136e3598f3070b9d2e2a73eac2898cf2a771a6b04dc1fd3e98c069fe5
+(unchanged since the nineteenth pass's own review-note addition, 2026-09-16).
+All 36 tools/check-*.js run individually against the tracked repo: 0
+failures, 0 unexpected output. git status --porcelain -- gbp-packs
+branches.json modules core tools: only the two long-standing pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. No injection/restore cycle run this pass: of the 17 checkers that
+read gbp-packs/ at all, every one has already been proven by injection
+against this pack specifically across the prior nineteen passes (directly in
+this item's own history, or cross-referenced from check-pharmacy-first-eligibility.js's
+own header naming mccanns-sandringham.md as one of its three original
+injection targets, 2026-08-12). No new checker rule to prove; the fresh
+contribution this pass is on the live half instead.
+
+LIVE HALF (Claude in Chrome, read-only throughout, nothing clicked/typed/submitted)
+
+1. sitemap.xml (mccannspharmacy.co.uk): 44 URLs, every lastmod still
+   2026-08-14T23:05:25+00:00, unchanged from the nineteenth pass one day
+   earlier. pharmacy-mccanns-sandringham.html still absent - Q35's queued
+   landing-page paste still outstanding, nineteen passes running on this
+   item alone.
+
+2. uti-treatment-mccanns-sandringham.html:
+   - title: "UTI treatment in Sandringham - McCanns Chemist - MCCANNS PHARMACY"
+   - H1: "UTI treatment in Sandringham"
+   Both still read "Sandringham", not "St Michael's" - the Q15/item 5.7
+   local-word move is still repo-only, unpasted. Unchanged from every prior
+   pass since the fourth (2026-08-14).
+   - First (per-page, repo-generated) JSON-LD block: "name": "McCanns
+     Chemist" - the bare shared brandLabel, not "McCanns Chemist
+     Sandringham" (branchName). This is the pre-Q18-fix shape; Q18 was
+     applied to the repo's five service-family generators on 2026-08-30 and
+     this page family was regenerated with branchName, so the live page is
+     lagging the queued 72-page repaste. NEW: this is the first time this
+     specific check has been run against a McCanns page; the item 3.3
+     (2026-09-11) addendum to Q18 had only confirmed this drift on
+     Fishlocks. Addendum appended to Q18's note.
+   - Second JSON-LD block, NOT present in this repo's generator output at
+     all: a sitewide "@graph" declaring both McCanns Aigburth and McCanns
+     Sandringham as separate Pharmacy entities. Both entries: url =
+     "https://www.mccannspharmacy.co.uk/" (bare domain root, not the page's
+     own address); PostalAddress carries no addressRegion. All other fields
+     (name, telephone, email, streetAddress, postalCode) match
+     branches.json exactly for both branches.
+   - Weebly-native contact widget address line: "1B Aigburth Road (in
+     Sandrigham Medical Centre)" - the missing-n typo Q39 already records,
+     unchanged.
+
+3. uti-treatment-mccanns-aigburth.html (control/comparison):
+   - title/H1: "UTI treatment in Aigburth" - correct, no seoTown drift (this
+     branch was never moved, so nothing to lag).
+   - Same second JSON-LD "@graph" block present, byte-identical to the one
+     on the Sandringham page (both branches listed in both copies),
+     confirming the block is sitewide (one shared Weebly embed), not
+     per-page or per-branch-specific placement.
+
+FINDING: Q109 CROSS-DOMAIN CONFIRMATION
+Q109 (raised 2026-09-16, item 1.2 twentieth pass, Hirshmans Ainsdale) found
+a second, non-generator JSON-LD block on fishlockpharmacy.co.uk-family
+pages and its own option 3 asks whether the same block exists on other
+branches' Weebly sites. This pass answers that in part: yes, on
+mccannspharmacy.co.uk, a different Weebly site entirely. The shape differs
+in one respect worth recording - Hirshmans' block was a single generic
+entity; McCanns' is a two-entry @graph correctly distinguishing both
+branches with branch-correct contact details - but shares both structural
+flaws (root URL, missing addressRegion). Consistent with a Weebly
+template/app feature populated per-branch rather than a one-off hand-placed
+script unique to one site. Addendum appended to Q109's note. Not actioned:
+fixing a Weebly sitewide embed needs an editing session outside this run's
+read-only browser scope, per Q109's own standing note.
+
+QUESTIONS.json CHANGES
+Q18 (status unchanged, "answered"): addendum appended recording the same
+live pre-fix JSON-LD name drift now confirmed on McCanns Sandringham and
+McCanns Aigburth, extending the 2026-09-11 Fishlocks-only addendum. Scorah
+(Bramhall/Hazel Grove) remains the one shared-brand pair not yet checked.
+Q109 (status unchanged, "open"): addendum appended recording the
+cross-domain confirmation described above. No new question raised - both
+are addenda to open/answered questions per the established convention
+(matching the Q18 2026-09-11 addendum precedent), not new decisions.
+Total questions unchanged at 109; open count unchanged at 56 (Q18 was
+already answered, so its addendum does not change the open count).
+
+NO IN-REPO DEFECT FOUND. No checker, generator, page, pack or data field
+changed this pass. The findings are all live-Weebly-side, outside this
+worker's write scope, consistent with every prior pass on this item.

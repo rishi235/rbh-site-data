@@ -19338,6 +19338,52 @@ directly rather than re-deriving the same facts by hand.
       No in-repo checker defect found this pass - the finding is a content gap
       against the spec's own priority, not a rule gap, so no checker changed.
       Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-nineteenth.txt.
+      Quality pass 2026-09-16 (twentieth, unattended scheduled run). Taken
+      because all remaining unchecked worklist lines are still [BLOCKED]
+      (confirmed by direct grep: 5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines
+      under 6.4/6.5, 6.6). Rotation pool re-derived (35 items, the 42 checked
+      AGENT_WORKLIST.md items minus the seven standing out-of-rotation
+      one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8) by the standard Python
+      word-boundary scan of AGENT_LOG.md; 4.7 uniquely stalest at char index
+      255161 (its own nineteenth pass), next stalest 1.3 at 237103. Taken.
+      REPO HALF: pack sha256 unchanged since the nineteenth pass's edit
+      (02502ad1...069fe5); all 36 checkers exit 0; git status clean bar the
+      two standing pre-existing untracked strays. No injection round this
+      pass - every gbp-pack-reading checker (17 of them) has already been
+      proven by injection against this pack directly or via
+      check-pharmacy-first-eligibility.js's own 2026-08-12 header naming it
+      as an original target. Fresh contribution this pass is on the live
+      half.
+      LIVE HALF (Claude in Chrome, read-only): sitemap.xml unchanged, 44
+      URLs, lastmod still 2026-08-14, landing page still absent (Q35,
+      nineteen passes running). uti-treatment-mccanns-sandringham.html:
+      title and H1 still read "Sandringham" not "St Michael's" (Q15/5.7
+      still unpasted); the page's own per-page JSON-LD block still names
+      "McCanns Chemist" (bare brandLabel) rather than the branchName the
+      repo has generated since Q18's 2026-08-30 fix - the same live-drift
+      item 3.3's 2026-09-11 addendum found on Fishlocks, now confirmed on
+      McCanns too for the first time; addendum appended to Q18's note (not
+      reopened). Weebly contact widget still reads "Sandrigham Medical
+      Centre" (Q39, unchanged).
+      GENUINE NEW FINDING, cross-referencing Q109 (Hirshmans Ainsdale, raised
+      the same day by item 1.2's twentieth pass): both McCanns pages checked
+      (Sandringham and Aigburth) carry a SECOND application/ld+json block,
+      byte-identical across both, that no generator in this repo emits - a
+      sitewide "@graph" naming both McCanns branches as separate Pharmacy
+      entities, each with url set to the bare domain root rather than the
+      page's own address and no addressRegion field, though every other
+      field (name, phone, email, street, postcode) matches branches.json
+      exactly for both branches. This directly answers part of Q109's own
+      option 3 (whether the same block exists on other branches' sites): it
+      does, on a completely different Weebly site, but as a two-entry
+      branch-correct @graph rather than Hirshmans' single generic entity -
+      pointing at a Weebly template/app feature rather than a one-off
+      hand-placed script. Addendum appended to Q109's note; not actioned,
+      needs a Weebly editing session outside this run's read-only scope.
+      No in-repo defect found this pass - both findings are live-Weebly-side.
+      QUESTIONS.json: Q18 and Q109 both received dated addenda to their
+      "note" field (status unchanged on both, no new question raised).
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-twentieth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

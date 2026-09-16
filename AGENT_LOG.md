@@ -1,4 +1,72 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 41; mcp__workspace__bash used for lock handling, repo reads, the 36-checker suite and all six generators run against the tracked repo, and the AGENT_WORKLIST.md/AGENT_LOG.md edits; mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 5.6 live-half re-read, two tabs total, both opened and closed cleanly, read-only throughout, nothing clicked or submitted; Read/Edit used for AGENT_WORKLIST.md and this entry) - Item 5.6 (Coleman and Leighs insect-bite title fix, Q14) eighth quality pass: repo half clean for the eighth pass running, 36/36 checkers, six-generator rebuild byte-identical; live half read for the first time in eight days (seven prior runs blocked on browser unavailability) and found UNCHANGED - the live page still carries the pre-repaste 67-character title with the ampersand/singular "Coleman & Leigh Pharmacy", not the repo's rescued 61-character form, so the Q14 Weebly repaste remains outstanding. No repo defect, no new question.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 42; mcp__workspace__bash used for lock handling, repo reads, the 36-checker suite run individually against the tracked repo, the rotation-pool derivation (Python word-boundary scan of this file) and the QUESTIONS.json/AGENT_WORKLIST.md/AGENT_LOG.md edits; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool used for the step 3 answer-pickup fetch and the item 4.7 live-half DOM read, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit used for AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 4.7 (McCanns Chemist Sandringham GBP pack) twentieth quality pass: repo half clean, 36/36 checkers, pack sha256 unchanged since the nineteenth pass; no injection round (every gbp-pack-reading checker already proven against this pack). Live half found two genuine, non-blocking findings on uti-treatment-mccanns-sandringham.html and the Aigburth control page: (1) the page's own per-page JSON-LD "name" still reads the bare "McCanns Chemist" brandLabel rather than branchName, confirming the queued Q18 repaste has not reached McCanns either (previously only confirmed on Fishlocks, item 3.3 2026-09-11) - addendum appended to Q18's note, not reopened; (2) both McCanns pages carry a second, non-generator, sitewide JSON-LD "@graph" block on mccannspharmacy.co.uk (a different Weebly site to Hirshmans'), structurally matching the Q109 finding raised the same day by item 1.2 (root-URL, no addressRegion) but as a two-entry, branch-correct @graph rather than a single generic entity - partially answers Q109's own "does this exist elsewhere" option, addendum appended to Q109's note. No in-repo defect found; both findings are live-Weebly-side and outside this run's read-only browser scope. QUESTIONS.json total unchanged at 109 (56 open); no new question raised.
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp (2026-09-16T23:34:00Z). `.git/index.lock` reappeared during this
+run's own `git status` calls (standing FUSE-mount shape, Q87/Q96/Q102);
+cleared by `mv` to a `.probe-<timestamp>` suffix each time it blocked a
+command, consistent with every recent run. `git fetch`/`checkout
+agents/audit-backlog`/`pull --ff-only` all completed normally, already up to
+date with origin at run 41's own commit (item 5.6's eighth pass).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked against the feed;
+newest entry still Q52, dated 2026-09-01T22:44:51.524Z - already applied
+(confirmed in QUESTIONS.json, still needs Rishi to supply the actual Ahrefs
+sitemap URLs before 6.1 can be unblocked). No genuine new answer to pick up,
+consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 41's own
+entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool re-derived fresh (42 checked AGENT_WORKLIST.md
+items minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8 = 35-item pool), via the standard Python word-boundary scan of
+this file matching `(?:item|took)\s+<N>` case-insensitive, taking each pool
+item's topmost (most recent) match index, picking the largest index as
+stalest. 4.7 resolved to char index 255161 (its own nineteenth-pass entry,
+2026-09-16), the single largest in the pool; runner-up was 1.3 at 237103,
+then 2.3 at 230560. Picked 4.7.
+
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.7 twentieth-pass
+paragraph and audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-twentieth.txt.
+In summary: nineteen prior passes had already proven every one of the 17
+gbp-pack-reading checkers against this pack (directly or via
+check-pharmacy-first-eligibility.js's own 2026-08-12 header), so this pass's
+own contribution was on the live half rather than a new injection round.
+Read two live pages via Claude in Chrome (uti-treatment-mccanns-sandringham.html
+and, as a control/comparison, uti-treatment-mccanns-aigburth.html), DOM
+inspection via javascript_tool, not just extracted text. Sitemap unchanged
+(44 URLs, lastmod still 2026-08-14, landing page still absent - Q35
+unchanged). Sandringham page's title, H1 and Weebly contact-widget address
+line all reconfirmed unchanged from every prior pass (Q15/5.7 and Q39 both
+still outstanding, unpasted). Two things read for the first time on this
+branch: the page's own per-page JSON-LD "name" (still the pre-Q18-fix bare
+brandLabel, extending the 2026-09-11 Fishlocks-only addendum to Q18) and the
+full second JSON-LD script tag rather than just noting its presence - found
+it to be a two-branch "@graph", byte-identical across both McCanns pages
+checked, naming both McCanns Aigburth and McCanns Sandringham with
+branch-correct phone/email/street/postcode against branches.json but a
+shared root URL and no addressRegion on either entity, the same structural
+shape Q109 raised for Hirshmans Ainsdale the same day on a different site.
+Both addenda appended to the respective questions' "note" fields (Q18
+status left "answered", Q109 status left "open"; neither reopened, neither
+a new question). No in-repo defect: no checker, generator, page, pack or
+branches.json field was touched this pass.
+
+VERIFICATION: all 36 tools/check-*.js re-run individually after the
+QUESTIONS.json edit, 0 failures. `git status --porcelain -- gbp-packs
+branches.json modules core tools` shows only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. New audit file swept for em/en dashes (Perl U+2013/U+2014/U+2015),
+clean. No generator rebuild needed - no page, pack or data field changed,
+same convention as every quality pass that edits only QUESTIONS.json/
+AGENT_WORKLIST.md/AGENT_LOG.md.
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
 timestamp (2026-09-16T23:03:59Z). No `.git/index.lock` present at start (a
