@@ -1,0 +1,144 @@
+Item 4.14 - Gordon Short Chemist Crosby GBP pack
+Nineteenth quality pass, 2026-09-16 (unattended scheduled run, audit-backlog-worker)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines remain [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6). Fell to the quality-pass
+fallback. Rotation pool re-derived: 35 numbered pool items' own paragraph
+blocks scanned for their maximum embedded YYYY-MM-DD date (excluding the
+seven standing one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), plus item 4.2
+tracked separately since it shares item 4.1's checkbox. Nine items tied
+oldest at 2026-09-15: 2.1, 3.4, 3.6, 3.10, 4.4, 4.9, 4.14, 4.15, 5.2 (4.1/4.2
+had moved to 2026-09-16 by the run immediately before this one). Tie-broken
+by a case-insensitive AGENT_LOG.md scan for \b(?:item|took)\s+<id>\b, taking
+each candidate's first (shallowest/most recent) occurrence and picking the
+candidate whose first occurrence sits deepest in the file (i.e. has gone
+longest without even an incidental mention near the top): 4.14 came out
+stalest at character offset 194538, ahead of 4.15 (192122) and 4.9 (185956).
+Verified that hit was itself only an incidental positional reference inside
+item 4.13's own eighteenth-pass entry ("ahead of item 4.14's block"), not a
+genuine pass on 4.14 - consistent with AGENT_WORKLIST.md's own record that
+item 4.14's true last pass is the eighteenth, 2026-09-15, and with a
+targeted grep confirming no "2026-09-16 ... 4.14" pairing exists anywhere in
+the log before this run's own entry. Chosen: 4.14 (Gordon Short Chemist
+Crosby GBP pack).
+
+REPO HALF
+Baseline: gbp-packs/gordon-short-crosby.md sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9, matching
+all eighteen prior passes exactly. Full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, standing convention) run individually
+against the tracked repo: 0 failures.
+
+FRESH ANGLE: cross-checked every tools/check-*.js for a genuine PACK_DIR
+constant (const PACK_DIR = path.join(REPO, "gbp-packs")) rather than an
+incidental "gbp-packs" comment mention, following the method the item 4.2
+twentieth quality pass used on 2026-09-16 for Cherry Lane Walton. Only two
+checkers actually read gbp-packs/ content as data under that stricter test:
+check-gbp-packs.js (already proven against this pack many times over 18
+passes) and check-app-membership.js. check-app-membership.js's rules 8a-8e
+(does the pack's published copy, photo shot list, or paster note claim an
+app the branch doesn't have, and - for a member branch - does the published
+copy actually carry the app mention it should) had never been proven by
+injection against gordon-short-crosby.md in eighteen prior passes, although
+proven against several sibling packs on earlier item passes. Gordon Short
+Crosby is hasApp false (non-member), so only rules 8a-8d apply (8e is
+member-only).
+
+Full repo git-archived to a disposable scratch directory
+(outputs/scratch414-app; confirmed .git-less, as git archive never includes
+it). Scratch baseline: 34/35 checkers clean (check-live-hours.js excluded by
+convention; check-cdn-pins.js fails with the documented .git-less exception,
+matching every prior pass's own scratch baseline exactly). Pack sha256
+reconfirmed identical to the tracked-repo baseline before any injection.
+
+Four rounds against the scratch copy's own pack only, each restored from a
+pristine byte copy and sha256-reconfirmed identical before the next:
+
+1. "- Download our app to manage repeat prescriptions on the go." appended
+   to the Services section (published copy). CAUGHT - 2 failures, both
+   expected together: rule 8a ("the copy pasted into the public Google
+   profile claims an app, but branches.json has hasApp false...") and rule
+   8d ("the paster note says there is no app mention anywhere in this pack,
+   but the pasted copy carries one"), because this pack's own paster notes
+   already carry the literal trigger phrase "No app mention anywhere in this
+   pack" (line 136) that 8d matches on. Both firing together from one
+   injection is the correct, documented behaviour for a pack that carries
+   that specific note sentence, not cross-firing.
+
+2. "- App download screen on the counter tablet, if displayed." appended to
+   the Photo shot list (a section 8a/8d do not read). CAUGHT - exactly 1
+   failure, rule 8b only ("the photo shot list asks for an app shot, but
+   branches.json has hasApp false..."), cleanly isolated from 8a/8d.
+
+3. Paster notes' existing "No app mention anywhere in this pack: branches.json
+   has hasApp false for this branch." sentence given a contradicting second
+   sentence, "Note: branches.json actually has hasApp true for this
+   branch." CAUGHT - exactly 1 failure, rule 8c's "both stated" branch ("the
+   paster notes state both hasApp true and hasApp false for this branch"),
+   cleanly isolated from 8a/8b/8d.
+
+4. CONTROL - a benign, non-triggering app-related sentence added to the
+   paster notes only ("If Rishi later approves an app for this branch, this
+   pack will need a fresh app section; not needed today."), not touching the
+   published copy, the shot list, or either literal hasApp-true/false
+   trigger phrase. Correctly PASSED clean (exit 0), confirming the
+   notes-are-free-text exemption - already relied on by riddings-timperley.md
+   and this pack's own line 136 - holds on this pack's copy too.
+
+All four rounds fired or passed on the first attempt, each behaving exactly
+as the rule's own source predicts. Zero in-repo defect: check-app-membership
+.js's rules 8a-8d already correctly and independently protect this pack, now
+proven directly for the first time in nineteen passes (rule 8e not
+applicable, non-member branch).
+
+Full 34-checker suite re-run clean on the scratch copy after the final
+restore (34/35, same documented cdn-pins exception). Pack byte-for-byte
+identical to the pristine copy confirmed by diff and by sha256 before
+cleanup. Tracked repo's own gordon-short-crosby.md sha256-reconfirmed
+unchanged throughout (49acd885...52ec2 - full hash in the run log); git
+status on the tracked repo showed only the two long-standing pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Full 34-checker suite re-run individually against the tracked repo
+after cleanup: 0 failures. Scratch directory deleted after use. No
+generator, page, checker or branches.json content changed.
+
+LIVE HALF
+Claude in Chrome connected this run (confirmed working at step 3's
+answer-pickup fetch). sitemap.xml re-read: 28 URLs, every lastmod still
+2026-08-15T07:41:55+00:00, confirming no republish since the sixth pass -
+identical to every pass since the eighteenth.
+
+Because the sitemap proves nothing on this site has changed since the
+eighteenth pass's own full four-page read, this pass spot-read the two most
+operationally load-bearing pages rather than repeating a full four-page
+read of content already proven unchanged:
+
+- pharmacy-first-service-crosby.html (Post A's pfLink target): reads
+  "Gordon Short Chemist" throughout hero, body, contact card and footer -
+  correct, unchanged. Post A remains safe to post as written. Seven
+  Pharmacy First conditions, age ranges (UTI women 16-64, sore throat 5+,
+  sinusitis 12+, earache/acute otitis media 1-17, impetigo 1+, shingles 18+,
+  infected insect bite 1+), address, phone and split hours (Mon-Fri 9-6
+  closed 1-2, Sat 9-5 closed 1-2, Sun closed) all match branches.json and
+  the pack exactly.
+
+- pharmacy-first-gordon-short-crosby.html (the branch-specific page Post A
+  must NOT yet be repointed to): still reads "Gordon Shorts Chemist" (wrong,
+  plural) throughout its browser title, hero heading, body copy and the
+  "Contact Gordon Shorts Chemist" section heading; the structured footer
+  strip and address block remain correct, as on every prior check. The STOP
+  on repointing Post A stands, unchanged, now 37 days (since the sixth pass
+  first confirmed it live, 2026-08-10).
+
+switch-prescriptions-gordon-short-crosby.html, weight-loss-clinic-gordon-
+short-crosby.html and travel-clinic-gordon-short-crosby.html were not
+re-read this pass; given the sitemap's unchanged lastmod across all 28 URLs,
+their content (mojibake em dash on the switch page; "Gordon Shorts Chemist"
+naming on the other two) is carried forward unchanged from the eighteenth
+pass rather than freshly reconfirmed. Q90 (weight-loss-clinic-crosby.html
+medicine-naming meta description, open since 2026-09-01) not re-checked this
+pass for the same reason; not re-raised.
+
+No new live fault, no in-repo defect, no new question raised.

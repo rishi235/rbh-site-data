@@ -24106,6 +24106,59 @@ directly rather than re-deriving the same facts by hand.
       in-repo defect, no new live fault, no new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-15-eighteenth.txt.
       Done 2026-09-15.
+      Nineteenth quality pass 2026-09-16 (unattended scheduled run,
+      audit-backlog-worker). Taken because all 8 unchecked worklist lines
+      are still [BLOCKED]; selection method unchanged - nine items tied
+      oldest at 2026-09-15 (2.1, 3.4, 3.6, 3.10, 4.4, 4.9, 4.14, 4.15, 5.2)
+      after 4.1/4.2 moved to 2026-09-16 by the immediately preceding run;
+      4.14 tie-broken as stalest by AGENT_LOG.md offset scan, verified
+      genuine (not an incidental mention) against its own paragraph's true
+      last-pass date. FRESH ANGLE: cross-checked every tools/check-*.js for
+      a genuine PACK_DIR constant reading gbp-packs/ as data (not just an
+      incidental comment), the same stricter test the item 4.2 twentieth
+      pass used earlier today - only check-gbp-packs.js and
+      check-app-membership.js qualify. check-app-membership.js's rules
+      8a-8d (app claims in published copy, photo shot list, or a
+      contradictory paster note, given hasApp false) had never been proven
+      by injection against this pack in eighteen prior passes. Baseline:
+      pack sha256 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all eighteen prior passes; full 34-checker suite 0 failures.
+      Full repo git-archived to a disposable scratch copy; scratch baseline
+      34/35 (documented cdn-pins .git-less exception). Four rounds, each
+      restored and sha256-reconfirmed before the next: (1) an app sentence
+      appended to the Services section - CAUGHT, 2 expected failures (rule
+      8a plus rule 8d, since this pack's own note already carries 8d's
+      literal trigger phrase); (2) an app photo appended to the shot list -
+      CAUGHT, 1 failure, rule 8b cleanly isolated; (3) the paster note's
+      existing "No app mention..." sentence given a contradicting "hasApp
+      true" sentence - CAUGHT, 1 failure, rule 8c's both-stated branch
+      cleanly isolated; (4) CONTROL, a benign app-related sentence added to
+      the notes only, no trigger phrase - correctly PASSED clean. All four
+      fired or passed on the first attempt. Zero in-repo defect: rules
+      8a-8d now proven directly against this pack for the first time (8e
+      not applicable, non-member branch). Full suite re-run clean after
+      final restore; pack sha256 and diff both reconfirmed identical to
+      baseline; tracked repo git status showed only the two pre-existing
+      untracked strays, neither touched; full 34-checker suite re-run
+      clean against the tracked repo afterwards. Scratch directory deleted.
+      No generator, page, checker or branches.json content changed.
+      LIVE HALF: Claude in Chrome connected. sitemap.xml re-read: 28 URLs,
+      every lastmod still 2026-08-15T07:41:55+00:00, confirming no
+      republish since the sixth pass. Spot-read the two operationally
+      load-bearing pages rather than repeating all four: pfLink
+      (pharmacy-first-service-crosby.html) still reads Gordon Short Chemist
+      throughout and Post A remains safe as written, all seven conditions,
+      ages, address, phone and split hours matching exactly.
+      pharmacy-first-gordon-short-crosby.html still reads "Gordon Shorts
+      Chemist" (wrong, plural) throughout title, hero and body; the STOP on
+      repointing Post A stands, unchanged, now 37 days. The switch, weight
+      loss and travel clinic pages were not re-read this pass; given the
+      sitemap's unchanged lastmod their content is carried forward
+      unchanged from the eighteenth pass rather than freshly reconfirmed.
+      Q90 not re-checked, not re-raised. No new live fault, no in-repo
+      defect, no new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-16-nineteenth.txt.
+      Done 2026-09-16.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

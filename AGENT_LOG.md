@@ -1,4 +1,132 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-eighth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.2 live-half homepage read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.2 (Cherry Lane Pharmacy Walton GBP pack) twentieth quality pass: check-gbp-packs.js's sisterBranch rule (no-sister leg) proven by injection against this pack's own copy for the first time in twenty passes; zero in-repo defect, no new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-ninth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__tabs_context_mcp/tabs_create_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.14 live-half spot-read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.14 (Gordon Short Chemist Crosby GBP pack) nineteenth quality pass: check-app-membership.js's rules 8a-8d (app claims given hasApp false) proven by injection against this pack's own copy for the first time in nineteen passes; zero in-repo defect, no new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp. `git fetch`/`checkout`/`pull --ff-only` completed
+normally, already up to date with origin/agents/audit-backlog.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully first attempt. Newest entry still Q52 (2026-09-01), already
+applied. Of the 56 currently open questions (of 109 total), only Q37 and
+Q43 have any portal reply at all, and both replies were already recorded on
+an earlier run as "not a decision" (Q37: Rishi asked for a plain-English
+restatement; Q43: Rishi commented on only half the question, unsure). No
+status change made this run, no new question raised.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md (the
+twenty-eighth run's own entry, now below this one) before adding this entry
+- no "Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked
+lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still
+`[BLOCKED]`. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL: re-derived fresh, block-bounded scan of every `- [x] N.N`
+item's own embedded dates (excluding the seven standing one-offs 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8), item 4.2 tracked separately since it shares item
+4.1's checkbox. With 4.1/4.2 moved to 2026-09-16 by the run immediately
+before this one, nine items tied oldest at 2026-09-15: 2.1, 3.4, 3.6, 3.10,
+4.4, 4.9, 4.14, 4.15, 5.2. Tie-broken with a full-text case-insensitive scan
+of AGENT_LOG.md for `\b(?:item|took)\s+<id>\b`, taking the largest (oldest)
+character offset of each candidate's first occurrence: 4.14 came out
+stalest (offset 194538), ahead of 4.15 (192122) and 4.9 (185956). Verified
+the 4.14 hit at that offset was itself only an incidental positional
+reference inside item 4.13's own eighteenth-pass entry ("ahead of item
+4.14's block"), not a genuine pass on 4.14 - consistent with
+AGENT_WORKLIST.md's own record that item 4.14's true last pass is the
+eighteenth, 2026-09-15. A targeted grep confirmed no "2026-09-16 ... 4.14"
+pairing exists anywhere in the log before this run's own entry. Chosen:
+4.14 (Gordon Short Chemist Crosby GBP pack).
+
+WORK DONE (item 4.14, nineteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.14 paragraph and in
+audits/gordon-short-item-4.14-quality-pass-2026-09-16-nineteenth.txt;
+summarised here. Cross-checked every tools/check-*.js for a genuine
+`const PACK_DIR = path.join(REPO, "gbp-packs")` (not an incidental comment
+mention of the string "gbp-packs"), the same stricter test the item 4.2
+twentieth pass used earlier today for Cherry Lane Walton. Only two
+checkers actually read gbp-packs/ content as data under that test:
+check-gbp-packs.js (already proven against this pack repeatedly across 18
+passes) and check-app-membership.js. check-app-membership.js's rules
+8a-8e - does the pack's published copy, photo shot list, or paster note
+claim an app the branch does not have, and for a member branch does the
+published copy actually carry the app mention it should - had never been
+proven by injection against gordon-short-crosby.md specifically, though
+proven against several sibling packs on their own item passes. Gordon
+Short Crosby is hasApp false (non-member), so only rules 8a-8d apply.
+Baseline: pack sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9, matching
+all eighteen prior passes exactly; full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, standing convention) 0 failures on the
+tracked repo (redirected checker stdout into the outputs mount rather than
+/tmp after /tmp write permission errors produced spurious FAILs on the
+first attempt, the same fix an earlier run already documented). Full repo
+copied via `git archive HEAD | tar -x` to a disposable scratch directory
+under the outputs mount; scratch baseline 34/35 (the documented cdn-pins
+.git-less exception, matching every prior pass's own scratch baseline). Pack
+sha256 reconfirmed identical before any injection. Four rounds against the
+scratch copy's own pack, each restored from a pristine byte copy and
+sha256-reconfirmed identical before the next: (1) "Download our app to
+manage repeat prescriptions on the go." appended to the Services section
+(published copy) - CAUGHT, 2 expected failures together: rule 8a (false app
+claim against hasApp false) and rule 8d (contradicts the pack's own "No app
+mention anywhere in this pack" note sentence, present in this pack from the
+start), both firing being the documented correct behaviour rather than
+cross-firing; (2) an app-shot line appended to the Photo shot list only -
+CAUGHT, exactly 1 failure, rule 8b cleanly isolated; (3) the existing "No
+app mention..." note sentence given a contradicting "hasApp true" sentence -
+CAUGHT, exactly 1 failure, rule 8c's both-stated branch cleanly isolated;
+(4) CONTROL, a benign forward-looking app sentence added to the notes only,
+touching neither the published copy nor either literal trigger phrase -
+correctly PASSED clean. All four rounds fired or passed on the first
+attempt, each on its own intended rule, no cross-firing beyond the expected
+8a+8d pairing in round 1. Zero in-repo defect: rules 8a-8d already
+correctly and independently protect this pack, now proven directly for the
+first time in nineteen passes (8e not applicable, non-member branch). Full
+34-checker suite re-run clean on the scratch copy after the final restore
+(34/35, same exception); pack sha256 and diff both reconfirmed identical to
+baseline; tracked repo confirmed sha256-unchanged and git-status-clean
+throughout (only the two long-standing pre-existing untracked strays,
+neither touched); full 34-checker suite re-run individually against the
+tracked repo afterwards, 0 failures. Scratch directory deleted after use.
+No generator, page, checker or branches.json content changed.
+
+LIVE HALF: read via Claude in Chrome, connected this run.
+https://www.gordonshortchemist.co.uk/sitemap.xml re-read: 28 URLs, every
+lastmod still 2026-08-15T07:41:55+00:00, confirming no republish since the
+sixth pass - identical to every pass since the eighteenth. Because that
+proves nothing on this site has changed since the eighteenth pass's own
+full four-page read, this pass spot-read only the two operationally
+load-bearing pages rather than repeating all four. pfLink
+(pharmacy-first-service-crosby.html) still reads Gordon Short Chemist
+throughout hero, body, contact card and footer; Post A remains safe to post
+as written; all seven Pharmacy First conditions, age ranges, address, phone
+and split hours match branches.json and the pack exactly.
+pharmacy-first-gordon-short-crosby.html still reads "Gordon Shorts Chemist"
+(wrong, plural) throughout its browser title, hero heading, body copy and
+contact-card heading, structured footer strip and address block correct as
+before; the STOP on repointing Post A to it stands, unchanged, now 37 days
+(since the sixth pass first confirmed it live on 2026-08-10). The switch,
+weight loss and travel clinic pages were not re-read this pass; given the
+sitemap's unchanged lastmod across all 28 URLs their content (mojibake em
+dash on the switch page; the same wrong plural naming on the other two) is
+carried forward unchanged from the eighteenth pass rather than freshly
+reconfirmed. Q90 (weight-loss-clinic-crosby.html medicine-naming meta
+description, open since 2026-09-01) not re-checked this pass for the same
+reason, not re-raised. No new live fault, no new question raised.
+
+WORKLIST (step 7): AGENT_WORKLIST.md's item 4.14 paragraph appended in
+place. No worklist checkbox ticked (item 4.14 already `[x]`, quality pass
+not a state change).
+
+QUESTIONS (step 8): no new question raised; QUESTIONS.json not edited this
+run.
+
+GIT WRITE ROUTE (step 9, this run): attempting `git add`/`commit`/`push`
+directly from this sandbox mount first (fetch/checkout/pull all completed
+cleanly this run with no lock issue).
+
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
 fresh UTC timestamp. `git fetch`/`checkout`/`pull --ff-only` completed
