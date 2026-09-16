@@ -123,9 +123,45 @@ not a state change).
 QUESTIONS (step 8): no new question raised; QUESTIONS.json not edited this
 run.
 
-GIT WRITE ROUTE (step 9, this run): attempting `git add`/`commit`/`push`
-directly from this sandbox mount first (fetch/checkout/pull all completed
-cleanly this run with no lock issue).
+GIT WRITE ROUTE (step 9, this run): `git add` from the sandbox mount hit a
+stale `.git/index.lock` (5 minutes old, no git process running per `ps
+aux`) left behind by this run's own earlier read-only `git status` calls -
+the standing FUSE-mount unlink restriction (Q87/Q96/Q102: unlink fails
+"Operation not permitted", rename succeeds). Cleared via `mv` to a
+timestamped name; `git add` then succeeded with non-fatal
+"unable to unlink tmp_obj_*" warnings only. `git commit` then hit a stale
+`.git/HEAD.lock` the same way (dated from this run's own earlier `git
+status`), cleared identically; commit `b7e6809` landed locally despite the
+usual unlink warnings on several loose objects, none fatal. `git push
+origin agents/audit-backlog` failed as expected with "could not read
+Username for 'https://github.com'" (no credential in this sandbox, per
+Q87/Q96/Q102's standing diagnosis). Fell back to
+`mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
+working copy (confirmed the same on-disk repo, already at commit `b7e6809`
+before the push, since the sandbox commit and the real working copy share
+one `.git`). `git push` there reported what looked like an error only
+because PowerShell's CLIXML wrapping renders git's normal stderr progress
+line that way; `git fetch` plus `git rev-parse origin/agents/audit-backlog`
+immediately after both resolved to `b7e6809`, confirming the push landed.
+STATUS PAGE (step 10): `node tools/build-audit-status.js` from the sandbox
+mount failed on a hardcoded `C:/Dev/rbh-site-data` path not reachable from
+that mount; re-run via `mcp__Windows-MCP__PowerShell` against the real
+working copy instead, succeeded ("Published reports/digital/
+Digital_Audit_Status.html (42/48 done, 88%)").
+LOCK RELEASE (step 11): `.agent-lock` removal via the sandbox mount's `rm
+-f` failed with "Operation not permitted" (the same unlink restriction, now
+affecting a plain top-level file rather than only `.git/` internals).
+Removed instead via `mcp__Windows-MCP__PowerShell` `Remove-Item -Force`
+against the real `C:\Dev\rbh-site-data\.agent-lock`, confirmed gone from
+both the real working copy and the sandbox mount afterwards (same
+underlying file). HYGIENE NOTE, not actioned this run: `.git/` on this
+mount continues to accumulate renamed lock debris every run that needs a
+git write (several hundred `.git/index.lock.stale-*`/`.git/HEAD.lock.
+stale-*` files now present, matching the scale prior runs have already
+flagged) - still out of scope for a single quality-pass item per every
+prior run's note; CLAUDE.md gives no standing instruction to bulk-delete,
+and the underlying unlink restriction means a real fix needs the native
+host, not another rename pass from here.
 
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
