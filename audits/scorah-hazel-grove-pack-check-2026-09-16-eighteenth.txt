@@ -1,0 +1,122 @@
+Item 4.5 - Scorah Chemists Hazel Grove GBP pack - eighteenth quality pass
+Unattended scheduled run (audit-backlog-worker), 2026-09-16
+
+ROTATION POOL SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6). Quality-pass
+fallback applies. Pool = 44 checked items minus the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 37 items.
+Derivation: scanned AGENT_LOG.md from the top for each pool item's own
+topic-sentence match (") - Item N.N" immediately after a run header), taking
+the first (most recent) hit per item and its distance in run-count from the
+top of the log:
+  4.5   -> last topic-sentence hit 2026-09-11, 88 runs back (STALEST)
+  4.10  -> last topic-sentence hit 2026-09-11, 84 runs back (runner-up)
+  all remaining pool items -> 2026-09-15 or 2026-09-16 (this run's own prior
+    entry, item 4.1)
+4.5 taken.
+
+BASELINE
+sha256 of gbp-packs/scorah-hazel-grove.md:
+  968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a
+Unchanged since the seventeenth pass (2026-09-15).
+`for f in tools/check-*.js; do node "$f"; done` - 36/36 exit 0, no failures.
+
+FACT RE-VERIFICATION AGAINST branches.json (id: scorah_hazel)
+- Name: Scorah Chemists Hazel Grove - matches pack line 8.
+- Address: 87 Macclesfield Road, Hazel Grove, SK7 6BG - matches pack line 9
+  (post town "Stockport" on the pack's own Address line remains the standing
+  Q64 exception, not re-raised).
+- Phone: 01625 872267 - matches.
+- Hours: Mon-Fri 09:00-18:00, Sat/Sun closed, 24 June Saturday cessation
+  noted - matches pack lines 11-13.
+- Review link (Google): https://g.page/r/CZbFKrky9BUsEAE/review - matches
+  pack line 18.
+- serviceAreaList: Hazel Grove, Bramhall, Offerton, Great Moor, Poynton -
+  matches the catchment order in the description (line 21-22) and Post B
+  (line 93).
+- hasApp: false - honoured, no app mention anywhere in the pack.
+- pfLink: https://www.scorah-chemists.co.uk/pharmacy-first-scorah-hazel-grove.html
+  - matches Post A's button (line 86).
+- Profile website: pack line 14 points at the branch's own landing page,
+  not the shared scorah-chemists.co.uk homepage - matches the paster note at
+  lines 117-123.
+- Sister-branch sentence (line 29, "Our sister branch is in Bramhall") -
+  scorah_bramhall confirmed live (not disposed), its own seoTown is Bramhall.
+- Bank holiday paster note (lines 146-153) - still present, still names
+  bankHolidays.dates2026 rather than retyped dates.
+- Business description: 712 characters, re-derived independently under the
+  checker's paste-join convention, matches the "(max 750 chars - this is
+  712)" heading at line 20.
+
+ANSWER PICKUP (step 3)
+Attempted via mcp__Claude_Browser__preview_start (url:
+https://data.rbhealth.co.uk/api/feedback) then get_page_text. Blocked: "The
+person hasn't allowed the browser pane to use https://rbhealth.cloudflareaccess.com
+yet." Called mcp__Claude_Browser__request_access({url:
+"https://www.nhs.uk", scope:"once"}) as a check of whether any interactive
+approval was reachable this run at all (not a retry of the feedback fetch
+itself) - returned "The user declined ... Do not retry". Consistent with an
+unattended run with nobody present to clear an access prompt. Logged as
+unavailable per procedure; no other route attempted; no login attempted.
+54 open questions unchanged, no new answers picked up.
+
+FRESH ANGLE: nhsReviewUrl liveness, extending Q100
+Q100 (raised 2026-09-09, item 3.10's fourteenth pass) found NHS has retired
+the "leave a review" feature estate-wide (HTTP 410, "Ratings and Reviews...
+no longer available"), spot-checked on five branches (Riddings, Scorah
+Bramhall, Gordon Short Crosby, Tiffenbergs, Smartts Bootle), and explicitly
+left one confirmation step open: whether the six live branch landing pages
+that print this link as a clickable button (build-branch-landing-pages.js,
+line 237-238: `<a href="{nhsReviewUrl}">Leave a review on the NHS
+website</a>`) actually expose the dead link to a real patient in situ, since
+only the raw NHS URLs had been fetched.
+
+Check 1 - Hazel Grove's own nhsReviewUrl, fetched directly:
+  curl -s --compressed -A "Mozilla/5.0" -L --max-time 15 \
+    "https://www.nhs.uk/services/pharmacy/scorah-chemists-hazel-grove/XFKD04/leave-a-review"
+  Result: HTTP 410. Response body contains "no longer" (the same "Ratings
+  and Reviews... no longer available" notice). Sixth branch now independently
+  confirmed on the identical NHS-wide fault (previous five: Riddings, Scorah
+  Bramhall, Gordon Short Crosby, Tiffenbergs, Smartts Bootle).
+  Cross-check: Riddings' own URL re-fetched the same way in the same run,
+  also HTTP 410 with "no longer" present - confirms the finding is stable,
+  not a one-off NHS response.
+
+Check 2 - the six live branch landing pages carrying this link:
+  pharmacy-fishlocks-ainsdale.html   (www.fishlockpharmacy.co.uk)  -> 404
+  pharmacy-fishlocks-eccleston.html  (www.fishlockpharmacy.co.uk)  -> 404
+  pharmacy-mccanns-aigburth.html     (www.mccannspharmacy.co.uk)   -> 404
+  pharmacy-mccanns-sandringham.html  (www.mccannspharmacy.co.uk)   -> 404
+  pharmacy-scorah-bramhall.html      (www.scorah-chemists.co.uk)   -> 404
+  pharmacy-scorah-hazel-grove.html   (www.scorah-chemists.co.uk)   -> 404
+  All six 404 - none has been pasted to Weebly yet (the same Q35-class gap
+  this pack's own landing page has carried since the seventh pass, 2026-09-01).
+  This ANSWERS Q100's open confirmation step: the dead NHS review button
+  carries NO current live patient exposure on any of the six pages, because
+  none of the six pages are live yet. The defect is real and estate-wide in
+  branches.json/the generator's output, but not yet reaching a patient
+  through this particular surface.
+
+Recorded as an addendum to Q100's own "note" field in QUESTIONS.json (not a
+new question - Q100 already asks the decision this confirms rather than
+changes).
+
+Other live checks (confirmatory only, not re-walked in full this pass):
+  pharmacy-scorah-hazel-grove.html            -> 404 (Q35, unchanged)
+  switch-prescriptions-scorah-hazel-grove.html -> 200
+  pharmacy-first-scorah-hazel-grove.html       -> 200
+  weight-loss-clinic-scorah-hazel-grove.html   -> 200
+  travel-clinic-scorah-hazel-grove.html        -> 200
+  www.scorah-chemists.co.uk/                   -> 200
+
+RESULT
+No in-repo defect. check-branch-links.js's pattern rule for nhsReviewUrl is
+still exactly right (it proves the URL is well-formed, not that the NHS
+target still exists) - same conclusion Q100 already reached. No new
+QUESTIONS.json entry; Q100's note extended with the sixth-branch confirmation
+and the landing-page-exposure answer. Full 36-checker suite re-run clean
+after all checks (36/36, 0 failures, 17 pre-existing estate-wide warnings,
+unchanged). git status on gbp-packs/, branches.json, modules/, core/ and
+tools/ empty throughout this pass (only the long-standing pre-existing
+untracked debris family at the repo root, none touched this run).

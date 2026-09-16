@@ -16882,6 +16882,68 @@ candidate for a future run's own selected item rather than folded in here.
 Posts C and D correct, no medicines named, qualifiers present. No in-repo
 defect, no new live finding beyond what is already tracked, no new
 question. See audits/scorah-hazel-grove-pack-check-2026-09-15-seventeenth.txt.
+Quality pass 2026-09-16 (eighteenth pass, unattended scheduled run): rotation
+pool re-derived by finding, per pool item, the most recent run whose own
+topic-sentence names it ("... ) - Item N.N ..."), scanning AGENT_LOG.md from
+the top; 4.5 last named in that position 2026-09-11 (sixteenth pass), 88 runs
+back from the top of the log at the time of this run, clearly the stalest
+survivor of the pool (37 items, 44 checked AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation items 1.1/1.4/2.2/5.6/5.7/6.7/6.8); runner-up
+4.10 last named 2026-09-11 as well but only 84 runs back. All 8 unchecked
+lines re-confirmed [BLOCKED] first, so the fallback applies. Baseline: sha256
+968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a, unchanged
+since the seventeenth pass; full 36-checker suite run individually against
+the tracked repo, 0 failures. Facts re-verified against branches.json for the
+eighteenth time: name, street address, postcode, phone, hours (Monday-Friday
+09:00-18:00, Saturday and Sunday closed, the 24 June Saturday closure),
+review link, catchment order and its five towns (serviceAreaList match),
+hasApp false, pfLink, profile website on its own landing page, the
+sister-branch sentence naming Bramhall, the bank holiday paster note, and the
+712-character description re-derived independently at exactly 712. The post
+town on the "- Address:" line remains the standing Q64 exception and was not
+re-raised. ANSWER PICKUP (step 3): attempted via the built-in browser
+(`mcp__Claude_Browser__preview_start` + `get_page_text`) against
+https://data.rbhealth.co.uk/api/feedback; blocked by a Cloudflare Access
+permission gate this run has no user present to clear
+(`request_access` on the underlying cloudflareaccess.com origin returned
+declined, consistent with an unattended session with nobody to approve it).
+Per procedure, logged as unavailable and not retried by any other route; no
+answers picked up this run (54 open questions, unchanged). FRESH ANGLE: this
+pack's own eighteen passes had never independently tested nhsReviewUrl
+liveness (Q100, raised 2026-09-09 on item 3.10's fourteenth pass, spot-checked
+five branches - Riddings, Scorah Bramhall, Gordon Short Crosby, Tiffenbergs,
+Smartts Bootle - all HTTP 410, but explicitly left "the six live branch
+landing pages... not independently re-fetched to confirm the button itself
+404s/410s in situ" as an open confirmation step). Two live, read-only checks
+this pass: (1) fetched Hazel Grove's own nhsReviewUrl directly
+(https://www.nhs.uk/services/pharmacy/scorah-chemists-hazel-grove/XFKD04/leave-a-review,
+via curl, --compressed to read past gzip) - HTTP 410, page text containing
+"no longer" (the same "Ratings and Reviews... no longer available" retirement
+notice Q100 found), a sixth branch now confirmed on the identical NHS-wide
+fault, not a Riddings-specific or repo-side defect; (2) fetched all six of the
+live branch landing pages build-branch-landing-pages.js prints this link on
+(pharmacy-fishlocks-ainsdale.html, pharmacy-fishlocks-eccleston.html,
+pharmacy-mccanns-aigburth.html, pharmacy-mccanns-sandringham.html,
+pharmacy-scorah-bramhall.html, pharmacy-scorah-hazel-grove.html, each on its
+own live hostname) - all six return HTTP 404, none pasted to Weebly yet (the
+same Q35-class gap this pack's own landing page has carried since the
+seventh pass), which answers Q100's open confirmation step: the dead NHS
+review button carries NO current live patient exposure on any of the six
+pages, because none of the six pages are live yet. Recorded as an addendum to
+Q100's own "note" field (not a new question; Q100 already asks the decision
+question this confirms rather than changes) rather than a fresh QUESTIONS.json
+entry. No in-repo defect: check-branch-links.js's own pattern rule is still
+exactly right, per Q100's original finding, and nothing in this pack or
+branches.json is malformed by it. Live half otherwise unchanged from the
+seventeenth pass and not independently re-walked this pass (Post A/B/C/D
+targets, the landing-page 404, the switch page em dash and Q49 contradiction)
+to keep this run's live footprint to the one fresh check plus a single
+confirmatory re-fetch of the landing page 404 above. Full 36-checker suite
+re-run clean after all checks (36/36, 0 failures, 17 pre-existing estate-wide
+warnings, unchanged); git status on gbp-packs/, branches.json, modules/,
+core/ and tools/ empty throughout (only the long-standing pre-existing
+untracked debris family at the repo root, none touched). See
+audits/scorah-hazel-grove-pack-check-2026-09-16-eighteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
