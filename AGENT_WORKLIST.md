@@ -21491,6 +21491,52 @@ directly rather than re-deriving the same facts by hand.
       found, no checker/pack/page/generator/data field changed, no new
       question raised (finding logged here and cross-referenced against
       Q39 instead). Done 2026-09-15
+      Nineteenth quality pass 2026-09-16 (unattended scheduled run,
+      rotation-pool pick): tools/check-whatsapp-route.js, never once named
+      against this branch across eighteen prior passes, proven by three
+      injections against SK Chemists Bootle's own pages plus one control,
+      following the same method item 3.13 established for Clear Chemist
+      Aintree. Repo copied to a disposable scratch directory under the
+      outputs mount (working tree only, .git deliberately excluded,
+      matching the documented check-cdn-pins.js exception); tracked repo
+      never opened for writing. Baseline: pack sha256
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      unchanged across nineteen passes; branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102,
+      the standing regression anchor; 35/36 checkers exit 0 on the scratch
+      copy (check-cdn-pins.js's known .git-less exception; clean on the
+      tracked repo separately). Three injections, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) rule 4, page
+      agreement - earache-treatment-sk-chemists-bootle.html's data-wa
+      changed to a wrong number - CAUGHT; (2) rule 6, orphan button -
+      shingles-treatment-sk-chemists-bootle.html's data-wa removed, its
+      svc-wa button left in place - CAUGHT; (3) rule 5, unreplaced token -
+      sinusitis-treatment-sk-chemists-bootle.html given a trailing
+      {{BRANCH_PROMO_CODE}} placeholder - CAUGHT. CONTROL:
+      uti-treatment-sk-chemists-bootle.html's visible postcode changed to
+      L20 9ZZ (check-nap.js/check-postcodes.js territory) - zero mentions
+      in check-whatsapp-route.js's output, confirming no cross-fire;
+      independently confirmed check-nap.js and check-postcodes.js do catch
+      the same injection. All four pages restored, sha256-reconfirmed
+      identical to baseline; full 36-checker suite re-run after: 35/36
+      exit 0 (same known exception). Tracked repo confirmed untouched
+      throughout: git diff --stat empty, sha256 of all four touched pages
+      and the pack unchanged. Guard coverage for item 4.11 now extends to
+      12 of the 36 checkers proven by direct injection against this branch
+      specifically. LIVE HALF (brief): fetched
+      earache-treatment-sk-chemists-bootle.html live via Claude in Chrome
+      and read the DOM directly - data-wa="447521775631" matches
+      branches.json, the svc-wa button is present; the button's raw href
+      is a same-page anchor rather than a wa.me link, consistent with
+      service.js building the wa.me destination via a click handler at
+      runtime rather than a static href and outside this checker's
+      repo-side scope, not treated as a defect. Full sitemap/contactus.html
+      re-read not repeated (done fully on the eighteenth pass one day
+      earlier, unchanged, not worth a third same-day fetch). No in-repo
+      defect found; no checker, pack, page, generator or data field
+      changed; no new question raised. Evidence in
+      audits/sk-chemists-bootle-whatsapp-4.11-nineteenth-2026-09-16.txt.
+      Done 2026-09-16
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

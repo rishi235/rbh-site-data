@@ -1,0 +1,110 @@
+Item 4.11 (SK Chemists Bootle pack) - nineteenth quality pass - 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+PICK: rotation-pool fallback (all 8 remaining AGENT_WORKLIST.md unchecked lines
+still [BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6).
+Pool re-derived fresh: 42 checked items minus the seven standing out-of-rotation
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 35-item pool. Python word-boundary
+scan of \b(?:item|took)\s+<N>\b across AGENT_LOG.md, topmost (most recent)
+mention index per pool item, picked the item whose own topmost mention has the
+LARGEST index (= least recently mentioned). 4.11 came out stalest at char index
+190108, ahead of 5.1 (183556) and 4.1 (177750).
+
+FRESH ANGLE: item 4.11 has had eighteen prior quality passes. By the
+seventeenth pass, proven by direct injection against this branch's own copy:
+check-nap, check-postcodes, check-em-dashes, check-jsonld, check-map-embeds,
+check-branch-identity, check-pharmacy-first-eligibility, check-gbp-packs.js
+(many rule families), check-app-membership.js Rule 8, check-brand-spelling.js,
+check-pharmacy-first-cost.js. tools/check-whatsapp-route.js had never once been
+named against SK Chemists Bootle across eighteen prior passes (confirmed by
+grep across AGENT_WORKLIST.md's item 4.11 block for "check-whatsapp" and
+"WhatsApp route": zero hits). branches.json confirms skchemists_bootle carries
+a whatsapp field (447521775631) and the branch has thirteen generated pages
+across the service and switch families, so the checker's rules 4, 5 and 6
+genuinely apply here.
+
+METHOD: full repo copied by byte copy (tar hit an intermittent fault on the
+first attempt - one file, modules/service/pages/weight-loss-clinic-tiffenbergs-
+aintree.html, landed as 0 bytes in the scratch copy while the tracked file is
+14107 bytes; sha256-verified and the scratch attempt abandoned rather than
+trusted) to a disposable scratch directory under the outputs mount (working
+tree only: modules, tools, gbp-packs, core, brand, compliance, scripts, status,
+branches.json, and the root markdown/JSON files the checkers read; .git
+deliberately excluded, matching the documented check-cdn-pins.js exception).
+Tracked repo never opened for writing throughout. Baseline confirmed:
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2a
+d1b102, matching the standing regression anchor; gbp-packs/sk-chemists-
+bootle.md sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f22
+2da, matching all eighteen prior passes; 291/291 files byte-identical to the
+tracked repo by sha256 spot check. 36-checker suite on the scratch copy: 35/36
+exit 0, the sole exception check-cdn-pins.js (fails to resolve git refs with no
+.git present - the documented scratch-copy artefact, not a defect; re-run
+against the tracked repo separately: exit 0, clean, 3 known warnings, matching
+every prior pass).
+
+THREE INJECTIONS plus one CONTROL, each targeting a different SK Chemists
+Bootle page, each restored by byte copy and sha256-reconfirmed identical to
+the pre-injection original before the next:
+
+(1) RULE 4, page agreement: modules/service/pages/earache-treatment-sk-
+chemists-bootle.html's data-wa changed from "447521775631" to "447000000000".
+CAUGHT: "FAIL [page agreement] ...: data-wa=\"447000000000\" but branches.json
+agrees on 447521775631". Restored; sha256 1c3813eb...41575 reconfirmed.
+
+(2) RULE 6, orphan button: modules/service/pages/shingles-treatment-sk-
+chemists-bootle.html's data-wa attribute removed entirely, its #svc-wa button
+left in place. CAUGHT: "FAIL [orphan button] ...: carries a WhatsApp button but
+no data-wa on its module root, so it would fall back to the runtime default".
+Restored; sha256 12fa2ecb...002a40c5 reconfirmed.
+
+(3) RULE 5, unreplaced token: modules/service/pages/sinusitis-treatment-sk-
+chemists-bootle.html given a trailing {{BRANCH_PROMO_CODE}} placeholder (first
+attempt targeted a </body> tag with sed, which does not exist in this
+fragment-style generated page - sed matched nothing and no token was actually
+inserted, caught before drawing a false conclusion by re-grepping for the
+token post-edit; corrected by appending the line directly). CAUGHT: "FAIL
+[unreplaced token] ...: still carries the template placeholder
+{{BRANCH_PROMO_CODE}}". Restored; sha256 bc281d57...0a0b55a7 reconfirmed.
+
+CONTROL: modules/service/pages/uti-treatment-sk-chemists-bootle.html's visible
+postcode changed from L20 5DW to L20 9ZZ (two occurrences: contact-line address
+and JSON-LD postalCode) - check-nap.js/check-postcodes.js territory, not
+check-whatsapp-route.js's. check-whatsapp-route.js: zero mentions of the file,
+exit 0, confirming no cross-fire. Cross-checked that the injection was real and
+would be caught by its own territory: check-nap.js fired four MISMATCH lines
+against this exact file (contact address, JSON-LD postalCode, two postcode-
+shaped-string mentions) and check-postcodes.js fired one UNKNOWN line, both
+naming the file directly. Restored; sha256 03add12e...8db98a718f reconfirmed.
+
+Final full 36-checker suite re-run on the scratch copy after all four restores:
+35/36 exit 0 (same known check-cdn-pins.js exception). Tracked repo
+reconfirmed untouched throughout: git status --porcelain shows only the
+long-standing pile of pre-existing untracked debris from prior runs' own
+infrastructure testing (none of it new this run - all scratch work was held
+under the outputs mount, outside the tracked repo); git diff --stat empty; the
+four touched pages' and the pack's tracked-repo sha256 values unchanged
+(earache 1c3813eb..., shingles 12fa2ecb..., sinusitis bc281d57..., uti
+03add12e..., pack 637aed98..., branches.json 169bb5a2...b102).
+
+No in-repo defect found; no checker, pack, page, generator or data field
+changed; no new question raised. Guard coverage for item 4.11 now extends to
+12 of the 36 checkers proven by direct injection against this branch
+specifically.
+
+LIVE HALF (brief, time-budgeted): fetched
+https://www.skchemist.co.uk/earache-treatment-sk-chemists-bootle.html live via
+Claude in Chrome and read the DOM directly (not just extracted text): the
+module root's data-wa attribute reads "447521775631", matching branches.json
+and the agreed number; the #svc-wa WhatsApp button is present. The button's
+raw href attribute reads a same-page anchor ("...html#") rather than a wa.me
+link - consistent with service.js building the wa.me destination via a click
+handler at runtime rather than a static href, and outside check-whatsapp-
+route.js's repo-side scope (which tests data-wa presence and value, not the
+runtime click behaviour); not treated as a defect, matches the shape already
+accepted in item 3.13's own live-half read. Full sitemap/contactus.html re-read
+not repeated this pass (done fully on the eighteenth pass yesterday,
+2026-09-15, including the still-open complaints-phone-number finding
+cross-referenced against Q39; unchanged in one day, not worth a third
+same-day fetch given the run's own time budget).
+
+Evidence: this file.
