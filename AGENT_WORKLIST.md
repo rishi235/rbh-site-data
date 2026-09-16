@@ -1253,6 +1253,64 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       specifically (this pass used the plain service and branch-landing
       dirs); a future pass could inject into modules/switch/pages instead.
       Done 2026-09-15.
+      Quality pass 2026-09-16 (twentieth pass): rotation pool re-derived
+      fresh (standing set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded); eight
+      items tied oldest at 2026-09-15 (2.1, 3.4, 3.6, 3.10, 4.4, 4.9, 4.15,
+      5.2), 4.14 having been taken and completed by an earlier run today.
+      Offset tie-break checked for all five highest-offset candidates before
+      this one; every one resolved to an incidental cross-reference inside a
+      different item's own writeup, not a genuine pass on that candidate, so
+      the tie-break did not distinguish the pool further. Took 2.1, the
+      lowest-numbered candidate in the genuinely-tied set, as a defensible
+      arbitrary choice. All 8 unchecked worklist lines reconfirmed [BLOCKED]
+      by direct grep first. Answer pickup (step 3): Chrome connected first
+      attempt, feedback endpoint read clean; of 56 open questions only Q37
+      and Q43 have any reply, both already recorded as "not a decision" on
+      an earlier run. No status change. No autonomous-window section at the
+      top of AGENT_LOG.md (step 4 not applicable).
+      FRESH ANGLE: the nineteenth pass's own forward note - ORPHAN_PAGE
+      never exercised via modules/switch/pages - taken. Baseline: six
+      generators rebuilt to zero diff, branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged), full 36-checker suite clean on the
+      tracked repo. Full-repo scratch copy via tar (--exclude=.git) under
+      the sandbox home mount; scratch branches.json sha256 confirmed
+      identical before any mutation; scratch check-page-coverage.js
+      baseline clean, 177 pages. Two injections against this branch's own
+      switch page, each restored and reconfirmed before the next: (1)
+      switch-prescriptions-fishlocks-ainsdale.html copied to a
+      -old.html renamed-slug duplicate - CAUGHT first attempt, exactly one
+      ORPHAN_PAGE failure naming the injected path; (2) the same file moved
+      out entirely - CAUGHT first attempt, exactly one PAGE_MISSING failure
+      naming the missing path and the generator to re-run. Restored file's
+      sha256 (47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be)
+      matched the tracked repo's own copy exactly. Full 36-checker suite
+      re-run on the scratch copy after both restores: 35/36 clean, the one
+      failure being check-cdn-pins.js's documented .git-less scratch
+      artefact, matching every prior scratch-copy pass - not a new finding.
+      Scratch directory deleted after use. Tracked repo reconfirmed
+      untouched throughout (git status unchanged, only the two long-standing
+      pre-existing strays present, untouched; direct 36-checker run against
+      the tracked repo clean both before and after).
+      RESULT: zero in-repo defect. ORPHAN_PAGE and PAGE_MISSING both now
+      proven by injection against the modules/switch/pages bucket
+      specifically, closing the last of check-page-coverage.js's three
+      directory buckets (service, branch landing, switch) not yet exercised
+      via this item's own pages.
+      LIVE HALF (Claude in Chrome, read-only, nothing clicked or submitted):
+      fishlockpharmacy.co.uk/sitemap.xml still 200, all 40 URLs still fixed
+      at lastmod 2026-08-14T17:32:10 (Q35, now over five weeks without a
+      republish). pharmacy-fishlocks-ainsdale.html still 404 (Q35,
+      unchanged). contact.html still names the business "Fishlock Pharmacy"
+      and "Fishlock Chemist" and still abbreviates "17 Station Rd" (Q37,
+      unchanged), the correct trust-bar footer still sitting alongside
+      rather than instead of the wrong native block. weight-loss-services-
+      eccleston-ainsdale.html still homepage-linked, still "Real Results
+      with Mounjaro", the weight-percentage slider and all three POM names
+      (Mounjaro, Wegovy, Orlistat) (Q57, feeding 5.8, unchanged). No new
+      question raised; all live findings reconfirm existing standing state.
+      Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-16-twentieth.txt.
+      Done 2026-09-16.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

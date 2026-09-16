@@ -1,0 +1,144 @@
+Item 2.1 (Fishlocks Ainsdale) - twentieth quality pass - 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+SCOPE
+Rotation-pool fallback (all 8 unchecked worklist lines confirmed [BLOCKED] by
+direct grep first: 5.3, 5.4, 5.5, 5.8, 6.1, the two Q60 lines under 6.4/6.5,
+6.6). Rotation pool re-derived fresh via a Python header-to-next-header block
+scan of every completed item's own embedded dates (standing out-of-rotation
+set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded). Eight items tied oldest at
+2026-09-15: 2.1, 3.4, 3.6, 3.10, 4.4, 4.9, 4.15, 5.2 (4.14, tied in this pool
+as of the start of today, was taken and completed by an earlier run today and
+so drops out). Tie-broken by a full-text case-insensitive scan of
+AGENT_LOG.md for \b(?:item|took)\s+<id>\b, taking the largest (oldest)
+character offset of each candidate's own first (i.e. most recent,
+top-of-file) occurrence. In descending offset order the candidates were:
+4.15 (202802), 4.9 (196636), 3.4 (189453), 2.1 (185454), 5.2 (150315), 3.10
+(125619), 3.6 (32398), 4.4 (14419). Read the context around each of the first
+five offsets in turn: all five resolved to incidental cross-references inside
+a DIFFERENT item's own pass writeup (4.15 inside item 4.13's entry, 4.9
+inside item 4.8's entry, 3.4 inside item 3.3's entry, 2.1 inside item 3.3's
+entry, 5.2 inside item 1.2's entry - each naming the candidate only in
+passing, not a genuine pass on the candidate itself), the same shape earlier
+runs have already documented for this tie-break method. With every checked
+offset resolving to a non-genuine mention, the offset-based tie-break does
+not distinguish the pool further; took the lowest-numbered candidate, 2.1,
+as a defensible arbitrary choice within the genuinely-tied set, noted here
+rather than silently applied.
+
+ANSWER PICKUP (step 3, performed before this item was chosen): Claude in
+Chrome connected on the first attempt this run (no dual-session block, unlike
+several recent runs recorded against Q59). Read
+https://data.rbhealth.co.uk/api/feedback in full. Of the 56 currently open
+questions, only Q37 and Q43 have ever received a portal reply, and both
+replies are the same ones already recorded in QUESTIONS.json on an earlier
+run as "not a decision" (Q37: Rishi asked for a plain-English restatement,
+supplied in the question's own note; Q43: Rishi commented on only the
+Cheshire-vs-Greater-Manchester half, did not address the truncated house
+number, and did not pick one of the four listed options). No new portal
+reply found for any open question; no status change made.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous
+window" section at the top of AGENT_LOG.md. Not applicable.
+
+BASELINE
+All six generators (build-service-pages.js, build-switch-pages.js,
+build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js) re-run against
+the tracked repo: zero diff, `git status --porcelain -- modules core
+branches.json gbp-packs tools` unchanged before and after (only the two
+long-standing pre-existing untracked strays present:
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+touched, left alone per every prior pass's convention). branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching
+the standing anchor used across every prior pass. Full 36-checker suite run
+directly against the tracked repo: 36/36 exit 0.
+
+FRESH ANGLE
+The nineteenth pass's own forward note named two untested angles for
+check-page-coverage.js. Took the one specific to this item's own pages:
+ORPHAN_PAGE had been exercised via modules/service/pages and
+modules/branch/pages (nineteenth pass) but never via modules/switch/pages,
+the third and last directory bucket the checker's RULES array covers.
+
+METHOD
+Full repo copied via `tar --exclude=.git -cf - . | tar -xf -` into a
+disposable scratch directory under the sandbox home mount (not /tmp, which
+this session cannot write to). Scratch branches.json sha256 confirmed
+identical to the tracked file before any mutation. Scratch baseline for
+check-page-coverage.js alone: clean, 177 pages across 3 folders, matching the
+tracked-repo run exactly.
+
+Two injections against Fishlocks Ainsdale's own switch page, the scratch copy
+only, each restored before the next and the final state diff/sha256-confirmed
+identical to the tracked repo:
+
+(1) modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html copied
+    to switch-prescriptions-fishlocks-ainsdale-old.html (the renamed-slug
+    shape the rule's own message describes) - CAUGHT first attempt, exactly
+    one failure: "ORPHAN_PAGE: modules/switch/pages/switch-prescriptions-
+    fishlocks-ainsdale-old.html is on disk but branches.json earns no such
+    page." Restored by deleting the injected file; re-run confirmed clean,
+    177 pages.
+
+(2) modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html moved
+    out entirely (the branch's earned switch page deleted from disk) -
+    CAUGHT first attempt, exactly one failure, the mirror-image rule in the
+    same bucket: "PAGE_MISSING: Switch: modules/switch/pages/switch-
+    prescriptions-fishlocks-ainsdale.html is earned by fishlocks_ainsdale but
+    is not on disk. Re-run tools/build-switch-pages.js." Restored by moving
+    the saved file back; sha256 of the restored file matched the tracked
+    repo's own copy of the same file exactly
+    (47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be).
+
+Full 36-checker suite re-run on the scratch copy after both restores: 35/36
+clean, the one failure being check-cdn-pins.js's documented .git-less
+scratch artefact ("ref does not resolve in git" / "fetches branches.json
+from ref main"), matching the shape recorded on every prior scratch-copy
+pass using this method - not a new finding. Scratch directory deleted in
+full after use. Tracked repo reconfirmed untouched throughout: `git status
+--porcelain` unchanged, both pre-existing strays present and untouched, a
+direct run of all 36 tools/check-*.js against the tracked repo clean both
+before and after (36/36 exit 0).
+
+RESULT: zero in-repo defect. check-page-coverage.js's ORPHAN_PAGE and
+PAGE_MISSING rules are now both proven directly by injection against the
+modules/switch/pages bucket specifically, closing the last of the three
+directory buckets (service, branch landing, switch) the checker covers that
+had not yet been exercised via this item's own pages. All three buckets have
+now been proven at least once by injection somewhere in this item's twenty
+passes.
+
+LIVE HALF (Claude in Chrome connected, read-only throughout, nothing
+clicked, typed or submitted):
+- fishlockpharmacy.co.uk/sitemap.xml: 200, all 40 URLs still fixed at
+  lastmod 2026-08-14T17:32:10 - Q35's underlying non-publish, unchanged,
+  now over five weeks without a republish.
+- pharmacy-fishlocks-ainsdale.html: still 404 (Q35, unchanged).
+- contact.html: still names the business "Fishlock Pharmacy" (contact block,
+  both branch columns) and "Fishlock Chemist" (legal footer line), neither
+  the trading name "Fishlocks Chemist" that branches.json and every
+  generated page carry; still abbreviates the Ainsdale street to "17 Station
+  Rd" against branches.json's "17 Station Road" (Q37, unchanged). The
+  correctly-worded trust-bar footer noted on the seventh 2.1 pass
+  ("Fishlocks Chemist - two local NHS pharmacies in Ainsdale & Eccleston",
+  with "17 Station Road" spelled in full) still sits alongside, not instead
+  of, the still-wrong native contact block, exactly as recorded then.
+- weight-loss-services-eccleston-ainsdale.html: still linked from the
+  homepage nav ("WEIGHT LOSS CLINIC" buttons, both branches), so still
+  outside the inner-page exemption; still carries "Real Results with
+  Mounjaro", the body-weight-percentage slider ("You could lose up to: 26kg
+  (22.5% of your body weight)"), and all three POM names under "Explore
+  treatments" (Wegovy, Mounjaro, Orlistat) (Q57, feeding 5.8, unchanged).
+
+No new question raised. All live findings are reconfirmation of existing
+standing state (Q35, Q37, Q57), none newly discovered this pass.
+
+FORWARD NOTE for the next pass on this item: check-page-coverage.js's three
+directory buckets (service, branch landing, switch) have each now been
+exercised by injection at least once against Fishlocks Ainsdale specifically.
+A future pass could instead re-prove a different checker's rule against this
+item that has not yet been tested here by name, or pick up the sixteenth
+pass's still-open note on check-seo-lengths.js rule 4a (same-branch H1
+reuse) against a Fishlocks Ainsdale page pair the sixteenth pass did not use.

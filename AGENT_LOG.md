@@ -1,4 +1,122 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twenty-ninth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__tabs_context_mcp/tabs_create_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.14 live-half spot-read, two tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.14 (Gordon Short Chemist Crosby GBP pack) nineteenth quality pass: check-app-membership.js's rules 8a-8d (app claims given hasApp false) proven by injection against this pack's own copy for the first time in nineteen passes; zero in-repo defect, no new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirtieth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__navigate/get_page_text/browser_batch/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 2.1 live-half spot-read, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 2.1 (Fishlocks Ainsdale) twentieth quality pass: check-page-coverage.js's ORPHAN_PAGE and PAGE_MISSING rules proven by injection against the modules/switch/pages bucket for the first time in twenty passes, closing the last of the checker's three directory buckets not yet exercised here; zero in-repo defect, no new question, live half reconfirms existing standing state (Q35, Q37, Q57).
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp (2026-09-16T17:04:13Z). `git fetch`/`checkout`/`pull
+--ff-only` completed normally, already up to date with
+origin/agents/audit-backlog. A `.git/index.lock` was present at start,
+~20 minutes old (well under the 1-hour stale threshold) and git operations
+were working normally (fetch/pull both succeeded), so left untouched per the
+rule - only a lock older than 1 hour with no git process running is treated
+as stale and removed.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully on the first attempt (no dual-session block this run, unlike
+several recent runs recorded against Q59). Of the 56 currently open
+questions, only Q37 and Q43 have any portal reply at all, and both are the
+same replies already recorded on an earlier run as "not a decision" (Q37:
+Rishi asked for a plain-English restatement; Q43: Rishi addressed only the
+Cheshire-vs-Greater-Manchester half, unsure, did not pick an option). No
+status change made, no new question raised.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md (the
+twenty-ninth run's own entry, now below this one) before adding this entry -
+no "Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8 unchecked
+lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), all still
+`[BLOCKED]`. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL: re-derived fresh via a Python header-to-next-header block
+scan of every completed item's own embedded dates (standing out-of-rotation
+set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded). With 4.14 moved to
+2026-09-16 by the run immediately before this one, eight items tied oldest
+at 2026-09-15: 2.1, 3.4, 3.6, 3.10, 4.4, 4.9, 4.15, 5.2. Tie-broken with a
+full-text case-insensitive scan of AGENT_LOG.md for
+`\b(?:item|took)\s+<id>\b`, taking the largest (oldest) character offset of
+each candidate's first (i.e. most recent, top-of-file) occurrence: 4.15
+(202802), 4.9 (196636), 3.4 (189453), 2.1 (185454), 5.2 (150315), 3.10
+(125619), 3.6 (32398), 4.4 (14419), in descending order. Read the context
+around each of the top five offsets in turn: all five resolved to an
+incidental cross-reference inside a DIFFERENT item's own pass writeup (4.15
+inside item 4.13's entry, 4.9 inside item 4.8's entry, 3.4 inside item 3.3's
+entry, 2.1 inside item 3.3's entry, 5.2 inside item 1.2's entry - each
+naming the candidate only in passing, not a genuine pass on the candidate
+itself), the same non-genuine-mention shape earlier runs have already
+documented for this tie-break method. With the tie-break exhausted without
+distinguishing the pool, took the lowest-numbered candidate, 2.1
+(Fishlocks Ainsdale), as a defensible arbitrary choice within the
+genuinely-tied set - noted here rather than silently applied.
+
+WORK DONE (item 2.1, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 2.1 block and in
+audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-16-twentieth.txt;
+summarised here. The nineteenth pass's own forward note named
+check-page-coverage.js's ORPHAN_PAGE rule as not yet exercised via
+modules/switch/pages specifically (only modules/service/pages and
+modules/branch/pages had been used). Took that angle.
+Baseline: six generators (build-service-pages.js, build-switch-pages.js,
+build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js) rebuilt to a
+zero diff against the tracked repo; branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching
+the standing anchor; full 36-checker suite run directly against the tracked
+repo, 36/36 exit 0. Full repo copied via `tar --exclude=.git -cf - . | tar
+-xf -` to a disposable scratch directory under the sandbox home mount (not
+/tmp, which this session cannot write to); scratch branches.json sha256
+confirmed identical before any mutation; scratch check-page-coverage.js
+baseline clean, 177 pages across 3 folders.
+TWO INJECTIONS against Fishlocks Ainsdale's own switch page, scratch copy
+only, each restored and diff/sha256-reconfirmed before the next: (1)
+switch-prescriptions-fishlocks-ainsdale.html copied to a -old.html
+renamed-slug duplicate - CAUGHT first attempt, exactly one ORPHAN_PAGE
+failure naming the injected path; (2) the same file moved out of the
+directory entirely - CAUGHT first attempt, exactly one PAGE_MISSING failure
+naming the missing path and the generator to re-run. Restored file's sha256
+(47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be) matched
+the tracked repo's own copy of the same file exactly. Full 36-checker suite
+re-run on the scratch copy after both restores: 35/36 clean, the one
+failure being check-cdn-pins.js's documented .git-less scratch artefact
+("ref does not resolve in git" / "fetches branches.json from ref main"),
+matching the shape recorded on every prior scratch-copy pass using this
+method - not a new finding. Scratch directory deleted in full after use.
+Tracked repo reconfirmed untouched throughout: `git status --porcelain --
+modules core branches.json gbp-packs tools` unchanged (only the two
+long-standing pre-existing untracked strays present, neither touched), a
+direct run of all 36 tools/check-*.js against the tracked repo clean both
+before and after.
+RESULT: zero in-repo defect. check-page-coverage.js's ORPHAN_PAGE and
+PAGE_MISSING rules are now both proven by injection against the
+modules/switch/pages bucket specifically, closing the last of the checker's
+three directory buckets (service, branch landing, switch) not yet exercised
+via this item's own pages.
+LIVE HALF (Claude in Chrome connected this run, read-only, nothing clicked
+or submitted): fishlockpharmacy.co.uk/sitemap.xml still 200, all 40 URLs
+still fixed at lastmod 2026-08-14T17:32:10 (Q35's underlying non-publish,
+now over five weeks). pharmacy-fishlocks-ainsdale.html still 404 (Q35,
+unchanged). contact.html still names the business "Fishlock Pharmacy" (x4)
+and "Fishlock Chemist" (x1) and still abbreviates "17 Station Rd" (x2)
+alongside the correct "Fishlocks Chemist" trust-bar footer mentions (Q37,
+unchanged). weight-loss-services-eccleston-ainsdale.html still
+homepage-linked via the nav "WEIGHT LOSS CLINIC" buttons, still "Real
+Results with Mounjaro", the body-weight-percentage slider and all three POM
+names (Mounjaro, Wegovy, Orlistat) under "Explore treatments" (Q57, feeding
+5.8, unchanged). No new question raised; all live findings reconfirm
+existing standing state, none newly discovered this pass.
+
+QUESTIONS: none raised this run. No worklist item marked [BLOCKED].
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item
+2.1's own checkbox block (twentieth-pass entry appended after the
+nineteenth pass's writeup). No worklist checkbox ticked (item 2.1 already
+`[x]`, a quality pass is not a state change). New file
+audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-16-twentieth.txt
+added with full detail.
+
+---
+
+
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
 fresh UTC timestamp. `git fetch`/`checkout`/`pull --ff-only` completed
