@@ -19815,6 +19815,74 @@ directly rather than re-deriving the same facts by hand.
       smartts-bootle.md and every generator are unchanged, since none of
       this platform is built from or referenced by this repo. Item 5.8
       stays [BLOCKED]. Done 2026-09-15.
+      Seventeenth quality pass 2026-09-16 (unattended scheduled run via
+      Cowork; mcp__workspace__bash used throughout for lock handling, repo
+      reads, scratch-copy injection testing and checker runs; all 8
+      remaining worklist lines still [BLOCKED], rotation pool re-derived by
+      a Python header-scan of every completed item's own AGENT_LOG.md
+      topic sentence, 4.10 the stalest at 2026-09-11, taken): fresh angle -
+      check-gbp-packs.js's sisterBranch rule (born item 4.4 thirteenth
+      pass, 2026-09-06, most recently proven against Clear Chemist Aintree
+      on item 4.9's own history and Cherry Lane) had never been
+      individually injection-tested against this pack's own copy across
+      sixteen prior passes, confirmed by grepping this item's full
+      paragraph history for "sisterBranch" and "carries the brand" - no
+      hit. Smartts Chemist is a single-site brand (branches.json confirms
+      no other live branch carries brandLabel "Smartts Chemist"), so only
+      the no-sister leg of the rule applies here, the leg that fires
+      whenever the pack's published copy claims a sister or second branch
+      at all. Baseline: 36/36 checkers exit 0 on the tracked repo, then
+      again on a full-repo scratch copy (plain `cp -r`, .git included, per
+      the established method note); sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly - the pack has not
+      moved since the sixth pass. Facts re-confirmed against
+      branches.json's smartts_bootle record (address, phone, website,
+      review link, hasApp true, all five widgets) - unchanged. Two
+      injections plus two controls against the scratch copy only, each
+      restored from a saved byte copy and sha256-reconfirmed identical
+      before the next: (1) "Our sister branch is in Waterloo." appended to
+      the business description (published copy) - CAUGHT, exact message
+      "no other live branch in branches.json carries the brand Smartts
+      Chemist", with description-length rule co-firing as an honest side
+      effect of the added text, not a masking issue; (2) "There is a
+      second branch in Crosby." appended to Post B's body (a different
+      published surface, the alternate "second branch" trigger phrasing) -
+      CAUGHT, identical message, proving the rule reaches post bodies and
+      the second trigger wording on this pack too; CONTROL A - the
+      identical false sister sentence placed only inside "Notes for the
+      paster:" (an instruction block, never pasted into the public
+      profile) - correctly PASSED clean, exit 0, confirming the
+      notes-versus-published-copy scope boundary documented in the
+      checker's own comments holds on this pack specifically; CONTROL B -
+      an unrelated benign reword of the Blood tests services bullet, no
+      sister or branch wording anywhere - correctly PASSED clean, full
+      36-checker suite 0 failures, no cross-firing. All four behaved
+      exactly as designed on the first attempt. No in-repo defect: the
+      rule and its notes-exclusion already work correctly on this pack,
+      now proven directly for the first time rather than assumed from
+      sister packs. Full 36-checker suite re-run clean on the scratch copy
+      after the final restore (36/36); tracked repo confirmed
+      sha256-unchanged and git-status-clean throughout (only the two
+      long-standing pre-existing untracked strays, neither touched); full
+      36-checker suite re-run individually against the tracked repo
+      afterwards, 36/36 exit 0. No generator, page, checker or
+      branches.json content changed. Live half not re-performed this pass:
+      the sixteenth pass (2026-09-15, the day before) already read all
+      four live pages plus Post A's live-only target in full and found
+      nothing changed since bar the new Q106 finding; re-reading the same
+      four pages one day later would not add information, matching the
+      precedent set by other items' recent passes on checker-proof-only
+      angles. Answer pickup attempted via the built-in Claude Browser MCP
+      (`preview_start` then `get_page_text`): blocked on the Cloudflare
+      Access origin as usual for an unattended run with nobody present to
+      clear the prompt; `request_access` declined per the standing Q59
+      pattern; logged as unavailable, no other route attempted, no login
+      attempted. No answer arrived for any of the 54 open questions.
+      QUESTIONS.json unchanged: 107 total, 54 open. No new question raised
+      this pass. Evidence in
+      audits/smartts-bootle-sister-branch-4.10-seventeenth-2026-09-16.txt.
+      Done 2026-09-16.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

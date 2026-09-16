@@ -1,0 +1,120 @@
+Item 4.10 - gbp-packs/smartts-bootle.md - seventeenth quality pass
+Date: 2026-09-16 (unattended scheduled run, audit-backlog-worker)
+Fresh angle: tools/check-gbp-packs.js sisterBranch rule (no-sister-branch leg),
+never individually injection-tested against this pack across sixteen prior
+passes.
+
+CONTEXT
+Smartts Chemist Bootle (id smartts_bootle) is a single-site brand:
+branches.json has no other live branch carrying brandLabel "Smartts Chemist",
+so the applicable leg of the sisterBranch rule is the one that fires whenever
+published copy (description, services section, or any post body) claims a
+sister or second branch at all, since none exists to name correctly.
+
+BASELINE
+- 36/36 checkers exit 0 on the tracked repo (C:\dev\rbh-site-data).
+- Full-repo scratch copy made with `cp -r` (including .git, per the
+  established method note from the item 4.10 ninth pass, avoiding a false
+  check-cdn-pins.js failure on a .git-less scratch copy).
+- 36/36 checkers exit 0 on the scratch copy baseline too.
+- sha256(gbp-packs/smartts-bootle.md) =
+  541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+  - matches every prior pass's recorded hash exactly (unchanged since the
+    sixth pass, 2026-09-01).
+- Facts re-confirmed against branches.json's smartts_bootle record: name,
+  address (42 Fernhill Road, Bootle L20 9HH), phone 0151 922 4984, website,
+  review link, hasApp true, all five widgets (bloodPressure, contraception,
+  pharmacyFirst, weightLoss, travelClinic) present.
+
+INJECTIONS (scratch copy only; tracked repo never opened for writing)
+
+(1) Description injection - PUBLISHED COPY, sister trigger
+    Appended "Our sister branch is in Waterloo." to the end of the business
+    description (section 1).
+    Result: FAIL (exit 1)
+    Message: 'the pack claims a sister or second branch, but no other live
+    branch in branches.json carries the brand Smartts Chemist. A pack
+    description is pasted verbatim into a public Google profile, so this
+    would send patients to a pharmacy the group does not have'
+    Also co-fired the description-length rule ("description heading claims
+    710 characters, actual is 744") as an honest side effect of the added
+    text - a separate, independently correct rule reacting to the same
+    edit, not a masking of the sisterBranch rule.
+    Restored: sha256 reconfirmed identical to baseline.
+
+(2) Post B injection - PUBLISHED COPY, "second branch" trigger, different
+    surface
+    Appended "There is a second branch in Crosby." to the end of Post B's
+    body (Switch your prescriptions).
+    Result: FAIL (exit 1)
+    Message: identical wording to (1), naming Smartts Chemist.
+    Proves the rule reaches post bodies (not only the description) and that
+    the alternate "second branch" trigger phrasing also fires on this
+    pack's own copy.
+    Restored: sha256 reconfirmed identical to baseline.
+
+(3) CONTROL A - Notes-for-the-paster scope boundary
+    Inserted "Our sister branch is in Waterloo (this is a paster-only note,
+    not published copy)." as a new bullet at the top of the "Notes for the
+    paster:" section - the identical false claim, but outside the
+    description/services/post-body scope the checker reads for this rule.
+    Result: PASS (exit 0)
+    Confirms the instructions-versus-published-copy scope boundary
+    documented in the checker's own code comments (the historical
+    mccanns-aigburth fix, 2026-08-13) holds correctly on this pack too: a
+    paster note is never pasted into the public profile, so it is correctly
+    not scanned.
+    Restored: sha256 reconfirmed identical to baseline.
+
+(4) CONTROL B - unrelated benign edit, no sister/branch wording
+    Reworded the Blood tests services bullet ("private blood testing at the
+    pharmacy" -> "private blood testing available at the pharmacy... on
+    offer"), no mention of a sister, second branch, or any other branch.
+    Result: PASS (exit 0), full 36-checker suite also 0 failures.
+    Confirms no cross-firing from an unrelated edit.
+    Restored: sha256 reconfirmed identical to baseline.
+
+All four injections/controls behaved exactly as designed, first attempt, no
+cross-firing.
+
+REGRESSION
+- Scratch copy restored byte-identical after each injection (sha256
+  reconfirmed every time) and after the final restore.
+- Full 36-checker suite re-run clean on the scratch copy after the final
+  restore: 36/36 exit 0.
+- Tracked repo confirmed sha256-unchanged and git-status-clean throughout
+  (only the two long-standing pre-existing untracked strays present,
+  gbp-packs/.fuse_hidden0000000400000001 and
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+  touched).
+- Full 36-checker suite re-run individually against the tracked repo
+  afterwards: 36/36 exit 0.
+
+RESULT
+No in-repo defect. The sisterBranch rule (no-sister leg) and its
+notes-exclusion boundary already work correctly on this pack; now proven
+directly by injection for the first time rather than assumed from sister
+packs (Clear Chemist Aintree, Cherry Lane) that had already exercised it.
+No generator, page, checker or branches.json content changed.
+
+LIVE HALF
+Not re-performed this pass. The sixteenth pass (2026-09-15, the day before)
+already read all four live pages (weight-loss-clinic-smartts-bootle.html,
+travel-clinic-smartts-bootle.html, switch-prescriptions-smartts-bootle.html,
+pharmacy-first-service-bootle.html) in full and found nothing changed bar
+the new Q106 finding (simpleweightloss.co.uk third-platform exposure).
+Re-reading the same four pages one day later was judged unlikely to add
+information for a checker-proof-only pass.
+
+ANSWER PICKUP
+Attempted via the built-in Claude Browser MCP: preview_start on
+https://data.rbhealth.co.uk/api/feedback, then get_page_text blocked on the
+underlying Cloudflare Access origin ("The person hasn't allowed the browser
+pane to use https://rbhealth.cloudflareaccess.com yet"). request_access on
+that origin was declined ("The user declined... Do not retry"), consistent
+with an unattended run with nobody present to clear the prompt. Logged as
+unavailable per procedure; no other route attempted; no login attempted.
+No answer arrived for any of the 54 open questions this run.
+
+QUESTIONS
+No new question raised. QUESTIONS.json unchanged: 107 total, 54 open.
