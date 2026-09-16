@@ -11983,6 +11983,124 @@ Done 2026-09-16 (nineteenth pass).
       for a twentieth pass. On the open backlog generally: unchanged - the
       eight genuinely actionable worklist items remain blocked on Rishi's
       own decisions and 54 of 107 questions are open. Done 2026-09-15
+
+      Quality pass 2026-09-16 (twentieth, unattended scheduled run). All
+      eight unchecked worklist items reconfirmed [BLOCKED] on Rishi's own
+      open decisions, so the quality-pass fallback applied. Rotation pool
+      re-derived fresh: tied-oldest at 2026-09-15 was {3.4, 3.6, 3.10, 4.4,
+      4.9, 4.15, 5.2}; the run immediately before this one today had already
+      taken 3.4 then 3.6 by tie-break, leaving {3.10, 4.4, 4.9, 4.15, 5.2}.
+      Tie-break exhausted without distinguishing the pool a second time
+      running (all top candidates' topmost AGENT_LOG.md mentions were
+      non-genuine citations inside other items' write-ups, the same shape
+      the prior run found); took the lowest-numbered remaining candidate,
+      3.10.
+
+      NO IN-REPO DEFECT FOUND: tools/check-seo-keywords.js, named by the
+      eighteenth and nineteenth passes' own forward notes as never once
+      proven against Riddings across nineteen prior passes, is now proven
+      by eight injections plus a control, spread across all five sheet
+      dialects this branch carries (service SEO.md, CONTRACEPTION-SEO.md,
+      TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md, switch SEO.md), covering
+      seven of its eight rule directions. RULE 8 (retired town word) has no
+      natural injection point on Riddings: its townSlug and seoTown are the
+      same word, so there is nothing retired to test - a genuine scope
+      limit of the branch chosen.
+
+      Baseline: full 36-checker suite clean on the tracked repo before
+      starting; branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged throughout). Full-repo scratch copy via
+      `git archive HEAD | tar -x` into the sandbox's own native filesystem;
+      tracked repo never opened for writing during the injection round. One
+      process note: a first backup pass using bare basenames overwrote the
+      service-side SEO.md backup with the switch-side one, because both
+      sheets share the filename "SEO.md" in different directories; caught
+      immediately by the next sha256 check before the tracked repo was
+      touched, fixed by re-copying from the tracked repo and redoing all
+      five backups under directory-qualified names.
+
+      EIGHT INJECTIONS PLUS ONE CONTROL against Riddings' own paste-sheet
+      entries, each restored from a corrected, sha256-verified backup before
+      the next: (1) RULE 1, Meta Keywords blanked on the UTI block - CAUGHT,
+      "has a Page Permalink but no Meta Keywords value"; (2) RULE 2, the
+      switch block's permalink changed to a non-resolving slug - CAUGHT,
+      "does not end in any live branch's <brandSlug>-<townSlug>"; (3) RULE
+      3, "Timperley" stripped from the Sinusitis block - CAUGHT, "do not
+      carry this branch's own seoTown"; (4) RULE 4, "also serving Bootle"
+      added to the contraception block - CAUGHT, named both Bootle branches
+      and confirmed Bootle is not in Riddings' serviceAreaList; (5) RULE 5,
+      "Smartts Chemist" added to the travel clinic block - CAUGHT, "the
+      brand of smartts_bootle, not this branch"; (6) RULE 6, "L20" added to
+      the weight loss block - CAUGHT, "not this branch's outward code
+      'WA15'"; (7) RULE 7, "guaranteed results" added to the Impetigo block
+      - CAUGHT via the shared claim-patterns.js rule. CONTROL: a harmless
+      reword of the Earache block, still carrying Timperley and no foreign
+      town/brand/postcode/claim - correctly passed clean, no cross-firing
+      with the RULE 7 injection made and restored earlier in the same file.
+      All eight injections caught on the first attempt naming the correct
+      rule and block; the control passed cleanly.
+
+      Final restore sha256-reconfirmed identical to the corrected baseline
+      for all five target files. Full 35-checker suite (cdn-pins excluded,
+      no .git in the scratch copy) re-run clean on the scratch copy after
+      cleanup: 35/35 exit 0. Tracked repo confirmed untouched throughout via
+      `git status --porcelain -- modules core branches.json gbp-packs
+      tools` (only the two long-standing pre-existing untracked strays,
+      unchanged) and via direct sha256 comparison of branches.json and all
+      five target files against the pre-run baseline (exact match). Full
+      36-checker suite re-run individually against the tracked repo after
+      cleanup: 36/36 exit 0.
+
+      LIVE HALF: two read-only GETs, exactly one connected browser this run
+      (no Q59 conflict). Homepage NAP, hours and email correct; the three
+      known live states unchanged (switch banner mojibake close button,
+      Q31-era Cheshire county string, Q22 weight loss tagline). pfLink page:
+      NO LONGER the pre-repaste legacy copy every prior pass since 2026-08-04
+      recorded - the live page now reads word-for-word as the current
+      generator output (h1, booking-block copy and all seven Pharmacy First
+      cohorts with correct NHS age ranges checked against
+      modules/service/pages/pharmacy-first-riddings-timperley.html). This
+      branch's pfLink page has evidently been repasted, outside any run
+      this log covers, since the 2026-08-31 sixth quality pass last read it
+      as stale. One item off the estate-wide repaste backlog; no repo
+      action needed.
+
+      INFRASTRUCTURE NOTE (not a new question, cross-references Q87/Q96/
+      Q102): the sandbox mount's .git directory again held a live-looking
+      .git/ORIG_HEAD.lock at run start (no git process running per `ps aux`;
+      `rm -f` refused "Operation not permitted", `mv` to a renamed path
+      succeeded immediately, the same standing mount restriction those
+      questions already document). git fetch/checkout/pull then completed
+      normally. Separately, the repo root now carries roughly 240 untracked
+      files accumulated from this same workaround across many prior runs;
+      none are tracked or affect any checker, cleanup was out of scope for
+      this pass, but the volume is now large enough to be worth a future
+      run's attention.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read via the
+      standing answer-pickup step: 107 total, 56 open, unchanged; newest
+      answer still Q52 (2026-09-01).
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.10-2026-09-16-twentieth.txt (new).
+
+      Next stalest for whoever runs next, re-derive rather than assume: with
+      3.10 now current, the tied-oldest pool at 2026-09-15 that remains is
+      {4.4, 4.9, 4.15, 5.2}; lowest is 4.4. On item 3.10 itself: sixteen
+      checkers still never proven by injection against Riddings across
+      twenty passes (check-address-region.js, check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-url-scheme.js, check-whatsapp-route.js,
+      check-widget-diaries.js) - a candidate list for a twenty-first pass.
+      On the open backlog generally: unchanged - the eight genuinely
+      actionable worklist items remain blocked on Rishi's own decisions and
+      56 of 107 questions are open. Done 2026-09-16
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
