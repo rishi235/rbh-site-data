@@ -1,0 +1,173 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - twenty-first quality pass, 2026-09-16
+Checker under test: tools/check-seo-lengths.js
+Reason picked: twenty prior passes across seventeen checkers had never once
+named check-seo-lengths.js against this branch (confirmed by grepping the
+item's own AGENT_WORKLIST.md block for "check-seo-lengths" and "seo-lengths"
+before starting: zero hits), despite CLAUDE.md naming Cherry Lane/Walton as
+one of only three town-pairs where two RBH branches share both a town and a
+website host risk (Ainsdale, Bootle, Walton) and despite the checker's own
+rule 4 (H1 uniqueness) being written specifically against this kind of
+same-town collision.
+
+SELECTION METHOD
+All eight remaining `[ ]` worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, both
+Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] - no actionable
+unchecked item, quality-pass fallback applied per step 5.
+Rotation pool re-derived via the header-to-next-header block scan of each
+completed item's own embedded dates (standing out-of-rotation set 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8 excluded): with 2.1 moved to 2026-09-16 by the run
+immediately before this one, seven items remained tied oldest at 2026-09-15:
+3.4, 3.6, 3.10, 4.4, 4.9, 4.15, 5.2.
+Tie-broken with the standard word-boundary scan of AGENT_LOG.md for
+`\b(?:item|took)\s+<id>\b`, taking the largest (oldest/stalest) character
+offset of each candidate's topmost (most recent) occurrence: 4.15 (210108),
+4.9 (203942), 3.4 (196759), 5.2 (157621), 3.10 (132925), 3.6 (39704), 4.4
+(21725). Read the context around the top three offsets: all three resolved
+to incidental cross-references inside a DIFFERENT item's own pass writeup
+(4.15 inside item 4.13's entry re: when check-pharmacy-first-cost.js was
+added; 4.9 and 3.4 both inside other items' own "ahead of item X's block"
+worklist-placement notes) - the same non-genuine-mention shape prior runs
+have already documented for this tie-break method, so the tie-break was
+exhausted without distinguishing the pool. Took the lowest-numbered
+candidate, 3.4 (Cherry Lane Pharmacy, Walton), as a defensible arbitrary
+choice within the genuinely-tied set, matching the precedent the prior run
+set for the identical situation on item 2.1.
+
+BASELINE
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing regression anchor, unchanged). Full 36-script check-*.js suite run
+individually against the tracked repo before starting: 36/36 exit 0.
+
+SCRATCH SETUP
+check-seo-lengths.js reads only branches.json and three page directories
+(modules/branch/pages, modules/service/pages, modules/switch/pages), so a
+minimal scratch copy was built under the outputs mount rather than a full
+repo copy: those three module directories, branches.json, and a copy of the
+checker script itself, none of it under the tracked repo's .git. A second
+"pristine" copy of the same scratch tree was kept alongside it purely as a
+restore source between injections (byte copy back before each new
+injection, not git). Baseline run on the scratch copy: 177 paste-sheet
+entries across 6 sheets, titles 36-65 chars, descriptions 129-164 chars,
+177 page H1s read, 0 shared - clean, exit 0, matching the tracked repo.
+
+SEVEN INJECTIONS AGAINST CHERRY LANE'S OWN DATA, each restored by byte copy
+from the pristine scratch backup and sha256-reconfirmed identical before the
+next:
+
+1. RULE 1 (title length) - Cherry Lane's own UTI paste-sheet title lengthened
+   to 92 characters ("Urinary tract infection (UTI) treatment and assessment
+   in Walton area - Cherry Lane Pharmacy"). CAUGHT: exactly one failure,
+   "uti-treatment-cherry-lane-walton ... title is 92 characters, over the 65
+   limit", correct page named, correct string quoted.
+
+2. RULE 2 (description length) - Cherry Lane's own UTI paste-sheet description
+   shortened to 29 characters ("UTI treatment at Cherry Lane."). CAUGHT:
+   exactly one failure, "description is only 29 characters, under the 80
+   minimum", correct page named.
+
+3. RULE 3a (duplicate title) - Coleman and Leighs Walton's own UTI title
+   overwritten with Cherry Lane Walton's UTI title (both then read "UTI
+   treatment in Walton - Cherry Lane Pharmacy"), the real Phase-3
+   self-competition scenario the rule exists to stop, tested here as a
+   direct cross-branch collision rather than a same-branch one. CAUGHT:
+   exactly one failure, "duplicate title shared by 2 pages: Cherry Lane
+   Pharmacy - Walton - UTI ..., Coleman and Leighs Pharmacy - Walton - UTI
+   ...", both entries correctly named using their heading+sheet identifier
+   (the item 3.9 fifteenth-pass fix for telling two colliding permalinks
+   apart, itself now exercised against this branch for the first time).
+
+4. RULE 3b (duplicate permalink) - Coleman and Leighs Walton's own UTI
+   permalink overwritten with Cherry Lane Walton's UTI permalink (both then
+   read "uti-treatment-cherry-lane-walton"). CAUGHT: exactly one failure,
+   "duplicate permalink shared by 2 pages: Cherry Lane Pharmacy - Walton -
+   UTI ..., Coleman and Leighs Pharmacy - Walton - UTI ...", correct value
+   quoted.
+
+5. RULE 4a (same branch, same H1 twice) - Cherry Lane's own Earache page H1
+   overwritten with Cherry Lane's own UTI page H1 (both then read "UTI
+   treatment in Walton - Cherry Lane Pharmacy"). CAUGHT: exactly one
+   failure, "one branch uses the same H1 on two of its own pages -
+   cherrylane_liverpool: earache-treatment-cherry-lane-walton.html and
+   uti-treatment-cherry-lane-walton.html".
+
+6. RULE 4c (cross-host H1 share, WARN not FAIL) - Cherry Lane's own UTI page
+   H1 overwritten with Coleman and Leighs Walton's UTI page H1 (both then
+   read "UTI treatment in Walton - Coleman and Leighs Pharmacy"). Cherry
+   Lane (cherrylanepharmacy.co.uk) and Coleman and Leighs
+   (colemanandleighspharmacy.co.uk, confirmed a different host) are the two
+   RBH shops sharing the Walton catchment on separate domains - exactly the
+   pairing CLAUDE.md's "heading nothing compared" section names as the
+   shared-town, different-host case reported against Q44 rather than
+   failed, since whether a family-style H1 should carry the brand is a
+   search decision, not a defect. CORRECTLY CLASSIFIED: exit 0 (not 1), "2
+   sharing an H1", one WARN line naming Q44 and both files, no FAIL. This
+   is the first time this branch's own pages have been used to prove the
+   checker does NOT fail a genuine cross-host, different-brand share, only
+   flags it - the inverse case to rule 4a and 4b, and the one most likely
+   to be got wrong by a checker that classified by group rather than by
+   pair (the exact bug this rule's own comments record being found and
+   fixed against).
+
+CONTROL - Cherry Lane's own UTI page had its visible phone number, tel:
+href and JSON-LD telephone all changed from "0151 226 2051" to
+"0151 999 9999" (three occurrences, one edit). check-seo-lengths.js's
+output after the injection: zero mentions of "cherry" or "9999" anywhere,
+confirming no cross-fire - phone numbers are outside every rule this
+checker enforces. Independently re-run check-nap.js against the same
+injected scratch copy: six MISMATCH lines naming the exact wrong number and
+the exact right page, confirming the injected fault is real and caught by
+name in its own checker's territory, so the control proves absence of
+cross-fire rather than an untested value.
+
+RESTORE AND RECONFIRM
+All four touched files (modules/service/pages/SEO.md,
+uti-treatment-cherry-lane-walton.html, earache-treatment-cherry-lane-walton.html)
+restored by byte copy from the pristine scratch backup after each injection
+and again at the end; sha256 reconfirmed identical to the pristine copy on
+every restore. Final run on the fully-restored scratch copy: clean, exit 0,
+same summary line as the baseline.
+Tracked repo: git status --porcelain -- modules core branches.json gbp-packs
+tools showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched this pass. branches.json sha256 unchanged
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102). The four
+target files' tracked sha256 values matched the pristine scratch backup
+exactly (see command output above). Full 36-script check-*.js suite
+re-run individually against the tracked repo after all injections: 36/36
+exit 0.
+
+RESULT
+NO IN-REPO DEFECT FOUND. All six of check-seo-lengths.js's rule legs (1, 2,
+3a, 3b, 4a, 4c) fired correctly against Cherry Lane's own data, each on
+exactly its intended rule, first attempt, no unexplained cross-firing; the
+control confirmed the checker's scope boundary holds. Rule 4b (two branches
+on the SAME host sharing an H1) could not be exercised against Cherry Lane
+specifically, because Cherry Lane is a single-host branch with no sister
+branch on cherrylanepharmacy.co.uk - structurally inapplicable here, not a
+gap, matching the same structural finding the twentieth pass recorded for
+check-opening-hours.js's rules 1-3 and 7. Guard coverage for item 3.4 now
+extends to 19 of 36 checkers proven by direct injection (up from 18).
+
+LIVE HALF
+Not attempted this pass. Claude in Chrome was used earlier in this run for
+the step 3 answer-pickup fetch and was closed cleanly afterward; re-opening
+it for a live spot-read was judged out of scope for a pass whose subject is
+a paste-sheet/page-data checker with no live-page counterpart to verify
+(the SEO title/description strings live in Weebly's SEO Settings panel, not
+in the rendered page body, so a live fetch of the page itself would not
+show what Google actually indexes for title/description; only the H1 half
+is visible live, and the twentieth pass already reconfirmed Cherry Lane's
+live UTI and Pharmacy First pages within the last two days). Not claimed
+fixed or freshly reconfirmed either way.
+
+QUESTIONS
+QUESTIONS.json re-read (109 total, 56 open, unchanged from the start of
+this run). No new question raised - this pass proved a checker's rules
+sound against a specific branch's data rather than surfacing a decision for
+Rishi.
+
+NEXT STALEST
+Re-derive rather than assume. At the point this pass started, the tied set
+was {3.6, 3.10, 4.4, 4.9, 4.15, 5.2} (all at 2026-09-15, 3.4 now moved to
+2026-09-16); lowest is 3.6.

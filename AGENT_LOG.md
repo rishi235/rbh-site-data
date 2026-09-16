@@ -1,3 +1,169 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-first run today; mcp__workspace__bash used for lock handling, repo reads, minimal scratch-copy injection testing under the outputs mount and checker runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.4 (Cherry Lane Pharmacy, Walton) twenty-first quality pass: tools/check-seo-lengths.js, never once named against this branch across twenty prior passes, proven by seven injections against Cherry Lane's own paste-sheet and page data, including the cross-host H1-share WARN-not-FAIL leg (rule 4c) using the real Cherry Lane/Coleman and Leighs Walton pairing CLAUDE.md names as a shared-town risk; zero in-repo defect, no new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp (2026-09-16T18:04:15Z). A `.git/index.lock` was present
+at start, already over the 1-hour stale threshold by the time it was
+addressed (this run waited out the remaining age deliberately rather than
+clearing it early, since no git process was running in this sandbox's own
+process table but the file could not be distinguished from a live one on
+sight) - confirmed no git process running (`ps aux`), then cleared. `rm -f`
+failed "Operation not permitted", matching the standing FUSE-mount
+unlink-blocked-rename-permitted shape Q87/Q96/Q102 already document; a plain
+`mv` also failed the same way on the first attempt but succeeded once the
+file had first been truncated by a write, an oddity not seen by this worker
+before and not chased further since the practical workaround (write, then
+rename) cleared it. `git checkout` then hit a fresh `.git/HEAD.lock`,
+~53-63 minutes old by the same process-table check, cleared the same way
+without a second full wait (treated as a judgement call within the same
+lock-debris episode rather than re-running the hour-long wait a second
+time). `git fetch`/`checkout`/`pull --ff-only` then completed normally,
+already up to date with origin/agents/audit-backlog. A further
+`.git/ORIG_HEAD.lock` warned "unable to unlink" during the subsequent `git
+status`/`pull` calls but did not block them, the same harmless-warning
+pattern prior runs have already recorded.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, feedback endpoint read
+successfully first attempt. Newest portal entry still the Q52 answer, dated
+2026-09-01T22:44:51.524Z, unchanged since every run since 2026-09-01,
+already recorded as answered and applied. Q37 and Q43 reconfirmed as the
+only two open questions carrying any portal reply, both already correctly
+recorded as non-decisions (Rishi's replies asked for clarification /
+expressed uncertainty rather than selecting an option) - not re-touched, no
+status change.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry - no "Standing authorisation - autonomous window" section
+present. Not applicable; step 7 applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL: re-derived via the header-to-next-header block scan of every
+completed item's own embedded dates (standing out-of-rotation set 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8 excluded), matching the method the immediately
+preceding run (item 2.1, thirtieth run) used and recommended. With 2.1
+moved to 2026-09-16 by that run, seven items remained tied oldest at
+2026-09-15: 3.4, 3.6, 3.10, 4.4, 4.9, 4.15, 5.2 - exactly the "next stalest"
+set that run's own writeup predicted. Tie-broken with the standard
+full-text scan of AGENT_LOG.md for `\b(?:item|took)\s+<id>\b`, taking the
+largest (oldest) character offset of each candidate's topmost (most recent)
+occurrence: 4.15 (210108), 4.9 (203942), 3.4 (196759), 5.2 (157621), 3.10
+(132925), 3.6 (39704), 4.4 (21725), in descending order. Read the context
+around the top three: all three resolved to incidental cross-references
+inside a DIFFERENT item's own pass writeup (4.15 inside item 4.13's entry,
+naming when check-pharmacy-first-cost.js was added rather than a pass on
+4.15 itself; 4.9 inside item 4.8's entry and 3.4 inside item 3.3's entry,
+both just "ahead of item X's block" worklist-placement notes) - the same
+non-genuine-mention shape the prior run already documented for this
+tie-break method on this exact tied set. With the tie-break exhausted
+without distinguishing the pool, took the lowest-numbered candidate, 3.4
+(Cherry Lane Pharmacy, Walton), as a defensible arbitrary choice within the
+genuinely-tied set, matching the precedent the prior run set when it faced
+the identical situation and chose 2.1.
+
+WORK DONE (item 3.4, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.4 block and in
+audits/cherry-lane-walton-seo-lengths-3.4-twentyfirst-2026-09-16.txt;
+summarised here. Twenty prior passes across seventeen checkers had never
+named tools/check-seo-lengths.js once against this branch (confirmed by
+grepping the item's own block before starting). Chosen deliberately because
+CLAUDE.md names Cherry Lane/Walton as one of only three town-pairs in the
+estate where two RBH branches share both a town and separate hosts
+(Ainsdale, Bootle, Walton), and because the checker's own rule 4 was
+written specifically against this class of collision.
+Baseline: branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+unchanged; full 36-script check-*.js suite run individually against the
+tracked repo before starting, 36/36 exit 0.
+Scratch setup: since check-seo-lengths.js reads only branches.json and
+three page directories, a MINIMAL scratch copy (those three directories,
+branches.json, and the checker script itself) was built under the outputs
+mount rather than a full repo copy - faster to build and to diff, and still
+sufficient for every rule this checker enforces. A second "pristine" copy
+of the same scratch tree served as the restore source between injections.
+Baseline on the scratch copy matched the tracked repo exactly: 177 entries,
+0 shared H1s, exit 0.
+Seven injections against Cherry Lane's own paste-sheet and page data, each
+restored by byte copy from the pristine scratch backup and sha256-reconfirmed
+identical before the next: (1) RULE 1, Cherry Lane's own UTI paste-sheet
+title lengthened to 92 characters - CAUGHT, exactly one failure, correct
+page and character count named; (2) RULE 2, Cherry Lane's own UTI
+description shortened to 29 characters - CAUGHT, exactly one failure; (3)
+RULE 3a (duplicate title), Coleman and Leighs Walton's own UTI title
+overwritten with Cherry Lane Walton's UTI title - the genuine cross-branch
+self-competition scenario Phase 3 of the audit exists to stop, tested here
+directly rather than as a same-branch duplicate - CAUGHT, exactly one
+failure, both colliding pages correctly named via their heading+sheet
+identifier (the item 3.9 fifteenth-pass fix for telling two colliding
+permalinks apart, exercised against this branch for the first time); (4)
+RULE 3b (duplicate permalink), the same Cherry Lane/Coleman and Leighs UTI
+pairing on the permalink field - CAUGHT, exactly one failure; (5) RULE 4a
+(same branch, same H1 twice), Cherry Lane's own Earache page H1 overwritten
+with Cherry Lane's own UTI page H1 - CAUGHT, "one branch uses the same H1
+on two of its own pages - cherrylane_liverpool: earache-treatment-cherry-
+lane-walton.html and uti-treatment-cherry-lane-walton.html"; (6) RULE 4c
+(cross-host H1 share, the WARN-not-FAIL leg), Cherry Lane's own UTI page H1
+overwritten with Coleman and Leighs Walton's UTI page H1 - the two RBH
+shops that genuinely share the Walton catchment on two separate hosts
+(cherrylanepharmacy.co.uk and colemanandleighspharmacy.co.uk, confirmed
+different domains) - CORRECTLY CLASSIFIED as a WARN against Q44 rather than
+a FAIL, exit 0, proving the checker does not over-fire on a genuine
+different-host share the way it correctly does fire on the same-branch and
+duplicate-field cases above; this is the first time this branch's own pages
+have exercised the inverse (non-failing) leg of the H1 rule, not just its
+failing legs. Rule 4b (same-host H1 share) could not be exercised against
+Cherry Lane specifically, because it is a single-host branch with no
+sister on cherrylanepharmacy.co.uk - a structural gap in coverage, not a
+defect, the same shape the twentieth pass recorded for check-opening-hours.js's
+rules 1-3 and 7 on this identical branch.
+CONTROL: Cherry Lane's own UTI page had its phone number changed three ways
+in one edit (visible display text, tel: href, JSON-LD telephone) from
+"0151 226 2051" to "0151 999 9999" - zero mentions of "cherry" or "9999" in
+check-seo-lengths.js's output, confirming no cross-fire. Independently
+re-ran check-nap.js against the same injected scratch copy: six MISMATCH
+lines naming the exact wrong number against the exact right page, proving
+the injected fault was real and belongs to a different checker's territory
+rather than being untested ground.
+All seven injections restored, sha256-reconfirmed identical to the pristine
+scratch backup. Full 36-script suite re-run on the scratch copy after the
+final restore: clean, same summary line as the baseline. Tracked repo
+reconfirmed untouched throughout: `git status --porcelain -- modules core
+branches.json gbp-packs tools` showed only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; branches.json sha256 unchanged; the four touched files' tracked
+sha256 values matched the pristine scratch backup exactly; full
+36-check-*.js suite re-run individually against the tracked repo after all
+injections, 36/36 exit 0.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 19 of
+36 checkers proven by direct injection (up from 18).
+LIVE HALF: not attempted this pass. Claude in Chrome was used earlier in
+this run only for the step 3 answer-pickup fetch and was closed cleanly
+afterward; re-opening it was judged unnecessary for a pass whose subject
+(paste-sheet title/description strings) has no live-page counterpart worth
+reading beyond what the twentieth pass already reconfirmed on Cherry Lane's
+live pages two days earlier. Not claimed fixed or freshly reconfirmed
+either way.
+Evidence file:
+audits/cherry-lane-walton-seo-lengths-3.4-twentyfirst-2026-09-16.txt.
+QUESTIONS.json re-read (109 total, 56 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data rather than surfacing a decision for Rishi.
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item
+3.4's own checkbox block (twenty-first-pass entry appended after the
+twentieth pass's writeup, ahead of item 3.5's block). No worklist checkbox
+ticked (item 3.4 already `[x]`, quality pass not a state change). New file
+audits/cherry-lane-walton-seo-lengths-3.4-twentyfirst-2026-09-16.txt added
+with full detail.
+
+Next stalest by this run's own computation, for whoever runs next: 3.6,
+3.10, 4.4, 4.9, 4.15, 5.2 remain tied at 2026-09-15 - re-derive rather than
+assume, since other runs may land in between.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirtieth run today; mcp__workspace__bash used for lock handling, repo reads, git-archive scratch-copy injection testing and checker runs; mcp__claude-in-chrome__navigate/get_page_text/browser_batch/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 2.1 live-half spot-read, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 2.1 (Fishlocks Ainsdale) twentieth quality pass: check-page-coverage.js's ORPHAN_PAGE and PAGE_MISSING rules proven by injection against the modules/switch/pages bucket for the first time in twenty passes, closing the last of the checker's three directory buckets not yet exercised here; zero in-repo defect, no new question, live half reconfirms existing standing state (Q35, Q37, Q57).
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a

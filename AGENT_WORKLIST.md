@@ -5579,6 +5579,60 @@ Next stalest by this run's own computation, for whoever runs next: 3.6,
 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 4.1 remain tied at 2026-09-14 - re-derive
 rather than assume, since other runs may land in between.
 
+Quality pass 2026-09-16 (twenty-first): REPO HALF CLEAN, ZERO IN-REPO
+DEFECTS. Selected as the stalest completed item via the standard rotation
+derivation: all eight remaining `[ ]` worklist lines still [BLOCKED]; tied
+oldest pool at 2026-09-15 was {3.4, 3.6, 3.10, 4.4, 4.9, 4.15, 5.2}, tie-break
+exhausted on incidental cross-references (same shape prior runs have already
+documented), took lowest-numbered candidate 3.4.
+WORK DONE: twenty prior passes across seventeen checkers, but
+tools/check-seo-lengths.js had never been named once against this branch,
+despite CLAUDE.md naming Cherry Lane/Walton as one of only three shared-town,
+shared-host-risk pairs in the estate and despite the checker's own rule 4
+being written specifically for this kind of collision. Minimal scratch copy
+(branches.json plus the three page directories only, since that is all this
+checker reads) built under the outputs mount, tracked repo never opened for
+writing. Baseline matched tracked repo exactly (177 entries, 0 shared H1s,
+exit 0). Seven injections against Cherry Lane's own data, each restored by
+byte copy and sha256-reconfirmed before the next: (1) rule 1, Cherry Lane's
+own UTI title lengthened to 92 characters - CAUGHT; (2) rule 2, Cherry Lane's
+own UTI description shortened to 29 characters - CAUGHT; (3) rule 3a,
+Coleman and Leighs Walton's UTI title overwritten with Cherry Lane's UTI
+title (the real cross-branch self-competition case) - CAUGHT, both pages
+correctly named; (4) rule 3b, same pairing on the permalink field - CAUGHT;
+(5) rule 4a, Cherry Lane's own Earache H1 overwritten with its own UTI H1 -
+CAUGHT ("one branch uses the same H1 on two of its own pages"); (6) rule 4c,
+Cherry Lane's UTI H1 overwritten with Coleman and Leighs Walton's UTI H1 (the
+two RBH shops sharing the Walton catchment on separate hosts) - CORRECTLY
+WARNED rather than failed (exit 0, Q44), proving the checker does not
+over-fire on a genuine different-host share, the inverse of tests 3-5. Rule
+4b (same-host H1 share) is structurally inapplicable to Cherry Lane, a
+single-host branch with no sister on cherrylanepharmacy.co.uk - not a gap.
+CONTROL: Cherry Lane's UTI page had its phone number changed three ways
+(visible, tel:, JSON-LD) - zero mentions in check-seo-lengths.js's output;
+independently re-run check-nap.js caught the same injection by name (six
+MISMATCH lines), confirming the control was a real fault outside this
+checker's scope rather than untested ground. All seven restored, sha256
+reconfirmed identical to the pristine scratch backup. Full 36-script suite
+re-run on the scratch copy after final restore: clean, matching baseline.
+Tracked repo reconfirmed untouched throughout: git status --porcelain showed
+only the two long-standing pre-existing untracked strays, neither touched;
+branches.json sha256 unchanged (169bb5a2...b102); full 36-check-*.js suite
+re-run individually against the tracked repo, 36/36 exit 0.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 19 of 36
+checkers proven by direct injection (up from 18).
+LIVE HALF: not attempted this pass - the checker's subject (paste-sheet
+title/description strings and page H1s) has no useful live counterpart
+beyond what the twentieth pass already reconfirmed two days earlier; not
+claimed fixed or freshly checked either way.
+Evidence: audits/cherry-lane-walton-seo-lengths-3.4-twentyfirst-2026-09-16.txt.
+QUESTIONS.json re-read (109 total, 56 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data rather than surfacing a decision for Rishi.
+Next stalest by this run's own computation, for whoever runs next: 3.6,
+3.10, 4.4, 4.9, 4.15, 5.2 remain tied at 2026-09-15 - re-derive rather than
+assume, since other runs may land in between.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
