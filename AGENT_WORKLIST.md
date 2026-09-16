@@ -2126,6 +2126,59 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       this checker's subject. No new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-15-eighteenth.txt.
       Done 2026-09-15.
+      Nineteenth quality pass 2026-09-16 (unattended scheduled run, twelfth run
+      today). Rotation-selected: pool of 36 minus 1.3 (taken by the eleventh run
+      today) left 2.3 tied with 3.1 at the same log line; took 2.3 on the
+      lowest-item-number tiebreak. Repo half clean: full 35-checker suite
+      (check-cdn-pins.js excluded) exit 0 on the tracked repo before this pass
+      touched anything. FRESH ANGLE: tools/check-contraception-copy.js had never
+      been proven by injection against Cherry Lane's own contraception page in
+      eighteen prior passes. Full repo exported via git archive to a scratch
+      directory, tracked repo never opened for writing; branches.json and the
+      target page confirmed byte-identical to the tracked repo before any
+      mutation. Four injections on
+      modules/service/pages/contraception-cherry-lane-walton.html, each restored
+      by byte copy (from a kept .orig backup) and sha256-reconfirmed before the
+      next and after the last: (1) a price appended to the "Free NHS service"
+      bullet - caught by rule 5 (free); (2) the verbatim consent FAQ answer
+      reversed to "we will always tell your GP" - caught three ways, rule 3
+      (verbatim), rule 6 absence (required sentence missing) and rule 6 presence
+      (reversed phrase named); (3) "Cerazette" inserted into the page's own H1 -
+      caught by rule 8 (medicine); (4) a coil-fitting offer sentence inserted into
+      the body (this page has no </body> tag, being a Weebly paste fragment, so
+      the injection was placed in visible copy instead) - caught by rule 7
+      (larc). All four caught first attempt, on their intended rule. One
+      procedural note: the first restore attempt after injection 2 used `git show
+      HEAD:` out of habit, which does not work in a git-archive export with no
+      .git directory, and truncated the scratch file to zero bytes; caught
+      immediately by the sha256 check before the next injection, and corrected by
+      restoring from the kept .orig byte copy instead - the tracked repo was never
+      touched by this. Full 35-checker suite clean on the scratch copy after the
+      final restore; tracked repo confirmed untouched throughout (git status
+      --porcelain showed only the known pre-existing untracked strays;
+      branches.json and the target page's sha256 unchanged). No checker gap
+      found, no in-repo defect, no rule or page byte changed. Guard coverage for
+      this item now 18 of 36 checkers proven by direct injection (up from 17).
+      LIVE HALF PERFORMED (Claude in Chrome connected this run, read-only
+      throughout, no click/submit/login). The contraception page matches the
+      repo on every field this pass's injections targeted: no price, the consent
+      sentence present verbatim in the server-rendered markup, no LARC-offer
+      wording, no medicine name, correct service name, no-prescription-charge
+      phrase present. SIGNIFICANT FINDING: Q95's fault (five of seven Pharmacy
+      First condition cards showing "Page coming soon" with no href) is ABSENT
+      again this pass - all five previously-affected cards resolve to real
+      anchors, confirmed by reading the href attributes directly. This is the
+      latest "fixed again, not proven durable" observation in the ongoing
+      oscillation; evidence appended to Q95, status left open, not re-raised. Two
+      previously-logged live-only faults on the switch page reconfirmed
+      unchanged: the pre-Phase-3 SEO title, and the "How switching to Cherry Lane
+      Pharmacy works" paragraph's em dash still rendering as mojibake ("ÔÇö" in
+      the raw served HTML). The Q36 footer NHS mailbox typo
+      (pharmacy.FA226@mhs.net) was observed present on both pages checked this
+      pass, consistent with its already-logged instability; not re-raised. No
+      new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt. Done
+      2026-09-16.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.

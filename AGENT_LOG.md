@@ -1,3 +1,76 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, twelfth run today; mcp__workspace__bash used for lock handling, repo reads, git archive scratch-copy injection testing (byte-copy restore, sha256-verified) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool used for the live half (tabs_close_mcp attempted at the end but the extension had gone unreachable by then, tab left open, not a blocker); Read/Edit/Write used for AGENT_WORKLIST.md, QUESTIONS.json, the new audits file and this entry) - Item 2.3 (Cherry Lane Pharmacy, Walton) nineteenth quality pass: FRESH ANGLE, tools/check-contraception-copy.js had never been proven by injection against Cherry Lane's own contraception page in eighteen prior passes. Four injections on a git-archive scratch copy (price added, RULE 5; consent sentence reversed, RULE 6 plus cascading RULE 3; a medicine name inserted, RULE 8; a coil-fitting offer inserted, RULE 7), all caught first attempt on their intended rule, all restored by byte copy and sha256-reconfirmed, tracked repo untouched throughout. One procedural slip caught and corrected mid-pass: a restore attempt used `git show HEAD:` in a directory with no .git (a git-archive export), which truncated the scratch file to zero bytes; caught immediately by the sha256 check, fixed by restoring from a kept byte-copy backup instead, tracked repo never affected. Guard coverage for this item now 18 of 36 checkers. LIVE HALF (Claude in Chrome connected this run): the contraception page matches the repo on every injected field; SIGNIFICANT FINDING, Q95's oscillating "Page coming soon" fault on the Pharmacy First overview page is ABSENT again this pass (all seven condition cards resolve to real anchors) - evidence appended to Q95, left open, not re-raised. Two known live-only faults on the switch page (pre-Phase-3 SEO title, mojibake em dash) and the Q36 footer NHS mailbox typo all reconfirmed unchanged, none re-raised. No in-repo defect, no new question. Evidence: audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start (only
+the historical `.agent-lock.*`/test-probe debris family present, pre-existing,
+untouched). Wrote a fresh UTC timestamp (2026-09-16T08:03:57Z). No stale
+`.git/index.lock` older than 1 hour found (a fresh one appeared mid-run from this
+run's own `git status`/checker calls, 0 minutes old at each check, consistent with
+the standing FUSE-mount unlink restriction documented under Q96/Q102 - not stale,
+left alone). `git fetch origin` and `git checkout agents/audit-backlog` and `git
+pull --ff-only origin agents/audit-backlog` all completed cleanly ("Already up to
+date"), HEAD at `f62ce41` matching `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3, this run): not attempted via the browser this run (time spent
+on the item work instead of a separate feedback-endpoint round trip); QUESTIONS.json
+was inspected directly for open items as part of orienting on the worklist. 56 open
+questions unchanged in count from the eleventh run's own note. If a portal answer
+arrived since the eleventh run's read (2026-09-01T22:44:51.524Z, per that run's own
+entry), it was not picked up this run.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md (the
+eleventh run's own entry, then at the top) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable; step 7 applies
+as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines, all 8 still carry `[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, and the
+three Q60/Q66 lines under 6.4/6.5/6.6), unchanged. No actionable unchecked item.
+Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 36-item pool (43 checked AGENT_WORKLIST.md items minus the
+seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) derived
+from a fresh `grep -n "^- \[x\]"` scan. Derived the pick by a Python full-text scan
+of AGENT_LOG.md matching `(?:item|took)\s+<N>` word-bounded anywhere in the file,
+taking each pool item's topmost (most recent) mention line index, then picking the
+item whose own most-recent-mention line index was the LARGEST among the pool (=
+least recently mentioned even in passing). 2.3 and 3.1 tied at line 629 (both inside
+the same 2026-09-15 log entry's header line); took 2.3 on the lowest-item-number
+tiebreak, confirmed by reading that line directly.
+
+ITEM WORK (step 6, this run): full detail in
+`audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt` and in
+AGENT_WORKLIST.md's own item 2.3 block under "Nineteenth quality pass 2026-09-16" -
+summarised in this entry's own opening paragraph above.
+
+QUESTIONS (this run): none raised. Q95 (the Cherry Lane Pharmacy First overview
+"coming soon" oscillation) had a dated evidence note appended recording this pass's
+"fixed again" observation; status left open, not marked answered, consistent with
+every prior pass on this recurring finding.
+
+WRITE-UP (step 7, this run): AGENT_WORKLIST.md updated in place under item 2.3's own
+checkbox block (nineteenth-pass entry appended after the eighteenth-pass write-up).
+No worklist checkbox ticked (item 2.3 already `[x]`, quality pass not a state
+change). QUESTIONS.json's Q95 note field appended with this pass's evidence, status
+unchanged (open). New file
+`audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt` added with full
+detail.
+
+VERIFICATION (this run): full 35-checker suite (check-cdn-pins.js excluded, not
+relevant to this pass's scope) run individually on the tracked repo both before and
+after this pass's file edits - 35/35 exit 0 both times. `git status --porcelain --
+modules/ branches.json tools/` shows no change to any of those paths (only the two
+long-standing pre-existing untracked strays); `branches.json` and the target
+contraception page's sha256 both unchanged throughout. `git diff --stat` shows only
+AGENT_WORKLIST.md and QUESTIONS.json changed, plus the new audits/ file untracked.
+QUESTIONS.json re-parsed with `JSON.parse` after the edit to confirm it is still
+valid.
+
+GIT SYNC / PUSH (steps 9-10, this run): outcome and commit hash recorded at the top
+of the next entry once confirmed pushed (standing Q87/Q96/Q102 sandbox-credential
+workaround applies: sandbox `git push` expected to fail on missing credentials,
+falling back to `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` working copy if so).
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, eleventh run today; mcp__workspace__bash used for lock handling, repo reads, python3 rotation-pool derivation via full-text log scan, scratch-copy injection testing (plain recursive copy, sha256-verified) and checker/generator runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_context_mcp/tabs_close_mcp used for the answer-pickup fetch; Read/Edit/Write used for tools/check-postcodes.js, AGENT_WORKLIST.md, the new audits file and this entry) - Item 1.3 (McCanns Sandringham postcode sweep) twentieth quality pass: found and fixed a LIVE defect on the tracked repo (check-postcodes.js was failing with 3 failures before this pass touched anything, because the same morning's item 1.2 twentieth pass had committed two injection postcodes, PR9 3HW and L20 1DN, quoted in AGENT_LOG.md and its own audits file but never added to NARRATIVE_POSTCODES - the fifteen-times-recorded committed-without-being-added gap, this time via a different item's pass); fixed by adding both values with reasons, tracked repo re-run clean (0 failures, 3 standing warnings). Also closed a previously-untested angle: rank()'s tie-break for the deliberate shared L9 7AS postcode (Clear Chemist Aintree vs head office) had never been proven by injection in nineteen prior passes - proved on a scratch copy that both FOREIGN and MISATTRIB correctly attribute the shared postcode to the trading branch (clearchemist_aintree), not head office, matching the rank() formula by hand calculation. No new question.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start (only the

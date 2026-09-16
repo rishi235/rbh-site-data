@@ -1,0 +1,149 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - nineteenth quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-16 (twelfth run today)
+Tooling: mcp__workspace__bash (lock handling, repo reads, git archive scratch copy,
+injection testing, checker runs), mcp__claude-in-chrome (navigate/get_page_text/
+javascript_tool for the live half), Read/Edit/Write (AGENT_WORKLIST.md, AGENT_LOG.md,
+this file).
+
+ROTATION POOL SELECTION
+Pool = 43 checked AGENT_WORKLIST.md items minus the seven standing out-of-rotation
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36 items: 1.2, 1.3, 2.1, 2.3, 3.1-3.13,
+4.1-4.15, 5.1, 5.2, 6.2, 6.3. Derived by a Python full-text scan of AGENT_LOG.md
+matching (?:item|took)\s+<N> word-bounded anywhere in the file, taking each pool
+item's topmost (most recent) mention line index, then picking the item whose own
+most-recent-mention line index is the LARGEST (= least recently mentioned even in
+passing). Item 1.3 was taken by the eleventh run today (line ~26, its own twentieth
+pass). Among the remaining pool, 2.3 and 3.1 tied at line 629 (both inside the same
+2026-09-15 log entry header). Tiebreak: lowest item number. Took 2.3.
+
+BASELINE (tracked repo, before any mutation)
+git status --porcelain clean except long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/notarealservice-
+fishlocks-ainsdale.html.bak) and the .agent-lock/.agent-lock.* debris family. Full
+35-checker suite (check-cdn-pins.js excluded on the scratch half only; ran clean on
+the tracked repo too) exit 0. Six generators not re-run this pass (no data or
+generator change contemplated).
+
+FRESH ANGLE
+tools/check-contraception-copy.js had never been proven by injection against Cherry
+Lane's own contraception page (contraception-cherry-lane-walton.html) in eighteen
+prior passes - confirmed by grep, zero matches for "check-contraception-copy" or
+"contraception-copy" anywhere in this item's own AGENT_WORKLIST.md text beforehand.
+This is the estate's other NHS clinical service checker (alongside check-pharmacy-
+first-eligibility.js, proven on the fourth pass) and had not been exercised here
+despite Cherry Lane carrying a live contraception widget and page.
+
+METHOD
+Full repo exported via `git archive HEAD | tar -x` to a scratch directory
+(/tmp/scratch-2.3-nineteenth). Tracked repo never opened for writing at any point.
+branches.json and the target page confirmed byte-identical to the tracked repo
+before any mutation (sha256):
+  branches.json: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  contraception-cherry-lane-walton.html:
+    e88dc8e5691ddaea45016f6fb3dc269a3c562f8c62d1b50ecbe55d7e086be84a
+Baseline run of check-contraception-copy.js on the untouched scratch copy: clean (14
+pages read, 22 copy lines pinned, 5 FAQ pairs, 1 accepted breach - the standing
+Q47 safeguarding KNOWN entry - 0 failures).
+
+A byte-copy backup (.orig) of the target file was kept and used to restore after
+each injection, verified by sha256 each time.
+
+INJECTIONS (all against modules/service/pages/contraception-cherry-lane-walton.html)
+
+1. RULE 5 (free): "Free NHS service" changed to "Free NHS service, from £15" in the
+   trust-bar bullet.
+   Result: CAUGHT. [free] ... states a price, "£1", on a free NHS service page.
+   Restored, sha256 reconfirmed e88dc8e5...b102ad1b102 (matches baseline).
+
+2. RULE 6 (consent, reversed): the verbatim FAQ answer sentence ("...only tell your
+   GP that you have used the service if you give your consent.") replaced with
+   "we will always tell your GP that you have used the service".
+   Result: CAUGHT, three-way: [verbatim] the generator's own FAQ line no longer
+   found; [consent] the required consent sentence absent; [consent] the reversed
+   phrase "we will always tell your gp" flagged directly. This is the expected
+   cascading pattern (rule 3 plus rule 6 both firing on the same edit).
+   NOTE: the scratch directory has no .git (git archive export), so `git show HEAD:`
+   does not work there. The first restore attempt used that command by mistake and
+   truncated the file to zero bytes (sha256 e3b0c44...b855, the empty-string hash) -
+   caught immediately by re-checking the hash against baseline before proceeding,
+   then correctly restored from the .orig backup and reconfirmed byte-identical
+   (e88dc8e5...b102ad1b102). No tracked-repo file was ever touched by this mistake;
+   it was confined to the scratch copy. Recorded here so a future pass on any item
+   does not repeat it: restore scratch-copy injections from a byte-copy backup, not
+   from git, when working in a directory git archive produced.
+
+3. RULE 8 (medicine): "Cerazette" inserted into the page's own <h1>.
+   Result: CAUGHT. [medicine] ... names "cerazette", a prescription-only medicine,
+   in public advertising copy. Restored, sha256 reconfirmed matching baseline.
+
+4. RULE 7 (larc offer): "<p>We fit the coil at this branch.</p>" inserted
+   immediately after the <h1> (this page carries no </body> tag - it is a Weebly
+   paste fragment ending after its JSON-LD <script>, so the injection was placed in
+   visible body copy instead).
+   Result: CAUGHT. [larc] ... says "we fit". This service supplies oral
+   contraception; a coil, implant or injection must be signposted elsewhere, not
+   offered here. Restored, sha256 reconfirmed matching baseline.
+
+All four caught first attempt, on their intended rule. Full 35-checker suite
+(check-cdn-pins.js excluded, scratch copy has no .git) re-run clean on the scratch
+copy after the final restore. Tracked repo confirmed untouched throughout this
+entire pass: `git status --porcelain -- modules/ branches.json tools/` showed only
+the pre-existing untracked stray; branches.json and the target page's sha256
+unchanged before and after. No checker gap found, no in-repo defect, no rule or
+page byte changed.
+
+Guard coverage for this item: 18 of 36 checkers now proven by direct injection
+against Cherry Lane specifically (up from 17 after the eighteenth pass).
+
+LIVE HALF (performed - Claude in Chrome connected this run, read-only throughout;
+no click, no submit, no login; javascript_tool used only to read
+document.documentElement.outerHTML and run string matches, not to interact with the
+page)
+
+Contraception page (contraception-cherry-lane-walton.html), checked against the
+exact fields this pass's injections targeted:
+  - no price string (£ or "from N") found anywhere on the page
+  - consent sentence present verbatim: "only tell your GP that you have used the
+    service if you give your consent" (found in the page's own HTML; the FAQ answer
+    is inside a collapsed accordion in the visible-text extraction but is present in
+    the server-rendered markup, confirmed by reading document.documentElement.outerHTML
+    directly rather than the rendered/visible text only)
+  - no LARC-offer phrase found (13-phrase sweep, zero matches)
+  - no medicine name found (36-name sweep, zero matches)
+  - service correctly named "NHS Pharmacy Contraception Service"
+  - "no prescription charge" phrase present
+  Live page matches the repo on every point this pass tested. No live fault found
+  on this checker's own subject.
+
+Pharmacy First overview page (pharmacy-first-cherry-lane-walton.html): Q95's fault
+(five of seven condition cards showing "Page coming soon" with no href) is ABSENT
+again this pass - "Page coming soon" count = 0, and all five previously-affected
+condition anchors (Sinusitis, Earache, Impetigo, Shingles, Infected insect bite)
+resolve to real hrefs on their own condition pages, confirmed by reading the actual
+anchor elements and their href attributes, not just visible text. This is at least
+the third "fixed again" observation in the ongoing oscillation (broken: 2026-08-04,
+2026-09-04, 2026-09-05, 2026-09-11, 2026-09-12; fixed: 2026-09-02, 2026-09-09, and
+now 2026-09-16) - evidence appended to Q95, status left open, not re-raised as a new
+question, consistent with this item's own established practice of treating this as
+"fixed again, not proven durable".
+
+Switch page (switch-prescriptions-cherry-lane-walton.html): two previously-logged
+live-only faults reconfirmed unchanged, neither in copy this repo owns:
+  - SEO title still the pre-Phase-3 string: "Switch Your Prescriptions - Cherry Lane
+    Pharmacy Walton" (paste sheet target: "Switch Your Prescriptions to Cherry Lane
+    Pharmacy, Walton")
+  - the "How switching to Cherry Lane Pharmacy works" lead paragraph's em dash still
+    renders as mojibake, confirmed in the raw served HTML as "ÔÇö", the same
+    corrupted-byte pattern independently confirmed by multiple earlier passes
+Both already tracked (3.1/5.1/Q3, the estate repaste backlog); not re-raised.
+
+Q36 footer NHS mailbox typo: "pharmacy.FA226@mhs.net" (should be @nhs.net) observed
+present in the footer of both the contraception page and the switch page checked
+this pass. Consistent with this typo's already-logged instability (seen present and
+seen absent across different passes); not re-raised, evidence only.
+
+QUESTIONS
+None raised this pass. No new in-repo defect and no ambiguity requiring Rishi's
+decision. Q95 and Q36 both remain open with this pass adding evidence only.
+
+Done 2026-09-16.
