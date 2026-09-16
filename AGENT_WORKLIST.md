@@ -4099,6 +4099,100 @@ Quality pass 2026-09-15 (eighteenth), but as a DEFECT FIX not another
       in this backlog (Q7, Q13, Q49). QUESTIONS.json: Q44's answer extended
       with an "APPLIED 2026-09-15" addendum. Full detail in
       AGENT_LOG.md's dated entry for this pass.
+Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
+      worklist items still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, the two
+      Q60 lines under 6.4/6.5, 6.6), so this is a rotation quality pass.
+      Rotation pool re-derived two ways: a full-text scan of AGENT_LOG.md
+      (matching (?:item|took) N anywhere, taking each pool item's most
+      recent line and picking the item whose most recent mention sits
+      furthest down the file) and, cross-checked, a scan of each pool
+      item's own AGENT_WORKLIST.md block for its newest embedded date -
+      both agreed 3.3 was the stalest (block-date method: every pool item
+      tied at 2026-09-15 except six items already touched 2026-09-16
+      earlier today; log-scan method broke the tie in 3.3's favour, its
+      last mention (a cross-reference inside a neighbouring item's entry)
+      sitting later in the file than any other pool item's own last
+      mention). Taken.
+      FRESH ANGLE: the item's own seventeenth-pass entry (2026-09-12)
+      explicitly recorded eight checkers "never been named once for this
+      item across seventeen passes" - check-whatsapp-route.js,
+      check-address-region.js, check-service-links.js,
+      check-page-coverage.js's ORPHAN_PAGE rule, check-editor-snapshot.js,
+      check-branch-links.js, check-fragment-targets.js and
+      check-cdn-pins.js - and the eighteenth pass (2026-09-15) was a
+      defect-fix pass (Q44) rather than an injection pass, so the list
+      stood unchanged going into this run. Took check-branch-links.js,
+      which reads the link fields inside branches.json itself (odsCode,
+      nhsEmail, nhsReviewUrl, googleReviewUrl, website, pfLink) rather
+      than the generated pages, and had never been proven by injection
+      against either Fishlocks branch's own record under this item's own
+      pass (the pfLink ownership rule's origin story, in the checker's own
+      header comment, traces to a fishlocks_ainsdale.pfLink swap, but that
+      proof ran under item 2.1's own pass, not 3.3's).
+      METHOD: all work on a full scratch copy of branches.json and tools/
+      at /tmp/scratch-3.3 (rsync-equivalent cp), tracked branches.json
+      never opened for writing. Baseline run clean (16 branches, 1
+      pre-existing WARN on Clear Chemist Aintree's missing nhsReviewUrl,
+      unrelated to this item). Six injections plus one control, each
+      restored from a saved byte copy and diffed/sha256-reconfirmed
+      identical before the next: (1) fishlocks_ainsdale.nhsEmail changed
+      to a wrong ODS code - CAUGHT, exact expected-value message; (2)
+      fishlocks_eccleston.nhsReviewUrl truncated at the ODS code, the
+      original Gordon Short defect shape - CAUGHT, "Anything short of
+      /leave-a-review lands the patient on the profile page instead of
+      the review form"; (3) fishlocks_eccleston.googleReviewUrl set equal
+      to fishlocks_ainsdale's - CAUGHT as a cross-branch duplicate; (4)
+      fishlocks_ainsdale.website given a trailing slash - CAUGHT on the
+      website rule, and correctly cross-fired the pfLink host rule too as
+      an honest side effect (the malformed host no longer matches the
+      pfLink prefix), not a masking failure; (5) fishlocks_eccleston.
+      odsCode set equal to fishlocks_ainsdale's - CAUGHT as a duplicate,
+      and correctly cross-fired the nhsEmail and nhsReviewUrl rules too,
+      since both are derived from odsCode; (6) fishlocks_ainsdale.pfLink
+      repointed at Eccleston's own Pharmacy First page - CAUGHT by the
+      ownership rule, reconfirming under this item's own pass the exact
+      scenario the rule was designed against under item 2.1's. CONTROL: a
+      benign extra keyword appended to fishlocks_ainsdale.keywords -
+      correctly passed clean, no cross-firing. All seven fired or passed
+      on the intended rule, first attempt. Final restore confirmed by
+      sha256 match against the baseline. Tracked repo's own branches.json
+      confirmed sha256-unchanged throughout; git status --porcelain on
+      branches.json/modules/core/tools/gbp-packs empty bar the two
+      long-standing pre-existing untracked strays (gbp-packs/
+      .fuse_hidden0000000400000001, modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither touched. Full
+      36-checker suite re-run on the tracked repo afterwards: 36/36 exit
+      0. No in-repo defect: check-branch-links.js already correctly
+      protects both Fishlocks branches' link fields on every rule tested,
+      proven under this item's own pass for the first time.
+      LIVE HALF: Claude in Chrome connected and single-instance this run
+      (the answer-pickup fetch below succeeded first, confirming no
+      repeat of the Q59 dual-extension block). Read uti-treatment-
+      fishlocks-ainsdale.html live: page <title> already reads "UTI
+      treatment in Ainsdale - Fishlocks Chemist" (the family A title
+      pattern, unchanged by Q44), but the H1 itself (confirmed via a
+      targeted element read, not just the flattened page text) still
+      reads the bare "UTI treatment in Ainsdale" with no brand suffix -
+      the eighteenth pass's Q44 H1 fix has not yet reached live, exactly
+      as that pass recorded ("not yet live pending a Weebly paste"). Not
+      a new finding. The standing Q37 findings (Weebly-native footer
+      naming the business "Fishlock Pharmacy"/"Fishlock Chemist" rather
+      than "Fishlocks", "17 Station Rd" abbreviated against branches.
+      json's "17 Station Road", and the separate correctly-worded
+      "Fishlocks Chemist" trust-bar footer sitting alongside rather than
+      instead of the wrong block) were all reconfirmed present and
+      unchanged on this page. No new live finding; nothing raised.
+      ANSWER PICKUP (step 3, this run): fetch to
+      https://data.rbhealth.co.uk/api/feedback succeeded first attempt,
+      no Cloudflare Access login page - Q59's dual-extension block did
+      not recur this run either. Newest entry still Q52, dated
+      2026-09-01. Q37 and Q43 (the only open questions with any portal
+      reply at all) reconfirmed already correctly marked "PORTAL REPLY
+      RECEIVED 2026-09-01, NOT A DECISION" by an earlier run, no reply
+      postdating those notes. No QUESTIONS.json change made.
+      QUESTIONS (this run): no new QUESTIONS.json entry raised. Full
+      detail in audits/fishlocks-item-3.3-quality-pass-2026-09-16-
+      nineteenth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

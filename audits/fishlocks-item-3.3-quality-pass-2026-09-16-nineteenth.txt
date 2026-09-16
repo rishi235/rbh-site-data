@@ -1,0 +1,193 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - quality pass, nineteenth
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-16
+
+SELECTION
+All unchecked AGENT_WORKLIST.md items remain [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, the two Q60 lines under 6.4/6.5, and 6.6). Rotation quality pass
+required.
+
+Rotation pool = the 36-item pool prior runs have used (all checked items
+minus the seven standing out-of-rotation ones: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8).
+
+Method 1 (AGENT_WORKLIST.md block-date scan): for each pool item, found its
+own checkbox block and took the newest YYYY-MM-DD date string embedded in it.
+Result: every pool item tied at 2026-09-15 except 4.1, 4.3, 4.5, 4.8, 4.10 and
+4.13, which had already been touched 2026-09-16 by earlier runs today. No
+single winner from this method alone.
+
+Method 2 (AGENT_LOG.md full-text scan): matched (?:item|took)\s+<N> anywhere
+in AGENT_LOG.md (case-insensitive, word-bounded so "3.3" cannot match inside
+"3.30" etc), recorded the smallest line index (= most recent mention) per
+pool item, then picked the item whose most-recent-mention line index was
+LARGEST (= least recently mentioned at all, even in passing). 3.3's most
+recent mention resolved to line 783, a cross-reference inside a neighbouring
+item's own write-up ("the exact mistake the item 3.3 eighteenth-pass entry
+already recorded a lesson about"). Every other pool item's most recent
+mention (real pass or cross-reference) sat at a smaller line index, i.e. more
+recent. 3.3 was therefore the stalest by this measure, and since it is
+stalest even counting a passing cross-reference as a "mention", it is
+stalest a fortiori by any measure that counts only genuine passes.
+
+Both methods agree 3.3 is the correct pick (tied under method 1, uniquely
+stalest under method 2's finer resolution). Taken.
+
+FRESH ANGLE
+Read the item's full nineteen-line pass history in AGENT_WORKLIST.md before
+choosing. The seventeenth pass (2026-09-12) explicitly recorded, in its own
+write-up: "check-whatsapp-route.js, check-address-region.js,
+check-service-links.js, check-page-coverage.js's ORPHAN_PAGE rule,
+check-editor-snapshot.js, check-branch-links.js, check-fragment-targets.js
+and check-cdn-pins.js have still never been named once for this item across
+seventeen passes." The eighteenth pass (2026-09-15) implemented Q44 (a defect
+fix regenerating 56 pages across four shared-town branches, Fishlocks among
+them) rather than running an injection proof, so the eight-checker gap list
+was unchanged going into this run.
+
+Picked check-branch-links.js. It reads the link fields inside branches.json
+itself (odsCode, nhsEmail, nhsReviewUrl, googleReviewUrl, website, pfLink)
+rather than the generated pages, so no page-level checker proof stands in for
+it. Its own header comment documents that the pfLink ownership rule (the
+last rule added to the file) traces its origin to a fishlocks_ainsdale.pfLink
+swap - but that injection ran under item 2.1's own pass on 2026-08-12, not
+under item 3.3's. Confirmed by grepping item 3.3's own 634-line
+AGENT_WORKLIST.md block for "check-branch-links.js": zero hits, consistent
+with the seventeenth pass's own list.
+
+BASELINE
+rsync-equivalent copy (cp -r --no-preserve=mode) of branches.json and tools/
+into /tmp/scratch-3.3. Tracked branches.json never opened for writing at any
+point in this pass. Baseline run of tools/check-branch-links.js against the
+scratch copy: clean, 16 branch records read, one pre-existing WARN
+(clearchemist_aintree.nhsReviewUrl missing, a long-standing deliberate
+difference unrelated to this item). sha256 of the scratch branches.json
+recorded before any injection.
+
+Current field values for both Fishlocks records, read from branches.json
+before any injection (for reference):
+  fishlocks_ainsdale:  odsCode FK848,  nhsEmail pharmacy.FK848@nhs.net,
+    nhsReviewUrl https://www.nhs.uk/services/pharmacy/fishlock-chemists/XFK848/leave-a-review,
+    googleReviewUrl https://g.page/r/Cfl0iMf3cgGaEAE/review,
+    website https://www.fishlockpharmacy.co.uk,
+    pfLink https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html
+  fishlocks_eccleston: odsCode FKJ81, nhsEmail pharmacy.FKJ81@nhs.net,
+    nhsReviewUrl https://www.nhs.uk/services/pharmacy/fishlocks-pharmacy/XFKJ81/leave-a-review,
+    googleReviewUrl https://g.page/r/CYyjtWbSXqEkEAE/review,
+    website https://www.fishlockpharmacy.co.uk,
+    pfLink https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html
+All fields already correct against every rule before any injection.
+
+INJECTIONS (all on the scratch copy; each restored from a saved byte copy
+and diff/sha256-reconfirmed identical before the next injection and again at
+the end)
+
+1. fishlocks_ainsdale.nhsEmail -> "pharmacy.WRONG848@nhs.net"
+   CAUGHT: "fishlocks_ainsdale.nhsEmail: is \"pharmacy.WRONG848@nhs.net\",
+   expected \"pharmacy.FK848@nhs.net\"."
+
+2. fishlocks_eccleston.nhsReviewUrl truncated at the ODS code (dropped
+   "/leave-a-review"), the exact shape of the original Gordon Short Crosby
+   defect this checker was built against.
+   CAUGHT: "fishlocks_eccleston.nhsReviewUrl: is
+   \"https://www.nhs.uk/services/pharmacy/fishlocks-pharmacy/XFKJ81\".
+   Expected .../XFKJ81/leave-a-review. Anything short of /leave-a-review
+   lands the patient on the profile page instead of the review form."
+
+3. fishlocks_eccleston.googleReviewUrl set equal to fishlocks_ainsdale's.
+   CAUGHT: "fishlocks_eccleston.googleReviewUrl: is the same link as
+   fishlocks_ainsdale, so a review meant for one branch would land on the
+   other's listing."
+
+4. fishlocks_ainsdale.website given a trailing slash.
+   CAUGHT on the website rule ("Expected https, a bare host, no trailing
+   slash and no path") AND correctly cross-fired the pfLink host rule in the
+   same run ("which is not on this branch's own site
+   (https://www.fishlockpharmacy.co.uk/)") - an honest side effect, not
+   masking: a malformed website genuinely breaks the pfLink-host comparison
+   too, and both fired independently and correctly.
+
+5. fishlocks_eccleston.odsCode set equal to fishlocks_ainsdale's (FK848).
+   CAUGHT as a duplicate ODS code, and correctly cross-fired the nhsEmail
+   and nhsReviewUrl rules too (both are derived FROM odsCode, so a wrong
+   odsCode makes both read as mismatched against the now-wrong expected
+   value) - again an honest cascade, not a masked failure.
+
+6. fishlocks_ainsdale.pfLink repointed at Eccleston's own Pharmacy First
+   page (https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-
+   eccleston.html).
+   CAUGHT by the ownership rule: "a Pharmacy First page belonging to
+   fishlocks_eccleston (\"Fishlocks Chemist Eccleston\"), not to this
+   branch... Both branches are served from
+   https://www.fishlockpharmacy.co.uk, so the link resolves and every
+   Pharmacy First route this field feeds... quietly books the patient into
+   the wrong pharmacy." This reconfirms, under item 3.3's own pass for the
+   first time, the exact scenario the rule's own header comment says it was
+   designed against (which was proven under item 2.1's pass, not 3.3's).
+
+CONTROL: appended a benign extra keyword ("test-control-keyword") to
+fishlocks_ainsdale.keywords, unrelated to any link rule.
+PASSED CLEAN: no cross-firing, same single pre-existing WARN as baseline.
+
+All seven injections/control fired or passed on the intended rule, first
+attempt. Final restore: diff against the pre-injection backup empty, sha256
+of the restored scratch branches.json identical to the recorded baseline
+hash. Re-ran check-branch-links.js on the restored scratch copy: clean,
+identical to the baseline output.
+
+TRACKED REPO CONFIRMATION
+sha256 of the real branches.json checked before and after this pass:
+identical (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102)
+throughout - the tracked file was never opened for writing at any point.
+git status --porcelain -- branches.json modules core tools gbp-packs: only
+the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Full 36-checker suite re-run on the tracked repo: 36/36 exit 0.
+
+NO IN-REPO DEFECT FOUND. check-branch-links.js already correctly protects
+both Fishlocks branches' link fields on every rule exercised, now proven
+under item 3.3's own pass for the first time.
+
+LIVE HALF
+Claude in Chrome connected and single-instance this run (confirmed by the
+answer-pickup fetch below succeeding first, with no Cloudflare Access login
+page - Q59's standing dual-extension block did not recur).
+
+Read https://www.fishlockpharmacy.co.uk/uti-treatment-fishlocks-ainsdale.html
+live, read-only. The page <title> already reads "UTI treatment in Ainsdale -
+Fishlocks Chemist" (the ordinary family A title pattern, unrelated to Q44).
+The H1 itself was confirmed via a targeted element read (not just the
+flattened page text, which can visually run the H1 and the trust-strap
+together) to still read the bare "UTI treatment in Ainsdale" with no brand
+suffix. This means the eighteenth pass's Q44 H1 fix has not yet reached live,
+exactly as that pass's own write-up expected ("Not yet live pending a Weebly
+paste"). Not a new finding.
+
+Also reconfirmed present and unchanged on the same page, all standing Q37
+findings: the Weebly-native contact-block footer still names the business
+"Fishlock Pharmacy" (Ainsdale block) and "Fishlock Pharmacy" (Eccleston
+block) rather than "Fishlocks"; the legal line still reads "Fishlock Chemist
+(GPHC no. 1121085 and 1034673)"; the Ainsdale address in that same block
+still abbreviates "17 Station Rd" against branches.json's "17 Station Road";
+and the separate, correctly-worded second footer block ("Fishlocks Chemist -
+two local NHS pharmacies in Ainsdale & Eccleston", full "17 Station Road")
+sits alongside rather than instead of the still-wrong block, matching the
+2026-08-31 addendum to Q37 exactly. No new live finding; nothing raised.
+
+ANSWER PICKUP (step 3, this run)
+mcp__claude-in-chrome__navigate to https://data.rbhealth.co.uk/api/feedback
+and get_page_text returned the feedback JSON directly on the first attempt,
+no Cloudflare Access login page - Q59's dual-extension block did not recur
+this run either (second run in a row now). Newest entry unchanged, still
+Q52, dated 2026-09-01T22:44:51.524Z. Q37 and Q43 (the only two open
+questions with any portal reply on record at all) re-checked: both already
+carry a prior run's "PORTAL REPLY RECEIVED 2026-09-01, NOT A DECISION" note
+with status correctly left "open", and no reply postdating those notes was
+present in the feed. No QUESTIONS.json change made from this step.
+
+QUESTIONS
+No new QUESTIONS.json entry raised this run. Nothing found met the bar for a
+new decision: pure re-verification of documented checker behaviour against
+this item's own branch data on a previously untested checker file, no
+business, legal, pricing or regulatory content changed, no judgement call
+for Rishi.
