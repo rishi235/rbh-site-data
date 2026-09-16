@@ -1,3 +1,124 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-fourth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.4 (Scorah Chemists Bramhall pack) twentieth quality pass: three granular rules within tools/check-gbp-packs.js (transactional-CTA button label, lead pricing in posted copy, POM-class allusion without naming) proved by injection against this pack's own copy for the first time in twenty passes, despite each rule already being proven elsewhere in the estate; zero in-repo defect. Live half not repeated (fully re-verified one day prior, on the nineteenth pass). No new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
+fresh UTC timestamp (2026-09-16T19:33:58Z). `.git/index.lock` was found
+present (created by an earlier `git status` in this same run failing to
+unlink it, the standing FUSE mount restriction Q87/Q96/Q102 document); `mv`
+to a renamed path succeeded, `rm -f` was not attempted. `git fetch` /
+`checkout agents/audit-backlog` / `pull --ff-only` (sandbox mount,
+read-only use) completed normally, already up to date with
+origin/agents/audit-backlog at bad29bf (item 3.10's own commit, confirmed
+pushed).
+
+ANSWER PICKUP (step 3): exactly one connected browser
+(f153c338-0ebe-43a6-b7b1-dbede00f431e), no Q59 conflict this run.
+https://data.rbhealth.co.uk/api/feedback read cleanly first attempt.
+Newest portal entry still the Q52 answer, dated 2026-09-01T22:44:51.524Z -
+unchanged since every run since 2026-09-01. No answer arrived for any of
+the 56 currently-open questions this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry (i.e. the prior run's own entry, for item 3.10) - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]"` AGENT_WORKLIST.md - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback, as every recent run also has.
+
+ROTATION POOL: the prior run's own entry had already re-derived and
+recorded the remaining tied-oldest pool at 2026-09-15 as {4.4, 4.9, 4.15,
+5.2} with 3.10 now taken, and stated "lowest is 4.4". Re-ran the tie-break
+scan fresh rather than trusting that note (`\b(?:item|took)\s+<id>\b`
+against AGENT_LOG.md, largest/oldest offset of each candidate's topmost
+occurrence): 4.4=52937, 4.9=13486, 4.15=241320, 5.2=13663. Read the context
+around the largest (4.15): the hit sits inside item 4.13's own eighteenth-
+pass write-up, citing "tools/check-pharmacy-first-cost.js, added on the
+item 4.15 quality pass" - a provenance reference, not a fresh pass on 4.15
+itself, the same non-genuine-hit shape the prior run found for its own top
+three candidates. Tie-break inconclusive again; took the lowest-numbered
+remaining candidate, 4.4 (Scorah Chemists Bramhall pack).
+
+WORK DONE (item 4.4, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.4 block and in
+audits/verify-4.4-2026-09-16-twentieth.txt; summarised here. Nineteen
+prior passes had proven all ten checkers that genuinely scan gbp-packs/
+against this pack, plus several granular rules within check-gbp-packs.js
+(sister-branch, hours-days, OUTCOME_PROMISE, photo shot list, catchment
+order, catchment membership, primary-category, category omission). Grepped
+the item's own write-up for "lead pricing", "button LABEL", "house
+number", "post town", "lunch closure" and "POM without" - the first three
+had never been named against this pack specifically (found on the item 4.5
+and 4.13 passes, against different packs). "Lunch closure" is a genuine
+scope limit on this branch: scorah_bramhall's own
+openingHours.specification carries one session per day, no lunch break.
+Baseline: gbp-packs/scorah-bramhall.md sha256
+de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14 unchanged
+throughout (standing anchor, matching every prior pass). Full 36-checker
+suite run individually against the tracked repo before starting: 36/36
+exit 0.
+Scratch copy via `tar --exclude='.git'` into /tmp, outside both mounted
+folders and the tracked repo. THREE INJECTIONS plus a control, each
+restored from a pristine backup and sha256-reconfirmed identical before
+the next: (1) transactional CTA rule, Post C's "Button: Book" changed to
+"Button: Buy now" - CAUGHT, "is the weight loss post and its button is
+labelled \"Buy now\" ... Use \"Book\" or \"Learn more\""; (2) lead pricing
+rule, "Weight loss consultations from just £99 a month." inserted into
+Post C's body - CAUGHT, "carries a price in the posted copy (\"£9\")";
+(3) POM-class-without-naming rule, Post C's opening reworded to "The
+skinny jab clinic at Scorah Chemists in Bramhall" - CAUGHT, "alludes to a
+prescription-only weight loss medicine without naming it, by the phrase
+\"skinny jab\""; CONTROL, Post D's closing sentence reworded harmlessly
+("on North Park Road" to "close to North Park Road", "no GP visit needed"
+to "no GP visit required") - correctly PASSED, exit 0, no cross-firing.
+All three injections fired on the first attempt, on their intended rule
+only. Final restore sha256-reconfirmed identical for the target file.
+Full 35-checker suite (cdn-pins excluded, no .git in the scratch copy)
+re-run clean on the scratch copy after cleanup: 35/35 exit 0;
+check-cdn-pins.js separately reconfirmed exit 0 against the tracked repo
+directly. Tracked repo confirmed untouched throughout via
+`git status --porcelain -- gbp-packs modules core branches.json tools`
+(only the standing pre-existing untracked strays, unchanged) and via
+direct sha256 comparison of gbp-packs/scorah-bramhall.md against the
+pre-run baseline (exact match). Full 36-checker suite re-run individually
+against the tracked repo after cleanup: 36/36 exit 0.
+RESULT: zero in-repo defect. All three rules were already correctly
+protecting this pack; now proven by injection for the first time in
+twenty passes rather than only passively observed in the "all 36 checkers
+pass" baseline.
+
+LIVE HALF: not attempted this pass. All five URLs this pack references
+were freshly read live, read-only, on the nineteenth pass one day prior
+(2026-09-15); re-fetching on back-to-back daily passes adds no new
+information, so this pass's time went to the repo-half fresh angle
+instead. No live state changed since the nineteenth pass's own findings
+(profile website still 404, Q43; Post B mojibake em dash unchanged,
+live-paste-lag; Posts A/C/D correct; "Cheshire" footer on C/D unchanged,
+Q43).
+
+QUESTIONS: none raised this run. QUESTIONS.json re-read in full before and
+after: 109 total, 56 open, unchanged.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 4.4 paragraph); AGENT_LOG.md (this
+entry); audits/verify-4.4-2026-09-16-twentieth.txt (new). No generator,
+checker, page, sheet or branches.json content changed.
+
+STEP 9/10 (commit, push, publish): handled via mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy per Q102's standing
+recommendation - see the commit immediately following this entry's push
+for the exact command and hash.
+
+Next stalest for whoever runs next, re-derive rather than assume: with 4.4
+now current, the tied-oldest pool at 2026-09-15 that remains is {4.9,
+4.15, 5.2}; lowest is 4.9. On item 4.4 itself: all ten genuinely-scanning
+checkers and eleven granular rules now proven by injection across twenty
+passes; remaining untested surface is thin (a twenty-first pass may need
+to look at cross-pack consistency with scorah-hazel-grove.md rather than
+another within-pack rule). On the open backlog generally: unchanged - the
+eight genuinely actionable worklist items remain blocked on Rishi's own
+decisions and 56 of 109 questions are open.
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-third run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under the sandbox's own native filesystem rather than either mounted folder (see infrastructure note below); mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the two live read-only GETs, tabs opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.10 (Riddings Pharmacy, Timperley) twentieth quality pass: tools/check-seo-keywords.js, never once named against this branch across nineteen prior passes, proven by eight injections plus a control against Riddings' own paste-sheet entries across all five sheet dialects it carries; zero in-repo defect. Live half also found the branch's pfLink page has been repasted since the last check (2026-08-31) and no longer carries stale legacy copy - a positive, not a defect. No new question.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a

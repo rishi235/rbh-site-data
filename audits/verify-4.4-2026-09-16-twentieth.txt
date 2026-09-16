@@ -1,0 +1,114 @@
+Item 4.4 (Scorah Chemists Bramhall pack) - twentieth quality pass, 2026-09-16
+Unattended scheduled run, audit-backlog-worker.
+
+BASELINE
+- gbp-packs/scorah-bramhall.md sha256:
+  de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+  (matches every prior pass's recorded baseline)
+- Full 36-checker suite run individually against the tracked repo before
+  any mutation: 36/36 exit 0.
+
+METHOD
+Scratch copy of the full repo (tar --exclude='.git') made in the sandbox's
+own native filesystem, outside both mounted folders and the tracked repo.
+Tracked repo never opened for writing at any point in this pass. Each
+injection made with a Python string-replace against a unique anchor,
+verified applied by grep, the targeted checker run, the file restored by
+byte copy from a pristine pre-injection backup, and the restore
+sha256-reconfirmed identical before the next injection.
+
+FRESH ANGLE
+Nineteen prior passes proved all ten checkers that genuinely scan
+gbp-packs/ against this pack, plus several granular rules within
+check-gbp-packs.js (sister-branch, hours-days, OUTCOME_PROMISE, photo shot
+list, catchment order, catchment membership, primary-category, category
+omission). Grepped this item's own nineteen-pass write-up in
+AGENT_WORKLIST.md for "lead pricing", "button LABEL", "house number",
+"post town", "lunch closure", "POM without" and "anywhere in the pack" -
+zero hits for the first three, meaning the transactional-CTA rule and the
+lead-pricing rule (both found on the item 4.5 pass, against a different
+pack) and the POM-class-without-naming rule (found on the item 4.13 pass,
+against Riddings) had never been pointed at Scorah Bramhall's own copy.
+"Lunch closure" is a genuine scope limit, not a gap: branches.json's
+scorah_bramhall.openingHours.specification carries one session per day
+(09:00-18:00 weekdays, 09:00-13:00 Saturday), no lunch break, so the
+two-ranges rule has no injection point on this branch.
+
+INJECTION 1 (transactional CTA rule, check-gbp-packs.js ~line 2135)
+Post C's "Button: Book -> .../weight-loss-clinic-scorah-bramhall.html"
+changed to "Button: Buy now -> ...".
+Result: FAIL. "Post C - Weight loss clinic is the weight loss post and its
+button is labelled \"Buy now\". A transactional call to action on a
+prescription-only service is the \"Buy [product]\" control the house
+standards bar, and a Google post sits in the advertising regime where that
+prohibition is near-total ... Use \"Book\" or \"Learn more\""
+Caught first attempt. Restored; sha256 reconfirmed identical to baseline.
+
+INJECTION 2 (lead pricing rule, check-gbp-packs.js ~line 2170)
+Post C body: "This is a private, paid service and it is not right for
+everyone - the pharmacist will advise. Confidential and judgement-free."
+had "Weight loss consultations from just £99 a month." inserted before
+"Confidential".
+Result: FAIL. "Post C - Weight loss clinic carries a price in the posted
+copy (\"£9\"). A Google post is advertising, not an inner page the
+customer chose to visit, and the house standards bar lead pricing that
+encourages entry on price ... Keep price out of the post and let the
+consultation page carry it"
+Caught first attempt. Restored; sha256 reconfirmed identical to baseline.
+
+INJECTION 3 (POM-class-without-naming rule, check-gbp-packs.js ~line 1815)
+Post C's opening sentence "The pharmacist-led weight loss clinic at Scorah
+Chemists in Bramhall starts with a private consultation..." changed to
+"The skinny jab clinic at Scorah Chemists in Bramhall starts with a
+private consultation...".
+Result: FAIL. "this pack alludes to a prescription-only weight loss
+medicine without naming it, by the phrase \"skinny jab\": \"skinny jab\".
+The ASA has ruled that this promotes a POM to the public just as naming it
+does..."
+Caught first attempt. Restored; sha256 reconfirmed identical to baseline.
+
+CONTROL (harmless paraphrase, Post D)
+"Convenient appointments on North Park Road, no GP visit needed." changed
+to "Convenient appointments close to North Park Road, no GP visit
+required." (tests that the road/location rules do not over-fire on a
+genuine paraphrase that keeps the branch's own road and adds no foreign
+claim).
+Result: PASS, exit 0, no new FAIL. Confirms no cross-firing.
+
+FINAL STATE
+- gbp-packs/scorah-bramhall.md restored, sha256 reconfirmed identical to
+  baseline: de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+- Scratch copy: full 35-checker suite (cdn-pins excluded - no .git in the
+  scratch copy, an artefact of the copy method, not a defect) re-run
+  clean after final restore: 35/35 exit 0.
+- Tracked repo: check-cdn-pins.js separately re-run directly against the
+  tracked repo (which does have .git): exit 0.
+- Tracked repo: full 36-checker suite re-run individually after cleanup:
+  36/36 exit 0.
+- git status --porcelain on gbp-packs/, modules/, core/, branches.json and
+  tools/ in the tracked repo: only the standing pre-existing untracked
+  debris (documented under Q87/Q96/Q102), unchanged; no tracked file
+  diff.
+
+RESULT
+Zero in-repo defect. All three rules tested already correctly protect
+this pack; now proven directly by injection for the first time in twenty
+passes on this item, rather than only passively observed in the
+"all 36 checkers pass" baseline.
+
+LIVE HALF
+Not attempted this pass. All five URLs this pack references
+(pharmacy-scorah-bramhall.html, Post A/B/C/D targets) were freshly read
+live, read-only, on the nineteenth pass one day prior (2026-09-15) with a
+working browser session; re-fetching on back-to-back daily passes adds no
+new information, so this pass's time went to the repo-half fresh angle
+above instead. Live-half state (unchanged from the nineteenth pass):
+profile website still 404 (Q43, unchanged since 2026-08-11); Post B switch
+page 200, NAP correct, pre-Q7 em-dash mojibake in the intro still present
+(live-paste-lag, not a repo defect); Posts A, C, D all 200 and correct,
+Weebly-native footer on C/D still prints "Cheshire" against this branch's
+addressRegion of Greater Manchester (Q43, unchanged).
+
+QUESTIONS
+None raised this pass. QUESTIONS.json re-read before and after: 109 total,
+56 open, unchanged by this pass's own work.

@@ -17399,6 +17399,60 @@ seen). QUESTIONS.json unchanged. tools/check-gbp-packs.js and
 branches.json untouched; only gbp-packs/scorah-bramhall.md's prose notes
 edited (three bullets: profile-website re-confirm date, switch-page
 re-confirm date, and a new bullet for Posts C/D).
+Quality pass 2026-09-16 (twentieth pass, unattended scheduled run): fresh
+angle, three granular rules within check-gbp-packs.js proved by injection
+against this pack's own copy for the first time in twenty passes, despite
+all ten checkers that genuinely scan gbp-packs/ having been proven here by
+the eighteenth pass. Searched the item's own nineteen-pass write-up for
+"lead pricing", "button LABEL", "house number", "post town", "lunch
+closure", "POM without" and "anywhere in the pack" - none of the first
+three had ever been named against this pack specifically, only against
+sibling packs (button-label and lead-pricing rules found on the item 4.5
+pass against a different pack; the POM-class-without-naming rule found on
+the item 4.13 pass against Riddings). "Lunch closure" is a genuine scope
+limit here, not a gap: scorah_bramhall's own openingHours.specification
+carries one session per day, no lunch break, so that rule has no injection
+point on this branch, the same class of limit item 3.10's RULE 8 recorded.
+Baseline sha256
+de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14 (matching
+every prior pass); full 36-checker suite 0 failures beforehand. Scratch
+copy via tar --exclude='.git' to the sandbox's own native filesystem,
+tracked repo never opened for writing. THREE INJECTIONS plus a control,
+each restored from a pristine backup and sha256-reconfirmed identical
+before the next: (1) transactional CTA rule - Post C's "Button: Book"
+changed to "Button: Buy now" - CAUGHT first attempt, "Post C ... is the
+weight loss post and its button is labelled \"Buy now\" ... Use \"Book\"
+or \"Learn more\""; (2) lead pricing rule - "Weight loss consultations
+from just £99 a month." inserted into Post C's body - CAUGHT first
+attempt, "carries a price in the posted copy (\"£9\")"; (3) POM-class
+allusion rule - Post C's opening reworded from "The pharmacist-led weight
+loss clinic at Scorah Chemists in Bramhall" to "The skinny jab clinic at
+Scorah Chemists in Bramhall" - CAUGHT first attempt, "alludes to a
+prescription-only weight loss medicine without naming it, by the phrase
+\"skinny jab\""; CONTROL, Post D's closing sentence reworded harmlessly
+("on North Park Road" to "close to North Park Road", "no GP visit needed"
+to "no GP visit required") - correctly PASSED, exit 0, no new FAIL,
+confirming the road/location rules are not over-sensitive to a genuine
+paraphrase. All three injections fired on the first attempt, on their
+intended rule only, no cross-firing. Final restore sha256-reconfirmed
+identical to baseline; full 35-checker suite (cdn-pins excluded, no .git
+in the scratch copy) re-run clean on the scratch copy after cleanup:
+35/35 exit 0; check-cdn-pins.js separately reconfirmed exit 0 against the
+tracked repo directly. Tracked repo confirmed untouched throughout via
+git status --porcelain on gbp-packs/, modules/, core/, branches.json and
+tools/ (only the standing pre-existing untracked debris, unchanged) and
+via direct sha256 comparison of gbp-packs/scorah-bramhall.md against the
+pre-run baseline (exact match). Full 36-checker suite re-run individually
+against the tracked repo after cleanup: 36/36 exit 0. RESULT: zero
+in-repo defect - all three rules already correctly protect this pack; now
+proven directly by injection for the first time in twenty passes rather
+than only passively observed in the "all 36 checkers pass" baseline. Live
+half not attempted this pass (all five referenced URLs were freshly read
+live on the nineteenth pass, 2026-09-15, one day prior; re-fetching on
+back-to-back passes adds no new information and the repo half is where
+this pass's fresh angle sits). No new question; QUESTIONS.json unchanged
+(109 total, 56 open). No checker logic, generator, page, pack or
+branches.json content changed. See audits/verify-4.4-2026-09-16-twentieth.txt.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
