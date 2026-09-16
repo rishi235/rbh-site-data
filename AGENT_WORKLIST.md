@@ -8319,6 +8319,47 @@ proof, not a live comparison). No in-repo defect found, no copy changed
 anywhere in the repo, no new question. Evidence in
 audits/smartts-item-3.7-quality-pass-2026-09-15-eighteenth.txt.
 Done 2026-09-15 (eighteenth pass).
+Quality pass 2026-09-16 (nineteenth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash). Picked as the least
+recently verified rotation-pool item (all 8 unchecked worklist lines still
+[BLOCKED]; 35-item pool re-derived fresh, 3.7 stalest at log index 882
+against 3.8 next at 844).
+FRESH ANGLE: tools/check-seo-lengths.js, never named against Smartts across
+eighteen prior passes. Chosen because CLAUDE.md names Smartts Bootle / SK
+Chemists Bootle as one of the three town pairs this checker's H1-uniqueness
+rule matters most for, and the pair had never been exercised against it.
+Full repo tar-copied to a disposable scratch directory; baseline 35/36
+clean (cdn-pins' documented .git-less artefact only); branches.json sha256
+confirmed at the standing anchor 169bb5a2...b102 throughout.
+Six injections against modules/service/pages/SEO.md and two Smartts pages,
+each restored and sha256-reconfirmed before the next, all CAUGHT: title
+over 65 chars (rule 1); description under 80 chars (rule 2a); description
+over 165 chars (rule 2b); duplicate title between two of Smartts's own
+pages (rule 3); duplicate permalink between two of Smartts's own pages
+(rule 3); Smartts overview H1 overwritten with its own UTI page's H1,
+same-branch reuse (rule 4a). CONTROL (Meta Keywords line, a field this
+checker does not read) produced zero failures.
+Rule 4b/4c not injected; read live instead, which was the more valuable
+test: Smartts's own overview and UTI H1s both carry "Smartts Chemist" and
+SK Chemists Bootle's equivalents both carry "SK Chemists" - distinct
+strings, confirming the item 3.3 / Q44 brand-in-H1 fix holds for this
+specific pair rather than only being assumed from the estate-wide "0
+sharing an H1" summary line, which is the gap this pass closes.
+Full 36-checker suite re-run on the scratch copy post-restore (35/36, same
+cdn-pins artefact) and on the tracked repo (36/36). Tracked branches.json,
+SEO.md, the two Smartts pages and check-seo-lengths.js itself all
+sha256-reconfirmed unchanged; git status --porcelain showing only the two
+long-standing pre-existing untracked strays, neither touched. No in-repo
+defect found, no copy changed, no new question. Checkers still never named
+against Smartts: check-address-region.js, check-brand-spelling.js,
+check-editor-snapshot.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weight-loss-copy.js; plus check-switch-copy.js's remaining 6/11
+rules and check-seo-pattern.js's service-word/H1-exact-match rules.
+Evidence in audits/smartts-item-3.7-quality-pass-2026-09-16-nineteenth.txt.
+Done 2026-09-16 (nineteenth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

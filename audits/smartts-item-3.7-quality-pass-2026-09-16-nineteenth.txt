@@ -1,0 +1,127 @@
+Item 3.7 (Smartts Chemist, Bootle) - nineteenth quality pass, 2026-09-16
+Unattended scheduled run, audit-backlog-worker, via Cowork sandboxed Linux
+shell (mcp__workspace__bash). No browser used this pass (repo-only injection
+proof, not a live comparison).
+
+PICKED AS: least recently verified rotation-pool item. All 8 unchecked
+AGENT_WORKLIST.md lines still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, and the
+three Q60/Q66 lines under 6.4/6.5/6.6) - no actionable unchecked item, fell
+to the quality-pass fallback per the run procedure.
+
+Rotation pool: 42 checked worklist items minus the 7 standing out-of-rotation
+items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 35-item pool. Re-derived the
+"least recently mentioned" ranking fresh: scanned AGENT_LOG.md for
+(?:item|took)\s+<N>\b (word-bounded), took each pool item's topmost (most
+recent, since new entries are appended to the TOP of the log) mention line
+index, and picked the item whose own topmost-mention index was LARGEST
+(= least recently touched). 3.7 came out stalest at index 882 (3.8 next at
+844), confirming the eighteenth pass's own prediction that 3.7 would be
+next after 6.3 was picked for its sixteenth pass earlier today.
+
+BASELINE: full 36-checker suite clean on the tracked repo before any work
+(36/36 exit 0). branches.json sha256 confirmed at the standing regression
+anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102.
+
+FRESH ANGLE: tools/check-seo-lengths.js had never been named against
+Smartts specifically across eighteen prior passes (explicitly listed as
+untested on the eighteenth pass's own "never named" list, alongside
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js). Chosen over the others
+because CLAUDE.md's own "heading nothing compared" section names Smartts
+Bootle / SK Chemists Bootle as one of the three town pairs where this
+checker's H1-uniqueness rule (4b/4c) matters most, and because Smartts sits
+directly above SK Chemists Bootle in branches.json as a different brand in
+the same town - the exact shape rule 4 exists to guard, and it had never
+been exercised against this specific pair.
+
+METHOD: full repo copied by tar (--exclude='.git') to a disposable scratch
+directory outside the tracked tree (/tmp/scratch-3.7-pass19, cleaned up at
+the end of the run). Scratch branches.json sha256-confirmed matching the
+tracked repo before any injection. Baseline 36-checker sweep on the scratch
+copy: 35/36 clean, check-cdn-pins.js failing only on the documented
+.git-less-copy artefact (already established clean against the tracked
+repo on every prior pass that has used this method).
+
+Five injections against modules/service/pages/SEO.md and two Smartts pages
+in the scratch copy, one rule per injection, each restored from a saved
+original and sha256-reconfirmed before the next:
+
+1. RULE 1 (title length): Smartts UTI title lengthened to 91 characters -
+   CAUGHT, exactly one failure naming the branch and character count.
+2. RULE 2a (description too short): Smartts UTI description shortened to 33
+   characters - CAUGHT, exactly one failure, "under the 80 minimum".
+3. RULE 2b (description too long): Smartts UTI description lengthened to
+   325 characters - CAUGHT, exactly one failure, "over the 165 limit".
+4. RULE 3 (duplicate title): Smartts Sore throat title overwritten with the
+   Smartts UTI title (same branch, two of its own pages) - CAUGHT, exactly
+   one failure naming both colliding sheet headings.
+5. RULE 3 (duplicate permalink): Smartts Sinusitis permalink overwritten
+   with the Smartts UTI permalink - CAUGHT, exactly one failure naming both
+   colliding sheet headings.
+6. RULE 4a (H1 reused on two of one branch's own pages): Smartts overview
+   page H1 overwritten with the Smartts UTI page's H1 (same branch,
+   "smartts_bootle: pharmacy-first-smartts-bootle.html and
+   uti-treatment-smartts-bootle.html") - CAUGHT, exactly one failure.
+
+CONTROL: Smartts Meta Keywords line changed to unrelated nonsense text (a
+field this checker does not read at all) - correctly produced ZERO
+failures, confirming no cross-firing.
+
+RULE 4b/4c (same-host and cross-host H1 collision) not injected, because it
+was more valuable to read the LIVE state directly: Smartts overview H1
+reads "Pharmacy First at Smartts Chemist in Bootle" and SK Chemists
+Bootle's own overview H1 reads "Pharmacy First at SK Chemists in Bootle" -
+different strings, brand present in both, confirming the item 3.3 / Q44
+brand-in-H1 fix (put the brand into the family A H1 wherever another live
+branch shares this branch's seoTown) holds for this specific pair. Same
+check repeated on the UTI condition page for both branches ("UTI treatment
+in Bootle - Smartts Chemist" vs "UTI treatment in Bootle - SK Chemists") -
+also distinct. This closes a genuine gap: CLAUDE.md's own narrative names
+this exact pair as historically colliding before the fix, but no prior
+pass had verified branch-by-branch that the fix actually holds for
+Smartts/SK Chemists specifically rather than assuming it from the estate-
+wide "0 sharing an H1" summary line.
+
+All six restores confirmed byte-identical to the pre-injection originals by
+sha256 before the next injection began. Full 36-checker suite re-run on the
+scratch copy in its final restored state: 35/36 exit 0 (same documented
+cdn-pins artefact). Tracked repo confirmed untouched throughout and after:
+branches.json, modules/service/pages/SEO.md,
+modules/service/pages/pharmacy-first-smartts-bootle.html,
+modules/service/pages/uti-treatment-smartts-bootle.html and
+tools/check-seo-lengths.js itself all sha256-reconfirmed unchanged against
+the pre-run baseline; git status --porcelain -- modules core branches.json
+gbp-packs tools shows only the two long-standing pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; full 36-checker suite re-run individually against the tracked
+repo, 36/36 exit 0.
+
+No generator, page, checker or branches.json content changed; no
+regeneration needed. No in-repo defect found. No copy changed anywhere in
+the repo. No new question raised.
+
+Checkers still never named against Smartts, for a future pass:
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js; plus check-switch-copy.js's
+remaining 6/11 rules and check-seo-pattern.js's service-word/H1-exact-match
+rules (unchanged carry-over from the seventeenth and eighteenth passes).
+
+LOCK/INFRASTRUCTURE NOTE (this run, see AGENT_LOG.md steps 1-2 for full
+detail): the standing FUSE-mount unlink restriction (Q87/Q96/Q102) produced
+a HEAD.lock and an index.lock during the initial lock check and repo sync,
+both renamed aside (mv, not rm) per the standing workaround rather than
+deleted, since rm failed with EPERM while mv succeeded; neither blocked any
+subsequent git command and neither was a real concurrent process (confirmed
+by `ps aux` showing no git process, and by the same EPERM-on-unlink-of-a-
+file-git-itself-just-created pattern repeating on ordinary `git status`
+calls throughout the run, which is the same mount quirk already
+extensively documented by the hundreds of pre-existing renamed/cleared/
+stale lock artefacts already sitting untracked in this repo from prior
+runs). Not logged as a new question since Q87/Q96/Q102 already cover it.

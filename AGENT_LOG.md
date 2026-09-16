@@ -1,4 +1,118 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fifteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing on two separate disposable scratch copies (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 6.3 (Opening hours vs branches.json) sixteenth quality pass: two never-before-exercised fail paths in tools/check-opening-hours.js proved by injection, both tied to rules 9 and 10 (added the fourteenth and fifteenth passes) interacting with the disposed-branch filter, which the thirteenth pass had proved for rules 1-7 only and explicitly flagged as untested elsewhere. TEST A (clearchemist_aintree marked disposed on a scratch copy, the one branch that is both odsCode-bearing, hours-less and carries three real generated pages): rule 9's KNOWN_NO_HOURS anti-rot correctly fired its "is disposed" wording for the first time, and rule 10's branchFor() correctly stopped resolving the three real Clear Aintree pages to any branch (schemaHoursUnmatched +3) rather than mismatching them to a dead branch. Full 35-checker sweep of the same injection found 15 other checkers correctly cross-firing for their own reasons (an incomplete disposal, not a defect - the CLAUDE.md Wilmslow precedent), answering the thirteenth pass's own side note. TEST B (separate clean scratch copy): branchFor()'s longest-match tie-break, named in its own comment as guarding against a "bootle"-type substring collision but never tested, proved directly with a diagnostic-patched scratch-only checker copy and a filename containing both "smartts" and "sk-chemists" substrings - correctly resolved to skchemists_bootle (the longer combined slug) despite smartts_bootle sitting earlier in branches.json's array order, confirmed both when the file's data matched (clean) and did not match (named FAIL) skchemists_bootle's real hours. Zero in-repo defect either test; tracked branches.json and checker confirmed byte-identical throughout by sha256/diff. LIVE HALF (network egress direct, no browser needed for this half): all 14 branches read, smartts_bootle remains the sole live mismatch unchanged since 2026-08-11 across all sixteen passes, gordonshorts_crosby read correctly as the live control. STEP 3 answer pickup: portal feed read in full, only Q37/Q43/Q52 of the open or recently-answered questions appear in it, all already correctly recorded, no new answer applied. No new question raised. See full detail below and in audits/verify-6.3-2026-09-16-sixteenth.txt.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, sixteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing on one disposable scratch copy (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 3.7 (Smartts Chemist, Bootle) nineteenth quality pass: tools/check-seo-lengths.js, never named against Smartts across eighteen prior passes, proved by six injections against modules/service/pages/SEO.md and two Smartts pages in a disposable scratch copy, all restored and sha256-reconfirmed between tests: title over 65 chars, description under 80 and over 165 chars, duplicate title and duplicate permalink between two of Smartts's own pages, and one branch reusing its own H1 across two of its own pages (Smartts overview overwritten with its own UTI page's H1) - all six CAUGHT cleanly, one isolated failure each, and a Meta Keywords control change produced zero false positives. Rule 4b/4c (H1 collision across the Smartts/SK Chemists Bootle town pair) was read live instead of injected: both branches' overview and UTI H1s carry their own brand name and are therefore distinct, confirming the item 3.3/Q44 brand-in-H1 fix holds for this specific pair rather than only being assumed from the estate-wide "0 sharing an H1" summary line - a genuine first-time branch-level confirmation, not previously checked. Zero in-repo defect. Tracked branches.json, SEO.md, the two Smartts pages and the checker itself confirmed byte-identical throughout by sha256; full 36-checker suite clean on the tracked repo before and after. STEP 3 answer pickup: portal feed read in full, only Q37 and Q43 of the currently open questions appear in it, both already correctly recorded as non-decisions with status left "open" by prior runs, no new answer to apply, no status change made. No new question raised. See full detail below and in audits/smartts-item-3.7-quality-pass-2026-09-16-nineteenth.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run
+start (checked via `ls`/`stat`; no stale lock to clear). Wrote a fresh UTC
+timestamp to `.agent-lock`. The standing FUSE-mount unlink restriction
+(Q87/Q96/Q102) surfaced immediately and more persistently than on recent
+runs: `.git/HEAD.lock` and `.git/index.lock` both appeared during ordinary
+`git status`/`git checkout`/`git pull` calls and could not be removed with
+`rm` (EPERM) but COULD be moved aside with `mv` in every case, the same
+workaround used throughout this run whenever a fresh lock file appeared.
+Confirmed with `ps aux` that no git process was actually running in this
+sandbox at any point, so the pattern is the mount quirk already documented
+by the hundreds of pre-existing renamed/cleared/stale lock artefacts sitting
+untracked in the repo from prior runs, not a genuine concurrent writer.
+`git fetch origin`, then (after clearing the transient locks aside) `git
+checkout agents/audit-backlog` and `git pull --ff-only origin
+agents/audit-backlog` both completed, "Already up to date", HEAD matching
+`origin/agents/audit-backlog` throughout (the checkout call itself was
+already a no-op in practice since the working tree was on the correct
+branch from the start).
+
+ANSWER PICKUP (step 3, this run): `mcp__claude-in-chrome` connected cleanly,
+one tab, no dual sign-in issue. Read https://data.rbhealth.co.uk/api/feedback
+in full - entries dated 2026-08-04 to 2026-09-01 only, nothing newer than the
+previous run's own read. Cross-checked every "AUDIT ANSWER Qn" entry against
+QUESTIONS.json's currently-open set (Q37, Q43, Q53-Q109 at run start): only
+Q37 and Q43 appear in the feed, both already recorded verbatim in
+QUESTIONS.json's own notes as "PORTAL REPLY RECEIVED 2026-09-01, NOT A
+DECISION" with status correctly left "open" (Rishi's Q37 reply asks for the
+question to be restated in plain English; his Q43 reply is a partial,
+non-binary comment on only one of the two sub-questions). No new answer to
+apply, no status change made, matching every prior run's own finding on this
+same feed.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md
+(the run-15/sixteenth-of-today entry, now below this one) before adding this
+entry - no "Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), all 8 still carry `[BLOCKED]`, unchanged since the previous
+run. No actionable unchecked item. Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = a
+35-item pool. Re-derived fresh with a Python scan of AGENT_LOG.md matching
+`(?:item|took)\s+<N>\b` word-bounded, taking each pool item's topmost (most
+recent, since new entries are appended to the TOP of the log) mention line
+index and picking the item whose own topmost-mention index was LARGEST
+(= least recently mentioned). 3.7 came out stalest (index 882), 3.8 next
+(844), 3.11 and 6.2 tied third (778) - all consistent with the sixteenth
+run's own prediction, made before this run started, that 3.7 would be next
+once its own pick (6.3) had a fresh mention pushing it back down the
+ranking. Picked item 3.7 for a nineteenth quality pass.
+
+WORK DONE (item 3.7, nineteenth quality pass): see AGENT_WORKLIST.md's own
+paragraph for the full method and rule-by-rule detail; full narrative in
+audits/smartts-item-3.7-quality-pass-2026-09-16-nineteenth.txt. Summary:
+chose tools/check-seo-lengths.js as the fresh angle, since the eighteenth
+pass's own "never named against Smartts" list named it explicitly and
+CLAUDE.md's "heading nothing compared" section names the Smartts Bootle/SK
+Chemists Bootle pair as one of the three town pairs this checker's H1-
+uniqueness rule matters most for. Full repo tar-copied (--exclude='.git')
+to a disposable scratch directory, never the tracked tree; scratch
+branches.json sha256-confirmed matching the tracked repo before any
+injection; 35/36 checkers clean on the scratch copy baseline (check-cdn-
+pins.js failing only on the documented .git-less-copy artefact). Six
+injections against Smartts's own paste-sheet entries and two of its own
+pages, each restored from a saved original and sha256-reconfirmed before
+the next: title lengthened to 91 characters (rule 1, caught); description
+shortened to 33 characters (rule 2a, caught); description lengthened to 325
+characters (rule 2b, caught); Smartts Sore throat title overwritten with
+the Smartts UTI title (rule 3 duplicate title, caught, both sheet headings
+named); Smartts Sinusitis permalink overwritten with the Smartts UTI
+permalink (rule 3 duplicate permalink, caught, both sheet headings named);
+Smartts overview page H1 overwritten with the Smartts UTI page's own H1
+(rule 4a, one branch reusing its own H1, caught, "smartts_bootle:
+pharmacy-first-smartts-bootle.html and uti-treatment-smartts-bootle.html").
+CONTROL: Smartts Meta Keywords line changed to unrelated text, a field this
+checker never reads - correctly zero failures. Rule 4b/4c (same-host and
+cross-host H1 collision) deliberately not injected: read live instead,
+which was the more valuable proof for this specific pair. Smartts's own
+overview H1 ("Pharmacy First at Smartts Chemist in Bootle") and UTI H1
+("UTI treatment in Bootle - Smartts Chemist") both carry the brand; SK
+Chemists Bootle's equivalents ("Pharmacy First at SK Chemists in Bootle",
+"UTI treatment in Bootle - SK Chemists") both carry its own different
+brand - four distinct strings, confirming the item 3.3/Q44 brand-in-H1 fix
+(put the brand into the family A H1 wherever another live branch shares
+this branch's seoTown) genuinely holds for the Smartts/SK Chemists Bootle
+pair specifically, rather than only being inferred from the checker's
+estate-wide "0 page H1s ... sharing an H1" summary line, which is what
+every prior pass had relied on for this pair. Zero in-repo defect in any
+of the six injections; all were the checker already being correct, now
+proven rather than assumed, plus one genuine new live confirmation. Tracked
+branches.json (sha256 169bb5a2...b102), modules/service/pages/SEO.md, the
+two Smartts pages touched and tools/check-seo-lengths.js itself all
+confirmed byte-identical to baseline throughout by sha256; full 36-checker
+suite re-run clean (35/36 on the scratch copy post-restore, same cdn-pins
+artefact; 36/36 on the tracked repo) after all injections; git status
+--porcelain -- modules core branches.json gbp-packs tools showing only the
+two same pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched. Scratch directory deleted at the end of the run.
+
+RESULT: item 3.7 ticked in place in AGENT_WORKLIST.md (nineteenth pass
+appended under the existing checked line, per the established convention -
+"Done" date and pass count updated, item never moved to another section).
+No worklist item newly blocked. No new question raised - QUESTIONS.json
+unchanged this run bar no changes at all (Q37/Q43 confirmed already correct
+and left open, no write needed). Status page will be republished in step 10
+below with this run's outcome.
+
+ (byte-copy/sha256-verified restore, tracked repo never opened for writing) and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text used for the step 3 answer-pickup fetch only, one tab, no dual sign-in this run; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 6.3 (Opening hours vs branches.json) sixteenth quality pass: two never-before-exercised fail paths in tools/check-opening-hours.js proved by injection, both tied to rules 9 and 10 (added the fourteenth and fifteenth passes) interacting with the disposed-branch filter, which the thirteenth pass had proved for rules 1-7 only and explicitly flagged as untested elsewhere. TEST A (clearchemist_aintree marked disposed on a scratch copy, the one branch that is both odsCode-bearing, hours-less and carries three real generated pages): rule 9's KNOWN_NO_HOURS anti-rot correctly fired its "is disposed" wording for the first time, and rule 10's branchFor() correctly stopped resolving the three real Clear Aintree pages to any branch (schemaHoursUnmatched +3) rather than mismatching them to a dead branch. Full 35-checker sweep of the same injection found 15 other checkers correctly cross-firing for their own reasons (an incomplete disposal, not a defect - the CLAUDE.md Wilmslow precedent), answering the thirteenth pass's own side note. TEST B (separate clean scratch copy): branchFor()'s longest-match tie-break, named in its own comment as guarding against a "bootle"-type substring collision but never tested, proved directly with a diagnostic-patched scratch-only checker copy and a filename containing both "smartts" and "sk-chemists" substrings - correctly resolved to skchemists_bootle (the longer combined slug) despite smartts_bootle sitting earlier in branches.json's array order, confirmed both when the file's data matched (clean) and did not match (named FAIL) skchemists_bootle's real hours. Zero in-repo defect either test; tracked branches.json and checker confirmed byte-identical throughout by sha256/diff. LIVE HALF (network egress direct, no browser needed for this half): all 14 branches read, smartts_bootle remains the sole live mismatch unchanged since 2026-08-11 across all sixteen passes, gordonshorts_crosby read correctly as the live control. STEP 3 answer pickup: portal feed read in full, only Q37/Q43/Q52 of the open or recently-answered questions appear in it, all already correctly recorded, no new answer applied. No new question raised. See full detail below and in audits/verify-6.3-2026-09-16-sixteenth.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run
 start. Wrote a fresh UTC timestamp. `git fetch origin`, `git checkout
