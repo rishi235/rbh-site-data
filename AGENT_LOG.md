@@ -1,4 +1,108 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-sixth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.15 (Tiffenbergs Chemist Aintree pack) eighteenth quality pass: three tools/check-gbp-packs.js rules (transactional-CTA button label, lead pricing, POM-class allusion) proved by injection against this pack's own copy for the first time in eighteen passes, despite each rule already being proven elsewhere in the estate earlier today (item 4.4, Scorah Bramhall); zero in-repo defect. Live half not repeated, seventeenth pass's verdicts stand. No new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-seventh run today; mcp__workspace__bash used for lock handling, repo reads, the QUESTIONS.json/AGENT_WORKLIST.md scan, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used to confirm the real C:\Dev\rbh-site-data working copy was already in sync and will be used for the git write route (add/commit/push), per Q102's standing recommendation; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab opened and closed cleanly; Read/Edit used for AGENT_WORKLIST.md and this entry) - Item 5.2 (McCanns Aigburth/Sandringham and Scorah Bramhall/Hazel Grove branch landing pages) eighteenth quality pass: tools/check-page-coverage.js's "branch landing pages" section proved by injection against this item's own BUILD list and branches.json records for the first time in eighteen passes, despite being the exact checker whose warnings created this item; zero in-repo defect, two genuine cross-rule overlaps documented (not defects). No new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
+LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp
+(2026-09-16T21:04:21Z). No `.git/index.lock` present at start (the sandbox
+FUSE mount's own inability to unlink it after a read-only `git status`
+surfaced again mid-run, as documented in Q87/Q96/Q102; cleared by rename,
+not delete, each time it reappeared, the standing workaround). `git fetch`/
+`checkout agents/audit-backlog`/`pull --ff-only` (sandbox mount, read-only
+use) completed normally, already up to date with origin/agents/audit-backlog
+at 5f5d155 (item 4.15's own eighteenth-pass commit, confirmed pushed by the
+prior run). Separately confirmed via mcp__Windows-MCP__PowerShell that the
+real host's C:\Dev\rbh-site-data working copy was already at the same
+commit, branch agents/audit-backlog, clean working tree aside from the same
+long-standing untracked test/scratch debris both mounts show.
+
+ANSWER PICKUP (step 3): one connected browser tab, no Q59 conflict this run.
+https://data.rbhealth.co.uk/api/feedback read cleanly first attempt (54
+entries, Q2 through Q52). Cross-checked every currently-open question (56 of
+them) against the feed: two open questions, Q37 and Q43, do have portal
+replies dated 2026-09-01, but both are already correctly recorded in
+QUESTIONS.json as "PORTAL REPLY RECEIVED 2026-09-01, NOT A DECISION" by an
+earlier run, since neither reply selects one of the listed options (Q37:
+"i need further explanation..."; Q43: a partial comment on one half of a
+two-part question only) - both correctly remain status "open" with the
+plain-English restatement already appended, nothing to change. No answer
+newer than 2026-09-01T22:44:51.524Z (Q52) has arrived for any open question.
+No QUESTIONS.json edit made this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry (the prior run's own entry, item 4.15) - no "Standing
+authorisation - autonomous window" section present. Not applicable; step 7
+applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]"` AGENT_WORKLIST.md - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback.
+
+ROTATION POOL: re-derived from first principles with a small Node script
+reading each of the 35 in-rotation item ids' own block in AGENT_WORKLIST.md
+(42 completed items minus the seven standing out-of-rotation one-offs 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and taking the latest `2026-\d\d-\d\d` date
+appearing inside each block. 5.2 came out uniquely stalest at 2026-09-15
+(item 4.15, tied with it as of the prior run's own scan, had already been
+taken and its date moved to 2026-09-16 by that run). Every other in-rotation
+item is now dated 2026-09-16. Took 5.2.
+
+WORK DONE (item 5.2, eighteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 5.2 block and in
+audits/verify-5.2-2026-09-16-eighteenth.js/-output.txt; summarised here.
+Seventeen prior passes had proven 16 of the estate's 36 checkers against
+this item's own four pages by direct injection, but never
+tools/check-page-coverage.js - the checker whose LANDING_NOT_BUILT warnings
+are the entire reason this item exists (its own 2026-08-09 opening line).
+That checker is a different kind of mechanism to everything tested before:
+it reads branches.json, tools/build-branch-landing-pages.js's own BUILD
+list, and the filesystem, not page content, answering "does the SET of
+pages match what branches.json earns" rather than "is this page's copy
+right".
+Method: two scratch copies tried. A partial one (branches.json, tools/,
+modules/ only) correctly proved the target checker but was too thin for a
+full 36-checker sweep (8 unrelated checkers failed only on missing
+gbp-packs/core/README.md - a scope artefact of the copy, not a finding), so
+it was discarded in favour of a full `cp -a` copy of the tracked repo
+including .git, confirmed clean 36/36 both before and after the round.
+Seven injections plus a control against the branch-landing section's seven
+rules, each restored from an in-memory buffer and sha256-reconfirmed before
+the next: STALE_ID (fake id in the BUILD list, caught, isolated), 
+DISPOSED_LISTED (Cherry Lane marked disposed and added to the list, caught,
+correctly fired across all six of the checker's rule families at once since
+Cherry Lane earns a page in every one), NOT_EARNED (McCanns Aigburth's
+brandSlug deleted, caught, same six-family ripple via the shared
+sluggable() gate), PAGE_MISSING (Scorah Bramhall's own page deleted from
+disk, caught, cleanly isolated), LANDING_NOT_BUILT (Scorah Hazel Grove
+removed from the BUILD list, a WARNING, caught - and it also tripped
+ORPHAN_PAGE as a genuine FAILURE in the same run, because the already-built
+page is still on disk once its id leaves the list; verified in isolation as
+a real two-rule interaction the checker's own design predicts, not a
+flaw), LANDING_NOT_SHARED (Hazel Grove's website changed to a unique host,
+a WARNING, caught for both sibling ids at once, a second genuine overlap),
+ORPHAN_PAGE (a stray file added to modules/branch/pages, caught, isolated),
+and a control (an unrelated field added to Scorah Bramhall's own record,
+correctly produced zero landing-section findings). All eight fired as
+expected on the first attempt; re-run a second time end to end with
+identical results. branches.json and the generator confirmed
+sha256-identical to baseline after every restore and at the end; git status
+on modules/branch/pages, tools/ and branches.json stayed empty throughout
+in both the scratch copy and the tracked repo, aside from the two
+long-standing pre-existing untracked artefacts (gbp-packs/
+.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak) neither created nor touched by
+this pass. No checker logic, page, generator or branches.json field changed
+anywhere in the tracked repo. No new question raised. Guard coverage for
+item 5.2 now extends to 17 of 36 checkers proven by direct injection (up
+from 16).
+
+QUESTIONS.json: unchanged (no new answer to apply, per the answer-pickup
+note above; no new question raised by this pass).
+
+NEXT STEPS (steps 9-11): commit AGENT_WORKLIST.md and this AGENT_LOG.md
+entry plus the two new audits/ files via mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy, push origin
+agents/audit-backlog, run tools/build-audit-status.js to publish the status
+page, then clear .agent-lock.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
 LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp

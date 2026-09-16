@@ -28869,6 +28869,135 @@ led by 4.1 (184923) and 4.14 (180686).
       tied at 2026-09-12 (1.3, 2.3, 3.1, 3.2, 6.2, 6.3), since 5.2 itself now
       moves to the back of the queue at 2026-09-15. Other runs may land in
       between before the next pass.
+      Quality pass 2026-09-16 (eighteenth, unattended run, rotation-pool
+      pick): all eight remaining unchecked worklist lines were [BLOCKED] this
+      run (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), so a
+      quality pass was required. Rotation pool re-derived fresh by reading
+      every completed item's own block for its latest embedded
+      2026-\d\d-\d\d date (standing out-of-rotation set 1.1, 1.4, 2.2, 5.6,
+      5.7, 6.7, 6.8 excluded, and item 4.15 excluded as already touched
+      earlier today by this run's own predecessor): 5.2 came out uniquely
+      stalest at 2026-09-15, ahead of the next tier at 2026-09-16 (everything
+      else had already been touched today).
+      NEW ANGLE. Of the seventeen prior passes on this item, tools/check-
+      page-coverage.js had never been run against item 5.2's own four
+      branches and proven by injection, despite being the exact checker
+      whose LANDING_NOT_BUILT warnings created this item in the first place
+      (this item's own opening line, 2026-08-09: "the four standing
+      LANDING_NOT_BUILT warnings in check-page-coverage are cleared"). Every
+      prior pass tested a checker that reads page CONTENT; this one is
+      different in kind, reading branches.json, tools/build-branch-landing-
+      pages.js's own BUILD list, and the filesystem, with no page content
+      involved at all - the "does the SET of pages match what branches.json
+      earns" question, not "is this page's copy correct".
+      METHOD. New instrument, audits/verify-5.2-2026-09-16-eighteenth.js,
+      same discipline as passes 9 through 17: refuses to run on a dirty
+      tree, shells out to the real tools/check-page-coverage.js as a child
+      process, restores branches.json and the generator source from an
+      in-memory buffer immediately after capturing each injection's output
+      and before any assertion, sha256-reconfirms byte-identical restoration
+      after every injection and again at the end. Run twice, against two
+      independent scratch copies: first a partial copy (branches.json,
+      tools/, modules/ only), which correctly proved this item's own target
+      checker but was too thin for a full 36-checker sweep (8 unrelated
+      checkers failed on missing gbp-packs/core/README.md, none of them a
+      real finding); then discarded in favour of a full `cp -a` copy of the
+      whole tracked repo including .git, which the full 36-checker suite
+      confirmed clean both before and after the round (36/36 both times).
+      SEVEN INJECTIONS plus a control, each restored byte-identical before
+      the next, one per rule the checker's own "branch landing pages"
+      section holds (lines 217-286): (1) STALE_ID - a fake id
+      ("fake_branch_xyz") added to the BUILD list - CAUGHT, isolated to the
+      Branch landing rule only. (2) DISPOSED_LISTED - Cherry Lane Pharmacy
+      (not one of this item's own four branches, chosen to keep the
+      mechanism separate from the four under test) marked disposed:true and
+      added to the BUILD list - CAUGHT, and instructively it fired across
+      all SIX rule families at once (Pharmacy First, Contraception, Travel
+      clinic, Weight loss, Switch and Branch landing), because Cherry Lane
+      already earns a page in every one of them; not a defect, this is the
+      RULES array's own design, each family independently reading the same
+      branches.json fact. (3) NOT_EARNED - mccanns_aigburth's brandSlug
+      deleted while still listed - CAUGHT, and by the same mechanism as (2)
+      it also fired across all six rule families simultaneously, since
+      sluggable() gates every one of them; again the checker's design
+      working as intended, not an overreach. (4) PAGE_MISSING - Scorah
+      Bramhall's own generated page deleted from disk with the BUILD list
+      and branches.json untouched - CAUGHT, cleanly isolated to this one
+      rule. (5) LANDING_NOT_BUILT (a WARNING, not a failure) - scorah_hazel
+      removed from the BUILD list with branches.json untouched - CAUGHT, and
+      it surfaced a genuine two-rule interaction worth recording: because
+      Scorah Hazel Grove's own already-generated page is still sitting on
+      disk, removing it from the list also trips ORPHAN_PAGE (a FAILURE) in
+      the same run, so the overall exit code is 1 even though the rule this
+      injection targeted is only a warning. Confirmed by re-running with
+      only this one mutation in isolation (not layered on any other
+      injection): both the WARNINGS block (LANDING_NOT_BUILT) and the
+      FAILURES block (ORPHAN_PAGE) fire from the single edit, exactly as the
+      checker's own header describes it should: a page an id is removed from
+      earning becomes unmaintained the moment its file is still on disk.
+      Not a defect, and not something any of the seven other injections
+      exercise, since none of them leaves a stale page behind. (6)
+      LANDING_NOT_SHARED (a WARNING) - Scorah Hazel Grove's website field
+      changed to a unique host not shared with Bramhall - CAUGHT for BOTH
+      listed ids at once (Bramhall no longer shares because its sister moved
+      off the host; Hazel Grove no longer shares because it is now the one
+      on the unique host), a second genuine and expected overlap from one
+      edit rather than a flaw. (7) ORPHAN_PAGE - a stray file
+      (pharmacy-orphan-test.html) added to modules/branch/pages with nothing
+      else touched - CAUGHT, isolated. CONTROL - an unrelated field
+      (controlTestField) added to Scorah Bramhall's own branches.json record
+      - correctly produced zero landing-section findings, confirming the six
+      catches above are genuine rule hits and not the checker failing on any
+      touch to branches.json at all. All eight rounds fired on the first
+      attempt with the expected rule-specific message; the whole script was
+      re-run a second time end to end with identical results.
+      branches.json and tools/build-branch-landing-pages.js confirmed
+      sha256-identical to their pre-round baseline after every individual
+      restoration and again at the end; git status --porcelain on
+      modules/branch/pages, tools/ and branches.json stayed empty throughout
+      both rounds, aside from the two long-standing pre-existing untracked
+      artefacts already logged on every prior pass (gbp-packs/
+      .fuse_hidden0000000400000001 and modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither created nor
+      touched by this pass. Full 36-checker suite re-run clean before and
+      after the round (36/36 both times) on the full scratch copy; all six
+      page generators rebuilt from their own build-*.js scripts there,
+      git status --porcelain -- modules/ empty after (aside from the same
+      pre-existing .bak artefact). Tracked repo (the actual working
+      directory this pass ran from) never touched: confirmed
+      git status --porcelain on modules/, tools/, branches.json, gbp-packs/
+      and core/ clean throughout, aside from the same two pre-existing
+      untracked artefacts.
+      LIVE HALF: not re-read this pass, scope was the repo-side checker
+      mechanism only; the seventeenth pass's live findings (all four of this
+      item's own landing URLs still 404, Q35 still open) stand unchanged.
+      RESULT: no in-repo defect. tools/check-page-coverage.js's branch
+      landing section was already correctly holding this item's own BUILD
+      list and generated page set to all seven of its rules, including the
+      two genuine cross-rule overlaps (LANDING_NOT_BUILT/ORPHAN_PAGE and the
+      double LANDING_NOT_SHARED), now proven directly by injection for the
+      first time in this item's eighteen-pass history, closing the single
+      largest remaining gap in this item's own guard-coverage list (the
+      checker that created the item was, until now, the one checker on this
+      item's own four pages never exercised by injection at all). No
+      checker logic, page, generator or data field changed anywhere in the
+      repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-16-eighteenth.js and
+      audits/verify-5.2-2026-09-16-eighteenth-output.txt.
+      Guard coverage for this item now extends to 17 of the estate's 36
+      checkers proven by direct injection against one of its own four pages
+      or its own branches.json/generator records (up from 16): check-
+      address-region, check-app-membership (trivial), check-branch-identity,
+      check-branch-links, check-brand-spelling, check-em-dashes, check-
+      jsonld, check-live-hours, check-map-embeds, check-nap, check-opening-
+      hours, check-page-coverage (new this pass), check-pharmacy-first-
+      eligibility, check-postcodes, check-seo-keywords, check-weight-loss-
+      copy (trivial), check-whatsapp-route (trivial).
+      FORWARD NOTE: next stalest by this run's own re-derivation is the pool
+      tied at 2026-09-12 (1.3, 2.3, 3.1, 3.2, 6.2, 6.3), unchanged from the
+      seventeenth pass's own forward note, since 5.2 itself now moves to the
+      back of the queue at 2026-09-16. Other runs may land in between before
+      the next pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

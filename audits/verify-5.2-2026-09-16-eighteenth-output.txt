@@ -1,0 +1,60 @@
+
+=== Injection 1: STALE_ID (fake id in BUILD list) ===
+exit: 1
+  STALE_ID: Branch landing: tools/build-branch-landing-pages.js lists fake_branch_xyz, which is not in branches.json at all.
+restored, byte-identical confirmed
+
+=== Injection 2: DISPOSED_LISTED (disposed branch added to BUILD list) ===
+exit: 1
+  DISPOSED_LISTED: Pharmacy First: tools/build-service-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+  DISPOSED_LISTED: Contraception: tools/build-contraception-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+  DISPOSED_LISTED: Travel clinic: tools/build-travel-clinic-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+  DISPOSED_LISTED: Weight loss: tools/build-weight-loss-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+  DISPOSED_LISTED: Switch: tools/build-switch-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+  DISPOSED_LISTED: Branch landing: tools/build-branch-landing-pages.js lists cherrylane_liverpool, which is marked disposed in branches.json. Remove it from the list.
+restored, byte-identical confirmed
+
+=== Injection 3: NOT_EARNED (brandSlug removed from a listed branch) ===
+exit: 1
+  NOT_EARNED: Pharmacy First: tools/build-service-pages.js lists mccanns_aigburth, but branches.json does not earn it a page (widgets.pharmacyFirst is set is not true).
+  NOT_EARNED: Contraception: tools/build-contraception-pages.js lists mccanns_aigburth, but branches.json does not earn it a page (widgets.contraception is set is not true).
+  NOT_EARNED: Travel clinic: tools/build-travel-clinic-pages.js lists mccanns_aigburth, but branches.json does not earn it a page (widgets.travelClinic is set is not true).
+  NOT_EARNED: Weight loss: tools/build-weight-loss-pages.js lists mccanns_aigburth, but branches.json does not earn it a page (widgets.weightLoss is set is not true).
+  NOT_EARNED: Switch: tools/build-switch-pages.js lists mccanns_aigburth, but branches.json does not earn it a page (the branch trades and has brandSlug, townSlug and website is not true).
+  NOT_EARNED: Branch landing: tools/build-branch-landing-pages.js lists mccanns_aigburth, which has no brandSlug, townSlug or website, so no page can be named for it.
+restored, byte-identical confirmed
+
+=== Injection 4: PAGE_MISSING (Scorah Bramhall's own page deleted from disk) ===
+exit: 1
+  PAGE_MISSING: Branch landing: modules/branch/pages/pharmacy-scorah-bramhall.html is listed for scorah_bramhall but is not on disk. Re-run tools/build-branch-landing-pages.js.
+restored: true byte-identical: true
+
+=== Injection 5: LANDING_NOT_BUILT (scorah_hazel removed from BUILD list, branches.json untouched) ===
+exit: 1
+  LANDING_NOT_BUILT: scorah_hazel shares www.scorah-chemists.co.uk with another trading branch but has no branch landing page, and is not in the BUILD list of tools/build-branch-landing-pages.js. Item 2.2 built these for Fishlocks for exactly this reason.
+restored, byte-identical confirmed
+
+=== Injection 6: LANDING_NOT_SHARED (Hazel Grove's website changed to a unique host) ===
+exit: 0
+original website was: https://www.scorah-chemists.co.uk
+  LANDING_NOT_SHARED: Branch landing: tools/build-branch-landing-pages.js lists scorah_bramhall, which no longer shares its domain with another trading branch. Harmless, but the page is doing nothing the branch's own site does not already do.
+  LANDING_NOT_SHARED: Branch landing: tools/build-branch-landing-pages.js lists scorah_hazel, which no longer shares its domain with another trading branch. Harmless, but the page is doing nothing the branch's own site does not already do.
+restored, byte-identical confirmed
+
+=== Injection 7: ORPHAN_PAGE (stray file added to modules/branch/pages) ===
+exit: 1
+  ORPHAN_PAGE: modules/branch/pages/pharmacy-orphan-test.html is on disk but branches.json earns no such page. It is generated output nothing maintains: check whether its branch was disposed or its slug renamed, then delete it.
+restored, stray file removed: true
+
+=== Control: unrelated field added to scorah_bramhall, should not fire any landing rule ===
+exit: 0
+landing-section findings (expect none): (none)
+restored, byte-identical confirmed
+
+=== Final state ===
+branches.json sha256 matches baseline: true
+generator sha256 matches baseline: true
+final baseline re-run exit: 0
+
+check-page-coverage: clean, 177 pages accounted for
+
