@@ -1,4 +1,122 @@
-## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-fourth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.4 (Scorah Chemists Bramhall pack) twentieth quality pass: three granular rules within tools/check-gbp-packs.js (transactional-CTA button label, lead pricing in posted copy, POM-class allusion without naming) proved by injection against this pack's own copy for the first time in twenty passes, despite each rule already being proven elsewhere in the estate; zero in-repo defect. Live half not repeated (fully re-verified one day prior, on the nineteenth pass). No new question.
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirty-fifth run today; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.9 live-half read, one tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.9 (Clear Chemist Aintree pack) eighteenth quality pass: tools/check-gbp-packs.js's scoped "phone in PUBLISHED copy" rule proved by three injections against this pack's own copy for the first time in eighteen passes, despite this pack being the rule's own stated motivating case (its in-code comment names clear-aintree.md by filename); zero in-repo defect. Live half reconfirms Q28, Q21 and Q29 all unchanged. No new question.
+
+LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start (checked
+LastWriteTime first, per the 45-minute rule); wrote a fresh UTC timestamp
+(2026-09-16T20:03:59Z). A fresh `.git/index.lock` appeared during this
+run's own `git status`/`git pull` calls (0 bytes, created seconds earlier,
+same owner/perms) - the standing FUSE-mount unlink-blocked shape Q87/Q96/
+Q102 document (confirmed again this run: `rm -f` on it and on a brand-new
+throwaway file both failed "Operation not permitted", while `touch` and
+`git pull`/`git status` themselves succeeded); not chased further, left in
+place rather than force-deleted since it was not older than 1 hour and no
+git process was hung. `git fetch`/`checkout agents/audit-backlog`/`pull
+--ff-only` (sandbox mount, read-only use) completed normally, already up
+to date with origin/agents/audit-backlog at acf63f6 (item 4.4's own
+twentieth-pass commit, confirmed pushed).
+
+ANSWER PICKUP (step 3): exactly one connected browser
+(f153c338-0ebe-43a6-b7b1-dbede00f431e), no Q59 conflict this run.
+https://data.rbhealth.co.uk/api/feedback read cleanly first attempt.
+Newest portal entry still the Q52 answer, dated 2026-09-01T22:44:51.524Z -
+unchanged since every run since 2026-09-01. No answer arrived for any of
+the 56 currently-open questions this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): checked the top of AGENT_LOG.md before
+adding this entry (i.e. the prior run's own entry, for item 4.4) - no
+"Standing authorisation - autonomous window" section present. Not
+applicable; step 7 applies as written.
+
+WORKLIST SCAN (step 5): `grep -n "^- \[ \]"` AGENT_WORKLIST.md - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+still [BLOCKED]. No actionable unchecked item. Fell to the quality-pass
+fallback, as every recent run also has.
+
+ROTATION POOL: re-derived from first principles rather than trusting the
+prior run's own note, using a more reliable method than the historical
+`\b(?:item|took)\s+<id>\b` AGENT_LOG.md text scan (which this run confirmed
+returns false positives from method-discussion prose, e.g. matching a
+sentence that names "item 4.3" while describing this very tie-break
+technique rather than recording a pass on it). Instead read each of the 35
+in-rotation item ids' own block in AGENT_WORKLIST.md (42 completed items
+minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) and took the latest `2026-\d\d-\d\d` date appearing inside each
+block. Tied-oldest at 2026-09-15: {4.9, 4.15, 5.2} (4.4 and 3.10 already
+taken by today's earlier runs). Took the lowest-numbered candidate, 4.9
+(Clear Chemist Aintree pack), matching the standing tie-break convention
+recorded in the prior run's own entry.
+
+WORK DONE (item 4.9, eighteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.9 block and in
+audits/clear-aintree-published-phone-4.9-eighteenth-2026-09-16.txt;
+summarised here. Seventeen prior passes had proven all ten checkers that
+genuinely scan gbp-packs/ against this pack, plus the sister-branch rule
+(seventeenth pass); this pass targeted a specific granular rule within
+tools/check-gbp-packs.js never yet proven against clear-aintree.md
+specifically: the "phone in PUBLISHED copy" rule (business description,
+Services section and post bodies), scoped separately from the file-wide
+phone-presence and phone-ownership rules. Chosen deliberately because the
+rule's own in-code comment names clear-aintree.md and hirshmans-
+ainsdale.md by filename as the reason it is scoped rather than absolute -
+this pack is the rule's own stated motivating case, and no prior pass had
+actually broken it here to prove the rule holds.
+Baseline: full 36-checker suite run individually against the tracked repo
+before starting: 35/36 exit 0 (check-cdn-pins.js's standing .git-less
+exception does not apply here since this was checked against the tracked
+repo directly, included separately). Pack sha256
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+unchanged throughout, matching all seventeen prior passes.
+Scratch copy via `tar --exclude=.git` into /tmp, outside both mounted
+folders and the tracked repo (this rule needs no git history, unlike
+check-cdn-pins.js). THREE INJECTIONS plus a control, each restored from a
+pristine backup and sha256-reconfirmed identical before the next: (1) SK
+Chemists Bootle's real phone (0151 944 1013, confirmed against
+branches.json) inserted into Post C's body - CAUGHT twice over, by the
+existing unscoped "phone belongs to another branch" rule ("phone 0151 944
+1013 belongs to SK Chemists, not Clear Chemist") and separately by the
+scoped published-phone rule naming Post C and SK Chemists specifically
+("the Post C - Weight loss clinic publishes the phone number ... which is
+SK Chemists's number ... pasted verbatim into the public Google
+profile"); (2) an invented non-branch phone-like number (0151 555 0199)
+inserted into the Services section - CAUGHT by the scoped rule with its
+generic no-owner message, the unscoped rule only WARNing (as designed, it
+cannot name an owner for a number matching no branch), confirming the
+two-tier message design on this pack specifically; (3) CONTROL, an
+invented non-branch phone-like number (0151 555 0177) inserted into
+"Notes for the paster" - the exact section this pack already legitimately
+uses to document the Q28 superseded number - correctly PASSED by the
+scoped rule (no FAIL from it), only the pre-existing unscoped WARN family
+firing (a new WARN for the injected number, alongside the standing WARN
+for 0151 203 8365), proving the scope boundary the rule's own comment
+describes holds on the exact pack that comment was written about. All
+three fired or passed on the first attempt, on the intended path only.
+Final restore sha256-reconfirmed identical to the pristine backup.
+Full 36-checker suite re-run clean on the scratch copy after cleanup:
+35/36 exit 0 (check-cdn-pins.js's known .git-less exception). Tracked
+repo confirmed untouched throughout via `git status --short
+gbp-packs/clear-aintree.md tools/check-gbp-packs.js` (empty) and sha256
+(unchanged). No in-repo defect found; no checker, pack, page, generator
+or data field changed; no new question raised. Guard coverage for item
+4.9 now extends to a twelfth distinct rule/checker proven by direct
+injection against this branch specifically (the ten directory-scanning
+checkers, the sister-branch rule, and now the published-phone rule).
+LIVE HALF performed via Claude in Chrome (connected, single instance, no
+Q59 block this run), read-only, one tab, closed after use, nothing
+clicked, typed or submitted beyond navigation and text extraction:
+https://www.clearchemist.co.uk/contact-us confirms phone 0151 203 6535
+with no 8365 anywhere (Q28, fixed and unchanged), WhatsApp 07512 330 076
+still distinct from the estate-wide hardcoded default 447521775631 (Q21's
+concrete case, unchanged), address Unit 20 Brookfield Trade Centre,
+Brookfield Drive, Aintree, L9 7AS matches branches.json, and hours read
+exactly as this pack's own record states (two incompatible weekly
+patterns for NHS and non-NHS services, still correctly withheld from
+branches.json and GBP). https://www.clearchemist.co.uk/weight-loss-
+clinic-clear-aintree.html still returns 404 on the branch's own template,
+correct new phone displayed (Q29 unchanged, homepage-button workaround
+still correct and necessary). No in-repo defect found, no new question
+raised. Evidence:
+audits/clear-aintree-published-phone-4.9-eighteenth-2026-09-16.txt.
+
+; mcp__workspace__bash used for lock handling, repo reads, and a scratch-copy injection cycle built under /tmp rather than either mounted folder; mcp__Windows-MCP__PowerShell used for the git write route (add/commit/push) against the real C:\Dev\rbh-site-data working copy, per Q102's standing recommendation; mcp__claude-in-chrome__list_connected_browsers/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, tab opened and closed cleanly; Read/Edit/Write used for AGENT_WORKLIST.md, this entry and the new audits file) - Item 4.4 (Scorah Chemists Bramhall pack) twentieth quality pass: three granular rules within tools/check-gbp-packs.js (transactional-CTA button label, lead pricing in posted copy, POM-class allusion without naming) proved by injection against this pack's own copy for the first time in twenty passes, despite each rule already being proven elsewhere in the estate; zero in-repo defect. Live half not repeated (fully re-verified one day prior, on the nineteenth pass). No new question.
 
 LOCK CHECK / REPO SYNC (steps 1-2): `.agent-lock` absent at start; wrote a
 fresh UTC timestamp (2026-09-16T19:33:58Z). `.git/index.lock` was found

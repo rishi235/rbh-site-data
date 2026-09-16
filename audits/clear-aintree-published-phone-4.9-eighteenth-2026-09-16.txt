@@ -1,0 +1,91 @@
+Item 4.9 (Clear Chemist Aintree GBP pack), eighteenth quality pass, 2026-09-16
+Fresh angle: tools/check-gbp-packs.js's scoped "phone in PUBLISHED copy" rule
+(business description + Services section + post bodies), proven by injection
+against gbp-packs/clear-aintree.md for the first time in eighteen passes.
+
+Why this rule, on this pack: the rule's own in-code comment (tools/check-
+gbp-packs.js, around the "--- the phone in PUBLISHED copy ---" block) names
+clear-aintree.md and hirshmans-ainsdale.md by filename as the reason the rule
+is scoped to published copy rather than the whole file - both packs
+legitimately quote a superseded/wrong phone number in their preamble/Notes
+sections to document a correction (Q28 for this pack). Seventeen prior passes
+on this item had proven ten checkers that scan gbp-packs/ as a directory, plus
+the sister-branch rule, against this pack, but never this specific rule,
+despite this pack being the rule's own stated motivating case.
+
+Method: full repo copied (tar, .git excluded - this rule needs no git history)
+to a scratch directory under /tmp, outside both mounted folders and the
+tracked repo. Tracked pack never opened for writing throughout (sha256
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4 unchanged,
+reconfirmed before, during and after). Baseline: 35/36 checkers exit 0 on the
+scratch copy (check-cdn-pins.js's standing .git-less exception, confirmed
+separately exit 0 against the tracked repo directly); check-gbp-packs.js
+baseline: 0 failures, 14 known estate-wide warnings, including this pack's own
+standing WARN ("phone-like number 0151 203 8365 is not Clear Chemist's number
+in branches.json" - the Q28 narrative quote, correctly a WARN not a FAIL).
+
+Three injections, each restored from the pristine backup and sha256-
+reconfirmed identical before the next:
+
+1) SK Chemists Bootle's real phone (0151 944 1013, confirmed against
+   branches.json) inserted into Post C's body (weight loss clinic - a post,
+   which is in scope). CAUGHT twice over: the existing unscoped "phone belongs
+   to another branch" rule fired ("phone 0151 944 1013 belongs to SK
+   Chemists, not Clear Chemist"), AND the scoped published-phone rule fired
+   separately and specifically ("the Post C - Weight loss clinic publishes
+   the phone number 0151 944 1013, which is SK Chemists's number, but
+   branches.json holds 0151 203 6535 for Clear Chemist... pasted verbatim
+   into the public Google profile"). Confirms the rule reads post bodies.
+
+2) An invented, non-branch phone-like number (0151 555 0199) inserted into
+   the Services section (in scope). CAUGHT by the scoped published-phone rule
+   with the generic message (no "which is X's number" clause, since it
+   matches no real branch); the unscoped presence rule only WARNed (as
+   designed - it cannot name an owner for a number that belongs to nobody).
+   Confirms the rule reads the Services section and confirms the two-tier
+   message design (FAIL naming an owner vs FAIL with no owner) both work on
+   this pack specifically.
+
+3) CONTROL: an invented, non-branch phone-like number (0151 555 0177)
+   inserted into "Notes for the paster" (explicitly out of scope - the exact
+   section this pack already legitimately uses to document Q28's superseded
+   number). Correctly PASSED by the scoped published-phone rule: no FAIL
+   raised by it. Only the pre-existing unscoped WARN family fired (a new WARN
+   for the injected number, alongside the standing WARN for 0151 203 8365).
+   This proves the scope boundary the rule's own comment describes holds on
+   the exact pack that comment was written about, using an injected foreign
+   number rather than relying on the pack's own pre-existing legitimate one.
+
+All three fired or passed on the first attempt, on the intended path only.
+Final restore sha256-reconfirmed identical to the pristine backup. Full
+36-checker suite re-run on the scratch copy after the final restore: 35/36
+exit 0 (same known cdn-pins exception). Tracked repo confirmed untouched
+throughout: `git status --short gbp-packs/clear-aintree.md
+tools/check-gbp-packs.js` empty; sha256 of the tracked pack unchanged
+(a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4). No
+in-repo defect found; no checker, pack, page, generator or data field
+changed; no new question raised.
+
+LIVE HALF (Claude in Chrome, single connected browser instance, no Q59
+conflict this run; read-only, nothing clicked, typed or submitted beyond
+navigation and text extraction):
+- https://www.clearchemist.co.uk/contact-us - phone 0151 203 6535 only, no
+  8365 anywhere (Q28, fixed and unchanged); WhatsApp 07512 330 076, still
+  distinct from the estate-wide hardcoded default 447521775631 (Q21's
+  concrete case, unchanged); address Unit 20 Brookfield Trade Centre,
+  Brookfield Drive, Aintree, L9 7AS matches branches.json; hours read
+  "Non-NHS Services - Monday - Friday 8am-4.30pm", "NHS Services - Monday -
+  Thursday 8am - 6pm", "not open on bank holidays and weekends" - matches the
+  pack's own recorded reading exactly, still correctly withheld from
+  branches.json and GBP as two incompatible weekly patterns.
+- https://www.clearchemist.co.uk/weight-loss-clinic-clear-aintree.html -
+  still 404, branch's own 404 template, correct new phone displayed (Q29
+  unchanged, homepage-button workaround in the pack still correct and
+  necessary).
+
+ANSWER PICKUP: single connected Chrome browser, no Q59 conflict. https://
+data.rbhealth.co.uk/api/feedback read cleanly. Newest portal entry still the
+Q52 answer, 2026-09-01T22:44:51.524Z - unchanged since every run since
+2026-09-01. No answer present for any of the 56 currently-open questions.
+
+No new question raised.

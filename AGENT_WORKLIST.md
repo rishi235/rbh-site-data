@@ -20448,6 +20448,54 @@ directly rather than re-deriving the same facts by hand.
       Evidence:
       audits/clear-aintree-sister-branch-rule-4.9-seventeenth-2026-09-15.txt.
       Done 2026-09-15
+      Eighteenth quality pass 2026-09-16: fresh angle, proving
+      tools/check-gbp-packs.js's scoped "phone in PUBLISHED copy" rule
+      (business description, Services section and post bodies) against this
+      pack's own copy for the first time in eighteen passes, despite this
+      pack being the rule's own stated motivating case: the rule's in-code
+      comment names clear-aintree.md and hirshmans-ainsdale.md by filename
+      as the reason it is scoped to published copy rather than the whole
+      file, since both legitimately quote a superseded phone number in
+      their Notes-for-the-paster section (Q28, this pack). Full repo copied
+      (.git excluded, not needed for this rule) to a scratch directory
+      under /tmp; tracked pack untouched throughout (sha256
+      a5b90f58...321f4 unchanged, reconfirmed after every restore). Baseline
+      clean: 35/36 checkers (check-cdn-pins.js's standing .git-less
+      exception), check-gbp-packs.js 0 failures, 14 known warnings including
+      this pack's own standing Q28 WARN. Three injections, each restored by
+      byte copy and sha256-reconfirmed before the next: (1) SK Chemists
+      Bootle's real phone (0151 944 1013) inserted into Post C's body -
+      CAUGHT twice, by the existing unscoped "belongs to another branch"
+      rule and separately by the scoped published-phone rule naming Post C
+      and SK Chemists by name; (2) an invented non-branch number (0151 555
+      0199) inserted into the Services section - CAUGHT by the scoped rule
+      with its generic (no-owner) message, the unscoped rule only WARNing,
+      confirming the two-tier message design on this pack specifically; (3)
+      CONTROL, an invented non-branch number (0151 555 0177) inserted into
+      Notes for the paster, the exact section this pack already legitimately
+      uses for the Q28 quote - correctly PASSED by the scoped rule, only the
+      pre-existing unscoped WARN family firing, proving the scope boundary
+      the rule's own comment describes holds on the exact pack that comment
+      was written about. All three fired or passed on the first attempt, on
+      the intended path only. Full 36-checker suite re-run clean on the
+      scratch copy after the final restore (35/36, same known exception);
+      tracked repo confirmed untouched (`git status --short` empty, sha256
+      unchanged). No in-repo defect found; no checker, pack, page, generator
+      or data field changed. LIVE HALF performed via Claude in Chrome
+      (single connected browser instance, no Q59 conflict this run),
+      read-only: contact-us page confirms phone 0151 203 6535 with no 8365
+      anywhere (Q28 unchanged), WhatsApp 07512 330 076 still distinct from
+      the estate-wide default (Q21's concrete case, unchanged), address and
+      hours both match branches.json and this pack's own recorded reading
+      exactly; the weight-loss-clinic-clear-aintree.html post-target URL
+      still returns 404 on the branch's own template with the correct new
+      phone displayed (Q29 unchanged, homepage-button workaround still
+      correct and necessary). ANSWER PICKUP succeeded (single Chrome
+      instance, no Q59 conflict): newest portal entry still Q52,
+      2026-09-01T22:44:51.524Z; no answer present for any of the 56
+      currently-open questions. No new question raised. Evidence:
+      audits/clear-aintree-published-phone-4.9-eighteenth-2026-09-16.txt.
+      Done 2026-09-16
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
