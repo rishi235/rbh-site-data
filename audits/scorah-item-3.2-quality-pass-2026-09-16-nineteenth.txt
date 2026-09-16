@@ -1,0 +1,112 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - nineteenth quality pass
+2026-09-16, unattended scheduled run (audit-backlog-worker, fourteenth run today)
+
+Purpose: extend item 3.2's per-checker injection coverage to a checker never
+before deliberately targeted at Scorah's own pages: tools/check-weight-loss-copy.js.
+Eighteen prior passes had proven check-seo-pattern.js, check-seo-lengths.js,
+check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+check-app-membership.js and check-switch-copy.js against Scorah's own pages or
+data by direct injection (13 of 36). Both Scorah branches carry a weightLoss
+widget (shared diary 66b9d3d18ed9220fea0a205d) and each has its own generated
+weight-loss-clinic-*.html page plus a Regime 1 branch landing page
+(pharmacy-scorah-bramhall.html / pharmacy-scorah-hazel-grove.html), so this
+checker was a real gap, not a false one.
+
+BASELINE: all 36 checkers exit 0 on the tracked repo before any work (later
+re-confirmed after an unrelated housekeeping note below). branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 recorded and
+unchanged throughout. Repo copied with `tar --exclude='.git'` to a scratch
+directory under the outputs mount (tar copy of both target files confirmed
+byte-identical to the tracked repo by sha256 before any injection); the
+tracked repo was never opened for writing during any injection.
+
+FIVE INJECTIONS against the scratch copy, each restored by direct copy from
+the tracked repo and sha256-reconfirmed byte-identical before the next:
+
+  1. RULE 8 (medicine name) - Bramhall's weight loss page hero sentence
+     changed to name "Mounjaro". CAUGHT: rule 8 fired ("names 'mounjaro'"),
+     plus the expected rule 2 collateral (the same sentence is one of the 21
+     pinned lines, so altering it also breaks the verbatim pin). Restored;
+     sha256 e3c8ab28442077dcfa92bc593c4d7678d815994e3f051b488d5c7b9444b067cd
+     confirmed before and after.
+
+  2. RULE 9 (efficacy/results claim) - Hazel Grove's hero-proof line had
+     "Lose up to 20% of your body weight" appended. CAUGHT: exactly one
+     failure, "makes quantified weight loss claim: 'Lose up to'". No
+     cross-fire. Restored; sha256
+     265efe932028f1158cd611405f4932a29032f66d220673be1cd846852dbd8f45
+     confirmed before and after.
+
+  3. RULE 6 (no guarantee) - Bramhall's footer disclaimer shortened to drop
+     "and does not guarantee eligibility, treatment or results". CAUGHT:
+     exactly one failure, "has lost a no-guarantee statement". No cross-fire.
+     Restored; sha256 confirmed byte-identical to injection 1's baseline.
+
+  4. RULE 7 (price discipline) - Hazel Grove's booking-card fee sentence
+     had "- 20% off this month only" inserted next to the price. CAUGHT:
+     exactly one failure, the Q51 booking-card verbatim rule ("booking-card
+     fee sentence does not read ..."). No cross-fire. Restored; sha256
+     confirmed byte-identical to injection 2's baseline.
+
+  5. RULE 11 (Regime 1 branch landing page) - Scorah Bramhall's own branch
+     landing page (pharmacy-scorah-bramhall.html), never before targeted by
+     this checker for either Scorah branch, had "including Mounjaro" added to
+     its weight loss clinic tile. CAUGHT: exactly one failure, correctly
+     citing the Regime 1 rule ("no prescription-only medicine may be named
+     anywhere, hover text and small print included"). No cross-fire.
+     Restored; sha256
+     28bd52e908d4deaeeb5a4e18427fd92da0970e3eaa41c1cf50624f42937cff07
+     confirmed before and after.
+
+All five injections fired on their intended rule (plus one expected,
+documented collateral hit) and no other, first attempt. Full 34-checker sweep
+(cdn-pins and live-hours excluded on the scratch copy, no .git there,
+established convention) clean after the final restore. Tracked repo confirmed
+untouched throughout: git status --porcelain -- modules core branches.json
+gbp-packs tools status showed only the two pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), unchanged;
+full 36-checker suite re-run on the tracked repo after cleanup, 36/36 exit 0.
+
+Guard coverage for item 3.2 now extends to 14 of 36 checkers proven by direct
+injection (up from 13).
+
+LIVE HALF (Claude in Chrome connected this run): both live weight loss pages
+read in full (scorah-chemists.co.uk/weight-loss-clinic-scorah-bramhall.html
+and .../weight-loss-clinic-scorah-hazel-grove.html). Visible copy on both
+matches the current compliant generator output verbatim: no medicine name, no
+efficacy or results claim, no discount or offer wording, the full eligibility
+and no-guarantee copy present, single consistent "from £39.99" price. This is
+the cleanest live state found on any Scorah page family so far; unlike the
+UTI/switch pages, these two do not carry a doubled Weebly-default title.
+
+NEW LIVE FINDING (extends, does not newly raise, two already-tracked issues):
+both live weight loss pages' JSON-LD blocks read "name": "Scorah Chemists"
+(the bare shared brandLabel, not the branch-specific branchName the repo has
+generated since the Q18 fix landed 2026-08-30) AND "@type": "MedicalBusiness"
+(not "Pharmacy", the fault class item 3.10 recorded as fixed by regeneration
+on 2026-08-10). The tracked repo's own weight-loss-clinic-scorah-*.html pages
+confirmed by direct read to declare "@type": "Pharmacy" and the correct
+branch-specific name today, so this is paste lag, not a repo defect. This is
+the first time the item-3.10 @type fault has been confirmed live on a weight
+loss page specifically, and it means these two pages have not been repasted
+since before 2026-08-10, a wider gap than the Q18-only lag recorded on the
+12th pass for other Scorah page families. Same root cause as the standing
+5.3/5.4/paste-run backlog; no new question raised, recorded to sharpen the
+evidence trail for the eventual paste sweep.
+
+HOUSEKEEPING (incidental, not part of this item's own scope): this run's own
+scratch working file (a temporary extract of this file's own text, created
+and later renamed while investigating the standing check-postcodes.js
+"L4 9SG" narrative-postcode residue) briefly reproduced that same
+already-documented pre-existing finding under a new filename. Renamed to a
+dotfile (excluded from check-postcodes.js's scan) rather than left as a fresh
+UNKNOWN; the tracked repo's own check-postcodes.js result is unaffected and
+was 0 failures both before and after. Not fixed as part of this pass, per the
+same out-of-scope precedent recorded by the 3.1 and 3.2 passes earlier today
+(2026-09-16) and by the 2.3/3.1/3.2 passes on 2026-09-12.
+
+No in-repo defect found. No new fault class in check-weight-loss-copy.js
+itself. No new question.

@@ -3559,6 +3559,76 @@ Evidence in audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt.
       item 3.2 now extends to 13 of 36 checkers proven by direct injection
       (up from 12). Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-15-eighteenth.txt.
+      Quality pass 2026-09-16 (nineteenth, unattended scheduled run via
+      Cowork, fourteenth run today, independently derived as least recently
+      mentioned of the 35-item rotation pool after excluding the standing
+      one-off set - 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - via a word-bounded
+      "item|took N" scan of AGENT_LOG.md, 3.1 excluded as most recently
+      mentioned having just been done this morning). Eighteen prior passes
+      had proved check-seo-pattern.js, check-seo-lengths.js,
+      check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+      check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+      check-app-membership.js and check-switch-copy.js against Scorah's own
+      pages or data by direct injection; check-weight-loss-copy.js had never
+      been named once, despite both branches carrying a weightLoss widget
+      (shared diary) and each having its own generated weight-loss-clinic
+      page plus a Regime 1 branch landing page. Baseline: all 36 checkers
+      exit 0; branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      recorded and unchanged throughout. Full repo copied by tar (excluding
+      .git) to a scratch directory under the outputs mount, tracked repo
+      never opened for writing. Five injections, each restored by direct
+      copy and sha256-reconfirmed byte-identical before the next: (1) rule 8
+      (medicine name) - "Mounjaro" named in Bramhall's hero sentence -
+      CAUGHT, plus the expected rule 2 pinned-copy collateral since the same
+      sentence is one of the 21 verbatim-pinned lines; (2) rule 9
+      (efficacy/results claim) - "Lose up to 20% of your body weight"
+      appended to Hazel Grove's hero-proof line - CAUGHT, exactly one
+      failure; (3) rule 6 (no guarantee) - Bramhall's footer disclaimer
+      shortened to drop the no-guarantee clause - CAUGHT, exactly one
+      failure; (4) rule 7 (price discipline) - "20% off this month only"
+      inserted into Hazel Grove's booking-card fee sentence - CAUGHT by the
+      Q51 verbatim rule, exactly one failure; (5) rule 11 (Regime 1 branch
+      landing page) - "including Mounjaro" added to Scorah Bramhall's own
+      landing-page weight loss tile, a page never before targeted by this
+      checker for either Scorah branch - CAUGHT, exactly one failure, citing
+      the Regime 1 rule correctly. All five fired on their intended rule
+      only (plus the one documented, expected collateral), first attempt.
+      Full 34-checker sweep (cdn-pins and live-hours excluded on the scratch
+      copy, established convention) clean after the final restore; tracked
+      repo confirmed untouched by git status --porcelain (only the two
+      pre-existing untracked strays) and by sha256 on all target files. Guard
+      coverage for item 3.2 now extends to 14 of 36 checkers proven by direct
+      injection (up from 13). LIVE HALF (Claude in Chrome connected this
+      run): both live weight loss pages read in full and matched the current
+      compliant generator output verbatim on every visible line - no medicine
+      name, no efficacy claim, no discount wording, full eligibility and
+      no-guarantee copy present, one consistent "from £39.99" price - the
+      cleanest live state found on any Scorah page family so far, with
+      neither page carrying the doubled Weebly-default title seen elsewhere
+      on this domain. NEW LIVE FINDING (extends two already-tracked issues,
+      raises no new question): both pages' JSON-LD blocks read "name":
+      "Scorah Chemists" (the bare shared brandLabel, the standing Q18-era
+      finding from the twelfth pass) AND, newly confirmed on a weight loss
+      page for the first time, "@type": "MedicalBusiness" rather than
+      "Pharmacy" - the fault class item 3.10 recorded as fixed by
+      regeneration on 2026-08-10. The tracked repo's own pages confirmed by
+      direct read to declare "Pharmacy" and the correct branch-specific name
+      today, so both are paste lag: these two live pages have not been
+      repasted since before 2026-08-10, a wider gap than the Q18-only lag
+      recorded elsewhere on this domain. Same root cause as the standing
+      5.3/5.4/paste-run backlog; not a new question. HOUSEKEEPING
+      (incidental): this pass's own scratch working file briefly reproduced
+      the standing check-postcodes.js "L4 9SG" narrative-postcode residue
+      under a new filename while it was in the tracked directory; renamed to
+      a dotfile (excluded from that checker's scan) rather than left
+      standing, tracked repo's own check-postcodes.js result unaffected (0
+      failures before and after). Not fixed as part of this pass, per the
+      same out-of-scope precedent the 3.1, 2.3 and 3.2 passes themselves have
+      already recorded. No in-repo defect, no new fault class, no new
+      question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-16-nineteenth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

@@ -1,3 +1,144 @@
+## 2026-09-16 (unattended scheduled run, audit-backlog-worker, fourteenth run today; mcp__workspace__bash used for lock handling, repo reads, tar scratch-copy injection testing (byte-copy restore, sha256-verified) and checker runs; mcp__claude-in-chrome__navigate/get_page_text/javascript_tool/tabs_context_mcp used for the answer-pickup fetch and the live half; Read/Edit used for AGENT_WORKLIST.md and this entry, plus the new audits file) - Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) nineteenth quality pass: tools/check-weight-loss-copy.js proven by five injections against Scorah's own two weight loss pages and, for the first time, Scorah Bramhall's own Regime 1 branch landing page (rules 6, 7, 8, 9 and 11), all caught cleanly, no cross-firing, tracked repo confirmed untouched throughout. Guard coverage for item 3.2 now 14 of 36 checkers. LIVE HALF (Claude in Chrome connected this run): both live weight loss pages read clean and compliant on every visible line, the cleanest Scorah page family found live so far, but their JSON-LD blocks are confirmed stale on TWO counts - the standing Q18-era bare-brandLabel name, and (new) "@type": "MedicalBusiness" rather than "Pharmacy", the item-3.10 fault class, meaning these two pages have not been repasted since before 2026-08-10. Both are paste lag, not repo defects; no new question, feeds the standing 5.3/5.4 paste backlog. No in-repo defect found on item 3.2 itself. See full detail below and in audits/scorah-item-3.2-quality-pass-2026-09-16-nineteenth.txt.
+
+LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run
+start. Wrote a fresh UTC timestamp (2026-09-16T09:03:55Z). `.git/HEAD.lock`
+found present, 0 minutes old (created 09:40:02, this run started ~10:03),
+consistent with the standing FUSE-mount unlink restriction (Q87/Q96/Q102):
+this mount cannot unlink but can rename, so the stale lock was cleared by
+rename (`.git/HEAD.lock` -> `.git/HEAD.lock.stale-test`, discovered `mv`
+succeeds where `rm` does not) rather than deletion. `git fetch origin`,
+`git checkout agents/audit-backlog` and `git pull --ff-only origin
+agents/audit-backlog` then completed cleanly ("Already up to date"), HEAD
+matching `origin/agents/audit-backlog`. A second, freshly-created
+`.git/index.lock` appeared later in the run as a side effect of a `git
+status` call (same unlink restriction) and was cleared the same way before
+the next git command.
+
+ANSWER PICKUP (step 3, this run): attempted via mcp__claude-in-chrome (tab
+opened, contrary to the standing Q59 note this run's fetch succeeded - no
+dual-sign-in refusal encountered). Read https://data.rbhealth.co.uk/api/feedback
+in full. Cross-checked every "AUDIT ANSWER Qn" entry present against
+QUESTIONS.json's 56 currently-open questions: the only two open questions with
+any answer in the feed are Q37 and Q43, and both entries are byte-identical to
+answers already recorded in QUESTIONS.json (dated 2026-09-01) as "PORTAL REPLY
+RECEIVED, NOT A DECISION" - Rishi's Q37 reply asks for the question to be
+explained rather than picking an option, and his Q43 reply is a partial,
+non-binary comment on one half of a two-part question. Both already correctly
+left as status "open" by a prior run; no new answer to apply, no status
+change made. No other currently-open question (Q53-Q109 minus Q37/Q43) has
+any entry in the feed at all.
+
+AUTONOMOUS WINDOW CHECK (step 4, this run): checked the top of AGENT_LOG.md
+(the thirteenth run's own entry) before adding this one - no "Standing
+authorisation - autonomous window" section present. Not applicable; step 7
+applies as written, no autonomous decisions taken.
+
+WORKLIST SCAN (step 5, this run): `grep -n "^- \[ \]" AGENT_WORKLIST.md` - 8
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under
+6.4/6.5/6.6), all 8 still carry `[BLOCKED]`, unchanged from the thirteenth
+run. No actionable unchecked item. Fell to the quality-pass fallback.
+
+ROTATION POOL (this run): 35-item pool (42 checked AGENT_WORKLIST.md items
+minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) derived from a fresh `grep -n "^- \[x\]"` scan. Derived the pick the
+same way as recent runs: a Node full-text scan of AGENT_LOG.md matching
+`(?:item|took)\s+<N>` word-bounded anywhere in the file, taking each pool
+item's topmost (most recent) mention line index, then picking the item whose
+own most-recent-mention line index was the LARGEST (= least recently
+mentioned). 3.1 came out at line 0 (most recently mentioned, having just been
+done by the thirteenth run this morning, correctly excluded from
+consideration as this run's pick); 3.2 came out clearly stalest among the
+remainder (last mentioned at line 753, versus 697 for the next-stalest, 6.3).
+Picked item 3.2 for a nineteenth quality pass.
+
+WORK DONE (item 3.2, nineteenth quality pass): see AGENT_WORKLIST.md's own
+paragraph for the full method and rule-by-rule detail; full transcript in
+audits/scorah-item-3.2-quality-pass-2026-09-16-nineteenth.txt. Summary:
+baseline 36/36 checkers clean, branches.json sha256 confirmed unchanged
+throughout at 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102.
+Eighteen prior passes had proved 13 of 36 checkers against Scorah's own
+pages/data by injection; check-weight-loss-copy.js had never been named once,
+despite both branches carrying a weightLoss widget and their own generated
+weight-loss-clinic page and Regime 1 branch landing page. Full repo copied by
+`tar --exclude='.git'` to a scratch directory under the outputs mount (tar
+copy confirmed byte-identical to the tracked files by sha256 before any
+injection); tracked repo never opened for writing. Five injections against
+the scratch copy, each restored by direct copy from the tracked repo and
+sha256-reconfirmed byte-identical before the next: (1) rule 8, "Mounjaro"
+named in Bramhall's hero sentence - CAUGHT, plus the expected rule 2 pinned-
+copy collateral; (2) rule 9, a quantified weight-loss claim appended to Hazel
+Grove's hero-proof line - CAUGHT, exactly one failure; (3) rule 6, Bramhall's
+no-guarantee footer sentence shortened to drop the guarantee clause - CAUGHT,
+exactly one failure; (4) rule 7, a discount phrase inserted into Hazel
+Grove's booking-card fee sentence - CAUGHT by the Q51 verbatim rule, exactly
+one failure; (5) rule 11, "including Mounjaro" added to Scorah Bramhall's own
+branch landing page weight loss tile (a page never before targeted by this
+checker for either Scorah branch) - CAUGHT, exactly one failure, correctly
+citing the Regime 1 rule. All five fired on their intended rule only (plus
+the one documented, expected collateral hit), first attempt, no unexplained
+cross-firing. Full 34-checker sweep (cdn-pins/live-hours excluded on the
+scratch copy, no .git there, established convention) clean after the final
+restore; tracked repo confirmed untouched by `git status --porcelain --
+modules core branches.json gbp-packs tools status` (only the two pre-existing
+untracked strays, unchanged) and by sha256 on all five target files, each
+matching its pre-injection baseline exactly. Full 36-checker suite re-run on
+the tracked repo after the scratch work, 36/36 exit 0. No checker logic,
+generator, branch data, page or pack content changed anywhere in the tracked
+repo. Guard coverage for item 3.2 now extends to 14 of 36 checkers proven by
+direct injection (up from 13).
+
+LIVE HALF (Claude in Chrome connected this run, both Scorah weight loss pages
+read in full): visible copy on both pages matches the current compliant
+generator output verbatim - no medicine name, no efficacy or results claim,
+no discount or offer wording, the full eligibility/no-guarantee copy present,
+one consistent "from £39.99" price throughout, and neither page carries the
+doubled Weebly-default title seen on other Scorah page families. This is the
+cleanest live state found on any Scorah page family across all nineteen
+passes. NEW FINDING, extends two already-tracked issues rather than raising a
+new question: both pages' JSON-LD blocks read `"name": "Scorah Chemists"`
+(the bare shared brandLabel; the standing Q18-era finding the twelfth pass
+first recorded on six other sampled pages) and, confirmed on a weight loss
+page for the first time, `"@type": "MedicalBusiness"` rather than
+`"Pharmacy"` - the fault class item 3.10 recorded as fixed by regeneration on
+2026-08-10. Read directly from the tracked repo's own
+weight-loss-clinic-scorah-*.html source: both declare `"@type": "Pharmacy"`
+and the correct branch-specific `name` today, confirming this is paste lag,
+not a repo defect, and that these two live pages specifically have not been
+repasted since before 2026-08-10 - a wider gap than the Q18-only lag recorded
+elsewhere on this domain. Same root cause as the standing 5.3/5.4/paste-run
+backlog; no new question raised, recorded to sharpen the evidence trail for
+the eventual paste sweep.
+
+HOUSEKEEPING (incidental, found and cleared during this run, not part of item
+3.2's own scope): while investigating the standing check-postcodes.js
+"L4 9SG" narrative-postcode residue (already recorded as pre-existing and out
+of scope by the 3.1, 2.3 and 3.2 passes on 2026-09-12 and again by this
+morning's runs), this run's own temporary scratch extract of AGENT_WORKLIST.md
+text briefly reproduced the identical finding under a new filename while
+sitting in the tracked working directory (this mount's standing unlink
+restriction meant it could not simply be deleted). Renamed to a dotfile,
+which check-postcodes.js's own scan convention excludes, rather than left
+standing as a fresh UNKNOWN; the tracked repo's own check-postcodes.js result
+was 0 failures both before this file was created and after it was renamed
+away. Not fixed as part of this pass, per the established out-of-scope
+precedent; flagged here only so the next run does not mistake it for new
+residue.
+
+FORWARD NOTE for whoever runs next: 3.2 now touched today (2026-09-16)
+alongside 1.2, 1.3, 2.1, 2.3, 3.1, 6.2 and 6.3 (per the prior run's own note)
+plus this run; re-derive the rotation pool fresh. On item 3.2 itself: 14 of 36
+checkers now proven against Scorah's own data by direct injection. Still never
+named once for this item: check-whatsapp-route.js, check-brand-spelling.js,
+check-em-dashes.js, check-address-region.js, check-service-links.js,
+check-page-coverage.js's ORPHAN_PAGE rule specifically, check-editor-
+snapshot.js, check-contraception-copy.js (both branches carry a contraception
+widget), check-travel-clinic-copy.js (both branches carry a travelClinic
+widget, a strong candidate given today's finding pattern), check-uk-
+spelling.js, check-url-scheme.js and check-live-hours.js as primary targets
+rather than collateral.
+
+---
+
 ## 2026-09-16 (unattended scheduled run, audit-backlog-worker, thirteenth run today; mcp__workspace__bash used for lock handling, repo reads, git archive scratch-copy injection testing (byte-copy restore, sha256-verified) and checker/generator runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the live half; Read/Edit/Write used for AGENT_WORKLIST.md and this entry, plus the new audits file) - Item 3.1 (title/H1 pattern definition) nineteenth quality pass: FRESH ANGLE, tools/check-seo-pattern.js's bySlug exclusion guard (`if (b.disposed || !b.brandSlug || !b.townSlug) return;`) had only ever had its first clause (b.disposed) proven by injection, on the eighteenth pass. The other two clauses - a live, non-disposed branch missing brandSlug or townSlug - had never been exercised with a page file present (rbh_head_office_aintree already carries both fields undefined by design, but generates no pages, so the clause was reached daily without ever being observably tested). Two injections on a git-archive scratch copy, each restored by byte copy and sha256-reconfirmed: Gordon Short Chemist Crosby's brandSlug blanked (all twelve of its own pages correctly fell to "untyped file", 177 to 165 checked, 12 failures, no cross-firing); Riddings Pharmacy Timperley's townSlug blanked (identical shape, a different branch to keep the two clauses independent). Both caught first attempt, tracked repo untouched throughout (branches.json sha256 unchanged, full 35-checker suite and all six generators re-confirmed clean afterwards). No in-repo defect. LIVE HALF (Claude in Chrome connected this run): fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html title and H1 both match the pattern verbatim, unchanged. No new question. Evidence: audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt.
 
 LOCK CHECK / REPO SYNC (steps 1-2, this run): `.agent-lock` absent at run start
