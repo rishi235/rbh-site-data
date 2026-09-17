@@ -101,8 +101,19 @@ correct on hours in Block 2; Smartts Bootle wrong). Total unchanged at 110,
 GIT WRITE ROUTE (steps 9-11): per the standing convention at Q87/Q96/Q102,
 routed through mcp__Windows-MCP__PowerShell against the real
 C:\Dev\rbh-site-data host rather than the sandbox shell, since the sandbox
-has no working git push credential. See the push/publish outcome recorded
-immediately below this entry once steps 9-11 complete.
+has no working git push credential. First `git add` attempt on the host hit
+a stale `.git/index.lock` (fatal: Unable to create index.lock: File exists),
+left behind moments earlier by this same run's own sandbox-side `git status`
+call, which cannot unlink it (the standing FUSE-mount restriction at
+Q87/Q96/Q102). Confirmed no git process running on the host, removed the
+lock, `git add` then staged cleanly. Committed as 5fb2391 ("Item 4.11
+twentieth quality pass: check-jsonld.js proven by injection against SK
+Chemists Bootle (run 65)"), 4 files changed (AGENT_LOG.md, AGENT_WORKLIST.md,
+QUESTIONS.json, the new audit file). `git push origin agents/audit-backlog`
+succeeded with no credential prompt or error; confirmed origin/agents/audit-
+backlog now at 5fb2391, matching local HEAD. `node tools/build-audit-status.js`
+published reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal
+(42/48 done, 88%). `.agent-lock` deleted from the host to close out the run.
 
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 63's own
