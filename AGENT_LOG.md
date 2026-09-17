@@ -42,6 +42,38 @@ tracked repo confirmed untouched by sha256 and git status before and
 after, and a genuine second-hop live/main divergence found and recorded as
 an addendum to the existing Q97 rather than a new question.
 
+GIT (step 9): `git add` (AGENT_WORKLIST.md, AGENT_LOG.md, QUESTIONS.json,
+the new audits file only - not the large accumulation of untracked
+probe/test debris this working tree carries from months of prior lock
+testing, all left exactly as found) and `git commit` succeeded via
+`mcp__workspace__bash` (ce36748), stray `.git/index.lock` and
+`.git/objects/*/tmp_obj_*` files from this run's own preceding git calls
+cleared by rename rather than delete, per the standing FUSE-mount unlink
+restriction. `git push origin agents/audit-backlog` from the sandbox then
+failed exactly as the standing Q87/Q96 finding predicts ("fatal: could not
+read Username for 'https://github.com': No such device or address" - no
+credential helper, .netrc or token-shaped env var in this session).
+Per Q102's own recommended and the practice of every recent run, pushed
+instead via `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` working copy on ProDeskAi, confirmed to be the same
+filesystem as the sandbox mount (commit ce36748 already visible there
+before the push). `git push origin agents/audit-backlog` succeeded (exit
+0); `git fetch origin` plus `git rev-parse HEAD`/`git rev-parse
+origin/agents/audit-backlog` immediately after both resolved to
+ce36748e68a26dc1bf15db834e1c45cff3aafe8b, confirming local and origin in
+sync.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run via the same
+Windows-MCP PowerShell session against `C:\Dev\rbh-site-data` (its own
+hardcoded path only resolves on the native host, per Q87) - succeeded,
+"Published reports/digital/Digital_Audit_Status.html (42/48 done, 88%)".
+
+LOCK RELEASE (step 11): `.agent-lock` sat under the same sandbox unlink
+restriction (`rm -f` returned "Operation not permitted", file still
+present); deleted cleanly via `Remove-Item -Force .agent-lock` over the
+same Windows-MCP PowerShell session, confirmed gone with `Test-Path`
+returning False.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 49; mcp__workspace__bash used for lock handling, repo reads, the injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.8 live-page read, one tab at a time, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.8 (Fishlocks Chemist Eccleston GBP pack) twentieth quality pass: re-verified as the stalest rotation-pool item (nineteenth pass's own commit, 2026-09-16T06:12:53+01:00, the oldest of 35, ahead of runner-up 3.3 by about 33 minutes). Pack sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa unchanged since the eighteenth pass. All 35 checkers exit 0. NEW ANGLE: tools/check-pharmacy-first-cost.js (added item 4.15 quality pass, 2026-08-13) had never once been named or exercised against this pack across nineteen prior dedicated passes (zero hits, versus 17 for check-gbp-packs.js), despite the pack being squarely in scope (hasApp and pfLink both set, three sentences naming Pharmacy First). Four rounds direct on the tracked file, each restored from a pre-injection byte backup and sha256 reconfirmed before the next: (1) Post A's "free NHS service" -> "affordable NHS service" - CAUGHT by rule 4 (cost qualifier), rule 6 correctly silent since the business description and services bullet still carry their own free claim; (2) a "from just GBP5" price added to Post A - CAUGHT by rule 5; (3) all three PF-naming free mentions in the pack stripped together - CAUGHT by rule 6, proving it reads across the whole pack rather than one block; (4) CONTROL - a "from GBP39.99" price added to Post C (weight loss, no PF wording) - PASSED clean on this checker as designed (out of scope), while check-gbp-packs.js's own separate weight-loss pricing rule caught the same edit independently, confirming the injection was real copy. All four behaved exactly as documented on the first attempt. Restored by byte copy, sha256 reconfirmed identical throughout; full 35-checker suite re-run clean after the final restore; git status on gbp-packs/modules/core/branches.json/tools empty bar the two pre-existing untracked artefacts, unchanged. Zero in-repo defect - proof, not a fix. LIVE HALF: pharmacy-first-fishlocks-eccleston.html re-read in full, multiple "Free NHS service" statements present, no cost qualifier or price anywhere; the prescription-charge caveat sentence sits inside a collapsed FAQ accordion in both the live markup and the repo source, so its absence from the first plain-text extraction is normal <details> behaviour, not a paste-lag finding. No new divergence. Full detail in audits/fishlocks-eccleston-pharmacy-first-cost-4.8-twentieth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
