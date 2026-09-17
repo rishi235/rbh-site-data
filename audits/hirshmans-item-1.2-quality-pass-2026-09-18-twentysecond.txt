@@ -1,0 +1,159 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale) - twenty-second quality pass
+Run: unattended scheduled run, audit-backlog-worker, run 88, 2026-09-18 (first run past
+midnight; previous run 87 completed 2026-09-17 23:44 BST)
+
+SELECTION
+Rotation pool of 36 items (43 checked worklist items minus the seven standing
+out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) re-derived fresh via
+`git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md`
+run per candidate over each item's own current paragraph range in
+AGENT_WORKLIST.md (ranges taken from the current heading-to-next-heading span,
+not from stale line numbers). All eight [BLOCKED] worklist lines (5.3, 5.4,
+5.5, 5.8, 6.1, both under 6.4/6.5, 6.6) confirmed still [BLOCKED] by direct
+grep, so the run fell to the quality-pass fallback per the worker's own
+step 5.
+
+Full ranked list (earliest/stalest first):
+  1.2  2026-09-17T05:41:21+01:00   <- stalest, picked
+  2.3  2026-09-17T06:13:44+01:00
+  3.1  2026-09-17T06:42:11+01:00
+  3.2  2026-09-17T07:14:43+01:00
+  6.3  2026-09-17T07:42:27+01:00
+  3.7  2026-09-17T08:17:16+01:00
+  3.11 2026-09-17T08:42:14+01:00
+  6.2  2026-09-17T09:17:19+01:00
+  3.9  2026-09-17T09:39:18+01:00
+  3.12 2026-09-17T10:10:47+01:00
+  3.13 2026-09-17T10:40:39+01:00
+  4.12 2026-09-17T11:08:34+01:00
+  4.6  2026-09-17T11:41:32+01:00
+  4.11 2026-09-17T12:14:15+01:00
+  5.1  2026-09-17T12:42:26+01:00
+  4.2  2026-09-17T13:15:10+01:00
+  4.14 2026-09-17T13:47:08+01:00
+  2.1  2026-09-17T14:11:58+01:00
+  3.4  2026-09-17T14:41:08+01:00
+  3.6  2026-09-17T15:10:40+01:00
+  3.10 2026-09-17T15:41:58+01:00
+  4.4  2026-09-17T16:13:03+01:00
+  4.9  2026-09-17T16:52:05+01:00
+  4.15 2026-09-17T17:10:05+01:00
+  5.2  2026-09-17T17:41:21+01:00
+  3.8  2026-09-17T18:11:03+01:00
+  4.7  2026-09-17T18:45:13+01:00
+  1.3  2026-09-17T19:09:28+01:00
+  4.1  2026-09-17T19:41:47+01:00
+  4.5  2026-09-17T20:12:01+01:00
+  4.10 2026-09-17T21:17:07+01:00
+  4.3  2026-09-17T21:43:50+01:00
+  4.13 2026-09-17T22:11:34+01:00
+  4.8  2026-09-17T22:45:28+01:00
+  3.3  2026-09-17T23:14:06+01:00
+  3.5  2026-09-17T23:44:33+01:00   <- run 87's own pick, now most recent
+
+1.2 uniquely stalest, clear of every other pool item by over 30 minutes.
+
+METHOD
+Full repo git-archived (git archive HEAD | tar -x) to a disposable scratch
+copy at a path outside the tracked working tree. The tracked repo was never
+opened for writing at any point in this pass.
+
+Baseline sha256, scratch copy vs tracked repo, matched exactly before
+starting:
+  branches.json:
+    169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  modules/service/pages/contraception-hirshmans-ainsdale.html:
+    180f0f6e3f6d0cd5ca41bd62c57a0259944292b749dc768b66be10e947905de3
+
+Full 34-checker suite (all of tools/check-*.js except check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually on the scratch
+copy before any edit: 34/34 exit 0.
+
+FRESH ANGLE
+tools/check-contraception-copy.js had never been proven by direct injection
+against Hirshmans Ainsdale in twenty-one prior passes on this item, despite
+Hirshmans Ainsdale carrying a contraception widget and a generated
+contraception-hirshmans-ainsdale.html page, and despite this checker's rules
+5 to 8 (free/no price, consent direction, no long-acting-method offers, no
+medicine names) being exactly the class of clinical-claim rule this item's
+prior passes have repeatedly prioritised for other checkers (check-nap,
+check-postcodes, check-jsonld, check-gbp-packs, check-seo-pattern). Guard
+coverage for this item now extends to 23 of 35 checkers proven by direct
+injection (22 recorded after the twenty-first pass, plus this one).
+
+Five injections against the scratch copy's
+modules/service/pages/contraception-hirshmans-ainsdale.html, each restored
+from a sha256-confirmed backup and reconfirmed identical before the next:
+
+  1. Consent reversal (RULE 6): appended "Your GP will be told about your
+     visit as a matter of routine." immediately after the existing consent
+     sentence in the "Is it confidential?" FAQ answer.
+     CAUGHT - [consent] "says \"your gp will be told\", which contradicts
+     the consent sentence."
+
+  2. Price (RULE 5): changed "Yes. Your consultation is private and
+     confidential." to "Yes, from £15. Your consultation is private and
+     confidential." in the same FAQ answer.
+     CAUGHT twice - [verbatim] (the sentence no longer matches the
+     generator's pinned line) and [free] ("states a price... on a free NHS
+     service page").
+
+  3. Medicine name (RULE 8): changed "NHS Pharmacy Contraception Service"
+     to "NHS Pharmacy Contraception Service, including Yasmin" in the H1.
+     CAUGHT twice - [verbatim] and [medicine] ("names \"yasmin\", a
+     prescription-only medicine, in public advertising copy").
+
+  4. Long-acting-method offer (RULE 7): inserted
+     "<p class="tmp-inject">We can fit your coil at this branch.</p>"
+     immediately after the H1.
+     CAUGHT - [larc] ("says \"we can fit\". This service supplies oral
+     contraception; a coil, implant or injection must be signposted
+     elsewhere, not offered here.").
+
+  5. CONTROL: added a benign data-* attribute to the H1 tag
+     (data-benign-control="true"), touching no forbidden token, no service
+     copy line, no town, brand or postcode.
+     PASSED clean, confirming the four catches above are genuine rule hits
+     and not the checker failing on any edit at all.
+
+All five fired or passed on the intended rule, first attempt, no cross-firing.
+
+Final restore sha256-reconfirmed identical to baseline:
+  180f0f6e3f6d0cd5ca41bd62c57a0259944292b749dc768b66be10e947905de3
+
+Full 34-checker suite re-run on the scratch copy after the final restore:
+34/34 exit 0.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs` in the real working copy
+returned only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+touched this pass); branches.json and the Hirshmans contraception page
+sha256 both unchanged from their pre-run values in the tracked repo.
+
+No in-repo defect found. This pass proves the checker catches the absence
+or reversal of these four claims for this specific branch for the first
+time; it does not mean anything was ever wrong on this page.
+
+LIVE HALF (Claude in Chrome, one tab, read-only throughout, nothing clicked,
+typed or submitted)
+Navigated to
+https://www.hirshmanspharmacy.co.uk/contraception-hirshmans-ainsdale.html
+and read it in full, including the FAQ <details> answers via a read-only
+javascript_tool query against document.querySelectorAll('details') (get_page_
+text alone does not surface collapsed <details> content). All five FAQ
+answers, the "Free NHS service" / "No charge to be seen or supplied" trust
+items and the "Your GP is only told with your consent" trust-bar line are
+byte-for-byte consistent with the repo copy and with the exact lines this
+pass proved the checker protects: the consent sentence reads "We will only
+tell your GP that you have used the service if you give your consent." with
+no reversal, the free line reads "Yes. The NHS Pharmacy Contraception
+Service is free, and there is no prescription charge for the contraception
+supplied through it." with no price stated anywhere on the page, and no
+long-acting-method offer or medicine name appears anywhere in the rendered
+page. No live fault found. No new question raised.
+
+QUESTIONS.json unchanged at 110 total (57 open) - no new question, nothing
+answered this pass (step 3 answer pickup found nothing newer than Q52,
+2026-09-01T22:44:51.524Z, identical to every run since).

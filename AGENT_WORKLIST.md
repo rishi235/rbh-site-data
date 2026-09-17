@@ -28734,6 +28734,50 @@ appended to the line. Do not move them; the status page reads them in place.
       drift. No new live fault, no new question. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt.
       Done 2026-09-17
+      Twenty-second quality pass 2026-09-18 (unattended scheduled run, run 88,
+      first run past midnight - rotation pool re-derived fresh via
+      `git log -1 --format=%ad --date=iso-strict -L<range>:AGENT_WORKLIST.md`
+      per candidate over each item's own current paragraph range; 1.2 stalest
+      at 2026-09-17T05:41:21+01:00, clear of every other pool item by over 30
+      minutes). REPO HALF: FRESH ANGLE - tools/check-contraception-copy.js
+      had never been proven by injection against Hirshmans Ainsdale in
+      twenty-one prior passes, despite the branch carrying a contraception
+      widget and generated page and the checker's rules 5-8 (no price,
+      consent direction, no long-acting-method offers, no medicine names)
+      being exactly the class of clinical-claim rule this item has
+      prioritised for other checkers. Full git-archive scratch copy, tracked
+      repo never opened for writing; branches.json and
+      contraception-hirshmans-ainsdale.html sha256 matched the tracked repo
+      exactly before starting; 34/34 checkers clean before any edit. Five
+      injections against the scratch copy's
+      modules/service/pages/contraception-hirshmans-ainsdale.html, each
+      restored from a sha256-confirmed backup before the next: (1) consent
+      reversal appended to the confidentiality FAQ answer - CAUGHT
+      ([consent]); (2) a price ("from £15") added to the same answer -
+      CAUGHT twice ([verbatim], [free]); (3) "Yasmin" added to the H1 -
+      CAUGHT twice ([verbatim], [medicine]); (4) a long-acting-method offer
+      ("We can fit your coil at this branch") inserted after the H1 - CAUGHT
+      ([larc]); (5) a benign control attribute on the H1, no forbidden token
+      - PASSED clean, confirming the four catches are genuine rule hits.
+      All five fired or passed on the intended rule, first attempt, no
+      cross-firing. Final restore sha256-reconfirmed identical; full
+      34-checker suite re-run clean afterwards. Tracked repo confirmed
+      untouched throughout (git status --porcelain -- branches.json tools
+      modules core gbp-packs showed only the two long-standing pre-existing
+      untracked strays; branches.json and the page sha256 unchanged). No
+      in-repo defect found. Guard coverage for this item now extends to 23
+      of 35 checkers. LIVE HALF (Claude in Chrome, one tab, read-only,
+      nothing clicked/typed/submitted): read
+      contraception-hirshmans-ainsdale.html live in full, including the FAQ
+      <details> answers via a read-only javascript_tool query (get_page_text
+      alone does not surface collapsed <details> content) - all five FAQ
+      answers and the trust-bar consent line byte-for-byte consistent with
+      the repo copy and with the exact lines this pass proved the checker
+      protects, no price, no reversed consent, no long-acting-method offer
+      and no medicine name anywhere on the live page. No live fault found,
+      no new question. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-18-twentysecond.txt.
+      Done 2026-09-18
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
