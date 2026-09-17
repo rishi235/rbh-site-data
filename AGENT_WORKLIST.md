@@ -2237,6 +2237,73 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-16-nineteenth.txt. Done
       2026-09-16.
+      Twentieth quality pass 2026-09-17 (unattended scheduled run). Rotation-
+      selected: pool minus the seven standing out-of-rotation items and every
+      [BLOCKED] line put 2.3 stalest at 2026-09-16T09:15:08+01:00, clear of the
+      next candidate (3.1 at 09:40:02). FRESH ANGLE: tools/check-opening-
+      hours.js had never been proven by injection against Cherry Lane in
+      nineteen prior passes. Cherry Lane has no branch landing page, so rules
+      1-7 (the six-landing-page hours card) do not apply here - a scope limit,
+      not a gap - but rules 8, 9 and 10 apply to its 12 switch/service-family
+      pages and were untested. Full repo exported via git archive to a scratch
+      directory, tracked repo never opened for writing; branches.json and the
+      three target pages confirmed byte-identical to the tracked repo by
+      sha256 before any mutation. Baseline: 34/35 checkers clean on the
+      scratch copy (sole exception the documented check-cdn-pins.js
+      scratch-archive artefact), 35/35 clean directly against the tracked
+      repo. Three injections, each restored by byte copy and sha256-
+      reconfirmed before the next and after the last: (1) the weekday closing
+      time in pharmacy-first-cherry-lane-walton.html's own JSON-LD changed
+      from 18:30 to 19:00 - caught first attempt, rule 10, naming both the
+      wrong page value and the correct branches.json value; (2) the entire
+      Saturday session removed from switch-prescriptions-cherry-lane-
+      walton.html's JSON-LD - caught first attempt, rule 10, correctly
+      showing the missing Saturday 09:00-17:00 session; (3) an hours sentence
+      ("Our travel advisor is available weekdays from 9am to 6.30pm.") added
+      to travel-clinic-cherry-lane-walton.html's body copy - caught first
+      attempt, rule 8, two FAIL lines naming both "9am" and "6.30pm" on a page
+      with no hours card. CONTROL: a step heading reworded with no town,
+      brand, postcode or time token touched - passed clean on both check-
+      opening-hours.js and check-seo-pattern.js. All four fired or passed on
+      the intended rule, first attempt, no cross-firing. Final restore
+      sha256-reconfirmed identical on all three files; full 35-checker suite
+      clean after the final restore; tracked repo confirmed untouched
+      throughout (git status --porcelain showed only the two long-standing
+      pre-existing untracked strays; branches.json and all three pages'
+      sha256 unchanged). No checker gap found, no in-repo defect, no rule or
+      page byte changed. Guard coverage for this item now 19 of 36 checkers
+      proven by direct injection (up from 18).
+      LIVE HALF PERFORMED (Claude in Chrome connected this run, one tab,
+      read-only throughout, nothing clicked/typed/submitted).
+      switch-prescriptions-cherry-lane-walton.html's live JSON-LD read
+      directly: Monday-Friday 09:00-18:30 and Saturday 09:00-17:00, matching
+      branches.json exactly and exactly the sessions injections 1 and 2
+      targeted - no live fault on rule 10's subject. All seven Pharmacy First
+      condition cards on the PF overview resolve to real hrefs at the moment
+      of this check, not Q95's "Page coming soon" - consistent with "fixed
+      again, not proven durable", not re-raised, Q95 stands as written.
+      SIGNIFICANT LIVE FINDING, but accurate, not a defect: the live
+      travel-clinic page's rendered text carries "Open Mon-Fri 9am-6:30pm,
+      Sat 9am-5pm, Sun closed" (a Weebly site-wide banner, repeated four
+      times by what reads as a marquee effect) - exactly the class of stray
+      clock-time claim rule 8 exists to guard against on a page this repo
+      generates with no hours card. Confirmed this string is absent from the
+      repo-generated HTML entirely (grep for "6:30pm"/"6.30pm" in the tracked
+      file returns zero matches), so it is Weebly site-theme furniture
+      outside anything this repo generates or pastes, the same class of
+      live-only blind spot CLAUDE.md documents repeatedly. The values
+      themselves are correct against branches.json (9am-6:30pm weekdays,
+      9am-5pm Saturday, Sunday closed all match exactly), so this is a
+      corroborating observation of an unproven-by-construction live surface,
+      not a fault - not raised as a new question. Two previously-logged
+      live-only faults reconfirmed unchanged in passing on the switch page:
+      the pre-Phase-3 SEO title ("Switch Your Prescriptions - Cherry Lane
+      Pharmacy Walton"), not re-raised (items 3.1, 5.1, Q3 already cover it);
+      the em-dash mojibake in the "How switching..." paragraph was not
+      re-checked this pass (time budget), neither claimed fixed nor unfixed.
+      No new question raised. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-17-twentieth.txt. Done
+      2026-09-17.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
