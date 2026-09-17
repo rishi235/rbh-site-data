@@ -1,4 +1,121 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 56; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests (under the outputs mount, tar-copied excluding .git) and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded from the bash sweep, the latter run separately via mcp__workspace__bash with direct curl-confirmed network egress since no browser was needed for the live half); mcp__claude-in-chrome__ used only for step 3's answer-pickup fetch, one tab, read-only, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 6.3 (Opening hours vs branches.json) seventeenth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 57; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 33-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the live half, two tabs, read-only throughout, nothing clicked/typed/submitted, both tabs closed after reading; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json, tools/check-postcodes.js and this entry) - Item 3.7 (Smartts Chemist, Bootle) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh UTC timestamp. `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally, already at origin's HEAD (run 56's own
+final commit). A plain `git status` inside mcp__workspace__bash created a
+fresh `.git/index.lock` and then could not remove it ("Operation not
+permitted") - the standing no-unlink quirk on this mount (Q87/Q96/Q102),
+confirmed via `ps aux` that no git process was running, cleared by rename
+(`mv .git/index.lock .git/index.lock.cleared-<epoch>`) rather than delete,
+which unblocked `git add -A -n` immediately afterwards. Several hundred
+stray `.agent-lock.*` and other debris files remain untouched in the
+working tree, out of scope, same standing note as every recent run.
+
+ANSWER PICKUP (step 3): not re-attempted this run; run 56's own pickup
+earlier today already confirmed the newest portal entry is still Q52
+(applied since 2026-09-01), so no re-fetch was needed within the same
+calendar day per that run's own finding.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 56's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 56 recorded it -
+most recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. Pool
+size 36. 6.3 (run 56's own pick) now sat newest at 2026-09-17T07:42:50+01:00;
+3.7 came out stalest in the remaining pool at 2026-09-16T11:11:18+01:00,
+clear of the next candidate 3.11 at 2026-09-16T12:12:17+01:00, exactly
+matching run 56's own forward note. Picked 3.7.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.7 twentieth-pass
+paragraph and audits/smartts-item-3.7-quality-pass-2026-09-17-twentieth.txt.
+In summary: tools/check-jsonld.js had never been named against Smartts
+Chemist Bootle in nineteen prior passes (per the nineteenth pass's own
+"never named" list). Full repo tar-copied (excluding .git) to a disposable
+/tmp scratch copy; baseline 33/33 network-independent checkers clean;
+branches.json sha256 confirmed unchanged at 169bb5a2...b102 throughout.
+Ten injections against pharmacy-first-smartts-bootle.html and (rule 8 only)
+switch-prescriptions-smartts-bootle.html, each restored and diff-confirmed
+byte-identical before the next: duplicate JSON-LD block, missing JSON-LD
+block and unparseable JSON (rule 1, three injections); "@type" to
+MedicalBusiness (rule 2); "name" swapped to a sibling branch's name
+(rule 3); "url" broken (rule 4); postalCode and addressRegion each
+corrupted (rule 5, two injections); telephone corrupted (rule 6); map
+iframe query corrupted on the switch page (rule 8). All ten caught on the
+first attempt, on exactly the intended rule, with the message the
+checker's own source predicts. Rule 7 (email/areaServed) confirmed
+structurally inapplicable to Smartts: neither field appears in the
+JSON-LD of any of its 12 pages, and estate-wide only the 6
+branch-landing-family pages ever populate them; Smartts has no branch
+landing page - the same class of scope limit already recorded for other
+checkers on branches with no landing page (items 3.9, 3.10). Full
+33-checker suite re-run clean on the scratch copy after final restore;
+tracked repo never opened for writing during the injection phase;
+branches.json and both touched pages sha256-reconfirmed unchanged.
+
+LIVE HALF (Claude in Chrome, connected this run, read-only, two tabs,
+nothing clicked/typed/submitted, both closed after reading): both Smartts
+pages checked carry TWO JSON-LD blocks live. Block A (this repo's own,
+inside a Weebly embed with an id attribute) matches this repo's current
+generated content exactly on both pages - no live/repo drift on this
+branch's own block. Block B (a Weebly sitewide header/footer embed, no id
+ancestor, byte-identical across both pages, no generator in this repo
+writes it) declares url as the bare homepage rather than the page it sits
+on, an email field this page family's generator never emits, no
+addressRegion, and a SINGLE Monday-Friday 09:00-18:00 opening session -
+stating Smartts is open straight through its own confirmed 13:00-14:00
+lunch closure (branches.json holds two Mon-Fri sessions). This is the
+same live-only, out-of-repo-reach fault already open as Q99 (first found
+on skchemist.co.uk and smarttschemist.co.uk's own uti-treatment page,
+2026-09-08) and independently rediscovered on Hirshmans Ainsdale (Q109,
+2026-09-16). This pass adds two more Smartts pages confirmed carrying the
+identical Block B (previously only uti-treatment had been checked here)
+and a sharper read of what Block B actually claims (continuous 9-6, not
+merely extra/incomplete hours as Q99's original wording put it). Folded
+into Q99's own note field as an addendum rather than raising a duplicate
+question, matching the convention already used for Q90/Q93/Q109's own
+reconfirmations. No repo action possible or taken: no generator here
+writes Block B, and fixing it needs a supervised Weebly site-wide-embed
+session. Incidentally, while checking whether Block B's shape was
+domain-specific, also read Gordon Short Chemist Crosby's equivalent live
+page (a different branch, outside item 3.7's own scope): same two-block
+pattern, Block B correct there on hours this time, and Block A's
+already-standing, already-answered Q32 finding (stale "Gordon Shorts
+Chemist" plural spelling) reconfirmed unchanged, not re-raised, not
+detailed further as out of this item's scope.
+
+ONE HOUSEKEEPING FIX, not in check-jsonld.js: this pass's own new audit
+file quotes the injected postcode L20 9XX to record test 7 above, which
+tools/check-postcodes.js's own narrative scanner correctly flagged as an
+unrecognised postcode-shaped value the moment the audit file existed in
+the working tree - the exact recurring gap CLAUDE.md's postcode section
+describes as having been closed nineteen times before. Added L20 9XX to
+NARRATIVE_POSTCODES with the standard reason before committing, rather
+than leaving it for the next run to find. check-postcodes.js re-run clean
+after the fix (0 failures, 3 pre-existing UNOWNED warnings, unchanged).
+
+QUESTIONS (step 8): no new question raised. Q99's `note` field extended
+with a 2026-09-17 addendum recording the two additional Smartts pages
+checked and the sharper "open through its own lunch closure" reading of
+Block B's hours claim. QUESTIONS.json verified still parses as JSON;
+total/open counts unchanged (110 total, 57 open) since no question's
+status changed.
+
+WORKLIST AND COMMIT: the AGENT_WORKLIST.md paragraph under item 3.7, the
+new audits/ file, the NARRATIVE_POSTCODES fix in tools/check-postcodes.js,
+QUESTIONS.json's Q99 addendum, and this log entry. No changes to
+generators, other checkers, gbp-packs/ or branches.json; branches.json
+sha256 unchanged throughout (169bb5a2...b102).
+
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
 fresh UTC timestamp. `git fetch origin` / `checkout agents/audit-backlog` /

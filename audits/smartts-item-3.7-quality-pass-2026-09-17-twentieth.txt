@@ -1,0 +1,142 @@
+Item 3.7 (Smartts Chemist, Bootle) - twentieth quality pass, 2026-09-17
+Fresh angle: tools/check-jsonld.js, never named against Smartts in nineteen
+prior passes (confirmed against the nineteenth pass's own "never named"
+list).
+
+BASELINE
+--------
+Full repo tar-copied (excluding .git) to a disposable scratch directory
+under the session's own /tmp, never the tracked tree. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching
+the standing regression anchor. 33/33 network-independent checkers clean
+(check-cdn-pins.js and check-live-hours.js excluded per standing
+convention, both network-dependent). check-jsonld.js baseline in the
+scratch copy: "177 generated page(s) checked against 16 trading branches
+... clean."
+
+INJECTIONS (all against modules/service/pages/pharmacy-first-smartts-bootle.html
+unless stated; each restored from a saved .orig copy and diff-confirmed
+byte-identical before the next; full suite re-run clean at the end)
+
+ 1. Duplicate the JSON-LD block (two <script> tags) - CAUGHT, rule 1:
+    "expected exactly one JSON-LD block, found 2"
+ 2. Delete the JSON-LD block entirely - CAUGHT, rule 1: "found 0"
+ 3. Break the JSON syntax (drop a colon after "@context") - CAUGHT, rule 1:
+    "JSON-LD block does not parse as JSON"
+ 4. "@type" changed Pharmacy -> MedicalBusiness - CAUGHT, rule 2, quoting
+    the exact "never less accurate" reasoning from the checker's own header
+ 5. "name" changed to "SK Chemists" (a real sibling branch's name) - CAUGHT,
+    rule 3, correctly identifies the expected value as this branch's own
+    branchName ("Smartts Chemist")
+ 6. "url" changed to a non-existent filename - CAUGHT, rule 4, quoting the
+    correct branch-website-plus-filename expectation
+ 7. address.postalCode changed L20 9HH -> L20 9XX - CAUGHT, rule 5
+ 8. address.addressRegion changed Merseyside -> Lancashire - CAUGHT, rule 5
+ 9. "telephone" changed to a wrong number - CAUGHT, rule 6
+10. Map iframe query corrupted on
+    modules/switch/pages/switch-prescriptions-smartts-bootle.html (a
+    different page family, to prove rule 8 is not pharmacy-first-specific)
+    - CAUGHT, rule 8, quoting both the wrong query and the expected
+    "42 Fernhill Road, Bootle, L20 9HH"
+
+All ten fired on the first attempt, on exactly the rule intended, with the
+message the checker's own source predicts. No cross-firing.
+
+RULE 7 (email / areaServed) - STRUCTURALLY INAPPLICABLE TO THIS BRANCH
+-----------------------------------------------------------------------
+Checked whether any of Smartts's 12 pages (11 service-family + 1 switch)
+carry "email" or "areaServed" inside their JSON-LD block: none do. Checked
+estate-wide: of all 177 generated pages, only 6 carry either field in their
+JSON-LD, and those 6 are exactly the branch-landing family (Fishlocks
+Ainsdale/Eccleston, McCanns Aigburth/Sandringham, and the two others in
+that family). Smartts has no branch landing page (module/branch/pages
+holds only Fishlocks and McCanns files), so rule 7's inputs never exist on
+any Smartts page. This is the same class of scope limit the item 3.9 and
+3.10 passes already recorded for other checkers on branches with no
+landing page - not a gap in the rule, a fact about which branches the rule
+can ever be exercised against. To close rule 7 by injection at all, a
+future pass would need to target Fishlocks or McCanns, not Smartts.
+
+RESTORE / RE-VERIFY
+--------------------
+Both touched files (pharmacy-first-smartts-bootle.html,
+switch-prescriptions-smartts-bootle.html) diffed byte-identical against
+their saved .orig copies after every restore. Full 33-checker suite
+re-run clean in the scratch copy after the final restore. Tracked repo
+never opened for writing at any point; branches.json sha256 reconfirmed
+unchanged (169bb5a2...b102) after the pass.
+
+LIVE HALF (Claude in Chrome, connected this run, read-only, two tabs,
+nothing clicked/typed/submitted, both tabs closed after reading)
+-------------------------------------------------------------------
+pharmacy-first-smartts-bootle.html and switch-prescriptions-smartts-bootle.html
+on www.smarttschemist.co.uk both read via document.querySelectorAll against
+script[type="application/ld+json"]. Both pages carry TWO such blocks, not
+one:
+
+ - Block A (this repo's own, inside a Weebly embed with an id attribute):
+   byte-for-byte matches this repo's current generated content on both
+   pages, including the corrected @type Pharmacy, branchName, this page's
+   own url, phone, and full PostalAddress with addressRegion Merseyside.
+   No live/repo drift on this branch's own generated block.
+ - Block B (no id ancestor - a Weebly site-wide header/footer embed, not a
+   per-page paste): byte-identical across both pages checked. Declares
+   name "Smartts Chemist" (correct), url "https://www.smarttschemist.co.uk/"
+   (the homepage, wrong on every inner page), email
+   "Smartts@rbhealth.co.uk" (a field this page family's own generator never
+   emits), a PostalAddress with no addressRegion at all, and a SINGLE
+   openingHoursSpecification session, Monday-Friday 09:00-18:00 - which
+   states Smartts is open continuously through its own confirmed 13:00-14:00
+   lunch closure (branches.json: two Monday-Friday sessions, 09:00-13:00
+   and 14:00-18:00). This is not merely an extra or incomplete block: it
+   actively tells Google the branch is open during an hour it is shut,
+   the same "locked door" class of fault CLAUDE.md's opening-hours section
+   already treats as the most patient-facing category of error, just
+   arriving through a hand-placed sitewide schema block rather than a
+   generator or a GBP pack.
+
+This is the same live-only, out-of-repo-reach fault already raised and
+still open as Q99 (found first on skchemist.co.uk and smarttschemist.co.uk's
+own uti-treatment page, 2026-09-08) and independently rediscovered on
+Hirshmans Ainsdale (Q109, 2026-09-16). This pass adds: two more Smartts
+pages confirmed carrying the identical Block B (pharmacy-first and switch,
+not previously checked - only uti-treatment had been read before), proving
+it is genuinely page-independent on this domain rather than a one-page
+fluke, and a sharper read of what Block B's wrong hours actually claim
+(continuous 9-6, not just "hours the per-page block does not carry" as
+Q99's original wording put it). Folded into Q99's own note field as an
+addendum rather than raising a duplicate question, per the established
+convention for reconfirmed live-only findings (see Q90's, Q93's and
+Q109's own reconfirmation entries for precedent). No repo action possible
+or taken: no generator in this repo writes Block B, and removing or
+correcting it needs a supervised Weebly site-wide-embed session, not an
+unattended read-only browser session.
+
+Also checked while investigating whether this shape is domain-specific:
+Gordon Short Chemist Crosby's equivalent live page (a different branch,
+outside item 3.7's own scope) shows the same two-block pattern, with
+Block B correctly carrying the real lunch-closure and Saturday hours this
+time - meaning Block B's accuracy varies site to site, it is not
+uniformly wrong estate-wide, just wrong on this specific site. That same
+page's Block A also surfaced the already-standing, already-answered Q32
+finding (live paste still reads "Gordon Shorts Chemist", the pre-Item-1.1
+plural spelling) - reconfirmed, not new, not re-raised, and outside item
+3.7's own scope so not detailed further here.
+
+VERDICT
+-------
+Zero in-repo defect. check-jsonld.js correctly holds all 8 of its rules
+against Smartts Chemist Bootle's own pages, proven by injection for the
+first time in twenty passes on this item. The one live-only gap found
+(Block B) is a pre-existing, already-open cross-branch finding (Q99),
+reconfirmed and sharpened rather than new.
+
+Checkers still never named against Smartts specifically:
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js; plus check-switch-copy.js's
+remaining 6/11 rules, check-seo-pattern.js's service-word/H1-exact-match
+rules, and check-jsonld.js's own rule 7 (structurally inapplicable here,
+see above).

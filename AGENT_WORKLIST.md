@@ -8738,6 +8738,73 @@ check-weight-loss-copy.js; plus check-switch-copy.js's remaining 6/11
 rules and check-seo-pattern.js's service-word/H1-exact-match rules.
 Evidence in audits/smartts-item-3.7-quality-pass-2026-09-16-nineteenth.txt.
 Done 2026-09-16 (nineteenth pass).
+Quality pass 2026-09-17 (twentieth; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash for repo work and checker
+runs, mcp__claude-in-chrome__ for the live half). Picked as the least
+recently verified rotation-pool item (all 8 unchecked worklist lines still
+[BLOCKED]; 36-item pool re-derived fresh from git log per "Item N.N", 3.7
+stalest at 2026-09-16T11:11:18+01:00, clear of the next candidate 3.11 at
+2026-09-16T12:12:17+01:00).
+FRESH ANGLE: tools/check-jsonld.js, never named against Smartts in nineteen
+prior passes (per the nineteenth pass's own "never named" list).
+Full repo tar-copied (excluding .git) to a disposable /tmp scratch copy;
+baseline 33/33 network-independent checkers clean (check-cdn-pins.js and
+check-live-hours.js excluded, standing convention); branches.json sha256
+confirmed at the standing anchor 169bb5a2...b102 throughout.
+Ten injections against pharmacy-first-smartts-bootle.html and (for rule 8
+only) switch-prescriptions-smartts-bootle.html, each restored and
+diff-confirmed byte-identical before the next, all CAUGHT on the first
+attempt, on exactly the intended rule: duplicate JSON-LD block and missing
+JSON-LD block (rule 1, two separate injections); unparseable JSON (rule 1);
+"@type" to MedicalBusiness (rule 2); "name" swapped to SK Chemists' name
+(rule 3); "url" broken (rule 4); postalCode and addressRegion each
+corrupted (rule 5, two injections); telephone corrupted (rule 6); map
+iframe query corrupted on the switch page (rule 8).
+Rule 7 (email/areaServed) confirmed structurally inapplicable to Smartts:
+neither field appears in the JSON-LD of any of its 12 pages, and
+estate-wide only the 6 branch-landing-family pages ever populate them;
+Smartts has no branch landing page. Same class of scope limit already
+recorded for other checkers on branches with no landing page (items 3.9,
+3.10).
+Full 33-checker suite re-run clean on the scratch copy after final
+restore; tracked repo never opened for writing; branches.json and both
+touched pages sha256-reconfirmed unchanged.
+LIVE HALF (Claude in Chrome, connected, read-only, both tabs closed after
+reading): both pages checked carry TWO JSON-LD blocks live. Block A (this
+repo's own, inside a Weebly embed) matches this repo's current generated
+content exactly on both pages, no live/repo drift. Block B (a sitewide
+Weebly header/footer embed, byte-identical across both pages, no
+generator in this repo writes it) declares url as the homepage rather
+than the page it sits on, an email field this page family never emits, no
+addressRegion, and a SINGLE Monday-Friday 09:00-18:00 opening session -
+stating Smartts is open straight through its own confirmed 13:00-14:00
+lunch closure. This is the same live-only fault already open as Q99
+(first found on skchemist.co.uk and smarttschemist.co.uk's uti-treatment
+page) and independently found again on Hirshmans Ainsdale (Q109). This
+pass adds two more Smartts pages confirmed carrying the identical Block B
+and a sharper read of what it actually claims (continuous 9-6, not merely
+"extra" hours). Folded into Q99's own note field as an addendum rather
+than raising a duplicate question, matching the convention already used
+for Q90/Q93/Q109's own reconfirmations. No repo action possible: fixing
+Block B needs a supervised Weebly site-wide-embed session.
+Incidentally, while checking whether Block B's shape was domain-specific,
+also read Gordon Short Chemist Crosby's equivalent live page (outside item
+3.7's own scope): same two-block pattern, Block B correct there on hours
+this time, and Block A's already-standing, already-answered Q32 finding
+(stale "Gordon Shorts Chemist" plural spelling) reconfirmed unchanged, not
+re-raised.
+No in-repo defect found, no copy changed anywhere in the tracked repo, no
+new question raised (existing Q99 extended instead). Evidence in
+audits/smartts-item-3.7-quality-pass-2026-09-17-twentieth.txt.
+Checkers still never named against Smartts specifically:
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-travel-clinic-copy.js, check-uk-spelling.js,
+check-url-scheme.js, check-weight-loss-copy.js; plus check-switch-copy.js's
+remaining 6/11 rules, check-seo-pattern.js's service-word/H1-exact-match
+rules, and check-jsonld.js's own rule 7 (structurally inapplicable here).
+Done 2026-09-17 (twentieth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
