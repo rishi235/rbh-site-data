@@ -1,0 +1,166 @@
+Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) - twentieth quality pass
+Run: unattended scheduled run, audit-backlog-worker, run 83, 2026-09-17
+
+SELECTION
+Rotation pool re-derived fresh via git log --pretty=format:"%ad|%s"
+--date=iso-strict -- AGENT_WORKLIST.md, taking each item's own newest
+commit date, excluding the seven standing out-of-rotation items (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items (5.3, 5.4, 5.5, 5.8,
+6.1, 6.4, 6.5, 6.6). 4.3 came out stalest at 2026-09-17T03:11:11+01:00,
+matching run 82's own forward note exactly, clear of the runner-up 4.13
+(03:41:18+01:00).
+
+BASELINE
+Full repo git-archived to a disposable scratch copy at
+/tmp/scratch-4.3-run83-2187 (git archive HEAD | tar -x), tracked working
+copy never opened for writing during any injection round.
+  gbp-packs/hirshmans-ainsdale.md  sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+  tools/check-gbp-packs.js         sha256 a5edc791856fb865b22d00f7a6b15151587cb922a2b4eeb0977c1a5ed3405b94
+  branches.json                    sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+All three match the tracked repo exactly - no relevant file has changed
+since the nineteenth pass (2026-09-17, commit 4b0b18c).
+Full 33-checker suite (all tools/check-*.js except check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually against the
+scratch baseline: 33/33 exit 0.
+
+NEW ANGLE
+Nineteen prior passes had proven a long list of tools/check-gbp-packs.js
+rules against this pack directly, and the seventeenth pass (2026-09-15)
+specifically tested the CLINIC_QUALIFIERS word-order sub-fix and found it
+structurally inapplicable to this pack (no matching phrase to reorder) -
+but no prior pass had ever tested the KNOWN_CLINIC_QUALIFIER PIN mechanism
+itself against this pack's own copy. hirshmans_ainsdale is one of exactly
+three branches (with cherrylane_liverpool and fishlocks_ainsdale) carrying
+the "hirshmans_ainsdale::clinicQualifiers" entry in KNOWN_CLINIC_QUALIFIER,
+which suppresses the six clinicQualifiers FAILs to a single WARN pending
+the open Q72 decision. Run 80 (0a81885, item 4.1) proved this exact pin
+family by injection against fishlocks-ainsdale.md's own copy for the first
+time; this pass runs the identical three-round methodology against
+Hirshmans' own copy, the second of the three pinned branches to be tested
+this way. cherrylane_liverpool (item 3.4/similar) remains untested by this
+specific angle and is a candidate for a future pass.
+
+Confirmed via branches.json: hirshmans_ainsdale carries both weightLoss and
+travelClinic widgets, so all six CLINIC_QUALIFIERS entries are in scope for
+this branch (none exempted by widget gating).
+
+TEST 1 - PIN REMOVED, PACK UNCHANGED (checker mutation only)
+Removed the single line
+  "hirshmans_ainsdale::clinicQualifiers": CLINIC_QUALIFIER_Q72,
+from KNOWN_CLINIC_QUALIFIER in the scratch copy of tools/check-gbp-packs.js.
+Pack left untouched (still missing all six qualifier phrases, as it has
+throughout this audit pending Q72).
+RESULT: CAUGHT. Exit code 1. Exactly six new FAIL lines, all naming
+hirshmans-ainsdale.md correctly:
+  - Post C: weightLossPaid ("private, paid service")
+  - Post C: weightLossSuitability ("not right for everyone" / "pharmacist will advise")
+  - Post C: weightLossSupervised ("supervised plan")
+  - Post D: travelSuitability ("subject to availability and clinical suitability")
+  - Services section: servicesWeightLossSupervised
+  - Services section: servicesTravelSuitability
+Each FAIL correctly suggested re-adding "hirshmans_ainsdale::clinicQualifiers"
+to KNOWN_CLINIC_QUALIFIER with a question id. No other pack's warnings or
+failures changed. Checker restored from the pre-test byte copy; sha256
+reconfirmed a5edc791856fb865b22d00f7a6b15151587cb922a2b4eeb0977c1a5ed3405b94
+(identical to baseline); re-run clean (0 failures, 14 warnings, matching
+baseline exactly).
+
+TEST 2 - PIN LEFT IN PLACE, PACK BROUGHT ONTO ESTATE WORDING (pack mutation only)
+Checker left at baseline (pin present). Rewrote the pack's own Post C,
+Post D and Services-section weight-loss/travel bullets to carry all six
+qualifier phrases, modelled on the compliant sibling pack
+gbp-packs/fishlocks-eccleston.md's own wording, adapted to Hirshmans'
+branch name and links (no wording copied verbatim beyond the required
+matched phrases; addresses, phone, branch name, URLs all stayed Hirshmans'
+own throughout):
+  Post C gained: "a full clinical assessment ... as part of a supervised
+  plan ... This is a private, paid service and it is not right for
+  everyone - the pharmacist will advise."
+  Post D gained: "..., subject to availability and clinical suitability."
+  Services bullets gained the same "supervised plan" and "subject to
+  availability and clinical suitability" wording on their own weight-loss
+  and travel-clinic lines.
+RESULT: CAUGHT. Exit code 1. Exactly one new FAIL, the anti-rot
+stale-exception message:
+  "stale exception: KNOWN_CLINIC_QUALIFIER[\"hirshmans_ainsdale::clinicQualifiers\"]
+  no longer matches a pack missing a private-clinic qualifier, so the pack
+  has been brought onto the estate wording. Remove it (Q72)."
+Proves the anti-rot convention (a KNOWN_* pin must go stale, not sit silent,
+once its own excused fact stops being true) holds for this specific key
+against this pack's own copy, for the first time in twenty passes - the
+same proof run 80 established for fishlocks_ainsdale's pin.
+Pack restored from the pre-test byte copy; sha256 reconfirmed
+c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f (identical
+to baseline).
+
+TEST 3 - CONTROL: FIVE OF SIX QUALIFIERS PRESENT, ONE DELIBERATELY WITHHELD
+Checker and pack both restored to baseline first (byte copy, hash
+reconfirmed both files identical to their recorded baselines). Reapplied
+the Post C and Post D wording from Test 2 (five keys: weightLossPaid,
+weightLossSuitability, weightLossSupervised, travelSuitability,
+servicesWeightLossSupervised) but deliberately left the Services section's
+travel-clinic bullet unchanged, withholding servicesTravelSuitability alone.
+RESULT: correctly stayed a valid, non-stale WARN. Exit code 0, 0 failures.
+  "known exception (Q72): 1 private-clinic qualifier(s) missing -
+  servicesTravelSuitability. ..."
+Proves the checker's documented "all three [branches] move together" /
+one-pin-per-branch design is genuine behaviour against this pack's own
+content and not merely asserted in a comment: a partially-compliant pack
+does not trip the stale-exception rule, only a pack with zero missing
+qualifiers does. Matches run 80's own Test 3 finding for fishlocks_ainsdale
+exactly.
+Pack restored again from the pre-test byte copy; sha256 reconfirmed
+c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f.
+
+ALL THREE ROUNDS fired or passed on exactly their intended rule(s), first
+attempt, no cross-firing beyond the expected single-message anti-rot FAIL
+in test 2. Both files (pack, checker) restored by byte copy and
+sha256/diff-reconfirmed identical to their pre-test baselines after every
+round. Scratch directory deleted entirely after use
+(/tmp/scratch-4.3-run83-2187).
+
+Full 33-checker suite re-run against the scratch copy after the final
+restore: 33/33 exit 0, output unchanged from the pre-test baseline run.
+Tracked repo confirmed untouched throughout:
+  git status --porcelain -- modules core branches.json gbp-packs tools compliance
+shows only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+created nor touched by this pass. Tracked gbp-packs/hirshmans-ainsdale.md,
+tools/check-gbp-packs.js and branches.json all re-hashed directly against
+the tracked repo after cleanup and match their baselines exactly.
+
+RESULT: zero in-repo defect. All three directions of the
+KNOWN_CLINIC_QUALIFIER pin mechanism (missing-and-unpinned FAILs,
+pinned-but-now-compliant stale-exception FAIL, pinned-and-still-partially-
+missing valid WARN) are now proven against this pack's own copy for the
+first time in twenty passes, mirroring run 80's proof against
+fishlocks_ainsdale. cherrylane_liverpool's own copy remains the one pinned
+branch not yet tested this specific way - noted as a candidate new angle
+for a future pass on item 3.4 or wherever that item's rotation next lands.
+
+LIVE HALF (Claude in Chrome, single tab, read-only, no dual sign-in,
+nothing clicked/typed/submitted)
+pharmacy-first-hirshmans-ainsdale.html (Post A's current target since the
+2026-09-14 repoint): read in full. All seven Pharmacy First conditions
+present with correct NHS age ranges (UTI women 16-64, sore throat 5+,
+sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected insect
+bite 1+), matching tools/build-service-pages.js's own canon exactly. Footer
+and contact card correct throughout. No new live fault.
+
+switch-prescriptions-hirshmans-ainsdale.html (Post B): reconfirmed both
+standing, already-tracked live findings unchanged -
+  (1) the pre-Q7 em-dash mojibake, "it usually is not \xc3\x94\xc3\x87\xc3\xb6
+  we make the first step quick and easy" (item 5.1/Q7, a live Weebly paste
+  lag, not actionable from this repo)
+  (2) the pre-Q49 unconditional hero/bullet wording, "We contact your GP.
+  We handle everything. You do nothing." / "We handle the full switch for
+  you", against the repo's now-qualified generated page wording (commit
+  99dcad3, 2026-09-15) - the same paste lag already recorded across all 15
+  branches, reconfirmed present at Hirshmans again.
+Neither re-raised as a new finding; both already tracked under their
+existing question ids.
+
+No new question raised. QUESTIONS.json unchanged at 110 total, 57 open.
+
+Evidence: this file, AGENT_WORKLIST.md's own item 4.3 block, AGENT_LOG.md.

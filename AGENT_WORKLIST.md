@@ -18020,6 +18020,62 @@ Pharmacy First wording to the NHS service description.
       wording - both already tracked Weebly paste lag, neither actionable
       from this repo. No new question raised. Evidence:
       audits/gbp-pack-refresh-4.3-nineteenth-2026-09-17.txt. Done 2026-09-17
+      Quality pass 2026-09-17 (twentieth pass, unattended scheduled run,
+      run 83): re-verified as the stalest rotation-pool item (nineteenth
+      pass's own commit, 2026-09-17T03:11:11+01:00, the oldest of the 36).
+      Pack sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+      unchanged since the seventeenth pass; checker sha256
+      a5edc791856fb865b22d00f7a6b15151587cb922a2b4eeb0977c1a5ed3405b94 and
+      branches.json unchanged since the nineteenth pass; all confirmed by
+      direct hash comparison. Full 33-checker suite (excluding
+      check-cdn-pins.js and check-live-hours.js) exit 0 on the baseline.
+      NEW ANGLE: no prior pass had proven the KNOWN_CLINIC_QUALIFIER pin
+      mechanism itself against this pack's own copy - the seventeenth pass
+      tested only the word-order sub-fix and found it structurally
+      inapplicable. hirshmans_ainsdale is one of three branches (with
+      cherrylane_liverpool and fishlocks_ainsdale) carrying this pin against
+      the open Q72 decision; run 80 (item 4.1) proved the same family
+      against fishlocks_ainsdale for the first time, this pass runs the
+      identical methodology against Hirshmans' own copy on a disposable
+      git-archive scratch copy (tracked files never opened for writing,
+      baseline sha256-confirmed unchanged throughout). TEST 1 (pin removed,
+      pack unchanged): CAUGHT, exit 1, exactly six new FAILs (all six
+      clinicQualifiers keys), each naming hirshmans-ainsdale.md and
+      suggesting the correct pin key. TEST 2 (pin left in place, pack
+      rewritten to carry all six qualifiers, wording modelled on the
+      compliant sister pack fishlocks-eccleston.md): CAUGHT, exit 1, exactly
+      one new FAIL, the anti-rot "stale exception ... Remove it (Q72)"
+      message naming the correct key - proving the anti-rot convention holds
+      for this key against this pack's own content for the first time. TEST
+      3 CONTROL (five of six qualifiers added, servicesTravelSuitability
+      deliberately withheld): correctly stayed a valid, non-stale WARN
+      ("1 private-clinic qualifier(s) missing"), exit 0, proving the
+      one-pin-per-branch/moves-together design is real behaviour against
+      this pack's own copy, matching run 80's own Test 3 finding for
+      fishlocks_ainsdale. All three rounds fired or passed on the intended
+      rule(s), first attempt, no cross-firing; both files restored by byte
+      copy and sha256/diff-reconfirmed identical before the next round;
+      scratch copy deleted after use. No defect - all six qualifiers were
+      genuinely absent and genuinely pinned throughout; this pass proves the
+      pin mechanism catches both its removal and its own staleness for this
+      pack for the first time in twenty passes. cherrylane_liverpool's own
+      copy remains the one pinned branch not yet tested this way, noted for
+      a future pass. Full 33-checker suite re-run clean on the scratch copy
+      after the final restore and re-confirmed clean on the tracked repo
+      throughout (0 failures both times); git status --porcelain -- modules
+      core branches.json gbp-packs tools compliance shows only the two
+      long-standing pre-existing untracked strays, neither touched. LIVE
+      HALF: Claude in Chrome connected this run, single tab, read-only, no
+      dual sign-in. pharmacy-first-hirshmans-ainsdale.html (Post A's current
+      target) read in full, all seven Pharmacy First conditions correct with
+      NHS age ranges matching the generator's own canon exactly, no new live
+      fault. switch-prescriptions-hirshmans-ainsdale.html (Post B)
+      reconfirmed unchanged on both standing live findings - the pre-Q7
+      em-dash mojibake and the pre-Q49 unconditional hero/bullet wording -
+      both already tracked Weebly paste lag, neither actionable from this
+      repo. No new question raised; QUESTIONS.json unchanged at 110 total,
+      57 open. Evidence:
+      audits/hirshmans-ainsdale-4.3-twentieth-2026-09-17.txt. Done 2026-09-17
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
