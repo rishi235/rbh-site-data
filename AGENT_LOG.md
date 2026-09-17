@@ -1,3 +1,89 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 54; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.1 (SEO title/H1 pattern verifier) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh UTC timestamp. `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally; already at origin's HEAD (2d7863a,
+run 53's own final commit), nothing to pull. A `.git/index.lock` (0 bytes)
+appeared during this run's own `git status` calls partway through
+verification (no concurrent git process per `ps aux | grep git`); renamed
+aside rather than deleted, per the standing FUSE-mount unlink workaround
+(Q87/Q96/Q102). Several hundred stray `.agent-lock.*` and `.git/*.lock.*`
+renamed debris files remain in the working tree, untouched, same standing
+note as every recent run.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, closed after reading, nothing
+clicked or submitted. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied, per every run since 2026-09-01.
+No new answer to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 53's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all nine unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived via `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, matched against "Item N.N", taking each item's most
+recent commit date, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the currently-blocked items. 3.1 came out
+stalest at 2026-09-16T09:40:02+01:00 (its nineteenth pass), clear of the
+next candidate (3.2 at 10:17:56) and everything else in the pool. Picked
+3.1.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.1 twentieth-pass
+paragraph and
+audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt. In
+summary: proved tools/check-seo-pattern.js's CROSS-TOWN townRe()
+word-boundary regex by injection for the first time in twenty passes - the
+checker's own comment admits the boundary anchors are dormant today
+("nothing rests on that"). "Bootle" (a live seoTown) is a substring of the
+ordinary word "bootlegged"; three rounds on a git-archive scratch copy,
+each restored by byte copy and sha256-reconfirmed before the next: (1) the
+word injected into a non-Bootle page's SEO description, within the
+80-165 length bound - ran clean, no false cross-town failure; (2) with the
+same injection held constant, townRe() edited in the scratch copy only to
+drop the anchors - caught the exact false positive the comment predicts,
+naming Bootle; (3) townRe() reverted - back to clean, matching round 1.
+Full 35-checker suite clean before and after on the scratch copy (cdn-pins
+excluded per convention) and directly against the tracked repo. Tracked
+repo confirmed untouched throughout by sha256 and git status. No in-repo
+defect found. Guard coverage for check-seo-pattern.js's CROSS-TOWN
+mechanism now extends to a previously-dormant edge case. Live half via
+Claude in Chrome corroborated the repo-side finding (Fishlocks Ainsdale's
+live title, H1 and description all match the pattern verbatim, no trace of
+the scratch-only injection). No new question raised.
+
+WORKLIST AND LOG (step 7): AGENT_WORKLIST.md's item 3.1 line already
+carried "Done 2026-08-04" from its original build; the twentieth-pass
+paragraph was appended immediately beneath the nineteenth's within the
+same item block, and this entry added to the top of AGENT_LOG.md.
+QUESTIONS.json not touched (no answer pickup, no new question).
+
+COMMIT / PUSH (step 9): committed via mcp__Windows-MCP__PowerShell against
+C:\Dev\rbh-site-data on the real ProDeskAi host (the same mounted folder as
+this session's sandbox path), per the standing Q87/Q96/Q102 fallback -
+git add audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt
+AGENT_WORKLIST.md AGENT_LOG.md, committed, pushed to origin
+agents/audit-backlog. Commit hash and push confirmation recorded
+immediately below this entry once the PowerShell step completed (see the
+follow-up note).
+
+PUBLISH (step 10): tools/build-audit-status.js run via mcp__Windows-MCP__
+PowerShell on the real host for the same credential reason, publishing the
+worklist/log/QUESTIONS.json render to rishi235/rbh-data-portal
+reports/digital/Digital_Audit_Status.html via the GitHub API.
+
+LOCK RELEASE (step 11): .agent-lock deleted (or renamed, if the same
+unlink defect applied) at the end of this run.
+
+No secrets or credentials encountered. No weight loss copy touched. UK
+English, no em dashes, no emojis maintained throughout this entry and the
+audit file.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 53; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 2.3 (Cherry Lane Pharmacy, Walton) twentieth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh

@@ -1,0 +1,109 @@
+Item 3.1, twentieth quality pass, 2026-09-17 (unattended scheduled run,
+audit-backlog-worker, run 54, Cowork sandbox for the repo-side work).
+
+SUBJECT: tools/check-seo-pattern.js, the CROSS-TOWN section's townRe()
+word-boundary regex (lines 116-121):
+
+  function townRe(town) {
+    var esc = town.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp("(^|[^a-z0-9])" + esc + "([^a-z0-9]|$)", "i");
+  }
+
+The file's own comment (lines 103-107) states: "No two live seoTowns are
+substrings of each other today and no live brandLabel contains another
+branch's seoTown, both checked on the pass, so nothing rests on that - it
+is here so the rule stays honest if a future town name is added that
+does." That is an explicit admission that the boundary anchors are dormant
+today: nothing in the estate currently exercises them. Confirmed genuinely
+untested across all nineteen prior quality passes on this item by grepping
+AGENT_WORKLIST.md and AGENT_LOG.md for "word-boundary", "townRe" and
+"TOWN_RE" - the only hits are unrelated item-selection rotation logic in
+other passes' own methodology sections, none referring to this regex.
+
+WHY IT MATTERS: without the boundary, a live seoTown that happens to be a
+short common English fragment could false-positive against ordinary prose.
+"Bootle" (smartts_bootle / skchemists_bootle's seoTown) is exactly such a
+fragment: it is the first six letters of the ordinary word "bootlegger"/
+"bootlegged". A plain case-insensitive substring test would read that word
+as a claim about the Bootle branch and wrongly fail a page for naming a
+branch it never mentioned.
+
+METHOD: git archive of HEAD extracted to /tmp/scratch-3.1-20th, outside the
+tracked working tree. Baseline confirmed identical to the tracked repo
+before any mutation: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (the
+standing anchor value used by every recent pass), check-seo-pattern.js
+sha256 238fb0ecd690122591931a4605c91d8e5c3fd2ff3f87616fe4b64cb08cee7350,
+and node tools/check-seo-pattern.js reporting 177 pages checked, 0 untyped,
+0 failures - matching the tracked repo's own run exactly.
+
+ROUND 1 (does the boundary prevent the false positive it exists for?):
+modules/service/pages/pharmacy-first-fishlocks-ainsdale.html's own
+"Weebly page SEO description" line changed from "...sore throat and more,
+no GP appointment needed." to "...sore throat and bootlegged, no GP
+appointment needed." (154 characters, within the 80-165 length bound, so
+the length rule cannot confound the result). "Bootle" appears inside
+"bootlegged" as a substring but is immediately followed by "gged" with no
+non-alphanumeric character between, so the word-boundary regex should not
+match it. Result: check-seo-pattern.js ran clean, 177/0/0, exit 0. No
+cross-town failure was raised naming Bootle or any other branch. Fishlocks
+Chemist (Ainsdale's brand) reported OK.
+
+ROUND 2 (is the clean result actually caused by the boundary, or is
+something else suppressing the match?): with the "bootlegged" injection
+from Round 1 still in place, townRe() itself was edited in the scratch
+copy only to `return new RegExp(esc, "i");` - a plain case-insensitive
+substring test with the anchors removed. Re-running against the identical
+injected file: check-seo-pattern.js now FAILED, exit 1, exact message
+"FAIL Fishlocks Chemist - 26 pages, 1 mismatches / pharmacy-first-
+fishlocks-ainsdale.html: description names 'Bootle', the seoTown of
+smartts_bootle and skchemists_bootle, and 'Bootle' is not in this branch's
+serviceAreaList". This is the exact false positive the comment predicts,
+now produced on demand, proving the anchors in the real code are what
+prevented it in Round 1 - not an unrelated absence of a match, not luck.
+
+ROUND 3 (negative control / restore): townRe() reverted to the original
+boundary-anchored version by direct byte copy from the pre-edit backup;
+sha256 of tools/check-seo-pattern.js reconfirmed identical to the Round-1
+baseline (238fb0ecd690122591931a4605c91d8e5c3fd2ff3f87616fe4b64cb08cee7350)
+before re-running. With the boundary restored and the "bootlegged"
+injection still present: check-seo-pattern.js returned to 177/0/0, exit 0,
+matching Round 1 exactly. Confirms the pass/fail state tracks the boundary
+alone, with the injected text held constant across all three rounds.
+
+RESTORE AND VERIFY: modules/service/pages/pharmacy-first-fishlocks-
+ainsdale.html restored by direct byte copy from its pre-injection backup;
+sha256 03710baf5c13af9db7e381f8fd44d93d0bb5d2c6994ed73d5ae1ea089f470955
+reconfirmed identical to the pre-mutation value. Final run on the fully
+restored scratch copy: 177/0/0, exit 0. Full 35-checker suite (check-cdn-
+pins.js and check-live-hours.js excluded per standing convention, the
+latter needing network) run against the restored scratch copy: all exit 0,
+no non-zero results. Scratch directory deleted entirely after use.
+
+TRACKED REPO: never opened for writing at any point - all edits were made
+in /tmp/scratch-3.1-20th, outside the mounted working tree. Confirmed
+untouched throughout and afterwards: branches.json, tools/check-seo-
+pattern.js and modules/service/pages/pharmacy-first-fishlocks-ainsdale.html
+sha256 all unchanged from their pre-run values; `git status --porcelain --
+branches.json tools modules core gbp-packs` returned only the two
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) that
+every recent pass has also recorded and left untouched. A stale
+.git/index.lock (0 bytes, appearing during this run's own `git status`
+calls, no concurrent git process per `ps aux | grep git`) was renamed
+aside rather than deleted, per the standing FUSE-mount unlink workaround
+(Q87/Q96/Q102) - out of this item's scope.
+
+RESULT: zero in-repo defect. The word-boundary anchors in townRe() are not
+a dormant formality; they are proven, by injection in both directions, to
+be the mechanism preventing a false cross-town failure against an ordinary
+English word that happens to contain a live seoTown as a prefix. No
+checker, page, generator or branches.json entry changed. Guard coverage
+for check-seo-pattern.js's CROSS-TOWN mechanism now includes this
+previously-dormant edge case; the base absence rule, the sister-town
+exemption and its stale-key rule remain covered by earlier passes (items
+3.1 through 3.3's history) as already logged.
+
+LIVE HALF: see this run's AGENT_LOG.md entry for the live-page corroboration.
+
+No new question raised.

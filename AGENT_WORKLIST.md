@@ -3007,6 +3007,54 @@ fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html, page title
 verbatim, unchanged from every prior pass. The Q71/mccannspharmacy.co.uk 404
 finding not re-read this pass, treated as unchanged. No new question.
 Evidence in audits/seo-pattern-byslug-guard-3.1-nineteenth-2026-09-16.txt.
+Quality pass (twentieth), 2026-09-17 (unattended scheduled run, audit-
+backlog-worker, run 54, Cowork sandbox). Baseline: check-seo-pattern.js
+177/0/0 exit 0; branches.json sha256 unchanged at the standing anchor
+169bb5a2...1102; all 35 checkers clean (check-cdn-pins.js excluded per
+standing convention). Re-read the CROSS-TOWN section's townRe() word-
+boundary regex (lines 116-121) against all nineteen prior passes and found
+it genuinely untested: the file's own comment (lines 103-107) admits the
+boundary anchors are dormant today, "nothing rests on that", present only
+so the rule stays honest if a future town name becomes a substring risk.
+Confirmed by grep across AGENT_WORKLIST.md/AGENT_LOG.md for "townRe"/
+"TOWN_RE"/"word-boundary" - zero hits referring to this regex. "Bootle"
+(smartts_bootle/skchemists_bootle's seoTown) is exactly the substring risk
+the comment anticipates: it is the first six letters of the ordinary word
+"bootlegged". Proved by injection on a git-archive scratch copy outside
+the tracked tree (branches.json and check-seo-pattern.js sha256 both
+confirmed identical to the tracked repo before any mutation), three
+rounds: (1) pharmacy-first-fishlocks-ainsdale.html's SEO description
+edited to end "...sore throat and bootlegged, no GP appointment needed."
+(154 characters, within the 80-165 length bound so the length rule cannot
+confound the result) - ran CLEAN, 177/0/0, no cross-town failure, proving
+the boundary correctly does not read "bootlegged" as naming Bootle; (2)
+with the same injected file left in place, townRe() itself edited in the
+scratch copy only to a plain substring test (anchors removed) - CAUGHT,
+exit 1, "description names 'Bootle', the seoTown of smartts_bootle and
+skchemists_bootle, and 'Bootle' is not in this branch's serviceAreaList",
+the exact false positive the comment predicts, now produced on demand and
+proving round 1's clean result was the boundary's doing rather than an
+unrelated absence of a match; (3) townRe() reverted by byte copy, sha256
+reconfirmed identical, same injected file re-run - back to 177/0/0,
+matching round 1 exactly. Page file then restored by byte copy, sha256
+03710baf...70955 reconfirmed identical to its pre-injection value; full
+35-checker suite re-run clean on the restored scratch copy; scratch
+directory deleted entirely after use. Tracked repo confirmed untouched
+throughout (branches.json, check-seo-pattern.js and the Fishlocks page all
+sha256-unchanged; git status --porcelain showing only the same two
+pre-existing untracked strays every recent pass has recorded). RESULT:
+zero in-repo defect - the word-boundary anchors are proven, in both
+directions, to be the mechanism preventing a false cross-town failure
+against an ordinary word containing a live seoTown as a prefix, not a
+formality. No checker, page, generator or branches.json entry changed.
+LIVE HALF: Claude in Chrome connected this run - navigated to
+fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html, title
+"Pharmacy First at Fishlocks Chemist, Ainsdale", H1 "Pharmacy First at
+Fishlocks Chemist in Ainsdale", meta description ending "...sore throat
+and more, no GP appointment needed." - all the pattern verbatim, no trace
+of the scratch-only injection, unchanged from every prior pass. No new
+question. Evidence in
+audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
