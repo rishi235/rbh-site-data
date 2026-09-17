@@ -68,14 +68,22 @@ C:\Dev\rbh-site-data on the real ProDeskAi host (the same mounted folder as
 this session's sandbox path), per the standing Q87/Q96/Q102 fallback -
 git add audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt
 AGENT_WORKLIST.md AGENT_LOG.md, committed, pushed to origin
-agents/audit-backlog. Commit hash and push confirmation recorded
-immediately below this entry once the PowerShell step completed (see the
-follow-up note).
+agents/audit-backlog. A stray `.git/index.lock` (0 bytes, no concurrent git
+process) blocked the first `git add` attempt with "File exists" on the real
+host itself - removed directly (the real filesystem, unlike the Cowork
+sandbox's FUSE mount, permits a normal delete) and the add/commit then
+succeeded cleanly. Committed as 74fae4d93e1c29044bd47002d52d6ae474e30779
+("Item 3.1 twentieth quality pass: prove check-seo-pattern.js CROSS-TOWN
+townRe() word-boundary regex by injection for the first time; zero in-repo
+defect; live half corroborates unchanged"), 3 files changed. Pushed to
+origin agents/audit-backlog; `git ls-remote origin agents/audit-backlog`
+confirmed the remote ref now matches local HEAD exactly at 74fae4d.
 
 PUBLISH (step 10): tools/build-audit-status.js run via mcp__Windows-MCP__
-PowerShell on the real host for the same credential reason, publishing the
-worklist/log/QUESTIONS.json render to rishi235/rbh-data-portal
-reports/digital/Digital_Audit_Status.html via the GitHub API.
+PowerShell on the real host for the same credential reason - "Published
+reports/digital/Digital_Audit_Status.html (42/48 done, 88%)", publishing
+the worklist/log/QUESTIONS.json render to rishi235/rbh-data-portal via the
+GitHub API.
 
 LOCK RELEASE (step 11): .agent-lock deleted (or renamed, if the same
 unlink defect applied) at the end of this run.
