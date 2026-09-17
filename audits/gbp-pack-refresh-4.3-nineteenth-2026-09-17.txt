@@ -1,0 +1,114 @@
+Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) - nineteenth quality pass
+Run: audit-backlog-worker run 47, unattended scheduled run, 2026-09-17
+
+SELECTION
+Rotation pool of 35 checked, in-rotation AGENT_WORKLIST.md items re-derived
+from git log commit timestamps matching "Item N.N" in the subject line
+(pool = all checked items minus the seven standing out-of-rotation items:
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). 4.3 resolved to its eighteenth pass's own
+commit timestamp, 2026-09-16T05:36:54+01:00, the single oldest across the
+pool (35 distinct timestamps, no ties). Picked 4.3.
+
+FACTS
+gbp-packs/hirshmans-ainsdale.md sha256
+c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f -
+unchanged since the seventeenth pass (2026-09-15's Post A repoint), matching
+the eighteenth pass's own recorded hash exactly. branches.json's
+hirshmans_ainsdale entry unchanged since the eighteenth pass (confirmed via
+git log --since on both files: no commits touching either since
+2026-09-16T05:36:54+01:00). Re-read field by field against the pack: name,
+both address lines, postcode PR8 3HW, phone 01704 577376, website, review
+link, three-town service area, hasApp false, all five widget services, both
+opening-hours legs (weekday and Saturday lunch closures, Sunday closed).
+Nothing wrong.
+
+CHECKER SUITE
+All 35 tools/check-*.js (check-live-hours.js excluded, needs network) run
+individually against the tracked repo: 35/35 exit 0. All six generators
+(build-service-pages.js, build-branch-landing-pages.js,
+build-contraception-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) rebuilt; sha256 of
+all 177 generated pages before and after matched exactly (diff empty). No
+tracked file changed by the rebuild.
+
+Checked for new rules landed since the eighteenth pass (2026-09-16T05:36:54+01:00)
+not yet proven against this pack/branch: git log --since on tools/ found five
+commits, four irrelevant to this pack (check-postcodes.js MISATTRIB fix twice,
+check-opening-hours.js bank-holiday re-proof against a different branch,
+check-cdn-pins.js EXTRA_PASTE wiring). One relevant: tools/check-service-links.js
+gained a "disposed-branch target" RULE 1 addition on the item 6.2 sixteenth
+pass (commit 920065e, 2026-09-16T12:48:25+01:00), proven at birth only against
+a cross-link sourced from a Riddings page. Not yet proven against a link
+sourced from one of Hirshmans' own generated pages.
+
+NEW ANGLE: PROOF BY INJECTION, disposed-branch-target rule, sourced from this
+branch's own copy
+Full-repo scratch copy via rsync (excluding .git) to /tmp/scratch-4.3-nineteenth;
+tracked gbp-packs/hirshmans-ainsdale.md, branches.json and all modules/*
+files never opened for writing at any point, confirmed by git status
+--porcelain and sha256 before and after.
+
+1. In the scratch copy only: marked gordonshorts_crosby "disposed": true in
+   branches.json, and removed its own thirteen generated pages (ten service
+   pages, the switch page, the switch banner .txt and matching the disposal
+   order build-*.js's own guards enforce), the same shape the item 6.2
+   sixteenth pass used, but this time sourcing the injected cross-link from
+   modules/service/pages/uti-treatment-hirshmans-ainsdale.html rather than a
+   Riddings page - nobody had proven the new rule catches a stale cross-link
+   originating from Hirshmans' own pages specifically.
+2. Appended a single anchor tag to the end of the Hirshmans UTI page, pointing
+   at https://www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
+   (the same injected href the rule's own birth-proof used), matching the
+   exact injection method in audits/verify-6.2-2026-09-16-sixteenth.js.
+3. Pre-injection: sha256 of the target file recorded.
+4. Ran tools/check-service-links.js against the scratch copy: BASELINE (before
+   injection) exit 0, clean. POST-INJECTION: exit 1, exactly one new line:
+   "FAIL [disposed-branch target] modules/service/pages/uti-treatment-hirshmans-ainsdale.html:
+   links to www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html,
+   a branch domain no longer in the group (marked disposed in branches.json)".
+   CAUGHT, first attempt, named correctly.
+5. Restored the Hirshmans page from the pre-injection byte copy; sha256
+   reconfirmed identical to the pre-injection hash. Re-ran
+   check-service-links.js against the restored scratch copy: exit 0, clean,
+   byte-identical output to the pre-injection baseline (only the 6 standing
+   KNOWN entries, none new).
+6. Scratch directory left in place under /tmp (not part of any tracked
+   filesystem the repo's checkers or git see); tracked repo confirmed
+   untouched throughout via git status --porcelain -- gbp-packs branches.json
+   modules core tools (only long-standing pre-existing untracked debris
+   present, none of it touched by this pass).
+
+RESULT: the disposed-branch-target rule generalises correctly to a cross-link
+sourced from this branch's own generated pages, not just from the branch the
+rule was born against. Zero in-repo defect. No generator, page, checker or
+branches.json content changed by this pass.
+
+Sister-host note: the disposed-branch rule's second, more subtle leg (a
+disposed branch sharing a host with a still-live sister, proven at birth
+against the Scorah pair) is structurally inapplicable to Hirshmans - Hirshmans
+Ainsdale does not share its domain with any sister branch - so that leg
+cannot be re-proven against this pack's own data and was not attempted.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked/typed/submitted)
+pharmacy-first-hirshmans-ainsdale.html (Post A's current target since the
+2026-09-14 repoint): read in full. Correct throughout - name, address
+(56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW), phone 01704 577376,
+all seven Pharmacy First conditions with correct age ranges, footer NHS
+mailbox and GPhC registration correct. No link to any disposed-branch host
+(none live disposed today, consistent with this pass's repo-side finding
+that the gap is latent, not a live breach).
+
+switch-prescriptions-hirshmans-ainsdale.html (Post B): re-read in full.
+Two standing findings reconfirmed unchanged, both already tracked and
+neither actionable from this repo (Weebly paste lag, outside this worker's
+write scope):
+  - pre-Q7 em dash still renders as mojibake ("it usually is not ÔÇö
+    we make the first step quick and easy"), same live-paste-lag family as
+    Cherry Lane and Coleman and Leighs (item 5.1/Q7).
+  - hero and bullet copy still carry the pre-Q49 unconditional wording
+    ("We contact your GP. We handle everything. You do nothing." / "No
+    interruption to your medication") against the repo's now-qualified
+    generated page (commit 99dcad3, 2026-09-15) - the same paste lag already
+    recorded at this branch on the eighteenth pass, unchanged.
+
+No new question raised. QUESTIONS.json unchanged.

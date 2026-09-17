@@ -1,3 +1,48 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 47; mcp__workspace__bash used for lock handling, repo reads, the rsync full-repo scratch-copy injection test and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_context_mcp/tabs_close_mcp used for the step 3 answer-pickup fetch and two item 4.3 live-page reads, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) nineteenth quality pass: re-verified as the stalest rotation-pool item (eighteenth pass's own commit, 2026-09-16T05:36:54+01:00, the oldest of 35). Pack sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f unchanged since the seventeenth pass; branches.json's hirshmans_ainsdale entry unchanged since the eighteenth pass (both confirmed via git log --since). All 35 checkers exit 0 and all six generators rebuild byte-identical (177 pages, sha256 diff empty). NEW ANGLE: checked for checker changes landed since the eighteenth pass not yet proven against this pack - one relevant hit, check-service-links.js's disposed-branch-target RULE 1 addition (commit 920065e, item 6.2 sixteenth pass, 2026-09-16), proven at birth only against a cross-link sourced from a Riddings page. PROOF BY INJECTION on a disposable rsync scratch copy of the whole repo (tracked gbp-packs/hirshmans-ainsdale.md, branches.json and modules/* never opened for writing; sha256-confirmed unchanged throughout): marked gordonshorts_crosby disposed and removed its own thirteen generated pages in the scratch copy only, then appended the rule's own birth-proof injected href to the end of modules/service/pages/uti-treatment-hirshmans-ainsdale.html - sourcing the stale cross-link from Hirshmans' own copy for the first time rather than Riddings. Baseline (pre-injection) exit 0 clean; post-injection exit 1, exactly one new FAIL naming the file and the disposed host correctly; restored by byte copy, sha256 reconfirmed identical, re-run clean. The rule's sister-host leg is structurally inapplicable to this branch (Hirshmans Ainsdale shares no domain with a sister branch). Zero in-repo defect; no generator, page, checker or branches.json content changed. Live half, read-only via Chrome: pharmacy-first-hirshmans-ainsdale.html (Post A's current target since the 2026-09-14 repoint) read in full, correct throughout, no link to any disposed-branch host. switch-prescriptions-hirshmans-ainsdale.html (Post B) reconfirmed unchanged on both standing tracked live findings - the pre-Q7 em-dash mojibake (item 5.1/Q7) and the pre-Q49 unconditional hero/bullet wording - both Weebly paste lag, not actionable from this repo. Full detail in audits/gbp-pack-refresh-4.3-nineteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. No stale `.git/index.lock` found before the git sync (one
+appeared later, mid-run, from this run's own git activity - see GIT below).
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` completed
+normally, already up to date with origin at run 46's own commit.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No new answer to
+pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 46's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 35 items re-derived via `git log
+--pretty=format:"%ad|%s" --date=iso-strict`, matching "Item N.N" in each
+commit subject, for the 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8). 4.3 resolved to
+2026-09-16T05:36:54+01:00, the single oldest across the whole pool (no ties).
+Picked 4.3.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.3 nineteenth-pass
+paragraph and audits/gbp-pack-refresh-4.3-nineteenth-2026-09-17.txt. In
+summary: facts re-checked against branches.json, 35/35 checkers clean, all
+six generators byte-identical, one new checker rule (disposed-branch target,
+check-service-links.js) proven by injection against this branch's own copy
+for the first time via a disposable rsync scratch copy, tracked repo
+confirmed untouched by sha256 and git status before and after.
+
+GIT (step 9): `.git/index.lock` (0 bytes) was present when git add/commit
+was attempted, left over from an earlier git command in this same session
+with no active git process running. `rm` returned "Operation not permitted"
+(the standing FUSE-mount unlink restriction documented throughout this
+file's history since 2026-09-07); `mv` to a `.cleared-run47-<timestamp>`
+suffix succeeded immediately, the same fallback every prior run has used.
+Committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit file to
+agents/audit-backlog, pushed to origin.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 46; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection testing (full repo `cp -r` with .git included) and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one targeted item 4.10 live-page read, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.10 (Smartts Chemist Bootle GBP pack) eighteenth quality pass: fresh angle - proved BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT in tools/check-gbp-packs.js (born item 4.14 fifth pass, 2026-08-14, re-proven against mccanns-sandringham.md on item 4.7's fifteenth pass) against this pack's own copy for the first time across seventeen prior passes, confirmed by grepping the item's full paragraph history for "BODY_IMAGE", "beach body", "hold you back" and "transformation" - no hit. Baseline: 35/35 checkers exit 0 on a full-repo scratch copy; sha256(gbp-packs/smartts-bootle.md) = 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching every prior pass's recorded hash exactly, unmoved since the sixth pass. Two injections plus two controls against the scratch copy only, each restored from a saved byte copy and sha256-reconfirmed identical before the next: (1) BODY_IMAGE_SELF - Post C's opening line changed to "Thinking about getting your beach body ready?" - CAUGHT; (2) BODY_IMAGE_CONTEXT - "Don't let your weight hold you back any longer." appended to Post C's body - CAUGHT; CONTROL A, a fresh proof shape - the identical "hold you back" sentence placed in Post D (the travel clinic post, names no weight loss) instead - PASSED CLEAN, proving the rule's scope boundary holds on this pack, one of the few carrying both a weightLoss and a travelClinic widget so one of the few where this exact cross-post test is possible; CONTROL B, an unrelated benign reword of the Blood tests bullet - PASSED CLEAN across the full 35-checker suite. All four behaved exactly as designed on the first attempt. No in-repo defect: both rules and their scope boundary already work correctly on this pack, now proven directly rather than assumed from sister packs. Tracked repo confirmed sha256-unchanged and git-status-clean throughout (only the two long-standing pre-existing untracked strays); no generator, page, checker or branches.json content changed. Live half: answer pickup read cleanly, newest entry still Q52 (2026-09-01), already applied, no new answer to pick up. One targeted live read matching this pass's angle: weight-loss-clinic-smartts-bootle.html re-fetched in full, no body-image language present, confirming no live drift into the pattern just tested; the previously-recorded lead-price-position finding (Q51/Q83/Q88) and the two stale pre-cleanup en dashes reconfirmed unchanged. Full detail in audits/smartts-bootle-body-image-4.10-eighteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

@@ -16998,6 +16998,38 @@ Pharmacy First wording to the NHS service description.
       Hirshmans. No new question raised. Full 36-checker suite re-run clean
       after all scratch work. Evidence:
       audits/gbp-pack-refresh-4.3-eighteenth-2026-09-16.txt. Done 2026-09-16
+      Quality pass 2026-09-17 (nineteenth pass, unattended scheduled run,
+      run 47): re-verified as the stalest rotation-pool item (eighteenth
+      pass's own commit, 2026-09-16T05:36:54+01:00, the oldest of the 35).
+      Pack sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+      unchanged since the seventeenth pass; branches.json's hirshmans_ainsdale
+      entry unchanged since the eighteenth pass; both confirmed by git log
+      --since. All 35 checkers exit 0 and all six generators rebuild
+      byte-identical (177 pages, sha256 diff empty). NEW ANGLE: one relevant
+      checker change landed since the eighteenth pass -
+      check-service-links.js's disposed-branch-target RULE 1 addition
+      (commit 920065e, item 6.2 sixteenth pass, 2026-09-16), proven at birth
+      only against a cross-link sourced from a Riddings page. PROOF BY
+      INJECTION on a disposable rsync scratch copy (tracked files never
+      opened for writing, sha256-confirmed unchanged throughout): marked
+      gordonshorts_crosby disposed and removed its own pages in the scratch
+      copy, then appended the same injected href the rule's birth-proof used
+      to the END of modules/service/pages/uti-treatment-hirshmans-ainsdale.html
+      instead - sourcing the stale cross-link from this branch's own copy for
+      the first time. CAUGHT, exit 1, exactly one new FAIL naming the file
+      and the disposed host correctly. Restored by byte copy, sha256
+      reconfirmed identical, re-run clean. The rule's second leg (a disposed
+      branch sharing a host with a still-live sister) is structurally
+      inapplicable here, since Hirshmans Ainsdale shares no domain with a
+      sister branch. Zero in-repo defect. LIVE HALF, Claude in Chrome,
+      read-only: pharmacy-first-hirshmans-ainsdale.html (Post A's current
+      target since the 2026-09-14 repoint) read in full, correct throughout,
+      no link to any disposed-branch host. switch-prescriptions-hirshmans-ainsdale.html
+      (Post B) reconfirmed unchanged on both standing live findings - the
+      pre-Q7 em-dash mojibake and the pre-Q49 unconditional hero/bullet
+      wording - both already tracked Weebly paste lag, neither actionable
+      from this repo. No new question raised. Evidence:
+      audits/gbp-pack-refresh-4.3-nineteenth-2026-09-17.txt. Done 2026-09-17
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
