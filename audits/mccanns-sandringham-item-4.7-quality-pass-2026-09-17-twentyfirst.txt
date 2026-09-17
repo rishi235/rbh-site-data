@@ -1,0 +1,95 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - twenty-first quality pass
+Date: 2026-09-17
+Worker: audit-backlog-worker (unattended scheduled run)
+
+SELECTION
+All 8 remaining unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct
+grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Rotation pool
+= 43 checked items minus the 7 standing out-of-rotation one-offs (1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8) = 36 items. Staleness derived directly from each item's own
+inline "Quality pass"/"Done" dates in AGENT_WORKLIST.md (max date per item
+block), not from AGENT_LOG.md's own run-header text: a prior run's entry for
+this same item's sixteenth pass (2026-09-16) was found appended to the END of
+an unrelated item's AGENT_LOG.md entry with its own "## " header missing, which
+would have made a header-based scan under-count this item's true recency.
+Reading AGENT_WORKLIST.md's own per-item block dates avoids that corruption.
+Result: every pool item's most recent inline date was 2026-09-17 except 4.7,
+last dated 2026-09-16 (twentieth pass) - uniquely stalest. Taken.
+
+FRESH ANGLE
+tools/check-gbp-packs.js's CLINIC_QUALIFIERS rule family (six keys:
+weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability,
+servicesWeightLossSupervised, servicesTravelSuitability) had never been proven
+by injection against gbp-packs/mccanns-sandringham.md specifically across
+twenty prior passes, despite mccanns_sandringham carrying both a weightLoss and
+a travelClinic widget in branches.json (so the rule family applies in full) and
+not appearing in KNOWN_CLINIC_QUALIFIER (so no exception is recorded for it).
+This rule family was proven the same day against gbp-packs/scorah-bramhall.md
+(item 4.4's twenty-first pass) but never against this pack.
+
+BASELINE
+Full repo archived via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp (tracked repo never opened for writing during the repo-side
+work). sha256 of gbp-packs/mccanns-sandringham.md
+(02502ad136e3598f3070b9d2e2a73eac2898cf2a771a6b04dc1fd3e98c069fe5) and
+branches.json (169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102)
+both matched the tracked repo exactly. Full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, both network-dependent) run clean, 34/34.
+
+SIX INJECTIONS, each on the scratch copy only, each restored from the
+untouched original and sha256-reconfirmed byte-identical before the next:
+1. weightLossSupervised (Post C): "as part of a supervised plan" cut from the
+   weight loss post - CAUGHT, exact message naming Post C and the missing
+   supervised-plan wording.
+2. weightLossPaid (Post C): "private, paid service" reworded to "a service" -
+   CAUGHT, exact message naming the missing private/paid wording.
+3. weightLossSuitability (Post C): "not right for everyone - the pharmacist
+   will advise" cut - CAUGHT, exact message.
+4. travelSuitability (Post D): "subject to availability and clinical
+   suitability" cut from the travel post - CAUGHT, exact message naming Post D.
+5. servicesWeightLossSupervised (Services section): "as part of a supervised
+   plan" cut from the services bullet - CAUGHT, exact message naming the
+   Services section.
+6. servicesTravelSuitability (Services section): "subject to availability and
+   clinical suitability" cut from the services bullet - CAUGHT, exact message
+   naming the Services section.
+
+All six fired on the first attempt, each naming the correct pack, the correct
+location (Post C / Post D / Services section) and the correct missing wording,
+with no cross-firing between rounds.
+
+CONTROL: a benign rewording of Post C's opening line ("proper support" ->
+"the right support"), touching no qualifier wording - exit 0, no failure.
+Confirms the six catches above are genuine rule hits, not noise from any edit
+to the file.
+
+RESTORE AND FINAL CHECK: pack and branches.json both sha256-reconfirmed
+identical to the pre-injection baseline after every round. Full 34-checker
+suite re-run clean (34/34) after all six injections and the control. Tracked
+repo (mounted working copy) never opened for writing during this work;
+confirmed untouched.
+
+RESULT: zero in-repo defect. All six CLINIC_QUALIFIERS keys were already
+correct in this pack; this pass proves the checker actually catches their
+absence for this branch specifically, for the first time.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, no dual sign-in):
+- pharmacy-mccanns-sandringham.html: still 404 (Q35, now twenty-one passes
+  running unchanged).
+- weight-loss-clinic-mccanns-sandringham.html: read in full. The live
+  generated page carries the equivalent qualifier language at the page level
+  ("paid private service", "not right for everyone", "as part of a supervised
+  plan"), confirming the two surfaces - the generated page (guarded by
+  check-weight-loss-copy.js) and the GBP pack (guarded by CLINIC_QUALIFIERS,
+  proven this pass) - agree today. "Sandrigham Medical Centre" typo in the
+  page's own contact widget still present (Q39, unchanged, not re-raised).
+No new live fault, no new question.
+
+ANSWER PICKUP (step 3, this run): Chrome connected cleanly, one tab, no dual
+sign-in. Portal feed read in full. Newest entry unchanged (Q52, applied).
+Q37 and Q43 reconfirmed as non-decision replies (Rishi asked for
+clarification / gave a partial, non-selecting answer) and correctly left
+open per their own notes; no reply newer than 2026-09-01T22:44:51.524Z. No
+new answer applied, no new question raised.
+
+Evidence: this file.
