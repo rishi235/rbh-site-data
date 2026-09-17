@@ -1,0 +1,98 @@
+Item 3.9 quality pass, twentieth (unattended scheduled run, audit-backlog-worker,
+run 60). Checker under fresh test: tools/check-seo-keywords.js, chosen from the
+nineteenth pass's own 18-item candidate list of previously-untested checkers.
+
+SETUP
+  Baseline branches.json sha256 unchanged from prior passes. Full repo exported
+  via `git archive HEAD | tar -x` to a disposable scratch copy under
+  /tmp/scratch-3.9-20th (outside the tracked repo, mount never opened for
+  writing during the injection round). Full 34-checker suite (check-cdn-pins.js
+  and check-live-hours.js excluded, both network-dependent) run clean on the
+  scratch copy before starting: 34/34 exit 0.
+
+  check-seo-keywords.js baseline on the scratch copy: "clean, every Meta
+  Keywords line matches its own branch" - 177 Meta Keywords lines across 11
+  paste sheets, against 15 live branches.
+
+TARGET
+  Coleman and Leighs Pharmacy (colemanleigh_liverpool). Meta Keywords line
+  under test: modules/service/pages/SEO.md, block "Coleman and Leighs Pharmacy
+  - Walton - Overview" (line 58), original value:
+  "Pharmacy First Walton, NHS Pharmacy First, Coleman and Leighs Pharmacy,
+  pharmacy Walton, L4"
+
+  Own seoTown: Walton. Own outward code: L4. Own brandLabel: "Coleman and
+  Leighs Pharmacy". serviceAreaList: Walton, Liverpool, Sefton.
+
+  Original file sha256: 2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+
+INJECTIONS (each restored by direct byte copy and sha256-reconfirmed identical
+to the original before the next injection began)
+
+  1. RULE 3 (presence - own seoTown). Rewrote the Meta Keywords line to drop
+     "Walton" entirely ("Pharmacy First service, NHS Pharmacy First, Coleman
+     and Leighs Pharmacy, local pharmacy, L4"). CAUGHT:
+     "Meta Keywords do not carry this branch's own seoTown 'Walton'."
+
+  2. RULE 5 (brand - another branch's brandLabel). Inserted "Fishlocks
+     Chemist" into the keywords line. CAUGHT: "Meta Keywords name 'Fishlocks
+     Chemist', which is the brand of fishlocks_ainsdale and
+     fishlocks_eccleston, not this branch."
+
+  3. RULE 6 (postcode - foreign outward code). Appended "PR8" (Fishlocks
+     Ainsdale/Hirshmans Ainsdale's outward code) to the keywords line.
+     CAUGHT: "Meta Keywords carry 'PR8', which is not this branch's outward
+     code 'L4'."
+
+  4. RULE 4 (absence - another branch's seoTown not in serviceAreaList).
+     Inserted "Bootle" (seoTown of smartts_bootle and skchemists_bootle,
+     not in Coleman and Leighs' own serviceAreaList) into the keywords line.
+     CAUGHT: "Meta Keywords name 'Bootle', the seoTown of smartts_bootle and
+     skchemists_bootle, and 'Bootle' is not in this branch's serviceAreaList."
+
+  CONTROL: reworded the same block's Page Description only ("no GP appointment
+  needed" -> "no appointment needed with a GP"), leaving the Meta Keywords
+  line untouched. check-seo-keywords.js stayed clean (no cross-fire with a
+  neighbouring field on the same block).
+
+All four injections caught on the intended rule, each restored and
+sha256-reconfirmed before the next; control silent.
+
+POST-INJECTION VERIFICATION
+  Full 34-checker suite re-run on the scratch copy after all injections and
+  restores: 34/34 exit 0.
+
+  Tracked repo reconfirmed untouched throughout: modules/service/pages/SEO.md
+  sha256 unchanged (2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5),
+  `git status --porcelain -- modules core branches.json gbp-packs tools`
+  showing only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+  touched.
+
+RESULT
+  No defect found in the estate. check-seo-keywords.js's rules 3, 4, 5 and 6
+  all proven to fire correctly against Coleman and Leighs Pharmacy
+  specifically, with correct diagnostic text naming the offending branch and
+  value in each case. RULE 1 (missing/empty Meta Keywords), RULE 2 (permalink
+  resolution), RULE 7 (claim wording) and RULE 8 (retired town word - does not
+  apply to this branch, whose townSlug equals its current seoTown) remain
+  untested against this branch specifically and are candidates for a future
+  pass.
+
+  Guard coverage for item 3.9 now extends to 3 of the 20 previously-untested
+  checkers named on the seventeenth pass's own list, proven by direct
+  injection against Coleman and Leighs specifically: check-nap.js
+  (eighteenth pass), check-opening-hours.js (nineteenth pass),
+  check-seo-keywords.js (this pass). Remaining candidates for a twenty-first
+  pass: check-address-region.js, check-app-membership.js,
+  check-booking-routes.js, check-editor-snapshot.js, check-em-dashes.js,
+  check-fragment-targets.js, check-gbp-pharmacy-first.js,
+  check-page-coverage.js, check-pharmacy-first-cost.js,
+  check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+  check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+  check-whatsapp-route.js, check-widget-diaries.js.
+
+LIVE HALF: not attempted this pass, repo/data-schema scope only.
+
+No question raised.

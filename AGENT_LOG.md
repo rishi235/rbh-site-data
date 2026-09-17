@@ -1,3 +1,100 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 60; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.9 (Coleman and Leighs Pharmacy, Walton) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
+timestamp (1789634100). `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally, already at origin's HEAD (run 59's own
+final commit). The standing "unable to unlink .git/index.lock" warning
+(Q87/Q96/Q102) appeared on `git status` calls in the sandbox shell but never
+blocked the porcelain output; cleared by rename once, same as every recent
+run. Several hundred stray `.agent-lock.*` and other debris files remain
+untouched in the working tree, out of scope, same standing note as every
+recent run.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (52
+entries, back to 2026-08-04). Matched every "Audit answer Q<n>" entry against
+this run's OPEN question list (57 open): only Q37 and Q43 have any feed entry
+at all among the currently open set, and both are the same two portal replies
+already recorded and marked "not a decision" (Q37's "i need further
+explanation..." and Q43's "Unsure..."), no reply newer than
+2026-09-01T22:44:51.524Z for either, matching what run 59's own pickup found
+on 2026-09-17. No status change made to either question; both stay open.
+QUESTIONS.json otherwise unchanged (110 total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 59's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback,
+same as run 59.
+
+ITEM SELECTION: rotation pool derived the same way run 59 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 6.2
+dropped out of "stalest" position by being touched by run 59 today; 3.9 came
+out stalest in the remaining pool at 2026-09-16T13:14:26+01:00. Picked 3.9.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.9 twentieth-pass
+paragraph and audits/coleman-leighs-seo-keywords-3.9-twentieth-2026-09-17.txt.
+Checker under fresh test: tools/check-seo-keywords.js, chosen from the
+nineteenth pass's own 18-item candidate list of previously-untested checkers.
+
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp, tracked repo never opened for writing during the probe.
+Baseline confirmed clean first: full 34-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent), 34/34 exit 0;
+check-seo-keywords.js's own baseline "clean, every Meta Keywords line matches
+its own branch", 177 lines across 11 sheets against 15 live branches.
+
+Target: the Meta Keywords line for Coleman and Leighs Pharmacy's own Pharmacy
+First overview block in modules/service/pages/SEO.md ("Pharmacy First Walton,
+NHS Pharmacy First, Coleman and Leighs Pharmacy, pharmacy Walton, L4"). Four
+injections, each restored by direct byte copy and sha256-reconfirmed
+identical to the original before the next began: (1) RULE 3 (presence), own
+seoTown "Walton" dropped from the line entirely - CAUGHT, named the missing
+town; (2) RULE 5 (brand), another branch's brandLabel ("Fishlocks Chemist")
+inserted - CAUGHT, named the two branches carrying that brand; (3) RULE 6
+(postcode), a foreign outward code ("PR8") appended - CAUGHT, named this
+branch's own code ('L4') for contrast; (4) RULE 4 (absence), another live
+branch's seoTown ("Bootle") not in this branch's own serviceAreaList
+inserted - CAUGHT, named the two Bootle branches and confirmed the town is
+absent from this branch's serviceAreaList. CONTROL: reworded the same
+block's Page Description only, keywords line untouched - checker stayed
+clean, confirming no cross-fire between adjacent fields on the same block.
+All four injections caught on the intended rule with correct diagnostic text
+naming the offending branch and value; control silent.
+
+Full 34-checker suite re-run on the scratch copy after all injections and
+restores: 34/34 exit 0. Tracked repo reconfirmed untouched throughout:
+modules/service/pages/SEO.md sha256 unchanged
+(2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5),
+`git status --porcelain -- modules core branches.json gbp-packs tools`
+showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched. No generator,
+page, checker or branches.json content changed; no defect found.
+
+LIVE HALF: not attempted this pass. Scope was the repo/data-schema layer
+only.
+
+QUESTIONS: none raised this run.
+
+Guard coverage for item 3.9 now extends to 3 of the 20 previously-untested
+checkers proven by direct injection against Coleman and Leighs specifically
+(check-nap.js from the eighteenth pass, check-opening-hours.js from the
+nineteenth, check-seo-keywords.js from this one). Seventeen remain:
+check-address-region.js, check-app-membership.js, check-booking-routes.js,
+check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-sheets.js, check-uk-spelling.js,
+check-url-scheme.js, check-whatsapp-route.js, check-widget-diaries.js - a
+candidate list for a twenty-first pass. Done 2026-09-17.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 59; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the live half (three URLs read, nothing clicked or typed); mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy to confirm HEAD matched the sandbox mount and, at the end of the run, for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit files, tools/check-service-links.js, AGENT_WORKLIST.md and this entry) - Item 6.2 (Broken internal links) seventeenth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh

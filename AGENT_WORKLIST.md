@@ -11189,6 +11189,54 @@ Done 2026-09-17 (twentieth pass).
       check-whatsapp-route.js, check-widget-diaries.js - a candidate list
       for a twentieth pass. No question raised. QUESTIONS.json unchanged:
       109 total, 56 open. Done 2026-09-16.
+      Quality pass 2026-09-17 (twentieth, unattended scheduled run,
+      audit-backlog-worker, run 60). Checker under fresh test:
+      tools/check-seo-keywords.js, chosen from the nineteenth pass's own
+      18-item candidate list. Full detail in
+      audits/coleman-leighs-seo-keywords-3.9-twentieth-2026-09-17.txt. In
+      brief: full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+      excluded, both network-dependent) clean on a disposable
+      `git archive HEAD` scratch copy before starting, 34/34 exit 0. Target:
+      the Meta Keywords line for Coleman and Leighs Pharmacy's own Pharmacy
+      First overview block in modules/service/pages/SEO.md. Four injections,
+      each restored by direct byte copy and sha256-reconfirmed before the
+      next: (1) RULE 3, own seoTown "Walton" dropped from the line - CAUGHT;
+      (2) RULE 5, another branch's brandLabel ("Fishlocks Chemist") inserted -
+      CAUGHT, named the two branches it belongs to; (3) RULE 6, a foreign
+      outward code ("PR8") appended - CAUGHT, named this branch's own code
+      ('L4') for contrast; (4) RULE 4, another live branch's seoTown
+      ("Bootle") not in this branch's own serviceAreaList inserted - CAUGHT,
+      named the two Bootle branches and confirmed the town is not in this
+      branch's serviceAreaList. CONTROL: reworded the same block's Page
+      Description only, keywords line untouched - checker stayed clean, no
+      cross-fire. All four caught on the intended rule with correct
+      diagnostic text naming the offending branch/value; control silent.
+      Full 34-checker suite re-run on the scratch copy after all injections
+      and restores: 34/34 exit 0. Tracked repo reconfirmed untouched
+      throughout: SEO.md sha256 unchanged
+      (2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5),
+      `git status --porcelain -- modules core branches.json gbp-packs tools`
+      showing only the two long-standing pre-existing untracked strays,
+      neither touched. No generator, page, checker or branches.json content
+      changed; no defect found.
+
+      LIVE HALF: not attempted this pass, repo/data-schema scope only.
+
+      Guard coverage for item 3.9 now extends to 3 of the 20
+      previously-untested checkers proven by direct injection against
+      Coleman and Leighs specifically: check-nap.js (eighteenth pass),
+      check-opening-hours.js (nineteenth pass), check-seo-keywords.js (this
+      pass). Seventeen remain: check-address-region.js,
+      check-app-membership.js, check-booking-routes.js,
+      check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-page-coverage.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-url-scheme.js, check-whatsapp-route.js,
+      check-widget-diaries.js - a candidate list for a twenty-first pass. No
+      question raised. QUESTIONS.json re-read via the standing answer-pickup
+      step: 110 total, 57 open, unchanged; newest answer still Q52
+      (2026-09-01). Done 2026-09-17.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
