@@ -1,0 +1,98 @@
+Item 1.3 (McCanns Sandringham postcode error, CH49 1SX vs L17 4JP)
+Quality pass 2026-09-17 (twenty-first pass, unattended scheduled run)
+
+BASELINE (before any edit). All 35 applicable tools/check-*.js (check-live-hours.js
+excluded, needs network) run individually against the tracked repo: 35/35 exit 0.
+check-postcodes.js standalone: 0 failures, 3 warnings (the standing UNOWNED notices
+for gbp-packs/TEMPLATE.md and the two shared branch-family sheets,
+modules/branch/pages/INDEX.md and SEO.md, each covering six branches). CH49 1SX
+confirmed confined to AGENT_LOG.md, AGENT_WORKLIST.md, CLAUDE.md,
+tools/check-postcodes.js (its own NARRATIVE_POSTCODES entry and header comment)
+and audits/*.txt - no page, GBP pack or paste block carries it. L17 4JP confirmed
+correct in branches.json for mccanns_sandringham.
+
+ANGLE: the twenty prior passes on this item all tested rule 6 (MISATTRIB) either
+in its POSTCODE half (widening PC_RE/PC_RE_LOOSE) or, since the seventeenth and
+eighteenth passes, its BRANCH-NAME half (case-insensitivity, the bare-stem
+shorthand) - but always in the named.length === 1 branch. Nobody had asked what
+happens when a line names TWO branches: `if (named.length !== 1) return;` gives up
+immediately, on the reasonable-looking assumption that a multi-branch line is
+inherently ambiguous about which branch a postcode belongs to. That assumption is
+wrong whenever the postcode present belongs to neither named branch: byPostcode[]
+already resolves who it DOES belong to, so there is nothing ambiguous about a line
+naming two branches while carrying a third, real branch's postcode.
+
+PROOF (scratch copy, /tmp/pc21/repo, built via `git archive HEAD | tar -x`, outside
+the tracked tree). Baseline on the scratch copy: 1021 files scanned (fewer than the
+tracked repo's 1122 because git archive only carries tracked files, i.e. no
+audits/*.txt), 0 failures, 3 warnings - matching the tracked baseline exactly apart
+from the expected file-count difference. Injected one line onto the end of
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (the same real, tracked,
+non-narrative, non-declaring file every earlier rule-6 proof on this item has used):
+
+  "Cross-check note: Smartts Chemist and Riddings Pharmacy both confirmed their
+  registered pharmacy postcode as L23 3AT during the site visit."
+
+L23 3AT is Gordon Short Chemist Crosby's real postcode - correct for neither
+Smartts Chemist Bootle (L20 9HH) nor Riddings Pharmacy Timperley (WA15 6BP), the
+two branches actually named on the line. Ran the UNMODIFIED checker: 0 failures,
+3 warnings, byte-for-byte the same result as the clean baseline - the injected
+line passed in total silence. Confirmed why: rule 1 (UNKNOWN) does not fire
+because L23 3AT is a real branches.json postcode: rule 6 never looked, because
+named.length was 2, not 1.
+
+FIX (applied to the scratch copy first, then the tracked checker). Split the
+named.length handling into three cases: 0 (unchanged, return), 1 (unchanged
+logic, same message), and >= 2 (new). For the new case, every postcode found on
+the line is checked against the byPostcode[] map; if it resolves to a real, live
+branch whose id is NOT in the already-built namedIds set (reused, not recomputed),
+that is a misattribution against all the named branches at once. A postcode that
+correctly belongs to one of the named branches - "Smartts Chemist (L20 9HH) and
+Riddings Pharmacy (WA15 6BP)" - is unaffected, because its owner IS in namedIds.
+MISATTRIB_KNOWN is honoured on a key built from the sorted named-id set
+(`file::[id1,id2]::postcode`), the same exemption convention as the single-branch
+case, in case a genuine multi-branch comparison needs excusing later; none exists
+today, so nothing was added to that list.
+
+RE-VERIFIED after the fix, same scratch copy: the injection now fails --
+
+  MISATTRIB compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md:1306: line names
+  Smartts Chemist and Riddings Pharmacy but also carries L23 3AT
+  (gordonshorts_crosby), which is named on this line by neither branch
+
+Reverted the injected line by copying the pre-injection file back over it,
+sha256-reconfirmed identical
+(5f59c9017fb9bac68e3900de29bbc2f4df00d2fedd940c692f89b2c56f474091) both before
+injecting and after restoring; the fixed checker then re-ran clean (0 failures,
+3 warnings), confirming NO FALSE POSITIVE anywhere else in the tracked content -
+this is the repo-wide "does the widening also catch something innocent" sweep
+every prior pass on this item has run before committing.
+
+APPLIED to the tracked repo's tools/check-postcodes.js (identical patch). Repeated
+the same before/inject/after/restore sequence directly against the tracked file:
+clean before injection (0 failures, 3 warnings), the same MISATTRIB line fired
+after injecting, restore hit the sandbox's standing FUSE unlink quirk (`git
+checkout` failed with "unable to unlink", the Q87/Q96 family) so the restore used
+`git show HEAD:compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md >` instead,
+sha256-reconfirmed identical to the pre-injection file
+(5f59c9017fb9bac68e3900de29bbc2f4df00d2fedd940c692f89b2c56f474091), then the
+checker re-run clean again (0 failures, 3 warnings, 1122 files scanned).
+
+Full 35-checker suite (check-live-hours.js excluded) re-run individually on the
+tracked repo after the fix: 35/35 exit 0. git status --porcelain -- modules/
+core/ branches.json compliance/ tools/ shows only tools/check-postcodes.js
+modified (51 insertions, 8 deletions) - no generator, page, pack, paste block,
+compliance file or branches.json touched, so no six-generator rebuild was needed
+(nothing that feeds one changed).
+
+INCIDENTAL, OUT OF SCOPE: an untracked, 0-byte stray file,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak (dated
+2026-09-09), was noticed sitting in the working tree during this pass's git
+status checks. It carries no content and is not part of this item; left
+untouched, noted here for whoever next does repo hygiene, the same convention
+as the stray "C:" directory noted on the item 3.11 seventeenth pass,
+2026-09-11.
+
+No live branch, page, pack or paste block carries a genuine multi-branch
+misattribution today, so this closes a latent gap rather than a live breach.
+No new question. Done 2026-09-17.

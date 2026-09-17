@@ -25776,6 +25776,52 @@ appended to the line. Do not move them; the status page reads them in place.
       only tools/check-postcodes.js changed (2 insertions), branches.json
       untouched. No new question. Done 2026-09-16. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-16-twentieth.txt.
+      Quality pass 2026-09-17 (twenty-first pass, unattended scheduled run): a
+      real, previously-latent gap found and fixed in check-postcodes.js; no
+      in-repo data defect, no live branch affected. The twenty prior passes all
+      tested rule 6 (MISATTRIB) in the named.length === 1 branch only - widening
+      PC_RE/PC_RE_LOOSE, or since the seventeenth and eighteenth passes, the
+      branch-NAME half (case-insensitivity, the bare-stem shorthand); none had
+      asked what happens when a line names TWO branches, where
+      `if (named.length !== 1) return;` gave up immediately on the assumption
+      that a multi-branch line is inherently ambiguous. That assumption fails
+      whenever the postcode present belongs to NEITHER named branch:
+      byPostcode[] already resolves who it does belong to, so there is nothing
+      ambiguous left. Proved on a scratch copy outside the tracked tree (git
+      archive HEAD, 1021 files, 0 failures, 3 warnings baseline matching the
+      tracked repo): "Smartts Chemist and Riddings Pharmacy both confirmed
+      their registered pharmacy postcode as L23 3AT during the site visit"
+      (Gordon Short Chemist Crosby's real postcode, correct for neither named
+      branch) appended to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md - the
+      same real, tracked, non-narrative, non-declaring file every earlier
+      rule-6 proof on this item has used - passed all 36 checkers in total
+      silence: rule 1 (UNKNOWN) does not fire because L23 3AT is a real
+      branches.json postcode, and rule 6 never looked, because named.length
+      was 2. Fix: split the named.length handling into 0 (unchanged), 1
+      (unchanged logic and message) and >= 2 (new) - for a multi-branch line,
+      any postcode belonging to a real, live branch NOT in the already-built
+      namedIds set (reused, not recomputed) is a misattribution against all
+      named branches at once; a postcode correctly belonging to one of the
+      named branches stays unaffected. MISATTRIB_KNOWN honoured on a
+      sorted-named-id-set key for future genuine multi-branch comparisons;
+      none exists today. Re-verified: injection now fails as MISATTRIB after
+      the fix and passed silently before it; restored by copying the
+      pre-injection file back (git checkout blocked by the standing sandbox
+      FUSE unlink quirk, Q87/Q96 family, so `git show HEAD:...` used instead),
+      sha256-reconfirmed identical both times
+      (5f59c9017fb9bac68e3900de29bbc2f4df00d2fedd940c692f89b2c56f474091).
+      Applied to the tracked checker and re-verified there too; full 35-checker
+      suite re-run clean (check-live-hours.js excluded, needs network); only
+      tools/check-postcodes.js changed (51 insertions, 8 deletions), no
+      generator, page, pack, paste block, compliance file or branches.json
+      touched, so no rebuild needed. No live branch, page, pack or paste block
+      carries a genuine multi-branch misattribution today, so this closes a
+      latent gap rather than a live breach. In passing, noted an untracked,
+      0-byte stray file, modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak
+      (dated 2026-09-09), left untouched and out of scope, same convention as
+      the stray "C:" directory noted on the 3.11 seventeenth pass. No new
+      question. Done 2026-09-17. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-17-twentyfirst.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

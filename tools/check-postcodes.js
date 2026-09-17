@@ -754,16 +754,59 @@ function checkFile(p) {
                   bareStemHit(lineLower, bareStemOf(b));
         if (hit && !namedIds[b.id]) { namedIds[b.id] = 1; named.push(b); }
       });
-      if (named.length !== 1) return;
-      var b = named[0];
-      var want = norm(b.postalCode);
-      if (!want) return;
+      if (named.length === 0) return;
+      if (named.length === 1) {
+        var b = named[0];
+        var want = norm(b.postalCode);
+        if (!want) return;
+        extract(line).forEach(function (pc) {
+          if (pc !== want && byPostcode[pc]) {
+            var knownKey = r + "::" + b.id + "::" + pc;
+            if (MISATTRIB_KNOWN[knownKey]) { misattribKnownUsed[knownKey] = true; return; }
+            fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + b.branchName +
+                 " (" + want + ") but carries " + pc + " (" + byPostcode[pc].id + ")");
+          }
+        });
+        return;
+      }
+      // Rule 6, multi-branch case (MISATTRIB). Found on the item 1.3 quality
+      // pass (twenty-first), 2026-09-17. Every prior pass on rule 6 only ever
+      // widened or re-proved the named.length === 1 branch above; the
+      // `if (named.length !== 1) return;` guard silently gave up the moment a
+      // line named TWO OR MORE branches, on the reasonable-looking grounds
+      // that a multi-branch line is ambiguous about which one a postcode
+      // belongs to. That reasoning holds only when the line's postcode
+      // legitimately belongs to ONE of the named branches; it does not cover
+      // a line naming two branches while carrying a THIRD, real branch's
+      // postcode, which belongs to neither named branch and only feels
+      // ambiguous - byPostcode[] resolves it exactly. Proved on a scratch
+      // copy outside the tracked tree: "Smartts Chemist and Riddings Pharmacy
+      // both confirmed their registered pharmacy postcode as L23 3AT during
+      // the site visit" (Gordon Short Chemist Crosby's real postcode, correct
+      // for neither Smartts Bootle's L20 9HH nor Riddings Timperley's own
+      // WA15 6BP) appended to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md -
+      // the same real, tracked, non-narrative, non-declaring file every
+      // earlier rule-6 proof on this item has used - passed all 36 checkers
+      // in total silence: rule 1 (UNKNOWN) does not fire because L23 3AT is a
+      // real branches.json postcode, and rule 6 as written never even looked,
+      // because named.length was 2. Fix: for a multi-branch line, any
+      // postcode on it that belongs to a real, live branch NOT among the
+      // named branches is a misattribution against all of them, checked
+      // against the same namedIds set already built above (not recomputed).
+      // A postcode that correctly belongs to one of the named branches keeps
+      // passing, so "Smartts Chemist (L20 9HH) and Riddings Pharmacy
+      // (WA15 6BP)" is unaffected. MISATTRIB_KNOWN is honoured on a key built
+      // from the sorted named-id set, the same exemption convention as the
+      // single-branch case, in case a genuine multi-branch comparison needs
+      // excusing later.
       extract(line).forEach(function (pc) {
-        if (pc !== want && byPostcode[pc]) {
-          var knownKey = r + "::" + b.id + "::" + pc;
+        var owner = byPostcode[pc];
+        if (owner && !namedIds[owner.id]) {
+          var label = named.map(function (nb) { return nb.branchName; }).join(" and ");
+          var knownKey = r + "::[" + Object.keys(namedIds).sort().join(",") + "]::" + pc;
           if (MISATTRIB_KNOWN[knownKey]) { misattribKnownUsed[knownKey] = true; return; }
-          fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + b.branchName +
-               " (" + want + ") but carries " + pc + " (" + byPostcode[pc].id + ")");
+          fail("MISATTRIB " + r + ":" + (idx + 1) + ": line names " + label +
+               " but also carries " + pc + " (" + owner.id + "), which is named on this line by neither branch");
         }
       });
     });
