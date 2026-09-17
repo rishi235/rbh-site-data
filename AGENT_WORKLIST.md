@@ -21483,6 +21483,45 @@ directly rather than re-deriving the same facts by hand.
       a future pass; rule 7 (branch landing pages) was read as passing this run
       but not itself injection-tested here.
       See audits/fishlocks-eccleston-pharmacy-first-cost-4.8-twentieth-2026-09-17.txt.
+      Quality pass 2026-09-17 (twenty-first, unattended run): stalest item in the
+      36-item rotation pool, re-derived independently (git log -1 -L over each
+      item's own paragraph range; 4.8 unique stalest at 2026-09-17T04:11:01+01:00,
+      exactly matching run 84's own forward note). Baseline: pack sha256 unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), all 33
+      checkers green (check-cdn-pins.js and check-live-hours.js excluded, both
+      network-dependent).
+      NEW ANGLE: tools/check-postcodes.js had never been genuinely proven against
+      this pack's own copy across twenty prior passes. It was named once, in the
+      fourth pass (2026-08-14), but that attempt's injection value was written into
+      a harness script left in the repo root rather than into the pack itself, so
+      the checker failed on the harness and six injections were silently
+      mis-attributed as caught - recorded in the checker's own NARRATIVE_POSTCODES
+      entry for PR7 5SX. check-postcodes.js's OWNED_DIRS list explicitly includes
+      gbp-packs, so this pack is squarely in scope. Two injections direct on the
+      tracked file, each restored from a pre-injection byte copy and sha256
+      reconfirmed before the next: (1) this pack's own postcode PR7 5SZ changed to
+      a fabricated non-branch value ZZ97 6ZZ - CAUGHT by rule 1 (UNKNOWN), one
+      failure naming the exact value; (2) PR7 5SZ changed to PR8 3HN, the REAL
+      postcode of sister branch Fishlocks Chemist Ainsdale on the same shared
+      domain - CAUGHT by rule 3 (FOREIGN), one failure naming both branches by id,
+      the exact McCanns Sandringham failure shape the rule exists for. CONTROL: a
+      benign address-line reword not touching any postcode - passed clean, no
+      cross-firing. Rule 6 (MISATTRIB) and rule 2 (MISSING) are structurally
+      inapplicable to this single-owner, well-covered pack (explained in the audit
+      file) and were not tested. File restored, sha256 reconfirmed identical; full
+      33-checker suite re-run clean after the final restore; git status --porcelain
+      -- gbp-packs modules core branches.json tools compliance empty bar the two
+      pre-existing untracked strays (confirmed by mtime, both predate this
+      session), unchanged. No checker gap found; no in-repo defect; both rules
+      already correctly protect this pack's own postcode, now proven by injection
+      for the first time.
+      LIVE HALF: pharmacy-fishlocks-eccleston.html re-fetched (Claude in Chrome,
+      read-only) - still 404, known queued-paste state (5.3/5.4), unchanged. No
+      other live pages re-read this pass.
+      ANSWER PICKUP: Claude in Chrome connected; feed re-read, newest entry still
+      Q52, 2026-09-01T22:44:51.524Z, nothing new.
+      QUESTIONS: none raised. Total unchanged at 110, 57 open.
+      See audits/fishlocks-eccleston-postcode-4.8-twentyfirst-2026-09-17.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

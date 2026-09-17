@@ -1,0 +1,142 @@
+Item 4.8 (Fishlocks Chemist Eccleston GBP pack), twenty-first quality pass,
+2026-09-17 (unattended scheduled run, audit-backlog-worker, run 85).
+
+ROTATION POOL DERIVATION
+Fell to the quality-pass fallback: all eight remaining AGENT_WORKLIST.md
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed still [BLOCKED]. Pool re-derived independently: 43 [x] top-level
+items minus the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) = 36-item pool. Per-item last-touched timestamp computed via
+`git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md`
+over each item's own paragraph range in the current file. 4.8 came out
+uniquely stalest at 2026-09-17T04:11:01+01:00, exactly matching run 84's own
+forward note (4.8, then 3.3, 3.5, 1.2, 2.3, 3.1, 3.2, 6.3, 3.7, 3.11...).
+Full ranked list, all 36 items, in this run's own scratch (reproducible from
+the git log command above against the current AGENT_WORKLIST.md).
+
+BASELINE
+sha256 of gbp-packs/fishlocks-eccleston.md confirmed unchanged against all
+twenty prior passes' recorded hash:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+Full 33-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) run individually before any injection: 33/33 exit 0.
+node tools/check-postcodes.js alone: 0 failures, 3 pre-existing UNOWNED
+warnings unrelated to this pack (gbp-packs/TEMPLATE.md and the two
+multi-branch modules/branch/pages files), unchanged from every prior run.
+
+NEW ANGLE
+Twenty prior dedicated passes on this item had covered check-gbp-packs.js
+(19), check-app-membership.js Rule 8 (all four directions the branch's
+membership makes reachable), check-gbp-pharmacy-first.js (7 rules),
+check-pharmacy-first-cost.js (4 rounds), check-brand-spelling.js,
+check-url-scheme.js, check-uk-spelling.js, check-em-dashes.js and
+check-pharmacy-first-eligibility.js rule 9 - but tools/check-postcodes.js had
+never been genuinely proven against this pack's own copy. It was named once,
+in the fourth pass's commentary (2026-08-14), but that attempt's own
+injection value (PR7 5SX) was written into a harness script left in the repo
+root rather than into the pack file itself, so the checker actually failed on
+the harness, not on the pack, and six injections were silently
+mis-attributed as caught (recorded in check-postcodes.js's own
+NARRATIVE_POSTCODES entry for PR7 5SX). No later pass on this item revisited
+it. check-postcodes.js's OWNED_DIRS list explicitly includes gbp-packs (line
+154-159 of the checker), so this pack is squarely in its scope: rule 1
+(UNKNOWN), rule 3 (FOREIGN) and rule 6 (MISATTRIB) all apply to a
+single-branch-owned file exactly like this one.
+
+INJECTIONS (all direct on the tracked file, gbp-packs/fishlocks-eccleston.md;
+each restored by byte copy from a pre-injection backup and sha256-reconfirmed
+identical to 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+before the next round and at the end)
+
+TEST 1 (RULE 1, UNKNOWN): the pack's own postcode "PR7 5SZ" changed to a
+fabricated, non-branch value "ZZ97 6ZZ" (postcode-shaped, matches no
+branches.json entry, not already in NARRATIVE_POSTCODES).
+  Result: CAUGHT. Exactly one failure -
+  "UNKNOWN  gbp-packs/fishlocks-eccleston.md: postcode ZZ97 6ZZ is in no
+  branches.json entry"
+  1 failure, 3 warnings (the pre-existing three, unchanged).
+
+TEST 2 (RULE 3, FOREIGN): the pack's own postcode "PR7 5SZ" changed to
+"PR8 3HN", the REAL postcode of Fishlocks Chemist Ainsdale - the sister
+branch sharing the same fishlockpharmacy.co.uk domain, chosen deliberately
+because it is the exact McCanns Sandringham failure shape (rule 3's own
+stated rationale) and because a sister-branch mix-up on a shared domain is
+the most plausible real-world way this specific pack could go wrong.
+  Result: CAUGHT. Exactly one failure -
+  "FOREIGN  gbp-packs/fishlocks-eccleston.md: owned by fishlocks_eccleston
+  (PR7 5SZ) but carries PR8 3HN (fishlocks_ainsdale)"
+  1 failure, 3 warnings (unchanged).
+
+CONTROL: a benign edit near the address line, not touching any postcode
+("New Mill Street" -> "New Mill Street (Unit 3)" in the prose address).
+  Result: PASSED clean. 0 failures, 3 warnings (unchanged) - confirms no
+  cross-firing from an unrelated edit in the same paragraph.
+
+Both real injections behaved exactly as documented, first attempt, with the
+exact rule-specific message the checker's own header comment predicts. No
+checker gap found: rules 1 and 3 already correctly protect this pack's own
+postcode in both directions (a value belonging to no branch, and a value
+belonging to a real but different branch), now proven by injection against
+this pack's own copy for the first time - the earlier 2026-08-14 attempt
+having proven nothing due to its own harness-placement error.
+
+Rule 6 (MISATTRIB) was not separately tested: it only engages when
+ownerOf() cannot resolve a single owner for a file (a multi-branch file,
+e.g. the two modules/branch/pages files reported as UNOWNED above), and
+gbp-packs/fishlocks-eccleston.md resolves to exactly one owner
+(fishlocks_eccleston) via its filename, so MISATTRIB is structurally
+inapplicable to this file - the same class of per-item rule inapplicability
+already recorded elsewhere in this audit (e.g. check-app-membership.js
+Rules 8a/8b against a member branch). Rule 2 (MISSING) was not tested for
+the same structural reason: a single-file edit cannot make a branch's
+postcode disappear from the other ~25 generated pages, branches.json and
+paste blocks that also carry it, so no single-file injection can exercise
+MISSING meaningfully for a branch this well-covered.
+
+RESTORE VERIFICATION
+sha256 of gbp-packs/fishlocks-eccleston.md confirmed identical to the
+pre-pass baseline after every round and at the end:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+Full 33-checker suite re-run clean after the final restore: 33/33 exit 0.
+git status --porcelain -- gbp-packs modules core branches.json tools
+compliance: empty except two long-standing pre-existing untracked strays,
+neither created nor touched by this pass (confirmed by file mtime, both
+predating this session - gbp-packs/.fuse_hidden0000000400000001, Sep 8, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, Sep 9).
+No entry added to NARRATIVE_POSTCODES: neither injected value (ZZ97 6ZZ,
+and PR8 3HN which is itself a real live-branch postcode so needs no
+narrative exemption at all) was ever committed to the tracked repo or
+quoted verbatim in AGENT_LOG.md/AGENT_WORKLIST.md beyond this audit file, so
+the self-referential gap this list exists to close does not arise here.
+
+LIVE HALF
+Claude in Chrome connected this run, single tab, read-only, nothing clicked
+or typed. pharmacy-fishlocks-eccleston.html re-fetched: still 404, the known
+queued-paste state (5.3/5.4), unchanged from every prior pass. Not
+re-raised. No other live pages re-read this pass (the injection work above
+is a repo-side test of a data-integrity checker, not a live-copy question;
+the weight loss and travel clinic live pages were checked in depth on the
+eighteenth and nineteenth passes and Q88/Q105 remain open, unchanged).
+
+ANSWER PICKUP (step 3, this run)
+Claude in Chrome connected. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed -
+newest entry still Q52, 2026-09-01T22:44:51.524Z, identical to every run
+since 2026-09-01 and already recorded status "answered" in QUESTIONS.json
+(or, for Q37/Q43, correctly left "open" because the portal reply was a
+request for clarification, not a decision - both notes already carry that
+reconfirmation). Nothing new to pick up.
+
+QUESTIONS: none raised. Total questions unchanged at 110, 57 open.
+
+No generator, page, checker, pack or branches.json content changed. No
+in-repo defect found this pass.
+
+FORWARD NOTE: the two catchment-list rules noted unproven in the sixteenth
+pass, and the shared-domain-website rule noted unproven against
+scorah-hazel-grove.md/scorah-bramhall.md/fishlocks-ainsdale.md in the
+fourteenth pass, both remain open candidates for a future pass on those
+items. For this item specifically: rule 6 (MISATTRIB) and rule 2 (MISSING)
+of check-postcodes.js remain structurally untestable against this
+single-owner, well-covered pack for the reasons given above, and that is
+expected to stay true rather than being a gap to close.
