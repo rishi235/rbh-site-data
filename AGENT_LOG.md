@@ -1,4 +1,109 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 69; mcp__workspace__bash used for lock handling, repo reads, the tar-scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 2.1 live half (the switch page and the sitemap read in full, nothing clicked or typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 2.1 (Fishlocks Chemist Ainsdale) twenty-first quality pass: proved five of check-switch-copy.js's ten body-copy rules (verbatim, gp-story, continuity, town, form-copy) by injection against this branch's switch page specifically for the first time, zero in-repo defect; live half read the switch page itself for the first time under this item and found the pre-Q49 unconditional hero wording still live there too (third-branch reconfirmation of the same paste-lag Q49/run 68 already tracked, not new).
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 70; mcp__workspace__bash used for lock handling, repo reads, the scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 3.4 (Cherry Lane Pharmacy, Walton) twenty-second quality pass: proved five of check-branch-identity.js's rules (identity, owner, schemaname, outbound, servicelink) by injection against this branch's own pages for the first time under item 3.4's own coverage log, zero in-repo defect; guard coverage for item 3.4 now 20 of 36 checkers.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 69's
+own lock already resolved and cleared before this run started). Wrote a
+fresh timestamp (2026-09-17T13:34:08Z) via the sandbox mount. Already on
+`agents/audit-backlog`; `git fetch origin` / `git pull --ff-only` both
+confirmed already up to date with origin. A fresh `.git/index.lock`
+reappeared during this run's own `git status --porcelain` call (28 seconds
+old when checked, this sandbox's FUSE mount cannot unlink it, only rename -
+the standing Q87/Q96/Q102 constraint), well under the 1-hour staleness
+threshold so left alone rather than cleared; it does not block the
+Windows-MCP PowerShell git write route used for steps 9-11.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feed: newest entry still Q52 (2026-09-01T22:44:51.524Z),
+identical to every run since 2026-09-01. Cross-checked against
+QUESTIONS.json: Q52 already recorded `status: "answered"` with the exact
+matching answer text. Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 69's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback. Rotation
+pool re-derived fresh via a Python scan of
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+the eight blocked items. 3.4 came out stalest at 2026-09-16T19:23:05+01:00,
+since item 2.1 (run 69's own pick) is now stamped today and out of
+contention. Picked 3.4.
+
+WORK DONE (item 3.4, twenty-second quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.4 paragraph and in
+audits/cherry-lane-walton-branch-identity-3.4-twentysecond-2026-09-17.txt.
+Summary: tools/check-branch-identity.js had never been named against item
+3.4 across twenty-one prior passes (19 of 36 checkers proven), despite
+Cherry Lane's own Pharmacy First link being the real historical case that
+this checker's rule 10 (servicelink) was written to catch, under item 2.3's
+own log on 2026-08-12 rather than item 3.4's. Baseline: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged), full 34-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, network-dependent) clean on the tracked repo
+before and after. Scratch copy built under the sandbox home mount (not
+/tmp, unwritable this session; not the tracked mount, never opened for
+writing): branches.json, the three PAGE_DIRS the checker reads, and a copy
+of the checker script itself.
+
+Five injections plus one control against three of Cherry Lane's own
+generated pages, each restored by byte copy from a pristine backup and
+sha256-reconfirmed before the next (an early restore attempt via
+`$(cat ...)` shell-variable capture silently stripped a trailing newline
+and produced a non-matching restore - caught immediately via the
+sha256-before-next-injection discipline, before it could contaminate a
+later test; real file backups used throughout after that): (1) PF page's
+data-branch blanked - caught by rule identity; (2) data-branch set to
+Fishlocks Ainsdale's name - caught TWO WAYS AT ONCE, rule owner (naming the
+wrong pharmacy) and rule split (one branch declaring two different
+data-branch values), the same "one fact, several rules" pattern already
+recorded for this checker and check-map-embeds.js under item 3.3; (3) UTI
+page's JSON-LD name changed to Coleman and Leighs Pharmacy (the other
+Walton-catchment branch, separate host) - caught alone by rule schemaname;
+(4) PF page's Google review link swapped for Fishlocks Ainsdale's own -
+caught alone by rule outbound; (5) PF page's own UTI service link
+repointed at Fishlocks Ainsdale's UTI page (cross-host) - caught alone by
+rule servicelink, correctly identified as a dead relative link on another
+domain. CONTROL: switch page's phone number changed in all three visible
+shapes - zero mentions in check-branch-identity.js's output;
+independently re-run check-nap.js caught it immediately (5 MISMATCH lines),
+confirming the control was a real fault outside this checker's scope rather
+than untested ground. All five injections restored, sha256 reconfirmed
+identical to the pristine backups. Full 34-checker suite re-run on the
+scratch copy after final restore: clean, matching baseline.
+
+Tracked repo reconfirmed untouched throughout: `git status --porcelain`
+showed only long-standing pre-existing untracked debris (this sandbox's
+FUSE mount rejects unlink(), only permits rename, so cleared/released/stale
+probe files from many past runs accumulate rather than disappear - now well
+over 100 stray files; none touched or added to by this pass, and cleaning
+them up is out of scope for a single worklist-item quality pass);
+branches.json sha256 unchanged; full 34-check-*.js suite re-run
+individually against the tracked repo, 34/34 exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 20 of
+36 checkers proven by direct injection (up from 19).
+
+LIVE HALF: not attempted this pass - check-branch-identity.js's subject
+(data-branch attributes and JSON-LD "name", both invisible to a human
+reading the page) has no useful live counterpart beyond what the twelfth
+and twentieth passes already covered for this branch's title/H1 paste
+state; not claimed fixed or freshly checked either way.
+
+QUESTIONS.json re-read: 110 total, 57 open, unchanged by this pass. No new
+question raised - this pass proved a checker's rules sound against a
+specific branch's data rather than surfacing a decision for Rishi.
+
+STEPS 9-11: committed and pushed via mcp__Windows-MCP__PowerShell against
+the real C:\Dev\rbh-site-data working copy on ProDeskAi, per the standing
+convention at Q87/Q96/Q102 (this sandbox has no working git push
+credential). Status page republished via
+`node C:\Dev\rbh-site-data\tools\build-audit-status.js` on the same host.
+`.agent-lock` deleted from the sandbox mount at run end.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 68's
 own lock, and its force-push addendum, both already resolved and pushed

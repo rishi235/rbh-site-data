@@ -1,0 +1,159 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - twenty-second quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-09-17
+Checker under test: tools/check-branch-identity.js (never named against this
+item in any of the prior twenty-one passes; 19 of 36 checkers had been proven
+against item 3.4 before this pass, this brings it to 20 of 36)
+
+WHY THIS CHECKER, WHY NOW
+--------------------------
+Cherry Lane is a single-brand, single-host branch (brandLabel == branchName,
+no sister on cherrylanepharmacy.co.uk), so rules 4/5/6/9/11 of
+check-branch-identity.js (the shared-brand ambiguity, cross-host uniqueness
+and sister-link rules) are structurally inapplicable here - those have
+already been proven on the three shared-domain pairs under items 2.2/2.3/3.3.
+What remained untested for THIS branch specifically were rules 1/2/3
+(identity, owner, schemaname), rule 8 (outbound review link) and rule 10
+(servicelink), the rules that apply to every branch regardless of whether it
+shares a brand. Rule 10 was proven on a Cherry Lane page once before, but
+under item 2.3's own quality-pass log (2026-08-12), not item 3.4's - this
+repo's convention (see item 2.1's twenty-first pass) is that each worklist
+item tracks its own checker-coverage count independently, so it is retested
+and logged here.
+
+METHOD
+------
+Baseline: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged throughout). Full 34-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent) run individually
+against the tracked repo before and after: 34/34 exit 0 both times.
+
+Scratch copy built under the sandbox home mount (~/scratch34/repo, not /tmp,
+which this session cannot write to, and not the tracked mount, which was
+never opened for writing during the injection round): branches.json plus the
+three page directories check-branch-identity.js's own PAGE_DIRS constant
+reads (modules/service/pages, modules/switch/pages, modules/branch/pages)
+plus a copy of the checker script itself so its ROOT resolves inside the
+scratch tree. Baseline run against the scratch copy matched the tracked
+repo's own output exactly: 177 pages matched, 177 with a module root, 177
+with a JSON-LD block, 16 trading branches, 3 shared-host website pairs, exit
+0.
+
+Five injections plus one control against three of Cherry Lane's own
+generated pages (pharmacy-first-cherry-lane-walton.html,
+uti-treatment-cherry-lane-walton.html,
+switch-prescriptions-cherry-lane-walton.html), each restored by byte copy
+from a pristine backup taken directly from the tracked repo (not from a
+shell-variable capture - an early attempt using $(cat ...) silently stripped
+the file's trailing newline and produced a restore that did not
+sha256-match; caught before it could contaminate a later test, backups
+retaken as real files, sha256-confirmed to match the tracked originals
+before any injection began) and sha256-reconfirmed identical to that backup
+before the next injection ran.
+
+RESULTS
+-------
+(1) IDENTITY - the PF page's #rbhsv-root data-branch attribute blanked
+    ("Cherry Lane Pharmacy" -> ""). CAUGHT: "carries a module root but no
+    data-branch, so an enquiry from it is labelled 'our pharmacy'". Exit 1.
+
+(2) OWNER - the same attribute set to another branch's full name
+    ("Fishlocks Chemist Ainsdale"). CAUGHT TWO WAYS AT ONCE: rule "owner"
+    ("data-branch=... but the page belongs to cherrylane_liverpool ... that
+    is fishlocks_ainsdale's name, so an enquiry from this page is filed
+    against the wrong pharmacy") and rule "split" ("its pages declare 2
+    different values for data-branch ... so one branch presents itself as
+    more than one business depending on which generator built the page"),
+    the same "one fact, several rules" pattern already recorded in this repo
+    for check-branch-identity.js and check-map-embeds.js under item 3.3.
+    Exit 1, 2 failures.
+
+(3) SCHEMANAME - the UTI page's JSON-LD "name" changed from "Cherry Lane
+    Pharmacy" to "Coleman and Leighs Pharmacy" (the other RBH shop trading
+    in the Walton catchment, on a separate host). CAUGHT: "JSON-LD name
+    ... but the page belongs to cherrylane_liverpool ... that is
+    colemanleigh_liverpool's name, so Google is told this address belongs to
+    another pharmacy". Exit 1, caught by this rule alone.
+
+(4) OUTBOUND - the PF page's Google review link swapped for Fishlocks
+    Ainsdale's own googleReviewUrl (g.page/r/Cfl0iMf3cgGaEAE vs Cherry
+    Lane's own CRF-ODLpmvUAEAE). CAUGHT: "publishes the Google review link
+    ... which belongs to fishlocks_ainsdale ... A patient following it rates
+    the wrong shop, on a third-party profile neither this repo nor a repaste
+    can move the review back off". Exit 1, caught by this rule alone.
+
+(5) SERVICELINK - the PF page's own link to its UTI condition page repointed
+    from uti-treatment-cherry-lane-walton.html to
+    uti-treatment-fishlocks-ainsdale.html (cross-host: Cherry Lane is on
+    cherrylanepharmacy.co.uk, Fishlocks Ainsdale on fishlockpharmacy.co.uk).
+    CAUGHT: "links to ... a service page belonging to fishlocks_ainsdale ...
+    fishlocks_ainsdale is served from www.fishlockpharmacy.co.uk and the
+    link is relative, so it 404s and the service route is dead". Exit 1,
+    caught by this rule alone. This is the same rule and the same shape of
+    fault Q16/item 2.3's 2026-08-12 pass found for real on this exact
+    branch's Pharmacy First link; today's injection reconfirms the rule
+    still catches it, now under item 3.4's own coverage log.
+
+CONTROL - the switch page's phone number changed in all three of its shapes
+    (visible text, tel: href, JSON-LD telephone) from 0151 226 2051 to
+    0151 999 9999, a fact check-branch-identity.js does not read at all.
+    Result: zero mentions in check-branch-identity.js's output, exit 0
+    (clean) even with the injection live. Independently re-run
+    check-nap.js against the same scratch copy: caught it immediately, 5
+    MISMATCH lines naming the tel link, the visible phone (twice) and the
+    JSON-LD telephone against the correct 0151 226 2051. Confirms the
+    control was a genuine fault outside this checker's scope, not untested
+    ground the checker simply failed to notice.
+
+All six injections restored; final sha256 of all three touched files
+matched their pristine originals exactly
+(pharmacy-first-cherry-lane-walton.html
+15c6feca1245b97298f1121303bc714c4806b242f21809a17baeae5e0d78fb20,
+uti-treatment-cherry-lane-walton.html
+8de627d91f3c4c25b0433e62fbf682c4eb151fb3ed31317ac09763a905fd74bf,
+switch-prescriptions-cherry-lane-walton.html
+bd36e209f115b53a97708779ac718880f76c36f43f4214dc5338000c6f028995). Final
+re-run of check-branch-identity.js against the fully restored scratch copy:
+exit 0, output byte-identical to the baseline run (177/177/177, 16 branches,
+3 shared hosts, 198 review links, 6 landing links, 238 service links, 6
+sister labels).
+
+Tracked repo reconfirmed untouched throughout: git status --porcelain shows
+only long-standing pre-existing untracked debris (documented elsewhere in
+AGENT_LOG.md as a consequence of this sandbox's FUSE mount rejecting
+unlink() - see Q87/Q96/Q102 - and now numbering well over 100 stray files;
+not touched or added to by this pass, and out of scope for a single
+worklist-item quality pass to clean up); branches.json sha256 unchanged;
+full 34-checker suite re-run individually against the tracked repo after
+this pass, 34/34 exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 20 of 36
+checkers proven by direct injection (up from 19).
+
+LIVE HALF: not attempted this pass. check-branch-identity.js's subject
+(data-branch attributes and JSON-LD name, both invisible to a human reading
+the page) has no live-browser counterpart worth reading independently of the
+repo half - the live site serves whatever was last pasted, and the pasted
+HTML is a copy of what this repo generates, so a repo-half pass proves the
+generator's own logic sound; it does not and cannot prove what is currently
+live at cherrylanepharmacy.co.uk without a fresh paste-state check, which
+the twelfth/twentieth passes already covered for this branch's title/H1 and
+is not duplicated here.
+
+QUESTIONS.json re-read: 110 total, 57 open, unchanged by this pass. No new
+question raised - this pass proved a checker's rules sound against a
+specific branch's data rather than surfacing a decision for Rishi.
+
+Remaining checkers never named against item 3.4 (16, after this pass,
+including the network-dependent check-live-hours.js which is excluded from
+every pass's active suite): check-app-membership.js,
+check-brand-spelling.js, check-contraception-copy.js,
+check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js and
+check-widget-diaries.js. (check-weight-loss-copy.js and check-cdn-pins.js
+were already named in item 3.4's prior passes and are not in this list.)
+Left for a future pass; not attempted here to stay within the run's own
+time budget.

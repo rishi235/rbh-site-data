@@ -5953,6 +5953,64 @@ branch's data rather than surfacing a decision for Rishi.
 Next stalest by this run's own computation, for whoever runs next: 3.6,
 3.10, 4.4, 4.9, 4.15, 5.2 remain tied at 2026-09-15 - re-derive rather than
 assume, since other runs may land in between.
+Quality pass 2026-09-17 (twenty-second): REPO HALF CLEAN, ZERO IN-REPO
+DEFECTS. Selected as the stalest completed item via the standard rotation
+derivation: all eight remaining `[ ]` worklist lines still [BLOCKED]; item
+2.1 (dated today, twenty-first pass) was the prior stalest and is now out of
+contention; 3.4 came out next-stalest at 2026-09-16T19:23:05+01:00.
+WORK DONE: twenty-one prior passes across nineteen checkers, but
+tools/check-branch-identity.js had never been named once against this
+branch, despite Cherry Lane's own Pharmacy First link having been the real
+case rule 10 of that checker was written to catch (item 2.3, 2026-08-12
+pass) - proven there under item 2.3's own log, never under item 3.4's.
+Scratch copy (branches.json plus modules/service/pages,
+modules/switch/pages, modules/branch/pages, and a copy of the checker
+script itself so ROOT resolves) built under the sandbox home mount, tracked
+repo never opened for writing. Baseline matched tracked repo exactly (177
+pages, 16 branches, 3 shared hosts, exit 0). Five injections plus one
+control against three of Cherry Lane's own pages, each restored by byte
+copy from a pristine backup and sha256-reconfirmed before the next (an
+early restore attempt via shell-variable capture silently stripped a
+trailing newline and was caught before contaminating a later test - real
+file backups used throughout after that): (1) rule identity, PF page's
+data-branch blanked - CAUGHT; (2) rule owner, data-branch set to Fishlocks
+Ainsdale's name - CAUGHT TWO WAYS AT ONCE (owner, naming the wrong pharmacy,
+and split, one branch declaring two different data-branch values), the same
+"one fact, several rules" pattern already recorded for this checker and
+check-map-embeds.js under item 3.3; (3) rule schemaname, UTI page's JSON-LD
+name changed to Coleman and Leighs Pharmacy (the other Walton branch) -
+CAUGHT alone; (4) rule outbound, PF page's Google review link swapped for
+Fishlocks Ainsdale's own - CAUGHT alone; (5) rule servicelink, PF page's own
+UTI link repointed at Fishlocks Ainsdale's UTI page (cross-host) - CAUGHT
+alone, correctly identified as a dead relative link on another domain.
+CONTROL: the switch page's phone number changed in all three shapes -
+zero mentions in check-branch-identity.js's output; independently re-run
+check-nap.js caught it immediately (5 MISMATCH lines), confirming the
+control was a real fault outside this checker's scope. All five injections
+restored, sha256 reconfirmed identical to the pristine backups. Full
+34-checker suite (check-cdn-pins.js and check-live-hours.js excluded, both
+network-dependent) re-run on the scratch copy after final restore: clean,
+matching baseline.
+Tracked repo reconfirmed untouched throughout: git status --porcelain
+showed only long-standing pre-existing untracked debris (documented
+elsewhere as a consequence of this sandbox's FUSE mount rejecting unlink(),
+now well over 100 stray files, none touched or added to); branches.json
+sha256 unchanged (169bb5a2...b102); full 34-check-*.js suite re-run
+individually against the tracked repo, 34/34 exit 0.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 20 of 36
+checkers proven by direct injection (up from 19).
+LIVE HALF: not attempted this pass - the checker's subject (data-branch
+attributes and JSON-LD name) is invisible to a human reading the page and
+has no useful independent live counterpart beyond what the twelfth and
+twentieth passes already covered for this branch's title/H1 state.
+Evidence:
+audits/cherry-lane-walton-branch-identity-3.4-twentysecond-2026-09-17.txt.
+QUESTIONS.json re-read (110 total, 57 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data rather than surfacing a decision for Rishi.
+Next stalest by this run's own computation, for whoever runs next: 3.6,
+3.10, 4.4, 4.9, 4.15, 5.2 remain tied at 2026-09-15 - re-derive rather than
+assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
