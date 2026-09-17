@@ -4736,6 +4736,26 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       addendum recording the addressRegion finding. QUESTIONS.json
       unchanged at 109 total, 56 open. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-17-twentieth.txt.
+      Quality pass 2026-09-17 (twenty-first, run 86): NEW ANGLE -
+      check-pharmacy-first-safety-net.js, never before exercised against
+      Fishlocks across twenty prior passes, proven by injection on a /tmp
+      scratch copy of both branches' 14 Pharmacy First condition pages
+      (rules 6 verbatim and 7 contamination, the two rules that read
+      per-branch pages rather than the generator's global copy): a removed
+      UTI safety-net point (rule 6) and an impetigo point injected onto the
+      UTI page (rule 7) were both caught cleanly, one FAIL each naming the
+      right page and text, and a benign control edit stayed clean. Tracked
+      repo untouched by this work. SEPARATE FIX found during the routine
+      full-36-checker-suite re-run: tools/check-postcodes.js was already
+      failing at baseline, inherited from run 85's own item 4.8 twenty-first
+      pass, whose TEST 1 fabricated postcode "ZZ97 6ZZ" was quoted in
+      AGENT_LOG.md, AGENT_WORKLIST.md and its own audit file but never added
+      to NARRATIVE_POSTCODES - the same recurring gap this list has now
+      closed twenty-one times. Fixed by adding the ZZ97 6ZZ entry; full
+      34-checker suite (36 minus check-cdn-pins.js/check-live-hours.js) then
+      re-ran clean. No new question raised; QUESTIONS.json unchanged at 110
+      total, 57 open. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-17-twentyfirst.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

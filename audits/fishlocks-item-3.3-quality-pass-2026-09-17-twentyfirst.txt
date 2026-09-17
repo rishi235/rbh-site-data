@@ -1,0 +1,163 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - twenty-first quality pass
+Unattended scheduled run, audit-backlog-worker (run 86), 2026-09-17
+
+ITEM SELECTION
+Rotation pool re-derived independently via `git log -1 --format=%ad
+--date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md` run per item over its own
+paragraph range in the current file, pool being the 43 checked
+AGENT_WORKLIST.md items minus the seven standing out-of-rotation items (1.1,
+1.4, 2.2, 5.6, 5.7, 6.7, 6.8) = 36 pool items. 3.3 resolved to
+2026-09-17T04:44:56+01:00, the single oldest of the 36 (full ranked list
+computed and cross-checked: 3.3, 3.5, 1.2, 2.3, 3.1, 3.2, 6.3, 3.7, 3.11...),
+exactly matching run 85's own forward note. Recent picks avoided per the
+task brief (4.8, 4.13, 4.3, 4.10, 4.5) do not appear near the top of the
+ranking, consistent with them having been refreshed in the last several runs.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read via
+Claude in Chrome, one background tab, read-only throughout (navigate +
+get_page_text only, nothing clicked or typed), closed after reading. Newest
+entry still Q52, dated 2026-09-01T22:44:51.524Z, identical to every run since
+2026-09-01. No new answer to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): top of AGENT_LOG.md (run 85's own entry)
+carried no "Standing authorisation - autonomous window" section. Proceeded
+under the normal rule.
+
+LOCK / SYNC (steps 1-2): handled by the orchestrating run before this pass
+began (fresh .agent-lock timestamp written, no stale lock found). `git fetch
+origin` / `checkout agents/audit-backlog` / `pull --ff-only` all clean,
+already up to date with origin at run 85's commit (item 4.8, twenty-first
+pass).
+
+BASELINE
+- Full checker suite (36 files, check-cdn-pins.js and check-live-hours.js
+  excluded as network-dependent per established practice) run individually
+  before any change: tools/check-postcodes.js FAILED at baseline (see FIX
+  below); all other 33 checkers exited 0.
+
+NEW ANGLE
+Every "Item 3.3" block across twenty prior passes was scanned for the 36
+check-*.js filenames (same method the twentieth pass used). Five checkers had
+zero mentions after pass twenty: check-contraception-copy,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+check-travel-clinic-copy, and check-widget-diaries (the last of which the
+twentieth pass itself then closed). check-pharmacy-first-safety-net.js was
+chosen for this pass: both Fishlocks branches carry all seven Pharmacy First
+condition pages (earache, impetigo, insect-bite, shingles, sinusitis,
+sore-throat, uti; 14 pages total), so the checker's page-level rules 6
+(verbatim safety-net copy) and 7 (no cross-condition contamination) are fully
+in-scope and testable against this branch's own generated pages. Rules 1-5
+read the CONDITIONS table in tools/build-service-pages.js, which is global
+copy shared by every branch rather than Fishlocks-specific data, so this pass
+targeted rules 6 and 7 specifically, the two rules that read the pages
+themselves.
+
+METHOD
+All rounds performed on a disposable scratch copy at /tmp/scratch-safety-net
+(tools/check-pharmacy-first-safety-net.js, tools/build-service-pages.js, and
+only the 14 Fishlocks *-treatment-fishlocks-*.html pages copied in - the
+"owners" fingerprint table rule 7 uses is built from the generator's global
+CONDITIONS data, not from other branches' pages, so a Fishlocks-only PAGE_DIR
+is sufficient and keeps the run focused). Baseline run against the scratch
+copy reproduced the real repo's own output exactly (7 ready conditions, 14
+pages checked instead of 98, same impetigo:urgent WARN against Q61, exit 0),
+confirming the scratch copy's path resolution was correct before any
+injection. The tracked repo's own tools/ and modules/service/pages/ were
+never opened for writing at any point in this NEW ANGLE work; every round
+below happened only inside /tmp/scratch-safety-net.
+
+Round 1 (rule 6, verbatim). Removed the point "Men with UTI symptoms should
+speak to a GP" from uti-treatment-fishlocks-eccleston.html's safety-net list.
+CAUGHT, exactly one FAIL: "uti-treatment-fishlocks-eccleston.html: a
+safety-net point is missing from the page (rule 6) / expected: Men with UTI
+symptoms should speak to a GP." Restored from a pre-injection backup file and
+sha256-reconfirmed identical to the scratch baseline; the checker's full
+output after restoration then diffed byte-for-byte against the clean baseline
+output and matched exactly.
+
+Round 2 (rule 7, contamination). Injected impetigo's own safety-net point
+"Widespread, bullous or recurrent impetigo may need a GP" into
+uti-treatment-fishlocks-ainsdale.html's safety-net list, alongside its own
+genuine points. CAUGHT, exactly one FAIL: "uti-treatment-fishlocks-ainsdale.
+html: carries a safety-net point that belongs to the impetigo pathway, not
+this one (rule 7) / Widespread, bullous or recurrent impetigo may need a GP."
+Restored from a pre-injection backup and sha256-reconfirmed identical.
+
+Control (benign, unrelated edit). Changed a step heading on
+uti-treatment-fishlocks-ainsdale.html ("Book or call in" to "Book or call
+today"), touching no safety-net copy. check-pharmacy-first-safety-net.js
+stayed clean, exit 0, confirming the checker fires on the safety-net facts
+alone and not on any nearby page edit. Restored from backup and
+sha256-reconfirmed identical; the final scratch-copy checker run then diffed
+byte-for-byte against the original clean baseline output and matched exactly.
+
+All three rounds behaved exactly as expected on the first attempt. No
+in-repo defect found in check-pharmacy-first-safety-net.js's coverage of
+Fishlocks' own pages: rules 6 and 7 already correctly protect both branches'
+Pharmacy First condition pages, now proven by injection for the first time in
+twenty-one passes on this item.
+
+FIX (found during the full-suite re-run, not part of the NEW ANGLE injection
+work above)
+Running the full 36-checker suite (minus check-cdn-pins.js and
+check-live-hours.js) against the tracked repo, both before and after the NEW
+ANGLE work above, showed tools/check-postcodes.js already failing at
+baseline, before this pass had touched anything: three UNKNOWN failures
+naming the fabricated postcode "ZZ97 6ZZ" in AGENT_LOG.md, AGENT_WORKLIST.md
+and audits/fishlocks-eccleston-postcode-4.8-twentyfirst-2026-09-17.txt. This
+is run 85's own item 4.8 (Fishlocks Chemist Eccleston GBP pack) twenty-first
+pass, TEST 1: a fabricated, non-branch postcode injected in place of the
+pack's own real PR7 5SZ to prove check-postcodes.js's UNKNOWN rule, correctly
+restored on the pack itself, but the injected value was written into three
+narrative files to record the test and never added to
+tools/check-postcodes.js's own NARRATIVE_POSTCODES list. This is precisely
+the recurring gap CLAUDE.md's "The postcode, and the difference between using
+a fact and talking about one" section describes, and the same shape this
+list has now closed twenty times before (most recently ZZ98 8ZZ/XX00 0XX on
+the item 4.1 quality pass, twenty-first, 2026-09-17, during that pass's own
+routine full-suite re-run - the identical mechanism by which this run's gap
+was found).
+
+Fixed by adding a "ZZ97 6ZZ" entry to NARRATIVE_POSTCODES in
+tools/check-postcodes.js, naming item 4.8's twenty-first pass, the TEST 1
+context, and the three narrative files that quote the value, following the
+list's own established prose convention exactly. Re-ran check-postcodes.js
+alone: 0 failures, 3 pre-existing unrelated UNOWNED warnings only (gbp-packs/
+TEMPLATE.md and the two modules/branch/pages/*.md files, long-standing and
+untouched by this pass). Re-ran the full 34-checker suite (36 minus
+check-cdn-pins.js and check-live-hours.js): all 34 exit 0.
+
+git status --porcelain confirms only tools/check-postcodes.js modified by
+this pass among tracked files (plus AGENT_LOG.md, AGENT_WORKLIST.md and this
+audit file for the write-up); the sandbox mount's large pre-existing
+collection of untracked stray files (`.agent-lock.released-*` and similar,
+documented across many prior runs as a FUSE-mount unlink limitation) is
+unrelated to and untouched by this pass, and none of it was staged or
+committed.
+
+LIVE HALF
+Not repeated this pass. The live half for both Fishlocks branches was read in
+full on the twentieth pass (2026-09-17, same day) and on the fifth pass
+(2026-08-30); nothing in this pass's own scope (a repo-side checker-coverage
+proof plus an unrelated checker-list maintenance fix) touches live pages or
+changes what a browser would see, so a fresh live re-read would not test
+anything this pass actually did.
+
+QUESTIONS
+No new question raised. QUESTIONS.json: 110 total, 57 open, unchanged in
+count.
+
+FORWARD NOTE
+check-pharmacy-first-safety-net.js is now proven by injection against
+Fishlocks' own pages (rules 6 and 7). Rules 1-5 remain untested by injection
+against any specific branch, since they read the generator's global
+CONDITIONS table rather than branch data - not a gap specific to this item.
+The zero-mention count across Fishlocks' own passes now stands at three
+(check-contraception-copy, check-pharmacy-first-symptoms,
+check-travel-clinic-copy), all in-scope for Fishlocks (both branches carry
+contraception, pharmacyFirst and travelClinic widgets) and candidates for a
+future pass's NEW ANGLE.
