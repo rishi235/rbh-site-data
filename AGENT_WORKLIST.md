@@ -22862,6 +22862,55 @@ directly rather than re-deriving the same facts by hand.
       changed; no new question raised. Evidence in
       audits/sk-chemists-bootle-whatsapp-4.11-nineteenth-2026-09-16.txt.
       Done 2026-09-16
+      Twentieth quality pass 2026-09-17 (unattended scheduled run,
+      rotation-pool pick): tools/check-jsonld.js, never once named against
+      this branch across nineteen prior passes, proven by four injections
+      plus one cross-fire control against SK Chemists Bootle's own pages.
+      Repo copied to a disposable scratch directory under the outputs
+      mount (working tree only, .git deliberately excluded); tracked repo
+      never opened for writing. Baseline: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, the
+      standing regression anchor, unchanged; all 12 of this branch's
+      generated pages sha256-recorded; 35/35 checkers (check-live-hours.js
+      excluded, needs network) exit 0 on the tracked repo, before and
+      after. Four injections, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) rule 2, earache page's
+      "@type" changed Pharmacy to MedicalBusiness - CAUGHT; (2) rule 6,
+      shingles page's telephone changed to 0151 944 9999 - CAUGHT; (3)
+      rule 5, sinusitis page's addressRegion changed to Lancashire -
+      CAUGHT; (4) rule 8, sore-throat page's map iframe street changed to
+      "999 Fake Street" - CAUGHT, quoting the decoded query exactly.
+      CROSS-FIRE CONTROL: uti page's VISIBLE contact-card postcode (not
+      the JSON-LD block, not the map query) changed to L20 9ZZ -
+      check-jsonld.js correctly stayed silent (exit 0, outside its rules
+      by design), while check-nap.js and check-postcodes.js both correctly
+      caught it (exit 1 each), confirming no cross-fire in either
+      direction. All four touched pages restored, sha256-reconfirmed
+      identical to baseline; tracked repo git diff --stat empty throughout
+      (only the known FUSE-mount index.lock unlink warning appeared,
+      Q87/Q96/Q102's standing constraint, no content change); full
+      35-checker suite re-run clean after. Guard coverage for item 4.11
+      now extends to 13 of the 35 checkers proven by direct injection
+      against this branch specifically. LIVE HALF (brief): fetched
+      earache-treatment-sk-chemists-bootle.html live via Claude in Chrome
+      and read both JSON-LD blocks from the rendered DOM. Block 1 (this
+      repo's own) matches branches.json field for field, exactly as the
+      checker proved above. Block 2 (the Weebly-injected site-wide block
+      Q99 already covers, no generator here writes it and no checker here
+      can see it) carries the correct phone, email and address except a
+      missing addressRegion, url pointing at the homepage rather than the
+      page, and one openingHoursSpecification session Monday to Friday
+      09:00 to 18:00 that is fully correct against this branch's own
+      hours (no lunch closure to misstate here, unlike Smartts Chemist
+      Bootle on the same day's item 3.7 pass, where Block 2 wrongly
+      claims the branch open through its own lunch closure). This is a
+      reconfirmation of Q99, not a new finding - skchemist.co.uk was the
+      original site Q99 was raised from - so an addendum was added to
+      Q99 rather than a new question. No in-repo defect found; no
+      checker, pack, page, generator or data field changed; no new
+      question raised (Q99 addendum only). Evidence in
+      audits/sk-chemists-bootle-jsonld-4.11-twentieth-2026-09-17.txt.
+      Done 2026-09-17
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

@@ -1,4 +1,109 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 64; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item's live-half read (three URLs read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.6 (McCanns Chemist Aigburth GBP pack) nineteenth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 65; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item's live-half read (two URLs read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.11 (SK Chemists Bootle GBP pack) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 64's own
+lock already cleared on its own exit). Wrote a fresh timestamp
+(2026-09-17T11:04:49Z) via the sandbox mount. `git status` clean of any
+rebase-merge or MERGE_HEAD in progress. Already on `agents/audit-backlog`;
+`git fetch origin` / `pull --ff-only` confirmed already at origin's HEAD
+(run 64's own final commit, 5935ec3).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run, no sign-in
+conflict encountered. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed (last entry still 2026-09-01T22:44:51.524Z,
+identical to every recent run). Checked every currently open question (57
+open) against the feed: only Q37 and Q43 carry any portal reply at all, and
+both are already recorded as answered-but-not-a-decision (Q37: "i need
+further explanation..."; Q43: "Unsure..."), no reply newer than
+2026-09-01T22:44:51.524Z for either, matching what every run since 2026-09-01
+has found. QUESTIONS.json unchanged at 110 total, 57 open, before this run's
+own Q99 addendum below.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 64's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], same set as every recent run. Fell to the quality-pass
+fallback.
+
+ITEM SELECTION: rotation pool derived the same way recent runs have recorded
+it - most recent commit date per "Item N.N" from `git log --pretty=format:
+"%ad|%s" --date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 4.6
+(run 64's own pick, touched twice today at 11:41-11:42) dropped out of
+stalest position. 4.11 came out stalest in the remaining pool at
+2026-09-16T16:17:27+01:00 (its own nineteenth pass), ahead of 5.1
+(16:44:29), 4.2 (17:15:33) and everything touched later. Picked 4.11.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.11 twentieth-pass
+paragraph and
+audits/sk-chemists-bootle-jsonld-4.11-twentieth-2026-09-17.txt.
+Checker under fresh test: tools/check-jsonld.js, proven by injection against
+several other branches since its birth on the item 3.10 quality pass
+(2026-08-10) but never against SK Chemists Bootle specifically, despite
+nineteen prior passes on this branch covering twelve other checkers.
+
+Baseline confirmed clean on the tracked repo: check-jsonld.js "177 generated
+page(s) checked against 16 trading branches ... clean" (exit 0); full
+35-checker suite (check-live-hours.js excluded, needs network) 35/35 exit 0.
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy, tracked repo never opened for writing during the probe. sha256 of
+branches.json (169bb5a2...1102, the standing regression anchor) and all 12
+of this branch's generated pages recorded before any injection.
+
+Four injections run on the scratch copy, each restored by byte copy (not
+git) and sha256-reconfirmed before the next: (1) RULE 2 - earache page's
+"@type" changed Pharmacy to MedicalBusiness - CAUGHT, exact FAIL message
+quoted in the audit file; (2) RULE 6 - shingles page's telephone changed to
+0151 944 9999 - CAUGHT; (3) RULE 5 - sinusitis page's addressRegion changed
+to Lancashire - CAUGHT; (4) RULE 8 - sore-throat page's map iframe street
+changed to "999 Fake Street" - CAUGHT, the decoded query quoted exactly in
+the failure message. A fifth injection served as a cross-fire control: the
+uti page's VISIBLE contact-card postcode (not the JSON-LD block, not the map
+query) was changed to L20 9ZZ - check-jsonld.js correctly stayed silent
+(exit 0, this text is outside all eight of its rules by design), while
+check-nap.js and check-postcodes.js both correctly caught it (exit 1 each,
+full MISMATCH/UNKNOWN output recorded in the audit file), confirming the
+checker fires on exactly its own rules and nothing else in either direction.
+All four touched pages restored and sha256-reconfirmed identical to
+baseline; full 35-checker suite re-run after: 35/35 exit 0, unchanged.
+Tracked repo confirmed untouched throughout: `git diff --stat` empty (the
+only output was the known FUSE-mount `.git/index.lock` unlink warning,
+Q87/Q96/Q102's standing constraint, no content change); sha256 of all four
+touched pages and branches.json unchanged on the tracked copy. Guard
+coverage for item 4.11 now extends to 13 of the 35 checkers proven by direct
+injection against this branch specifically.
+
+LIVE HALF (brief): fetched earache-treatment-sk-chemists-bootle.html live via
+Claude in Chrome and read both JSON-LD blocks directly from the rendered DOM.
+Block 1 (this repo's own, the only block check-jsonld.js can see) matches
+branches.json field for field, exactly as the injection proofs above assume.
+Block 2 (the Weebly-injected site-wide block, no generator here writes it, no
+checker here can see it) carries the correct phone, email and address except
+a missing addressRegion and a url pointing at the homepage rather than this
+page, and one openingHoursSpecification session Monday to Friday 09:00 to
+18:00 that is fully correct against this branch's own hours (SK Chemists
+Bootle has no lunch closure to misstate, unlike Smartts Chemist Bootle on the
+same day's item 3.7 twentieth pass, where Block 2 wrongly states the branch
+open through its own lunch closure). This is a reconfirmation of Q99 on the
+exact domain (skchemist.co.uk) it was originally raised from on 2026-09-08,
+not a new finding, so an addendum was added to Q99 rather than a new
+question opened. No in-repo defect found; no checker, pack, page, generator
+or data field changed.
+
+QUESTIONS.json: Q99 addendum added recording this reconfirmation and the
+hours-accuracy data point (SK Chemists Bootle and Gordon Short Crosby both
+correct on hours in Block 2; Smartts Bootle wrong). Total unchanged at 110,
+57 still open (no new question, no answer applied - Q99 was already open).
+
+GIT WRITE ROUTE (steps 9-11): per the standing convention at Q87/Q96/Q102,
+routed through mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data host rather than the sandbox shell, since the sandbox
+has no working git push credential. See the push/publish outcome recorded
+immediately below this entry once steps 9-11 complete.
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 63's own
 lock already cleared on its own exit at 2026-09-17T11:08:34+01:00); wrote a

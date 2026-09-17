@@ -1,0 +1,117 @@
+Item 4.11 (SK Chemists Bootle pack) - twentieth quality pass, 2026-09-17
+Unattended scheduled run, audit-backlog-worker, run 65 (rotation-pool pick).
+
+CHECKER UNDER TEST: tools/check-jsonld.js
+Never before named against SK Chemists Bootle across nineteen prior passes
+(twelve checkers proven against this branch so far: check-app-membership.js,
+check-brand-spelling.js, check-cdn-pins.js, check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-nap.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js,
+check-whatsapp-route.js, plus this pack's own template rules). This pass adds
+check-jsonld.js as the thirteenth.
+
+METHOD
+Repo exported via `git archive HEAD | tar -x` to a disposable scratch
+directory (/sessions/festive-clever-turing/scratch-411) under the outputs
+mount, working tree only, .git deliberately excluded (matching the documented
+check-cdn-pins.js exception). Tracked repo never opened for writing.
+
+BASELINE
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(the standing regression anchor, unchanged).
+SK Chemists Bootle page sha256s recorded for all 12 of its generated pages
+(11 service pages + 1 switch page) before any injection; all 12 confirmed
+byte-identical after every restore.
+check-jsonld.js on the tracked repo: clean, 177 pages checked, 177 map
+queries decoded, @type Pharmacy x177, no failures.
+Full 35-checker suite (check-live-hours.js excluded, needs network) on the
+tracked repo: 35/35 exit 0, confirmed both before and after this pass.
+
+INJECTIONS (four, each restored by byte copy from a /tmp backup and
+sha256-reconfirmed before the next; scratch copy only, tracked repo never
+touched):
+
+1. RULE 2 (@type). earache-treatment-sk-chemists-bootle.html: "@type":
+   "Pharmacy" -> "MedicalBusiness" in the per-page JSON-LD block. CAUGHT:
+   'FAIL "@type" is "MedicalBusiness" but every branch page must declare
+   "Pharmacy"...'. Restored, sha256 1c3813eb...fba78 reconfirmed.
+
+2. RULE 6 (telephone). shingles-treatment-sk-chemists-bootle.html:
+   "telephone": "0151 944 1013" -> "0151 944 9999". CAUGHT: 'FAIL
+   "telephone" is "0151 944 9999" but branches.json says "0151 944 1013"'.
+   Restored, sha256 12fa2ecb...a40c5 reconfirmed.
+
+3. RULE 5 (PostalAddress field). sinusitis-treatment-sk-chemists-bootle.html:
+   "addressRegion": "Merseyside" -> "Lancashire". CAUGHT: 'FAIL
+   address.addressRegion is "Lancashire" but branches.json says
+   "Merseyside"'. Restored, sha256 bc281d57...0b55a7 reconfirmed.
+
+4. RULE 8 (map iframe query). sore-throat-treatment-sk-chemists-bootle.html:
+   the percent-encoded street number/name in the google.com/maps?q= query
+   changed from "516%20Stanley%20Road" to "999%20Fake%20Street". CAUGHT:
+   'FAIL the map iframe points at "999 Fake Street, Bootle, L20 5DW" but
+   branches.json gives "516 Stanley Road, Bootle, L20 5DW"'. Restored,
+   sha256 83f54b65...880e6122a reconfirmed.
+
+CROSS-FIRE CONTROL (proves check-jsonld.js does not fire on faults outside
+its own rules, and that a genuinely equivalent fault IS caught by the
+checkers that do own it):
+uti-treatment-sk-chemists-bootle.html: the VISIBLE contact-card postcode
+("516 Stanley Road, Bootle, L20 5DW" in the rendered contact-line <p>, not
+the JSON-LD block and not the map query) changed to "L20 9ZZ".
+  - check-jsonld.js: exit 0, no mention of the file. Correct: this checker
+    only reads the JSON-LD block and the decoded map query, never the
+    visible contact-card text, so a fault confined to that text is outside
+    its rules by design.
+  - check-nap.js: exit 1, two MISMATCH lines against this exact file
+    (contact address string; postcode-shaped string not matching SK
+    Chemists's own postcode).
+  - check-postcodes.js: exit 1, one UNKNOWN line ("postcode L20 9ZZ is in
+    no branches.json entry").
+No cross-fire in either direction. Restored, sha256
+03add12e...9828db98a718f reconfirmed.
+
+POST-INJECTION VERIFICATION
+Tracked repo: `git diff --stat` empty throughout (only the known FUSE-mount
+`.git/index.lock` unlink warning appeared mid-run, same standing constraint
+as Q87/Q96/Q102, no content change). All 12 SK Chemists Bootle page sha256s
+and branches.json sha256 re-confirmed identical to the pre-run baseline.
+Full 35-checker suite re-run on the tracked repo after the scratch-copy work:
+35/35 exit 0, identical to the pre-run baseline.
+
+LIVE HALF (brief)
+Fetched https://www.skchemist.co.uk/earache-treatment-sk-chemists-bootle.html
+live via Claude in Chrome and read both JSON-LD blocks directly from the
+rendered DOM (not view-source, so this is what Google's renderer sees).
+
+Block 1 (this repo's own, the only one check-jsonld.js can see): @type
+Pharmacy, name "SK Chemists", url ends in this page's own filename,
+telephone 0151 944 1013, full PostalAddress including addressRegion
+Merseyside - matches branches.json field for field, exactly as the checker
+proved above.
+
+Block 2 (Weebly-injected site-wide block, no generator here writes it, no
+checker here can see it): @type Pharmacy, name "SK Chemists", url is the
+site HOMEPAGE rather than this page, telephone 0151 944 1013 (correct),
+email SK@rbhealth.co.uk (correct), address matches except addressRegion is
+absent entirely, and one openingHoursSpecification session Monday-Friday
+09:00-18:00.
+
+This reconfirms Q99 (raised 2026-09-08 on item 3.8's fourteenth pass, this
+exact branch and this exact domain, skchemist.co.uk, was the ORIGINAL site
+Q99 was raised from) rather than being a new finding. Worth recording as an
+addendum: SK Chemists Bootle's own openingHoursSpecification in Block 2
+(Mon-Fri 09:00-18:00, no lunch session) is fully correct against
+branches.json, since this branch has no lunch closure to misstate - unlike
+Smartts Chemist Bootle, where the item 3.7 twentieth pass (also today, same
+Q99) found Block 2 actively claiming the branch open through its own
+confirmed 13:00-14:00 lunch closure. Third domain now read for this
+question (after skchemist.co.uk originally and smarttschemist.co.uk on the
+3.7 pass), and it continues to show Block 2's accuracy varies site to site:
+right here, right for opening hours at Gordon Short Crosby, wrong for hours
+at Smartts. No repo action taken: still no generator here writes Block 2.
+Addendum added to Q99 rather than a new question.
+
+No in-repo defect found. No checker, pack, page, generator or data field
+changed. No new question raised (Q99 addendum only). QUESTIONS.json count
+unchanged at 110 (57 open).
