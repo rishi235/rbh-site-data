@@ -1,3 +1,82 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 56; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests (under the outputs mount, tar-copied excluding .git) and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded from the bash sweep, the latter run separately via mcp__workspace__bash with direct curl-confirmed network egress since no browser was needed for the live half); mcp__claude-in-chrome__ used only for step 3's answer-pickup fetch, one tab, read-only, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 6.3 (Opening hours vs branches.json) seventeenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh UTC timestamp. `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally; already at origin's HEAD (run 55's own
+final commit), nothing to pull. A plain `git status` inside
+mcp__workspace__bash created `.git/index.lock` and then could not remove
+it (`rm -f` also refused, "Operation not permitted") - the standing
+no-unlink quirk on this mount (Q87/Q96/Q102), not a new finding; it did not
+block any read-only command used this run. Several hundred stray
+`.agent-lock.*` and other debris files remain untouched in the working
+tree, out of scope, same standing note as every recent run.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, closed after reading, nothing
+clicked or submitted. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied, per every run since 2026-09-01.
+No new answer to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 55's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 55 recorded it -
+most recent commit date per "Item N.N" from `git log`, minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight
+currently-blocked items. 3.2 (run 55's own pick) now sat newest at
+2026-09-17T07:15:23+01:00; 6.3 came out stalest in the remaining pool at
+2026-09-16T10:44:59+01:00, clear of the next candidate (3.7 at
+2026-09-16T11:11:18+01:00). Picked 6.3.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 6.3 seventeenth-pass
+paragraph and audits/verify-6.3-2026-09-17-seventeenth.txt. In summary:
+read tools/check-opening-hours.js end to end against all sixteen prior
+passes' write-ups and found the one path never exercised in this item's
+history - the POSITIVE side of rule 7's KNOWN_TIME_OUTSIDE_CARD and rule
+8's KNOWN_TIME_OUTSIDE_ESTATE exception lists (an entry that actually
+matches a real clock time and correctly suppresses the failure, as
+opposed to the anti-rot/stale-key side both lists had already been proved
+on, seventh and tenth passes). Baseline 34/34 checkers clean,
+branches.json sha256 169bb5a2...b102 unchanged from run 55's anchor. Two
+disposable tar-copy scratch repos made under the outputs mount (never the
+tracked tree). Test A: injected a stray "5.30pm" outside the hours card on
+pharmacy-fishlocks-ainsdale.html - caught by rule 7 as expected - then
+added a matching KNOWN_TIME_OUTSIDE_CARD entry to the scratch checker only
+- checker went clean, both the fail and the anti-rot check correctly not
+firing. Test B: same pattern for rule 8 on
+switch-prescriptions-cherry-lane-walton.html with KNOWN_TIME_OUTSIDE_ESTATE
+- same result. Tracked repo reconfirmed untouched throughout (sha256s
+unchanged, injected markers grepped for and found nowhere in the tracked
+tree, full 34-checker suite re-run clean). A handful of debris files
+inside the two scratch copies could not be unlinked afterwards (same
+mount quirk noted above, harmless, outputs mount only). Zero in-repo
+defect - both exception mechanisms proved correct on both paths for the
+first time.
+LIVE HALF: network egress confirmed directly via curl (200 against both
+smarttschemist.co.uk and gordonshortchemist.co.uk), no browser needed.
+tools/check-live-hours.js re-run across all 14 trading branches, evidence
+audits/live-hours-check-2026-09-17.json. No bank holiday within 14 days
+(2026-08-31 is 17 days past). gordonshorts_crosby read live as control,
+correctly still shows its lunch closure. smartts_bootle remains the sole
+live mismatch, straight-through hours unchanged since 2026-08-11 across
+all seventeen passes now. Q55 (answered 2026-09-02, option 1) stands as
+answered-but-not-yet-actioned, live Weebly edit outside this worker's
+write scope, not re-raised. No new question raised.
+
+STEPS 7-8: AGENT_WORKLIST.md's item 6.3 line ticked in place with the
+seventeenth-pass paragraph appended (already checked [x], no state change
+needed there). No question raised, nothing to mark [BLOCKED].
+
+STEPS 9-11: pending - see the push/publish outcome, recorded as a follow-up
+entry once the commit, push and status-page publish are confirmed, per the
+standing pattern for this sandbox (Q87/Q96/Q102).
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 55; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests (under the outputs mount, tar-copied excluding .git) and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, network/cross-repo); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) twentieth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a

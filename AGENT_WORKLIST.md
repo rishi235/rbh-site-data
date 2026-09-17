@@ -32693,6 +32693,55 @@ live DOM, not saved to a separate audit file (same convention as the
       open, Q52 as answered). No new answer applied. No new question
       raised. Evidence: audits/verify-6.3-2026-09-16-sixteenth.txt,
       audits/live-hours-check-2026-09-16.json. Done 2026-09-16.
+      Quality pass (seventeenth), 2026-09-17 (unattended scheduled run,
+      audit-backlog-worker). FRESH ANGLE: by the sixteenth pass every
+      numbered rule, the __DUPLICATE__ path, the bankHolidays block, both
+      coverage floors and the JSON-LD parse-failure path had all been
+      proved by injection at least once, but rule 7's
+      KNOWN_TIME_OUTSIDE_CARD and rule 8's KNOWN_TIME_OUTSIDE_ESTATE
+      exception lists had only ever been proved on their NEGATIVE anti-rot
+      side (a stale key matching nothing must fail, proved seventh and
+      tenth passes) - never on the POSITIVE side, an entry that actually
+      matches a real clock time and correctly suppresses the failure. Both
+      dicts are empty in production, so that "continue" branch in each
+      loop had never once executed in this item's sixteen-pass history.
+      Confirmed by grep across both files first: zero hits for "added on
+      the scratch copy only" combined with a genuinely matching injection.
+      BASELINE: 34/34 runnable checkers clean; branches.json sha256
+      169bb5a2...b102 (standing hash, unchanged); git status --porcelain
+      only pre-existing untracked debris.
+      TWO INJECTIONS on disposable tar-copy scratch repos under the
+      outputs mount (never the tracked tree): (A) added a stray "5.30pm"
+      outside the hours card on pharmacy-fishlocks-ainsdale.html - CAUGHT
+      as expected by rule 7, then added a matching
+      KNOWN_TIME_OUTSIDE_CARD entry to the scratch checker only - CLEAN,
+      the fail did not fire and the anti-rot check did not fire either
+      (correctly marked seen). (B) same pattern for rule 8: a stray
+      "4.15pm" added to switch-prescriptions-cherry-lane-walton.html -
+      CAUGHT, then a matching KNOWN_TIME_OUTSIDE_ESTATE entry added to the
+      scratch checker only - CLEAN. Both exception mechanisms proved
+      correct on both their negative and positive paths for the first
+      time. RESTORE: tracked repo reconfirmed untouched (branches.json
+      sha256 unchanged; both checker and page files grepped for the
+      injected markers, zero hits); full 34-checker suite re-run clean
+      after both tests. A handful of debris files inside the two scratch
+      copies could not be unlinked afterwards (same standing no-unlink
+      mount quirk as Q87/Q96/Q102, not a new finding, harmless, under the
+      outputs mount only). RESULT: zero in-repo defect.
+      LIVE HALF: network egress confirmed directly (curl 200 against
+      smarttschemist.co.uk and gordonshortchemist.co.uk); no browser
+      needed for this half. tools/check-live-hours.js re-run across all 14
+      branches, evidence audits/live-hours-check-2026-09-17.json. No bank
+      holiday within 14 days. gordonshorts_crosby read live as control,
+      correctly still shows its lunch closure. smartts_bootle remains the
+      sole live mismatch, straight-through hours unchanged since
+      2026-08-11 across all seventeen passes now. Q55 (answered
+      2026-09-02, option 1) stands as answered-but-not-yet-actioned, live
+      Weebly edit outside this worker's write scope, not re-raised.
+      ANSWER PICKUP this run (step 3): portal read cleanly, one tab.
+      Newest entry still Q52, already applied. No new answer, no new
+      question. Evidence: audits/verify-6.3-2026-09-17-seventeenth.txt,
+      audits/live-hours-check-2026-09-17.json. Done 2026-09-17.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

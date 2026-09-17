@@ -1,0 +1,138 @@
+Item 6.3 - Opening hours vs branches.json, seventeenth quality pass
+Run: 2026-09-17, unattended scheduled run (audit-backlog-worker)
+Tooling: mcp__workspace__bash throughout for repo reads, scratch-copy
+injection tests and the checker suite; curl for direct network egress
+confirmation and mcp__workspace__bash for the live-hours checker itself
+(no browser needed for this half); Claude in Chrome used only for step 3's
+answer pickup, one tab, read-only, nothing clicked or submitted.
+
+FRESH ANGLE
+By the sixteenth pass (2026-09-16), every numbered rule (1-10), the
+visible-row __DUPLICATE__ path, the bankHolidays block (item 6.7's own
+validation, dates2026 empty/invalid/duplicate, tradingPolicy invalid), the
+"is not a day of the week" path, both coverage floors (rule 7 and rule 8),
+the JSON-LD parse-failure path, the "no visible row" path, the "page has no
+openingHoursSpecification" path (both rule 3 and rule 10 forms), the
+disposed-branch filter's effect on rules 9 and 10, and branchFor()'s
+longest-match tie-break had all been proved by injection at least once.
+
+What had NEVER been exercised, across all sixteen prior passes, was the
+POSITIVE side of rule 7's KNOWN_TIME_OUTSIDE_CARD and rule 8's
+KNOWN_TIME_OUTSIDE_ESTATE exception lists: an entry that actually matches a
+real clock time on a real page and correctly SUPPRESSES the failure. Every
+prior test of these two lists (seventh pass 2026-08-14 for
+KNOWN_TIME_OUTSIDE_ESTATE, tenth pass 2026-09-06 for
+KNOWN_TIME_OUTSIDE_CARD) proved only the NEGATIVE anti-rot path: a stale key
+that matches nothing must itself fail. Both dicts are empty in production
+(var KNOWN_TIME_OUTSIDE_CARD = {}; var KNOWN_TIME_OUTSIDE_ESTATE = {};), so
+the "continue" branch inside each loop (seenKnownTime[key] = true; continue;
+/ seenKnownEstateTime[key] = true; continue;) has never once executed in
+this item's history. Confirmed by grepping "fake KNOWN_TIME_OUTSIDE_CARD",
+"suppresses", "successfully suppress", "legitimately excus" and "added on
+the scratch copy only" across AGENT_WORKLIST.md and AGENT_LOG.md before
+writing anything: every hit was the anti-rot (stale-key) test, none was the
+matched (suppression) test.
+
+BASELINE
+34/34 runnable checkers (all of tools/check-*.js except check-cdn-pins.js
+and check-live-hours.js, both network/cross-repo and excluded by standing
+convention) clean on the tracked repo before any test.
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing hash, unchanged from the sixteenth pass).
+git status --porcelain on the tracked repo: only the same pre-existing
+untracked debris (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, plus the
+several hundred stray .agent-lock.* / test-probe files noted every run),
+nothing new.
+
+Note on this run's sandbox: git write operations in
+mcp__workspace__bash (git status/add/commit) hit the standing no-unlink
+quirk on this mount (.git/index.lock created by a read-only git status
+call could not be removed by rm -f either) - same class of issue as
+Q87/Q96/Q102, not a new finding, and it did not block any read-only
+command used for this pass's testing or verification.
+
+TWO INJECTIONS, both on disposable tar-copy scratch repos under the outputs
+mount (git archive-style tar --exclude='.git' copy of the full tracked tree,
+made twice, "repo-a" for rule 7 and "repo-b" for rule 8), tracked repo never
+opened for writing:
+
+TEST A (rule 7, KNOWN_TIME_OUTSIDE_CARD), repo-a:
+  Step 1: appended "<p>Deliveries run until 5.30pm on weekdays.</p>" to
+  modules/branch/pages/pharmacy-fishlocks-ainsdale.html, outside the hours
+  card. Ran check-opening-hours.js - CAUGHT, exactly one failure:
+  'modules/branch/pages/pharmacy-fishlocks-ainsdale.html: "5.30pm" is
+  printed outside the opening hours card' - reproducing rule 7's known fail
+  path, confirming the exact key format ("pharmacy-fishlocks-ainsdale.html::5.30pm").
+  Step 2: added, to the SCRATCH copy's own tools/check-opening-hours.js only,
+    KNOWN_TIME_OUTSIDE_CARD["pharmacy-fishlocks-ainsdale.html::5.30pm"] =
+    "TEST-ONLY scratch injection, item 6.3 seventeenth pass, proving the
+    positive suppression path, not a real exception"
+  Re-ran check-opening-hours.js - CLEAN. "check-opening-hours: clean, every
+  visible and structured opening time matches branches.json." The stray time
+  is still present on the page, but the exception list now legitimately
+  matches it: the fail did not fire, AND the anti-rot check (which fails on
+  an unmatched key) also did not fire, because seenKnownTime was correctly
+  set true. Both halves of the mechanism proved working together for the
+  first time.
+
+TEST B (rule 8, KNOWN_TIME_OUTSIDE_ESTATE), repo-b:
+  Step 1: appended '<p class="test-injection">Our courier collects at
+  4.15pm daily.</p>' to
+  modules/switch/pages/switch-prescriptions-cherry-lane-walton.html. Ran
+  check-opening-hours.js - CAUGHT, exactly one failure:
+  'modules/switch/pages/switch-prescriptions-cherry-lane-walton.html:
+  "4.15pm" is a clock time on a page with no hours card to compare it to.'
+  Step 2: added, to the SCRATCH copy's own tools/check-opening-hours.js only,
+    KNOWN_TIME_OUTSIDE_ESTATE["modules/switch/pages/switch-prescriptions-cherry-lane-walton.html::4.15pm"]
+    = "TEST-ONLY scratch injection, item 6.3 seventeenth pass, proving the
+    positive suppression path, not a real exception"
+  Re-ran check-opening-hours.js - CLEAN, same result: the injected time is
+  legitimately suppressed and the anti-rot path does not also fire.
+
+RESTORE AND FINAL CONFIRMATION
+Both scratch repos (repo-a, repo-b) deleted where the mount allowed it;
+a residual handful of debris files inside them could not be unlinked
+(same standing no-unlink quirk noted above, applying here to files that
+were themselves part of the tar-copied debris, e.g.
+_agentscratch/*.done, _lock_test_probe.tmp) - harmless, under the outputs
+mount, not part of the tracked repo, consistent with the dozens of similar
+undeletable artifacts already present before this run started.
+Tracked repo reconfirmed untouched throughout and after: branches.json
+sha256 unchanged (169bb5a2...b102); tools/check-opening-hours.js grepped
+for "TEST-ONLY", "5.30pm" and "4.15pm daily" - zero hits;
+modules/branch/pages/pharmacy-fishlocks-ainsdale.html and
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html grepped
+for the same markers - zero hits. Full 34-checker suite re-run clean
+(34/34) on the tracked repo after both tests.
+
+RESULT: zero in-repo defect. Both exception lists' positive/suppression
+paths, present in the file since 2026-08-14 (rule 7) and 2026-08-14/03
+(rule 8) but never exercised because both dicts are empty in production,
+now proved correct by injection for the first time, alongside their
+already-proved anti-rot (negative) paths. No checker logic, generator,
+page, pack or branches.json in the tracked tree was changed.
+
+LIVE HALF
+Network egress confirmed directly (curl 200 against both
+smarttschemist.co.uk and gordonshortchemist.co.uk); no browser needed for
+this half (Claude in Chrome used only for step 3). tools/check-live-hours.js
+re-run across all 14 trading branches, evidence
+audits/live-hours-check-2026-09-17.json. No bank holiday within 14 days of
+this run (2026-08-31 is 17 days past; next is 2026-12-25). gordonshorts_crosby
+read live as a control, correctly still shows its lunch closure ("Monday
+9:00am - 6:00pm (closed 1-2pm)" etc, matching branches.json's split
+sessions). smartts_bootle remains the sole live mismatch: homepage,
+contact page and footer all still read straight-through "9:00am - 6:00pm" /
+"Open Mon-Fri 9am-6pm" against branches.json's split 09:00-13:00 and
+14:00-18:00, unchanged since 2026-08-11 across all seventeen passes now.
+Q55 (answered by Rishi 2026-09-02, option 1: edit the live Smartts pages)
+stands as answered-but-not-yet-actioned - the live Weebly edit is outside
+this worker's write scope - not re-raised.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, closed after reading, nothing
+clicked or submitted. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied. No new answer to pick up.
+
+No new question raised. Done 2026-09-17.
