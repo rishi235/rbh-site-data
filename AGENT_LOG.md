@@ -1,3 +1,46 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 49; mcp__workspace__bash used for lock handling, repo reads, the injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.8 live-page read, one tab at a time, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.8 (Fishlocks Chemist Eccleston GBP pack) twentieth quality pass: re-verified as the stalest rotation-pool item (nineteenth pass's own commit, 2026-09-16T06:12:53+01:00, the oldest of 35, ahead of runner-up 3.3 by about 33 minutes). Pack sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa unchanged since the eighteenth pass. All 35 checkers exit 0. NEW ANGLE: tools/check-pharmacy-first-cost.js (added item 4.15 quality pass, 2026-08-13) had never once been named or exercised against this pack across nineteen prior dedicated passes (zero hits, versus 17 for check-gbp-packs.js), despite the pack being squarely in scope (hasApp and pfLink both set, three sentences naming Pharmacy First). Four rounds direct on the tracked file, each restored from a pre-injection byte backup and sha256 reconfirmed before the next: (1) Post A's "free NHS service" -> "affordable NHS service" - CAUGHT by rule 4 (cost qualifier), rule 6 correctly silent since the business description and services bullet still carry their own free claim; (2) a "from just GBP5" price added to Post A - CAUGHT by rule 5; (3) all three PF-naming free mentions in the pack stripped together - CAUGHT by rule 6, proving it reads across the whole pack rather than one block; (4) CONTROL - a "from GBP39.99" price added to Post C (weight loss, no PF wording) - PASSED clean on this checker as designed (out of scope), while check-gbp-packs.js's own separate weight-loss pricing rule caught the same edit independently, confirming the injection was real copy. All four behaved exactly as documented on the first attempt. Restored by byte copy, sha256 reconfirmed identical throughout; full 35-checker suite re-run clean after the final restore; git status on gbp-packs/modules/core/branches.json/tools empty bar the two pre-existing untracked artefacts, unchanged. Zero in-repo defect - proof, not a fix. LIVE HALF: pharmacy-first-fishlocks-eccleston.html re-read in full, multiple "Free NHS service" statements present, no cost qualifier or price anywhere; the prescription-charge caveat sentence sits inside a collapsed FAQ accordion in both the live markup and the repo source, so its absence from the first plain-text extraction is normal <details> behaviour, not a paste-lag finding. No new divergence. Full detail in audits/fishlocks-eccleston-pharmacy-first-cost-4.8-twentieth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. No stale `.git/index.lock` found before the git sync. `git
+fetch`/`checkout agents/audit-backlog`/`pull --ff-only` completed normally,
+already up to date with origin at run 48's own commit.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No new answer to
+pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 48's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 35 items re-derived via `git log
+--pretty=format:"%ad|%s" --date=iso-strict`, matching "Item N.N" in each
+commit subject, for the checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight
+currently [BLOCKED] items. 4.8 resolved to 2026-09-16T06:12:53+01:00, the
+single oldest across the whole pool, ahead of 3.3 as runner-up. Picked 4.8.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.8 twentieth-pass
+paragraph and audits/fishlocks-eccleston-pharmacy-first-cost-4.8-twentieth-
+2026-09-17.txt. In summary: facts and checker baseline re-confirmed, 35/35
+checkers clean, tools/check-pharmacy-first-cost.js proven by injection
+against this pack's own copy for the first time across four rounds plus a
+control, tracked repo confirmed untouched by sha256 and git status before
+and after, live page re-read with no new divergence found.
+
+GIT (step 9): a `.git/index.lock` (0 bytes) appeared mid-run from this
+session's own `git status` call, the standing FUSE-mount unlink restriction
+documented throughout this file's history - `rm` returns "Operation not
+permitted", only `mv` succeeds. Renamed it to a `.cleared-run49-<timestamp>`
+suffix before `git add`/`git commit`, the same fallback every prior run has
+used. Committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit file to
+agents/audit-backlog, pushed to origin.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 48; mcp__workspace__bash used for lock handling, repo reads, the full-repo scratch-copy injection test and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.13 live-page read, one tab at a time, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.13 (Riddings Pharmacy Timperley GBP pack) nineteenth quality pass: re-verified as the stalest rotation-pool item (eighteenth pass's own commit, 2026-09-16T05:47:02+01:00, the oldest of 36, ahead of 4.8 as runner-up). Pack sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 unchanged since the tenth pass; branches.json's riddings_timperley entry re-diffed field by field against the pack's own "Profile basics" block (address, phone, hours, website, review link) with no divergence. All 35 checkers exit 0. NEW ANGLE: tools/check-uk-spelling.js (added item 4.3, 2026-08-13) had never been mentioned or injection-tested against this pack's own copy across eighteen prior passes (zero hits on "check-uk-spelling" or "UK spelling" in the item's full block, versus seventeen for check-gbp-packs.js and smaller counts for four other checkers). PROOF BY INJECTION on a disposable full-repo scratch copy at /tmp (tracked gbp-packs/riddings-timperley.md, branches.json and modules/* never opened for writing; sha256-confirmed unchanged throughout): Post C's "Confidential and judgement-free." reworded to add "one of our favorite parts of the job" - CAUGHT first attempt, exact file and line named ("reads 'favorite'. UK English is 'favourite'"). CONTROL: the same sentence reworded instead to genuine UK-correct wording ("organised around your schedule") - PASSED CLEAN, proving the rule fires on the word and not on the fact of an edit nearby. Restored by byte copy after each round, sha256 reconfirmed identical both times; full 35-checker suite re-run clean after final restore. Zero in-repo defect; no generator, page, checker or branches.json content changed - proof, not a fix. Live half, read-only via Chrome: pharmacy-first-riddings-timperley.html re-read in full, no US spelling anywhere in the visible copy, free claim still prominent and unqualified, all seven conditions and age ranges match the pinned NHS cohorts. Known live-only "Timperley, Cheshire" footer divergence from branches.json's addressRegion "Greater Manchester" still present, not independently re-verified as new since it does not bear on this pass's own angle. Full detail in audits/riddings-timperley-uk-spelling-4.13-nineteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

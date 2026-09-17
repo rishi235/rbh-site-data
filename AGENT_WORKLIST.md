@@ -20159,6 +20159,60 @@ directly rather than re-deriving the same facts by hand.
       earlier on the eighteenth pass; Q105 unchanged, not re-raised).
       QUESTIONS: none raised. Total questions unchanged at 107, 54 open.
       See audits/fishlocks-eccleston-gbp-pharmacy-first-4.8-nineteenth-2026-09-16.txt.
+      Quality pass 2026-09-17 (twentieth, unattended run): stalest item in the
+      35-item rotation pool, re-derived independently (git log commit subjects
+      matched by word-boundary "item N.N", most recent match per pool item; 4.8
+      unique stalest at 2026-09-16T06:12:53+01:00, its own nineteenth-pass
+      commit, ahead of runner-up 3.3 by about 33 minutes). Baseline: pack sha256
+      unchanged (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa),
+      all 35 checkers green (check-live-hours.js excluded, needs network).
+      NEW ANGLE: tools/check-pharmacy-first-cost.js (born item 4.15 quality pass,
+      2026-08-13) had never once been named or exercised against this pack across
+      nineteen prior dedicated passes (zero hits on "check-pharmacy-first-cost" in
+      the item's full history, versus 17 for check-gbp-packs.js), despite this
+      pack sitting squarely in the checker's own scope: hasApp and pfLink both
+      set, three separate sentences naming Pharmacy First. Four rounds direct on
+      the tracked file, each restored from a pre-injection byte backup and sha256
+      reconfirmed before the next: (1) Post A's "free NHS service" reworded to
+      "affordable NHS service" - CAUGHT by rule 4 (cost qualifier), rule 6 (pack
+      coverage) correctly silent because the business description and services
+      bullet still carry their own free claim; (2) a "from just GBP5" price added
+      to Post A - CAUGHT by rule 5; (3) all three PF-naming free mentions in the
+      pack (business description, services bullet, Post A) stripped together -
+      CAUGHT by rule 6, proving the rule reads across the whole pack rather than
+      any single block; (4) CONTROL - a "from GBP39.99" price added to Post C
+      (weight loss clinic, no Pharmacy First wording) - PASSED clean on this
+      checker as designed (out of PF scope), while check-gbp-packs.js's own
+      separate weight-loss lead-pricing rule caught the same edit independently,
+      confirming the injection was real copy and that private-clinic pricing is
+      correctly owned by a different, already-proven rule. All four rounds
+      behaved exactly as documented on the first attempt. File restored
+      byte-identical after each round and at the end (diff empty, sha256
+      reconfirmed); full 35-checker suite re-run clean after the final restore;
+      git status --porcelain -- gbp-packs modules core branches.json tools empty
+      bar the two pre-existing untracked artefacts, unchanged. No in-repo defect:
+      the checker already correctly protects this pack's cost claim in all three
+      directions it defines, now proven by injection against this pack's own
+      copy rather than only against its birth pack (mccanns-sandringham.md).
+      LIVE HALF: pharmacy-first-fishlocks-eccleston.html re-read in full (Claude
+      in Chrome, read-only) - multiple "Free NHS service" statements present, no
+      cost qualifier or price anywhere. The prescription-charge caveat sentence
+      did not appear in the first plain-text read; checked against the repo's own
+      generated source and confirmed it sits inside a collapsed <details>/
+      <summary> FAQ accordion, matching the live markup - normal <details>
+      behaviour, not a paste-lag finding, no new divergence. Weight loss and
+      travel clinic live pages not re-read (checked in depth on the eighteenth
+      pass, 2026-09-15; Q105 unchanged, not re-raised).
+      GIT NOTE: a stray 0-byte .git/index.lock appeared from this run's own git
+      status call (standing FUSE-mount unlink restriction); renamed with mv
+      before any further git command, same fallback every prior run has used.
+      QUESTIONS: none raised. Total questions unchanged at 109, 56 open.
+      Forward note: check-pharmacy-first-cost.js remains unproven by injection
+      against most of the other 13 Pharmacy First packs beyond
+      mccanns-sandringham.md (its birth pack) and this one - a candidate set for
+      a future pass; rule 7 (branch landing pages) was read as passing this run
+      but not itself injection-tested here.
+      See audits/fishlocks-eccleston-pharmacy-first-cost-4.8-twentieth-2026-09-17.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

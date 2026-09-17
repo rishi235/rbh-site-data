@@ -1,0 +1,149 @@
+Item 4.8 (Fishlocks Chemist Eccleston GBP pack) - twentieth quality pass
+Unattended scheduled run, audit-backlog-worker, 2026-09-17
+
+ITEM SELECTION
+Rotation pool re-derived independently: per-item most recent "Item N.N" (or
+"item N.N") mention in `git log --pretty=format:"%ad|%s" --date=iso-strict`,
+first (i.e. most recent) match kept per item, pool being the checked
+AGENT_WORKLIST.md items minus the seven standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight currently [BLOCKED] items
+(5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). 4.8 resolved to
+2026-09-16T06:12:53+01:00 (its own nineteenth pass), the single oldest of 35
+pool items, ahead of runner-up 3.3 at 06:46:16+01:00 by about 33 minutes.
+Confirmed by reading AGENT_WORKLIST.md's own item 4.8 block directly: the
+nineteenth pass (2026-09-16, check-gbp-pharmacy-first.js proof) is the most
+recent entry.
+
+WORKLIST SCAN (step 5): all eight remaining unchecked lines confirmed still
+[BLOCKED] via `grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the
+quality-pass fallback as in every recent run.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, read-only. 56 open questions in
+QUESTIONS.json checked against the feed; newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied on 2026-08-30. No new answer to
+pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 48's own
+entry) before adding this one - no "Standing authorisation - autonomous
+window" section present (grep for the phrase across the whole file only
+matches prior runs' own negative statements). Not applicable; proceeded
+under the normal rule.
+
+BASELINE
+- gbp-packs/fishlocks-eccleston.md sha256:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+  (unchanged since the eighteenth pass, 2026-09-15, confirmed against that
+  pass's own recorded hash).
+- Full 35-checker suite (check-live-hours.js excluded, needs network) run
+  individually: all exit 0.
+- git status --porcelain -- gbp-packs modules core branches.json tools:
+  empty bar the two pre-existing untracked artefacts every recent pass
+  already notes (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither touched by this pass.
+- A stray 0-byte .git/index.lock appeared from this run's own `git status`
+  call (the standing FUSE-mount unlink restriction documented throughout
+  this file's history: `rm` returns "Operation not permitted", only `mv`
+  succeeds). Renamed to .git/index.lock.cleared-run49-<timestamp> before any
+  further git command, same fallback every prior run has used.
+
+NEW ANGLE
+tools/check-pharmacy-first-cost.js (added item 4.15 quality pass,
+2026-08-13) had never once been named or exercised against this pack across
+all nineteen prior dedicated passes on item 4.8. Confirmed by grep across
+the item's full AGENT_WORKLIST.md block: zero hits for
+"check-pharmacy-first-cost", versus 17 for check-gbp-packs.js and single
+hits for several other checkers (check-app-membership, check-em-dashes,
+check-pharmacy-first-eligibility, check-postcodes, check-weight-loss-copy).
+This checker reads gbp-packs/ directly (PACK_DIR constant) for its rules 4,
+5 and 6 - cost qualifiers, prices, and the positive free-NHS claim on any
+pack whose branch runs Pharmacy First - and Fishlocks Eccleston is squarely
+in scope: hasApp and pfLink both set, and the pack carries three separate
+sentences naming Pharmacy First (business description, services-section
+bullet, Post A).
+
+METHOD
+All four rounds performed directly on the tracked file (not a scratch
+copy), each restored from a pre-injection byte-identical backup
+(/sessions/kind-festive-euler/scratch/fishlocks-eccleston.md.backup,
+sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa)
+before the next round, with sha256 reconfirmed identical after every
+restore.
+
+Round 1 (rule 4, cost qualifier). Post A's "Pharmacy First is a free NHS
+service..." changed to "...is an affordable NHS service...". CAUGHT, exactly
+one FAIL: "[qualifier] ... describes NHS Pharmacy First as \"affordable\",
+which prices a service that is free at the point of use (rule 4)". Rule 6
+(positive claim) did not also fire, correctly, because the business
+description and the services-section bullet each independently still carry
+their own "free" wording naming Pharmacy First.
+
+Round 2 (rule 5, price). Post A's "...book or just walk in." changed to
+"...book or just walk in, from just GBP5." CAUGHT, exactly one FAIL:
+"[price] ... states \"GBP5\" on NHS Pharmacy First copy (rule 5)".
+
+Round 3 (rule 6, positive claim, pack-wide). All three PF-naming "free"
+mentions stripped in the same edit (business description "a free NHS
+service" -> "an NHS service"; services-section bullet "free NHS assessment"
+-> "NHS assessment"; Post A "is a free NHS service" -> "is an NHS service").
+CAUGHT, exactly one FAIL: "[free] ... advertises NHS Pharmacy First but
+never calls it free (rule 6)". Proves the rule reads across all PF-naming
+sentences in the pack rather than any single block, and correctly requires
+the claim to survive after all three routes to it are removed together.
+
+Control (out-of-scope private-service pricing should not fire this
+checker). Post C's (weight loss clinic, a private paid service, no
+Pharmacy First wording) closing sentence changed to add "from GBP39.99".
+check-pharmacy-first-cost.js stayed clean - PASSED, confirming the
+PRIVATE_SERVICE / block-scoping design holds and this checker does not
+over-fire on private-service pricing that is not Pharmacy First's. As
+expected, the separate, pre-existing rule in check-gbp-packs.js (the
+weight-loss lead-pricing rule, itself unrelated to this pass) caught the
+same edit independently ("Post C - Weight loss clinic carries a price in
+the posted copy"), confirming the injection was real copy and not inert,
+and that responsibility for private-clinic pricing sits correctly with a
+different, already-proven rule rather than with this one.
+
+All four rounds behaved exactly as documented on the first attempt. File
+restored byte-identical after each round and at the end (diff against the
+backup empty, sha256 reconfirmed); full 35-checker suite re-run clean after
+the final restore (35/35 exit 0); git status --porcelain -- gbp-packs
+modules core branches.json tools empty bar the two pre-existing untracked
+artefacts, unchanged. No in-repo defect found: the checker already
+correctly protects this pack's own cost claim in all three directions it
+defines (qualifier, price, and the positive free-claim requirement), now
+proven by injection against this pack's own copy rather than only against
+the pack it was written against (mccanns-sandringham.md) or other sisters.
+
+LIVE HALF
+pharmacy-first-fishlocks-eccleston.html re-read in full via Claude in
+Chrome, read-only, one tab, nothing clicked or typed. Multiple "Free NHS
+service" statements present (hero badge, trust-item strip, book-now
+sub-heading, intro paragraph); no cost qualifier and no price anywhere in
+the visible or hidden text. The prescription-charge caveat sentence ("the
+usual NHS prescription charge applies unless you are exempt") did not
+appear in the plain-text extraction at first read; checked against the
+repo's own generated source (modules/service/pages/pharmacy-first-
+fishlocks-eccleston.html line 119) and confirmed it sits inside a
+collapsed <details>/<summary> FAQ accordion ("Is Pharmacy First really
+free?"), which a rendered-text extraction does not surface until expanded.
+Not a drift: the repo source and the live page's markup match on this
+point, so this is normal <details> behaviour, not a paste-lag finding. No
+new live divergence identified. Weight loss and travel clinic live pages
+not re-read this pass (checked in depth on the eighteenth pass, 2026-09-15;
+Q105 unchanged, not re-raised).
+
+QUESTIONS
+None raised. QUESTIONS.json unchanged at 109 total, 56 open.
+
+FORWARD NOTE
+check-pharmacy-first-cost.js remains unproven by injection against its own
+copy on most of the other 13 packs carrying Pharmacy First (proven so far
+only against mccanns-sandringham.md at birth and now fishlocks-
+eccleston.md) - a candidate set for a future pass on any of those items.
+Separately, rule 7 (the six branch landing pages in modules/branch/pages)
+was read and confirmed passing for this run's baseline but not itself
+injection-tested this pass; a future pass could target one of the two
+Fishlocks landing pages specifically, since Fishlocks Ainsdale was the
+rule's own birth-proof page in the checker's header comment.
