@@ -1,3 +1,62 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 44; mcp__workspace__bash used for lock handling, repo reads, the 35-checker suite run individually against the tracked repo (check-live-hours.js excluded, needs network), the scratch-copy injection proof (git archive to /tmp/scratch-41-sister), the git-commit-timestamp rotation-pool derivation, and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/ edits; mcp__claude-in-chrome__navigate/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.1 live-half DOM reads, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for AGENT_WORKLIST.md, the new audit file and this entry) - Item 4.1 (Fishlocks Chemist Ainsdale GBP pack) twentieth quality pass: fresh angle - proved check-gbp-packs.js's sisterBranch rule's HAS-A-SISTER leg (correct-town-passes / wrong-town-fails) against this pack for the first time anywhere in the estate, since Fishlocks Ainsdale is a genuine two-branch brand (sister: Eccleston) whose pack makes no sister claim yet, unlike the three packs the rule's no-sister leg was already proven against (Clear Chemist Aintree, Cherry Lane Walton, Smartts Bootle). Five injections against a scratch copy, each restored and sha256-reconfirmed before the next: a true "sister branch is in Eccleston" claim PASSED (first proof the rule allows a correct claim, not just blocks a wrong one); a false "sister branch is in Bootle" claim CAUGHT, correctly naming Eccleston as the real sister; a same-sentence catchment-word-confusion case (a genuine Southport catchment mention sharing a sentence with a false Bootle sister claim) CAUGHT with the FAIL message correctly quoting only the sister clause, reproducing and reconfirming the forward-only-window fix (born on item 4.4's thirteenth pass against Scorah Bramhall) against Fishlocks for the first time; and two controls (false claim confined to paster notes; unrelated services reword) both PASSED clean. All five behaved exactly as designed on the first attempt. No in-repo defect, no checker or pack content changed. Live half (Claude in Chrome): pharmacy-fishlocks-ainsdale.html still 404 (Q35, unpasted); switch page footer still carries the Q37/Q91 "Fishlock" brand misspelling and "Station Rd" abbreviation alongside the correct trust-bar text, unchanged. Full detail in audits/fishlocks-ainsdale-item-4.1-sister-branch-quality-pass-2026-09-17-twentieth.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open; no new answer to pick up from the portal feed, newest entry still Q52 from 2026-09-01).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. `.git/HEAD.lock`, `.git/index.lock` and `.git/ORIG_HEAD.lock` all
+reappeared during this run's own early git commands (the standing FUSE-mount
+shape documented under Q87/Q96/Q102) - unlike most recent runs, `rm` on
+these returned "Operation not permitted" this time (not just the usual
+unlink warning), but `mv` to a `.released-<timestamp>` suffix succeeded on
+every one of them, consistent with the repo's own long history of
+`.agent-lock.released-*`/`.cleared-*`/`.old-*` debris (rename works where
+delete does not on this mount - worth carrying forward: prefer `mv` over
+`rm` for any lock file here from the first attempt, not as a fallback).
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` then completed
+normally, already up to date with origin at run 43's own commit (item 1.3's
+twenty-first pass).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No genuine new
+answer to pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 43's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 35 items re-derived (42-ish checked
+AGENT_WORKLIST.md items including the shared-checkbox 4.2, minus the seven
+standing one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8), this time via `git log`
+directly rather than a text/regex scan of either markdown file - for each
+pool item, the timestamp of its own most recent commit (matching "Item
+X.Y" in the commit message). 4.1 resolved to 2026-09-16 00:47:49+01:00,
+the single oldest across the whole pool; every other item's most recent
+commit fell between 2026-09-16 03:13:23 and 2026-09-17 01:12:56. Picked
+4.1. (Noted in passing, not acted on: item 4.2, Cherry Lane Pharmacy pack,
+has no top-level "- [x]" checkbox of its own anywhere in
+AGENT_WORKLIST.md - its passes are recorded interleaved inside item 4.1's
+checkbox block, a known and previously-documented structural quirk, not a
+new finding.)
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.1 twentieth-pass
+paragraph and the new audit file. In summary: baseline sha256 and 35/36
+checkers (35 excluding check-live-hours.js) confirmed clean before and
+after; scratch-copy injection round proved the sisterBranch rule's
+previously-untested has-a-sister leg cleanly; tracked repo confirmed
+untouched (`git status --porcelain -- gbp-packs branches.json modules core
+tools` shows only the two long-standing pre-existing untracked strays,
+neither touched).
+
+GIT (step 9): committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit
+file to agents/audit-backlog. Push route: attempted directly from the
+sandbox first; per Q102's documented pattern, fell back to
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data if the
+sandbox had no credential (see push commit hash below if this path was
+used).
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 43; mcp__workspace__bash used for lock handling, repo reads, the 35-checker suite run individually against the tracked repo (check-live-hours.js excluded, needs network), the scratch-copy injection proof (git archive to /tmp/pc21), the rotation-pool derivation (Python word-boundary scan of this file) and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/ edits; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch only, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for tools/check-postcodes.js, AGENT_WORKLIST.md and this entry) - Item 1.3 (McCanns Sandringham postcode error) twenty-first quality pass: a real, previously-latent gap found and fixed in check-postcodes.js's rule 6 (MISATTRIB) - it silently gave up on any line naming two or more branches, even when the postcode present belonged to neither, because `if (named.length !== 1) return;` treated every multi-branch line as inherently ambiguous. Proved on a scratch copy (git archive HEAD outside the tracked tree): a line naming Smartts Chemist and Riddings Pharmacy while carrying Gordon Short Chemist Crosby's real L23 3AT postcode passed all 36 checkers in total silence. Fixed by checking, for a multi-branch line, whether any postcode present belongs to a real live branch NOT among those named; re-verified the injection now fails, restored by sha256-confirmed copy (git checkout blocked by the standing FUSE unlink quirk), applied to the tracked checker, full 35-checker suite re-run clean, only tools/check-postcodes.js touched (51 insertions, 8 deletions), no rebuild needed. Full detail in audits/mccanns-sandringham-postcode-check-2026-09-17-twentyfirst.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open; no new answer to pick up from the portal feed, newest entry still Q52 from 2026-09-01).
 
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 42; mcp__workspace__bash used for lock handling, repo reads, the 36-checker suite run individually against the tracked repo, the rotation-pool derivation (Python word-boundary scan of this file) and the QUESTIONS.json/AGENT_WORKLIST.md/AGENT_LOG.md edits; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/javascript_tool used for the step 3 answer-pickup fetch and the item 4.7 live-half DOM read, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit used for AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 4.7 (McCanns Chemist Sandringham GBP pack) twentieth quality pass: repo half clean, 36/36 checkers, pack sha256 unchanged since the nineteenth pass; no injection round (every gbp-pack-reading checker already proven against this pack). Live half found two genuine, non-blocking findings on uti-treatment-mccanns-sandringham.html and the Aigburth control page: (1) the page's own per-page JSON-LD "name" still reads the bare "McCanns Chemist" brandLabel rather than branchName, confirming the queued Q18 repaste has not reached McCanns either (previously only confirmed on Fishlocks, item 3.3 2026-09-11) - addendum appended to Q18's note, not reopened; (2) both McCanns pages carry a second, non-generator, sitewide JSON-LD "@graph" block on mccannspharmacy.co.uk (a different Weebly site to Hirshmans'), structurally matching the Q109 finding raised the same day by item 1.2 (root-URL, no addressRegion) but as a two-entry, branch-correct @graph rather than a single generic entity - partially answers Q109's own "does this exist elsewhere" option, addendum appended to Q109's note. No in-repo defect found; both findings are live-Weebly-side and outside this run's read-only browser scope. QUESTIONS.json total unchanged at 109 (56 open); no new question raised.

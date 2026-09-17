@@ -15567,6 +15567,76 @@ Pharmacy First wording to the NHS service description.
       No new question; QUESTIONS.json unchanged at 107 total, 54 open.
       Evidence: this AGENT_LOG.md entry, 2026-09-16.
       Done 2026-09-16
+      Quality pass 2026-09-17 (twentieth, unattended run): least recently
+      verified rotation-pool item, this time picked by reading each pool
+      item's actual git commit timestamp directly rather than any
+      AGENT_WORKLIST.md/AGENT_LOG.md text heuristic - 4.1's most recent
+      commit (the nineteenth pass, 2026-09-16 00:47:49+01:00) was the
+      oldest across the whole 35-item pool, every other item's most recent
+      commit falling between 2026-09-16 03:13 and 2026-09-17 01:12.
+      Baseline confirmed: sha256 of gbp-packs/fishlocks-ainsdale.md
+      7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30,
+      unchanged since the twelfth pass; all 35 static checkers (excluding
+      check-live-hours.js) re-run clean against the tracked repo, same two
+      known WARNs as every prior pass (Q72, Q64).
+      FRESH ANGLE: check-gbp-packs.js's sisterBranch rule (born on item
+      4.4's thirteenth pass against Scorah Bramhall; most recently proven
+      on the NO-SISTER leg against Clear Chemist Aintree, Cherry Lane
+      Walton and Smartts Bootle) had never been proven against this
+      specific pack, and Fishlocks Ainsdale is the first pack in the
+      estate where the rule's HAS-A-SISTER leg (correct-town-passes /
+      wrong-town-fails) could be exercised, since it is a genuine
+      two-branch brand (sister: Fishlocks Chemist Eccleston) whose own
+      published copy currently makes no sister claim at all. Five cases
+      run via `git archive HEAD | tar -x` into a disposable scratch copy,
+      each restored from a saved byte copy and sha256-reconfirmed
+      identical before the next: (1) "Our sister branch is in Eccleston."
+      added to Post B - PASSED clean, the first direct proof anywhere in
+      the estate that this rule correctly ALLOWS a true sister claim
+      naming the right town, not just that it blocks a wrong one; (2)
+      "Our sister branch is in Bootle." added to Post B - CAUGHT first
+      attempt, correct message naming Eccleston as the real sister; (3)
+      sentence-boundary edge case reproducing the historical Scorah
+      Bramhall bug shape against Fishlocks for the first time: "Patients
+      come to us from Ainsdale, Birkdale and Southport, and our sister
+      branch in Bootle is close by." - Southport is a genuine catchment
+      town sharing the sentence with the wrong sister-town claim - CAUGHT
+      first attempt, FAIL message quoting only "sister branch in Bootle is
+      close by.", confirming the forward-only-window fix holds on this
+      pack too; CONTROL A - the identical false sentence placed only
+      inside "Notes for the paster:" - correctly PASSED clean; CONTROL B -
+      an unrelated reword of the Blister packs services bullet - correctly
+      PASSED clean, full 34-checker suite 0 cross-firing. All five behaved
+      exactly as designed on the first attempt; no checker logic edited,
+      no pack content byte-changed. Final restore sha256-reconfirmed
+      identical to baseline; scratch copy's full checker suite re-run
+      clean after restore (34/34, excluding check-live-hours.js and
+      check-cdn-pins.js, the latter needing a .git directory the archive
+      does not carry); tracked repo confirmed sha256-unchanged and
+      git-status-clean throughout (only the two long-standing pre-existing
+      untracked strays present, neither touched); full 35-checker suite
+      re-run individually against the tracked repo afterwards, 35/35 exit
+      0. No generator, checker, page or branches.json field changed.
+      RESULT: no in-repo defect. The sisterBranch rule already correctly
+      protects this pack on both the has-a-sister leg and the wrong-town
+      leg, including the specific same-sentence catchment-word-confusion
+      shape it was originally fixed against on a different branch, now
+      proven directly against Fishlocks Ainsdale for the first time in
+      twenty passes.
+      LIVE HALF: read via Claude in Chrome (connected this run).
+      pharmacy-fishlocks-ainsdale.html (profile-website target): still
+      404, unchanged (Q35, answered 2026-09-01, not yet pasted).
+      switch-prescriptions-fishlocks-ainsdale.html: the shared Weebly
+      footer still misspells the brand "Fishlock Pharmacy"/"Fishlock
+      Chemist" and still abbreviates "Station Rd" (Q37/Q91, unchanged,
+      hand-built site furniture no generator or checker here can reach),
+      alongside the separately-correct "Fishlocks Chemist"/"Station Road"
+      trust-bar text lower on the same page, exactly as recorded on every
+      prior pass. No new live fault found.
+      No new question; QUESTIONS.json unchanged at 109 total, 56 open.
+      Evidence:
+      audits/fishlocks-ainsdale-item-4.1-sister-branch-quality-pass-2026-09-17-twentieth.txt.
+      Done 2026-09-17
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
       Quality pass 2026-08-11: the pack verified fact by fact against
