@@ -61,9 +61,34 @@ paragraph was appended immediately beneath the nineteenth's within the
 same item block, and this entry added to the top of AGENT_LOG.md.
 QUESTIONS.json not touched (no answer pickup, no new question).
 
-COMMIT / PUSH (step 9): pending - see below.
+COMMIT / PUSH (step 9): committed via mcp__Windows-MCP__PowerShell against
+C:\Dev\rbh-site-data on the real ProDeskAi host, per the standing
+Q87/Q96/Q102 fallback. A stray `.git/index.lock` (0 bytes, no concurrent
+git process per `Get-Process git`) blocked the first `git add` silently
+(add produced no output and staged nothing); removed directly with
+`Remove-Item -Force` on the real filesystem (permitted there, unlike the
+Cowork sandbox's FUSE mount), and the add then staged all three files
+correctly. Committed as 2370ca1526d257ff2891b2ab8602321935dae8bd ("Item 3.2
+twentieth quality pass: prove check-nap.js by direct injection against
+Scorah's own pages for the first time (phone, name, street sweeps); zero
+in-repo defect; live half corroborates unchanged, reconfirms standing
+Q43"), 3 files changed (AGENT_WORKLIST.md, AGENT_LOG.md, the new audit
+file). Pushed to origin agents/audit-backlog; `git ls-remote origin
+agents/audit-backlog` confirmed the remote ref matches local HEAD exactly
+at 2370ca1.
 
-PUBLISH (step 10): pending - see below.
+PUBLISH (step 10): tools/build-audit-status.js run via mcp__Windows-MCP__
+PowerShell on the real host for the same credential reason - "Published
+reports/digital/Digital_Audit_Status.html (42/48 done, 88%)", publishing
+the worklist/log/QUESTIONS.json render to rishi235/rbh-data-portal via the
+GitHub API.
+
+LOCK RELEASE (step 11): .agent-lock deleted (or renamed, if the same
+unlink defect applied) at the end of this run.
+
+No secrets or credentials encountered. No weight loss copy touched. UK
+English, no em dashes, no emojis maintained throughout this entry and the
+audit file.
 
 LOCK RELEASE (step 11): .agent-lock deleted (or renamed, if the same
 unlink defect applied) at the end of this run.
