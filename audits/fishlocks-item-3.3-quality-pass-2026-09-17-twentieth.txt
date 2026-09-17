@@ -1,0 +1,223 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - twentieth quality pass
+Unattended scheduled run, audit-backlog-worker (run 50), 2026-09-17
+
+ITEM SELECTION
+Rotation pool re-derived independently: per-item most recent "Item N.N" (or
+"item N.N") mention in `git log --pretty=format:"%ad|%s" --date=iso-strict`,
+most recent match kept per item, pool being the 42 checked AGENT_WORKLIST.md
+items minus the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) = 35 pool items. 3.3 resolved to 2026-09-16T06:46:16+01:00
+(its own nineteenth pass, check-branch-links.js proof), the single oldest of
+the 35, now that run 49 refreshed 4.8 (previously the oldest at
+2026-09-16T06:12:53+01:00, now 2026-09-17T04:11:01+01:00) - exactly the
+outcome run 49's own log entry forecast ("ahead of 3.3 as runner-up").
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, read-only, closed after reading. 56
+open questions in QUESTIONS.json checked against the feed; newest entry
+still Q52, dated 2026-09-01T22:44:51.524Z - already applied on 2026-08-30.
+No new answer to pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 49's own
+entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+LOCK / SYNC (steps 1-2): .agent-lock absent at run start; wrote a fresh UTC
+timestamp. No .git/index.lock older than 1 hour present at start (one
+0-byte lock appeared later from this run's own `git status` calls, the
+standing FUSE-mount unlink restriction documented throughout this file's
+history - `rm`/unlink returns "Operation not permitted", only `mv`
+succeeds; renamed to `.git/index.lock.cleared-run50-<timestamp>` each time,
+confirming no concurrent git process first). `git fetch origin` / `checkout
+agents/audit-backlog` / `pull --ff-only` completed normally, already up to
+date with origin at run 49's own commit (ad75a80 then advancing per run
+49's own log-correction commit).
+
+BASELINE
+- branches.json sha256:
+  169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+- Full 35-checker suite (check-live-hours.js excluded, needs network) run
+  individually: all exit 0.
+- git status --porcelain -- branches.json tools/ gbp-packs/ modules/: empty
+  bar the two pre-existing untracked artefacts every recent pass already
+  notes (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+  neither created nor touched by this pass.
+
+NEW ANGLE
+tools/check-widget-diaries.js (added item 3.7 quality pass, 2026-08-11) had
+never once been named or exercised against Fishlocks across all nineteen
+prior dedicated passes on item 3.3. Confirmed by scanning every "Item 3.3"
+block in AGENT_LOG.md (21 blocks found) for each of the 36 check-*.js
+filenames: 30 of the 36 had at least one hit; five had none
+(check-contraception-copy, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-travel-clinic-copy,
+check-widget-diaries). check-widget-diaries.js was chosen because its own
+header comment names Fishlocks by name as one of the three multi-site
+brands the "shared brand diary" policy exists for (weightLoss and
+travelClinic shared across a brand's sites; bloodPressure, contraception
+and pharmacyFirst per site), and because both Fishlocks branches carry all
+five widget keys (confirmed against branches.json: fishlocks_ainsdale and
+fishlocks_eccleston both hold bloodPressure, contraception, pharmacyFirst,
+travelClinic and weightLoss ids), so all four of the checker's rules are
+in-scope and testable against this branch's own data rather than only
+against Smartts/SK Chemists Bootle, the pair the checker was written
+against.
+
+METHOD
+All five rounds performed on a disposable two-file scratch copy at
+/tmp/scratch-widget-diaries (branches.json plus a copy of
+tools/check-widget-diaries.js only, since the checker reads no other file;
+REPO/DATA path resolution confirmed correct by re-running the clean
+baseline against the scratch copy first: sha256 match, identical output).
+Tracked repo's branches.json and tools/check-widget-diaries.js never opened
+for writing at any point. Each round restored by direct copy from the
+tracked branches.json before the next, sha256 reconfirmed identical each
+time.
+
+Round 1 (rule 2, crossbrand). fishlocks_eccleston.widgets.pharmacyFirst set
+to skchemists_bootle's own pharmacyFirst id (66b9d657d71f677c6d5e602b, a
+different brandKey). CAUGHT, exactly one FAIL: "widget id
+\"66b9d657d71f677c6d5e602b\" is held by 2 different brands
+(fishlocks/fishlocks_eccleston.pharmacyFirst,
+skchemists/skchemists_bootle.pharmacyFirst)."
+
+Round 2 (rule 3, consistent). fishlocks_eccleston.widgets.travelClinic
+changed from the shared Fishlocks-wide id to a fresh, unheld 24-hex value,
+making travelClinic per-site at Fishlocks while it stays shared at Scorah
+and McCanns. CAUGHT, exactly one FAIL: "service \"travelClinic\" is a
+shared brand diary at scorahs, mccanns and a per-site diary at fishlocks."
+Correctly names Fishlocks as the outlier against the other two multi-site
+brands rather than flagging Scorah or McCanns.
+
+Round 3 (rule 4, sharedservice, isolated). fishlocks_eccleston.widgets.
+contraception set to fishlocks_ainsdale's own bloodPressure id
+(6a47893f37e5ff141a4219ac) - both services are already per-site at
+Fishlocks, so this round changes only which id a per-site slot holds, not
+whether the service is shared or per-site (rule 3 stays silent). CAUGHT,
+exactly one FAIL: "widget id \"6a47893f37e5ff141a4219ac\" is held under 2
+different service keys (fishlocks_ainsdale.bloodPressure,
+fishlocks_eccleston.contraception)."
+
+Round 3b (rule 4, sharedservice, compound - run before isolating round 3
+above). fishlocks_eccleston.widgets.weightLoss set to
+fishlocks_ainsdale's own travelClinic id. This id was already shared with
+fishlocks_eccleston's own (unmodified) travelClinic slot, so the edit
+simultaneously broke rule 3 (weightLoss became per-site at Fishlocks while
+staying shared at Scorah/McCanns) and rule 4 (the id ended up held under
+three service-key instances, two branches). CAUGHT correctly as two
+separate FAILs, each naming the right branches and the right id, confirming
+the two rules co-fire independently rather than one masking the other when
+a single edit happens to breach both.
+
+Round 4 (rule 1, format). fishlocks_ainsdale.widgets.pharmacyFirst
+truncated from 24 to 20 characters. CAUGHT, exactly one FAIL: "widget id
+\"66b1f5b59c1e2182b14f\" (fishlocks_ainsdale.pharmacyFirst) is not 24
+lowercase hex characters."
+
+Control (unrelated field should not fire this checker).
+fishlocks_eccleston.phone changed to a different but validly-formatted
+number, no widgets field touched. check-widget-diaries.js stayed clean -
+PASSED, exit 0, identical output to baseline - confirming the checker fires
+on the widget-id facts alone and not on any nearby edit to the branch
+record.
+
+All rounds behaved exactly as documented on the first attempt (rounds 1, 2,
+3, 3b and 4 each CAUGHT on their own intended rule with no unexpected
+cross-firing beyond round 3b's own by-design double breach; the control
+PASSED). Scratch copy restored to the tracked branches.json byte-for-byte
+after every round and at the end (sha256 reconfirmed
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 throughout
+and after); full 35-checker suite re-run against the tracked repo after
+the final restore: 35/35 exit 0. Tracked repo's branches.json and tools/
+confirmed untouched throughout via sha256 and git status --porcelain (empty
+bar the two pre-existing untracked artefacts, unchanged). No in-repo defect
+found: all four rules already correctly protect Fishlocks' own diary
+assignments, now proven by injection against this branch's own data for the
+first time in twenty passes.
+
+LIVE / SECOND-HOP HALF
+Following CLAUDE.md's own documented "second hop" risk (every checker here
+validates the checked-out branch's branches.json; modules/service/
+service.js resolves widget ids for the live booking iframe from
+branches.json fetched at runtime from jsDelivr's @main ref, not from this
+branch), fetched raw.githubusercontent.com/rishi235/rbh-site-data/main/
+branches.json directly (network reachable this run) and diffed Fishlocks'
+two records field-by-field against this branch's copy.
+
+Two divergences found, both on both Fishlocks branches:
+1. main carries a "flu" widget key (66b239a2cbe057bc620e3bc1 on both
+   Ainsdale and Eccleston) that does not exist in this branch's
+   branches.json at all. This is the STANDING, already-diagnosed Q97
+   finding (raised on the item 3.4 twelfth pass, 2026-09-05, from main's
+   own commit ff7ac76, "Add flu widget IDs to 14 branches"), reconfirmed
+   present and unchanged on this run's own live fetch rather than
+   re-raised. Checked live consequence again directly against
+   modules/service/service.js's SERVICE_WIDGET_KEYS table on this branch:
+   no "flu" entry exists, so the id is dormant on both branches' pages
+   today, matching Q97's own finding exactly.
+2. main's fishlocks_eccleston record carries addressRegion "Chorley" (a
+   borough); this branch's own record correctly carries addressRegion
+   "Lancashire" with seoRegion "Chorley". This is NOT the same finding as
+   Q97 and does not appear anywhere in QUESTIONS.json's 109 entries under
+   any wording searched ("Chorley" + "main", "Eccleston" + "main"). Traced
+   via git history: this branch's own item 3.3 nineteenth-pass-equivalent
+   fix on 2026-08-09 (AGENT_LOG.md, "Eccleston's schema addressRegion held
+   a borough, not a county, on all 13 of its pages") corrected exactly this
+   field on this branch; main's only own commit since the two branches
+   forked on 2026-08-08 is ff7ac76 (2026-08-15, flu widgets only, confirmed
+   by reading its diff - it does not touch addressRegion), so main has
+   simply never received the 2026-08-09 fix. Checked live consequence
+   before treating this as more than a data note: read
+   modules/service/service.js and modules/switch/switch.js in full for any
+   read of window.RBH_DATA / the fetched branches.json touching
+   addressRegion, streetAddress, addressLocality or postalCode - neither
+   file reads any address field from the runtime fetch (service.js's only
+   use of the fetched data is the widgets[serviceKey] lookup already
+   covered above; switch.js does not fetch branches.json or RBH_DATA at
+   all, working entirely from data-attributes baked into the page at
+   generation time). core/site-data.js publishes the fetched object on
+   window.RBH_DATA but renders nothing itself. So, unlike a widget id, this
+   field's divergence has NO live rendering path today under either
+   branch's current JS - dormant, same as finding 1, for a different
+   reason (nothing consumes it, rather than nothing routes to it).
+   Structurally lower-risk than Q97 for a future merge too: a plain git
+   merge or fast-forward of agents/audit-backlog into main would carry this
+   branch's addressRegion fix forward cleanly, since main's own ff7ac76
+   commit never touched that field (no merge conflict expected on this
+   specific line) - unlike the flu-widget case, where a naive merge could
+   go either way depending on merge direction and needs the deliberate
+   decision Q97 already asks for. Recorded as an addendum to Q97 rather
+   than a new question (see QUESTIONS below): same root cause (main not
+   kept level with agents/audit-backlog since the 2026-08-08 fork), same
+   eventual resolution path (Q13/Q45/Q3's pending merge-to-main decision),
+   and no new decision is needed from Rishi that Q97 does not already
+   cover.
+
+No other field divergence found between main and this branch for either
+Fishlocks record (brandKey, brandLabel, branchName, streetAddress,
+addressLocality, postalCode, phone, email, hasApp and all other widget ids
+all matched exactly).
+
+QUESTIONS
+No new question raised. Q97 given a short addendum recording finding 2
+above (main/agents-branch addressRegion divergence for Fishlocks
+Eccleston), since it is additional evidence for Q97's own standing "main
+not kept level with agents/audit-backlog" gap rather than a new decision.
+QUESTIONS.json: 109 total, 56 open, unchanged in count.
+
+FORWARD NOTE
+check-widget-diaries.js is now proven by injection against two of the
+three multi-site brand pairs this checker exists for (Smartts/SK Chemists
+Bootle at birth, now Fishlocks). Scorah and McCanns remain untried by
+injection for this specific checker - a candidate angle for a future pass
+on item 3.2 or 4.x. Separately, the five checkers with zero mentions across
+Fishlocks' nineteen prior passes now stand at four
+(check-contraception-copy, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-travel-clinic-copy) - all four are
+in-scope for Fishlocks (both branches carry contraception, pharmacyFirst
+and travelClinic widgets) and are candidates for a future pass's NEW ANGLE.

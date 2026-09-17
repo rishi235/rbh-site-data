@@ -4415,6 +4415,64 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       QUESTIONS (this run): no new QUESTIONS.json entry raised. Full
       detail in audits/fishlocks-item-3.3-quality-pass-2026-09-16-
       nineteenth.txt.
+
+      Quality pass 2026-09-17 (twentieth): re-verified as the stalest
+      rotation-pool item (nineteenth pass's own commit,
+      2026-09-16T06:46:16+01:00, the oldest of 35, now that run 49's own
+      4.8 pass moved 4.8 off the top as its own forward note predicted).
+      branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102; all
+      35 checkers exit 0. NEW ANGLE: tools/check-widget-diaries.js (item
+      3.7, 2026-08-11) had never been named or exercised against Fishlocks
+      across nineteen prior passes, despite Fishlocks being one of the
+      checker's own three named multi-site brands and both branches
+      carrying all five widget keys. Five rounds on a disposable two-file
+      /tmp scratch copy, each restored from the tracked branches.json and
+      sha256-reconfirmed before the next: (1) Eccleston's pharmacyFirst id
+      set to SK Chemists Bootle's own - CAUGHT, rule 2 (crossbrand); (2)
+      Eccleston's travelClinic id changed to a fresh value, making it
+      per-site at Fishlocks while Scorah/McCanns stay shared - CAUGHT, rule
+      3 (consistent), correctly naming Fishlocks as the outlier; (3)
+      isolated rule 4 - Eccleston's contraception id set to Ainsdale's own
+      bloodPressure id (both already per-site, so rule 3 stays silent) -
+      CAUGHT, exactly one FAIL, rule 4 (sharedservice); (3b) a compound
+      variant - Eccleston's weightLoss id set to Ainsdale's travelClinic id
+      - correctly fired BOTH rule 3 and rule 4 as two separate FAILs rather
+      than one masking the other; (4) Ainsdale's pharmacyFirst id truncated
+      to 20 characters - CAUGHT, rule 1 (format). Control - an unrelated
+      phone-number edit - correctly PASSED clean. All behaved exactly as
+      documented on the first attempt. Tracked branches.json confirmed
+      sha256-unchanged throughout and after; full 35-checker suite re-run
+      clean. Zero in-repo defect - proof, not a fix.
+
+      SECOND-HOP LIVE HALF: fetched branches.json directly from GitHub's
+      main branch (the same runtime source CLAUDE.md's CDN-pins section
+      documents modules/service/service.js fetching for its widget-id
+      lookup) and diffed both Fishlocks records field-by-field against this
+      branch's copy. Two divergences, both branches: (1) main's standing
+      "flu" widget key (Q97, 2026-09-05) reconfirmed present and still
+      dormant - no SERVICE_WIDGET_KEYS entry routes to it, not re-raised.
+      (2) NEW: main's fishlocks_eccleston.addressRegion still reads
+      "Chorley" (a borough); this branch corrected it to "Lancashire" with
+      seoRegion "Chorley" on 2026-08-09, one day after the two branches
+      forked, and main's only own commit since (ff7ac76, flu widgets) never
+      touched this field, so the fix was simply never picked up by main.
+      Checked service.js and switch.js in full: neither reads any address
+      field from the runtime-fetched data (service.js's only use of it is
+      the widgets[serviceKey] lookup; switch.js does not fetch branches.json
+      at all), so this has no live rendering path today - dormant, same as
+      the flu finding but for a different reason, and structurally lower
+      risk for a future merge since main never touched this line (a plain
+      merge would carry this branch's fix forward cleanly). Recorded as an
+      addendum to Q97 rather than a new question - same root cause (main
+      not kept level with agents/audit-backlog since the fork), no new
+      decision needed beyond what Q97/Q45/Q13 already cover. No other field
+      divergence found on either Fishlocks record.
+
+      QUESTIONS (this run): no new QUESTIONS.json entry; Q97 given a short
+      addendum recording the addressRegion finding. QUESTIONS.json
+      unchanged at 109 total, 56 open. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-17-twentieth.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
