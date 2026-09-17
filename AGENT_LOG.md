@@ -1,3 +1,117 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 58; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ tried first for the live half and reported no tab group for this session, so mcp__Windows-MCP__PowerShell's Invoke-WebRequest was used instead against the live site, read-only, nothing submitted; mcp__Windows-MCP__PowerShell also used against the real C:\Dev\rbh-site-data working copy to confirm HEAD matched the sandbox mount and, at the end of the run, for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit files, AGENT_WORKLIST.md and this entry) - Item 3.11 (Gordon Short Chemist, Crosby) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh timestamp. `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally, already at origin's HEAD (d9305cf, run
+57's own final commit). A `git status` inside mcp__workspace__bash produced
+the standing "unable to unlink .git/index.lock" warning on this FUSE mount
+(Q87/Q96/Q102) but still returned porcelain output, so no clearing action
+was needed before proceeding; confirmed no interference with any later `git
+status --porcelain` call this run. Several hundred stray `.agent-lock.*` and
+other debris files remain untouched in the working tree, out of scope, same
+standing note as every recent run.
+
+ANSWER PICKUP (step 3): not attempted this run, folded into the LIVE HALF
+section below - Claude in Chrome reported no tab group for this session, so
+the portal feed route (which depends on the same tool) was unavailable.
+Not retried by any other route per the task's own rule. QUESTIONS.json
+unchanged as a result (110 total, 57 open, same as run 57 left it).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 57's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 57 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. Pool
+size 36. 3.7 and 6.3 (run 57's and the prior run's own picks) sat newest;
+3.11 came out stalest in the remaining pool at 2026-09-16T12:12:17+01:00,
+clear of the next candidate 6.2 at 12:48:25. Picked 3.11.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.11 twentieth-pass
+paragraph and audits/gordon-short-item-3.11-quality-pass-2026-09-17-
+twentieth.txt. In summary: tools/check-seo-pattern.js had never been named
+against Gordon Short Chemist Crosby across nineteen prior passes on this
+item, despite it being the checker that holds the exact title/H1 pattern
+match, the service-word rule, the ONE H1 rule, the ONE TITLE LINE / ONE
+DESCRIPTION LINE rule and the cross-town ABSENCE rule against every one of
+this branch's own 12 pages. Scoped against the checker's own source before
+injecting: this branch's brandLabel equals its branchName, it carries no
+branch landing page, and it shares no host with any sister branch, so an
+injected foreign town tests the plain absence path rather than the pinned
+sister-town path (Scorah/Fishlocks/McCanns).
+
+Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch311b,
+outside the tracked tree (the standing FUSE unlink restriction, Q87/Q96/
+Q102, means restoration is a byte copy, not a git checkout). Baseline
+branches.json sha256 169bb5a2...b102 (the standing regression anchor,
+unchanged throughout) and the checker's own sha256 confirmed matching
+between the tracked repo and the scratch export before starting. Full
+34-checker suite clean on the tracked repo before any edit.
+
+Seven injections (six real, one control) across five of Gordon Short's own
+twelve pages, each restored from an in-memory backup and sha256-reconfirmed
+identical before the next: (1) title exact-match, "Crosby" swapped for
+"Nowhereville" on the Pharmacy First page - CAUGHT, naming both strings; (2)
+h1 exact-match, the same swap inside the UTI page's h1 - CAUGHT; (3) ONE H1,
+a second "<h1>Pharmacy in Ainsdale</h1>" inserted on the switch page -
+CAUGHT, "2 h1 elements, expected exactly 1"; (4) ONE TITLE LINE, a second
+"Weebly page SEO title" comment line appended on the Sore throat page -
+CAUGHT; (5) ONE DESCRIPTION LINE, a second "Weebly page SEO description"
+line appended on the Contraception page - CAUGHT; (6) CROSS-TOWN ABSENCE,
+"We also welcome patients from Ainsdale." appended to the Shingles page's
+description - CAUGHT, named the owning branch (fishlocks_ainsdale) and
+confirmed absent from this branch's serviceAreaList. CONTROL: an unrelated
+FAQ reword on the Insect bite page - correctly passed, exit 0, no
+cross-firing. All six real injections caught first attempt on their
+intended rule only.
+
+Tracked repo's branches.json and tools/check-seo-pattern.js reconfirmed
+sha256-unchanged throughout, never opened for writing. All six generators
+rebuilt the tracked repo byte-identical (`git status --porcelain -- modules
+core` showing only the two long-standing untracked strays, neither
+touched). Full 34-checker suite re-run individually against the tracked
+repo after the rebuild: 34/34 exit 0.
+
+ZERO IN-REPO DEFECT. check-seo-pattern.js was already correctly holding
+Gordon Short Chemist Crosby's own pages to every rule tested; now proven by
+direct injection against this branch specifically for the first time in
+twenty passes.
+
+LIVE HALF: mcp__claude-in-chrome__tabs_context_mcp reported no tab group
+for this session (createIfEmpty not set, per the read-only convention of
+checking availability before assuming it), so the read-only live check ran
+via mcp__Windows-MCP__PowerShell's Invoke-WebRequest against the real site
+instead, matching the established fallback used on numerous earlier passes.
+Three GETs: pharmacy-first-service-crosby.html (the actual pfLink target, a
+live-only page this repo does not generate, per the eighth pass's own
+finding) 200, 77,871 bytes, 17 correct "Crosby" hits, 12 correct "Gordon
+Short Chemist" hits, 0 wrong-plural "Gordon Shorts" hits, 0 "Ainsdale" hits
+(no cross-town contamination live either); switch-prescriptions-gordon-
+short-crosby.html 200, 75,953 bytes; sitemap.xml 200, this branch's URLs
+still lastmod 2026-08-15T07:41:55+00:00, unchanged, no republish since the
+sixth pass.
+
+No new question; QUESTIONS.json unchanged (110 total, 57 open). Evidence in
+audits/verify-3.11-2026-09-17-twentieth.js and
+audits/gordon-short-item-3.11-quality-pass-2026-09-17-twentieth.txt.
+
+STEP 7: AGENT_WORKLIST.md's item 3.11 block updated in place with the
+twentieth-pass paragraph (append-only, line not moved).
+
+STEP 9/10: git add/commit/push and the status-page publish to follow via
+mcp__Windows-MCP__PowerShell on the native working copy, recorded in a
+follow-up entry per the standing convention (git operations are run after
+this entry is written, then the actual outcome is appended).
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 57; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 33-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the live half, two tabs, read-only throughout, nothing clicked/typed/submitted, both tabs closed after reading; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json, tools/check-postcodes.js and this entry) - Item 3.7 (Smartts Chemist, Bootle) twentieth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a

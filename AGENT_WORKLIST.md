@@ -13371,6 +13371,47 @@ Done 2026-09-17 (twentieth pass).
       left in place. No new question raised. Evidence in
       audits/gordon-short-item-3.11-quality-pass-2026-09-16-nineteenth.txt.
       Done 2026-09-16
+      Quality pass 2026-09-17 (twentieth). Stalest item in the 36-item
+      rotation pool this run (last touched 2026-09-16T12:12:17+01:00, ahead
+      of 6.2 at 12:48:25 and the rest of the pool), all eight unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] first. Proved
+      tools/check-seo-pattern.js by direct injection against this branch for
+      the first time in nineteen prior passes: the exact title/H1 pattern
+      match, the ONE H1 rule, the ONE TITLE LINE / ONE DESCRIPTION LINE
+      rule and the cross-town ABSENCE rule. Scoped first against the
+      checker's own source: this branch has brandLabel == branchName, no
+      branch landing page, and shares no host with any sister branch, so
+      the injected foreign town ("Ainsdale", not in this branch's
+      serviceAreaList of Crosby/Waterloo/Sefton) tests the plain absence
+      path rather than the pinned sister-town path. Scratch copy via git
+      archive, sha256-confirmed matching the tracked repo before and after.
+      Seven injections (six real, one control) across five of Gordon
+      Short's own twelve pages: title exact-match mismatch on the Pharmacy
+      First page (caught), h1 exact-match mismatch on the UTI page
+      (caught), a second h1 element on the switch page (caught, "2 h1
+      elements, expected exactly 1"), a duplicate SEO title line on the
+      Sore throat page (caught), a duplicate SEO description line on the
+      Contraception page (caught), "Ainsdale" (Fishlocks' seoTown) appended
+      to the Shingles page's description (caught, named the owning branch
+      and confirmed absent from serviceAreaList), and a control FAQ reword
+      on the Insect bite page (correctly passed, no cross-firing). All six
+      real injections caught first attempt on their intended rule only,
+      each restored and sha256-reconfirmed identical to baseline before the
+      next. Tracked branches.json and the checker itself confirmed
+      byte-identical throughout by sha256; all six generators rebuilt the
+      tracked repo byte-identical; full 34-checker suite clean before and
+      after. Zero in-repo defect: check-seo-pattern.js was already
+      correctly holding this branch's pages to every rule tested, now
+      proven by injection for the first time. LIVE HALF (PowerShell
+      Invoke-WebRequest on the native host, Claude in Chrome reported no
+      tab group this run): pharmacy-first-service-crosby.html 200, 17
+      correct Crosby hits, 12 correct brand hits, 0 wrong-plural hits, 0
+      Ainsdale hits; switch page 200; sitemap.xml lastmod unchanged at
+      2026-08-15T07:41:55+00:00, no republish since the sixth pass. No new
+      question; QUESTIONS.json unchanged (110 total, 57 open). Evidence in
+      audits/verify-3.11-2026-09-17-twentieth.js and
+      audits/gordon-short-item-3.11-quality-pass-2026-09-17-twentieth.txt.
+      Done 2026-09-17
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

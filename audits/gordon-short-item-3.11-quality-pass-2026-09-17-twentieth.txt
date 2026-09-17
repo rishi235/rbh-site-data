@@ -1,0 +1,124 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - twentieth quality pass, 2026-09-17
+(unattended run, audit-backlog-worker)
+
+SELECTION
+All eight unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct
+grep (5.3, 5.4, 5.5, 5.8, 6.1, and the two 6.4/6.5 Q60 lines, 6.6) before
+falling back to the rotation. Rotation pool re-derived fresh from the full
+git log (`git log --pretty=format:"%ad|%s" --date=iso-strict`), taking the
+most recent "Item N.N" commit date per candidate and excluding the standing
+out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Pool size 36. 3.11
+was stalest at 2026-09-16T12:12:17+01:00, ahead of 6.2 (12:48:25) and the
+rest of the pool, matching the nineteenth pass's own forward note.
+
+FRESH ANGLE
+Nineteen prior passes had covered NAP, JSON-LD, brand spelling, em-dashes,
+the Pharmacy First eligibility/safety-net/symptoms triad, the booking chain,
+check-whatsapp-route.js, check-map-embeds.js, check-pharmacy-first-cost.js,
+check-app-membership.js, check-switch-copy.js, check-opening-hours.js,
+check-contraception-copy.js, check-seo-keywords.js (full 7 of 8 applicable
+rules), check-nap.js, check-branch-links.js, check-jsonld.js (full 8 rules)
+and check-seo-lengths.js, all by direct injection against this branch's own
+pages. tools/check-seo-pattern.js had never been named once across those
+nineteen passes, despite being the checker that holds the exact title/H1
+pattern match, the service-word rule, the ONE H1 rule, the ONE TITLE LINE /
+ONE DESCRIPTION LINE rule and the cross-town ABSENCE rule (a page must not
+name another live branch's seoTown unless that town is in this branch's own
+serviceAreaList) against every one of this branch's 12 pages.
+
+Read the checker's own source first to scope the test correctly.
+gordonshorts_crosby has brandLabel == branchName ("Gordon Short Chemist"),
+so it carries none of the six-branch bare-brandLabel ambiguity the checker
+also guards. It shares no host with any sister branch (hostMap has no entry
+pairing it with anyone), so the SISTER_TOWNS exemption inside the cross-town
+rule cannot apply here and any injected foreign town must fail on the plain
+absence rule, not the pinned sister-town path. serviceAreaList is Crosby,
+Waterloo, Sefton - none of the other ten live seoTowns are in it, so
+"Ainsdale" (Fishlocks) is a clean, unambiguous absence-rule target. It has
+no branch landing page (only six branches carry one, item 5.2), so the
+landingTitle/landingH1 leg of expectationsFor() never reaches this branch;
+its 12 pages are 1 Pharmacy First overview, 7 condition pages, contraception,
+weight-loss-clinic, travel-clinic and 1 switch page.
+
+METHOD
+Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch311b,
+entirely outside the tracked tree (this mount's FUSE unlink restriction,
+Q87/Q96/Q102, means restoration must be a byte copy rather than a git
+checkout; the scratch-copy method sidesteps needing either). Baseline
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac
+91f2ad1b102 (the standing regression anchor, unchanged throughout).
+tools/check-seo-pattern.js sha256 238fb0ecd690122591931a4605c91d8e5c3fd2ff
+3f87616fe4b64cb08cee7350, confirmed identical between the tracked repo and
+the scratch export before starting. Full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, standing convention, both network-
+dependent) clean on the tracked repo before any edit.
+
+SEVEN INJECTIONS (six real, one control) across five of Gordon Short's own
+twelve pages, each mutated on the scratch copy only, restored from an
+in-memory backup and sha256-reconfirmed identical before the next round:
+
+1. TITLE EXACT-MATCH - Pharmacy First page's SEO title line had "Crosby"
+   swapped for "Nowhereville". CAUGHT, "title '...' != '...'" naming both
+   strings.
+2. H1 EXACT-MATCH - UTI page's <h1> had "Crosby" swapped for "Nowhereville".
+   CAUGHT, "h1 '...' != '...'".
+3. ONE H1 - a second "<h1>Pharmacy in Ainsdale</h1>" inserted before the
+   switch page's real heading. CAUGHT, "2 h1 elements, expected exactly 1",
+   naming the file. This is the exact fault class the item 3.2 fourteenth-
+   pass note records: every h1 rule in this repo reads the first h1 and
+   stops, so without this rule a second heading naming a foreign town would
+   have been invisible to the cross-town rule too. Not separately isolated
+   this pass since the ONE H1 rule fires first by design and stops the page
+   being read further - matching the checker's own documented order.
+4. ONE TITLE LINE - a second "Weebly page SEO title" comment line (reading
+   a real Fishlocks Ainsdale title) appended after the Sore throat page's
+   real one. CAUGHT, "2 'Weebly page SEO title' lines, expected exactly 1".
+5. ONE DESCRIPTION LINE - a second "Weebly page SEO description" comment
+   line appended after the Contraception page's real one. CAUGHT, "2
+   'Weebly page SEO description' lines, expected exactly 1".
+6. CROSS-TOWN ABSENCE - "We also welcome patients from Ainsdale." appended
+   to the Shingles page's SEO description, title and h1 left untouched.
+   CAUGHT, "names 'Ainsdale', the seoTown of fishlocks_ainsdale, and
+   'ainsdale' is not in this branch's serviceAreaList" (plain absence path,
+   not the pinned sister-town path, confirming the branch's own hostMap
+   isolation as scoped above).
+7. CONTROL - an unrelated FAQ reword ("pharmacist" to "pharmacy team") on
+   the Insect bite page. Correctly passed, exit 0, no cross-firing into any
+   of the six rules above.
+
+All six real injections caught first attempt on their intended rule only;
+the control passed clean. Every mutated file was byte-identical to its
+pre-injection backup after restore (sha256-confirmed each time).
+
+VERIFICATION
+Tracked repo's branches.json and tools/check-seo-pattern.js reconfirmed
+sha256-unchanged throughout (never opened for writing this pass). All six
+generators (build-service-pages, build-switch-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages,
+build-branch-landing-pages) re-run against the tracked repo: exit 0, `git
+status --porcelain -- modules core` showing only the two long-standing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Full 34-checker suite re-run individually against the tracked repo
+after the rebuild: 34/34 exit 0.
+
+ZERO IN-REPO DEFECT. check-seo-pattern.js was already correctly holding
+Gordon Short Chemist Crosby's own pages to the exact title/H1 pattern, the
+service-word rule, the one-h1 rule, the one-title-line/one-description-line
+rule and the cross-town absence rule, now proven by direct injection against
+this branch specifically for the first time in twenty passes.
+
+LIVE HALF, read-only, three GETs via PowerShell Invoke-WebRequest on the
+native host (Claude in Chrome reported no tab group / not connected this
+run). pharmacy-first-service-crosby.html (the actual pfLink target, a
+live-only page this repo does not generate, per the eighth pass's own
+finding): 200, 77,871 bytes, 17 correct "Crosby" hits, 12 correct "Gordon
+Short Chemist" hits, 0 wrong-plural "Gordon Shorts" hits, 0 "Ainsdale" hits
+(no cross-town contamination live either). switch-prescriptions-gordon-
+short-crosby.html: 200, 75,953 bytes. sitemap.xml: this branch's URLs still
+lastmod 2026-08-15T07:41:55+00:00, unchanged, no republish since the sixth
+pass.
+
+No new question; QUESTIONS.json unchanged (110 total, 57 open). Evidence:
+audits/verify-3.11-2026-09-17-twentieth.js (parameterised, run against
+/tmp/scratch311b this pass) and this file.
