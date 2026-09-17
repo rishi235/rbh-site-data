@@ -1,0 +1,124 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton pack), nineteenth quality pass
+2026-09-17 (unattended scheduled run, audit-backlog-worker, run 63)
+
+FRESH ANGLE
+-----------
+All eight currently-open worklist items are [BLOCKED]. Fell to the
+quality-pass fallback. Rotation pool re-derived from git log commit dates per
+"Item N.N", excluding the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items
+(5.3/5.4/5.5/5.8/6.1/6.4/6.5/6.6). 3.13 (run 62's own pick) dropped out of
+stalest position by being touched yesterday (2026-09-16); 4.12 came out
+stalest in the remaining pool at 2026-09-16T15:12:55+01:00, the same value
+run 62's own log recorded as the "next candidate" behind 3.13. Picked 4.12.
+
+Eighteen prior passes on this item are recorded in AGENT_WORKLIST.md. The
+eighteenth (2026-09-16) proved the bank holiday special-hours rule in
+check-gbp-packs.js against this pack. Diffing every checker filename
+mentioned across all eighteen passes against the full tools/check-*.js
+listing (34 checkers) showed tools/check-pharmacy-first-safety-net.js had
+never been pointed at this branch specifically, although its sibling
+checkers on the same eligibility/cost axis - check-pharmacy-first-
+eligibility.js and check-pharmacy-first-cost.js - were both proven against
+this branch's own Pharmacy First pages on the fifteenth and sixteenth passes
+(2026-09-09, 2026-09-11). check-pharmacy-first-safety-net.js guards the
+"When to get different help" block on all seven NHS Pharmacy First condition
+pages: rules 1-5 read the generator's eligibleNo table, rules 6-7 read every
+generated condition page (98 estate-wide) for verbatim reproduction and
+cross-condition contamination. Coleman and Leighs Walton carries all seven
+condition pages (earache, impetigo, insect-bite, shingles, sinusitis,
+sore-throat, uti), so this is a live gap in this branch's own coverage
+record, not a hypothetical one.
+
+METHOD
+------
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp/scratch412. Tracked repo never opened for writing during the
+probe; confirmed via `git status --porcelain -- modules core tools
+branches.json gbp-packs` before and after, both times showing only the two
+long-standing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched.
+
+Baseline on the scratch copy: check-pharmacy-first-safety-net.js exit 0, 7
+ready conditions read, 98 condition pages checked, one standing WARN
+(impetigo names no urgent route, KNOWN exception against Q61, unchanged).
+sha256 of Coleman and Leighs Walton's own seven condition pages recorded
+before any injection:
+  earache      68c9d456ec622540c4cad37981f1f553703d016c6389e11df7deea7b5dc32775
+  impetigo     7815d4012b75f3a08a454eeb42206e91ce4863573ddedf71386602e5334fc7f9
+  insect-bite  2a606511f888f7e556dcefc4218f5dc391619a3286e1f1576ad1da1d4658a086
+  shingles     770a981dd31eeb0bdf22cbb380ecb04da1be7541df52d30860ead1cf201ebb57
+  sinusitis    50c491be580ec7cd83be1f3c393125a7c0cc27dd759ca7d7073f4bf9dc51ca72
+  sore-throat  926f673d9f745199eb3b1c90cae5ab64759eb4605b3d648a3bc29246b07dca7e
+  uti          b7992df8250897976a1ab0b4376c15a55a3100442d8256025e2110cde121ca86
+
+Three rounds run on the scratch copy, each restored by byte copy from a
+pre-injection backup (not git) and sha256-reconfirmed before the next:
+
+(1) RULE 6, verbatim - uti-treatment-coleman-leigh-walton.html's own safety
+    net point "Men with UTI symptoms should speak to a GP" reworded to
+    "Men with UTI symptoms should see a doctor" (generator text unchanged,
+    only the rendered page edited, simulating a hand-edit or stale paste) -
+    CAUGHT: "a safety-net point is missing from the page (rule 6)". Restored
+    and reconfirmed sha256 b7992df8...ca86 before the next round.
+
+(2) RULE 7, contamination - impetigo-treatment-coleman-leigh-walton.html
+    given a second safety-net point that belongs only to insect-bite,
+    "Swelling of the face, lips or throat, or difficulty breathing, is a
+    serious allergic reaction, call 999 now" (verbatim, appended after the
+    page's own "Babies under 1 should see a GP" point, which impetigo does
+    legitimately share with insect-bite and earache and was deliberately
+    left alone so the test isolates the genuinely foreign point) - CAUGHT:
+    "carries a safety-net point that belongs to the insect-bite pathway, not
+    this one (rule 7)". Restored and reconfirmed sha256 7815d401...4e2b7f9
+    before the next round.
+
+(3) CONTROL - uti-treatment-coleman-leigh-walton.html's postcode changed
+    L4 6TH -> L4 9ZZ (check-nap.js / check-postcodes.js territory, no
+    safety-net text touched) - check-pharmacy-first-safety-net.js ran clean,
+    same 98-page count, same single impetigo WARN, no new failure, confirming
+    the checker does not cross-fire on unrelated address changes. Restored
+    and reconfirmed sha256 b7992df8...ca86.
+
+All three rounds fired or passed on the first attempt, each on its intended
+rule only. Final sha256 of all seven Coleman and Leighs Walton condition
+pages on the scratch copy reconfirmed identical to the pre-injection
+baseline above. Final re-run of check-pharmacy-first-safety-net.js on the
+scratch copy: exit 0, same 98 pages, same single WARN, clean.
+
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) re-run against the TRACKED repo after the whole
+round: 34/34 exit 0, clean. Tracked repo confirmed to carry no diff on
+modules/core/tools/branches.json/gbp-packs throughout.
+
+RESULT
+------
+No defect found. Guard coverage for item 4.12 now extends to
+check-pharmacy-first-safety-net.js, proven by direct injection against this
+branch's own condition pages on both its page-level rules (6 and 7). The
+generator-level rules (1-5) were exercised indirectly by the baseline pass
+(all seven of this branch's conditions read cleanly with the standard
+generator-level facts) but not injection-tested this round, since rules 1-5
+read tools/build-service-pages.js's shared CONDITIONS table rather than any
+per-branch file, so an injection there would not be specific to Coleman and
+Leighs Walton - noted as a remaining angle for a future pass if a
+branch-specific test of the generator-level rules is wanted (it would in
+practice be an estate-wide test, not a per-branch one, since the generator
+has one CONDITIONS table for all fourteen branches).
+
+check-pharmacy-first-symptoms.js remains the one adjacent checker in the
+Pharmacy First family not yet proven against this branch specifically, along
+with the page-level checkers not typically covered under this GBP-pack item
+(check-jsonld.js, check-map-embeds.js, check-nap.js, check-opening-hours.js,
+check-seo-*.js, check-branch-identity.js, check-booking-routes.js,
+check-whatsapp-route.js, check-fragment-targets.js, check-widget-diaries.js,
+check-branch-links.js, check-address-region.js, check-service-links.js,
+check-switch-copy.js, check-contraception-copy.js,
+check-travel-clinic-copy.js, check-page-coverage.js, check-editor-
+snapshot.js) - these apply estate-wide to generated pages rather than to the
+GBP pack this item names, and have been exercised only as part of the
+34-checker suite, not injection-tested against this branch's own pages.
+
+No generator, page, checker, pack or branches.json content changed. No new
+question raised.

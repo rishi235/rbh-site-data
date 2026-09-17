@@ -23587,6 +23587,57 @@ directly rather than re-deriving the same facts by hand.
       gap, the Q22 tagline) stand as written, not re-verified page-by-page
       this pass. No new question; QUESTIONS.json unchanged (109 total, 56
       open). Done 2026-09-16.
+      Nineteenth quality pass 2026-09-17 (unattended scheduled run,
+      audit-backlog-worker; all eight open worklist items still [BLOCKED],
+      fell to the quality-pass fallback; rotation pool re-derived from git
+      log commit dates per "Item N.N" excluding the seven out-of-rotation
+      items and the eight blocked items, 4.12 stalest at
+      2026-09-16T15:12:55+01:00 once 3.13 dropped out by being touched
+      yesterday). FRESH ANGLE: diffed every checker filename mentioned
+      across all eighteen prior passes against the full 34-checker listing;
+      tools/check-pharmacy-first-safety-net.js had never been pointed at
+      this branch, although its sibling checkers on the same axis
+      (check-pharmacy-first-eligibility.js, check-pharmacy-first-cost.js)
+      were proven against it on the fifteenth and sixteenth passes. This
+      checker guards the "When to get different help" safety-net block on
+      all seven Pharmacy First condition pages, which this branch carries
+      in full (earache, impetigo, insect-bite, shingles, sinusitis,
+      sore-throat, uti). Full repo copied to a scratch directory under
+      /tmp; tracked repo never opened for writing, confirmed unchanged
+      throughout (git status --porcelain clean bar the two long-standing
+      untracked strays). Baseline: exit 0, 7 ready conditions, 98 pages
+      estate-wide, one standing WARN (impetigo, no urgent route, KNOWN
+      against Q61). sha256 of this branch's own seven condition pages
+      recorded before any injection. Three rounds, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) RULE 6 verbatim -
+      reworded the UTI page's own safety-net point "Men with UTI symptoms
+      should speak to a GP" to "...should see a doctor" - CAUGHT, "a
+      safety-net point is missing from the page (rule 6)"; (2) RULE 7
+      contamination - appended insect-bite's anaphylaxis point ("Swelling
+      of the face, lips or throat, or difficulty breathing...call 999 now")
+      onto the impetigo page, deliberately leaving alone the "Babies under
+      1" point impetigo legitimately shares with insect-bite so the test
+      isolated the genuinely foreign point - CAUGHT, "carries a safety-net
+      point that belongs to the insect-bite pathway, not this one (rule
+      7)"; (3) CONTROL - UTI page postcode changed L4 6TH -> L4 9ZZ,
+      unrelated to safety-net text - ran clean, same 98-page count, same
+      single WARN, confirming no cross-firing with the address checkers'
+      own territory. All three fired or passed first attempt on their
+      intended rule only. Final sha256 of all seven pages reconfirmed
+      identical to baseline. Full 34-checker suite re-run against the
+      TRACKED repo after the whole round (check-cdn-pins.js and
+      check-live-hours.js excluded, both network-dependent): 34/34 exit 0,
+      clean; tracked repo confirmed to carry no diff throughout. RESULT: no
+      defect found. Guard coverage for item 4.12 now extends to
+      check-pharmacy-first-safety-net.js on its two page-level rules (6 and
+      7); rules 1-5 read the generator's shared CONDITIONS table rather
+      than any per-branch file, so a branch-specific injection there is not
+      meaningful - noted as an estate-wide angle rather than a per-branch
+      one for a future pass. No generator, page, checker, pack or
+      branches.json content changed; no new question raised; QUESTIONS.json
+      unchanged (110 total, 57 open). Evidence:
+      audits/coleman-leigh-walton-pf-safety-net-4.12-nineteenth-2026-09-17.txt.
+      Done 2026-09-17.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

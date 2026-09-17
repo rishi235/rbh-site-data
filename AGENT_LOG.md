@@ -1,4 +1,106 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 62; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.13 (Clear Chemist, Aintree) eighteenth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 63; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.12 (Coleman and Leighs Pharmacy, Walton) nineteenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
+timestamp (2026-09-17T10:04:07Z). `git status` clean, no rebase-merge or
+MERGE_HEAD in progress, no stale `.git/index.lock` at run start. Already on
+`agents/audit-backlog`, `git fetch origin` / `pull --ff-only` confirmed
+already at origin's HEAD (run 62's own final commit, fa7dcfa).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (last
+entry 2026-09-01T22:44:51.524Z). Checked every currently open question (57
+open, Q37 through Q110 minus the answered/closed ones) against the feed: no
+reply newer than 2026-09-01T22:44:51.524Z for any of them. Q37 and Q43 both
+already carry their 2026-09-01 portal replies on record (both marked "not a
+decision" in QUESTIONS.json, unchanged). QUESTIONS.json otherwise unchanged
+(110 total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 62's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], same set as every recent run. Fell to the quality-pass
+fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 62 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 3.13
+(run 62's own pick) dropped out of stalest position by being touched
+yesterday (2026-09-16); 4.12 came out stalest in the remaining pool at
+2026-09-16T15:12:55+01:00, the exact value run 62's own log recorded as the
+"next candidate" behind 3.13. Picked 4.12.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.12 nineteenth-pass
+paragraph and
+audits/coleman-leigh-walton-pf-safety-net-4.12-nineteenth-2026-09-17.txt.
+Checker under fresh test: tools/check-pharmacy-first-safety-net.js, chosen
+because it had never been pointed at this branch specifically despite its
+sibling checkers on the same axis (eligibility, cost) both having been
+proven against it on the fifteenth and sixteenth passes, and this branch
+carries all seven Pharmacy First condition pages the checker guards.
+
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp, tracked repo never opened for writing during the probe.
+Baseline confirmed clean: check-pharmacy-first-safety-net.js exit 0 on the
+scratch copy (7 ready conditions, 98 condition pages estate-wide, one
+standing WARN - impetigo names no urgent route, KNOWN against Q61); sha256
+of Coleman and Leighs Walton's own seven condition pages recorded.
+
+Three injections run on the scratch copy, each restored by byte copy (not
+git) and sha256-reconfirmed before the next: (1) RULE 6 VERBATIM - reworded
+the UTI page's own safety-net point "Men with UTI symptoms should speak to a
+GP" to "...should see a doctor" (page text only, generator untouched) -
+CAUGHT, "a safety-net point is missing from the page (rule 6)"; (2) RULE 7
+CONTAMINATION - appended insect-bite's anaphylaxis point onto the impetigo
+page, deliberately leaving alone the "Babies under 1" point the two
+conditions legitimately share so the test isolated the genuinely foreign
+point - CAUGHT, "carries a safety-net point that belongs to the insect-bite
+pathway, not this one (rule 7)"; (3) CONTROL - UTI page postcode changed L4
+6TH -> L4 9ZZ, unrelated to safety-net text - ran clean, same 98-page count,
+same single WARN, confirming no cross-firing with the address checkers' own
+territory.
+
+sha256 of all seven touched-or-adjacent pages reconfirmed byte-identical to
+baseline after every restore. Full 34-checker suite re-run against the
+TRACKED repo after the whole round (check-cdn-pins.js and check-live-hours.js
+excluded, both network-dependent): 34/34 exit 0, clean. Tracked repo git
+status --porcelain -- modules core tools branches.json gbp-packs
+reconfirmed before and after the pass: only the same two long-standing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. No generator, page, checker or branches.json content changed.
+
+RESULT: no defect found. Guard coverage for item 4.12 now extends to
+check-pharmacy-first-safety-net.js on its two page-level rules (6 and 7);
+its generator-level rules (1-5) read a shared CONDITIONS table rather than
+any per-branch file, so a branch-specific injection there would not be
+meaningful and is noted as an estate-wide angle for a future pass instead.
+No new question raised.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 4.12 nineteenth-pass paragraph
+appended, no line ticked - item was already [x]), new file
+audits/coleman-leigh-walton-pf-safety-net-4.12-nineteenth-2026-09-17.txt,
+this log entry.
+
+GIT WRITE ROUTE (steps 9-11): following the standing convention (Q87/Q96/
+Q102), used mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data working copy for the commit, push and status-page
+publish, since the sandbox shell (mcp__workspace__bash) has no working
+GitHub credential and its FUSE mount cannot reliably unlink git's own lock
+files. The two new/changed files were already visible there (same connected
+folder, no re-add needed). `git add`, `git commit` and `git push origin
+agents/audit-backlog` all completed cleanly with the host's own configured
+credential, no prompt or error. `node tools/build-audit-status.js`, also run
+via PowerShell on the real host, published
+reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal.
+`.agent-lock` deleted via PowerShell at run end; confirmed absent from both
+the real host and the sandbox mount afterwards.
+
+---
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
 timestamp. `git status` triggered the same recurring cosmetic
