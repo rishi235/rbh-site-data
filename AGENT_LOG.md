@@ -1,3 +1,77 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 55; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests (under the outputs mount, tar-copied excluding .git) and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, network/cross-repo); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) twentieth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh UTC timestamp. `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally; already at origin's HEAD (run 54's own
+final commit), nothing to pull. Several hundred stray `.agent-lock.*` and
+`.git/*.lock.*` renamed debris files remain untouched in the working tree,
+out of scope, same standing note as every recent run.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, closed after reading, nothing
+clicked or submitted. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied, per every run since 2026-09-01.
+No new answer to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 54's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all nine unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived via `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, matched against "Item N.N", taking each item's most
+recent commit date, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 3.2
+came out stalest at 2026-09-16T10:17:56+01:00, clear of the next candidate
+(6.3 at 10:44:59) and everything else in the pool. Picked 3.2.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.2 twentieth-pass
+paragraph and audits/scorah-item-3.2-quality-pass-2026-09-17-twentieth.txt.
+In summary: proved tools/check-nap.js by direct injection against Scorah's
+own pages for the first time in twenty passes - a checker heavily proven
+elsewhere in the repo but never once targeted at this shared-domain,
+two-branch pair. Baseline all 34 runnable checkers clean, branches.json
+sha256 unchanged from run 54's anchor. Full repo tar-copied (excluding
+.git) to a scratch directory under the outputs mount. Four injections, each
+restored by byte copy and sha256-reconfirmed before the next: (1) McCanns
+Aigburth's phone in a dotted shape added to Bramhall's sinusitis-treatment
+page - caught, correctly attributed to McCanns Chemist Aigburth; (2)
+"Smartts Chemist" named on Hazel Grove's impetigo-treatment page - caught;
+(3) Smartts Bootle's street in abbreviated form ("42 Fernhill Rd") added to
+Bramhall's insect-bite-treatment page - caught, abbreviation correctly
+expanded in the report; (4) a benign control rewording - ran clean. All
+three fault injections fired on their intended rule only, no cross-fire;
+full 34-checker suite clean after the final restore. Tracked repo confirmed
+untouched throughout by sha256 and git status. No in-repo defect found.
+Guard coverage for item 3.2 now extends to 15 of 36 checkers proven by
+direct injection (up from 14). Live half via Claude in Chrome corroborated
+the repo-side finding (the live sinusitis-treatment page's un-injected body
+copy matches the tracked page verbatim) and incidentally reconfirmed the
+standing Q43 finding on the same page (truncated house number and Cheshire
+vs Greater Manchester in the live Weebly furniture), already fully tracked.
+No new question raised.
+
+WORKLIST AND LOG (step 7): AGENT_WORKLIST.md's item 3.2 line already
+carried "Done 2026-08-04" from its original build; the twentieth-pass
+paragraph was appended immediately beneath the nineteenth's within the
+same item block, and this entry added to the top of AGENT_LOG.md.
+QUESTIONS.json not touched (no answer pickup, no new question).
+
+COMMIT / PUSH (step 9): pending - see below.
+
+PUBLISH (step 10): pending - see below.
+
+LOCK RELEASE (step 11): .agent-lock deleted (or renamed, if the same
+unlink defect applied) at the end of this run.
+
+No secrets or credentials encountered. No weight loss copy touched. UK
+English, no em dashes, no emojis maintained throughout this entry and the
+audit file.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 54; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.1 (SEO title/H1 pattern verifier) twentieth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a

@@ -1,0 +1,112 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - twentieth quality pass
+2026-09-17, unattended scheduled run (audit-backlog-worker, run 55)
+
+Purpose: extend item 3.2's per-checker injection coverage to a checker never
+before deliberately targeted at Scorah's own pages: tools/check-nap.js.
+Nineteen prior passes had proven check-seo-pattern.js, check-seo-lengths.js,
+check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+check-app-membership.js, check-switch-copy.js and check-weight-loss-copy.js
+against Scorah's own pages or data by direct injection (14 of 36).
+check-nap.js is one of the most heavily proven checkers in the repo overall
+(injected against Cherry Lane, the switch shared template and others across
+many earlier items), but had never once been named against either Scorah
+branch's own 26 pages, despite Scorah being exactly the shared-domain,
+two-branch pair (Bramhall and Hazel Grove, one website, two postcodes, two
+phone numbers) that a foreign-fact leak between sister branches is most
+likely to land on unnoticed.
+
+BASELINE: all 34 runnable checkers (check-cdn-pins.js and check-live-hours.js
+excluded per established convention - network/cross-repo) exit 0 on the
+tracked repo before any work. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 recorded and
+unchanged throughout, matching the standing anchor from run 54 earlier today.
+Repo copied with `tar --exclude='.git'` to a scratch directory under the
+outputs mount; branches.json in the copy confirmed byte-identical to the
+tracked repo by sha256 before any injection. The tracked repo was never
+opened for writing during any injection; all edits below were made only in
+the scratch copy.
+
+FOUR INJECTIONS against the scratch copy (three fault, one benign control),
+each restored by direct byte copy from the tracked repo and sha256-
+reconfirmed identical before the next:
+
+  1. PHONE SWEEP - modules/service/pages/sinusitis-treatment-scorah-
+     bramhall.html: step-1 body copy had "For our Aigburth branch call
+     0151.727.3185." appended, using McCanns Aigburth's real phone number in
+     a dotted shape, away from both the "Call" and "Phone:" label patterns
+     the older, narrower readers key on. CAUGHT: exactly one MISMATCH,
+     'phone "0151.727.3185" belongs to McCanns Chemist Aigburth, not Scorah
+     Chemists Bramhall', correctly identifying the true owning branch by
+     comparing digits rather than just flagging an unrecognised string.
+     Restored; sha256
+     21a5c246f597f6eebe5ad26af77c0c3ce2f4ab40140424738536099652e0beac
+     confirmed on both the tracked file and the scratch copy before and
+     after.
+
+  2. NAME SWEEP - modules/service/pages/impetigo-treatment-scorah-hazel-
+     grove.html: step-1 body copy had "If we are closed, Smartts Chemist
+     nearby may also be able to help." appended. CAUGHT: exactly one
+     MISMATCH, 'names another pharmacy "Smartts Chemist" (smartts_bootle) in
+     page copy, but this page belongs to Scorah Chemists Hazel Grove'.
+     Restored; sha256
+     2f96a9e40314a765ee05fb80ccc5d3ee19fea746b031124975720c9380d0fdc6
+     confirmed before and after.
+
+  3. STREET SWEEP - modules/service/pages/insect-bite-treatment-scorah-
+     bramhall.html: step-1 body copy had "Our sister site at 42 Fernhill Rd
+     also runs walk-ins." appended, using Smartts Bootle's street in its
+     ABBREVIATED form ("Rd" rather than "Road") to prove the abbreviation
+     rule as well as the base match. CAUGHT: exactly one MISMATCH, 'carries
+     another branch's street address "42 Fernhill Road" (smartts_bootle),
+     but this page belongs to Scorah Chemists Bramhall at "61-63 North Park
+     Road"' - the checker correctly expanded the abbreviation to identify
+     the true full street name in its report. Restored; sha256
+     ca08caf0603798267bfbf90aa85f1c22bd580cb6cf64aaa5d688c6ee7124a5f5
+     confirmed before and after.
+
+  4. CONTROL - modules/service/pages/sore-throat-treatment-scorah-hazel-
+     grove.html: step-1 body copy reworded ("In most cases you will be seen
+     the same day." replacing "You can often be seen the same day.") with no
+     foreign fact of any kind introduced. Ran clean, 0 mismatches, confirming
+     the checker does not cry wolf on an ordinary copy edit. Restored; sha256
+     4c70ac25bf34ba7bb191357c5c5cdae6713b6fb8b81c3f771b351854fb759c26
+     confirmed before and after.
+
+All three fault injections fired on their intended rule only, first attempt,
+with no cross-fire from any of check-nap.js's other sweeps (phone, postcode,
+email, name, street, surface-presence) or from any other checker. The
+control produced no failure. Full 34-checker suite re-run directly on the
+scratch copy after the final restore: 34/34 exit 0. Tracked repo confirmed
+untouched throughout: git status --porcelain shows zero changes to any
+tracked file (only the standing pre-existing untracked debris and lock-file
+noise every recent run has recorded); branches.json sha256 re-confirmed
+unchanged at the run's end.
+
+Guard coverage for item 3.2 now extends to 15 of 36 checkers proven by
+direct injection (up from 14).
+
+LIVE HALF (Claude in Chrome connected this run, one tab, read-only, closed
+after reading): fetched the live sinusitis-treatment-scorah-bramhall.html
+page (one of the three injection targets) to confirm the un-injected body
+copy the checker actually guards matches what a patient reads today. The
+live step-1 sentence reads "Book a Pharmacy First appointment online, or
+call us. You can often be seen the same day." - verbatim, matching the
+tracked repo's own (uninjected) page exactly, with no trace of any injected
+text, confirming the scratch-only nature of all four edits above.
+
+Incidentally, and not a new question: the same page's Weebly furniture
+reconfirms the standing Q43 finding exactly as already recorded in
+WEEBLY_FURNITURE_CHECKLIST.md and QUESTIONS.json - the site-wide footer
+strip still truncates the house number ("Bramhall: 61 North Park Road"
+rather than "61-63"), and the hand-typed contact block above it still gives
+the county as "Cheshire" against branches.json's and the page's own JSON-LD
+"Greater Manchester". Both are live-only Weebly furniture no generator or
+checker here can reach, already fully described in Q43, and Rishi's
+2026-09-01 portal reply on Q43 remains the last word (unsure, leaning toward
+keeping Cheshire, no decision yet on the truncated number). No action taken,
+no new question raised.
+
+No in-repo defect found. No new fault class in check-nap.js itself. No new
+question.

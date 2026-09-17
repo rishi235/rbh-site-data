@@ -3802,6 +3802,54 @@ audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt.
       already recorded. No in-repo defect, no new fault class, no new
       question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-16-nineteenth.txt.
+      Quality pass 2026-09-17 (twentieth, unattended scheduled run via
+      Cowork, run 55, independently derived as stalest of the rotation pool
+      by most-recent-commit-date after excluding the standing out-of-rotation
+      items and the eight currently [BLOCKED] worklist items). Nineteen
+      prior passes had proved check-seo-pattern.js, check-seo-lengths.js,
+      check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+      check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+      check-app-membership.js, check-switch-copy.js and
+      check-weight-loss-copy.js against Scorah's own pages or data by direct
+      injection; check-nap.js, one of the most heavily proven checkers in
+      the repo overall, had never once been targeted at either Scorah
+      branch's own pages, despite Scorah being exactly the shared-domain,
+      two-branch pair a foreign-fact leak between sisters is most likely to
+      land on unnoticed. Baseline: all 34 runnable checkers (cdn-pins and
+      live-hours excluded per convention) exit 0; branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      recorded and unchanged throughout, matching run 54's own anchor from
+      earlier today. Full repo copied by tar (excluding .git) to a scratch
+      directory under the outputs mount, tracked repo never opened for
+      writing. Four injections against Scorah's own pages, each restored by
+      direct copy and sha256-reconfirmed byte-identical before the next: (1)
+      PHONE SWEEP - McCanns Aigburth's real number in a dotted shape ("call
+      0151.727.3185") added to Bramhall's sinusitis-treatment page body copy
+      - CAUGHT, correctly named as belonging to McCanns Chemist Aigburth;
+      (2) NAME SWEEP - "Smartts Chemist" named in Hazel Grove's
+      impetigo-treatment page body copy - CAUGHT, exactly one failure; (3)
+      STREET SWEEP - Smartts Bootle's street in its abbreviated form ("42
+      Fernhill Rd") added to Bramhall's insect-bite-treatment page body copy
+      - CAUGHT, exactly one failure, the checker correctly expanding the
+      abbreviation to report the full street name; (4) CONTROL - a benign
+      rewording with no foreign fact on Hazel Grove's sore-throat-treatment
+      page - ran clean. All three fault injections fired on their intended
+      rule only, first attempt, no cross-fire; the control produced no
+      failure. Full 34-checker suite clean after the final restore; tracked
+      repo confirmed untouched throughout by sha256 and git status
+      --porcelain (only the standing pre-existing untracked debris). No
+      in-repo defect. Guard coverage for item 3.2 now extends to 15 of 36
+      checkers proven by direct injection (up from 14). LIVE HALF via Claude
+      in Chrome: the live sinusitis-treatment-scorah-bramhall.html page's
+      un-injected body copy matches the tracked repo's own page verbatim,
+      confirming the scratch-only nature of all four edits. Incidentally
+      reconfirmed the standing Q43 finding (Bramhall's live Weebly furniture
+      still truncates the house number and still gives the county as
+      Cheshire against branches.json's Greater Manchester) exactly as
+      already recorded; no new question. No new fault class, no new
+      question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-17-twentieth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
