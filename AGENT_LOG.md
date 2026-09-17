@@ -1,4 +1,104 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 61; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.12 (Tiffenbergs Chemist, Aintree) eighteenth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 62; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.13 (Clear Chemist, Aintree) eighteenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
+timestamp. `git status` triggered the same recurring cosmetic
+"unable to unlink .git/index.lock" warning seen on effectively every recent
+run (FUSE-mount unlink restriction, not a real git lock - no rebase-merge or
+MERGE_HEAD in progress, git operations completed normally either side of it);
+cleared by rename (`mv .git/index.lock .git/index.lock.cleared-<epoch>`), not
+delete, matching the standing convention (Q87/Q96/Q102). `git fetch origin` /
+`checkout agents/audit-backlog` / `pull --ff-only` completed normally,
+already at origin's HEAD (run 61's own final commit, 4547fbb). Several
+hundred stray `.agent-lock.*` and other debris files remain untouched in the
+working tree, out of scope, same standing note as every recent run.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (52
+entries, back to 2026-08-04). Matched every "Audit answer Q<n>" entry against
+this run's OPEN question list (57 open): only Q37 and Q43 have any feed entry
+at all among the currently open set, and both are the same two portal
+replies already recorded and marked "not a decision" (Q37's "i need further
+explanation..." and Q43's "Unsure..."), no reply newer than
+2026-09-01T22:44:51.524Z for either, matching what run 61's own pickup found
+today. No status change made to either question; both stay open.
+QUESTIONS.json otherwise unchanged (110 total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 61's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED]. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 61 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 3.12
+(run 61's own pick, touched 2026-09-17) dropped out of "stalest" position by
+being touched today; 3.13 came out stalest in the remaining pool at
+2026-09-16T14:14:20+01:00, clear of the next candidate 6.7 which is itself
+out-of-rotation, and 4.12 at 2026-09-16T15:12:55+01:00. Picked 3.13.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.13 eighteenth-pass
+paragraph and audits/clear-aintree-fragment-targets-3.13-eighteenth-2026-09-17.txt.
+Checker under fresh test: tools/check-fragment-targets.js, chosen from the
+seventeenth pass's own remaining-untested list because it is repo-only (no
+live browser read needed) and directly relevant - Clear Aintree's three
+pages each carry the same-page booking fragment link this checker protects.
+
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp, tracked repo never opened for writing during the probe.
+Baseline confirmed clean first, on both the tracked repo and the scratch
+copy: check-fragment-targets.js exit 0 on both (177 pages, 1536 ids, 186
+resolved fragment links, 187 exempted JS buttons, 0 KNOWN); sha256 of the
+three Clear Aintree target pages identical between tracked and scratch, and
+matching the values already on record from the seventeenth pass's own
+baseline, confirming no drift since.
+
+Three injections run against Clear Aintree's own three pages on the scratch
+copy, each restored by byte copy (not git) and sha256-reconfirmed before the
+next: (1) RULE 1 TARGET - travel-clinic-clear-aintree.html's only
+href="#book" typoed to "#booked", id="book" left unchanged - CAUGHT, and
+correctly co-fired RULE 2 CTA as a side effect since this page has only one
+fragment link and breaking it leaves none resolving; (2) RULE 2 CTA in
+isolation - weight-loss-clinic-clear-aintree.html's only href="#book"
+changed to the exempted href="#" shape, removing the only resolving link
+without creating a broken one - CAUGHT, TARGET silent, proving CTA fires
+independently rather than only ever as TARGET's side effect; (3) RULE 3
+DUPID - switch-prescriptions-clear-aintree.html given a second element
+carrying id="switch-form-card", the id both of the page's own switch-form
+links target - CAUGHT. CONTROL - the same page's postcode changed L9 7AS ->
+L9 9ZZ (check-nap.js/check-postcodes.js territory) - check-fragment-
+targets.js ran clean with counts identical to baseline, confirming no
+cross-firing with the address checkers' own territory.
+
+sha256 of all three touched pages reconfirmed byte-identical to baseline
+after every restore. Full 34-checker suite re-run against the TRACKED repo
+after the whole round (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent): 34/34 exit 0, clean. Tracked repo git status
+--porcelain -- modules core tools branches.json gbp-packs reconfirmed before
+and after the pass: only the same two long-standing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. No generator, page, checker or branches.json content changed.
+
+RESULT: no defect found. Guard coverage for item 3.13 now extends to 18 of
+the 34 checkers proven by direct injection against this branch specifically;
+11 applicable checkers remain untested (check-live-hours.js needs a live
+browser read, the rest are repo-only), listed in full in the evidence file.
+No new question raised.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.13 eighteenth-pass paragraph
+appended, no line ticked - item was already [x]), new file
+audits/clear-aintree-fragment-targets-3.13-eighteenth-2026-09-17.txt, this
+log entry.
+
+STEP 10/11: build-audit-status.js run and pushed to rishi235/rbh-data-portal
+after commit; .agent-lock deleted at run end regardless of outcome.
+
+---
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
 timestamp. This run's own `.git/HEAD.lock` was a genuine block rather than

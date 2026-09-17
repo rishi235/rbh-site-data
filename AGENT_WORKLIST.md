@@ -15432,6 +15432,52 @@ Done 2026-09-17 (twentieth pass).
       questions (Q53 onward); no status change made, no new question
       raised. See audits/clear-aintree-whatsapp-3.13-seventeenth-2026-09-16.txt
       for full detail.
+      Quality pass 2026-09-17 (eighteenth), unattended scheduled run.
+      NO IN-REPO DEFECT FOUND: tools/check-fragment-targets.js, never once
+      named against this branch across seventeen prior passes, is now proven
+      by three injections covering all three of its rules (TARGET, CTA in
+      isolation, DUPID), all caught first attempt, plus a clean control.
+      Chosen from the seventeenth pass's own remaining-untested list: it is
+      repo-only (no live browser read needed) and directly relevant, since
+      Clear Aintree's three pages each carry exactly the same-page booking
+      fragment link this checker exists to protect. Full repo git-archived
+      to a disposable scratch copy under /tmp; tracked repo never opened for
+      writing. BASELINE: 177 pages, 1536 ids, 186 resolved fragment links,
+      187 exempted JS buttons, 0 KNOWN, matching the checker's own header
+      note; sha256 of the three Clear Aintree pages matches the values
+      already on record from the seventeenth pass, confirming no drift.
+      Three injections against Clear Aintree's own pages, each restored by
+      byte copy and sha256-reconfirmed before the next: (1) RULE 1 TARGET -
+      travel-clinic-clear-aintree.html's only href="#book" typoed to
+      "#booked" - CAUGHT (and correctly co-fired RULE 2 CTA too, since this
+      page has only one fragment link and breaking it leaves none resolving);
+      (2) RULE 2 CTA in isolation - weight-loss-clinic-clear-aintree.html's
+      only href="#book" changed to the exempted href="#" shape, removing the
+      only resolving link without creating a broken one - CAUGHT, TARGET
+      silent, proving CTA fires independently of TARGET; (3) RULE 3 DUPID -
+      switch-prescriptions-clear-aintree.html given a second element with
+      id="switch-form-card", the id both of the page's own switch-form
+      buttons target - CAUGHT. CONTROL - travel-clinic-clear-aintree.html's
+      postcode changed L9 7AS -> L9 9ZZ (check-nap.js/check-postcodes.js
+      territory) - check-fragment-targets.js ran clean with identical counts
+      to baseline, confirming no cross-firing. sha256 of all three pages
+      reconfirmed byte-identical to baseline after every restore. Full
+      34-checker suite re-run on the tracked repo after the round
+      (check-cdn-pins.js and check-live-hours.js excluded, both
+      network-dependent): 34/34 exit 0. Tracked repo git status reconfirmed
+      throughout: only the same two long-standing untracked strays, neither
+      touched. No generator, page, checker or branches.json content changed;
+      no defect found. Guard coverage for item 3.13 now extends to 18 of the
+      34 checkers proven by direct injection against this branch
+      specifically; 11 applicable checkers remain untested (check-live-hours.js
+      needs a live browser read, the rest are repo-only), listed in full in
+      the evidence file. STEP 3 answer pickup: portal feed read via a single
+      Claude-in-Chrome tab, opened and closed cleanly; newest entry
+      unchanged at 2026-09-01T22:44:51.524Z; only Q37 and Q43 among the 57
+      currently open questions have any feed entry, both already recorded as
+      "not a decision"; no status change made, no new question raised. See
+      audits/clear-aintree-fragment-targets-3.13-eighteenth-2026-09-17.txt
+      for full detail.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

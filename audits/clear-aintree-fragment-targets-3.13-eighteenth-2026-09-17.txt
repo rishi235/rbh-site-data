@@ -1,0 +1,128 @@
+Item 3.13 (Clear Chemist Aintree) - eighteenth quality pass, 2026-09-17
+Checker under fresh test: tools/check-fragment-targets.js
+(never previously named against this branch across seventeen prior passes)
+
+CONTEXT
+-------
+Seventeenth pass (2026-09-16) proved check-whatsapp-route.js against this
+branch, taking guard coverage to 17 of 34 checkers proven by direct injection
+against Clear Chemist Aintree specifically, and listed the remaining
+untested-but-applicable checkers. check-fragment-targets.js was chosen from
+that list for this pass: it is repo-only (no live browser read required),
+mechanical, and directly relevant to this branch because Clear Aintree's
+three pages (weight loss, travel clinic, switch) are exactly the family this
+checker exists to protect - the same-page "Book an appointment" / switch-form
+fragment link is the primary call to action on each of them.
+
+METHOD
+------
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp/scratch-3.13-fragtargets. Tracked repo never opened for
+writing during the probe; only read for the pre- and post-baseline runs and
+the final full-suite confirmation.
+
+BASELINE
+--------
+Tracked repo, tools/check-fragment-targets.js: exit 0.
+  177 generated pages read, 1536 ids declared, 186 same-page fragment links
+  resolved, 187 JS-driven href="#" buttons exempted, 0 held under KNOWN.
+sha256 of the three Clear Aintree target pages and the checker itself,
+tracked repo:
+  modules/service/pages/travel-clinic-clear-aintree.html
+    a42a3d3a3c607b3e856680fd2e882155a9b82de2a45a4433fb3dc6756ded4796
+  modules/service/pages/weight-loss-clinic-clear-aintree.html
+    240b32e42ef9b3050f75ba15d184bf30a711b9b4c81128eb1e939ec95e443224
+  modules/switch/pages/switch-prescriptions-clear-aintree.html
+    8e18d9019416aee8a45818d6c2018637edece63bd4db5973695aab69880c199a
+  tools/check-fragment-targets.js
+    68b94e09d82f2351507a509764f4707ad73c8b780e629ee23ec189c6a9fde474
+(the three page hashes match the values already on record from the
+seventeenth pass's own baseline, confirming no drift between runs.)
+Scratch copy baseline: identical run, identical four sha256 values.
+
+INJECTIONS (all against Clear Aintree's own three pages), each restored by
+byte copy from the tracked repo (not git) and sha256-reconfirmed before the
+next:
+
+1. RULE 1 (TARGET) - travel-clinic-clear-aintree.html's only fragment link
+   href="#book" typoed to href="#booked"; the id="book" booking card was left
+   unchanged, so the link no longer resolves.
+   CAUGHT, and correctly co-fired RULE 2 as well since this page carries only
+   one fragment link and breaking it leaves zero resolving links:
+     FAIL  TARGET   modules/service/pages/travel-clinic-clear-aintree.html:
+     href="#booked" but no element on this page declares id="booked". The
+     link scrolls nowhere.
+     FAIL  CTA      modules/service/pages/travel-clinic-clear-aintree.html
+     carries no resolving same-page fragment link at all. [...]
+   Exit 1. Restored, sha256 back to a42a3d3a... .
+
+2. RULE 2 (CTA), isolated - weight-loss-clinic-clear-aintree.html's only
+   fragment link href="#book" changed to href="#" (a JS-button-shaped href,
+   exempted from RULE 1 by design), so the page loses its only resolving
+   fragment link without creating a broken one, proving RULE 2 fires
+   independently of RULE 1 rather than only as a side effect of it.
+   CAUGHT, TARGET silent as expected:
+     FAIL  CTA      modules/service/pages/weight-loss-clinic-clear-aintree.html
+     carries no resolving same-page fragment link at all. Every service page
+     in this estate has a booking card reached by one, so this page has lost
+     its call to action, and rule 1 cannot see that because a page with no
+     fragment links has no broken ones.
+   Exit 1. Restored, sha256 back to 240b32e4... .
+
+3. RULE 3 (DUPID) - switch-prescriptions-clear-aintree.html given a second
+   element carrying id="switch-form-card" (the form card's own id, already
+   declared once and targeted by two href="#switch-form-card" links on this
+   page).
+   CAUGHT:
+     FAIL  DUPID    modules/switch/pages/switch-prescriptions-clear-aintree.html:
+     id="switch-form-card" is declared 2 times. A browser jumps to the first,
+     so the later one is unreachable and this is normally a generator
+     emitting a block twice.
+   Exit 1. Restored, sha256 back to 8e18d901... .
+
+CONTROL - travel-clinic-clear-aintree.html's visible postcode and JSON-LD
+postalCode changed L9 7AS -> L9 9ZZ (check-nap.js / check-postcodes.js
+territory, not this checker's). check-fragment-targets.js ran clean, exit 0,
+identical counts to baseline (186 resolved, 187 exempted) - confirms no
+cross-firing with the address checkers' own territory. Restored, sha256 back
+to a42a3d3a... .
+
+VERIFICATION
+------------
+sha256 of all three Clear Aintree pages re-checked against the pre-injection
+baseline after every restore: IDENTICAL throughout the round.
+Tracked repo git status --porcelain -- modules core tools branches.json
+gbp-packs, before and after the whole pass: only the same two long-standing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched, neither created by this pass.
+Full 34-checker suite re-run against the TRACKED repo after the whole round
+(check-cdn-pins.js and check-live-hours.js excluded, both network-dependent):
+34/34 exit 0, clean.
+
+RESULT: no defect found. check-fragment-targets.js proven clean and correctly
+firing on all three of its rules (TARGET, CTA in isolation, DUPID) via
+injections specific to Clear Chemist Aintree's own three pages, plus a silent
+control, for the first time across eighteen passes on this item.
+
+Guard coverage for item 3.13 now extends to 18 of the 34 checkers proven by
+direct injection against this branch specifically. Untested and applicable:
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-gbp-packs.js, check-live-hours.js (network-dependent, needs a live
+browser read), check-page-coverage.js, check-seo-sheets.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js. Not applicable to this branch (unchanged from the
+seventeenth pass's list): check-app-membership.js (estate-wide only, Clear
+Aintree's hasApp:true membership already covered in the app-membership
+item's own pass), check-contraception-copy.js (no contraception widget),
+check-opening-hours.js (no public NHS profile hours, see the branch's own
+schemaNote), check-gbp-pharmacy-first.js and the three other Pharmacy First
+checkers (pfBooking:false, no Pharmacy First widget).
+
+STEP 3 answer pickup (this run, 2026-09-17): portal feed read via a single
+Claude-in-Chrome tab, opened and closed cleanly. Newest entry unchanged at
+2026-09-01T22:44:51.524Z; only Q37 and Q43 among the 57 currently open
+questions have any feed entry at all, and both are the same two portal
+replies already recorded as "not a decision" in QUESTIONS.json (reconfirmed
+again on this run - no answer newer than the one already logged). No status
+change made to any question.
