@@ -57,17 +57,32 @@ appended immediately beneath the twentieth's, and this entry added to the
 top of AGENT_LOG.md. QUESTIONS.json not touched (no answer pickup, no new
 question).
 
-COMMIT / PUSH (step 9): git add AGENT_WORKLIST.md AGENT_LOG.md
-audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt; commit;
-push origin agents/audit-backlog. Outcome and hash recorded immediately
-below this entry once the push completes.
+COMMIT / PUSH (step 9): committed as 87644b6 via mcp__workspace__bash (git
+add AGENT_WORKLIST.md AGENT_LOG.md
+audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt; commit).
+`git push origin agents/audit-backlog` from the Linux sandbox failed
+outright - "fatal: could not read Username for 'https://github.com'", no
+credential helper or token configured there, unlike fetch/pull which need
+no auth against a public repo. Fell back to the native Windows checkout at
+C:\Dev\rbh-site-data via mcp__Windows-MCP__PowerShell (the same fallback
+run 5.1 logged): confirmed the same commit 87644b6 already present there
+("ahead 1" of origin, the FUSE mount sharing the working tree), then
+`git push origin agents/audit-backlog` succeeded there
+(70ccda6..87644b6 agents/audit-backlog -> agents/audit-backlog on stderr,
+which PowerShell's error-stream capture reports as a nonzero status code
+even on success - the same cosmetic quirk prior runs have hit). Verified
+independently rather than trusting the exit code: `git fetch origin` then
+`git status --short --branch` from the same PowerShell session showed
+`agents/audit-backlog...origin/agents/audit-backlog` with no "ahead"
+marker, confirming the push landed for real.
 
-PUBLISH (step 10): node tools/build-audit-status.js run after the push, so
-the portal progress page stays in sync with this run's own commit.
-Outcome recorded immediately below.
+PUBLISH (step 10): `node tools/build-audit-status.js` run from the same
+PowerShell session after the push - "Published
+reports/digital/Digital_Audit_Status.html (42/48 done, 88%)", exit 0.
 
-STEP 11: .agent-lock removed (renamed, per the standing mv-not-rm
-workaround) as the final action, whether or not the above steps succeeded.
+STEP 11: .agent-lock removed (renamed to a stale-suffixed name via the
+standing mv-not-rm workaround, since `rm`/`unlink` on this mount return
+"Operation not permitted") as the final action.
 
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 51; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 3.5 (Hirshmans Chemist, Ainsdale) twenty-first quality pass: re-verified as the stalest rotation-pool item via a fresh git-log-date derivation (3.5 last touched 2026-09-16T07:17:54+01:00, a full day ahead of the next candidates). All 35 checkers exit 0 on the tracked repo before and after. NEW ANGLE: tools/check-pharmacy-first-symptoms.js had never once been named against Hirshmans anywhere in this file's history. Six rounds on a disposable /tmp git-archive scratch copy, tracked repo never opened for writing: (1) a cross-condition swap on Hirshmans' own shingles page - CAUGHT, rules 4+6; (2) a duplicated symptom - CAUGHT, rule 5; (3) escalation wording folded into an existing bullet - CAUGHT by rule 4 (masking rule 7); (4) a brand medicine name folded into an existing bullet - CAUGHT by rule 4 (masking rule 8); (5) the same escalation phrase planted in the shared source array and regenerated, isolating rule 7 properly - CAUGHT, fired on all three affected conditions by name; (6) the same brand medicine name ("Zovirax") planted in the source array and regenerated, isolating rule 8 - NOT CAUGHT, then immediately re-tested with the generic name ("aciclovir") on the identical sentence - CAUGHT, proving the gap is the brand name specifically. All rounds restored byte-identical, sha256-reconfirmed; full 35-checker suite re-run clean; tracked repo confirmed untouched throughout. Zero in-repo defect from this item's own angle. NEW FINDING, not fixed this pass: tools/pom-names.js's PHARMACY_FIRST group is generic-name-only (nitrofurantoin, amoxicillin, phenoxymethylpenicillin, clarithromycin, aciclovir, fusidic, flucloxacillin, hydrocortisone), unlike the brand-heavy WEIGHT_LOSS and TRAVEL_VACCINES groups in the same shared file, so a hand-typed UK brand name would currently pass every checker that reads pom-names.js silently. No live exposure today - no generator currently types a medicine name in this copy - so recorded as Q110 rather than fixed outright: getting a medicine brand-generic mapping wrong in a compliance list is worse than a documented gap, and I am only confident of four of the eight brand names (Zovirax/aciclovir, Fucidin/fusidic acid, Macrobid+Macrodantin/nitrofurantoin, Klaricid/clarithromycin), so recommended those four pending Rishi's or the superintendent pharmacist's sign-off, deliberately not guessing the other four. Full detail in audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt. QUESTIONS.json now 110 total (57 open, Q110 new).
 
