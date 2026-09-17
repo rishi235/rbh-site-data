@@ -109,8 +109,19 @@ recorded in every recent run's own header, the actual `git add` / `git
 commit` / `git push origin agents/audit-backlog` and the
 `node tools/build-audit-status.js` status-page publish were run via
 mcp__Windows-MCP__PowerShell against the real working copy at
-C:\Dev\rbh-site-data on the host, not via the sandbox shell. Commit hash and
-publish result recorded below once run.
+C:\Dev\rbh-site-data on the host, not via the sandbox shell. The sandbox's
+own `git status` call earlier in this run had itself left a fresh,
+self-owned `.git/index.lock` that the FUSE mount could not unlink, which then
+blocked the host-side `git add` with "Unable to create
+'.../index.lock': File exists" on first attempt; cleared with
+`Remove-Item .git\index.lock -Force` on the host (native filesystem, no
+permission issue there), after which add/commit/push succeeded cleanly.
+Committed as 0b0b0da ("Item 4.6 nineteenth quality pass: check-
+gbp-pharmacy-first.js proven by injection against McCanns Chemist Aigburth
+GBP pack (run 64)"), 3 files changed; pushed to origin/agents/audit-backlog,
+confirmed both at 0b0b0da. `node tools/build-audit-status.js` published
+reports/digital/Digital_Audit_Status.html (42/48 done, 88%). `.agent-lock`
+removed via the same PowerShell route at the end of the run.
 
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
