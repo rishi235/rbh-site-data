@@ -30902,6 +30902,90 @@ the next tier up (excluding 5.1 itself) was led by 4.2 (2026-09-16T17:15:33+01:0
       seventeenth pass's own forward note, since 5.2 itself now moves to the
       back of the queue at 2026-09-16. Other runs may land in between before
       the next pass.
+      Quality pass 2026-09-17 (nineteenth, unattended run, run 76,
+      rotation-pool pick): all eight remaining unchecked worklist lines
+      were [BLOCKED] this run (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines
+      under 6.4/6.5, 6.6), so a quality pass was required. Rotation pool
+      re-derived fresh from `git log --pretty=format:"%ad|%s" --date=iso-
+      strict -- AGENT_WORKLIST.md`, taking the newest commit date
+      mentioning each "Item N.N", excluding the standing out-of-rotation
+      set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items:
+      5.2 came out uniquely stalest at 2026-09-16T22:15:22+01:00, ahead of
+      the next tier (3.8, 2026-09-16T22:45:32+01:00) and everything else,
+      which had all already been touched on 2026-09-17 by earlier runs
+      today.
+      NEW ANGLE. Of the eighteen prior passes on this item, tools/check-
+      fragment-targets.js had never been run against its own four pages by
+      injection, despite naming the branch landing family specifically in
+      its own header: CTA_EXEMPT_FAMILIES has exactly one entry, "branch",
+      because landing pages signpost out to the service pages and carry no
+      booking card of their own, so they must carry zero same-page
+      fragment links without that being read as a lost call to action.
+      Every other checker proven against this item to date reads page
+      content generically; this is the first one whose own design
+      singles the family out by name.
+      METHOD. Same discipline as passes 9-18: full `cp -a` scratch copy of
+      the whole tracked repo including .git to /tmp/scratch52, no
+      injection or checker run against the tracked working copy this pass
+      launched from. Baseline confirmed first: `node tools/check-fragment-
+      targets.js --verbose` reports "branch x6 (CTA exempt)" and the
+      fragment targets used are only #book and #switch-form-card, both
+      service/switch-family anchors - none of the six branch pages
+      (this item's four, plus the two Fishlocks pages from item 2.2)
+      contributes a single href="#..." link, and each carries exactly one
+      id ("rbhsv-root", the CSS namespace only; the generator's own paste
+      comment confirms "no JS and no booking widget" for this family).
+      THREE ROUNDS, each restored byte-identical before the next and
+      sha256-reconfirmed: (1) DUPID - a second id="rbhsv-root" element
+      added to modules/branch/pages/pharmacy-mccanns-aigburth.html -
+      CAUGHT, "id=\"rbhsv-root\" is declared 2 times"; (2) TARGET - a
+      dangling <a href="#nonexistent-anchor"> added to modules/branch/
+      pages/pharmacy-scorah-bramhall.html - CAUGHT, "href=\"#nonexistent-
+      anchor\" but no element on this page declares id=..."; (3) CTA
+      EXEMPTION MEANINGFULNESS - with the "branch" key removed from
+      CTA_EXEMPT_FAMILIES in tools/check-fragment-targets.js itself (in
+      the scratch copy only), the checker correctly failed CTA on all SIX
+      branch-family pages at once - this item's own four plus both
+      Fishlocks pages - because every one of them has zero resolving
+      fragment links, proving the exemption is genuinely load-bearing for
+      the whole family and not a dead entry excusing pages that would have
+      passed anyway. All three rounds fired on the first attempt with the
+      expected rule-specific message; each target file (the two pages and
+      the checker source) was sha256-reconfirmed byte-identical to its
+      pre-injection baseline immediately after its own restore and again
+      at the end. Full 36-checker suite re-run clean before round 1 and
+      after round 3's restore (36/36 both times). git status --porcelain
+      on the tracked working copy (modules, tools, branches.json,
+      gbp-packs, core) stayed empty throughout, aside from the two
+      long-standing pre-existing untracked artefacts already logged on
+      every prior pass, neither created nor touched by this pass.
+      LIVE HALF: not re-read this pass; scope was the repo-side checker
+      mechanism only. The eighteenth pass's live findings (all four of
+      this item's own landing URLs still 404, Q35 still open) stand
+      unchanged.
+      RESULT: no in-repo defect. tools/check-fragment-targets.js was
+      already correctly treating the branch landing family as CTA-exempt
+      while still enforcing DUPID and TARGET against it, now proven
+      directly by injection for the first time in this item's nineteen-
+      pass history. No checker logic, page, generator or data field
+      changed anywhere in the repo. No new question raised. Evidence:
+      audits/verify-5.2-2026-09-17-nineteenth.js.
+      Guard coverage for this item now extends to 18 of the estate's 36
+      checkers proven by direct injection against one of its own four
+      pages, its own branches.json/generator records, or (this pass) the
+      branch-family exemption in a checker's own source: check-address-
+      region, check-app-membership (trivial), check-branch-identity,
+      check-branch-links, check-brand-spelling, check-em-dashes, check-
+      fragment-targets (new this pass), check-jsonld, check-live-hours,
+      check-map-embeds, check-nap, check-opening-hours, check-page-
+      coverage, check-pharmacy-first-eligibility, check-postcodes,
+      check-seo-keywords, check-weight-loss-copy (trivial), check-
+      whatsapp-route (trivial).
+      FORWARD NOTE: next stalest by this run's own re-derivation is 3.8
+      (2026-09-16T22:45:32+01:00), followed by 4.7, 1.3, 4.1, 4.5, 4.10,
+      4.3, 4.13 and 4.8, all still dated 2026-09-17 from earlier today,
+      since 5.2 itself now moves to the back of the queue at 2026-09-17.
+      Other runs may land in between before the next pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

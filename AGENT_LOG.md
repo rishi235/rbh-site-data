@@ -1,3 +1,118 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 76; mcp__workspace__bash used for lock handling, repo reads, the cp -a scratch copy at /tmp/scratch52, the injection/restore cycle and the full 36-checker sweep; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup, read-only, nothing clicked, typed or submitted; Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy to clear a stale .git\index.lock left by an earlier `git status` against the sandbox mount and for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 5.2 (McCanns Aigburth/Sandringham, Scorah Bramhall/Hazel Grove branch landing pages) nineteenth quality pass: proved tools/check-fragment-targets.js against this item's own four pages for the first time in nineteen passes. This checker was a good new angle precisely because it names the branch landing family specifically in its own source (CTA_EXEMPT_FAMILIES has exactly one entry, "branch"), unlike every other checker already proven against this item, which reads page content generically. Three rounds against a full `cp -a` scratch copy of the tracked repo (never the working tree this pass ran from): (1) DUPID - a duplicated id="rbhsv-root" on pharmacy-mccanns-aigburth.html - CAUGHT; (2) TARGET - a dangling href="#nonexistent-anchor" on pharmacy-scorah-bramhall.html - CAUGHT; (3) CTA EXEMPTION MEANINGFULNESS - removing the "branch" key from CTA_EXEMPT_FAMILIES in the checker's own source (scratch copy only) correctly failed CTA on all six branch-family pages at once (this item's four plus the two Fishlocks pages from item 2.2), proving the exemption is genuinely load-bearing rather than a dead entry excusing pages that would have passed anyway. All three rounds fired on the first attempt with the expected rule-specific message; each touched file (two pages, one checker) sha256-reconfirmed byte-identical to its pre-injection baseline after its own restore and again at the end. No checker gap found, no in-repo defect, nothing fixed - this pass adds proof only. Guard coverage for this item now extends to 18 of the estate's 36 checkers (up from 17). Full 36-checker suite clean before round 1 and after round 3's restore. No new question.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (sandbox
+mount path). Wrote a fresh UTC timestamp via the sandbox mount, confirmed
+visible at the same path from the real host via Windows-MCP PowerShell
+(single filesystem, two access routes). `git fetch origin` from the
+sandbox mount: already on `agents/audit-backlog`, already up to date with
+run 75's commit (item 4.15, 7aca670). A routine `git status` against the
+sandbox mount left a `.git\index.lock` behind that the mount's own
+permissions would not let git clean up itself ("unable to unlink ...
+Operation not permitted") - confirmed less than a minute old and no git
+process running, then removed via Windows-MCP PowerShell against the real
+C:\Dev\rbh-site-data path, which does have the necessary permissions.
+Tracked tree confirmed clean immediately after (`git status --porcelain --
+modules tools branches.json gbp-packs core` empty aside from the two
+long-standing pre-existing untracked artefacts). Not treated as the
+1-hour-stale case in the task's own lock rule, since it was newly created
+by this run's own read rather than inherited from a stuck prior run; noted
+here so a future run does not mistake the mount's inability to self-clean
+for a genuine stale-lock scenario.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, no Q59
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feed: newest entry still Q52, 2026-09-01T22:44:51.524Z,
+identical to every run since 2026-09-01. Cross-checked against
+QUESTIONS.json: Q52 already recorded `status: "answered"` with the exact
+matching answer text. Nothing new to pick up. Tab closed after reading.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 75's
+own entry) before adding this one - no "Standing authorisation -
+autonomous window" section present. Not applicable, proceeded under the
+normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged from run 75. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via `git log --pretty=format:"%ad|
+%s" --date=iso-strict -- AGENT_WORKLIST.md`, taking the newest commit date
+mentioning each "Item N.N" and excluding the standing out-of-rotation set
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items. 5.2 came
+out uniquely stalest at 2026-09-16T22:15:22+01:00, ahead of the next tier
+(3.8 at 2026-09-16T22:45:32+01:00, then 4.7, 1.3, 4.1, 4.5, 4.10, 4.3, 4.13
+and 4.8, all dated 2026-09-17 from earlier runs today). Picked 5.2.
+
+WORK DONE (item 5.2, nineteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 5.2 block and in
+audits/verify-5.2-2026-09-17-nineteenth.js. In summary: eighteen prior
+passes had proven seventeen checkers against this item's own four pages
+(mccanns-aigburth, mccanns-sandringham, scorah-bramhall,
+scorah-hazel-grove) by direct injection, but tools/check-fragment-
+targets.js - the checker that reads same-page href="#..." links against
+their matching id="..." targets - had never been run against them.
+Baseline confirmed first: `node tools/check-fragment-targets.js --verbose`
+on a fresh `cp -a .` scratch copy at /tmp/scratch52 (never the tracked
+working tree) reports "branch x6 (CTA exempt)" and that the only fragment
+targets in use estate-wide are #book (service family) and #switch-form-
+card (switch family) - none of the six branch landing pages contributes a
+single href="#..." link, each carrying exactly one id ("rbhsv-root", the
+CSS namespace only; the generator's own paste comment for this family
+reads "Static page: loads service.css for styling only, no JS and no
+booking widget"). Three rounds, each restored byte-identical before the
+next and sha256-reconfirmed: (1) DUPID - a second id="rbhsv-root" element
+added to modules/branch/pages/pharmacy-mccanns-aigburth.html - CAUGHT,
+"id=\"rbhsv-root\" is declared 2 times", restored and reconfirmed identical
+to baseline sha256 0a565da2f34ff5240728893166426c0e2592209feb98a84d799822
+448c384841; (2) TARGET - a dangling `<a href="#nonexistent-anchor">` added
+to modules/branch/pages/pharmacy-scorah-bramhall.html - CAUGHT, "href=
+\"#nonexistent-anchor\" but no element on this page declares id=...",
+restored and reconfirmed identical to baseline sha256 28bd52e908d4deaeeb5a
+4e18427fd92da0970e3eaa41c1cf50624f42937cff07; (3) CTA EXEMPTION
+MEANINGFULNESS - with the "branch" key removed from CTA_EXEMPT_FAMILIES in
+tools/check-fragment-targets.js itself, in the scratch copy only, the
+checker correctly failed CTA on all six branch-family pages at once (this
+item's own four plus both Fishlocks pages from item 2.2), because every
+one of them genuinely has zero resolving fragment links - proving the
+exemption does real work for the whole family rather than excusing pages
+that would have passed regardless. Restored and reconfirmed identical to
+baseline sha256 68b94e09d82f2351507a509764f4707ad73c8b780e629ee23ec189c6a9
+fde474. All three rounds fired on the first attempt with the expected
+rule-specific message. Full 36-checker suite (`for f in tools/check-*.js;
+do node "$f"; done`) run clean before round 1 and after round 3's restore
+(36/36 both times). git status --porcelain against the tracked working
+copy this pass launched from (modules, tools, branches.json, gbp-packs,
+core) stayed empty throughout, aside from the two long-standing
+pre-existing untracked artefacts already logged on every prior pass
+(gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither created nor touched
+by this pass.
+
+LIVE HALF: not re-read this pass, scope was the repo-side checker
+mechanism only; the eighteenth pass's live findings (all four of this
+item's own landing URLs still 404, Q35 answered 2026-09-01 asking for
+these six pages to be pasted as a priority Weebly job, still outstanding)
+stand unchanged.
+
+RESULT: no in-repo defect. tools/check-fragment-targets.js was already
+correctly treating the branch landing family as CTA-exempt while still
+enforcing DUPID and TARGET against it, now proven directly by injection
+for the first time in this item's nineteen-pass history. No checker logic,
+page, generator or data field changed anywhere in the repo. No new
+question raised. Guard coverage for this item now extends to 18 of the
+estate's 36 checkers proven by direct injection against one of its own
+four pages, its own branches.json/generator records, or (this pass) the
+branch-family exemption in a checker's own source.
+
+FORWARD NOTE: next stalest by this run's own re-derivation is 3.8
+(2026-09-16T22:45:32+01:00). Recorded in AGENT_WORKLIST.md's own item 5.2
+block as well as here.
+
+STEP 10 (status page publish) and STEPS 9/11 (commit, push, lock removal):
+see the commit that follows this log entry and the run's own closing
+actions.
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 75; mcp__workspace__bash used for lock handling, repo reads, the tar-based scratch copy, the injection/restore cycle and checker runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup, read-only, nothing clicked, typed or submitted; Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) nineteenth quality pass: proved tools/check-app-membership.js's RULE 8 (the GBP-pack half of hasApp guarding, sub-rules 8a-8d) by five injections/controls against this pack's own copy for the first time in nineteen passes. Rule 8 had only ever been confirmed against this pack passively ("hasApp is false and nothing mentions an app"); never by injection, unlike the twelve check-gbp-packs.js rules and several single-purpose checkers already proven against it. Five rounds: description-injection and posts-injection each correctly fired rules 8a+8d together; a photo-shot-list injection correctly fired 8b alone; a paster-note injection correctly fired 8c alone; a word-boundary control ("Happy"/"appointment"/"apply") correctly passed clean. No checker gap found, no in-repo defect, nothing fixed - this pass adds proof only. Full 36-checker suite clean before and after; pack sha256 unchanged from baseline throughout. No new question.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a
