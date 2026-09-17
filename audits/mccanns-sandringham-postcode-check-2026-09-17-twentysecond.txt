@@ -1,0 +1,112 @@
+Item 1.3 (McCanns Sandringham postcode sweep) - twenty-second quality pass
+Date: 2026-09-17 (unattended scheduled run, audit-backlog-worker)
+
+SCOPE OF THIS PASS
+The twenty-one prior passes proved every numbered rule (0-7) in
+tools/check-postcodes.js by injection, plus the DELIBERATE_SHARED_POSTCODES
+staleness check, the NARRATIVE_FILES staleness check, and the BARE_STEM_EXCLUDE
+and MISATTRIB_KNOWN staleness checks (both proved at creation, eighteenth pass,
+2026-09-12). One mechanism had never been proved by a controlled, isolated
+injection: the NARRATIVE_POSTCODES staleness block itself carries TWO separate
+STALE messages -
+
+  1. "no narrative file quotes it" (narrativeQuotes[pc] empty)
+  2. "is now a real branches.json postcode" (byPostcode[pc] truthy)
+
+A grep of both AGENT_LOG.md and AGENT_WORKLIST.md for "is now a real
+branches.json postcode" returned zero hits anywhere in this item's twenty-one
+prior passes' write-ups. The first message had been seen fire exactly once,
+transiently, as a side effect of forgetting to narrate SK9 2TA before it was
+added (tenth pass, 2026-09-03, AGENT_LOG.md:17753) - not as a deliberate,
+isolated proof.
+
+METHOD
+Full git-archive scratch copy at /tmp/scratch13-22nd (1091 files), outside the
+tracked tree. Baseline confirmed identical to the tracked repo: same sha256 for
+tools/check-postcodes.js (7a4a21c7...b29bb) and branches.json
+(169bb5a2...1102), same result (0 failures, 3 warnings, the standing UNOWNED
+trio on gbp-packs/TEMPLATE.md and the two shared branch sheets).
+
+TEST 1 (isolate message 2): added a NARRATIVE_POSTCODES key, "L20 5DW" - SK
+Chemists Bootle's own REAL postcode - to the scratch checker only, with a
+reason quoting the test. To isolate message 2 from message 1, also appended a
+line quoting "L20 5DW" to CHANGELOG.md (a real, non-SELF narrative file), so
+narrativeQuotes["L20 5DW"] would be populated and only the second check could
+fire. Result: exactly one new failure -
+
+  STALE    NARRATIVE_POSTCODES names L20 5DW, which is now a real
+           branches.json postcode (skchemists_bootle). Remove the entry: it
+           is excusing a value that no longer needs excusing.
+
+- naming the correct branch, no cross-firing (no UNKNOWN, FOREIGN or
+MISATTRIB - the value sits only inside the checker's own source and
+CHANGELOG.md, both DECLARING/narrative). Warnings unchanged at 3.
+
+INCIDENTAL FINDING: L20 5DW is not, in fact, an unnarrated value - a follow-up
+sweep of every live branch's own postcode against the narrative files found
+all sixteen are already quoted between 13 and 72 times each in AGENT_LOG.md and
+AGENT_WORKLIST.md's own twenty-one-plus passes of write-ups (every branch has
+by now had its real postcode discussed at length by this audit). This matters
+for TEST 2 below: a REAL branch postcode could not be used to cleanly isolate
+message 1, because every one is already narrated somewhere in this file's own
+history, which would make message 1 impossible to fire honestly with a live
+postcode. Recorded here so a future pass does not waste time trying.
+
+TEST 2 (isolate message 1, and prove self-reference does not count as a
+quote): restored the checker to the pre-TEST-1 baseline (sha256-verified),
+then added a NARRATIVE_POSTCODES key, "ZZ98 8ZZ" - a fabricated, non-branch
+postcode, confirmed by repo-wide grep to occur nowhere else in the repository
+before this test - to the scratch checker only, quoted nowhere else. Result:
+exactly one new failure -
+
+  STALE    NARRATIVE_POSTCODES names ZZ98 8ZZ but no narrative file quotes
+           it. Remove the entry.
+
+This confirms two things at once: the message fires correctly when a key is
+genuinely unquoted, and the checker's own self-exclusion
+(`if (isNarrative && r !== SELF) ...` at line ~615) works as designed - the
+key's own appearance inside tools/check-postcodes.js's source text (a
+NARRATIVE_FILE) does NOT count towards narrativeQuotes, exactly as the
+header comment above the NARRATIVE_POSTCODES block states ("this file is
+itself scanned and is itself a narrative file, so writing a value into
+NARRATIVE_POSTCODES made that value appear in the repo and the stale-
+exemption rule could never fire" - the reason SELF is explicitly excluded).
+Without that exclusion this test would have shown 0 failures instead of 1.
+
+RESTORE AND VERIFICATION
+tools/check-postcodes.js restored by byte copy from the pre-mutation backup
+and sha256-reconfirmed identical (7a4a21c7...b29bb) after both tests.
+CHANGELOG.md restored and diff-confirmed identical to its pre-mutation
+backup. Scratch copy deleted in full after use.
+
+Tracked repo confirmed untouched throughout: git status --porcelain --
+modules core branches.json gbp-packs tools compliance showed only the two
+long-standing pre-existing untracked strays already recorded by prior passes
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched this pass.
+
+Full 34-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent) re-run clean on the tracked repo after the scratch
+work: all exit 0.
+
+RESULT
+No in-repo defect. Both NARRATIVE_POSTCODES STALE messages behave exactly as
+designed, proven in isolation from each other for the first time in this
+item's twenty-two-pass history, and the self-reference exclusion that makes
+the whole mechanism honest is now directly demonstrated rather than only
+implied by the header comment. This pass adds proof only.
+
+FORWARD NOTE
+Still-open angles on this item per the seventeenth-pass note: ownerOf()'s
+prefix-fallback collision risk between brandSlugs has never been directly
+injection-tested. Also newly noted this pass: no rule in check-postcodes.js
+currently normalises a NARRATIVE_POSTCODES *key* itself before using it as a
+lookup into byPostcode() (the keys are hand-typed already in normalised
+"XX00 0XX" form) - if a future key were ever typed in lower case or with
+double spacing, the "is now a real branches.json postcode" check would fail
+to match a live branch's postcode via the raw dictionary key (byPostcode is
+keyed by norm()'d values, but the STALE loop uses the literal `pc` string
+from Object.keys(NARRATIVE_POSTCODES) without running it through norm()
+first) - worth a dedicated pass if it is ever judged worth the (currently
+zero, since every existing key is already well-formed) live risk.

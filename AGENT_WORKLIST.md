@@ -27506,6 +27506,50 @@ appended to the line. Do not move them; the status page reads them in place.
       the stray "C:" directory noted on the 3.11 seventeenth pass. No new
       question. Done 2026-09-17. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-17-twentyfirst.txt.
+      Quality pass 2026-09-17 (twenty-second pass, unattended scheduled run):
+      no in-repo defect, checker logic unchanged. Twenty-one prior passes
+      proved every numbered rule (0-7) plus the DELIBERATE_SHARED_POSTCODES,
+      NARRATIVE_FILES, BARE_STEM_EXCLUDE and MISATTRIB_KNOWN staleness
+      checks; none had isolated the two separate STALE messages inside the
+      NARRATIVE_POSTCODES block itself ("no narrative file quotes it" and
+      "is now a real branches.json postcode") from each other by controlled
+      injection - a grep of both worklist files for "is now a real
+      branches.json postcode" returned zero hits before this pass. Proved on
+      a git-archive scratch copy outside the tracked tree (sha256-confirmed
+      identical baseline, 0 failures, 3 warnings). TEST 1: added a
+      NARRATIVE_POSTCODES key equal to SK Chemists Bootle's own REAL
+      postcode (L20 5DW), separately quoted in CHANGELOG.md (a real,
+      non-SELF narrative file) to isolate the second message - fired exactly
+      "STALE NARRATIVE_POSTCODES names L20 5DW, which is now a real
+      branches.json postcode (skchemists_bootle)", nothing else, first
+      attempt. Incidental finding: every one of the sixteen live branches'
+      own real postcode is already narrated 13 to 72 times across
+      AGENT_LOG.md and AGENT_WORKLIST.md by this audit's own history, so no
+      real branch postcode can cleanly isolate the FIRST stale message.
+      TEST 2: restored to baseline, then added a fabricated, repo-wide-grep-
+      confirmed-unused postcode ("ZZ98 8ZZ") to NARRATIVE_POSTCODES only,
+      quoted nowhere else - fired exactly "STALE NARRATIVE_POSTCODES names
+      ZZ98 8ZZ but no narrative file quotes it", confirming both that the
+      message fires correctly and that the checker's own self-exclusion
+      (writing the key inside tools/check-postcodes.js's own source, itself
+      a NARRATIVE_FILE, does not count as a quote) works exactly as its
+      header comment claims - without that exclusion this test would have
+      shown zero failures. Both mutations restored by byte copy and
+      sha256/diff-reconfirmed identical; tracked repo confirmed untouched
+      throughout (git status --porcelain -- modules core branches.json
+      gbp-packs tools compliance showed only the two long-standing
+      pre-existing untracked strays, neither touched). Full 34-checker suite
+      re-run clean on the tracked repo afterwards (check-cdn-pins.js and
+      check-live-hours.js excluded, both network-dependent). No new
+      question. Forward note: a NARRATIVE_POSTCODES key is used as a raw
+      dictionary lookup into byPostcode() without being run through norm()
+      first, so a future key typed in lower case or with irregular spacing
+      would silently fail to match a live branch's postcode under the
+      second STALE check - zero live risk today since every existing key is
+      already well-formed, noted for a future pass. ownerOf()'s
+      prefix-fallback collision risk (seventeenth-pass forward note) remains
+      untested. Done 2026-09-17. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-17-twentysecond.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
