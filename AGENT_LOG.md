@@ -1,3 +1,46 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 48; mcp__workspace__bash used for lock handling, repo reads, the full-repo scratch-copy injection test and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.13 live-page read, one tab at a time, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.13 (Riddings Pharmacy Timperley GBP pack) nineteenth quality pass: re-verified as the stalest rotation-pool item (eighteenth pass's own commit, 2026-09-16T05:47:02+01:00, the oldest of 36, ahead of 4.8 as runner-up). Pack sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 unchanged since the tenth pass; branches.json's riddings_timperley entry re-diffed field by field against the pack's own "Profile basics" block (address, phone, hours, website, review link) with no divergence. All 35 checkers exit 0. NEW ANGLE: tools/check-uk-spelling.js (added item 4.3, 2026-08-13) had never been mentioned or injection-tested against this pack's own copy across eighteen prior passes (zero hits on "check-uk-spelling" or "UK spelling" in the item's full block, versus seventeen for check-gbp-packs.js and smaller counts for four other checkers). PROOF BY INJECTION on a disposable full-repo scratch copy at /tmp (tracked gbp-packs/riddings-timperley.md, branches.json and modules/* never opened for writing; sha256-confirmed unchanged throughout): Post C's "Confidential and judgement-free." reworded to add "one of our favorite parts of the job" - CAUGHT first attempt, exact file and line named ("reads 'favorite'. UK English is 'favourite'"). CONTROL: the same sentence reworded instead to genuine UK-correct wording ("organised around your schedule") - PASSED CLEAN, proving the rule fires on the word and not on the fact of an edit nearby. Restored by byte copy after each round, sha256 reconfirmed identical both times; full 35-checker suite re-run clean after final restore. Zero in-repo defect; no generator, page, checker or branches.json content changed - proof, not a fix. Live half, read-only via Chrome: pharmacy-first-riddings-timperley.html re-read in full, no US spelling anywhere in the visible copy, free claim still prominent and unqualified, all seven conditions and age ranges match the pinned NHS cohorts. Known live-only "Timperley, Cheshire" footer divergence from branches.json's addressRegion "Greater Manchester" still present, not independently re-verified as new since it does not bear on this pass's own angle. Full detail in audits/riddings-timperley-uk-spelling-4.13-nineteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. No stale `.git/index.lock` found before the git sync. `git
+fetch`/`checkout agents/audit-backlog`/`pull --ff-only` completed normally,
+already up to date with origin at run 47's own commit.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No new answer to
+pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 47's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 36 items re-derived via `git log
+--pretty=format:"%ad|%s" --date=iso-strict`, matching "Item N.N" in each
+commit subject, for the checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight
+currently [BLOCKED] items. 4.13 resolved to 2026-09-16T05:47:02+01:00, the
+single oldest across the whole pool, ahead of 4.8 as runner-up. Picked 4.13.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.13 nineteenth-pass
+paragraph and audits/riddings-timperley-uk-spelling-4.13-nineteenth-
+2026-09-17.txt. In summary: facts re-checked against branches.json, 35/35
+checkers clean, tools/check-uk-spelling.js proven by injection against this
+pack's own copy for the first time via a disposable full-repo scratch copy,
+plus a control proving the rule fires on the word and not the edit, tracked
+repo confirmed untouched by sha256 and git status before and after.
+
+GIT (step 9): a `.git/index.lock` (0 bytes) appeared mid-run from this
+session's own `git status` call, the standing FUSE-mount unlink restriction
+documented throughout this file's history - `rm` returns "Operation not
+permitted", only `mv` succeeds. Renamed it to a `.cleared-run48-<timestamp>`
+suffix before `git add`/`git commit`, the same fallback every prior run has
+used. Committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit file to
+agents/audit-backlog, pushed to origin.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 47; mcp__workspace__bash used for lock handling, repo reads, the rsync full-repo scratch-copy injection test and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_context_mcp/tabs_close_mcp used for the step 3 answer-pickup fetch and two item 4.3 live-page reads, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) nineteenth quality pass: re-verified as the stalest rotation-pool item (eighteenth pass's own commit, 2026-09-16T05:36:54+01:00, the oldest of 35). Pack sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f unchanged since the seventeenth pass; branches.json's hirshmans_ainsdale entry unchanged since the eighteenth pass (both confirmed via git log --since). All 35 checkers exit 0 and all six generators rebuild byte-identical (177 pages, sha256 diff empty). NEW ANGLE: checked for checker changes landed since the eighteenth pass not yet proven against this pack - one relevant hit, check-service-links.js's disposed-branch-target RULE 1 addition (commit 920065e, item 6.2 sixteenth pass, 2026-09-16), proven at birth only against a cross-link sourced from a Riddings page. PROOF BY INJECTION on a disposable rsync scratch copy of the whole repo (tracked gbp-packs/hirshmans-ainsdale.md, branches.json and modules/* never opened for writing; sha256-confirmed unchanged throughout): marked gordonshorts_crosby disposed and removed its own thirteen generated pages in the scratch copy only, then appended the rule's own birth-proof injected href to the end of modules/service/pages/uti-treatment-hirshmans-ainsdale.html - sourcing the stale cross-link from Hirshmans' own copy for the first time rather than Riddings. Baseline (pre-injection) exit 0 clean; post-injection exit 1, exactly one new FAIL naming the file and the disposed host correctly; restored by byte copy, sha256 reconfirmed identical, re-run clean. The rule's sister-host leg is structurally inapplicable to this branch (Hirshmans Ainsdale shares no domain with a sister branch). Zero in-repo defect; no generator, page, checker or branches.json content changed. Live half, read-only via Chrome: pharmacy-first-hirshmans-ainsdale.html (Post A's current target since the 2026-09-14 repoint) read in full, correct throughout, no link to any disposed-branch host. switch-prescriptions-hirshmans-ainsdale.html (Post B) reconfirmed unchanged on both standing tracked live findings - the pre-Q7 em-dash mojibake (item 5.1/Q7) and the pre-Q49 unconditional hero/bullet wording - both Weebly paste lag, not actionable from this repo. Full detail in audits/gbp-pack-refresh-4.3-nineteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

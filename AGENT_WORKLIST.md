@@ -23997,6 +23997,72 @@ directly rather than re-deriving the same facts by hand.
       or regulatory content changed, no judgement call for Rishi. Evidence:
       audits/riddings-timperley-pharmacy-first-cost-4.13-eighteenth-2026-09-16.txt.
       Done 2026-09-16.
+      Nineteenth quality pass 2026-09-17: pack clean and byte-stable across all
+      nineteen passes (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0
+      fed824630a775917c04, unchanged since the tenth pass, before and after
+      this pass's own injection work); branches.json's riddings_timperley
+      entry re-diffed field by field against the pack's "Profile basics" block
+      (name, address, phone, hours, website, review link) with no divergence.
+      Selected as stalest via the same commit-subject-date method as recent
+      passes: rotation pool of 36 items (all checked worklist items minus the
+      seven standing out-of-rotation entries 1.1/1.4/2.2/5.6/5.7/6.7/6.8 and
+      the eight currently [BLOCKED] lines 5.3/5.4/5.5/5.8/6.1/6.4/6.5/6.6),
+      4.13 resolved to 2026-09-16T05:47:02+01:00, the single oldest, ahead of
+      4.8 as runner-up.
+      BASELINE. All 35 tools/check-*.js run individually (check-live-hours.js
+      excluded, needs network): 35/35 exit 0.
+      NEW ANGLE. tools/check-uk-spelling.js (added item 4.3 quality pass,
+      2026-08-13; reads gbp-packs/*.md among other surfaces and holds public
+      copy to UK spelling against a fixed US/UK word list) had never been
+      individually mentioned or injection-tested against this pack's own copy
+      across eighteen prior passes (confirmed by grepping the item's full
+      block text for "check-uk-spelling" and "UK spelling": zero hits, versus
+      seventeen hits for check-gbp-packs.js, three for check-gbp-pharmacy-
+      first.js, two for check-pharmacy-first-cost.js and one apiece for
+      check-brand-spelling.js and check-pharmacy-first-eligibility.js).
+      Riddings' Post C (weight loss) is prose the checker reads in full, a
+      directly relevant, previously untested surface for this specific word
+      list.
+      METHOD. Full-repo disposable scratch copy at /tmp (rsync-equivalent
+      cp -r, .git included, tracked working copy never opened for writing).
+      Baseline run of check-uk-spelling.js against the scratch copy: clean,
+      167 US spellings held against their UK forms, 27 pack/sheet files read
+      among the total. Injection: Post C's "Confidential and judgement-free.
+      Book your consultation today." changed to "Confidential and
+      judgement-free, one of our favorite parts of the job. Book your
+      consultation today." - CAUGHT first attempt: "FAIL gbp-packs/riddings-
+      timperley.md:127: reads 'favorite'. UK English is 'favourite'", exact
+      file and line. CONTROL: the same sentence reworded instead to
+      "Confidential and organised around your schedule." (correct UK spelling,
+      genuine content change) - PASSED CLEAN, proving the rule fires on the
+      word and not on the fact of an edit near it. Restored from the tracked
+      original by byte copy after each round; sha256 reconfirmed identical to
+      the tracked file both times. Full 35-checker suite re-run against the
+      scratch copy after final restore: 35/35 exit 0. Tracked repo confirmed
+      untouched throughout: git status --porcelain on the file empty both
+      before and after, sha256 unmoved. Scratch copy deleted at the end of the
+      run. No generator, checker rule or branches.json content changed: proof,
+      not a fix.
+      LIVE HALF. Claude in Chrome connected, read-only, one tab per page,
+      nothing clicked, typed or submitted beyond navigation and text
+      extraction. pharmacy-first-riddings-timperley.html re-read in full: no
+      US spelling anywhere in the visible copy (this pass's own angle), free
+      claim still prominent and unqualified, all seven conditions and age
+      ranges match the pinned NHS cohorts, no drift. The known live-only
+      "Timperley, Cheshire" footer divergence from branches.json's
+      addressRegion "Greater Manchester" (logged in the pack itself and by
+      prior passes) is still present, not independently re-verified as new
+      since it does not bear on this pass's own angle. switch-prescriptions
+      new-permalink 404 and old-permalink live state not independently
+      re-checked this pass, same reason.
+      ANSWER PICKUP (step 3): Claude in Chrome navigate + get_page_text to the
+      feedback endpoint succeeded first attempt. Newest entry still Q52, dated
+      2026-09-01. No new answer for any of the 56 open questions. No new
+      question raised: pure re-verification of documented checker behaviour
+      against this pack's own copy on a previously untested checker file, no
+      business, legal, pricing or regulatory content changed, no judgement
+      call for Rishi.
+      Done 2026-09-17.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

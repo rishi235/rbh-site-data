@@ -1,0 +1,130 @@
+Item 4.13 (Riddings Pharmacy Timperley GBP pack) - nineteenth quality pass
+Run: unattended scheduled run, audit-backlog-worker, run 48, 2026-09-17
+
+SELECTION
+---------
+Rotation pool: all checked AGENT_WORKLIST.md items minus the seven standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight
+currently [BLOCKED] lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Derived via:
+
+  git log --pretty=format:"%ad|%s" --date=iso-strict
+
+matching "Item N.N" in each commit subject, keeping the most recent (first,
+since the log is newest-first) date per item. Pool size 36. Oldest:
+4.13 at 2026-09-16T05:47:02+01:00, ahead of 4.8 (2026-09-16T06:12:53+01:00)
+as runner-up. Selected 4.13.
+
+BASELINE
+--------
+Facts re-checked: gbp-packs/riddings-timperley.md "Profile basics" block
+(name, address, phone, hours, website, review link) diffed field by field
+against branches.json's riddings_timperley entry - no divergence:
+  streetAddress + addressLocality + postalCode -> 38 Riddings Road,
+    Timperley, Altrincham, WA15 6BP (matches pack line 22)
+  phone -> 0161 973 2951 (matches pack line 23)
+  openingHours.specification -> Mon-Fri 09:00-18:00, closedDays Sat/Sun
+    (matches pack line 24)
+  website -> https://www.riddingspharmacy.co.uk (matches pack line 25)
+  googleReviewUrl -> https://g.page/r/CRtdZliseNZGEAE/review (matches pack
+    line 26)
+
+sha256(gbp-packs/riddings-timperley.md) =
+  8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+unchanged since the tenth pass, confirmed identical before and after this
+pass's injection work.
+
+All 35 tools/check-*.js run individually against the tracked repo
+(check-live-hours.js excluded, needs network): 35/35 exit 0.
+
+NEW ANGLE
+---------
+tools/check-uk-spelling.js (added item 4.3 quality pass, 2026-08-13) reads
+gbp-packs/*.md among its other surfaces and holds public copy to UK spelling
+against a fixed word list. Grepped the item 4.13 block in AGENT_WORKLIST.md
+for "check-uk-spelling" and "UK spelling": zero hits across all eighteen
+prior passes. By contrast: check-gbp-packs.js (17 hits), check-gbp-pharmacy-
+first.js (3), check-pharmacy-first-cost.js (2), check-brand-spelling.js (1),
+check-pharmacy-first-eligibility.js (1), check-weight-loss-copy.js (1).
+check-uk-spelling.js had never been proven against this pack's own copy.
+
+METHOD
+------
+Full-repo disposable scratch copy made at /tmp/scratch-4.13-ukspelling-19th
+(cp -r including .git; tracked working copy never opened for writing during
+this step).
+
+1. Baseline run of check-uk-spelling.js against the scratch copy: clean.
+   "167 US spelling(s) held against their UK forms, floor 120" / "198
+   page/paste/banner file(s), 27 pack/sheet file(s), 4 live script(s), 3
+   stylesheet(s), 1 data file(s)".
+
+2. Injection: in the scratch copy only, gbp-packs/riddings-timperley.md
+   Post C changed from:
+     "Confidential and judgement-free. Book your consultation today."
+   to:
+     "Confidential and judgement-free, one of our favorite parts of the job.
+      Book your consultation today."
+   Result: CAUGHT first attempt.
+     FAIL  gbp-packs/riddings-timperley.md:127: reads "favorite". UK English
+     is "favourite"
+   Exact file and line named correctly.
+
+3. Restored gbp-packs/riddings-timperley.md in the scratch copy from the
+   tracked original; sha256 reconfirmed identical
+   (8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04).
+
+4. CONTROL: same sentence reworded instead to "Confidential and organised
+   around your schedule." (genuine UK-correct content change, different
+   wording, not a no-op). Result: PASSED CLEAN - proves the rule fires on
+   the specific US-spelled word, not merely on the fact that the sentence
+   changed.
+
+5. Restored again from the tracked original; sha256 reconfirmed identical
+   both to the pre-injection scratch state and to the tracked file.
+
+6. Full 35-checker suite re-run against the scratch copy after final
+   restore: 35/35 exit 0.
+
+7. Tracked repo confirmed untouched throughout: `git status --porcelain --
+   gbp-packs/riddings-timperley.md` empty before and after; sha256 of the
+   tracked file unmoved. Scratch copy deleted at the end of the run
+   (rm -rf /tmp/scratch-4.13-ukspelling-19th).
+
+No generator, checker rule or branches.json content changed. This is proof,
+not a fix - the pack was already correct.
+
+LIVE HALF (read-only, Claude in Chrome, one tab at a time, nothing clicked,
+typed or submitted beyond navigation and text extraction)
+-----------------------------------------------------------------
+pharmacy-first-riddings-timperley.html re-read in full via get_page_text:
+  - No US spelling anywhere in the visible copy (this pass's own angle).
+  - Free NHS claim still prominent and unqualified (hero, intro, FAQ "Is
+    Pharmacy First really free?").
+  - All seven conditions and age ranges match the pinned NHS cohorts:
+    UTI (women 16-64), sore throat (5+), sinusitis (12+), earache (1-17),
+    impetigo (1+), shingles (18+), infected insect bite (1+). No drift.
+  - Known live-only divergence still present, not new: footer contact block
+    reads "38 Riddings Road, Timperley, Cheshire, WA15 6BP" where
+    branches.json's addressRegion is "Greater Manchester" - already logged
+    in the pack itself (line 161-163) and by prior passes. Not
+    independently re-verified as a fresh finding since it does not bear on
+    this pass's own UK-spelling angle.
+  - switch-prescriptions.html (old permalink, live) and switch-prescriptions-
+    riddings-timperley.html (new permalink, 404 per the pack's own hard
+    stop) not independently re-fetched this pass; same reason.
+
+ANSWER PICKUP (step 3)
+-----------------------
+Claude in Chrome navigate + get_page_text to
+https://data.rbhealth.co.uk/api/feedback succeeded first attempt (no
+two-Chrome-instance failure this run). Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z. Cross-checked against QUESTIONS.json: 56 open
+questions, none with a newer feed reply than already recorded. No new
+answer to pick up, consistent with every run since 2026-09-01.
+
+RESULT
+------
+No in-repo defect found. No new question raised (no business, legal,
+pricing or regulatory content changed; no judgement call for Rishi). Pure
+re-verification of documented checker behaviour against a previously
+untested surface on this pack.
