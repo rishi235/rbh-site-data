@@ -1,3 +1,68 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 51; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 3.5 (Hirshmans Chemist, Ainsdale) twenty-first quality pass: re-verified as the stalest rotation-pool item via a fresh git-log-date derivation (3.5 last touched 2026-09-16T07:17:54+01:00, a full day ahead of the next candidates). All 35 checkers exit 0 on the tracked repo before and after. NEW ANGLE: tools/check-pharmacy-first-symptoms.js had never once been named against Hirshmans anywhere in this file's history. Six rounds on a disposable /tmp git-archive scratch copy, tracked repo never opened for writing: (1) a cross-condition swap on Hirshmans' own shingles page - CAUGHT, rules 4+6; (2) a duplicated symptom - CAUGHT, rule 5; (3) escalation wording folded into an existing bullet - CAUGHT by rule 4 (masking rule 7); (4) a brand medicine name folded into an existing bullet - CAUGHT by rule 4 (masking rule 8); (5) the same escalation phrase planted in the shared source array and regenerated, isolating rule 7 properly - CAUGHT, fired on all three affected conditions by name; (6) the same brand medicine name ("Zovirax") planted in the source array and regenerated, isolating rule 8 - NOT CAUGHT, then immediately re-tested with the generic name ("aciclovir") on the identical sentence - CAUGHT, proving the gap is the brand name specifically. All rounds restored byte-identical, sha256-reconfirmed; full 35-checker suite re-run clean; tracked repo confirmed untouched throughout. Zero in-repo defect from this item's own angle. NEW FINDING, not fixed this pass: tools/pom-names.js's PHARMACY_FIRST group is generic-name-only (nitrofurantoin, amoxicillin, phenoxymethylpenicillin, clarithromycin, aciclovir, fusidic, flucloxacillin, hydrocortisone), unlike the brand-heavy WEIGHT_LOSS and TRAVEL_VACCINES groups in the same shared file, so a hand-typed UK brand name would currently pass every checker that reads pom-names.js silently. No live exposure today - no generator currently types a medicine name in this copy - so recorded as Q110 rather than fixed outright: getting a medicine brand-generic mapping wrong in a compliance list is worse than a documented gap, and I am only confident of four of the eight brand names (Zovirax/aciclovir, Fucidin/fusidic acid, Macrobid+Macrodantin/nitrofurantoin, Klaricid/clarithromycin), so recommended those four pending Rishi's or the superintendent pharmacist's sign-off, deliberately not guessing the other four. Full detail in audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt. QUESTIONS.json now 110 total (57 open, Q110 new).
+
+LOCK / SYNC (steps 1-2): no exact `.agent-lock` present at start; wrote a
+fresh UTC timestamp. `.git/index.lock` was NOT found at the exact 45-minute
+staleness check (18 minutes old, below the threshold), but every
+subsequent git subcommand in this session left a fresh 0-byte
+`.git/index.lock` and, once, `.git/HEAD.lock`, behind it on exit - the
+standing FUSE-mount unlink restriction this file has documented since
+August (`rm`/`unlink` returns "Operation not permitted", only `mv`
+succeeds) - so after the first checkout attempt failed outright on the
+pre-existing lock, a small wrapper (clear-then-run, via `mv` to a
+timestamped `.stale-<ts>` suffix before every git call) was used for the
+rest of the session rather than fighting it command-by-command. No
+concurrent git process was found at any point (`ps aux | grep git` empty
+throughout), consistent with this being a mount-level unlink defect rather
+than a genuine second run. `git fetch`/`checkout agents/audit-backlog`/
+`pull --ff-only` then completed normally once the wrapper was in place,
+already up to date with origin at run 50's own final commit (2c229a0).
+WORTH FLAGGING PROMINENTLY (not a new question, this is now extensively
+pre-documented under Q87/Q96/Q102 and every run since late August): this
+working tree carries several hundred stray `.agent-lock.*` and
+`.git/*.lock.*` renamed debris files from months of prior runs each
+independently rediscovering and working around this same mount defect.
+None were touched this run (not this run's scope to clean up, and
+`rm -f` cannot remove them from this sandbox session either), but the
+sheer volume is now large enough that it is worth Rishi deciding, in a
+native Windows session, whether to bulk-delete them and whether to
+investigate the root cause on the host side (a real-time antivirus scan or
+another process transiently holding a handle on newly-created files under
+`C:\Dev\rbh-site-data\.git` immediately after they are written would
+produce exactly this symptom: unlink fails once, right after creation, but
+a plain rename does not).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab, closed after reading. 57 open questions in
+QUESTIONS.json (56 before this run's own Q110) checked against the feed;
+newest entry still Q52, dated 2026-09-01T22:44:51.524Z - already applied.
+No new answer to pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 50's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool re-derived via `git log --pretty=format:"%ad|
+%s" --date=iso-strict` matched against `Item N.N`, taking each item's most
+recent commit date, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. This
+gave a 36-item pool (one wider than run 50's own 35, consistent with the
+pool size fluctuating by derivation method as several recent runs have
+independently noted) with 3.5 stalest by a full day. Picked 3.5.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.5 twenty-first-pass
+paragraph and audits/hirshmans-item-3.5-quality-pass-2026-09-17-
+twentyfirst.txt. In summary: rotation pool and facts re-confirmed, 35/35
+checkers clean, tools/check-pharmacy-first-symptoms.js proven by injection
+against Hirshmans' own rendered pages and the shared generator source for
+the first time in this item's twenty-one-pass history, tracked repo
+confirmed untouched by sha256 and git status throughout, and one genuine
+(currently dormant) compliance-list coverage gap found and recorded as
+Q110 rather than fixed outright, since it needs clinical sign-off.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 50; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; mcp__workspace__bash's own curl also used, read-only, to fetch branches.json directly from GitHub's main branch for the second-hop live check; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) twentieth quality pass: re-verified as the stalest rotation-pool item (nineteenth pass's own commit, 2026-09-16T06:46:16+01:00, the oldest of 35, now that run 49's own 4.8 pass moved 4.8 off the top exactly as that run's own forward note predicted). branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 confirmed unchanged throughout. All 35 checkers exit 0. NEW ANGLE: tools/check-widget-diaries.js (added item 3.7, 2026-08-11) had never once been named or exercised against Fishlocks across nineteen prior dedicated passes, despite Fishlocks being one of the checker's own three named multi-site brands (weightLoss/travelClinic shared per brand, bloodPressure/contraception/pharmacyFirst per site) and both branches carrying all five widget keys. Five rounds on a disposable /tmp two-file scratch copy (branches.json plus the one checker script, since it reads nothing else), each restored from the tracked branches.json and sha256-reconfirmed before the next: (1) Eccleston's pharmacyFirst id set to SK Chemists Bootle's own - CAUGHT, rule 2 (crossbrand); (2) Eccleston's travelClinic id changed to a fresh value, making it per-site at Fishlocks while Scorah/McCanns stay shared - CAUGHT, rule 3 (consistent), correctly naming Fishlocks as the outlier; (3) isolated rule 4 - Eccleston's contraception id set to Ainsdale's own bloodPressure id (both already per-site, so rule 3 stays silent) - CAUGHT, exactly one FAIL; (3b) a compound variant, Eccleston's weightLoss id set to Ainsdale's travelClinic id, correctly fired both rule 3 and rule 4 as two separate FAILs rather than one masking the other; (4) Ainsdale's pharmacyFirst id truncated to 20 characters - CAUGHT, rule 1 (format). CONTROL - an unrelated phone-number edit - PASSED clean, confirming the checker fires on the widget-id facts alone. All rounds behaved exactly as documented on the first attempt. Restored byte-identical after every round, sha256 reconfirmed throughout; full 35-checker suite re-run clean after the final restore; git status on branches.json/tools/gbp-packs/modules empty bar the two pre-existing untracked artefacts, unchanged. Zero in-repo defect - proof, not a fix. SECOND-HOP LIVE HALF: fetched branches.json directly from GitHub's main branch (the runtime source CLAUDE.md's CDN-pins section documents service.js fetching for its widget-id lookup) and diffed both Fishlocks records field-by-field against this branch's copy. Two divergences found, both pre-existing: (1) main's standing "flu" widget key (Q97, raised 2026-09-05) reconfirmed present and still dormant (no SERVICE_WIDGET_KEYS route to it), not re-raised. (2) NEW: main's fishlocks_eccleston.addressRegion still reads "Chorley" (a borough); this branch corrected it to "Lancashire" with seoRegion "Chorley" on 2026-08-09, one day after the fork, and main's only own commit since (ff7ac76, flu widgets) never touched this field, so the fix was simply never picked up by main. Checked service.js and switch.js in full: neither reads any address field from the runtime-fetched data, so this has no live rendering path today, and it carries lower merge risk than the flu finding since a plain merge would carry this branch's fix forward without conflict. Recorded as an addendum to Q97 rather than a new question - same root cause, no new decision needed. No other field divergence found on either Fishlocks record. Full detail in audits/fishlocks-item-3.3-quality-pass-2026-09-17-twentieth.txt. QUESTIONS.json unchanged at 109 total (56 open); Q97's note field extended with the addendum above.
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

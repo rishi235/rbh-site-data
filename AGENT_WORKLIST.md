@@ -6462,6 +6462,30 @@ as proven by injection 3. No new live finding.
 QUESTIONS: no new QUESTIONS.json entry raised. Total unchanged at 107, 54
 open. Q107 remains open, untouched - not this pass's to resolve.
 
+Quality pass 2026-09-17 (twenty-first, run 51): tools/check-pharmacy-first-
+symptoms.js proven by injection against Hirshmans Ainsdale's own shingles
+page for the first time in this item's history (never named against
+Hirshmans anywhere in AGENT_LOG.md before). Six rounds on a disposable
+/tmp scratch copy (git archive HEAD, tracked repo never opened for
+writing): cross-condition contamination (rules 4+6), a duplicated symptom
+(rule 5), escalation wording and a medicine name folded into an existing
+bullet (both caught by rule 4 first, masking rules 7/8), then two rounds
+planting the same faults directly in the shared source array and
+regenerating so rules 7 and 8 were each isolated and independently proven
+- rule 7 caught an "NHS 111" escalation phrase across all three affected
+conditions, rule 8 caught the generic "aciclovir" but NOT the brand name
+"Zovirax" on an otherwise identical sentence. All six rounds restored byte-
+identical, sha256-reconfirmed; full 35-checker suite clean before and
+after; tracked repo confirmed untouched throughout. Zero in-repo defect
+from this item's own angle. NEW FINDING (not fixed this pass, needs
+pharmacist sign-off): tools/pom-names.js's PHARMACY_FIRST group is
+generic-name-only, unlike the brand-heavy WEIGHT_LOSS and TRAVEL_VACCINES
+groups in the same file, so a hand-typed UK brand name (Zovirax, Fucidin,
+Macrobid, Klaricid...) in Pharmacy First copy would currently pass every
+checker silently. No live exposure today since no generator currently
+types a medicine name in this copy. Raised as Q110. Full detail in
+audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

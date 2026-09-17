@@ -1,0 +1,181 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - twenty-first quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-09-17 (run 51)
+
+BASELINE
+--------
+Full 35-checker suite (check-live-hours.js excluded, needs network) run
+against the tracked repo before and after this pass: all clean, exit 0,
+no output. No file under gbp-packs/, modules/, core/, tools/ or
+branches.json left modified afterwards (git status --short shows nothing
+beyond the pre-existing untracked debris this working tree has carried for
+months from earlier lock testing).
+
+ITEM SELECTION
+--------------
+All eight unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the
+two Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+grep -n "^\- \[ \]" AGENT_WORKLIST.md. Fell to the quality-pass fallback.
+
+Rotation pool re-derived via `git log --pretty=format:"%ad|%s" --date=iso-
+strict` matched against `Item N.N`, taking each item's most recent commit
+date, minus the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) and the eight currently-blocked items. This gave a 36-item
+pool with 3.5 stalest at 2026-09-16T07:17:54+01:00 (its own twentieth pass,
+"eighth run today", full-text log scan method) - a full day older than the
+next candidates from run 50's own selection method (3.3, freshly touched
+today by run 50 itself, and 4.8, touched by run 49). Picked 3.5.
+
+FRESH ANGLE
+-----------
+Item 3.5's own twenty prior passes (read in full from AGENT_WORKLIST.md,
+lines 5694-6464) have exercised: check-branch-links, check-brand-spelling,
+check-cdn-pins, check-contraception-copy, check-editor-snapshot,
+check-gbp-packs, check-jsonld, check-live-hours, check-map-embeds,
+check-nap, check-opening-hours, check-pharmacy-first-eligibility,
+check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-switch-copy, check-travel-clinic-copy,
+check-whatsapp-route.
+
+tools/check-pharmacy-first-symptoms.js has never been named against
+Hirshmans anywhere in AGENT_LOG.md's full history (checked both within
+item 3.5's own paragraph and estate-wide - zero co-occurrences with
+"hirshmans" on the same line, versus non-zero for every other untried
+checker checked as an alternative). It reads the SYMPTOMS block (the "Do I
+have this?" question) across all 98 Pharmacy First condition pages, eight
+rules: presence/length (1), no duplicates (2), the composed heading and
+lead present (3), every declared point verbatim on the page (4), no extra
+points (5), no cross-condition contamination (6), no onward-route
+escalation wording in a symptom point (7), no medicine name from
+tools/pom-names.js in a symptom point (8).
+
+METHOD
+------
+Disposable scratch copy only: `git archive HEAD | tar -x -C /tmp/scratch51`
+(tracked-files-only, matching this repo's established convention so no
+untracked debris is dragged in). Tracked repo never opened for writing at
+any point in this pass; confirmed by `git status --short` before and after
+showing no new modifications.
+
+Baseline: check-pharmacy-first-symptoms.js run clean against the scratch
+copy (98 pages, 7 pathways, 82 pom-names.js entries read) before any
+injection.
+
+Six rounds, target modules/service/pages/shingles-treatment-hirshmans-
+ainsdale.html (Hirshmans' own rendered shingles page) or, where the fault
+had to be planted in the shared symptoms array (rounds 5 and 8-proof
+below), tools/build-service-pages.js - each restored from a pre-injection
+byte backup and sha256-reconfirmed identical before the next round:
+
+  1. Cross-condition contamination (rule 6): swapped Hirshmans' shingles
+     "Feeling generally unwell" bullet for impetigo's own "Sores that burst
+     and leave golden-brown crusts". CAUGHT - two FAILs, rule 4 (missing
+     the true point) and rule 6 (impetigo's point named on the shingles
+     page), exactly as the checker's own header describes for this
+     scenario.
+
+  2. List integrity / duplicate (rules 2/5): inserted a second copy of the
+     "A rash, usually on one side of the body" bullet. CAUGHT - rule 5 (5
+     items on the page against 4 declared).
+
+  3. Escalation wording folded into an existing bullet (rule 7 masked by
+     rule 4): edited the "Feeling generally unwell" bullet to add ", see a
+     GP if it does not improve". CAUGHT - rule 4 fires first because any
+     edit to an existing bullet breaks the verbatim match, which meant
+     rule 7 was not yet independently isolated by this round alone (see
+     round 5 below).
+
+  4. Medicine name folded into an existing bullet (rule 8 masked by rule
+     4, same reason as round 3): edited the blisters bullet to add ",
+     similar to a Zovirax reaction". CAUGHT by rule 4, rule 8 still not
+     independently isolated.
+
+  5. Isolating rule 7 properly: since any wording change to a rendered
+     bullet always trips rule 4 first, planted the escalation phrase
+     directly in the SOURCE array (tools/build-service-pages.js's shared
+     shingles.symptoms), then regenerated all 112 service pages in the
+     scratch copy only, so the rendered page and the declared array agree
+     and rule 4 stays silent. "Feeling generally unwell" -> "Feeling
+     generally unwell, contact NHS 111 if it worsens" (this exact string
+     is shared by uti, shingles and insect-bite, so the fault landed on
+     all three at once). CAUGHT - rule 7 fired on all three affected
+     conditions by name, correctly identifying "NHS 111" as an onward
+     route named in the descriptive block. Restored, regenerated, sha256
+     of build-service-pages.js confirmed identical to the pre-injection
+     original (298472257e69ebad1b7410fcccd9a8c9df0cf0d91e33a2dbf901809cba
+     bec9076).
+
+  6. Isolating rule 8, same source-level method: "Fluid-filled blisters
+     that scab over" -> "...similar reaction seen with Zovirax", planted
+     in the source array, regenerated, checked. NOT CAUGHT - passed clean.
+
+     Re-tested immediately with the GENERIC name instead, same bullet ->
+     "...treated with aciclovir": CAUGHT - rule 8 fired by name ("a
+     symptom point names the medicine 'aciclovir'"), isolating the gap to
+     the BRAND name specifically rather than a fault in rule 8 itself.
+     Restored, regenerated, sha256 reconfirmed identical throughout.
+
+CONTROL: the phone number and tel: link on Hirshmans' own shingles page
+were left completely untouched throughout (only the symptoms <ul> block
+was ever edited in rounds 1-4); check-pharmacy-first-symptoms.js does not
+read that part of the page by design, and no false positive was raised at
+any point.
+
+NEW GENUINE FINDING (not fixed this pass - see QUESTIONS.json)
+----------------------------------------------------------------
+tools/pom-names.js's PHARMACY_FIRST group (the list rule 8 of this checker,
+and every other checker requiring pom-names.js, reads) holds only the
+GENERIC name for each of the eight medicines the seven NHS Pharmacy First
+pathways prescribe from: nitrofurantoin, amoxicillin,
+phenoxymethylpenicillin, clarithromycin, aciclovir, fusidic,
+flucloxacillin, hydrocortisone. It holds no UK brand-name equivalent for
+any of them, unlike the WEIGHT_LOSS and TRAVEL_VACCINES groups in the same
+file, which are predominantly BRAND names (Mounjaro, Wegovy, Stamaril,
+Zostavax...). Proven above: "aciclovir" is caught by rule 8, the
+brand-equivalent "Zovirax" is not, on an otherwise identical injected
+sentence. The gap is real today only in the sense that nothing in the
+generator currently types a medicine name anywhere in symptom copy (the
+generator's own committed symptoms arrays are clean and have been for
+every one of item 3.5's twenty prior passes), so there is no live
+exposure - but the checker's own stated job ("a symptom point may not name
+a medicine from tools/pom-names.js") is a narrower guarantee than its own
+one-line description implies while the list is generic-only, and a hand
+edit naming a brand would currently pass silently. Raised as Q110 rather
+than fixed in this pass: getting a UK medicine brand-name list right is a
+clinical fact, not an editorial judgement call, and pom-names.js's own
+header is explicit that names should not be added or removed without
+recording the decision. Recommended candidates for Rishi or the
+superintendent pharmacist to confirm before adding: Zovirax (aciclovir),
+Fucidin (fusidic acid), Macrobid and Macrodantin (nitrofurantoin), Klaricid
+(clarithromycin) - the four I am confident are current UK-marketed
+products for these exact indications. Deliberately not proposing brand
+names for amoxicillin, phenoxymethylpenicillin, flucloxacillin or
+hydrocortisone, since I am not confident which (if any) branded products
+remain current or in what strength/combination, and a wrong or
+discontinued brand name in a compliance word list is worse than a
+documented gap.
+
+VERDICT
+-------
+Zero in-repo defect fixed or needing a fix from this pass's own chosen
+angle - proof, not a fix, matching every recent pass on this item. One new
+genuine finding recorded as Q110 (a real but currently-dormant coverage
+gap in a shared compliance word list), not an in-repo defect requiring
+immediate correction since no generated page is affected today. Full
+35-checker suite re-run clean on the tracked repo after this pass with the
+result stapled to this file. No files under gbp-packs/, modules/, core/ or
+branches.json touched; tools/build-service-pages.js and
+tools/pom-names.js in the TRACKED repo were never opened for writing at
+any point (only their /tmp/scratch51 copies were), confirmed by git status
+and, for build-service-pages.js's tracked copy, by comparing its sha256
+before this pass (298472257e69ebad1b7410fcccd9a8c9df0cf0d91e33a2dbf901809c
+babec9076, taken from the scratch copy immediately after `git archive
+HEAD`, which is byte-identical to HEAD by construction) against itself
+after this pass finished (unchanged, since the tracked file was never
+opened).
+
+FORWARD NOTE for the next unattended run: re-derive the rotation pool
+fresh rather than trusting this note, since the exact pool size has
+fluctuated between 35 and 36 across recent runs depending on the derivation
+method used (full commit-subject match vs full-text log scan). On this
+pass's own derivation, the next-stalest candidates once 3.5 is excluded are
+1.2 (2026-09-16T08:18:10+01:00) and 2.3 (2026-09-16T09:15:08+01:00).
