@@ -1,0 +1,203 @@
+Item 4.14 (Gordon Short Chemist Crosby GBP pack), twentieth quality pass, 2026-09-17
+Unattended scheduled run, audit-backlog-worker.
+
+SELECTION
+All eight remaining unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, and the two Q60 lines under 6.4/6.5, 6.6). Quality
+pass required. Rotation pool re-derived fresh: python scan of
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N", excluding the
+seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+and the eight currently-blocked items. 4.14 came out stalest at
+2026-09-16T17:42:39+01:00 (its own nineteenth pass), ahead of 2.1
+(18:11:08) and everything touched later. Chosen: 4.14.
+
+BASELINE
+gbp-packs/gordon-short-crosby.md sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9, matching
+all nineteen prior passes exactly - byte-stable across twenty. Full
+tools/check-*.js sweep (34 checkers; check-cdn-pins.js and
+check-live-hours.js excluded per standing convention, the former needing
+a live CDN pin resolution and the latter needing network access this
+session does not reliably have) - 0 failures before any change.
+
+FRESH ANGLE
+Read this item's own full twenty-pass history (AGENT_WORKLIST.md item 4.14
+block) end to end and grepped it for every named rule constant in
+tools/check-gbp-packs.js. Two rule families had never been proven by
+injection against THIS pack specifically, despite being proven against
+sibling packs earlier this month (item 4.4 Scorah Bramhall and item 4.5
+Scorah Hazel Grove, both twentieth/nineteenth passes, 2026-09-16):
+
+  - RECOGNISED_CTAS / TRANSACTIONAL_CTAS / POM_POSTS: a Google post's
+    button label must be "Learn more" or "Book"; a transactional label
+    ("Buy", "Buy now", "Order online", "Order now", "Shop", "Sign up") on
+    a POM post (Post C weight loss, Post D travel vaccination) fails with
+    a POM-specific message naming the advertising rule; the same label on
+    a non-POM post (A/B) fails with the generic "not a label any pack
+    uses" message instead.
+  - PRICE_PATTERNS / OFFER_PATTERNS: no lead price or discount/offer
+    wording anywhere in the four post bodies or the Services section
+    (joined into one scope since the item 4.11 pass, 2026-08-14).
+
+Gordon Short Crosby is a genuine test case for both: it carries all four
+posts (A Pharmacy First, B switch, C weight loss, D travel clinic) with
+"Learn more"/"Book" buttons as written, and a Services section listing
+both NHS and private lines, so every branch of both rules is exercised.
+
+INJECTIONS (five, plus one control), all against the real tracked file,
+each backed up first (sha256 49acd885...f281f9 saved to
+outputs/scratch4.14/gordon-short-crosby.md.orig) and restored by plain
+byte copy, sha256- and cmp-reconfirmed identical before the next:
+
+1. Post C's button changed from "Book" to "Buy now" (weight loss, a
+   POM_POSTS letter). CAUGHT: "Post C - Weight loss clinic is the weight
+   loss post and its button is labelled \"Buy now\"... Use \"Book\" or
+   \"Learn more\"". Restored, sha256 reconfirmed.
+
+2. Post D's button changed from "Book" to "Shop" (travel clinic, the
+   other POM_POSTS letter). CAUGHT: "Post D - Travel clinic is the travel
+   vaccination post and its button is labelled \"Shop\"...". Restored,
+   sha256 reconfirmed.
+
+3. Lead price inserted into Post C's body ("Consultations from just
+   £29."). CAUGHT: "Post C - Weight loss clinic carries a price in the
+   posted copy (\"£2\")" - the quoted match text is truncated to two
+   characters by the PRICE_PATTERNS regex's own capture width
+   (/£\s?\d/), a cosmetic artefact of the failure message, not a
+   detection miss: the post is correctly blocked either way. Restored,
+   sha256 reconfirmed.
+
+4. Percentage discount added to the Services section's weight loss
+   bullet ("20% off first consultation this week only."). CAUGHT: "The
+   services section carries a percentage discount in the posted copy
+   (\"20% off\")...", proving the item 4.11 Services-section join still
+   reaches this pack's own copy. Restored, sha256 reconfirmed.
+
+5. CONTROL: Post A's button (Pharmacy First, NOT a POM_POSTS letter)
+   changed from "Learn more" to "Sign up", a transactional label. CAUGHT,
+   but via the OTHER branch: "Post A - Pharmacy First button is labelled
+   \"Sign up\", which is not a button label any pack in this repo
+   uses... add it to RECOGNISED_CTAS... having checked it against the
+   house advertising standards first" - confirming the letter-gating
+   between POM_POSTS and the generic unrecognised-label path is correctly
+   scoped, not just present. Restored, sha256 reconfirmed.
+
+All five rounds fired or passed on the first attempt, each on its own
+intended rule and message, no cross-firing observed. File confirmed
+byte-identical to baseline after the final restore (cmp + sha256);
+`git status --porcelain gbp-packs/gordon-short-crosby.md` empty
+throughout. Full 34-checker suite re-run clean after the final restore:
+0 failures.
+
+Two pre-existing untracked strays noted, neither touched by this pass
+and neither new: gbp-packs/.fuse_hidden0000000400000001 (a FUSE-mount
+artefact dated 2026-09-08, predating this run, matching the standing
+Q87/Q96/Q102 "cannot unlink, only rename/leave" pattern - contains
+McCanns Sandringham pack text, not this pack's) and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak (a
+long-standing scratch/test stray from a much earlier pass). Neither is
+tracked by git, neither affects repo content, cleaning either up is
+outside this item's scope.
+
+No in-repo defect found. No pack copy, page, generator, data field or
+branches.json entry changed.
+
+LIVE HALF (read-only, single connected Chrome instance, no Q59 block this
+run - confirmed at the earlier step-3 answer-pickup fetch; navigate and
+get_page_text/javascript_tool only, no click, no submit, no login; tab
+closed after use). Full get_page_text reads of all five branch pages this
+pack's posts and paster notes reference, plus the sitemap - the first
+full five-page read since the eighteenth pass (2026-09-15); the
+nineteenth pass only spot-checked two.
+
+- pharmacy-first-service-crosby.html (Post A's real target, the pfLink):
+  still reads "Gordon Short Chemist" throughout title, body and contact
+  card. All seven conditions, ages (UTI women 16-64, sore throat 5+,
+  sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, insect bite 1+),
+  address, phone (0151 924 3449) and split hours (Mon-Fri 9-6 closed 1-2,
+  Sat 9-5 closed 1-2, Sun closed) all match branches.json exactly. Post A
+  remains safe as written.
+
+- switch-prescriptions-gordon-short-crosby.html: brand name correct
+  throughout ("Gordon Short Chemist", singular). The mojibake em dash is
+  still present and unchanged: "...it usually is not ÔÇö we make the
+  first step quick and easy." NEW CROSS-REFERENCE, not a new defect: this
+  live page still reads the OLD unconditional Q49 wording in the hero
+  ("We contact your GP. We handle everything. You do nothing.") and the
+  first bullet ("We handle the full switch for you"), while the FAQ still
+  carries the hedged answer ("Not always. We help guide the process...") -
+  the exact three-unconditional-vs-hedged contradiction Q49 was raised
+  against. Checked the REPO's own generated copy for this branch
+  (modules/switch/pages/switch-prescriptions-gordon-short-crosby.html):
+  it already carries the Q49-qualified wording ("We contact your GP where
+  it is needed. We handle what we can. We will tell you if anything else
+  is needed." / "We handle what we can of the switch for you" / "No
+  interruption to your medication wherever possible"), confirming the
+  2026-09-15 IMPLEMENTED fix (recorded in Q49's own answer field) is
+  correctly present in the repo for THIS branch too. The live page simply
+  has not been repasted since - the same paste-lag Q49's own note already
+  recorded against Cherry Lane Walton specifically; this is the same
+  finding reconfirmed on a second branch, not a new one, and not
+  re-raised as a question.
+
+- weight-loss-clinic-gordon-short-crosby.html (Post C's target): title,
+  hero, body, "Is this service right for you?" section and contact card
+  all still read "Gordon Shorts Chemist" (wrong, plural) throughout,
+  contact phone/address correct. Unchanged since 2026-08-10, first
+  recorded on this item's eighth pass (2026-09-01) alongside the
+  travel-clinic page. No efficacy or outcome-guarantee language found on
+  read-through (checked against RBH_WeightLoss_Advertising_Standards.md
+  in passing): the page carries repeated non-guarantee hedges ("nothing
+  below is a guarantee of treatment, a specific medicine, or a specific
+  outcome", "This is a professional judgement, not a guarantee", "does
+  not guarantee eligibility, treatment or results"), names no medicine by
+  brand, states a price only on this INNER page the customer chose to
+  visit (Regime 2, "from £39.99"), not in the Google post itself. This
+  matches the two-regime rule in the task's own standing instructions;
+  not actioned or re-flagged, since it is unchanged from every prior
+  read and is a live-only Weebly page this repo does not generate or
+  own.
+
+- travel-clinic-gordon-short-crosby.html (Post D's target): title, hero,
+  body and contact card still read "Gordon Shorts Chemist" (wrong,
+  plural), unchanged since 2026-08-10. Names six vaccines by class
+  (yellow fever, typhoid, hepatitis A&B, rabies, Japanese encephalitis,
+  malaria prevention) with no brand or drug name, carries the "1 to 2
+  weeks" lead-time hedge and the pregnancy/immune-system caveats. No new
+  finding.
+
+- pharmacy-first-gordon-short-crosby.html (the branch-specific page Post
+  A must NOT be repointed to - the STOP): still reads "Gordon Shorts
+  Chemist" (wrong, plural) throughout title, hero and body; contact card
+  also wrong this time (differs from the ninth/twelfth passes' note that
+  the contact card was correct - re-read closely: this pass's contact
+  block reads "Contact Gordon Shorts Chemist" / "Gordon Shorts Chemist"
+  in the address block, i.e. the contact card has DRIFTED to also carry
+  the wrong name since the last full read). This is a WORSENING within an
+  already-tracked finding, not a new one: the STOP on repointing Post A
+  here remains correctly in force regardless, now 38 days old (since
+  2026-08-10). Noted so whoever eventually repastes this page knows the
+  contact block needs the fix too, not just the hero/body.
+
+- sitemap.xml: 28 URLs, every lastmod still 2026-08-15T07:41:55+00:00,
+  confirming no republish in 33 days (since the sixth pass). Still lists
+  weight-loss-clinic-crosby.html, the second live weight-loss URL outside
+  this pack's own post targets (Q90). Re-checked its real <title> and
+  meta description via document.title/querySelector rather than
+  get_page_text (a meta description does not render in visible text):
+  both still byte-identical to the eighth pass's own recorded text -
+  title "Weight Loss Clinic at Gordon Short Chemist | Crosby, Liverpool",
+  meta description still naming Wegovy and Mounjaro by brand in a public
+  search snippet. Q90 unchanged, not re-raised, per the standing
+  instruction not to duplicate it.
+
+No new live fault beyond the contact-card drift noted above (folded into
+the existing STOP/Q32 tracking rather than a new question, since the
+underlying decision - do not repoint Post A until this page is correctly
+repasted - is unaffected either way). No in-repo defect. No new question
+raised. QUESTIONS.json unchanged at 110 total, 57 open.
+
+Evidence: this file. AGENT_WORKLIST.md item 4.14 block extended with the
+twentieth-pass summary. No changes to gbp-packs/, modules/, core/, tools/
+or branches.json.

@@ -25643,6 +25643,68 @@ directly rather than re-deriving the same facts by hand.
       defect, no new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-16-nineteenth.txt.
       Done 2026-09-16.
+      Twentieth quality pass 2026-09-17 (unattended scheduled run,
+      audit-backlog-worker). Taken because all 8 unchecked worklist lines
+      are still [BLOCKED]; selection method unchanged - rotation pool
+      re-derived fresh from AGENT_WORKLIST.md's own commit history, 4.14
+      stalest at 2026-09-16T17:42:39+01:00 (its own nineteenth pass).
+      FRESH ANGLE: RECOGNISED_CTAS/TRANSACTIONAL_CTAS/POM_POSTS (the
+      Google-post button-label rule) and PRICE_PATTERNS/OFFER_PATTERNS
+      (the lead-pricing/discount rule, joined across the four posts and
+      the Services section since the item 4.11 pass) had been proven by
+      injection against sibling packs (4.4, 4.5) but never against this
+      one. Baseline: pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all nineteen prior passes; full 34-checker suite 0
+      failures. Five injections plus one control on the real file, each
+      restored by byte copy and sha256/cmp-reconfirmed before the next:
+      (1) Post C's button "Book" to "Buy now" - CAUGHT by the POM-specific
+      message naming Post C; (2) Post D's button "Book" to "Shop" -
+      CAUGHT by the same rule naming Post D; (3) a lead price ("from just
+      £29") inserted into Post C's body - CAUGHT by PRICE_PATTERNS,
+      naming Post C (the quoted match text truncates to "£2", a cosmetic
+      artefact of the regex's own capture width, not a detection miss);
+      (4) a percentage discount added to the Services section's weight
+      loss bullet - CAUGHT by OFFER_PATTERNS on the Services-section
+      scope; (5) CONTROL, Post A's button (not a POM post) changed to the
+      same transactional label "Sign up" - correctly caught by the OTHER,
+      generic "not a label any pack uses" branch instead, confirming the
+      POM/non-POM gating is genuinely scoped rather than coincidentally
+      passing. All five fired or passed on the first attempt, each on its
+      intended rule, no cross-firing. File byte-identical to baseline
+      after final restore (cmp + sha256); full 34-checker suite re-run
+      clean. Zero in-repo defect.
+      LIVE HALF: full get_page_text reads (Claude in Chrome, single
+      instance, no Q59 block) of all five referenced pages plus the
+      sitemap, the first full five-page read since the eighteenth pass.
+      pfLink (pharmacy-first-service-crosby.html) still correct and safe
+      as Post A's target, all facts matching branches.json exactly.
+      switch-prescriptions-gordon-short-crosby.html: brand name correct,
+      mojibake em dash still unchanged. NEW CROSS-REFERENCE (not a new
+      defect): this live page still carries the pre-Q49 unconditional
+      hero wording while the FAQ stays hedged, the exact contradiction
+      Q49 was raised against; checked the repo's own generated copy for
+      this branch and confirmed the 2026-09-15 Q49 fix (qualified hero,
+      qualified first bullet, "wherever possible" on the continuity
+      bullet) IS correctly present in the repo - the live page simply has
+      not been repasted yet, the same paste-lag Q49's own note already
+      recorded for Cherry Lane Walton, now reconfirmed on a second
+      branch. pharmacy-first-gordon-short-crosby.html, weight-loss-clinic-
+      gordon-short-crosby.html and travel-clinic-gordon-short-crosby.html
+      all still read "Gordon Shorts Chemist" (wrong, plural); the STOP on
+      repointing Post A to the branch-specific Pharmacy First page stands,
+      now 38 days. One worsening noted within that same tracked finding:
+      pharmacy-first-gordon-short-crosby.html's contact card, previously
+      recorded as correctly singular, now also reads the wrong plural
+      name - folded into the existing STOP/Q32 tracking, not a new
+      question, since the underlying decision is unaffected. Sitemap: 28
+      URLs, lastmod unchanged at 2026-08-15T07:41:55+00:00, no republish
+      in 33 days. Q90 re-checked via document.title/querySelector: byte-
+      identical to the eighth pass's own recorded text, still naming
+      Wegovy and Mounjaro in a public meta description; not re-raised. No
+      new in-repo defect, no new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-17-twentieth.txt.
+      Done 2026-09-17.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

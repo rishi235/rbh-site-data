@@ -1,4 +1,136 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 67; mcp__workspace__bash used for lock handling, repo reads and git history investigation; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 4.2 live-half reconfirmation (two URL reads, nothing clicked or typed); Read/Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.2 (Cherry Lane Pharmacy, Walton, GBP pack) twenty-first quality pass: found and fixed a corrupted checkbox header in AGENT_WORKLIST.md itself.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 68; mcp__workspace__bash used for lock handling, repo reads, checker runs and the injection/restore cycle; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 4.14 live half (five branch pages plus sitemap read in full, one further javascript_tool read for Q90's meta description, nothing clicked or typed or submitted); Read/Edit/Write used for the pack file during injection/restore, the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.14 (Gordon Short Chemist Crosby GBP pack) twentieth quality pass: proved two previously-untested check-gbp-packs.js rule families by injection (transactional-CTA button labels on POM posts, lead-pricing/discount wording across posts and Services section), zero in-repo defect; live half found the repo's own 2026-09-15 Q49 fix is correctly present for this branch but the live switch page has not been repasted yet (paste-lag reconfirmation, not new), plus a minor worsening within the existing Gordon-Shorts-name STOP finding.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a
+fresh timestamp (2026-09-17T12:34:23Z) via the sandbox mount. Already on
+`agents/audit-backlog`; `git fetch origin` / `git pull --ff-only` both
+confirmed already up to date at run 67's own final commit. No stray
+`.git/index.lock` blocked sync at this stage.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run (one instance,
+no Q59 dual-sign-in block). Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed:
+newest entry still Q52 (2026-09-01T22:44:51.524Z), identical to every
+recent run. Cross-checked against QUESTIONS.json: Q52 already recorded
+`status: "answered"` with the exact matching answer text. Nothing new to
+pick up. QUESTIONS.json unchanged, no edit this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 67's
+entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable, proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python scan of
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding
+the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 4.14 came out stalest at 2026-09-16T17:42:39+01:00
+(its own nineteenth pass), ahead of 2.1 (18:11:08) and everything touched
+later today. Picked 4.14.
+
+WORK DONE (item 4.14, twentieth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.14 paragraph and in
+audits/gordon-short-item-4.14-quality-pass-2026-09-17-twentieth.txt.
+Summary: read the item's full twenty-pass history and cross-referenced
+every named rule constant in tools/check-gbp-packs.js against it,
+finding two rule families never proven by injection against THIS pack
+specifically (though proven against sibling packs 4.4/4.5 the day
+before): the Google-post button-label rule (RECOGNISED_CTAS/
+TRANSACTIONAL_CTAS/POM_POSTS) and the lead-pricing/discount rule
+(PRICE_PATTERNS/OFFER_PATTERNS, scoped across the four posts and the
+Services section). Baseline: pack sha256
+49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9 matching
+all nineteen prior passes; full 34-checker sweep (check-cdn-pins.js and
+check-live-hours.js excluded per standing convention) 0 failures before
+any change. Five injections plus one control directly against the
+tracked file (gbp-packs/gordon-short-crosby.md), each backed up first to
+outputs/scratch4.14/gordon-short-crosby.md.orig and restored by plain
+byte copy, sha256- and cmp-reconfirmed identical before the next: Post
+C's button to "Buy now" (CAUGHT, POM-specific message naming Post C);
+Post D's button to "Shop" (CAUGHT, same rule naming Post D); a lead price
+in Post C's body (CAUGHT by PRICE_PATTERNS, naming Post C); a percentage
+discount in the Services section's weight-loss bullet (CAUGHT by
+OFFER_PATTERNS on the joined Services scope); and a control - the same
+transactional label on Post A, which is NOT a POM post - correctly
+caught instead by the generic "not a recognised label" branch, proving
+the letter-gating is genuinely scoped rather than accidentally passing.
+All five fired or passed on the first attempt, no cross-firing. File
+confirmed byte-identical to baseline after the final restore; full
+34-checker suite re-run clean. Zero in-repo defect. Two pre-existing
+untracked strays noted in git status (a FUSE-mount artefact dated
+2026-09-08 under gbp-packs/, and a long-standing .bak file under
+modules/service/pages/), neither touched, neither new, matching the
+standing Q87/Q96/Q102 unlink restriction.
+
+LIVE HALF: performed via Claude in Chrome, single connected instance, no
+Q59 block (confirmed working at the answer-pickup step). Read all five
+pages this pack's posts and paster notes reference in full via
+get_page_text, plus the sitemap - the first full five-page read since
+the eighteenth pass, 2026-09-15 (the nineteenth pass only spot-checked
+two). pfLink (pharmacy-first-service-crosby.html) still correct and safe
+as Post A's real target, every fact matching branches.json exactly.
+switch-prescriptions-gordon-short-crosby.html: brand name correct, the
+mojibake em dash still present and unchanged. One cross-reference worth
+recording, not a new defect: this live page still carries the
+pre-Q49 unconditional hero wording ("We contact your GP. We handle
+everything. You do nothing.") while its own FAQ stays hedged - the exact
+contradiction Q49 was raised against. Checked the repo's own generated
+page for this branch and confirmed the 2026-09-15 Q49 fix (recorded
+IMPLEMENTED in Q49's own answer field) is correctly present here too:
+the qualified hero, qualified first bullet and "wherever possible"
+continuity wording all match. The live page simply has not been
+repasted since - the same paste-lag Q49's own note already recorded
+against Cherry Lane Walton specifically, now genuinely reconfirmed on a
+second branch rather than assumed. pharmacy-first-gordon-short-
+crosby.html, weight-loss-clinic-gordon-short-crosby.html and
+travel-clinic-gordon-short-crosby.html all still read "Gordon Shorts
+Chemist" (wrong, plural) throughout; the STOP on repointing Post A to
+the branch-specific Pharmacy First page stands, now 38 days. One
+worsening noted within that same already-tracked finding rather than a
+new one: pharmacy-first-gordon-short-crosby.html's contact card, earlier
+passes' own record said this was correctly singular, now also reads the
+wrong plural name on this read - folded into the existing STOP/Q32
+tracking since the underlying decision (do not repoint) is unaffected
+either way. Sitemap: 28 URLs, lastmod unchanged at
+2026-08-15T07:41:55+00:00, no republish in 33 days. Q90 re-checked via
+document.title/querySelector (a meta description does not render in
+get_page_text): byte-identical to the eighth pass's own recorded text,
+still naming Wegovy and Mounjaro by brand in a public search snippet;
+not re-raised, per the standing instruction against duplicating it.
+
+QUESTIONS.json: unchanged, no new question. All findings this pass are
+either zero-defect proofs or reconfirmations of already-tracked live
+paste-lag issues; nothing here meets the bar for a new Rishi decision.
+
+WORKLIST (step 7): AGENT_WORKLIST.md's item 4.14 paragraph extended in
+place with the twentieth-pass write-up. No worklist checkbox ticked
+(item 4.14 already `[x]`, a quality-pass finding is not a state change).
+
+GIT WRITE ROUTE (steps 9-11): per the standing convention at Q87/Q96/Q102,
+routed through mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data working copy rather than the sandbox shell, since the
+sandbox has no working git push credential. Staged an explicit file list
+(gbp-packs/gordon-short-crosby.md left untouched and unstaged, since the
+injection/restore cycle left it byte-identical to HEAD; AGENT_WORKLIST.md,
+AGENT_LOG.md and the new audits file only) rather than a directory add, to
+avoid sweeping in the pre-existing untracked debris this run's own baseline
+sweep confirmed unrelated. A stray `.git\index.lock` was present on the
+native host at the point of staging; confirmed no concurrent git process
+via `Get-Process git` (no rows returned) before clearing it with
+`Remove-Item` (a genuine delete, native filesystem, no unlink
+restriction). `git add` then staged exactly the three intended files
+(confirmed by `git status --porcelain` showing only `M AGENT_LOG.md`,
+`M AGENT_WORKLIST.md`, `A audits/gordon-short-item-4.14-quality-pass-
+2026-09-17-twentieth.txt` ahead of the untracked debris). Committed as
+3e808c70f481a9b6120c454b021ce1be3e18603e via `git commit -F` against a
+message file (avoiding the inline multi-line `-m` quoting failure run 67
+recorded). `git push origin agents/audit-backlog` succeeded; `git fetch
+origin` immediately after confirmed `origin/agents/audit-backlog` at the
+same commit hash as local HEAD, both 3e808c70f481a9b6120c454b021ce1be
+3e18603e - push confirmed landed. `node tools\build-audit-status.js` then
+run from the same session: "Published reports/digital/
+Digital_Audit_Status.html (43/49 done, 88%)", exit 0.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 66's own
 lock already cleared on its own exit, per its log entry below). Wrote a fresh
