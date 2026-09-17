@@ -1,0 +1,135 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack) - nineteenth quality pass
+Run: unattended scheduled run, audit-backlog-worker, run 82
+Date: 2026-09-17
+
+FRESH ANGLE
+tools/check-gbp-pharmacy-first.js (born item 4.4 quality pass, 2026-08-14) had
+never been run by direct injection against gbp-packs/smartts-bootle.md across
+eighteen prior passes. Confirmed by grepping this item's full paragraph
+history in AGENT_WORKLIST.md for "check-gbp-pharmacy-first" and for the
+checker's own rule vocabulary ("Pharmacy First conditions", "ageNote",
+"where appropriate", "common conditions") tied to an injection test - zero
+hits before this pass. Every prior pass proved check-gbp-packs.js rules
+(EM_DASH, CLINIC_QUALIFIERS pending Q72, sisterBranch, split-hours guard,
+BODY_IMAGE_SELF/CONTEXT, brand spelling, app membership, URL scheme, etc.)
+but never the dedicated Pharmacy First clinical checker, even though Smartts
+Bootle carries a pharmacyFirst widget and publishes the condition list twice
+(Services section bullet and Post A).
+
+BASELINE
+Full repo git-archived to a disposable scratch copy at
+/tmp/myscratch/scratch-4.10-run82 (tracked working copy never opened for
+writing). sha256 confirmed matching the tracked repo before any injection:
+  gbp-packs/smartts-bootle.md:        541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+  tools/check-gbp-pharmacy-first.js:  a33dc38ec88cb4dc135d43f16421d34940cbe726f5780a12c6c7429ee642aab1
+  branches.json:                      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+The smartts-bootle.md hash is unchanged since the sixth pass (2026-09-01),
+matching every prior pass's recorded value. Baseline run: 0 failures ("28
+Pharmacy First blocks across 14 packs, all clean").
+
+INJECTIONS (all on the scratch copy only; each restored by byte copy from a
+saved baseline and sha256-reconfirmed identical before the next round)
+
+TEST 1 - RULE 3 completeness, Post A only. Removed "shingles" from Post A's
+condition list, left the Services-section bullet untouched. CAUGHT: "Post A
+names 6 of the 7 Pharmacy First conditions and omits shingles." Confirms the
+rule is scoped per-block, not per-pack (a pack could in principle drop a
+condition from one block and keep it in the other, and this proves that
+specific case is caught rather than averaged away).
+
+TEST 2 - RULE 4 outside-NHS-scope condition named inside a Pharmacy First
+block. Added "thrush" into the Services-section bullet's condition list.
+CAUGHT: names "thrush" inside the Pharmacy First copy, not one of the 7
+conditions in the NHS service.
+
+TEST 3 - RULE 6 age-range accuracy (UTI). Changed Post A's "women aged 16 to
+64" to "women aged 18 to 64". CAUGHT: publishes the UTI service for "women
+aged 18 to 64" against the canon's "Women aged 16 to 64", naming the exact
+mismatch. Confirms the age-range guard reads the canon (tools/build-service-
+pages.js CONDITIONS.uti.ageNote) rather than a hardcoded number.
+
+TEST 4 - RULE 8 no-price-on-a-free-service. Added "A consultation fee of £5
+applies." into Post A. CAUGHT: "Post A carries a price ("£5") inside the
+Pharmacy First copy." Defence-in-depth alongside check-gbp-packs.js's own
+pricing rules, but this is this checker's own dedicated guard, proven for
+the first time on this pack.
+
+TEST 5 - RULE 9 stray condition word outside the Pharmacy First blocks.
+Added "We can also advise on shingles." to Post C (the weight loss post,
+which has nothing to do with Pharmacy First). CAUGHT: "names 'shingles'
+outside the Pharmacy First blocks... a condition word loose in the pack
+leaves a patient unable to tell whether the free NHS assessment covers
+them." Confirms the checker's scope-subtraction correctly treats a stray
+mention in an unrelated post as reportable rather than silently ignoring it
+because the condition is real.
+
+TEST 6 - RULE 5 count-claim placement, business description (outside both
+Pharmacy First scopes). Changed "assess and treat seven common conditions"
+to "eight common conditions" in the Section 1 business description. CAUGHT:
+"published copy says 'eight common conditions', but the canon... holds 7
+Pharmacy First pathways." This is the specific placement the checker's own
+header comment flags as its "second defect" (the count is claimed in the
+business description, not just the two scoped blocks) - proven here against
+this pack's own business description for the first time.
+
+CONTROL - benign, unrelated reword. Changed the photo shot list line
+"Shopfront from Fernhill Road with the Smartts Chemist signage legible." to
+"...signage clearly legible." Ran the targeted checker (0 failures) and the
+full 34-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent): 0 failures across all 34, no cross-firing.
+
+RESTORE AND RE-VERIFICATION
+gbp-packs/smartts-bootle.md restored by byte copy from the saved baseline
+after every round; sha256-reconfirmed 541239e0...003796b identical to the
+pre-injection baseline after the final restore. Full 34-checker suite
+re-run clean on the scratch copy post-restore (34/34, 0 failures). Tracked
+repo confirmed untouched throughout:
+  git status --porcelain -- modules core branches.json gbp-packs tools compliance
+shows only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; sha256 of the tracked gbp-packs/smartts-bootle.md and
+tools/check-gbp-pharmacy-first.js both re-confirmed identical to the
+pre-pass values above.
+
+RESULT
+No in-repo defect. All six rules exercised (3, 4, 5, 6, 8, 9) fired exactly
+as designed on the first attempt, naming the right block, the right
+condition and the right message; the control passed clean with no
+cross-firing. This pack's Pharmacy First clinical copy - both blocks,
+both directions of completeness, the age ranges, the free/no-price
+guarantee, and the absence of stray condition words - is proven correct
+by direct injection for the first time in nineteen passes, rather than
+inferred from the checker having passed silently as part of the full suite.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, no dual sign-in)
+Step 3 answer pickup: navigated to https://data.rbhealth.co.uk/api/feedback,
+read the full JSON feed. Newest entry still Q52 (2026-09-01T22:44:51.524Z),
+identical to every run since 2026-09-01 and already recorded status
+"answered" in QUESTIONS.json with the matching text. Nothing new to pick up.
+
+Targeted live read, matching this pass's own angle: fetched
+https://www.smarttschemist.co.uk/pharmacy-first-service-bootle.html (the
+branch's own Pharmacy First page, i.e. the pfLink target) in full. All
+seven conditions are named with an age qualifier, and every one of the
+seven matches the canon in tools/build-service-pages.js exactly:
+  Acute Otitis Media (1 to 17 years)         canon: Age 1 to 17
+  Impetigo (1 year and over)                 canon: Age 1 and over
+  Infected Insect Bites (1 year and over)    canon: Age 1 and over
+  Shingles (18 years and over)               canon: Age 18 and over
+  Sinusitis (12 years and over)              canon: Age 12 and over
+  Sore Throat (5 years and over)             canon: Age 5 and over
+  Uncomplicated UTIs (Women 16-64 years)     canon: Women aged 16 to 64
+The page also states "seven common conditions" and "NHS-Funded Treatment:
+... at no cost", both consistent with the canon and the pack. No live
+clinical drift found on this surface - extends this pass's fresh angle
+(clinical accuracy) from the pack to the one live page most directly tied
+to it, confirming agreement rather than assuming it.
+
+The page's opening hours banner (Monday-Friday 9:00am-6:00pm, no lunch
+closure shown) reconfirms the standing, already-recorded website-hours
+contradiction the pack's own paster notes warn about (branch closes 1pm to
+2pm per branches.json/NHS confirmation, item 3.7's pass and this item's
+first pass); not re-raised as a new finding, unchanged.
+
+No new question. QUESTIONS.json unchanged: 110 total, 57 open.

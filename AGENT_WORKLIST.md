@@ -22731,6 +22731,68 @@ directly rather than re-deriving the same facts by hand.
       56 open. Evidence in
       audits/smartts-bootle-body-image-4.10-eighteenth-2026-09-17.txt.
       Done 2026-09-17.
+      Nineteenth quality pass 2026-09-17 (unattended scheduled run via
+      Cowork; mcp__workspace__bash used for lock handling, repo reads, the
+      git-archive scratch copy at /tmp/myscratch/scratch-4.10-run82, the
+      injection/restore cycle and the 34-checker suite runs; Write used for
+      the new audits file; Edit used for this entry; mcp__claude-in-
+      chrome__navigate/get_page_text/tabs_close_mcp used for the step 3
+      answer-pickup fetch and one targeted live-page read, both read-only,
+      nothing clicked/typed/submitted): fresh angle - tools/check-gbp-
+      pharmacy-first.js had never been proven by injection against this
+      pack's own copy across eighteen prior passes, confirmed by grepping
+      this item's full paragraph history - zero hits. Baseline: 35/35 (34
+      network-independent checkers plus the targeted checker) exit 0 on a
+      full-repo scratch copy; sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly - unmoved since the
+      sixth pass. Six injections plus one control against the scratch copy
+      only, each restored from a saved byte copy and sha256-reconfirmed
+      identical before the next: (1) RULE 3 completeness, Post-A-only -
+      "shingles" dropped from Post A alone, Services bullet untouched -
+      CAUGHT, "Post A names 6 of the 7... omits shingles"; (2) RULE 4
+      outside-NHS-scope - "thrush" added to the Services bullet's condition
+      list - CAUGHT, names "thrush", not one of the 7 conditions; (3) RULE 6
+      age accuracy - Post A's UTI age changed from "16 to 64" to "18 to 64"
+      - CAUGHT, exact mismatch against the canon named; (4) RULE 8 no-price
+      - "A consultation fee of £5 applies" added to Post A - CAUGHT, "£5"
+      named; (5) RULE 9 stray condition word - "We can also advise on
+      shingles" added to Post C (the weight loss post) - CAUGHT, "shingles"
+      named outside the Pharmacy First blocks; (6) RULE 5 count-claim
+      placement - the business description's "seven common conditions"
+      changed to "eight", outside both scoped blocks - CAUGHT, the
+      checker's own documented "second defect" placement, proven against
+      this pack's business description for the first time; CONTROL - a
+      benign reword of the photo shot list's shopfront line - exit 0, 0
+      failures, no cross-firing across the full 34-checker suite. All six
+      rules fired exactly as designed on the first attempt, naming the
+      right block, condition and message; both files restored by byte copy
+      and sha256/diff-reconfirmed identical; scratch copy deleted after
+      use. No in-repo defect - all six directions were already correct on
+      this pack, now proven by injection for the first time in nineteen
+      passes. Full 34-checker suite re-run clean on the scratch copy after
+      the final restore and re-confirmed clean on the tracked repo
+      throughout; `git status --porcelain -- modules core branches.json
+      gbp-packs tools compliance` shows only the two long-standing
+      pre-existing untracked strays, neither touched. LIVE HALF: Claude in
+      Chrome connected this run, single tab, read-only, no dual sign-in.
+      Answer pickup: portal feed read in full, newest entry still Q52
+      (2026-09-01), already applied, nothing new. Targeted live read
+      matching this pass's angle: pharmacy-first-service-bootle.html (the
+      branch's own pfLink target) re-fetched in full - all seven Pharmacy
+      First conditions carry an age qualifier and every one matches the
+      canon in tools/build-service-pages.js exactly (Acute Otitis Media 1
+      to 17, Impetigo 1+, Infected Insect Bites 1+, Shingles 18+, Sinusitis
+      12+, Sore Throat 5+, UTI women 16-64); page also states "seven common
+      conditions" and NHS-funded at no cost, consistent with both the canon
+      and the pack. No live clinical drift found. The page's opening-hours
+      banner (9am-6pm, no lunch closure shown) reconfirms the standing,
+      already-recorded website-hours contradiction this pack's own paster
+      notes warn about (branch closes 1pm-2pm per branches.json); not
+      re-raised, unchanged. No new question. QUESTIONS.json unchanged: 110
+      total, 57 open. Evidence in
+      audits/smartts-bootle-pharmacy-first-4.10-nineteenth-2026-09-17.txt.
+      Done 2026-09-17.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
