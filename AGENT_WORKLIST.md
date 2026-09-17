@@ -6827,6 +6827,40 @@ checker silently. No live exposure today since no generator currently
 types a medicine name in this copy. Raised as Q110. Full detail in
 audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt.
 
+Quality pass 2026-09-17 (twenty-second, run 87): tools/check-booking-routes.js
+proven by injection against Hirshmans Ainsdale's own record and pages for the
+first time in this item's history (never named across twenty-one prior
+passes; found only after stripping all whitespace before matching the
+item's own history text, since the twenty-first pass's own mention of
+tools/check-pharmacy-first-symptoms.js is hard-wrapped mid-filename in the
+markdown and a plain or space-collapsed grep both missed it). Three rounds
+on a disposable /tmp scratch copy (git archive HEAD, tracked repo never
+opened for writing), each restored and sha256-reconfirmed identical to
+baseline before the next: (1) deleted hirshmans_ainsdale's travelClinic
+widget from branches.json - CAUGHT, "needs widgets.travelClinic ... and
+there is none (this service must not fall back)", naming the exact page;
+(2) set the contraception widget id equal to the branch's own pharmacyFirst
+id - CAUGHT, "services contraception and pharmacyFirst share one Appointedd
+id", naming both services; (3) changed
+earache-treatment-hirshmans-ainsdale.html's data-branch from "Hirshmans
+Chemist" to "McCanns Chemist" - CAUGHT, "data-branch=... but the URL
+resolves to hirshmans_ainsdale", naming the file and both values. All three
+caught on their intended rule only, first attempt, no cross-firing. Full
+34-checker suite re-run clean after the final restore; tracked repo's
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2a
+c91f2ad1b102 unchanged throughout, `git status --porcelain -- modules core
+branches.json tools gbp-packs status` on the real repo empty. LIVE HALF:
+Claude in Chrome connected, read-only. travel-clinic-hirshmans-ainsdale.html
+(injection 1's page) confirmed live with a genuine, non-empty Appointedd
+widget mounted and the correct data-branch/data-service; earache-treatment-
+hirshmans-ainsdale.html (injection 3's page) confirmed live with the correct
+data-branch and a non-empty booking mount. No live-only finding. Zero
+in-repo defect: check-booking-routes.js already correctly protects this
+branch on the no-fallback rule, the no-duplicate-widget-id rule and the
+data-branch/URL agreement rule. No new question raised; Q107 and Q110 remain
+open, untouched. Full detail in
+audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentysecond.txt.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

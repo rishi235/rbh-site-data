@@ -1,0 +1,124 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - twenty-second quality pass
+Run 87, unattended scheduled run, audit-backlog-worker, 2026-09-17
+
+ROTATION DERIVATION
+Re-derived fresh via `git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md`
+against each item's own current paragraph range (36-item pool, seven standing
+out-of-rotation items excluded: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Full ranked
+list of all 36 reproduced. 3.5 came out uniquely stalest at
+2026-09-17T05:16:01+01:00 (its own twenty-first pass, run 51, earlier today),
+ahead of 1.2 (05:41), 2.3 (06:13), 3.1 (06:42), 3.2 (07:14), 6.3 (07:42), and
+the rest of the pool spanning the rest of the day up to 3.3 at 23:14:06
+(this run's immediately preceding pick, run 86). Every one of the 36 pool
+items had been touched at least once today before this run started, roughly
+every 30 minutes since run 51 - confirms the backlog has been in continuous
+unattended rotation all day 2026-09-17.
+
+NEW ANGLE
+tools/check-booking-routes.js, never named once across twenty-one prior
+passes on this item (confirmed by scanning the item's full AGENT_WORKLIST.md
+history with newlines/whitespace stripped before matching, learning from this
+run's own false-negative first attempt: the twenty-first pass's own
+tools/check-pharmacy-first-symptoms.js mention is hard-wrapped across a line
+break in the markdown - "check-pharmacy-first-\nsymptoms.js" - and a naive
+per-line or space-collapsed grep both missed it. Stripping all whitespace
+before matching found it correctly and left check-booking-routes.js as a
+genuine gap, one of fifteen checkers this item's history had never named
+directly.)
+
+Chosen because CLAUDE.md documents this checker in detail under "The booking
+chain - filename to diary": it is the one checker that reads service.js's own
+routing and fallback tables as data-under-test, and Hirshmans Ainsdale is a
+non-trivial branch to test it against - five widgets (bloodPressure,
+contraception, pharmacyFirst, weightLoss, travelClinic), no branch landing
+page, and both a NO_FALLBACK service (travelClinic, weightLoss) and a
+fallback-eligible service (the seven Pharmacy First conditions, sharing one
+pharmacyFirst diary) in its own record.
+
+BASELINE
+All work done on a disposable scratch copy at /tmp/scratch-3.5 (`git archive
+HEAD | tar -x`), the tracked repo never opened for writing. branches.json
+sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102,
+matching the standing regression anchor from every prior pass on this item.
+`node tools/check-booking-routes.js` on the scratch copy: clean - 156 pages
+with a booking mount, all 156 routed to a branch, 11 service slugs read from
+service.js, 3 of them barred from Pharmacy First fallback, 7 Pharmacy First
+conditions read from the overview pages, 6 widget ids correctly shared
+between sister-branch pairs. Full 34-file checker suite (all of tools/check-*.js
+except check-cdn-pins.js and check-live-hours.js, both network-dependent)
+run individually on the scratch copy: 0 failures.
+
+GUARD RE-PROOF BY INJECTION - three rounds, each targeting Hirshmans
+Ainsdale's own record or its own pages, each restored and sha256-reconfirmed
+identical to baseline before the next.
+
+(1) NO-FALLBACK RULE - deleted branches.json hirshmans_ainsdale.widgets.travelClinic
+(travel clinic is one of the three services barred from falling back to the
+Pharmacy First diary). CAUGHT, exit 1, exactly one failure:
+"travel-clinic-hirshmans-ainsdale.html needs widgets.travelClinic on
+hirshmans_ainsdale and there is none (this service must not fall back), so
+the booking box renders empty" - naming the exact page and branch. Restored
+by rewriting branches.json from the tracked repo's own copy; sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 confirmed
+identical to baseline.
+
+(2) DUPLICATE-WIDGET RULE ("no two services at one branch share an Appointedd
+id") - set hirshmans_ainsdale.widgets.contraception equal to
+hirshmans_ainsdale.widgets.pharmacyFirst (6a439f268babccc7d30915ea). CAUGHT,
+exit 1, exactly one failure: "hirshmans_ainsdale: services contraception and
+pharmacyFirst share one Appointedd id (6a439f268babccc7d30915ea), so a
+booking for one lands in the other's diary" - naming the branch and both
+colliding services. Restored the same way; sha256 reconfirmed identical.
+
+(3) DATA-BRANCH / URL-RESOLUTION RULE - on
+modules/service/pages/earache-treatment-hirshmans-ainsdale.html, changed
+data-branch="Hirshmans Chemist" to data-branch="McCanns Chemist" (a real,
+different trading branch's brandLabel). CAUGHT, exit 1, exactly one failure:
+"earache-treatment-hirshmans-ainsdale.html: data-branch=\"McCanns Chemist\"
+but the URL resolves to hirshmans_ainsdale (\"Hirshmans Chemist\"), so an
+enquiry from this page is filed against the wrong pharmacy" - naming the
+file, the wrong value and the correct one. Restored via direct edit back to
+the original string; sha256 4164da9b5a6cbee59b8115728a53f0095bfc459427c42
+f14e01ca6f2746d0f10 confirmed identical to a pre-injection hash taken before
+the edit.
+
+All three injections caught on their intended rule only, first attempt, no
+cross-firing onto any other page or branch. Full 34-checker suite re-run
+clean on the scratch copy after the final restore (0 failures). Tracked repo
+confirmed untouched throughout: `git status --porcelain -- modules core
+branches.json tools gbp-packs status` on the real repo empty of any tracked
+change before, during and after this pass; `git diff --stat` on the same
+paths empty.
+
+LIVE HALF
+Claude in Chrome connected, read-only, nothing clicked, typed or submitted.
+travel-clinic-hirshmans-ainsdale.html (the NO_FALLBACK page targeted by
+injection 1): live, #rbhsv-root carries data-branch="Hirshmans Chemist",
+data-service="Travel Clinic", data-wa="447521775631", and a real Appointedd
+widget rendered inside the mount (innerHTML 9,983 characters, iframe
+present) - confirms the branch's own travelClinic widget id is genuinely
+live and functioning, not silently falling back or rendering empty, matching
+the repo-side record exactly.
+earache-treatment-hirshmans-ainsdale.html (the page targeted by injection 3):
+live, data-branch="Hirshmans Chemist" (correct), data-service="Earache
+treatment", booking mount non-empty (9,629 characters), matching the
+repo-side state exactly. No live-only finding on either page.
+
+RESULT
+Zero in-repo defect. check-booking-routes.js already correctly protects
+Hirshmans Ainsdale on all three rules tested (the no-fallback rule for its
+two barred services, the no-duplicate-Appointedd-id rule across its five
+widgets, and the data-branch/URL agreement rule on its generated pages), now
+proven under this item's own pass for the first time. No new question
+raised. Q107 and Q110, both still open from this item's earlier passes, are
+untouched - neither is this pass's to resolve.
+
+Remaining checkers still never named against this item specifically after
+this pass (14 of the original 15): check-address-region.js,
+check-app-membership.js, check-branch-identity.js, check-em-dashes.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-weight-loss-copy.js,
+check-widget-diaries.js. Listed for whichever future pass on this item picks
+the next new angle - not a commitment to cover them in order.
