@@ -19275,6 +19275,43 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       Centre" footer typo. No new in-repo defect, no new live finding, no
       new question; open question count unchanged at 56 of 109. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-16-eighteenth.txt.
+      Quality pass 2026-09-17 (unattended run 64, nineteenth pass): all eight
+      remaining unchecked worklist lines confirmed [BLOCKED]; fell to the
+      quality-pass fallback. Rotation pool re-derived mechanically from git
+      log commit dates minus the seven standing out-of-rotation items and the
+      eight blocked items; 4.6 stalest at 2026-09-16T15:42:45+01:00 (its own
+      eighteenth pass). NEW ANGLE: tools/check-gbp-pharmacy-first.js (born
+      item 4.4, 2026-08-14) had been proven by injection against eleven other
+      branches (1.2, 4.1, 4.2, 4.7, 4.8, 4.9, 4.11, 4.12, 4.13, 4.14, 4.15)
+      but never against this pack. Baseline: node tools/check-gbp-pharmacy-
+      first.js and check-gbp-packs.js both clean on the tracked repo, no
+      pre-existing WARN on this branch. Scratch copy via git archive (never
+      the tracked file); sha256 fdb1429d...693 recorded. SEVEN injections,
+      one at a time, each restored by byte copy and sha256-reconfirmed before
+      the next: rule 3 (dropped "shingles" from the Services bullet) -
+      CAUGHT; rule 4 (added "cystitis" into Post A) - CAUGHT; rule 5 ("seven"
+      to "eight common conditions" in the business description, outside both
+      PF scopes) - CAUGHT; rule 6 (UTI age "16 to 64" to "16 to 60" in Post
+      A) - CAUGHT; rule 7 (dropped the "where appropriate" hedge, kept
+      "treatment") - CAUGHT; rule 8 (added a £10 fee line to the Services
+      bullet) - CAUGHT; rule 9 (added "sinusitis" to Post D, outside both PF
+      blocks) - CAUGHT. All seven exact single findings, correct file and
+      wording. Final scratch re-run clean; tracked repo's own copy never
+      opened for writing; check-gbp-pharmacy-first.js and check-gbp-packs.js
+      re-run on the tracked repo afterwards, unchanged from baseline. No
+      in-repo defect, no fix needed. Rules 2, 2b, 10, 11, 12 not exercised
+      this pass (rule 2b judged too invasive for a live pack file; rule 10's
+      exception list is empty estate-wide; rules 11/12 are cross-pack
+      coverage guards). LIVE HALF (Claude in Chrome, read-only): profile
+      landing page still 404, unchanged, awaiting the queued paste run
+      (5.3/5.4); the Pharmacy First page itself 200, all seven conditions and
+      age ranges match the generator's canon and this pack's own copy
+      exactly, hedge present, no price; footer still carries the
+      pre-existing "Sandrigham Medical Centre" typo (Q36, answered, pending
+      the next Weebly sweep), not new. No new in-repo defect, no new live
+      finding, no new question; open question count unchanged at 57 of 110.
+      Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-17-nineteenth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

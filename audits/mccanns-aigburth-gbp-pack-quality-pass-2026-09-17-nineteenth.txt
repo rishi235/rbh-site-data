@@ -1,0 +1,112 @@
+Item 4.6 quality pass (nineteenth, unattended run 64), 2026-09-17
+McCanns Chemist Aigburth GBP pack (gbp-packs/mccanns-aigburth.md)
+
+ROTATION: all eight remaining unchecked worklist lines (5.3, 5.4, 5.5, 5.8,
+6.1, both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED], same set as every
+recent run. Fell to the quality-pass fallback. Stalest-item pool derived from
+`git log --pretty=format:"%ad|%s" --date=iso-strict`, most recent "Item N.N"
+commit date per item, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items above.
+4.6 came out stalest at 2026-09-16T15:42:45+01:00 (its own eighteenth pass),
+ahead of 4.11 (16:17:27), 5.1 (16:44:29) and everything touched later.
+
+NEW ANGLE: tools/check-gbp-pharmacy-first.js (born item 4.4, 2026-08-14) has
+now been proven by injection against 1.2, 4.1, 4.2, 4.7, 4.8, 4.9, 4.11,
+4.12, 4.13, 4.14 and 4.15 (fifteen commits total, confirmed via
+`git log --oneline --all | grep -i gbp-pharmacy-first`), but never once
+against 4.6, McCanns Chemist Aigburth's own pack. Confirmed via branches.json
+that this branch carries a pharmacyFirst widget id
+(66b61b8583640d066a95622e), so both PF scopes (the Services section bullet
+and Post A) are live rules for this pack, not the Rule 2 "no widget" branch.
+
+BASELINE: `node tools/check-gbp-pharmacy-first.js` on the tracked repo -
+"OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14
+packs, all clean." Exit 0. `node tools/check-gbp-packs.js` - 0 failures, 3
+pre-existing KNOWN WARNs, none on this pack (scorah-bramhall.md,
+scorah-hazel-grove.md address-locality divergence pending Q64; smartts-bootle
+live-only link target, pending, both unrelated to Aigburth).
+
+SCRATCH COPY: `git archive HEAD | tar -x` into a disposable directory outside
+the tracked repo (per the established convention: injections never touch the
+tracked working tree). sha256 of gbp-packs/mccanns-aigburth.md recorded:
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693. Baseline
+re-run on the scratch copy: identical "all clean" result.
+
+SEVEN INJECTIONS, one at a time, each restored by byte copy (not git
+checkout) and sha256-reconfirmed identical before the next:
+
+1. RULE 3 (completeness) - dropped "shingles" from the Services section's
+   "NHS Pharmacy First" bullet list. CAUGHT: "names 6 of the 7 Pharmacy
+   First conditions and omits shingles."
+
+2. RULE 4 (outside-NHS-scope condition inside a PF block) - inserted
+   "cystitis" into Post A's condition list. CAUGHT: 'names "cystitis" inside
+   the Pharmacy First copy... it is not one of the 7 conditions.'
+
+3. RULE 5 (count claim, read across all published copy including the
+   business description) - changed "seven common conditions" to "eight
+   common conditions" in section 1's business description (outside both PF
+   scopes, proving this rule's estate-known wider read). CAUGHT: 'published
+   copy says "eight common conditions", but the canon... holds 7... ("seven")'.
+
+4. RULE 6 (age-range pinning, read from the generator's canon) - changed
+   Post A's UTI age range from "women aged 16 to 64" (matches
+   CONDITIONS.uti.ageNote exactly) to "16 to 60". CAUGHT: 'publishes the
+   urinary tract infection service for "women aged 16 to 60", but the canon
+   holds "Women aged 16 to 64".'
+
+5. RULE 7 (the "where appropriate" hedge) - removed the hedge from the
+   Services bullet while leaving "treatment" in place ("free NHS assessment
+   and, where appropriate, treatment" -> "free NHS assessment and
+   treatment"). CAUGHT: 'promises treatment... without the "where
+   appropriate" qualifier.'
+
+6. RULE 8 (free, no price) - appended "A consultation fee of £10 may apply."
+   to the end of the Services bullet. CAUGHT: 'carries a price ("£1")
+   inside the Pharmacy First copy' (regex captures the currency symbol plus
+   first digit only, by design - not a defect).
+
+7. RULE 9 (stray condition word outside both PF blocks) - inserted "We also
+   treat sinusitis year-round." into Post D (Travel clinic), a block that is
+   neither the Services bullet nor Post A. CAUGHT: 'names "sinusitis"
+   outside the Pharmacy First blocks.'
+
+All seven: exit 1, exactly the expected single finding, correct branch file
+named, correct wording. All seven restored by byte copy; sha256 reconfirmed
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693 after each.
+Final re-run on the scratch copy: "all clean", exit 0. Tracked repo's own copy
+of gbp-packs/mccanns-aigburth.md was never opened for writing during the
+probe; `node tools/check-gbp-pharmacy-first.js` and
+`node tools/check-gbp-packs.js` re-run on the tracked repo afterwards, both
+unchanged from baseline. No in-repo defect found, no fix needed, no new
+question.
+
+RULES NOT EXERCISED THIS PASS: rule 2 (widget-vs-scope coverage, both
+directions - this branch has a widget and both scopes are present, so the
+positive branch is exercised passively every run but the negative branches
+were not separately injected this pass), rule 2b (mislocated-block
+assertion - requires corrupting the locating regex itself, judged too
+invasive for a live pack file even on a scratch copy), rule 10 (stale
+KNOWN_NON_PF entries - the list is empty estate-wide, nothing to make stale),
+rules 11/12 (coverage guards across all packs, not pack-specific). Left for a
+future pass if this checker is revisited on this branch again.
+
+LIVE HALF (Claude in Chrome, read-only, no clicks or typing):
+- https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html - still
+  404, unchanged, awaiting the queued paste run (item 5.3/5.4, [BLOCKED]).
+- https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html -
+  200. All seven Pharmacy First conditions present with age ranges matching
+  the generator's canon exactly (UTI: Women aged 16 to 64; sore throat: Age 5
+  and over; sinusitis: Age 12 and over; earache: Age 1 to 17; impetigo: Age 1
+  and over; shingles: Age 18 and over; infected insect bite: Age 1 and
+  over). "where appropriate" hedge present. No price. Matches this pack's own
+  copy and the checker's canon throughout - no live drift on this specific
+  axis.
+- Footer still reads "1B Aigburth Road (in Sandrigham Medical Centre)" for
+  the Sandringham branch card - the pre-existing "Sandrigham" typo (Q36,
+  answered 2026-09-01, pending the next Weebly furniture sweep). Not new,
+  not re-raised.
+No new live finding, no new question. Open question count unchanged at 57 of
+110 (all replies checked in step 3 against the portal feed; none newer than
+2026-09-01T22:44:51.524Z for any open question, matching run 63's own
+finding).

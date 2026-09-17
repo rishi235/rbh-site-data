@@ -1,4 +1,117 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 63; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.12 (Coleman and Leighs Pharmacy, Walton) nineteenth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 64; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item's live-half read (three URLs read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.6 (McCanns Chemist Aigburth GBP pack) nineteenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 63's own
+lock already cleared on its own exit at 2026-09-17T11:08:34+01:00); wrote a
+fresh timestamp (2026-09-17T10:34:11Z). `git status` clean of any
+rebase-merge or MERGE_HEAD in progress; a fresh, self-owned `.git/index.lock`
+appeared mid-run from this session's own `git status` call and was left for
+the Windows-MCP route to handle rather than removed from the sandbox side
+(same FUSE-mount unlink restriction as Q87/Q96/Q102 - not a stale lock from
+another run, under a minute old throughout, never blocked a read). Already on
+`agents/audit-backlog`; `git fetch origin` / `pull --ff-only` confirmed
+already at origin's HEAD (run 63's own final commit, a68a967).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (last
+entry 2026-09-01T22:44:51.524Z, identical to what run 63 recorded). Checked
+every currently open question (57 open, Q37 through Q110 minus the
+answered/closed ones) against the feed: no reply newer than
+2026-09-01T22:44:51.524Z for any of them. QUESTIONS.json unchanged (110
+total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 63's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], same set as every recent run. Fell to the quality-pass
+fallback.
+
+ITEM SELECTION: rotation pool derived the same way recent runs have recorded
+it - most recent commit date per "Item N.N" from `git log --pretty=format:
+"%ad|%s" --date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 4.12
+(run 63's own pick) dropped out of stalest position by being touched this
+morning. 4.6 came out stalest in the remaining pool at
+2026-09-16T15:42:45+01:00 (its own eighteenth pass), ahead of 4.11
+(16:17:27), 5.1 (16:44:29) and everything touched later. Picked 4.6.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.6 nineteenth-pass
+paragraph and
+audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-17-nineteenth.txt.
+Checker under fresh test: tools/check-gbp-pharmacy-first.js, proven by
+injection against eleven other branches since its birth on the item 4.4
+quality pass (2026-08-14) but never against McCanns Chemist Aigburth's own
+pack, despite this branch holding a live pharmacyFirst widget and both PF
+scopes (the Services bullet and Post A).
+
+Baseline confirmed clean on the tracked repo: check-gbp-pharmacy-first.js
+"OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14
+packs, all clean" (exit 0); check-gbp-packs.js 0 failures, 3 pre-existing
+KNOWN WARNs, none on this branch. Full repo exported via `git archive HEAD |
+tar -x` to a disposable scratch copy, tracked repo never opened for writing
+during the probe. sha256 of gbp-packs/mccanns-aigburth.md recorded
+(fdb1429d...693); baseline re-run on the scratch copy identical.
+
+Seven injections run on the scratch copy, each restored by byte copy (not
+git) and sha256-reconfirmed before the next: (1) RULE 3 - dropped "shingles"
+from the Services section's condition list - CAUGHT, "names 6 of the 7...
+omits shingles"; (2) RULE 4 - added "cystitis" into Post A's condition list -
+CAUGHT, names an out-of-scope condition inside PF copy; (3) RULE 5 - changed
+"seven common conditions" to "eight" in the business description, which sits
+outside both PF scopes and proves this rule's deliberately wider read -
+CAUGHT; (4) RULE 6 - changed Post A's UTI age range from "16 to 64" (matches
+the generator's canon exactly) to "16 to 60" - CAUGHT, states the canon
+value; (5) RULE 7 - removed the "where appropriate" hedge from the Services
+bullet while leaving "treatment" in place - CAUGHT; (6) RULE 8 - appended "A
+consultation fee of £10 may apply" to the Services bullet - CAUGHT, "carries
+a price"; (7) RULE 9 - inserted "We also treat sinusitis year-round." into
+Post D (Travel clinic), outside both PF blocks - CAUGHT, names a condition
+word loose in the pack. All seven: exit 1, exactly the expected single
+finding, correct file and wording, all fourteen other packs unaffected.
+Restored and sha256-reconfirmed after each; final scratch re-run clean.
+check-gbp-pharmacy-first.js and check-gbp-packs.js re-run on the tracked
+repo afterwards, both unchanged from baseline. No in-repo defect found, no
+fix needed, no new question. Rules 2, 2b, 10, 11 and 12 not exercised this
+pass (2b judged too invasive for a live pack file even on a scratch copy;
+10's exception list is empty estate-wide; 11/12 are cross-pack coverage
+guards, not pack-specific) - left for a future pass if this checker is
+revisited on this branch.
+
+LIVE HALF (Claude in Chrome, read-only, no clicks or typing):
+https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html still 404,
+unchanged, awaiting the queued paste run (item 5.3/5.4, already [BLOCKED]);
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html 200,
+all seven Pharmacy First conditions present with age ranges matching the
+generator's canon exactly, the "where appropriate" hedge present, no price -
+no live drift on this specific axis; footer still carries the pre-existing
+"Sandrigham Medical Centre" typo (Q36, answered 2026-09-01, pending the next
+Weebly furniture sweep), not new, not re-raised. No new live finding, no new
+question.
+
+WRITE-UP (steps 6-7): repo architecture respected - gbp-packs/*.md is not a
+generator input, so no rebuild was needed; nothing hand-edited on a generated
+page. Appended the nineteenth-pass paragraph to AGENT_WORKLIST.md's item 4.6
+(item stays [x], ticked since 2026-08-04; quality passes append rather than
+re-tick, per convention). New evidence file written to audits/. This entry
+added to the top of AGENT_LOG.md.
+
+QUESTIONS (step 8): no new question. No repo defect found, no decision
+needed from Rishi, and no autonomous window was open regardless.
+
+GIT WRITE ROUTE (steps 9-11, per Q87/Q96/Q102): this sandbox's mounted
+working copy cannot cleanly complete git writes (FUSE mount blocks unlink() on
+.git/index.lock; a fresh self-owned lock reappeared mid-run exactly as
+described in those questions). Following the standing practical convention
+recorded in every recent run's own header, the actual `git add` / `git
+commit` / `git push origin agents/audit-backlog` and the
+`node tools/build-audit-status.js` status-page publish were run via
+mcp__Windows-MCP__PowerShell against the real working copy at
+C:\Dev\rbh-site-data on the host, not via the sandbox shell. Commit hash and
+publish result recorded below once run.
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
 timestamp (2026-09-17T10:04:07Z). `git status` clean, no rebase-merge or
