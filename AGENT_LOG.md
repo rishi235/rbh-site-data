@@ -105,10 +105,17 @@ audits/gordon-short-item-3.11-quality-pass-2026-09-17-twentieth.txt.
 STEP 7: AGENT_WORKLIST.md's item 3.11 block updated in place with the
 twentieth-pass paragraph (append-only, line not moved).
 
-STEP 9/10: git add/commit/push and the status-page publish to follow via
-mcp__Windows-MCP__PowerShell on the native working copy, recorded in a
-follow-up entry per the standing convention (git operations are run after
-this entry is written, then the actual outcome is appended).
+STEP 9/10, actual outcome: a genuine `.git/index.lock` blocked the first
+`git add` attempt on the native host (0 bytes, no git process running per
+`Get-Process git`); cleared by delete (a real delete succeeded this time,
+not the sandbox's usual rename-workaround - the lock was gone by the time
+of the second check, most likely cleared by the preceding diagnostic
+commands rather than surviving to the explicit Remove-Item/Rename-Item
+pair, both of which then reported "does not exist"). Second `git add`
+attempt: exit 0, 4 files staged (AGENT_WORKLIST.md, AGENT_LOG.md, the two
+new audit files), 457 insertions. Committed as a496a74. Pushed to
+origin/agents/audit-backlog: exit 0. Status page published via
+`node tools\build-audit-status.js`: exit 0, "42/48 done, 88%".
 
 ---
 
