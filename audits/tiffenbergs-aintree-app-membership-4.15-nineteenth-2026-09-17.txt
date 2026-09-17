@@ -1,0 +1,140 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack), nineteenth quality pass, 2026-09-17
+=======================================================================================
+
+Scope: prove, by direct injection against gbp-packs/tiffenbergs-aintree.md's own
+copy, tools/check-app-membership.js's RULE 8 (the GBP pack half of hasApp
+guarding, sub-rules 8a-8d), never yet pointed at this pack across eighteen
+prior passes. Eighteen prior passes have proven twelve check-gbp-packs.js
+rules, three POM-class rules, check-url-scheme.js, check-uk-spelling.js,
+check-travel-clinic-copy.js, check-postcodes.js, check-brand-spelling.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-cost.js,
+check-gbp-pharmacy-first.js, check-em-dashes.js and check-cdn-pins.js against
+this pack specifically, but check-app-membership.js's own rule 8 - added on
+the item 4.5 quality pass, 2026-08-14, specifically to guard the packs - had
+only ever been confirmed against this pack passively ("hasApp is false and
+nothing mentions an app"), never proven by injection the way check-gbp-packs's
+rules have been on passes eight through eighteen.
+
+Rule 8 has five sub-rules: 8a (published copy - description, services, posts -
+must not claim an app if the branch is not a member), 8b (photo shot list must
+not ask for an app shot if not a member), 8c (paster note must not tell the
+paster hasApp true when branches.json says false, or vice versa), 8d (a note
+saying "No app mention anywhere in this pack" must not co-exist with copy that
+does mention one), and 8e (the missing positive: a MEMBER branch's pack must
+actually carry the app mention). Tiffenbergs Aintree has hasApp false
+(branches.json), so 8e does not apply to it; 8a-8d do.
+
+Baseline
+--------
+Pack sha256 before starting: 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+(unchanged since the ninth pass, 2026-09-03, and matching every pass since).
+Full 36-checker suite run against a scratch copy before any injection: 36/36
+exit 0.
+
+Method
+------
+Full repo copied (tar, preserving .git) to /tmp/scratch_415, outside the
+tracked repo and outside both mounted working directories. All injections and
+checker runs performed against the scratch copy only; the tracked repo's
+gbp-packs/tiffenbergs-aintree.md was never opened for writing. Each injection
+restored by byte copy from a pristine backup (_out/baseline.md) and
+sha256-reconfirmed identical before the next round.
+
+Injection A - app mention added to the Business description (targets 8a + 8d)
+-------------------------------------------------------------------------------
+Appended "Patients can also manage repeat orders through our app." to the end
+of section 1's closing sentence. node tools/check-app-membership.js exited 1,
+exactly two FAILs: 8a ("the copy pasted into the public Google profile claims
+an app, but branches.json has hasApp false for tiffenbergs_longmoor") and 8d
+("the paster note says there is no app mention anywhere in this pack, but the
+pasted copy carries one"). Both fired on the first attempt, both naming the
+correct branch id.
+
+Injection B - app mention added to Post B's body only (targets 8a + 8d, posts
+channel specifically)
+-------------------------------------------------------------------------------
+Section 1 left untouched this round; instead inserted ", or ask about our
+app-based repeat ordering too" into Post B's body (the switch-prescriptions
+post), leaving the description clean. node tools/check-app-membership.js
+exited 1, the same two FAILs (8a and 8d) with the same wording, confirming the
+"published" scan covers the posts section independently of the description
+and is not merely re-detecting the earlier injection.
+
+Injection C - app mention added to the Photo shot list only (targets 8b in
+isolation)
+-------------------------------------------------------------------------------
+Description, services and posts left untouched; added a new shot-list line,
+"Screenshot of the app repeat-ordering screen, staff phone." node
+tools/check-app-membership.js exited 1, exactly ONE FAIL: 8b ("the photo shot
+list asks for an app shot, but branches.json has hasApp false for
+tiffenbergs_longmoor"). Crucially, 8a and 8d did NOT fire, confirming the shot
+list is read as a genuinely separate channel from "published" (desc + services
++ posts) rather than folded into it - the scope boundary the rule's own header
+comment describes held under direct test.
+
+Injection D - paster note changed from "hasApp false" to "hasApp true" (targets
+8c in isolation)
+-------------------------------------------------------------------------------
+Changed only the "Notes for the paster" line "branches.json has hasApp false
+for this branch" to "hasApp true", leaving every other section, including the
+"No app mention anywhere in this pack" clause on the same line, untouched.
+node tools/check-app-membership.js exited 1, exactly ONE FAIL: 8c ("the paster
+note tells the paster branches.json has hasApp true, but it has false for
+tiffenbergs_longmoor, so the note invites an app claim onto a profile that must
+not carry one"). 8a, 8b and 8d did NOT fire, confirming 8c is tested
+independently of whether the published copy or shot list actually contain an
+app mention.
+
+Control E - word-boundary precision, "Happy", "appointment" and "apply" added
+with no real app claim
+-------------------------------------------------------------------------------
+Inserted "Happy to answer questions before you book, and if the timing does
+not suit, ask about our next appointment." into Post C's closing sentence.
+This pack already legitimately carries "appropriate" (description, services)
+and "appointment"/"appointments" elsewhere without tripping the rule; this
+round adds two more such words deliberately, plus "Happy", specifically to
+stress the \bapps?\b word-boundary regex. node tools/check-app-membership.js
+exited 0, 0 failures - "Happy", "appointment" and "apply"-family words do not
+match \bapps?\b because there is no word boundary between "app" and the
+following letters in each. Confirms the word-boundary design holds on this
+pack's own copy and is not merely accidentally unexercised by its existing
+text.
+
+All five rounds fired or correctly passed on the first attempt, each on its
+intended sub-rule only (8a+8d together as the rule's own logic predicts for
+copy-channel claims, 8b and 8c each cleanly isolated), no side-effect failures
+anywhere else in the 15-pack, 16-branch suite. No checker gap found.
+
+Restore and re-verification
+----------------------------
+Final restore: gbp-packs/tiffenbergs-aintree.md sha256 reconfirmed
+59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b, identical to
+baseline and to every prior pass since the ninth. Full 36-checker suite
+re-run clean on the scratch copy after the final restore: 36/36 exit 0.
+`git status --short` and `git diff --stat` on the scratch copy showed no
+tracked-file change of any kind (only pre-existing untracked scratch/test
+clutter carried over from the working directory, unrelated to this pass).
+Tracked repo (C:\Dev\rbh-site-data / the sandbox mount of it) was never opened
+for writing during any injection.
+
+No in-repo defect found; no checker, pack, page, generator or branches.json
+entry changed; no new question raised. Guard coverage for item 4.15 now
+extends to check-app-membership.js's rule 8 (sub-rules 8a-8d, the only
+sub-rules applicable to a non-member branch), proven by direct injection
+against this branch specifically, on top of the checkers already proven across
+the eighteen prior passes.
+
+Answer pickup (step 3): exactly one connected browser this run, no Q59
+conflict. https://data.rbhealth.co.uk/api/feedback read cleanly (navigate +
+get_page_text via Claude in Chrome, read-only, nothing clicked or typed).
+Newest portal entry still the Q52 answer, dated 2026-09-01T22:44:51.524Z -
+unchanged since every run since 2026-09-01. No answer arrived for any of the
+57 currently-open questions this run.
+
+Live half: not repeated this pass. Rule 8 governs text pasted into Google
+Business Profile's description, services, posts and photo-shot-list fields,
+plus the paster's own working notes - none of it a URL a read-only fetch could
+verify regardless, the same position recorded by the 13th-16th and 18th passes
+for their own pack-copy-only rules. The seventeenth pass's live verdicts
+(2026-09-15, full browser codepoint read of the live pages) stand and are not
+re-verified this pass.

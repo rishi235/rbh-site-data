@@ -1,3 +1,72 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 75; mcp__workspace__bash used for lock handling, repo reads, the tar-based scratch copy, the injection/restore cycle and checker runs; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup, read-only, nothing clicked, typed or submitted; Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) nineteenth quality pass: proved tools/check-app-membership.js's RULE 8 (the GBP-pack half of hasApp guarding, sub-rules 8a-8d) by five injections/controls against this pack's own copy for the first time in nineteen passes. Rule 8 had only ever been confirmed against this pack passively ("hasApp is false and nothing mentions an app"); never by injection, unlike the twelve check-gbp-packs.js rules and several single-purpose checkers already proven against it. Five rounds: description-injection and posts-injection each correctly fired rules 8a+8d together; a photo-shot-list injection correctly fired 8b alone; a paster-note injection correctly fired 8c alone; a word-boundary control ("Happy"/"appointment"/"apply") correctly passed clean. No checker gap found, no in-repo defect, nothing fixed - this pass adds proof only. Full 36-checker suite clean before and after; pack sha256 unchanged from baseline throughout. No new question.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a
+fresh UTC timestamp via the sandbox mount. `git fetch origin`, already on
+`agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` -
+already up to date with run 74's commit (item 4.9). Add/commit/push handled
+via the Windows-MCP PowerShell route against the real
+C:\Dev\rbh-site-data working copy per the standing Q87/Q96/Q102 sandbox-mount
+restriction.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, no Q59
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feed: newest entry still Q52, 2026-09-01T22:44:51.524Z,
+identical to every run since 2026-09-01. Cross-checked against
+QUESTIONS.json: Q52 already recorded `status: "answered"` with the exact
+matching answer text. Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 74's own
+entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable, proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback. Rotation
+pool re-derived fresh via a Python script fed from `git log
+--pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`, taking the
+newest commit date mentioning each "Item N.N" and excluding the seven
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 4.15 came out stalest at 2026-09-16T21:41:52+01:00,
+clear of the next candidate (5.2, 2026-09-16T22:15:22+01:00) and every other
+pool item - item 4.9, just closed out by run 74, correctly dropped out of the
+stale end of the pool entirely once its own commit timestamp updated. Picked
+4.15.
+
+WORK DONE (item 4.15, nineteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.15 block and in
+audits/tiffenbergs-aintree-app-membership-4.15-nineteenth-2026-09-17.txt. In
+summary: eighteen prior passes had proven twelve check-gbp-packs.js rules,
+three POM-class rules and eight other single-purpose checkers against this
+pack's own copy by direct injection, but check-app-membership.js's rule 8 -
+written specifically to guard the GBP packs against a false or missing app
+claim - had only ever been confirmed against this pack passively. Full repo
+copied with .git to a scratch directory outside the tracked tree; all
+injections and checker runs against the scratch copy only, tracked pack file
+never opened for writing. Five rounds, each restored by byte copy and
+sha256-reconfirmed before the next: (1) an app-ordering sentence appended to
+the Business description - CAUGHT, rules 8a and 8d fired together; (2) the
+same claim inserted into Post B's body only - CAUGHT, same two rules,
+confirming the posts channel is read independently of the description; (3)
+an app-screenshot line added to the Photo shot list only - CAUGHT, rule 8b
+alone, 8a/8d correctly silent; (4) the paster note's "hasApp false" changed
+to "hasApp true" - CAUGHT, rule 8c alone, 8a/8b/8d correctly silent; (5)
+CONTROL, "Happy"/"appointment"/"apply"-family words added with no genuine
+app claim, stress-testing the \bapps?\b word-boundary regex - correctly
+PASSED. All five rounds fired or passed on the first attempt, each on its
+intended sub-rule only. No checker gap found; no in-repo defect. Full
+36-checker suite re-run clean after the final restore; pack sha256
+reconfirmed identical to baseline; `git status --short` and `git diff
+--stat` against the scratch copy showed no tracked-file change. Live half
+not repeated: rule 8 governs text pasted into fields a read-only fetch could
+not verify regardless; the seventeenth pass's live verdicts (2026-09-15)
+stand. No new question raised.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run against the real
+working copy after the commit, per the standing route.
+
+LOCK RELEASE (step 11): `.agent-lock` deleted from the sandbox mount at the
+end of the run.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 74; mcp__workspace__bash used for lock handling, repo reads, the tar-based scratch copy, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/browser_batch/tabs_close_mcp used for the step 3 portal answer pickup and the live half, both read-only, nothing clicked, typed or submitted; Write used for the new audits file and the fix; Edit used for AGENT_WORKLIST.md, tools/check-pharmacy-first-eligibility.js and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.9 (Clear Chemist Aintree GBP pack) nineteenth quality pass: proved tools/check-pharmacy-first-eligibility.js's rules 10 and 11 by five injections/controls against this pack's own copy for the first time in nineteen passes. REAL DEFECT FOUND AND FIXED in the checker, not the pack: rule 11's message hardcoded "lists all 7 Pharmacy First conditions" and "the other six" regardless of how many conditions the triggering sentence actually named, which is inaccurate in exactly the partial-enumeration case rule 10 (immediately above it in the same file) exists to catch. Fixed to a count-agnostic message; no pack's pass/fail result changes, only the wording. Full 36-checker suite clean before and after. No new question.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a

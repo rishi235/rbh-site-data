@@ -26662,6 +26662,53 @@ directly rather than re-deriving the same facts by hand.
       arrived for any of the 56 currently-open questions. No new question
       raised. Evidence in
       audits/tiffenbergs-aintree-pom-cta-price-4.15-eighteenth-2026-09-16.txt.
+      Quality pass 2026-09-17 (nineteenth re-verification, repo half only):
+      pack re-confirmed byte-identical to baseline (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) and all
+      36 checkers re-run clean before and after testing. Fresh angle:
+      tools/check-app-membership.js's own RULE 8 (added item 4.5, 2026-08-14,
+      specifically to guard the GBP packs against a false or missing app
+      claim) had only ever been confirmed against this pack passively -
+      "hasApp is false and nothing mentions an app" - never proven by
+      injection, unlike the twelve check-gbp-packs.js rules and the other
+      single-purpose checkers already proven against this pack across
+      eighteen prior passes. Full repo copied with .git to a scratch
+      directory outside the tracked tree; all injections and checker runs
+      against the scratch copy only, tracked pack file never opened for
+      writing. Five rounds, each restored by byte copy and sha256-reconfirmed
+      before the next: (1) an app-ordering sentence appended to the Business
+      description - CAUGHT, both rule 8a (published copy claims an app on a
+      non-member branch) and rule 8d (contradicts the pack's own "No app
+      mention anywhere in this pack" note) fired together; (2) the same claim
+      inserted into Post B's body only, description left clean - CAUGHT, same
+      two rules, confirming the posts channel is read independently of the
+      description; (3) an app-screenshot line added to the Photo shot list
+      only - CAUGHT, rule 8b alone, with 8a/8d correctly silent, confirming
+      the shot list is scoped separately from the published-copy channel; (4)
+      the paster note's "hasApp false" changed to "hasApp true", nothing else
+      touched - CAUGHT, rule 8c alone, with 8a/8b/8d correctly silent,
+      confirming 8c is tested independently of the actual copy; (5) CONTROL,
+      "Happy", "appointment" and "apply"-family words added to Post C with no
+      genuine app claim, stress-testing the \bapps?\b word-boundary regex
+      against words this pack already legitimately carries elsewhere -
+      correctly PASSED, exit 0. All five rounds fired or passed on the first
+      attempt, each on its intended sub-rule only, no side-effect failures
+      elsewhere in the 15-pack suite. No checker gap found; no in-repo
+      defect. Full 36-checker suite re-run clean after the final restore;
+      pack sha256 reconfirmed identical to baseline; `git status --short` and
+      `git diff --stat` against the scratch copy showed no tracked-file
+      change. Guard coverage for item 4.15 now extends to
+      check-app-membership.js's rule 8 (sub-rules 8a-8d, the only sub-rules a
+      non-member branch's pack can trigger), on top of the checkers already
+      proven across the eighteen prior passes. Live half not repeated: rule 8
+      governs text pasted into Google's description, services, posts and
+      photo-shot-list fields plus the paster's own notes, none of it a URL a
+      read-only fetch could verify regardless; the seventeenth pass's live
+      verdicts (2026-09-15) stand. Answer pickup: exactly one connected
+      browser, no Q59 conflict; newest portal entry still the Q52 answer
+      (2026-09-01), unchanged; no answer arrived for any of the 57
+      currently-open questions. No new question raised. Evidence in
+      audits/tiffenbergs-aintree-app-membership-4.15-nineteenth-2026-09-17.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
