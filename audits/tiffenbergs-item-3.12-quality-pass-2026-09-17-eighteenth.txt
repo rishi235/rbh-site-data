@@ -1,0 +1,155 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - eighteenth quality pass, 2026-09-17
+Unattended scheduled run, audit-backlog-worker, run 61.
+
+ITEM SELECTION
+Rotation pool derived the same way run 60 recorded it: most recent commit
+date per "Item N.N" from `git log --pretty=format:"%ad|%s" --date=iso-strict`,
+minus the seven standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8)
+and the eight currently-blocked items (5.3/5.4/5.5/5.8/6.1/6.4/6.5/6.6). Pool
+size 36. 3.9 (run 60's own pick, touched 2026-09-17) dropped out of "stalest"
+position by being touched today; 3.12 came out stalest in the remaining pool
+at 2026-09-16T13:40:32+01:00 (its own seventeenth pass). Picked 3.12.
+
+CHECKER UNDER FRESH TEST
+tools/check-seo-keywords.js, chosen from the seventeenth pass's own 19-item
+candidate list of checkers never yet proven by direct injection against this
+branch (17 of 36 already proven at the start of this pass). This checker
+holds the Weebly Meta Keywords field: pairing, permalink resolution, own-
+seoTown presence, cross-town absence (guarded by serviceAreaList), foreign-
+brand absence, own-outward-postcode-only, efficacy/results claim absence,
+and retired-town-word absence.
+
+BASELINE
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy at /tmp/scratch312, outside the tracked tree (the standing FUSE-mount
+unlink restriction, Q87/Q96/Q102, means restoration is a byte copy, not a
+git checkout). Full 34-checker suite run individually on the scratch copy
+(check-cdn-pins.js and check-live-hours.js excluded, both network-dependent):
+34/34 exit 0. check-seo-keywords.js's own baseline: "177 Meta Keywords
+line(s) across 11 paste sheet(s), against 15 live branches ... clean, every
+Meta Keywords line matches its own branch." branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching
+the standing regression anchor, confirmed unchanged on both the scratch copy
+and the tracked repo throughout.
+
+Tiffenbergs' own 12 Meta Keywords blocks located across five paste sheets:
+modules/service/pages/SEO.md (8 blocks - overview/PF, UTI, sore throat,
+sinusitis, earache, impetigo, shingles, insect bite),
+modules/service/pages/CONTRACEPTION-SEO.md (1), TRAVEL-CLINIC-SEO.md (1),
+WEIGHT-LOSS-SEO.md (1), modules/switch/pages/SEO.md (1) - matching this
+branch's 12 pages.
+
+INJECTIONS
+Seven changes made to the scratch copy, one Weebly SEO field at a time, each
+on a Tiffenbergs block untried for injection in any prior 3.12 pass, each
+restored by byte copy (not git checkout) and sha256-reconfirmed identical to
+the pre-injection backup before the next began:
+
+1. RULE 1 (pairing) - UTI block, Meta Keywords blanked entirely. CAUGHT:
+   "has a Page Permalink but no Meta Keywords value."
+2. RULE 3 (presence) - Sore throat block, "Aintree" dropped from every
+   keyword phrase. CAUGHT: "Meta Keywords do not carry this branch's own
+   seoTown 'Aintree'."
+3. RULE 4 (absence) - Sinusitis block, "and Bootle" appended to the phone/
+   town phrase. CAUGHT: "Meta Keywords name 'Bootle', the seoTown of
+   smartts_bootle and skchemists_bootle, and 'Bootle' is not in this
+   branch's serviceAreaList" - named both branches that own the word.
+4. RULE 5 (brand) - Earache block, "Pharmacy First Aintree" swapped for
+   "Smartts Chemist". CAUGHT: "Meta Keywords name 'Smartts Chemist', which
+   is the brand of smartts_bootle, not this branch."
+5. RULE 6 (postcode) - Impetigo block, outward code changed from "L9" to
+   "L20". CAUGHT: "Meta Keywords carry 'L20', which is not this branch's
+   outward code 'L9'."
+6. RULE 2 (resolution) - Shingles block, Page Permalink corrupted to
+   "shingles-treatment-faketown-notreal". CAUGHT: "permalink ... does not
+   end in any live branch's <brandSlug>-<townSlug>, so its keywords cannot
+   be checked against a branch."
+7. CONTROL - Infected insect bite block, Page Description (not Meta
+   Keywords) corrupted to name Smartts Chemist and Bootle and add a
+   superlative ("guaranteed fastest results in town"). check-seo-keywords.js
+   stayed clean (exit 0, no mention of this block), confirming the Meta
+   Keywords rule set does not cross-fire on a Page Description change. The
+   same corrupted block was then run through check-seo-sheets.js
+   separately, which caught the description/page mismatch immediately -
+   proving the injection was live and the two checkers' territories stay
+   correctly separated rather than the control being a false negative.
+
+All seven caught on the first attempt, on exactly the intended rule (or, for
+the control, exactly the intended checker), with the message the checker's
+own source predicts. Rules 7 (claim) and 8 (retired town word) not exercised
+this pass: rule 8 needs a branch whose townSlug has diverged from its
+seoTown, which Tiffenbergs' data does not (townSlug "aintree" = seoTown
+"Aintree"), so it is not a meaningful test on this branch specifically; rule
+7 (claim) is left as a candidate for a future pass, noted below.
+
+RESTORE AND RE-VERIFY
+All five touched sheets (modules/service/pages/SEO.md,
+CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md,
+modules/switch/pages/SEO.md - the last four backed up but only SEO.md and
+the switch SEO.md were actually part of any Tiffenbergs block touched;
+CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md and WEIGHT-LOSS-SEO.md were
+copied as a precaution before the run and restored unconditionally,
+confirmed sha256-identical to their pre-run originals) restored by byte
+copy and sha256-reconfirmed identical to backup:
+  SEO.md              2d04b044...28ee5
+  CONTRACEPTION-SEO.md 175b1382...8bc1b
+  TRAVEL-CLINIC-SEO.md f81114a4...bcf7e21
+  WEIGHT-LOSS-SEO.md   4ff908bc...58e2a
+  switch/pages/SEO.md  0ae6e144...9f3e68a
+(full digests in the run transcript; all five matched their pre-injection
+backup exactly).
+
+Full 34-checker suite re-run on the scratch copy after all restores: 34/34
+exit 0. branches.json sha256 unchanged throughout (169bb5a2...b102).
+
+TRACKED REPO
+Never opened for writing during the injection work; all mutation happened on
+the /tmp scratch copy only. Tracked repo's own branches.json sha256
+confirmed matching the same regression anchor. git status on the tracked
+repo shows the same standing FUSE-mount "unable to unlink .git/index.lock"
+warning on every invocation (11-24 seconds old each time, cleared by rename
+before the eventual commit, the standard workaround per Q87/Q96/Q102) plus
+the same large accumulation of unrelated dated test-probe/lock-debris files
+at repo root from many prior runs' own lock-handling and infrastructure
+testing - noted here for visibility, out of scope for this item's own
+verification, not touched. A hygiene sweep of that accumulation remains a
+separate, larger decision, not raised again here.
+
+RESULT
+Zero in-repo defect found. check-seo-keywords.js was already correctly
+holding all six of the rules tested (pairing, presence, absence, brand,
+postcode, resolution) against Tiffenbergs Chemist specifically, and does not
+cross-fire with check-seo-sheets.js's own territory.
+
+GUARD COVERAGE for item 3.12 now extends to 18 of the 36 checkers proven by
+direct injection against this branch: check-nap.js, check-postcodes.js,
+check-em-dashes.js, check-booking-routes.js, check-jsonld.js, check-gbp-
+packs.js, check-branch-identity.js, check-map-embeds.js, check-pharmacy-
+first-eligibility.js, check-weight-loss-copy.js, check-branch-links.js,
+check-opening-hours.js, check-switch-copy.js, check-travel-clinic-copy.js,
+check-contraception-copy.js, check-seo-lengths.js, check-seo-pattern.js and
+(this pass) check-seo-keywords.js. 18 remain unproven by direct injection
+against this branch specifically: check-address-region.js, check-app-
+membership.js, check-brand-spelling.js, check-editor-snapshot.js, check-
+fragment-targets.js, check-gbp-pharmacy-first.js, check-live-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js, check-pharmacy-first-
+safety-net.js, check-pharmacy-first-symptoms.js, check-seo-sheets.js
+(exercised as the control's counter-check this pass, but not yet proven by
+a dedicated injection against a Tiffenbergs block), check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-whatsapp-route.js and
+check-widget-diaries.js. check-seo-keywords.js's own rule 7 (claim) also
+remains untested against this branch specifically and is a candidate for
+that dedicated pass.
+
+ANSWER PICKUP this run (step 3): Claude in Chrome connected, feedback
+endpoint read successfully on the first attempt (52 entries, back to
+2026-08-04). Matched every "Audit answer Q<n>" entry against this run's open
+question list (57 open at run start): only Q37 and Q43 have any feed entry
+at all among the currently open set, both already recorded as "not a
+decision" replies, no reply newer than 2026-09-01T22:44:51.524Z for either -
+matching what run 60's own pickup found. No status change made to either
+question; both stay open. QUESTIONS.json otherwise unchanged.
+
+No new question raised for this item - the checker was proven clean, not a
+live-facing decision. Live half not re-read this pass: full 12-of-12 live
+coverage already stands from the fifth/sixth passes (2026-09-02).

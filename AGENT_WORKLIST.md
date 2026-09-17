@@ -14216,6 +14216,80 @@ Done 2026-09-17 (twentieth pass).
       against data already known correct, not a live-facing decision.
       Evidence: audits/tiffenbergs-item-3.12-quality-pass-2026-09-16-
       seventeenth.txt. Done 2026-09-16 (seventeenth pass)
+      Quality pass 2026-09-17, EIGHTEENTH PASS, FRESH ANGLE: tools/check-
+      seo-keywords.js - the Weebly Meta Keywords field checker - proven by
+      injection against Tiffenbergs' own paste sheets for the first time in
+      this item's eighteen-pass history (seventeen prior passes exercised
+      check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-
+      routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-
+      identity.js, check-map-embeds.js, check-pharmacy-first-
+      eligibility.js, check-weight-loss-copy.js, check-branch-links.js,
+      check-opening-hours.js, check-switch-copy.js, check-travel-clinic-
+      copy.js, check-contraception-copy.js, check-seo-lengths.js and
+      check-seo-pattern.js against this branch, but never the checker that
+      owns the Meta Keywords field's pairing, resolution, presence,
+      absence, brand and postcode rules). Baseline: full repo exported via
+      `git archive HEAD | tar -x` to /tmp/scratch312, outside the tracked
+      tree; 34-checker suite run individually, 34/34 exit 0; check-seo-
+      keywords.js's own baseline "177 Meta Keywords line(s) across 11
+      paste sheets, against 15 live branches ... clean"; branches.json
+      sha256 169bb5a2...b102 unchanged (standing regression anchor).
+      Tiffenbergs' 12 Meta Keywords blocks located across five sheets:
+      SEO.md (8), CONTRACEPTION-SEO.md (1), TRAVEL-CLINIC-SEO.md (1),
+      WEIGHT-LOSS-SEO.md (1), switch/pages/SEO.md (1). Seven injections,
+      each on a block untried for injection in any prior 3.12 pass, each
+      restored by byte copy and sha256-reconfirmed identical before the
+      next began: (1) RULE 1 pairing - UTI block Meta Keywords blanked -
+      CAUGHT, "has a Page Permalink but no Meta Keywords value"; (2) RULE
+      3 presence - Sore throat block, own seoTown "Aintree" dropped from
+      every phrase - CAUGHT, named the missing town; (3) RULE 4 absence -
+      Sinusitis block, "and Bootle" appended - CAUGHT, named both owning
+      branches (smartts_bootle, skchemists_bootle), since Bootle is not in
+      Tiffenbergs' serviceAreaList; (4) RULE 5 brand - Earache block,
+      "Pharmacy First Aintree" swapped for "Smartts Chemist" - CAUGHT,
+      named the owning branch; (5) RULE 6 postcode - Impetigo block, "L9"
+      changed to "L20" - CAUGHT, named both the foreign and own outward
+      code; (6) RULE 2 resolution - Shingles block, permalink corrupted to
+      "shingles-treatment-faketown-notreal" - CAUGHT, named the unresolved
+      permalink; (7) CONTROL - Infected insect bite block, Page
+      Description (not Meta Keywords) corrupted to name Smartts Chemist,
+      Bootle and a superlative claim - check-seo-keywords.js stayed clean
+      (no cross-fire with check-seo-sheets.js's own territory), and the
+      same corrupted block was independently caught by check-seo-sheets.js
+      run separately, proving the injection was live. All seven caught on
+      the first attempt, on exactly the intended rule/checker, with the
+      message the source predicts. Rules 7 (claim) and 8 (retired town
+      word) not exercised: rule 8 needs a townSlug/seoTown divergence this
+      branch's data does not have; rule 7 is a candidate for a future
+      pass. RESTORE AND RE-VERIFY: all five touched sheets restored by
+      byte copy, sha256-reconfirmed identical to their pre-injection
+      backups (SEO.md 2d04b044...28ee5, CONTRACEPTION-SEO.md
+      175b1382...8bc1b, TRAVEL-CLINIC-SEO.md f81114a4...bcf7e21,
+      WEIGHT-LOSS-SEO.md 4ff908bc...58e2a, switch/pages/SEO.md
+      0ae6e144...9f3e68a). Full 34-checker suite re-run after restore:
+      34/34 exit 0. branches.json sha256 unchanged throughout. TRACKED
+      REPO: never opened for writing during injection work; branches.json
+      sha256 matches the same regression anchor; git status shows only the
+      standing FUSE-mount index.lock warning (cleared by rename before the
+      commit, per Q87/Q96/Q102) plus the same long-standing accumulation
+      of unrelated test-probe/lock-debris files at repo root, noted for
+      visibility, out of scope, not touched. RESULT: zero in-repo defect;
+      check-seo-keywords.js was already correctly holding all six rules
+      tested against Tiffenbergs specifically, with no cross-fire against
+      check-seo-sheets.js. Guard coverage for item 3.12 now extends to 18
+      of the 36 checkers proven by direct injection against this branch;
+      18 remain, listed in full in the evidence file, along with check-
+      seo-keywords.js's own untested rule 7 (claim). STEP 3 answer pickup:
+      Claude in Chrome connected, feedback endpoint read successfully
+      first attempt; no new answers found for any of the 57 currently open
+      questions, newest entry still Q52 (2026-09-01), matching run 60's
+      own pickup. No status change made to Q37/Q43. Live half not
+      attempted: full 12-of-12 live coverage already stands from the
+      fifth/sixth passes (2026-09-02), not re-read this pass. No new
+      question raised - checker proven clean against data already known
+      correct, not a live-facing decision. Evidence: audits/tiffenbergs-
+      item-3.12-quality-pass-2026-09-17-eighteenth.txt. Done 2026-09-17
+      (eighteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

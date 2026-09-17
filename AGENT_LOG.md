@@ -1,4 +1,150 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 60; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.9 (Coleman and Leighs Pharmacy, Walton) twentieth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 61; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.12 (Tiffenbergs Chemist, Aintree) eighteenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
+timestamp. This run's own `.git/HEAD.lock` was a genuine block rather than
+the usual cosmetic warning: 0 bytes, about 25 minutes old, no rebase-merge or
+MERGE_HEAD in progress, `git status` itself succeeded (repo not otherwise
+mid-operation), and the large standing pile of `HEAD.lock.cleared-*` /
+`HEAD.lock.bak*` debris at `.git/` top level (dozens, dating back to
+2026-09-04) confirms this exact FUSE-mount unlink restriction has recurred on
+effectively every run since. Cleared by rename (`mv .git/HEAD.lock
+.git/HEAD.lock.cleared-<epoch>`), not delete, matching the standing
+convention (Q87/Q96/Q102). `git fetch origin` / `checkout agents/audit-
+backlog` / `pull --ff-only` then completed normally, already at origin's HEAD
+(run 60's own final commit, 5ef4c60). The same "unable to unlink
+.git/index.lock" warning recurred on subsequent `git status` calls in the
+sandbox shell, cleared by rename each time it blocked a following command,
+same as every recent run. Several hundred stray `.agent-lock.*` and other
+debris files remain untouched in the working tree, out of scope, same
+standing note as every recent run.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (52
+entries, back to 2026-08-04). Matched every "Audit answer Q<n>" entry against
+this run's OPEN question list (57 open): only Q37 and Q43 have any feed entry
+at all among the currently open set, and both are the same two portal replies
+already recorded and marked "not a decision" (Q37's "i need further
+explanation..." and Q43's "Unsure..."), no reply newer than
+2026-09-01T22:44:51.524Z for either, matching what run 60's own pickup found
+today. No status change made to either question; both stay open.
+QUESTIONS.json otherwise unchanged (110 total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 60's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED]. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived the same way run 60 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. Pool size
+36. 3.9 (run 60's own pick, touched 2026-09-17) dropped out of "stalest"
+position by being touched today; 3.12 came out stalest in the remaining pool
+at 2026-09-16T13:40:32+01:00, clear of the next candidate 3.13 at 14:14:20.
+Picked 3.12.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 3.12 eighteenth-pass
+paragraph and audits/tiffenbergs-item-3.12-quality-pass-2026-09-17-
+eighteenth.txt. Checker under fresh test: tools/check-seo-keywords.js,
+chosen from the seventeenth pass's own 19-item candidate list of previously-
+untested checkers (17 of 36 already proven against this branch at the start
+of this pass).
+
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under /tmp, tracked repo never opened for writing during the probe.
+Baseline confirmed clean first: full 34-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent), 34/34 exit 0; check-
+seo-keywords.js's own baseline "clean, every Meta Keywords line matches its
+own branch", 177 lines across 11 sheets against 15 live branches.
+
+Target: Tiffenbergs' 12 Meta Keywords blocks across five paste sheets
+(SEO.md x8, CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md,
+switch/pages/SEO.md). Seven injections, each restored by direct byte copy
+and sha256-reconfirmed identical to the original before the next began: (1)
+RULE 1 pairing, UTI block's Meta Keywords blanked - CAUGHT, named the
+missing value; (2) RULE 3 presence, Sore throat block's own seoTown
+"Aintree" dropped from every phrase - CAUGHT, named the missing town; (3)
+RULE 4 absence, Sinusitis block gained "and Bootle" - CAUGHT, named both
+owning branches (smartts_bootle, skchemists_bootle); (4) RULE 5 brand,
+Earache block's "Pharmacy First Aintree" swapped for "Smartts Chemist" -
+CAUGHT, named the owning branch; (5) RULE 6 postcode, Impetigo block's "L9"
+changed to "L20" - CAUGHT, named both codes; (6) RULE 2 resolution, Shingles
+block's permalink corrupted to an unresolvable string - CAUGHT, named the
+unresolved permalink; (7) CONTROL, Infected insect bite block's Page
+Description (not Meta Keywords) corrupted to name a different branch and add
+a superlative claim - check-seo-keywords.js stayed clean (zero mentions),
+confirming no cross-fire with check-seo-sheets.js's own territory; check-
+seo-sheets.js run separately caught the same swap immediately, proving the
+injection was live. All seven caught on the first attempt, on exactly the
+intended rule, with the message the checker's own source predicts. Rules 7
+(claim) and 8 (retired town word) not exercised this pass - rule 8 needs a
+townSlug/seoTown divergence this branch's data does not have; rule 7 is
+noted as a candidate for a future pass.
+
+RESTORE AND RE-VERIFY: all five touched sheets restored by byte copy from
+the pre-injection backups; sha256 of each restored file reconfirmed
+identical to its backup (SEO.md 2d04b044...28ee5, CONTRACEPTION-SEO.md
+175b1382...8bc1b, TRAVEL-CLINIC-SEO.md f81114a4...bcf7e21, WEIGHT-LOSS-
+SEO.md 4ff908bc...58e2a, switch/pages/SEO.md 0ae6e144...9f3e68a - full
+digests in the evidence file). Full 34-checker suite re-run on the scratch
+copy after restore: 34/34 exit 0.
+
+TRACKED REPO: never opened for writing during the injection work (all
+mutation happened on the scratch copy only). branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 unchanged
+throughout, matching the standing regression anchor. git status on the
+tracked repo shows only the standing FUSE-mount index.lock warning (cleared
+by rename before staging the commit) plus the same large accumulation of
+unrelated dated test-probe/lock-debris files from many prior runs' own
+lock-handling and infrastructure testing at repo root - noted here for
+visibility, out of scope for this item's own verification, not touched; a
+hygiene sweep of that pile remains a separate decision, not raised again
+here since it blocks no worklist item and no live page.
+
+RESULT: zero in-repo defect found. check-seo-keywords.js was already
+correctly holding all six rules tested (pairing, presence, absence, brand,
+postcode, resolution) against Tiffenbergs Chemist specifically, with no
+cross-fire against check-seo-sheets.js.
+
+GUARD COVERAGE for item 3.12 now extends to 18 of the 36 checkers proven by
+direct injection against this branch specifically: check-nap.js, check-
+postcodes.js, check-em-dashes.js, check-booking-routes.js, check-jsonld.js,
+check-gbp-packs.js, check-branch-identity.js, check-map-embeds.js, check-
+pharmacy-first-eligibility.js, check-weight-loss-copy.js, check-branch-
+links.js, check-opening-hours.js, check-switch-copy.js, check-travel-
+clinic-copy.js, check-contraception-copy.js, check-seo-lengths.js, check-
+seo-pattern.js and (this pass) check-seo-keywords.js. 18 remain unproven by
+direct injection against this branch specifically, listed in full in the
+evidence file, along with check-seo-keywords.js's own untested rule 7
+(claim).
+
+ANSWER PICKUP this run: Claude in Chrome connected, feedback endpoint read
+successfully on the first attempt. Newest entry still Q52 (2026-09-01),
+already applied by a prior run. No answer present for any of the 57
+currently open questions (Q53 onward). No status change made, no new
+question raised.
+
+No new question raised for this item - the checker was proven clean, not a
+live-facing decision. Live half not re-attempted this pass: full 12-of-12
+live coverage already stands from the fifth/sixth passes (2026-09-02).
+
+STEP 7: AGENT_WORKLIST.md's item 3.12 block updated in place with the
+eighteenth-pass paragraph (not moved to another section), tick already
+present from the seventeenth pass. Evidence file written to audits/
+tiffenbergs-item-3.12-quality-pass-2026-09-17-eighteenth.txt.
+
+STEPS 9/10: git add AGENT_WORKLIST.md AGENT_LOG.md audits/tiffenbergs-
+item-3.12-quality-pass-2026-09-17-eighteenth.txt; commit; push origin
+agents/audit-backlog; then `node tools/build-audit-status.js` to publish the
+portal status page, per the standing procedure. Outcome recorded in the next
+entry if a separate confirmation pass was needed, otherwise this run's own
+commit hash is visible in `git log` immediately above this entry.
+
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
 timestamp (1789634100). `git fetch origin` / `checkout agents/audit-backlog` /
