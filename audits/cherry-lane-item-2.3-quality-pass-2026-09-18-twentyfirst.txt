@@ -1,0 +1,110 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - twenty-first quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-09-18 (run following run 88)
+
+SELECTION METHOD
+All 8 unchecked worklist lines confirmed still [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, both Q60 lines under 6.4/6.5, 6.6), unchanged from run 88. Fell to the
+quality-pass fallback. Rotation pool re-derived fresh (36 items: all 43
+completed worklist items minus the seven standing out-of-rotation one-offs
+1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), via
+  git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md
+run per candidate over each item's own current paragraph range (heading-to-
+next-heading spans recomputed from the current file, not reused from any
+prior run's line numbers). 2.3 came out stalest at 2026-09-17T06:13:44+01:00,
+about 28 minutes clear of the next candidate (3.1 at 2026-09-17T06:42:11+01:00)
+and well clear of every other pool item, all of which cluster later on
+2026-09-17 or (1.2 only) early on 2026-09-18 from run 88's own edit. Picked
+2.3 (Cherry Lane Pharmacy, Walton, twenty-first quality pass).
+
+NEW ANGLE
+tools/check-pharmacy-first-symptoms.js had never been named once across the
+prior twenty passes on this item (confirmed by grepping the item's own
+AGENT_WORKLIST.md block for check-*.js names). Cherry Lane carries all seven
+Pharmacy First condition pages, so its symptoms blocks (rules 3-6, page-
+scoped; rules 1/2/7/8 generator-scoped and estate-wide) were fully in scope
+and untested by direct injection for this branch specifically.
+
+METHOD
+Full repo exported via git archive (git archive HEAD | tar -x) to a scratch
+directory; tracked repo never opened for writing. branches.json (sha256
+169bb5a2...b102, matching run 88's own recorded value) and all seven Cherry
+Lane condition pages confirmed byte-identical to the tracked repo by sha256
+before any mutation. Baseline: 34/34 static tools/check-*.js checkers clean
+on both the tracked repo and the scratch copy (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent).
+
+Four injections against the scratch copy, each restored by byte copy and
+sha256-reconfirmed identical before the next:
+
+(1) earache-treatment-cherry-lane-walton.html: "Ear pain" reworded to "Ear
+    discomfort" in the symptoms list. CAUGHT first attempt, rule 4 (verbatim),
+    naming both the missing expected point and the page's actual list.
+
+(2) sore-throat-treatment-cherry-lane-walton.html: an unrecognised extra
+    point ("Scratchy sensation when swallowing", chosen to not collide with
+    any of the other six pathways' own symptom text) appended to the list.
+    CAUGHT first attempt, rule 5 (list integrity) only - confirms rule 5 is
+    genuinely independent of rule 6 rather than always co-firing.
+
+(3) shingles-treatment-cherry-lane-walton.html: impetigo's own symptom point
+    ("Sores that burst and leave golden-brown crusts") appended to the
+    shingles list. CAUGHT first attempt, both rule 5 (list integrity, 5 items
+    vs 4 declared) and rule 6 (cross-contamination, naming the impetigo
+    pathway by name) - the expected double-catch for an added (not
+    substituted) contaminating point.
+
+(4) insect-bite-treatment-cherry-lane-walton.html: the shared lead "Common
+    signs include:" changed to "Watch out for:". CAUGHT first attempt, rule 3
+    (block presence/lead).
+
+CONTROL: uti-treatment-cherry-lane-walton.html, step-2 heading reworded
+"Speak to the pharmacist" -> "Talk to the pharmacist" (no symptom, town,
+brand, postcode or time token touched, and outside the symptoms block
+entirely). PASSED clean on check-pharmacy-first-symptoms.js, and cross-
+checked clean on check-seo-pattern.js and check-seo-lengths.js too, so the
+four catches above are genuine rule hits and not the checker (or its
+neighbours) firing on any edit.
+
+All four injections fired on exactly the intended rule, first attempt, no
+cross-firing beyond the expected double-catch in (3). Final restore
+sha256-reconfirmed identical on all four touched files (also independently
+re-confirmed via a full seven-file sha256 sweep including the three
+untouched Cherry Lane condition pages, all unchanged); full 34-checker suite
+re-run clean on the scratch copy after every restore. Tracked repo confirmed
+untouched throughout: `git status --porcelain -- branches.json tools modules
+core gbp-packs` on the real working copy returned only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+touched). No in-repo defect found. Guard coverage for item 2.3 now 20 of 36
+checkers proven by direct injection (up from 19; check-cdn-pins.js and
+check-live-hours.js remain out of scope for injection since both need a live
+fetch).
+
+LIVE HALF (Claude in Chrome, one tab, read-only throughout, nothing clicked,
+typed or submitted). All five pages exercised by the injections/control
+re-read live via a read-only javascript_tool query against the DOM (locates
+the "<condition> symptoms" h2, then every <li> before the next h2):
+  earache-treatment-cherry-lane-walton.html
+  sore-throat-treatment-cherry-lane-walton.html
+  shingles-treatment-cherry-lane-walton.html
+  insect-bite-treatment-cherry-lane-walton.html
+  uti-treatment-cherry-lane-walton.html
+All five live headings, leads and symptom lists byte-for-byte identical to
+the repo copy and to the generator's own CONDITIONS table - no live fault
+found on any of the five, and specifically none of the four defect shapes
+the injections proved the checker catches (missing point, extra point,
+cross-pathway contamination, missing lead) are present live. No new question.
+
+FORWARD NOTE
+Re-derive the rotation pool fresh next run rather than trusting this note -
+it shifts every run - but as computed by this pass, 3.1 (2026-09-17T06:42:11
++01:00) is the next stalest candidate, about 30 minutes ahead of everything
+else in the pool bar 2.3 (now freshest after this run). Checkers still never
+named against item 2.3 specifically after this pass: check-address-region.js,
+check-app-membership.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-nap.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-postcodes.js, check-seo-keywords.js, check-seo-lengths.js,
+check-seo-sheets.js, check-service-links.js, check-weight-loss-copy.js,
+check-whatsapp-route.js, check-widget-diaries.js (17 remaining after this
+pass proved check-pharmacy-first-symptoms.js).

@@ -2404,6 +2404,54 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       No new question raised. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-17-twentieth.txt. Done
       2026-09-17.
+      Twenty-first quality pass 2026-09-18 (unattended scheduled run).
+      Rotation-selected: pool of 36 (43 completed items minus the seven
+      standing out-of-rotation one-offs) re-derived fresh via git log -1 -L
+      per candidate's current paragraph range; 2.3 stalest at
+      2026-09-17T06:13:44+01:00, clear of the next candidate (3.1 at
+      06:42:11) and of everything else in the pool. FRESH ANGLE: tools/
+      check-pharmacy-first-symptoms.js had never been named once across the
+      prior twenty passes on this item, despite Cherry Lane carrying all
+      seven Pharmacy First condition pages the checker's page-scoped rules
+      3-6 cover. Full repo exported via git archive to a scratch directory,
+      tracked repo never opened for writing; branches.json (sha256
+      169bb5a2...b102, matching run 88's own recorded value) and all seven
+      Cherry Lane condition pages confirmed byte-identical to the tracked
+      repo by sha256 before any mutation. Baseline 34/34 checkers clean on
+      both the tracked repo and the scratch copy. Four injections, each
+      restored by byte copy and sha256-reconfirmed before the next: (1)
+      "Ear pain" reworded to "Ear discomfort" on the earache page - caught
+      first attempt, rule 4 (verbatim); (2) an unrecognised extra symptom
+      point appended to the sore-throat page - caught first attempt, rule 5
+      only, confirming rule 5 fires independently of rule 6; (3) impetigo's
+      own symptom point appended to the shingles page - caught first
+      attempt, both rule 5 (count) and rule 6 (cross-contamination, naming
+      impetigo), the expected double-catch for an added rather than
+      substituted contaminating point; (4) the shared lead "Common signs
+      include:" changed on the insect-bite page - caught first attempt,
+      rule 3. CONTROL: an unrelated step heading reworded on the UTI page,
+      outside the symptoms block and touching no symptom, town, brand,
+      postcode or time token - passed clean on check-pharmacy-first-
+      symptoms.js and, cross-checked, on check-seo-pattern.js and check-seo-
+      lengths.js too. All four injections fired on exactly the intended
+      rule, first attempt, no cross-firing beyond the expected double-catch
+      in (3). Final restore sha256-reconfirmed identical on all seven
+      Cherry Lane condition pages; full 34-checker suite clean on the
+      scratch copy after every restore; tracked repo confirmed untouched
+      throughout (git status --porcelain showed only the two long-standing
+      pre-existing untracked strays). No in-repo defect found. Guard
+      coverage for item 2.3 now 20 of 36 checkers proven by direct
+      injection (up from 19).
+      LIVE HALF PERFORMED (Claude in Chrome, one tab, read-only throughout,
+      nothing clicked, typed or submitted). All five pages exercised by the
+      injections and the control re-read live via a read-only DOM query
+      (earache, sore-throat, shingles, insect-bite, UTI): all five live
+      symptoms headings, leads and lists byte-for-byte identical to the
+      repo copy and the generator's own CONDITIONS table. No live fault
+      found, specifically none of the four defect shapes the injections
+      proved this checker catches. No new question. Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-18-twentyfirst.txt.
+      Done 2026-09-18.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
