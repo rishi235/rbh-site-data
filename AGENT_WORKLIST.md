@@ -12704,6 +12704,113 @@ Done 2026-09-17 (twentieth pass).
       On the open backlog generally: unchanged - the eight genuinely
       actionable worklist items remain blocked on Rishi's own decisions and
       56 of 107 questions are open. Done 2026-09-16
+
+      Quality pass 2026-09-17 (twenty-first, unattended scheduled run). All
+      eight unchecked worklist items reconfirmed [BLOCKED] on Rishi's own
+      open decisions (5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines
+      under 6.4/6.5/6.6), so the quality-pass fallback applied. Rotation
+      pool re-derived fresh via a Python scan of `git log
+      --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+      taking the newest commit date mentioning each "Item N.N" and
+      excluding the seven standing out-of-rotation items (1.1, 1.4, 2.2,
+      5.6, 5.7, 6.7, 6.8) and the eight blocked items. 3.10 came out
+      stalest at 2026-09-16T20:18:06+01:00, clear of the next candidate
+      (4.4, 2026-09-16T20:40:26+01:00) and every other pool item, matching
+      the twentieth pass's own forward note exactly. Chosen: 3.10 (Riddings
+      Pharmacy, Timperley).
+
+      FRESH ANGLE: the twentieth pass's own forward note named sixteen
+      checkers never once proven by injection against Riddings across
+      twenty prior passes. tools/check-url-scheme.js, added 2026-08-13 on
+      worklist item 6.6 and never named against this branch before, is now
+      proven by six injections plus a control, covering both of its rule
+      families. BASELINE: full 36-checker suite run individually against
+      the tracked repo before starting, 36/36 exit 0. sha256 of the four
+      files to be mutated (Riddings' own
+      modules/service/pages/contraception-riddings-timperley.html,
+      branches.json, tools/check-url-scheme.js, GBP_MANUAL.md) recorded
+      before any edit. SIX INJECTIONS, each restored from a saved original
+      and sha256-reconfirmed identical before the next: (1) RULE 1,
+      published surface - the Website link on Riddings' own contraception
+      page changed from https to http - CAUGHT, "INSECURE
+      modules/service/pages/contraception-riddings-timperley.html"; (2)
+      RULE 1, branches.json field - riddings_timperley.googleReviewUrl
+      changed from https to http - CAUGHT, "INSECURE branches.json
+      riddings_timperley.googleReviewUrl"; (3) RULE 2 GBPSITE - Riddings'
+      own KNOWN exemption removed from the checker, exposing the real,
+      already-existing GBP_MANUAL.md divergence (GBP publishes http,
+      branches.json says https, normally held under Q66) - CAUGHT,
+      "GBPSITE ... Differs on SCHEME", proving the exemption is doing real
+      work rather than masking a rule that would not otherwise fire; (4)
+      RULE 2 STALE - GBP_MANUAL.md's Riddings row fixed to https to match
+      branches.json while the KNOWN entry was left in place - CAUGHT,
+      "KNOWN names \"Riddings\" but its GBP website now matches"; (5)
+      RULE 3 MAPPED - the Riddings row's profile column renamed to
+      "Riddings Chemist" while the PROFILE_TO_BRANCH key "Riddings" was
+      left unchanged - CAUGHT both halves at once, "profile \"Riddings
+      Chemist\" is in the table but not in PROFILE_TO_BRANCH" and
+      "PROFILE_TO_BRANCH names \"Riddings\" but no row ... carries that
+      profile", plus the expected STALE collateral on the now-unused KNOWN
+      entry - a single edit firing three failures at once, all named
+      correctly and all attributable to the one change. CONTROL: a
+      whitespace-only edit to the Riddings GBP_MANUAL.md row (one extra
+      trailing space in the website cell, trimmed by the checker's own
+      cell parsing) - correctly passed clean, exit 0, confirming the
+      checker reacts to content, not incidental formatting. All six fired
+      or passed on exactly their intended rule, first attempt, with the
+      one documented three-failure collateral chain in injection 5 being
+      correct behaviour given the fields' real dependency rather than a
+      bug. Final restore sha256-reconfirmed identical to baseline for all
+      four files; full 36-checker suite re-run individually against the
+      tracked repo after cleanup: 36/36 exit 0; git status --porcelain --
+      modules core branches.json gbp-packs tools GBP_MANUAL.md showing
+      only the two long-standing pre-existing untracked strays
+      (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched. One incidental observation, not a new defect: the
+      pre- and post-injection baseline runs both emit a WARN naming
+      qtmp.json (a pre-existing untracked debris file at the repo root,
+      part of the roughly 240-file accumulation prior passes have already
+      flagged) for carrying an insecure URL in narrative text; the checker
+      correctly treats this as a WARN rather than a FAIL because qtmp.json
+      is not a published surface, so no action needed.
+
+      METHOD, INJECTIONS and VERDICT: full detail and raw output in
+      audits/verify-3.10-2026-09-17-twentyfirst.js and
+      audits/verify-3.10-2026-09-17-twentyfirst-output.txt.
+
+      LIVE HALF: not attempted this pass. This pass's new angle (proving
+      check-url-scheme.js by injection) is a repo-only verification with
+      no live-page surface of its own beyond what the repo checker already
+      reads (GBP_MANUAL.md is the record of what was read live on
+      2026-08-09, not a live fetch of its own), the same scope decision
+      several prior passes on this item have made for the same reason.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read via the
+      standing answer-pickup step: 110 total, 57 open, unchanged; newest
+      answer still Q52 (2026-09-01).
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.10-2026-09-17-twentyfirst.js (new);
+      audits/verify-3.10-2026-09-17-twentyfirst-output.txt (new). No
+      generator, checker, page, sheet or branches.json content changed.
+
+      Next stalest for whoever runs next, re-derive rather than assume:
+      with 3.10 now current, the tied-oldest pool that remains needs fresh
+      derivation. On item 3.10 itself: fifteen checkers still never proven
+      by injection against Riddings across twenty-one passes
+      (check-address-region.js, check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-whatsapp-route.js,
+      check-widget-diaries.js) - a candidate list for a twenty-second
+      pass. On the open backlog generally: unchanged - the eight genuinely
+      actionable worklist items remain blocked on Rishi's own decisions
+      and 57 of 110 questions are open. Done 2026-09-17
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

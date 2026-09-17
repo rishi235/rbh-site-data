@@ -1,3 +1,143 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 72; mcp__workspace__bash used for lock handling, repo reads, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); bash used for AGENT_WORKLIST.md and this entry given their size; Write used for the new audits file) - Item 3.10 (Riddings Pharmacy, Timperley) twenty-first quality pass: proved tools/check-url-scheme.js's RULE 1 (published surface and branches.json field), RULE 2 (GBPSITE and STALE) and RULE 3 (MAPPED, both halves) by six injections plus a control against this branch's own files for the first time in twenty-one passes, zero in-repo defect; guard coverage for item 3.10 now 21 of 36 checkers, fifteen remaining.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 71's own
+lock already resolved and cleared before this run started). Wrote a fresh
+UTC timestamp via the sandbox mount. `git fetch origin`, already on
+`agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` -
+already up to date with run 71's own commit today (item 3.6). A fresh
+`.git/index.lock` appeared during this run's own read-only git calls (well
+under a minute old when checked), the same standing sandbox-mount
+restriction Q87/Q96/Q102 document - left alone rather than cleared, and not
+needed for the read-only git status/log calls this run made from the
+sandbox; the actual add/commit/push for this run is queued for the
+Windows-MCP PowerShell route against the real C:\Dev\rbh-site-data working
+copy per Q102's standing recommendation.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed: newest entry still Q52
+(2026-09-01T22:44:51.524Z), identical to every run since 2026-09-01.
+Cross-checked against QUESTIONS.json: Q52 already recorded
+`status: "answered"` with the exact matching answer text. Nothing new to
+pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 71's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python scan of `git log
+--pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`, taking
+the newest commit date mentioning each "Item N.N" and excluding the seven
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 3.10 came out stalest at 2026-09-16T20:18:06+01:00,
+clear of the next candidate (4.4, 2026-09-16T20:40:26+01:00) and every
+other pool item, matching the twentieth pass's own forward note exactly.
+Picked 3.10.
+
+WORK DONE (item 3.10, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.10 block and in
+audits/verify-3.10-2026-09-17-twentyfirst.js /
+audits/verify-3.10-2026-09-17-twentyfirst-output.txt. In summary: the
+twentieth pass's own forward note listed sixteen checkers never once
+proven by injection against Riddings across twenty prior passes.
+tools/check-url-scheme.js (item 6.6, added 2026-08-13) was picked because
+Riddings already carries a live, real, held divergence under this
+checker's own KNOWN list (GBP publishes http, branches.json says https,
+normally excused under Q66), which made it possible to test the exemption
+machinery itself rather than only synthetic faults.
+
+BASELINE: full 36-checker suite run individually against the tracked repo
+before starting, 36/36 exit 0. sha256 of the four files to be mutated
+(Riddings' own contraception page, branches.json, the checker itself, and
+GBP_MANUAL.md) recorded before any edit.
+
+SIX INJECTIONS, each restored from a saved original and
+sha256-reconfirmed identical before the next: (1) RULE 1, published
+surface - the Website link on Riddings' own
+modules/service/pages/contraception-riddings-timperley.html changed from
+https to http - CAUGHT, "INSECURE ... published surface carries
+http://www.riddingspharmacy.co.uk"; (2) RULE 1, branches.json field -
+riddings_timperley.googleReviewUrl changed from https to http - CAUGHT,
+"INSECURE branches.json riddings_timperley.googleReviewUrl"; (3) RULE 2
+GBPSITE - Riddings' own KNOWN exemption removed from the checker,
+exposing the real, already-existing GBP_MANUAL.md divergence - CAUGHT,
+"GBPSITE ... Differs on SCHEME", proving the exemption is doing genuine
+work rather than masking a rule that would not otherwise fire; (4) RULE 2
+STALE - GBP_MANUAL.md's Riddings row fixed to https to match
+branches.json while the KNOWN entry was left in place - CAUGHT, "KNOWN
+names \"Riddings\" but its GBP website now matches"; (5) RULE 3 MAPPED -
+the Riddings row's profile column renamed to "Riddings Chemist" while the
+PROFILE_TO_BRANCH key "Riddings" was left unchanged - CAUGHT both halves
+of the rule at once (the renamed profile unmapped, and the original key
+now naming no row), plus the expected STALE collateral on the
+now-unused KNOWN entry - a single edit firing three failures at once, all
+correctly attributed. CONTROL: a whitespace-only edit to the Riddings
+GBP_MANUAL.md row (one extra trailing space in the website cell, trimmed
+by the checker's own cell parsing) - correctly passed clean, exit 0,
+confirming the checker reacts to content, not incidental formatting. All
+six fired or passed on exactly their intended rule, first attempt.
+
+Final restore sha256-reconfirmed identical to baseline for all four
+files; full 36-checker suite re-run individually against the tracked
+repo after cleanup: 36/36 exit 0; `git status --porcelain -- modules core
+branches.json gbp-packs tools GBP_MANUAL.md` showing only the two
+long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched.
+
+INCIDENTAL OBSERVATION, not a new defect: the pre- and post-injection
+baseline runs both emit a WARN naming qtmp.json (a pre-existing untracked
+debris file at the repo root, part of the roughly 240-file accumulation
+prior passes have already flagged as worth a future run's attention) for
+carrying an insecure URL in what is effectively narrative/scratch text;
+the checker correctly treats this as a WARN rather than a FAIL because
+qtmp.json is not a published surface. No action taken, matching the
+"cleanup out of scope for this pass" convention prior passes have used
+for the same debris family.
+
+LIVE HALF: not attempted this pass. This pass's new angle (proving
+check-url-scheme.js by injection) is a repo-only verification with no
+live-page surface of its own beyond what the repo checker already reads
+(GBP_MANUAL.md section 5 is the written record of a live sweep done on
+2026-08-09, not a fresh live fetch), the same scope decision several
+prior passes on this item have made for the same reason.
+
+QUESTIONS: none raised this run. QUESTIONS.json re-read in full before
+and after: 110 total, 57 open, unchanged.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 3.10 paragraph); AGENT_LOG.md
+(this entry); audits/verify-3.10-2026-09-17-twentyfirst.js (new);
+audits/verify-3.10-2026-09-17-twentyfirst-output.txt (new). No generator,
+checker, page, sheet or branches.json content changed in the tracked
+tree.
+
+STEP 9/10 (commit, push, publish): handled via mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy per Q102's standing
+recommendation - see the commit immediately following this entry's push
+for the exact command and hash.
+
+Next stalest for whoever runs next, re-derive rather than assume: with
+3.10 now current, the tied-oldest pool needs fresh derivation (4.4 was
+the next candidate as of the twentieth pass's note, at
+2026-09-16T20:40:26+01:00, but re-check rather than assume). On item 3.10
+itself: fifteen checkers still never proven by injection against Riddings
+across twenty-one passes (check-address-region.js, check-brand-
+spelling.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-sheets.js, check-uk-spelling.js, check-whatsapp-route.js,
+check-widget-diaries.js) - a candidate list for a twenty-second pass. On
+the open backlog generally: unchanged - the eight genuinely actionable
+worklist items remain blocked on Rishi's own decisions and 57 of 110
+questions are open.
+
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 71; mcp__workspace__bash used for lock handling, repo reads, the scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 3.6 (McCanns Chemist, Aigburth and Sandringham) twenty-first quality pass: proved tools/check-page-coverage.js's rules (NOT_BUILT, NOT_EARNED, PAGE_MISSING, ORPHAN_PAGE, LANDING_NOT_BUILT) by injection against this branch's own data for the first time under item 3.6's own coverage log, zero in-repo defect; guard coverage for item 3.6 now 22 of 36 checkers.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 70's own

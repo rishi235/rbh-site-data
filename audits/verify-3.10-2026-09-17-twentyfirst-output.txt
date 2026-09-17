@@ -1,0 +1,44 @@
+BASELINE shas: page=98c375d9239e data=169bb5a21cf6 checker=1c503f0e66b3 manual=a6a8f2bf2cf5
+Pre-injection run: exit 0 (expect 0)
+WARN  INSECURE qtmp.json carries http://www.mccannspharmacy.co.uk/contact-us.html,. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 1 insecure URL(s) outside narrative surfaces, 79 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 1 warning(s).
+
+--- Injection 1: RULE 1, published page - Riddings own contraception page Website link https->http ---
+Result: exit 1 (expect 1)
+  FAIL  INSECURE modules/service/pages/contraception-riddings-timperley.html: published surface carries http://www.riddingspharmacy.co.uk. An insecure estate URL on a live page is a crawlable duplicate of the https page, which is item 6.6.
+  [restore check after injection 1] OK, byte-identical to baseline
+
+--- Injection 2: RULE 1, branches.json field - riddings_timperley.googleReviewUrl https->http ---
+Result: exit 1 (expect 1)
+  FAIL  INSECURE branches.json riddings_timperley.googleReviewUrl = http://g.page/r/CRtdZliseNZGEAE/review. Every generated page and GBP pack copies this field, so one insecure value here reaches many published surfaces.
+  [restore check after injection 2] OK, byte-identical to baseline
+
+--- Injection 3: RULE 2 GBPSITE - remove Riddings from KNOWN, exposing the real existing GBP_MANUAL divergence ---
+Result: exit 1 (expect 1)
+  FAIL  GBPSITE  GBP_MANUAL.md:100: Riddings publishes http://www.riddingspharmacy.co.uk/ but branches.json riddings_timperley.website is https://www.riddingspharmacy.co.uk. Differs on SCHEME (http:// against https://).
+  [restore check after injection 3] OK, byte-identical to baseline
+
+--- Injection 4: RULE 2 STALE - fix GBP_MANUAL Riddings row to https (matching), KNOWN entry left in place ---
+Result: exit 1 (expect 1)
+  FAIL  STALE    KNOWN names "Riddings" but its GBP website now matches branches.json (https://www.riddingspharmacy.co.uk). Remove the entry.
+  FAIL  STALE    KNOWN names "Riddings" but no row of the GBP_MANUAL.md table broke a rule for it. Remove the entry.
+  [restore check after injection 4] OK, byte-identical to baseline
+
+--- Injection 5: RULE 3 MAPPED - rename the Riddings row's profile column text, PROFILE_TO_BRANCH key left unchanged ---
+Result: exit 1 (expect 1)
+  FAIL  MAPPED   GBP_MANUAL.md:100: profile "Riddings Chemist" is in the table but not in PROFILE_TO_BRANCH, so its website value is checked by nothing.
+  FAIL  MAPPED   PROFILE_TO_BRANCH names "Riddings" but no row of the GBP_MANUAL.md table carries that profile. Remove the entry or restore the row.
+  FAIL  STALE    KNOWN names "Riddings" but no row of the GBP_MANUAL.md table broke a rule for it. Remove the entry.
+  [restore check after injection 5] OK, byte-identical to baseline
+
+--- Injection 6: CONTROL - harmless GBP_MANUAL edit near the Riddings row, no scheme/profile/mapping text touched ---
+Result: exit 0 (expect 0, control should pass clean)
+  [restore check after control] OK, byte-identical to baseline
+
+Post-injection run: exit 0 (expect 0)
+WARN  INSECURE qtmp.json carries http://www.mccannspharmacy.co.uk/contact-us.html,. Not a published surface, so this does not fail the run, but it is worth knowing where it came from.
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 1 insecure URL(s) outside narrative surfaces, 79 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 1 warning(s).
+
+Final sha256 check: page=true data=true checker=true manual=true
