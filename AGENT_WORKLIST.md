@@ -16158,6 +16158,7 @@ Pharmacy First wording to the NHS service description.
       Evidence:
       audits/fishlocks-ainsdale-item-4.1-sister-branch-quality-pass-2026-09-17-twentieth.txt.
       Done 2026-09-17
+- [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
       Quality pass 2026-08-11: the pack verified fact by fact against
@@ -16728,6 +16729,55 @@ Pharmacy First wording to the NHS service description.
       remains the reliable method.
       No new question; QUESTIONS.json unchanged at 109 total, 56 open.
       Evidence: audits/cherry-lane-item-4.2-sister-branch-quality-pass-2026-09-16-twentieth.txt.
+      Quality pass 2026-09-17 (twenty-first, unattended run): rotation-pool
+      selection by git commit timestamp per "Item N.N" (same method as the
+      item 5.1 run earlier today) put this item stalest at
+      2026-09-16T17:15:33+01:00, ahead of 4.14 and everything touched later.
+      THE FINDING THIS PASS IS IN THE WORKLIST DOCUMENT ITSELF, not the pack.
+      This item's own checkbox header line - "- [x] 4.2 Cherry Lane pack.
+      Done 2026-08-04 (Cowork session). gbp-packs/" - was missing from the
+      file, so item 4.2 had no anchoring "- [x] 4.2" line at all; its body
+      text ("cherry-lane-walton.md. Posts B, C and D flagged...") sat
+      directly after item 4.1's own "Done 2026-09-17" stamp with nothing to
+      say a new item had started. Traced with `git log -S"[x] 4.2 Cherry
+      Lane pack" -- AGENT_WORKLIST.md`: the line was added correctly in
+      1d579ca (2026-08-04) and removed in a9b6e79, item 4.1's own eighteenth
+      quality pass (2026-09-14) - that commit's diff is purely additive (one
+      hunk, all "+" lines) apart from this one line, which its own edit
+      swallowed while inserting the eighteenth-pass paragraph immediately
+      above it. The two subsequent item 4.1 passes (nineteenth, ba9dc4a,
+      2026-09-16; twentieth, ff2a48fe, 2026-09-17) each appended more text
+      in the same spot and, confirmed by inspecting both diffs, neither
+      touched or restored the missing line, so the corruption carried
+      forward unnoticed through three passes on the neighbouring item.
+      Practical consequence: low. `grep -n "^\- \[ \]" AGENT_WORKLIST.md`
+      (the step-5 unchecked-item scan every run uses) was never affected,
+      since the line was "[x]" (done) and its disappearance could not turn
+      it into a false unchecked item; the twenty prior quality passes on
+      item 4.2 all found their target pack correctly via direct paragraph
+      search rather than the checkbox line. But a human or tool reading the
+      file top-to-bottom would find item 4.2's twenty passes of history with
+      no heading to say whose item they were, merged into item 4.1's own
+      entry. A full scan of every other "- \\[x\\] N.N" and "- \\[ \\] N.N"
+      top-level heading in the file (1.1 to 6.8) found this to be the only
+      missing one; no other item shows the same corruption.
+      FIX: restored the exact original line, "- [x] 4.2 Cherry Lane pack.
+      Done 2026-08-04 (Cowork session). gbp-packs/", immediately after item
+      4.1's "Done 2026-09-17" stamp and immediately before item 4.2's own
+      body text, taken verbatim from 1d579ca so no wording was invented.
+      No pack content, checker, generator or branches.json field touched;
+      this is a worklist-document-only fix, verified with
+      `git diff -- AGENT_WORKLIST.md` showing exactly one line added.
+      LIVE HALF: read via Claude in Chrome (connected this run).
+      https://www.cherrylanepharmacy.co.uk/ fetched and read in full: the
+      footer NHS mailbox still reads "pharmacy.FA226@mhs.net" (Q36, answered
+      2026-09-01, not yet corrected live) and the homepage Weight Loss
+      Clinic line still reads "Discover innovative solutions that deliver
+      results. Tried the rest? Now try the best." (the estate-wide template
+      phrase tracked under Q22/item 5.8). Both reconfirmed unchanged, not
+      re-raised as new findings.
+      No new question; QUESTIONS.json unchanged at 110 total, 57 open.
+      Evidence: this AGENT_LOG.md entry, 2026-09-17.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

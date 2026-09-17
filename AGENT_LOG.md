@@ -1,3 +1,112 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 67; mcp__workspace__bash used for lock handling, repo reads and git history investigation; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 4.2 live-half reconfirmation (two URL reads, nothing clicked or typed); Read/Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.2 (Cherry Lane Pharmacy, Walton, GBP pack) twenty-first quality pass: found and fixed a corrupted checkbox header in AGENT_WORKLIST.md itself.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 66's own
+lock already cleared on its own exit, per its log entry below). Wrote a fresh
+timestamp (2026-09-17T12:04:14Z) via the sandbox mount. A fresh
+`.git/index.lock` appeared during this run's own `git fetch`/`git status`
+calls in the sandbox shell and could not be removed with `rm` (Operation not
+permitted - the same FUSE-mount unlink restriction recorded at Q87/Q96/Q102);
+moved aside with `mv` instead, which succeeded, freeing the exact filename for
+git's own subsequent use. Noted but not chased further: `.git/` on the sandbox
+mount now holds several hundred renamed `index.lock.*` variants left by past
+runs' identical workaround, and the working tree carries well over 200
+untracked scratch/probe files from past passes; neither is tracked by git, so
+neither affects repo content, and cleaning either up is outside this item's
+scope. Already on `agents/audit-backlog`; `git fetch origin` / `pull
+--ff-only` confirmed already at origin's HEAD (run 66's own final commit,
+6836f02).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run, no sign-in
+conflict encountered. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed (newest entry still 2026-09-01T22:44:51.524Z,
+identical to run 66 and every recent run - newest is still Q52). Checked
+against the 57 currently open questions, including re-reading Q37's own note
+in full: nothing newer than what is already recorded. QUESTIONS.json
+unchanged, no edit this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 66's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], same set as run 66. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived from most recent commit date per
+"Item N.N" (`git log --pretty=format:"%ad|%s" --date=iso-strict`, parsed with
+a small Python script), minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 4.2 came
+out stalest at 2026-09-16T17:15:33+01:00 (run 66's own log entry had already
+flagged 4.2 as next-stalest, one step behind 5.1), ahead of 4.14 (17:43:49)
+and everything touched later, including 5.1, run 66's own pick, now stamped
+today and out of contention. Picked 4.2.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.2 twenty-first-pass
+paragraph. In short: while locating item 4.2's own entry to choose a fresh
+angle (twenty prior passes have already proven nearly every check-gbp-packs.js
+rule against this specific pack by injection, each with zero defect), found
+that item 4.2 had NO anchoring "- [x] 4.2" checkbox line at all - its body
+text sat directly after item 4.1's own "Done 2026-09-17" stamp with nothing
+marking a new item. Traced with `git log -S"[x] 4.2 Cherry Lane pack" --
+AGENT_WORKLIST.md`: the line was added correctly on 2026-08-04 (1d579ca) and
+silently swallowed by item 4.1's own eighteenth quality pass (a9b6e79,
+2026-09-14) while that pass inserted its own paragraph immediately above it;
+confirmed by inspecting that commit's diff (one hunk, purely additive except
+for this one deleted line). The two subsequent item 4.1 passes (nineteenth,
+ba9dc4a, 2026-09-16; twentieth, ff2a48fe, today) each appended further text
+in the same spot without restoring it, so the corruption survived three
+passes on the neighbouring item unnoticed. A full sweep of every other
+"- [x]"/"- [ ]" top-level item heading (1.1 through 6.8) found this to be the
+only one missing; no wider pattern.
+Practical impact was low - the step-5 unchecked-item grep was never affected,
+since the lost line was "[x]" (done), and every one of item 4.2's twenty
+quality passes found their target by direct paragraph search rather than the
+checkbox line - but the document itself no longer said whose history the
+paragraphs at that point belonged to. FIXED: restored the exact original
+line, "- [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session).
+gbp-packs/", taken verbatim from 1d579ca, immediately after item 4.1's "Done
+2026-09-17" stamp and before item 4.2's own body text. `git diff --stat --
+AGENT_WORKLIST.md` confirms insertions only, no line removed; no pack
+content, checker, generator or branches.json field touched.
+
+LIVE HALF: read via Claude in Chrome (connected this run).
+https://www.cherrylanepharmacy.co.uk/ fetched and read in full. Two
+already-tracked findings reconfirmed unchanged, neither re-raised: the
+footer NHS mailbox still reads "pharmacy.FA226@mhs.net" (Q36, answered
+2026-09-01, not yet corrected live) and the homepage Weight Loss Clinic line
+still reads "Discover innovative solutions that deliver results. Tried the
+rest? Now try the best." (the estate-wide template phrase tracked under
+Q22/item 5.8). No new live fault found.
+
+QUESTIONS.json: unchanged, no new question. This is a worklist-document
+integrity fix with no live, patient-facing, checker, generator or data
+consequence, matching the established "no sign-off needed" convention for
+this class of finding.
+
+GIT WRITE ROUTE (steps 9-11): per the standing convention at Q87/Q96/Q102,
+routed through mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data host rather than the sandbox shell, since the sandbox
+has no working git push credential. `git status` on the host found a fresh
+(9-minute-old) `.git\index.lock`, left behind by this run's own earlier
+sandbox-side `git fetch`/`git status` calls, which cannot unlink it (the
+standing FUSE-mount restriction at Q87/Q96/Q102); confirmed no git process
+running on the host, then removed it there. `git add` staged the two
+intended files cleanly (AGENT_LOG.md, AGENT_WORKLIST.md). The first
+`git commit` attempt with an inline multi-line `-m` string failed silently
+under PowerShell's quoting (HEAD unchanged, files still staged) - worth
+noting for future runs: write the message to a file and use `git commit -F`
+instead. Committed as c5af627 ("Item 4.2 twenty-first quality pass: restore
+corrupted checkbox header in AGENT_WORKLIST.md (run 67)"), then amended in
+place to record this commit's own hash and the -F lesson in this paragraph
+before pushing (no prior push of this commit, so the amend rewrites nothing
+already public). `git push origin agents/audit-backlog` succeeded with no
+credential prompt or error. `node tools/build-audit-status.js` published
+reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal.
+`.agent-lock` deleted from the host to close out the run.
+
+
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 66; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, the two checker fixes and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 5.1 (em dashes in public switch page copy) twenty-first quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 65's own
