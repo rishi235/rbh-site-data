@@ -16514,6 +16514,69 @@ Pharmacy First wording to the NHS service description.
       Evidence:
       audits/fishlocks-ainsdale-item-4.1-sister-branch-quality-pass-2026-09-17-twentieth.txt.
       Done 2026-09-17
+      Quality pass 2026-09-17 (twenty-first, unattended run, run 80): least
+      recently verified rotation-pool item, re-derived fresh from each pool
+      item's own newest AGENT_WORKLIST.md commit timestamp; run 79's own
+      commit moved 1.3 to the top of recency, leaving 4.1 stalest at
+      2026-09-17T01:46:29+01:00, exactly matching run 79's own forward note.
+      Baseline confirmed: sha256 of gbp-packs/fishlocks-ainsdale.md
+      7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30,
+      unchanged since the twelfth pass.
+      FRESH ANGLE: the CLINIC_QUALIFIERS rule family and its
+      KNOWN_CLINIC_QUALIFIER anti-rot pin had never been proven against this
+      pack in twenty prior passes. This pack is one of three (with Cherry
+      Lane Walton and Hirshmans Ainsdale) pinned in KNOWN_CLINIC_QUALIFIER
+      against the open Q72 decision, because it genuinely carries the older
+      Post C/Post D drafting with none of the six qualifier markers, so
+      every prior pass saw only the standing Q72 WARN and moved on; none
+      tested whether the pin itself is load-bearing or correctly goes stale.
+      Three injections on a git-archive scratch copy, each restored by byte
+      copy and sha256/diff-reconfirmed identical before the next: (1) pin
+      removed, pack unchanged - CAUGHT, all six FAIL lines fired, one per
+      missing marker, each naming the right surface and the right pin key
+      to re-add, proving the pin is genuinely load-bearing. (2) pin left in
+      place, pack rewritten to carry all six qualifiers (wording modelled on
+      the compliant sister pack fishlocks-eccleston.md) - CAUGHT, exactly
+      the "stale exception ... Remove it (Q72)" message, proving the
+      anti-rot convention fires for this specific key for the first time.
+      (3) CONTROL: five of six qualifiers added, one (servicesTravelSuitability)
+      deliberately withheld, pin left in place - correctly stayed valid, WARN
+      only, "1 private-clinic qualifier(s) missing", proving the
+      one-key-per-branch/moves-together design is real behaviour and a
+      partial rewrite cannot silently pass or prematurely go stale. All
+      three fired or passed on the intended rule, first attempt, no
+      cross-firing. Final restore of both files sha256-reconfirmed identical
+      to baseline; tracked repo confirmed untouched by the injection cycle.
+      RESULT: no defect in the CLINIC_QUALIFIERS rule or its pin.
+      IN-REPO DEFECT FOUND AND FIXED (unrelated to the fresh angle): the
+      routine post-restore full-suite re-run against the TRACKED repo found
+      tools/check-postcodes.js already failing with 4 failures before this
+      pass's own injections began - inherited from run 79's own commit.
+      Run 79's twenty-second pass on item 1.3 tested NARRATIVE_POSTCODES by
+      injection using two fabricated postcodes ("ZZ98 8ZZ", "XX00 0XX") on a
+      scratch copy, correctly restored before that run ended, but then wrote
+      up the test in AGENT_LOG.md, AGENT_WORKLIST.md's own item 1.3 block and
+      a committed audit file, all of which quote both values in prose -
+      exactly the self-referential NARRATIVE_POSTCODES gap this list has now
+      closed twenty times before. Added both values to NARRATIVE_POSTCODES
+      with reasons pointing at run 79's write-up. check-postcodes.js re-run:
+      0 failures, 3 warnings (unchanged pre-existing UNOWNED warnings). Full
+      34-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+      network-dependent) re-run individually against the tracked repo
+      afterwards: 0 failures across all 34; check-cdn-pins.js run separately,
+      clean. git status scoped to modules/core/branches.json/gbp-packs/tools/
+      compliance shows only the intended check-postcodes.js change plus the
+      two long-standing pre-existing untracked strays, neither touched.
+      LIVE HALF: Claude in Chrome, read-only. pharmacy-fishlocks-ainsdale.html
+      (profile-website target): still 404, unchanged (Q35, answered, not yet
+      pasted). switch-prescriptions-fishlocks-ainsdale.html: shared Weebly
+      footer still misspells "Fishlock Pharmacy" and abbreviates "Station
+      Rd" (Q37/Q91, unchanged), alongside the separately-correct "Fishlocks
+      Chemist" trust-bar wording higher on the page. No new live fault.
+      No new question; QUESTIONS.json unchanged at 110 total, 57 open.
+      Evidence:
+      audits/fishlocks-ainsdale-item-4.1-clinic-qualifier-pin-quality-pass-2026-09-17-twentyfirst.txt.
+      Done 2026-09-17
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
