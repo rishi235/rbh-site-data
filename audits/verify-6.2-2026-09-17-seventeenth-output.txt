@@ -1,0 +1,53 @@
+verify-6.2-2026-09-17-seventeenth
+  baseline (unmutated, unfixed checker): exit 0 (clean, as expected)
+  injected, PRE-FIX checker: exit 0 (clean - CONFIRMS THE GAP: claim invisible to per-line scan)
+  injected, POST-FIX checker: exit 1 (FAILS correctly, rule "claim (line wrap)" fired)
+  restored, POST-FIX checker vs clean content: exit 0 (clean, matches baseline)
+  known-issue count unchanged (6 before and after): yes
+  (scratch cleanup skipped: EPERM, not a test failure - standing Q87/Q96/Q102 FUSE limitation)
+
+RESULT: gap confirmed pre-fix, fix confirmed catching it, no regression on real content.
+
+Manual injection detail (reproduced by the script above from a description,
+not read from git history, matching this item's standing convention):
+target file modules/service/weebly-paste/cherry-lane-old-weight-loss-
+replacement.html, one of the six EXTRA_FILES tools/check-service-links.js
+already reads. Injected paragraph, appended before the closing </div>,
+wrapped across two lines exactly as this file's own legitimate copy already
+wraps (compare its existing lines 8-9):
+
+  <p>Our weight loss service genuinely delivers
+     results you can see for yourself.</p>
+
+Pre-fix checker output on the injected file: exit 0, "check-service-links:
+clean, 6 known issue(s) awaiting a decision." - no mention of the injected
+claim anywhere, because neither physical line alone contains both "delivers"
+and "results".
+
+Post-fix checker output on the same injected file:
+  FAILURES (1):
+    FAIL  [claim (line wrap)] modules/service/weebly-paste/cherry-lane-old-
+    weight-loss-replacement.html: lines 17-18 (promises results): <p>Our
+    weight loss service genuinely delivers results you can see for
+    yourself.</p>
+
+Full 34-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent) re-run individually against the TRACKED repo after
+landing the fix: 34/34 exit 0. All six generators re-run against the tracked
+repo: git status --porcelain -- modules core branches.json tools showed only
+tools/check-service-links.js changed, plus the two pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched - confirms the
+fix is checker logic only, no generator, page, branches.json field or
+patient-facing copy changed, so no regeneration was needed beyond the
+byte-identical rebuild already proved.
+
+LIVE HALF, read only, three URLs, nothing clicked or typed (first live
+re-read since the fifteenth pass, 2026-09-15): all three standing findings
+unchanged. www.riddingspharmacy.co.uk/clinic-prices still 404s. Corrected
+this pass: the tiffenbergs domain is www.tiffenbergschemist.co.uk, not
+"tiffenbergs-chemist.co.uk" (a navigation typo caught and corrected mid-run,
+not a live finding) - www.tiffenbergschemist.co.uk/book-now.html still 404s.
+www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html (the
+canonical Riddings switch permalink) still 404s. Q53 and Q54 stay open,
+nothing new to add to either.

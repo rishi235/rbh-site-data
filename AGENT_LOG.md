@@ -1,3 +1,135 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 59; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the live half (three URLs read, nothing clicked or typed); mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy to confirm HEAD matched the sandbox mount and, at the end of the run, for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit files, tools/check-service-links.js, AGENT_WORKLIST.md and this entry) - Item 6.2 (Broken internal links) seventeenth quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a fresh
+timestamp (1789632245). `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally, already at origin's HEAD (6d79fbb, run
+58's own final commit). The standing "unable to unlink .git/index.lock"
+warning (Q87/Q96/Q102) appeared on every `git status` call in the sandbox
+shell but never blocked the porcelain output; cleared by rename once, same as
+every recent run. Several hundred stray `.agent-lock.*` and other debris
+files remain untouched in the working tree, out of scope, same standing note
+as every recent run.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (52
+entries, back to 2026-08-04). Matched every "Audit answer Q<n>" entry against
+this run's OPEN question list (57 open): only Q37 and Q43 have any feed entry
+at all among the currently open set, and both are the same two portal replies
+already recorded and marked "not a decision" on 2026-09-01 ("i need further
+explanation as i dont understandin plain english..." for Q37; "Unsure..." for
+Q43) - no reply newer than 2026-09-01T22:44:51.524Z for either, matching what
+the fortieth run's own pickup found on 2026-09-16. No status change made to
+either question; both stay open. QUESTIONS.json otherwise unchanged (110
+total, 57 open).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 58's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback,
+same as run 58.
+
+ITEM SELECTION: rotation pool derived the same way run 58 recorded it - most
+recent commit date per "Item N.N" from `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. Pool size
+36 (unchanged from run 58's own count). 3.11 (run 58's own pick, touched at
+2026-09-17T08:42:33+01:00) dropped out of "stalest" position by being touched
+today; 6.2 came out stalest in the remaining pool at 2026-09-16T12:48:25+01:00,
+clear of the next candidate 3.9 at 13:14:26. Picked 6.2.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 6.2 seventeenth-pass
+paragraph and audits/verify-6.2-2026-09-17-seventeenth.js /
+-output.txt. In summary: tools/check-service-links.js's RULE 2 and RULE 3
+have scanned one physical line at a time since the rule was written on the
+item 3.7 quality pass, 2026-08-10 - sixteen prior 6.2 passes had grepped this
+item's own history for many other terms ("PAGE_DIRS", "disposed", "{{") before
+starting but never "line wrap" or "multi-line"; zero hits, confirmed before
+beginning.
+
+This was not a hypothetical gap. modules/service/weebly-paste/cherry-lane-
+old-weight-loss-replacement.html, one of the six EXTRA_FILES this checker
+already reads, carries a legitimate hand-wrapped <p> at its own lines 8-9
+today ("Our weight loss clinic has moved to a new page with current
+information / about the pharmacist-led service..."), so a human editor
+wrapping prose across two adjacent lines is a demonstrated convention in this
+exact file family, not a theoretical one.
+
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy under the outputs mount, the tracked repo never opened for writing
+during the probe. Baseline confirmed clean first (177 pages, 1000 links, 423
+estate links, 6 known issues, exit 0). INJECTION: a new paragraph appended to
+the same Cherry Lane file, wrapped the same way its own legitimate copy
+already is - "Our weight loss service genuinely delivers" / "results you can
+see for yourself." - splitting the fixed two-word claim phrase "delivers
+results" exactly at the line break. PRE-FIX checker exited 0, "clean", no
+mention of the injected claim anywhere: neither physical line alone contains
+both words, so CLAIM_PATTERNS' own /delivers results/i test matched nothing
+on either line in isolation. A live-shaped weight loss efficacy claim,
+invisible to the one rule built specifically to catch it.
+
+FIX: after the existing per-line scan, RULE 2 also tests each pair of
+ADJACENT lines, whitespace-collapsed and rejoined with a single space, but
+only where neither line already matched alone, so an already-caught claim is
+never reported twice. Deliberately pairwise rather than a whole-file join:
+CLAIM_PATTERNS' own bounded gaps already limit match reach, and bridging only
+adjacent lines keeps the fix to the exact wrap shape the evidence shows.
+Whitespace collapse mattered in its own right: the wrapped continuation
+line's five-space hand indentation put more than one space between
+"delivers" and "results" after a naive join, which the fixed two-word phrase
+still would not have matched, so the join folds all whitespace to one space
+before testing. RULE 3 (medicine names) deliberately NOT given the same
+treatment: every name in tools/pom-names.js is a single word, and a hand
+line-wrap breaks at a space between words, never inside one, so a bare name
+cannot be split by this fault the way a multi-word claim phrase can.
+
+Re-ran against the same injection with the fix applied: FAIL "claim (line
+wrap)", naming both line numbers and the joined text, first attempt.
+Restored the injected file from an in-memory buffer, sha256-confirmed
+byte-identical to the pre-injection original, and re-ran as a control against
+the full corpus RULE 2 already reads (177 generated pages, six EXTRA_FILES,
+two EXTRA_JS_COPY_FILES): identical clean output to the pre-fix baseline, 6
+known issues, same counts throughout - no new false positive anywhere in the
+real estate.
+
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) re-run individually against the TRACKED repo after
+landing the fix: 34/34 exit 0. All six generators (build-service-pages,
+build-switch-pages, build-branch-landing-pages, build-weight-loss-pages,
+build-travel-clinic-pages, build-contraception-pages) re-run against the
+tracked repo: `git status --porcelain -- modules core branches.json tools`
+showed only tools/check-service-links.js changed, plus the two pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001, modules/service/
+pages/notarealservice-fishlocks-ainsdale.html.bak), neither touched - no
+generator, page, branches.json field or patient-facing copy changed; the fix
+is checker logic only, no regeneration needed beyond the byte-identical
+rebuild already proved.
+
+LIVE HALF (Claude in Chrome connected this run, first live re-read since the
+fifteenth pass, 2026-09-15 - the sixteenth pass on 2026-09-16 was repo-only):
+re-read the three standing 2026-08-14 findings this item has carried since
+the original sweep. All three unchanged: www.riddingspharmacy.co.uk/
+clinic-prices still 404s; www.tiffenbergschemist.co.uk/book-now.html still
+404s (a first navigation attempt used the wrong domain,
+"tiffenbergs-chemist.co.uk", which does not resolve at all - a typo caught
+and corrected mid-run by checking branches.json's own `website` field, not a
+live finding); www.riddingspharmacy.co.uk/switch-prescriptions-riddings-
+timperley.html (the canonical Riddings switch permalink) still 404s. Q53 and
+Q54 stay open, nothing new to add to either.
+
+HYGIENE: scratch copies under the outputs mount (verify62-17-IX5JH4,
+verify62-17-UhqgXT) could not be fully removed by `rm -rf` - the same standing
+FUSE unlink restriction as Q87/Q96/Q102 - and are left in place, outside the
+git repo, not a repo defect.
+
+Evidence: audits/verify-6.2-2026-09-17-seventeenth.js and
+audits/verify-6.2-2026-09-17-seventeenth-output.txt.
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 58; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, both network-dependent); mcp__claude-in-chrome__ tried first for the live half and reported no tab group for this session, so mcp__Windows-MCP__PowerShell's Invoke-WebRequest was used instead against the live site, read-only, nothing submitted; mcp__Windows-MCP__PowerShell also used against the real C:\Dev\rbh-site-data working copy to confirm HEAD matched the sandbox mount and, at the end of the run, for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround; Read/Write/Edit used for the new audit files, AGENT_WORKLIST.md and this entry) - Item 3.11 (Gordon Short Chemist, Crosby) twentieth quality pass.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a

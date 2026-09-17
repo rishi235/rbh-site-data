@@ -31940,6 +31940,84 @@ live DOM, not saved to a separate audit file (same convention as the
       status change made.
       Evidence: audits/verify-6.2-2026-09-16-sixteenth.js and
       audits/verify-6.2-2026-09-16-sixteenth-output.txt.
+      Seventeenth quality pass, 2026-09-17 (unattended scheduled run). ONE
+      REAL DEFECT FOUND AND FIXED, in check-service-links.js's RULE 2, the
+      first time a pass has found one there since the fourth pass
+      (2026-08-31) rather than in shared infrastructure or RULE 1. Rotation
+      pool derived fresh: the item 3.11 run immediately before this one left
+      6.2 stalest in the 36-item pool at 2026-09-16T12:48:25+01:00, ahead of
+      3.9 (13:14:26).
+      FRESH ANGLE: RULE 2 and RULE 3 have both scanned one physical line at a
+      time since the rule was written on the item 3.7 quality pass,
+      2026-08-10, and no prior pass had ever grepped this item's own history
+      for "line wrap" or "multi-line" before starting - zero hits, confirmed
+      before beginning. This is not a hypothetical shape: modules/service/
+      weebly-paste/cherry-lane-old-weight-loss-replacement.html, one of the
+      six EXTRA_FILES this checker already reads, carries a legitimate
+      hand-wrapped <p> at its own lines 8-9 today, so a human editor wrapping
+      prose across two lines in this exact file family is a demonstrated,
+      standing convention, not a theoretical risk.
+      METHOD: full repo git-archived to a disposable scratch copy under the
+      outputs mount, tracked repo never opened for writing during the probe.
+      Baseline confirmed clean first (177 pages, 1000 links, 423 estate, 6
+      known, exit 0). INJECTION: a new paragraph appended to the same Cherry
+      Lane file, wrapped the same way its own legitimate copy already is -
+      "Our weight loss service genuinely delivers" / "results you can see for
+      yourself." - splitting the fixed two-word claim phrase "delivers
+      results" exactly at the line break. PRE-FIX checker exited 0, "clean",
+      no mention of the injected claim anywhere: neither physical line alone
+      contains both words, so CLAIM_PATTERNS' own /delivers results/i test
+      found nothing on either line in isolation - a live-shaped efficacy
+      claim on a weight loss service page, invisible to the rule built
+      specifically to catch it.
+      FIX: after the existing per-line scan, RULE 2 also tests each pair of
+      ADJACENT lines, whitespace-collapsed and rejoined with a single space,
+      but only where NEITHER line already matched on its own, so a claim
+      already caught per-line is never reported twice. Deliberately pairwise
+      rather than joining the whole file into one string: CLAIM_PATTERNS' own
+      bounded gaps already limit how far a match can reach, but bridging only
+      adjacent lines keeps the check to the exact wrap shape the evidence
+      shows. Whitespace collapse turned out to matter on its own: the wrapped
+      continuation line's five-space hand indentation put more than one space
+      between "delivers" and "results" after a naive join, which the fixed
+      two-word pattern still would not have matched, so the join folds
+      whitespace to one space before testing. RULE 3 (medicine names) is
+      deliberately NOT given the same treatment: every name in
+      tools/pom-names.js is a single word, and a hand line-wrap breaks at a
+      space between words, never inside one, so this fault cannot split a
+      bare name the way it can a multi-word claim phrase.
+      VERIFICATION: re-ran against the same injection with the fix applied:
+      FAIL "claim (line wrap)", naming both line numbers and the joined text,
+      first attempt. Re-ran as a control against the restored, byte-identical
+      file (sha256 confirmed unchanged) and against the full corpus RULE 2
+      already reads (177 generated pages, six EXTRA_FILES, two
+      EXTRA_JS_COPY_FILES): identical clean output to the pre-fix baseline, 6
+      known issues, same counts throughout - no new false positive anywhere
+      in the real estate. Full 34-checker suite (excluding check-cdn-pins.js
+      and check-live-hours.js, both network-dependent) re-run individually
+      against the TRACKED repo after landing the fix: 34/34 exit 0. All six
+      generators re-run: git status --porcelain -- modules core branches.json
+      tools showed only tools/check-service-links.js changed, plus the two
+      pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched - no generator, page, branches.json field or
+      patient-facing copy changed; the fix is checker logic only.
+      LIVE HALF (Claude in Chrome connected this run, first live re-read
+      since the fifteenth pass, 2026-09-15): all three standing findings
+      re-read and unchanged. www.riddingspharmacy.co.uk/clinic-prices still
+      404s; www.tiffenbergschemist.co.uk/book-now.html still 404s (corrected
+      this pass: the domain is tiffenbergschemist.co.uk, not
+      "tiffenbergs-chemist.co.uk" - a navigation typo caught and fixed
+      mid-run, not a live finding); www.riddingspharmacy.co.uk/switch-
+      prescriptions-riddings-timperley.html (the canonical Riddings switch
+      permalink) still 404s. Q53 and Q54 stay open, nothing new to add to
+      either.
+      STEP 3 answer pickup: portal feed read in full this run (see this run's
+      AGENT_LOG.md entry). Q37 and Q43's already-recorded portal replies
+      re-confirmed as not decisions (no status change, matches every pickup
+      since 2026-09-01); no other currently open question has a newer answer.
+      Evidence: audits/verify-6.2-2026-09-17-seventeenth.js and
+      audits/verify-6.2-2026-09-17-seventeenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

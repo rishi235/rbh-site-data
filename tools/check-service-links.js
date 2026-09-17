@@ -39,6 +39,10 @@
       item 6.2 quality pass (sixteenth), 2026-09-16 - see "DISPOSED-BRANCH
       HOSTS" below.
     - RULE 2, claim: efficacy or results-claim wording in visible page copy.
+    - RULE 2, claim (line wrap): the same, where the phrase is split across two
+      adjacent hand-wrapped physical lines rather than sitting on one. Added
+      by the item 6.2 quality pass (seventeenth), 2026-09-17 - see
+      "LINE-WRAP CLAIMS" below.
     - RULE 3, medicine: a POM name from tools/pom-names.js in visible page
       copy, whole page, every generated page. Added by the item 3.9 quality
       pass, 2026-08-30, after an injected "Mounjaro" in the body of a
@@ -185,6 +189,53 @@
   every quality pass, and a standalone run of this file would have reported
   false confidence with no warning at all. PAGE_DIRS now fails the run
   outright, naming every missing directory, before a single page is counted.
+
+  LINE-WRAP CLAIMS, added on the item 6.2 quality pass (seventeenth),
+  2026-09-17. RULE 2 and RULE 3 both scan one line at a time
+  (visible.split(/\r?\n/).forEach(...)), which has been true since the rule
+  was written on the item 3.7 quality pass, 2026-08-10, and was never tested
+  against a claim phrase that does not sit on one physical line. Sixteen
+  prior 6.2 passes grepped their own history for terms like "PAGE_DIRS",
+  "disposed" and "{{" before starting; none had ever grepped for "line wrap"
+  or "multi-line", and this is a real, demonstrated gap rather than a
+  theoretical one: modules/service/weebly-paste/cherry-lane-old-weight-loss-
+  replacement.html, one of the six EXTRA_FILES this checker already reads,
+  carries a legitimate hand-wrapped <p> at its own lines 8-9 today
+  ("Our weight loss clinic has moved to a new page with current information /
+  about the pharmacist-led service..."), so a human editor wrapping prose
+  across two lines in this exact file family is an established convention,
+  not a hypothetical one.
+
+  Proved by injection: a new paragraph added to that same file, wrapped the
+  same way its own legitimate copy already is -
+  "Our weight loss service genuinely delivers\n     results you can see for
+  yourself." - split the fixed two-word claim phrase "delivers results"
+  exactly at the line break. The pre-fix checker exited 0, "clean", no
+  mention of the injected claim anywhere in the output: neither line alone
+  contains both words, so CLAIM_PATTERNS' own /delivers results/i test found
+  nothing on either line in isolation. A live-shaped efficacy claim on a
+  weight loss page, invisible to the rule built specifically to catch it.
+
+  FIX: after the existing per-line scan, RULE 2 also tests each pair of
+  ADJACENT lines, whitespace-collapsed and rejoined with a single space, but
+  only where NEITHER line already matched on its own - so a claim already
+  caught per-line is never reported twice, and the check stays a pairwise
+  bridge across exactly the wrap shape the evidence shows rather than a
+  whole-file join. Whitespace collapse matters on its own: the wrapped
+  continuation line's hand indentation put five spaces between "delivers"
+  and "results" after a naive single-space join, which the fixed two-word
+  pattern still would not have matched, so the join also had to fold
+  whitespace down to one space before the fixed-phrase patterns could see it.
+  Re-run against the same injection: FAIL "claim (line wrap)", naming both
+  line numbers and the joined text. Re-run as a control against the restored,
+  byte-identical file, and against the full corpus RULE 2 already reads (177
+  generated pages, six EXTRA_FILES, two EXTRA_JS_COPY_FILES): identical clean
+  output to the pre-fix checker, 6 known issues, same counts throughout - no
+  new false positive anywhere in the real estate. RULE 3 (medicine names) is
+  deliberately NOT given the same pairwise check: every name in
+  tools/pom-names.js is a single word, and a hand line-wrap breaks at a space
+  between words, never inside one, so a bare name cannot be split by this
+  fault the way a two-or-more-word claim phrase can.
 
   Run:  node tools/check-service-links.js
 */
@@ -469,13 +520,17 @@ function scanFile(file, selfHost) {
 // scanFile above) and EXTRA_JS_COPY_FILES (called directly, skipping RULE 1 -
 // see "JS-INJECTED COPY" in the header comment for why).
 function scanCopy(file, visible) {
+  const lines = visible.split(/\r?\n/);
+  const claimHitLine = new Set();
+
   // RULE 2 - claims in visible copy
-  visible.split(/\r?\n/).forEach(function (line, i) {
+  lines.forEach(function (line, i) {
     // One report per line: a single sentence can trip two patterns at once
     // ("lose up to 22.5% of your body weight" trips both), and reporting it
     // twice makes the output read as two defects.
     const pair = CLAIM_PATTERNS.find(function (p) { return p[0].test(line); });
     if (!pair) return;
+    claimHitLine.add(i);
     const claimKey = Object.keys(KNOWN_CLAIM).find(function (k) {
       const parts = k.split("::");
       return parts[0] === rel(file) && line.indexOf(parts[1]) !== -1;
@@ -488,8 +543,43 @@ function scanCopy(file, visible) {
     });
   });
 
+  // RULE 2, LINE WRAP - added on the item 6.2 quality pass (seventeenth),
+  // 2026-09-17. See "LINE-WRAP CLAIMS" in the header comment above. The
+  // per-line scan above cannot see a claim phrase a hand editor has wrapped
+  // across two adjacent physical lines - a real, demonstrated formatting
+  // convention in this exact file family (cherry-lane-old-weight-loss-
+  // replacement.html's own legitimate <p> at lines 8-9 wraps mid-sentence).
+  // Tests each adjacent line PAIR, whitespace-collapsed and joined by a
+  // single space, and only when NEITHER line alone already matched, so a
+  // claim already caught per-line is never reported twice. Deliberately
+  // pairwise rather than joining the whole file into one string:
+  // CLAIM_PATTERNS' own [^.\n]{0,30/40} gaps already bound how far a match
+  // can reach, but bridging only ADJACENT lines keeps the check to the exact
+  // wrap shape the evidence shows, not every line in the file against every
+  // other. Whitespace is collapsed to a single space before testing, since
+  // the hand indentation on the wrapped continuation line (five spaces in
+  // the live example) would otherwise put more than one space between the
+  // two halves of a fixed two-word phrase like "delivers results" and the
+  // pattern would not match.
+  for (let i = 0; i < lines.length - 1; i++) {
+    if (claimHitLine.has(i) || claimHitLine.has(i + 1)) continue;
+    const joined = (lines[i] + " " + lines[i + 1]).replace(/\s+/g, " ");
+    const pair = CLAIM_PATTERNS.find(function (p) { return p[0].test(joined); });
+    if (!pair) continue;
+    const claimKey = Object.keys(KNOWN_CLAIM).find(function (k) {
+      const parts = k.split("::");
+      return parts[0] === rel(file) && joined.indexOf(parts[1]) !== -1;
+    });
+    if (claimKey) { knownClaimHits[claimKey] = (knownClaimHits[claimKey] || 0) + 1; continue; }
+    failures.push({
+      file: rel(file),
+      rule: "claim (line wrap)",
+      text: "lines " + (i + 1) + "-" + (i + 2) + " (" + pair[1] + "): " + joined.trim().slice(0, 160)
+    });
+  }
+
   // RULE 3 - POM medicine name in visible copy, whole page
-  visible.split(/\r?\n/).forEach(function (line, i) {
+  lines.forEach(function (line, i) {
     const hit = pom.findMedicine(line, POM_NAMES);
     if (!hit) return;
     const pomKey = rel(file) + "::" + hit;
