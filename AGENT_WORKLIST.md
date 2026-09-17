@@ -10048,6 +10048,67 @@ Done 2026-09-17 (twentieth pass).
       question; QUESTIONS.json re-read: 109 total, 56 open, unchanged.
       Evidence: audits/sk-bootle-live-half-3.8-twentyfirst-2026-09-16.txt.
       Done 2026-09-16 (twenty-first).
+      Quality pass 2026-09-17 (twenty-second, unattended scheduled run).
+      Taken because all 8 remaining unchecked worklist lines are still
+      [BLOCKED]; rotation pool re-derived fresh from git log dates on
+      AGENT_WORKLIST.md (35 items, the 7 standing out-of-rotation
+      one-offs and the 8 blocked items excluded), 3.8 came out stalest at
+      2026-09-16T22:45:32+01:00, clear of the next candidate (4.7,
+      2026-09-17T00:42:27+01:00) - exactly matching the twenty-first
+      pass's own forward note. FRESH ANGLE: tools/check-widget-diaries.js,
+      never once proven by direct injection against this item across
+      nineteen prior passes despite its own docstring naming SK Chemists
+      Bootle and Smartts Chemist Bootle by name as the canonical
+      same-town-neighbour risk pair for exactly this checker. Full-repo
+      scratch copy via `git archive HEAD | tar -x` into ~/scratch38 (not
+      /tmp), re-extracted fresh before each round; 35/36 checkers clean on
+      the scratch baseline (check-cdn-pins.js's documented .git-less
+      artefact only), 36/36 clean on the tracked repo throughout.
+      branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c363
+      7ac91f2ad1b102 (standing anchor) reconfirmed before and after every
+      round. FOUR rounds against SK's own widgets block: (1) RULE 1
+      format, pharmacyFirst id corrupted to uppercase/wrong-length -
+      CAUGHT, "skchemists_bootle.pharmacyFirst" named exactly; (2) RULE 2
+      crossbrand, SK's pharmacyFirst id set to Smartts's own pharmacyFirst
+      id (the literal same-key copy-paste the checker's docstring
+      describes between these two real neighbours) - CAUGHT in clean
+      isolation from rule 4, since both sides share one service key; (3)
+      RULE 4 sharedservice, SK's weightLoss id set to Smartts's
+      travelClinic id (different brand and different key at once, since
+      isolating rule 4 alone needs a second site within one brand, which
+      this single-site item cannot supply) - CAUGHT as a deliberate
+      combined test, both rule 2 and rule 4 firing together on the same
+      injected id, demonstrating the checker's defence-in-depth on the
+      exact fault shape its own docstring warns about; (4) CONTROL, SK's
+      phone changed to an unrelated value - correctly zero failures. RULE
+      3 (consistent) confirmed structurally inapplicable: it only
+      evaluates a service key held at two-or-more sites of the SAME
+      multi-site brand, and SK Chemists Bootle is its brand's only site -
+      the same class of finding already recorded for check-brand-
+      spelling.js's rules 3/5 against this item on its nineteenth pass.
+      All caught injections fired on exactly their intended rule(s), first
+      attempt, with both round 3 failure messages naming both branches and
+      both service keys exactly. NO IN-REPO DEFECT FOUND. Final scratch
+      restore sha256-reconfirmed to baseline; tracked repo's branches.json
+      sha256 unchanged throughout; `git status --porcelain -- modules
+      tools branches.json gbp-packs core` showed only the two long-
+      standing pre-existing untracked strays, neither touched; full
+      36-checker suite re-run individually against the tracked repo,
+      36/36 exit 0. No generator, page, checker or branches.json content
+      changed. Guard coverage for item 3.8 now extends to nineteen of the
+      estate's 36 checkers proven by direct injection against SK Chemists
+      Bootle specifically (up from eighteen across nineteen prior passes),
+      on top of the live-half findings recorded on the twenty-first pass.
+      LIVE HALF: not re-attempted this pass; scope was the repo/data-
+      schema layer only, and the twenty-first pass's live findings
+      (sixteen days old at that pass, now seventeen) stand unchanged and
+      should not be assumed current without a fresh read. No new question
+      raised; QUESTIONS.json re-read via the standing answer-pickup step:
+      110 total, 57 open, unchanged in substance - newest portal answer
+      still Q52 (2026-09-01), confirmed via a fresh read of
+      https://data.rbhealth.co.uk/api/feedback this run. Evidence in
+      audits/sk-bootle-widget-diaries-3.8-twentysecond-2026-09-17.txt.
+      Done 2026-09-17 (twenty-second).
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

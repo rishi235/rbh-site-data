@@ -1,0 +1,135 @@
+Item 3.8 (SK Chemists Bootle) - twenty-second quality pass, 2026-09-17
+Unattended scheduled run, audit-backlog-worker.
+
+SCOPE: prove tools/check-widget-diaries.js against SK Chemists Bootle's own
+branches.json data for the first time in twenty-two passes. This checker
+(added 2026-08-11 on item 3.7) is the single best fit remaining for this
+item: its own docstring names SK Chemists Bootle and Smartts Chemist
+Bootle by name as the canonical risk pair ("Smartts Chemist Bootle, the
+subject of item 3.7, is a single-site brand whose five ids must all be
+unique, and it sits in branches.json directly above SK Chemists Bootle, a
+different brand in the same town with the same five services. A
+copy-paste between those two neighbours sends NHS Pharmacy First bookings
+made on one Bootle pharmacy's page into the other Bootle pharmacy's
+diary"). Despite this, across nineteen prior passes on item 3.8 and the
+matching pass on item 3.7, this checker had never been proven by direct
+injection against either branch's own widget ids - only run passively as
+part of the full 36-checker suite.
+
+METHOD: full-repo scratch copy via `git archive HEAD | tar -x` into
+~/scratch38 (not /tmp, per the standing sandbox note), never the tracked
+working tree. Each round re-extracted a fresh scratch copy from HEAD
+(equivalent to a byte-identical restore) rather than reversing the
+previous edit in place, and branches.json sha256 was reconfirmed against
+the standing anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2a
+c91f2ad1b102 before every round.
+
+BASELINE: `node tools/check-widget-diaries.js` on a clean scratch copy -
+"79 widget id(s) across 16 live branches, 73 distinct ... 6 id(s) shared
+between sister sites, 0 permitted across brands" - clean, exit 0. Full
+36-checker suite on the same scratch copy: 35/36 clean, check-cdn-pins.js
+the sole documented .git-less artefact (consistent with every prior
+scratch-copy pass in this repo).
+
+SK Chemists Bootle (skchemists_bootle) and Smartts Chemist Bootle
+(smartts_bootle) confirmed as the checker's own docstring describes: two
+distinct single-site brandKeys (skchemists: [skchemists_bootle] only;
+smartts: [smartts_bootle] only), so per the checker's derived policy every
+one of their widget ids must be unique estate-wide.
+
+ROUND 1 - RULE 1 (format): skchemists_bootle.widgets.pharmacyFirst
+corrupted from "66b9d657d71f677c6d5e602b" to
+"66B9D657D71F677C6D5E602B-BAD" (uppercase, wrong length, trailing
+suffix). CAUGHT first attempt: "widget id
+\"66B9D657D71F677C6D5E602B-BAD\" (skchemists_bootle.pharmacyFirst) is not
+24 lowercase hex characters. Appointedd ids are, so this one renders an
+empty booking box rather than a diary." Exit 1, exactly one failure.
+
+ROUND 2 - RULE 2 (crossbrand), the headline scenario: fresh scratch copy,
+sha256-reconfirmed to baseline. skchemists_bootle.widgets.pharmacyFirst
+set to smartts_bootle's own pharmacyFirst id
+("66b9ea9004f4c06db8fdbf9c") - literally the same-town, same-service
+copy-paste the checker's docstring names these two branches over. CAUGHT
+first attempt, exactly one failure: "widget id
+\"66b9ea9004f4c06db8fdbf9c\" is held by 2 different brands
+(smartts/smartts_bootle.pharmacyFirst,
+skchemists/skchemists_bootle.pharmacyFirst). A booking made on one
+brand's page would land in another brand's diary." RULE 4 (sharedservice)
+correctly did NOT also fire, because both holders use the identical
+service key ("pharmacyFirst"), so serviceKeys.length stayed at 1 -
+confirms rule 2 fires in clean isolation from rule 4 when only the brand
+differs and the service key matches. Note: the summary line above the
+failures block still reads "7 id(s) shared between sister sites" (up from
+the baseline's 6) - that line is informational/descriptive only, counting
+any id held by more than one holder regardless of legitimacy, not itself
+a pass/fail signal; the FAILURES section is what correctly classifies
+this particular share as illegitimate (crossbrand) rather than a
+seventh legitimate sister-site pair. Worth recording so a future reader
+does not mistake that summary line for a second, silent check.
+
+ROUND 3 - RULE 4 (sharedservice), combined with RULE 2 by design: fresh
+scratch copy, sha256-reconfirmed to baseline.
+skchemists_bootle.widgets.weightLoss set to smartts_bootle's own
+travelClinic id ("6a5bf199f1b6a563bc42908c") - different brand AND
+different service key. Isolating RULE 4 alone from RULE 2 is not possible
+using two genuinely different single-site brands (any shared id between
+them is inherently a crossbrand share too); doing so would need a second
+site inside one existing brand, which item 3.8's own data (a true
+single-site brand) cannot supply without fabricating a branch that does
+not exist. So this round is a deliberate combined test instead, and a
+valid one: it proves the checker's defence-in-depth on the exact real
+neighbour pair its own docstring warns about - even a fault shape that
+also happens to change service key still gets caught, twice over. CAUGHT
+first attempt, exactly two failures, both correctly naming both branches
+under their respective real keys: "widget id
+\"6a5bf199f1b6a563bc42908c\" is held by 2 different brands
+(smartts/smartts_bootle.travelClinic,
+skchemists/skchemists_bootle.weightLoss)..." and "...is held under 2
+different service keys (smartts_bootle.travelClinic,
+skchemists_bootle.weightLoss)...".
+
+RULE 3 (consistent): structurally inapplicable to SK Chemists Bootle on
+its own. This rule only evaluates multi-site brands (a service key held
+at two or more sites of the SAME brand treated differently at different
+sites); SK Chemists Bootle is skchemists' only site, so it can supply
+neither side of the comparison. Same class of "out of scope for a
+single-brand, no-sister-domain branch" finding already recorded for
+check-brand-spelling.js's rules 3 and 5 against this same item on its
+nineteenth pass. Not tested here for the same reason: fabricating a
+second skchemists-brand site to force a comparison would not be a
+realistic injection against this branch's actual data, and rule 3 is
+already exercised properly by the three genuine multi-site brands
+(scorahs, mccanns, fishlocks) elsewhere in the estate.
+
+CONTROL: fresh scratch copy, sha256-reconfirmed to baseline.
+skchemists_bootle.phone changed from "0151 944 1013" to "01512220000" - a
+field this checker never reads. Result: clean, exit 0, identical to
+baseline output. Confirms no cross-firing from an unrelated field edit on
+this branch's own record.
+
+RESTORE AND FINAL VERIFICATION: scratch copy re-extracted fresh from HEAD
+after the control round; branches.json sha256 back to
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102. Full
+36-checker suite re-run on that final scratch copy: 35/36 clean (same
+check-cdn-pins.js artefact). Scratch directory then deleted. Tracked
+working copy at /sessions/fervent-busy-bardeen/mnt/rbh-site-data
+reconfirmed throughout and at the end: branches.json sha256 unchanged;
+`git status --porcelain -- modules tools branches.json gbp-packs core`
+showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched by this
+pass; full 36-checker suite run individually against the tracked repo,
+36/36 exit 0.
+
+RESULT: no in-repo defect. tools/check-widget-diaries.js correctly
+enforces rules 1, 2 and 4 against SK Chemists Bootle's own widget ids,
+proven by direct injection for the first time; rule 3 is genuinely out of
+scope for a single-site brand, matching precedent. No generator, page,
+checker or branches.json content changed anywhere in the repo. Guard
+coverage for item 3.8 now extends to nineteen of the estate's 36
+checkers proven by direct injection against SK Chemists Bootle
+specifically (up from eighteen), on top of the live-half findings already
+recorded on the twenty-first pass. No new question raised; QUESTIONS.json
+re-read via the standing answer-pickup step (see AGENT_LOG.md, step 3):
+110 total, 57 open, unchanged in substance - newest portal answer still
+Q52 (2026-09-01).

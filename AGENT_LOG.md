@@ -1,3 +1,60 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 77; mcp__workspace__bash used for lock handling, repo reads, the `git archive HEAD | tar -x` scratch copy at ~/scratch38, the injection/restore cycle and the full 36-checker sweep; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup, read-only, nothing clicked, typed or submitted; Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 3.8 (SK Chemists Bootle) twenty-second quality pass: proved tools/check-widget-diaries.js against this item's own widget ids for the first time in twenty-two passes. This checker's own docstring names SK Chemists Bootle and Smartts Chemist Bootle by name as the canonical same-town-neighbour risk pair, yet it had only ever been run passively (as part of the full 36-checker suite) against either branch, never by direct injection. Four rounds against a full `git archive HEAD | tar -x` scratch copy (never the working tree this pass ran from, re-extracted fresh before each round): (1) RULE 1 format - SK's pharmacyFirst id corrupted to uppercase/wrong-length - CAUGHT, "skchemists_bootle.pharmacyFirst" named exactly; (2) RULE 2 crossbrand - SK's pharmacyFirst id set to Smartts's own pharmacyFirst id, the literal same-key copy-paste the docstring describes - CAUGHT in clean isolation from rule 4 (both sides share one service key); (3) RULE 4 sharedservice - SK's weightLoss id set to Smartts's travelClinic id (different brand and key at once, since isolating rule 4 alone needs a second site within one brand, which this single-site item cannot supply) - CAUGHT as a deliberate combined test, rules 2 and 4 firing together, demonstrating defence-in-depth on the exact fault shape the docstring warns about; (4) CONTROL - SK's phone changed to an unrelated value - correctly zero failures. RULE 3 (consistent) confirmed structurally inapplicable: it only evaluates a service key held at two-or-more sites of the SAME multi-site brand, and SK Chemists Bootle is its brand's only site, the same class of finding already recorded for check-brand-spelling.js's rules 3/5 against this item. All caught injections fired on exactly their intended rule(s), first attempt, both round-3 failure messages naming both branches and both service keys exactly. No checker gap found, no in-repo defect, nothing fixed - this pass adds proof only. Guard coverage for this item now extends to 19 of the estate's 36 checkers (up from 18). Full 36-checker suite clean on the scratch baseline (35/36, check-cdn-pins.js's documented .git-less artefact) and on the tracked repo (36/36) before round 1 and after round 4's restore. No new question.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a
+fresh UTC timestamp via the sandbox mount. `git fetch origin`: already on
+`agents/audit-backlog`, already up to date with run 76's commit (item
+5.2). A routine `git status` against the sandbox mount left a fresh
+`.git/index.lock` behind (same "unable to unlink ... Operation not
+permitted" mount restriction documented on run 76 and earlier), cleared
+via rename (`mv .git/index.lock .git/index.lock.cleared-<epoch>`) from
+the sandbox shell itself this time rather than needing the Windows-MCP
+route, since rename (unlike unlink/overwrite) is permitted on this mount.
+Tracked tree confirmed clean immediately after (`git status --porcelain
+-- modules tools branches.json gbp-packs core` empty aside from the two
+long-standing pre-existing untracked artefacts).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, no Q59
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feed: newest entry still Q52, 2026-09-01T22:44:51.524Z,
+identical to every run since 2026-09-01. Cross-checked against
+QUESTIONS.json: Q52 already recorded `status: "answered"` with the exact
+matching answer text. Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 76's
+own entry) before adding this one - no "Standing authorisation -
+autonomous window" section present. Not applicable, proceeded under the
+normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python script fed from
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) and the eight blocked items. 3.8 came out stalest at
+2026-09-16T22:45:32+01:00, clear of the next candidate (4.7,
+2026-09-17T00:42:27+01:00) and every other pool item - exactly matching
+run 76's own forward note. Picked 3.8.
+
+WORK DONE (item 3.8, twenty-second quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.8 block and in
+audits/sk-bootle-widget-diaries-3.8-twentysecond-2026-09-17.txt. Summary
+above. LIVE HALF not re-attempted this pass; the twenty-first pass's live
+findings (seventeen days old by this pass) stand unchanged and should not
+be assumed current without a fresh read.
+
+FORWARD NOTE: next stalest by this run's own re-derivation is 4.7
+(2026-09-17T00:42:27+01:00), then 1.3, 4.1, 4.5, 4.10, 4.3, 4.13, 4.8,
+3.3, 3.5, 1.2, 2.3, 3.1, 3.2 in that order. Recorded in AGENT_WORKLIST.md's
+own item 3.8 block as well as here.
+
+STEP 10 (status page publish) and STEPS 9/11 (commit, push, lock removal):
+see the commit that follows this log entry and the run's own closing
+actions.
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 76; mcp__workspace__bash used for lock handling, repo reads, the cp -a scratch copy at /tmp/scratch52, the injection/restore cycle and the full 36-checker sweep; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup, read-only, nothing clicked, typed or submitted; Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy to clear a stale .git\index.lock left by an earlier `git status` against the sandbox mount and for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 5.2 (McCanns Aigburth/Sandringham, Scorah Bramhall/Hazel Grove branch landing pages) nineteenth quality pass: proved tools/check-fragment-targets.js against this item's own four pages for the first time in nineteen passes. This checker was a good new angle precisely because it names the branch landing family specifically in its own source (CTA_EXEMPT_FAMILIES has exactly one entry, "branch"), unlike every other checker already proven against this item, which reads page content generically. Three rounds against a full `cp -a` scratch copy of the tracked repo (never the working tree this pass ran from): (1) DUPID - a duplicated id="rbhsv-root" on pharmacy-mccanns-aigburth.html - CAUGHT; (2) TARGET - a dangling href="#nonexistent-anchor" on pharmacy-scorah-bramhall.html - CAUGHT; (3) CTA EXEMPTION MEANINGFULNESS - removing the "branch" key from CTA_EXEMPT_FAMILIES in the checker's own source (scratch copy only) correctly failed CTA on all six branch-family pages at once (this item's four plus the two Fishlocks pages from item 2.2), proving the exemption is genuinely load-bearing rather than a dead entry excusing pages that would have passed anyway. All three rounds fired on the first attempt with the expected rule-specific message; each touched file (two pages, one checker) sha256-reconfirmed byte-identical to its pre-injection baseline after its own restore and again at the end. No checker gap found, no in-repo defect, nothing fixed - this pass adds proof only. Guard coverage for this item now extends to 18 of the estate's 36 checkers (up from 17). Full 36-checker suite clean before round 1 and after round 3's restore. No new question.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (sandbox
