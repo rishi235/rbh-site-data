@@ -1,3 +1,50 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 45; mcp__workspace__bash used for lock handling, repo reads, the 35-checker suite run individually against the tracked repo (check-live-hours.js excluded, needs network), the four scratch-restore injection rounds directly against the tracked pack file (backed up first to _agentscratch/), the git-commit-timestamp rotation-pool derivation, and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/ edits; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.5 live-half fetch, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for AGENT_WORKLIST.md, the new audit file and this entry) - Item 4.5 (Scorah Chemists Hazel Grove GBP pack) nineteenth quality pass: fresh angle - proved two check-gbp-packs.js rule families against this pack's own copy for the first time (TRANSACTIONAL_CTAS/POM_POSTS barring a "Buy"-style button on the weight loss post; POM_CLASS SELF_SCOPING/IN_CONTEXT barring a phrase that identifies a POM's medicine class without naming it), both proven elsewhere in the estate only hours earlier (scorah-bramhall.md on item 4.4's twentieth pass, tiffenbergs-aintree.md on item 4.15's eighteenth pass) but never against this pack. Three injections directly on the tracked file, each restored by byte copy and sha256-reconfirmed before the next: Post C's button label changed to "Buy now" - caught alone, exit 1; "This clinic offers the skinny jab as part of its plan." added to the paster notes outside any post - caught alone, exit 1, confirming SELF_SCOPING reads the whole pack; a weekly-injection sentence added inside Post C's body - caught alone, exit 1. One control, redone after a first attempt tripped an unrelated rule (a new services bullet failed the RECOGNISED_SERVICES allowlist rather than proving anything about POM_CLASS): reworded the existing NHS contraception bullet to mention a contraceptive injection option, matching tiffenbergs-aintree.md's own control shape exactly - passed clean, confirming the sentence-gate exemption holds on this pack's own copy too. All four rounds behaved exactly as designed. No in-repo defect, no checker or pack content changed. Live half (Claude in Chrome, one fetch): pharmacy-scorah-hazel-grove.html still 404 (Q35 class, unchanged since the seventh pass). Full detail in audits/scorah-hazel-grove-pack-check-2026-09-17-nineteenth.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open; no new answer to pick up from the portal feed, newest entry still Q52 from 2026-09-01).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. `.git/ORIG_HEAD.lock` was present from a prior git operation
+(28 minutes old by file mtime epoch, well under the 1-hour index.lock
+threshold, but no `.agent-lock` was present and no git process was running,
+so it was treated as stale debris from an earlier crashed/interrupted
+session rather than an active run). `rm` returned "Operation not
+permitted", the same standing FUSE-mount unlink restriction CLAUDE.md and
+this log's own history document (`.agent-lock.released-*`/`.cleared-*`/
+`.old-*` going back to 2026-09-07); `mv` to a `.cleared-<timestamp>` suffix
+succeeded immediately, consistent with every prior run that has hit this.
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` then completed
+normally, already up to date with origin at run 44's own commit (item 4.1's
+twentieth pass).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No genuine new
+answer to pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 44's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 35 items re-derived via `git log
+--pretty=format:"%ad|%s" --date=iso-strict`, matching "Item N.N" in each
+commit subject, for the 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8), with 4.2
+folded into the pool via 4.1 (it has no checkbox of its own). 4.5 resolved
+to 2026-09-16T03:13:23+01:00, the single oldest across the whole pool;
+runner-up 4.10 at 2026-09-16T05:22:59+01:00. Picked 4.5.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.5 nineteenth-pass
+paragraph and the new audit file. In summary: baseline sha256 and 35/35
+checkers confirmed clean before and after each of the three injections and
+the control; tracked repo confirmed untouched (`git status --porcelain --
+gbp-packs branches.json modules core tools` shows only the two
+long-standing pre-existing untracked strays, neither touched).
+
+GIT (step 9): committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit
+file to agents/audit-backlog.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 44; mcp__workspace__bash used for lock handling, repo reads, the 35-checker suite run individually against the tracked repo (check-live-hours.js excluded, needs network), the scratch-copy injection proof (git archive to /tmp/scratch-41-sister), the git-commit-timestamp rotation-pool derivation, and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/ edits; mcp__claude-in-chrome__navigate/javascript_tool/tabs_close_mcp used for the step 3 answer-pickup fetch and the item 4.1 live-half DOM reads, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for AGENT_WORKLIST.md, the new audit file and this entry) - Item 4.1 (Fishlocks Chemist Ainsdale GBP pack) twentieth quality pass: fresh angle - proved check-gbp-packs.js's sisterBranch rule's HAS-A-SISTER leg (correct-town-passes / wrong-town-fails) against this pack for the first time anywhere in the estate, since Fishlocks Ainsdale is a genuine two-branch brand (sister: Eccleston) whose pack makes no sister claim yet, unlike the three packs the rule's no-sister leg was already proven against (Clear Chemist Aintree, Cherry Lane Walton, Smartts Bootle). Five injections against a scratch copy, each restored and sha256-reconfirmed before the next: a true "sister branch is in Eccleston" claim PASSED (first proof the rule allows a correct claim, not just blocks a wrong one); a false "sister branch is in Bootle" claim CAUGHT, correctly naming Eccleston as the real sister; a same-sentence catchment-word-confusion case (a genuine Southport catchment mention sharing a sentence with a false Bootle sister claim) CAUGHT with the FAIL message correctly quoting only the sister clause, reproducing and reconfirming the forward-only-window fix (born on item 4.4's thirteenth pass against Scorah Bramhall) against Fishlocks for the first time; and two controls (false claim confined to paster notes; unrelated services reword) both PASSED clean. All five behaved exactly as designed on the first attempt. No in-repo defect, no checker or pack content changed. Live half (Claude in Chrome): pharmacy-fishlocks-ainsdale.html still 404 (Q35, unpasted); switch page footer still carries the Q37/Q91 "Fishlock" brand misspelling and "Station Rd" abbreviation alongside the correct trust-bar text, unchanged. Full detail in audits/fishlocks-ainsdale-item-4.1-sister-branch-quality-pass-2026-09-17-twentieth.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open; no new answer to pick up from the portal feed, newest entry still Q52 from 2026-09-01).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

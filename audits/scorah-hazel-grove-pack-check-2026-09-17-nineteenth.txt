@@ -1,0 +1,154 @@
+Item 4.5 - Scorah Chemists Hazel Grove GBP pack - nineteenth quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-09-17
+
+ROTATION POOL
+35-item pool (42 checked AGENT_WORKLIST.md top-level items, one of which,
+4.2, has no checkbox of its own and is folded into 4.1's block, minus the
+seven standing out-of-rotation items 1.1/1.4/2.2/5.6/5.7/6.7/6.8). Per-item
+"most recent commit whose message names it" derived directly from
+`git log --pretty=format:"%ad|%s" --date=iso-strict`, matched against
+"Item N.N" in each commit subject (same method as run 44's own item 4.1
+pass earlier today). 4.5 came out the unique stalest at
+2026-09-16T03:13:23+01:00, ahead of the runner-up (4.10 at 05:22:59). All
+eight unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60
+lines under 6.4/6.5, 6.6) reconfirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`, so the quality-pass fallback
+applied.
+
+BASELINE
+sha256 of gbp-packs/scorah-hazel-grove.md before starting:
+968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a
+(unchanged since the seventeenth pass, 2026-09-15). Full 35-checker suite
+(all tools/check-*.js except check-live-hours.js, which needs network) run
+individually against the tracked repo: 0 non-zero exits.
+
+FACTS RE-VERIFIED AGAINST branches.json (nineteenth time)
+Name, street address, postcode, phone, hours (Monday-Friday 09:00-18:00,
+Saturday and Sunday closed, the 24 June Saturday closure), review link,
+catchment order and its five towns (serviceAreaList match), hasApp false,
+pfLink, profile website on its own landing page, the sister-branch sentence
+naming Bramhall, the bank holiday paster note (naming
+bankHolidays.dates2026), and the 712-character description re-derived
+independently at exactly 712. The post town on the "- Address:" line
+remains the standing Q64 exception and was not re-raised.
+
+NEW ANGLE
+Three rule families in tools/check-gbp-packs.js had been proven by
+injection elsewhere in the estate - most recently and most completely
+today, earlier in this same run's own history, against gbp-packs/
+scorah-bramhall.md (item 4.4, twentieth pass) and gbp-packs/
+tiffenbergs-aintree.md (item 4.15, eighteenth pass, 2026-09-16) - but a
+grep of this pack's own eighteen prior audit files for "POM_POSTS",
+"transactional", "pomClass", "dosing schedule" and "alludes to a
+prescription" returned zero hits in every case. Two of the three rules
+apply directly to this pack, which runs a weight loss clinic (Post C):
+
+1. TRANSACTIONAL_CTAS / POM_POSTS (line ~2118-2140): a transactional
+   button label ("Buy", "Buy now", "Order online", etc.) on the weight
+   loss or travel post is barred, because a Google post is Regime 1
+   advertising and the house standards treat a "Buy" control on a
+   prescription-only service the same as a treatment picker.
+2. tools/pom-class-patterns.js via POM_CLASS.findSelfScoping (whole pack)
+   and POM_CLASS.findInContext (per weight-loss sentence) (line
+   ~1815-1824): a phrase that identifies the medicine class without
+   naming it - a dosing schedule, "skinny jab", etc. - is read as
+   promoting the POM just as naming it would be, per the ASA ruling cited
+   in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md.
+
+(The third rule proven today elsewhere, PRICE_PATTERNS/OFFER_PATTERNS, was
+already proven against this specific pack on the twelfth pass, 2026-09-05 -
+Post C's "Plans start from GBP39.99 a month" injection - so it was not
+repeated here.)
+
+All edits made directly on the tracked file, each restored by byte copy
+from _agentscratch/scorah-hazel-grove.md.bak-pre-4.5-nineteenth (taken
+before any edit) and sha256-reconfirmed identical
+(968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a) before
+the next injection began.
+
+Injection 1 - transactional CTA on the weight loss post
+---------------------------------------------------------
+Changed Post C's button line from
+"Button: Book -> https://www.scorah-chemists.co.uk/weight-loss-clinic-scorah-hazel-grove.html"
+to "Button: Buy now -> ..." (URL unchanged). node tools/check-gbp-packs.js
+exited 1, exactly one new FAIL naming "Post C - Weight loss clinic" and
+quoting the house-standards reasoning against a "Buy [product]" control on
+a prescription-only service; the pre-existing Q64 WARN unchanged. Restored;
+sha256 reconfirmed identical, diff empty.
+
+Injection 2 - POM-class SELF_SCOPING, outside any post body
+--------------------------------------------------------------
+Inserted "- This clinic offers the skinny jab as part of its plan." as a
+new bullet directly under the first "Notes for the paster:" bullet (not
+inside Post C or any post at all). node tools/check-gbp-packs.js exited 1,
+exactly one new FAIL naming the phrase "skinny jab" and the ASA reasoning
+on alluding to a POM without naming it. Confirms SELF_SCOPING reads the
+whole pack regardless of location, proven on this pack's own copy for the
+first time. Restored; sha256 reconfirmed identical, diff empty.
+
+Injection 3 - POM-class IN_CONTEXT, weekly injectable in a weight-loss
+sentence
+-------------------------------------------------------------------------
+Inserted "Ask about the weekly injection option to support your weight
+loss journey." as a new sentence inside Post C's body (between "the
+pharmacist will advise." and "Confidential and judgement-free."). node
+tools/check-gbp-packs.js exited 1, exactly one new FAIL naming "a weekly
+injectable" and quoting the sentence containing it. Caught first attempt.
+Restored; sha256 reconfirmed identical, diff empty.
+
+Control - contraceptive injection mention, no weight-loss context
+----------------------------------------------------------------------
+First attempt at this control (adding a new "- NHS contraceptive
+injection: ..." services bullet) tripped a DIFFERENT, unrelated rule - the
+RECOGNISED_SERVICES allowlist, because a bullet naming a service not in
+the allowlist fails regardless of its wording - which is a side effect
+of the test's own construction, not a checker finding. Reran the control
+using the exact edit shape proven on tiffenbergs-aintree.md's own control
+(item 4.15, eighteenth pass, 2026-09-16) instead: changed the existing NHS
+contraception Services bullet from "start or continue oral contraception
+at the pharmacy without a GP appointment" to "start or continue oral
+contraception, including a contraceptive injection option, at the
+pharmacy without a GP appointment" - no new bullet, no new service name,
+same recognised service. node tools/check-gbp-packs.js exited 0, 0
+failures for this pack (the Q64 WARN unchanged). Confirms the sentence-gate
+exemption for the NHS contraception service holds on this pack's own copy
+specifically, not just on Tiffenbergs Aintree's.
+
+RESULT
+All three real injections fired, and the corrected control passed, each on
+its own intended rule only, no side-effect failures anywhere else in the
+35-checker suite. No checker gap found; this was a proof-of-generalisation
+pass, not a defect-finding one, matching the precedent set repeatedly by
+this pack's own prior passes (fourth, ninth, tenth, eleventh, twelfth,
+thirteenth, fourteenth, sixteenth, seventeenth) of proving an
+already-correct estate-wide rule against this specific pack's own copy
+rather than assuming a proof on a sister pack generalises.
+
+RESTORE AND RE-VERIFICATION
+Final restore confirmed by byte-for-byte diff (empty) and sha256
+(968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a,
+unchanged throughout). Full 35-checker suite re-run clean after the final
+restore: 0 non-zero exits. git status --porcelain -- gbp-packs branches.json
+modules core tools showed only the two long-standing pre-existing untracked
+strays already documented by earlier passes (gbp-packs/.fuse_hidden0000000400000001,
+a FUSE-mount artefact, and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither created or touched by this pass. No page, generator or
+branches.json field touched, so no rebuild was needed.
+
+LIVE HALF
+Claude in Chrome connected, read-only, one fetch: the landing page
+(https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html) still
+returns 404 (Q35 class, unchanged since the seventh pass). Kept to this one
+confirmatory check rather than a full re-walk of Post A-D and the switch
+page, consistent with the footprint the sixteenth and seventeenth passes
+used when the fact/checker half was the pass's main content.
+
+QUESTIONS
+No new question. QUESTIONS.json unchanged at 109 total (56 open). Step 3
+answer pickup (see AGENT_LOG.md this run's entry) found no new answer;
+newest portal entry remains Q52 from 2026-09-01.
+
+NEXT STALEST BY THE ROTATION POOL
+After this pass, 4.5's own most recent commit becomes today's date, so
+4.10 (last touched 2026-09-16T05:22:59+01:00) becomes the pool's stalest
+survivor for the next run that falls through to the quality-pass fallback.

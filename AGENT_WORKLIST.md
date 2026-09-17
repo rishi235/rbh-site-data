@@ -18105,6 +18105,48 @@ warnings, unchanged); git status on gbp-packs/, branches.json, modules/,
 core/ and tools/ empty throughout (only the long-standing pre-existing
 untracked debris family at the repo root, none touched). See
 audits/scorah-hazel-grove-pack-check-2026-09-16-eighteenth.txt.
+Quality pass 2026-09-17 (nineteenth pass, unattended scheduled run, run
+45): rotation pool re-derived from `git log --pretty=format:"%ad|%s"
+--date=iso-strict` against the 35-item pool (42 checked items minus the
+seven standing out-of-rotation items); 4.5 came out uniquely stalest at
+2026-09-16T03:13:23+01:00, ahead of the runner-up 4.10 (05:22:59). All 8
+unchecked lines reconfirmed [BLOCKED] first. Baseline: sha256
+968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a, unchanged
+since the seventeenth pass; full 35-checker suite 0 failures. Facts
+re-verified against branches.json for the nineteenth time, all matching
+(name, address, phone, hours, review link, catchment order, hasApp false,
+pfLink, sister-branch sentence, bank holiday note, 712-character
+description); the Q64 post-town exception not re-raised. NEW ANGLE: two
+rule families proven elsewhere in the estate today (item 4.4's twentieth
+pass on scorah-bramhall.md, item 4.15's eighteenth pass on
+tiffenbergs-aintree.md, both 2026-09-16/17) had never been proven against
+this pack's own copy - TRANSACTIONAL_CTAS/POM_POSTS (no "Buy"-style button
+on the weight loss or travel post) and POM_CLASS SELF_SCOPING/IN_CONTEXT
+(no phrase that identifies a POM's medicine class without naming it, from
+tools/pom-class-patterns.js). Three injections, each restored by byte copy
+and sha256-reconfirmed before the next: Post C's button label changed to
+"Buy now" - caught alone, exit 1, naming Post C; "This clinic offers the
+skinny jab as part of its plan." added to the paster notes (outside any
+post) - caught alone, exit 1, confirming SELF_SCOPING reads the whole pack;
+"Ask about the weekly injection option to support your weight loss
+journey." added inside Post C's body - caught alone, exit 1, naming the
+weekly-injectable phrase. Control: the NHS contraception Services bullet
+reworded to mention "a contraceptive injection option" with no new service
+name - passed cleanly (exit 0), confirming the sentence-gate exemption for
+NHS contraception holds on this pack's own copy (a first control attempt
+using a new services bullet had tripped the unrelated RECOGNISED_SERVICES
+allowlist rule instead, a test-construction side effect rather than a
+finding, and was redone using the exact edit shape proven on
+tiffenbergs-aintree.md's own control). All four rounds fired or passed on
+their intended rule only. Restored by byte copy; sha256 reconfirmed
+identical throughout, diff empty. Full 35-checker suite re-run clean; git
+status on gbp-packs/, branches.json, modules/, core/ and tools/ empty bar
+the two long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. LIVE HALF: Claude in Chrome connected, read-only; the landing page
+still 404s (Q35 class, unchanged since the seventh pass), the one check
+performed this pass. No in-repo defect, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-17-nineteenth.txt.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
