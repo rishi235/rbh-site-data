@@ -95,8 +95,22 @@ appended, no line ticked - item was already [x]), new file
 audits/clear-aintree-fragment-targets-3.13-eighteenth-2026-09-17.txt, this
 log entry.
 
-STEP 10/11: build-audit-status.js run and pushed to rishi235/rbh-data-portal
-after commit; .agent-lock deleted at run end regardless of outcome.
+GIT WRITE ROUTE (steps 9-11): the sandbox shell (mcp__workspace__bash)
+staged the three files cleanly but then failed to commit - the FUSE mount's
+long-documented inability to unlink .git/index.lock (Q87/Q96/Q102) left a
+stale lock in place, and the sandbox has no GitHub credential for push in
+any case. Followed the standing convention from those three questions:
+switched to mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data working copy, where the pre-staged changes were already
+visible (same connected folder, no re-add needed). Removed the stale
+.git/index.lock there (a normal filesystem, not FUSE-mounted, so a plain
+delete succeeds), then `git commit` (1d96281) and `git push origin
+agents/audit-backlog` both succeeded cleanly with the host's own configured
+credential, no prompt or error: 4547fbb..1d96281. `node
+tools/build-audit-status.js`, also run via PowerShell on the real host,
+published reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal
+(42/48 done, 88%). `.agent-lock` deleted via PowerShell at run end; confirmed
+absent from both the real host and the sandbox mount afterwards.
 
 ---
 
