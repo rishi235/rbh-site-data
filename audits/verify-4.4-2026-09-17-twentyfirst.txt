@@ -1,0 +1,121 @@
+Item 4.4 (Scorah Chemists Bramhall GBP pack) twenty-first quality pass
+2026-09-17, unattended scheduled run (audit-backlog-worker, run 73)
+
+FRESH ANGLE: the CLINIC_QUALIFIERS rule family in tools/check-gbp-packs.js
+(six keys: weightLossPaid, weightLossSuitability, weightLossSupervised,
+travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability,
+added on the item 4.8 quality pass, 2026-08-14) had never been proven by
+injection against gbp-packs/scorah-bramhall.md specifically across twenty
+prior passes on this item. The rule was proven when it was written against
+gbp-packs/fishlocks-eccleston.md (the six deletions in the checker's own
+header comment) and the word-order variant was proven later against
+gbp-packs/smartts-bootle.md (item 4.10 fifteenth pass). Confirmed by
+grepping every audits/*bramhall* file and audits/verify-4.4*.{js,txt} for
+"CLINIC_QUALIFIER", "weightLossPaid", "weightLossSuitability",
+"weightLossSupervised", "travelSuitability", "not right for everyone",
+"supervised plan" and "subject to availability" before choosing this
+angle: the only match on a Bramhall-specific file
+(scorah-bramhall-4.4-pass-2026-09-02.txt) was a LIVE read confirming the
+qualifiers are present on the live weight-loss and travel-clinic pages,
+not an injection test of the checker's own rule against the pack file.
+scorah_bramhall is not in KNOWN_CLINIC_QUALIFIER (only cherrylane_liverpool,
+fishlocks_ainsdale and hirshmans_ainsdale are), so this pack is expected to
+carry all six markers and is a genuine test subject.
+
+BASELINE: sha256 of gbp-packs/scorah-bramhall.md before any edit:
+de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+(identical to the twentieth pass's own baseline, confirming nothing has
+changed on this pack since). Full 36-checker suite run individually
+against the tracked repo before starting: 36/36 exit 0.
+
+METHOD: full repo copied via `tar --exclude='.git'` to a scratch directory
+(/tmp/scratch-44b) outside the tracked tree; a pristine single-file backup
+of scorah-bramhall.md kept separately at /tmp/scorah-bramhall.pristine.md.
+All injections and checker runs performed against the scratch copy only;
+the tracked repo's gbp-packs/scorah-bramhall.md was never opened for
+writing, confirmed by sha256 match before, during (via the separate
+pristine backup) and after this pass.
+
+SIX INJECTIONS, each restored from the pristine backup and sha256-
+reconfirmed identical to baseline before the next injection:
+
+1. weightLossPaid (Post C, post) - "This is a private, paid service and it
+   is not right for everyone" changed to "This is a service and it is not
+   right for everyone" - CAUGHT first attempt: "Post C - Weight loss
+   clinic does not state that the weight loss clinic is a private, paid
+   service."
+
+2. weightLossSuitability (Post C, post) - "not right for everyone - the
+   pharmacist will advise" removed, leaving "This is a private, paid
+   service. Confidential and judgement-free." - CAUGHT first attempt:
+   "Post C - Weight loss clinic does not state that the weight loss clinic
+   is not right for everyone, or that the pharmacist will advise."
+
+3. weightLossSupervised (Post C, post) - "as part of a supervised plan"
+   removed from "we support you at every step as part of a supervised plan
+   alongside diet and lifestyle changes" - CAUGHT first attempt: "Post C -
+   Weight loss clinic does not state that the weight loss clinic is a
+   supervised plan."
+
+4. travelSuitability (Post D, post) - "subject to availability and
+   clinical suitability" removed from Post D's vaccination sentence -
+   CAUGHT first attempt: "Post D - Travel clinic does not state that
+   travel vaccinations are subject to availability and clinical
+   suitability."
+
+5. servicesWeightLossSupervised (Services section) - "as part of a
+   supervised plan" removed from the Weight loss clinic services bullet
+   ("clinical assessment and ongoing support as part of a supervised
+   plan." -> "clinical assessment and ongoing support.") - CAUGHT first
+   attempt: "Services section does not state that the weight loss clinic
+   is a supervised plan."
+
+6. servicesTravelSuitability (Services section) - "subject to availability
+   and clinical suitability" removed from the Travel clinic services
+   bullet - CAUGHT first attempt: "Services section does not state that
+   travel vaccinations are subject to availability and clinical
+   suitability." (First replace attempt failed on a whitespace/line-wrap
+   mismatch in the match string, harmless scripting error caught by the
+   script's own assert and corrected before re-running; no partial edit
+   was left in place.)
+
+CONTROL: Post D's closing sentence paraphrased harmlessly ("Convenient
+appointments on North Park Road, no GP visit needed." -> "Convenient
+appointments close to North Park Road, no GP visit required.") with both
+qualifier phrases left intact - correctly PASSED, exit 0, only the
+pre-existing standing Q64 address post-town WARN present, confirming the
+rule is not over-sensitive to an honest paraphrase elsewhere in the same
+post.
+
+All seven rounds (six injections plus the control) fired or passed on
+their own intended rule, first attempt (after the one corrected scripting
+error on round 6), with no unexpected cross-firing.
+
+RESTORE AND FINAL VERIFICATION: final restore sha256-reconfirmed identical
+to baseline (de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14).
+Full 36-checker suite (cdn-pins excluded on the scratch copy, no .git
+present there) re-run clean on the scratch copy after cleanup. Tracked
+repo confirmed untouched throughout via `git status --porcelain` on
+gbp-packs/, tools/, modules/, core/ and branches.json (only the two
+long-standing pre-existing untracked strays, gbp-packs/.fuse_hidden...
+and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+neither touched) and via direct sha256 comparison of the tracked file.
+Full 36-checker suite re-run individually against the tracked repo after
+cleanup: 36/36 exit 0.
+
+RESULT: zero in-repo defect. All six CLINIC_QUALIFIERS keys already
+correctly protect this pack; now proven directly by injection against
+scorah-bramhall.md specifically for the first time in twenty-one passes,
+closing the last named gap in this checker's own coverage of this branch
+(alongside the categories, services, catchment, sister-branch, photo shot
+list, CTA button, lead-pricing and POM-class-allusion rules already proven
+on prior passes).
+
+LIVE HALF: not attempted this pass. All five URLs the pack references were
+freshly read live on the nineteenth pass (2026-09-15) and the qualifier
+wording itself was separately confirmed present on the live weight-loss
+and travel-clinic pages on the 2026-09-02 pass; this pass's fresh angle is
+a repo-only proof of the checker's own rule and adds no new live surface.
+
+No new question raised. QUESTIONS.json re-read before and after: 110
+total, 57 open, unchanged.

@@ -1,4 +1,140 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 72; mcp__workspace__bash used for lock handling, repo reads, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); bash used for AGENT_WORKLIST.md and this entry given their size; Write used for the new audits file) - Item 3.10 (Riddings Pharmacy, Timperley) twenty-first quality pass: proved tools/check-url-scheme.js's RULE 1 (published surface and branches.json field), RULE 2 (GBPSITE and STALE) and RULE 3 (MAPPED, both halves) by six injections plus a control against this branch's own files for the first time in twenty-one passes, zero in-repo defect; guard coverage for item 3.10 now 21 of 36 checkers, fifteen remaining.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 73; mcp__workspace__bash used for lock handling, repo reads, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.4 (Scorah Chemists Bramhall GBP pack) twenty-first quality pass: proved tools/check-gbp-packs.js's CLINIC_QUALIFIERS rule family (all six keys: weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability) by six injections plus a control against this pack's own copy for the first time in twenty-one passes, zero in-repo defect, no new question.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 72's
+own lock already resolved and cleared). Wrote a fresh UTC timestamp via
+the sandbox mount. `git fetch origin`, already on `agents/audit-backlog`,
+`git pull --ff-only origin agents/audit-backlog` - already up to date
+with run 72's own commit today (item 3.10). A fresh `.git/index.lock`
+appeared during this run's own read-only git calls (well under a minute
+old when checked, `Operation not permitted` on unlink), the same standing
+sandbox-mount restriction Q87/Q96/Q102 document - left alone rather than
+cleared, not needed for the read-only git status/log calls this run made
+from the sandbox; the actual add/commit/push for this run is handled via
+the Windows-MCP PowerShell route against the real C:\Dev\rbh-site-data
+working copy per Q102's standing recommendation.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed: newest entry still Q52
+(2026-09-01T22:44:51.524Z), identical to every run since 2026-09-01.
+Cross-checked against QUESTIONS.json: Q52 already recorded
+`status: "answered"` with the exact matching answer text. Nothing new to
+pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 72's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python scan of `git log
+--pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`, taking
+the newest commit date mentioning each "Item N.N" and excluding the seven
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 4.4 came out stalest at 2026-09-16T20:40:26+01:00,
+clear of the next candidate (4.9, 2026-09-16T21:12:52+01:00) and every
+other pool item, matching the twenty-first pass's own forward note from
+run 71/72's history exactly (run 72's own note flagged 4.4 as the next
+candidate). Picked 4.4.
+
+WORK DONE (item 4.4, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.4 block and in
+audits/verify-4.4-2026-09-17-twentyfirst.txt. In summary: the twentieth
+pass proved three granular check-gbp-packs.js rules (transactional-CTA
+button label, lead pricing, POM-class allusion) against this pack for the
+first time, leaving the CLINIC_QUALIFIERS rule family as the one named
+gap: it was proven when written (against fishlocks-eccleston.md) and once
+more for a word-order fix (against smartts-bootle.md), but never against
+scorah-bramhall.md itself, confirmed by grepping every audits/*bramhall*
+and verify-4.4* file for the rule's key phrases before choosing this
+angle - the only Bramhall-specific match was a LIVE read confirming the
+qualifiers appear on the live pages, not an injection test of the
+checker's rule against the pack file.
+
+BASELINE: full 36-checker suite run individually against the tracked repo
+before starting, 36/36 exit 0. sha256 of gbp-packs/scorah-bramhall.md
+recorded before any edit: matched the twentieth pass's own baseline
+exactly (de82fd01...46df14), confirming nothing has changed on this pack
+since.
+
+SIX INJECTIONS, each restored from a pristine backup and sha256-
+reconfirmed identical before the next: (1) weightLossPaid - "private,
+paid service" deleted from Post C - CAUGHT, "does not state that the
+weight loss clinic is a private, paid service"; (2) weightLossSuitability
+- "not right for everyone - the pharmacist will advise" deleted from Post
+C - CAUGHT, "does not state ... is not right for everyone, or that the
+pharmacist will advise"; (3) weightLossSupervised - "as part of a
+supervised plan" deleted from Post C - CAUGHT, "does not state ... is a
+supervised plan"; (4) travelSuitability - "subject to availability and
+clinical suitability" deleted from Post D - CAUGHT, "does not state that
+travel vaccinations are subject to availability and clinical
+suitability"; (5) servicesWeightLossSupervised - the supervised-plan
+phrase deleted from the Services section's weight loss bullet - CAUGHT,
+"Services section does not state that the weight loss clinic is a
+supervised plan"; (6) servicesTravelSuitability - the availability phrase
+deleted from the Services section's travel bullet - CAUGHT, "Services
+section does not state that travel vaccinations are subject to
+availability and clinical suitability" (first script attempt hit a
+whitespace/line-wrap mismatch in the match string, caught by the script's
+own assert with no partial edit reaching the file, corrected and
+re-run). CONTROL: Post D's closing sentence paraphrased harmlessly ("on
+North Park Road" to "close to North Park Road", "no GP visit needed" to
+"no GP visit required") with both qualifiers left intact - correctly
+PASSED, exit 0, only the pre-existing standing Q64 address WARN, no new
+FAIL. All seven rounds fired or passed on their own intended rule, first
+attempt.
+
+Final restore sha256-reconfirmed identical to baseline; full 36-checker
+suite re-run clean on the scratch copy after cleanup (cdn-pins excluded,
+no .git in the scratch copy, separately reconfirmed exit 0 against the
+tracked repo directly) and again individually against the tracked repo
+after cleanup: 36/36 exit 0. `git status --porcelain -- gbp-packs tools
+modules core branches.json` showing only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched.
+
+RESULT: zero in-repo defect. All six CLINIC_QUALIFIERS keys already
+correctly protect this pack; now proven directly by injection against
+scorah-bramhall.md specifically for the first time in twenty-one passes,
+closing the last named checker-coverage gap on this branch.
+
+LIVE HALF: not attempted this pass. All five URLs the pack references
+were freshly read live on the nineteenth pass (2026-09-15, two days
+prior) and the qualifier wording itself was separately confirmed present
+on the live weight-loss and travel-clinic pages on the 2026-09-02 pass;
+this pass's fresh angle is a repo-only proof of the checker's own rule and
+adds no new live surface.
+
+QUESTIONS: none raised this run. QUESTIONS.json re-read in full before
+and after: 110 total, 57 open, unchanged.
+
+FILES CHANGED: AGENT_WORKLIST.md (item 4.4 paragraph); AGENT_LOG.md (this
+entry); audits/verify-4.4-2026-09-17-twentyfirst.txt (new). No generator,
+checker, page, sheet or branches.json content changed in the tracked
+tree.
+
+STEP 9/10 (commit, push, publish): handled via mcp__Windows-MCP__PowerShell
+against the real C:\Dev\rbh-site-data working copy per Q102's standing
+recommendation - see the commit immediately following this entry's push
+for the exact command and hash.
+
+Next stalest for whoever runs next, re-derive rather than assume: with
+4.4 now current, the tied-oldest pool needs fresh derivation (4.9 was the
+next candidate as of this pass's own note, at 2026-09-16T21:12:52+01:00,
+but re-check rather than assume). On item 4.4 itself: the CLINIC_QUALIFIERS
+rule family is now proven against this pack; remaining candidates for a
+twenty-second pass would need fresh derivation against the item's full
+21-pass history (the road-name, foreign-town, KNOWN_IDENTITY addressPostTown
+exemption, and vacuity-guard rules have not obviously been named against
+this pack specifically in the passes reviewed this run - worth checking
+first before assuming a gap). On the open backlog generally: unchanged -
+the eight genuinely actionable worklist items remain blocked on Rishi's
+own decisions and 57 of 110 questions are open.
+
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 71's own
 lock already resolved and cleared before this run started). Wrote a fresh
