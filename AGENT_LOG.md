@@ -115,6 +115,24 @@ QUESTIONS.json's Q99 addendum, and this log entry. No changes to
 generators, other checkers, gbp-packs/ or branches.json; branches.json
 sha256 unchanged throughout (169bb5a2...b102).
 
+STEP 9/10 OUTCOME: `git add`/`git commit` succeeded via mcp__workspace__bash
+(commit 8eb8565), two stray `.git/index.lock`/`.git/HEAD.lock` files left
+by this run's own preceding git calls cleared by rename rather than delete
+before the add and before the commit respectively (standing Q87/Q96/Q102
+mount quirk, confirmed no concurrent git process via `ps aux` both times).
+`git push` from the sandbox was not attempted (standing Q87/Q96: no
+credential in this session); went straight to `mcp__Windows-MCP__PowerShell`
+against the real host, per the standing workaround. Confirmed no git
+process running there, cleared one stray `.git/HEAD.lock` by genuine
+delete (native filesystem, no unlink restriction), then `git push origin
+agents/audit-backlog` succeeded and `git fetch origin` immediately after
+confirmed `origin/agents/audit-backlog` at 8eb8565, matching local HEAD
+exactly. `node tools\build-audit-status.js` then run from the same
+PowerShell session: "Published reports/digital/Digital_Audit_Status.html
+(42/48 done, 88%)", exit 0. `.agent-lock` released (renamed) at the end of
+this run via mcp__workspace__bash; no stray index/HEAD lock left behind
+after the closing `git fetch` on the sandbox side.
+
 
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
