@@ -1,0 +1,216 @@
+Item 2.1 (Fishlocks Chemist Ainsdale) - twenty-first quality pass
+Unattended scheduled run, audit-backlog-worker, 2026-09-17 (run 69)
+
+CONTEXT
+-------
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, the two
+Q60 lines under 6.4/6.5, 6.6) reconfirmed [BLOCKED] by direct grep before
+falling to the quality-pass fallback. Rotation pool re-derived fresh via a
+Python scan of `git log --pretty=format:"%ad|%s" --date=iso-strict -- \
+AGENT_WORKLIST.md`, taking the newest commit date mentioning each "Item
+N.N" and excluding the seven standing out-of-rotation items (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) and the eight currently-blocked items. 2.1 came
+out stalest at 2026-09-16T18:11:08+01:00 (its own twentieth pass), ahead
+of 3.4 (19:23:05) and everything touched later, including 4.14 which run
+68 took and completed earlier today. Picked 2.1.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed: newest entry still Q52
+(2026-09-01T22:44:51.524Z), identical to every run since 2026-09-01.
+Cross-checked against QUESTIONS.json: Q52 already recorded "status:
+answered" with the exact matching text. Nothing new to pick up.
+QUESTIONS.json unchanged this run (110 total, 57 open before and after).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 68's
+own entry, and its force-push addendum, both now below this one) before
+adding this entry - no "Standing authorisation - autonomous window"
+section present. Not applicable, proceeded under the normal rule.
+
+FRESH ANGLE
+-----------
+Twenty prior passes on item 2.1 had proven check-page-coverage.js (nine
+mentions), check-seo-lengths.js, check-cdn-pins.js, check-postcodes.js,
+check-pharmacy-first-eligibility.js, check-opening-hours.js,
+check-weight-loss-copy.js, check-gbp-packs.js, check-contraception-copy.js,
+check-travel-clinic-copy.js, check-nap.js, check-jsonld.js,
+check-em-dashes.js, check-app-membership.js, check-whatsapp-route.js,
+check-seo-pattern.js, check-pharmacy-first-cost.js, check-map-embeds.js,
+check-branch-links.js, check-branch-identity.js and check-booking-routes.js
+against Fishlocks Ainsdale specifically, all within item 2.1's own
+1100-plus-line history (confirmed by grepping the item's own block, lines
+188-1313, for every `check-*.js` filename in tools/). Fourteen of the
+repo's 34 checkers had never been named there at all: check-address-region,
+check-brand-spelling, check-editor-snapshot, check-fragment-targets,
+check-gbp-pharmacy-first, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-seo-keywords, check-seo-sheets,
+check-service-links, check-switch-copy, check-uk-spelling, check-url-scheme,
+check-widget-diaries.
+
+Took check-switch-copy.js. Separately confirmed by grepping the whole
+document for the literal filename "switch-prescriptions-fishlocks-
+ainsdale.html" that no prior pass, under any item, had ever run this
+checker's body-copy rules (1-10) against this specific page - the only
+existing reference (item 3.3, ninth/tenth passes) proved rule 11
+(SISTERLABEL, the shared-banner rule) against Fishlocks' pages by
+injection, a genuinely different rule family from the ten rules below.
+This is the fourth checker in the repo built on the "the frame is
+covered, nothing reads what the page promises" pattern (Pharmacy First
+eligibility at the sixty-third run, contraception at the sixty-eighth,
+travel clinic at the sixty-ninth, switch copy at whichever run first
+wrote it) and, per its own file header, protects the single
+highest-commitment page family in the estate: the page that asks a
+patient to move where their medication comes from and collects their
+name, date of birth and a contact method to do it.
+
+BASELINE
+--------
+branches.json sha256:
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged throughout this pass).
+switch-prescriptions-fishlocks-ainsdale.html sha256:
+47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be
+
+Full-repo scratch copy via `tar --exclude=.git` to a disposable directory
+under the sandbox home mount (/sessions/relaxed-lucid-cerf/scratch_item21,
+not /tmp, which this session cannot write to). Tracked repo never opened
+for writing during the injection round. Scratch branches.json and target
+page sha256 confirmed identical to the tracked repo before any mutation.
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent, per standing convention) run individually against
+the scratch copy: 34/34 exit 0. check-switch-copy.js's own clean line:
+"15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where
+they send people, 11 rules, 3 accepted breach(es) pinned to a question."
+
+FOUR INJECTIONS PLUS ONE CONTROL
+---------------------------------
+All against the scratch copy's own switch-prescriptions-fishlocks-
+ainsdale.html only, each restored by direct byte copy from a saved
+original and sha256-reconfirmed identical before the next injection.
+
+(1) RULE 4 (gp-story). Inserted a new, previously-absent paragraph
+    ("We contact your GP. We handle everything for you.") immediately
+    after the hero-sub paragraph, deliberately outside every element the
+    checker's COPY extraction reads, so as not to also trip rule 3
+    (verbatim). CAUGHT first attempt: exactly one [gp-story] failure,
+    naming both unconditional phrases found ("We contact your GP",
+    unqualified; "We handle everything") against all five hedged phrases
+    already present elsewhere on the page (the FAQ's "Not always" answer,
+    the trust bar, step 2). Confirms the rule reads the whole page's text,
+    not just the tracked COPY lines.
+
+(2) RULE 5 (continuity). Inserted a second new paragraph ("No
+    interruption to your medication guaranteed throughout the switch.")
+    in the same location, ahead in page order of the page's own correctly
+    hedged hero-points bullet ("No interruption to your medication
+    wherever possible"). Deliberately placed BEFORE the existing hedged
+    instance because the rule's own implementation takes only the FIRST
+    regex match in the page text (`CONTINUITY.exec(p.text)`, no /g flag) -
+    an injection placed after the existing hedge would never be reached.
+    CAUGHT first attempt: exactly one [continuity] failure, quoting the
+    unhedged promise and correctly not flagging the genuinely hedged
+    bullet further down the same page.
+
+(3) RULE 8 (town) plus RULE 3 (verbatim), one edit, three failures. The
+    pill line ("Your local independent pharmacy in Ainsdale") changed to
+    name the sister branch's town instead ("...in Eccleston" - a
+    genuinely different town, not a shared one, so no exemption applies).
+    CAUGHT three ways on the first attempt: [verbatim] the generator's
+    own pill template no longer found on the page; [town] the pill does
+    not name this branch's own town (Ainsdale); [town] the body copy
+    names Eccleston, "which is fishlocks_eccleston's town, not this
+    branch's. On a shared domain that is how two branches end up
+    competing for one place" - naming the correct sister branch id.
+    Matches the pattern already recorded for check-branch-identity.js and
+    check-map-embeds.js against this same branch pair under item 3.3: one
+    fact, several rules reading it from different angles rather than
+    duplicating one another.
+
+(4) RULE 9 (form-copy). Added a bare `required` attribute to the mobile
+    `<input>`, leaving step 1's own sentence ("Mobile and email are
+    optional") untouched. CAUGHT first attempt: exactly one [form-copy]
+    failure, "step 1 calls mobile optional and the input is marked
+    required."
+
+CONTROL. Changed the map iframe's address query by one street number (17
+    to 19 Station Road) - a fact check-switch-copy.js does not read at
+    all (map addresses are check-map-embeds.js's and check-nap.js's own
+    territory). check-switch-copy.js alone: still OK, exit 0, unchanged
+    output line. Full 34-checker suite run with the control still in
+    place: check-jsonld.js, check-map-embeds.js and check-nap.js all
+    correctly failed (naming the address mismatch), check-switch-copy.js
+    and every other checker stayed clean. Confirms the four injections
+    above fired specifically inside check-switch-copy.js's own rules and
+    not as an accident of some other checker's overlapping territory.
+
+All five restores sha256-confirmed byte-identical to the saved original
+before the next step. Full 34-checker suite re-run on the scratch copy
+after the final restore: 34/34 exit 0.
+
+TRACKED REPO reconfirmed untouched throughout: branches.json and the
+target page's sha256 both unchanged from the values recorded above;
+`git status --porcelain -- modules core branches.json gbp-packs tools`
+showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; a direct
+run of all 34 tools/check-*.js (same two excluded) against the tracked
+repo was clean, 34/34 exit 0, both before this pass started and after.
+Scratch directory deleted in full after use.
+
+RESULT: zero in-repo defect. check-switch-copy.js's rules 3, 4, 5, 8 and
+9 are now proven by direct injection against Fishlocks Ainsdale
+specifically, for the first time (rule 11 had already been proven against
+this branch pair under item 3.3; rules 1, 2, 6, 7 and 10 remain untested
+against this branch specifically and are a candidate for a future pass).
+
+LIVE HALF (Claude in Chrome, connected first attempt, read-only, nothing
+clicked, typed or submitted)
+----------------------------
+switch-prescriptions-fishlocks-ainsdale.html: read in full via
+get_page_text. This is the first time this specific live page has been
+read by any item 2.1 pass (the eighteenth and prior passes checked
+contact.html and the weight loss page; the switch page itself had not
+been read live under this item before). Found the pre-Q49 unconditional
+hero wording still live:
+
+  "We contact your GP. We handle everything. You do nothing."
+  "We handle the full switch for you"
+  "No interruption to your medication" (no hedge)
+
+sitting above the FAQ's own hedged answer, unchanged:
+
+  "Not always. We help guide the process and handle what we can from our
+   side. If anything extra is needed, we will tell you clearly."
+
+This is not a new finding. It is the same contradiction Q49 was raised
+against on 2026-08-11 and answered on 2026-09-01 (qualify the hero, leave
+the hedged lines alone); the FIX is correctly present in the repo's own
+tracked copy of this page (confirmed above: the baseline hero-proof text
+read "We contact your GP where it is needed. We handle what we can. We
+will tell you if anything else is needed." and the hero-points bullets
+read the hedged "We handle what we can of the switch for you" / "No
+interruption to your medication wherever possible"). The live page simply
+has not been repasted since the fix landed on 2026-09-15 - the identical
+paste-lag shape run 68 recorded today against Gordon Short Chemist
+Crosby, and Q49's own note already recorded against Cherry Lane Walton.
+This is the third branch on which the same paste-lag has now been read
+live and confirmed, rather than assumed. Not re-raised as a new question,
+per the standing convention against duplicating an already-tracked
+finding; strengthens the case that the outstanding work is the Weebly
+paste run itself (fifteen pages, unchanged scope) rather than anything
+further in the repo.
+
+Notably, live findings (1) and (2) above are close to the exact shape of
+this pass's own scratch injections (1) and (2) - not a coincidence so
+much as a demonstration of why rules 4 and 5 exist: the fault they guard
+against is not hypothetical, it is what the fifteen live pages showed
+until 2026-09-15 and what fourteen of them (all but this one, on current
+evidence, and Gordon Short Crosby per run 68) may still show today.
+
+sitemap.xml: read in full. Still 40 URLs, lastmod fixed at
+2026-08-14T17:32:10+00:00 on every entry, now 34 days without a
+republish (Q35, unchanged).
+
+No new question raised. QUESTIONS.json unchanged: 110 total, 57 open.
+
+Done 2026-09-17.

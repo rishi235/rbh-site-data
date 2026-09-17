@@ -1,3 +1,132 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 69; mcp__workspace__bash used for lock handling, repo reads, the tar-scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 2.1 live half (the switch page and the sitemap read in full, nothing clicked or typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 2.1 (Fishlocks Chemist Ainsdale) twenty-first quality pass: proved five of check-switch-copy.js's ten body-copy rules (verbatim, gp-story, continuity, town, form-copy) by injection against this branch's switch page specifically for the first time, zero in-repo defect; live half read the switch page itself for the first time under this item and found the pre-Q49 unconditional hero wording still live there too (third-branch reconfirmation of the same paste-lag Q49/run 68 already tracked, not new).
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 68's
+own lock, and its force-push addendum, both already resolved and pushed
+before this run started). Wrote a fresh timestamp (2026-09-17T13:04:22Z)
+via the sandbox mount. Already on `agents/audit-backlog`; `git fetch
+origin` / `git pull --ff-only` both confirmed already up to date at run
+68's own final commit, 62a247d. No stray `.git/index.lock` blocked sync
+at this stage.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed: newest entry still Q52
+(2026-09-01T22:44:51.524Z), identical to every run since 2026-09-01.
+Cross-checked against QUESTIONS.json: Q52 already recorded
+`status: "answered"` with the exact matching answer text. Nothing new to
+pick up. QUESTIONS.json unchanged this run (110 total, 57 open, both
+before and after).
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 68's
+own entry and its force-push addendum, both now below this one) before
+adding this entry - no "Standing authorisation - autonomous window"
+section present. Not applicable, proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python scan of
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) and the eight blocked items. 2.1 came out stalest at
+2026-09-16T18:11:08+01:00 (its own twentieth pass), ahead of 3.4
+(19:23:05) and everything touched later, including 4.14 (taken and
+completed by run 68 earlier today, now stamped today and out of
+contention). Picked 2.1.
+
+WORK DONE (item 2.1, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 2.1 paragraph and in
+audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-17-twenty-first.txt.
+Summary: grepped every tools/check-*.js filename against item 2.1's own
+1100-plus-line block and found 14 of the repo's 34 checkers never named
+there (check-address-region.js, check-brand-spelling.js,
+check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+check-seo-sheets.js, check-service-links.js, check-switch-copy.js,
+check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js). Took
+check-switch-copy.js, its ten body-copy rules (rule 11, the shared-banner
+rule, was already proven against this branch pair under item 3.3).
+Baseline: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged), full 34-checker suite (check-cdn-pins.js
+and check-live-hours.js excluded, both network-dependent) clean on the
+tracked repo. Full-repo scratch copy via `tar --exclude=.git` under the
+sandbox home mount (not /tmp, which this session cannot write to);
+tracked repo never opened for writing during the injection round.
+
+Four injections plus one control against the scratch copy's own
+switch-prescriptions-fishlocks-ainsdale.html, each restored by byte copy
+and sha256-reconfirmed before the next: (1) a new unconditional "We
+contact your GP. We handle everything for you." paragraph, placed outside
+every element the checker's COPY extraction reads so as not to also trip
+rule 3 - CAUGHT by rule 4 (gp-story) alone, naming the unconditional
+phrases against the five hedged phrases already on the page; (2) a new
+unhedged "No interruption to your medication guaranteed throughout the
+switch." paragraph, placed ahead of the page's own correctly-hedged
+hero-points bullet in page order (the rule reads only the first regex
+match in the page text, so order matters) - CAUGHT by rule 5 (continuity)
+alone; (3) the pill line's town changed from this branch's own Ainsdale
+to sister branch Eccleston's - CAUGHT three ways at once (rule 3
+verbatim, rule 8 town twice: own town missing and sister's town named,
+sister named by id), matching the "one fact, several rules" pattern
+already recorded for check-branch-identity.js and check-map-embeds.js
+against this same branch pair under item 3.3; (4) the mobile input
+marked `required` while step 1's sentence still calls it optional -
+CAUGHT by rule 9 (form-copy) alone. CONTROL: the map iframe address
+changed by one street number, a fact this checker does not read at all -
+check-switch-copy.js stayed clean while check-jsonld.js,
+check-map-embeds.js and check-nap.js correctly caught it instead,
+confirming no cross-fire. All five restores sha256-confirmed
+byte-identical; full 34-checker suite re-run on the scratch copy after
+the final restore: 34/34 exit 0. Tracked repo reconfirmed untouched
+throughout: branches.json and the target page's sha256 both unchanged,
+`git status --porcelain -- modules core branches.json gbp-packs tools`
+showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; a direct
+run of all 34 checkers against the tracked repo was clean, 34/34 exit 0,
+both before and after. Scratch directory deleted in full after use.
+
+RESULT: zero in-repo defect. Rules 3, 4, 5, 8 and 9 of check-switch-
+copy.js are now proven by direct injection against Fishlocks Ainsdale
+specifically for the first time; rules 1, 2, 6, 7 and 10 remain untested
+against this branch specifically, a candidate for a future pass.
+
+LIVE HALF: performed via Claude in Chrome, connected first attempt,
+read-only, nothing clicked, typed or submitted. switch-prescriptions-
+fishlocks-ainsdale.html read in full for the first time under this item
+(prior passes checked contact.html and the weight loss page, not this
+page). Found the pre-Q49 unconditional hero wording still live: "We
+contact your GP. We handle everything. You do nothing.", "We handle the
+full switch for you", "No interruption to your medication" with no
+hedge, sitting above the FAQ's own unchanged hedged answer ("Not always.
+We help guide the process and handle what we can from our side."). Not a
+new finding: the repo's own tracked copy of this page already carries the
+Q49 fix correctly (confirmed in this pass's own baseline read above), so
+this is the live page not yet being repasted since the fix landed
+2026-09-15 - the same paste-lag shape run 68 recorded today against
+Gordon Short Chemist Crosby and Q49's own note already recorded against
+Cherry Lane Walton, now read live and reconfirmed for a third branch
+rather than assumed. Worth recording: live findings (1) and (2) above are
+close to the exact shape of this pass's own scratch injections (1) and
+(2) - the fault rules 4 and 5 guard against is not hypothetical, it is
+what up to fourteen of the fifteen live switch pages may still show today
+pending the outstanding Weebly paste run. sitemap.xml: still 40 URLs,
+lastmod fixed at 2026-08-14T17:32:10+00:00 on every entry, now 34 days
+without a republish (Q35, unchanged).
+
+QUESTIONS.json: unchanged, no new question. Both findings this pass are
+either zero-defect proofs or reconfirmations of an already-tracked live
+paste-lag issue; neither meets the bar for a new Rishi decision.
+
+WORKLIST (step 7): AGENT_WORKLIST.md's item 2.1 paragraph extended in
+place with the twenty-first-pass write-up. No worklist checkbox ticked
+(item 2.1 already `[x]`, a quality-pass finding is not a state change).
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 68; mcp__workspace__bash used for lock handling, repo reads, checker runs and the injection/restore cycle; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item 4.14 live half (five branch pages plus sitemap read in full, one further javascript_tool read for Q90's meta description, nothing clicked or typed or submitted); Read/Edit/Write used for the pack file during injection/restore, the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.14 (Gordon Short Chemist Crosby GBP pack) twentieth quality pass: proved two previously-untested check-gbp-packs.js rule families by injection (transactional-CTA button labels on POM posts, lead-pricing/discount wording across posts and Services section), zero in-repo defect; live half found the repo's own 2026-09-15 Q49 fix is correctly present for this branch but the live switch page has not been repasted yet (paste-lag reconfirmation, not new), plus a minor worsening within the existing Gordon-Shorts-name STOP finding.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a

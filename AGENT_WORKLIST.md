@@ -1311,6 +1311,106 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       question raised; all live findings reconfirm existing standing state.
       Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-16-twentieth.txt.
       Done 2026-09-16.
+      Quality pass 2026-09-17 (twenty-first pass, unattended scheduled run,
+      audit-backlog-worker, run 69): rotation pool re-derived fresh
+      (standing set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded); 2.1 came
+      out stalest at 2026-09-16T18:11:08+01:00, ahead of 3.4 (19:23:05) and
+      everything touched later, including 4.14 which run 68 had already
+      taken and completed earlier today. All 8 unchecked worklist lines
+      reconfirmed [BLOCKED] by direct grep first. Answer pickup (step 3):
+      Chrome connected first attempt, feedback endpoint read clean, newest
+      entry still Q52 (2026-09-01), already recorded answered with
+      matching text. No status change. No "Standing authorisation -
+      autonomous window" section at the top of AGENT_LOG.md, step 4 not
+      applicable.
+      FRESH ANGLE: a grep of every tools/check-*.js filename against this
+      item's own 1100-plus-line block found 14 of the repo's 34 checkers
+      never named there: check-address-region.js, check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-seo-keywords.js,
+      check-seo-sheets.js, check-service-links.js, check-switch-copy.js,
+      check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js.
+      Took check-switch-copy.js, rules 1-10 (its body-copy rules), the
+      highest-commitment page family in the estate per its own file
+      header; separately confirmed by grepping the whole document for
+      "switch-prescriptions-fishlocks-ainsdale.html" that only rule 11
+      (the shared-banner SISTERLABEL rule, item 3.3, ninth/tenth passes)
+      had ever been proven against this specific page before.
+      Baseline: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged), target page sha256
+      47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be,
+      full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+      excluded, both network-dependent) clean on the tracked repo and on a
+      disposable tar scratch copy (--exclude=.git, under the sandbox home
+      mount) before any mutation; tracked repo never opened for writing
+      during the injection round.
+      FOUR INJECTIONS PLUS ONE CONTROL against the scratch copy's own
+      switch-prescriptions-fishlocks-ainsdale.html, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) a new unconditional
+      "We contact your GP. We handle everything for you." paragraph added
+      outside every COPY-tracked element - CAUGHT by rule 4 (gp-story)
+      alone, naming both unconditional phrases against the five hedged
+      phrases already on the page; (2) a new unhedged "No interruption to
+      your medication guaranteed throughout the switch." paragraph placed
+      AHEAD of the page's own correctly-hedged hero-points bullet in page
+      order (rule 5 reads only the first regex match in the page text, so
+      order matters) - CAUGHT by rule 5 (continuity) alone; (3) the pill
+      line's town changed from this branch's own Ainsdale to sister branch
+      Eccleston's - CAUGHT three ways at once, rule 3 (verbatim, the
+      generator's own pill template no longer found), rule 8 (town, twice:
+      own town missing, sister branch's town named, sister named by id),
+      matching the "one fact, several rules" pattern already recorded for
+      check-branch-identity.js and check-map-embeds.js against this same
+      branch pair under item 3.3; (4) the mobile input marked `required`
+      while step 1's sentence still calls it optional - CAUGHT by rule 9
+      (form-copy) alone. CONTROL: the map iframe address changed by one
+      street number, a fact this checker does not read at all -
+      check-switch-copy.js stayed clean (unchanged OK line) while
+      check-jsonld.js, check-map-embeds.js and check-nap.js correctly
+      caught it instead, confirming no cross-fire. All five restores
+      sha256-confirmed byte-identical; full 34-checker suite re-run on the
+      scratch copy after the final restore: 34/34 exit 0. Tracked repo
+      reconfirmed untouched throughout (branches.json and target page
+      sha256 unchanged, `git status --porcelain -- modules core
+      branches.json gbp-packs tools` showing only the two long-standing
+      pre-existing untracked strays, neither touched; direct 34-checker
+      run against the tracked repo clean both before and after). Scratch
+      directory deleted after use.
+      RESULT: zero in-repo defect. Rules 3, 4, 5, 8 and 9 of
+      check-switch-copy.js now proven by direct injection against
+      Fishlocks Ainsdale specifically for the first time (rule 11 already
+      proven under item 3.3); rules 1, 2, 6, 7 and 10 remain untested
+      against this branch specifically, a candidate for a future pass.
+      LIVE HALF (Claude in Chrome, connected first attempt, read-only,
+      nothing clicked, typed or submitted): switch-prescriptions-
+      fishlocks-ainsdale.html read in full for the first time under this
+      item (prior passes checked contact.html and the weight loss page,
+      not this page). Found the pre-Q49 unconditional hero wording still
+      live - "We contact your GP. We handle everything. You do nothing.",
+      "We handle the full switch for you", "No interruption to your
+      medication" with no hedge - sitting above the FAQ's own unchanged
+      hedged answer ("Not always. We help guide the process and handle
+      what we can from our side."). Not a new finding: the repo's own
+      tracked copy of this page already carries the Q49 fix correctly
+      (confirmed above in the baseline read), so this is the live page
+      not yet being repasted since the fix landed 2026-09-15 - the same
+      paste-lag shape run 68 recorded today against Gordon Short Chemist
+      Crosby and Q49's own note already recorded against Cherry Lane
+      Walton, now read live and reconfirmed for a third branch rather
+      than assumed. Worth recording: live findings (1) and (2) of the
+      paste-lag are close to the exact shape of this pass's own scratch
+      injections (1) and (2) - the fault rules 4 and 5 guard against is
+      not hypothetical, it is what up to fourteen of the fifteen live
+      pages may still show today pending the outstanding Weebly paste
+      run. sitemap.xml: still 40 URLs, lastmod fixed at
+      2026-08-14T17:32:10+00:00 on every entry, now 34 days without a
+      republish (Q35, unchanged). No new question raised; all live
+      findings are reconfirmation of already-tracked issues, none newly
+      discovered. QUESTIONS.json unchanged: 110 total, 57 open.
+      Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-17-twenty-first.txt.
+      Done 2026-09-17.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
