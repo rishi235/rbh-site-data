@@ -7909,6 +7909,36 @@ audits/mccanns-aigburth-sandringham-seo-sheets-3.6-twentieth-2026-09-16.txt,
 including an infrastructure note on where this run built its scratch copy
 (the sandbox's own native filesystem, not either FUSE-mounted folder, after
 confirming the mount-wide delete restriction is not limited to .git).
+Quality pass 2026-09-17 (twenty-first). tools/check-page-coverage.js, never
+mentioned once against this branch across the twenty prior passes, proven by
+six injections against McCanns' own data (both branches, both generator
+lists and the disk pages themselves): a branch removed from a generator's
+BUILD list while still earning a page (NOT_BUILT), a widget removed from
+branches.json while the generator's list still names the branch (NOT_EARNED),
+an earned page moved off disk (PAGE_MISSING), a stray file matching no
+earned name (ORPHAN_PAGE), and a branch removed from the branch-landing
+BUILD list while still sharing its domain and still holding a landing page on
+disk, which fired the expected LANDING_NOT_BUILT warning AND an unplanned
+second ORPHAN_PAGE failure on the orphaned landing file at once - the same
+"one fact, several rules" pattern already recorded for check-branch-
+identity.js and check-map-embeds.js under items 3.3 and 3.4, not predicted
+before running this injection. All five CAUGHT, each naming the correct
+McCanns branch and no other, each restored and sha256/diff-rq reconfirmed
+identical to a pristine scratch backup before the next. CONTROL: changed a
+McCanns page's visible and JSON-LD phone number - check-page-coverage.js
+stayed completely silent (out of its scope by design), independently
+re-caught by check-nap.js as six MISMATCH lines on the same scratch copy,
+confirming the control was a real fault outside this checker's remit rather
+than untested ground. Baseline and final re-run both 177/177 pages, clean,
+matching exactly; `diff -rq` against the pristine scratch tree zero output
+at the end. Full 34-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, network-dependent) re-run clean on the tracked repo after this
+pass; branches.json sha256 unchanged (169bb5a2...). Guard coverage for item
+3.6 now extends to 22 of 36 checkers proven by direct injection (up from
+21). Zero in-repo defect, no new question. LIVE HALF: not attempted -
+this checker's subject (whether a page exists at all) has no live
+counterpart to read. Full detail in
+audits/mccanns-aigburth-sandringham-page-coverage-3.6-twentyfirst-2026-09-17.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

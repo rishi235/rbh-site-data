@@ -1,0 +1,129 @@
+Item 3.6 (McCanns Chemist, Aigburth and Sandringham) - twenty-first quality pass
+Date: 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 71)
+Checker under test: tools/check-page-coverage.js
+Never mentioned once against this branch across the twenty prior passes.
+
+CONTEXT
+McCanns Chemist runs two trading branches sharing one website host
+(www.mccannspharmacy.co.uk): mccanns_aigburth and mccanns_sandringham. Both
+hold widgets for pharmacyFirst, contraception, travelClinic, weightLoss and
+bloodPressure, so both earn a page under every rule check-page-coverage.js
+enforces, plus a branch landing page under the shared-domain rule. This makes
+the branch a good subject for this checker: unlike check-branch-identity.js
+(item 3.4) or check-seo-sheets.js (item 3.6's own twentieth pass), this
+checker's job is not the CONTENT of a page but whether the right SET of pages
+exists at all - it is the one checker that would catch a branch silently
+losing its own page.
+
+BASELINE
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged throughout this pass)
+Scratch copy built under /tmp (this session's own native filesystem, writable
+this run, confirmed by a direct write test before use; not either FUSE-mounted
+folder): branches.json, tools/check-page-coverage.js, tools/check-nap.js (for
+the control), the six generators check-page-coverage.js parses BUILD/EXTRAS
+lists from (build-service-pages.js, build-contraception-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js,
+build-switch-pages.js, build-branch-landing-pages.js), and the three page
+directories the checker scans in full (modules/service/pages,
+modules/switch/pages, modules/branch/pages) plus modules/service/weebly-paste
+and modules/switch/weebly.html for the check-nap.js control run. Baseline run
+of both checkers against the untouched scratch copy: check-page-coverage.js
+clean, 177 pages accounted for; check-nap.js clean, 177 pages and 3 paste
+blocks, 0 mismatches. A byte-identical pristine copy of the whole scratch tree
+was kept alongside for restore-by-copy (never by git checkout - the harness
+lesson recorded under item 5.2's 2026-08-14 entry, restoring from git would
+destroy any uncommitted state rather than test against it) and for
+sha256/diff -rq reconfirmation after every injection.
+
+SIX INJECTIONS AGAINST MCCANNS' OWN DATA, EACH RESTORED AND
+SHA256/DIFF-RECONFIRMED BEFORE THE NEXT
+
+1. NOT_BUILT - removed "mccanns_aigburth" from build-service-pages.js's BUILD
+   array while the branch still holds widgets.pharmacyFirst in branches.json.
+   CAUGHT: "NOT_BUILT: Pharmacy First: branch mccanns_aigburth earns pages
+   (widgets.pharmacyFirst is set) but is not in the BUILD list of
+   tools/build-service-pages.js." Restored; build-service-pages.js sha256
+   reconfirmed identical to pristine; re-run clean.
+
+2. NOT_EARNED - removed the pharmacyFirst key from mccanns_sandringham's
+   widgets in the scratch branches.json while build-service-pages.js's BUILD
+   list still names it. CAUGHT: "NOT_EARNED: Pharmacy First:
+   tools/build-service-pages.js lists mccanns_sandringham, but branches.json
+   does not earn it a page (widgets.pharmacyFirst is set is not true)."
+   Restored by file copy from the pristine backup (not by reconstructing the
+   JSON edit, which would not have been byte-identical); sha256 reconfirmed
+   169bb5a2... exactly; re-run clean.
+
+3. PAGE_MISSING - moved
+   modules/service/pages/pharmacy-first-mccanns-aigburth.html out of the
+   scratch tree entirely (branches.json and the generator list both left
+   untouched, so the page is earned and listed but absent from disk). CAUGHT:
+   "PAGE_MISSING: Pharmacy First: modules/service/pages/pharmacy-first-
+   mccanns-aigburth.html is earned by mccanns_aigburth but is not on disk."
+   Restored; sha256 reconfirmed identical; re-run clean.
+
+4. ORPHAN_PAGE - added a stray file,
+   modules/service/pages/notaservice-mccanns-aigburth.html, matching no rule's
+   naming pattern for any branch. CAUGHT: "ORPHAN_PAGE:
+   modules/service/pages/notaservice-mccanns-aigburth.html is on disk but
+   branches.json earns no such page." Removed; directory listing
+   reconfirmed identical to pristine (`diff` on the sorted file lists, zero
+   output).
+
+5. LANDING_NOT_BUILT (warning) plus a second, unplanned ORPHAN_PAGE failure
+   in the same run - removed "mccanns_aigburth" from
+   build-branch-landing-pages.js's BUILD list while the branch still shares
+   www.mccannspharmacy.co.uk with mccanns_sandringham and its landing page
+   (modules/branch/pages/pharmacy-mccanns-aigburth.html) is still on disk.
+   CAUGHT TWO WAYS AT ONCE: the WARNING rule fired as expected
+   ("LANDING_NOT_BUILT: mccanns_aigburth shares www.mccannspharmacy.co.uk
+   with another trading branch but has no branch landing page..."), and
+   because removing the branch from the list also removes its expected
+   filename from the checker's own expected-page set, the still-present file
+   on disk was independently caught as "ORPHAN_PAGE:
+   modules/branch/pages/pharmacy-mccanns-aigburth.html is on disk but
+   branches.json earns no such page" - the same "one fact, several rules"
+   pattern already recorded for check-branch-identity.js and
+   check-map-embeds.js under items 3.3 and 3.4, now found in this checker
+   too, and not predicted before running the injection. Restored;
+   build-branch-landing-pages.js sha256 reconfirmed identical; re-run clean.
+
+CONTROL: changed the visible and JSON-LD phone number on
+modules/service/pages/pharmacy-first-mccanns-aigburth.html (0151 727 3185 to
+0151 999 9999, three visible instances plus the schema field) without
+touching branches.json or any generator list. check-page-coverage.js stayed
+completely silent (177 pages accounted for, clean) - correct, phone numbers
+are outside this checker's subject entirely. Independently re-ran
+check-nap.js against the same scratch copy: caught it as six MISMATCH lines
+(two visible-phone mismatches counted per occurrence, one JSON-LD mismatch,
+three "phone-like number is not this branch's number" lines), confirming the
+control was a real, detectable fault outside check-page-coverage.js's scope
+rather than untested ground. Restored the page; sha256 reconfirmed identical
+to pristine; both checkers re-run clean.
+
+FINAL STATE
+`diff -rq` between the scratch tree and its pristine backup: zero output,
+confirming every one of the six injections was fully reversed with nothing
+left behind. branches.json sha256 unchanged throughout
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102). Tracked
+repo untouched throughout - `git status --porcelain` on branches.json,
+modules/ and tools/ showed no tracked-file changes at any point (only the
+long-standing untracked debris from past runs, described under item 3.4's
+run-70 entry, this sandbox's FUSE mount rejecting unlink()). Full 34-checker
+suite (check-cdn-pins.js and check-live-hours.js excluded, network-dependent)
+re-run individually against the tracked repo after this pass: 34/34 exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.6 now extends to 22 of 36
+checkers proven by direct injection (up from 21).
+
+LIVE HALF: not attempted this pass. check-page-coverage.js's subject - the
+existence of a page, and the BUILD-list/branches.json machinery behind it -
+has no live counterpart to read: a missing page is invisible on a live site
+by definition (there is nothing to browse to), and a page that exists was
+already read live under earlier passes for this branch's title/H1/hours.
+Not claimed fixed or freshly checked either way.
+
+QUESTIONS.json: 110 total, 57 open, unchanged by this pass. No new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data rather than surfacing a decision for Rishi.

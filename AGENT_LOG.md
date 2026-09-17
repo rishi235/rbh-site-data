@@ -1,4 +1,106 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 70; mcp__workspace__bash used for lock handling, repo reads, the scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 3.4 (Cherry Lane Pharmacy, Walton) twenty-second quality pass: proved five of check-branch-identity.js's rules (identity, owner, schemaname, outbound, servicelink) by injection against this branch's own pages for the first time under item 3.4's own coverage log, zero in-repo defect; guard coverage for item 3.4 now 20 of 36 checkers.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 71; mcp__workspace__bash used for lock handling, repo reads, the scratch injection/restore cycle and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Read/Edit/Write used for the new audits file, AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11) and the status-page publish, per the standing convention at Q87/Q96/Q102) - Item 3.6 (McCanns Chemist, Aigburth and Sandringham) twenty-first quality pass: proved tools/check-page-coverage.js's rules (NOT_BUILT, NOT_EARNED, PAGE_MISSING, ORPHAN_PAGE, LANDING_NOT_BUILT) by injection against this branch's own data for the first time under item 3.6's own coverage log, zero in-repo defect; guard coverage for item 3.6 now 22 of 36 checkers.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 70's own
+lock already resolved and cleared before this run started). Wrote a fresh
+timestamp (2026-09-17T14:04:07Z) via the sandbox mount. Already on
+`agents/audit-backlog`; `git fetch origin` confirmed already up to date with
+origin. A fresh `.git/index.lock` appeared during this run's own git calls
+(10 seconds old when checked, this sandbox's FUSE mount cannot unlink it,
+only rename - the standing Q87/Q96/Q102 constraint), well under the 1-hour
+staleness threshold so left alone rather than cleared; `git checkout` failed
+against it but the branch was already correct, and it does not block the
+Windows-MCP PowerShell git write route used for steps 9-11.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, no
+sign-in conflict. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feed: newest entry still Q52 (2026-09-01T22:44:51.524Z),
+identical to every run since 2026-09-01. Cross-checked against
+QUESTIONS.json: Q52 already recorded `status: "answered"` with the exact
+matching answer text. Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 70's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable,
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback. Rotation
+pool re-derived fresh via a Python scan of
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+the eight blocked items. 3.6 came out stalest at 2026-09-16T19:44:39+01:00,
+since item 3.4 (run 70's own pick) is now stamped today and out of
+contention. Picked 3.6.
+
+WORK DONE (item 3.6, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's own item 3.6 paragraph and in
+audits/mccanns-aigburth-sandringham-page-coverage-3.6-twentyfirst-2026-09-17.txt.
+Summary: tools/check-page-coverage.js had never been named against item 3.6
+across twenty prior passes, despite this branch (two trading sites sharing
+one domain, both holding all five service widgets plus a shared-domain
+branch landing page) being a strong subject for the one checker whose job is
+whether the right SET of pages exists at all, not their content. Baseline:
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged), full 34-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, network-dependent) clean on the tracked repo
+before and after. Scratch copy built under /tmp (this session's own native
+filesystem, confirmed writable by a direct test before use; not either
+FUSE-mounted folder): branches.json, check-page-coverage.js, check-nap.js
+(for the control), the six generators the checker parses BUILD/EXTRAS lists
+from, and the three page directories it scans in full, plus the paste-block
+sources check-nap.js needed for its own control run.
+
+Six injections against McCanns' own data, each restored by byte copy from a
+pristine scratch backup and sha256/diff-rq reconfirmed before the next: (1)
+mccanns_aigburth removed from build-service-pages.js's BUILD list while
+still earning a page - caught by NOT_BUILT; (2) pharmacyFirst widget removed
+from mccanns_sandringham in branches.json while the generator's list still
+names it - caught by NOT_EARNED; (3) the earned pharmacy-first-mccanns-
+aigburth.html page moved off disk - caught by PAGE_MISSING; (4) a stray file
+matching no earned name added to modules/service/pages - caught by
+ORPHAN_PAGE; (5) mccanns_aigburth removed from build-branch-landing-
+pages.js's BUILD list while still sharing its domain with Sandringham and
+still holding a landing page on disk - CAUGHT TWO WAYS AT ONCE, the expected
+LANDING_NOT_BUILT warning plus an unplanned second ORPHAN_PAGE failure on
+the now-orphaned landing file, the same "one fact, several rules" pattern
+already recorded for check-branch-identity.js and check-map-embeds.js under
+items 3.3 and 3.4, not predicted before running this injection. CONTROL:
+changed a McCanns page's visible and JSON-LD phone number - zero mentions in
+check-page-coverage.js's output (correctly out of its scope); independently
+re-run check-nap.js caught it immediately (6 MISMATCH lines), confirming the
+control was a real fault outside this checker's scope rather than untested
+ground. All six injections restored, sha256/diff-rq reconfirmed identical to
+the pristine backups; `diff -rq` against the pristine scratch tree zero
+output at the end.
+
+Tracked repo reconfirmed untouched throughout: `git status --porcelain` on
+branches.json, modules/ and tools/ showed no tracked-file changes at any
+point (only the long-standing untracked debris from past runs, described
+under item 3.4's run-70 entry, this sandbox's FUSE mount rejecting
+unlink()); branches.json sha256 unchanged; full 34-check-*.js suite re-run
+individually against the tracked repo after this pass, 34/34 exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.6 now extends to 22 of 36
+checkers proven by direct injection (up from 21).
+
+LIVE HALF: not attempted this pass - check-page-coverage.js's subject (the
+existence of a page) has no live counterpart to read: a missing page is
+invisible on a live site by definition, and this branch's title/H1/hours
+have already been read live under earlier passes. Not claimed fixed or
+freshly checked either way.
+
+QUESTIONS.json re-read: 110 total, 57 open, unchanged by this pass. No new
+question raised - this pass proved a checker's rules sound against a
+specific branch's data rather than surfacing a decision for Rishi.
+
+STEPS 9-11: committed and pushed via mcp__Windows-MCP__PowerShell against
+the real C:\Dev\rbh-site-data working copy on ProDeskAi, per the standing
+convention at Q87/Q96/Q102 (this sandbox has no working git push
+credential). Status page republished via
+`node C:\Dev\rbh-site-data\tools\build-audit-status.js` on the same host.
+`.agent-lock` deleted from the sandbox mount at run end.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 69's
 own lock already resolved and cleared before this run started). Wrote a
