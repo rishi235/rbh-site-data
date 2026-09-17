@@ -1,0 +1,149 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale - address verification) - twenty-first
+quality pass, 2026-09-17 (unattended scheduled run, audit-backlog-worker).
+
+ROTATION POOL
+Re-derived via `git log --pretty=format:"%ad|%s" --date=iso-strict`, matching
+"Item N.N" and taking each item's most recent commit date, minus the seven
+standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight currently [BLOCKED] worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, both under
+Q60/6.4/6.5, 6.6). Full ordering (stalest first):
+
+  2026-09-16T08:18:10+01:00  1.2   <- stalest, chosen
+  2026-09-16T09:15:08+01:00  2.3
+  2026-09-16T09:40:02+01:00  3.1
+  2026-09-16T10:17:56+01:00  3.2
+  2026-09-16T10:44:59+01:00  6.3
+  ... (all later still)
+
+1.2 is stalest by a wide margin (its only prior mention this cycle was the
+twentieth pass on 2026-09-16, everything else in the pool was touched later
+the same day or on 2026-09-17). Chosen.
+
+WHY A FRESH ANGLE WAS NEEDED
+Item 1.2 has had twenty prior quality passes. A mention-scan of the item's
+own worklist paragraph (grep for "check-[a-z-]+" with and without a
+"tools/" prefix) shows 21 of the 36 checkers already proven by direct
+injection against Hirshmans Ainsdale specifically: check-address-region,
+check-app-membership, check-booking-routes, check-branch-identity,
+check-branch-links, check-brand-spelling, check-cdn-pins, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-jsonld, check-live-hours,
+check-map-embeds, check-nap, check-opening-hours, check-page-coverage,
+check-pharmacy-first-cost, check-postcodes, check-seo-keywords,
+check-uk-spelling, check-url-scheme.
+
+tools/check-seo-pattern.js had never once been proven by injection against
+Hirshmans Ainsdale in twenty prior passes, despite being squarely on point
+for an ADDRESS item: its cross-town ABSENCE rule (added item 3.2 quality
+pass, 2026-08-11) is the one rule in the whole repo that catches a page
+claiming a catchment that is not its own - the exact "wrong building, wrong
+town" failure mode this item exists to rule out - and it had only ever been
+exercised estate-wide, never against this branch's own pages by name.
+
+METHOD
+Full repo archived via `git archive HEAD | tar -x` to a disposable scratch
+copy at /tmp/rbh_scratch_1.2_21st. Tracked repo never opened for writing
+during the injection work. branches.json sha256 confirmed identical to the
+tracked repo before starting
+(169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102), as was
+modules/service/pages/pharmacy-first-hirshmans-ainsdale.html
+(fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468).
+
+Baseline: all 35 checkers run individually against the scratch copy
+(check-live-hours.js excluded, needs network). 34/35 clean; the sole
+exception is check-cdn-pins.js, the documented scratch-archive artifact
+(no .git directory in a git-archive export, not a real defect - consistent
+with every prior pass that has used this method).
+
+FIVE INJECTIONS against pharmacy-first-hirshmans-ainsdale.html, each
+restored from the sha256-confirmed original before the next, target
+tools/check-seo-pattern.js specifically:
+
+1. Foreign town inserted into the description ("...in Ainsdale and Bootle."
+   - Bootle is a live seoTown, home to smartts_bootle and skchemists_bootle,
+   and is NOT in Hirshmans' own serviceAreaList of Ainsdale/Birkdale/
+   Southport). CAUGHT: "description names 'Bootle', the seoTown of
+   smartts_bootle and skchemists_bootle, and 'Bootle' is not in this
+   branch's serviceAreaList." This is the cross-town absence rule firing by
+   name against Hirshmans for the first time in twenty-one passes.
+
+2. Own seoTown ("Ainsdale") removed from the H1, title left untouched.
+   CAUGHT twice on the same line: the exact-match rule ("h1 'Pharmacy First
+   at Hirshmans Chemist' != 'Pharmacy First at Hirshmans Chemist in
+   Ainsdale'") and the explicit seoTown-presence rule ("h1 missing seoTown
+   'Ainsdale'").
+
+3. A second <h1> added, naming a foreign town not in Hirshmans'
+   serviceAreaList ("Pharmacy in Bootle"). CAUGHT by the ONE H1 count rule
+   only ("2 h1 elements, expected exactly 1"), and - proving the rule's own
+   documented behaviour - the cross-town rule did NOT separately fire on the
+   foreign town inside the second h1, because every content rule in this
+   file reads the first h1 and stops. Confirms the count rule is doing real
+   work, not duplicating the absence rule.
+
+4. A second "Weebly page SEO title" line added ("Pharmacy in Bootle").
+   CAUGHT by the ONE TITLE LINE rule ("2 'Weebly page SEO title' lines,
+   expected exactly 1").
+
+5. Benign control: the description's closing clause reworded ("no GP
+   appointment needed" -> "no appointment required") with no town, brand or
+   postcode token touched. PASSED clean (0 failures), confirming the four
+   catches above are genuine rule hits and not the checker failing on any
+   edit at all.
+
+All five fired or passed on the intended rule, first attempt. Final restore
+sha256-reconfirmed identical to the pre-injection file
+(fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468). Full
+35-checker suite re-run on the scratch copy afterwards: 34/35 clean (same
+documented cdn-pins scratch artifact). Full 35-checker suite also run
+directly against the TRACKED repo (real .git present, so check-cdn-pins
+passes there too): 35/35 clean. Tracked repo confirmed untouched throughout:
+`git status --porcelain -- branches.json tools modules core gbp-packs`
+returned only two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak - neither
+touched this pass); branches.json and the Hirshmans page sha256 both
+unchanged from their pre-run values.
+
+No in-repo defect found. Guard coverage for this item now extends to 22 of
+36 checkers proven by direct injection.
+
+LIVE HALF (Claude in Chrome, connected, one tab, read-only throughout,
+nothing clicked, typed or submitted)
+Read pharmacy-first-hirshmans-ainsdale.html live via javascript_tool
+(document.title, meta description, h1s, JSON-LD blocks - all invisible or
+partially invisible to plain-text extraction):
+
+  title:    "Pharmacy First at Hirshmans Chemist, Ainsdale"
+  h1:       "Pharmacy First at Hirshmans Chemist in Ainsdale"
+  metaDesc: "Pharmacy First at Hirshmans Chemist in Ainsdale. Free NHS
+             treatment for common conditions like UTIs, sore throat and
+             more, no GP appointment needed."
+
+All three byte-identical to the repo sheet and to the exact strings this
+pass proved check-seo-pattern.js protects. No cross-town contamination live
+(no foreign town anywhere in the three strings) - direct corroboration of
+what the injection testing proved in the repo.
+
+Q109 (raised on the twentieth pass, still open, still accurately describing
+live state) re-confirmed rather than re-investigated: the live page still
+carries the SAME TWO application/ld+json Pharmacy blocks it carried on
+2026-09-16. Block A (445 chars, no openingHours) is still the pre-Q38
+generator shape, confirming the Q38 regeneration (which added opening
+hours to the JSON-LD) has still not been pasted live - the already-expected
+repo-ahead-of-live state, not new. Block B (843 bytes, carries an email
+field this page family never declares, sets url to the bare domain root,
+has no addressRegion) is unchanged, still outside this repo's pipeline. Not
+investigated further this pass (needs a Weebly session, which this run's
+read-only browser access does not have) - same limitation as pass twenty.
+
+sitemap.xml: lastmod still 2026-08-14T16:09:17+00:00 on all entries checked,
+confirming no republish since the sixth pass, consistent with reconfirmation
+rather than new drift.
+
+No new live fault. No new question raised - Q109 stands as written.
+
+EVIDENCE
+Full injection transcripts retained under /tmp/rbh_logs_1.2_21st/ for this
+run's duration (scratch working area, not part of the tracked repo):
+baseline_results.txt, inj1.log through inj5_control.log, final_results.txt,
+tracked_results.txt.

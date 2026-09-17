@@ -1,3 +1,74 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 52; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__tabs_context_mcp/navigate/javascript_tool/tabs_close_mcp used for the live half, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 1.2 (Hirshmans Chemist, Ainsdale) twenty-first quality pass: re-derived the rotation pool fresh via `git log --pretty=format:"%ad|%s" --date=iso-strict` matched against "Item N.N", minus the seven standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight [BLOCKED] worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, both under 6.4/6.5, 6.6, all confirmed by direct grep). 1.2 came out stalest at 2026-09-16T08:18:10+01:00, clear of every other pool item (all touched later the same day or on 2026-09-17). NEW ANGLE: tools/check-seo-pattern.js had never once been proven by direct injection against Hirshmans Ainsdale in twenty prior passes, despite its cross-town ABSENCE rule (the rule that catches a page claiming a catchment that is not its own) being squarely on point for an address-verification item. Full git-archive scratch copy at /tmp/rbh_scratch_1.2_21st, tracked repo never opened for writing; branches.json and modules/service/pages/pharmacy-first-hirshmans-ainsdale.html sha256 both matched the tracked repo exactly before starting; 34/35 checkers clean before any edit (sole exception the documented scratch-archive check-cdn-pins.js artifact, no .git in a git-archive export). Five injections against pharmacy-first-hirshmans-ainsdale.html, each restored from a sha256-confirmed backup and reconfirmed identical before the next: (1) "Bootle" (live seoTown of smartts_bootle/skchemists_bootle, not in Hirshmans' own serviceAreaList of Ainsdale/Birkdale/Southport) inserted into the meta description - CAUGHT, cross-town rule, naming both owning branches by id; (2) own seoTown "Ainsdale" stripped from the H1 - CAUGHT twice, the exact pattern-match and the explicit seoTown-presence rule; (3) a second h1 added naming "Bootle" - CAUGHT by the ONE H1 count rule only, and the foreign town inside the second h1 correctly did NOT separately trip the cross-town rule, confirming (as this checker's own header documents) that every content rule here reads the first h1 and stops; (4) a second "Weebly page SEO title" line added - CAUGHT by the ONE TITLE LINE rule; (5) a benign rewording control touching no town/brand/postcode token - PASSED clean, confirming the four catches are genuine rule hits rather than the checker failing on any edit at all. All five fired or passed on the intended rule, first attempt. Final restore sha256-reconfirmed identical (fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468); full 35-checker suite re-run clean on the scratch copy (34/35, same documented artifact) and 35/35 directly against the tracked repo (real .git present, so check-cdn-pins passes there too). Tracked repo confirmed untouched throughout: git status --porcelain -- branches.json tools modules core gbp-packs returned only the two long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither touched), branches.json and the Hirshmans page sha256 both unchanged from their pre-run values. No in-repo defect found. Guard coverage for this item now extends to 22 of 36 checkers proven by direct injection. LIVE HALF via Claude in Chrome (connected, one tab, read-only throughout, nothing clicked/typed/submitted): read pharmacy-first-hirshmans-ainsdale.html live via javascript_tool - title "Pharmacy First at Hirshmans Chemist, Ainsdale", h1 "Pharmacy First at Hirshmans Chemist in Ainsdale", meta description all byte-identical to the repo sheet and to the exact strings this pass proved the checker protects; no cross-town contamination live, direct corroboration of the repo-side injection testing. Q109 (the live-only duplicate JSON-LD block found on the twentieth pass - a hand-pasted sitewide Pharmacy block with no addressRegion, an email field this page family never declares, and url set to the bare domain root, sitting alongside this repo's own generated block) re-confirmed unchanged rather than re-investigated: same two blocks, same shapes, same gap, still needs a Weebly session this run's read-only browser access does not have. sitemap.xml lastmod still 2026-08-14T16:09:17+00:00 on all entries checked, confirming reconfirmation rather than new drift. No new live fault, no new question raised - Q109 stands as written. Full detail in audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt. QUESTIONS.json unchanged at 110 total (57 open).
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start; wrote a
+fresh UTC timestamp. `.git/index.lock` was found once, 0 bytes, after the
+first bash command touched the repo (the same standing FUSE-mount unlink
+defect logged under Q87/Q96/Q102 and every run since late August - `rm`
+returns "Operation not permitted", `mv` succeeds); moved aside to a
+timestamped `.stale-<ts>` suffix rather than deleted, consistent with the
+established workaround. No concurrent git process found (`ps aux | grep
+git` empty). `git fetch origin` / `checkout agents/audit-backlog` /
+`pull --ff-only` completed normally once the lock was cleared; already at
+origin's HEAD (70ccda6, run 51's own commit), nothing to pull. Same
+standing note as every recent run: several hundred stray `.agent-lock.*`
+and `.git/*.lock.*` renamed debris files remain in the working tree (431
+counted this run under `.git/` alone), none touched (out of this run's
+scope, and this sandbox session cannot delete them either) - still worth
+Rishi's attention in a native Windows session per the note logged under
+run 51 and earlier.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly via Claude in Chrome, one tab, closed after reading, nothing
+clicked or submitted. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z - already applied, per every run since
+2026-09-01. No new answer to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 51's
+own entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable;
+proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived via `git log --pretty=format:"%ad|%s"
+--date=iso-strict`, matched against "Item N.N", taking each item's most
+recent commit date, minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 1.2
+came out stalest at 2026-09-16T08:18:10+01:00, clear of the next candidate
+(2.3 at 09:15:08) and everything else in the pool. Picked 1.2.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 1.2 twenty-first-pass
+paragraph and audits/hirshmans-item-1.2-quality-pass-2026-09-17-
+twentyfirst.txt. In summary: rotation pool re-confirmed, 35/35 checkers
+clean against the tracked repo both before and after, tools/check-seo-
+pattern.js's cross-town absence rule and its H1/title-line count rules
+proved by injection against Hirshmans Ainsdale's own page for the first
+time in twenty-one passes, all five injections fired or passed on the
+intended rule, tracked repo confirmed untouched throughout by sha256 and
+git status. No in-repo defect found. Live half via Claude in Chrome
+corroborated the repo-side finding and re-confirmed Q109 unchanged. No new
+question raised.
+
+WORKLIST AND LOG (step 7): AGENT_WORKLIST.md's item 1.2 line ticked in
+place with "Done 2026-09-17" appended, the twenty-first-pass paragraph
+appended immediately beneath the twentieth's, and this entry added to the
+top of AGENT_LOG.md. QUESTIONS.json not touched (no answer pickup, no new
+question).
+
+COMMIT / PUSH (step 9): git add AGENT_WORKLIST.md AGENT_LOG.md
+audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt; commit;
+push origin agents/audit-backlog. Outcome and hash recorded immediately
+below this entry once the push completes.
+
+PUBLISH (step 10): node tools/build-audit-status.js run after the push, so
+the portal progress page stays in sync with this run's own commit.
+Outcome recorded immediately below.
+
+STEP 11: .agent-lock removed (renamed, per the standing mv-not-rm
+workaround) as the final action, whether or not the above steps succeeded.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 51; mcp__workspace__bash used for lock handling, repo reads, the /tmp scratch-copy injection tests and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry) - Item 3.5 (Hirshmans Chemist, Ainsdale) twenty-first quality pass: re-verified as the stalest rotation-pool item via a fresh git-log-date derivation (3.5 last touched 2026-09-16T07:17:54+01:00, a full day ahead of the next candidates). All 35 checkers exit 0 on the tracked repo before and after. NEW ANGLE: tools/check-pharmacy-first-symptoms.js had never once been named against Hirshmans anywhere in this file's history. Six rounds on a disposable /tmp git-archive scratch copy, tracked repo never opened for writing: (1) a cross-condition swap on Hirshmans' own shingles page - CAUGHT, rules 4+6; (2) a duplicated symptom - CAUGHT, rule 5; (3) escalation wording folded into an existing bullet - CAUGHT by rule 4 (masking rule 7); (4) a brand medicine name folded into an existing bullet - CAUGHT by rule 4 (masking rule 8); (5) the same escalation phrase planted in the shared source array and regenerated, isolating rule 7 properly - CAUGHT, fired on all three affected conditions by name; (6) the same brand medicine name ("Zovirax") planted in the source array and regenerated, isolating rule 8 - NOT CAUGHT, then immediately re-tested with the generic name ("aciclovir") on the identical sentence - CAUGHT, proving the gap is the brand name specifically. All rounds restored byte-identical, sha256-reconfirmed; full 35-checker suite re-run clean; tracked repo confirmed untouched throughout. Zero in-repo defect from this item's own angle. NEW FINDING, not fixed this pass: tools/pom-names.js's PHARMACY_FIRST group is generic-name-only (nitrofurantoin, amoxicillin, phenoxymethylpenicillin, clarithromycin, aciclovir, fusidic, flucloxacillin, hydrocortisone), unlike the brand-heavy WEIGHT_LOSS and TRAVEL_VACCINES groups in the same shared file, so a hand-typed UK brand name would currently pass every checker that reads pom-names.js silently. No live exposure today - no generator currently types a medicine name in this copy - so recorded as Q110 rather than fixed outright: getting a medicine brand-generic mapping wrong in a compliance list is worse than a documented gap, and I am only confident of four of the eight brand names (Zovirax/aciclovir, Fucidin/fusidic acid, Macrobid+Macrodantin/nitrofurantoin, Klaricid/clarithromycin), so recommended those four pending Rishi's or the superintendent pharmacist's sign-off, deliberately not guessing the other four. Full detail in audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt. QUESTIONS.json now 110 total (57 open, Q110 new).
 
 LOCK / SYNC (steps 1-2): no exact `.agent-lock` present at start; wrote a

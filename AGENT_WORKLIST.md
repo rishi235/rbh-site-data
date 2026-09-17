@@ -26956,6 +26956,60 @@ appended to the line. Do not move them; the status page reads them in place.
       read-only browser access does not have). Evidence:
       audits/hirshmans-ainsdale-item-1.2-quality-pass-2026-09-16-twentieth.txt.
       Done 2026-09-16
+      Twenty-first quality pass 2026-09-17 (unattended scheduled run,
+      rotation pool - 1.2 stalest at 2026-09-16T08:18:10+01:00, ahead of
+      every other pool item, minus the seven standing out-of-rotation items
+      1.1/1.4/2.2/5.6/5.7/6.7/6.8 and the eight [BLOCKED] lines). REPO HALF:
+      FRESH ANGLE - tools/check-seo-pattern.js had never been proven by
+      injection against Hirshmans Ainsdale in twenty prior passes, despite
+      its cross-town ABSENCE rule being squarely on point for an address
+      item: it is the one rule anywhere in this repo that catches a page
+      claiming a catchment that is not its own. Full git-archive scratch
+      copy, tracked repo never opened for writing; branches.json and
+      pharmacy-first-hirshmans-ainsdale.html sha256 matched the tracked
+      repo exactly before starting; 34/35 checkers clean before any edit
+      (sole exception the documented scratch-archive check-cdn-pins.js
+      artifact). Five injections against
+      modules/service/pages/pharmacy-first-hirshmans-ainsdale.html, each
+      restored from a sha256-confirmed backup before the next: (1) "Bootle"
+      (a live seoTown, home to smartts_bootle and skchemists_bootle, not in
+      Hirshmans' own serviceAreaList of Ainsdale/Birkdale/Southport)
+      inserted into the description - CAUGHT, cross-town rule, naming both
+      owning branches; (2) own seoTown "Ainsdale" removed from the H1 -
+      CAUGHT twice, the exact-match rule and the explicit seoTown-presence
+      rule; (3) a second h1 added naming "Bootle" - CAUGHT by the ONE H1
+      count rule only, and the foreign town in the second h1 correctly did
+      NOT separately fire the cross-town rule, confirming every content
+      rule in this file reads the first h1 and stops, exactly as documented;
+      (4) a second "Weebly page SEO title" line added - CAUGHT by the ONE
+      TITLE LINE rule; (5) a benign rewording control touching no town,
+      brand or postcode token - PASSED clean, confirming the four catches
+      are genuine rule hits rather than the checker failing on any edit.
+      All five fired or passed on the intended rule, first attempt. Final
+      restore sha256-reconfirmed identical
+      (fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468);
+      full 35-checker suite re-run clean on the scratch copy afterwards and
+      35/35 on the tracked repo directly (real .git present, so
+      check-cdn-pins passes there too). Tracked repo confirmed untouched
+      throughout: git status --porcelain -- branches.json tools modules
+      core gbp-packs empty bar the two long-standing pre-existing untracked
+      strays; branches.json and the Hirshmans page sha256 both unchanged.
+      No in-repo defect found. Guard coverage for this item now extends to
+      22 of 36 checkers.
+      LIVE HALF via Claude in Chrome (connected, one tab, read-only
+      throughout, nothing clicked/typed/submitted): read
+      pharmacy-first-hirshmans-ainsdale.html live via javascript_tool -
+      title, h1 and meta description all byte-identical to the repo sheet
+      and to the exact strings this pass proved the checker protects, no
+      cross-town contamination live, direct corroboration of the injection
+      testing. Q109 (the live-only duplicate JSON-LD block found on the
+      twentieth pass) re-confirmed unchanged rather than re-investigated:
+      same two blocks, same shapes, same gap; still needs a Weebly session
+      this run's read-only access does not have. sitemap.xml lastmod still
+      2026-08-14T16:09:17+00:00, confirming reconfirmation rather than new
+      drift. No new live fault, no new question. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-17-twentyfirst.txt.
+      Done 2026-09-17
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
