@@ -19230,6 +19230,71 @@ touched. LIVE HALF: Claude in Chrome connected, read-only; the landing page
 still 404s (Q35 class, unchanged since the seventh pass), the one check
 performed this pass. No in-repo defect, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-17-nineteenth.txt.
+Quality pass 2026-09-17 (twentieth pass, unattended scheduled run, run 81).
+Rotation pool re-derived fresh via `git log --pretty=format:"%ad|%s"
+--date=iso-strict -- AGENT_WORKLIST.md` (35-item pool, the seven standing
+out-of-rotation items and the eight [BLOCKED] items excluded); 4.5 came out
+uniquely stalest at 2026-09-17T02:12:57+01:00, ahead of the runner-up 4.10
+(02:42:47), matching run 80's own forward note exactly. All 8 unchecked
+lines reconfirmed [BLOCKED] first. ANSWER PICKUP (step 3): Claude in Chrome
+connected cleanly, single tab, no dual sign-in. Portal feed
+(https://data.rbhealth.co.uk/api/feedback) read in full: newest entry still
+Q52, 2026-09-01T22:44:51.524Z, identical to every run since 2026-09-01 and
+already recorded `status: "answered"` in QUESTIONS.json. Nothing new to pick
+up. Baseline: pack sha256 968a86dc...61045a, checker sha256 a5edc791...b94
+and branches.json sha256 169bb5a2...b102 all unchanged since the nineteenth
+pass; 34/34 runnable checkers clean on the tracked repo (check-cdn-pins.js
+and check-live-hours.js excluded, both network-dependent). FRESH ANGLE: the
+CATEGORIES section rules in tools/check-gbp-packs.js (the primary-category
+check, the earned-but-not-listed omission loop, the listed-but-not-earned
+reverse loop, and the RECOGNISED_CATEGORIES allowlist guard) had never been
+proven by injection against this pack's own copy across nineteen prior
+passes - confirmed by grep across both worklist files for "Categories
+section" combined with this branch, zero hits before this pass. Four
+injections plus a control, all on a disposable `git archive HEAD | tar -x`
+scratch copy at /tmp/scratch-4.5-run81, never the tracked working tree:
+(1) OMISSION - "Travel clinic," removed from the wrapped "Add if not
+present" line, Weight loss service and Vaccination centre left in place -
+CAUGHT, exit 1, "Categories section does not list \"Travel clinic\", but
+the branch has a travel clinic per branches.json"; (2) NOT-EARNED, on a
+scratch branches.json only - scorah_hazel's travelClinic widget deleted
+while the pack still names Travel clinic and Vaccination centre - CAUGHT,
+FOUR failures at once (one more than the two Categories-section rules
+alone): both Categories-section entries, the Services-section reverse rule,
+and Post D's own reverse rule, demonstrating the same defence-in-depth this
+class of fault gets everywhere else in the estate, now shown for this
+pack's own copy; (3) UNRECOGNISED CATEGORY - "Primary: Pharmacy" changed to
+"Primary: Health and beauty shop" - CAUGHT two failures at once, the
+primary-category rule ("does not set Pharmacy as the primary category") and
+a RECOGNISED_CATEGORIES allowlist rule neither this item's own history nor
+this run had previously named, now confirmed live and load-bearing; (4)
+CONTROL - the three-item "Add if not present" list reordered (Weight loss
+service, Travel clinic, Vaccination centre) with no wording removed - exit
+0, 0 failures, confirming the omission/reverse rules read by substring
+membership rather than position, so a paster free to list the three in any
+order is not penalised for it. All four rounds fired or passed on exactly
+their intended rule(s), first attempt, no cross-firing beyond the expected
+defence-in-depth in round 2. RESTORE: pack and branches.json restored by
+byte copy from the tracked repo after each round and sha256/diff-reconfirmed
+identical before the next; scratch copy's own full 34-checker suite (minus
+the two network-dependent checkers) re-run clean after the final restore.
+Tracked working copy confirmed untouched throughout: gbp-packs/scorah-
+hazel-grove.md, tools/check-gbp-packs.js and branches.json all sha256-
+matched their pre-pass values at the end; `git status --porcelain -- modules
+core branches.json gbp-packs tools compliance` showed only the two
+long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; scratch copy deleted after use. RESULT: zero in-repo defect - all
+four rule directions in the Categories section were already correct for
+this pack, now proven by injection for the first time in twenty passes.
+LIVE HALF: Claude in Chrome connected, read-only, single tab, no dual
+sign-in. https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+re-fetched directly: still returns "404 - Page Not Found" (Q35 class,
+unchanged since the seventh pass). No other live surface re-walked this
+pass, to keep the live footprint to the one fresh confirmatory check. No
+new defect, no new question. See
+audits/scorah-hazel-grove-pack-check-2026-09-17-twentieth.txt. Done
+2026-09-17.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

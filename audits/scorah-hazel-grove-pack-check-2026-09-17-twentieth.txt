@@ -1,0 +1,125 @@
+Item 4.5 (Scorah Chemists Hazel Grove GBP pack) - twentieth quality pass
+Run: unattended scheduled run (audit-backlog-worker, run 81), 2026-09-17
+
+ROTATION
+Rotation pool re-derived via `git log --pretty=format:"%ad|%s" --date=iso-strict
+-- AGENT_WORKLIST.md`, taking each item's own newest commit date, excluding the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight [BLOCKED] items (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5,
+6.6). 4.5 came out uniquely stalest at 2026-09-17T02:12:57+01:00, ahead of the
+runner-up 4.10 (02:42:47) - matches run 80's own forward note exactly.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome connected cleanly, single tab, no dual sign-in conflict (Q59).
+Navigated to https://data.rbhealth.co.uk/api/feedback and read the full JSON
+feed. Newest entry: Q52, 2026-09-01T22:44:51.524Z, identical to every run since
+2026-09-01. Cross-checked against QUESTIONS.json: Q52 already recorded
+`status: "answered"` with matching text. Nothing new to pick up.
+
+BASELINE
+  gbp-packs/scorah-hazel-grove.md   sha256 968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a
+  tools/check-gbp-packs.js          sha256 a5edc791856fb865b22d00f7a6b15151587cb922a2b4eeb0977c1a5ed3405b94
+  branches.json                     sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+All three unchanged since the nineteenth pass. Full 34-checker suite (excluding
+check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+individually against the tracked repo: 0 failures across all 34.
+node tools/check-gbp-packs.js directly: 0 failures, 14 pre-existing warnings
+(Q64 address post-town family, Q72 clinic-qualifier family, three live-only
+link-target warnings, one Clear Aintree phone-shape warning), unchanged.
+
+FRESH ANGLE
+Nineteen prior passes had proven a long list of tools/check-gbp-packs.js rules
+against this pack's own copy (EM_DASH, CLINIC_QUALIFIERS, SERVICE_RULES
+reverse, TRANSACTIONAL_CTAS/POM_POSTS, POM_CLASS SELF_SCOPING/IN_CONTEXT,
+sisterBranch, business-description length pair, bank-holiday special-hours,
+app-claim guard (RULE 8a-8d), PHOTO_MIN/photoCount/photoVinyl/photoGoogleUpdates,
+paragraph-joining BODY_IMAGE_SELF fix, OUTCOME_PROMISE), but never the
+CATEGORIES section rules: the primary-category check, the earned-but-not-
+listed omission loop, the listed-but-not-earned reverse loop, or the
+RECOGNISED_CATEGORIES allowlist guard. Confirmed by grep across both
+AGENT_WORKLIST.md and AGENT_LOG.md for "Categories section" combined with
+"Hazel Grove" or "scorah_hazel" or "scorah-hazel": zero hits before this pass.
+
+METHOD
+All four injections plus the control ran on a disposable `git archive HEAD |
+tar -x` scratch copy at /tmp/scratch-4.5-run81, never the tracked working
+tree this pass launched from. Restored by byte copy from the tracked repo
+after each round and sha256/diff-reconfirmed identical before the next round
+began.
+
+TEST 1 - OMISSION (earned category missing from the pack)
+Removed "Travel clinic," from the wrapped "Add if not present (nearest GBP
+picker name): Travel clinic,\n  Weight loss service, Vaccination centre" line,
+leaving Weight loss service and Vaccination centre in place. scorah_hazel
+carries a travelClinic widget in branches.json.
+RESULT: CAUGHT. Exit 1, one failure:
+  "Categories section does not list \"Travel clinic\", but the branch has a
+   travel clinic per branches.json (Build Pack v2 section 4.1)"
+
+TEST 2 - NOT-EARNED (pack claims a category/service the branch does not have)
+On a scratch branches.json only: deleted scorah_hazel's travelClinic widget
+while gbp-packs/scorah-hazel-grove.md was left carrying its normal Travel
+clinic and Vaccination centre category claims, its Travel clinic services-
+section bullet, and Post D's own Travel clinic claim.
+RESULT: CAUGHT. Exit 1, FOUR failures at once (one more than the two
+Categories-section rules alone), demonstrating the same defence-in-depth
+already documented elsewhere in the estate for this fault shape, now shown
+against this pack's own copy for the first time:
+  "Categories section lists \"Travel clinic\", but branches.json does not
+   give this branch the widget that earns it..."
+  "Categories section lists \"Vaccination centre\", but branches.json does
+   not give this branch the widget that earns it..."
+  "Services section lists \"Travel clinic\", but branches.json gives this
+   branch no travelClinic widget..."
+  "Post D - Travel clinic claims \"Travel clinic\", but branches.json gives
+   this branch no travelClinic widget..."
+
+TEST 3 - UNRECOGNISED PRIMARY CATEGORY
+Changed "- Primary: Pharmacy" to "- Primary: Health and beauty shop" on the
+pack.
+RESULT: CAUGHT. Exit 1, TWO failures at once - a rule family this item's own
+nineteen-pass history had not named before:
+  "Categories section does not set Pharmacy as the primary category"
+  "Categories section names \"Health and beauty shop\", which is not a
+   category any pack in this repo uses...add it to RECOGNISED_CATEGORIES in
+   tools/check-gbp-packs.js deliberately"
+
+TEST 4 - CONTROL (benign reorder, no wording removed or added)
+Reordered the "Add if not present" list from "Travel clinic, Weight loss
+service, Vaccination centre" to "Weight loss service, Travel clinic,
+Vaccination centre" - same three items, same widgets, different order.
+RESULT: exit 0, 0 failures - confirms the omission/reverse rules read by
+substring membership (`catSec.toLowerCase().includes(...)`), not position, so
+a paster free to write the three categories in any order is never penalised
+for it.
+
+RESTORE AND CONFIRMATION
+Pack and branches.json restored by byte copy after each round; sha256
+reconfirmed identical to baseline before the next round in every case. Final
+full 34-checker suite (minus the two network-dependent checkers) re-run clean
+on the scratch copy after test 4's restore: 0 failures. Tracked working copy
+sha256-reconfirmed identical to its pre-pass values for all three files at
+the end of the pass. `git status --porcelain -- modules core branches.json
+gbp-packs tools compliance` showed only the two long-standing pre-existing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. Scratch copy deleted after use.
+
+RESULT
+Zero in-repo defect. All four Categories-section rule directions (primary
+category, earned-but-missing, listed-but-not-earned with its downstream
+defence-in-depth, and the RECOGNISED_CATEGORIES allowlist) were already
+correct for this pack, now proven by injection for the first time in twenty
+passes. No fix required.
+
+LIVE HALF
+Claude in Chrome connected, read-only, single tab, no dual sign-in.
+https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html re-fetched
+directly: still returns "404 - Page Not Found" (Q35 class, unchanged since
+the seventh pass, 2026-09-01). No other live surface re-walked this pass, to
+keep the live footprint to the one fresh confirmatory check (Post A-D
+targets, the switch-page footer and Q49 hero/FAQ contradiction were all
+re-confirmed as recently as the seventeenth/nineteenth passes and were not
+due for re-verification this pass).
+
+No new question raised. QUESTIONS.json unchanged at 110 total, 57 open.
