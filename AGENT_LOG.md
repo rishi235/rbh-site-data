@@ -1,4 +1,80 @@
-## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 65; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup and the item's live-half read (two URLs read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, QUESTIONS.json and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 4.11 (SK Chemists Bootle GBP pack) twentieth quality pass.
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 66; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests and checker runs; mcp__claude-in-chrome__ used for the step 3 portal answer pickup (one URL read, nothing clicked or typed); Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md, the two checker fixes and this entry; mcp__Windows-MCP__PowerShell used for the git write route (steps 9-11), per the standing convention at Q87/Q96/Q102) - Item 5.1 (em dashes in public switch page copy) twenty-first quality pass.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 65's own
+lock already cleared on its own exit). Wrote a fresh timestamp
+(2026-09-17T11:34:04Z) via the sandbox mount. No stale `.git/index.lock`
+found at run start. Already on `agents/audit-backlog`; `git fetch origin` /
+`pull --ff-only` confirmed already at origin's HEAD (run 65's own final
+commit, 5fb2391).
+
+ANSWER PICKUP (step 3): Claude in Chrome connected this run, no sign-in
+conflict encountered. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed (last entry still 2026-09-01T22:44:51.524Z,
+identical to every recent run - newest is still Q52). Checked it against the
+57 currently open questions: nothing newer than the entries already recorded
+in QUESTIONS.json. QUESTIONS.json unchanged, no edit this run.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 65's own
+entry, now below this one) before adding this entry - no "Standing
+authorisation - autonomous window" section present. Not applicable, proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED]. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool derived from most recent commit date per
+"Item N.N" (`git log --pretty=format:"%ad|%s" --date=iso-strict`, parsed with
+a small Python script), minus the seven standing out-of-rotation items
+(1.1/1.4/2.2/5.6/5.7/6.7/6.8) and the eight currently-blocked items. 5.1 came
+out stalest at 2026-09-16T16:44:29+01:00, ahead of 4.2 (17:15:33) and
+everything touched later (including 4.11, run 65's own pick, now stamped
+2026-09-17T12:14:51+01:00 and out of contention). Picked 5.1.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 5.1 twenty-first-pass
+paragraph and audits/item-5.1-twentyfirst-2026-09-17.txt. In short: found
+that check-brand-spelling.js and check-uk-spelling.js had not been widened
+to read WEEBLY_FURNITURE_CHECKLIST.md when check-em-dashes.js was on this
+item's own nineteenth pass (2026-09-15), despite check-uk-spelling.js's own
+header claiming all three checkers read "the same estate" of public copy.
+Proved by injection on a disposable `git archive HEAD | tar -x` scratch copy
+(tracked repo never opened for writing during the injection): an unquoted
+wrong trading-name spelling and a US-spelling word planted in the checklist
+both passed the two unpatched checkers with exit 0. Fixed by adding the file
+to both checkers' SCAN_FILES (same convention as the existing DRAFT-*.html
+and Weebly-paste entries); re-ran the injections against the fixed checkers
+on the scratch copy and both now FAIL with the exact line quoted. Tracked
+repo re-verified clean after the fix (real file content was already
+correct): full 35-checker suite (check-live-hours.js excluded, needs
+network) 35/35 exit 0. `git status --porcelain -- tools modules core
+branches.json gbp-packs` shows only the two intended files touched, plus the
+same long-standing untracked scratch/probe files every recent pass has left
+alone. Scratch copy deleted at the end of the pass.
+
+QUESTIONS.json: unchanged, no new question. This is checker/coverage
+maintenance with no live or patient-facing copy affected, matching the
+established "no sign-off needed" convention for this class of finding.
+
+GIT WRITE ROUTE (steps 9-11): per the standing convention at Q87/Q96/Q102,
+routed through mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data host rather than the sandbox shell, since the sandbox
+has no working git push credential. `git status` on the host found a stale
+`.git\index.lock` (no git process running), left behind by this run's own
+earlier sandbox-side `git status` calls, which cannot unlink it (the
+standing FUSE-mount restriction at Q87/Q96/Q102); removed from the host,
+`git add` then staged the five intended files cleanly (AGENT_LOG.md,
+AGENT_WORKLIST.md, tools/check-brand-spelling.js, tools/check-uk-spelling.js,
+audits/item-5.1-twentyfirst-2026-09-17.txt). Committed as 4cea6d19 ("Item
+5.1 twenty-first quality pass: widen check-brand-spelling.js and
+check-uk-spelling.js to read WEEBLY_FURNITURE_CHECKLIST.md (run 66)"), then
+amended in place to record this commit's own hash in this paragraph before
+pushing (no prior push of this commit, so the amend rewrites nothing already
+public). `git push origin agents/audit-backlog` succeeded with no
+credential prompt or error. `node tools/build-audit-status.js` published
+reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-portal.
+`.agent-lock` deleted from the host to close out the run.
+
+
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 64's own
 lock already cleared on its own exit). Wrote a fresh timestamp

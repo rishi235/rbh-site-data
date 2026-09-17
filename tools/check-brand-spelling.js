@@ -355,11 +355,33 @@ var SCAN_DIRS = [
 // hand-pasted Weebly block like modules/switch/weebly.html and is as public
 // as any generated page. Named here for the same reason check-em-dashes.js
 // names it.
+//
+// WEEBLY_FURNITURE_CHECKLIST.md at the repo root, added on the item 5.1
+// quality pass (twenty-first), 2026-09-17. check-em-dashes.js added it on
+// this item's nineteenth pass (2026-09-15) with the reasoning "a human reads
+// a 'Correct value' cell out of that file and types it straight into
+// Weebly, with no build step in between" - the exact risk this checker
+// exists for, since the cell values include every branch's trading name.
+// check-uk-spelling.js's own header already calls itself, check-em-dashes.js
+// and this file "three checkers reading three different sets of 'public
+// copy' ... exactly the fault this file was written to close", but neither
+// sibling had actually been widened when check-em-dashes.js was. Proved by
+// injection on a disposable git-archive copy before fixing: an unquoted
+// "Fishlock Chemist Ainsdale" (missing the final s) written into the
+// Trading name table cell passed this checker with exit 0, because the file
+// was not in SCAN_FILES at all. Since this is a .md file, it gets the same
+// maskQuotes() treatment as any other markdown target below, so the
+// KNOWN_FINDINGS entries that quote a WRONG live spelling as evidence (e.g.
+// "Fishlock Pharmacy") stay exempt exactly as they do in a GBP pack -
+// verified by re-running after the fix with no new failures on the real
+// file, whose table cells are all composed from branches.json and were
+// already correct.
 var SCAN_FILES = [
   path.join(ROOT, "modules", "switch", "weebly.html"),
   path.join(ROOT, "modules", "emar", "weebly"),
   path.join(ROOT, "modules", "service", "DRAFT-weight-loss-copy.html"),
-  path.join(ROOT, "modules", "service", "DRAFT-travel-clinic-copy.html")
+  path.join(ROOT, "modules", "service", "DRAFT-travel-clinic-copy.html"),
+  path.join(ROOT, "WEEBLY_FURNITURE_CHECKLIST.md")
 ];
 
 // The live module code. Walked rather than listed, so a module added

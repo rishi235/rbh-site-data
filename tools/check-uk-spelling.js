@@ -380,12 +380,23 @@ var SCAN_DIRS = [
   path.join(ROOT, "modules", "service", "weebly-paste"),
   path.join(ROOT, "gbp-packs")
 ];
+// WEEBLY_FURNITURE_CHECKLIST.md added on the item 5.1 quality pass
+// (twenty-first), 2026-09-17, for the same reason check-em-dashes.js added
+// it on this item's nineteenth pass (2026-09-15) and check-brand-spelling.js
+// is gaining it the same run as this file: a human reads a "Correct value"
+// cell straight out of it and types it into Weebly with no build step in
+// between, so it is exactly the estate this checker's own header already
+// claims to share with check-em-dashes.js and check-brand-spelling.js.
+// Proved by injection first: an unquoted "re-organize" (US spelling) planted
+// in the file's own template prose on a disposable git-archive copy passed
+// this checker with exit 0, since the file was outside SCAN_FILES entirely.
 var SCAN_FILES = [
   path.join(ROOT, "modules", "switch", "weebly.html"),
   path.join(ROOT, "modules", "emar", "weebly"),
   path.join(ROOT, "modules", "service", "DRAFT-weight-loss-copy.html"),
   path.join(ROOT, "modules", "service", "DRAFT-travel-clinic-copy.html"),
-  path.join(ROOT, "branches.json")
+  path.join(ROOT, "branches.json"),
+  path.join(ROOT, "WEEBLY_FURNITURE_CHECKLIST.md")
 ];
 var CODE_DIRS = [path.join(ROOT, "modules"), path.join(ROOT, "core")];
 

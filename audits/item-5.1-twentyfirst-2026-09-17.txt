@@ -1,0 +1,86 @@
+ITEM 5.1, TWENTY-FIRST QUALITY PASS (2026-09-17, unattended run)
+
+BASELINE: full 35-checker suite (check-live-hours.js excluded, needs network)
+35/35 exit 0 before any change.
+
+FRESH ANGLE: check-uk-spelling.js's own header already describes itself,
+check-em-dashes.js and check-brand-spelling.js as "three checkers reading
+three different sets of 'public copy' ... exactly the fault this file was
+written to close" - a direct sibling-drift contract between the three. On
+the item 5.1 nineteenth pass (2026-09-15), check-em-dashes.js was widened to
+read WEEBLY_FURNITURE_CHECKLIST.md at the repo root (the Q39 Weebly furniture
+sweep checklist), with the stated reason "a human reads a 'Correct value'
+cell out of that file and types it straight into Weebly, with no build step
+in between." That reasoning applies identically to check-brand-spelling.js
+(guards trading-name spelling) and check-uk-spelling.js (guards UK vs US
+spelling) - both exist for exactly the same "typed straight into Weebly"
+risk class - but neither sibling was actually widened when check-em-dashes.js
+was. Checked directly: `grep -n FURNITURE tools/check-brand-spelling.js
+tools/check-uk-spelling.js` returned nothing before this pass.
+
+PROVED BY INJECTION on a disposable git-archive scratch copy (git archive
+HEAD | tar -x to /tmp, tracked repo never opened for writing during the
+injection):
+  1. Baseline on scratch: check-brand-spelling.js and check-uk-spelling.js
+     both exit 0 clean, matching the tracked repo.
+  2. Changed WEEBLY_FURNITURE_CHECKLIST.md line 99's unquoted Trading name
+     table cell from "Fishlocks Chemist Ainsdale" to "Fishlock Chemist
+     Ainsdale" (the exact wrong form item 1.1 named). check-brand-spelling.js
+     against the UNPATCHED checker: exit 0, no failure - the file was never
+     in its SCAN_FILES.
+  3. Restored (sha256 reconfirmed identical: 0f601ffa...4ff985b), then
+     changed line 3's template prose "re-run the generator" to "re-organize
+     the generator" (US spelling). check-uk-spelling.js against the
+     UNPATCHED checker: exit 0, no failure - the file was never in its
+     SCAN_FILES either.
+  4. Restored again, sha256 reconfirmed identical.
+
+FIXED IN REPO: added `path.join(ROOT, "WEEBLY_FURNITURE_CHECKLIST.md")` to
+SCAN_FILES in both tools/check-brand-spelling.js and tools/check-uk-spelling.js,
+the same convention already used for the two DRAFT-*.html files and the two
+hand-pasted Weebly blocks. Because both checkers key their quote-masking
+(maskQuotes, exempting a quoted "wrong" value read as evidence rather than a
+claim) off the .md file extension generically, adding the file to the array
+was sufficient - no new code path needed, and the KNOWN_FINDINGS entries in
+the checklist that quote wrong live spellings as evidence (e.g. "Fishlock
+Pharmacy") stay correctly exempt.
+
+RE-VERIFIED after the fix, in both directions:
+  - Tracked repo: `node tools/check-brand-spelling.js` and
+    `node tools/check-uk-spelling.js` both still exit 0 clean (the real
+    file's table cells are composed from branches.json and were already
+    correct). Quoted-evidence count in check-brand-spelling.js's own output
+    rose from 10 to 19 and markdown chars read by check-uk-spelling.js rose
+    from 239410 to 253578, confirming the file is now actually being read,
+    not merely listed.
+  - Scratch copy with the FIXED checkers copied in: re-ran both injections.
+    check-brand-spelling.js now FAILS: "WEEBLY_FURNITURE_CHECKLIST.md:99:
+    reads \"Fishlock Chemist\". The trading name is \"Fishlocks Chemist\""
+    (exit 1). check-uk-spelling.js now FAILS: "WEEBLY_FURNITURE_CHECKLIST.md:3:
+    reads \"organize\". UK English is \"organise\"" (exit 1). Both restored
+    and reconfirmed clean (sha256 identical) after.
+
+Full 35-checker suite re-run on the tracked repo after the fix: 35/35 exit 0.
+`git status --porcelain -- tools modules core branches.json gbp-packs` shows
+only the two files this pass intended to touch (check-brand-spelling.js,
+check-uk-spelling.js), plus the same long-standing pre-existing untracked
+scratch/probe files every recent pass has recorded and left alone. No
+generator, page, pack or branches.json content changed. Scratch copy at
+/tmp/rbh-scratch-51 deleted at the end of this pass.
+
+RESULT: one real repo defect fixed - two sibling checkers that shared a
+stated "same estate" contract with check-em-dashes.js had silently drifted
+out of it when that estate was last widened. No sign-off needed: this is
+checker/coverage maintenance, no live or patient-facing copy is affected,
+and the real file's content was already correct.
+
+LIVE HALF: not attempted. Both fixes are repo-internal (two checkers' own
+file-discovery lists); WEEBLY_FURNITURE_CHECKLIST.md itself has no live
+surface of its own - it is read by a human during the Weebly session, not
+served anywhere.
+
+WORKLIST (step 7): item 5.1 stays [x] (quality pass, not a state change,
+matching every prior pass's own convention).
+
+QUESTIONS (step 8): no new question raised; nothing here needs Rishi's
+decision.
