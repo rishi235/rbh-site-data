@@ -73,9 +73,20 @@ STEPS 7-8: AGENT_WORKLIST.md's item 6.3 line ticked in place with the
 seventeenth-pass paragraph appended (already checked [x], no state change
 needed there). No question raised, nothing to mark [BLOCKED].
 
-STEPS 9-11: pending - see the push/publish outcome, recorded as a follow-up
-entry once the commit, push and status-page publish are confirmed, per the
-standing pattern for this sandbox (Q87/Q96/Q102).
+STEPS 9-11: mcp__workspace__bash's `git add` failed the same way run 55
+recorded ("Unable to create .git/index.lock: File exists", the sandbox
+mount's standing no-unlink quirk), so the commit and push were done on the
+real ProDeskAi host via mcp__Windows-MCP__PowerShell, per the standing
+Q87/Q96/Q102 fallback: removed the host's own stale index.lock, staged the
+four changed files (AGENT_LOG.md, AGENT_WORKLIST.md,
+audits/verify-6.3-2026-09-17-seventeenth.txt,
+audits/live-hours-check-2026-09-17.json), committed as 58c0a7f, pushed to
+origin/agents/audit-backlog (git fetch afterwards confirmed
+"agents/audit-backlog...origin/agents/audit-backlog" with no ahead/behind
+marker), then ran `node tools\build-audit-status.js` on the same host,
+which published reports/digital/Digital_Audit_Status.html to rishi235/rbh-
+data-portal (42/48 done, 88%). Step 11: `.agent-lock` removed by Write/Edit
+from this side after all of the above completed.
 
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 55; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection tests (under the outputs mount, tar-copied excluding .git) and the 34-checker suite runs (check-cdn-pins.js and check-live-hours.js excluded, network/cross-repo); mcp__claude-in-chrome__ tools used for the answer-pickup fetch and the live half, one tab each, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used on the real ProDeskAi host for the commit/push and status-page publish steps, per the standing Q87/Q96/Q102 fallback; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) twentieth quality pass.
 
