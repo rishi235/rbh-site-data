@@ -25616,6 +25616,67 @@ directly rather than re-deriving the same facts by hand.
       business, legal, pricing or regulatory content changed, no judgement
       call for Rishi.
       Done 2026-09-17.
+      Twentieth quality pass 2026-09-17 (run 84): nineteen prior passes had
+      never mentioned tools/check-app-membership.js against this pack
+      (confirmed by grep across the item's full block: zero hits, versus
+      eighteen for check-gbp-packs.js). This pack is a rich target for that
+      checker's Rule 8 family: riddings_timperley has hasApp false in
+      branches.json, and the pack's own "Notes for the paster" section
+      already carries the exact phrase Rule 8d tests for ("No app mention
+      anywhere in this pack: branches.json has hasApp false for this
+      branch"), immediately followed by a note that the OLD live switch page
+      carries a "Download our app" block that must not be copied to the new
+      permalink - check-app-membership.js's own source comment names this
+      exact pack and note as the reason the paster-notes section is excluded
+      from the app-claim scan, never before proven against this pack by
+      injection. Proved on a git-archive scratch copy, baseline sha256-
+      confirmed unchanged (pack 8cc58796...7917c04, checker a8f660f6...
+      61e9b1, branches.json 169bb5a2...b102). TEST 1 (RULE 8a+8d combined):
+      an app claim added to Post C's closing line - CAUGHT, exactly two
+      failures fired together as predicted by the pack's own "no app
+      mention" phrase (genuine defence-in-depth, not a surprise). TEST 2
+      (RULE 8b isolated): an app-shot line added to the photo shot list only
+      - CAUGHT, exactly one failure, no cross-firing with 8a/8d. TEST 3
+      (RULE 8c isolated, "note says true"): the pack's own "hasApp false"
+      phrase changed to "hasApp true" - CAUGHT, exactly one failure, the
+      "note invites an app claim" message. TEST 4 (RULE 8c isolated, "states
+      both" branch, a distinct code path from Test 3): a second "hasApp true"
+      bullet added ahead of the existing "hasApp false" sentence, both now
+      present at once - CAUGHT, exactly one failure, the distinct "states
+      both hasApp true and hasApp false" message. RULE 8e confirmed
+      structurally inapplicable to this item (isMember is false for this
+      branch; 8e only fires when isMember is true), the same class of
+      per-item rule inapplicability already recorded elsewhere in this audit.
+      CONTROL: a benign reword immediately beside the app note, no app word
+      or hasApp value touched - exit 0, 0 failures, full 33-checker suite
+      also 0/33. All five injections fired or passed on exactly their
+      intended rule(s), first attempt; every mutation restored by byte copy
+      and sha256-reconfirmed identical before the next round; scratch copy
+      deleted after use. Full 33-checker suite (check-cdn-pins.js and
+      check-live-hours.js excluded, both network-dependent) re-run clean on
+      the scratch copy after the final restore and re-confirmed clean on the
+      tracked repo throughout (0/33 both times); git status --porcelain
+      showed only the two long-standing pre-existing untracked strays,
+      neither touched. No in-repo defect - all app-membership content in
+      this pack was already correct; this pass proves Rule 8's family
+      catches its violation for this specific pack's own pre-existing note
+      text for the first time in twenty passes.
+      LIVE HALF: Claude in Chrome connected, read-only, single tab, no dual
+      sign-in. https://www.riddingspharmacy.co.uk/switch-prescriptions.html
+      (the old permalink the pack's own note warns about) re-fetched in
+      full: still carries a "Download our app" block with App Store and
+      Google Play buttons - live confirmation, directly on this pass's own
+      angle, that the pack's warning is accurate and current. Other standing
+      live findings on this page ("Timperley, Cheshire" vs Greater
+      Manchester, the en-dash/middot footer string, the "Support that
+      delivers results" outcome-promise wording) reconfirmed present,
+      unchanged, not this pass's own angle, not re-raised.
+      ANSWER PICKUP (step 3): portal feed read in full via a single Claude in
+      Chrome tab, no dual sign-in; newest entry still Q52, 2026-09-01,
+      already applied; nothing new to pick up. No new question raised.
+      QUESTIONS.json unchanged at 110 total, 57 open. Evidence:
+      audits/riddings-timperley-app-membership-4.13-twentieth-2026-09-17.txt.
+      Done 2026-09-17.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

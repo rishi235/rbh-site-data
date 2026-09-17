@@ -1,0 +1,156 @@
+Item 4.13 (Riddings Pharmacy Timperley GBP pack) - twentieth quality pass
+Run 84, unattended scheduled run, audit-backlog-worker, 2026-09-17
+
+SELECTION
+Rotation pool of 36 items (all checked worklist items minus the seven
+standing out-of-rotation entries 1.1/1.4/2.2/5.6/5.7/6.7/6.8 and the eight
+currently [BLOCKED] lines 5.3/5.4/5.5/5.8/6.1/6.4/6.5/6.6), derived fresh via
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`
+taking each item's own newest commit date. 4.13 resolved to
+2026-09-17T03:41:18+01:00, the single oldest, exactly matching run 83's own
+forward note.
+
+NEW ANGLE
+Nineteen prior passes had proven a long list of rules against this pack
+(check-gbp-packs.js's EM_DASH, brand spelling, SEO fields, service links;
+check-gbp-pharmacy-first.js; check-pharmacy-first-cost.js; check-uk-spelling.js;
+check-brand-spelling.js; check-pharmacy-first-eligibility.js; check-cdn-pins.js)
+but never tools/check-app-membership.js, confirmed by grepping the item's
+full worklist block text for every one of the 34 tools/check-*.js filenames:
+zero hits for check-app-membership.js against 18 hits for check-gbp-packs.js.
+
+This pack is a specifically rich target for that checker's Rule 8 (the GBP
+pack rules, added on the item 4.5 quality pass): riddings_timperley has
+hasApp: false in branches.json, and the pack's own "Notes for the paster"
+section already carries the exact phrase Rule 8d tests for ("No app mention
+anywhere in this pack: branches.json has hasApp false for this branch"),
+immediately followed by an explanatory note that the OLD live switch page
+(switch-prescriptions.html) carries a "Download our app" block with App
+Store and Google Play buttons that "is not ours to inherit" and must not be
+copied to the new permalink. check-app-membership.js's own source comment
+(lines 396-406) names this exact pack and this exact note as the reason the
+"Notes for the paster" section is deliberately excluded from the app-claim
+scan - a live, on-the-books example of the exclusion's own reasoning, never
+before tested against this pack's own copy by injection.
+
+METHOD
+Full repo `git archive HEAD | tar -x` to a disposable scratch copy at
+/tmp/scratch-4.13-run84 (tracked working copy never opened for writing).
+Baseline confirmed unchanged: gbp-packs/riddings-timperley.md sha256
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 (matching
+every prior pass's recorded hash since the tenth pass), tools/check-app-
+membership.js sha256 a8f660f63e83c3d50a73f56a5bbed24865670677545c58bd06c144
+eb3161e9b1, branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd
+0c3637eb2ac91f2ad1b102. Baseline run of check-app-membership.js clean (4 app
+members, 0 known exceptions); full 33-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent) clean, 0/33 failures.
+
+TEST 1 - RULE 8a + 8d combined (published copy claims an app, non-member
+branch, notes already say "no app mention"):
+Post C's closing line "Confidential and judgement-free. Book your
+consultation today." changed to "Confidential and judgement-free. You can
+also track your order through our app. Book your consultation today."
+CAUGHT, exit 1, exactly two failures fired together on the first attempt:
+  - [gbp packs] "the copy pasted into the public Google profile claims an
+    app, but branches.json has hasApp false for riddings_timperley..."
+  - [gbp packs] "the paster note says there is no app mention anywhere in
+    this pack, but the pasted copy carries one"
+This is not a checker gap: it is the predicted consequence of this pack
+already carrying the "No app mention anywhere in this pack" phrase in its
+own notes, so any published-copy app claim on THIS pack will always trip
+both 8a and 8d together, never one alone - genuine defence-in-depth, now
+shown directly rather than inferred from reading the two rules' source.
+Restored by byte copy; sha256 reconfirmed identical to baseline.
+
+TEST 2 - RULE 8b isolated (photo shot list claims an app, published copy
+untouched):
+Added "- App screen on the counter tablet, showing the order-tracking view."
+to the end of the Photo shot list section only. CAUGHT, exit 1, exactly one
+failure: "the photo shot list asks for an app shot, but branches.json has
+hasApp false for riddings_timperley". Confirms 8b reads the shot list
+independently of 8a/8d's published-copy scan - no cross-firing. Restored;
+sha256 reconfirmed identical.
+
+TEST 3 - RULE 8c isolated, "note says true, contradicts branches.json false"
+branch:
+"branches.json has hasApp false for\n  this branch." changed to "...hasApp
+true for\n  this branch." (the single occurrence in the notes). CAUGHT, exit
+1, exactly one failure: "the paster note tells the paster branches.json has
+hasApp true, but it has false for riddings_timperley, so the note invites an
+app claim onto a profile that must not carry one". Restored; sha256
+reconfirmed identical.
+
+TEST 4 - RULE 8c isolated, "states both" branch (distinct code path from
+Test 3 - the `saysTrue && saysFalse` check runs before the two one-sided
+`else if` branches):
+Added a new bullet, "For the avoidance of doubt, note elsewhere that hasApp
+true also applies here.", ahead of the existing "hasApp false" sentence, so
+both phrases are present in the notes at once. CAUGHT, exit 1, exactly one
+failure, the distinct message: "the paster notes state both hasApp true and
+hasApp false for this branch" - proving the "both" branch is reached rather
+than always falling through to one of the one-sided branches when both
+regexes match. Restored; sha256 reconfirmed identical.
+
+RULE 8e - structurally inapplicable to this item. 8e only fires when
+`isMember` (branches.json hasApp === true) and the published copy carries no
+app mention. riddings_timperley has hasApp: false, so this branch can never
+reach 8e's condition regardless of what the pack says - the same class of
+per-item rule inapplicability already recorded for other items against other
+checkers (e.g. check-widget-diaries.js rule 3 on single-site brands). Not a
+gap: 8e is proven elsewhere against the four genuine app-member packs
+(recorded in check-app-membership.js's own header comment, Fishlocks
+Ainsdale, Fishlocks Eccleston, Clear Chemist Aintree, Smartts Bootle).
+
+TEST 5 - CONTROL: reworded a sentence immediately beside the app note
+("It is not ours to inherit..." -> "It belongs to the old page only...",
+"Do not copy it across." -> "Leave it out of the new paste.") without
+touching any app word or hasApp value. Exit 0, 0 failures on check-app-
+membership.js; full 33-checker suite re-run in this state, also 0/33
+failures - confirming the rules fire on the specific words and values, not
+merely on any edit landing near them.
+
+All five injections fired or passed on exactly their intended rule(s), first
+attempt, with the one expected co-firing (Test 1) explained by the pack's own
+content rather than being a surprise. Every mutation restored by byte copy
+and sha256-reconfirmed identical to the pre-injection baseline before the
+next round. Scratch copy deleted after use. Full 33-checker suite re-run
+clean on the scratch copy after the final restore (0/33) and re-confirmed
+clean on the tracked repo throughout (0/33); `git status --porcelain --
+modules core branches.json gbp-packs tools compliance` showed only the two
+long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000
+400000001, modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched.
+
+No in-repo defect - all app-membership content in this pack was already
+correct; this pass proves the checker's Rule 8 family catches its violation
+for this specific pack, on this specific pre-existing note text, for the
+first time in twenty passes.
+
+LIVE HALF
+Claude in Chrome connected, read-only, single tab, no dual sign-in, nothing
+clicked, typed or submitted beyond navigation and text extraction.
+https://www.riddingspharmacy.co.uk/switch-prescriptions.html (the old
+permalink the pack's own note warns about) re-fetched in full: still carries
+a "Download our app" block reading "Manage your prescriptions more easily
+through the RB Healthcare Pharmacy app." with "Download on the App Store" /
+"Get it on Google Play" buttons - live confirmation, directly on this pass's
+own angle, that the pack's warning is accurate and current: this old page
+genuinely does carry an app claim RB Healthcare's own data says this branch
+should not have, and the pack correctly instructs the paster not to carry it
+across to the new permalink. Other standing, already-logged live findings on
+this same page - "Timperley, Cheshire" contact block vs branches.json's
+Greater Manchester, the en-dash/middot footer string, "Weight Loss Clinic -
+Support that delivers results" outcome-promise wording - reconfirmed present,
+unchanged, not this pass's own angle, not re-raised.
+
+ANSWER PICKUP (step 3, also recorded in AGENT_LOG.md): Claude in Chrome
+navigate + get_page_text to https://data.rbhealth.co.uk/api/feedback
+succeeded first attempt, single tab, no dual sign-in. Newest entry still Q52,
+2026-09-01T22:44:51.524Z, identical to every run since 2026-09-01 and already
+recorded status: "answered" in QUESTIONS.json with the matching text. Nothing
+new to pick up.
+
+No new question raised: pure re-verification of documented checker behaviour
+against this pack's own copy on a previously untested checker file, no
+business, legal, pricing or regulatory content changed, no judgement call for
+Rishi. QUESTIONS.json unchanged at 110 total, 57 open.
