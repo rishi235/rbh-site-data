@@ -874,12 +874,13 @@ packs.forEach(function (file) {
   // than to Post A by name because the enumeration is what creates the duty
   // and it is not always Post A that carries it.
   if (enumerated && !PACK_AGE_CAVEAT.test(fs.readFileSync(file, "utf8").replace(/\s+/g, " "))) {
-    failures.push(name + ": lists all " + PATHWAYS.length + " Pharmacy First conditions but " +
-      "nowhere says the NHS age ranges apply to each of them (rule 11). The pack prints an age " +
-      "for the UTI pathway only, so without that sentence the other six read as open to anyone, " +
-      "and a parent brings a six-month-old for the earache pathway that starts at 1 or an " +
-      "adult asks for the sore throat pathway on a four-year-old. Restore \"Age ranges set by " +
-      "the NHS apply to each condition.\" to the post that carries the list");
+    failures.push(name + ": names two or more of the " + PATHWAYS.length + " Pharmacy First " +
+      "conditions in one sentence but nowhere says the NHS age ranges apply to each of them " +
+      "(rule 11). The pack prints an age for the UTI pathway only, so without that sentence any " +
+      "other condition named reads as open to anyone regardless of age, and a parent brings a " +
+      "six-month-old for the earache pathway that starts at 1 or an adult asks for the sore " +
+      "throat pathway on a four-year-old. Restore \"Age ranges set by the NHS apply to each " +
+      "condition.\" to the post that carries the list");
   }
 });
 

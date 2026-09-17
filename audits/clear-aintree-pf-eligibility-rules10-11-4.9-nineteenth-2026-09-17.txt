@@ -1,0 +1,139 @@
+Item 4.9 (Clear Chemist Aintree GBP pack) nineteenth quality pass, 2026-09-17
+Fresh angle: tools/check-pharmacy-first-eligibility.js rules 10 and 11 against
+gbp-packs/clear-aintree.md's own copy, for the first time in nineteen passes.
+
+BASELINE
+sha256 gbp-packs/clear-aintree.md (tracked, before any edit):
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+- matches all eighteen prior passes' recorded baseline exactly.
+Tracked repo, full 36-checker suite: 36/36 exit 0.
+Scratch copy (tar-extracted without .git, see method note): 35/36 exit 0,
+sole failure tools/check-cdn-pins.js (its standing .git-less exception).
+check-pharmacy-first-eligibility.js alone: clean, "every page states the NHS
+cohort and no other age."
+
+METHOD
+Full repo copied via tar (excluding .git; .git is 940MB of accumulated
+lock/tmp_obj debris per Q87 and copying it timed out) to a scratch directory
+under the session's own outputs mount, never under gbp-packs/ or any tracked
+path. Tracked pack never opened for writing until the fix was ready to land.
+Each injection made only in the scratch copy, restored by byte copy
+(cp orig -> scratch) and sha256-reconfirmed identical to baseline before the
+next injection.
+
+WHY THIS ANGLE
+Ten checkers actually read gbp-packs/ at runtime (PACK_DIR declared and
+read): check-app-membership, check-brand-spelling, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-pharmacy-first-cost,
+check-pharmacy-first-eligibility, check-postcodes, check-uk-spelling,
+check-url-scheme. (check-nap, check-address-region, check-opening-hours,
+check-page-coverage, check-service-links, check-travel-clinic-copy and
+check-weight-loss-copy only MENTION gbp-packs/ in comments; none of them
+actually opens the directory.) Of the ten, nine had already been proven by
+injection against this specific pack across passes 1-18. The tenth,
+check-pharmacy-first-eligibility.js, HAD been proven here for rule 9 (the
+age-cohort pin, sixteenth pass) but never for rules 10 (the condition LIST)
+or 11 (the age-caveat sentence obliged by enumerating). Both are structurally
+live on this pack: rule 10 and 11's enumeration trigger (two or more of the
+seven Pharmacy First condition names in one sentence) is not gated on the
+branch actually running Pharmacy First, only on the pack's own prose, so a
+pack that runs no PF service at all can still trip it by accident. The
+checker's own rule-11 comment names "the Clear Aintree pack" as the reference
+case for a pack that enumerates NO conditions and so owes no caveat - but
+"owes no caveat today" is not the same claim as "the rule has been proven to
+fire correctly if it ever did," and nothing had tested the latter.
+
+INJECTIONS (each restored and sha256-reconfirmed before the next)
+
+1. Appended to the Services section: "Ask about our sore throats and earache
+   checks in branch." (2 of 7 conditions named in one sentence, 5 missing, no
+   age caveat anywhere in the pack.)
+   CAUGHT twice, as designed: rule 10 "lists the Pharmacy First conditions
+   but omits uti, sinusitis, impetigo, shingles, insect-bite..."; rule 11
+   "lists all 7 Pharmacy First conditions but nowhere says the NHS age
+   ranges apply to each of them...".
+
+   REAL DEFECT FOUND HERE, in the checker's own rule-11 message, not in the
+   pack: the message hardcodes "lists all " + PATHWAYS.length + " Pharmacy
+   First conditions", and a second hardcoded claim two lines later, "the
+   other six read as open to anyone" - both assume the triggering sentence
+   named the complete set of seven. Rule 10, immediately above rule 11 in
+   the same file, exists specifically to catch the opposite case (a pack
+   naming FEWER than seven), and this injection is exactly that case: only 2
+   named, not 7, yet rule 11 reported "lists all 7" and "the other six" as
+   if the pack had. The message is not merely imprecise, it describes a
+   fact (full enumeration) that did not happen. In the real 15-pack estate
+   this has never surfaced because every pack that enumerates at all does
+   so completely (drafted from the same canonical list), so the implicit
+   "enumerated implies all seven" assumption has held by coincidence of
+   drafting discipline, not by anything the code checks.
+
+   FIXED: tools/check-pharmacy-first-eligibility.js rule 11's message now
+   reads "names two or more of the 7 Pharmacy First conditions in one
+   sentence but nowhere says..." and "without that sentence any other
+   condition named reads as open to anyone regardless of age" - both
+   phrasings are accurate whether the triggering sentence named 2, 6 or all
+   7 conditions. The trigger condition itself (`enumerated` truthy, caveat
+   absent) is unchanged, so no pack's pass/fail result changes; only the
+   wording of a message that, on the evidence above, could already have
+   been wrong the day it first fired for real. Verified after the fix: full
+   36-checker suite on the tracked repo still 36/36 exit 0 (no regression
+   on the fourteen packs that do correctly enumerate all seven with the
+   caveat present); re-ran this same injection against the scratch pack
+   with the fixed checker copied in - message now correctly reads "names
+   two or more of the 7 Pharmacy First conditions in one sentence" with no
+   false "all 7" or "the other six" claim.
+
+2. POSITIVE CONTROL: appended a single sentence naming all seven conditions
+   correctly plus the caveat sentence in the same bullet. Correctly PASSED,
+   exit 0 - proves the rule doesn't over-fire on this pack once it is asked
+   to do what the real packs do.
+
+3. Extended injection 2's sentence to add an eighth, non-Pharmacy-First
+   condition ("conjunctivitis") alongside the correct seven plus the
+   caveat. CAUGHT, exactly one failure: "names \"conjunctivitis\" in its
+   list of Pharmacy First conditions, which is not one of the 7 NHS
+   pathways...". No completeness or caveat failure fired alongside it
+   (both those conditions were satisfied), isolating the NOT_PHARMACY_FIRST
+   sub-rule cleanly on this pack for the first time.
+
+4. Appended "Ask in branch about our NHS Pharmacy First service for six
+   common conditions." (contains "Pharmacy First" and a count claim, no
+   condition names at all, so named.length is 0 and the enumeration/caveat
+   rules cannot fire regardless). CAUGHT, exactly one failure: "states
+   \"six common conditions\", but NHS Pharmacy First has 7 clinical
+   pathways...". Isolates the COUNT_CLAIM sub-rule cleanly, independent of
+   enumeration.
+
+5. CONTROL: appended "We also see patients asking about shingles from time
+   to time." (exactly one condition named). Correctly PASSED, exit 0 -
+   confirms the scope-discipline principle this whole checker family is
+   built on (single-condition prose is not held to the completeness or
+   caveat duty) holds on Clear Aintree specifically, which is the one pack
+   in the estate that could otherwise be assumed exempt from ever being
+   tested this way, since it runs no Pharmacy First at all.
+
+All five behaved exactly as designed once the rule-11 wording fix landed.
+Full 36-checker suite re-run clean on the scratch copy after the final
+restore (35/36, the standing cdn-pins .git-less exception) and separately on
+the tracked repo (36/36). Tracked pack sha256-confirmed identical to baseline
+throughout and at the end:
+a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4
+
+LIVE HALF
+Performed via Claude in Chrome, single connected tab, read-only, closed at
+the end: contact-us page confirms phone 0151 203 6535 with 8365 nowhere (Q28
+unchanged); WhatsApp 07512 330 076 still distinct from the estate-wide
+default (Q21's concrete case, unchanged); address and both hours sessions
+match branches.json and this pack's recorded reading. All three post-target
+URLs (weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html,
+switch-prescriptions-clear-aintree.html) still return the branch's own 404
+template, correctly showing the new phone number (Q29 unchanged, homepage-
+button workaround in the pack still correct and necessary).
+
+ANSWER PICKUP (this run's own step 3, before this pass was chosen): newest
+portal entry still Q52, 2026-09-01T22:44:51.524Z, already recorded in
+QUESTIONS.json exactly. Nothing new to pick up.
+
+No new question raised. One real defect found and fixed, in the checker's
+own message text, not in any pack's copy.

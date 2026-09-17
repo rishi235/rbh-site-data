@@ -1,3 +1,130 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 74; mcp__workspace__bash used for lock handling, repo reads, the tar-based scratch copy, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/browser_batch/tabs_close_mcp used for the step 3 portal answer pickup and the live half, both read-only, nothing clicked, typed or submitted; Write used for the new audits file and the fix; Edit used for AGENT_WORKLIST.md, tools/check-pharmacy-first-eligibility.js and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.9 (Clear Chemist Aintree GBP pack) nineteenth quality pass: proved tools/check-pharmacy-first-eligibility.js's rules 10 and 11 by five injections/controls against this pack's own copy for the first time in nineteen passes. REAL DEFECT FOUND AND FIXED in the checker, not the pack: rule 11's message hardcoded "lists all 7 Pharmacy First conditions" and "the other six" regardless of how many conditions the triggering sentence actually named, which is inaccurate in exactly the partial-enumeration case rule 10 (immediately above it in the same file) exists to catch. Fixed to a count-agnostic message; no pack's pass/fail result changes, only the wording. Full 36-checker suite clean before and after. No new question.
+
+LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start. Wrote a
+fresh UTC timestamp via the sandbox mount. `git fetch origin`, already on
+`agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` -
+already up to date with run 73's commit (item 4.4, HEAD d963a657 before
+this run's own edits). A fresh `.git/index.lock` appeared during this
+run's own read-only git calls from the sandbox (well under a minute old
+when checked, `Operation not permitted` on unlink, the same standing
+Q87/Q96/Q102 sandbox-mount restriction) - left alone, not needed for the
+read-only calls this run made from the sandbox; add/commit/push handled
+via the Windows-MCP PowerShell route against the real
+C:\Dev\rbh-site-data working copy, confirmed reachable and at the same
+HEAD (d963a657) before this run's edits landed.
+
+ANSWER PICKUP (step 3): Claude in Chrome connected first attempt, single
+tab, no Q59 sign-in conflict. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed:
+newest entry still Q52, 2026-09-01T22:44:51.524Z, identical to every run
+since 2026-09-01. Cross-checked against QUESTIONS.json: Q52 already
+recorded `status: "answered"` with the exact matching answer text.
+Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 73's
+own entry) before adding this one - no "Standing authorisation -
+autonomous window" section present. Not applicable, proceeded under the
+normal rule.
+
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all
+eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the quality-pass
+fallback. Rotation pool re-derived fresh via a Python script fed from
+`git log --pretty=format:"%ad|%s" --date=iso-strict -- AGENT_WORKLIST.md`,
+taking the newest commit date mentioning each "Item N.N" and excluding
+the seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) and the eight blocked items. 4.9 came out stalest at
+2026-09-16T21:12:52+01:00, clear of the next candidate (5.2,
+2026-09-16T22:15:22+01:00) and every other pool item, matching run 73's
+own forward note exactly. Picked 4.9.
+
+WORK DONE (item 4.9, nineteenth quality pass): full detail in
+AGENT_WORKLIST.md's own item 4.9 block and in
+audits/clear-aintree-pf-eligibility-rules10-11-4.9-nineteenth-2026-09-17.txt.
+In summary: eighteen prior passes had exhausted nine of the ten checkers
+that actually read gbp-packs/ at runtime against this pack (confirmed by
+grepping each checker file for an actual PACK_DIR read, not just a
+comment mentioning gbp-packs/ - check-nap.js, check-address-region.js,
+check-opening-hours.js, check-page-coverage.js, check-service-links.js,
+check-travel-clinic-copy.js and check-weight-loss-copy.js only mention
+the folder in prose and never open it). The tenth,
+check-pharmacy-first-eligibility.js, had only had its rule 9 (the
+age-cohort pin) proven here, on the sixteenth pass; rules 10 (the
+condition list) and 11 (the age-caveat sentence enumeration obliges) had
+not, despite the checker's own rule-11 comment naming "the Clear Aintree
+pack" as the reference case for a pack that enumerates no conditions and
+so owes no caveat today - a claim about current copy, not a proof the
+rule catches a breach if one appeared.
+
+BASELINE: full 36-checker suite run individually against the tracked repo
+before starting, 36/36 exit 0. sha256 of gbp-packs/clear-aintree.md
+recorded before any edit: a5b90f586afc103630bdaeea7163181e0a1e0d2d2269083afe83ea63275321f4,
+matching all eighteen prior passes' recorded baseline exactly.
+
+METHOD NOTE: the usual `cp -r` scratch copy timed out this run, because
+.git is now 940MB of accumulated lock/tmp_obj debris (Q87's documented
+FUSE unlink restriction: every commit leaves litter that nothing can
+clean up from this sandbox mount). Switched to `tar --exclude='.git'`
+piped through a plain file rather than a live pipe (a live pipe into
+`python3 -` and a first extraction attempt both produced enormous,
+useless tool output for reasons not fully diagnosed - possibly the mount
+echoing something back on certain write patterns - resolved by writing
+tar's output to an intermediate file and extracting into a FRESH
+directory rather than one with any prior partial-write debris, since this
+mount also refuses to overwrite a same-named file that already exists,
+the same restriction Q87 documents for git's own housekeeping). Scratch
+suite: 35/36 exit 0, the one failure being check-cdn-pins.js's standing
+`.git`-less exception, consistent with every prior pass that used a
+`.git`-less scratch copy.
+
+INJECTIONS: five, each restored by byte copy and sha256-reconfirmed
+before the next, detailed in the evidence file. (1) two of seven
+conditions named in one sentence, five missing, no caveat - caught twice,
+by rule 10 (omission) and rule 11 (missing caveat), and rule 11's message
+read "lists all 7 Pharmacy First conditions" and "the other six", both
+false of a sentence that named two. Fixed the message to be count-
+agnostic; re-verified the fix against the same injection, then confirmed
+36/36 on the tracked repo with the fix applied (no pack's pass/fail
+result changed, only the wording). (2) positive control, all seven named
+correctly plus the caveat - correctly passed. (3) the same sentence plus
+an eighth, non-Pharmacy-First word ("conjunctivitis") - caught exactly
+once, isolating the NOT_PHARMACY_FIRST sub-rule cleanly on this pack for
+the first time. (4) "Pharmacy First" plus a wrong count claim with no
+condition names at all - caught exactly once, isolating the count-claim
+sub-rule independent of enumeration. (5) control, exactly one condition
+named - correctly passed, confirming the scope-discipline principle holds
+even on the one pack in the estate that runs no Pharmacy First at all.
+
+LIVE HALF: performed via Claude in Chrome, single tab, read-only, closed
+at the end. Contact-us page: phone 0151 203 6535, no 8365 anywhere (Q28
+unchanged); WhatsApp 07512 330 076 still distinct from the estate-wide
+default (Q21's concrete case, unchanged); address and both hours sessions
+match branches.json. All three post-target URLs
+(weight-loss-clinic-clear-aintree.html, travel-clinic-clear-aintree.html,
+switch-prescriptions-clear-aintree.html) still return the branch's own
+404 template with the correct phone (Q29 unchanged, homepage-button
+workaround still correct and necessary).
+
+VERIFICATION BEFORE COMMIT: tracked pack sha256-reconfirmed identical to
+baseline after all work (a5b90f58...321f4 unchanged). `git status
+--short -- tools/ gbp-packs/ modules/ core/ branches.json status/
+AGENT_WORKLIST.md AGENT_LOG.md QUESTIONS.json` on the sandbox mount showed
+only the intended two files modified (tools/check-pharmacy-first-
+eligibility.js, AGENT_WORKLIST.md) plus this log entry pending, and two
+pre-existing, unrelated stray files this run did not create
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak) - left alone, out of this
+pass's scope, not added or committed. Full 36-checker suite re-run on the
+tracked repo after the fix: 36/36 exit 0.
+
+NO ROTATION FORWARD NOTE NEEDED beyond the standard re-derivation: the
+next run should re-run the same git-log-based rotation script fresh
+rather than trust a forward guess, per the item 3.8 twenty-first pass's
+own process finding that a stale forward note can already be wrong by
+the time the next run reads it on a day this busy.
+
+---
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 73; mcp__workspace__bash used for lock handling, repo reads, the injection/restore cycle and checker runs; mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer pickup only (read-only, nothing clicked, typed or submitted); Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this entry; mcp__Windows-MCP__PowerShell used against the real C:\Dev\rbh-site-data working copy for git add/commit/push and the status-page publish, per the standing Q87/Q96/Q102 workaround) - Item 4.4 (Scorah Chemists Bramhall GBP pack) twenty-first quality pass: proved tools/check-gbp-packs.js's CLINIC_QUALIFIERS rule family (all six keys: weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability) by six injections plus a control against this pack's own copy for the first time in twenty-one passes, zero in-repo defect, no new question.
 
 LOCK / SYNC (steps 1-2): no `.agent-lock` present at run start (run 72's

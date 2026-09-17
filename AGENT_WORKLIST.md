@@ -21759,6 +21759,73 @@ directly rather than re-deriving the same facts by hand.
       currently-open questions. No new question raised. Evidence:
       audits/clear-aintree-published-phone-4.9-eighteenth-2026-09-16.txt.
       Done 2026-09-16
+      Nineteenth quality pass 2026-09-17: fresh angle, proving
+      tools/check-pharmacy-first-eligibility.js's rules 10 (the condition
+      LIST) and 11 (the age-caveat sentence enumeration obliges) against
+      this pack's own copy for the first time in nineteen passes. Rule 9
+      (the age-cohort pin) was proven here on the sixteenth pass, but rules
+      10 and 11 had not, despite the checker's own rule-11 comment naming
+      "the Clear Aintree pack" as the reference case for a pack that
+      enumerates no conditions and so owes no caveat - which is a claim
+      about today's copy, not a proof the rule fires correctly if it ever
+      did. Confirmed by grep that of the ten checkers that actually read
+      gbp-packs/ at runtime, this was the only rule family on the only
+      checker left untested against this specific pack. Full repo copied
+      via tar excluding .git (940MB of accumulated lock/tmp_obj debris per
+      Q87, copying it timed out) to a scratch directory; tracked pack never
+      opened for writing until the fix was ready (sha256
+      a5b90f58...321f4 unchanged throughout, matching all eighteen prior
+      passes exactly).
+      REAL DEFECT FOUND AND FIXED, in the checker's own rule 11 message, not
+      in the pack. Injection 1 (two of the seven conditions named in one
+      sentence, five missing, no caveat) was caught twice as designed by
+      rule 10 and rule 11 - but rule 11's message read "lists all 7 Pharmacy
+      First conditions" and "the other six read as open to anyone", both
+      hardcoded claims that the triggering sentence named the complete set.
+      It named two. Rule 10, immediately above rule 11 in the same file,
+      exists specifically to catch a pack naming FEWER than seven; rule 11's
+      wording had never been asked to handle that exact case, because every
+      pack in the real 15-pack estate that enumerates at all does so
+      completely, so the implicit "enumerated implies all seven" assumption
+      had held by coincidence of drafting discipline, not by anything the
+      code checks. Fixed: the message now reads "names two or more of the 7
+      Pharmacy First conditions in one sentence but nowhere says..." and
+      "any other condition named reads as open to anyone regardless of
+      age" - accurate whether the triggering sentence names two, six or all
+      seven. The trigger condition itself is unchanged, so no pack's
+      pass/fail result changes; only a message that, on this evidence,
+      could already have been wrong the day it first fired for real.
+      Verified: full 36-checker suite on the tracked repo still 36/36 exit 0
+      after the fix (no regression on the fourteen packs that correctly
+      enumerate all seven with the caveat present).
+      Four further injections/controls, each restored and sha256-
+      reconfirmed before the next: positive control (all seven named
+      correctly plus the caveat) correctly PASSED; the same sentence with an
+      eighth, non-Pharmacy-First condition added ("conjunctivitis") CAUGHT
+      exactly once, isolating the NOT_PHARMACY_FIRST sub-rule cleanly for
+      the first time on this pack; a sentence naming "Pharmacy First" and a
+      wrong count ("six common conditions") with no condition names at all
+      CAUGHT exactly once, isolating the COUNT_CLAIM sub-rule independent of
+      enumeration; a control naming exactly one condition ("shingles")
+      correctly PASSED, confirming the scope-discipline principle this
+      checker family is built on holds even on the one pack in the estate
+      that runs no Pharmacy First at all. All five behaved exactly as
+      designed once the wording fix landed. Full 36-checker suite re-run
+      clean on the scratch copy after the final restore (35/36, the
+      standing check-cdn-pins.js .git-less exception) and on the tracked
+      repo (36/36); tracked pack sha256-confirmed identical to baseline at
+      the end. LIVE HALF performed via Claude in Chrome (single connected
+      tab, read-only, closed at the end): contact-us page confirms phone
+      0151 203 6535 with 8365 nowhere (Q28 unchanged), WhatsApp 07512 330
+      076 still distinct from the estate default (Q21's concrete case,
+      unchanged), address and both hours sessions match branches.json; all
+      three post-target URLs still 404 on the branch's own template with
+      the correct phone (Q29 unchanged, homepage-button workaround still
+      correct). ANSWER PICKUP (this run's step 3): newest portal entry
+      still Q52, 2026-09-01T22:44:51.524Z, already recorded exactly; nothing
+      new. No new question raised. Evidence:
+      audits/clear-aintree-pf-eligibility-rules10-11-4.9-nineteenth-2026-09-17.txt.
+      Done 2026-09-17
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
