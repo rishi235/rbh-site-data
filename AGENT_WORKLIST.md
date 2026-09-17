@@ -21306,6 +21306,64 @@ directly rather than re-deriving the same facts by hand.
       this pass. Evidence in
       audits/smartts-bootle-sister-branch-4.10-seventeenth-2026-09-16.txt.
       Done 2026-09-16.
+      Eighteenth quality pass 2026-09-17 (unattended scheduled run via
+      Cowork; mcp__workspace__bash used for lock handling, repo reads, the
+      scratch-copy injection testing and the 35-checker suite runs;
+      mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for
+      the step 3 answer-pickup fetch and one targeted live-page read, both
+      read-only, nothing clicked/typed/submitted): fresh angle -
+      BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT in tools/check-gbp-packs.js
+      (born item 4.14 fifth pass, 2026-08-14, re-proven against
+      mccanns-sandringham.md on item 4.7's fifteenth pass) had never been
+      individually injection-tested against this pack's own copy across
+      seventeen prior passes, confirmed by grepping this item's full
+      paragraph history for "BODY_IMAGE", "beach body", "hold you back" and
+      "transformation" - no hit. Baseline: 35/35 checkers exit 0 on a
+      full-repo scratch copy (with .git, per the established method note);
+      sha256(gbp-packs/smartts-bootle.md) =
+      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b,
+      matching every prior pass's recorded hash exactly - unmoved since the
+      sixth pass. Facts re-confirmed against branches.json's smartts_bootle
+      record (address, phone, both hours sessions, website, review link,
+      hasApp true, weightLoss and travelClinic widgets both present) -
+      unchanged. Two injections plus two controls against the scratch copy
+      only, each restored from a saved byte copy and sha256-reconfirmed
+      identical before the next: (1) BODY_IMAGE_SELF - Post C's opening line
+      changed to "Thinking about getting your beach body ready?" - CAUGHT,
+      "body-image pressure tied to an event"; (2) BODY_IMAGE_CONTEXT -
+      "Don't let your weight hold you back any longer." appended to Post C's
+      body - CAUGHT, "pressure framing that treats the reader's body as the
+      obstacle"; CONTROL A, a fresh proof shape not tried on any pack
+      before - the identical "hold you back" sentence placed in Post D (the
+      travel clinic post, which names no weight loss) instead of Post C -
+      PASSED CLEAN, confirming the rule's documented scope boundary holds on
+      this pack specifically, one of the few carrying both a weightLoss and
+      a travelClinic widget so one of the few where this exact cross-post
+      test is possible at all; CONTROL B, an unrelated benign reword of the
+      Blood tests services bullet - PASSED CLEAN across the full 35-checker
+      suite, no cross-firing. All four behaved exactly as designed on the
+      first attempt. No in-repo defect: both rules and their scope boundary
+      already work correctly on this pack, now proven directly rather than
+      assumed from sister packs. Full 35-checker suite re-run clean on the
+      scratch copy after the final restore; tracked repo confirmed
+      sha256-unchanged and git-status-clean throughout (only the two
+      long-standing pre-existing untracked strays, neither touched); no
+      generator, page, checker or branches.json content changed; gbp-packs/
+      is not a generator input, so no rebuild was needed. Live half:
+      answer pickup read cleanly, newest entry still Q52 (2026-09-01),
+      already applied, no new answer. One targeted live read matching this
+      pass's own angle: weight-loss-clinic-smartts-bootle.html re-fetched in
+      full, no body-image language present anywhere on the live page,
+      confirming no drift into the pattern just tested for; the
+      previously-recorded lead-price-position finding (Q51/Q83/Q88) and the
+      two stale pre-cleanup en dashes ("not right for everyone", "at
+      consultation") reconfirmed unchanged. The other three live surfaces
+      were not re-read this pass, since the sixteenth pass read all four in
+      full two days earlier and nothing in this pass's repo-side work
+      touches them. No new question. QUESTIONS.json unchanged: 109 total,
+      56 open. Evidence in
+      audits/smartts-bootle-body-image-4.10-eighteenth-2026-09-17.txt.
+      Done 2026-09-17.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

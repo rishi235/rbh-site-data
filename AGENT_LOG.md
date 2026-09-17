@@ -1,3 +1,42 @@
+## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 46; mcp__workspace__bash used for lock handling, repo reads, the scratch-copy injection testing (full repo `cp -r` with .git included) and the 35-checker suite runs (check-live-hours.js excluded, needs network); mcp__claude-in-chrome__tabs_context_mcp/navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one targeted item 4.10 live-page read, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Write/Edit used for the new audit file, AGENT_WORKLIST.md and this entry) - Item 4.10 (Smartts Chemist Bootle GBP pack) eighteenth quality pass: fresh angle - proved BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT in tools/check-gbp-packs.js (born item 4.14 fifth pass, 2026-08-14, re-proven against mccanns-sandringham.md on item 4.7's fifteenth pass) against this pack's own copy for the first time across seventeen prior passes, confirmed by grepping the item's full paragraph history for "BODY_IMAGE", "beach body", "hold you back" and "transformation" - no hit. Baseline: 35/35 checkers exit 0 on a full-repo scratch copy; sha256(gbp-packs/smartts-bootle.md) = 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching every prior pass's recorded hash exactly, unmoved since the sixth pass. Two injections plus two controls against the scratch copy only, each restored from a saved byte copy and sha256-reconfirmed identical before the next: (1) BODY_IMAGE_SELF - Post C's opening line changed to "Thinking about getting your beach body ready?" - CAUGHT; (2) BODY_IMAGE_CONTEXT - "Don't let your weight hold you back any longer." appended to Post C's body - CAUGHT; CONTROL A, a fresh proof shape - the identical "hold you back" sentence placed in Post D (the travel clinic post, names no weight loss) instead - PASSED CLEAN, proving the rule's scope boundary holds on this pack, one of the few carrying both a weightLoss and a travelClinic widget so one of the few where this exact cross-post test is possible; CONTROL B, an unrelated benign reword of the Blood tests bullet - PASSED CLEAN across the full 35-checker suite. All four behaved exactly as designed on the first attempt. No in-repo defect: both rules and their scope boundary already work correctly on this pack, now proven directly rather than assumed from sister packs. Tracked repo confirmed sha256-unchanged and git-status-clean throughout (only the two long-standing pre-existing untracked strays); no generator, page, checker or branches.json content changed. Live half: answer pickup read cleanly, newest entry still Q52 (2026-09-01), already applied, no new answer to pick up. One targeted live read matching this pass's angle: weight-loss-clinic-smartts-bootle.html re-fetched in full, no body-image language present, confirming no live drift into the pattern just tested; the previously-recorded lead-price-position finding (Q51/Q83/Q88) and the two stale pre-cleanup en dashes reconfirmed unchanged. Full detail in audits/smartts-bootle-body-image-4.10-eighteenth-2026-09-17.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open).
+
+LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC
+timestamp. No stale `.git/index.lock` or other git lock found this run.
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` completed
+normally, already up to date with origin at run 45's own commit (item 4.5's
+nineteenth pass).
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read
+cleanly in one Chrome tab. 56 open questions checked; newest entry still
+Q52, dated 2026-09-01T22:44:51.524Z - already applied. No genuine new
+answer to pick up, consistent with every run since 2026-09-01.
+
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 45's
+own entry) before adding this one - no "Standing authorisation - autonomous
+window" section present. Not applicable; proceeded under the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED] via
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md`. Fell to the quality-pass fallback.
+
+ITEM SELECTION: rotation pool of 35 items re-derived via `git log
+--pretty=format:"%ad|%s" --date=iso-strict`, matching "Item N.N" in each
+commit subject, for the 42 checked AGENT_WORKLIST.md items minus the seven
+standing out-of-rotation items (1.1/1.4/2.2/5.6/5.7/6.7/6.8), with 4.2
+folded into the pool via 4.1 (it has no checkbox of its own). 4.10 resolved
+to 2026-09-16T05:22:59+01:00, the single oldest across the whole pool now
+that run 45 refreshed 4.5's own timestamp to today. Picked 4.10.
+
+VERIFICATION: full detail in AGENT_WORKLIST.md's item 4.10 eighteenth-pass
+paragraph and the new audit file. In summary: baseline sha256 and 35/35
+checkers confirmed clean before and after each of the two injections and
+two controls; tracked repo confirmed untouched (`git status --porcelain --
+gbp-packs branches.json modules core tools` shows only the two
+long-standing pre-existing untracked strays, neither touched).
+
+GIT (step 9): committed AGENT_WORKLIST.md, AGENT_LOG.md and the new audit
+file to agents/audit-backlog.
+
 ## 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 45; mcp__workspace__bash used for lock handling, repo reads, the 35-checker suite run individually against the tracked repo (check-live-hours.js excluded, needs network), the four scratch-restore injection rounds directly against the tracked pack file (backed up first to _agentscratch/), the git-commit-timestamp rotation-pool derivation, and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/ edits; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and one item 4.5 live-half fetch, two tabs total, both read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for AGENT_WORKLIST.md, the new audit file and this entry) - Item 4.5 (Scorah Chemists Hazel Grove GBP pack) nineteenth quality pass: fresh angle - proved two check-gbp-packs.js rule families against this pack's own copy for the first time (TRANSACTIONAL_CTAS/POM_POSTS barring a "Buy"-style button on the weight loss post; POM_CLASS SELF_SCOPING/IN_CONTEXT barring a phrase that identifies a POM's medicine class without naming it), both proven elsewhere in the estate only hours earlier (scorah-bramhall.md on item 4.4's twentieth pass, tiffenbergs-aintree.md on item 4.15's eighteenth pass) but never against this pack. Three injections directly on the tracked file, each restored by byte copy and sha256-reconfirmed before the next: Post C's button label changed to "Buy now" - caught alone, exit 1; "This clinic offers the skinny jab as part of its plan." added to the paster notes outside any post - caught alone, exit 1, confirming SELF_SCOPING reads the whole pack; a weekly-injection sentence added inside Post C's body - caught alone, exit 1. One control, redone after a first attempt tripped an unrelated rule (a new services bullet failed the RECOGNISED_SERVICES allowlist rather than proving anything about POM_CLASS): reworded the existing NHS contraception bullet to mention a contraceptive injection option, matching tiffenbergs-aintree.md's own control shape exactly - passed clean, confirming the sentence-gate exemption holds on this pack's own copy too. All four rounds behaved exactly as designed. No in-repo defect, no checker or pack content changed. Live half (Claude in Chrome, one fetch): pharmacy-scorah-hazel-grove.html still 404 (Q35 class, unchanged since the seventh pass). Full detail in audits/scorah-hazel-grove-pack-check-2026-09-17-nineteenth.txt. No new question; QUESTIONS.json unchanged at 109 total (56 open; no new answer to pick up from the portal feed, newest entry still Q52 from 2026-09-01).
 
 LOCK / SYNC (steps 1-2): `.agent-lock` absent at start; wrote a fresh UTC

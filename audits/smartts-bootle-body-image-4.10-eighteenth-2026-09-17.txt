@@ -1,0 +1,115 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack) - eighteenth quality pass
+Date: 2026-09-17 (unattended scheduled run, audit-backlog-worker, run 46)
+Fresh angle: BODY_IMAGE_SELF and BODY_IMAGE_CONTEXT in tools/check-gbp-packs.js,
+born on the item 4.14 (Gordon Short Chemist Crosby) fifth quality pass,
+2026-08-14, and re-proven since against mccanns-sandringham.md (item 4.7
+fifteenth pass), had never been individually injection-tested against this
+pack's own copy across seventeen prior passes. Confirmed by grepping this
+item's full paragraph history in AGENT_WORKLIST.md for "BODY_IMAGE", "beach
+body", "hold you back" and "transformation": no hit before this pass.
+
+BASELINE
+--------
+Tracked repo: gbp-packs/smartts-bootle.md sha256
+541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b, matching
+every one of the seventeen prior passes' recorded hash exactly - the pack
+has not moved since the sixth pass (2026-09-01). git status --porcelain on
+gbp-packs, branches.json, modules, core and tools showed only the two
+long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001
+and modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched this pass.
+
+Method: full repo copied to a scratch directory with .git included
+(cp -r, per the established method note from the ninth pass onward), all
+injections and checker runs performed against the scratch copy only; the
+tracked file was never opened for writing. Baseline: all 35 checkers
+(tools/check-*.js excluding check-live-hours.js, which needs network) run
+individually against the scratch copy before any edit - 35/35 exit 0.
+
+Facts re-confirmed against branches.json's smartts_bootle record
+(unchanged): name, address 42 Fernhill Road / Bootle L20 9HH, phone
+0151 922 4984, website, review link, both hours sessions (09:00-13:00 and
+14:00-18:00 Monday to Friday, Saturday and Sunday closed), hasApp true,
+widget set (weightLoss and travelClinic both present, the combination this
+pass's fresh angle exploits).
+
+INJECTIONS (each restored from the saved byte copy and sha256-reconfirmed
+identical to the baseline before the next injection was applied)
+--------------------------------------------------------------
+1. BODY_IMAGE_SELF - Post C's opening line changed from "Thinking about
+   losing weight with proper support?" to "Thinking about getting your
+   beach body ready?" - CAUGHT. check-gbp-packs.js exit 1:
+   "line 103: this pack sells weight loss on body image rather than on the
+   service, by body-image pressure tied to an event: "beach body"."
+
+2. BODY_IMAGE_CONTEXT - "Don't let your weight hold you back any longer."
+   appended to Post C's body, immediately after the supervised-plan
+   sentence - CAUGHT. check-gbp-packs.js exit 1:
+   "this pack uses pressure framing that treats the reader's body as the
+   obstacle in its weight loss copy: "hold you back"."
+
+3. CONTROL A (scope-boundary, not previously tested on any pack in this
+   exact combination) - the IDENTICAL sentence used in injection 2,
+   "Don't let a busy schedule hold you back any longer.", appended to
+   Post D's body instead (the travel clinic post, which names no weight
+   loss anywhere) - PASSED CLEAN, 0 failures. Confirms BODY_IMAGE_CONTEXT's
+   documented scope - weight-loss-labelled post bodies plus sentences
+   elsewhere that name weight loss - correctly excludes the travel clinic
+   post on THIS pack specifically. Smartts Bootle is one of the few packs
+   carrying both a weightLoss and a travelClinic widget (confirmed on the
+   item 4.10 fifteenth pass, CLINIC_QUALIFIERS), so it is one of the few
+   packs where this exact cross-post boundary can be exercised at all; the
+   rule's birth test on Gordon Short Crosby used a photographer's
+   direction and a contraception-service sentence as its controls, not a
+   same-pack travel-clinic post, so this is a new proof shape rather than
+   a repeat of the birth test.
+
+4. CONTROL B (benign reword, unrelated to body image or weight loss) -
+   the Blood tests services bullet reworded from "see the website for the
+   tests currently offered" to "check the website for the panel currently
+   available" - PASSED CLEAN across the full 35-checker suite, 0 failures.
+   Confirms no cross-firing from an ordinary copy edit elsewhere in the
+   pack.
+
+All four injections/controls behaved exactly as designed on the first
+attempt. No in-repo defect found: both rules, and the scope boundary
+between them, already work correctly on this pack; this pass proves that
+directly for the first time rather than assuming it from sister packs.
+
+REGRESSION
+----------
+Scratch copy restored byte-identical to baseline after each injection and
+control (sha256 541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+reconfirmed every time); full 35-checker suite re-run clean on the scratch
+copy after the final restore (35/35 exit 0). Tracked repo confirmed
+sha256-unchanged and git-status-clean throughout (only the two
+pre-existing untracked strays, neither touched). No generator, page,
+checker or branches.json content changed. gbp-packs/ is not a generator
+input, so no page rebuild was required (established on the fifteenth
+pass).
+
+LIVE HALF
+---------
+Claude in Chrome connected this run (no repeat of the standing Q59
+dual-instance block). Answer pickup: https://data.rbhealth.co.uk/api/feedback
+read cleanly; newest entry still Q52 (2026-09-01T22:44:51.524Z), already
+applied - no new answer to collect, consistent with every run since
+2026-09-01.
+
+One targeted live read, chosen to match this pass's own fresh angle rather
+than repeating the sixteenth pass's exhaustive four-page read from two days
+earlier: weight-loss-clinic-smartts-bootle.html re-fetched and read in
+full. No body-image language present anywhere on the live page (no "beach
+body", "transformation", "new you", "hold you back", or equivalent) - the
+live copy has not drifted into the pattern this pass's injections tested
+for. Previously-recorded findings on this same page reconfirmed unchanged:
+the lead-price-position finding ("Private consultation at Smartts Chemist,
+from £39.99" above the eligibility section, Q51/Q83/Q88) and the two
+stale pre-cleanup en dashes in "not right for everyone" and "at
+consultation" (first flagged on the sixth pass, still unrepasted). Nothing
+newly found. The other three live surfaces (travel clinic, switch page,
+Post A's live-only Pharmacy First target) were not re-read this pass; the
+sixteenth pass read all four in full two days ago and nothing in this
+pass's repo-side work touches them.
+
+No new question raised. QUESTIONS.json unchanged at 109 total, 56 open.
