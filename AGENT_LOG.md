@@ -1,3 +1,52 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 115; mcp__workspace__bash used for the lock
+check, git fetch/checkout/pull/status, the checker suite, the scratch-copy injection proofs and file edits;
+mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch; mcp__Windows-MCP__PowerShell for the git
+add/commit/push and the status-page publish, per the standing practice runs 111-114 established (Q102 still
+formally open, but followed again))
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 114 deleted its own before exiting, confirmed by
+its HEAD deb39a4 already matching origin/agents/audit-backlog before this run touched anything); wrote a fresh
+lock. git fetch origin and git checkout/pull --ff-only agents/audit-backlog both completed clean, already up to
+date at deb39a4 (run 114's own commit, item 4.9 twentieth pass). ANSWER PICKUP (step 3): list_connected_browsers
+showed exactly one Chrome instance connected, so the fetch was not blocked. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z), matching every run since 2026-09-01 - nothing new to apply. 59 of 112 questions open
+before this run, unchanged (no new question raised this run either). AUTONOMOUS WINDOW CHECK (step 4): read the
+top of this file; no "Standing authorisation - autonomous window" heading present, proceeded under the normal
+rule. WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60
+lines under 6.4/6.5, 6.6), unchanged from run 114. Fell to the quality-pass fallback. ROTATION: re-derived fresh
+from `git log --pretty="%aI|%s" -i --grep="item N.N[^0-9]"` per candidate, over the 36 items minus the seven
+standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items. 5.2 was oldest at
+2026-09-17T17:41:21+01:00, ahead of 3.8 (18:11), 4.7 (18:45), 1.3 (19:09) and everything else touched later on
+2026-09-17 or on 2026-09-18 by runs 113/114 and others today. Chosen: 5.2 (McCanns Aigburth, McCanns Sandringham,
+Scorah Bramhall, Scorah Hazel Grove branch landing pages), twentieth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 5.2 block, this being the mirrored entry. NEW ANGLE: of the
+eighteen checkers proven by direct injection against this item's own four pages across nineteen prior passes,
+tools/check-seo-sheets.js had never been run against them - a genuine gap, since it is one of the five core SEO
+checkers CLAUDE.md names explicitly and guards the two Weebly fields (title, description) against the paste
+sheets, which check-seo-pattern and check-seo-keywords (both already covered) do not do. METHOD: full `cp -a`
+scratch copy of the tracked repo to /tmp/scratch52b, no injection against the tracked working copy. BASELINE:
+177 SEO-sheet entries, 163 INDEX-sheet entries, 177 pages compared, clean. FOUR INJECTIONS, each restored
+byte-identical and sha256-reconfirmed before the next: (1) title drift on pharmacy-mccanns-aigburth.html's page
+side - caught twice at once, against both SEO.md and INDEX.md; (2) description drift on SEO.md's side for
+scorah-hazel-grove, page untouched - caught; (3) the whole Scorah Bramhall block deleted from SEO.md - caught as
+"no entry in any paste sheet"; (4) INDEX.md's title for McCanns Sandringham reverted to the pre-Q15 "Sandringham"
+wording, SEO.md and the page untouched - caught, and as a side effect reconfirmed live that the Q15/item 5.7
+seoTown correction is still holding in this sheet four weeks on. All four fired on their own intended rule, first
+attempt. Full 36-checker suite re-run once after all four rounds restored: 36/36 exit 0 (check-live-hours.js
+excluded, network-dependent). `git status --porcelain` on the tracked working copy (modules, tools, branches.json,
+gbp-packs, core) showed only the two long-standing pre-existing untracked strays, neither touched. RESULT: no
+in-repo defect; check-seo-sheets.js was already correctly guarding this item's four pages against both paste-sheet
+dialects, in both drift directions, and against a missing entry. No checker logic, page, generator or data field
+changed anywhere in the repo. No new question raised. Guard coverage for this item now extends to 19 of the
+estate's 36 checkers. Evidence: audits/verify-5.2-2026-09-18-twentieth.js and
+audits/verify-5.2-2026-09-18-twentieth-output.txt.
+Files changed this run: AGENT_WORKLIST.md (item 5.2 twentieth-pass paragraph appended; the line itself stays
+ticked as already [x], nothing to change there), AGENT_LOG.md (this entry), audits/verify-5.2-2026-09-18-
+twentieth.js and audits/verify-5.2-2026-09-18-twentieth-output.txt (new evidence files). No generator, checker,
+page or branches.json change - the finding is "already correct, now proven".
+Commit and push: see commit hash appended below once the Windows-MCP PowerShell route completes step 9. Status
+page publish: see step 10 note below once build-audit-status.js completes on the host.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 114; mcp__workspace__bash used for the lock
 check, git fetch/checkout/pull/status, the checker suite and file edits; mcp__claude-in-chrome for the QUESTIONS.json
 answer-pickup fetch and the live half; mcp__Windows-MCP__PowerShell for the git add/commit/push and the status-page

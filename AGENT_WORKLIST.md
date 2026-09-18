@@ -33003,6 +33003,85 @@ specifically - candidate fresh angle for a future pass.
       4.3, 4.13 and 4.8, all still dated 2026-09-17 from earlier today,
       since 5.2 itself now moves to the back of the queue at 2026-09-17.
       Other runs may land in between before the next pass.
+      Quality pass 2026-09-18 (twentieth, unattended scheduled run,
+      rotation-pool pick): all eight remaining unchecked worklist lines
+      were [BLOCKED] this run (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines
+      under 6.4/6.5, 6.6). Rotation pool re-derived fresh from
+      `git log --pretty="%aI|%s" -i --grep="item N.N[^0-9]"` per
+      candidate item, over the 36 items minus the seven standing
+      out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+      eight blocked items: 5.2 came out uniquely stalest at
+      2026-09-17T17:41:21+01:00, ahead of the next tier (3.8,
+      2026-09-17T18:11:03+01:00) and everything else, all touched later
+      on 2026-09-17 or on 2026-09-18 by other runs today.
+      NEW ANGLE. Of the eighteen checkers proven by direct injection
+      against this item's own four pages across nineteen prior passes,
+      tools/check-seo-sheets.js had never been run against them, despite
+      being one of the five core SEO checkers CLAUDE.md names explicitly
+      (check-seo-pattern, check-seo-sheets, check-em-dashes, check-seo-
+      keywords, check-seo-lengths) and despite guarding the OTHER two
+      Weebly fields (title, description) against the paste sheets that
+      check-seo-pattern and check-seo-keywords do not touch. check-seo-
+      pattern.js and check-seo-keywords.js were both already on the
+      covered list; check-seo-sheets.js was the gap.
+      METHOD: same discipline as passes 9-19, full `cp -a` scratch copy
+      of the whole tracked repo to /tmp/scratch52b, no injection against
+      the tracked working copy this pass launched from. BASELINE
+      confirmed first: 177 SEO-sheet entries, 163 INDEX-sheet entries,
+      177 pages compared, clean. FOUR ROUNDS, covering both paste-sheet
+      dialects and both drift directions plus the missing-entry case,
+      each restored byte-identical and sha256-reconfirmed before the
+      next: (1) TITLE DRIFT, page side - " Extra" appended to the
+      Weebly page SEO title line on pharmacy-mccanns-aigburth.html -
+      CAUGHT twice at once, "title drift" against SEO.md and "title
+      drift against the INDEX sheet" against INDEX.md; (2) DESCRIPTION
+      DRIFT, sheet side - SEO.md's Page Description for pharmacy-
+      scorah-hazel-grove changed to a different serving-area sentence,
+      page untouched - CAUGHT, "description drift"; (3) MISSING SHEET
+      ENTRY - the whole "## Scorah Chemists Bramhall" block deleted from
+      SEO.md - CAUGHT, "pharmacy-scorah-bramhall.html: no entry in any
+      paste sheet"; (4) INDEX-DIALECT TITLE DRIFT - INDEX.md's SEO
+      title row for McCanns Sandringham reverted from "St Michael's" to
+      the pre-Q15 "Sandringham" wording, SEO.md and the page untouched -
+      CAUGHT, "title drift against the INDEX sheet", and as a side
+      effect this reconfirms live that the Q15/item 5.7 seoTown
+      correction is still holding in this sheet four weeks on, since
+      only the injected INDEX.md copy disagreed. All four rounds fired
+      on their own intended rule, first attempt. Full 36-checker suite
+      re-run once after all four rounds restored: 36/36 exit 0 (check-
+      live-hours.js excluded, network-dependent). git status --porcelain
+      on the tracked working copy (modules, tools, branches.json, gbp-
+      packs, core) showed only the two long-standing pre-existing
+      untracked strays already logged on every prior pass, neither
+      touched.
+      LIVE HALF: not re-read this pass; scope was the repo-side checker
+      mechanism only. The nineteenth pass's live findings (all four of
+      this item's own landing URLs still 404, Q35 still open) stand
+      unchanged.
+      RESULT: no in-repo defect. tools/check-seo-sheets.js was already
+      correctly guarding this item's four branch landing pages against
+      both paste-sheet dialects, in both drift directions, and against
+      a missing entry, now proven directly by injection for the first
+      time in this item's twenty-pass history. No checker logic, page,
+      generator or data field changed anywhere in the repo. No new
+      question raised. Evidence: audits/verify-5.2-2026-09-18-
+      twentieth.js and audits/verify-5.2-2026-09-18-twentieth-output.txt.
+      Guard coverage for this item now extends to 19 of the estate's 36
+      checkers proven by direct injection against one of its own four
+      pages, its own branches.json/generator records, or a checker's own
+      source: check-address-region, check-app-membership (trivial),
+      check-branch-identity, check-branch-links, check-brand-spelling,
+      check-em-dashes, check-fragment-targets, check-jsonld, check-live-
+      hours, check-map-embeds, check-nap, check-opening-hours, check-
+      page-coverage, check-pharmacy-first-eligibility, check-postcodes,
+      check-seo-keywords, check-seo-sheets (new this pass), check-weight-
+      loss-copy (trivial), check-whatsapp-route (trivial).
+      FORWARD NOTE: next stalest by this run's own re-derivation is 3.8
+      (2026-09-17T18:11:03+01:00), followed by 4.7, 1.3, 4.1, 4.5, 4.10,
+      4.3, 4.13, 3.3/4.8 (tied) and 3.5, all touched later on 2026-09-17
+      or on 2026-09-18 by other runs today, since 5.2 itself now moves
+      to the back of the queue at 2026-09-18. Other runs may land in
+      between before the next pass.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
