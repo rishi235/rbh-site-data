@@ -1,0 +1,135 @@
+Item 4.5 quality pass, twenty-first - Scorah Chemists Hazel Grove GBP pack
+(gbp-packs/scorah-hazel-grove.md)
+Run: audit-backlog-worker, unattended scheduled run 120, 2026-09-18
+
+SCOPE AND METHOD
+Twenty prior passes had exhaustively proven almost every check-gbp-packs.js
+rule family against this pack's own copy: branch identity, structure,
+bank-holiday special hours, shared-domain profile website, the CATEGORIES
+section (both directions, proven twentieth pass 2026-09-17), the SERVICES
+section (both directions), claims vocabulary, photo shot list, catchment
+order and membership, business description length, post lengths,
+TRANSACTIONAL_CTAS/POM_POSTS button-label barring, POM_CLASS
+SELF_SCOPING/IN_CONTEXT, body image/social proof, clinic qualifiers, facts
+against branches.json, the phone in published copy, pack links against
+generated pages, post button destinations, lead-pricing/offer wording, the
+street address and review link, house numbers, the post-town line, hours on
+the profile (times and days both), the lunch-closure two-range instruction,
+the sister-branch claim, and the "another branch's TOWN in pasted copy"
+foreign-town rule.
+
+Grepped all twenty prior audit files under audits/scorah-hazel-grove-pack-
+check-*.txt for phrases matching each of the checker's own section comments
+(`grep -n "^  // --- "` in tools/check-gbp-packs.js) to find a rule family
+never independently proven against this specific pack. One came back with
+zero hits: "the town in the LOCATION clause, not just a foreign town"
+(tools/check-gbp-packs.js line 3395), the rule the item 4.9 pass (2026-08-13)
+wrote against clear-aintree.md and which the checker's own comment names
+scorah-hazel-grove.md as an example pack whose current wording does NOT
+trigger it ("on Macclesfield Road, Scorah Chemists Hazel Grove looks after"
+has no town word directly after the road, so the location-construct regex
+does not match). That comment has stood unverified against this pack for
+five weeks; this pass tested it by injection rather than continuing to trust
+the comment.
+
+BASELINE
+sha256 unchanged since the twentieth pass (2026-09-17):
+  gbp-packs/scorah-hazel-grove.md  968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a
+  tools/check-gbp-packs.js         a5edc791856fb865b22d00f7a6b15151587cb922a2b4eeb0977c1a5ed3405b94
+  branches.json                    169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+All three match run 81's recorded hashes exactly - nothing has moved since.
+
+FIELD-BY-FIELD FACT RE-CHECK (twenty-first time): name, street address,
+postcode, phone, hours (Mon-Fri 09:00-18:00, Sat/Sun closed, 24 June Saturday
+closure note), review link, catchment order and its five towns (Hazel Grove,
+Bramhall, Offerton, Great Moor, Poynton), hasApp false, pfLink, profile
+website on its own landing page, the sister-branch sentence naming Bramhall,
+the bank-holiday paster note - all still correct against branches.json
+(id scorah_hazel), nothing to fix.
+
+FULL CHECKER SUITE: 35 checkers run individually against the tracked repo
+(all tools/check-*.js except check-cdn-pins.js and check-live-hours.js,
+both network-dependent) - 0 failures, before and after this pass's work.
+Pre-existing estate-wide warnings unchanged (Q64 post-town divergence on
+five packs, the Smartts Bootle live-only link).
+
+INJECTION TEST (git-archive scratch copy at /tmp/scratch-4.5-run120, never
+the tracked working tree - restored by byte copy via `git show HEAD:... >`,
+not `git checkout`, per the run-115 lesson that git checkout can destroy an
+uncommitted fix):
+
+Baseline run on the scratch copy: 0 failures, matching the tracked repo.
+
+TEST: business description's opening clause changed from
+  "on Macclesfield Road, Scorah Chemists Hazel Grove looks after"
+to
+  "on Macclesfield Road in Bramhall, Scorah Chemists Hazel Grove looks after"
+- inserting a location-clause town (Bramhall) that IS in this branch's own
+serviceAreaList, so the foreign-town rule above it would wrongly exempt it as
+a catchment mention, which is exactly the fault class the LOCATION-clause
+rule exists to catch instead.
+
+RESULT: CAUGHT, exit 1, two failures:
+  1. The intended rule fired exactly as designed: "the business description
+     places this branch on its own road but in \"Bramhall\", which is the
+     town of Scorah Chemists Bramhall, while branches.json puts it in
+     \"Hazel Grove\" (postal \"Hazel Grove\"). The catchment rule above does
+     not see it, because \"Bramhall\" is in this branch's own serviceAreaList
+     and is therefore exempt as a catchment town, but a catchment town is
+     somewhere the branch SERVES, not where it IS... The construct reads
+     \"Road in Bramhall\""
+  2. An honest side effect, not noise: the description-length heading now
+     reads "712" while the injected text is 724 characters, caught by the
+     separate description-length rule - correct behaviour, since a real edit
+     adding twelve characters would also need the heading updated.
+
+Both fired on exactly the injected fault, no cross-firing beyond the
+expected pairing. This is the first time the LOCATION-clause rule has been
+shown to fire against this pack's own copy in twenty-one passes; the prior
+comment that this pack's wording does not trigger it (and is therefore
+skipped, not exempted by a real rule) is now independently confirmed AND the
+detection path is proven to work the moment the wording changes to include
+one.
+
+RESTORE: gbp-packs/scorah-hazel-grove.md in the scratch copy restored via
+`git show HEAD:gbp-packs/scorah-hazel-grove.md >`, sha256-reconfirmed
+identical to the pre-injection baseline (968a86dc...61045a). Checker re-run
+on the restored scratch copy: 0 failures. Tracked working-tree copy was never
+opened for writing at any point (sha256 checked before and after: unchanged
+at 968a86dc...61045a). Full 35-checker suite re-run against the tracked repo
+after the scratch-copy work: 0 failures.
+
+No in-repo defect found. No checker, generator, pack or branches.json content
+changed.
+
+LIVE HALF (Claude in Chrome, one fetch, read-only, nothing clicked, typed or
+submitted): https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+re-fetched - still "404 - Page Not Found" (Q35 class, unchanged since the
+seventh pass, 2026-09-01). No other live surface re-walked this pass.
+
+ANSWER PICKUP (step 3, same run): navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, unchanged since every
+run since that date. QUESTIONS.json Q52 already recorded status "answered"
+with matching text; nothing new to apply.
+
+No new question raised. QUESTIONS.json unchanged (113 total, 60 open).
+
+GIT HYGIENE: `.git/index.lock` left behind by a routine `git status` this
+run (the documented sandbox-mount "unable to unlink" restriction, seen on
+prior runs); cleared by rename rather than delete. `git status --porcelain`
+on modules/, core/, branches.json, gbp-packs/, tools/, compliance/ shows only
+the two long-standing pre-existing untracked strays at the repo root
+(gbp-packs/.fuse_hidden0000000400000001, dated 2026-09-08;
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, dated
+2026-09-09) - both predate this run by well over a week and neither was
+touched.
+
+FORWARD NOTE: rotation pool re-derived fresh via git log per "[Ii]tem
+\d+\.\d+" in commit subjects, excluding the seven standing out-of-rotation
+items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight currently-[BLOCKED]
+worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6).
+Before this run's own commit moves 4.5 to the top of recency, the next
+stalest items in order were 4.10, 4.3, 4.13, 4.8, 3.3, 3.5, 1.2, 2.3, 3.1,
+6.2, 3.2, 6.3, 3.7, 3.11 - re-derive fresh next run rather than trusting this
+note, since the pool shifts every run.

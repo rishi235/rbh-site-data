@@ -1,3 +1,96 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 120;
+mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
+pull/status, the git-archive scratch copy at /tmp/scratch-4.5-run120, the
+injection/restore cycle and the 35-checker suite runs (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent); mcp__claude-in-
+chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 portal
+answer pickup and the item 4.5 live-half fetch, two tabs total, both
+read-only throughout, nothing clicked, typed or submitted; Write used for the
+new audits file; Edit used for AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 119's own
+addendum confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T18:04:41Z). git fetch origin, git checkout agents/audit-backlog
+(no-op, already on it) and git pull --ff-only both completed clean, confirmed
+up to date with origin (HEAD at run 119's commit "Item 4.1 run 119: log
+addendum...").
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. QUESTIONS.json already carries Q52 as status "answered"
+with the matching text; nothing new to apply. 60 of 113 questions open before
+this run.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 119's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the 36-item pool, 4.5 (Scorah Chemists Hazel Grove
+GBP pack) came out stalest at 2026-09-17T20:12:01+01:00, ahead of the
+runner-up 4.10 (21:17:07). Chosen: 4.5, twenty-first pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.5 block and
+audits/scorah-hazel-grove-pack-check-2026-09-18-twentyfirst.txt; this is the
+mirrored summary. Twenty prior passes had proven almost every
+check-gbp-packs.js rule family against this pack's own copy. Grepped all
+twenty prior audit files against every section-comment phrase in the
+checker's own source; one rule family came back with zero hits - "the town
+in the LOCATION clause, not just a foreign town" (line 3395), which the
+checker's own comment names this pack as an example that does NOT currently
+trigger it (no town word sits directly after the road name in the current
+wording). That comment had stood unverified against this pack for five
+weeks. Baseline sha256 confirmed unchanged since the twentieth pass on all
+three relevant files (pack, checker, branches.json), matching run 81's
+recorded hashes exactly. Full field-by-field fact re-check against
+branches.json (id scorah_hazel): all correct, nothing to fix. Full
+35-checker suite: 0 failures before and after. INJECTION on a git-archive
+scratch copy (/tmp/scratch-4.5-run120, tracked file never opened for
+writing): the description's opening clause changed from "on Macclesfield
+Road, Scorah Chemists Hazel Grove looks after" to "on Macclesfield Road in
+Bramhall, Scorah Chemists Hazel Grove looks after" - inserting a catchment
+town (Bramhall, in this branch's own serviceAreaList, so the foreign-town
+rule above would wrongly exempt it) into the location construct itself.
+CAUGHT, exit 1, two failures: the intended LOCATION-clause rule fired with
+the exact expected message, naming Bramhall as Scorah Chemists Bramhall's own
+town and quoting the construct "Road in Bramhall"; and the description-length
+rule caught the honest side effect of the twelve added characters (712
+claimed vs 724 actual). No cross-firing beyond that expected pairing.
+RESTORE: byte copy from `git show HEAD:gbp-packs/scorah-hazel-grove.md >`,
+not `git checkout` (the run-115 lesson: git checkout can destroy an
+uncommitted fix). sha256-reconfirmed identical to baseline
+(968a86dc...61045a) both on the scratch copy and, throughout, on the tracked
+working-tree file, which was never written to. Checker re-run clean on the
+restored scratch copy (0 failures) and the full 35-checker suite re-run
+clean on the tracked repo afterwards (0 failures). No in-repo defect found;
+no checker, generator, pack or branches.json content changed. This is the
+first time in twenty-one passes the LOCATION-clause rule has been shown to
+actually fire against this pack's own copy, rather than resting on the
+checker comment's word that it would.
+LIVE HALF: Claude in Chrome, one fetch, read-only.
+https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+re-fetched directly: still "404 - Page Not Found" (Q35 class, unchanged
+since the seventh pass, 2026-09-01). No other live surface re-walked this
+pass, to keep the live footprint to the one fresh confirmatory check. No new
+live fault found. No new question; QUESTIONS.json unchanged at 113 total, 60
+open.
+GIT HYGIENE: a routine `git status` left a fresh `.git/index.lock` behind
+(the documented sandbox-mount "unable to unlink" restriction seen on prior
+runs); cleared by rename, not delete, same as prior runs. `git status
+--porcelain -- modules core branches.json gbp-packs tools compliance` shows
+only the two long-standing pre-existing untracked strays at the repo root
+(gbp-packs/.fuse_hidden0000000400000001, dated 2026-09-08;
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, dated
+2026-09-09), both well over a week old and neither touched this run.
+FORWARD NOTE: next stalest by this run's own re-derivation, before this
+run's own commit moves 4.5 to the top of recency, was 4.10
+(2026-09-17T21:17:07+01:00), then 4.3, 4.13, 4.8, 3.3, 3.5, 1.2, 2.3, 3.1,
+6.2, 3.2, 6.3, 3.7, 3.11 and onward - re-derive fresh next run rather than
+trusting this note, since the pool shifts every run. STEP 10 (status page
+publish) and STEPS 9/11 (commit, push, lock removal): see the commit that
+follows this log entry and the run's own closing actions.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 119;
 mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
 pull/status, the scratch-copy injection proofs and the checker suite;

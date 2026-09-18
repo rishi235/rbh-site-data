@@ -19833,6 +19833,27 @@ audits/verify-4.4-2026-09-18-twentysecond-output.txt. Done 2026-09-18
       PF page link, and the Q3/Q4 checks before pasting. No app mention
       (hasApp false); weight loss post has no medicine names or efficacy
       claims.
+      Quality pass 2026-09-18 (twenty-first, unattended run 120): sha256
+      unchanged since the twentieth pass; field-by-field facts re-verified
+      against branches.json for the twenty-first time, all correct. Full
+      35-checker suite clean before and after (0 failures). Fresh angle:
+      the LOCATION-clause rule (tools/check-gbp-packs.js line 3395) had never
+      been independently proven against this pack's own copy in twenty prior
+      passes - its own comment names this pack as one whose current wording
+      does not trigger it. Tested by injection on a git-archive scratch copy
+      (tracked file never opened for writing, sha256-confirmed unchanged
+      throughout): changed the description's opening clause to "on
+      Macclesfield Road in Bramhall, Scorah Chemists Hazel Grove looks
+      after", inserting a catchment town (Bramhall, in this branch's own
+      serviceAreaList) into the location construct. CAUGHT, exit 1, both the
+      intended LOCATION-clause rule and the description-length rule (the
+      injected text pushed length from 712 to 724, an honest side effect).
+      Restored by byte copy from `git show HEAD:...`, not `git checkout`;
+      sha256-reconfirmed identical, checker re-run clean. No in-repo defect;
+      no content changed. Live half: pharmacy-scorah-hazel-grove.html still
+      404 (Q35 class, unchanged since the seventh pass). No new question.
+      Full detail in audits/scorah-hazel-grove-pack-check-2026-09-18-
+      twentyfirst.txt.
 Quality pass 2026-08-11: the pack verified fact by fact against branches.json
 for the second time and found correct on name, street address, post town,
 postcode, phone, hours including the 24 June Saturday closure, review link,
