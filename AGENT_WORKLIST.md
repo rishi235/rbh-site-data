@@ -35896,6 +35896,38 @@ live DOM, not saved to a separate audit file (same convention as the
       since 2026-09-01. No new answer for any currently open question.
       Evidence: audits/verify-6.2-2026-09-18-eighteenth.js and
       audits/verify-6.2-2026-09-18-eighteenth-output.txt.
+      Nineteenth quality pass, 2026-09-19: REPO HALF - ran
+      tools/check-service-links.js as-is against the tracked repo rather than
+      via a new injection (case-insensitivity, the last untested dimension of
+      RULE 1's host/path matching, was already closed by the eighteenth pass
+      the day before; no further gap was identified worth a fresh scratch-copy
+      injection this run). Clean: 177 generated pages, 6 non-generated
+      public-copy files, 2 JS copy sources, 1000 links, 423 to the estate's 13
+      branch domains, exit 0, same 6 KNOWN issues as every prior pass (5 link
+      targets + 1 claim), none stale.
+      LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked, typed
+      or submitted): all three Q53 dead links re-read and unchanged 39 days
+      after they were first found - www.riddingspharmacy.co.uk/clinic-prices
+      still 404s (service-price-list.html still serves the real price page),
+      www.tiffenbergschemist.co.uk/book-now.html still 404s, and
+      www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+      still 404s while switch-prescriptions.html still serves live and still
+      carries the "Support that delivers results." weight loss tile. Also
+      spot-checked two of the five KNOWN link-target entries directly: Smartts
+      Bootle's weight-loss-clinic-bootle.html still live and still names
+      Wegovy, Mounjaro and Orlistat with the 22.5%/72-week claim and a £39.99
+      price, and pharmacy-first-service-bootle.html still exists as the old
+      live-only page. Both KNOWN entries still accurately describe live
+      reality; nothing to update in the checker. Q53 and Q54 stay open,
+      nothing new to add to either.
+      STEP 3 answer pickup: portal feed read in full this run - newest entry
+      still Q52, 2026-09-01T22:44:51.524Z, identical to every run since
+      2026-09-01. No new answer for any currently open question.
+      RESULT: zero in-repo defect, no new question. This pass was a
+      re-verification (checker run plus five live URL reads) rather than a
+      new injection round; the case dimension closed yesterday appears to have
+      been the last one worth testing via injection, and no new untested angle
+      was found this run.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
