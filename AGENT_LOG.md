@@ -1,3 +1,102 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 123;
+mcp__workspace__bash used throughout for the lock check, git fetch/pull/
+status, the full 35-checker baseline, the git-archive scratch copy at
+/tmp/run123work/scratch-4.13 (injection/restore cycle for
+tools/check-url-scheme.js against gbp-packs/riddings-timperley.md), and the
+post-restore suite re-run; mcp__claude-in-chrome__navigate/get_page_text/
+javascript_tool/tabs_close_mcp used for the step 3 portal answer pickup and
+the item 4.13 live half, two tabs total, read-only throughout, nothing
+clicked, typed or submitted; mcp__Windows-MCP__PowerShell used to clear a
+stuck .git/index.lock the sandbox's own unlink() could not remove (the
+standing Q87/Q96/Q102 sandbox-FUSE fault) and to run git add/commit/push and
+the status-page publish, following the established route recent runs use for
+all git writes; Write used for the new audits file; Edit used for
+AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 122's own
+entry confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T19:34:32Z). git fetch origin, git checkout agents/audit-backlog
+(already on it) and git pull --ff-only both completed clean, confirmed up to
+date with origin (HEAD at run 122's commit for item 4.3).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. QUESTIONS.json already carries Q52 as "answered" with
+matching text; nothing new to apply. 60 of 113 questions open before this
+run, unchanged after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 122's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the same 36-item pool, 4.13 (Riddings Pharmacy
+Timperley GBP pack) came out stalest at 2026-09-17T22:11:34+01:00, ahead of
+4.8 as runner-up - matches run 122's own forward note exactly. Chosen: 4.13,
+twenty-first pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.13 block and
+audits/riddings-timperley-url-scheme-4.13-twentyfirst-2026-09-18.txt; this is
+the mirrored summary. Twenty prior passes had never individually named
+tools/check-url-scheme.js against this pack. Of the ten checkers confirmed to
+genuinely read gbp-packs/*.md via a real PACK_DIR/readdirSync/PUBLISHED_DIRS
+reference, three remained untested against this pack: check-em-dashes.js,
+check-postcodes.js and check-url-scheme.js. Chose check-url-scheme.js: it is
+the checker written for item 6.6 (http/https duplicate indexing) and Riddings
+is one of the three branches measured in GBP_MANUAL.md's own click-split
+table for that item and one of the nine profiles already held in the
+checker's own KNOWN exemption list.
+BASELINE: full 35-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, network-dependent) run individually against the tracked repo:
+35/35 exit 0. Pack sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0
+fed824630a775917c04 confirmed unchanged since the tenth pass; checker sha256
+1c503f0e66b393d213e1d67932ef9297fe960999f8406f26d85584809b26c0a1.
+INJECTION on a git-archive scratch copy (/tmp/run123work/scratch-4.13,
+tracked files never opened for writing, restored by byte copy and
+sha256-reconfirmed after every round): TEST 1 (Rule 1, INSECURE) changed
+Post C's weight-loss button URL to http:// - CAUGHT first attempt, exact
+file and URL named. CONTROL (a genuine content reword away from any URL) -
+PASSED CLEAN, proving the rule fires on scheme, not proximity. TEST 2 (Rule
+2, GBPSITE) removed the "Riddings" key from the checker's own KNOWN object
+(the checker file, not the pack) - CAUGHT, confirming the standing exemption
+for Riddings' live GBP http divergence (Q66) is doing real work rather than
+sitting unused. All three rounds fired or passed on the intended rule(s)
+first attempt. No defect: the pack carries no insecure URL anywhere,
+correctly. Full 35-checker suite re-run clean on the scratch copy after
+final restore (35/35, 0 failures); git status --porcelain -- modules core
+branches.json gbp-packs tools compliance showed only the two long-standing
+pre-existing untracked strays, neither touched. No generator, checker rule
+or branches.json content changed: proof, not a fix.
+LIVE HALF, Claude in Chrome, read-only, two tabs (separate from the step 3
+tab, both closed after use): pharmacy-first-riddings-timperley.html loaded
+natively on https, 104 <a href> links, 0 starting http://, no insecure
+meta/link tag values, og:url https - directly on this pass's own angle,
+clean. switch-prescriptions.html (the pack's own documented old-permalink
+live page) loaded on https, 106 <a href> links, 0 insecure; H1 still lacks
+town words, the same pre-Phase-3 paste finding prior passes already logged,
+not new, not this pass's own angle. No new live fault, no new question
+raised, QUESTIONS.json unchanged at 113 total, 60 open.
+INFRASTRUCTURE NOTE (steps 1-2 and 9): git status inside
+mcp__workspace__bash reported "unable to unlink '.../.git/index.lock':
+Operation not permitted" (a fresh, 0-byte lock file, no git process holding
+it - the standing sandbox-FUSE unlink fault recorded at Q87/Q96/Q102).
+Cleared it via mcp__Windows-MCP__PowerShell's `Remove-Item -Force` against
+C:\Dev\rbh-site-data\.git\index.lock on the real ProDesk host (same disk as
+the sandbox mount), then ran git add/commit/push and the
+build-audit-status.js publish from the same PowerShell session, following
+the route Q102 already documents as the established fallback for every git
+write from this environment. No new question raised; this is the same
+standing fault Q102 already tracks, not a new one, and its recommendation
+(make Windows-MCP primary for git writes) still stands as Rishi's call, not
+mine, so status left as-is.
+FORWARD NOTE for the next quality-pass run: the 36-item pool's next-stalest
+item after 4.13 (now freshly touched) is 4.8, last touched
+2026-09-17T22:45:28+01:00 - re-derive fresh rather than trust this number, in
+case an intervening run changes it. check-em-dashes.js and check-postcodes.js
+remain untested by individual injection against gbp-packs/riddings-
+timperley.md specifically, for whichever future pass returns to item 4.13.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 122;
 mcp__workspace__bash used throughout for the lock check, git fetch/pull/status,
 the checker suite runs, the git-archive scratch copy at /tmp/scratch-4.3-run122

@@ -1,0 +1,144 @@
+ITEM 4.13 QUALITY PASS (twenty-first), 2026-09-18 (unattended scheduled run,
+audit-backlog-worker, run 123)
+Subject: gbp-packs/riddings-timperley.md (Riddings Pharmacy, Timperley)
+New angle: tools/check-url-scheme.js (added 2026-08-13 on worklist item 6.6)
+
+SELECTION
+---------
+Twenty prior passes against this pack never individually named
+tools/check-url-scheme.js (confirmed by grepping the item's full
+AGENT_WORKLIST.md block: zero hits, versus nineteen for check-gbp-packs.js,
+three for check-gbp-pharmacy-first.js, three for check-pharmacy-first-cost.js,
+two each for check-app-membership.js, check-brand-spelling.js,
+check-pharmacy-first-eligibility.js and check-uk-spelling.js). Of the ten
+checkers confirmed to genuinely read gbp-packs/*.md via a real
+PACK_DIR/readdirSync/PUBLISHED_DIRS reference (check-app-membership,
+check-brand-spelling, check-em-dashes, check-gbp-packs,
+check-gbp-pharmacy-first, check-pharmacy-first-cost,
+check-pharmacy-first-eligibility, check-uk-spelling, check-postcodes,
+check-url-scheme), three remained untested against this pack's own copy:
+check-em-dashes.js, check-postcodes.js and check-url-scheme.js. Chose
+check-url-scheme.js: it is the checker written specifically for item 6.6
+(http/https duplicate indexing), and Riddings is one of the three branches
+named in GBP_MANUAL.md's own http/https click-split table for that item, and
+one of the nine profiles already carried in the checker's own KNOWN
+exemption list (the "Riddings" key) - a directly relevant, previously
+untested surface for this specific pack.
+
+BASELINE
+--------
+Rotation re-derived via `git log --pretty="%aI|||%s"` parsed with the
+established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight [BLOCKED] items (5.3, 5.4, 5.5, 5.8, 6.1, both 6.4/6.5 lines, 6.6). 4.13
+resolved to 2026-09-17T22:11:34+01:00, the single stalest, ahead of 4.8 as
+runner-up - matches run 122's own forward note exactly.
+
+Full 35-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) run individually against the tracked repo before any
+work: 35/35 exit 0.
+
+Baseline hashes recorded and reconfirmed unchanged throughout:
+  gbp-packs/riddings-timperley.md
+    8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+    (unchanged since the tenth pass, per the nineteenth/twentieth pass notes)
+  tools/check-url-scheme.js
+    1c503f0e66b393d213e1d67932ef9297fe960999f8406f26d85584809b26c0a1
+  branches.json
+    169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+
+METHOD
+------
+Git-archive scratch copy at /tmp/run123work/scratch-4.13 (git archive HEAD |
+tar -x), tracked working copy never opened for writing. Baseline run of
+check-url-scheme.js against the scratch copy: clean, 222 published files
+scanned, 59 branches.json URL values, 16 GBP table rows, 0 insecure URLs
+outside narrative surfaces, 84 quoted in narrative surfaces, 9 held under
+KNOWN, 0 failures.
+
+TEST 1 (Rule 1, INSECURE): Post C's button
+"Button: Book -> https://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html"
+changed to http:// -
+CAUGHT first attempt: "FAIL INSECURE gbp-packs/riddings-timperley.md:
+published surface carries http://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html.
+An insecure estate URL on a live page is a crawlable duplicate of the https
+page, which is item 6.6." Exit code 1. Restored by byte copy; sha256
+reconfirmed identical to the tracked original (8cc58796...7917c04) before the
+next round.
+
+CONTROL: a genuine content edit not touching any URL - Post C's "Confidential
+and judgement-free." changed to "Confidential and supportive throughout." -
+PASSED CLEAN (0 failures, 0 insecure URLs), proving the rule fires on the
+scheme and not on the fact of an edit near a button line. Restored by byte
+copy after use.
+
+TEST 2 (Rule 2, GBPSITE, proving the KNOWN exemption is real rather than
+decorative): removed the "Riddings" key from check-url-scheme.js's own KNOWN
+object on the scratch copy (the checker file, not the pack) -
+CAUGHT: "FAIL GBPSITE GBP_MANUAL.md:100: Riddings publishes
+http://www.riddingspharmacy.co.uk/ but branches.json riddings_timperley.website
+is https://www.riddingspharmacy.co.uk. Differs on SCHEME (http:// against
+https://)." Exit code 1. Confirms the live GBP http divergence for this
+branch is genuinely held by the exemption and not simply absent from the
+table. Restored by byte copy; sha256 reconfirmed identical to the tracked
+original (1c503f0e...26c0a1) after.
+
+Final scratch-copy state re-verified against both original hashes exactly.
+Full 35-checker suite re-run on the scratch copy after final restore: 35/35
+exit 0.
+
+Tracked repo confirmed untouched throughout: git status --porcelain -- modules
+core branches.json gbp-packs tools compliance showed only the two
+long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. sha256 of gbp-packs/riddings-timperley.md and
+tools/check-url-scheme.js on the tracked repo unchanged before and after this
+pass's work. Scratch copy deleted at the end of the run.
+
+No in-repo defect: the pack carries no insecure URL anywhere, correctly, and
+the checker's own KNOWN exemption for Riddings' live GBP http divergence
+(Q66, held for Rishi as a live profile edit) is proven to be doing real work
+rather than sitting unused. This pass is proof, not a fix.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, two tabs sequentially (each closed after use),
+nothing clicked, typed or submitted beyond navigation and script-based text
+extraction.
+
+https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html:
+loaded natively on https (no scheme redirect needed), 104 <a href> links, 0
+starting http://, no insecure meta/link tag values, og:url
+https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html.
+Directly on this pass's own angle: clean.
+
+https://www.riddingspharmacy.co.uk/switch-prescriptions.html (the pack's own
+documented old-permalink live page): loaded on https, 106 <a href> links, 0
+starting http://. H1 still reads "Switch your prescriptions to Riddings
+Pharmacy in under 30 seconds" with no town words - the same pre-Phase-3 paste
+finding logged by prior passes, not new, not this pass's own angle, not
+re-raised as a fresh finding.
+
+No new live fault on the checked angle. Previously logged live state (old
+switch permalink, "Timperley, Cheshire" footer divergence from
+addressRegion "Greater Manchester", weight-loss-clinic-riddings-timperley.html
+POM content under item 5.8/Q5, sitemap duplication under item 6.1/Q52) not
+independently re-verified this pass, nothing in this pass's own subject
+bearing on any of them.
+
+ANSWER PICKUP (step 3)
+-----------------------
+Claude in Chrome navigate + get_page_text to
+https://data.rbhealth.co.uk/api/feedback succeeded first attempt, single tab,
+no dual sign-in encountered. Newest entry still Q52, dated
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01. Explicitly
+re-checked: QUESTIONS.json already carries Q52 as "answered" with matching
+text. No new answer for any of the 60 open questions. No new question
+raised.
+
+RESULT
+------
+No in-repo defect. tools/check-url-scheme.js proven for the first time
+against gbp-packs/riddings-timperley.md's own copy, twenty-first pass on this
+item, clean throughout. QUESTIONS.json unchanged at 113 total, 60 open.

@@ -27258,6 +27258,55 @@ directly rather than re-deriving the same facts by hand.
       QUESTIONS.json unchanged at 110 total, 57 open. Evidence:
       audits/riddings-timperley-app-membership-4.13-twentieth-2026-09-17.txt.
       Done 2026-09-17.
+      Twenty-first quality pass 2026-09-18 (run 123): twenty prior passes had
+      never individually named tools/check-url-scheme.js against this pack
+      (confirmed by grep across the item's full block: zero hits). Of the ten
+      checkers confirmed to genuinely read gbp-packs/*.md via a real
+      PACK_DIR/readdirSync/PUBLISHED_DIRS reference, check-em-dashes.js,
+      check-postcodes.js and check-url-scheme.js remained untested against
+      this pack; chose check-url-scheme.js because it is the checker written
+      for item 6.6 and Riddings is one of the three branches measured in
+      GBP_MANUAL.md's own http/https click-split table for that item, and one
+      of the nine profiles already held in the checker's own KNOWN exemption
+      list. Rotation re-derived fresh via the established git-log method: 4.13
+      resolved to 2026-09-17T22:11:34+01:00, stalest, ahead of 4.8 - matches
+      run 122's forward note. BASELINE: full 35-checker suite (check-cdn-
+      pins.js and check-live-hours.js excluded, network-dependent) 35/35 exit
+      0; pack sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0
+      fed824630a775917c04 unchanged since the tenth pass; checker sha256
+      1c503f0e66b393d213e1d67932ef9297fe960999f8406f26d85584809b26c0a1.
+      METHOD: git-archive scratch copy at /tmp, tracked file never opened for
+      writing. TEST 1 (Rule 1, INSECURE): Post C's weight-loss button URL
+      changed to http:// - CAUGHT first attempt, naming the exact file and
+      URL. CONTROL: a genuine content reword away from any URL - PASSED CLEAN,
+      proving the rule fires on scheme, not proximity. TEST 2 (Rule 2,
+      GBPSITE): removed the "Riddings" key from the checker's own KNOWN object
+      (checker file, not the pack) - CAUGHT, "GBPSITE ... Riddings publishes
+      http://www.riddingspharmacy.co.uk/ ... Differs on SCHEME", confirming
+      the standing exemption for Riddings' live GBP http divergence (Q66) is
+      doing real work rather than sitting unused. All mutations restored by
+      byte copy and sha256-reconfirmed identical before the next round and at
+      the end. Full 35-checker suite re-run clean on the scratch copy after
+      final restore (35/35). Tracked repo confirmed untouched throughout
+      (git status --porcelain showed only the two long-standing pre-existing
+      untracked strays); scratch copy deleted after use. No in-repo defect:
+      proof, not a fix.
+      LIVE HALF: Claude in Chrome, read-only, two tabs, nothing clicked, typed
+      or submitted. pharmacy-first-riddings-timperley.html: loaded natively on
+      https, 104 <a href> links, 0 insecure, no insecure meta/link tags,
+      og:url https. switch-prescriptions.html (old permalink): loaded on
+      https, 106 <a href> links, 0 insecure; H1 still lacks town words, the
+      same pre-Phase-3 finding prior passes already logged, not new, not this
+      pass's angle. No new live fault on the checked angle; other standing
+      findings (old switch permalink, "Timperley, Cheshire" footer, weight
+      loss POM content under 5.8/Q5, sitemap duplication under 6.1/Q52) not
+      independently re-verified this pass.
+      ANSWER PICKUP (step 3): portal feed read in full via a single Claude in
+      Chrome tab, no dual sign-in; newest entry still Q52, 2026-09-01, already
+      applied; nothing new to pick up. No new question raised. QUESTIONS.json
+      unchanged at 113 total, 60 open. Evidence: audits/riddings-timperley-
+      url-scheme-4.13-twentyfirst-2026-09-18.txt.
+      Done 2026-09-18.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
