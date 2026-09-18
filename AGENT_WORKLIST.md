@@ -20510,6 +20510,49 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       finding, no new question; open question count unchanged at 57 of 110.
       Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-17-nineteenth.txt.
+      Quality pass 2026-09-18 (unattended run 101, twentieth pass): all eight
+      remaining unchecked worklist lines confirmed [BLOCKED]; fell to the
+      quality-pass fallback. Rotation pool re-derived mechanically from git
+      log commit dates for each completed item's own current paragraph range,
+      minus the seven standing out-of-rotation items and the twelve items
+      already touched earlier today; 4.6 stalest at 2026-09-17T11:41:32+01:00,
+      clear of the next candidate (4.11 at 12:14:15+01:00). NEW ANGLE:
+      tools/check-app-membership.js, which reads gbp-packs/ (rules 8a/8b/8c:
+      published copy, photo shot list and paster notes must all agree with
+      branches.json's hasApp), had never been named once across nineteen
+      prior passes on this item. mccanns_aigburth has hasApp: false, and the
+      pack's own paster note already correctly says so. BASELINE: sha256 of
+      the pack fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693,
+      unchanged since 2026-08-04; 32/32 checkers exit 0 on the tracked repo
+      (check-cdn-pins.js and check-live-hours.js excluded, network-dependent).
+      Scratch copy via git archive HEAD, sha256-confirmed identical before
+      starting. FOUR INJECTIONS against the scratch copy, each restored by
+      byte copy and sha256-reconfirmed before the next: (1) rule 8a - an app
+      sentence appended to the business description - CAUGHT, exit 1, two
+      failures (the intended 8a plus an unanticipated paster-note cross-check
+      the checker already carries); (2) rule 8b - an app-screenshot line
+      appended to the photo shot list - CAUGHT, exit 1, exactly one failure;
+      (3) rule 8c - the paster note's "hasApp false" flipped to "hasApp true"
+      - CAUGHT, exit 1, exactly one failure; (4) CONTROL - an unrelated
+      wording change in Post C with no app/store language - PASSED, exit 0,
+      no cross-firing. All caught or passed on the intended rule, first
+      attempt. Full 32-checker suite re-run clean on the scratch copy after
+      the final restore; tracked repo's own copy of the pack sha256-confirmed
+      unchanged throughout; git status showed only the two long-standing
+      untracked strays, neither touched; full 32-checker suite re-run on the
+      tracked repo afterwards, 32/32 exit 0. No in-repo defect: rules 8a, 8b
+      and 8c now all proven by injection against this specific pack for the
+      first time. LIVE HALF (Claude in Chrome, read-only): profile landing
+      page still 404, unchanged, awaiting the queued paste run (5.3/5.4);
+      switch-prescriptions-mccanns-aigburth.html 200, full text read, no app
+      mention or store link anywhere on the page, consistent with hasApp:
+      false; already-tracked live drifts reconfirmed, none new (Weebly title
+      suffix, "Sandrigham Medical Centre" footer typo, Q49's unconditional
+      hero wording against its own hedged FAQ answer, already answered and
+      pending the same queued Weebly session as 5.5/Q13). No new in-repo
+      defect, no new live finding, no new question; open question count
+      unchanged at 58 of 111. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-18-twentieth.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

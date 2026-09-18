@@ -1,0 +1,113 @@
+Item 4.6 - McCanns Chemist Aigburth GBP pack
+Quality pass 2026-09-18 (unattended run 101, twentieth pass)
+
+CONTEXT
+Nineteen prior passes on this exact item (2026-08-04 through 2026-09-17) had
+proven, by direct injection against gbp-packs/mccanns-aigburth.md itself:
+check-gbp-packs.js (branch-name-as-place, address-repeated-four-times,
+hours-in-four-places, time/day pairing, splitDay, sister-branch-in-prose,
+PRICE_PATTERNS lead pricing, shared-domain website, EM_DASH mojibake fix,
+phone-in-published-copy), check-pharmacy-first-eligibility.js rule 9 (GBP
+pack age-cohort pinning), check-gbp-pharmacy-first.js rules 3-9 (all seven,
+nineteenth pass), and check-brand-spelling.js rule 6 (SHORT, scoped to the
+business description).
+
+tools/check-app-membership.js reads gbp-packs/ (rules 8a/8b/8c: the pack's
+published copy, its photo shot list and its paster notes must all agree
+with branches.json's hasApp for that branch) but had never been named once
+in this item's own nineteen-pass history. mccanns_aigburth has hasApp:
+false, so the pack is a clean non-member test case, and the pack's own
+paster notes already carry the correct "No app mention anywhere in this
+pack: branches.json has hasApp false for this branch" line (line 151-152).
+
+BASELINE
+- sha256 of gbp-packs/mccanns-aigburth.md:
+  fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+  (unchanged since 2026-08-04, matching every prior pass's recorded value)
+- Full checker sweep on the tracked repo before starting: 32/32 checkers
+  exit 0 (all tools/check-*.js except check-cdn-pins.js and
+  check-live-hours.js, both network-dependent, standing convention).
+- node tools/check-app-membership.js on the tracked repo: clean, "every
+  app card and app sentence matches hasApp, 0 known exception(s)".
+- node tools/check-gbp-packs.js on the tracked repo: 0 failures, same
+  known WARNs as every prior pass (none touching this pack).
+
+METHOD
+Repo exported via `git archive HEAD | tar -x` to a disposable scratch copy
+under the outputs mount (not /tmp, per the item 3.8 nineteenth-pass
+finding that /tmp gave stale/inconsistent reads on this sandbox this run
+cycle). Tracked repo never opened for writing during the injection round.
+Scratch copy's own sha256 of the pack confirmed identical to the tracked
+repo before starting.
+
+Four rounds against the scratch copy's own gbp-packs/mccanns-aigburth.md,
+each restored by byte copy from a pristine backup (not git checkout, this
+mount's documented unlink restriction) and sha256-reconfirmed identical
+before the next round:
+
+1. RULE 8a (published copy claims an app): appended "Manage your repeat
+   prescriptions on the go with our app." to the end of the business
+   description (## 1). RESULT: exit 1, TWO failures - the intended 8a
+   ("the copy pasted into the public Google profile claims an app, but
+   branches.json has hasApp false for mccanns_aigburth") plus a second,
+   unanticipated rule catching the same injection from the paster-note
+   side ("the paster note says there is no app mention anywhere in this
+   pack, but the pasted copy carries one"). Both fired first attempt,
+   exact wording.
+
+2. RULE 8b (photo shot list asks for an app shot): appended "Screenshot of
+   the app's repeat prescription screen, to promote the app in-store." to
+   the photo shot list (## 4). RESULT: exit 1, exactly one failure, exact
+   wording, no cross-fire into rule 8a (the shot list is read separately
+   from published copy) or 8c.
+
+3. RULE 8c (paster note contradicts the field): changed "No app mention
+   anywhere in this pack: branches.json has hasApp false for this branch."
+   to "App mention required in this pack: branches.json has hasApp true
+   for this branch." RESULT: exit 1, exactly one failure ("the paster note
+   tells the paster branches.json has hasApp true, but it has false for
+   mccanns_aigburth, so the note invites an app claim onto a profile that
+   must not carry one"), exact wording, no cross-fire.
+
+4. CONTROL: an unrelated wording change in Post C's closing line
+   ("Confidential and judgement-free" -> "Friendly, confidential and
+   judgement-free"), no app or store language touched anywhere.
+   RESULT: exit 0, "check-app-membership: clean", confirming no
+   false-positive on ordinary copy edits near the app rules' scope.
+
+All four rounds restored by byte copy; sha256 reconfirmed identical
+(fdb1429d...693) after each and at the end. Full 32-checker suite re-run
+clean on the scratch copy after the final restore (32/32 exit 0). Tracked
+repo's own copy of the pack reconfirmed sha256-identical throughout;
+`git status --porcelain -- gbp-packs modules core branches.json tools
+compliance` on the tracked repo showed only the two long-standing
+untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+neither touched. Full 32-checker suite re-run on the tracked repo
+afterwards: 32/32 exit 0, unchanged from baseline.
+
+RESULT
+No in-repo defect found. check-app-membership.js's rules 8a, 8b and 8c all
+correctly protect this specific pack in the false-claim direction (a
+non-member pack must not carry app copy, an app photo request, or a
+contradictory note), now proven by injection for the first time in twenty
+passes. The unanticipated second failure on round 1 (the paster-note
+cross-check) is a genuine extra layer of protection already present in
+the checker, not a new rule discovered this pass - noted for completeness.
+
+LIVE HALF (Claude in Chrome, read-only, nothing clicked or typed)
+- Profile-website landing page (pharmacy-mccanns-aigburth.html): still
+  404, unchanged, still awaiting the queued paste run (5.3/5.4).
+- switch-prescriptions-mccanns-aigburth.html: 200, full text read. No app
+  mention, no store link, no store button anywhere on the page, consistent
+  with hasApp: false and with what this pass's checker proof protects.
+  Already-tracked live drifts reconfirmed, none new: the Weebly default
+  "- MCCANNS PHARMACY" title suffix; the "Sandrigham Medical Centre"
+  footer typo; the unconditional hero wording ("We contact your GP. We
+  handle everything. You do nothing.") against Q49's own hedged FAQ answer
+  ("Do I need to contact my GP myself? Not always...") - Q49 already
+  answered by Rishi and pending the same queued Weebly session as 5.5/Q13,
+  not re-raised.
+
+No new in-repo defect, no new live finding, no new question raised.
+QUESTIONS.json unchanged at 111 total, 58 open.
