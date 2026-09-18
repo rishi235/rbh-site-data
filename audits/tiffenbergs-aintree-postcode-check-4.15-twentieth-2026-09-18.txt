@@ -110,3 +110,20 @@ pass.
 
 No new question raised. QUESTIONS.json unchanged at 111 total, 58 open
 (confirmed at both the start and end of this run, not opened for writing).
+
+SELF-CORRECTION (found before this run finished)
+-------------------------------------------------
+Quoting the fabricated injection value "L9 9DC" in this write-up, in
+AGENT_LOG.md and in AGENT_WORKLIST.md, without registering it in
+check-postcodes.js's own NARRATIVE_POSTCODES list, made the tracked repo fail
+its own check-postcodes.js the moment this pass's files were written -
+exactly the recurring gap this list's own history already documents twenty-
+one times over (L23 6TX, L23 3AZ, L9 8ZZ, and onward through ZZ97 6ZZ). Caught
+by re-running the checker suite against the tracked repo as this run's own
+final verification step, before commit. Fixed by adding "L9 9DC" to
+NARRATIVE_POSTCODES with a reason, in the same commit as the rest of this
+pass's work rather than left for a future pass to find, matching the
+precedent several recent entries in that list have already set for finding
+and closing this exact gap same-day. Full 35-checker suite re-run clean
+after the fix (35/35 exit 0, 0 failures on check-postcodes.js specifically,
+3 pre-existing UNOWNED warnings unchanged).
