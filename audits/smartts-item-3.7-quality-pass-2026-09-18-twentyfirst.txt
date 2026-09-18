@@ -1,0 +1,111 @@
+Item 3.7 quality pass (twenty-first), 2026-09-18
+Unattended scheduled run, audit-backlog-worker, run 95 (mcp__workspace__bash for repo
+work and all checker runs; mcp__claude-in-chrome__ for the step 3 answer pickup only,
+read-only, tab closed; Write/Edit for this file, AGENT_WORKLIST.md and AGENT_LOG.md).
+
+ROTATION: all worklist unchecked lines confirmed [BLOCKED] (grep of "^- \[ \]"), fell to
+the quality-pass fallback. 36-item pool re-derived fresh from AGENT_WORKLIST.md via a
+node script computing each item's own paragraph range (bounded by the next heading of
+any status) and `git log -1 --format=%ad --date=iso-strict -L<start>,<end>` per
+candidate. 3.7 came out stalest at 2026-09-17T08:17:16+01:00, clear of the next
+candidate 3.11 at 2026-09-17T08:42:14+01:00 (6.3, picked by the previous run, had just
+been freshly touched and dropped out of contention).
+
+FRESH ANGLE: tools/check-seo-keywords.js, never named against Smartts across twenty
+prior passes (per the twentieth pass's own "never named" list). Chosen because
+CLAUDE.md documents this checker's eight rules in detail and it guards the one Weebly
+SEO field (Meta Keywords) that no title/description/H1 checker reads, exactly the kind
+of gap this rotation exists to close.
+
+SETUP: full repo tar-copied (excluding .git and _agentscratch) to a disposable /tmp
+scratch directory. Baseline: 35/36 checkers clean, check-cdn-pins.js fails on the
+documented .git-less artefact (standing convention, matches every prior pass's
+baseline). branches.json sha256 confirmed at the standing anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 before and after every
+injection cycle. check-seo-keywords.js baseline: 177 Meta Keywords lines across 11
+paste sheets, 15 live branches, clean.
+
+Twelve Smartts entries confirmed present across five sheets, matching its twelve pages:
+  modules/service/pages/SEO.md            - 8 blocks (Overview + 7 Pharmacy First
+                                             conditions: UTI, sore throat, sinusitis,
+                                             earache, impetigo, shingles, insect bite)
+  modules/service/pages/CONTRACEPTION-SEO.md - 1 block
+  modules/service/pages/TRAVEL-CLINIC-SEO.md - 1 block
+  modules/service/pages/WEIGHT-LOSS-SEO.md   - 1 block
+  modules/switch/pages/SEO.md                - 1 block
+
+INJECTIONS (all against the scratch copy only; each restored and sha256-reconfirmed
+byte-identical to the pristine tar copy before the next; the tracked repo was never
+opened for writing):
+
+  RULE 1 (pairing) - blanked the Meta Keywords value on the Smartts Overview block in
+  modules/service/pages/SEO.md. CAUGHT: "has a Page Permalink but no Meta Keywords
+  value."
+
+  RULE 2 (resolution) - truncated the UTI block's permalink from
+  uti-treatment-smartts-bootle to uti-treatment-smartts-boot. CAUGHT: "does not end in
+  any live branch's <brandSlug>-<townSlug>."
+
+  RULE 3 (presence) - on the Sore throat block (line 598 of SEO.md, the SECOND of two
+  byte-identical "Sore throat Bootle, Sore throat treatment Bootle..." lines in the
+  file, the first belonging to SK Chemists Bootle at line 550 - confirmed by line
+  number before editing, not by a global string replace, precisely because the two
+  sister-Bootle-brand lines are identical and a naive replace would have hit the wrong
+  branch or thrown on a non-unique match) - replaced the whole line with keywords
+  carrying no town at all. CAUGHT: "do not carry this branch's own seoTown 'Bootle'."
+
+  RULE 4 (absence) - on the UTI block, appended "Walton" (the seoTown of
+  colemanleigh_liverpool and cherrylane_liverpool, and not in Smartts's own
+  serviceAreaList of ["Bootle","Sefton","Liverpool"]). CAUGHT: "name 'Walton' ... not
+  in this branch's serviceAreaList."
+
+  RULE 5 (brand) - on the Sinusitis block, appended "SK Chemists" (the brand of its
+  next-door Bootle sister, skchemists_bootle). CAUGHT: "name 'SK Chemists', which is
+  the brand of skchemists_bootle, not this branch."
+
+  RULE 6 (postcode) - on the Earache block, appended "L9" (Tiffenbergs Aintree's
+  outward code) alongside the correct "L20". CAUGHT: "carry 'L9', which is not this
+  branch's outward code 'L20'."
+
+  RULE 7 (claim) - on the WEIGHT-LOSS-SEO.md Smartts block, changed "medicated weight
+  loss Bootle" to "guaranteed results Bootle". CAUGHT: "carry guarantees results
+  (/guaranteed\b[^.\n]{0,30}?\bresults\b|results\b[^.\n]{0,30}?\bguaranteed\b/i)."
+
+  RULE 8 (retired town word) - NOT injected against Smartts. Confirmed structurally
+  inapplicable: Smartts's townSlug ("bootle") normalises to the same string as its
+  seoTown ("Bootle"), so the branch never enters the condition this rule guards
+  (townSlug spelling diverging from seoTown). Verified directly against branches.json
+  in the node REPL rather than assumed: only McCanns Sandringham diverges today, which
+  matches the checker's own header comment and the rule's original proof (item 5.7
+  quality pass, 2026-08-14, "Aintree dropped into the McCanns St Michael's keywords").
+  Same class of scope limit as check-jsonld.js's rule 7 (email/areaServed) being
+  structurally inapplicable to Smartts on the twentieth pass - the rule is sound and
+  already proved elsewhere, just has no foothold on this specific branch.
+
+Each of the eight injections above was restored individually (cp from the pristine tar
+copy) and sha256-reconfirmed byte-identical before the next injection began, so no two
+faults were ever live at once and no injection could mask another. Final state: all
+five touched sheets (SEO.md, CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md,
+WEIGHT-LOSS-SEO.md, switch/pages/SEO.md) and branches.json confirmed byte-identical to
+the pristine copy by sha256. Full 36-checker suite re-run on the scratch copy after the
+final restore: 35/36 clean, same documented cdn-pins artefact, nothing else disturbed.
+The tracked repo (/sessions/.../rbh-site-data) was never touched by any of the above;
+`git status --porcelain` on it before and after this pass shows the same long-standing
+untracked strays only, none of the five sheets or branches.json appearing.
+
+CHECKERS STILL NEVER NAMED AGAINST SMARTTS SPECIFICALLY (twenty-one passes in):
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weight-loss-copy.js; plus check-switch-copy.js's remaining 6/11 rules,
+check-seo-pattern.js's service-word/H1-exact-match rules, check-jsonld.js's rule 7
+(structurally inapplicable), and check-seo-keywords.js's own rule 8 (structurally
+inapplicable, as above).
+
+No in-repo defect found. No copy changed anywhere in the tracked repo. No new question
+raised; nothing here rises to a decision Rishi needs to make.
+
+Answer pickup (step 3, this run): navigated read-only to
+https://data.rbhealth.co.uk/api/feedback, newest entry still Q52 (2026-09-01),
+identical to every run since. Nothing new to file. Tab closed.

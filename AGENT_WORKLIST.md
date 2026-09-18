@@ -9252,6 +9252,64 @@ check-url-scheme.js, check-weight-loss-copy.js; plus check-switch-copy.js's
 remaining 6/11 rules, check-seo-pattern.js's service-word/H1-exact-match
 rules, and check-jsonld.js's own rule 7 (structurally inapplicable here).
 Done 2026-09-17 (twentieth pass).
+Quality pass 2026-09-18 (twenty-first; unattended scheduled run via Cowork,
+sandboxed Linux shell via mcp__workspace__bash for repo work and checker
+runs, mcp__claude-in-chrome__ for the step 3 answer pickup only). Picked as
+the least recently verified rotation-pool item (all unchecked worklist lines
+still [BLOCKED]; 36-item pool re-derived fresh from git log per "Item N.N",
+3.7 stalest at 2026-09-17T08:17:16+01:00, clear of the next candidate 3.11 at
+2026-09-17T08:42:14+01:00; 6.3, picked by the previous run, had just been
+freshly touched and dropped out of contention).
+FRESH ANGLE: tools/check-seo-keywords.js, never named against Smartts across
+twenty prior passes (per the twentieth pass's own "never named" list).
+Full repo tar-copied (excluding .git and _agentscratch) to a disposable /tmp
+scratch copy; baseline 35/36 clean (cdn-pins' documented .git-less artefact
+only); branches.json sha256 confirmed at the standing anchor
+169bb5a2...b102 throughout. check-seo-keywords.js baseline: 177 Meta
+Keywords lines across 11 sheets, 15 live branches, clean. Twelve Smartts
+entries confirmed present across five sheets (SEO.md's 8 Pharmacy First
+blocks, CONTRACEPTION-SEO.md, TRAVEL-CLINIC-SEO.md, WEIGHT-LOSS-SEO.md,
+switch/pages/SEO.md), matching its twelve pages.
+Seven injections against those sheets, each restored and sha256-reconfirmed
+byte-identical before the next, all CAUGHT on the intended rule: Meta
+Keywords blanked on the Overview block (rule 1, pairing); UTI permalink
+truncated so it resolves to no branch (rule 2, resolution); Sore throat
+keywords rewritten with no town - picked by LINE NUMBER, not a global
+string replace, because SK Chemists Bootle's own Sore throat line is
+byte-identical and a naive replace would have hit the wrong branch or
+thrown on a non-unique match (rule 3, presence); "Walton" (Coleman and
+Leighs/Cherry Lane's seoTown, not in Smartts's own serviceAreaList of
+Bootle/Sefton/Liverpool) appended to the UTI keywords (rule 4, absence);
+"SK Chemists" (its next-door Bootle sister's brand) appended to the
+Sinusitis keywords (rule 5, brand); "L9" (Tiffenbergs Aintree's outward
+code) appended to the Earache keywords (rule 6, postcode); "medicated
+weight loss Bootle" changed to "guaranteed results Bootle" on the
+WEIGHT-LOSS-SEO.md block (rule 7, claim).
+Rule 8 (retired town word) not injected: confirmed structurally
+inapplicable to Smartts by checking branches.json directly - its townSlug
+"bootle" normalises to the same string as its seoTown "Bootle", so it never
+enters the diverging-spelling condition the rule guards. Only McCanns
+Sandringham diverges today, matching the rule's own header comment and its
+original proof (item 5.7, 2026-08-14). Same class of scope limit as
+check-jsonld.js's rule 7 being inapplicable to Smartts on the twentieth
+pass.
+Full 36-checker suite re-run on the scratch copy after the final restore
+(35/36, same cdn-pins artefact) and on the tracked repo (36/36, cdn-pins
+passes there since .git is present). All five touched sheets and
+branches.json sha256-reconfirmed unchanged; the tracked repo was never
+opened for writing throughout the injection cycle. No in-repo defect found,
+no copy changed, no new question. Evidence in
+audits/smartts-item-3.7-quality-pass-2026-09-18-twentyfirst.txt.
+Checkers still never named against Smartts specifically:
+check-address-region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weight-loss-copy.js; plus check-switch-copy.js's remaining 6/11
+rules, check-seo-pattern.js's service-word/H1-exact-match rules,
+check-jsonld.js's rule 7 and check-seo-keywords.js's rule 8 (both
+structurally inapplicable to this branch).
+Done 2026-09-18 (twenty-first pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
