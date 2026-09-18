@@ -28037,6 +28037,53 @@ directly rather than re-deriving the same facts by hand.
       (2026-09-01), unchanged; no answer arrived for any of the 57
       currently-open questions. No new question raised. Evidence in
       audits/tiffenbergs-aintree-app-membership-4.15-nineteenth-2026-09-17.txt.
+      Quality pass 2026-09-18 (twentieth re-verification, repo half only):
+      pack re-confirmed byte-identical to baseline (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) and all
+      35 checkers (excl. cdn-pins/live-hours) re-run clean before and after
+      testing. Fresh angle: tools/check-postcodes.js had never been proven by
+      direct injection against THIS pack's own copy across nineteen prior
+      passes, despite being proven this cycle against sibling packs
+      clear-aintree.md, fishlocks-eccleston.md and mccanns-sandringham.md.
+      Full repo copied with .git to a scratch directory outside the tracked
+      tree; all injections and checker runs against the scratch copy only,
+      tracked pack file never opened for writing. Four rounds, each restored
+      by byte copy and sha256-reconfirmed identical before the next: (1) rule
+      1 (UNKNOWN) - Post D's body extended with "We also see travellers
+      coming from as far as L9 9DC" (a one-character-off variant of this
+      branch's own L9 9DB, matching no branch) - CAUGHT, exit 1, exactly one
+      failure naming the postcode and the file; (2) rule 3 (FOREIGN) - the
+      photo shot list's entrance bullet extended with SK Chemists Bootle's
+      real postcode (L20 5DW) on a line naming no branch, to isolate FOREIGN
+      from MISATTRIB - CAUGHT, exit 1, exactly one failure naming both
+      branches; (3) rule 6 (MISATTRIB) - the Services section extended with
+      "Unlike McCanns Chemist Aigburth (L9 9DB), this branch also runs a
+      dedicated travel clinic diary", naming McCanns but carrying
+      Tiffenbergs' OWN postcode rather than McCanns' real L17 7BP - CAUGHT,
+      exit 1, exactly one failure, confirming the pre-registered
+      MISATTRIB_KNOWN Hirshmans/Tiffenbergs exemption does not blanket-cover
+      every comparative "Unlike X" sentence; (4) CONTROL - the Services
+      section extended with "Tiffenbergs Chemist's own registered postcode is
+      L9 9DB, confirmed correct against branches.json" (own brand, own
+      correct postcode) - correctly PASSED, exit 0, same three pre-existing
+      UNOWNED warnings as baseline. All four rounds fired or passed on the
+      first attempt, each on its intended rule only, no side-effect failures
+      elsewhere in the suite. Full 35-checker suite re-run clean on the
+      scratch copy after the final restore; pack sha256 reconfirmed identical
+      to baseline; tracked repo's own copy confirmed byte-identical
+      throughout (`git status --porcelain -- gbp-packs tools modules core
+      branches.json` showing only the two long-standing untracked strays
+      every recent entry has recorded and left alone). No checker gap found;
+      no in-repo defect. Rules 0 (MALFORMED), 2 (MISSING), 4 (DISPOSED) and 7
+      (DUPLICATE) remain unproven against this specific pack and are recorded
+      as the candidate fresh angle for a future pass. Live half not
+      attempted: this checker's rules govern text typed into GBP's picker
+      fields, not a URL a read-only fetch could verify regardless; the
+      seventeenth pass's live verdicts (2026-09-15) stand, not re-verified
+      this pass. Answer pickup (this run's own step 3): newest portal entry
+      still the Q52 answer (2026-09-01), unchanged; no answer arrived for any
+      of the 58 currently-open questions. No new question raised. Evidence in
+      audits/tiffenbergs-aintree-postcode-check-4.15-twentieth-2026-09-18.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
