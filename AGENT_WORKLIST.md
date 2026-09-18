@@ -25151,6 +25151,72 @@ directly rather than re-deriving the same facts by hand.
       unchanged (110 total, 57 open). Evidence:
       audits/coleman-leigh-walton-pf-safety-net-4.12-nineteenth-2026-09-17.txt.
       Done 2026-09-17.
+      Twentieth quality pass 2026-09-18 (unattended scheduled run,
+      audit-backlog-worker; all eight open worklist items still [BLOCKED],
+      fell to the quality-pass fallback; rotation pool re-derived
+      mechanically from git log commit dates per item paragraph range,
+      excluding the seven out-of-rotation items and the ten items already
+      touched earlier the same day by runs 88-99, 4.12 confirmed stalest at
+      2026-09-17T11:08:34+01:00, independently matching run 99's own forward
+      note). FRESH ANGLE: every rule family in check-gbp-packs.js,
+      check-gbp-pharmacy-first.js (rules 5/7/8), check-brand-spelling.js,
+      check-em-dashes.js, check-uk-spelling.js, check-url-scheme.js,
+      check-app-membership.js, check-pharmacy-first-eligibility.js (rules
+      9/10/11), check-pharmacy-first-cost.js (rules 4/5/6), the hours-day-
+      presence rule and the bank holiday note rule had already been proven
+      against this pack's own copy across nineteen prior passes, and a check
+      of all 34 tools/check-*.js filenames against a "coleman" mention
+      confirmed the remaining checkers were proven elsewhere in the audit
+      against this branch's own generated pages under item 3.9, leaving only
+      check-gbp-pharmacy-first.js RULE 9 (condition words named OUTSIDE the
+      two located Pharmacy First scopes) genuinely untested against THIS
+      pack, though proven on two sibling packs. Scratch copy via `git
+      archive HEAD | tar -x` into a directory under the outputs mount (not
+      /tmp, per item 3.8's own nineteenth-pass finding that /tmp gave
+      stale/inconsistent reads this sandbox); tracked pack never opened for
+      writing, confirmed unchanged throughout (sha256
+      6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+      matching all nineteen prior passes). Baseline: 32 of 34 checkers exit 0
+      on the scratch copy (check-cdn-pins.js and check-live-hours.js
+      excluded, both network-dependent). Two rounds, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) TARGET - Post D's
+      closing line had "We can also advise on impetigo if you notice any
+      skin changes while away" appended, naming a Pharmacy First condition
+      outside both scopes - CAUGHT first attempt, "names 'impetigo' outside
+      the Pharmacy First blocks"; (2) CONTROL - Post C's closing line had "We
+      also offer a separate travel vaccination clinic" inserted, a different
+      legitimate private service naming no Pharmacy First condition word -
+      correctly PASSED, exit 0, confirming no false positive on unrelated
+      private-service copy in the same outside scope RULE 9 reads. Full
+      32-checker suite re-run clean after the final restore; pack sha256
+      reconfirmed identical to baseline; tracked repo's own copy of the pack,
+      tools/ and branches.json confirmed to carry no diff throughout (git
+      status --porcelain showing only the two long-standing untracked
+      strays, gbp-packs/.fuse_hidden0000000400000001 and
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+      neither touched). No in-repo defect: RULE 9 proven correct on this
+      pack for the first time, on both its firing and non-firing sides.
+      Guard coverage for item 4.12 now extends to all 34 tools/check-*.js
+      files having been exercised by direct injection against this branch
+      specifically, spanning this item's own twenty passes and item 3.9's
+      page-level passes together - the same completeness milestone item 3.9
+      itself reported on its own fourteenth pass. Evidence:
+      audits/coleman-leigh-walton-pf-rule9-4.12-twentieth-2026-09-18.txt.
+      LIVE HALF performed via Claude in Chrome (connected, single tab,
+      read-only): Post A's pfLink still a live 404, unchanged since
+      2026-08-10 (39 days now). The replacement page
+      pharmacy-first-coleman-leigh-walton.html still shows the identical
+      mixed-name state recorded on every pass since the second (title, H1,
+      header banner, top navigation and footer read "Coleman & Leigh
+      Pharmacy"; the address block correctly reads "Coleman and Leighs
+      Pharmacy"); all seven Pharmacy First conditions still listed with
+      their correct NHS age ranges. sitemap.xml read directly: 28 URLs,
+      every lastmod still 2026-08-14T23:21:20+00:00, confirming no republish
+      since 14 August. No new live fault, no new in-repo defect, no new
+      question. Q76 not re-tested this pass, stands as raised. QUESTIONS.json
+      unchanged (111 total, 58 open); portal answer pickup at step 3 returned
+      nothing new, newest entry still Q52 (2026-09-01), already recorded.
+      Done 2026-09-18.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

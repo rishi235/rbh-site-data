@@ -1,0 +1,121 @@
+Item 4.12 (Coleman and Leighs Pharmacy, Walton GBP pack) - twentieth quality pass
+Unattended scheduled run, audit-backlog-worker, 2026-09-18.
+
+SCOPE OF THIS PASS
+Nineteen prior passes (2026-08-04 to 2026-09-17) had proven, by direct
+injection against this pack's own copy: branches.json facts (name, address,
+phone, website, review link, hasApp, both opening-hours sessions, catchment),
+the description/post character-count exactness rule, the medicine-name union
+in tools/pom-names.js, OUTCOME_PROMISE, check-url-scheme.js,
+check-uk-spelling.js, check-brand-spelling.js, check-app-membership.js,
+check-em-dashes.js, the hours-day-presence rule, check-gbp-pharmacy-first.js
+rules 5/7/8, the category/service allowlist, the photo shot list rule,
+check-pharmacy-first-eligibility.js rules 9/10/11, check-pharmacy-first-cost.js
+rules 4/5/6, the bank holiday special-hours note rule, and (against this
+branch's own seven generated Pharmacy First condition pages, not the pack)
+check-pharmacy-first-safety-net.js rules 6 and 7.
+
+Every one of the 34 tools/check-*.js files has now been proven by direct
+injection against Coleman and Leighs Pharmacy somewhere in the audit (checked
+this pass by searching AGENT_WORKLIST.md for each checker filename within a
+window preceding a "coleman" mention) - most under this item, six under item
+3.9's own fourteen-plus passes against this branch's generated pages
+(check-branch-identity.js, check-jsonld.js, check-map-embeds.js,
+check-booking-routes.js, check-service-links.js, check-fragment-targets.js,
+check-widget-diaries.js, check-switch-copy.js, the four check-seo-*.js files,
+check-editor-snapshot.js, check-branch-links.js, check-contraception-copy.js,
+check-pharmacy-first-symptoms.js, check-live-hours.js, check-cdn-pins.js,
+check-app-membership.js, check-whatsapp-route.js all confirmed present).
+
+FRESH ANGLE THIS PASS: tools/check-gbp-pharmacy-first.js RULE 9 (condition
+words named OUTSIDE the two located Pharmacy First scopes - the "NHS Pharmacy
+First:" services bullet and the Post A body) had been proven against two
+sibling packs elsewhere in the rotation but never against this pack
+specifically (confirmed: zero "coleman" mentions within 6000 characters
+preceding either "outside the Pharmacy First blocks" occurrence in
+AGENT_WORKLIST.md). RULE 9 subtracts both located scopes from the pack text
+and then scans what remains for any of the seven CONDITION_ORDER names or
+their synonyms; an unlisted mention would need a KNOWN_NON_PF allowlist entry,
+which is empty estate-wide (checked: only a commented example exists).
+
+METHOD
+Scratch copy made via `git archive HEAD | tar -x` into
+/sessions/wizardly-relaxed-johnson/scratch/repo412 (not /tmp, per the item
+3.8 nineteenth-pass finding that /tmp gave stale/inconsistent reads on this
+sandbox mount). Tracked repo never opened for writing.
+
+BASELINE. gbp-packs/coleman-leigh-walton.md sha256
+6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88, identical to
+all nineteen prior passes and to the tracked repo's own copy. Full 34-checker
+suite run against the scratch copy (check-cdn-pins.js and check-live-hours.js
+excluded, both network-dependent, per standing convention): 32/32 exit 0.
+
+INJECTION 1 (RULE 9, target). Post D's closing line "Book your travel
+consultation today." had "We can also advise on impetigo if you notice any
+skin changes while away." appended, naming a Pharmacy First condition
+(impetigo) outside both located scopes. Result: FAIL, exit 1 -
+"gbp-packs/coleman-leigh-walton.md: names 'impetigo' outside the Pharmacy
+First blocks, in copy that is not the service bullet or Post A." Caught first
+attempt, naming the exact injected word and the exact pack.
+
+RESTORE 1. File restored by byte copy from the pre-injection baseline (this
+mount rejects unlink() on files it is mid-write to in some cases, so
+restoration is a straight overwrite, not a git checkout). sha256
+reconfirmed identical to baseline. check-gbp-pharmacy-first.js re-run: OK, 7
+pathways read from the generator, 28 Pharmacy First blocks across 14 packs,
+all clean, exit 0.
+
+INJECTION 2 (CONTROL). Post C's closing line had "We also offer a separate
+travel vaccination clinic." inserted - a different, legitimate private
+service, but one that names no Pharmacy First condition word or synonym, so
+it should not fire RULE 9 at all. Result: correctly PASSED, exit 0, same "28
+Pharmacy First blocks across 14 packs, all clean" message, confirming no
+false positive on unrelated private-service copy sitting in the same outside
+scope RULE 9 reads.
+
+RESTORE 2. File restored by byte copy, sha256 reconfirmed identical to
+baseline (6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88).
+
+FULL SUITE RE-RUN after both restores, on the scratch copy: 32/32 checkers
+exit 0 (same two network-dependent exclusions). No NONZERO exit anywhere in
+the sweep.
+
+TRACKED REPO CONFIRMED UNTOUCHED THROUGHOUT: gbp-packs/coleman-leigh-walton.md
+sha256 in the tracked working copy unchanged
+(6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88) before and
+after this pass; `git status --porcelain -- gbp-packs branches.json tools
+modules core` shows only the two long-standing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched.
+
+RESULT: no in-repo defect. RULE 9 proven correct against this pack for the
+first time: it fires on an unlisted Pharmacy First condition word wherever it
+sits outside the two located scopes, and it does not fire on unrelated
+private-service copy sharing the same outside text. Guard coverage for item
+4.12 now extends to all 34 tools/check-*.js files having been exercised by
+direct injection against this branch specifically (spanning this item's own
+twenty passes and item 3.9's page-level passes), the same completeness
+milestone item 3.9 itself reported on its own fourteenth pass.
+
+LIVE HALF, via Claude in Chrome (connected, single tab, read-only throughout,
+nothing clicked, typed or submitted):
+- Post A's pfLink (pharmacy-first-service-walton.html): still a live 404,
+  unchanged since 2026-08-10 (now unchanged for 39 days).
+- The replacement page pharmacy-first-coleman-leigh-walton.html: still the
+  identical mixed-name state recorded on every pass since the second
+  (2026-08-11) - title, H1, header banner, top navigation and footer all read
+  "Coleman & Leigh Pharmacy", while the page's own address block correctly
+  reads "Coleman and Leighs Pharmacy". Page content otherwise unchanged: all
+  seven Pharmacy First conditions listed with their correct NHS age ranges,
+  hours correctly show the lunch closure, phone and postcode correct.
+- sitemap.xml read directly: 28 URLs, every lastmod still
+  2026-08-14T23:21:20+00:00, confirming no republish on this domain since 14
+  August, consistent with every read since the seventeenth pass.
+No new live fault, no new in-repo defect, no new question. Q76 (sister-branch
+name substitution gap, a checker-scope decision) not re-tested this pass; it
+stands as raised. QUESTIONS.json unchanged this pass (111 total, 58 open;
+portal answer pickup at step 3 returned nothing new, newest entry still Q52,
+2026-09-01, already recorded).
+
+Done 2026-09-18.
