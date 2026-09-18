@@ -14133,6 +14133,63 @@ Done 2026-09-18 (twenty-first pass).
       audits/verify-3.11-2026-09-17-twentieth.js and
       audits/gordon-short-item-3.11-quality-pass-2026-09-17-twentieth.txt.
       Done 2026-09-17
+      Quality pass 2026-09-18 (twenty-first). All eight unchecked
+      AGENT_WORKLIST.md lines confirmed [BLOCKED] first. Rotation pool
+      re-derived fresh via a node script computing each completed item's own
+      paragraph range and `git log -1 -L<start>,<end>` per candidate,
+      excluding the seven standing out-of-rotation one-offs and the two
+      items already touched earlier today (3.7 run 95, 6.3 run 94); 3.11
+      came out stalest at 2026-09-17T08:42:14+01:00.
+      FRESH ANGLE: tools/check-weight-loss-copy.js, never proven by direct
+      injection against this branch's own weight-loss-clinic page across
+      twenty prior passes - the compliance-critical checker for weight loss
+      advertising, so closing the gap here mattered more than most
+      remaining untested pairings. Scratch copy via git archive to
+      /sessions/fervent-vigilant-shannon/scratch-311, tracked repo never
+      opened for writing. Baseline: branches.json and the checker file
+      sha256-confirmed matching the tracked repo; full 35-checker suite
+      clean on the tracked repo before starting.
+      Seven injections plus one control against
+      modules/service/pages/weight-loss-clinic-gordon-short-crosby.html,
+      each restored by byte copy and sha256-reconfirmed identical before
+      the next: (1) RULE 8, "prescription-only weight-loss medication can
+      be supplied" changed to name Mounjaro - CAUGHT, plus expected
+      collateral on RULE 2 (same sentence is pinned copy); (2) RULE 9,
+      "guaranteed results" inserted into the hero-proof line - CAUGHT; (3)
+      RULE 6, the "nothing below is a guarantee" sentence removed - CAUGHT;
+      (4) RULE 4, the "Is this an NHS service?" FAQ answer rewritten to
+      claim NHS funding - CAUGHT; (5) RULE 5, the "Under 18s are not seen"
+      exclusion bullet removed - CAUGHT; (6) RULE 7, the booking-card fee
+      changed from £39.99 to £29.99 in one place only, leaving the other 14
+      pages and this page's own hero/step-1 copy unchanged - CAUGHT; (7)
+      RULE 10, the paste-comment governance note removed from the top of
+      the file - CAUGHT. CONTROL: an unrelated trust-bar reword, correctly
+      passed with zero failures. All eight fired or passed on exactly their
+      intended outcome, first attempt.
+      RESULT: full 35-checker suite re-run on the scratch copy after
+      cleanup, 34/35 clean (the one exception the documented
+      check-cdn-pins.js .git-less artefact). Tracked repo confirmed
+      untouched throughout by git status and sha256 on all three files; full
+      35-checker suite re-run individually against the tracked repo, 35/35
+      exit 0. ZERO IN-REPO DEFECT. Rules 1 (coverage), 2 (pinned copy,
+      confirmed only as collateral above), 3 (FAQ pairs), 11 (branch
+      landing pages - Gordon Short has none) and 12 (Weebly paste blocks)
+      were not separately injected this pass and remain a possible future
+      angle on this item.
+      LIVE HALF, read-only, one GET (Claude in Chrome connected). The live
+      weight-loss-clinic page re-read in full: no medicine named, no
+      efficacy claim, the no-guarantee sentence present, private/paid/not-
+      NHS-funded stated plainly, the under-18 exclusion present, and the
+      £39.99 fee consistent throughout with no internal mismatch - matches
+      the repo source on every rule tested. The known "Gordon Shorts
+      Chemist" wrong-plural spelling persists on this live page (title, H1,
+      body, footer), unchanged since the fourth pass, the STOP against
+      repointing Post A stands, not re-raised.
+      No new question. Evidence in
+      audits/verify-3.11-2026-09-18-weight-loss.js,
+      audits/verify-3.11-2026-09-18-weight-loss-output.txt and
+      audits/gordon-short-item-3.11-quality-pass-2026-09-18-twentyfirst.txt.
+      Done 2026-09-18
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

@@ -1,0 +1,117 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - twenty-first quality pass
+Run: 2026-09-18, unattended scheduled run (audit-backlog-worker)
+
+SELECTION
+All eight unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] before falling
+to the quality-pass fallback (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Rotation pool re-derived fresh via a node script computing
+each completed item's own paragraph range (bounded by the next `- [.] `
+heading) and `git log -1 --format=%ad --date=iso-strict -L<start>,<end>` per
+candidate, excluding the seven standing out-of-rotation one-offs (1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8) and the two items already touched earlier today
+(3.7, run 95; 6.3, run 94). 3.11 came out stalest at 2026-09-17T08:42:14+01:00,
+clear of the next candidate 3.9 at 2026-09-17T09:39:18+01:00.
+
+FRESH ANGLE
+tools/check-weight-loss-copy.js had never been proven by direct injection
+against Gordon Short Chemist Crosby's own weight-loss-clinic page across
+twenty-one prior passes on this item (those passes proved check-branch-links,
+check-jsonld, check-seo-lengths, check-seo-pattern, check-whatsapp-route,
+check-map-embeds, check-pharmacy-first-cost, check-app-membership,
+check-booking-routes and the Pharmacy First eligibility/safety-net/symptoms
+triad, among others, against this branch specifically). This is the
+compliance-critical checker for weight loss advertising (CAP 12.12 / the
+house standard at RBH_WeightLoss_Advertising_Standards.md), so closing the
+gap on this branch mattered more than most remaining untested pairings.
+
+METHOD
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy at /sessions/fervent-vigilant-shannon/scratch-311 (outside /tmp per the
+item 3.8 nineteenth-pass finding), never touching the tracked repo. Baseline
+confirmed before starting: branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged throughout), tools/check-weight-loss-copy.js sha256
+735748dd136fcf11eda296df5ff818fe1ab8ef1f2c9a7c6cee86263ff99a0bcb, matching
+the tracked repo exactly. Full 35-checker suite clean on the tracked repo
+before starting (34/35 on the scratch copy, the one exception being
+check-cdn-pins.js's documented .git-less scratch artefact, standing
+convention).
+
+Target file:
+modules/service/pages/weight-loss-clinic-gordon-short-crosby.html
+Backed up once (audits/wlc-gordon-short-BACKUP.html in the scratch copy),
+sha256 c960804126eff9dfffbbdf4f2bc93ecd63165af7476f44b3f602766f73fe8270.
+Seven injections plus one control, each written by the reproducible
+instrument audits/verify-3.11-2026-09-18-weight-loss.js, restored from the
+backup by byte copy (not git checkout, this mount's documented unlink
+restriction) and sha256-reconfirmed identical to the backup before the next:
+
+1. RULE 8 (no medicine named): "prescription-only weight-loss medication can
+   be supplied" changed to "Mounjaro can be supplied" in the hero-sub
+   paragraph. CAUGHT: named "mounjaro" explicitly, plus an expected collateral
+   hit on RULE 2 (pinned copy) since the same sentence is one of the 21 pinned
+   lines shared across all 15 pages.
+2. RULE 9 (no efficacy/results claim): "guaranteed results" inserted into the
+   hero-proof sentence. CAUGHT.
+3. RULE 6 (no guarantee): the sentence "Nothing below is a guarantee of
+   treatment, a specific medicine, or a specific outcome. Individual results
+   vary." removed from the eligibility lead paragraph. CAUGHT.
+4. RULE 4 (private, paid, not NHS-funded): the FAQ answer to "Is this an NHS
+   service?" rewritten to claim NHS funding. CAUGHT.
+5. RULE 5 (eligibility integrity): the "Under 18s are not seen under this
+   service" bullet removed from the exclusion list. CAUGHT.
+6. RULE 7 (price discipline): the booking-card fee string changed from
+   £39.99 to £29.99 in one place only, leaving the other 14 pages and this
+   page's own hero/step-1 copy at £39.99. CAUGHT, the intended
+   one-fee-estate-wide rule.
+7. RULE 10 (governance promise): the paste-comment note stating no
+   brand-name medicine is named and that the superintendent pharmacist signs
+   off wording removed from the top-of-file HTML comment. CAUGHT.
+8. CONTROL: "Real people, not a call centre" reworded to "Friendly local
+   team, not a call centre" - a trust-bar phrase no rule pins. Correctly
+   passed, zero failures, no cross-firing.
+
+All eight fired or passed on exactly their intended outcome, first attempt.
+Final restore sha256-reconfirmed identical to the pre-injection backup.
+
+RESULT
+Full 35-checker suite re-run on the scratch copy after cleanup: 34/35 clean
+(same documented check-cdn-pins.js artefact). Tracked repo confirmed
+untouched throughout: `git status --porcelain -- modules core branches.json
+gbp-packs tools` showed only the two long-standing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+unchanged; branches.json, tools/check-weight-loss-copy.js and the target
+page all sha256-reconfirmed byte-identical to their pre-run values. Full
+35-checker suite re-run individually against the tracked repo: 35/35 exit 0.
+
+ZERO IN-REPO DEFECT. check-weight-loss-copy.js was already correctly
+holding Gordon Short Chemist Crosby's own weight-loss-clinic page to rules
+4, 5, 6, 7, 8, 9 and 10, now proven by direct injection against this branch
+specifically for the first time in twenty-one passes. Rules 1 (coverage),
+2 (pinned copy, confirmed only as a collateral hit above), 3 (FAQ pairs),
+11 (branch landing pages - Gordon Short has none, same single-site shape
+recorded on prior passes) and 12 (Weebly paste blocks) were not separately
+injected this pass; they remain a possible fresh angle for a future pass on
+this item, though 11 is structurally inapplicable here.
+
+LIVE HALF, read-only, one GET (Claude in Chrome connected this run).
+weight-loss-clinic-gordon-short-crosby.html re-read in full: no
+prescription-only medicine named by brand anywhere, no efficacy/results
+claim, the "nothing below is a guarantee" sentence present, private/paid/
+not-NHS-funded stated plainly and repeated in the first FAQ answer, the
+under-18 exclusion present in the "not right for you" list, and the
+consultation fee reading "from £39.99" throughout with no internal
+mismatch. Matches the repo source exactly for every rule tested above. The
+known, previously recorded "Gordon Shorts Chemist" (wrong plural) spelling
+persists on this live page in the title, H1, body and footer - unchanged,
+already tracked since the 4.14/3.11 fourth-pass findings, the STOP against
+repointing Post A stands, not re-raised. Sitemap not re-checked this pass
+(scope was the weight-loss-copy rules specifically).
+
+No new question raised. QUESTIONS.json unchanged by this pass (open count
+unchanged from the pre-run figure recorded in AGENT_LOG.md's most recent
+entry before this run).
+
+Evidence: audits/verify-3.11-2026-09-18-weight-loss.js,
+audits/verify-3.11-2026-09-18-weight-loss-output.txt, this file.

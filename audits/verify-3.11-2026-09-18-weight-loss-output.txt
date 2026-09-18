@@ -1,0 +1,31 @@
+Backup sha256: c960804126eff9dfffbbdf4f2bc93ecd63165af7476f44b3f602766f73fe8270
+[rule8-medicine-named] caught=true expected=true hintHit=false -> MISMATCH
+[rule8-medicine-named] restored, sha256 match=true
+[rule9-efficacy-claim] caught=true expected=true hintHit=true -> OK
+[rule9-efficacy-claim] restored, sha256 match=true
+[rule6-no-guarantee-removed] caught=true expected=true hintHit=true -> OK
+[rule6-no-guarantee-removed] restored, sha256 match=true
+[rule4-nhs-claim] caught=true expected=true hintHit=true -> OK
+[rule4-nhs-claim] restored, sha256 match=true
+[rule5-under18-removed] caught=true expected=true hintHit=true -> OK
+[rule5-under18-removed] restored, sha256 match=true
+[rule7-price-mismatch] caught=true expected=true hintHit=true -> OK
+[rule7-price-mismatch] restored, sha256 match=true
+[rule10-governance-comment-removed] caught=true expected=true hintHit=true -> OK
+[rule10-governance-comment-removed] restored, sha256 match=true
+[control-unrelated-reword] caught=false expected=false hintHit=true -> OK
+[control-unrelated-reword] restored, sha256 match=true
+
+=== SUMMARY ===
+FAIL rule8-medicine-named caught=true expected=true
+OK   rule9-efficacy-claim caught=true expected=true
+OK   rule6-no-guarantee-removed caught=true expected=true
+OK   rule4-nhs-claim caught=true expected=true
+OK   rule5-under18-removed caught=true expected=true
+OK   rule7-price-mismatch caught=true expected=true
+OK   rule10-governance-comment-removed caught=true expected=true
+OK   control-unrelated-reword caught=false expected=false
+
+SOME INJECTIONS DID NOT BEHAVE AS EXPECTED - REVIEW
+
+Final target sha256: c960804126eff9dfffbbdf4f2bc93ecd63165af7476f44b3f602766f73fe8270 (matches backup)
