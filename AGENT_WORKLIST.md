@@ -11803,6 +11803,70 @@ Done 2026-09-18 (twenty-first pass).
       question raised. QUESTIONS.json re-read via the standing answer-pickup
       step: 110 total, 57 open, unchanged; newest answer still Q52
       (2026-09-01). Done 2026-09-17.
+      Quality pass 2026-09-18 (twenty-first, unattended scheduled run,
+      audit-backlog-worker, run 97). Checker under fresh test:
+      tools/check-whatsapp-route.js, chosen from the twentieth pass's own
+      17-item candidate list. Full detail in
+      audits/coleman-leighs-whatsapp-route-3.9-twentyfirst-2026-09-18.txt. In
+      brief: full 36-checker suite clean on the tracked repo before starting
+      (36/36) and on a disposable `git archive HEAD` scratch copy (35/36, the
+      one exception check-cdn-pins.js's documented .git-less artefact).
+      branches.json sha256 confirmed at the standing anchor
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      throughout. Four cases against the scratch copy, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) RULE 4, page
+      agreement - switch-prescriptions-coleman-leigh-walton.html's data-wa
+      changed to a foreign but validly-formatted number - CAUGHT, naming the
+      file and the agreed value; (2) RULE 5, unreplaced token -
+      pharmacy-first-coleman-leigh-walton.html's data-wa replaced with the
+      literal placeholder {{WHATSAPP}} - CAUGHT, plus the expected collateral
+      RULE 4 hit since a token is also not the agreed value; (3) RULE 6,
+      orphan button - the same switch page's data-wa attribute removed
+      outright while its WhatsApp buttons stayed in place - CAUGHT, page
+      count in the summary line correctly dropping by one. CONTROL: an
+      unrelated wording change to weight-loss-clinic-coleman-leigh-
+      walton.html (page heading/body only, data-wa untouched) - checker
+      stayed clean, no cross-firing. All four fired or passed on the intended
+      rule, first attempt, no unexplained collateral beyond the one
+      documented case. Full 36-checker suite re-run on the scratch copy after
+      all injections and restores: 35/36 exit 0, same single artefact.
+      Tracked repo reconfirmed untouched throughout: branches.json sha256
+      unchanged, the three touched pages diffed byte-for-byte empty against
+      their pre-injection backups, `git status --porcelain -- modules core
+      branches.json gbp-packs tools` showing only the two long-standing
+      pre-existing untracked strays, neither touched; full 36-checker suite
+      re-run individually against the tracked repo, 36/36 exit 0. No
+      generator, page, checker or branches.json content changed; no defect
+      found.
+      LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked, typed
+      or submitted; first live re-read of this branch since the sixth pass,
+      2026-08-31): homepage NAP, hours (including the lunch closure) and
+      email correct; header/footer still carry the "Coleman & Leigh"
+      ampersand/missing-s variant against the body's correct "Coleman and
+      Leighs", unchanged over five weeks; the homepage weight loss tagline
+      persists, standing Q22 state, still unresolved on the portal; pfLink
+      still 404, standing 5.3/Q8 state. Switch page still the pre-Q49 paste
+      (unqualified hero wording, mojibake em dash) although the repo's own
+      generated copy has carried Q49's qualified wording and the Q7 em-dash
+      fix since 2026-09-15 and earlier respectively - this is the
+      already-documented repo-fixed/live-pending-repaste gap recorded in
+      Q49's own answer note, not a new finding.
+      STEP 3 answer pickup: portal feed read in full this run - newest entry
+      still Q52, 2026-09-01T22:44:51.524Z, identical to every pickup since
+      2026-09-01. No new answer for any currently open question.
+      Guard coverage for item 3.9 now extends to 4 of the 20
+      previously-untested checkers proven by direct injection against
+      Coleman and Leighs specifically: check-nap.js (eighteenth pass),
+      check-opening-hours.js (nineteenth pass), check-seo-keywords.js
+      (twentieth pass), check-whatsapp-route.js (this pass). Sixteen remain:
+      check-address-region.js, check-app-membership.js,
+      check-booking-routes.js, check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+      check-widget-diaries.js - a candidate list for a twenty-second pass. No
+      question raised. Done 2026-09-18.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

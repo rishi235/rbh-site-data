@@ -1,0 +1,152 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton) - twenty-first quality pass
+2026-09-18 (unattended scheduled run, audit-backlog-worker, run 97)
+
+FRESH ANGLE: tools/check-whatsapp-route.js, chosen from the twentieth pass's own
+17-item candidate list (check-address-region.js, check-app-membership.js,
+check-booking-routes.js, check-editor-snapshot.js, check-em-dashes.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-sheets.js, check-uk-spelling.js,
+check-url-scheme.js, check-whatsapp-route.js, check-widget-diaries.js), never
+proven by direct injection against Coleman and Leighs specifically across the
+twenty prior passes (check-nap.js on the eighteenth, check-opening-hours.js on
+the nineteenth, check-seo-keywords.js on the twentieth).
+
+ROTATION: worklist scan confirmed every unchecked line still [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), so the quality-pass
+fallback applied. Rotation pool of 36 completed items re-derived fresh via
+`git log -1 -L<start>,<end>:AGENT_WORKLIST.md` per candidate over each item's
+own CURRENT paragraph range (bounded by the next checklist heading), excluding
+the seven standing out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8)
+and the three items already touched earlier today by prior runs (6.2 by run 91,
+eighteenth pass; 6.3 by run 94; 3.7 by run 95; 3.11 by run 96). 3.9 came out
+stalest at 2026-09-17T09:39:18+01:00, clear of the next candidate 3.12
+(2026-09-17T10:10:47+01:00). Note: a first attempt at this calculation read a
+stale cached range file left in /tmp by an earlier run and produced wrong
+(too-old) dates for several items including 6.2; redone with freshly computed
+ranges before picking, and the corrected numbers still put 3.9 stalest.
+
+BRANCH: Coleman and Leighs Pharmacy, id colemanleigh_liverpool, brandSlug
+coleman-leigh, townSlug walton, whatsapp 447521775631 (agrees with the estate).
+12 generated pages (11 .html + 1 switch-page banner .txt), matching the item's
+own "12 pages" note.
+
+BASELINE: repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy outside the tracked repo; tracked repo never opened for writing during the
+injection round. branches.json sha256 confirmed at the standing anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 on both the
+tracked repo and the scratch copy throughout. Full 36-checker suite run
+individually against the TRACKED repo before starting: 36/36 exit 0. Same
+suite against the scratch copy: 35/36 exit 0, the one exception being
+check-cdn-pins.js's documented .git-less scratch artefact (unrelated,
+standing convention). check-whatsapp-route.js baseline on the scratch copy:
+16 branches declaring whatsapp, 3 runtime defaults, 171 of 177 generated pages
+carrying data-wa, agreed number 447521775631, 1 known exception
+(modules/emar/emar.js, a different number for the separate Borough Care eMAR
+function), 14 inert Pharmacy First overview pages noted (Q20) - clean.
+
+INJECTION (scratch copy only, each restored by byte copy from a pre-injection
+backup and sha256-reconfirmed identical before the next):
+
+1. RULE 4 (page agreement). modules/switch/pages/switch-prescriptions-
+   coleman-leigh-walton.html: data-wa="447521775631" changed to
+   data-wa="447111111111" (a syntactically valid but foreign UK mobile).
+   CAUGHT: "[page agreement] ...switch-prescriptions-coleman-leigh-walton.html:
+   data-wa=\"447111111111\" but branches.json agrees on 447521775631".
+   Restored; sha256 confirmed byte-identical to the pre-injection file.
+
+2. RULE 5 (unreplaced token). modules/service/pages/pharmacy-first-
+   coleman-leigh-walton.html: data-wa="447521775631" changed to
+   data-wa="{{WHATSAPP}}". CAUGHT on two rules at once, as expected: "[unreplaced
+   token] ...pharmacy-first-coleman-leigh-walton.html: still carries the
+   template placeholder {{WHATSAPP}}" and the expected collateral "[page
+   agreement] ...data-wa=\"{{WHATSAPP}}\" but branches.json agrees on
+   447521775631" (a token is also, definitionally, not the agreed value, so
+   both rules firing together is correct behaviour, not double-counting).
+   Restored; sha256 confirmed byte-identical.
+
+3. RULE 6 (orphan button). modules/switch/pages/switch-prescriptions-
+   coleman-leigh-walton.html: the ` data-wa="447521775631"` attribute removed
+   from the #rbhsw-root div entirely, leaving the switch-wa / switch-wa-hero
+   buttons in place. CAUGHT: "[orphan button] ...switch-prescriptions-
+   coleman-leigh-walton.html: carries a WhatsApp button but no data-wa on its
+   module root, so it would fall back to the runtime default". Page count in
+   the summary line dropped from 171 to 170 carrying data-wa, as expected for
+   one page losing the attribute. Restored; sha256 confirmed byte-identical.
+
+4. CONTROL. modules/service/pages/weight-loss-clinic-coleman-leigh-walton.html:
+   an unrelated wording change only ("Weight Loss Clinic" -> "Weight Loss
+   Service" in the page heading/body, 8 occurrences), data-wa left untouched.
+   Checker ran clean, identical output to the baseline - no cross-firing from
+   an edit that has nothing to do with the WhatsApp route. Restored; sha256
+   confirmed byte-identical.
+
+All four cases fired or passed on the intended rule, first attempt, with
+correct diagnostic text naming the branch and file. No unexplained collateral
+beyond the one documented case (2, where token-and-agreement firing together
+is correct).
+
+VERIFICATION: full 36-checker suite re-run on the scratch copy after all
+injections and restores: 35/36 exit 0, same single check-cdn-pins.js artefact
+as the pre-injection baseline. branches.json sha256 unchanged throughout. The
+three touched pages (switch-prescriptions-coleman-leigh-walton.html,
+pharmacy-first-coleman-leigh-walton.html, weight-loss-clinic-coleman-leigh-
+walton.html) diffed byte-for-byte against their pre-injection backups: empty
+diff on all three. Full 36-checker suite re-run individually against the
+TRACKED repo after the scratch-copy work: 36/36 exit 0. `git status --porcelain
+-- modules core branches.json gbp-packs tools` on the tracked repo showed only
+the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched.
+
+RESULT: no in-repo defect found. check-whatsapp-route.js's RULE 4, RULE 5 and
+RULE 6 are now proven by direct injection against Coleman and Leighs
+specifically, alongside a clean control. Guard coverage for item 3.9 now
+extends to 4 of the 20 previously-untested checkers proven by direct injection
+against this branch: check-nap.js (eighteenth pass), check-opening-hours.js
+(nineteenth pass), check-seo-keywords.js (twentieth pass), check-whatsapp-
+route.js (this pass). Sixteen remain: check-address-region.js,
+check-app-membership.js, check-booking-routes.js, check-editor-snapshot.js,
+check-em-dashes.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js - a candidate list for a twenty-second pass.
+
+LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked, typed or
+submitted; first live re-read of this branch since the sixth pass on
+2026-08-31, per the item's own note that live checks had lapsed for several
+passes):
+- Homepage (colemanandleighspharmacy.co.uk): NAP, hours (including the
+  1-2pm lunch closure on all five weekdays) and email all correct against
+  branches.json. The header banner ("Change to Coleman & Leigh Pharmacy in 30
+  seconds") and the footer ("Coleman & Leigh Pharmacy") still carry the
+  ampersand/missing-s brand variant against the body copy's correct "Coleman
+  and Leighs Pharmacy" - unchanged since the 2026-08-12 GBP pack note, now over
+  five weeks. The homepage weight loss line ("Innovative solutions that deliver
+  results. Tried the rest? Now try the best.") also persists - standing Q22
+  state, itself still unresolved on the portal ("Unsure. Need to loop back on
+  this").
+- pfLink (https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-
+  walton.html): still 404. Standing 5.3/Q8 state, unchanged.
+- Switch page (switch-prescriptions-coleman-leigh-walton.html): still the
+  pre-Q49 paste. The hero reads the OLD unqualified wording ("We contact your
+  GP. We handle everything. You do nothing." / "We handle the full switch for
+  you"), not the qualified wording ("We contact your GP where it is needed. We
+  handle what we can...") that Q49's answer had implemented in the repo
+  generator on 2026-09-15 (confirmed by grep against the tracked repo: the
+  generated file's hero-proof paragraph already carries the qualified text).
+  This is the already-documented gap from Q49's own answer record, not a new
+  finding: the repo fix landed over a week ago and a Weebly repaste of all
+  fifteen branch sites is still outstanding. Also still present: the mojibake
+  em dash in "it usually is not [mojibake] we make the first step" - the
+  tracked repo's own copy has read "it usually is not. We make the first step
+  quick and easy." (a full stop, no dash) since the Q7 fix, so this is the same
+  pre-paste live/repo gap, not a new defect.
+
+STEP 3 answer pickup: portal feed (https://data.rbhealth.co.uk/api/feedback)
+read in full this run via Claude in Chrome, read-only. Newest entry still Q52,
+2026-09-01T22:44:51.524Z, identical to every pickup since 2026-09-01. No new
+answer for any currently open question; no status change made.
+
+No new question raised this pass.
