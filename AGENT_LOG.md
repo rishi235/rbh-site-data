@@ -1,3 +1,66 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 119;
+mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
+pull/status, the scratch-copy injection proofs and the checker suite;
+mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch and the live
+half of this pass's quality check)
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 118's own
+addendum confirms it cleared its lock via PowerShell before exiting). Wrote a
+fresh lock (2026-09-18T17:34:43Z). git fetch origin, git checkout
+agents/audit-backlog (no-op, already on it) and git pull --ff-only both
+completed clean, confirmed up to date with origin.
+ANSWER PICKUP (step 3): Chrome connected this run (no two-session refusal,
+Q59). Navigated to https://data.rbhealth.co.uk/api/feedback and read the full
+JSON feed. Newest entry still the Q52 answer (2026-09-01T22:44:51.524Z),
+matching every run since 2026-09-01 - nothing new to apply. Spot-checked the
+two open questions whose answers this feed already carries (Q37, Q43): both
+already correctly recorded in QUESTIONS.json as "PORTAL REPLY RECEIVED,
+NOT A DECISION" with a RECONFIRMED note from 2026-09-16; no further action
+needed, both still correctly open. 60 of 113 questions open before this run.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of this file as it stood at
+run start (run 118's own addendum entry); no "Standing authorisation -
+autonomous window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6),
+unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the 36-item pool, 4.1 (Fishlocks Chemist Ainsdale
+GBP pack) came out stalest at 2026-09-17T19:41:47+01:00 - run 118's own
+commit on item 1.3 had moved that item off the top. Chosen: 4.1,
+twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.1 block and in
+audits/fishlocks-ainsdale-item-4.1-category-service-rules-quality-pass-2026-09-18-twentysecond.txt;
+this is the mirrored summary. Twenty-one prior passes had proven every
+"genuine reader" checker and most granular sub-rules of check-gbp-packs.js
+against this pack; none had touched CATEGORY_RULES, SERVICE_RULES (forward
+direction) or the RECOGNISED_SERVICES/RECOGNISED_CATEGORIES allowlist.
+Four injections on a git-archive scratch copy (tracked repo never opened for
+writing), each restored and sha256-reconfirmed identical before the next:
+(1) an earned category ("Weight loss service") deleted from Section 2 -
+CAUGHT; (2) an earned service ("NHS blood pressure check") deleted from
+Section 3 - CAUGHT; (3) an invented service ("Ear wax removal") added to
+Section 3 - CAUGHT by the allowlist rule; (4) a harmless bullet reorder -
+correctly PASSED. All four fired or passed on the intended rule, first
+attempt, no cross-firing. Noted (not a defect): this branch holds all five
+branches.json widgets, so it earns every CATEGORY_RULES/SERVICE_RULES entry,
+meaning the REVERSE "not earned" rules cannot be exercised on this specific
+pack with genuine vocabulary - already proven elsewhere (scorah-bramhall.md).
+Final restore confirmed identical; tracked repo git status empty throughout;
+full 35-checker suite (excluding check-live-hours.js) re-run clean, all 0
+failures; check-cdn-pins.js clean separately with only its standing
+pre-existing WARNs (branch-ref lag behind main, the two @main runtime
+branches.json fetches, all previously tracked).
+RESULT: no in-repo defect. LIVE HALF (Claude in Chrome, read-only, no
+click/type/submit/login): pharmacy-fishlocks-ainsdale.html still 404 (Q35,
+answered, not yet pasted); switch-prescriptions-fishlocks-ainsdale.html's
+shared Weebly footer still misspells "Fishlock Pharmacy"/"Fishlock Chemist"
+and abbreviates "17 Station Rd" (Q37/Q91, unchanged). No new live fault, no
+new question.
+No secrets encountered. Committed AGENT_WORKLIST.md, AGENT_LOG.md and the new
+audit file; publish and push detailed in this run's own addendum below, once
+step 9/10 complete.
+
 ## 2026-09-18 (run 118 addendum, same run, after step 10 completed)
 Commit/push (step 9): the tracked repo's own .git/index.lock recurred again
 at commit time (the standing sandbox FUSE unlink quirk, Q87/Q96/Q102

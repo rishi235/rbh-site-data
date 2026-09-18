@@ -1,0 +1,119 @@
+Item 4.1 (Fishlocks Chemist Ainsdale GBP pack) - quality pass twenty-second
+Run: unattended scheduled run (audit-backlog-worker), 2026-09-18
+Method: mcp__workspace__bash for all repo work, mcp__claude-in-chrome for the
+live-half read (read-only, no click/type/submit/login).
+
+ROTATION
+Re-derived via `git log --pretty="%aI|||%s"` parsed with the established
+word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d), over the 36-item rotation pool
+(43 completed items minus the standing out-of-rotation pool 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8), excluding the 8 currently [BLOCKED] worklist lines
+(5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6).
+4.1's most recent mention: 2026-09-17T19:41:47+01:00 - the stalest in the
+pool, ahead of 4.5 (20:12), 4.10 (21:17), 4.3 (21:43), 4.13 (22:11), 4.8
+(22:45), 3.3 (23:14), 3.5 (23:44), 1.2 (00:14), 2.3 (00:42).
+Chosen: 4.1, twenty-second pass.
+
+BASELINE
+sha256 of gbp-packs/fishlocks-ainsdale.md: 7592bad3e7a4ba0f50b7ef997b927eb65
+f52ac9e1ae1d6d97e63f6a9c2de3e30 - unchanged since the twelfth pass.
+Full checker suite re-run against the tracked repo before any injection: all
+35 check-*.js scripts (excluding check-live-hours.js, network-dependent) exit
+0; check-cdn-pins.js run separately, exit 0, only pre-existing WARNs.
+
+FRESH ANGLE
+Twenty-one prior passes had proven all ten "genuine reader" checkers against
+this pack by the thirteenth pass, then moved to granular sub-rules within
+check-gbp-packs.js: OUTCOME_PROMISE (14th), photo shot list (15th), catchment
+list/areaOrder/membership (16th), post button targets/labels (17th), bank
+holiday/lead-pricing/body-image (18th), business-description length pair
+(19th), sisterBranch (20th), CLINIC_QUALIFIERS pin (21st). None of the
+twenty-one prior passes had mentioned CATEGORY_RULES, SERVICE_RULES, or the
+RECOGNISED_SERVICES/RECOGNISED_CATEGORIES allowlist (check-gbp-packs.js lines
+1081-1291) - confirmed by grep of this item's own AGENT_WORKLIST.md history
+before writing the instrument. This is the same shape as passes 14-21: a
+sub-rule inside check-gbp-packs.js never proven against this specific pack.
+
+branches.json's fishlocks_ainsdale entry carries all five widgets
+(bloodPressure, contraception, pharmacyFirst, weightLoss, travelClinic), so
+this branch earns every entry in both CATEGORY_RULES (travelClinic,
+weightLoss) and SERVICE_RULES (all five keys) - noted here because it means
+the REVERSE "claims a service/category the branch does not earn" rules
+(categoryNotEarned, serviceNotOffered, serviceNotOfferedInPost) cannot be
+exercised on this pack using genuine SERVICE_RULES/CATEGORY_RULES vocabulary,
+since nothing in that vocabulary is unearned. This is an observation about
+test coverage shape, not a defect: the reverse rules are already proven
+against other packs (scorah-bramhall.md, per the rule's own header comment).
+
+INJECTIONS (git-archive scratch copy at /tmp/scratch-41, tracked repo never
+opened for writing; each restored by byte copy from an in-memory-read
+original and sha256/diff-reconfirmed identical before the next)
+
+1. Forward CATEGORY_RULES: "Weight loss service" deleted from Section 2's
+   "Add if not present" line (Travel clinic and Vaccination centre left in
+   place). CAUGHT first attempt: 'Categories section does not list "Weight
+   loss service", but the branch has a weight loss clinic per branches.json
+   (Build Pack v2 section 4.1)'. Exactly one FAIL, no cross-firing.
+
+2. Forward SERVICE_RULES: the "NHS blood pressure check" bullet deleted
+   whole from Section 3 (business description untouched, still mentions
+   blood pressure checks). CAUGHT first attempt: 'Services section does not
+   list "NHS blood pressure check", but branches.json gives this branch a
+   bloodPressure widget (Build Pack v2 section 4.1)'. No WARN fired for the
+   description-mention rule, correctly, since the description still carries
+   the phrase.
+
+3. RECOGNISED_SERVICES allowlist: an invented service bullet added to
+   Section 3's private-services list, "- Ear wax removal: microsuction ear
+   wax removal by appointment." (the same shape as the precedent proved
+   against scorah-bramhall.md on the item 4.4 pass, 2026-08-13, now proven
+   directly against this pack for the first time). CAUGHT first attempt:
+   'Services section lists "Ear wax removal", which is not a service any
+   pack in this repo uses. ... If the branch genuinely offers it, add it to
+   RECOGNISED_SERVICES in tools/check-gbp-packs.js deliberately'.
+
+4. CONTROL: the "Blood testing" and "Private consultation room" bullets in
+   Section 3 swapped in order, no content added or removed. Correctly
+   PASSED: exit 0, same two pre-existing WARNs (Q72 qualifier gap, Q64
+   address post-town), no new FAIL.
+
+All four fired or passed on their intended rule, first attempt, no
+cross-firing on the three untouched sections each time.
+
+RESTORE AND VERIFICATION
+Final restore of gbp-packs/fishlocks-ainsdale.md in the scratch copy
+sha256-reconfirmed identical to the pre-injection value after each of the
+four steps. Tracked repo: git status --porcelain scoped to
+gbp-packs/fishlocks-ainsdale.md and tools/check-gbp-packs.js empty
+throughout (aside from the standing FUSE index.lock unlink warning, unrelated
+to any tracked content); sha256 of the tracked file unchanged
+(7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30). Full
+35-checker suite (excluding check-live-hours.js) re-run individually against
+the tracked repo after the scratch work: 0 failures across all 35;
+check-cdn-pins.js run separately, exit 0, unchanged pre-existing WARNs only.
+
+RESULT
+No in-repo defect. CATEGORY_RULES, SERVICE_RULES (forward direction) and the
+RECOGNISED_SERVICES allowlist all already correctly protect this pack, now
+proven directly by injection for the first time in twenty-two passes. The
+reverse "not earned" rules remain untestable against this specific pack by
+genuine vocabulary (see FRESH ANGLE note above) - not a gap in the rule, a
+property of this branch running every service in the vocabulary.
+
+LIVE HALF
+Read via Claude in Chrome (connected this run, read-only, no
+click/type/submit/login).
+- pharmacy-fishlocks-ainsdale.html (the profile-website target): still 404,
+  unchanged (Q35, answered 2026-09-01, not yet pasted).
+- switch-prescriptions-fishlocks-ainsdale.html: shared Weebly footer still
+  misspells the brand ("Fishlock Pharmacy" / "Fishlock Chemist") and still
+  abbreviates "17 Station Rd", unchanged (Q37/Q91, hand-built site furniture
+  no generator or checker here can reach), alongside the separately-correct
+  "Fishlocks Chemist" / "17 Station Road" trust-bar text lower on the same
+  page, exactly as recorded on every prior pass since 2026-09-01.
+No new live fault found.
+
+QUESTIONS
+No new question raised; QUESTIONS.json unchanged in count from the run's
+answer-pickup step (60 of 113 open before this run's work, no answers
+received since 2026-09-01T22:44:51.524Z).

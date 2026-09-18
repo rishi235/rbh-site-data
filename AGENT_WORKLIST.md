@@ -17479,6 +17479,61 @@ Pharmacy First wording to the NHS service description.
       Evidence:
       audits/fishlocks-ainsdale-item-4.1-clinic-qualifier-pin-quality-pass-2026-09-17-twentyfirst.txt.
       Done 2026-09-17
+      Quality pass 2026-09-18 (twenty-second, unattended run): least recently
+      verified rotation-pool item, re-derived via `git log --pretty="%aI|||%s"`
+      parsed with the established word-boundary regex, over the 36-item pool
+      excluding the 8 blocked worklist lines; 4.1 came out stalest at
+      2026-09-17T19:41:47+01:00, ahead of 4.5, 4.10, 4.3, 4.13, 4.8, 3.3, 3.5,
+      1.2 and 2.3. Baseline sha256 of gbp-packs/fishlocks-ainsdale.md
+      unchanged since the twelfth pass (7592bad3...); all 35 checkers
+      (excluding check-live-hours.js) pass at the start, check-cdn-pins.js
+      clean separately.
+      FRESH ANGLE: none of the twenty-one prior passes had proven
+      check-gbp-packs.js's CATEGORY_RULES, SERVICE_RULES (the forward
+      earned-but-missing direction) or the RECOGNISED_SERVICES/
+      RECOGNISED_CATEGORIES allowlist (lines 1081-1291) against this specific
+      pack, confirmed by grep of this item's own history. Noted first:
+      fishlocks_ainsdale holds all five widgets in branches.json, so this
+      pack earns every entry in both rule lists, which means the REVERSE
+      "claims something not earned" rules cannot be exercised on this pack
+      with genuine vocabulary - an observation about test-coverage shape, not
+      a defect, since those reverse rules are already proven elsewhere
+      (scorah-bramhall.md).
+      Four injections on a git-archive scratch copy, each restored by byte
+      copy and sha256/diff-reconfirmed identical before the next: (1)
+      forward CATEGORY_RULES - "Weight loss service" deleted from Section
+      2's "Add if not present" line - CAUGHT first attempt, exact rule,
+      naming the weight loss clinic per branches.json. (2) forward
+      SERVICE_RULES - the "NHS blood pressure check" bullet deleted whole
+      from Section 3 (business description left untouched) - CAUGHT first
+      attempt, naming the bloodPressure widget, with no spurious WARN since
+      the description still mentions blood pressure. (3) RECOGNISED_SERVICES
+      allowlist - an invented "Ear wax removal" service bullet added to
+      Section 3, the same shape proven against scorah-bramhall.md on item
+      4.4 - CAUGHT first attempt, exact "not a service any pack in this repo
+      uses" message. (4) CONTROL - the Blood testing and Private
+      consultation room bullets swapped in order, no content changed -
+      correctly PASSED, exit 0, same two pre-existing WARNs only. All four
+      fired or passed on the intended rule, first attempt, no cross-firing.
+      Final restore sha256-reconfirmed identical to baseline; tracked repo
+      git status empty on both files throughout; full 35-checker suite
+      re-run clean afterwards, check-cdn-pins.js clean separately. RESULT:
+      no in-repo defect; all three rules already correctly protect this
+      pack, now proven by injection for the first time in twenty-two passes.
+      LIVE HALF: Claude in Chrome, read-only.
+      pharmacy-fishlocks-ainsdale.html (profile-website target): still 404,
+      unchanged (Q35, answered, not yet pasted).
+      switch-prescriptions-fishlocks-ainsdale.html: shared Weebly footer
+      still misspells "Fishlock Pharmacy"/"Fishlock Chemist" and abbreviates
+      "17 Station Rd" (Q37/Q91, unchanged), alongside the separately-correct
+      "Fishlocks Chemist"/"17 Station Road" trust-bar wording lower on the
+      page. No new live fault.
+      No new question; QUESTIONS.json unchanged, 60 of 113 open (checked
+      during this run's answer-pickup step, newest feed entry still
+      2026-09-01T22:44:51.524Z).
+      Evidence:
+      audits/fishlocks-ainsdale-item-4.1-category-service-rules-quality-pass-2026-09-18-twentysecond.txt.
+      Done 2026-09-18
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
