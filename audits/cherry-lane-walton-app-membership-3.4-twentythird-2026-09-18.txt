@@ -1,0 +1,105 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - twenty-third quality pass, 2026-09-18
+Checker under test: tools/check-app-membership.js (never before proven against
+this branch's own files - grep of the item's full history and of item 2.3's
+history, the only two worklist items covering Cherry Lane, showed no mention).
+
+Branch facts: cherrylane_liverpool, hasApp: false. Has a switch page
+(modules/switch/pages/switch-prescriptions-cherry-lane-walton.html) and a
+Pharmacy First service page, but no branch landing page (only the six
+shared-domain branches have one, and Cherry Lane is not one of them), so
+Rule 3 does not apply to this branch and was not tested here.
+
+BASELINE: full 35-checker suite (37 minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run on the tracked repo before
+any work this pass: clean, 0 failures. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 (standing
+anchor, unchanged). Scratch copy built via `git archive HEAD | tar -x` under
+the sandbox outputs mount (tracked repo never opened for writing during
+injection testing); scratch baseline re-confirmed byte-identical
+(branches.json and the switch page both matched the tracked repo's own
+sha256) and the same 35-checker suite re-run clean on the scratch copy.
+
+FOUR INJECTIONS PLUS ONE CONTROL against the scratch copy, each restored by
+byte copy and sha256-reconfirmed identical to a pristine backup before the
+next:
+
+(1) RULE 2 (switch pages): a bare `<div class="app-card">Download our
+app</div>` inserted just inside #rbhsw-root on the switch page - CAUGHT:
+"carries the app card but branches.json says this branch is not an app
+member".
+
+(2) RULE 4 (absence elsewhere): an HTML comment mentioning "the RB Healthcare
+Pharmacy app" appended to the end of the Pharmacy First service page -
+CAUGHT: "mentions the app or carries a store URL, and no page in this family
+is meant to". Worth recording: this rule does not strip HTML comments before
+scanning (unlike several other checkers in this repo that strip the build
+comment), so a mention inside a comment is read the same as one in visible
+copy - correct for this rule's own purpose (it is asking whether the app is
+mentioned AT ALL in a family that should never carry it), not a bug.
+
+(3) RULE 7 (paste marker): "*(app member)*" appended to Cherry Lane's own
+`## Cherry Lane Pharmacy — Walton` heading in modules/switch/pages/INDEX.md -
+CAUGHT TWO WAYS AT ONCE, the same "one fact, several rules" pattern already
+on record for this checker and others under items 3.3/3.6: the estate-wide
+count check ("marks 5 page(s) as app members but branches.json has 4") and
+the per-heading brand+town check ("is marked as an app member and
+branches.json does not agree").
+
+(4) RULE 8a (GBP pack public copy): "You can order repeat prescriptions
+through our RB Healthcare Pharmacy app." inserted into
+gbp-packs/cherry-lane-walton.md's own Business description (section 1), the
+field pasted verbatim onto the public Google profile - CAUGHT: "the copy
+pasted into the public Google profile claims an app, but branches.json has
+hasApp false for cherrylane_liverpool".
+
+CONTROL: one digit of the switch page's phone number changed in all three
+shapes (visible btn-pill link, FAQ prose, contact-line) - zero mentions in
+check-app-membership.js's own output (re-confirmed clean); independently
+re-run check-nap.js caught it immediately (4 phone-shaped MISMATCH lines
+plus visible/JSON-LD variants), confirming this was a real fault outside
+check-app-membership.js's scope rather than untested ground.
+
+All five injections restored by byte copy and sha256-reconfirmed identical
+to their pristine pre-injection values. Full 35-checker suite re-run on the
+scratch copy after the final restore: clean, matching baseline.
+
+Tracked repo reconfirmed untouched throughout: branches.json sha256
+unchanged; full 35-checker suite re-run individually against the tracked
+repo after the injection round, clean; `diff -rq` of modules/, tools/ and
+gbp-packs/ and a direct diff of branches.json between the scratch copy and
+the tracked repo showed no differences other than the two long-standing
+pre-existing untracked strays that live only in the tracked working copy
+(gbp-packs/.fuse_hidden0000000400000001, dated 2026-09-08, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, an empty
+file dated 2026-09-09 - both absent from the scratch copy because
+`git archive` only ever exports tracked content); `git status --porcelain --
+modules core branches.json gbp-packs tools` on the tracked repo showed only
+those same two strays, neither touched.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now includes
+check-app-membership.js proven by direct injection against this branch's own
+switch page, Pharmacy First page, paste sheet and GBP pack for the first
+time.
+
+LIVE HALF (Claude in Chrome, one instance connected, read-only throughout,
+nothing clicked, typed or submitted): navigated to
+https://www.cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
+and read the full page text. Positive reconfirmation of Rule 2's own
+subject: no app card, no "Download our app" copy and no store buttons appear
+anywhere on the live page, consistent with hasApp: false. Two already-tracked
+live drifts reconfirmed, neither new: the pre-Q49 unconditional hero and
+bullet wording ("We contact your GP. We handle everything. You do nothing.",
+"We handle the full switch for you", "No interruption to your medication"
+with no hedge) against the repo's own already-fixed hedged text (landed
+2026-09-15, still not repasted); and the pre-Q7/5.1 mojibake em dash in the
+"How switching...works" paragraph ("it usually is not ÔÇö we make the first
+step quick and easy") against the repo's own plain-full-stop text at that
+same sentence. The footer's "pharmacy.FA226@mhs.net" typo (Q36) is also
+visible live, likewise already on record. No new live finding, no new
+question raised.
+
+QUESTIONS.json unchanged: 111 total, 58 open (re-read via the portal feed at
+step 3, not edited this pass - see this run's own AGENT_LOG.md entry for the
+answer-pickup detail).
+
+Evidence file: this file.

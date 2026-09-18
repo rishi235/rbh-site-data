@@ -6359,6 +6359,85 @@ branch's data rather than surfacing a decision for Rishi.
 Next stalest by this run's own computation, for whoever runs next: 3.6,
 3.10, 4.4, 4.9, 4.15, 5.2 remain tied at 2026-09-15 - re-derive rather than
 assume, since other runs may land in between.
+Quality pass 2026-09-18 (twenty-third): REPO HALF CLEAN, ZERO IN-REPO
+DEFECTS. Selected as the stalest completed item via the standard rotation
+derivation, re-derived fresh rather than trusting the twenty-second pass's
+own forward note: all eight remaining `[ ]` worklist lines still [BLOCKED];
+today's rotation pool independently re-derived as the 37 eligible items (43
+completed minus the six standing out-of-rotation items 1.1, 1.4, 2.2, 5.6,
+5.7, 6.7) minus the 20 items already picked today (extracted via a
+case-insensitive scan of `git log --format="%ad|%s" -- AGENT_WORKLIST.md`
+for commits dated 2026-09-18: 1.2, 1.4, 2.1, 2.3, 3.1, 3.2, 3.7, 3.9, 3.11,
+3.12, 3.13, 4.2, 4.6, 4.11, 4.12, 4.14, 4.15, 5.1, 6.2, 6.3, 6.8, with 1.4
+excluded from the pool count as a standing one-off and 2.1 excluded as
+today's prior pick), leaving 17 candidates (1.3, 3.3, 3.4, 3.5, 3.6, 3.8,
+3.10, 4.1, 4.3, 4.4, 4.5, 4.7, 4.8, 4.9, 4.10, 4.13, 5.2); each candidate's
+own worklist-block line range checked via `git log -1 --date=iso-strict -L`
+against AGENT_WORKLIST.md, matching the twenty-second pass's own
+computation exactly and confirming 3.4 itself stalest at
+2026-09-16T19:23:05+01:00, ahead of 3.6 (2026-09-17T15:10:40+01:00) and the
+rest. Chosen: 3.4, twenty-third pass.
+WORK DONE: full detail in
+audits/cherry-lane-walton-app-membership-3.4-twentythird-2026-09-18.txt.
+FRESH ANGLE: tools/check-app-membership.js, never named once against this
+item across its own twenty-two prior passes or under item 2.3's own history
+(the only other worklist item covering this branch) - confirmed by grep of
+both items' full sections for "check-app-membership" before selecting it.
+BASELINE: branches.json sha256 169bb5a2...b102 (standing anchor,
+unchanged), full 35-checker suite (37 minus check-cdn-pins.js/
+check-live-hours.js, both network-dependent) clean on the tracked repo and,
+after a `git archive HEAD | tar -x` scratch copy under the sandbox outputs
+mount with both anchor hashes reconfirmed identical, clean on the scratch
+copy too before any mutation. FOUR INJECTIONS PLUS ONE CONTROL against the
+scratch copy, each restored by byte copy and sha256-reconfirmed before the
+next: (1) rule 2, an app-card div inserted into the switch page - CAUGHT
+("carries the app card but branches.json says this branch is not an app
+member"); (2) rule 4, an app mention appended as an HTML comment to the
+Pharmacy First service page - CAUGHT ("mentions the app or carries a store
+URL, and no page in this family is meant to"), confirming this rule reads
+comments as well as visible copy, correctly for its own "any mention at
+all" purpose; (3) rule 7, "*(app member)*" appended to this branch's own
+heading in modules/switch/pages/INDEX.md - CAUGHT TWO WAYS AT ONCE (the
+estate-wide member-count mismatch and the per-heading brand+town mismatch),
+the same "one fact, several rules" pattern already on record for this
+checker under items 3.3 and 3.6; (4) rule 8a, an app claim inserted into
+gbp-packs/cherry-lane-walton.md's own business description - CAUGHT ("the
+copy pasted into the public Google profile claims an app, but branches.json
+has hasApp false"). CONTROL: the switch page's phone number changed in all
+three shapes - zero mentions in check-app-membership.js's output;
+independently re-run check-nap.js caught it immediately, confirming the
+control was a real fault outside this checker's scope. All five injections
+restored, sha256 reconfirmed identical to the pristine backups; full
+35-checker suite re-run on the scratch copy after the final restore: clean.
+Tracked repo reconfirmed untouched throughout: branches.json sha256
+unchanged, full 35-checker suite re-run individually against the tracked
+repo clean, `diff -rq` of modules/tools/gbp-packs and branches.json between
+the scratch copy and the tracked repo showing no differences beyond the two
+long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden...,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched, and `git status --porcelain -- modules core branches.json
+gbp-packs tools` confirming the same.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now includes
+check-app-membership.js proven by direct injection against this branch's
+own switch page, Pharmacy First page, paste sheet and GBP pack for the
+first time.
+LIVE HALF (Claude in Chrome, connected first attempt, read-only, nothing
+clicked, typed or submitted): switch-prescriptions-cherry-lane-walton.html
+read live in full - no app card, no app copy and no store buttons anywhere
+on the page, positively reconfirming Rule 2's own subject against hasApp:
+false. Two already-tracked live drifts reconfirmed, neither new: the
+pre-Q49 unconditional hero/bullet wording against the repo's own
+already-fixed hedged text (landed 2026-09-15, still not repasted), and the
+pre-Q7/5.1 mojibake em dash in the "How switching...works" paragraph
+("it usually is not ÔÇö we make the first step quick and easy") against the
+repo's own plain-full-stop text; the Q36 footer typo
+(pharmacy.FA226@mhs.net) is also visible live, likewise already on record.
+No new live finding, no new question raised. QUESTIONS.json unchanged: 111
+total, 58 open.
+Next stalest by this run's own computation, for whoever runs next: 3.6
+(2026-09-17T15:10:40+01:00), then 3.10, 4.4, 4.9, 5.2, 4.7, 3.8, 1.3, 4.1,
+4.5, 4.10, 4.3, 4.13, 4.8, 3.3, 3.5 - re-derive rather than assume, since
+other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
