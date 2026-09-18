@@ -19132,6 +19132,64 @@ Pharmacy First wording to the NHS service description.
       repo. No new question raised; QUESTIONS.json unchanged at 110 total,
       57 open. Evidence:
       audits/hirshmans-ainsdale-4.3-twentieth-2026-09-17.txt. Done 2026-09-17
+      Quality pass 2026-09-18 (twenty-first pass, unattended scheduled run,
+      run 122): re-verified as the stalest rotation-pool item (twentieth
+      pass's own commit, 2026-09-17T21:43:50+01:00, the oldest of the 36 once
+      4.10 was excluded as re-passed earlier today by run 121). Pack sha256
+      c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+      unchanged since the seventeenth pass; branches.json and
+      tools/check-app-membership.js confirmed unchanged throughout by direct
+      hash comparison before and after. NEW ANGLE: of the ten checkers
+      confirmed to genuinely read gbp-packs/*.md (real PACK_DIR/readdirSync/
+      OWNED_DIRS/PUBLISHED_DIRS reference, not a passing comment), four had
+      never been named against this pack in twenty prior passes -
+      check-app-membership, check-gbp-pharmacy-first, check-pharmacy-first-cost,
+      check-url-scheme. Chose check-app-membership.js: Hirshmans Ainsdale has
+      hasApp false, so rules 8a-8d (the non-member half of the rule set) are
+      the applicable rules; rule 8e (member-branch omission) is structurally
+      inapplicable here without changing branches.json, out of scope for a
+      copy-proof pass. PROOF BY INJECTION on a disposable git-archive scratch
+      copy (tracked files never opened for writing, sha256-confirmed unchanged
+      throughout). TEST 1 (rule 8a): app sentence appended to the business
+      description - CAUGHT, exit 1, "a profile advertising an app the branch
+      does not run sends a patient to a store for nothing". TEST 2 (rule 8b):
+      an app photo added to the shot list - CAUGHT, exit 1, "the photo shot
+      list asks for an app shot". TEST 3 (rule 8c): "branches.json has hasApp
+      true for this branch" added to the paster notes - CAUGHT, exit 1, "the
+      note invites an app claim onto a profile that must not carry one". TEST
+      4 (rule 8d): the same app sentence as TEST 1 plus a contradictory "No
+      app mention anywhere in this pack" note - CAUGHT, exit 1, 2 FAILs (8a
+      and 8d both fire correctly together). CONTROL: reworded Post B's "takes
+      about 30 seconds" to "takes about half a minute" - 0 failures, no
+      cross-firing from the \bapps?\b/App Store/Google Play patterns. All four
+      rounds fired on the intended rule(s) first attempt; pack restored by
+      byte copy and sha256-reconfirmed identical after every round; scratch
+      copy deleted after use. No defect - the pack carries no app claim
+      anywhere and genuinely should not, this being the first proof of rules
+      8a-8d against this pack's own copy in twenty-one passes. Full
+      33-checker suite (excluding check-cdn-pins.js and check-live-hours.js)
+      re-run clean on the tracked repo before and after (33/33 exit 0 both
+      times); git status --porcelain -- modules core branches.json gbp-packs
+      tools compliance shows only the two long-standing pre-existing
+      untracked strays, neither touched. All six generators rebuilt to zero
+      diff (sha256 of all 189 modules/core html/js/css files identical before
+      and after). LIVE HALF: Claude in Chrome connected this run, single tab,
+      read-only, no dual sign-in. switch-prescriptions-hirshmans-ainsdale.html
+      (Post B) carries no app mention anywhere (consistent with hasApp false,
+      no false live claim); both standing tracked live-paste-lag findings
+      reconfirmed unchanged (the pre-Q7 em-dash mojibake and the pre-Q49
+      unconditional hero/bullet wording), neither new, neither actionable
+      from this repo. pharmacy-first-hirshmans-ainsdale.html (Post A's
+      current target) carries no app mention, all seven Pharmacy First
+      conditions correct with NHS age ranges matching the generator's own
+      canon exactly. No new live fault, no new question raised; QUESTIONS.json
+      unchanged. Residual for a future pass: rule 8e (member-branch omission)
+      remains unproven against any of the four app-member packs
+      (fishlocks-ainsdale, fishlocks-eccleston, clear-aintree, smartts-bootle)
+      - fits naturally as the next angle whichever of those four is next
+      chosen. Evidence:
+      audits/app-membership-reproof-4.3-2026-09-18-twentyfirst.txt. Done
+      2026-09-18
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

@@ -1,3 +1,109 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 122;
+mcp__workspace__bash used throughout for the lock check, git fetch/pull/status,
+the checker suite runs, the git-archive scratch copy at /tmp/scratch-4.3-run122
+(injection/restore cycle for tools/check-app-membership.js), and the six
+generator rebuilds; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp
+used for both the step 3 portal answer pickup and the item 4.3 live half, two
+tabs total across the run, read-only throughout, nothing clicked, typed or
+submitted; mcp__Windows-MCP__PowerShell used once, to clear a stuck
+.git/index.lock the sandbox's own unlink() could not remove (the standing
+Q87/Q96/Q102 sandbox-FUSE fault) before git add/commit/push; Write used for the
+new audits file; Edit used for AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 121's own
+entry confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T19:04:32Z). git fetch origin, git checkout agents/audit-backlog
+(already on it) and git pull --ff-only both completed clean, confirmed up to
+date with origin (HEAD at run 121's commit for item 4.10).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. Explicitly checked Q37 and Q43, the two open questions with
+a recorded but non-decisive portal reply ("i need further explanation..." and
+"Unsure...need advise..." respectively): both notes already carry a
+RECONFIRMED entry from run 121's pickup dated 2026-09-16 and nothing newer
+exists in the feed, so no update made, status stays open on both. 60 of 113
+questions open before this run, unchanged after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 121's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the same 36-item pool run 121 used, 4.3 (Hirshmans
+Chemist Ainsdale GBP pack) came out stalest at 2026-09-17T21:43:50+01:00 (4.10
+excluded, freshly touched by run 121 today). Chosen: 4.3, twenty-first pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.3 block and
+audits/app-membership-reproof-4.3-2026-09-18-twentyfirst.txt; this is the
+mirrored summary. Of the ten checkers confirmed to genuinely read
+gbp-packs/*.md by grepping each for a real PACK_DIR/readdirSync/OWNED_DIRS/
+PUBLISHED_DIRS reference rather than a passing comment mentioning the string
+"gbp-packs" (check-app-membership, check-brand-spelling, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-pharmacy-first-cost,
+check-pharmacy-first-eligibility, check-uk-spelling, check-postcodes,
+check-url-scheme), four had never been named against this pack's own copy in
+twenty prior passes: check-app-membership, check-gbp-pharmacy-first,
+check-pharmacy-first-cost, check-url-scheme. Chose check-app-membership.js:
+hirshmans_ainsdale has hasApp false, so rules 8a-8d (the four that fire only
+on a non-member branch's pack) are the applicable rules here; rule 8e
+(member-branch omission) needs isMember true and is structurally inapplicable
+without a branches.json change, left as a residual for a future app-member
+pack pass. Baseline sha256 of the pack (c90d802c...), branches.json and the
+checker confirmed unchanged since the seventeenth/nineteenth passes.
+INJECTION on a git-archive scratch copy (/tmp/scratch-4.3-run122, tracked
+files never opened for writing, restored by byte copy and sha256-reconfirmed
+after every round): TEST 1 (rule 8a) appended an app-store sentence to the
+business description - CAUGHT. TEST 2 (rule 8b) added an app-screen bullet to
+the photo shot list - CAUGHT. TEST 3 (rule 8c) added a false "hasApp true"
+claim to the paster notes - CAUGHT. TEST 4 (rule 8d) combined the TEST 1
+sentence with a contradictory "No app mention anywhere in this pack" note -
+CAUGHT, 2 FAILs (8a and 8d both fired). CONTROL (reworded unrelated switch-page
+copy, no app content touched) - 0 failures, no cross-firing. All four rounds
+fired or passed on the intended rule(s) first attempt. No defect: the pack
+carries no app claim anywhere, correctly, for a branch with hasApp false.
+Full 33-checker suite (excluding check-cdn-pins.js/check-live-hours.js,
+network-dependent) re-run clean on the tracked repo before and after (33/33
+exit 0 both times); git status --porcelain -- modules core branches.json
+gbp-packs tools compliance showed only the two long-standing pre-existing
+untracked strays, neither touched. All six generators rebuilt to zero diff
+(sha256 of all 189 modules/core html/js/css files identical before/after).
+LIVE HALF, Claude in Chrome, read-only, single tab (separate from the step 3
+tab, both closed after use): switch-prescriptions-hirshmans-ainsdale.html
+(Post B) carries no app mention anywhere, consistent with hasApp false; both
+standing tracked live-paste-lag findings (the pre-Q7 em-dash mojibake and the
+pre-Q49 unconditional hero/bullet wording) reconfirmed unchanged, neither new,
+neither actionable from this repo. pharmacy-first-hirshmans-ainsdale.html
+(Post A's current target) carries no app mention, all seven Pharmacy First
+conditions correct with NHS age ranges matching the generator's own canon
+exactly. No new live fault, no new question raised, QUESTIONS.json unchanged
+at 113 total, 60 open.
+INFRASTRUCTURE NOTE (steps 1-2 and 9): git status inside
+mcp__workspace__bash reported "unable to unlink '.../.git/index.lock':
+Operation not permitted" partway through the run (a fresh, 0-byte lock file,
+no git process holding it - the standing sandbox-FUSE unlink fault recorded
+at Q87/Q96/Q102). `rm -f` from mcp__workspace__bash and a plain read also
+failed to remove it with the same "Operation not permitted" error; git status
+itself still worked (read-only), so verification was unaffected, but the lock
+would have blocked step 9's git add/commit. Cleared it the way Q102's run 116
+addendum documents: mcp__Windows-MCP__PowerShell's `Remove-Item -Force`
+against C:\Dev\rbh-site-data\.git\index.lock on the real ProDesk host deleted
+it cleanly on the first try (same disk as the sandbox mount, confirmed gone
+from both views immediately after). No new question raised; this is the same
+standing fault Q102 already tracks, not a new one, and Q102's recommendation
+(make Windows-MCP primary for git writes) still stands as Rishi's call, not
+mine, so status left as-is.
+FORWARD NOTE for the next quality-pass run: the 36-item pool's next-stalest
+item after 4.3 (now freshly touched) is 4.13, last touched
+2026-09-17T22:11:34+01:00 - re-derive fresh rather than trust this number, in
+case an intervening run changes it. For whichever app-member pack
+(fishlocks-ainsdale, fishlocks-eccleston, clear-aintree or smartts-bootle) is
+next chosen for a fresh checker angle, rule 8e of check-app-membership.js
+(member branch's pack must actually carry an app mention) is still unproven
+by injection against any of the four and would close out the checker
+entirely.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 121;
 mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
 pull/status, the git-archive scratch copy at /tmp/scratch-4.10-run121, the

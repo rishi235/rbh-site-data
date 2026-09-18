@@ -1,0 +1,102 @@
+Item 4.3 (Hirshmans Chemist Ainsdale GBP pack), quality pass (twenty-first), 2026-09-18, run 122
+Scope: proof by injection that tools/check-app-membership.js rules 8a-8d actually
+fire against gbp-packs/hirshmans-ainsdale.md's own copy, never individually
+proven against this pack in twenty prior passes (confirmed by grepping every
+prior AGENT_WORKLIST.md item 4.3 entry and every audits/ file for the checker's
+name: zero hits before this run).
+
+Why this checker: of the ten checkers confirmed to genuinely read gbp-packs/*.md
+(readdirSync/PACK_DIR/OWNED_DIRS/PUBLISHED_DIRS reference, not just a comment
+mentioning the string "gbp-packs" - check-app-membership.js, check-brand-spelling.js,
+check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-uk-spelling.js, check-postcodes.js, check-url-scheme.js), four had never
+been named against this specific pack: check-app-membership, check-gbp-pharmacy-first,
+check-pharmacy-first-cost, check-url-scheme. Chose check-app-membership.js because
+Hirshmans Ainsdale is a live, structurally interesting case: hasApp is false for
+this branch (confirmed in branches.json), so rules 8a-8d (all four fire only on
+a NON-member branch's pack) are the applicable half of the rule set; rule 8e
+(member branch's pack must carry an app mention) is structurally inapplicable
+here, the same shape as the road-name and other branch-specific rules found
+inapplicable on earlier passes of other items.
+
+Method: git-archive scratch copy at /tmp/scratch-4.3-run122 (tracked files never
+opened for writing). Baseline pack sha256 c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f,
+confirmed identical to the tracked repo before and after every round. Baseline
+run of tools/check-app-membership.js in the scratch copy: 0 failures, "4 app
+member(s) of 16 branch(es): fishlocks_ainsdale, fishlocks_eccleston,
+clearchemist_aintree, smartts_bootle", 15 GBP packs read, clean.
+
+TEST 1 (rule 8a, business description): appended "Manage your repeat
+prescriptions on the go with the RB Healthcare Pharmacy app, available on the
+App Store and Google Play." to the end of section 1 (business description).
+CAUGHT: 1 new FAIL, "the copy pasted into the public Google profile claims an
+app, but branches.json has hasApp false for hirshmans_ainsdale. A profile
+advertising an app the branch does not run sends a patient to a store for
+nothing." Restored by byte copy; sha256 reconfirmed c90d802c...
+
+TEST 2 (rule 8b, photo shot list): added "App download screen on a phone,
+showing the store listing." as a new bullet in section 4 (photo shot list).
+CAUGHT: 1 new FAIL, "the photo shot list asks for an app shot, but
+branches.json has hasApp false for hirshmans_ainsdale." Restored by byte copy;
+sha256 reconfirmed c90d802c...
+
+TEST 3 (rule 8c, paster note contradicting the field): added "branches.json
+has hasApp true for this branch, so the app can be mentioned freely when
+posting." to "Notes for the paster". CAUGHT: 1 new FAIL, "the paster note tells
+the paster branches.json has hasApp true, but it has false for
+hirshmans_ainsdale, so the note invites an app claim onto a profile that must
+not carry one." Restored by byte copy; sha256 reconfirmed c90d802c...
+
+TEST 4 (rule 8d, note contradicting the pack it describes): combined
+injection - the same app sentence as TEST 1 added to the business description,
+plus "No app mention anywhere in this pack." added to the paster notes.
+CAUGHT: 2 new FAILs as expected (rule 8a fires because the published copy
+genuinely does carry the claim, and rule 8d fires on the direct contradiction:
+"the paster note says there is no app mention anywhere in this pack, but the
+pasted copy carries one"). Restored by byte copy; sha256 reconfirmed
+c90d802c...
+
+CONTROL: reworded Post B's "takes about 30 seconds" to "takes about half a
+minute" (unrelated wording, no app content touched). check-app-membership.js:
+0 failures, clean - confirms no cross-firing from the whole-word \bapps?\b /
+App Store / Google Play patterns against ordinary switch-page copy. Restored
+by byte copy; diff against the pre-test original empty (byte-identical).
+
+Rule 8e (member branch's pack must carry an app mention) not tested here:
+Hirshmans Ainsdale is not an app member, so the rule's precondition
+(isMember === true) can never be true for this branch's own copy without
+first changing hasApp in branches.json, which is a data change out of scope
+for a copy-proof pass. Noted as the residual for whichever app-member pack
+(fishlocks-ainsdale.md, fishlocks-eccleston.md, clear-aintree.md or
+smartts-bootle.md) is next chosen for a fresh checker angle.
+
+Full 33-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent) run individually against the TRACKED repo, before and
+after this pass's scratch-copy work: 33/33 exit 0 both times, no change.
+git status --porcelain -- modules core branches.json gbp-packs tools compliance
+shows only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched.
+
+Regeneration: all six generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) rerun against the
+tracked repo. sha256 of all 189 files under modules/ and core/ (html/js/css)
+identical before and after - byte-identical rebuild, no diff.
+
+Live half, Claude in Chrome, read-only, single tab, no dual sign-in, nothing
+clicked/typed/submitted:
+- switch-prescriptions-hirshmans-ainsdale.html (Post B): no app mention
+  anywhere in the rendered text (consistent with hasApp false, no false live
+  claim). Both standing tracked live-paste-lag findings reconfirmed unchanged:
+  the pre-Q7 em-dash mojibake ("it usually is not ÔÇö we make the first step
+  quick and easy") and the pre-Q49 unconditional hero/bullet wording ("We
+  contact your GP. We handle everything. You do nothing." / "No interruption
+  to your medication"). Neither is new, neither actionable from this repo.
+- pharmacy-first-hirshmans-ainsdale.html (Post A's current target since the
+  2026-09-14 repoint): no app mention, all seven Pharmacy First conditions
+  correct with NHS age ranges matching the generator's own canon exactly. No
+  new live fault.
+
+No in-repo defect found. No new question raised. QUESTIONS.json unchanged.
