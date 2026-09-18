@@ -93,9 +93,29 @@ paragraph appended), QUESTIONS.json (Q113 appended), AGENT_LOG.md (this
 entry), gbp-packs/mccanns-sandringham.md (superseding note appended),
 audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-18-twentysecond.txt
 (new evidence file). No generator, checker or branches.json change.
-Commit and push: see commit hash appended below once the Windows-MCP
-PowerShell route completes step 9. Status page publish: see step 10 note
-below once build-audit-status.js completes on the host.
+Commit and push (step 9): the sandbox's own stuck .git/index.lock had also
+propagated to (or independently recurred on) the Windows-side working copy
+this run - the first PowerShell `git add` returned a clean-looking status
+with no staged changes and no visible error, which on closer check (`Test-
+Path .git\index.lock` = True, then a repeated `git add` surfacing the actual
+"Unable to create .../index.lock: File exists" fatal) turned out to be a
+silently-failed add rather than a real success; worth flagging for a future
+run not to trust a clean-looking git-add response at face value without a
+follow-up check when this lock has been seen recently. Cleared with
+`Remove-Item -Force .git\index.lock` (same tool, same technique run 116
+used), after which `git add` staged all five files correctly (confirmed via
+`git status --short`), commit succeeded as 3aa3caf, and `git push origin
+agents/audit-backlog` succeeded (`git`'s own stderr success line "22b8902..
+3aa3caf agents/audit-backlog -> agents/audit-backlog" was misread by
+PowerShell as Status Code 1; confirmed genuinely pushed via `git rev-parse
+HEAD` and `git rev-parse origin/agents/audit-backlog` both returning
+3aa3cafca0b99857f7e3d39ede9f53f4356db76f). Status page publish (step 10):
+`node tools\build-audit-status.js` via the same PowerShell route, published
+cleanly - "Published reports/digital/Digital_Audit_Status.html (43/49 done,
+88%)". Lock/exit (step 11): `.agent-lock` was also unlinkable from
+mcp__workspace__bash (`rm -f` failed "Operation not permitted", the same
+FUSE-mount behaviour Q87/Q96/Q102 describe), cleared via
+`Remove-Item -Force .agent-lock` from PowerShell, confirmed gone.
 
 ## 2026-09-18 (run 116 addendum, same run, after step 10 completed)
 Small follow-up before exiting: this run's own stuck .git/index.lock (see the LOCK/SYNC note
