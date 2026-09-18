@@ -1,0 +1,157 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - twenty-third quality pass
+Run 126, unattended scheduled run, audit-backlog-worker, 2026-09-18
+
+ROTATION DERIVATION
+Re-derived fresh via `git log --pretty="%aI|||%s"` parsed in Python with the
+established word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d), excluding the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked worklist items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). 36-item
+pool. 3.5 came out uniquely stalest at 2026-09-17T23:44:33+01:00 (its own
+twenty-second pass, run 87, the previous day), ahead of 1.2 (2026-09-18T00:14),
+2.3 (00:42), 3.1 (01:13), 6.2 (01:43), 3.2 (02:44), 6.3 (03:11) and the rest of
+the pool, all refreshed during run 125 and earlier runs on 2026-09-18. Chosen:
+3.5 (Hirshmans Chemist, Ainsdale), twenty-third pass.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome connected, single tab, read-only. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - it
+returned successfully this run (unlike the standing Q59 dual-instance block
+recorded on several recent runs). Newest entry still Q52,
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01. QUESTIONS.json
+already carries Q52 as "answered" with matching text. Nothing new to apply.
+113 total, 60 open before and after.
+
+AUTONOMOUS WINDOW CHECK (step 4)
+Read the top of AGENT_LOG.md as it stood at run start (run 125's own entry) -
+no "Standing authorisation - autonomous window" heading present. Proceeded
+under the normal rule.
+
+WORKLIST SCAN (step 5)
+`grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight unchecked lines (5.3, 5.4,
+5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED],
+unchanged. Fell to the quality-pass fallback.
+
+NEW ANGLE
+tools/check-weight-loss-copy.js, never named once across twenty-two prior
+passes on this item (confirmed by extracting the item's own AGENT_WORKLIST.md
+block, lines 6481-7310, normalising whitespace and matching check-*.js names
+against the full list of 35 checker files on disk; fifteen checkers had never
+been named, one more than the fourteen recorded by run 87's own forward note
+- tools/check-weebly-furniture-freshness.js, a checker added since that note
+was written, is also untested against this item and left for a future pass).
+
+Chosen because Hirshmans Ainsdale carries a weightLoss widget and its own
+generated page, modules/service/pages/weight-loss-clinic-hirshmans-ainsdale
+.html, and check-weight-loss-copy.js is the compliance-critical checker CLAUDE
+.md singles out: the only page family with a live regulatory question already
+open against it (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, Q22, item
+5.8). Hirshmans is not one of the six branches with a modules/branch/pages
+landing page and not the Cherry Lane branch behind the modules/service/
+weebly-paste blocks, so rules 11 and 12 do not apply to it directly; rules 1
+to 10, which read modules/service/pages, do.
+
+BASELINE
+All work done on a disposable scratch copy at /tmp/run126-scratch/tree
+(`git archive HEAD -o` then `tar -xf`, tracked repo never opened for
+writing). Baseline: 15 weight loss pages read, 21 pinned copy lines, 7 FAQ
+pairs, 6 screening statements, 21 medicine names barred, 18 claim patterns,
+consultation fee "from £39.99" identical on all 15 pages, 6 landing pages and
+2 Weebly paste blocks read as Regime 1 - OK, no failures. Full 35-checker
+suite (check-cdn-pins.js and check-live-hours.js excluded, both
+network-dependent) exit 0 on the scratch copy before injection.
+sha256(modules/service/pages/weight-loss-clinic-hirshmans-ainsdale.html) =
+ac11b1c47b9793f1d0df45fa18a42aeefbcee265e4b07346e5335f1608835896
+sha256(branches.json) =
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(the branches.json hash matches the value run 87 recorded, confirming no
+drift in the interim).
+
+INJECTION (four rounds, each restored and sha256-reconfirmed identical to
+baseline before the next; scratch copy only, tracked repo never opened for
+writing):
+
+  ROUND 1 (rule 8, no medicine named) - appended "We can prescribe Wegovy
+  where clinically appropriate." after the pinned hero sentence on Hirshmans'
+  own weight-loss-clinic-hirshmans-ainsdale.html. CAUGHT, exit 1: 'names
+  "wegovy"', naming the exact file and medicine.
+
+  ROUND 2 (rule 7, Q51 booking-card qualifier - the one sentence in this
+  checker that is branch-specific, since it interpolates the branch's own
+  brandLabel) - stripped ", subject to a clinical assessment" from Hirshmans'
+  booking-sub paragraph, leaving "Private consultation at Hirshmans Chemist,
+  from £39.99. Choose a time that suits you." CAUGHT, exit 1: "booking-card
+  fee sentence does not read" the full expected string, quoting it back with
+  Hirshmans' own brand name correctly composed.
+
+  ROUND 3 (rule 9, no efficacy or results claim) - appended "Our patients see
+  real results." after the "How the Weight Loss Clinic works" heading.
+  CAUGHT, exit 1: 'makes promises results: "real results"'.
+
+  ROUND 4 (control) - appended a benign unrelated parenthetical, "(part of
+  your everyday routine)", to an existing eligibility bullet with no medicine,
+  claim, price or governance wording. PASSED CLEAN, exit 0, no cross-firing
+  against any of the eleven rules.
+
+All four behaved exactly as intended on the first attempt. Final restore:
+sha256 of the touched file reconfirmed identical to baseline
+(ac11b1c47b9793f1d0df45fa18a42aeefbcee265e4b07346e5335f1608835896);
+branches.json untouched throughout (169bb5a21cf...b102, unchanged); full
+35-checker suite re-run on the scratch copy after final restore, all exit 0.
+Tracked repo: `git status --porcelain -- modules core branches.json tools
+gbp-packs status` empty bar the two long-standing pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched.
+
+RESULT
+Zero in-repo defect: check-weight-loss-copy.js already correctly protects
+Hirshmans Ainsdale's own weight loss page on the medicine-name rule, the
+branch-specific Q51 booking-qualifier rule and the no-claims rule, now proven
+under this item's own pass for the first time.
+
+LIVE HALF
+Claude in Chrome connected, read-only, one page read in full plus a targeted
+DOM read on the one sentence this pass's injection 2 concerned:
+https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-hirshmans-ainsdale.html.
+The page is live, genuine and correctly built in every respect this pass
+checked directly: no medicine name anywhere in the visible text, no results
+or efficacy claim, all eligibility, screening and no-guarantee copy present
+and worded exactly as the generator composes it.
+
+ONE FINDING, not new in substance - a reconfirmation of the standing Q51/
+Q83/Q88 lead-price/qualifier finding, now confirmed on this branch. The live
+booking-sub paragraph reads "Private consultation at Hirshmans Chemist, from
+£39.99. Choose a time that suits you." - missing the ", subject to a clinical
+assessment" qualifier that Q51 (answered by Rishi 2026-09-01, applied to the
+generator 2026-09-15) added to all 15 generated pages. Confirmed by reading
+the raw innerHTML of the booking-sub <p> element directly via
+mcp__claude-in-chrome__javascript_tool, not just the extracted page text, to
+rule out an extraction artefact. This is the exact sentence targeted by
+round 2's injection above, so the live page currently carries what this
+checker would fail if it were the generated source - it is not, because the
+live Weebly page predates the 2026-09-15 regeneration and has not yet been
+repasted. Q51's own answer note already records this as "Repo-only pending a
+Weebly repaste of all 15 pages, same footing as Q7/Q13/Q38/Q44/Q46/Q49" and
+cross-references two branches already found live in the same state (Q83
+McCanns Aigburth, Q88 Fishlocks Eccleston); Hirshmans Ainsdale is now a third
+confirmed branch, not previously recorded. Not raised as a new question, per
+the established convention for this exact finding (see the item 4.10
+nineteenth-pass and smartts-bootle log entries): it is the same estate-wide
+finding already reconfirmed on several other branches' weight loss pages,
+now newly confirmed on this one, and belongs on the same repaste queue rather
+than its own question.
+
+QUESTIONS.json unchanged at 113 total, 60 open. No new entry.
+
+FORWARD NOTE
+14 checkers now remain never named against item 3.5 specifically:
+check-address-region.js, check-app-membership.js, check-branch-identity.js,
+check-em-dashes.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-weebly-furniture-freshness.js,
+check-widget-diaries.js. Re-derive this list fresh next time rather than
+trusting it, since a new checker can be added to the repo between passes (as
+check-weebly-furniture-freshness.js was between run 87 and this run).
+
+Re-derive the rotation fresh next run too - the pool shifts every run and
+this run's own commit moves 3.5 back to the top of recency.

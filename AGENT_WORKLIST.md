@@ -7307,6 +7307,41 @@ data-branch/URL agreement rule. No new question raised; Q107 and Q110 remain
 open, untouched. Full detail in
 audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentysecond.txt.
 
+Quality pass 2026-09-18 (twenty-third, run 126): tools/check-weight-loss-
+copy.js proven by injection against Hirshmans Ainsdale's own weight loss page
+for the first time in this item's history (never named across twenty-two
+prior passes). Four rounds on a disposable /tmp scratch copy (git archive
+HEAD, tracked repo never opened for writing), each restored and
+sha256-reconfirmed identical to baseline before the next: (1) a brand-name
+medicine ("Wegovy") appended to the pinned hero sentence - CAUGHT, rule 8,
+naming the file and the medicine; (2) the Q51 booking-card qualifier ", 
+subject to a clinical assessment" stripped from the branch-specific booking-
+sub sentence - CAUGHT, rule 7, quoting back the exact expected sentence
+composed from Hirshmans' own brandLabel; (3) an efficacy claim ("Our
+patients see real results.") appended after the how-it-works heading -
+CAUGHT, rule 9. CONTROL: a benign unrelated parenthetical added to an
+eligibility bullet - correctly PASSED clean, no cross-firing. All four
+behaved as intended on the first attempt. Final restore sha256-reconfirmed
+identical; full 35-checker suite re-run clean; tracked repo's branches.json
+unchanged throughout (sha256 matches run 87's own recorded value), `git
+status --porcelain -- modules core branches.json tools gbp-packs status`
+empty bar the two long-standing pre-existing untracked strays (neither
+touched). No in-repo defect: check-weight-loss-copy.js already correctly
+protects this branch's medicine-name rule, its own branch-specific Q51
+qualifier rule and its no-claims rule. LIVE HALF: Claude in Chrome connected,
+read-only. weight-loss-clinic-hirshmans-ainsdale.html read in full and its
+booking-sub paragraph's raw innerHTML read directly - live, genuine, no
+medicine name and no efficacy claim anywhere, but the booking-sub sentence
+reads "Private consultation at Hirshmans Chemist, from £39.99. Choose a time
+that suits you." - missing the Q51 ", subject to a clinical assessment"
+qualifier the generator has carried since the 2026-09-15 regeneration. Not a
+new question: this is the standing Q51/Q83/Q88 lead-price/qualifier finding
+(the fix is repo-only, pending a Weebly repaste of all 15 weight loss pages,
+per Q51's own answer note), now confirmed on a third branch alongside McCanns
+Aigburth (Q83) and Fishlocks Eccleston (Q88). No new question raised;
+QUESTIONS.json unchanged at 113 total, 60 open. Full detail in
+audits/hirshmans-item-3.5-quality-pass-2026-09-18-twentythird.txt.
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged

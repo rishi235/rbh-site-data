@@ -1,3 +1,109 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 126;
+mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
+pull/status, the rotation-pool re-derivation, the git-archive scratch copy at
+/tmp/run126-scratch/tree, the four-round injection/restore cycle against
+tools/check-weight-loss-copy.js and the 35-checker suite runs (check-cdn-
+pins.js/check-live-hours.js excluded, network-dependent); mcp__claude-in-
+chrome__navigate/get_page_text/javascript_tool/tabs_close_mcp used for the
+step 3 portal answer pickup and the item 3.5 live half, two tabs total,
+read-only throughout, nothing clicked, typed or submitted; mcp__Windows-MCP__
+PowerShell used to clear a stuck .git/index.lock the sandbox's own unlink()
+could not remove (the standing Q87/Q96/Q102 sandbox-FUSE fault) and to run
+git add/commit/push and the status-page publish, the established workaround;
+Write used for the new audits file; Edit used for AGENT_WORKLIST.md and this
+entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 125's own
+entry confirms it cleared its lock before exiting). Wrote a fresh UTC
+timestamp lock (2026-09-18T21:04:42Z). git fetch origin, git checkout agents/
+audit-backlog (already on it) and git pull --ff-only both completed clean,
+confirmed up to date with origin (HEAD at run 125's commit for item 3.3).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - it
+returned successfully this run (the standing Q59 dual-instance block did not
+recur). Newest entry still Q52, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01; QUESTIONS.json already carries Q52 as "answered" with
+matching text. Nothing new to apply. 113 total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 125's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 36-item pool. Item 3.5 (2026-09-17T23:44:33+01:00, its
+own twenty-second pass, run 87) came out stalest, ahead of 1.2, 2.3, 3.1, 6.2,
+3.2, 6.3 and the rest. Chosen: 3.5 (Hirshmans Chemist, Ainsdale), twenty-third
+pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.5 block and
+audits/hirshmans-item-3.5-quality-pass-2026-09-18-twentythird.txt; this is
+the mirrored summary. tools/check-weight-loss-copy.js - the compliance-
+critical checker CLAUDE.md singles out as the only page family with a live
+regulatory question already open against it - had never been named once
+across twenty-two prior passes on this item, despite Hirshmans Ainsdale
+carrying its own weightLoss widget and generated weight-loss-clinic page.
+BASELINE: git-archive scratch copy of HEAD at /tmp/run126-scratch/tree; all
+35 checkers (check-cdn-pins.js/check-live-hours.js excluded, network-
+dependent) exit 0. sha256 of Hirshmans' weight-loss-clinic page and of
+branches.json recorded before injection; the branches.json hash matched run
+87's own recorded value, confirming no drift in the interim.
+INJECTION (scratch copy only, tracked repo never opened for writing,
+restored and sha256-reconfirmed identical to baseline after every round):
+ROUND 1 - a brand-name medicine ("Wegovy") appended to the pinned hero
+sentence - CAUGHT, rule 8, exact file and medicine named. ROUND 2 - the Q51
+booking-card qualifier (", subject to a clinical assessment") stripped from
+the branch-specific booking-sub sentence, the one sentence in this checker
+that interpolates the branch's own brandLabel - CAUGHT, rule 7, the exact
+expected sentence quoted back correctly composed for Hirshmans. ROUND 3 - an
+efficacy claim ("Our patients see real results.") appended after the
+how-it-works heading - CAUGHT, rule 9. ROUND 4, CONTROL - a benign unrelated
+parenthetical added to an eligibility bullet - correctly PASSED clean, no
+cross-firing. All four behaved exactly as intended on the first attempt.
+Files restored, sha256 reconfirmed identical after each round and again at
+the end; full 35-checker suite re-run clean on the scratch copy after final
+restore; tracked repo's branches.json and the touched page confirmed
+sha256-unchanged throughout; `git status --porcelain -- modules core
+branches.json tools gbp-packs status` on the tracked repo empty bar the two
+long-standing pre-existing untracked strays (gbp-packs/
+.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched. No checker
+gap found: check-weight-loss-copy.js already correctly protects Hirshmans
+Ainsdale's own medicine-name rule, its branch-specific Q51 qualifier rule
+and its no-claims rule.
+LIVE HALF, Claude in Chrome, read-only, one page read in full plus a targeted
+raw-innerHTML read of the one sentence round 2's injection concerned:
+weight-loss-clinic-hirshmans-ainsdale.html on www.hirshmanspharmacy.co.uk -
+live, genuine, no medicine name and no efficacy claim anywhere. ONE FINDING,
+not new in substance: the live booking-sub paragraph reads "Private
+consultation at Hirshmans Chemist, from £39.99. Choose a time that suits
+you." - missing the Q51 qualifier the generator has carried since its
+2026-09-15 regeneration. This is the standing Q51/Q83/Q88 lead-price/
+qualifier finding, repo-only pending a Weebly repaste of all 15 weight loss
+pages per Q51's own answer note, now confirmed on a third branch alongside
+McCanns Aigburth (Q83) and Fishlocks Eccleston (Q88). Not raised as a new
+question, per the established convention for this exact finding recorded on
+several other branches already. No new question; QUESTIONS.json unchanged at
+113 total, 60 open.
+INFRASTRUCTURE NOTE: a `git status` call partway through this run left a
+stale `.git/index.lock` the sandbox's own bash could not unlink ("Operation
+not permitted"), the standing Q87/Q96/Q102 FUSE-mount fault. Cleared via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy, which does not have the restriction; the same PowerShell session was
+then used for this run's git add/commit/push and the status-page publish
+below, the established workaround recent runs use for all git writes.
+FORWARD NOTE for the next quality-pass run: re-derive the rotation fresh
+rather than trust any number here. Item 3.5's own never-tested-checker list
+is now down to 14 (check-address-region.js, check-app-membership.js,
+check-branch-identity.js, check-em-dashes.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js, check-widget-diaries.js) - re-derive
+this list fresh too, since a checker can be added to the repo between passes
+(check-weebly-furniture-freshness.js was, between run 87 and this run, and
+was missing from run 87's own forward note as a result).
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 125;
 mcp__Windows-MCP__PowerShell used throughout for the lock check, git fetch/
 checkout/pull/status, the rotation re-derivation, the git-archive scratch copy
