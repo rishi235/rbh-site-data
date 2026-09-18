@@ -1,0 +1,151 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - quality pass (twenty-first)
+Run: unattended scheduled run, audit-backlog-worker, run 93
+Date: 2026-09-18
+
+ITEM SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines
+under 6.4/6.5, 6.6) confirmed [BLOCKED] via grep "^- \[ \]". Fell to the
+quality-pass fallback. Rotation pool of 36 items re-derived fresh (43 completed
+worklist items minus the standing seven out-of-rotation one-offs: 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8). For each of the 36 remaining items, computed the item's own
+paragraph line range (from its own "- [x] N.M" line to the line before the next
+item's line) fresh from the current file, then ran:
+
+  git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md
+
+3.2 came out stalest at 2026-09-17T07:14:43+01:00, clear of the next candidate
+(6.3 at 07:42:27+01:00) by about 28 minutes and clear of everything else in the
+pool. Full ranked list:
+
+3.2 2026-09-17T07:14:43+01:00
+6.3 2026-09-17T07:42:27+01:00
+3.7 2026-09-17T08:17:16+01:00
+3.11 2026-09-17T08:42:14+01:00
+3.9 2026-09-17T09:39:18+01:00
+3.12 2026-09-17T10:10:47+01:00
+3.13 2026-09-17T10:40:39+01:00
+4.12 2026-09-17T11:08:34+01:00
+4.6 2026-09-17T11:41:32+01:00
+4.11 2026-09-17T12:14:15+01:00
+5.1 2026-09-17T12:42:26+01:00
+4.2 2026-09-17T13:15:10+01:00
+4.14 2026-09-17T13:47:08+01:00
+2.1 2026-09-17T14:11:58+01:00
+3.4 2026-09-17T14:41:08+01:00
+3.6 2026-09-17T15:10:40+01:00
+3.10 2026-09-17T15:41:58+01:00
+4.4 2026-09-17T16:13:03+01:00
+4.9 2026-09-17T16:52:05+01:00
+4.15 2026-09-17T17:10:05+01:00
+5.2 2026-09-17T17:41:21+01:00
+3.8 2026-09-17T18:11:03+01:00
+4.7 2026-09-17T18:45:13+01:00
+1.3 2026-09-17T19:09:28+01:00
+4.1 2026-09-17T19:41:47+01:00
+4.5 2026-09-17T20:12:01+01:00
+4.10 2026-09-17T21:17:07+01:00
+4.3 2026-09-17T21:43:50+01:00
+4.13 2026-09-17T22:11:34+01:00
+4.8 2026-09-17T22:45:28+01:00
+3.3 2026-09-17T23:14:06+01:00
+3.5 2026-09-17T23:44:33+01:00
+1.2 2026-09-18T00:14:11+01:00
+2.3 2026-09-18T00:42:28+01:00
+3.1 2026-09-18T01:13:09+01:00
+6.2 2026-09-18T01:43:04+01:00
+
+NEW ANGLE
+Twenty prior passes had proved check-seo-pattern.js, check-seo-lengths.js,
+check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+check-app-membership.js, check-switch-copy.js, check-weight-loss-copy.js and
+check-nap.js against Scorah's own pages or data by direct injection.
+check-pharmacy-first-safety-net.js (the "When to get different help" block
+guard, added on the item 3.11 fifth pass, 2026-08-13) had never been named
+once against Scorah, despite both Bramhall and Hazel Grove carrying all seven
+Pharmacy First condition pages (14 pages total) this checker reads on rules 6
+(verbatim) and 7 (cross-condition contamination).
+
+BASELINE
+- branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the standing regression anchor recorded throughout this log)
+- All 34 runnable checkers (check-cdn-pins.js and check-live-hours.js excluded,
+  established convention, both network-dependent) exit 0 on the tracked repo
+  before any work.
+- check-pharmacy-first-safety-net.js baseline: 7 ready conditions, 98 condition
+  pages checked, 0 failures, 1 pre-existing WARN (impetigo:urgent, Q61,
+  unrelated to Scorah).
+- Target file sha256 before any mutation:
+  shingles-treatment-scorah-bramhall.html:
+    4d3d8d34dfaff7aeca230db617590db63e64bd940ef67721b19032470f132145
+  uti-treatment-scorah-hazel-grove.html:
+    3d89a1fa652d63c53c6a4641e93da1cd7b36298dde2b2e12533a32d8752f727a
+  impetigo-treatment-scorah-bramhall.html:
+    a08bef3e84ce1962a064227075a17256391ec5bc6d95b1d81354fdeacdad00d6
+
+METHOD
+Full repo copied by tar (excluding .git) to a scratch directory under the
+outputs mount (/sessions/.../mnt/outputs/scratch-32-safetynet). Tracked repo
+never opened for writing. Scratch baseline reproduced the tracked repo's
+own check-pharmacy-first-safety-net.js output exactly before any injection.
+
+THREE INJECTIONS AGAINST THE SCRATCH COPY, each restored by direct file copy
+from a pre-injection backup and sha256-reconfirmed byte-identical before the
+next:
+
+(1) RULE 6, verbatim - shingles-treatment-scorah-bramhall.html's own safety-net
+    point "Children and young people under 18 should see a GP" changed to
+    "...under 16..." - CAUGHT first attempt, exactly one failure:
+    "a safety-net point is missing from the page (rule 6)". Restored;
+    sha256 after restore matched the pre-injection baseline exactly.
+
+(2) RULE 7, cross-condition contamination - insect-bite's own unique point
+    ("Swelling of the face, lips or throat, or difficulty breathing, is a
+    serious allergic reaction, call 999 now") inserted into
+    uti-treatment-scorah-hazel-grove.html's safety-net list - CAUGHT first
+    attempt, exactly one failure, correctly naming the point as belonging to
+    "the insect-bite pathway, not this one". Restored; sha256 after restore
+    matched the pre-injection baseline exactly.
+
+(3) CONTROL - a benign reword on impetigo-treatment-scorah-bramhall.html's
+    "How it works" step 1 heading ("Book or call in" -> "Book or drop in"),
+    touching no safety-net point, symptom, town, brand or postcode token -
+    check-pharmacy-first-safety-net.js and the full 34-checker suite both
+    passed clean, confirming the two catches above are genuine rule hits and
+    not the checker failing on any edit. Restored; sha256 after restore
+    matched the pre-injection baseline exactly.
+
+All three fired on (or passed) their intended rule only, first attempt, no
+cross-firing. Full 34-checker suite re-run clean on the scratch copy after the
+final restore.
+
+VERIFICATION - TRACKED REPO UNTOUCHED
+sha256 of all three target files and branches.json, re-checked after the
+scratch-copy work finished, matched their pre-work values exactly (see
+BASELINE above). git status --porcelain -- branches.json tools modules core
+gbp-packs on the real working copy returned only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. No checker logic, generator, branch data, page or pack content
+changed anywhere in the tracked repo.
+
+LIVE HALF (Claude in Chrome connected this run, one tab, read-only, nothing
+clicked/typed/submitted)
+Both target Scorah pages read live and matched the tracked repo's own safety-
+net copy verbatim on every point, with no missing point and no contamination
+from another pathway:
+- https://www.scorah-chemists.co.uk/shingles-treatment-scorah-bramhall.html:
+  "Children and young people under 18 should see a GP" present unaltered.
+- https://www.scorah-chemists.co.uk/uti-treatment-scorah-hazel-grove.html:
+  the three UTI safety-net points present verbatim, no insect-bite point
+  present.
+Both pages still show the standing, already-tracked findings (doubled
+Weebly-default brand suffix in the page title; Bramhall's footer widget
+showing "Cheshire" against branches.json's Greater Manchester, the Q43
+finding) - unchanged, nothing new.
+
+RESULT
+No in-repo defect. Guard coverage for item 3.2 now extends to 16 of 36
+checkers proven by direct injection (up from 15). No new fault class, no new
+question.

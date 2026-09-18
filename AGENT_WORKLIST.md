@@ -4098,6 +4098,63 @@ audits/seo-pattern-service-word-vacuity-3.1-twentyfirst-2026-09-18.txt.
       already recorded; no new question. No new fault class, no new
       question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-17-twentieth.txt.
+      Quality pass 2026-09-18 (twenty-first, unattended scheduled run via
+      Cowork, run 93, independently re-derived as stalest of the 36-item
+      rotation pool by most-recent-commit-date after excluding the standing
+      out-of-rotation items and the eight currently [BLOCKED] worklist items:
+      3.2 at 2026-09-17T07:14:43+01:00, clear of the next candidate, 6.3, by
+      about 28 minutes). Twenty prior passes had proved check-seo-pattern.js,
+      check-seo-lengths.js, check-seo-sheets.js, check-seo-keywords.js,
+      check-branch-identity.js, check-fragment-targets.js, check-jsonld.js,
+      check-opening-hours.js, check-branch-links.js, check-booking-routes.js,
+      check-gbp-packs.js, check-app-membership.js, check-switch-copy.js,
+      check-weight-loss-copy.js and check-nap.js against Scorah's own pages
+      or data by direct injection; check-pharmacy-first-safety-net.js (the
+      "When to get different help" block guard, added on the item 3.11 fifth
+      pass) had never been named once, despite both Scorah branches carrying
+      all seven Pharmacy First condition pages (14 pages) this checker reads
+      on rules 6 (verbatim) and 7 (cross-condition contamination). Baseline:
+      branches.json sha256 matches the standing anchor
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102; all 34
+      runnable checkers (cdn-pins, live-hours excluded per convention) exit 0;
+      check-pharmacy-first-safety-net.js baseline 98 pages checked, 0
+      failures, 1 pre-existing unrelated WARN (impetigo:urgent, Q61). Full
+      repo copied by tar (excluding .git) to a scratch directory under the
+      outputs mount, tracked repo never opened for writing. Three injections,
+      each restored by direct copy and sha256-reconfirmed byte-identical
+      before the next: (1) rule 6 - Bramhall's shingles page safety-net point
+      "Children and young people under 18 should see a GP" changed to "...
+      under 16..." - CAUGHT, exactly one failure ("a safety-net point is
+      missing from the page"); (2) rule 7 - insect-bite's own unique point
+      ("Swelling of the face, lips or throat...call 999 now") inserted onto
+      Hazel Grove's UTI page - CAUGHT, exactly one failure, correctly naming
+      it as belonging to "the insect-bite pathway, not this one"; (3) CONTROL
+      - a benign reword on Bramhall's impetigo page ("Book or call in" ->
+      "Book or drop in"), touching no safety-net/symptom/town/brand/postcode
+      token - passed clean on both the safety-net checker and the full
+      34-checker suite, confirming no false positive. All three fired on (or
+      passed) their intended rule only, first attempt, no cross-firing. Full
+      34-checker suite re-run clean on the scratch copy after the final
+      restore; tracked repo confirmed untouched throughout by sha256 on all
+      three target files and branches.json, and by git status --porcelain
+      (only the two pre-existing untracked strays). No checker logic,
+      generator, branch data, page or pack content changed anywhere in the
+      tracked repo. Guard coverage for item 3.2 now extends to 16 of 36
+      checkers proven by direct injection (up from 15). LIVE HALF (Claude in
+      Chrome connected this run, one tab, read-only, nothing
+      clicked/typed/submitted): both target pages
+      (shingles-treatment-scorah-bramhall.html,
+      uti-treatment-scorah-hazel-grove.html) read live and matched the
+      tracked repo's own safety-net copy verbatim, no missing point and no
+      cross-condition contamination on either page. Both pages still show the
+      standing, already-tracked findings (doubled Weebly-default brand suffix
+      in the page title; Bramhall's footer widget showing "Cheshire" against
+      branches.json's Greater Manchester, the Q43 finding) - unchanged,
+      nothing new. Step 3 answer pickup performed first via Claude in Chrome:
+      newest portal entry still Q52, 2026-09-01T22:44:51.524Z, identical to
+      every run since 2026-09-01, nothing new to pick up. No in-repo defect,
+      no new fault class, no new question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-18-twentyfirst.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
