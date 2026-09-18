@@ -34866,6 +34866,43 @@ live DOM, not saved to a separate audit file (same convention as the
       Newest entry still Q52, already applied. No new answer, no new
       question. Evidence: audits/verify-6.3-2026-09-17-seventeenth.txt,
       audits/live-hours-check-2026-09-17.json. Done 2026-09-17.
+      Quality pass (eighteenth), 2026-09-18 (unattended scheduled run,
+      audit-backlog-worker). FRESH ANGLE: tools/check-live-hours.js (the live
+      survey tool, a separate file from the static guard checker) carries its
+      own disposed filter at line 152 ("!b.disposed && b.openingHours && ...
+      specification.length"), never named once across seventeen prior
+      passes - the fourteenth to sixteenth passes proved the equivalent
+      filter in check-opening-hours.js only, a different file. BASELINE:
+      36/36 runnable checkers clean; branches.json sha256 169bb5a2...b102
+      (standing hash, unchanged); git status --porcelain only the two
+      pre-existing untracked strays. TEST: scratch copy only, under /tmp,
+      matching the script's own relative layout (ROOT = ../ from
+      tools/check-live-hours.js) - riddings_timperley's disposed flag set to
+      true in a scratch branches.json, script run for real (genuine read-only
+      HTTP fetches against the 13 remaining branch domains). CAUGHT: scratch
+      run reported "13 branch(es)" and correctly excluded riddings_timperley,
+      no crash. Tracked branches.json sha256 reconfirmed unchanged
+      immediately after; scratch directory deleted. RESULT: zero in-repo
+      defect - the live-survey tool's own disposed filter now proven correct
+      by injection, matching the static checker's already-proven equivalent.
+      LIVE HALF: network egress confirmed directly (curl 200 against
+      smarttschemist.co.uk and gordonshortchemist.co.uk); no browser needed.
+      tools/check-live-hours.js re-run for real across all 14 trading
+      branches, evidence audits/live-hours-check-2026-09-18.json. No bank
+      holiday within 14 days (next is 2026-12-25). gordonshorts_crosby read
+      live as control, correctly still shows its lunch closure. All other
+      twelve non-Smartts branches read against branches.json by
+      address/phone (the known Scorah/Fishlocks trailing-label reading
+      convention) and all match, including the five other lunch-closure
+      branches. smartts_bootle remains the sole live mismatch,
+      straight-through "9:00am - 6:00pm" / "09:00 - 18:00" hours unchanged
+      since 2026-08-11, now confirmed on all eighteen passes. Q55 (answered
+      2026-09-02, option 1) stands as answered-but-not-yet-actioned, live
+      Weebly edit outside this worker's write scope, not re-raised. ANSWER
+      PICKUP this run (step 3): portal read cleanly by the orchestrating
+      step. Newest entry still Q52, already applied. No new answer, no new
+      question. Evidence: audits/verify-6.3-2026-09-18-eighteenth.txt,
+      audits/live-hours-check-2026-09-18.json. Done 2026-09-18.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

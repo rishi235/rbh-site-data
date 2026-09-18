@@ -1,0 +1,105 @@
+Item 6.3 - opening hours vs branches.json - quality pass (eighteenth), 2026-09-18
+Unattended scheduled run, audit-backlog-worker.
+
+BASELINE
+- 36/36 runnable checkers (all of tools/check-*.js except check-cdn-pins.js and
+  check-live-hours.js, both network-dependent) exit 0 before any work.
+- branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (standing hash, unchanged since at least the sixteenth pass).
+- git status --porcelain on branches.json, tools, modules, core, gbp-packs:
+  only the two long-standing pre-existing untracked strays
+  (gbp-packs/.fuse_hidden0000000400000001,
+  modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+  touched.
+
+FRESH ANGLE
+By the seventeenth pass, every numbered rule in tools/check-opening-hours.js,
+the __DUPLICATE__ path, the bankHolidays block, both coverage floors, the
+JSON-LD parse-failure path, and (fourteenth/fifteenth/sixteenth passes) rules
+9 and 10's disposed-branch handling had all been proved by injection at least
+once. One thing had not: tools/check-live-hours.js (the LIVE SURVEY tool, a
+separate file from the static guard checker) carries its own disposed filter
+at line 152 -
+
+    var branches = data.branches.filter(function (b) {
+      return !b.disposed && b.openingHours && (b.openingHours.specification || []).length;
+    });
+
+- and this line had never been named once across seventeen prior passes on
+  this item (confirmed by grepping this item's own AGENT_WORKLIST.md block for
+  "check-live-hours" combined with "dispos" before starting: zero hits). The
+  sixteenth pass proved the equivalent filter in check-opening-hours.js
+  (the static guard) using clearchemist_aintree; this pass proves the same
+  shape of filter in the separate live-survey tool, which had not been
+  reached by that injection because it is a different file with its own
+  branches.filter() call.
+
+TEST
+Scratch copy only, built fresh under /tmp (never the tracked tree): copied
+tools/check-live-hours.js and a branches.json with riddings_timperley's
+disposed flag set to true into a scratch tools/+branches.json pair matching
+the script's own relative path (ROOT = path.join(__dirname, "..")), then ran
+it for real (genuine live HTTP fetches against the 13 remaining branch
+domains, read-only, no browser needed - network egress confirmed directly).
+
+RESULT: CAUGHT as expected. The scratch run reported "13 branch(es)" and its
+per-branch list correctly excluded riddings_timperley, with no crash and no
+malformed output for the missing branch. Tracked branches.json sha256
+reconfirmed identical (169bb5a2...b102) immediately after the scratch run;
+git status --porcelain on the tracked repo showed no new or modified files
+beyond the same two pre-existing untracked strays. Scratch directory deleted
+after use.
+
+RESULT: zero in-repo defect. The live-survey tool's own disposed filter is
+now proven correct by injection, alongside the fourteenth-to-sixteenth
+passes' proof of the equivalent filter in the static guard checker. Guard/
+tool coverage for item 6.3 is now complete across both files' disposed
+handling.
+
+LIVE HALF (today's read, 2026-09-18)
+Network egress confirmed directly (curl 200 against smarttschemist.co.uk and
+gordonshortchemist.co.uk). tools/check-live-hours.js re-run for real against
+the tracked repo (all 14 trading branches), report written to
+audits/live-hours-check-2026-09-18.json. No bank holiday within 14 days of
+this run (bankHolidays.dates2026 next date is 2026-12-25, 98 days out) - no
+NOTE line printed, consistent with that.
+
+All 14 branches' snippets read against branches.json by address/phone rather
+than by a snippet's own trailing section label (the known Scorah/Fishlocks
+interleaving reading convention, unchanged since the 2026-09-02 pass):
+- gordonshorts_crosby read live as control: still correctly shows its lunch
+  closure ("closed 1-2pm") on the homepage and the contact page.
+- scorah_bramhall and scorah_hazel: both branches' own address+phone-matched
+  cards are correct (Hazel Grove Sat Closed, Bramhall Sat 9am-1:00pm),
+  matching branches.json exactly. (A crude keyword scan flagged both as
+  worth a second look because Saturday's own "9am-1pm" text superficially
+  resembles a lunch-closure marker; read by hand against address and phone,
+  neither is a defect - the same false-positive shape the 2026-09-02 pass's
+  own reading convention exists to avoid.)
+- mccanns_aigburth, mccanns_sandringham, hirshmans_ainsdale,
+  colemanleigh_liverpool, tiffenbergs_longmoor: all five lunch-closure
+  branches publish their closed-1-2pm hours live, matching branches.json.
+- fishlocks_ainsdale, fishlocks_eccleston, skchemists_bootle,
+  riddings_timperley, cherrylane_liverpool: all straight-through or
+  half-day-Saturday branches match branches.json.
+- smartts_bootle REMAINS THE SOLE LIVE MISMATCH: both the homepage hours
+  card ("Monday 9:00am - 6:00pm" ... no lunch line) and the contact page
+  ("Weekdays / 09:00 - 18:00", no lunch line) still publish straight-through
+  hours with no lunch closure, against branches.json's NHS-sourced
+  09:00-13:00/14:00-18:00 split. Unchanged since first found 2026-08-11,
+  now confirmed on all eighteen passes of this item to date.
+
+Q55 (answered 2026-09-02, option 1: fix live via a Weebly hours-card edit)
+stands as answered-but-not-yet-actioned - a live Weebly edit outside this
+worker's write scope - and is not re-raised.
+
+ANSWER PICKUP (step 3, performed by the orchestrating step before this item
+was picked): portal feed read in full via Claude in Chrome, read-only, one
+tab. Newest entry still Q52 (2026-08-04...2026-09-01 series), already
+recorded in QUESTIONS.json. No new answer to apply, no new question raised
+by this pass.
+
+FILES CHANGED: audits/live-hours-check-2026-09-18.json (new, tracked),
+audits/verify-6.3-2026-09-18-eighteenth.txt (this file), AGENT_WORKLIST.md
+(item 6.3 entry), AGENT_LOG.md (this run's entry).
+Done 2026-09-18.
