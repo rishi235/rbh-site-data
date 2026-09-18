@@ -1,3 +1,95 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 121;
+mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
+pull/status, the git-archive scratch copy at /tmp/scratch-4.10-run121, the
+injection/restore cycle and the 35-checker suite runs (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent); mcp__claude-in-
+chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 portal
+answer pickup, one tab, read-only throughout, nothing clicked, typed or
+submitted; Write used for the new audits file; Edit used for
+AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 120's own
+entry confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T18:34:28Z). git fetch origin, git checkout agents/audit-backlog
+(no-op, already on it) and git pull --ff-only both completed clean, confirmed
+up to date with origin (HEAD at run 120's commit for item 4.5).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. QUESTIONS.json already carries Q52 as status "answered"
+with the matching text; nothing new to apply. 60 of 113 questions open before
+this run.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 120's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the 36-item pool, 4.10 (Smartts Chemist Bootle GBP
+pack) came out stalest at 2026-09-17T21:17:07+01:00, ahead of the runner-up
+4.3 (21:43:50). Matches run 120's own forward note exactly. Chosen: 4.10,
+twentieth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.10 block and
+audits/smartts-bootle-pharmacy-first-cost-4.10-twentieth-2026-09-18.txt; this
+is the mirrored summary. Of the ten checkers that actually read
+gbp-packs/*.md (confirmed by grepping each for a real PACK_DIR/readdirSync
+reference rather than a comment mentioning "gbp-packs" in passing), nineteen
+prior passes had proven every one against this pack's own copy except
+tools/check-pharmacy-first-cost.js (born item 4.15 pass, 2026-08-13), whose
+rules 4, 5 and 6 (cost qualifiers, prices, the positive free claim) had never
+been exercised by injection against smartts-bootle.md - zero hits grepping
+every prior audit file and this item's own AGENT_WORKLIST.md history for the
+checker's name. Baseline sha256 confirmed unchanged since the sixth pass
+(2026-09-01) on all three relevant files (pack, checker, branches.json).
+Baseline run: 0 failures ("112 Pharmacy First page(s) ... 16 GBP pack(s) ...
+6 branch landing page(s) ... clean"). INJECTION on a git-archive scratch copy
+(/tmp/scratch-4.10-run121, tracked file never opened for writing): TEST 1
+(rule 6) stripped "free" from all three pack sentences naming Pharmacy First
+at once (business description, Services section bullet, Post A opener) -
+CAUGHT, "advertises NHS Pharmacy First but never calls it free (rule 6)",
+confirming the rule aggregates every PF-naming sentence pack-wide before
+judging the claim missing, which matters because this pack makes the claim
+in three separate places. TEST 2 (rule 4) added "We keep it affordable for
+everyone." to Post A - CAUGHT, quoting "affordable" as pricing a free
+service. TEST 3 (rule 5) added "Consultations from £12." to the same spot -
+CAUGHT, quoting the stated price. CONTROL: reworded Post B's "takes about 30
+seconds" to "takes about half a minute" - 0 failures on the targeted checker
+and the full 35-checker suite, no cross-firing from any of the three prior
+injections' residual patterns.
+RESTORE: byte copy from a saved baseline file after every round.
+sha256-reconfirmed 541239e0...003796b identical to the pre-injection
+baseline throughout and after the final restore, both on the scratch copy
+and, at no point written to, on the tracked working-tree file. Targeted
+checker re-run clean on the restored scratch copy (0 failures) and the full
+35-checker suite re-run clean on the tracked repo itself afterwards (35/35,
+0 failures). No in-repo defect found; no checker, generator, pack or
+branches.json content changed. This pack's Pharmacy First cost copy is now
+proven against every rule of every checker that reads gbp-packs/*.md.
+LIVE HALF: none this pass - the fresh angle was entirely a repo-side
+injection proof and did not call for a new live fetch beyond the standing
+step 3 portal read above. No new live fault found. No new question;
+QUESTIONS.json unchanged at 113 total, 60 open.
+GIT HYGIENE: a routine `git status` left a fresh `.git/index.lock` behind
+(the documented sandbox-mount "unable to unlink" restriction seen on prior
+runs); cleared by rename, not delete, same as prior runs. `git status
+--porcelain -- modules core branches.json gbp-packs tools compliance` shows
+only the two long-standing pre-existing untracked strays at the repo root
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), both well over a week old and
+neither touched this run. A scatter of older loose untracked audit files
+(broken-links-sweep, live-hours-check JSON snapshots, a couple of one-off
+verify-*.js scripts) also sits untracked at the repo root and under audits/,
+pre-dating this run; left alone as out of this pass's scope.
+FORWARD NOTE: next stalest by this run's own re-derivation, before this
+run's own commit moves 4.10 to the top of recency, was 4.3
+(2026-09-17T21:43:50+01:00), then 4.13, 4.8, 3.3, 3.5, 1.2, 2.3, 3.1, 6.2,
+3.2, 6.3, 3.7, 3.11 and onward - re-derive fresh next run rather than
+trusting this note, since the pool shifts every run. STEP 10 (status page
+publish) and STEPS 9/11 (commit, push, lock removal): see the commit that
+follows this log entry and the run's own closing actions.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 120;
 mcp__workspace__bash used throughout for the lock check, git fetch/checkout/
 pull/status, the git-archive scratch copy at /tmp/scratch-4.5-run120, the

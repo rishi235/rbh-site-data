@@ -24213,6 +24213,46 @@ directly rather than re-deriving the same facts by hand.
       total, 57 open. Evidence in
       audits/smartts-bootle-pharmacy-first-4.10-nineteenth-2026-09-17.txt.
       Done 2026-09-17.
+      Quality pass (twentieth), 2026-09-18: of the ten checkers that
+      actually read gbp-packs/*.md (confirmed by grepping each for a real
+      PACK_DIR/readdirSync reference, not a comment), nineteen prior passes
+      had proven every one against this pack by injection except
+      tools/check-pharmacy-first-cost.js (born item 4.15 pass, 2026-08-13),
+      whose rules 4, 5 and 6 (cost qualifiers, prices, the positive free
+      claim) had never been exercised against smartts-bootle.md - zero hits
+      grepping every prior audit file and this item's own history for the
+      checker's name. Baseline sha256 confirmed unchanged since the sixth
+      pass on all three relevant files (pack, checker, branches.json).
+      Baseline run: 0 failures. INJECTION on a git-archive scratch copy
+      (/tmp/scratch-4.10-run121, tracked file never opened for writing):
+      TEST 1 (rule 6) removed "free" from all three pack sentences naming
+      Pharmacy First at once (business description, Services bullet, Post
+      A opener) - CAUGHT, "advertises NHS Pharmacy First but never calls it
+      free", confirming rule 6 aggregates every PF-naming sentence
+      pack-wide rather than checking one block in isolation. TEST 2 (rule
+      4) added "We keep it affordable for everyone." to Post A - CAUGHT,
+      quoting "affordable" as a price on a free service. TEST 3 (rule 5)
+      added "Consultations from £12." to the same spot - CAUGHT, quoting
+      the stated price. CONTROL: reworded Post B's "takes about 30 seconds"
+      to "takes about half a minute" - 0 failures on the targeted checker
+      and the full 35-checker suite (excluding check-cdn-pins.js and
+      check-live-hours.js, both network-dependent), no cross-firing.
+      RESTORE: byte copy from the saved baseline after every round,
+      sha256-reconfirmed 541239e0...003796b identical to the pre-pass
+      value throughout and after the final restore; tracked repo confirmed
+      untouched (`git status --porcelain -- modules core branches.json
+      gbp-packs tools compliance` shows only the two long-standing
+      pre-existing untracked strays, neither touched). Full 35-checker
+      suite re-run clean on the tracked repo itself, 35/35, 0 failures. No
+      in-repo defect - this pack's Pharmacy First cost copy (the free claim
+      made in three places, freedom from cost qualifiers, freedom from a
+      stated price) is now proven against every rule of every checker that
+      reads gbp-packs/*.md. Step 3 answer pickup this run: portal feed read
+      in full via Claude in Chrome, single tab, read-only; newest entry
+      still Q52 (2026-09-01), already applied, nothing new. No new
+      question. Evidence in
+      audits/smartts-bootle-pharmacy-first-cost-4.10-twentieth-2026-09-18.txt.
+      Done 2026-09-18.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

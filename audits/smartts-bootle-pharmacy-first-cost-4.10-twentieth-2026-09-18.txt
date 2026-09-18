@@ -1,0 +1,93 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack) - twentieth quality pass
+Run: unattended scheduled run, audit-backlog-worker, run 121
+Date: 2026-09-18
+
+FRESH ANGLE
+Of the ten checkers that actually read gbp-packs/*.md (confirmed by grepping
+each for a real PACK_DIR/readdirSync reference rather than a comment
+mentioning "gbp-packs" in passing: check-app-membership.js,
+check-brand-spelling.js, check-em-dashes.js, check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js,
+check-uk-spelling.js, check-url-scheme.js), nineteen prior passes on this
+pack had proven every one except check-pharmacy-first-cost.js by direct
+injection against gbp-packs/smartts-bootle.md's own copy. That checker (born
+item 4.15 quality pass, 2026-08-13) guards the NHS Pharmacy First cost
+claim - the free-at-point-of-use statement and the prescription-charge
+caveat - across 112 generated pages, 16 GBP packs and 6 branch landing
+pages, and until this pass its rules 4, 5 and 6 (cost qualifiers, prices,
+and the positive free claim) had never been exercised by injection against
+this specific pack. Confirmed by grepping every prior smartts-bootle audit
+file and this item's full AGENT_WORKLIST.md history for
+"check-pharmacy-first-cost" - zero hits before this pass.
+
+BASELINE
+Full repo git-archived to a disposable scratch copy at
+/tmp/scratch-4.10-run121 (tracked working copy never opened for writing).
+sha256 confirmed matching the tracked repo before any injection:
+  gbp-packs/smartts-bootle.md:        541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+  tools/check-pharmacy-first-cost.js: ab118f7e78ea8de1784404f27a44f52e81de144548035537b10ebc9092260844
+  branches.json:                      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+The smartts-bootle.md hash is unchanged since the sixth pass (2026-09-01),
+matching every prior pass's recorded value. Baseline run of
+check-pharmacy-first-cost.js: 0 failures ("112 Pharmacy First page(s) ...
+16 GBP pack(s) ... 6 branch landing page(s) ... clean").
+
+INJECTIONS (all on the scratch copy only; each restored by byte copy from a
+saved baseline and sha256-reconfirmed identical before the next round)
+
+TEST 1 - RULE 6, pack-wide free-claim coverage. Removed the word "free" from
+all three sentences in the pack that name Pharmacy First and currently carry
+the claim: the business description ("Through the free NHS Pharmacy First
+service..." -> "Through the NHS Pharmacy First service..."), the Services
+section bullet ("NHS Pharmacy First: free NHS assessment..." -> "NHS
+Pharmacy First: NHS assessment..."), and Post A's opening line ("Pharmacy
+First is a free NHS service..." -> "Pharmacy First is an NHS service...").
+CAUGHT: "advertises NHS Pharmacy First but never calls it free (rule 6)."
+Confirms rule 6 aggregates every Pharmacy-First-naming sentence across the
+WHOLE pack (not just Post A) before deciding the claim is missing, which
+matters here because this pack makes the claim in three separate places -
+a version that checked only one block could have passed on a false positive
+in a different block.
+
+TEST 2 - RULE 4, cost qualifier inside a Pharmacy-First-scoped sentence.
+Added "We keep it affordable for everyone." to Post A, between the condition
+list and the closing age-range sentence. CAUGHT: 'describes NHS Pharmacy
+First as "affordable", which prices a service that is free at the point of
+use (rule 4)', quoting the exact injected sentence.
+
+TEST 3 - RULE 5, a price inside the same scope. Added "Consultations from
+£12." to the same position in Post A. CAUGHT: 'states "£1" on NHS Pharmacy
+First copy (rule 5)', quoting the sentence carrying the injected price.
+
+CONTROL - benign, unrelated reword. Changed Post B's "takes about 30
+seconds" to "takes about half a minute" (a private-service-adjacent but
+non-Pharmacy-First post, no cost claim involved). Targeted checker: 0
+failures. Full 35-checker suite (every tools/check-*.js except
+check-cdn-pins.js and check-live-hours.js, both network-dependent): 0
+failures across all 35, no cross-firing from any of the three prior
+injections' residual patterns.
+
+RESTORE AND RE-VERIFICATION
+gbp-packs/smartts-bootle.md restored by byte copy from the saved baseline
+after every round; sha256-reconfirmed 541239e0...003796b identical to the
+pre-injection baseline after the final restore. Targeted checker re-run
+clean on the scratch copy post-restore. Tracked repo confirmed untouched
+throughout:
+  git status --porcelain -- modules core branches.json gbp-packs tools compliance
+shows only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; sha256 of the tracked gbp-packs/smartts-bootle.md,
+tools/check-pharmacy-first-cost.js and branches.json all re-confirmed
+identical to the pre-pass values above. Full 35-checker suite re-run on the
+tracked repo itself (not just the scratch copy): 35/35 clean, 0 failures.
+
+RESULT
+No in-repo defect. All three untested rule directions (6, 4, 5) of
+check-pharmacy-first-cost.js fired exactly as designed on the first
+attempt, naming the right sentence and the right claim; the control passed
+clean with no cross-firing. This pack's Pharmacy First cost copy - the free
+claim made in three separate places, freedom from cost qualifiers, and
+freedom from a stated price - is now proven against every rule of every
+checker that reads gbp-packs/*.md. Nothing to fix; nothing to raise.
