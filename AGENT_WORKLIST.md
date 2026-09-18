@@ -2639,6 +2639,47 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       proved this checker catches. No new question. Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-18-twentyfirst.txt.
       Done 2026-09-18.
+      Twenty-second quality pass 2026-09-18 (unattended scheduled run, run
+      128). Rotation-selected: pool of 36 re-derived fresh via git log
+      parsed with the established word-boundary regex; 2.3 stalest at
+      2026-09-18T00:42:28+01:00, clear of the next candidate (3.1 at
+      01:13:09). FRESH ANGLE: tools/check-seo-lengths.js (title <=65 chars,
+      description 80-165 chars, no two pages sharing a title/description/
+      permalink, no two pages sharing an H1) had been proven on 20 of 36
+      pool items but never once against Cherry Lane in twenty-one prior
+      passes on this item. Full repo exported via git archive to a scratch
+      directory, tracked repo never opened for writing. Baseline 35/35
+      checkers clean on both the tracked repo and the scratch copy; all 12
+      Cherry Lane pages plus both SEO.md sheets confirmed byte-identical by
+      sha256 before any mutation. Five injections against the scratch copy
+      only, each restored by byte copy and sha256-reconfirmed before the
+      next: (1) UTI title lengthened past 65 chars - CAUGHT, rule 1; (2)
+      Sinusitis description cut to 43 chars - CAUGHT, rule 2 (under the
+      80-char minimum); (3) Impetigo's own title overwritten with Earache's
+      - CAUGHT, rule 3 (duplicate title, named both colliding entries); (4)
+      Shingles page's H1 overwritten with Earache's own H1, same branch -
+      CAUGHT, rule 4a (one branch reusing an H1 on two of its own pages,
+      named "cherrylane_liverpool" and both filenames); (5) CONTROL: a
+      benign reword of the UTI page's step-1 body sentence, touching no
+      title/description/H1/permalink token - PASSED clean on check-seo-
+      lengths.js and, cross-checked, on check-seo-pattern.js and check-seo-
+      sheets.js too, confirming the four catches were genuine. All five
+      fired or passed on the intended rule, first attempt. Final restore
+      sha256-reconfirmed identical on all four touched files; full
+      35-checker suite re-run clean afterwards. Tracked repo confirmed
+      untouched throughout (only the one long-standing pre-existing
+      untracked stray present). No in-repo defect found. Guard coverage for
+      item 2.3 now 21 of 36 checkers proven by direct injection (up from
+      20). LIVE HALF (Claude in Chrome, one tab, read-only throughout,
+      nothing clicked, typed or submitted, no dual-instance conflict this
+      run): read the five pages exercised by the injections and the
+      control live on cherrylanepharmacy.co.uk (UTI, Sinusitis, Shingles,
+      Earache, Impetigo) - all titles, the description read, and all five
+      H1s byte-identical to the repo copy; Shingles and Earache H1s
+      confirmed genuinely distinct live. No live fault, no new question.
+      Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-09-18-twentysecond.txt.
+      Done 2026-09-18.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
