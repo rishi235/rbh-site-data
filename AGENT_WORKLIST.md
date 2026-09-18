@@ -27456,6 +27456,78 @@ directly rather than re-deriving the same facts by hand.
       new in-repo defect, no new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-17-twentieth.txt.
       Done 2026-09-17.
+      Twenty-first quality pass 2026-09-18 (unattended scheduled run,
+      audit-backlog-worker, run 107). Taken because all 8 unchecked worklist
+      lines are still [BLOCKED]; selection method unchanged - rotation pool
+      re-derived fresh (43 completed items minus the six standing
+      out-of-rotation items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, minus the 17 items
+      already picked earlier today by runs 88-106), 4.14 the only remaining
+      candidate, matching run 106's own forward note as stalest at
+      2026-09-17T13:47:08+01:00. FRESH ANGLE: tools/check-postcodes.js's
+      rules 1 (UNKNOWN), 3 (FOREIGN) and 6 (MISATTRIB) had never been proven
+      by direct injection against this pack's own copy across twenty prior
+      passes, the same gap run 106 closed the same day for Tiffenbergs
+      Chemist Aintree (item 4.15). Baseline: pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all twenty prior passes, no drift; full 35-checker suite (36
+      minus check-cdn-pins.js/check-live-hours.js, both network-dependent)
+      exits 0 against the tracked repo before any work. Full repo copied via
+      `git archive HEAD | tar -x` to a disposable /tmp scratch directory;
+      tracked repo never opened for writing during the injection phase.
+      Four rounds against the scratch copy's own pack, each restored by
+      byte copy and sha256/cmp-reconfirmed identical before the next: (1)
+      rule 1 (UNKNOWN) - Post D's body extended with "We also see travellers
+      coming from as far as L23 3AU" (a one-character-off variant of this
+      branch's own L23 3AT, matching no branch) - CAUGHT, exit 1, exactly
+      one failure naming the postcode and the file; (2) rule 3 (FOREIGN) -
+      the photo shot list's entrance bullet extended with SK Chemists
+      Bootle's real postcode (L20 5DW) on a line naming no branch, isolating
+      FOREIGN from MISATTRIB - CAUGHT, exit 1, exactly one failure naming
+      both branches; (3) rule 6 (MISATTRIB) - the Services section extended
+      with "Unlike McCanns Chemist Aigburth (L23 3AT), this branch also
+      runs a dedicated travel clinic diary", naming McCanns but carrying
+      Gordon Short's OWN postcode rather than McCanns' real L17 7BP -
+      CAUGHT, exit 1, exactly one failure, confirming the pre-registered
+      MISATTRIB_KNOWN Hirshmans/Tiffenbergs comparative-sentence exemption
+      (scoped to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md only) does
+      not blanket-cover every "Unlike X" phrasing; (4) CONTROL - the
+      Services section extended with "Gordon Short Chemist's own registered
+      postcode is L23 3AT, confirmed correct against branches.json" (own
+      brand, own correct postcode) - correctly PASSED, exit 0, same three
+      pre-existing UNOWNED warnings as baseline. All four rounds fired or
+      passed on the first attempt, each on its intended rule only, no
+      side-effect failures elsewhere in the suite. Full 35-checker suite
+      re-run clean on the scratch copy after the final restore; pack sha256
+      reconfirmed identical to baseline; tracked repo's own copy of the
+      pack confirmed byte-identical throughout; git status showed only the
+      two long-standing untracked strays every recent entry has recorded
+      and left alone. No checker logic edited, no pack content byte
+      changed. No in-repo defect found: check-postcodes.js's rules 1, 3 and
+      6 now proven by direct injection against this specific pack for the
+      first time in twenty-one passes; rules 0 (MALFORMED) and 7
+      (DUPLICATE) are branches.json-level invariants rather than per-pack,
+      out of scope here; rules 2 (MISSING), 4 (DISPOSED) and 5 (UNOWNED)
+      remain unproven against this pack specifically and are recorded as
+      the candidate fresh angle for a future pass. LIVE HALF: performed via
+      Claude in Chrome (single connected instance, read-only,
+      navigate/get_page_text/javascript_tool only, nothing clicked, typed
+      or submitted, tab closed after). pharmacy-first-service-crosby.html
+      (Post A's real target) still reads Gordon Short Chemist throughout
+      and remains safe as written, all facts matching branches.json
+      exactly. pharmacy-first-gordon-short-crosby.html still reads "Gordon
+      Shorts Chemist" (wrong, plural) throughout title, hero and body, AND
+      its "Contact Gordon Shorts Chemist" card heading (the worsening the
+      twentieth pass first recorded, reconfirmed unchanged); the structured
+      footer strip still correctly reads the singular name; the STOP on
+      repointing Post A stands, unchanged, now 39 days. Sitemap re-read via
+      javascript_tool regex over <lastmod>/<loc> (a sitemap's XML does not
+      render as page text): 28 URLs, every lastmod still
+      2026-08-15T07:41:55+00:00, no republish in 34 days. Q90 not
+      re-checked this pass (last reconfirmed unchanged on the twentieth
+      pass), not re-raised. No new in-repo defect, no new live fault, no
+      new question raised. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-09-18-twentyfirst.txt.
+      Done 2026-09-18.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

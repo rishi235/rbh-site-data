@@ -1,0 +1,133 @@
+Item 4.14 - Gordon Short Chemist Crosby GBP pack
+Twenty-first quality pass, 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 107)
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6). Rotation pool
+re-derived: full completed-item list (1.1-1.4, 2.1-2.3, 3.1-3.13, 4.1-4.15,
+5.1, 5.2, 5.6, 5.7, 6.2, 6.3, 6.7, 6.8) minus the six standing out-of-rotation
+items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7) minus every item already picked earlier
+today by runs 88-106 (1.2, 2.3, 3.1, 3.2, 3.7, 3.9, 3.11, 3.12, 3.13, 4.2,
+4.6, 4.11, 4.12, 4.15, 5.1, 6.2, 6.3). 4.14 was the only remaining candidate
+matching run 106's own forward note as stalest, last touched
+2026-09-17T13:47:08+01:00 (its own twentieth pass) - confirmed independently
+via `git log -1 --format=%ad --date=iso-strict -L26579,27458:AGENT_WORKLIST.md`,
+exact match, no discrepancy.
+
+ANSWER PICKUP (step 3): fetched https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome, read-only. Newest entry still 2026-09-01T22:44:51.524Z
+(Q52), unchanged since that date across every run since. Nothing new to pick
+up.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+heading at the top of AGENT_LOG.md. Not applicable.
+
+FRESH ANGLE
+tools/check-postcodes.js's rules 1 (UNKNOWN), 3 (FOREIGN) and 6 (MISATTRIB)
+had never been proven by direct injection against gbp-packs/gordon-short-
+crosby.md's own copy across twenty prior passes - confirmed by grepping the
+item's full AGENT_WORKLIST.md block for "check-postcodes"/"postcode": the
+only hit was an incidental scratch-file-pollution note on the fourteenth
+pass, unrelated to this pack's own content. The same gap was closed the same
+day, run 106, for gbp-packs/tiffenbergs-aintree.md (item 4.15); this pass
+applies the identical method to Gordon Short Crosby.
+
+BASELINE
+Pack sha256 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+matching all twenty prior passes exactly, no drift. Full 35-checker suite
+(36 minus check-cdn-pins.js/check-live-hours.js, both network-dependent,
+standing convention) exits 0 against the tracked repo before any work. Only
+the two long-standing untracked strays present in git status
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched.
+
+METHOD
+Full repo copied via `git archive HEAD | tar -x` to a disposable
+/tmp/scratch-414-postcodes directory; tracked repo never opened for writing
+during the injection phase. Scratch baseline: pack sha256 identical to the
+tracked copy, 35/35 checkers clean.
+
+Four rounds against the scratch copy's own pack, each restored by byte copy
+from a saved pre-injection original and sha256/cmp-reconfirmed identical
+before the next:
+
+(1) Rule 1 (UNKNOWN). Post D's body extended with "We also see travellers
+    coming from as far as L23 3AU." (a one-character-off variant of this
+    branch's own L23 3AT, matching no branch). CAUGHT: exit 1, exactly one
+    failure - "UNKNOWN gbp-packs/gordon-short-crosby.md: postcode L23 3AU is
+    in no branches.json entry".
+
+(2) Rule 3 (FOREIGN). The photo shot list's entrance bullet extended with
+    SK Chemists Bootle's real postcode (L20 5DW) on a line naming no branch,
+    isolating FOREIGN from MISATTRIB. CAUGHT: exit 1, exactly one failure -
+    "FOREIGN gbp-packs/gordon-short-crosby.md: owned by gordonshorts_crosby
+    (L23 3AT) but carries L20 5DW (skchemists_bootle)".
+
+(3) Rule 6 (MISATTRIB). The Services section extended with "Unlike McCanns
+    Chemist Aigburth (L23 3AT), this branch also runs a dedicated travel
+    clinic diary.", naming McCanns but carrying Gordon Short's OWN postcode
+    rather than McCanns' real L17 7BP. CAUGHT: exit 1, exactly one failure -
+    "MISATTRIB gbp-packs/gordon-short-crosby.md:51: line names McCanns
+    Chemist Aigburth (L17 7BP) but carries L23 3AT (gordonshorts_crosby)".
+    Confirms MISATTRIB_KNOWN's Hirshmans/Tiffenbergs comparative-sentence
+    exemption (scoped to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+    only) does not blanket-cover an "Unlike X" sentence on a different pack.
+
+(4) CONTROL. The Services section extended with "Gordon Short Chemist's own
+    registered postcode is L23 3AT, confirmed correct against
+    branches.json." (own brand, own correct postcode). Correctly PASSED:
+    exit 0, same three pre-existing UNOWNED warnings as baseline
+    (gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md,
+    modules/branch/pages/SEO.md).
+
+All four rounds fired or passed on the first attempt, each on its intended
+rule only, no side-effect failures elsewhere in the suite. Full 35-checker
+suite re-run clean on the scratch copy after the final restore; pack sha256
+and cmp both reconfirmed identical to baseline; tracked repo's own copy of
+the pack confirmed sha256-unchanged throughout (never opened for writing);
+`git status --porcelain -- gbp-packs tools modules core branches.json`
+showed only the same two pre-existing untracked strays, neither touched.
+
+RESULT
+No in-repo defect found. check-postcodes.js's rules 1, 3 and 6 now proven by
+direct injection against this specific pack for the first time in
+twenty-one passes. Rules 0 (MALFORMED) and 7 (DUPLICATE) are branches.json-
+level invariants rather than per-pack, out of scope for a single pack's
+injection test. Rules 2 (MISSING), 4 (DISPOSED) and 5 (UNOWNED) remain
+unproven against this pack specifically and are recorded as the candidate
+fresh angle for a future pass.
+
+LIVE HALF
+Performed via Claude in Chrome (single connected instance, read-only,
+navigate/get_page_text/javascript_tool only, nothing clicked, typed,
+submitted or logged in; tab closed after).
+
+pharmacy-first-service-crosby.html (Post A's real target): still reads
+Gordon Short Chemist throughout title, hero, conditions list, contact card
+and footer; address 159 College Road, Great Crosby, Liverpool L23 3AT,
+phone 0151 924 3449, hours (Mon-Fri 9-6 closed 1-2pm, Sat 9-5 closed 1-2pm,
+Sun closed) all correct. Post A remains safe to post as written.
+
+pharmacy-first-gordon-short-crosby.html (the branch-specific page Post A
+must not be repointed to): still reads "Gordon Shorts Chemist" (wrong,
+plural) throughout its browser title, hero heading and body, AND its
+"Contact Gordon Shorts Chemist" card heading (the worsening the twentieth
+pass first recorded - previously this card read correctly). The page's
+separate structured footer strip still correctly reads the singular "Gordon
+Short Chemist". The STOP on repointing Post A stands, unchanged, now 39
+days since the 2026-08-10 finding (Q32/PF_TARGET_HOLD).
+
+sitemap.xml: re-read via javascript_tool (regex over <lastmod>/<loc>
+elements rather than visible text, since a sitemap's XML does not render as
+page text). 28 URLs total, every lastmod still 2026-08-15T07:41:55+00:00,
+confirming no republish in 34 days since the sixth pass. 14 of the 28 URLs
+are this branch's own (crosby/gordon-short URLs).
+
+Q90 (weight-loss-clinic-crosby.html naming Wegovy/Mounjaro in its meta
+description, outside this pack's own tracked post targets) not re-checked
+this pass; last reconfirmed unchanged on the twentieth pass, not re-raised.
+
+No new in-repo defect, no new live fault, no new question raised.
+QUESTIONS.json unchanged (111 total, 58 open, confirmed unopened for
+writing this pass).
