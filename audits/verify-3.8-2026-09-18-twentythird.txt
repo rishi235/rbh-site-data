@@ -1,0 +1,47 @@
+Item 3.8 (SK Chemists Bootle) - twenty-third quality pass, 2026-09-18
+Checker under test: tools/check-pharmacy-first-safety-net.js
+Reason chosen: not mentioned once in item 3.8's own ~1116-line worklist block across
+twenty-two prior passes (checked by grepping every tools/check-*.js basename against
+that block). SK Chemists Bootle carries pfLink and pfBooking:true and all seven ready
+Pharmacy First condition pages (earache, impetigo, insect-bite, shingles, sinusitis,
+sore-throat, uti), so the checker is squarely in scope and had simply never been run
+against this branch's own pages.
+
+Method: full `cp -a` scratch copy to /tmp/scratch38, no injection against the tracked
+working copy at any point. Baseline run clean (98 condition pages checked, one
+pre-existing WARN, impetigo:urgent, pinned in KNOWN against Q61, unchanged).
+
+Target page: modules/service/pages/shingles-treatment-sk-chemists-bootle.html
+Original sha256: 12fa2ecbc9467d86595aef3531dca05d029b51c22e85fcf8c6740cae002a40c5
+
+INJECTION A (rule 6, verbatim): changed the page's own safety-net point "Children and
+young people under 18 should see a GP" to "...under 16...", generator untouched.
+RESULT: FAIL shingles-treatment-sk-chemists-bootle.html: a safety-net point is missing
+from the page (rule 6). Caught on first attempt. Restored, sha256 reconfirmed identical
+to baseline before the next injection.
+
+INJECTION B (rule 7, cross-condition contamination): added "Babies under 1 should see a
+GP" (an earache/impetigo/insect-bite point) onto the shingles page alongside its own
+correct points.
+RESULT: FAIL shingles-treatment-sk-chemists-bootle.html: carries a safety-net point that
+belongs to the earache/impetigo/insect-bite pathway, not this one (rule 7). Caught on
+first attempt. Restored, sha256 reconfirmed identical to baseline before the next step.
+
+CONTROL (harmless whitespace change): doubled a single space inside one safety-net
+point's sentence, no wording change.
+RESULT: clean, checker exit 0, only the same pre-existing impetigo WARN present -
+confirms rule 6's norm() whitespace-collapse tolerates incidental formatting rather than
+false-firing on it.
+
+RESTORE: final sha256 reconfirmed identical to original after all three steps.
+FULL SUITE: all 36 checkers (check-live-hours.js excluded, network-dependent) run against
+the scratch copy after restoration: 36/36 exit 0.
+TRACKED REPO: git status --porcelain on modules/tools/gbp-packs/core/branches.json in the
+real working copy showed only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/notarealservice-fishlocks-
+ainsdale.html.bak), neither touched; HEAD unchanged at c3324dc throughout.
+
+RESULT: no in-repo defect. check-pharmacy-first-safety-net.js was already correctly
+guarding SK Chemists Bootle's own seven condition pages on rules 6 and 7 (the two
+page-level rules); this is the first time any quality pass has proven it against this
+item specifically. No checker logic, page, generator or data field changed.

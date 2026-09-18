@@ -10669,6 +10669,41 @@ Done 2026-09-18 (twenty-first pass).
       https://data.rbhealth.co.uk/api/feedback this run. Evidence in
       audits/sk-bootle-widget-diaries-3.8-twentysecond-2026-09-17.txt.
       Done 2026-09-17 (twenty-second).
+      Twenty-third pass, 2026-09-18 (run 116): fresh angle - proved
+      tools/check-pharmacy-first-safety-net.js against SK Chemists Bootle's
+      own seven Pharmacy First condition pages for the first time across
+      twenty-three passes (not mentioned once in this item's own prior
+      history, confirmed by grepping every tools/check-*.js basename
+      against it). METHOD: full `cp -a` scratch copy to /tmp/scratch38, no
+      injection against the tracked working copy. Baseline clean (98
+      condition pages, one pre-existing WARN, impetigo:urgent, Q61,
+      unchanged). TWO INJECTIONS against
+      modules/service/pages/shingles-treatment-sk-chemists-bootle.html,
+      each restored and sha256-reconfirmed before the next: (1) rule 6
+      verbatim - reworded the page's own "under 18" safety-net point to
+      "under 16", generator untouched - caught: "a safety-net point is
+      missing from the page (rule 6)"; (2) rule 7 cross-condition
+      contamination - added the earache/impetigo/insect-bite point "Babies
+      under 1 should see a GP" onto the shingles page - caught: "carries a
+      safety-net point that belongs to the earache/impetigo/insect-bite
+      pathway, not this one (rule 7)". CONTROL: a harmless doubled-space
+      edit inside one point's wording - correctly zero failures,
+      confirming the rule's whitespace-collapse does not false-fire on
+      incidental formatting. All three fired (or did not fire) on exactly
+      their intended rule, first attempt. RESTORE: final sha256
+      reconfirmed identical to original. Full 36-checker suite (check-
+      live-hours.js excluded, network-dependent) re-run against the
+      scratch copy after restoration: 36/36 exit 0. Tracked repo: `git
+      status --porcelain -- modules tools gbp-packs core branches.json`
+      showed only the two long-standing pre-existing untracked strays,
+      neither touched; HEAD unchanged throughout. NO IN-REPO DEFECT FOUND.
+      No checker logic, page, generator or data field changed. No new
+      question raised; QUESTIONS.json re-read via the standing
+      answer-pickup step: 112 total, 59 open, unchanged in substance -
+      newest portal answer still Q52 (2026-09-01), confirmed via a fresh
+      read of https://data.rbhealth.co.uk/api/feedback this run. Evidence
+      in audits/verify-3.8-2026-09-18-twentythird.txt. Done 2026-09-18
+      (twenty-third).
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

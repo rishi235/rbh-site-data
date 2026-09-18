@@ -1,3 +1,79 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 116; mcp__workspace__bash
+used for the lock check, git fetch/checkout/pull/status, the scratch-copy injection proofs
+and file edits (with GIT_INDEX_FILE pointed at a scratch path to route around the sandbox's
+persistent, unlinkable .git/index.lock rather than fighting it - see LOCK/SYNC note below);
+mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch; mcp__Windows-MCP__PowerShell
+intended for the git add/commit/push and the status-page publish, per the standing practice
+runs 111-115 established (Q102 still formally open, but followed again))
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 115 deleted its own before
+exiting, confirmed by its HEAD c3324dc already matching origin/agents/audit-backlog before
+this run touched anything); wrote a fresh lock. NEW FINDING this run: `git checkout` and any
+other git write failed immediately with "Unable to create .../.git/index.lock: File exists" -
+a leftover index.lock (0700, owned by this session's own uid) that `rm -f`, python os.remove
+and git's own cleanup all refused with "Operation not permitted" on unlink, matching Q87/Q96/
+Q102's own description of this sandbox's FUSE mount exactly (rename permitted, unlink is not).
+Rather than adding another renamed-lock file to the roughly 200 already littering the working
+tree and .git/ from past runs' attempts at this exact problem, used a different, non-destructive
+workaround this run: `export GIT_INDEX_FILE=/tmp/rbh-audit-index-$$` before any git command,
+which makes git build and lock a fresh, writable index elsewhere and leaves the stuck
+.git/index.lock untouched and unread. `git read-tree HEAD` followed by `git status` and
+`git checkout agents/audit-backlog` (now a no-op, already on that branch) both confirmed
+working cleanly under it. `git fetch origin` and `git pull --ff-only origin agents/audit-
+backlog` both completed clean, already up to date at c3324dc. This does not touch main, does
+not force-push, and does not delete or rename anything - it is a standard git plumbing
+variable, used read-side only in this run; step 9's actual write still goes through
+Windows-MCP PowerShell per standing practice, so this is offered as a smaller alternative for
+a future run's read-side git commands, not a proposal to change the write route. Not raised as
+a new question since Q87/Q96/Q102 already cover the underlying infrastructure decision and
+remain open for Rishi's call.
+ANSWER PICKUP (step 3): list_connected_browsers showed exactly one Chrome instance connected,
+so the fetch was not blocked (Q59's history). Navigated to https://data.rbhealth.co.uk/api/
+feedback and read the full JSON feed directly. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z), matching every run since 2026-09-01 and run 115's own finding
+earlier today - nothing new to apply. 59 of 112 questions open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of this file as it stood at run start (run
+115's entry); no "Standing authorisation - autonomous window" heading present, proceeded
+under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8,
+6.1, both Q60 lines under 6.4/6.5, 6.6), unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived from `git log --pretty="%aI|||%s"` parsed in Python with a corrected
+regex `[Ii]tem\s+(\d+\.\d+)(?!\d)` (a same-run check found the simpler single-digit-
+subitem grep pattern used loosely in earlier reasoning undercounts any item with a two-digit
+sub-number, e.g. 3.13 or 4.15, by never matching "item 3.13" at all - worth flagging for any
+future run reconstructing this rotation by hand rather than reading it off the log: those two
+items are NOT stale, they were simply invisible to a naive regex). Correct oldest-touched
+candidate, over the 36 non-one-off non-blocked items: 3.8 (SK Chemists Bootle), last touched
+2026-09-17T18:11:03+01:00, ahead of 4.7 (18:45), 1.3 (19:09) and everything else. Chosen: 3.8,
+twenty-third pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 3.8 block, this being the mirrored
+entry. FRESH ANGLE: tools/check-pharmacy-first-safety-net.js had never once been mentioned in
+item 3.8's ~1116-line history across twenty-two prior passes, despite SK Chemists Bootle
+carrying pfLink, pfBooking:true and all seven ready Pharmacy First condition pages. METHOD:
+full `cp -a` scratch copy to /tmp/scratch38, no injection against the tracked working copy.
+BASELINE: clean, 98 condition pages checked, one pre-existing WARN (impetigo:urgent, Q61).
+TWO INJECTIONS against modules/service/pages/shingles-treatment-sk-chemists-bootle.html, each
+restored and sha256-reconfirmed before the next: (1) rule 6 verbatim - reworded the page's own
+"under 18" point to "under 16" - caught, "a safety-net point is missing from the page (rule
+6)"; (2) rule 7 cross-contamination - added the earache/impetigo/insect-bite point "Babies
+under 1 should see a GP" onto the shingles page - caught, "carries a safety-net point that
+belongs to the earache/impetigo/insect-bite pathway, not this one (rule 7)". CONTROL: a
+harmless doubled-space edit inside one point - correctly zero failures. All three fired (or
+did not fire) on their intended rule, first attempt. RESTORE: final sha256 reconfirmed
+identical to original. Full 36-checker suite (check-live-hours.js excluded) re-run after
+restoration: 36/36 exit 0. Tracked repo `git status --porcelain -- modules tools gbp-packs
+core branches.json` showed only the two long-standing pre-existing untracked strays, neither
+touched; HEAD unchanged at c3324dc throughout. RESULT: no in-repo defect. No checker logic,
+page, generator or data field changed anywhere in the repo. No new question raised. Guard
+coverage for item 3.8 now extends to twenty of the estate's 36 checkers proven by direct
+injection. Evidence: audits/verify-3.8-2026-09-18-twentythird.txt.
+Files changed this run: AGENT_WORKLIST.md (item 3.8 twenty-third-pass paragraph appended; the
+line itself stays ticked as already [x]), AGENT_LOG.md (this entry), audits/verify-3.8-2026-
+09-18-twentythird.txt (new evidence file). No generator, checker, page or branches.json
+change.
+Commit and push: see commit hash appended below once the Windows-MCP PowerShell route
+completes step 9. Status page publish: see step 10 note below once build-audit-status.js
+completes on the host.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 115; mcp__workspace__bash used for the lock
 check, git fetch/checkout/pull/status, the checker suite, the scratch-copy injection proofs and file edits;
 mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch; mcp__Windows-MCP__PowerShell for the git
