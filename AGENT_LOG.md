@@ -1,3 +1,117 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 124;
+mcp__workspace__bash used throughout for the lock check, git fetch/pull/
+status, the full 35-checker baseline, the git-archive scratch copy at
+/tmp/run124work/scratch-4.8 (three-round injection/restore cycle against
+tools/check-postcodes.js's ownerOf() prefix fallback, one synthetic file plus
+the real gbp-packs/fishlocks-eccleston.md as a control), and the post-restore
+suite re-run and directory diff; mcp__claude-in-chrome__navigate/
+get_page_text/tabs_close_mcp used for the step 3 portal answer pickup and the
+item 4.8 live half, two tabs total, read-only throughout, nothing clicked,
+typed or submitted; mcp__Windows-MCP__PowerShell used to clear a stuck
+.git/index.lock the sandbox's own unlink() could not remove (the standing
+Q87/Q96/Q102 sandbox-FUSE fault) and to run git add/commit/push and the
+status-page publish, following the established route recent runs use for all
+git writes; Write used for the new audits file; Edit used for
+AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 123's own
+entry confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T20:04:34Z). git fetch origin, git checkout agents/audit-backlog
+(already on it) and git pull --ff-only both completed clean, confirmed up to
+date with origin (HEAD at run 123's commit for item 4.13).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. QUESTIONS.json already carries Q52 as "answered" with
+matching text; nothing new to apply. 60 of 113 questions open before this
+run, unchanged after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 123's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. Over the same 36-item pool, 4.8 came out stalest at
+2026-09-17T22:45:28+01:00, matching run 123's own forward note exactly, ahead
+of runner-up 3.3 at 2026-09-17T23:14:06+01:00. Chosen: 4.8, twenty-second
+pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.8 block and
+audits/fishlocks-eccleston-postcode-ownerof-prefix-fallback-4.8-twentysecond-
+2026-09-18.txt; this is the mirrored summary. Checked which of the ten
+checkers that genuinely read gbp-packs/*.md (confirmed by grepping for the
+literal `"gbp-packs"` directory construction, not narrative mentions in
+comments) had been individually proven by injection against this pack across
+twenty-one prior passes: all ten had (check-app-membership, check-brand-
+spelling, check-em-dashes, check-gbp-packs, check-gbp-pharmacy-first, check-
+pharmacy-first-cost, check-pharmacy-first-eligibility, check-postcodes,
+check-uk-spelling, check-url-scheme), so a same-shaped new checker angle was
+exhausted for this item specifically. Cross-checked instead whether any of
+those ten had been MODIFIED after the pass that tested them against this
+pack. check-postcodes.js had just been modified the same day (commit
+37d87639, 18:12:00+01:00, a sibling item 1.3 twenty-third pass) to fix
+ownerOf()'s brandSlug prefix-fallback, which picked an owner by
+branches.json array order whenever two or more branches share a brandSlug
+rather than reporting the file unresolvable. That commit names Scorah,
+McCanns and Fishlocks as the three affected families but proves the fix only
+against McCanns (mccanns-price-list.html) - Fishlocks Eccleston and Fishlocks
+Ainsdale share brandSlug "fishlocks" and are exactly this shape, so the
+Fishlocks half of the commit's own claim was untested, and it belongs
+squarely to this item's own branch pair.
+BASELINE: full 35-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, network-dependent) run individually against the tracked repo:
+35/35 exit 0. Pack sha256 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985
+e94a3e01001efa confirmed unchanged since the twenty-first pass.
+INJECTION on a git-archive scratch copy (/tmp/run124work/scratch-4.8, tracked
+files never opened for writing, restored by byte copy and sha256-reconfirmed
+after every round): TEST A - synthetic modules/service/weebly-paste/
+fishlocks-price-list.html, ambiguous filename, no branch named in prose,
+carrying Fishlocks Eccleston's own real postcode PR7 5SZ - correctly WARN
+UNOWNED (exit 0) rather than silently misattributed to fishlocks_ainsdale by
+array order. TEST B - same file, Fishlocks Ainsdale's own PR8 3HN instead -
+also correctly WARN UNOWNED, both directions now proven exactly as the
+McCanns proof was. TEST C (control) - the REAL tracked pack,
+gbp-packs/fishlocks-eccleston.md, own PR7 5SZ changed to PR8 3HN - still
+correctly FAILS as FOREIGN, message byte-identical to the twenty-first
+pass's own proof, confirming the fix left this pack's already-proven
+behaviour untouched because it resolves via the brandSlug+townSlug suffix
+match and never reaches the changed prefix-fallback branch at all. All three
+behaved exactly as expected on the first attempt. Files restored, sha256
+reconfirmed identical; full 35-checker suite re-run clean on the scratch
+copy after final restore (35/35, 0 failures); directory diff (gbp-packs,
+tools, modules, branches.json) between the scratch copy and the tracked repo
+empty bar the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; git status on
+the tracked repo unchanged throughout. No checker gap found: the fix already
+correctly closes the Fishlocks half of its own stated scope.
+LIVE HALF, Claude in Chrome, read-only, two page reads, nothing clicked or
+typed: pharmacy-fishlocks-eccleston.html still 404, known queued-paste state
+(5.3/5.4), unchanged. pharmacy-first-fishlocks-eccleston.html re-read in
+full: 200, seven Pharmacy First conditions and NHS age ranges correct, free/
+no-charge language intact; contact card and footer both print the two sister
+branches' addresses correctly and distinctly (Eccleston PR7 5SZ, Ainsdale
+PR8 3HN, no cross-branch leak), the live-side mirror of this pass's own
+repo-side finding. No new live fault, no new question raised.
+QUESTIONS.json unchanged at 113 total, 60 open.
+INFRASTRUCTURE NOTE (steps 1-2 and 9): git status inside
+mcp__workspace__bash reported "unable to unlink '.../.git/index.lock':
+Operation not permitted" (a fresh, 0-byte lock file, no git process holding
+it - the standing sandbox-FUSE unlink fault recorded at Q87/Q96/Q102).
+Cleared it via mcp__Windows-MCP__PowerShell's `Remove-Item -Force` against
+C:\Dev\rbh-site-data\.git\index.lock on the real ProDesk host, then ran git
+add/commit/push and the build-audit-status.js publish from the same
+PowerShell session, following the route Q102 already documents as the
+established fallback for every git write from this environment. No new
+question raised; status left as-is per Q102.
+FORWARD NOTE for the next quality-pass run: re-derive the rotation fresh
+rather than trust any number here. check-postcodes.js's ownerOf() prefix
+fallback is now proven for McCanns and Fishlocks; Scorah (scorah_bramhall,
+scorah_hazelgrove, shared brandSlug "scorah") remains the one named family
+untested by injection against this specific fix, a candidate for whichever
+of items 3.2/4.5/4.6's own future passes comes next.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 123;
 mcp__workspace__bash used throughout for the lock check, git fetch/pull/
 status, the full 35-checker baseline, the git-archive scratch copy at

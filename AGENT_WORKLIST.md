@@ -22832,6 +22832,62 @@ directly rather than re-deriving the same facts by hand.
       Q52, 2026-09-01T22:44:51.524Z, nothing new.
       QUESTIONS: none raised. Total unchanged at 110, 57 open.
       See audits/fishlocks-eccleston-postcode-4.8-twentyfirst-2026-09-17.txt.
+      Quality pass 2026-09-18 (twenty-second, unattended run): stalest item in
+      the 36-item rotation pool, re-derived independently (git log --pretty
+      parsed for word-boundary "item N.N", most recent match per pool item;
+      4.8 unique stalest at 2026-09-17T22:45:28+01:00, its own twenty-first
+      pass, ahead of runner-up 3.3 by about 28 minutes - matches run 123's own
+      forward note exactly). Baseline: pack sha256 unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa), all
+      35 checkers green (check-cdn-pins.js and check-live-hours.js excluded,
+      both network-dependent).
+      NEW ANGLE: earlier the same day, a sibling item's pass (item 1.3,
+      twenty-third, commit 37d87639) fixed check-postcodes.js's ownerOf()
+      prefix-fallback gap for filenames whose brandSlug is shared by more than
+      one branch, naming Scorah, McCanns and Fishlocks as the three affected
+      families, but proved the fix only against McCanns. Fishlocks Eccleston
+      and Fishlocks Ainsdale are exactly that shape (shared brandSlug
+      "fishlocks", array order putting Ainsdale first), so the Fishlocks half
+      of that commit's own claim had never been proven - untouched by any of
+      the twenty-one prior passes on this item. Three tests on a git-archive
+      scratch copy, each restored by byte copy and sha256-reconfirmed before
+      the next: (1) a synthetic modules/service/weebly-paste/fishlocks-price-
+      list.html, ambiguous filename, no branch named in prose, carrying
+      Fishlocks Eccleston's own real postcode PR7 5SZ - correctly WARN UNOWNED
+      rather than silently misattributed to fishlocks_ainsdale by array order
+      (the pre-fix behaviour); (2) the same file with Fishlocks Ainsdale's own
+      PR8 3HN instead - also correctly WARN UNOWNED, proving both directions
+      as the McCanns proof did; (3) CONTROL on the real tracked pack itself,
+      gbp-packs/fishlocks-eccleston.md's own PR7 5SZ changed to PR8 3HN - still
+      correctly FAILS as FOREIGN, byte-identical to the twenty-first pass's own
+      proof, confirming today's fix left this pack's already-proven behaviour
+      untouched because the pack resolves via the brandSlug+townSlug suffix
+      match and never reaches the changed prefix-fallback code at all. All
+      three behaved exactly as expected on the first attempt. File and pack
+      restored, sha256 reconfirmed identical; full 35-checker suite re-run
+      clean after the final restore; directory diff between the scratch copy
+      and the tracked repo empty bar the two long-standing pre-existing
+      untracked strays, neither touched; git status on the tracked repo
+      unchanged throughout. No checker gap found; no in-repo defect - the fix
+      already correctly closes the Fishlocks half of its own stated scope.
+      LIVE HALF: pharmacy-fishlocks-eccleston.html re-fetched (Claude in
+      Chrome, read-only) - still 404, known queued-paste state (5.3/5.4),
+      unchanged. pharmacy-first-fishlocks-eccleston.html re-read in full: 200,
+      seven Pharmacy First conditions and NHS age ranges correct, free/no-
+      charge language intact; contact card and footer both print the two
+      sister branches' addresses correctly and distinctly (Eccleston PR7 5SZ,
+      Ainsdale PR8 3HN, no cross-branch leak) - the live-side mirror of this
+      pass's own repo-side finding.
+      ANSWER PICKUP: Claude in Chrome connected; feed re-read, newest entry
+      still Q52, 2026-09-01T22:44:51.524Z, nothing new.
+      QUESTIONS: none raised. Total unchanged at 113, 60 open.
+      Forward note: ownerOf()'s prefix fallback is now proven for two of the
+      three named brand families (McCanns by its birth commit, Fishlocks by
+      this pass). Scorah remains untested by injection against this specific
+      fix - a candidate for whichever of items 3.2/4.5/4.6's own future passes
+      comes next.
+      See audits/fishlocks-eccleston-postcode-ownerof-prefix-fallback-4.8-
+      twentysecond-2026-09-18.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

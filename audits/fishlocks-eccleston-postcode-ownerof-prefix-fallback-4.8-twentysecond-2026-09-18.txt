@@ -1,0 +1,129 @@
+Item 4.8 (Fishlocks Chemist Eccleston GBP pack), twenty-second quality pass
+Unattended run, 2026-09-18
+
+ROTATION
+Re-derived independently: git log --pretty="%aI|||%s" parsed with the
+established word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d), excluding the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight [BLOCKED] worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6).
+Stalest item over the 36-item pool: 4.8, last touched 2026-09-17T22:45:28+01:00
+(its own twenty-first pass), ahead of runner-up 3.3 at 2026-09-17T23:14:06+01:00.
+Matches run 123's own forward note exactly.
+
+BASELINE
+gbp-packs/fishlocks-eccleston.md sha256 unchanged since the twenty-first pass:
+5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+Full 35-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) run individually against the tracked repo: 35/35
+exit 0.
+
+NEW ANGLE
+Earlier today (commit 37d87639, 2026-09-18T18:12:00+01:00), a sibling item's
+pass (item 1.3, twenty-third) fixed a latent gap in check-postcodes.js's
+ownerOf(): the brandSlug PREFIX fallback (used for ambiguous filenames like
+Weebly paste blocks that don't end "<brandSlug>-<townSlug>") picked a single
+owner by branches.json array order whenever two or more branches share a
+brandSlug, rather than reporting the file as unresolvable. The commit message
+names three affected brand families - Scorah, McCanns, Fishlocks - but the
+injection proof in that commit only exercised the McCanns pair
+(mccanns-price-list.html). Fishlocks Eccleston and Fishlocks Ainsdale are
+exactly this shape (both brandSlug "fishlocks", branches.json array positions
+4 and 5 respectively, Ainsdale first), so the Fishlocks half of that commit's
+own claim had never been proven - a direct, previously-unexercised angle on
+this item's own branch pair, twenty-one prior passes notwithstanding.
+
+Read ownerOf() in tools/check-postcodes.js: for a filename resolving via the
+longest "<brandSlug>-<townSlug>" SUFFIX match, the function returns before
+ever reaching the new prefix-fallback code. gbp-packs/fishlocks-eccleston.md
+resolves via that suffix path (stem "fishlocks-eccleston" equals
+brandSlug+"-"+townSlug for fishlocks_eccleston exactly), so today's fix is
+structurally incapable of changing behaviour for the real tracked pack file.
+The fix only bites an AMBIGUOUS filename with no suffix match, which no real
+Fishlocks file exercises today. Two things worth proving, neither of them
+argued: that the fix genuinely closes the gap for the Fishlocks pair on a
+synthetic ambiguous file (mirroring the McCanns proof), and that the real
+pack's own already-proven FOREIGN behaviour (twenty-first pass) survives the
+fix unchanged, precisely because it never reaches the changed code path.
+
+METHOD
+All three tests run on a git-archive scratch copy (/tmp/run124work/scratch-4.8,
+tracked files never opened for writing outside the scratch tree), restored by
+byte copy and sha256-reconfirmed after every round.
+
+TEST A (Fishlocks pair, ambiguous filename, Eccleston's own postcode):
+created modules/service/weebly-paste/fishlocks-price-list.html - no branch
+named in prose, "<brandSlug>-..." with no "-<townSlug>" suffix, carrying
+Fishlocks Eccleston's own real postcode PR7 5SZ. Before today's fix this
+filename would have resolved to fishlocks_ainsdale (array index 4, ahead of
+fishlocks_eccleston at index 5) purely by array order, the exact
+misattribution shape the commit describes for McCanns. Result: WARN UNOWNED
+modules/service/weebly-paste/fishlocks-price-list.html carries PR7 5SZ but no
+branch could be matched to the filename. Exit code 0 (UNOWNED is a warning,
+not a failure) - CORRECT, no false FOREIGN accusation against either branch.
+
+TEST B (same file, Ainsdale's own postcode, the reverse direction): changed
+the postcode to PR8 3HN (Fishlocks Ainsdale's own real value). Result: WARN
+UNOWNED modules/service/weebly-paste/fishlocks-price-list.html carries PR8 3HN
+but no branch could be matched to the filename. Exit code 0 - CORRECT, same
+honest "cannot tell" answer in both directions, exactly mirroring the
+bidirectional McCanns proof (Aigburth's L17 7BP and Sandringham's L17 4JP,
+both UNOWNED under the fixed code).
+
+TEST C (control/regression, the REAL tracked pack, unambiguous suffix match):
+on the same scratch copy, gbp-packs/fishlocks-eccleston.md's own PR7 5SZ was
+changed to PR8 3HN (Fishlocks Ainsdale's real postcode, the exact value and
+direction the twenty-first pass proved). Result: FOREIGN
+gbp-packs/fishlocks-eccleston.md: owned by fishlocks_eccleston (PR7 5SZ) but
+carries PR8 3HN (fishlocks_ainsdale). Exit code 1 - CORRECT, byte-identical
+failure message to the twenty-first pass's own proof, confirming today's fix
+made no change to this pack's own already-proven behaviour, because the pack
+resolves via the suffix match and never reaches the changed prefix-fallback
+branch.
+
+Deleted the synthetic file, restored gbp-packs/fishlocks-eccleston.md from a
+pre-injection byte copy, sha256 reconfirmed identical
+(5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa). Full
+35-checker suite re-run clean on the scratch copy after final restore (35/35,
+0 failures). Directory diff (gbp-packs, tools, modules, branches.json)
+between the scratch copy and the tracked repo after restore: identical bar
+the two long-standing pre-existing untracked strays every recent pass already
+notes (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched. git status on the real tracked repo unchanged throughout (same two
+strays only).
+
+No checker gap found; no in-repo defect. The fix already correctly closes the
+Fishlocks half of its own stated scope, now proven by injection rather than
+only claimed in a commit message, and the real pack's own long-proven
+behaviour is confirmed unaffected.
+
+LIVE HALF
+Claude in Chrome, read-only, two page reads, nothing clicked or typed.
+pharmacy-fishlocks-eccleston.html (landing page): still 404, known
+queued-paste state (5.3/5.4), unchanged from every prior pass.
+pharmacy-first-fishlocks-eccleston.html: 200, full page read. Contact card
+and footer both print the two sister branches' addresses correctly and
+distinctly - Eccleston "Unit 3 The Carrington Centre, New Mill Street,
+Eccleston, PR7 5SZ" and Ainsdale "17 Station Rd, Ainsdale, PR8 3HN" - no
+cross-branch leak, which is the live-side mirror of this pass's own repo-side
+finding: the two Fishlocks postcodes stay correctly distinct wherever they
+appear. Seven Pharmacy First conditions and NHS age ranges present and
+correct, free/no-charge language intact, unchanged since prior passes.
+
+ANSWER PICKUP (step 3, this run)
+Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed. Newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01. QUESTIONS.json unchanged: 113 total, 60 open before this
+pass, unchanged after (no new answers to apply).
+
+QUESTIONS
+None raised. Total unchanged at 113, 60 open.
+
+FORWARD NOTE
+check-postcodes.js's ownerOf() prefix fallback is now proven for two of the
+three named brand families (McCanns by the birth commit, Fishlocks by this
+pass). Scorah (brandSlug "scorah", branches scorah_bramhall and
+scorah_hazelgrove) remains the one named family untested by injection against
+this specific fix - a candidate for whichever of items 3.2/4.5/4.6's own
+future passes comes next, mirroring this pass's own method.
