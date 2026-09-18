@@ -341,7 +341,7 @@ for (const dir of PAGE_DIRS) {
   for (const file of fs.readdirSync(dir).sort()) {
     if (!file.endsWith(".html")) continue;
     const html = fs.readFileSync(path.join(dir, file), "utf8");
-    const rel = path.relative(ROOT, path.join(dir, file));
+    const rel = path.relative(ROOT, path.join(dir, file)).replace(/\\/g, "/");
     generatedFiles.add(file);
     const b = findBranchForFile(file);
     if (!b) { bad(rel, "no branches.json entry matches the filename"); continue; }
@@ -683,7 +683,7 @@ for (const dir of PASTE_DIRS) {
   for (const file of fs.readdirSync(dir).sort()) {
     if (!file.endsWith(".html")) continue;
     const html = fs.readFileSync(path.join(dir, file), "utf8");
-    const rel = path.relative(ROOT, path.join(dir, file));
+    const rel = path.relative(ROOT, path.join(dir, file)).replace(/\\/g, "/");
     const b = pasteOwner(file);
     if (!b) { bad(rel, "no branches.json entry matches the paste block filename"); continue; }
     pasteBlocks++;
@@ -896,8 +896,29 @@ const SHARED_PASTE_FILES = [
   path.join(ROOT, "modules", "emar", "weebly"),
 ];
 
+// path.relative() returns backslash-separated segments on Windows and
+// forward-slash segments on Linux/macOS. Every KNOWN_* key in this file
+// (and every path written into QUESTIONS.json, AGENT_LOG.md and the other
+// checkers) is forward-slash, e.g. "modules/emar/weebly::rishi@rbhealth.co.uk".
+// This loop is the one place in this file that builds a KNOWN_EMAIL key out
+// of a multi-segment relative path rather than a bare filename (every other
+// KNOWN_* key here is "<filename>::<value>", which has no separator to go
+// wrong). Found on an unattended run, 2026-09-18, that ran this checker on
+// native Windows (via PowerShell, not the usual Linux sandbox) as a fallback
+// after the sandbox's own git push failed: the same commit exits 0 on Linux
+// (key "modules/emar/weebly::..." matches KNOWN_EMAIL, WARN only, Q111) and
+// exits 1 on Windows (key becomes "modules\emar\weebly::...", matches
+// nothing, MISMATCH plus a false "stale exception" on KNOWN_EMAIL) with no
+// content difference at all. All three path.relative() calls in this file
+// are now normalised to forward slashes so the pass/fail result - and the
+// exact text in every bad()/warn() line - stops depending on which OS ran
+// node. Proved by running this checker unmodified on both platforms against
+// the identical commit before this fix (Linux: exit 0, 1 warning; Windows:
+// exit 1, 2 failures) and again after (both platforms: exit 0, 1 warning,
+// identical output modulo the path separator in the rest of the run's own
+// shell quoting).
 for (const abs of SHARED_PASTE_FILES) {
-  const rel = path.relative(ROOT, abs);
+  const rel = path.relative(ROOT, abs).replace(/\\/g, "/");
   if (!fs.existsSync(abs)) {
     bad(rel, "listed as a shared paste template but the file is gone");
     continue;

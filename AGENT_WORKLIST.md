@@ -248,6 +248,58 @@ returning to 1.4, 2.2 or any other one-off unless the one-off pool itself is
 next in line by the same two-tier logic the 5.6/1.4/2.2 tie-break used on
 2026-09-17.
 
+OPPORTUNISTIC FIX, 2026-09-18 (unattended run, same shape as the 5.1
+twenty-first pass's own separate check-postcodes.js/check-cdn-pins.js fix:
+found during this run's own baseline sweep, not from picking 1.4 as the
+rotation item - 1.4 stays out of rotation, this is not a new pass on it).
+This run had to fall back to mcp__Windows-MCP__PowerShell (native Windows
+node.exe) for git push and the status-page publish, because the usual
+Linux sandbox mount has no git credentials for push and lacks the gh CLI
+(the same gap run 102 flagged the same day). Running the full checker
+suite from that same Windows shell, as a baseline check before picking a
+rotation item, surfaced check-nap.js exiting 1 where every prior run
+today had recorded 35/35 or 36/36: "MISMATCH modules\emar\weebly: shared
+template carries email 'rishi@rbhealth.co.uk'" plus "MISMATCH KNOWN_EMAIL:
+stale exception 'modules/emar/weebly::rishi@rbhealth.co.uk' no longer
+matches an email on that page." Nothing in modules/emar/weebly or
+QUESTIONS.json had changed (git log confirms modules/emar/weebly last
+touched 2026-03-23; check-nap.js last touched by this item's own
+2026-09-18 pass that raised Q111). ROOT CAUSE: the SHARED_PASTE_FILES loop
+(the one that found Q111) builds its KNOWN_EMAIL lookup key from `const rel
+= path.relative(ROOT, abs)` with no separator normalisation. Every other
+KNOWN_* key in this file is "<bare filename>::<value>", which has no
+separator to go wrong; this is the only one built from a multi-segment
+relative path. path.relative() returns forward slashes on Linux (matches
+the pinned key "modules/emar/weebly::...") and backslashes on Windows
+(becomes "modules\emar\weebly::...", matching nothing), so the identical
+commit passes on Linux and fails on Windows with no content difference at
+all. PROVED, not argued: ran the unmodified checker on both platforms
+against the same commit - Linux exit 0 (1 warning), Windows exit 1 (2
+failures) - then again after the fix - both platforms exit 0, 1 warning,
+identical substance. FIXED: all three path.relative(ROOT, ...) call sites
+in tools/check-nap.js (lines ~344, ~686, ~900) now `.replace(/\\/g, "/")`;
+only the third fed a KNOWN_* key and was the one actually breaking, the
+other two only affect display text but were normalised for the same
+reason and to close the same latent risk before a future KNOWN_* entry is
+added to either of those two loops. Full 35-checker suite (check-live-
+hours.js excluded, needs network) re-run clean on both platforms after:
+35/35 exit 0. `git status --porcelain -- tools modules core branches.json
+gbp-packs` shows only tools/check-nap.js changed, plus the two long-
+standing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak) every
+recent pass has recorded and left alone. FILES CHANGED: tools/check-nap.js
+only. No generator, page, pack, branches.json or QUESTIONS.json content
+changed; Q111 itself is untouched and still open, pending Rishi's decision
+on the eMAR form's destination address. No sign-off needed: this is a
+checker bug (a false failure that could have sent a future unattended run
+chasing a live defect that does not exist, purely because it happened to
+run node on Windows), not a change to any live or patient-facing copy.
+WORTH CARRYING: this repo's own recurring lesson has so far been "ask
+which files/lines a checker reads"; this is the same lesson one layer
+down - ask which OS a checker was proven under, now that pushes and
+publishes sometimes route through native Windows instead of the sandbox.
+No other item blocked. No new question raised.
+
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
       list gaps in AGENT_LOG.md, then fix what can be fixed in-repo. Done 2026-08-04.
