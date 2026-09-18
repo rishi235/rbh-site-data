@@ -76,6 +76,16 @@
       injection: "42 Fernhill Road" and its abbreviation "42 Fernhill Rd"
       (Smartts Bootle's own street) both passed unread. Reuses the same
       streetPattern() abbreviation rule as the per-branch sweep above.
+    - a SECOND shared paste template, modules/emar/weebly, is swept the same
+      way. Added on the item 1.4 quality pass, 2026-09-18. It is the same
+      shape as modules/switch/weebly.html (a hand-pasted Weebly block, shared
+      across every branch that runs it, carrying no brandSlug prefix and no
+      structured page markup) and CLAUDE.md already records that this exact
+      file was missing from check-cdn-pins.js and check-em-dashes.js for
+      twenty days for that reason. It had never been added here either.
+      Confirmed clean (no phone, postcode, email or branch name present); it
+      is populated at runtime from script, so nothing here should ever fire
+      on it while it stays that way.
   Exceptions go in KNOWN_PHONE or KNOWN_SURFACE with a reason and a
   question id, and a key that no longer fires fails the run.
   Pages checked: modules/service/pages/*.html, modules/switch/pages/*.html,
@@ -191,7 +201,21 @@ const KNOWN_SURFACE = {};
 // legitimate anyway. Same contract as KNOWN_PHONE: keyed
 // "<filename>::<the string as written>", and a stale key fails the run.
 const KNOWN_POSTCODE = {};
-const KNOWN_EMAIL = {};
+const KNOWN_EMAIL = {
+  "modules/emar/weebly::rishi@rbhealth.co.uk": {
+    question: "Q111",
+    reason: "The eMAR enquiry form's hidden Google Apps Script \"destination\" " +
+      "field posts every submission straight to Rishi's personal inbox rather " +
+      "than a monitored one. Found on the item 1.4 quality pass, 2026-09-18, " +
+      "when modules/emar/weebly was added to the shared-template sweep for " +
+      "the first time. Possibly deliberate: the same block's own copy reads " +
+      "\"We respond personally. No sales targets, no chasing\", so a named " +
+      "personal inbox may be the intended design for this low-volume B2B " +
+      "care-home form, unlike the patient-facing switch page Q13 already " +
+      "flagged for the same shape. Left as a KNOWN exception rather than " +
+      "changed, pending Rishi's decision.",
+  },
+};
 
 // Another branch's trading name, or another branch's street address, that
 // legitimately appears on this page. Same contract as the lists above:
@@ -848,8 +872,28 @@ for (const dir of PASTE_DIRS) {
 // each swept against every branch from the day this section was written,
 // but the street address, the fifth fact, was not, so it read as "no branch
 // fact at all" while actually checking four of five.
+//
+// modules/emar/weebly is the second file of this shape, and until the item
+// 1.4 quality pass of 2026-09-18 this list did not know about it either.
+// CLAUDE.md's own "fifth public-copy file" section records that
+// check-cdn-pins.js and check-em-dashes.js both missed this exact file for
+// twenty days because it carries no brandSlug prefix and sits outside every
+// pages/ folder, the identical shape as modules/switch/weebly.html. That
+// section fixed check-cdn-pins.js and check-em-dashes.js. It never touched
+// this file, the one checker whose whole job is proving a phone, a postcode
+// or a branch name is the right one, so the NAP checker itself had the same
+// blind spot as the two checkers CLAUDE.md already named. modules/emar/weebly
+// is a hand-pasted Weebly block on the Borough Care eMAR page, live on every
+// branch that pastes it, and carries no data-branch, no JSON-LD and no
+// contact-line, so the structured per-page checks above cannot read it any
+// more than they can read the switch template. It is populated at runtime by
+// modules/emar/emar.js from a branch strip and a mailto link built in script,
+// so the static file is meant to carry no branch fact at all, the same rule
+// as the switch template. Confirmed clean today (no phone, postcode or branch
+// name present), so this closes a latent hole rather than a live breach.
 const SHARED_PASTE_FILES = [
   path.join(ROOT, "modules", "switch", "weebly.html"),
+  path.join(ROOT, "modules", "emar", "weebly"),
 ];
 
 for (const abs of SHARED_PASTE_FILES) {
@@ -902,12 +946,26 @@ for (const abs of SHARED_PASTE_FILES) {
         '" (' + b.branchName + "), which would publish one branch's address " +
         "on every branch that pastes it");
   }
+  // Unlike every other sweep in this file, this loop had no KNOWN_EMAIL
+  // escape hatch at all until the item 1.4 quality pass, 2026-09-18, because
+  // nothing had ever fired on it. It found a live one: see KNOWN_EMAIL below
+  // for modules/emar/weebly's Google Apps Script "destination" field. The
+  // check stays a real check, not a rubber stamp, because a key that no
+  // longer matches still fails the run, the same contract as every other
+  // KNOWN list here.
   EMAIL_RE.lastIndex = 0;
   while ((m = EMAIL_RE.exec(text)) !== null) {
     if (isReservedEmail(m[0])) continue;
     const owner = branches.find((b) =>
       [b.email, b.nhsEmail].filter(Boolean)
         .some((e) => e.toLowerCase() === m[0].toLowerCase()));
+    const key = rel + "::" + m[0];
+    if (KNOWN_EMAIL[key]) {
+      usedKnownEmail.add(key);
+      warn(rel, 'KNOWN email "' + m[0] + '". ' + KNOWN_EMAIL[key].question +
+        ": " + KNOWN_EMAIL[key].reason);
+      continue;
+    }
     bad(rel, 'shared template carries email "' + m[0] + '"' +
       (owner ? " (" + owner.id + ")" : "") +
       ", which would publish one branch's inbox on every branch that pastes it");

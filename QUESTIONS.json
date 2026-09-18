@@ -1718,5 +1718,20 @@
     "status": "open",
     "answer": null,
     "note": "Full injection detail, including the exact isolation of rule 7 (escalation wording) and rule 8 (medicine name) at the shared-source level rather than the rendered page (needed because any wording edit to an existing rendered bullet trips rule 4 first and masks 7/8), is in audits/hirshmans-item-3.5-quality-pass-2026-09-17-twentyfirst.txt. Not actioned this run: pom-names.js's own header is explicit that names should not be added or removed without recording the decision, and getting a UK medicine brand-generic mapping wrong in a compliance word list is worse than leaving a documented, currently-dormant gap. Does not block item 3.5 or any other worklist item."
+  },
+  {
+    "id": "Q111",
+    "date": "2026-09-18",
+    "item": "quality pass on 1.4 (tenth+), NAP checker - finding on modules/emar/weebly, does not block any worklist item",
+    "question": "Decision needed: should the eMAR enquiry form's destination be changed from Rishi's personal inbox to a monitored one? modules/emar/weebly is the shared Weebly paste block behind the Borough Care eMAR page, live on every branch that pastes it. Its Google Apps Script form carries a hidden field, <input type=\"hidden\" name=\"destination\" value=\"rishi@rbhealth.co.uk\">, so every submission (care home enquiries about eMAR, Pharmacy First or weight management) posts straight to a personal inbox rather than a shared one. Found on the item 1.4 quality pass, 2026-09-18, when modules/emar/weebly was added to check-nap.js's shared-template sweep for the first time (it is the same shape as modules/switch/weebly.html, already swept since 2026-08-14, but had never been added to the list). This is the same failure shape as Q13, where switch.js was found posting prescription switch requests to rishi@rbhealth.co.uk behind a stale CDN pin instead of the correct helpdesk@rbhealth.co.uk, but it is a different module (emar, not switch) and a different mechanism (a static hidden form field, not a JS constant), so it is a new instance rather than a duplicate of that finding. Unlike the switch page, this may be deliberate: the same block's own copy reads \"We respond personally. No sales targets, no chasing\" and \"We are pharmacists, not salespeople\", which reads like a considered choice to keep a low-volume B2B lead form personal rather than routed through a queue.",
+    "options": [
+      "Leave it as rishi@rbhealth.co.uk. The page's own copy promises a personal, non-sales response, and eMAR enquiries are low volume, so a named personal inbox may be the intended design rather than an oversight",
+      "Change the destination field to a monitored shared inbox (for example helpdesk@rbhealth.co.uk, the address Q13 already established as the correct destination for the switch page), so an enquiry is not silently lost if Rishi is unreachable, while keeping the visible copy's personal tone unchanged",
+      "Add a second, shared address as a CC or a fallback rather than replacing rishi@rbhealth.co.uk outright, keeping the personal reply Rishi's own copy promises while adding resilience"
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Proved by injection: the checker's new shared-template email sweep on this file correctly names rishi@rbhealth.co.uk as an unrecognised inbox, and separately correctly catches an injected foreign phone, postcode, branch name and street on the same file (all reverted, file confirmed byte-identical to before the pass). Pinned in tools/check-nap.js's KNOWN_EMAIL list, keyed modules/emar/weebly::rishi@rbhealth.co.uk, so the checker reports it as a WARN rather than a hard failure while this is open, and fails the run the moment the key no longer matches (tested: renaming the key to a non-matching address correctly turns the finding into a MISMATCH). Does not block item 1.4 or any other worklist item; not actioned this run because changing a live form's submission destination is exactly the kind of decision QUESTIONS.json exists to route to Rishi rather than an unattended run taking it autonomously."
   }
 ]

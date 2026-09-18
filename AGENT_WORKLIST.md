@@ -183,6 +183,70 @@ standing Q87/Q96 constraint; git push origin-https and git push origin (SSH)
 both fail here with no stored credential, so pushed via Windows-MCP
 PowerShell on the real host instead, the same route the item 1.1 and item
 6.8 runs used earlier today.
+Quality pass 2026-09-18 (all unchecked items [BLOCKED], quality-pass
+fallback; item 1.4 came out stalest of the 43-item pool by twelve days, last
+touched 2026-09-06): NAP data clean again on every fact this file already
+swept. 177 pages, 4 paste block(s) once this pass's own addition is counted,
+0 mismatches (before the KNOWN exception below), all 36 checkers pass. One
+gap found and closed, in the SAME PLACE the 2026-09-06 pass found the last
+one: the shared-template list, which held only modules/switch/weebly.html.
+CLAUDE.md's own "fifth public-copy file" section records that
+check-cdn-pins.js and check-em-dashes.js both missed modules/emar/weebly for
+twenty days because it is the same shape as the switch template (a
+hand-pasted Weebly block, no brandSlug prefix, no pages/ folder) and neither
+list had been told about it by name. check-nap.js, the one checker whose
+whole job is proving a phone, postcode or name is the right one, had the
+identical gap and nobody had asked the question of THIS file. Added it to
+SHARED_PASTE_FILES and ran clean-first to see what a genuinely unread file
+looks like before touching anything.
+It was not clean. modules/emar/weebly's Google Apps Script form carries
+<input type="hidden" name="destination" value="rishi@rbhealth.co.uk">, so
+every eMAR/Pharmacy First/weight-management enquiry submitted from ANY branch
+pasting this template posts straight to a personal inbox rather than a
+monitored one, live today. This is the same failure shape as Q13 (switch.js
+found posting to rishi@rbhealth.co.uk behind a stale pin instead of
+helpdesk@rbhealth.co.uk) but a different module and a different mechanism (a
+static hidden field, not a JS constant), so it is a new finding, not a
+rediscovery, and it may be deliberate: the block's own copy promises "We
+respond personally. No sales targets, no chasing". Raised as Q111 rather than
+changed, because editing a live form's submission destination is exactly the
+decision this protocol exists to route to Rishi. Pinned in KNOWN_EMAIL keyed
+modules/emar/weebly::rishi@rbhealth.co.uk so the run reports it as a WARN
+rather than a hard failure while the question is open; the shared-template
+email loop had no KNOWN escape hatch at all before this pass (every other
+sweep in the file has one), so that was added too, on the same
+stale-key-fails contract as every other KNOWN list here.
+Verified the addition is a real check, not a rubber stamp, by injecting a
+foreign phone, postcode, branch name (both brandLabel and branchName forms)
+street address and a second foreign email into the same file in one sentence:
+all six fired correctly, naming Smartts Chemist and its own facts, while the
+pre-existing KNOWN email continued to warn rather than fail. Reverted and
+confirmed byte-identical to the pre-pass file. Also verified the stale-key
+contract on the new KNOWN_EMAIL entry itself: renaming the key to an address
+that matches nothing correctly turns the finding into a MISMATCH ("stale
+exception ... no longer matches an email on that page. Remove it (Q111).")
+and reverting restores a byte-identical checker file. Full working recorded
+in this entry; no separate audit file this run. FILES CHANGED: tools/check-
+nap.js only (SHARED_PASTE_FILES entry, KNOWN_EMAIL entry and escape hatch,
+docblock updates). QUESTIONS.json: added Q111. No worklist item blocked.
+COMMIT: (filled in after push, see AGENT_LOG.md).
+CORRECTION TO METHOD: this item was picked by scanning all 43 completed
+items' most recent dated note directly, without first checking the
+established rotation-exclusion list recorded under this same item's own
+2026-08-30 correction note and reconfirmed on dozens of passes since: 1.1,
+1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 are standing out-of-rotation one-offs, not
+part of the 36-item main pool the last several dozen quality passes have
+drawn from. 1.4 should not have been the rotation pick under that
+convention. It was still worth doing, the same judgement the 5.7 self-
+correction recorded: the shared-template gap this pass closed was real (see
+above) and the destination-address finding is a genuine, previously-unread
+live issue, not a re-tread of settled ground. It does not reset 1.4's place
+in the one-off pool the way a main-pool pass resets its item's clock. Per
+the established method, the next run should re-derive the 36-item main
+pool fresh (do not trust this note, the pool shifts every run) rather than
+returning to 1.4, 2.2 or any other one-off unless the one-off pool itself is
+next in line by the same two-tier logic the 5.6/1.4/2.2 tie-break used on
+2026-09-17.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
