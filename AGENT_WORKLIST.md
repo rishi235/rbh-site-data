@@ -24381,6 +24381,59 @@ directly rather than re-deriving the same facts by hand.
       question raised (Q99 addendum only). Evidence in
       audits/sk-chemists-bootle-jsonld-4.11-twentieth-2026-09-17.txt.
       Done 2026-09-17
+      Twenty-first quality pass 2026-09-18 (unattended scheduled run,
+      rotation-pool pick, fourteenth run today; re-derived the pool fresh
+      excluding the seven standing out-of-rotation items and the thirteen
+      items already touched earlier today - 4.11 came out stalest at
+      2026-09-17T12:14:15+01:00, ahead of 5.1 and 21 others, matching run
+      101's own forward note): tools/check-map-embeds.js, never once given
+      an actual injection record across twenty prior passes despite one
+      pass's own summary sentence claiming otherwise (see evidence file for
+      the correction), proven by three injections plus one control against
+      this branch's own generated pages. Baseline: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 and
+      pack sha256 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+      both unchanged; all 34 checkers exit 0 on the tracked repo before any
+      work (check-live-hours.js excluded, needs network). Full repo byte-
+      copied to a scratch directory outside any tracked path; tracked repo
+      never opened for writing during the round. Three injections, each on
+      a freshly restored copy: (1) rules 3+4, earache page's map query
+      swapped for Cherry Lane Pharmacy's address, contact card left
+      untouched - CAUGHT on both rules simultaneously; (2) rule 5, shingles
+      page's map query given a raw unencoded space - CAUGHT, exactly rule 5;
+      (3) rule 2, sinusitis page given a second duplicated map iframe -
+      CAUGHT, exactly rule 2, "carries 2 map embed(s), expected exactly 1".
+      CONTROL: uti page's visible phone number and tel: link changed to a
+      wrong number, map and address untouched - check-map-embeds.js
+      correctly stayed silent while check-nap.js independently caught it
+      with four MISMATCH lines, confirming no cross-fire either way. All
+      four injections caught on the first attempt with the expected
+      rule-specific message; all four touched pages restored and
+      sha256-reconfirmed identical to the tracked originals; full
+      34-checker suite re-run clean after (34/34); all 12 of this branch's
+      generated pages, branches.json and the pack itself sha256-confirmed
+      unchanged throughout.
+      RESULT: no in-repo defect. check-map-embeds.js was already correctly
+      holding this branch's pages to all four rules tested, now proven
+      directly by injection for the first time in this item's twenty-one-
+      pass history. No checker logic, pack copy, page, generator or data
+      field changed anywhere in the repo. check-branch-identity.js and
+      check-em-dashes.js remain unproven by direct injection against this
+      branch specifically (the same one-sentence-claimed-but-never-shown
+      gap this pass found for check-map-embeds.js) and are the recommended
+      fresh angle for a future pass.
+      LIVE HALF: performed, Claude in Chrome connected (single instance).
+      Step 3 answer pickup: newest portal entry still Q52, 2026-09-01,
+      already recorded answered; nothing new. Fetched
+      earache-treatment-sk-chemists-bootle.html live (this pass's own
+      injection 1 target) and read its extracted text: contact card, phone
+      and hours all match branches.json exactly. A direct script read of
+      the live map iframe's src was blocked by the browser extension's own
+      content policy; the extracted-text confirmation was taken as
+      sufficient. No new live finding. Q58, Q99 and item 5.3/Q34 positions
+      not re-read this pass, unchanged since their last confirmation. No
+      new defect, no new question raised. Evidence in
+      audits/verify-4.11-2026-09-18-twentyfirst.js. Done 2026-09-18
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
