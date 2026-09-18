@@ -1,0 +1,86 @@
+BASELINE sha256: de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+BASELINE full suite: 36 checkers, 0 non-zero exits: []
+
+--- INJECTION: day rule leg 2 (Saturday open in data, not claimed open) ---
+  exit code: 1
+  expected substring found: false
+  FULL OUTPUT (for diagnosis):
+check-gbp-packs: 15 packs, 15 live branches in branches.json
+
+14 warning(s) - human judgement, not automatic failures:
+  WARN  cherry-lane-walton.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  clear-aintree.md: phone-like number 0151 203 8365 is not Clear Chemist's number in branches.json
+  WARN  coleman-leigh-walton.md: link target "pharmacy-first-service-walton.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  fishlocks-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  fishlocks-ainsdale.md: KNOWN the "- Address:" line reads "17 Station Road, Ainsdale, Southport PR8 3HN", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  fishlocks-eccleston.md: KNOWN the "- Address:" line reads "Unit 3 The Carrington Centre, New Mill Street, Eccleston, Chorley PR7 5SZ", so the post town between the street and the postcode is "Eccleston Chorley", but branches.json holds addressLocality as "Eccleston". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  gordon-short-crosby.md: link target "pharmacy-first-service-crosby.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  hirshmans-ainsdale.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
+  WARN  hirshmans-ainsdale.md: phone-like number 017014577376 is not Hirshmans Chemist's number in branches.json
+  WARN  hirshmans-ainsdale.md: KNOWN the "- Address:" line reads "56-62 Sherwood House, Station Road, Ainsdale, Southport PR8 3HW", so the post town between the street and the postcode is "Ainsdale Southport", but branches.json holds addressLocality as "Ainsdale". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  riddings-timperley.md: link target "switch-prescriptions.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+  WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  scorah-hazel-grove.md: KNOWN the "- Address:" line reads "87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG", so the post town between the street and the postcode is "Hazel Grove Stockport", but branches.json holds addressLocality as "Hazel Grove". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+  WARN  smartts-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+
+1 failure(s):
+  FAIL  scorah-bramhall.md: branches.json opens this branch on Saturday, but the hours line does not state Saturday as an open day, so the profile would be set from an incomplete picture and that day would be published wrong or left as Google has it
+
+  restored, sha256 confirmed de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+
+--- INJECTION: day rule leg 3 (Sunday closed in data, not stated at all) ---
+  exit code: 1
+  expected substring found: true
+  matching output line(s):
+      WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+      FAIL  scorah-bramhall.md: branches.json holds Sunday as a closed day, but the hours line does not state Sunday as closed. GBP keeps whatever the profile already shows for a day the paster is not told about, so a closure the group has made never reaches the listing
+  restored, sha256 confirmed de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+
+--- INJECTION: day rule leg 1 (Sunday claimed open, data holds it closed) ---
+  exit code: 1
+  expected substring found: true
+  matching output line(s):
+      WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+      FAIL  scorah-bramhall.md: hours line states 10:00, which is not an opening or closing time in this branch's openingHours in branches.json (09:00, 13:00, 18:00). GBP hours send patients to the door, so the pack and the data must agree
+      FAIL  scorah-bramhall.md: hours line states 16:00, which is not an opening or closing time in this branch's openingHours in branches.json (09:00, 13:00, 18:00). GBP hours send patients to the door, so the pack and the data must agree
+      FAIL  scorah-bramhall.md: the hours line states the branch is open on Sunday, but branches.json opens it only on Monday, Tuesday, Wednesday, Thursday, Friday, Saturday. A profile that publishes a day the shop is shut sends patients to a locked door
+  restored, sha256 confirmed de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+
+--- INJECTION: pairing rule (weekday/Saturday closing times swapped) ---
+  exit code: 1
+  matching output lines:
+      WARN  scorah-bramhall.md: KNOWN the "- Address:" line reads "61-63 North Park Road, Bramhall, Stockport SK7 3LQ", so the post town between the street and the postcode is "Bramhall Stockport", but branches.json holds addressLocality as "Bramhall". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
+      FAIL  scorah-bramhall.md: the hours line publishes Monday as 09:00 to 13:00, but branches.json holds Monday as 09:00 to 18:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+      FAIL  scorah-bramhall.md: the hours line publishes Tuesday as 09:00 to 13:00, but branches.json holds Tuesday as 09:00 to 18:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+      FAIL  scorah-bramhall.md: the hours line publishes Wednesday as 09:00 to 13:00, but branches.json holds Wednesday as 09:00 to 18:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+      FAIL  scorah-bramhall.md: the hours line publishes Thursday as 09:00 to 13:00, but branches.json holds Thursday as 09:00 to 18:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+      FAIL  scorah-bramhall.md: the hours line publishes Friday as 09:00 to 13:00, but branches.json holds Friday as 09:00 to 18:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+      FAIL  scorah-bramhall.md: the hours line publishes Saturday as 09:00 to 18:00, but branches.json holds Saturday as 09:00 to 13:00. Every time here may still be one of this branch's own times and every day may still be named, which is why the set-based time and day rules above both pass it. A day published longer than the branch works sends patients to a locked door, and a day published shorter turns them away while the shop is open
+  restored, sha256 confirmed de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+
+--- CONTROL: honest paraphrase (no day/time change) ---
+  exit code: 0
+  hours/day-related lines mentioning scorah-bramhall: []
+  restored, sha256 confirmed de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14
+
+=== FINAL RESTORE VERIFICATION ===
+Final sha256: de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14 (matches baseline: true)
+
+=== FINAL FULL SUITE RE-RUN ===
+Final full suite: 36 checkers, 0 non-zero exits: []
+
+=== SUMMARY ===
+{
+  "dayOpenNotStated": false,
+  "dayClosedNotStated": true,
+  "dayOpenButDataClosed": true,
+  "pairingSwap": true,
+  "control": {
+    "code": 0,
+    "clean": true
+  }
+}
+
+All four fault-injections caught on first attempt: false
+Final sha256 matches baseline: true
+Final full suite clean (matches baseline failure count 0): true

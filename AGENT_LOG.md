@@ -1,3 +1,79 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 113; mcp__workspace__bash used throughout for
+the lock check, git fetch/checkout/pull/status, deriving the rotation from git log, the injection/restore script
+and the full 36-checker suite; mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch and the live half;
+Windows-MCP PowerShell for the git add/commit/push and the status-page publish, per the standing practice runs
+111-112 established (Q102 still open, formally, but every recent run including this one has followed it)) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 112 deleted its own before exiting); wrote a fresh
+one from the sandbox. A .git/index.lock reappeared after the sandbox's own git pull/status calls (the sandbox's
+FUSE mount cannot delete it, "Operation not permitted" on rm -f, matching run 112's and Q102's own description of
+this quirk) but git fetch/pull/status all continued to work through it regardless, so it was left alone rather
+than chased; no git write was attempted from the sandbox. `git fetch origin` / `git pull --ff-only` both completed
+clean, already up to date with origin/agents/audit-backlog at 0016b38. ANSWER PICKUP (step 3): exactly one Chrome
+instance connected (checked via list_connected_browsers first, given Q59's history), so the fetch was not blocked.
+Navigated to https://data.rbhealth.co.uk/api/feedback and read the full JSON feed directly. Newest entry still the
+Q52 answer (2026-09-01T22:44:51.524Z), matching every run since 2026-09-01 and matching run 112's own finding
+earlier today - nothing new to apply. 58 of 111 questions open, unchanged. AUTONOMOUS WINDOW CHECK (step 4): read
+the top of AGENT_LOG.md; no "Standing authorisation - autonomous window" heading present, proceeded under the
+normal rule. WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both
+Q60 lines under 6.4/6.5, 6.6), unchanged from run 112. Fell to the quality-pass fallback. ROTATION: re-derived
+fresh from `git log --pretty="%aI|%s"` (case-insensitive "item N.N" match this time, since a first pass with a
+case-sensitive regex undercounted at 18 unique items against a true 46 - "Item 4.4" capitalised at the start of a
+subject line was being missed), taking the latest commit date matching per item, over the 46 items found minus the
+seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight items still blocked in the worklist (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Result matched run 112's own forward note exactly: oldest is 4.4 (Scorah
+Chemists Bramhall GBP pack), last touched 2026-09-17T16:13:03+01:00, followed by 4.9, 5.2, 3.8, 4.7, 1.3. Chosen:
+4.4, twenty-second pass. WORK DONE: full detail in AGENT_WORKLIST.md's own item 4.4 block, this being the mirrored
+entry. FRESH ANGLE: read tools/check-gbp-packs.js's own source comments (lines 2618-2800) covering its
+hours-are-DAYS rule family - three day-membership legs (a day claimed open that data holds closed; a day data
+holds open but not claimed open; a day data holds closed but not stated closed) plus a day-to-time PAIRING rule
+added on item 4.14's 2026-08-12 pass after a live fault at Gordon Short Crosby (weekday/Saturday closing times
+swapped, passing every set-based rule because the SET of times and the SET of days were both still correct). The
+checker's own comment names six branches structurally exposed to the pairing fault by having a time that differs
+between days: Scorah Bramhall, McCanns Aigburth, Fishlocks Eccleston, Hirshmans Ainsdale, Gordon Short Crosby and
+Cherry Lane. Cross-checked every prior scorah-bramhall*.txt and verify-4.4*.js audit file plus the full git log
+for "hours", "day" and "pairing" against Bramhall specifically: the pairing rule had been proven against McCanns
+Aigburth (item 4.6, ninth pass) and Cherry Lane (item 4.2, twenty-second pass, earlier today) but never against
+Bramhall despite being named as exposed; the day-membership legs had never been proven against this pack at all
+(check-opening-hours.js was proven against Scorah's generated PAGES on item 3.2's thirteenth pass, a different
+checker reading a different surface). BASELINE: gbp-packs/scorah-bramhall.md sha256
+de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14, unchanged since the fourth pass and matching the
+twenty-first pass's own recorded value; full 36-checker suite (check-live-hours.js excluded, network-dependent)
+36/36 exit 0. METHOD: one script, audits/verify-4.4-2026-09-18-twentysecond.js, holding the original bytes of
+scorah-bramhall.md in memory, applying one injection at a time to its own "- Hours:" line, running
+check-gbp-packs.js then the full 36-checker suite, restoring from the held original in every case and
+sha256-confirming the restore before the next injection. FOUR INJECTIONS, all against Bramhall's own hours line,
+full detail and exact FAIL text in AGENT_WORKLIST.md's mirrored entry and in
+audits/verify-4.4-2026-09-18-twentysecond-output.txt: day-open-not-stated (Saturday), day-closed-not-stated
+(Sunday), day-open-but-data-closed (Sunday claimed open with invented hours), and the pairing swap (weekday and
+Saturday closing times exchanged). All four fired on their own intended rule, first attempt, with no cross-firing
+beyond the pre-existing standing Q64 address WARN present on every run regardless of injection. One control (a
+harmless "Monday to Friday" -> "Mon to Fri" reword) correctly passed clean, confirming the rule tolerates an
+honest paraphrase. Note on the verification script's own summary: its automated substring check for injection 1
+used the wrong expected string ("does not state Saturday as open" instead of the checker's actual wording "does
+not state Saturday as an open day") and so mis-reported that one injection as not caught in its own printed
+summary line; the full captured output for that injection shows the FAIL fired correctly on first attempt exactly
+as the other three did - confirmed by reading the raw output block above the summary, not the summary's own
+boolean. RESTORE: final sha256 reconfirmed identical to baseline after all four injections; final full 36-checker
+suite 36/36 exit 0. `git status --porcelain` on gbp-packs/, tools/, modules/, core/ and branches.json showed only
+the two long-standing pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither touched. LIVE HALF: one read-only GET
+of scorah-chemists.co.uk homepage via Claude in Chrome (list_connected_browsers checked first, one instance).
+Footer hours "Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed" match branches.json exactly, so the
+live site itself carries no live version of the fault this rule guards against. Reconfirms two known unchanged
+states: the profile website link (pharmacy-scorah-bramhall.html) still 404s (unchanged since 2026-09-02) and the
+footer still reads "Bramhall, Cheshire" against branches.json's addressRegion "Greater Manchester" (standing Q43).
+Neither reachable from this repo. RESULT: zero in-repo defects found this pass; the hours-are-days rule family is
+now proven directly by injection against scorah-bramhall.md for the first time in twenty-two passes. No new
+question raised. Evidence: audits/verify-4.4-2026-09-18-twentysecond.js and
+audits/verify-4.4-2026-09-18-twentysecond-output.txt (both committed). STEP 9 (commit/push): via Windows-MCP
+PowerShell against C:\Dev\rbh-site-data - `git add AGENT_WORKLIST.md AGENT_LOG.md
+audits/verify-4.4-2026-09-18-twentysecond.js audits/verify-4.4-2026-09-18-twentysecond-output.txt`, commit, `git
+push origin agents/audit-backlog`. STEP 10 (status page publish): `node tools/build-audit-status.js` run from the
+native host after committing. STEP 11 (lock removal): .agent-lock deleted from the sandbox mount once steps 9-10
+completed. FORWARD NOTE: next-oldest in the rotation pool (excluding the seven one-offs, the eight blocked items
+and 4.4, now current) is 4.9, followed by 5.2, 3.8, 4.7, 1.3 - re-derive fresh rather than trust this note, per the
+standing practice.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 112; started via mcp__workspace__bash on the
 sandboxed Linux mount for the lock check and the QUESTIONS.json answer-pickup fetch, then switched to the native
 Windows host - Windows-MCP PowerShell against C:\Dev\rbh-site-data, and Claude in Chrome for the live check - for

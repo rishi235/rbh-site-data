@@ -19683,6 +19683,59 @@ repo-only proof and adds no new live surface. No new question;
 QUESTIONS.json unchanged (110 total, 57 open). No checker logic,
 generator, page, pack or branches.json content changed. See
 audits/verify-4.4-2026-09-17-twentyfirst.txt.
+Quality pass 2026-09-18 (twenty-second, run 113): fresh angle - check-gbp-packs.js's
+hours-are-DAYS rule family (the three day-membership legs plus the day-time
+PAIRING rule, tools/check-gbp-packs.js around lines 2618-2800) had never been
+proven by fault injection against scorah-bramhall.md specifically across
+twenty-one prior passes, despite the checker's own source comment naming
+Scorah Bramhall as one of six branches structurally exposed to the pairing
+fault (a time that differs between days: this branch's weekday 9:00am-6:00pm
+vs Saturday 9:00am-1:00pm). check-opening-hours.js was proven against
+Scorah's generated PAGES on item 3.2's thirteenth pass, but that reads a
+different surface (the pages, not the pack's own hours line) and does not
+exercise this rule. BASELINE: gbp-packs/scorah-bramhall.md sha256
+de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14 (unchanged
+since the fourth pass); full 36-checker suite 36/36 exit 0. FOUR INJECTIONS
+against the pack's own "- Hours:" line, each restored and sha256-reconfirmed
+before the next: (1) dropped "Saturday" from the Saturday segment, leaving
+its hours unattributed - CAUGHT, "branches.json opens this branch on
+Saturday, but the hours line does not state Saturday as an open day"; (2)
+removed the "Sunday closed" clause entirely - CAUGHT, "branches.json holds
+Sunday as a closed day, but the hours line does not state Sunday as
+closed"; (3) claimed Sunday open with invented hours (10:00am-4:00pm)
+instead of closed - CAUGHT three ways at once (two clock-time mismatches on
+10:00/16:00 plus "the hours line states the branch is open on Sunday, but
+branches.json opens it only on" the six real days); (4) the PAIRING rule -
+swapped the weekday and Saturday closing times ("Monday to Friday 9:00am to
+1:00pm, Saturday 9:00am to 6:00pm"), leaving the set of times and the set of
+days both unchanged so only the day-to-time binding is wrong - CAUGHT on
+all six affected days individually, e.g. "the hours line publishes Monday
+as 09:00 to 13:00, but branches.json holds Monday as 09:00 to 18:00 ... A
+day published longer than the branch works sends patients to a locked
+door, and a day published shorter turns them away while the shop is open".
+This is the same fault class item 4.14 found live at Gordon Short Crosby on
+2026-08-12, reproduced here for the first time against Bramhall's own pack.
+CONTROL: "Monday to Friday" reworded to "Mon to Fri" with no day or
+time-to-day change - correctly PASSED, exit 0, no hours/day-related line
+for this pack, confirming the rule tolerates an honest paraphrase. All four
+injections fired on their own intended rule, first attempt, with no
+cross-firing beyond the pre-existing standing Q64 address WARN present on
+every run. RESTORE: final sha256 reconfirmed identical to baseline; full
+36-checker suite re-run 36/36 exit 0. LIVE HALF: read-only fetch of
+scorah-chemists.co.uk homepage footer - "Bramhall opening hours: Mon-Fri
+9am-6pm, Sat 9am-1pm, Sun closed" matches branches.json exactly, so the
+live site itself carries no version of the pairing fault this rule guards
+against; the profile website link (pharmacy-scorah-bramhall.html) still
+404s, matching the state recorded since 2026-09-02, and the footer still
+reads "Bramhall, Cheshire" against branches.json's addressRegion "Greater
+Manchester", the standing Q43 finding, both unchanged. RESULT: zero
+in-repo defect - the hours-are-days rule family, including the pairing
+rule, is now proven directly by injection against scorah-bramhall.md for
+the first time in twenty-two passes. No new question raised; QUESTIONS.json
+re-read before and after, 111 total, 58 open, unchanged. No checker logic,
+generator, page, pack or branches.json content changed. See
+audits/verify-4.4-2026-09-18-twentysecond.js and
+audits/verify-4.4-2026-09-18-twentysecond-output.txt. Done 2026-09-18
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
