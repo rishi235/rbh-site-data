@@ -13496,6 +13496,83 @@ Done 2026-09-18 (twenty-first pass).
       pass. On the open backlog generally: unchanged - the eight genuinely
       actionable worklist items remain blocked on Rishi's own decisions
       and 57 of 110 questions are open. Done 2026-09-17
+
+      Quality pass 2026-09-18 (twenty-second, run 112). Picked up the
+      twenty-first pass's own candidate list and proved four of the
+      fifteen never-injected checkers by injection against Riddings for
+      the first time: check-address-region.js, check-seo-sheets.js,
+      check-whatsapp-route.js, check-widget-diaries.js. Full 36-checker
+      baseline clean before starting. Four injections, each isolated to
+      Riddings and reverted, sha256-confirmed identical to baseline after
+      each restore: (1) removed "Timperley" from
+      riddings_timperley.serviceAreaList - CAUGHT by check-address-region's
+      seoTownInList rule, "seoTown \"Timperley\" does not appear in its
+      own serviceAreaList", with the expected check-editor-snapshot
+      collateral (any branches.json edit) and nothing else; (2) appended
+      "Extra." to the Pharmacy First Page Description in
+      modules/service/pages/SEO.md - CAUGHT by check-seo-sheets as a
+      description drift on pharmacy-first-riddings-timperley, isolated,
+      no collateral; (3) changed data-wa on
+      uti-treatment-riddings-timperley.html from 447521775631 to
+      447521775699 (still a valid E.164 UK mobile) - CAUGHT by
+      check-whatsapp-route RULE 4 page agreement, isolated, no collateral;
+      (4) set riddings_timperley.widgets.pharmacyFirst to
+      cherrylane_liverpool's own pharmacyFirst id (66b20ae6609c16953de3e0cf)
+      - CAUGHT by check-widget-diaries RULE 2 crossbrand, "held by 2
+      different brands", with the same expected check-editor-snapshot
+      collateral and nothing else. All four fired on exactly their
+      intended rule, named Riddings or the mutated file correctly, first
+      attempt. Final full 36-checker suite re-run after all four restores:
+      36/36 clean. Final sha256 check on all three touched files
+      (branches.json, modules/service/pages/SEO.md,
+      modules/service/pages/uti-treatment-riddings-timperley.html): all
+      MATCH baseline. git status shows only the two long-standing
+      pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched. No in-repo defect found.
+
+      LIVE HALF: one read-only GET of riddingspharmacy.co.uk (homepage).
+      Reconfirms two long-standing known states, no new finding: the
+      contact block and body copy still say "Cheshire" against
+      branches.json's addressRegion "Greater Manchester" (the Riddings
+      instance of the live-furniture county fault also raised at Scorah
+      Bramhall under Q43); and the Weight Loss Clinic tile still carries
+      "Innovative solutions that deliver results. Tried the rest? Now try
+      the best." on the homepage, the estate-wide tagline tracked under
+      Q22. Neither is new and neither is reachable from this repo.
+
+      METHOD and raw output: audits/verify-3.10-2026-09-18-twentysecond.js
+      and audits/riddings-item-3.10-quality-pass-2026-09-18-twentysecond-output.txt.
+
+      QUESTIONS: none raised this run. QUESTIONS.json re-read via the
+      standing answer-pickup step: 111 total, 58 open; newest answer still
+      Q52 (2026-09-01T22:44:51.524Z), nothing new since the last several
+      runs' own pickups.
+
+      FILES CHANGED: AGENT_WORKLIST.md (this paragraph); AGENT_LOG.md
+      (mirrored entry); audits/verify-3.10-2026-09-18-twentysecond.js (new);
+      audits/riddings-item-3.10-quality-pass-2026-09-18-twentysecond-output.txt
+      (new). No generator, checker, page, sheet or branches.json content
+      changed.
+
+      Next stalest for whoever runs next, re-derive rather than assume:
+      on item 3.10 itself, eleven of the fifteen candidate checkers remain
+      unproven by injection against Riddings (check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-uk-spelling.js) - a
+      candidate list for a twenty-third pass. On the rotation pool
+      generally: with 3.10 now current, re-derivation from git log by
+      last "item N.N" commit date (excluding the one-off set 1.1, 1.4,
+      2.2, 5.6, 5.7, 6.7, 6.8) puts 4.4 (Scorah Chemists Bramhall pack,
+      last touched 2026-09-17T16:13:03+01:00) as the next oldest, followed
+      by 4.9, 5.2, 3.8, 4.7, 1.3. On the open backlog generally: unchanged
+      - the eight genuinely actionable worklist items remain blocked on
+      Rishi's own decisions and 58 of 111 questions are open. Done
+      2026-09-18
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

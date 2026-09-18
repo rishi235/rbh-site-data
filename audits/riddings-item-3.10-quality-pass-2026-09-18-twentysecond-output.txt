@@ -1,0 +1,128 @@
+=== BASELINE ===
+checkers run: 36, failing: 0
+
+=== INJECTION 1: check-address-region.js, seoTownInList rule ===
+Remove 'Timperley' from riddings_timperley.serviceAreaList (data-only edit, no page regenerated).
+  before: serviceAreaList = ["Timperley","Altrincham","Trafford"]
+  after:  serviceAreaList = ["Altrincham","Trafford"]
+  check-address-region.js exit=1
+    check-address-region
+      16 trading branches checked against 4 permitted counties, their seoTown against their own serviceAreaList, and the lead entry of that list against every other branch's seoTown
+      1 accepted exception(s) checked against the values each one was granted for, so an exception cannot widen to cover a value nobody approved
+      WARN  KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of seoTown "St Michael's" (would be "st-michaels"). Q15: townSlug is deliberately held at 'sandringham' while seoTown reads 'St Michael's'. Rishi's answer moved the local word in the copy but kept the permalinks, so no live URL breaks and no redirects are needed. The title and the URL naming different places is the accepted cost.
+      WARN  riddings_timperley: seoTown "Timperley" is in serviceAreaList but not first ("Altrincham" is). No branch owns "Altrincham" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
+      WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
+      FAIL  riddings_timperley: seoTown "Timperley" does not appear in its own serviceAreaList [Altrincham, Trafford]. Every page for this branch claims that word in its title, H1 and permalink, so either the word is wrong or the service area list is.
+    
+    check-address-region: 1 failure(s).
+    
+  full suite: 36 run, 2 failing: check-address-region.js, check-editor-snapshot.js
+  restored. sha256 branches.json matches baseline: true
+
+=== CONTROL for injection 1: confirm clean after restore ===
+  check-address-region.js exit=0 (expect 0)
+
+=== INJECTION 2: check-seo-sheets.js, description drift ===
+Append one character to the Riddings Pharmacy First Page Description in modules/service/pages/SEO.md.
+  mutated Page Description line for pharmacy-first-riddings-timperley (appended ' Extra.')
+  check-seo-sheets.js exit=1
+    check-seo-sheets
+      177 SEO-sheet entries and 163 INDEX-sheet entries across 11 discovered sheets
+      177 generated pages compared
+      163 pages also compared against an INDEX sheet, 14 with no INDEX row (the contraception family has no INDEX sheet)
+    
+      FAIL pharmacy-first-riddings-timperley: description drift
+             page  : Pharmacy First at Riddings Pharmacy in Timperley. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed.
+             sheet : Pharmacy First at Riddings Pharmacy in Timperley. Free NHS treatment for common conditions like UTIs, sore throat and more, no GP appointment needed. Extra.  (modules/service/pages/SEO.md)
+    
+    check-seo-sheets: 1 failure(s).
+    
+  full suite: 36 run, 1 failing: check-seo-sheets.js
+  restored. sha256 SEO.md matches baseline: true
+
+=== CONTROL for injection 2: confirm clean after restore ===
+  check-seo-sheets.js exit=0 (expect 0)
+
+=== INJECTION 3: check-whatsapp-route.js, RULE 4 page agreement ===
+Change data-wa on uti-treatment-riddings-timperley.html to a different, still-valid E.164 UK mobile.
+  before: data-wa="447521775631"
+  after:  data-wa="447521775699"
+  check-whatsapp-route.js exit=1
+    check-whatsapp-route
+      16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+      agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+      KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+      NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+    
+    FAILURES (1):
+      FAIL  [page agreement] modules/service/pages/uti-treatment-riddings-timperley.html: data-wa="447521775699" but branches.json agrees on 447521775631
+    
+    The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it
+    there, then regenerate the five service-family generators. Do not fix a page by
+    hand; the next regeneration overwrites it.
+    
+  full suite: 36 run, 1 failing: check-whatsapp-route.js
+  restored. sha256 UTI page matches baseline: true
+
+=== CONTROL for injection 3: confirm clean after restore ===
+  check-whatsapp-route.js exit=0 (expect 0)
+
+=== INJECTION 4: check-widget-diaries.js, RULE 2 crossbrand ===
+Set riddings_timperley.widgets.pharmacyFirst to cherrylane_liverpool's own pharmacyFirst id.
+  before: riddings pharmacyFirst = 6a439f7b1916ef7a9401cc8f
+  cherry lane pharmacyFirst      = 66b20ae6609c16953de3e0cf (different brand)
+  check-widget-diaries.js exit=1
+    check-widget-diaries: 79 widget id(s) across 16 live branches, 72 distinct
+      3 multi-site brand(s): scorahs, mccanns, fishlocks
+      shared brand diaries : travelClinic, weightLoss
+      per-site diaries     : bloodPressure, contraception, pharmacyFirst
+      7 id(s) shared between sister sites, 0 permitted across brands
+    
+    FAILURES (1) - in the field that decides where a booking lands:
+      FAIL  widget id "66b20ae6609c16953de3e0cf" is held by 2 different brands (riddings/riddings_timperley.pharmacyFirst, cherrylane/cherrylane_liverpool.pharmacyFirst). A booking made on one brand's page would land in another brand's diary.
+    
+    Fix in branches.json against the Appointedd diary the booking should reach, then re-run.
+    
+  full suite: 36 run, 2 failing: check-editor-snapshot.js, check-widget-diaries.js
+  restored. sha256 branches.json matches baseline: true
+
+=== CONTROL for injection 4: confirm clean after restore ===
+  check-widget-diaries.js exit=0 (expect 0)
+
+=== FINAL FULL SUITE, all files restored ===
+checkers run: 36, failing: 0
+
+=== FINAL SHA256 CHECK ===
+branches.json : MATCH
+SEO.md        : MATCH
+uti page      : MATCH
+
+=== SUMMARY ===
+{
+  "injection1": {
+    "targetedExit": 1,
+    "fullFails": [
+      "check-address-region.js",
+      "check-editor-snapshot.js"
+    ]
+  },
+  "injection2": {
+    "targetedExit": 1,
+    "fullFails": [
+      "check-seo-sheets.js"
+    ]
+  },
+  "injection3": {
+    "targetedExit": 1,
+    "fullFails": [
+      "check-whatsapp-route.js"
+    ]
+  },
+  "injection4": {
+    "targetedExit": 1,
+    "fullFails": [
+      "check-editor-snapshot.js",
+      "check-widget-diaries.js"
+    ]
+  }
+}
