@@ -1,0 +1,112 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - twenty-second quality
+pass, unattended scheduled run (audit-backlog-worker, run 131), 2026-09-19.
+
+SELECTION
+Re-derived via `git log --pretty="%aI|||%s"` parsed against the established
+word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d), excluding the standing
+out-of-rotation pool {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} and the eight
+currently [BLOCKED] worklist items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6).
+36-item pool. Item 3.2 came out stalest at 2026-09-18T02:44:52+01:00 (its own
+twenty-first pass), clear of the next candidate (6.3, 2026-09-18T03:11:43+01:00)
+by about 27 minutes. Run 130, immediately prior, had taken 6.2 (also stale at
+the time); 3.2 is the next item down once 6.2 was refreshed.
+
+ANGLE
+Twenty-one prior passes had proven check-seo-pattern.js, check-seo-lengths.js,
+check-seo-sheets.js, check-seo-keywords.js, check-branch-identity.js,
+check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+check-app-membership.js, check-switch-copy.js, check-weight-loss-copy.js,
+check-nap.js and check-pharmacy-first-safety-net.js against Scorah's own pages
+or data by direct injection (16 of 36 checkers). check-map-embeds.js had never
+been targeted at Scorah despite Scorah being a shared-domain two-branch pair -
+exactly the shape (sister branches on one host) the map/address fault this
+checker exists for is most likely to hit unnoticed (see CLAUDE.md's own
+"Coleman and Leighs" example: the address a map needs and the town a page
+sells can be different words). Took that angle directly.
+
+BASELINE
+branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching the
+standing anchor used by every prior pass. All 34 runnable checkers (cdn-pins
+and live-hours excluded per convention) exit 0. check-map-embeds.js baseline:
+16 trading branches, 16 map addresses read from branches.json, 177 generated
+pages, 177 map embeds, 6 directions buttons, 6 generators checked - clean, 0
+known exceptions.
+
+Full repo copied by tar (excluding .git) to a scratch directory under the
+outputs mount (/tmp/scratch3.2), tracked repo never opened for writing during
+any injection. Scratch copy confirmed byte-identical to the tracked repo by
+sha256 on branches.json, tools/check-map-embeds.js and five target Scorah
+pages before any injection began.
+
+INJECTIONS (each on the scratch copy only, each restored by direct copy from
+the tracked repo and sha256-reconfirmed byte-identical before the next)
+
+(1) RULE 3 (the address) - shingles-treatment-scorah-bramhall.html: both the
+    map iframe query AND the contact-card address changed together, from
+    Bramhall's own address (61-63 North Park Road, Bramhall, SK7 3LQ) to Hazel
+    Grove's (87 Macclesfield Road, Hazel Grove, SK7 6BG), so the map and the
+    contact card still agree with EACH OTHER but neither agrees with what
+    branches.json holds for this branch. Isolates the address rule from the
+    agreement rule. CAUGHT - exactly one failure, rule "the address", correctly
+    naming the branch's own real address as what branches.json expects.
+
+(2) RULE 4 (agreement) - pharmacy-scorah-hazel-grove.html (landing page):
+    contact-card address only changed, to a different branch's address (42
+    Fernhill Road, Bootle, L20 3DA - Smartts Bootle's real street); map iframe
+    left untouched, so it still equals the branch's own real address (rule 3
+    passes). CAUGHT - exactly one failure, rule "agreement", quoting both the
+    wrong contact-card text and the correct map text.
+
+(3) RULE 6 (directions) - pharmacy-scorah-bramhall.html (landing page): "Get
+    directions" destination only changed, to the same foreign address used in
+    (2); map iframe and contact card left untouched and still agreeing with
+    each other and with branches.json. CAUGHT - exactly one failure, rule
+    "directions", quoting the wrong destination against the correct map query
+    on the same page.
+
+(4) RULE 5 (encoding) - uti-treatment-scorah-hazel-grove.html: one %20 in the
+    map query's own encoded string replaced with a literal space character
+    (raw query no longer valid percent-encoding, though it would still decode
+    to the right address). CAUGHT - exactly one failure, rule "encoding",
+    "carries a raw space or comma, which breaks the embed".
+
+(5) CONTROL - insect-bite-treatment-scorah-bramhall.html: benign reword of
+    step 1's heading ("Book or call in" -> "Book or drop in"), touching no
+    address, map, directions, town, brand or postcode token. check-map-embeds
+    ran clean. The full 34-checker suite was also re-run against the scratch
+    copy with this one benign edit still in place (immediately before its own
+    restore) and stayed clean throughout - confirms the benign edit produced
+    no false positive anywhere in the estate, not just on the one checker
+    under test.
+
+All five injections fired on (or passed) their intended rule only, first
+attempt, no cross-firing between rules.
+
+RESTORE AND FINAL VERIFICATION
+All five files restored by direct copy from the tracked repo; sha256 confirmed
+byte-identical to the pre-injection baseline for every one. Tracked repo `git
+status --porcelain` showed no tracked-file changes throughout (only the
+standing pre-existing untracked debris, 281 entries, none created this run).
+Full 34-checker suite re-run against the TRACKED repo after all scratch work
+finished: 0 nonzero exits. branches.json, check-map-embeds.js and all five
+target pages re-hashed against the original baseline: all match exactly.
+
+Guard coverage for item 3.2 now extends to 17 of 36 checkers proven by direct
+injection against Scorah's own pages or data (up from 16).
+
+LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked, typed or
+submitted)
+shingles-treatment-scorah-bramhall.html read live on
+www.scorah-chemists.co.uk: contact-card address "61-63 North Park Road,
+Bramhall, SK7 3LQ" matches the tracked repo's own page verbatim, phone
+0161 439 3744 matches. The Weebly footer widget still gives "Cheshire SK7 3LQ"
+against branches.json's Greater Manchester (the standing Q43 finding) -
+unchanged, reconfirmed, nothing new. pharmacy-scorah-bramhall.html (the
+landing page) still 404s live, as every prior pass and the 5.3/5.4 paste
+queue already record - unchanged, nothing new.
+
+RESULT
+Zero in-repo defect. No new fault class. No new question. Item 3.2's own
+worklist block and AGENT_LOG.md carry the mirrored summary.

@@ -4370,6 +4370,61 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       every run since 2026-09-01, nothing new to pick up. No in-repo defect,
       no new fault class, no new question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-18-twentyfirst.txt.
+      Quality pass 2026-09-19 (twenty-second, unattended scheduled run via
+      Cowork, run 131, independently re-derived as stalest of the 36-item
+      rotation pool: 3.2 at 2026-09-18T02:44:52+01:00, clear of the next
+      candidate, 6.3, by about 27 minutes). Twenty-one prior passes had proven
+      check-seo-pattern.js, check-seo-lengths.js, check-seo-sheets.js,
+      check-seo-keywords.js, check-branch-identity.js,
+      check-fragment-targets.js, check-jsonld.js, check-opening-hours.js,
+      check-branch-links.js, check-booking-routes.js, check-gbp-packs.js,
+      check-app-membership.js, check-switch-copy.js,
+      check-weight-loss-copy.js and check-nap.js against Scorah's own pages
+      or data by direct injection; check-map-embeds.js had never been
+      targeted at Scorah despite Scorah being exactly the shared-domain,
+      two-branch pair the map/address fault this checker exists for is most
+      likely to land on unnoticed. Baseline: branches.json sha256 matches the
+      standing anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac
+      91f2ad1b102; all 34 runnable checkers exit 0; check-map-embeds.js
+      baseline 177 pages, 177 map embeds, 6 directions buttons, clean. Full
+      repo copied by tar (excluding .git) to a scratch directory, tracked
+      repo never opened for writing. Five injections against Scorah's own
+      pages, each restored by direct copy and sha256-reconfirmed byte-
+      identical before the next: (1) RULE 3 - shingles-treatment-scorah-
+      bramhall.html: map query and contact card both changed together to
+      Hazel Grove's real address, isolating the address rule from the
+      agreement rule - CAUGHT, exactly one failure naming Bramhall's own
+      address as expected; (2) RULE 4 - pharmacy-scorah-hazel-grove.html
+      landing page: contact card only changed to a foreign address, map left
+      alone - CAUGHT, exactly one agreement failure; (3) RULE 6 - pharmacy-
+      scorah-bramhall.html landing page: "Get directions" destination only
+      changed, map and contact card left alone - CAUGHT, exactly one
+      directions failure; (4) RULE 5 - uti-treatment-scorah-hazel-grove.html:
+      one %20 in the map query replaced with a literal space - CAUGHT,
+      exactly one encoding failure; (5) CONTROL - a benign reword on
+      Bramhall's insect-bite page ("Book or call in" -> "Book or drop in"),
+      touching no address/map/directions/town/brand/postcode token - ran
+      clean on check-map-embeds and on the full 34-checker suite. All five
+      fired on (or passed) their intended rule only, first attempt, no
+      cross-firing. Full 34-checker suite re-run clean on the tracked repo
+      after the final restore; tracked repo confirmed untouched throughout by
+      sha256 on all target files and branches.json, and by git status
+      --porcelain (only the standing pre-existing untracked debris). No
+      checker logic, generator, branch data, page or pack content changed
+      anywhere in the tracked repo. Guard coverage for item 3.2 now extends
+      to 17 of 36 checkers proven by direct injection (up from 16). LIVE HALF
+      (Claude in Chrome, one tab, read-only, nothing clicked/typed/
+      submitted): shingles-treatment-scorah-bramhall.html read live, contact-
+      card address and phone match the tracked repo's own page verbatim; the
+      Weebly footer widget still gives "Cheshire SK7 3LQ" against
+      branches.json's Greater Manchester (the standing Q43 finding) -
+      unchanged; pharmacy-scorah-bramhall.html landing page still 404s live
+      as every prior pass and the 5.3/5.4 paste queue already record -
+      unchanged, nothing new. Step 3 answer pickup performed first via
+      Claude in Chrome: newest portal entry still Q52, 2026-09-01T22:44:
+      51.524Z, identical to every run since 2026-09-01, nothing new to pick
+      up. No in-repo defect, no new fault class, no new question. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

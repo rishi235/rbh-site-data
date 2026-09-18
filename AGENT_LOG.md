@@ -1,3 +1,103 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 131;
+mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
+pull/status, the tar scratch copy and the full injection/restore cycle
+against tools/check-map-embeds.js; mcp__claude-in-chrome__tabs_context_mcp/
+navigate/get_page_text/tabs_close_mcp used for the step 3 portal answer
+pickup and the live-half re-read of item 3.2, two tabs total, read-only,
+nothing clicked, typed or submitted; Write used for the new audits file;
+Edit used for AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 130's own
+entry confirms it cleared its lock before exiting). Wrote a fresh UTC
+timestamp lock (2026-09-18T23:34:38Z, sandbox clock). git fetch origin, git
+checkout agents/audit-backlog (already on it) and git pull --ff-only both
+completed clean, confirmed up to date with origin (HEAD at run 130's commit
+for item 6.2, 23db6ae).
+ANSWER PICKUP (step 3): navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed via get_page_text. Newest entry still Q52,
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01; QUESTIONS.json
+already carries Q52 as answered with matching text. Nothing new to apply.
+113 total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the whole of AGENT_LOG.md for
+"Standing authorisation" - no such heading present anywhere (five most recent
+runs' own checks confirm the same). Proceeded under the normal rule (no
+autonomous decisions this run).
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` returned the
+same eight lines as run 130 (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6), all still [BLOCKED]. No unblocked unchecked item exists. Fell
+to the quality-pass fallback.
+ROTATION: derived item mentions from `git log --pretty="%aI|||%s"` matched
+against `[Ii]tem\s+(\d+\.\d+)(?!\d)`, taking the first (most recent) mention
+per item as its last-touched date, against the same 36-item pool (standing
+out-of-rotation set {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} and the eight
+currently-blocked items excluded). Stalest: 3.2 (2026-09-18T02:44:52+01:00,
+its own twenty-first pass), clear of the next candidate, 6.3
+(2026-09-18T03:11:43+01:00), by about 27 minutes; 6.2, run 130's item, had
+dropped well down the list. Chosen: 3.2, twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.2 block and
+audits/scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt; this is the
+mirrored summary. Twenty-one prior passes had proven 16 of 36 checkers
+against Scorah's own pages or data by direct injection, but never
+check-map-embeds.js, despite Scorah being exactly the shared-domain,
+two-branch pair the map/address fault this checker exists for is most likely
+to land on unnoticed (CLAUDE.md's own worked example, Coleman and Leighs,
+is the same shape: the address a map needs and the town a page sells can be
+different words). Took that angle directly.
+Baseline: branches.json sha256 matched the standing anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102; all 34
+runnable checkers (cdn-pins, live-hours excluded per convention) exit 0;
+check-map-embeds.js baseline clean, 177 pages/177 embeds/6 directions
+buttons. Full repo copied by tar (excluding .git) to a scratch directory
+under the outputs mount; tracked repo never opened for writing during any
+injection; scratch copy sha256-confirmed identical to the tracked repo on
+branches.json, the checker and five target pages before starting.
+Five injections against Scorah's own pages, each restored by direct copy and
+sha256-reconfirmed byte-identical before the next: (1) RULE 3 (the address)
+- shingles-treatment-scorah-bramhall.html: map query AND contact card both
+changed together to Hazel Grove's real address, so the two still agree with
+each other but not with branches.json, isolating the address rule from the
+agreement rule - CAUGHT, exactly one failure, correctly naming Bramhall's
+own address as what was expected; (2) RULE 4 (agreement) -
+pharmacy-scorah-hazel-grove.html landing page: contact card only changed to
+a foreign street (Smartts Bootle's), map left untouched - CAUGHT, exactly
+one agreement failure quoting both strings; (3) RULE 6 (directions) -
+pharmacy-scorah-bramhall.html landing page: "Get directions" destination
+only changed, map and contact card left alone - CAUGHT, exactly one
+directions failure; (4) RULE 5 (encoding) -
+uti-treatment-scorah-hazel-grove.html: one %20 in the map query replaced
+with a literal space, still decodable to the right address but not valid
+percent-encoding - CAUGHT, exactly one encoding failure; (5) CONTROL - a
+benign reword on Bramhall's insect-bite page ("Book or call in" -> "Book or
+drop in"), touching no address/map/directions/town/brand/postcode token -
+ran clean on check-map-embeds.js and, re-run immediately afterwards, on the
+full 34-checker suite. All five fired on (or passed) their intended rule
+only, first attempt, no cross-firing between rules. Full 34-checker suite
+re-run clean on the TRACKED repo after all scratch work finished and every
+file restored; tracked repo confirmed untouched throughout by sha256 on all
+five target files plus branches.json and the checker, and by git status
+--porcelain (only the standing pre-existing untracked debris, 281 entries,
+none created this run). No checker logic, generator, branch data, page or
+pack content changed anywhere in the tracked repo. Guard coverage for item
+3.2 now extends to 17 of 36 checkers proven by direct injection (up from 16).
+LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked/typed/
+submitted): shingles-treatment-scorah-bramhall.html read live on
+www.scorah-chemists.co.uk, contact-card address and phone match the tracked
+repo's own page verbatim. The Weebly footer widget still gives
+"Cheshire SK7 3LQ" against branches.json's Greater Manchester (the standing
+Q43 finding) - unchanged, reconfirmed, nothing new.
+pharmacy-scorah-bramhall.html (the landing page) still 404s live, matching
+every prior pass and the 5.3/5.4 paste-queue note - unchanged, nothing new.
+RESULT: zero in-repo defect, no new fault class, no new question.
+STEP 9 (commit/push): a stale .git/index.lock was left behind by this run's
+own `git status --porcelain` call (the sandbox's own unlink() cannot remove
+it, the standing Q87/Q96/Q102 sandbox-FUSE fault); cleared via
+mcp__Windows-MCP__PowerShell's Remove-Item -Force against the real
+C:\Dev\rbh-site-data host path, then git add/commit/push run from the same
+PowerShell session against the real host, the established workaround.
+STEP 10 (status page): ran `node tools/build-audit-status.js` (via
+Windows-MCP PowerShell, same session) to publish the refreshed
+worklist/log/questions to the rishi235/rbh-data-portal status page.
+No new question raised this run. Lock deleted at exit.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 130;
 mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
 pull/status and running tools/check-service-links.js directly against the
