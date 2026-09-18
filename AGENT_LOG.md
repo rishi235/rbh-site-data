@@ -57,9 +57,25 @@ answered, not yet pasted); switch-prescriptions-fishlocks-ainsdale.html's
 shared Weebly footer still misspells "Fishlock Pharmacy"/"Fishlock Chemist"
 and abbreviates "17 Station Rd" (Q37/Q91, unchanged). No new live fault, no
 new question.
-No secrets encountered. Committed AGENT_WORKLIST.md, AGENT_LOG.md and the new
-audit file; publish and push detailed in this run's own addendum below, once
-step 9/10 complete.
+No secrets encountered.
+
+## 2026-09-18 (run 119 addendum, same run, after step 10 completed)
+Commit/push (step 9): the tracked repo's own .git/index.lock recurred at
+commit time (the standing sandbox FUSE unlink quirk, Q87/Q96/Q102 family),
+left behind by an earlier `git status` call from mcp__workspace__bash in this
+same run - `git add` from mcp__Windows-MCP__PowerShell failed first attempt
+with "Unable to create .git/index.lock: File exists", cleared via
+`Remove-Item -Force .git\index.lock`, confirmed gone, then `git add` staged
+exactly the three intended files (AGENT_WORKLIST.md, AGENT_LOG.md, the new
+audits/ evidence file), confirmed via `git status --short` scoped to those
+paths. Commit succeeded as 17c96b0; `git push origin agents/audit-backlog`
+succeeded, confirmed via `git rev-parse HEAD` and `git rev-parse
+origin/agents/audit-backlog` both returning
+17c96b007090b2b523dd8c16d9c9017d81998340. Status page publish (step 10):
+`node tools/build-audit-status.js` via the same PowerShell route, published
+cleanly - "Published reports/digital/Digital_Audit_Status.html (43/49 done,
+88%)". Lock/exit (step 11): `.agent-lock` cleared via `Remove-Item -Force
+.agent-lock` from PowerShell, confirmed gone.
 
 ## 2026-09-18 (run 118 addendum, same run, after step 10 completed)
 Commit/push (step 9): the tracked repo's own .git/index.lock recurred again
