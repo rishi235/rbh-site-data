@@ -1,0 +1,141 @@
+Item 4.7 McCanns Chemist Sandringham GBP pack - quality pass (twenty-second),
+2026-09-18, unattended scheduled run 117.
+
+REPO HALF
+---------
+Pack sha256 before edit: 02502ad136e3598f3070b9d2e2a73eac2898cf2a771a6b04dc1fd3e98c069fe5
+branches.json sha256:    169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+Both matched the recorded values from the twentieth/twenty-first passes exactly - no drift.
+
+Full checker suite (35 checkers, check-cdn-pins.js and check-live-hours.js
+excluded as network-dependent) run before any edit: all exit 0.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, no dual sign-in)
+----------------------------------------------------------------------
+Navigated to the pack's own googleReviewUrl:
+  https://g.page/r/CbMDr1qOLqnrEAE/review
+which resolved to the live Google Maps / Business Profile listing:
+  https://www.google.com/maps/place/McCanns+Pharmacy+-+Sandringham+-+Travel+Vaccination+and+Simple+Weight+Loss+Clinic/...
+
+This is the first of this item's twenty-two passes to read the actual
+Business Profile listing itself, rather than the branch's own website
+(mccannspharmacy.co.uk). All twenty-one prior LIVE HALF checks on this item
+read the branch website.
+
+Page text extract (get_page_text), key fields:
+  Title: "McCanns Pharmacy - Sandringham - Travel Vaccination and Simple
+          Weight Loss Clinic - Google Maps"
+  Business name (as shown on the listing): "McCanns Pharmacy - Sandringham -
+          Travel Vaccination and Simple Weight Loss Clinic"
+  Rating: 4.8 (35 reviews)
+  Category: Pharmacy
+  Address: 1B Aigburth Rd, Aigburth, Liverpool L17 4JP
+  Website: mccannspharmacy.co.uk
+  Phone: 0151 727 3076
+  Plus code: 92JV+MV Liverpool
+
+Opening hours - full weekly table read via accessibility tree (read_page on
+the hours table element, not just the compact "Closes soon" summary line):
+  Monday:    9 am to 1 pm, 2 to 6 pm  (listed as two ranges: "9 am-1 pm", "2-6 pm")
+  Tuesday:   9 am to 1 pm, 2 to 6 pm
+  Wednesday: 9 am to 1 pm, 2 to 6 pm
+  Thursday:  9 am to 1 pm, 2 to 6 pm
+  Friday:    9 am to 1 pm, 2 to 6 pm
+  Saturday:  Closed
+  Sunday:    Closed
+
+COMPARISON AGAINST branches.json / PACK
+----------------------------------------
+1. NAME: branches.json branchName = "McCanns Chemist Sandringham".
+   Pack's own "Name on GBP" line (gbp-packs/mccanns-sandringham.md, line 15)
+   = "McCanns Chemist Sandringham".
+   Live profile name = "McCanns Pharmacy - Sandringham - Travel Vaccination
+   and Simple Weight Loss Clinic".
+   MISMATCH on two axes: brand word ("Pharmacy" vs "Chemist") and an added
+   keyword-stuffed service suffix not present in branches.json, the pack, or
+   any of the 26 generated pages for this branch pair. Raised as Q113.
+
+2. ADDRESS: branches.json = "1b Aigburth Road", "Liverpool", "L17 4JP".
+   Live profile = "1B Aigburth Rd, Aigburth, Liverpool L17 4JP".
+   Street/postcode/city match (case and abbreviation of "Road"/"Rd" aside,
+   which Google renders in its own house style regardless of what is
+   submitted); "Aigburth" is Google's own locality/neighbourhood label
+   layered in addition to Liverpool, not a conflicting claim. No action
+   needed - this is Google's display convention, not a data fault.
+
+3. PHONE: branches.json = "0151 727 3076". Live profile = "0151 727 3076".
+   Match.
+
+4. HOURS: branches.json specification = Mon-Fri 09:00-13:00 and 14:00-18:00,
+   Sat/Sun closed. Live profile = identical, both ranges published every
+   weekday, Sat/Sun closed. Match - no locked-door fault (contrast Q112,
+   Clear Chemist Aintree, found by run 114 two days earlier on the same
+   fresh angle).
+
+5. WEBSITE FIELD: pack instructs setting this to the branch landing page,
+   https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html.
+   Live profile website field = bare mccannspharmacy.co.uk domain.
+   Reconfirms Q35 (landing page still 404 / unpasted) via the profile
+   itself rather than by inference.
+
+6. REVIEWS: live profile = 35 reviews, 4.8 stars (2026-09-18). The pack's
+   existing note (added on the nineteenth pass, 2026-09-16) cites the
+   00_DIGITAL_AUDIT_CONTEXT_PACK.md's 2026-06-27 snapshot naming this branch
+   "critically thin" at 4 reviews. That figure is now stale; superseded in
+   the pack with a dated note rather than deleted.
+
+REPO EDIT
+---------
+gbp-packs/mccanns-sandringham.md: appended a dated "SUPERSEDING NOTE" after
+the existing 2026-09-16 review-volume note, recording all six comparison
+points above and pointing to Q113. The existing note was left in place
+unedited.
+
+First draft of the new note restated the actual opening-hours clock times
+("Monday to Friday 9 am to 1 pm and 2 to 6 pm...") next to the word
+"closure" in a parenthetical. check-gbp-packs.js correctly failed on this:
+its outside-the-guarded-hours-line rule parsed the segment as a claimed
+Monday-to-Friday closure of 09:00 to 13:00, because "2 to 6 pm" lacks its
+own am/pm marker on "2" and so only "9 am to 1 pm" was recognised as a valid
+time pair by the rule's pair-matcher; that single recognised pair, next to
+the word "closure", was read as a closure claim rather than as half of an
+open-hours statement. Re-worded to reference the pack's own "- Hours:" line
+instead of restating clock times a second time - both the practical fix and
+a working proof (self-inflicted rather than injected) that this checker
+still catches a duplicate/drifting hours claim outside its guarded line,
+the exact fault class the "hours are times, a profile is days" section of
+CLAUDE.md and Q112 both describe.
+
+VERIFICATION
+------------
+Full 35-checker suite re-run after the final edit: all exit 0.
+sha256 of the edited pack after the final edit:
+  e81383159a1cdb8ad4113d00c0170e51ef4773c0365e51993998cf9d31370692
+Byte-level ASCII / em-dash sweep via Python (the sandbox's own `grep -n
+'[^\x00-\x7F]'` was found this run to mis-evaluate \xHH hex-range escapes
+in bracket expressions under this environment's grep build, flagging almost
+every line as non-ASCII when Python's byte-level read confirmed 0 bytes
+above 0x7F - ruled out as unreliable here and Python used instead):
+  gbp-packs/mccanns-sandringham.md: 0 non-ASCII bytes, 0 em/en dashes.
+`git status --porcelain -- gbp-packs branches.json modules core tools`:
+only the intended edit plus the two long-standing pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched by this run.
+
+QUESTIONS.json
+--------------
+Q113 appended: live GBP profile name divergence for McCanns Chemist
+Sandringham, status open, recommendation (option 1) to correct the live
+name to the plain branchName with the service suffix dropped entirely.
+New entry confirmed pure ASCII via Python. The file's two pre-existing en
+dashes (inside quoted live-page text captured verbatim in an earlier,
+unrelated question) were not introduced by this run and were left as found.
+
+RESULT
+------
+No in-repo checker defect found. One in-repo content addition (superseding
+note in the pack, correctly worded to avoid tripping the existing hours
+guard). One new question raised (Q113) for a live, out-of-repo fault that
+nothing here can correct directly. No worklist item ticked or unticked -
+item 4.7 was already [x] before this run and remains so.

@@ -194,3 +194,50 @@ Notes for the paster:
   2026-09-16, the first pass on this item to cross-check the pack against
   the master plan and audit context pack directly rather than only against
   branches.json and this repo's own checkers.
+- SUPERSEDING NOTE, added on the item 4.7 quality pass (twenty-second),
+  2026-09-18, the first pass on this item across twenty-one prior passes to
+  read the actual live Google Business Profile itself (via the review link
+  above) rather than the branch's own website. Read-only, via Rishi's
+  connected Chrome; nothing on the profile was clicked, edited or submitted.
+  Three findings:
+  1. The review-volume note directly above is now STALE. The live profile
+     carries 35 reviews at 4.8 stars as of 2026-09-18, not the 4 reviews the
+     2026-06-27 audit-context-pack snapshot recorded. This branch is no
+     longer "critically thin" on reviews by that measure; leave a
+     review-generation routine as good practice but do not treat this
+     branch as the estate's review priority on the strength of that old
+     figure. The note above is left in place rather than deleted, so the
+     record shows what changed and when, per this repo's own convention.
+  2. Opening hours on the live profile match this pack's own "- Hours:"
+     line above and branches.json exactly, every weekday, both ranges
+     published so the lunch break is not hidden behind a single wide
+     range. Confirmed by reading the full weekly hours table via an
+     accessibility-tree read, not only the compact "Closes soon" summary.
+     No locked-door fault here, unlike item 4.9's Clear Chemist Aintree
+     finding (Q112) the same week. (Deliberately not restating the actual
+     clock times here a second time - see the "- Hours:" line above for
+     those, which is what tools/check-gbp-packs.js guards.)
+  3. GENUINE NEW FINDING. The live Business Profile's own NAME field - the
+     literal Google-indexed business name, not the description or a post -
+     reads "McCanns Pharmacy - Sandringham - Travel Vaccination and Simple
+     Weight Loss Clinic". This differs from branches.json's branchName
+     ("McCanns Chemist Sandringham") and from this pack's own "Name on GBP"
+     line above in two distinct ways that have never been read together
+     before: the brand word is "Pharmacy" rather than "Chemist" (the same
+     class of fault as Q39's Weebly furniture findings, but this is the
+     first time it has been confirmed on the Google listing itself rather
+     than on a branch website); and the name carries a keyword-stuffed
+     service suffix naming both "Travel Vaccination" and "Simple Weight
+     Loss Clinic" services, which Google's own guidelines for Business
+     Profile names prohibit (a profile name should be the real-world
+     trading name only, not a description of services). The "Simple Weight
+     Loss" wording is also the name of the group's own separately-parked
+     SWL brand (paused pending a decision, per standing context), so this
+     profile is publicly associating McCanns Sandringham with that brand on
+     Google whether or not that association is intended. This is a live
+     Google Business Profile field, not a repo or Weebly asset, so nothing
+     in this repo can correct it; raised as Q113 for Rishi's decision on
+     wording and who actions the edit. Website field on the same profile
+     still reads the bare mccannspharmacy.co.uk domain, not this pack's
+     requested branch landing page - reconfirms Q35 via the profile itself
+     rather than by inference from the 404.

@@ -1,3 +1,102 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 117;
+mcp__workspace__bash used for the lock check, git fetch/checkout/pull/status,
+the checker suite, and file edits (tracked working copy edited directly -
+no scratch-copy injection round this pass, since the fresh angle was a live
+read plus a content addition, not a checker-rule proof); mcp__claude-in-chrome
+for the QUESTIONS.json answer-pickup fetch and the live Google Business
+Profile read; mcp__Windows-MCP__PowerShell intended for the git add/commit/
+push and the status-page publish, per the standing practice runs 111-116
+established (Q102/Q87/Q96 still formally open, but followed again))
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 116's own
+addendum entry confirms it cleared its lock via PowerShell before exiting,
+HEAD 22b8902 already matching origin/agents/audit-backlog); wrote a fresh
+lock. git fetch origin, git checkout agents/audit-backlog (no-op, already on
+it) and git pull --ff-only both completed clean via mcp__workspace__bash,
+already up to date at 22b8902. The sandbox's own stuck, unlinkable
+.git/index.lock (Q87/Q96/Q102) was present again this run but did not block
+any read-side git command used (status/log/diff all tolerate it with a
+stderr warning); left untouched rather than fought, per run 116's own
+non-destructive stance - no new renamed-lock file added to the pile.
+ANSWER PICKUP (step 3): list_connected_browsers showed exactly one Chrome
+instance connected. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z), matching every run since 2026-09-01 - nothing
+new to apply. 59 of 113 questions open before this run (112 before Q113 was
+added below).
+AUTONOMOUS WINDOW CHECK (step 4): read the top of this file as it stood at
+run start (run 116's addendum entry); no "Standing authorisation -
+autonomous window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), unchanged. Fell to
+the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the corrected word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)` (run 116's own
+fix, re-used rather than re-derived from scratch). Over the 36 non-one-off
+non-blocked items, 4.7 (McCanns Chemist Sandringham GBP pack) was oldest at
+its own twenty-first pass, 2026-09-17T18:45:13+01:00, ahead of 1.3 (19:09)
+and everything else. Chosen: 4.7, twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 4.7 block, this being
+the mirrored entry. REPO HALF baseline: pack sha256 unchanged from the
+twenty-first pass (02502ad1...069fe5), branches.json unchanged
+(169bb5a2...b102), full 35-checker suite (check-cdn-pins.js and
+check-live-hours.js excluded, network-dependent) clean before any edit.
+FRESH ANGLE: across twenty-one prior passes this item's LIVE HALF had always
+read the branch's own website, never the actual Google Business Profile
+itself - the same gap run 114 found and closed two days earlier for item 4.9
+(Q112). Read the live profile this run via the pack's own googleReviewUrl
+(https://g.page/r/CbMDr1qOLqnrEAE/review), read-only, one tab, nothing
+clicked or submitted beyond navigation and page-text/accessibility-tree
+reads. Findings: (1) hours on the live profile match branches.json and the
+pack exactly, every weekday, both ranges published (confirmed via the full
+weekly-table accessibility-tree read, not just the compact summary) - no
+locked-door fault, unlike Q112; (2) the profile's review count is now 35 at
+4.8 stars, superseding the "critically thin" 4-review figure the nineteenth
+pass added to this pack from a 2026-06-27 snapshot; (3) GENUINE NEW FINDING:
+the profile's own NAME field reads "McCanns Pharmacy - Sandringham - Travel
+Vaccination and Simple Weight Loss Clinic", diverging from branches.json's
+branchName and the pack's own "Name on GBP" line in both brand word
+("Pharmacy" vs "Chemist", the Q39 class of fault, now confirmed on the
+Google listing itself for the first time) and in carrying a keyword-stuffed
+service suffix that also names the group's separately-parked Simple Weight
+Loss brand on a live public listing. Raised as Q113; this repo has no
+live-GBP write access. Website field still shows the bare domain, not the
+branch landing page - reconfirms Q35 via the profile itself.
+REPO EDIT: appended a dated superseding note to
+gbp-packs/mccanns-sandringham.md recording all three findings, pointing to
+Q113, leaving the existing 2026-09-16 note in place unedited. First draft of
+the note accidentally restated actual clock times next to the word
+"closure" and check-gbp-packs.js correctly failed on it (misread as a
+claimed 09:00-13:00 Monday-to-Friday closure, since "2 to 6 pm" wasn't
+recognised as a valid pair without its own am/pm marker on "2"); re-worded
+to reference the pack's own "- Hours:" line instead of restating times -
+both the fix and a small working proof that the checker's
+outside-the-guarded-line rule still catches a duplicate hours claim, this
+time self-inflicted rather than injected. Full 35-checker suite re-run clean
+after the final edit. Pure-ASCII/em-dash sweep done via Python rather than
+the sandbox's own grep, which was found this run to mis-evaluate \xHH hex
+ranges in bracket expressions under this environment (flagged nearly every
+line of a confirmed-0-non-ASCII-bytes file as a match) - noted so a future
+run does not trust that grep pattern here either. `git status --porcelain
+-- gbp-packs branches.json modules core tools` showed only the intended
+edit plus the two long-standing pre-existing untracked strays, neither
+touched.
+QUESTIONS.json: Q113 added (McCanns Sandringham live GBP-profile name
+divergence - brand word plus keyword-stuffed suffix naming the parked
+Simple Weight Loss brand), status open, recommended option is to correct
+the live name to the plain branchName with the suffix dropped. New entry
+confirmed pure ASCII via Python; the file's two pre-existing en dashes (in
+an earlier question's verbatim quote of live page text) were not touched.
+No worklist item ticked or unticked this run - item 4.7 was already [x] and
+remains so.
+Files changed this run: AGENT_WORKLIST.md (item 4.7 twenty-second-pass
+paragraph appended), QUESTIONS.json (Q113 appended), AGENT_LOG.md (this
+entry), gbp-packs/mccanns-sandringham.md (superseding note appended),
+audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-18-twentysecond.txt
+(new evidence file). No generator, checker or branches.json change.
+Commit and push: see commit hash appended below once the Windows-MCP
+PowerShell route completes step 9. Status page publish: see step 10 note
+below once build-audit-status.js completes on the host.
+
 ## 2026-09-18 (run 116 addendum, same run, after step 10 completed)
 Small follow-up before exiting: this run's own stuck .git/index.lock (see the LOCK/SYNC note
 in the run 116 entry below) was tested from both sides while still present. bash's `rm -f`

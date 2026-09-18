@@ -21895,6 +21895,85 @@ directly rather than re-deriving the same facts by hand.
       correctly left open per their own notes, no reply newer than
       2026-09-01T22:44:51.524Z. No new answer, no new question. Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-17-twentyfirst.txt.
+      Quality pass 2026-09-18 (twenty-second, unattended scheduled run 117).
+      Taken because all remaining unchecked worklist lines are still
+      [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6,
+      confirmed by direct grep). Rotation pool re-derived from git log
+      commit subjects (`[Ii]tem\s+(\d+\.\d+)(?!\d)`, word-boundary safe
+      against two-digit sub-numbers per run 116's own fix), over the 36
+      non-one-off non-blocked items; 4.7 was oldest at its own twenty-first
+      pass (2026-09-17T18:45:13+01:00), ahead of 1.3 (19:09) and everything
+      else. Taken.
+      ANSWER PICKUP (step 3): one Chrome instance connected. Portal feed
+      read in full; newest entry still Q52 (2026-09-01T22:44:51.524Z),
+      unchanged. No new answer.
+      REPO HALF: pack sha256 02502ad1...069fe5 unchanged from the
+      twenty-first pass, confirmed byte-identical before any edit; full
+      35-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+      both network-dependent) clean before any edit.
+      FRESH ANGLE: across twenty-one prior passes this item's LIVE HALF had
+      always read the branch's own website, never the actual Google
+      Business Profile itself - the same gap run 114 found and closed for
+      item 4.9 two days earlier (Q112). Read the live profile this run
+      (Claude in Chrome, read-only, via the pack's own googleReviewUrl,
+      nothing clicked or submitted beyond page navigation and text/
+      accessibility-tree reads).
+      LIVE HALF FINDINGS: (1) opening hours on the profile match
+      branches.json and the pack's own "- Hours:" line exactly on every
+      weekday, both ranges published (confirmed via the full weekly-table
+      accessibility-tree read, not just the compact summary) - no
+      locked-door fault here, unlike Q112. (2) the profile carries 35
+      reviews at 4.8 stars as of today, which supersedes the "critically
+      thin" 4-review figure the nineteenth pass (2026-09-16) added to this
+      pack from the 2026-06-27 audit-context-pack snapshot. (3) GENUINE NEW
+      FINDING: the profile's own NAME field (not the description, not a
+      post) reads "McCanns Pharmacy - Sandringham - Travel Vaccination and
+      Simple Weight Loss Clinic" - diverging from branches.json's
+      branchName and the pack's own "Name on GBP" line both in brand word
+      ("Pharmacy" vs "Chemist", the Q39 class of fault, now confirmed on
+      the Google listing itself rather than a branch website for the first
+      time) and in carrying a keyword-stuffed service suffix that also
+      names the group's separately-parked Simple Weight Loss brand on a
+      live, public listing. Raised as Q113 for Rishi's decision; this repo
+      has no live-GBP write access so nothing here can correct it directly.
+      Website field on the profile still shows the bare
+      mccannspharmacy.co.uk domain, not the pack's requested branch landing
+      page - reconfirms Q35 via the profile itself.
+      REPO EDIT: appended a dated superseding note to
+      gbp-packs/mccanns-sandringham.md's existing review-volume note (left
+      in place, not rewritten, per this repo's own convention) recording
+      all three findings above, and pointing to Q113. First draft of the
+      note restated the actual opening-hours clock times outside the
+      guarded "- Hours:" line and check-gbp-packs.js correctly failed on it
+      (parsed "9 am to 1 pm" next to the word "closure" as a claimed
+      Monday-to-Friday closure of 09:00-13:00, since the informal "2 to 6
+      pm" half of the second range lacks its own am/pm marker and was not
+      recognised as a valid pair) - re-worded to reference the "- Hours:"
+      line instead of restating times, which is both the fix and a small
+      working proof that this checker's outside-the-guarded-line rule (the
+      one Q112's own item, 4.9, and the "hours are times, a profile is
+      days" section of CLAUDE.md, both describe) still catches a genuine
+      duplicate-hours-claim shape, this time self-inflicted rather than
+      injected.
+      VERIFICATION: full 35-checker suite re-run after the final edit, 0
+      failures. Pure-ASCII and em/en-dash sweep on the edited file
+      byte-level via Python (not the sandbox's own grep, which
+      mis-evaluates \xHH ranges in this environment and was ruled out as
+      unreliable this run) - 0 non-ASCII bytes, 0 em/en dashes. `git status
+      --porcelain -- gbp-packs branches.json modules core tools` shows only
+      the intended edit plus the two long-standing pre-existing untracked
+      strays, neither touched. No injection/restore cycle this pass - the
+      fresh angle was live-profile reading and a content addition, not a
+      new or newly-proven checker rule.
+      QUESTIONS.json: Q113 added (McCanns Sandringham GBP-profile name
+      divergence), status open, recommendation to correct the live name to
+      the plain branchName with no service suffix. New entry confirmed
+      pure ASCII; file's two pre-existing en dashes (in quoted live-page
+      text from an earlier question) were not introduced by this edit and
+      were left as found, matching the read-only quoting convention already
+      used elsewhere in this file.
+      Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-18-
+      twentysecond.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
