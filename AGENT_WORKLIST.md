@@ -15084,6 +15084,74 @@ Done 2026-09-18 (twenty-first pass).
       correct, not a live-facing decision. Evidence: audits/tiffenbergs-
       item-3.12-quality-pass-2026-09-17-eighteenth.txt. Done 2026-09-17
       (eighteenth pass)
+      Quality pass 2026-09-18, NINETEENTH PASS, FRESH ANGLE: tools/check-app-
+      membership.js proven by injection against Tiffenbergs' own pages, pack
+      and paste sheet for the first time in this item's nineteen-pass history
+      (eighteen prior passes exercised check-nap.js, check-postcodes.js,
+      check-em-dashes.js, check-booking-routes.js, check-jsonld.js, check-gbp-
+      packs.js, check-branch-identity.js, check-map-embeds.js, check-
+      pharmacy-first-eligibility.js, check-weight-loss-copy.js, check-branch-
+      links.js, check-opening-hours.js, check-switch-copy.js, check-travel-
+      clinic-copy.js, check-contraception-copy.js, check-seo-lengths.js,
+      check-seo-pattern.js and check-seo-keywords.js against this branch, but
+      never the checker that owns hasApp). Tiffenbergs is a non-member branch
+      (hasApp: false) with no branch landing page, so this pass exercises the
+      negative-claim rules: no app card, no app mention, no member marker.
+      BASELINE: full repo exported via `git archive HEAD | tar -x` to a
+      disposable scratch copy, tracked repo never opened for writing during
+      the injection round; branches.json sha256 confirmed at the standing
+      anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      throughout. Full 36-checker suite clean on the tracked repo before
+      starting (36/36); 35/36 on the scratch copy, the one exception check-
+      cdn-pins.js's documented .git-less artefact. Seven injections plus one
+      control against the scratch copy, each restored by byte copy and
+      sha256-reconfirmed identical before the next: (1) an app-card block
+      copied from a real member page (Fishlocks Ainsdale) inserted into the
+      Tiffenbergs switch page - CAUGHT by RULE 2; (2) after restore, a non-
+      canonical app-name mention ("RB Healthcare app", missing "Pharmacy")
+      added to the same switch page's hero-points - CAUGHT by RULE 5 only,
+      isolated from RULE 2 (no app-card class) and RULE 4 (switch pages are
+      in the app-family set, so RULE 4 never fires there); (3) an app mention
+      added after the Earache service page's H1 - CAUGHT by RULE 4, absence
+      elsewhere; (4) an app claim appended to the GBP pack's business
+      description - CAUGHT TWICE AT ONCE, RULE 8a (false claim) and RULE 8d
+      (contradicts the pack's own "No app mention anywhere in this pack"
+      paster note), the first proof these two rules can fire together on a
+      real pack; (5) after restore, the same pack's paster note changed from
+      "hasApp false" to "hasApp true" with the published copy left untouched
+      - CAUGHT by RULE 8c alone, proving it fires independently of 8a/8d;
+      (6) the switch paste sheet's INDEX.md given a "*(app member)*" marker
+      on the Tiffenbergs heading - CAUGHT TWICE AT ONCE, the count rule (5
+      marked vs 4 real members) and the per-heading agreement rule; CONTROL:
+      an unrelated wording change on the switch page ("Local" to "Friendly")
+      passed clean, no cross-firing. All caught on the first attempt on
+      exactly the predicted rule(s) with the predicted message. RULE 3
+      (branch landing sentence) has no surface on Tiffenbergs (no landing
+      page, one of the seven lunch-closure branches); RULE 1 and RULE 6 only
+      exercised via the generator-read baseline, not by injection; RULE 8b
+      (photo shot list) not exercised - all four carried forward for a
+      future pass. RESTORE AND RE-VERIFY: all four touched files sha256-
+      reconfirmed identical to baseline after every restore; full 36-checker
+      suite re-run on the scratch copy after the final restore (35/36, same
+      cdn-pins artefact) and on the tracked repo (36/36); branches.json
+      sha256 unchanged; git status --porcelain on modules, core, branches.json,
+      gbp-packs and tools showing only the two long-standing untracked
+      strays, unchanged throughout. RESULT: zero in-repo defect; check-app-
+      membership.js was already correctly holding seven of its eight rule
+      families against Tiffenbergs, now proven directly rather than correct
+      by construction alone. Guard coverage for item 3.12 now extends to 19
+      of the 36 checkers proven by direct injection against this branch; 17
+      remain, listed in full in the evidence file. STEP 3 answer pickup:
+      Claude in Chrome connected, feedback endpoint read successfully first
+      attempt; no new answers found for any of the 58 currently open
+      questions, newest entry still Q52 (2026-09-01), matching run 97's own
+      pickup earlier today. No status change made to Q37/Q43. Live half not
+      attempted: full 12-of-12 live coverage already stands from the
+      fifth/sixth passes (2026-09-02), not re-read this pass; this pass's
+      fresh angle was entirely repo-side. No new question raised - checker
+      proven clean against data already known correct, not a live-facing
+      decision. Evidence: audits/tiffenbergs-item-3.12-quality-pass-
+      2026-09-18-nineteenth.txt. Done 2026-09-18 (nineteenth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

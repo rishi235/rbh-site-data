@@ -1,0 +1,162 @@
+Item 3.12 - Tiffenbergs Chemist (Liverpool / Aintree) - NINETEENTH quality pass
+Run: audit-backlog-worker, unattended scheduled run 98, 2026-09-18
+
+FRESH ANGLE
+tools/check-app-membership.js proven by direct injection against Tiffenbergs'
+own pages, pack and paste sheets for the first time in this item's nineteen-
+pass history. Eighteen prior passes exercised check-nap.js, check-postcodes.js,
+check-em-dashes.js, check-booking-routes.js, check-jsonld.js, check-gbp-
+packs.js, check-branch-identity.js, check-map-embeds.js, check-pharmacy-first-
+eligibility.js, check-weight-loss-copy.js, check-branch-links.js, check-
+opening-hours.js, check-switch-copy.js, check-travel-clinic-copy.js, check-
+contraception-copy.js, check-seo-lengths.js, check-seo-pattern.js and check-
+seo-keywords.js against this branch, but never the checker that owns hasApp:
+the switch-page app card, the branch-landing app sentence, absence elsewhere,
+the canonical app name, the store URLs, the switch paste-sheet "*(app
+member)*" marker, and the GBP pack's app claims (description, shot list,
+paster notes, and the missing-positive direction).
+
+Tiffenbergs has hasApp: false in branches.json (one of twelve non-member
+branches) and no branch landing page (one of the seven lunch-closure
+branches), so this pass exercises the checker's negative-claim rules: a
+non-member branch's pages, pack and paste sheet must never carry an app card,
+an app mention, or an app-member marker.
+
+BASELINE
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy at /tmp/scratch312-run98-<epoch>; tracked repo never opened for writing
+during the injection round. branches.json sha256 confirmed at the standing
+regression anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad
+1b102 throughout, on both the scratch copy and the tracked repo. Full 36-
+checker suite clean on the tracked repo before starting (36/36) and on the
+scratch copy before starting (35/36, the one exception being check-cdn-pins.js's
+documented .git-less scratch artefact - the scratch copy has no .git, so the
+two runtime-ref and the immutable-commit-ref resolutions it checks cannot
+resolve; not a repo defect, unchanged from every prior pass that used this
+method).
+
+check-app-membership.js baseline on both copies: 4 app members of 16 branches
+(fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree, smartts_bootle),
+canonical name "RB Healthcare Pharmacy app" read from build-switch-pages.js, 2
+store URLs declared, 21 pages across the two families (15 switch + 6 branch
+landing) with 6 carrying the app, 15 GBP packs read. Clean, 0 known exceptions.
+
+Target files and their pre-injection sha256, all backed up by byte copy to
+/tmp/run98-backups/ before any mutation:
+  modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html
+    565845d5990e28095d7613cd8bb729759841fa6f97d2520ce2dec444728452be
+  modules/service/pages/earache-treatment-tiffenbergs-aintree.html
+    e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030
+  gbp-packs/tiffenbergs-aintree.md
+    59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+    (matches the sha256 recorded in this item's seventh-pass evidence,
+    2026-09-03, confirming the pack has not drifted in fifteen days)
+  modules/switch/pages/INDEX.md
+    199b029b3227db036ee15b303dbfaa00ceab415c3fcf07ca7a1df619fec8084b
+
+TEST: seven injections plus one control, each restored by byte copy (not git
+checkout) from the pre-injection backup and sha256-reconfirmed identical
+before the next began.
+
+(1) RULE 2, switch pages - app-card block (head, copy line, both store
+    buttons) inserted into the Tiffenbergs switch page's right-stack, copied
+    verbatim in structure from a real app-member page (Fishlocks Ainsdale) -
+    CAUGHT: "carries the app card but branches.json says this branch is not
+    an app member".
+
+(2) RULE 5, one name - "You can also manage things through the RB Healthcare
+    app" (missing "Pharmacy") added to the same switch page's hero-points
+    list, after restoring (1) - CAUGHT: 'names the app "RB Healthcare app"
+    but the generator that owns the store buttons calls it "RB Healthcare
+    Pharmacy app"'. Cleanly isolated from rule 2 (no app-card class present)
+    and from rule 4 (the switch page is in the app-family dir set, so rule 4's
+    early-return never triggers there) - proves the two rules read different
+    signatures on the same page.
+
+(3) RULE 4, absence elsewhere - "You can also manage this through the RB
+    Healthcare Pharmacy app." added after the Earache page's H1, a service-
+    family page untried for app-membership injection - CAUGHT: "mentions the
+    app or carries a store URL, and no page in this family is meant to".
+
+(4) RULE 8a + 8d, GBP pack description and note contradiction - "You can
+    order repeat prescriptions through our app." appended to the end of the
+    business description in gbp-packs/tiffenbergs-aintree.md (hasApp false) -
+    CAUGHT TWICE AT ONCE: 8a ("the copy pasted into the public Google profile
+    claims an app, but branches.json has hasApp false...") and 8d ("the
+    paster note says there is no app mention anywhere in this pack, but the
+    pasted copy carries one"), since the pack's own paster note already
+    states "No app mention anywhere in this pack" and the injection
+    contradicts it. First proof that 8a and 8d can fire together on a real
+    pack rather than only in isolation.
+
+(5) RULE 8c, paster note vs field - after restoring (4), the paster note's
+    "branches.json has hasApp false for this branch" changed to "hasApp
+    true", published copy left untouched - CAUGHT, isolated: "the paster note
+    tells the paster branches.json has hasApp true, but it has false for
+    tiffenbergs_longmoor, so the note invites an app claim onto a profile
+    that must not carry one". Confirms 8c fires independently of 8a/8d when
+    only the note, not the copy, disagrees with the field.
+
+(6) RULE 7, paste markers - "*(app member)*" appended to the Tiffenbergs
+    heading in modules/switch/pages/INDEX.md - CAUGHT TWICE AT ONCE: the
+    count rule ("marks 5 page(s) as app members but branches.json has 4")
+    and the per-heading rule ('"Tiffenbergs Chemist - Aintree" is marked as
+    an app member and branches.json does not agree').
+
+CONTROL: "Local Aintree pharmacy support, not a call centre" reworded to
+"Friendly Aintree pharmacy support, not a call centre" on the switch page,
+no app-related text touched - check-app-membership.js stayed clean, exit 0,
+no cross-firing, confirming the checker does not fire on unrelated copy
+changes to the same file.
+
+All seven injections (counting the compound 8a+8d and 7's two-failure hit as
+single injection events) caught on the first attempt, each on exactly the
+rule(s) predicted by reading the source before injecting, with the message
+text matching what the source composes. The control passed clean.
+
+RULES NOT EXERCISED THIS PASS
+Rule 3 (branch landing pages) has no surface on Tiffenbergs: it is one of the
+seven lunch-closure branches with no branch landing page, the same structural
+absence already recorded for rule 6 of check-map-embeds.js on the ninth pass.
+Rule 6 (store URLs) and rule 1 (field present) were exercised only by the
+generator-read baseline (2 URLs declared, hasApp: false present and boolean),
+not by injection - store-URL and field-shape injections are candidates for a
+future pass, most naturally proven on a branch this item has not already
+covered rather than repeated here. Rule 8b (photo shot list) not exercised
+this pass; Tiffenbergs' pack shot list carries no app reference to begin
+with, and a fresh injection there is a candidate for next time.
+
+RESTORE AND RE-VERIFY
+All four touched files restored by byte copy and sha256-reconfirmed identical
+to their pre-injection backups after every injection and again at the end.
+Full 36-checker suite re-run on the scratch copy after the final restore:
+35/36 clean (same check-cdn-pins.js .git-less artefact). Tracked repo
+reconfirmed untouched throughout this pass: branches.json sha256 unchanged at
+the standing anchor; git status --porcelain on modules, core, branches.json,
+gbp-packs and tools showing only the two long-standing pre-existing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; full 36-checker
+suite re-run individually against the tracked repo, 36/36 exit 0.
+
+RESULT
+Zero in-repo defect. check-app-membership.js was already correctly holding
+seven of its eight rule families against Tiffenbergs specifically, now proven
+directly by injection rather than left correct by construction alone. Guard
+coverage for item 3.12 now extends to 19 of the 36 checkers proven by direct
+injection against this branch; 17 remain (check-address-region, check-brand-
+spelling, check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-
+first, check-live-hours, check-page-coverage, check-pharmacy-first-cost,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms, check-seo-
+sheets, check-service-links, check-uk-spelling, check-url-scheme, check-
+whatsapp-route, check-widget-diaries, plus check-app-membership's own
+untested rules 1, 6 and 8b above), carried forward for a future pass. No page,
+generator, checker, pack or branches.json byte changed. No new question
+raised - checker proven clean against data already known correct, not a
+live-facing decision.
+
+Q56 (branches.json's singular Tiffenberg@ against the live plural
+tiffenbergs@ on the site footer) not re-confirmed this pass; last confirmed
+live on the seventeenth/eighteenth passes. Live half not attempted: full
+12-of-12 live coverage already stands from the fifth/sixth passes
+(2026-09-02); re-reading it again would not be new information, and this
+pass's fresh angle was entirely repo-side (a checker, not a live page).
