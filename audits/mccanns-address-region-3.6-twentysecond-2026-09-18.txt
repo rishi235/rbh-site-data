@@ -1,0 +1,152 @@
+Item 3.6 (McCanns Chemist, Aigburth and Sandringham) - twenty-second quality pass
+Run: audit-backlog-worker, run 111, unattended scheduled run via Cowork.
+Date: 2026-09-18.
+
+SELECTION
+All 8 unblocked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), so the
+quality-pass fallback applied. Rotation pool independently re-derived: the
+full 43-item completed list minus the six standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7) minus the 22 items already touched today
+(2026-09-18, extracted via `git log --format="%ad|%s" -- AGENT_WORKLIST.md`
+filtered to today's date and matched by `item N.N` word boundary: 1.2, 1.4,
+2.1, 2.3, 3.1, 3.2, 3.4, 3.7, 3.9, 3.11, 3.12, 3.13, 4.2, 4.6, 4.11, 4.12,
+4.14, 4.15, 5.1, 6.2, 6.3, 6.8). Sixteen candidates remained; each one's own
+worklist block line range checked via `git log -1 --date=iso-strict
+-L<start>,<end>:AGENT_WORKLIST.md`. Item 3.6 came out stalest at
+2026-09-17T15:10:40+01:00, exactly matching the twenty-first pass's own
+forward note. Chosen: 3.6, twenty-second pass.
+
+ANSWER PICKUP (step 3, done before item selection): navigated Claude in
+Chrome to https://data.rbhealth.co.uk/api/feedback and read the JSON feed
+directly. Newest entry is still the Q52 answer (2026-09-01T22:44:51.524Z),
+unchanged since every run since 2026-09-01. 58 questions now open in
+QUESTIONS.json (Q1 to Q111, several ids reused for later answers). Nothing
+new to pick up.
+
+FRESH ANGLE
+This item's own twenty-one-pass history names twelve checkers by name as
+already proven against McCanns's own files (check-app-membership,
+check-branch-identity, check-branch-links, check-brand-spelling,
+check-booking-routes, check-cdn-pins, check-em-dashes, check-gbp-packs,
+check-jsonld, check-nap, check-opening-hours, check-page-coverage,
+check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-service-links, check-weight-loss-copy,
+check-whatsapp-route, check-widget-diaries, check-live-hours) but never
+tools/check-address-region.js, despite that checker's own file header and
+inline comments being ABOUT this exact branch: it was written on the item
+3.6 quality pass of 2026-08-10 specifically because McCanns Sandringham's
+seoTown ("Sandringham") did not match its own serviceAreaList, and it
+still carries the branch's own KNOWN_SEO_TOWN exception (Q15, townSlug
+held at "sandringham" while seoTown reads "St Michael's"). The checker's
+own second half is literally the McCanns story; the checker had simply
+never been run and injection-tested against McCanns by name within this
+item's own quality-pass log, the same "named in the file, never tried"
+gap the eleventh pass closed for check-branch-links.js and the fifth pass
+closed for check-jsonld.js's rule 3.
+
+BASELINE (before any change)
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing anchor, unchanged from every recent pass).
+All 34 tools/check-*.js checkers re-run individually (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent): 34/34 exit 0.
+check-address-region.js run standalone and read in full: 16 trading
+branches checked, clean, with two warnings unrelated to McCanns (the
+standing Q15 KNOWN_SEO_TOWN exception on mccanns_sandringham reconfirmed
+still exactly matching the values it was granted for; a Cherry Lane
+ordering note that is not a McCanns finding).
+All six generators (branch landing, contraception, service, switch, travel
+clinic, weight loss) rebuilt: sha256 of all 189 tracked files under
+modules/ and core/ identical before and after, byte-identical regeneration
+confirmed. git status --porcelain on modules/, core/, branches.json,
+gbp-packs/, tools/ empty throughout (two pre-existing untracked debris
+files noted, gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+touched, out of this item's scope, matching the standing practice recorded
+by the ninth pass and others of not clearing prior runs' leftover debris
+inside a single-item pass).
+
+MANUAL VERIFICATION (both McCanns branches, direct read of branches.json)
+mccanns_aigburth: addressRegion "Merseyside" (a valid county, not equal to
+addressLocality "Liverpool"), seoTown "Aigburth" leads its own
+serviceAreaList ["Aigburth", "Sefton Park", "Mossley Hill", "Grassendale"],
+townSlug "aigburth" matches slugify(seoTown), seoRegion unset.
+mccanns_sandringham: addressRegion "Merseyside", seoTown "St Michael's"
+leads its own serviceAreaList ["St Michael's", "Aigburth", "Lark Lane",
+"Dingle"], townSlug "sandringham" does NOT match slugify("St Michael's")
+("st-michaels") - this is the standing, deliberately granted Q15 exception,
+confirmed by the checker's own KNOWN_SEO_TOWN block still matching the
+exact values ("expect") it was granted for. Both branches pass every rule
+this checker enforces, correctly.
+
+INJECTION TEST (the fresh angle, proven against this item's own real data)
+mccanns_aigburth.addressRegion in branches.json changed from "Merseyside"
+(a valid county) to "Sefton" (a real Merseyside borough, not a county -
+the exact class of fault this checker exists to catch, per its own header
+citing the original Fishlocks Eccleston/Chorley finding on item 3.3).
+Backed up first: branches.json sha256 confirmed 169bb5a2...b102 before
+touching it.
+
+Stage 1, data only (no regeneration): check-address-region.js immediately
+FAILED - "mccanns_aigburth: addressRegion is 'Sefton', which is not one of
+the counties this group trades in". check-nap.js and check-jsonld.js also
+failed at this stage, but only as a side effect of the injected
+branches.json now disagreeing with the still-unregenerated pages (both
+reported MISMATCH/FAIL "Merseyside" vs "Sefton" on every mccanns_aigburth
+page) - this does not test the claim the checker's header makes.
+
+Stage 2, all six generators rebuilt with the corrupted branches.json still
+in place, so every mccanns_aigburth page now carries "Sefton" in its own
+JSON-LD, matching the (wrong) source data exactly. Re-ran the full suite:
+check-nap.js exit 0, clean. check-jsonld.js exit 0, clean. check-map-embeds.js
+exit 0, clean. check-address-region.js exit 1, still the only checker
+naming the fault. This is the precise claim the checker's own header makes,
+proved for the first time against this item's own real branch rather than
+argued from the original Fishlocks Eccleston example: once a wrong county
+is baked all the way through to the generated pages, every page-vs-data
+consistency checker in the estate goes silent, and only
+check-address-region.js, which judges branches.json against the fixed
+four-county allowlist rather than against the pages, still catches it.
+
+RESTORE
+branches.json restored from the pre-injection backup; sha256 reconfirmed
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, byte
+match to the standing anchor. All six generators rebuilt again: sha256 of
+all 189 files under modules/ and core/ compared against the original
+pre-injection baseline - byte-identical, zero diff. Full 34-checker suite
+re-run clean (34/34) after the restore. git status --porcelain on
+modules/, core/, branches.json empty at the end (aside from the same two
+pre-existing, untouched debris files noted above).
+
+LIVE HALF
+Claude in Chrome connected (one instance). Two read-only GETs, nothing
+clicked, typed or submitted:
+- https://www.mccannspharmacy.co.uk/uti-treatment-mccanns-aigburth.html:
+  fully correct live - title and H1 both read "Aigburth", own phone
+  (0151 727 3185) and own address (112 Aigburth Road, L17 7BP) both
+  correct, HTTP 200. The known Q39 footer set ("McCann's Pharmacy"
+  branding rather than "McCanns Chemist", the "Sandrigham Medical Centre"
+  typo) is present and unchanged, not a new finding.
+- https://www.mccannspharmacy.co.uk/uti-treatment-mccanns-sandringham.html:
+  title and H1 still read "Sandringham" rather than "St Michael's" live,
+  matching the repo's correct "St Michael's" only in the repo - the
+  standing queued 5.7/Q15 repaste, unchanged since the fourth pass on
+  2026-08-14 and reconfirmed on every pass since including this one. Own
+  phone (0151 727 3076) and own address (1b Aigburth Road, L17 4JP) both
+  correct. Same Q39 footer set present, unchanged.
+No new live finding on either page.
+
+RESULT
+Zero in-repo defects found this pass. The injection confirms
+check-address-region.js provides genuine, otherwise-absent protection for
+both McCanns branches specifically (not just in the abstract, as its
+header argues from a different branch's history) and that the protection
+is exactly as narrow as the header claims: it catches a wrong county in
+branches.json that every page-consistency checker would otherwise miss
+once the wrong value has been baked into the generated pages. Guard
+coverage for item 3.6 now extends to 23 of 36 checkers proven by direct
+injection against this item's own real files (up from 22 after the
+twenty-first pass's check-page-coverage.js finding). No new question
+raised.
+
+Evidence: this file (committed).

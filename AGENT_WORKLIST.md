@@ -8400,6 +8400,47 @@ pass; branches.json sha256 unchanged (169bb5a2...). Guard coverage for item
 this checker's subject (whether a page exists at all) has no live
 counterpart to read. Full detail in
 audits/mccanns-aigburth-sandringham-page-coverage-3.6-twentyfirst-2026-09-17.txt.
+Quality pass 2026-09-18 (twenty-second, unattended scheduled run via
+Cowork, run 111). Selected as the least recently verified item in the
+standing rotation pool (all 8 unblocked worklist lines confirmed
+[BLOCKED]; 3.6 stalest at 2026-09-17T15:10:40+01:00 once the 22 items
+already picked today, including 3.4's own twenty-third pass, were
+excluded). FRESH ANGLE: tools/check-address-region.js, named in the
+checker's own file header and inline comments as having been written
+specifically because of this branch's own seoTown history (Q15,
+mccanns_sandringham), but never named or injection-tested against McCanns
+across the item's prior twenty-one passes. BASELINE: branches.json sha256
+169bb5a2...b102 unchanged; all 34 checkers (cdn-pins and live-hours
+excluded) pass; all six generators rebuilt byte-identical (sha256 of 189
+files under modules/ and core/ unchanged). MANUAL CHECK: both branches'
+addressRegion, seoTown, serviceAreaList lead entry and townSlug read
+correct against the checker's rules, including Sandringham's standing Q15
+KNOWN_SEO_TOWN exception matching the exact values it was granted for.
+INJECTION: mccanns_aigburth.addressRegion changed from "Merseyside" to
+"Sefton" (a real Merseyside borough, not a county). With only branches.json
+edited, check-nap.js and check-jsonld.js both failed as a side effect of
+disagreeing with the unregenerated pages - not a real test. With all six
+generators then rebuilt against the corrupted data, so every affected page
+carried "Sefton" throughout: check-nap.js, check-jsonld.js and
+check-map-embeds.js all went clean (exit 0), and check-address-region.js
+was the only checker left catching it - proving the claim in the checker's
+own header for the first time against this item's real files rather than
+by argument. Restored via byte copy from a pre-injection backup; branches.json
+sha256 reconfirmed 169bb5a2...b102; all six generators rebuilt again,
+byte-identical to the pre-injection baseline; full 34-checker suite clean
+after restore. LIVE HALF, two read-only GETs via Claude in Chrome: the
+Aigburth UTI page is fully correct live (title, H1, phone, address all
+"Aigburth"/own values, HTTP 200); the Sandringham UTI page's title and H1
+still read "Sandringham" rather than "St Michael's" live, the standing
+queued 5.7/Q15 repaste, unchanged since the fourth pass on 2026-08-14; the
+known Q39 footer set ("McCann's Pharmacy" branding, "Sandrigham Medical
+Centre" typo) reconfirmed present and unchanged on both pages. No new live
+finding. Zero in-repo defects found. Guard coverage for item 3.6 now
+extends to 23 of 36 checkers proven by direct injection (up from 22).
+Answer pickup (this run's own step 3): newest portal entry still the Q52
+answer (2026-09-01), unchanged; 58 questions now open in QUESTIONS.json.
+No new question raised. Evidence in
+audits/mccanns-address-region-3.6-twentysecond-2026-09-18.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
