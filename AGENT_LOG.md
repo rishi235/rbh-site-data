@@ -1,3 +1,43 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 114; mcp__workspace__bash used for the lock
+check, git fetch/checkout/pull/status, the checker suite and file edits; mcp__claude-in-chrome for the QUESTIONS.json
+answer-pickup fetch and the live half; mcp__Windows-MCP__PowerShell for the git add/commit/push and the status-page
+publish, per the standing practice runs 111-113 established (Q102 still formally open, but followed again))
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 113 deleted its own before exiting); wrote a fresh
+one. git fetch origin and git checkout/pull --ff-only agents/audit-backlog both completed clean, already up to date
+at 6b4a93e (run 113's own commit, item 4.4 twenty-second pass). ANSWER PICKUP (step 3): list_connected_browsers
+showed exactly one Chrome instance connected, so the fetch was not blocked (Q59's history). Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z), matching run 113's own finding from earlier today. 58 of 111 questions open before this
+run (now 58 of 112, Q112 added below), nothing new to apply from the portal. AUTONOMOUS WINDOW CHECK (step 4): read
+the top of this file; no "Standing authorisation - autonomous window" heading present, proceeded under the normal
+rule. WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines
+under 6.4/6.5, 6.6), unchanged from run 113. Fell to the quality-pass fallback. ROTATION: re-derived fresh from
+`git log --pretty="%aI|%s" -i --grep="item N.N[^0-9]"` per candidate, over the items minus the seven standing
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked items. 4.9 was oldest at
+2026-09-17T16:52:05+01:00, ahead of 5.2 (17:41), 3.8 (18:11), 4.7 (18:45) and 1.3 (19:09), all pre-dating run 113's
+own 4.4 pass at 15:43 today. Chosen: 4.9 (Clear Chemist Aintree GBP pack), twentieth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 4.9 block, this being the mirrored entry. In short: the
+nineteenth pass had, on its own account, proven every in-repo checker rule family against this pack by injection,
+so this pass read outside the repo instead - the actual live Google Business Profile (Google Maps listing), which
+none of item 4.9's fourteen prior LIVE HALF checks had done (all fourteen read the branch's own website instead).
+Found the profile already carries hours (Monday to Friday 8am to 4:30pm, Saturday and Sunday closed, read via
+get_page_text and confirmed in full via a read-only accessibility-tree read, no click) that match only the
+branch's website's shorter Non-NHS window and omit the longer NHS dispensing window (Monday to Thursday 8am to
+6pm) the same website states - a live-only locked-door-class gap no checker here can see, since branches.json still
+holds no openingHours for this branch. Added a dated note to gbp-packs/clear-aintree.md's "Notes for the paster:"
+section (placed outside the "- Hours:" bullet deliberately, so check-gbp-packs.js's hours-line regex and its
+no-hours presence check both still read correctly) and raised Q112 with three options, recommending confirm-and-
+correct. VERIFIED: check-gbp-packs.js, check-em-dashes.js and check-uk-spelling.js all clean after the edit (only
+the pre-existing Q28 phone WARN remains on this pack); full 36-checker suite (check-live-hours.js excluded,
+network-dependent) 36/36 exit 0. Pack sha256 a5b90f58...321f4 before, 3350d54c...52dd2a7d after - the only change
+in the repo this run (git status on gbp-packs/, tools/, modules/, core/ and branches.json showed only the two
+long-standing pre-existing untracked strays, neither touched).
+Files changed this run: gbp-packs/clear-aintree.md (one new note), QUESTIONS.json (Q112 appended),
+AGENT_WORKLIST.md (item 4.9 twentieth-pass paragraph appended, this line ticked as unnecessary since 4.9 was
+already [x]), AGENT_LOG.md (this entry). No generator, checker or branches.json change - the finding is live-only.
+Commit and push: see commit hash appended below once the Windows-MCP PowerShell route completes step 9. Status
+page publish: see step 10 note below once build-audit-status.js completes on the host.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 113; mcp__workspace__bash used throughout for
 the lock check, git fetch/checkout/pull/status, deriving the rotation from git log, the injection/restore script
 and the full 36-checker suite; mcp__claude-in-chrome for the QUESTIONS.json answer-pickup fetch and the live half;

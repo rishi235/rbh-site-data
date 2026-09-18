@@ -23233,6 +23233,79 @@ directly rather than re-deriving the same facts by hand.
       new. No new question raised. Evidence:
       audits/clear-aintree-pf-eligibility-rules10-11-4.9-nineteenth-2026-09-17.txt.
       Done 2026-09-17
+      Quality pass 2026-09-18 (twentieth, unattended scheduled run,
+      audit-backlog-worker): all eight unchecked worklist lines confirmed
+      still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5,
+      6.6), so this run fell to the quality-pass rotation. Re-derived fresh
+      from git log per item (case-insensitive "item N.N" match, minus the
+      seven standing one-offs and the eight blocked items): 4.9 was the
+      oldest, last touched 2026-09-17T16:52:05+01:00, ahead of 5.2, 3.8, 4.7
+      and 1.3. FRESH ANGLE: the nineteenth pass's own note - "of the ten
+      checkers that actually read gbp-packs/ at runtime, this was the only
+      rule family... left untested against this specific pack" - meant every
+      in-repo rule family had, by that point, been proven by injection
+      against this pack's own copy. A twentieth injection pass on the same
+      surface would have had nothing left to prove. So this pass read
+      outside the repo instead: the actual live Google Business Profile
+      itself (the Google Maps listing for Clear Chemist, Aintree), which no
+      prior pass on this item had done. Every one of the fourteen prior
+      LIVE HALF checks on 4.9 read the branch's own website
+      (clearchemist.co.uk); none had read the Business Profile Google
+      actually publishes, which is the surface a patient searching Google
+      sees first.
+      REAL FINDING, live-only, outside anything this repo's checkers can
+      see (same class as Q28 and Q29, both already standing on this item).
+      Read via Claude in Chrome, read-only (no click, no edit; the listing
+      loaded under Rishi's own Business Profile management, since his
+      connected Chrome is signed in as the profile owner - confirmed via
+      list_connected_browsers first, one instance, matching the standing
+      Q59 precondition): the profile already has hours set. The compact
+      summary read "Closes soon - 4:30 pm - Opens 8 am Mon"; the full week
+      table, read via an accessibility-tree read rather than any click,
+      confirmed Monday, Tuesday, Wednesday, Thursday and Friday all "8 am to
+      4:30 pm" and Saturday and Sunday "Closed". branches.json holds no
+      openingHours for this branch (confirmed unchanged, no "openingHours"
+      key present), matching the pack's own long-standing claim, so this is
+      not a case of the pack being wrong - the pack has always said not to
+      paste, invent or guess. The published hours match the branch's own
+      website's "Non-NHS Services" window (Monday to Friday 8am to 4:30pm,
+      already known since the original 2026-08-04 draft) but say nothing of
+      the longer "NHS Services" window the same website states (Monday to
+      Thursday 8am to 6pm, also already known). Net effect: a patient
+      checking Google between 4:30pm and 6pm on a Monday to Thursday is told
+      the pharmacy is closed when it may still be dispensing NHS
+      prescriptions - the locked-door risk this repo's opening-hours rules
+      exist to catch, arriving through a surface none of them can reach.
+      Since the pack has never authorised pasting these hours, they were set
+      on the profile outside this process entirely, or auto-populated by
+      Google from a third-party source (Patient Access publishes its own
+      hours for this branch and was seen independently in this pass's
+      earlier Google search results).
+      ACTION TAKEN: added a dated note to gbp-packs/clear-aintree.md's
+      "Notes for the paster:" section (not the "- Hours:" bullet itself, to
+      stay clear of check-gbp-packs.js's hours-line regex and its "not
+      recorded in branches.json" / "do not paste, invent or guess" presence
+      check, both of which still read correctly afterwards) recording the
+      finding and pointing at Q112. Raised Q112 in QUESTIONS.json with three
+      options (confirm both windows and correct the profile now; widen the
+      profile hours as an interim fix ahead of confirmation; leave it and
+      treat as informational), recommended option 1, consistent with the
+      pack's own standing caution against pasting an unconfirmed guess.
+      VERIFIED: check-gbp-packs.js re-run against the edited pack, only the
+      pre-existing Q28 phone WARN remains, no new WARN or FAIL; check-em-
+      dashes.js and check-uk-spelling.js both clean on the new text; full
+      36-checker suite (check-live-hours.js excluded, network-dependent)
+      36/36 exit 0 after the edit. Pack sha256 before a5b90f58...321f4
+      (unchanged since the fourth pass, matching all nineteen prior passes),
+      after 3350d54c...52dd2a7d (the only change in the repo this run,
+      confirmed via git status against gbp-packs/, tools/, modules/, core/
+      and branches.json - only the two long-standing pre-existing untracked
+      strays present, neither touched).
+      ANSWER PICKUP (this run's step 3): one Chrome instance connected;
+      fetched https://data.rbhealth.co.uk/api/feedback directly; newest
+      entry still Q52, 2026-09-01T22:44:51.524Z, matching every run since
+      2026-09-01 including run 113 earlier today. Nothing new to apply.
+      Done 2026-09-18
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

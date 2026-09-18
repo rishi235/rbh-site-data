@@ -163,3 +163,16 @@ Notes for the paster:
   unless special hours say otherwise. The dates are deliberately not retyped
   here so they cannot drift; read them from branches.json at paste time.
   Added on the item 4.5 quality pass, 2026-08-30.
+- Live hours already on the profile, unconfirmed (item 4.9 twentieth quality
+  pass, 2026-09-18): the profile is not blank. Read directly off the Google
+  Business Profile on 2026-09-18, the full week reads "8 am to 4:30 pm"
+  Monday to Friday and "Closed" Saturday and Sunday. That matches only the
+  branch's own website's Non-NHS Services window above; it drops the longer
+  NHS Services window the same website states (Monday to Thursday 8am to
+  6pm) entirely. A patient checking Google between 4:30pm and 6pm on those
+  four days is told the pharmacy is closed when it may still be dispensing
+  NHS prescriptions. branches.json still holds no openingHours for this
+  branch, so no checker here can see or correct this; it can only be fixed
+  by confirming both windows with the branch, recording them in
+  branches.json, and then correcting the profile. Raised as Q112. Do not
+  assume the current published hours are safe to leave as they are.
