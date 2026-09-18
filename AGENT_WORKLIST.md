@@ -17796,6 +17796,105 @@ Pharmacy First wording to the NHS service description.
       re-raised as new findings.
       No new question; QUESTIONS.json unchanged at 110 total, 57 open.
       Evidence: this AGENT_LOG.md entry, 2026-09-17.
+      Quality pass 2026-09-18 (twenty-second, unattended run): rotation-pool
+      selection by git commit timestamp per "Item N.N" heading (same method
+      as run 104's own item 5.1 pass earlier today), re-derived independently
+      rather than trusted from that run's forward note: 21 candidates
+      remained after excluding the seven standing out-of-rotation items (1.1,
+      1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the fifteen items already touched
+      today across runs 88-104 (1.2, 2.3, 3.1, 3.2, 3.7, 3.9, 3.11, 3.12,
+      3.13, 4.6, 4.11, 4.12, 5.1, 6.2, 6.3). 4.2 came out uniquely stalest at
+      2026-09-17T13:15:10+01:00, exactly matching run 104's own forward note.
+      Chosen: 4.2.
+      FRESH ANGLE: two of check-gbp-packs.js's three "hours are days, not
+      just times" rules had never been proved by injection against this
+      pack in twenty-one prior passes (confirmed by grep across this item's
+      own history for "pairing", "hoursDays" and "day rule": zero hits) -
+      despite the code comment at check-gbp-packs.js's own day-time PAIRING
+      rule explicitly naming Cherry Lane as one of only six branches exposed
+      to it ("Scorah Bramhall, McCanns Aigburth, Fishlocks Eccleston,
+      Hirshmans Ainsdale, Gordon Short Crosby and Cherry Lane"), because it
+      is one of the minority of branches whose Saturday hours differ from
+      its weekday hours. Baseline: pack sha256
+      831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching every one of the twenty-one prior passes exactly, no drift.
+      Full 35-checker suite (36 minus check-cdn-pins.js and
+      check-live-hours.js, both network/git-dependent per standing
+      convention; the estate now has 37 checkers total following run 104's
+      new check-weebly-furniture-freshness.js) exits 0 against the tracked
+      repo. Full repo copied via `git archive HEAD | tar -x` to a disposable
+      scratch directory; tracked repo never opened for writing during the
+      injection phase; scratch baseline 35/36 (the documented cdn-pins
+      .git-less exception, same convention as every prior pass).
+      cherrylane_liverpool's own openingHours: Monday-Friday 09:00-18:30,
+      Saturday 09:00-17:00, Sunday closed (closedDays: ["Sunday"]) - read
+      fresh from branches.json rather than assumed from the pack's own text.
+      Four injections against the scratch copy's own pack, each restored
+      from the saved original and sha256-reconfirmed identical before the
+      next: (1) DAY RULE, claimed-open-not-in-data leg, isolated from the
+      clock-time rule - changed "Saturday 9:00am to 5:00pm, Sunday closed"
+      to "Saturday to Sunday 9:00am to 5:00pm", reusing Saturday's own two
+      times so no new clock time enters the claim - CAUGHT, exactly and only
+      the expected message ("the hours line states the branch is open on
+      Sunday, but branches.json opens it only on ... Saturday"), with
+      neither the clock-time rule nor any other hours rule co-firing,
+      proving this leg fires on the day claim alone; (2) DAY RULE,
+      data-open-not-claimed leg - dropped "Saturday 9:00am to 5:00pm," from
+      the line entirely, leaving Monday-Friday and Sunday closed only. This
+      also removed the 17:00 time from the claim, so both the clock-time
+      rule and the day rule correctly co-fired (a legitimate double failure,
+      not tested in isolation, since dropping a day's clause necessarily
+      drops its times too); (3) DAY RULE, data-closed-not-stated leg,
+      isolated - dropped only "Sunday closed" from the end of the line,
+      leaving Saturday's clause and its 5:00pm time intact so the time-set
+      stays complete - CAUGHT, exactly and only the expected message
+      ("branches.json holds Sunday as a closed day, but the hours line does
+      not state Sunday as closed"); (4) PAIRING RULE - swapped the weekday
+      and Saturday CLOSING times only ("Monday to Friday 9:00am to 5:00pm,
+      Saturday 9:00am to 6:30pm"), keeping the same time-set {9:00, 17:00,
+      18:30} and the same open/closed days, so the clock-time and day rules
+      both pass while the per-day pairing is wrong - CAUGHT on all six open
+      days (Monday to Saturday), each naming the correct day, the wrongly-
+      published range and the correct branches.json range, with neither the
+      clock-time rule nor the day rule co-firing, proving this is a
+      genuinely distinct third check from the two proved in (1) and (3).
+      CONTROL: reworded the unrelated Blood testing services bullet ("fast
+      results" to "quick turnaround") - correctly PASSED clean (only the
+      pre-existing Q72 known-exception WARN), confirming no cross-firing
+      into the hours rules from an unrelated copy edit. All four cases
+      behaved exactly as designed on the first attempt; each restored and
+      sha256-reconfirmed identical to baseline before the next. No checker
+      logic edited, no pack content byte changed.
+      No in-repo defect found - all three hours-day rules already protect
+      this pack correctly, on all three legs plus the pairing check, now
+      proven directly for the first time rather than assumed from the
+      Gordon Short Crosby precedent that originally motivated the pairing
+      rule. Full 35-checker suite re-run clean on the scratch copy after the
+      final restore (matching the 35/36 baseline); tracked repo confirmed
+      sha256-unchanged and git-status-clean throughout (only the two
+      long-standing pre-existing untracked strays present, neither
+      touched); full 35-checker suite re-run individually against the
+      tracked repo afterwards, 35/35 exit 0.
+      LIVE HALF: read via Claude in Chrome (connected this run). Homepage
+      fetched and read in full: the footer's own stated hours, "Open
+      Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed", match branches.json
+      exactly on both days and both pairings - no live locked-door fault of
+      the kind this pass's fresh angle targets. The footer NHS mailbox still
+      reads "pharmacy.FA226@mhs.net" (Q36, answered 2026-09-01, not yet
+      corrected live) and the Weight Loss Clinic line still reads "Discover
+      innovative solutions that deliver results. Tried the rest? Now try
+      the best." (the estate-wide template phrase tracked under Q22/item
+      5.8). Both reconfirmed unchanged, not re-raised as new findings.
+      ANSWER PICKUP CROSS-CHECK: Q37 and Q43, this item's own two open
+      quality-pass findings, were checked against the portal feedback API
+      this run (step 3) - both already carry a 2026-09-01 reply recorded as
+      "not a decision" and a 2026-09-16 reconfirmation that nothing newer
+      exists; the feed's newest entry is still the same 2026-09-01T22:44:
+      51.524Z timestamp, so nothing new to add and neither note was
+      re-appended a third time to avoid clutter.
+      No new question raised; QUESTIONS.json unchanged at 111 total, 58
+      open (confirmed at both the start and end of this run).
+      Evidence: this AGENT_LOG.md entry, 2026-09-18.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
