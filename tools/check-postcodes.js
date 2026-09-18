@@ -429,11 +429,45 @@ function ownerOf(relPath) {
     if (stem === suffix && (!best || suffix.length > best.key.length)) best = { b: b, key: suffix };
   });
   if (best) return best.b;
+
+  // Prefix fallback: for a filename with no suffix match, matched at
+  // brandSlug length only. If two or more DISTINCT branches share a
+  // brandSlug (Scorah, McCanns, Fishlocks), a bare "<brandSlug>-..."
+  // filename cannot tell them apart, and picking one by branches.json
+  // array order is a false confident answer rather than an honest "cannot
+  // tell" - the exact shape rule 5's UNOWNED warning already exists to
+  // report for modules/branch/pages/INDEX.md and SEO.md. Found on the item
+  // 1.3 quality pass (twenty-third), 2026-09-18, closing the twenty-second
+  // pass's own forward note. Proved on a scratch copy: a synthetic
+  // modules/service/weebly-paste/mccanns-price-list.html, naming no branch
+  // in its prose, carrying McCanns Aigburth's own real postcode (L17 7BP)
+  // passed all 35 checkers in total silence - the old code resolved the
+  // owner to mccanns_aigburth purely because it appears before
+  // mccanns_sandringham in branches.json, not because the filename says
+  // so. The identical filename carrying McCanns Sandringham's own real
+  // postcode (L17 4JP) instead failed as FOREIGN, wrongly blaming
+  // mccanns_aigburth for content that may have been entirely correct
+  // Sandringham copy. Both are the same underlying defect: an ambiguous
+  // filename was given a definite owner instead of none. No real tracked
+  // file hits this path today (the two files that use the prefix fallback,
+  // both under Cherry Lane, have a brandSlug no other branch shares), so
+  // this closes a latent gap, not a live breach. Fix: collect every
+  // distinct branch matching at the longest brandSlug length; exactly one
+  // match keeps the old behaviour, two or more now return null so rule 5
+  // reports UNOWNED instead of guessing.
+  var prefixMatches = [];
+  var prefixLen = 0;
   branches.forEach(function (b) {
     if (!b.brandSlug) return;
-    if (stem.indexOf(b.brandSlug + "-") === 0 && (!best || b.brandSlug.length > best.key.length)) best = { b: b, key: b.brandSlug };
+    if (stem.indexOf(b.brandSlug + "-") !== 0) return;
+    if (b.brandSlug.length > prefixLen) {
+      prefixLen = b.brandSlug.length;
+      prefixMatches = [b];
+    } else if (b.brandSlug.length === prefixLen && prefixMatches.indexOf(b) === -1) {
+      prefixMatches.push(b);
+    }
   });
-  return best ? best.b : null;
+  return prefixMatches.length === 1 ? prefixMatches[0] : null;
 }
 
 // Rule 6's informal-shorthand alias. See the comment above the rule 6 block

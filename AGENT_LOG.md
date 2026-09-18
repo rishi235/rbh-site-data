@@ -1,3 +1,106 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 118;
+mcp__workspace__bash used throughout: the lock check, git fetch/checkout/
+pull/status, the scratch-copy proofs, the checker suite, and the file edit
+(tracked working copy edited directly after the bug was proved on a
+disposable scratch copy first); mcp__claude-in-chrome for the QUESTIONS.json
+answer-pickup fetch only, nothing live re-read since nothing live-facing
+changed this run)
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 117's own
+addendum entry confirms it cleared its lock before exiting, HEAD 573ebf1
+already matching origin/agents/audit-backlog). Wrote a fresh lock
+(2026-09-18T17:04:30Z). git fetch origin, git checkout agents/audit-backlog
+(no-op, already on it) and git pull --ff-only both completed clean,
+confirmed up to date at 573ebf1. Numerous stale index.lock files were found
+under .git/_trash/session-*/ (leftover session artefacts, not the live
+.git/index.lock) and left untouched as out of scope; the live
+.git/index.lock itself was absent at the run's git-status checks used here.
+ANSWER PICKUP (step 3): one Chrome instance connected. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed.
+Newest entry still the Q52 answer (2026-09-01T22:44:51.524Z), matching
+every run since 2026-09-01 - nothing new to apply. 60 of 113 questions open
+before this run.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of this file as it stood at
+run start (run 117's own addendum entry); no "Standing authorisation -
+autonomous window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6),
+unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python
+with the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`,
+excluding the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) and the eight blocked items. Over the 36-item pool, 1.3 (McCanns
+Sandringham postcode error) came out stalest at 2026-09-17T19:09:28+01:00,
+ahead of 4.1 (19:41), 4.5 (20:12) and every later-touched candidate,
+including 4.7 which run 117 had already taken and completed earlier today.
+Chosen: 1.3, twenty-third pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 1.3 block and in the
+new evidence file; this is the mirrored summary. The twenty-second pass's
+own forward note named two untested angles: a NARRATIVE_POSTCODES key used
+as a raw dictionary lookup without being run through norm() first (zero
+live risk, deferred again this pass), and ownerOf()'s prefix-fallback
+collision risk, originally flagged on the seventeenth pass and never
+isolated. Took the second, concrete one.
+BASELINE: branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd
+0c3637eb2ac91f2ad1b102 (standing anchor, unchanged throughout). Full
+35-checker suite (check-cdn-pins.js and check-live-hours.js excluded, both
+network-dependent) clean on the tracked repo before any edit. check-
+postcodes.js standalone: 1103 files scanned, 0 failures, 3 warnings (the
+standing UNOWNED trio for gbp-packs/TEMPLATE.md and the two six-branch
+sheets).
+THE GAP: ownerOf() resolves an OWNED_DIRS file's single owning branch from
+its filename, trying a longest "<brandSlug>-<townSlug>" suffix match first
+and falling back to a bare brandSlug prefix for filenames that do not end
+that way (added to cover the two Cherry Lane paste-block replacement
+files). The old prefix fallback picked the FIRST branch in branches.json
+whose brandSlug prefixed the filename stem and never re-checked for a
+second, equally-good match. Three brand groups share a brandSlug across
+two branches each (Scorah, McCanns, Fishlocks), so a bare "<brandSlug>-..."
+filename that does not end in either sister's own full suffix is genuinely
+ambiguous, yet the old code always resolved it to whichever sister appears
+first in branches.json - silently, no warning. No real tracked file hits
+this path today: the only two files that ever use the prefix fallback
+belong to Cherry Lane, whose brandSlug is unshared, so this is a latent
+gap, not a live breach.
+PROOF: on a scratch copy outside the tracked tree (git archive HEAD,
+branches.json sha256-confirmed identical, baseline 1103 files/0 failures/3
+warnings matching tracked exactly). TEST A: a synthetic
+modules/service/weebly-paste/mccanns-price-list.html, naming no branch in
+its prose, carrying McCanns Chemist Aigburth's own real postcode (L17
+7BP), passed all 35 checkers in total silence - attributed to
+mccanns_aigburth purely by branches.json array order. TEST B: the same
+filename and content shape carrying McCanns Chemist Sandringham's own real
+postcode (L17 4JP) instead failed as FOREIGN, wrongly blaming
+mccanns_aigburth for content that could have been entirely correct
+Sandringham copy - the same defect proved from the opposite direction.
+Both files removed after their test; the scratch copy matched the
+pre-injection baseline exactly both times.
+FIX: tools/check-postcodes.js, ownerOf() - the prefix-fallback loop now
+collects every distinct branch matching at the longest brandSlug-prefix
+length; exactly one match keeps the old behaviour, two or more now return
+null so rule 5 reports UNOWNED instead of guessing, the same signal
+modules/branch/pages/INDEX.md and SEO.md already get for being genuinely
+multi-branch. RE-VERIFIED on a fresh scratch copy carrying the fixed
+checker: both tests now WARN "UNOWNED ... carries <postcode> but no branch
+could be matched to the filename" instead of passing silently or failing
+wrongly; both removed afterwards, scratch re-run matched baseline exactly
+both times (1103 files, 0 failures, 3 warnings).
+APPLIED to the tracked checker: full 35-checker suite re-run clean
+afterwards (0 failures across all 35, same 3 standing UNOWNED warnings, no
+new ones for the two real Cherry Lane files, unaffected since their
+brandSlug is unshared). `git status --porcelain` confirmed only
+tools/check-postcodes.js changed under modules/, core/, branches.json,
+gbp-packs/, tools/ and compliance/ - no generator, page, pack, paste block
+or branches.json field touched, so no rebuild was needed. Both scratch
+directories deleted after use.
+QUESTIONS.json: unchanged, no new question raised. No worklist item ticked
+or unticked - item 1.3 was already [x] and remains so; only its own
+in-place paragraph grew.
+Files changed this run: AGENT_WORKLIST.md (item 1.3 twenty-third-pass
+paragraph appended), AGENT_LOG.md (this entry), tools/check-postcodes.js
+(ownerOf() prefix-fallback fix), audits/mccanns-sandringham-postcode-
+check-2026-09-18-twentythird.txt (new evidence file). No generator, page,
+pack, paste block or branches.json content changed; no rebuild needed.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 117;
 mcp__workspace__bash used for the lock check, git fetch/checkout/pull/status,
 the checker suite, and file edits (tracked working copy edited directly -

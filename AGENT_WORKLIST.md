@@ -29383,6 +29383,64 @@ appended to the line. Do not move them; the status page reads them in place.
       prefix-fallback collision risk (seventeenth-pass forward note) remains
       untested. Done 2026-09-17. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-17-twentysecond.txt.
+      Quality pass 2026-09-18 (twenty-third pass, unattended scheduled run,
+      audit-backlog-worker): a real, previously-latent gap found and fixed
+      in check-postcodes.js's ownerOf() helper; no in-repo data defect, no
+      live branch affected. Took the twenty-second pass's own forward note
+      directly: ownerOf()'s prefix fallback (added originally to cover the
+      two Cherry Lane paste-block files, whose names do not end in
+      "<brand>-<town>") picks the FIRST branch in branches.json whose
+      brandSlug prefixes the filename stem, with no re-check for a second,
+      equally-good match. Three brand groups share a brandSlug across two
+      branches each (Scorah, McCanns, Fishlocks), so a filename starting
+      "<brandSlug>-..." that does not end in either sister's own full
+      suffix is genuinely ambiguous, yet the old code always resolved it to
+      whichever sister appears first in branches.json (mccanns_aigburth
+      before mccanns_sandringham, and so on), silently, with no warning -
+      the same "correct by coincidence of array order, not by rule" shape
+      CLAUDE.md already records for the meta-keywords, hasApp and
+      map-embed findings. Proved on a scratch copy outside the tracked tree
+      (branches.json sha256 169bb5a2...1102, matching the tracked repo;
+      baseline 1103 files, 0 failures, 3 warnings, identical to tracked): a
+      synthetic modules/service/weebly-paste/mccanns-price-list.html,
+      naming no branch in its prose, carrying McCanns Chemist Aigburth's
+      own real postcode (L17 7BP) passed all 35 checkers in total silence
+      - the old code attributed it to mccanns_aigburth purely because that
+      branch appears first in branches.json. The identical filename
+      carrying McCanns Chemist Sandringham's own real postcode (L17 4JP)
+      instead failed as FOREIGN, wrongly blaming mccanns_aigburth for
+      content that may have been entirely correct Sandringham copy - the
+      same underlying defect proved from both directions. No real tracked
+      file hits this path today: the only two files that ever use the
+      prefix fallback are Cherry Lane's, and Cherry Lane's brandSlug is not
+      shared with any other branch, so this closes a latent gap, not a live
+      breach. Fix: the prefix-fallback loop now collects every distinct
+      branch matching at the longest brandSlug-prefix length; exactly one
+      match keeps the old behaviour, two or more now return null so rule 5
+      reports UNOWNED instead of guessing, the same "honest cannot-tell"
+      signal modules/branch/pages/INDEX.md and SEO.md already get for
+      being genuinely multi-branch. Re-verified on a fresh scratch copy
+      carrying the fixed checker: both tests above now WARN "UNOWNED ...
+      carries <postcode> but no branch could be matched to the filename"
+      instead of passing silently or failing wrongly; both files removed
+      afterwards and the scratch copy re-run matched the pre-injection
+      baseline exactly (1103 files, 0 failures, 3 warnings) both times.
+      Applied to the tracked checker: full 35-checker suite re-run clean
+      afterwards (0 failures across all 35, same 3 standing UNOWNED
+      warnings, no new ones for the two real Cherry Lane files, which are
+      unaffected since their brandSlug is unshared); git status --porcelain
+      confirms only tools/check-postcodes.js changed under modules/, core/,
+      branches.json, gbp-packs/, tools/ and compliance/, so no generator
+      rebuild was needed. Both scratch directories deleted after use. Live
+      half not independently re-read this pass (no data, generator or page
+      content changed, only the checker); the seventeenth pass's live
+      reconfirmation, 2026-09-11, remains current. No new question. Forward
+      note: the twenty-second pass's other named angle - a
+      NARRATIVE_POSTCODES key used as a raw dictionary lookup into
+      byPostcode() without being run through norm() first - remains
+      untested; zero live risk today since every existing key is already
+      well-formed. Done 2026-09-18. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-09-18-twentythird.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
