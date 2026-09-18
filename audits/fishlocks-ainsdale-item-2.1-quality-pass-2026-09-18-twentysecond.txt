@@ -1,0 +1,143 @@
+Item 2.1 (Fishlocks Chemist Ainsdale) - twenty-second quality pass
+Unattended scheduled run, audit-backlog-worker, 2026-09-18
+
+ROTATION
+Full 43-item completed list minus the six standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7) minus the 19 rotation-pool items already
+picked earlier today (1.2, 2.3, 3.1, 3.2, 3.7, 3.9, 3.11, 3.12, 3.13, 4.2,
+4.6, 4.11, 4.12, 4.14, 4.15, 5.1, 6.2, 6.3, 6.8). 2.1 came out stalest,
+last touched 2026-09-17T14:11:58+01:00 (git log -1 -L on its own worklist
+block), ahead of every other remaining candidate (3.3, 3.4, 3.5, 3.6, 3.8,
+3.10, 4.1, 4.3, 4.4, 4.5, 4.7, 4.8, 4.9, 4.10, 4.13, 1.3, 5.2, all later
+same day).
+
+ANSWER PICKUP (step 3)
+Chrome connected first attempt (list_connected_browsers: one instance).
+Navigated to https://data.rbhealth.co.uk/api/feedback, read the feed
+directly (no Cloudflare Access login page). Newest entry still
+2026-09-01T22:44:51.524Z (Q52). Cross-checked QUESTIONS.json: Q34-Q52
+(except Q37 and Q43) already marked answered from this same feed by
+earlier runs; Q37 and Q43 remain open because Rishi's own replies to them
+("I need further explanation..." and "Unsure...") are not decisions, a
+state already recorded on a prior pass. Nothing new to pick up.
+
+AUTONOMOUS WINDOW CHECK (step 4)
+No "Standing authorisation - autonomous window" section at the top of
+AGENT_LOG.md. Proceeded under the normal rule (no autonomous decisions).
+
+WORKLIST SCAN (step 5)
+All 8 unchecked lines in AGENT_WORKLIST.md reconfirmed [BLOCKED] by direct
+grep. Fell to the quality-pass fallback as above.
+
+FRESH ANGLE
+The twenty-first pass (2026-09-17) proved check-switch-copy.js rules 3, 4,
+5, 8 and 9 against this branch's own switch page and left rules 1, 2, 6, 7
+and 10 as an explicit forward pointer ("a candidate for a future pass").
+This pass takes that pointer.
+
+BASELINE
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac
+91f2ad1b102 (standing anchor, unchanged). Target page
+modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html sha256
+47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be (standing
+anchor, unchanged). Full 35-checker suite (37 minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent) clean on the tracked repo
+before any mutation. Disposable scratch copy made via tar (--exclude=.git)
+under the sandbox home mount; scratch copies of both anchor files
+confirmed byte-identical before any mutation; check-switch-copy.js clean
+on the scratch copy baseline (15 pages, 33 lines, 15 banners, 11 rules, 3
+accepted breaches - matches the tracked repo's own summary line).
+
+INJECTIONS AGAINST THE SCRATCH COPY, each restored by byte copy and
+sha256-reconfirmed before the next:
+
+1. RULE 1 (source) + RULE 2 (pages), combined: deleted this branch's own
+   "fishlocks_ainsdale: {}," line from EXTRAS in
+   tools/build-switch-pages.js. CAUGHT two ways at once: [source] "CONFIG
+   holds 14 branch(es)" (rule 1), and [pages] "a switch page with no
+   branch behind it in the generator's CONFIG" naming this branch's own
+   page file by path (rule 2). Restored; build-switch-pages.js sha256
+   confirmed byte-identical to its pre-injection value.
+
+2. RULE 6 (time claim), same-page clash: changed the visible H1's "30
+   seconds" to "25 seconds" on this page only, leaving the form-sub line
+   at 30. CAUGHT two ways at once: [time-claim] this page states "25 and
+   30 seconds in different places" (per-page rule), and [time-claim] "the
+   estate states more than one seconds figure: 25 on 1 page(s), 30 on 15
+   page(s)" (estate-wide rule). A first attempt at this same injection
+   targeted the build-comment's own "Weebly page SEO description" line
+   (which also contains a seconds figure) and produced no failure at all -
+   confirming, not a defect, that check-switch-copy.js's textOf() strips
+   the paste-instruction comment before RULE 6 reads the page, the same
+   as every other checker in this repo that reads visible copy only.
+   Restored; page sha256 reconfirmed.
+
+3. RULE 7 (no medicines / no clinical claim), both halves tested
+   separately against this page: (a) appended ", and ask about Mounjaro
+   for weight loss" to a hero bullet - CAUGHT, "[no-medicines] ... names
+   mounjaro"; (b) appended ", with clinically proven results" to a
+   different hero bullet - CAUGHT, "[no-medicines] ... makes an outcome
+   claim". Each restored and sha256-reconfirmed before the next.
+
+4. RULE 10 (collection notice), three sub-cases against this page's own
+   <p class="privacy"> line: (a) replaced the notice text with an
+   unrelated thank-you sentence - CAUGHT twice at once, [verbatim]
+   (generator's own static line no longer found - rule 3) and
+   [collection-notice] "vague" (rule 10), the same "one fact, several
+   rules" pattern already on record for this item under
+   check-branch-identity.js and check-map-embeds.js; (b) moved the
+   unchanged, correctly-worded notice to just after </form> instead of
+   inside it - CAUGHT once, cleanly, [collection-notice] "misplaced",
+   confirming rule 10's placement check fires independently of its wording
+   check. Each restored and sha256-reconfirmed before the next.
+
+CONTROLS
+(a) changed one digit of the visible phone number on this page - this
+    checker's RULE 3 (verbatim) caught it too, because the phone number
+    sits inside a static line of body copy ("Call us on 01704 575478,
+    request a callback...") that this checker already reads verbatim; not
+    a clean control, but not a defect either - a correct finding that this
+    checker's coverage of body copy is wider than the 5 rules under test
+    today. check-nap.js also caught it independently (11 mismatches),
+    confirming no gap on the NAP side either.
+(b) changed one digit of the street number in the map iframe's query
+    string only (not in any body-copy text) - check-switch-copy.js stayed
+    clean (correct: it does not read the map), while check-map-embeds.js
+    correctly caught the address mismatch. Genuine no-cross-fire control.
+
+Both restores sha256-confirmed byte-identical to the pre-injection value.
+Full 35-checker suite re-run on the scratch copy after the final restore:
+35/35 exit 0. Tracked repo reconfirmed untouched throughout: branches.json
+and target-page sha256 unchanged; direct 35-checker run against the
+tracked repo clean both before and after; git status showed only the two
+long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, dated 2026-09-08, and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, an
+empty file dated 2026-09-09), neither touched, neither ever committed.
+Scratch directory deleted after use.
+
+RESULT
+Zero in-repo defect. check-switch-copy.js rules 1, 2, 6, 7 and 10 now
+proven by direct injection against Fishlocks Ainsdale specifically. Taken
+together with the twenty-first pass (rules 3, 4, 5, 8, 9) and the ninth
+and tenth passes under item 3.3 (rule 11), all 11 rules in
+check-switch-copy.js are now proven by injection against this specific
+branch's own page. No new question raised.
+
+LIVE HALF (Claude in Chrome, read-only, nothing clicked, typed or
+submitted)
+sitemap.xml: still 40 URLs, lastmod fixed at 2026-08-14T17:32:10+00:00 on
+every entry, now 35 days without a republish (Q35, unchanged).
+switch-prescriptions-fishlocks-ainsdale.html read live in full: still
+carries the pre-Q49 unconditional wording - "We contact your GP. We
+handle everything. You do nothing.", "We handle the full switch for you",
+"No interruption to your medication" with no hedge - one day further past
+the twenty-first pass's own reconfirmation of the same paste lag (fix
+landed in the repo 2026-09-15, not yet repasted). The visible "30 seconds"
+figure and the collection-notice wording both match the repo's tracked
+copy exactly, so nothing this pass changed in-repo is contradicted live.
+No new question raised; both findings are reconfirmations of already-
+tracked standing state (Q35, Q49), not new discoveries.
+
+QUESTIONS.json unchanged: 111 total, 58 open (Q37 and Q43 remain open as
+non-decisions, both already on record).

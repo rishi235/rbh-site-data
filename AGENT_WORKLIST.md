@@ -1527,6 +1527,77 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       discovered. QUESTIONS.json unchanged: 110 total, 57 open.
       Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-17-twenty-first.txt.
       Done 2026-09-17.
+      Quality pass 2026-09-18 (twenty-second pass, unattended scheduled
+      run, audit-backlog-worker): rotation pool re-derived fresh (standing
+      set 1.1, 1.4, 2.2, 5.6, 5.7, 6.7 excluded, plus the 19 rotation items
+      already picked earlier today); 2.1 came out stalest at
+      2026-09-17T14:11:58+01:00, ahead of every later-touched candidate.
+      All 8 unchecked worklist lines reconfirmed [BLOCKED] by direct grep.
+      Answer pickup (step 3): Chrome connected first attempt, feedback
+      endpoint read clean, newest entry still Q52 (2026-09-01); Q37 and
+      Q43 remain open as non-decisions, already on record. No status
+      change. No "Standing authorisation - autonomous window" section at
+      the top of AGENT_LOG.md, step 4 not applicable.
+      FRESH ANGLE: the twenty-first pass's own forward note - rules 1, 2,
+      6, 7 and 10 of check-switch-copy.js remain untested against this
+      branch specifically - taken directly.
+      Baseline: branches.json sha256
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (standing anchor, unchanged), target page sha256
+      47dc96e942fdffaf9fb9642f0f6b36ced3c158c07c69e5dd8a08c44f008d77be
+      (standing anchor, unchanged), full 35-checker suite clean on the
+      tracked repo and on a disposable tar scratch copy (--exclude=.git,
+      under the sandbox home mount) before any mutation.
+      FIVE INJECTIONS PLUS TWO CONTROLS against the scratch copy, each
+      restored by byte copy and sha256-reconfirmed before the next: (1)
+      this branch's own EXTRAS entry deleted from tools/build-switch-
+      pages.js - CAUGHT twice at once, rule 1 ("CONFIG holds 14
+      branch(es)") and rule 2 (this page named as orphaned from CONFIG);
+      (2) the H1's "30 seconds" changed to "25" while the form-sub stayed
+      at 30 - CAUGHT twice at once, rule 6 per-page and rule 6 estate-wide
+      (a first attempt targeting the build-comment's own seconds figure
+      instead produced no failure, confirming the comment is correctly
+      stripped before this rule reads the page - not a defect); (3) a
+      medicine name appended to a hero bullet - CAUGHT by rule 7; (4) a
+      clinical-outcome phrase appended to a different hero bullet - CAUGHT
+      by rule 7; (5) the collection notice reworded to something vague -
+      CAUGHT twice at once, rule 3 (verbatim) and rule 10 (vague), the
+      same "one fact, several rules" pattern already on record for this
+      item; (6) the same unchanged notice moved to just after </form> -
+      CAUGHT cleanly by rule 10 alone (misplaced). CONTROL (a): a phone
+      digit changed - this checker's own rule 3 caught it too (the number
+      sits inside verbatim body copy), not a clean control but not a
+      defect; check-nap.js also caught it independently. CONTROL (b): a
+      map-iframe street number changed - check-switch-copy.js stayed
+      clean (correct, it does not read the map) while check-map-embeds.js
+      caught it, a genuine no-cross-fire control. All restores
+      sha256-confirmed byte-identical; full 35-checker suite re-run on the
+      scratch copy after the final restore: 35/35 exit 0. Tracked repo
+      reconfirmed untouched throughout (both anchor hashes unchanged,
+      direct 35-checker run clean before and after, git status showing
+      only the two long-standing pre-existing untracked strays, neither
+      touched). Scratch directory deleted after use.
+      RESULT: zero in-repo defect. Rules 1, 2, 6, 7 and 10 of
+      check-switch-copy.js now proven by direct injection against
+      Fishlocks Ainsdale specifically; combined with the twenty-first
+      pass (rules 3, 4, 5, 8, 9) and item 3.3's ninth/tenth passes (rule
+      11), all 11 rules in check-switch-copy.js are now proven against
+      this specific branch's own page.
+      LIVE HALF (Claude in Chrome, read-only, nothing clicked, typed or
+      submitted): sitemap.xml still 40 URLs, lastmod fixed at
+      2026-08-14T17:32:10+00:00, now 35 days without a republish (Q35,
+      unchanged). switch-prescriptions-fishlocks-ainsdale.html read live
+      in full: still carries the pre-Q49 unconditional wording ("We
+      contact your GP. We handle everything. You do nothing.", "We handle
+      the full switch for you", "No interruption to your medication" with
+      no hedge), one day further past the twenty-first pass's own
+      reconfirmation of the same paste lag; the visible seconds figure and
+      collection-notice wording both match the repo's tracked copy
+      exactly. No new question raised; both live findings are
+      reconfirmations of already-tracked standing state (Q35, Q49).
+      QUESTIONS.json unchanged: 111 total, 58 open.
+      Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-18-twentysecond.txt.
+      Done 2026-09-18.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
