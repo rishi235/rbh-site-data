@@ -33762,6 +33762,79 @@ live DOM, not saved to a separate audit file (same convention as the
       since 2026-09-01); no other currently open question has a newer answer.
       Evidence: audits/verify-6.2-2026-09-17-seventeenth.js and
       audits/verify-6.2-2026-09-17-seventeenth-output.txt.
+      Eighteenth quality pass, 2026-09-18 (unattended scheduled run, run
+      91). NO NEW DEFECT FOUND. Rotation pool re-derived fresh via `git
+      log -1 -L<range>:AGENT_WORKLIST.md` per candidate over each item's
+      own current paragraph range: 6.2 came out stalest by a wide margin,
+      last touched 2026-09-15T18:11:47+01:00 (the seventeenth pass itself)
+      against every other pool candidate clustering on 2026-09-17 or
+      2026-09-18, so 6.2 had gone three days unpicked despite the
+      established rotation.
+      FRESH ANGLE: RULE 1's three failure shapes (stale target, cross-host
+      target, disposed-branch target) all resolve host and path through
+      .toLowerCase() before comparing against estateHosts, the generated
+      map and disposedHosts, all three lowercase-keyed. Grepped this
+      item's own seventeen-pass history for "case", "case-insensitiv",
+      "toLowerCase", "mixed case" and "capitali" before starting - zero
+      hits. No prior pass had tested a mixed- or upper-case href against
+      any of the three rules, despite a hand-typed or copy-pasted Weebly
+      link being a realistic source of exactly that shape.
+      METHOD: full repo git-archived to a disposable scratch copy, tracked
+      repo never opened for writing; branches.json (sha256
+      169bb5a2...b102) and check-service-links.js (sha256
+      07dacdde...641ab9) both confirmed byte-identical before any
+      mutation; baseline clean (177 pages, 1000 links, 423 estate, 6
+      known). Four cases against the scratch copy, each restored by byte
+      copy and sha256-reconfirmed before the next: (1) a mixed-case
+      absolute link to a non-existent page on Cherry Lane's own host
+      (HTTPS://WWW.CherryLanePharmacy.co.uk/NotARealPage-XYZ.HTML) -
+      CAUGHT, [stale target], key correctly lowered. (2) a mixed-case
+      absolute link on Cherry Lane's page using Cherry Lane's own host but
+      naming a filename this repo generates only for Riddings
+      (HTTPS://WWW.CherryLanePharmacy.co.uk/Earache-Treatment-Riddings-
+      Timperley.HTML) - CAUGHT, [cross-host target], correctly naming
+      www.riddingspharmacy.co.uk as the real owner despite every character
+      of the injected href being differently cased. An earlier, discarded
+      version of this case linked to Riddings' OWN host naming its own
+      real file - correctly PASSED clean, since a URL whose host and
+      target owner agree is not a cross-host defect; kept as a confirming
+      case-insensitive pass, not reported as a finding. (3) gordonshorts_
+      crosby marked disposed in a scratch branches.json, its 13 generated
+      pages moved aside, then a mixed-case absolute link to its host
+      (Https://WWW.GordonShortChemist.co.uk/Pharmacy-First-Gordon-Short-
+      Crosby.HTML) added on a Riddings page - CAUGHT, [disposed-branch
+      target]. Restore verified two ways: branches.json sha256 and a
+      `diff` of Gordon Short Crosby's filename list between the restored
+      scratch copy and the tracked repo (13 files each side, empty diff).
+      (4) CONTROL - a mixed-case absolute link to the same Cherry Lane
+      page's own real, correct URL - PASSED clean, confirming the
+      case-insensitive match does not false-fail a genuinely correct
+      differently-cased link either. All four cases fired or passed on
+      their intended rule, first attempt. Final restored baseline
+      identical to the pre-injection baseline in every count (177 pages,
+      1000 links, 423 estate, 6 known). Full 34-checker suite re-run
+      individually against the TRACKED repo after all scratch-copy work:
+      34/34 exit 0. git status --porcelain -- branches.json tools modules
+      core gbp-packs showed only the two long-standing pre-existing
+      untracked strays (gbp-packs/.fuse_hidden0000000400000001,
+      modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak),
+      neither touched. No checker, generator, page or branches.json
+      content changed.
+      RESULT: zero in-repo defect. RULE 1's case-insensitive matching is
+      now proven correct on all three failure shapes and on a positive
+      control, closing the last untested dimension (case) of the host/path
+      matching this rule depends on.
+      LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked,
+      typed or submitted): all three standing findings re-read and
+      unchanged - www.riddingspharmacy.co.uk/clinic-prices still 404,
+      www.tiffenbergschemist.co.uk/book-now.html still 404,
+      www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+      still 404. Q53 and Q54 stay open, nothing new to add to either.
+      STEP 3 answer pickup: portal feed read in full this run - newest
+      entry still Q52, 2026-09-01T22:44:51.524Z, identical to every run
+      since 2026-09-01. No new answer for any currently open question.
+      Evidence: audits/verify-6.2-2026-09-18-eighteenth.js and
+      audits/verify-6.2-2026-09-18-eighteenth-output.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

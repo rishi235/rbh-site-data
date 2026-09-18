@@ -1,0 +1,98 @@
+Item 6.2 eighteenth quality pass, run 91, 2026-09-18
+=====================================================
+
+BASELINE (scratch copy, git archive HEAD)
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
+  ... (6 KNOWN issues, unchanged from tracked repo)
+check-service-links: clean, 6 known issue(s) awaiting a decision.
+
+branches.json sha256:            169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+check-service-links.js sha256:   07dacddecf0be8f0ec7e836d797b24394d7da855461d6bf380fca7cb9e641ab9
+Both confirmed identical to the tracked repo before any mutation.
+
+CASE 1 - STALE TARGET, mixed case
+Injected on earache-treatment-cherry-lane-walton.html:
+  <a href="HTTPS://WWW.CherryLanePharmacy.co.uk/NotARealPage-XYZ.HTML">bad link</a>
+Result:
+  FAILURES (1):
+    FAIL  [stale target] modules/service/pages/earache-treatment-cherry-lane-walton.html: links to
+    www.cherrylanepharmacy.co.uk/notarealpage-xyz.html, which this repo does not generate
+CAUGHT first attempt. Restored; sha256 back to c83afff16a5becd3330d381862b9d2b5ab474efdbe293622fb90e6e4c7cdcd05.
+
+CASE 2 (discarded first attempt, kept as a confirming PASS, not a finding)
+Injected on the same file:
+  <a href="HtTpS://WWW.RIDDINGSPHARMACY.co.uk/Earache-Treatment-Riddings-Timperley.HTML">wrong host link</a>
+Result: clean, no failure - correct, because the URL's own host
+(riddingspharmacy.co.uk) genuinely owns that filename. Not a cross-host
+mismatch; a legitimately correct mixed-case absolute cross-branch link.
+Confirms case-insensitive matching does not false-fail a valid link of
+this shape either. Restored; sha256 unchanged.
+
+CASE 2 (corrected) - CROSS-HOST TARGET, mixed case
+Injected on the same file:
+  <a href="HTTPS://WWW.CherryLanePharmacy.co.uk/Earache-Treatment-Riddings-Timperley.HTML">wrong-owner link</a>
+Result:
+  FAILURES (1):
+    FAIL  [cross-host target] modules/service/pages/earache-treatment-cherry-lane-walton.html: links to
+    www.cherrylanepharmacy.co.uk/earache-treatment-riddings-timperley.html, but that page is generated
+    for www.riddingspharmacy.co.uk, so it 404s on www.cherrylanepharmacy.co.uk
+CAUGHT first attempt. Restored; sha256 back to c83afff16a5becd3330d381862b9d2b5ab474efdbe293622fb90e6e4c7cdcd05.
+
+CASE 3 - DISPOSED-BRANCH TARGET, mixed case
+gordonshorts_crosby marked disposed in scratch branches.json; its 13
+generated pages (11 service + switch + branch) moved aside.
+Injected on earache-treatment-riddings-timperley.html:
+  <a href="Https://WWW.GordonShortChemist.co.uk/Pharmacy-First-Gordon-Short-Crosby.HTML">disposed host link</a>
+Result:
+  177 generated page(s) dropped to 165 (13 Gordon Short pages removed, minus
+  one already reflected in per-run counting), 938 link(s), 397 estate, 12 domains
+  FAILURES (1):
+    FAIL  [disposed-branch target] modules/service/pages/earache-treatment-riddings-timperley.html: links
+    to www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html, a branch domain no longer in
+    the group (marked disposed in branches.json)
+CAUGHT first attempt. Restored: branches.json sha256 back to
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102; Gordon
+Short Crosby's 13 pages moved back; `diff` of the branch's filename list
+between the restored scratch copy and the tracked repo empty (13 files
+both sides).
+Post-restore re-run: 177 generated page(s), 1000 link(s), 423 estate, 13
+domains - exact match to the original baseline.
+
+CASE 4 - CONTROL, mixed case, must PASS
+Injected on earache-treatment-cherry-lane-walton.html:
+  <a href="HTTPS://WWW.CherryLanePharmacy.co.uk/Earache-Treatment-Cherry-Lane-Walton.HTML">correct mixed-case self link</a>
+Result: check-service-links: clean, 6 known issue(s) awaiting a decision.
+(no FAILURES section) - PASSED, confirming no false positive on a
+genuinely correct mixed-case link. Restored; sha256 back to
+c83afff16a5becd3330d381862b9d2b5ab474efdbe293622fb90e6e4c7cdcd05.
+
+FINAL RESTORED BASELINE (scratch copy)
+check-service-links
+  177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
+check-service-links: clean, 6 known issue(s) awaiting a decision.
+Identical to the pre-injection baseline in every count.
+
+TRACKED REPO VERIFICATION
+git status --porcelain -- branches.json tools modules core gbp-packs
+  ?? gbp-packs/.fuse_hidden0000000400000001            (pre-existing, untouched)
+  ?? modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak  (pre-existing, untouched)
+(no tracked path modified)
+
+Full 34-checker suite (34 check-*.js scripts, excluding check-cdn-pins.js
+and check-live-hours.js, both network-dependent) re-run individually
+against the tracked repo: 34/34 exit 0, no FAIL lines.
+
+LIVE HALF (Claude in Chrome, one tab, read-only)
+  www.riddingspharmacy.co.uk/clinic-prices                                    -> 404, unchanged
+  www.tiffenbergschemist.co.uk/book-now.html                                  -> 404, unchanged
+  www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html     -> 404, unchanged
+Q53 and Q54 stay open, nothing new to add to either.
+
+STEP 3 ANSWER PICKUP
+https://data.rbhealth.co.uk/api/feedback read in full. Newest entry still
+Q52, 2026-09-01T22:44:51.524Z. No new answer for any currently open
+question, no status change made.
+
+RESULT: zero in-repo defect. No new question raised. QUESTIONS.json
+unchanged at 110 total, 57 open.
