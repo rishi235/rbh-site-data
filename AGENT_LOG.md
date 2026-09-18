@@ -1,3 +1,97 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 129;
+mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
+pull/status, the git-archive scratch copy (written to a file first, then
+untarred, after the usual piped form produced files this session's own user
+could not write into - see ASIDE below) and the injection/restore cycle
+against tools/check-seo-pattern.js; mcp__claude-in-chrome__tabs_context_mcp/
+navigate/javascript_tool/tabs_close_mcp used for the step 3 portal answer
+pickup only, one tab, read-only, nothing clicked, typed or submitted;
+mcp__Windows-MCP__PowerShell used to clear a stuck .git/index.lock the
+sandbox's own unlink() could not remove (the standing Q87/Q96/Q102
+sandbox-FUSE fault) and to run git add/commit/push and the status-page
+publish, the established workaround; Write used for the new audits file;
+Edit used for AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 128's own
+entry confirms it cleared its lock before exiting). Wrote a fresh UTC
+timestamp lock (2026-09-18T22:34:34Z). git fetch origin, git checkout agents/
+audit-backlog (already on it) and git pull --ff-only both completed clean,
+confirmed up to date with origin (HEAD at run 128's commit for item 2.3,
+dbf7e8f).
+ANSWER PICKUP (step 3): Claude in Chrome connected cleanly, single tab, no
+dual-instance conflict this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed (44
+answer entries) via javascript_tool, sorted by timestamp to confirm the
+newest. Newest entry still Q52, 2026-09-01T22:44:51.524Z, matching every run
+since 2026-09-01; QUESTIONS.json already carries Q52 as "answered" with
+matching text. Nothing new to apply. 113 total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 128's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 36-item pool, matching run 128's own count. Item 3.1
+(2026-09-18T01:13:09+01:00) came out stalest - exactly the "next candidate"
+run 128's own entry named after it took 2.3. Chosen: 3.1 (the checkCrossTown
+pattern-verifier item), twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.1 block and
+audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt; this is
+the mirrored summary. The twenty-first pass (run 90, earlier today) left a
+FORWARD NOTE: the plain "unpinned foreign town" branch of
+tools/check-seo-pattern.js's checkCrossTown (lines 245-247), as distinct
+from the sister-town branch exercised every pass via the real Q71 pinned
+cases, had only ever been hit incidentally via other items' control
+injections in twenty-one prior passes, never as this item's own dedicated
+angle. Took that angle directly. Baseline: fresh git-archive scratch copy,
+branches.json/check-seo-pattern.js/the Gordon Short Crosby Pharmacy First
+page all sha256-confirmed identical to the tracked repo; check-seo-pattern.js
+177/0/0 exit 0. Chose gordonshorts_crosby, the only branch on its own host
+(no sister to confound the result), and "Timperley" (a different branch's
+seoTown, no relationship to Crosby at all) as the injection. Two rounds, each
+restored and reconfirmed before the next: (1) the page's SEO description
+edited to name Timperley, staying within the 80-165 char length bound -
+CAUGHT, exit 1, one failure, worded as the plain branch ("is not in this
+branch's serviceAreaList", no "shares a domain", no "PINNED"); (2) CONTROL -
+same injection, plus Timperley added to gordonshorts_crosby's own
+serviceAreaList in the scratch branches.json - passed clean, exit 0,
+177/0/0, proving the excuse clears this exact case rather than the rule not
+running. Page restored byte-identical (sha256-reconfirmed); branches.json
+reverted and confirmed structurally equal to the tracked HEAD copy (Python
+dict comparison, since JSON.dump reformats whitespace). Full 35-checker
+suite re-run clean afterwards. Tracked repo confirmed untouched throughout.
+RESULT: zero in-repo defect - both branches of checkCrossTown are now proven
+independently by dedicated injection (sister-town: item 3.3 pass,
+2026-08-14; plain: this pass). No checker, page, generator or branches.json
+entry changed.
+ASIDE: the initial scratch extraction via the usual piped `git archive HEAD
+| tar -x -C ...` form produced files owned by a different uid than this
+session's own user, who then could not write into them - not seen across
+twenty-one prior passes on this item using the same piped form. Worked
+around by writing the archive to a file (`git archive HEAD -o
+/tmp/archive.tar`) and untarring that separately, which extracted under the
+session's own uid as expected. Not investigated further as a sandbox fault
+in its own right (transient, and step 6-11 time budget), but recorded here
+in case a future run hits it again.
+LIVE HALF: not run this pass, to stay within the normal run time budget
+after the scratch-extraction detour above. No reason to expect drift: no
+tracked file changed. Claude in Chrome was used earlier in the run for the
+step 3 answer pickup only.
+QUESTIONS: none raised this run.
+COMMIT: ticked item 3.1's twenty-second pass in place in AGENT_WORKLIST.md,
+added the evidence file, this log entry. Sandbox `git status` left a fresh
+.git/index.lock behind (the standing Q87/Q96/Q102 sandbox-FUSE unlink
+fault, confirmed again: `rm -f`/`os.remove` both would have failed here as
+in run 116); cleared via mcp__Windows-MCP__PowerShell's Remove-Item -Force
+against the real C:\Dev\rbh-site-data host (same disk, confirmed clean at
+the same HEAD, dbf7e8f) before add/commit/push, the established workaround.
+STATUS PAGE: node tools/build-audit-status.js run via the same PowerShell
+route to republish Digital_Audit_Status.html to rishi235/rbh-data-portal via
+the GitHub API.
+LOCK: .agent-lock deleted before exit.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 128;
 mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
 pull/status, the git-archive scratch copy at /tmp/run-scratch, the five-round

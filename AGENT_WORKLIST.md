@@ -3467,6 +3467,57 @@ exercised every pass via the real Q71 pinned cases) has only ever been hit
 incidentally via other items' control injections, never as this item's own
 dedicated angle - a candidate for a future pass. Evidence in
 audits/seo-pattern-service-word-vacuity-3.1-twentyfirst-2026-09-18.txt.
+Quality pass (twenty-second), 2026-09-18 (unattended scheduled run, audit-
+backlog-worker, run 129, Cowork sandbox). Baseline: check-seo-pattern.js
+177/0/0 exit 0 on a fresh git-archive scratch copy; branches.json sha256
+unchanged at the standing anchor 169bb5a2...1102; tools/check-seo-pattern.js
+and the Gordon Short Crosby Pharmacy First page also sha256-confirmed
+identical to the tracked repo before any mutation. NEW ANGLE, taking up the
+twenty-first pass's own forward note directly: the PLAIN "unpinned foreign
+town" branch of checkCrossTown (lines 245-247), as distinct from the
+sister-town branch exercised every pass via the real Q71 pinned cases, had
+only ever been hit incidentally via other items' control injections in
+twenty-one prior passes, never as this item's own dedicated angle. Chose
+gordonshorts_crosby (Gordon Short Chemist, Crosby) because it is the only
+branch on its own host, so an injection against it cannot also trip the
+sister-town branch by accident, and "Timperley" (riddings_timperley's
+seoTown, a different host, no relationship to Crosby at all) as the cleanest
+possible isolation. Two rounds, each restored and sha256/structurally
+reconfirmed before the next: (1) the Pharmacy First page's SEO description
+edited to name Timperley (155 to 160 chars, staying within the 80-165 bound
+so check-seo-lengths cannot confound the result) - CAUGHT, exit 1, exactly
+one failure, "description names 'Timperley', the seoTown of
+riddings_timperley, and 'Timperley' is not in this branch's serviceAreaList"
+- no "shares a domain" wording and no "PINNED" prefix, confirming the plain
+branch fired rather than the sister-town branch; (2) CONTROL - with the
+identical description injection left in place, "Timperley" added to
+gordonshorts_crosby's own serviceAreaList in the scratch branches.json -
+passed clean, exit 0, 177/0/0, proving the areas.indexOf() excuse clears
+this exact injected string rather than the rule failing to run. Page
+restored by exact string swap, sha256-reconfirmed byte-identical;
+branches.json's serviceAreaList popped back to its original three entries,
+confirmed structurally equal to the tracked HEAD copy by a Python dict
+comparison (JSON.dump reformats whitespace, so byte-identity does not apply
+here). Full 35-checker suite (check-cdn-pins.js/check-live-hours.js
+excluded, network-dependent) re-run clean on the restored scratch copy
+afterwards. Tracked repo confirmed untouched throughout (all three files
+sha256-unchanged, git diff --stat empty, git status --porcelain showing only
+pre-existing untracked debris). RESULT: zero in-repo defect - the plain
+branch of checkCrossTown is now proven, in both directions, as this item's
+own dedicated angle: it fires on an unexcused foreign town and stands down
+the moment serviceAreaList legitimately claims it. No checker, page,
+generator or branches.json entry changed. Guard coverage for item 3.1 now
+includes both branches of checkCrossTown proven independently (sister-town
+branch: item 3.3 pass, 2026-08-14; plain branch: this pass). ASIDE: the
+initial scratch extraction via the usual piped `git archive HEAD | tar -x`
+form produced files owned by a different uid that this session's own user
+could not write into - not seen in twenty-one prior passes on this item,
+worked around by writing the archive to a file first and untarring that;
+noted in the evidence file in case a future pass hits it again. LIVE HALF
+not run this pass, to keep within the normal time budget after the
+extraction detour; no reason to expect drift, no tracked file changed. No
+new question raised. QUESTIONS.json unchanged at 113 total, 60 open.
+Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

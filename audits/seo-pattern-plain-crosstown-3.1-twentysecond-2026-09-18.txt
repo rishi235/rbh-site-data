@@ -1,0 +1,130 @@
+Item 3.1 quality pass (twenty-second), 2026-09-18
+Checker under test: tools/check-seo-pattern.js
+Angle: the PLAIN "unpinned foreign town" branch of checkCrossTown (lines
+219-251), as distinct from the SISTER-TOWN branch (lines 230-244) which is
+exercised every pass via the real, pinned Q71 cases (Scorah Bramhall/Hazel
+Grove, McCanns Sandringham/Aigburth). The plain branch is:
+
+    if (areas.indexOf(t.toLowerCase()) !== -1) return; // in this branch's own catchment
+    problems.push(fieldName + " names '" + t + "', the seoTown of " +
+      townOwners[t].join(" and ") + ", and '" + t + "' is not in this branch's serviceAreaList");
+
+Flagged as a FORWARD NOTE by the twenty-first pass (2026-09-18, run 90):
+"the plain 'unpinned foreign town' branch of checkCrossTown (as distinct
+from the sister-town branch, exercised every pass via the real Q71 pinned
+cases) has only ever been hit incidentally via other items' control
+injections, never as this item's own dedicated angle - a candidate for a
+future pass." This pass takes that angle directly.
+
+BASELINE
+--------
+Scratch copy taken via git archive HEAD -o /tmp/archive.tar; tar -xf into
+/tmp/run-scratch2 (a first attempt via `git archive HEAD | tar -x -C ...`
+piped extraction produced files owned by "nobody:nogroup" that this
+session's own user could not write into - a sandbox artifact of the piped
+form, not seen before in this item's twenty-one prior passes, all of which
+used the piped form successfully; worked around by writing the archive to a
+regular file first and untarring that, which extracts under the session's
+own uid as expected. Noted here in case a future pass hits the same piped-
+extraction fault).
+
+branches.json sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (the standing anchor, unchanged)
+tools/check-seo-pattern.js sha256 238fb0ecd690122591931a4605c91d8e5c3fd2ff3f87616fe4b64cb08cee7350
+modules/service/pages/pharmacy-first-gordon-short-crosby.html sha256
+  e6ca3ba0a715a4834eea8ebc298631f5fcee5d055c17cf205bd9b78b8bd05eca
+
+All three matched the tracked repo before any mutation. node tools/check-seo-
+pattern.js on the scratch copy: 177 pages checked, 0 untyped, 0 failures,
+cross-town rule reads 177 pages against 11 live seoTowns.
+
+BRANCH CHOSEN
+-------------
+gordonshorts_crosby (Gordon Short Chemist, Crosby), serviceAreaList
+["Crosby", "Waterloo", "Sefton"], www.gordonshortchemist.co.uk - the only
+branch on its own host (no sister), so any foreign-town injection against it
+exercises the plain branch only and cannot also trip the sister-town branch
+by accident. Foreign town chosen: Timperley (riddings_timperley's seoTown),
+on a different host (www.riddingspharmacy.co.uk), no geographic or data
+relationship to Crosby at all - the cleanest possible isolation from the
+sister-town logic.
+
+ROUND 1 - fire
+--------------
+modules/service/pages/pharmacy-first-gordon-short-crosby.html's SEO
+description edited (description leg only, title and H1 untouched so no
+other rule leg is exercised at the same time):
+  before: "...UTIs, sore throat and more, no GP appointment needed." (155 chars)
+  after:  "...UTIs, sore throat, Timperley and more, no GP appointment needed." (160 chars)
+Length stays within the 80-165 bound so check-seo-lengths' rules cannot
+confound the result.
+
+node tools/check-seo-pattern.js -> exit 1, exactly one failure:
+  FAIL Gordon Short Chemist - 12 pages, 1 mismatches
+       pharmacy-first-gordon-short-crosby.html: description names 'Timperley',
+       the seoTown of riddings_timperley, and 'Timperley' is not in this
+       branch's serviceAreaList
+
+No "shares a domain" wording and no "PINNED" prefix - confirms this is the
+plain branch firing, not the sister-town branch. No other branch's pages
+affected; no collateral failures.
+
+ROUND 2 - control (the excuse clears the same case)
+----------------------------------------------------
+With the identical description injection still in place, "Timperley" added
+to gordonshorts_crosby's own serviceAreaList in the scratch branches.json
+(["Crosby", "Waterloo", "Sefton", "Timperley"]):
+
+node tools/check-seo-pattern.js -> exit 0, "OK   Gordon Short Chemist -
+12 pages", 177 pages checked, 0 failures.
+
+Proves the areas.indexOf(t.toLowerCase()) !== -1 excuse (line 245) is what
+clears the plain branch specifically, on the identical injected string -
+round 1's failure was the rule firing on its intended condition, not an
+unrelated fault, and round 2's pass was the excuse working as designed, not
+the rule failing to run.
+
+RESTORE
+-------
+Page restored by exact string swap back to the original sentence; branches.json's
+gordonshorts_crosby.serviceAreaList popped back to its original three entries.
+Page sha256 reconfirmed e6ca3ba0a715a4834eea8ebc298631f5fcee5d055c17cf205bd9b78b8bd05eca,
+byte-identical to its pre-injection value. branches.json is not byte-identical
+(Python's json.dump reformats whitespace) but confirmed structurally equal to
+git show HEAD:branches.json via a Python dict comparison (True). Full
+35-checker suite (check-cdn-pins.js and check-live-hours.js excluded per
+standing convention, network-dependent) re-run clean on the restored scratch
+copy afterwards - no NONZERO exits.
+
+TRACKED REPO
+------------
+Confirmed untouched throughout: branches.json, tools/check-seo-pattern.js and
+the Gordon Short Chemist page all sha256-unchanged against the values recorded
+above; git diff --stat empty; git status --porcelain shows only pre-existing
+untracked debris (no new tracked changes).
+
+RESULT
+------
+Zero in-repo defect. The plain "unpinned foreign town" branch of
+checkCrossTown is now proven, in both directions, as this item's own
+dedicated angle rather than only incidentally: it fires when a page names a
+live branch's seoTown that is neither this branch's own town, a sister on a
+shared host, nor present in this branch's serviceAreaList, and it correctly
+stands down the moment serviceAreaList legitimately claims that town. No
+checker, page, generator or branches.json entry changed.
+
+Guard coverage for item 3.1 now includes both branches of checkCrossTown
+proven independently by dedicated injection (sister-town branch: item 3.3
+quality pass, 2026-08-14; plain branch: this pass).
+
+LIVE HALF
+---------
+Not run this pass - see AGENT_LOG.md for this run: Claude in Chrome was used
+earlier in the run for the step 3 answer pickup only, and per this item's own
+convention the live half samples fishlockpharmacy.co.uk/pharmacy-first-
+fishlocks-ainsdale.html rather than the branch actually exercised in the
+injection; skipped this pass to keep the run within its normal time budget
+after the scratch-extraction detour above. No reason to expect drift: no
+tracked file changed.
+
+No new question raised. QUESTIONS.json unchanged at 113 total, 60 open.
