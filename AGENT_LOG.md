@@ -1,3 +1,112 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 125;
+mcp__Windows-MCP__PowerShell used throughout for the lock check, git fetch/
+checkout/pull/status, the rotation re-derivation, the git-archive scratch copy
+at C:\Dev\rbh-site-data-scratch-33-emdash (three-round injection/restore cycle
+against tools/check-em-dashes.js, one control edit), and the post-restore
+35-checker suite re-run and directory diff; mcp__claude-in-chrome__navigate/
+get_page_text/tabs_close_mcp used for the step 3 portal answer pickup and the
+item 3.3 live half, two tabs total, read-only throughout, nothing clicked,
+typed or submitted; Write used for the new audits file; Edit used for
+AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 124's own
+entry confirms it cleared its lock before exiting). Wrote a fresh lock
+(2026-09-18T21:34:47+01:00). git fetch origin, git checkout agents/audit-
+backlog (already on it) and git pull --ff-only both completed clean, confirmed
+up to date with origin (HEAD at run 124's commit for item 4.8).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed - newest
+entry still the Q52 answer, 2026-09-01T22:44:51.524Z, matching every run since
+2026-09-01. QUESTIONS.json already carries Q52 as "answered" with matching
+text; nothing new to apply. 113 total, 60 open before this run, unchanged
+after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 124's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED], unchanged. Fell to the
+quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding the
+standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight
+blocked items. TOOLING BUG found and fixed before trusting the output: the
+first capture used PowerShell's default `Out-File -Encoding utf8`, which
+silently writes a UTF-8 BOM at the start of the file; Python's
+`datetime.fromisoformat()` raised on the BOM-prefixed first line, caught by a
+bare `except ValueError: continue`, which silently dropped that one commit's
+date and under-counted item 4.8's true latest mention (the file's first line
+was run 125's own soon-to-be-superseded 4.8 baseline read, not a different
+item, so the effect was confined to one row of the table). Re-wrote the
+capture with `[System.IO.File]::WriteAllLines` and a BOM-less
+`System.Text.UTF8Encoding`, confirmed no BOM by reading the first three bytes,
+and re-ran: item 3.3 (2026-09-17T23:14:06+01:00, the twenty-first pass) came
+out stalest of the 36-item pool, matching run 124's own forward note exactly.
+Chosen: 3.3, twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.3 block and
+audits/fishlocks-item-3.3-quality-pass-2026-09-18-twentysecond.txt; this is
+the mirrored summary. tools/check-em-dashes.js - one of the most heavily
+developed checkers in the repo, nineteen of its own dedicated passes under
+item 5.1, most recently 2026-09-15 - had never been named anywhere in item
+3.3's own entry across twenty-one prior passes, despite applying to every one
+of Fishlocks' 26 generated pages, both switch banners and the shared paste
+sheets.
+BASELINE: git-archive scratch copy of HEAD (tar via `git archive HEAD -o` then
+extracted, since a direct `git archive | tar -x` pipe produced an empty
+directory silently in this PowerShell session); all 35 checkers (check-cdn-
+pins.js/check-live-hours.js excluded, network-dependent) exit 0, 234 files
+scanned by check-em-dashes.js.
+INJECTION on the scratch copy only (tracked repo never opened for writing,
+restored by byte copy and sha256-reconfirmed after every round): TEST A - a
+literal em dash injected into the hero-proof sentence of modules/service/
+pages/uti-treatment-fishlocks-eccleston.html - CAUGHT, exit 1, exact file and
+line (22) named. TEST B - an `&mdash;` entity injected into the real "Page
+Title" line for Fishlocks Ainsdale's Pharmacy First overview inside the
+SHARED modules/service/pages/SEO.md - CAUGHT, exit 1, exact file and line
+(103) named, correctly distinguished from that same file's own genuine "##
+Fishlocks Chemist — Ainsdale — Overview" section heading two lines above,
+which stayed in the notes bucket (591 dashes in headings/prose) both before
+and after. TEST C - a non-ASCII en dash injected into the innerHTML sentence
+of modules/switch/pages/banners/switch-prescriptions-fishlocks-ainsdale.txt -
+CAUGHT, exit 1, exact file and line (39) named, "non-ASCII in banner paste
+(U+2013)". CONTROL - the same hero-proof sentence rewritten with an ASCII
+hyphen only - correctly PASSED clean, exit 0. All four behaved exactly as
+expected on the first attempt. Files restored, sha256 reconfirmed identical
+after each round and again at the end; full 35-checker suite re-run clean on
+the scratch copy after final restore; directory diff (modules, tools, core,
+branches.json, gbp-packs) between the scratch copy and the tracked repo
+empty bar the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak), neither touched; git status on
+the tracked repo unchanged throughout. No checker gap found: check-em-
+dashes.js already correctly protects Fishlocks' own pages, paste-sheet
+labelled lines and switch banners.
+LIVE HALF, Claude in Chrome, read-only, one page read, nothing clicked or
+typed: uti-treatment-fishlocks-eccleston.html read in full - no em or en dash
+anywhere in the visible text (the footer's "·" separators are a middle dot, a
+different character); the standing Q37 footer set (singular "Fishlock
+Pharmacy"/"Fishlock Chemist" naming, "17 Station Rd" abbreviation) reconfirmed
+present and unchanged. No new live fault, no new question raised.
+QUESTIONS.json unchanged at 113 total, 60 open.
+INFRASTRUCTURE NOTE: this run executed entirely via mcp__Windows-MCP__
+PowerShell against the real ProDesk host (no sandboxed Linux mount available
+this session), so the FUSE-unlink lock fault recorded at Q87/Q96/Q102 for
+recent runs did not arise - git add/commit/push and the status-page publish
+below run from the same PowerShell session as everything else. A
+`Get-ChildItem` immediately after `git archive HEAD | tar -x -C <dir>` showed
+an empty target directory with no error surfaced through this tool; switched
+to `git archive HEAD -o <file>.tar` followed by a separate `tar -xf`, which
+worked and was used for the rest of the run - noted here in case a future run
+hits the same silent-empty-pipe behaviour.
+FORWARD NOTE for the next quality-pass run: re-derive the rotation fresh
+rather than trust any number here, and capture git log output with
+`[System.IO.File]::WriteAllLines`/a BOM-less encoding rather than
+`Out-File -Encoding utf8`, which silently prepends a BOM and can drop a row
+from the rotation table via Python's fromisoformat(). tools/check-em-dashes.js
+is now proven against Fishlocks on three of its many rule families (literal
+dash on a generated page, entity dash on a shared paste-sheet labelled line,
+non-ASCII in a banner); the source-level JS/CSS escape rules, the inline
+<style>/<script> block rules and the run-time-data (branches.json) rule remain
+untested specifically against Fishlocks, a candidate for a future 3.3 pass.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 124;
 mcp__workspace__bash used throughout for the lock check, git fetch/pull/
 status, the full 35-checker baseline, the git-archive scratch copy at

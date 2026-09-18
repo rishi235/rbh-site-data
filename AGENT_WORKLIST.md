@@ -5084,6 +5084,45 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       re-ran clean. No new question raised; QUESTIONS.json unchanged at 110
       total, 57 open. Full detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-17-twentyfirst.txt.
+      Quality pass 2026-09-18 (twenty-second, run 125): re-verified as the
+      stalest rotation-pool item, re-derived fresh rather than trusted from
+      any prior run's note. Caught and fixed a tooling bug in the rotation
+      script first: capturing git log via PowerShell's default Out-File
+      encoding silently prepended a UTF-8 BOM, which made Python's
+      fromisoformat() drop that one commit's date silently and under-counted
+      item 4.8's true latest mention - corrected by writing the log with a
+      BOM-less UTF8Encoding, after which 3.3 (2026-09-17T23:14:06+01:00, the
+      twenty-first pass) came out stalest of 36, confirming run 124's own
+      forward note. NEW ANGLE: tools/check-em-dashes.js, one of the most
+      heavily developed checkers in the repo (nineteen of its own dedicated
+      passes under item 5.1), had never been named anywhere in this item's
+      own entry across twenty-one prior passes. Baseline: git-archive scratch
+      copy, all 35 checkers exit 0, tracked repo never opened for writing.
+      Three injections, each restored by byte copy and sha256-reconfirmed
+      before the next: (A) a literal em dash in the hero-proof sentence of
+      uti-treatment-fishlocks-eccleston.html - CAUGHT, exact file/line; (B) an
+      &mdash; entity in the real Page Title line for Fishlocks Ainsdale's
+      Pharmacy First overview in the shared modules/service/pages/SEO.md -
+      CAUGHT, exact file/line, correctly distinguished from that same file's
+      own genuine "## Fishlocks Chemist — Ainsdale — Overview" section heading
+      two lines above, which stayed in the notes bucket throughout; (C) a
+      non-ASCII en dash in the switch-prescriptions-fishlocks-ainsdale.txt
+      banner's innerHTML sentence - CAUGHT, exact file/line. CONTROL: the same
+      hero-proof sentence rewritten with an ASCII hyphen only - correctly
+      passed clean. All four behaved as expected first attempt; all three
+      restores sha256-confirmed byte-identical; full 35-checker suite re-run
+      clean after the final restore; directory diff against the tracked repo
+      empty bar the two long-standing pre-existing untracked strays, neither
+      touched. No in-repo defect: check-em-dashes.js already correctly
+      protects Fishlocks' own pages, its paste-sheet labelled lines and its
+      switch banners, proven directly for this branch pair for the first
+      time. LIVE HALF: Claude in Chrome, single tab, read-only - the
+      Eccleston UTI page carries no em or en dash anywhere in its text (the
+      footer's "·" separators are a middle dot, not a dash); the standing
+      Q37 footer set reconfirmed present and unchanged, nothing new. No new
+      question raised; QUESTIONS.json unchanged at 113 total, 60 open. Full
+      detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-09-18-twentysecond.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

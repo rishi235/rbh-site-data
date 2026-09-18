@@ -1,0 +1,114 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - quality pass, twenty-second
+Run: unattended scheduled run, audit-backlog-worker, run 125
+Date: 2026-09-18
+
+ROTATION
+Re-derived fresh rather than trusted from any prior run's note. git log --pretty
+"%aI|||%s" parsed with the established word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d),
+excluding the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+the eight blocked worklist items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6).
+
+Caught and fixed a tooling bug in the rotation script before trusting its output:
+the git log capture was first written via PowerShell's default Out-File encoding,
+which silently inserted a UTF-8 BOM (EF BB BF) at the start of the file. Python's
+datetime.fromisoformat() choked on the BOM-prefixed first line only, so that one
+commit's date was silently dropped (caught by a bare "except ValueError: continue"),
+which under-counted item 4.8's true latest mention and made it look stalest by one
+run 124 had already predicted the correct outcome. Re-wrote the log capture with
+[System.IO.File]::WriteAllLines using a BOM-less UTF8Encoding, re-ran the rotation:
+item 3.3's own last mention (2026-09-17T23:14:06+01:00, run 86's twenty-first pass)
+came out stalest of the 36-item pool, confirming run 124's own forward note. 4.8
+(fixed by the BOM correction) moved off the top as expected.
+
+BASELINE (scratch copy, git archive HEAD to a disposable directory, tracked repo
+never opened for writing): all 35 checkers (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent) exit 0, 234 files scanned by
+check-em-dashes.js.
+
+FRESH ANGLE: tools/check-em-dashes.js had never been named anywhere in item 3.3's
+own worklist entry across twenty-one prior passes, despite being one of the most
+heavily developed checkers in the repo (nineteen of its own dedicated quality
+passes under item 5.1, most recently 2026-09-15) and applying to every one of
+Fishlocks' 26 generated pages, both switch banners and the shared paste sheets.
+Twenty-one prior passes had proved check-seo-pattern.js, check-seo-lengths.js
+(rule 4), check-seo-sheets.js, check-jsonld.js, check-seo-keywords.js,
+check-app-membership.js, check-brand-spelling.js, check-uk-spelling.js,
+check-url-scheme.js, check-switch-copy.js (rule 11), check-branch-identity.js,
+check-map-embeds.js, check-nap.js, check-branch-links.js, check-widget-diaries.js
+and check-pharmacy-first-safety-net.js (rules 6/7) against Fishlocks' own files by
+injection; check-em-dashes.js was the largest genuinely untested gap left.
+
+INJECTION (three rounds on the git-archive scratch copy only; tracked repo never
+opened for writing; each restored by byte copy and SHA256-reconfirmed before the
+next):
+
+  TEST A (literal em dash, generated page): the hero-proof sentence on
+  modules/service/pages/uti-treatment-fishlocks-eccleston.html changed from "Be
+  seen by a pharmacist, with no GP appointment needed." to "Be seen by a
+  pharmacist — no GP appointment needed." - CAUGHT, exit 1, exact file and line
+  (22) named, "em dash". Restored; SHA256 6B20D8CAD345FB3D0CE5F4990B8D398C37A0
+  1DD89CF46F0BB990E42AB831037C matched the pre-injection baseline exactly.
+
+  TEST B (HTML entity, shared paste sheet, Fishlocks-specific labelled line): the
+  real "Page Title" line for Fishlocks Chemist Ainsdale's Pharmacy First overview
+  in modules/service/pages/SEO.md had "&mdash;" inserted mid-string - CAUGHT,
+  exit 1, exact file and line (103) named, "em dash (HTML entity)", correctly
+  distinguished from the same file's own section heading two lines above ("##
+  Fishlocks Chemist — Ainsdale — Overview", a genuine literal em dash) which
+  stayed in the notes bucket throughout (591 dashes in headings/prose both
+  before and after), proving PASTEABLE_LINE's label-line/heading distinction
+  holds specifically for a Fishlocks block. Restored; SHA256
+  2D04B0440E976254070085325703E1A1928D9F5A0320E379FD332905B4628EE5 matched
+  exactly.
+
+  TEST C (non-ASCII in a switch banner): the innerHTML sentence in
+  modules/switch/pages/banners/switch-prescriptions-fishlocks-ainsdale.txt
+  changed "in 30 seconds." to "in 30 seconds–ish." (en dash) - CAUGHT, exit 1,
+  exact file and line (39) named, "non-ASCII in banner paste (U+2013)". Restored;
+  SHA256 1E1AD65B2CF2CBEE7DEAD653AC9EE43182994C8F09E11F06E642CD91FFF2EA6F matched
+  exactly.
+
+  CONTROL: the same hero-proof sentence on the Eccleston UTI page changed to use
+  an ASCII hyphen only ("Be seen by a pharmacist - with no GP appointment needed
+  (control, ASCII hyphen only).") - correctly PASSED clean, exit 0, confirming
+  the three catches above were not a blanket false-positive on any edit to that
+  line. Restored; SHA256 matched the baseline exactly.
+
+All four behaved exactly as expected on the first attempt. Full 35-checker suite
+re-run on the scratch copy after the final restore: 35/35 exit 0. Directory diff
+(modules, tools, core, branches.json, gbp-packs) between the scratch copy and the
+tracked repo: empty, confirmed by both `git status --porcelain` on the tracked
+repo (unchanged throughout, bar the two long-standing pre-existing untracked
+strays gbp-packs/.fuse_hidden0000000400000001 and modules/service/pages/
+notarealservice-fishlocks-ainsdale.html.bak, neither touched) and a line-by-line
+Compare-Object of the three target files against their tracked-repo counterparts.
+
+No in-repo defect found: check-em-dashes.js already correctly protects Fishlocks'
+own generated pages, its shared paste-sheet labelled lines, and its switch
+banners, proven directly for this branch pair for the first time rather than
+only by general design and by proof against sister files (Cherry Lane, McCanns,
+Scorah, the DRAFT templates and the GBP packs).
+
+LIVE HALF: Claude in Chrome connected, single tab, read-only. uti-treatment-
+fishlocks-eccleston.html read in full: page text carries no em or en dash
+anywhere (the "·" separators in the shared footer strip are a middle dot, a
+different character, not a dash). The standing Q37 footer set (singular "Fishlock
+Pharmacy"/"Fishlock Chemist" naming, "17 Station Rd" abbreviated against
+branches.json's "17 Station Road") reconfirmed present and unchanged - not new,
+already on record. No new live finding, nothing raised.
+
+QUESTIONS: no new QUESTIONS.json entry. QUESTIONS.json unchanged at 113 total,
+60 open (reconfirmed via the step 3 answer pickup below).
+
+ANSWER PICKUP (step 3, this run): Claude in Chrome fetch to
+https://data.rbhealth.co.uk/api/feedback succeeded first attempt. Newest entry
+still the Q52 answer, dated 2026-09-01T22:44:51.524Z, matching every run since
+2026-09-01. No new answer to apply.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous
+window" heading present at the top of AGENT_LOG.md at run start. Proceeded under
+the normal rule.
+
+WORKLIST SCAN (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both
+Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED], unchanged. Fell to the
+quality-pass fallback as above.
