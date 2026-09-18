@@ -3203,6 +3203,42 @@ and more, no GP appointment needed." - all the pattern verbatim, no trace
 of the scratch-only injection, unchanged from every prior pass. No new
 question. Evidence in
 audits/seo-pattern-townre-boundary-3.1-twentieth-2026-09-17.txt.
+Quality pass (twenty-first), 2026-09-18 (unattended scheduled run, audit-
+backlog-worker, run 90, Cowork sandbox). Baseline: check-seo-pattern.js
+177/0/0 exit 0; branches.json sha256 unchanged at the standing anchor
+169bb5a2...1102; all 34 checkers clean (check-cdn-pins.js and
+check-live-hours.js excluded per standing convention). NEW ANGLE: the exp.sw
+vacuity guard at lines 490-497 ("if (!exp.sw || !exp.sw.length) { ... declares
+no service words ... }"), never named once across twenty prior passes despite
+being the same shape of guard as the already-proven PAGE_TYPES vacuity rule.
+Full repo exported via git archive to a scratch directory, tracked repo never
+opened for writing; branches.json and check-seo-pattern.js both confirmed
+sha256-identical to the tracked repo before any mutation; scratch baseline
+reproduced 177/0/0 exactly. Three rounds, each restored and sha256-reconfirmed
+identical before the next: (1) contraception leg's sw array emptied - CAUGHT,
+exit 1, exactly 14 failures (one per contraception page), service-word rule
+count dropping from 177 to 163 pages; (2) Pharmacy First leg's sw array
+emptied (a different, disjoint set of 14 pages) - CAUGHT the same way,
+confirming the guard is not specific to one page type; (3) CONTROL - the
+contraception sw array given an extra unused word instead of being emptied -
+passed clean, confirming the guard tests array emptiness specifically rather
+than word-membership (a different, already-proven rule). All three fired or
+passed on the intended rule, first attempt, no cross-firing. Full 34-checker
+suite re-run clean on the scratch copy after the final restore. Tracked repo
+confirmed untouched throughout (git status --porcelain showing only the two
+long-standing pre-existing untracked strays; branches.json and
+check-seo-pattern.js sha256 both unchanged). RESULT: zero in-repo defect - the
+vacuity guard already correctly fails the run and stops counting an affected
+page, now proven by injection for the first time in twenty-one passes. LIVE
+HALF: Claude in Chrome, read-only - fishlockpharmacy.co.uk/pharmacy-first-
+fishlocks-ainsdale.html title and h1 both the pattern verbatim, h1Count 1,
+unchanged from every prior pass. No new question raised; QUESTIONS.json
+unchanged at 110 total, 57 open. FORWARD NOTE: the plain "unpinned foreign
+town" branch of checkCrossTown (as distinct from the sister-town branch,
+exercised every pass via the real Q71 pinned cases) has only ever been hit
+incidentally via other items' control injections, never as this item's own
+dedicated angle - a candidate for a future pass. Evidence in
+audits/seo-pattern-service-word-vacuity-3.1-twentyfirst-2026-09-18.txt.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

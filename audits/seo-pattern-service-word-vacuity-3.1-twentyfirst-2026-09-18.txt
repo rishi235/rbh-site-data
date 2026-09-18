@@ -1,0 +1,144 @@
+Item 3.1 (title/H1 pattern definition, tools/check-seo-pattern.js) - twenty-first
+quality pass, 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 90).
+
+ROTATION: worklist scan confirmed all eight unchecked lines (5.3, 5.4, 5.5, 5.8,
+6.1, both Q60 lines under 6.4/6.5, 6.6) still [BLOCKED], unchanged from run 89.
+Fell to the quality-pass fallback. Rotation pool of 36 items (43 completed
+worklist items minus the seven standing out-of-rotation one-offs 1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8) re-derived fresh via `git log -1 --format=%ad --date=iso-
+strict -L<start>,<end>:AGENT_WORKLIST.md` run per candidate over each item's own
+current paragraph range recomputed from the current file. 3.1 came out stalest
+at 2026-09-17T06:42:11+01:00, exactly matching run 89's own forward note, clear
+of every other pool item (next was 3.2 at 07:14:43+01:00). Picked 3.1 (title/H1
+pattern, twenty-first quality pass).
+
+BASELINE. tools/check-seo-pattern.js on the tracked repo: 177 pages checked, 0
+untyped, 0 failures, exit 0. branches.json sha256
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102, matching the
+standing anchor recorded by every prior pass. Full 34-checker suite (36 minus
+check-cdn-pins.js and check-live-hours.js, both network-dependent, per standing
+convention) run individually on the tracked repo: 34/34 exit 0 before any edit.
+
+NEW ANGLE. Read tools/check-seo-pattern.js in full (821 lines) and grepped
+AGENT_WORKLIST.md and AGENT_LOG.md for every distinct rule/branch the twenty
+prior passes on this item had named. Twenty passes have proven: the condition-
+slug mirror (first pass), the PAGE_TYPES forward/reverse contract including its
+own KNOWN_NON_PAGE_BUILDER stale-key rule (ninth pass), the town/brand/region
+data-source legs and their vacuity guards including the "read no buildable
+branch" (sourceChecked===0) guard (fourth, fifth and fourteenth passes), the
+one-h1 and one-title-line/one-description-line count legs at both their "two"
+(duplicate) and "zero" (absent) boundaries, the latter proved fourteenth pass
+alongside the dm-null "no SEO description line" path, the bare-vs-attributed h1
+regex distinction (tenth pass), KNOWN_SISTER_TOWN's stale-key rule (proved on
+item 3.3's 2026-08-14 pass, cross-referenced here since it is the same checker
+file), KNOWN_NON_PAGE's legitimate-excuse and stale-key paths (eleventh pass),
+the bySlug exclusion guard's three clauses - disposed, !brandSlug, !townSlug -
+(eighteenth and nineteenth passes), and the townRe() word-boundary regex
+against the "Bootle"/"bootlegged" substring risk (twentieth pass).
+
+One branch had never been named once across all twenty passes despite being a
+distinct, deliberately-written guard in the file's own text: the exp.sw vacuity
+check at line 490-497,
+
+    if (!exp.sw || !exp.sw.length) {
+      perBrand[brand].fails.push(file + ": expectationsFor() declares no
+      service words, so the title and h1 service rules assert nothing");
+      fails++;
+    } else {
+      swChecked++;
+    }
+
+The file's own comment calls this "the empty contract passes as a clean one
+fault this file already refuses for PAGE_TYPES" - the same shape of guard as
+the PAGE_TYPES vacuity rule already proven on the ninth pass, but never itself
+exercised. Confirmed absent by grep: "declares no service words" appears
+nowhere in AGENT_LOG.md or AGENT_WORKLIST.md before this pass; "swChecked"
+likewise zero hits. All seven of expectationsFor()'s page-type branches
+currently declare a non-empty sw array, so this guard is reached on every run
+(all 177 pages route through one of the seven), but nothing had ever forced the
+false path to prove it actually fails the run rather than passing vacuously,
+the exact class of gap this repo has repeatedly found and closed elsewhere
+(PAGE_TYPES itself, the bySlug guard's untested clauses, the data-source rule's
+third leg).
+
+PROOF BY INJECTION. Full repo exported via `git archive HEAD | tar -x` to
+/tmp/scratch-3.1-run90, tracked repo never opened for writing. Scratch
+branches.json (sha256 169bb5a2...b102) and tools/check-seo-pattern.js (sha256
+238fb0ec...ee7350) both confirmed byte-identical to the tracked repo before any
+mutation; scratch copy reproduced 177/0/0 exactly, matching the tracked repo.
+
+Round 1 (contraception leg): line 346's `sw: ["contraception", "contraceptive"]`
+changed to `sw: []`. Ran check-seo-pattern.js on the scratch copy - CAUGHT,
+exit 1, exactly 14 failures, one per contraception page (all 14 branches
+carrying a contraception widget), each reading "expectationsFor() declares no
+service words, so the title and h1 service rules assert nothing"; the printed
+"service-word rule" line dropped from "177 pages" to "163 pages" (177 - 14),
+confirming swChecked also stopped counting the affected pages rather than
+silently passing them. Restored by editing the line back; diff against
+/tmp/check-seo-pattern.js.orig-sha-check empty, sha256 both
+238fb0ecd690122591931a4605c91d8e5c3fd2ff3f87616fe4b64cb08cee7350; re-ran
+177/0/0 exit 0.
+
+Round 2 (Pharmacy First leg, a different branch of the same guard, to prove it
+is not specific to one page type): line 338's `sw: ["pharmacy first"]` changed
+to `sw: []`. CAUGHT, exit 1, exactly 14 failures (one per Pharmacy First page,
+same 14-branch shape as round 1 but a disjoint set of files), same "163 pages"
+service-word-rule drop. Restored; diff empty, sha256 unchanged; re-ran 177/0/0
+exit 0.
+
+Round 3 (CONTROL): line 346's contraception sw array changed to `sw:
+["contraception", "contraceptive", "nhs"]` - still non-empty, an extra unused
+word that appears in none of the actual titles/H1s/descriptions. Ran clean,
+exit 0, 177/0/0, no failure raised on any contraception page, confirming the
+guard tests array emptiness specifically and does not mistake "a service word
+that never matches" for "no service words declared" (that is a different
+question, already covered by pat.checkTitle/checkH1's own membership rules,
+proven on earlier passes). Restored; diff against the original empty, sha256
+238fb0ecd690122591931a4605c91d8e5c3fd2ff3f87616fe4b64cb08cee7350 reconfirmed.
+
+All three rounds caught or passed on the intended rule, first attempt, no
+cross-firing onto any other page or brand beyond the exact set expected. Full
+34-checker suite re-run clean on the scratch copy after the final restore
+(34/34 exit 0). Scratch directory deleted after use.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs` on the real working copy returned
+only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched; branches.json and tools/check-seo-pattern.js sha256 both unchanged in
+the tracked repo (169bb5a2...b102 and 238fb0ec...ee7350 respectively). The
+sandbox mount's standing `.git/index.lock` unlink-denied quirk (Q96/Q102) was
+observed again on this read-only `git status` call but left alone since no
+local git write was attempted through that mount.
+
+RESULT: zero in-repo defect. The exp.sw vacuity guard is now proven by
+injection, in both directions and against two independent page-type legs, for
+the first time in twenty-one passes on this item. It correctly fails the run
+and stops counting an affected page in the service-word-rule total rather than
+passing vacuously, and correctly does NOT fire on a non-empty array carrying an
+unused word. No checker, page, generator or branches.json entry changed.
+
+LIVE HALF. Claude in Chrome connected, single tab, read-only, nothing clicked,
+typed or submitted. Navigated to
+https://fishlockpharmacy.co.uk/pharmacy-first-fishlocks-ainsdale.html (the
+standard sample page for this item) and read title and h1 via a read-only
+javascript_tool DOM query: title "Pharmacy First at Fishlocks Chemist,
+Ainsdale", h1 "Pharmacy First at Fishlocks Chemist in Ainsdale", h1Count 1 -
+all the pattern verbatim, unchanged from every prior pass. No live fault found;
+this pass's own angle is a repo-side checker-coverage proof on scratch-only
+code, so no live page could show a different result. No new question raised.
+QUESTIONS.json unchanged at 110 total, 57 open.
+
+FORWARD NOTE. Checkers/branches on tools/check-seo-pattern.js not yet named
+against item 3.1 specifically after twenty-one passes, for whichever future
+pass on this item picks the next new angle: the KNOWN_SISTER_TOWN pinned-vs-
+failed distinction has been exercised via Q71's three real pinned cases every
+pass (since they are live data) but the "unpinned foreign town, not in
+serviceAreaList" branch of checkCrossTown (line 246, the plain absence-rule
+fail message, as opposed to the sister-town branch) has only ever been
+exercised incidentally via the Fishlocks control injection on earlier passes,
+never as this item's own dedicated NEW ANGLE. Re-derive the rotation pool fresh
+next run rather than trusting any prior run's ranking, since it shifts every
+run; as computed by this pass, 3.2 is the next stalest candidate
+(2026-09-17T07:14:43+01:00).
