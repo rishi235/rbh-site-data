@@ -16340,6 +16340,47 @@ Done 2026-09-18 (twenty-first pass).
       "not a decision"; no status change made, no new question raised. See
       audits/clear-aintree-fragment-targets-3.13-eighteenth-2026-09-17.txt
       for full detail.
+      Quality pass 2026-09-18 (fourth item-level pass, unattended scheduled
+      run, run 99), fresh angle tools/check-brand-spelling.js, never proven
+      by direct injection against Clear Chemist specifically before this
+      pass despite covering the estate since the item 1.1 quality pass
+      (2026-08-11). Repo exported to a disposable scratch copy; branches.json
+      sha256 confirmed at the standing anchor throughout; full 34-checker
+      suite clean on both the scratch copy and the tracked repo before and
+      after (34/34, plus check-cdn-pins.js individually clean on the tracked
+      repo). Confirmed structurally which rules apply to this branch before
+      testing: rule 6 (SHORT) derives "Clear" as a shortenable form of "Clear
+      Chemist", so it is genuinely in scope even though no current Clear
+      title is long enough to trigger it; rule 4 (MISSPELT) has no listed
+      transliteration shape for a two-word brand with no doubled consonant,
+      confirmed inapplicable rather than untested; rule 5 (FALLBACK) checks
+      core/site-data.js's single hardcoded record (rbh_head_office_aintree
+      only, not a per-branch table), so it has never applied to Clear and
+      nothing here changes that. Four injections plus one control against
+      the scratch copy, each restored by byte copy (no .git in a
+      git-archive export) and sha256-reconfirmed before the next: a trailing
+      "s" added to "Clear Chemist" in the weight loss page's hero-sub
+      (caught, rule 2); "Chemist" swapped for "Pharmacy" in the switch
+      page's hero-sub (caught, rule 2); "Chemist" dropped entirely from the
+      travel clinic page's hero-sub, a non-title line (caught, rule 6 - the
+      sharpest result, since rule 6 had proved against Coleman and Leighs
+      and Riddings but never against Clear); an unquoted "Clear Chemist" ->
+      "Clear Chemists" in gbp-packs/clear-aintree.md's opening prose (caught,
+      rule 2). Control: an unrelated wording change in the same weight loss
+      paragraph with the brand string untouched, passed clean with no
+      cross-firing. RESULT: full 34-checker suite re-run clean on the
+      scratch copy (34/34) and the tracked repo (34/34); all four touched
+      files sha256-reconfirmed byte-identical to their pristine values;
+      `git status --porcelain -- modules core branches.json gbp-packs tools
+      compliance` showed only the two long-standing untracked strays,
+      unchanged throughout. No in-repo defect found, no copy changed, no new
+      question raised. Guard coverage for item 3.13 now extends to 19 of the
+      34 checkers proven by direct injection against this branch
+      specifically. LIVE HALF: not attempted, full coverage already stands
+      from the third pass and this pass's fresh angle was entirely
+      repo-side. See
+      audits/clear-aintree-item-3.13-quality-pass-2026-09-18-fourth.txt for
+      full detail.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

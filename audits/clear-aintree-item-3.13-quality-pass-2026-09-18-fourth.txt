@@ -1,0 +1,111 @@
+Item 3.13 (Clear Chemist, Aintree) - fourth quality pass, 2026-09-18 (unattended
+scheduled run, audit-backlog-worker, run 99)
+
+FRESH ANGLE: tools/check-brand-spelling.js, never proven by direct injection
+against Clear Chemist across the item's three prior passes (2026-08-13,
+2026-08-14, 2026-08-30, 2026-08-31/09-01), which had covered the independent
+298-check instrument, the nine-fault vacuity probe, the NAP phone-number
+reconciliation against Q28, and read-only live checks. check-brand-spelling.js
+itself was written on the item 1.1 quality pass (2026-08-11) and has since been
+widened repeatedly (run-time .js/.css scanning 2026-08-13, case-drift and
+all-caps derivation 2026-08-31/09-06, banner .txt scanning, WEEBLY_FURNITURE_
+CHECKLIST.md 2026-09-15/17), but none of those widenings had been tested
+against Clear's own three pages, its GBP pack or its switch banner directly.
+
+BASELINE: repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy at /sessions/inspiring-tender-bell/scratch-313-run99 (outside /tmp and
+outside any shared path, per the run-97/98 note on stale shared scratch
+files); tracked repo never opened for writing during the injection round.
+branches.json sha256 confirmed at the standing anchor
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 in both the
+scratch copy and the tracked repo throughout. Full 34-checker suite (all
+check-*.js except check-cdn-pins.js and check-live-hours.js, both
+network-dependent, run separately) clean on the tracked repo before starting
+(34/34) and on the scratch copy (34/34). check-cdn-pins.js also run
+individually on the tracked repo: clean, 3 warnings, 7 known issues awaiting a
+decision, none new.
+
+check-brand-spelling.js's own baseline output on the scratch copy confirmed,
+before any injection, that Clear Chemist is genuinely in scope for every rule
+that can apply to it: rule 1 (CANON) pins clearchemist_aintree to "Clear
+Chemist"; rule 6 (SHORT) derives "Clear" as one of twelve shortenable trading
+names in the estate (fitTitle's own retry logic drops the trailing shop-type
+word from "Clear Chemist" exactly as it would from any other), so the
+shortening rule is not merely theoretical for this branch even though no
+current Clear title runs long enough to trigger it. Rule 4 (MISSPELT) has no
+listed transliteration for Clear (the list is Mc/Sk/Tiffenburg/Smarts/Ridings-
+shaped, none of which apply to a two-word brand with no doubled consonant or
+compound name), so that rule was confirmed structurally inapplicable rather
+than untested - same class of scope limit as check-jsonld.js's rule 7 being
+inapplicable to Smartts on an earlier pass. Rule 5 (FALLBACK) was also checked
+directly: core/site-data.js's FALLBACK carries exactly one hardcoded branch
+record, rbh_head_office_aintree, not a per-branch table, so rule 5 has never
+applied to Clear specifically and nothing here changes that.
+
+TEST: four injections against the scratch copy's own Clear-specific files
+(the weight loss, switch and travel clinic pages under modules/, and
+gbp-packs/clear-aintree.md), plus one control, each restored by byte copy from
+a saved backup (not git checkout - the scratch copy has no .git directory,
+being a git-archive export) and sha256-reconfirmed identical to the pristine
+tracked-repo value before the next:
+
+  1. modules/service/pages/weight-loss-clinic-clear-aintree.html, hero-sub
+     paragraph: "Clear Chemist offers" -> "Clear Chemists offers" (trailing s).
+     CAUGHT, rule 2 (VARIANT), first attempt: "reads 'Clear Chemists'. The
+     trading name is 'Clear Chemist'".
+
+  2. modules/switch/pages/switch-prescriptions-clear-aintree.html, hero-sub
+     paragraph: "Clear Chemist is a local NHS pharmacy" -> "Clear Pharmacy is
+     a local NHS pharmacy" (shop-type word swapped). CAUGHT, rule 2, first
+     attempt: "reads 'Clear Pharmacy'. The trading name is 'Clear Chemist'".
+
+  3. modules/service/pages/travel-clinic-clear-aintree.html, hero-sub
+     paragraph: "Clear Chemist offers a private travel health" -> "Clear
+     offers a private travel health" (shop-type word dropped entirely, on a
+     line that is not the page's SEO title). CAUGHT, rule 6 (SHORT), first
+     attempt: "reads 'Clear' without its shop-type word, on a line that is
+     not the page SEO title ... the trading name here is 'Clear Chemist'".
+     This is the fresh angle's sharpest result: rule 6 was written and proved
+     against Coleman and Leighs, Riddings and other Q14-shortenable brands on
+     2026-08-14, but had never been shown to reach Clear specifically until
+     this pass, closing the one rule most likely to have a silent branch-
+     specific gap given how narrowly it is scoped (SEO title lines only).
+
+  4. gbp-packs/clear-aintree.md, opening paragraph (unquoted prose, not
+     inside the quoted-evidence exemption): "into GBP. Clear Chemist is also
+     an e-commerce pharmacy" -> "into GBP. Clear Chemists is also an
+     e-commerce pharmacy". CAUGHT, rule 2, first attempt: "reads 'Clear
+     Chemists'. The trading name is 'Clear Chemist'".
+
+  5. CONTROL: modules/service/pages/weight-loss-clinic-clear-aintree.html,
+     same hero-sub paragraph, unrelated wording only: "will review your
+     health history" -> "will assess your health background", brand string
+     untouched. Passed clean, exit 0, no cross-firing with any of the five
+     rules exercised above.
+
+RESULT: full 34-checker suite re-run clean on the scratch copy after the
+final restore (34/34) and on the tracked repo (34/34, plus check-cdn-pins.js
+individually clean with no new warnings); all four touched files sha256-
+reconfirmed byte-identical to their pristine tracked-repo values; branches.json
+unchanged throughout (169bb5a2...02, confirmed before and after);
+`git status --porcelain -- modules core branches.json gbp-packs tools
+compliance` on the tracked repo showed only the two long-standing untracked
+strays (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), unchanged
+throughout. The tracked repo was never opened for writing during the
+injection cycle. No in-repo defect found, no copy changed, no new question
+raised.
+
+Guard coverage for item 3.13 now includes tools/check-brand-spelling.js proven
+by direct injection, across all five of its rules that structurally apply to
+this branch (rule 4 confirmed inapplicable, rule 5 confirmed branch-agnostic
+in its current single-record form).
+
+LIVE HALF: not attempted this pass. Full live-half coverage already stands
+from the third pass (2026-08-30/08-31, five addresses read, 404s on all three
+generated slugs consistent with the standing Q29 answer, phone reconciled
+against Q28), and this pass's fresh angle was entirely repo-side (a checker
+proven against repo copy, not a live page), so re-reading the same four
+addresses again would not be new information. Q65 (the pages' walk-in wording
+against branches.json's own no-physical-branch-resource fields), Q28 and Q29
+all remain answered/open exactly as last recorded and were not re-raised.
