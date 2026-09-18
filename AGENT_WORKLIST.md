@@ -36086,6 +36086,32 @@ live DOM, not saved to a separate audit file (same convention as the
       same finding as every prior pass, now with a concrete count (6 of
       56) rather than a restated warning. No new question raised; blocks
       nothing.
+      Quality pass 2026-09-18 (fifth, run 108): all eight unchecked worklist
+      items still [BLOCKED] and today's rotation pool (43 checked items minus
+      the six standing out-of-rotation ones minus the 18 already picked today)
+      still had 6.8 stalest at 2026-09-16T23:41:18+01:00, older than the next
+      candidate 2.1. Programmatic re-check of all 58 currently open questions:
+      every one still opens with "Decision needed:", no duplicate ids, all
+      eight required fields present on all 111 entries, every "recommended"
+      index valid against its own "options" array, every "options" array
+      within the standing 2-4 bound, every "status" value valid, no "answered"
+      entry with an empty answer. Six explicit structural checks run together
+      for the first time on this item, not just the prefix check prior passes
+      focused on; no defect found in QUESTIONS.json's own content. Separately,
+      the routine full-checker-suite baseline this pass runs before its own
+      work found tools/check-postcodes.js failing on the tracked repo (3
+      UNKNOWN failures: AGENT_LOG.md, AGENT_WORKLIST.md and audits/gordon-
+      short-item-4.14-quality-pass-2026-09-18-twentyfirst.txt all quoting
+      "L23 3AU", the postcode run 107's own item 4.14 pass injected into a
+      scratch copy earlier today and restored, but never registered in
+      NARRATIVE_POSTCODES before committing - the same self-correction shape
+      run 106 caught for itself the same day with L9 9DC, this time caught by
+      the next run's baseline instead). Fixed by adding "L23 3AU" to
+      NARRATIVE_POSTCODES with a reason, following the list's own established
+      convention; no pack, page, generator or branches.json content touched.
+      Full 35-checker suite re-run clean after (35/35, 0 failures, same 3
+      pre-existing UNOWNED warnings unchanged). Full detail in
+      audits/questions-json-6.8-fifth-2026-09-18.txt. No new question raised.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

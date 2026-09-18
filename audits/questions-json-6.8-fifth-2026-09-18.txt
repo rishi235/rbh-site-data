@@ -1,0 +1,110 @@
+Item 6.8 quality pass (fifth), 2026-09-18, run 108
+Plain-English decision line on the rest of the open backlog
+
+SCOPE: re-verify QUESTIONS.json still complies with the standing rule (every
+open question opens with one plain-English "Decision needed:" sentence),
+re-check structural integrity, and run the full checker suite as the routine
+baseline every pass in this file takes before and after its own work.
+
+ROTATION: all eight unchecked AGENT_WORKLIST.md items (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6) confirmed still [BLOCKED], unchanged from
+run 107. Fell to the quality-pass fallback. Rotation pool re-derived
+independently: 43 checked items minus the six standing out-of-rotation items
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, per run 106/107's own stated set) minus the 18
+items already picked earlier today across runs 88-107 (4.14, 4.15, 4.2, 5.1,
+4.11, 4.6, 4.12, 3.13, 3.12, 3.9, 3.11, 3.7, 6.3, 3.2, 6.2, 3.1, 2.3, 1.2).
+6.8 came out stalest at 2026-09-16T23:41:18+01:00 (git log -L35964,36100),
+older than the next candidate 2.1 at 2026-09-17T14:11:58+01:00. Picked 6.8.
+
+STEP 1 - BASELINE CHECKER SUITE (before any of this pass's own work): ran all
+37 tools/check-*.js scripts except check-cdn-pins.js and check-live-hours.js
+(both network-dependent, excluded per standing convention). check-postcodes.js
+FAILED - exit 1, 3 UNKNOWN failures:
+  AGENT_LOG.md: postcode L23 3AU is in no branches.json entry
+  AGENT_WORKLIST.md: postcode L23 3AU is in no branches.json entry
+  audits/gordon-short-item-4.14-quality-pass-2026-09-18-twentyfirst.txt: same
+
+ROOT CAUSE: run 107 (item 4.14, twenty-first quality pass, earlier today)
+injected "L23 3AU" - a one-character-off variant of Gordon Short Chemist
+Crosby's own L23 3AT - into a /tmp scratch copy of gbp-packs/gordon-short-
+crosby.md's Post D, to prove check-postcodes.js's rule 1 (UNKNOWN) catches a
+postcode-shaped value matching no branch. The scratch pack was restored by
+byte copy before that pass ended (confirmed: gbp-packs/gordon-short-crosby.md
+itself does not contain "L23 3AU" today). But that pass's own write-up in
+AGENT_LOG.md, AGENT_WORKLIST.md's item 4.14 block and its own audit file all
+quote the injected value in prose to record the test - exactly the situation
+NARRATIVE_POSTCODES exists for - and the value was committed without being
+registered there. This is the identical, now twenty-third instance of the
+same self-referential gap this list documents (L23 6TX through L9 9DC), and
+specifically the same failure mode run 106 caught and fixed FOR ITSELF the
+same day (L9 9DC) - run 107 did not repeat that same final self-check before
+committing.
+
+FIX: added "L23 3AU" to NARRATIVE_POSTCODES in tools/check-postcodes.js with
+a reason, following the file's own established convention exactly (reason,
+which pass and run found it, which files quote it, running count of prior
+closures). No pack, page, generator or branches.json content touched - this
+is a checker-data-only fix, the same shape as run 106's own L9 9DC fix.
+
+VERIFICATION: node tools/check-postcodes.js re-run clean: 0 failures, 3
+warnings (the same pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md and
+modules/branch/pages/INDEX.md and SEO.md every recent pass has recorded and
+left alone - unrelated to this fix). Full checker suite (35 checkers, the
+same 37-minus-2 set) re-run individually after the fix: 35/35 exit 0.
+git status --porcelain confirmed only tools/check-postcodes.js changed among
+tracked files; the untracked strays present were the same long-standing ones
+prior passes have recorded (gbp-packs/.fuse_hidden0000000400000001, modules/
+service/pages/notarealservice-fishlocks-ainsdale.html.bak) plus older
+untracked audit scratch files from past runs, none of them touched this pass.
+
+STEP 2 - THIS ITEM'S OWN SCOPE (QUESTIONS.json "Decision needed:" compliance):
+loaded QUESTIONS.json fresh (111 entries, 58 open) and verified programmatically:
+  - every one of the 58 open questions' "question" field still opens with
+    the literal string "Decision needed:" - 0 non-compliant (the last drift
+    fix was the fourteenth pass, 2026-09-16, for Q100/101/102/104/107/108;
+    nothing has been added or edited since without the prefix)
+  - no duplicate "id" values across all 111 entries
+  - every entry carries all eight required fields (id, date, item, question,
+    options, recommended, status, answer)
+  - every "recommended" value is a valid integer index into that entry's own
+    "options" array (0 out of range)
+  - every "options" array has between 2 and 4 entries as the standing rule
+    requires (0 outside that range)
+  - every "status" value is either "open" or "answered" (0 other values)
+  - no entry is status "answered" with a null/empty "answer" field
+  - spot-checked the one entry a naive first-sentence scan flagged as thin
+    (Q104, tripped by a period inside "clearchemist.co.uk"): read in full,
+    it is a substantial multi-clause "Decision needed:" sentence, a false
+    positive from the scan's own period-splitting, not a real defect
+
+None of these six structural checks had been run together as an explicit,
+itemised pass before (prior passes checked the "Decision needed:" prefix
+specifically but not recommended-index validity, options-count bounds,
+answered/answer consistency or duplicate ids) - recorded as this pass's own
+fresh angle on item 6.8's standing rule, alongside the checker-suite baseline
+fix above. No defect found in QUESTIONS.json's own content or structure.
+
+LIVE HALF: not applicable - 6.8 is a purely internal-file rule (QUESTIONS.json
+compliance), with no generated page, pack or live URL of its own, matching
+every prior pass on this item.
+
+ANSWER PICKUP (step 3, for the record): list_connected_browsers returned
+exactly one Chrome instance; navigated to https://data.rbhealth.co.uk/api/
+feedback and read the full JSON feed directly. Newest entry still
+2026-09-01T22:44:51.524Z (Q52), identical to every run since 2026-09-01.
+Nothing new to pick up; tab closed.
+
+INFRASTRUCTURE NOTE (steps 1/9/10, for continuity with Q87/Q96/Q102): this
+run's sandbox mount (mcp__workspace__bash) again could not unlink() any file
+- confirmed on a throwaway file this run created itself, "Operation not
+permitted" - but CAN rename. .git/index.lock, .git/HEAD.lock and .git/
+ORIG_HEAD.lock all reappeared after normal git commands (checkout, pull) and
+were cleared by rename-away before each subsequent git call, the same
+workaround documented since run 102. Git writes (add/commit/push) and the
+status-page publish were routed through mcp__Windows-MCP__PowerShell against
+the real C:\dev\rbh-site-data host, per the established fallback (Q102, still
+open but "nothing is blocked either way" per its own note).
+
+No new question raised; QUESTIONS.json unchanged in content at 111 total, 58
+open (only re-read this pass, not edited - the fix above lives in tools/
+check-postcodes.js, not QUESTIONS.json itself).
