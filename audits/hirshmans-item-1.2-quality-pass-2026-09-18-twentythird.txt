@@ -1,0 +1,111 @@
+Item 1.2 - Hirshmans Chemist, Ainsdale - twenty-third quality pass
+Run date: 2026-09-18 (unattended scheduled run, audit-backlog-worker)
+
+ROTATION
+Pool re-derived via `git log --pretty="%aI|||%s"` parsed with the established
+word-boundary regex [Ii]tem\s+(\d+\.\d+)(?!\d), excluding the standing
+out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight
+[BLOCKED] worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). 36-item
+pool. Item 1.2 came out stalest, last touched 2026-09-18T00:14:11+01:00,
+clear of every other pool item (next stalest 2.3 at 00:42:28+01:00).
+
+FRESH ANGLE
+tools/check-seo-lengths.js had never been proven by injection against
+Hirshmans Ainsdale specifically in twenty-two prior passes, despite being a
+general SEO length/uniqueness checker that reads this branch's own paste
+sheet entries and page H1s. Checkers already proven against this branch
+across prior passes: check-address-region, check-app-membership,
+check-booking-routes, check-branch-identity, check-branch-links,
+check-brand-spelling, check-contraception-copy, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-jsonld, check-map-embeds,
+check-nap, check-opening-hours, check-page-coverage,
+check-pharmacy-first-cost, check-postcodes, check-seo-keywords,
+check-seo-pattern, check-uk-spelling, check-url-scheme, check-cdn-pins,
+check-live-hours (22 of 37). This pass extends coverage to 23 of 37.
+
+REPO HALF - scratch copy method
+Full git-archive scratch copy at /tmp/run-scratch, tracked repo never opened
+for writing. Baseline sha256 confirmed matching the tracked repo before any
+edit:
+  branches.json                                                169bb5a2...ad
+  modules/service/pages/SEO.md                                 2d04b044...e5
+  modules/service/pages/pharmacy-first-hirshmans-ainsdale.html  fad08010...68
+  (pharmacy-first page hash matches the value recorded on the 21st pass,
+  2026-09-17, confirming no drift since)
+  modules/service/pages/shingles-treatment-hirshmans-ainsdale.html 37e057d3...11
+
+35/35 checkers clean before any edit (37 total minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent and excluded from the scratch
+run per standing convention).
+
+Five injections against tools/check-seo-lengths.js's four rules, each
+restored from a sha256-confirmed backup before the next injection:
+
+  1. Title overrun - modules/service/pages/SEO.md, UTI treatment entry title
+     lengthened from "UTI treatment in Ainsdale - Hirshmans Chemist" (46
+     chars) to "UTI treatment and diagnosis in Ainsdale - Hirshmans Chemist
+     Pharmacy" (68 chars) - CAUGHT, rule 1 (title over 65-character limit),
+     named the exact permalink and character count.
+     Restored, sha256 reconfirmed identical, re-run clean.
+
+  2. Description under minimum - SEO.md, Sinusitis entry description cut
+     from 145 chars down to "Sinusitis treatment at Hirshmans Chemist."
+     (41 chars) - CAUGHT, rule 2 (description under the 80-character
+     minimum).
+     Restored, sha256 reconfirmed identical, re-run clean.
+
+  3. Duplicate title - SEO.md, Impetigo entry's Page Title overwritten with
+     the Earache entry's own title ("Earache treatment in Ainsdale -
+     Hirshmans Chemist") - CAUGHT, rule 3 (duplicate title), named both
+     headings and both correctly attributed to modules/service/pages/SEO.md.
+     Restored, sha256 reconfirmed identical, re-run clean.
+
+  4. Duplicate H1 - modules/service/pages/shingles-treatment-hirshmans-
+     ainsdale.html, its own <h1> overwritten with the earache page's H1 text
+     ("Earache treatment for children in Ainsdale - Hirshmans Chemist") -
+     CAUGHT, rule 4a (one branch using the same H1 on two of its own pages),
+     named the branch id "hirshmans_ainsdale" and both filenames exactly as
+     the rule is documented to do.
+     Restored, sha256 reconfirmed identical, re-run clean.
+
+  5. Benign control - SEO.md, Impetigo entry description reworded ("be
+     assessed by a pharmacist with no GP appointment needed" ->
+     "seen by a pharmacist, no GP appointment required"), staying inside the
+     80-165 character window and colliding with nothing - PASSED clean,
+     confirming the four catches above are genuine rule hits and not the
+     checker failing on any edit whatsoever.
+
+All five fired or passed on the intended rule, first attempt, no
+cross-firing between rules. Final restore sha256-reconfirmed identical on
+all four touched files. Full 35-checker suite re-run clean on the scratch
+copy afterwards.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs` showed only the two long-standing
+pre-existing untracked strays (gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+created this pass). branches.json and all three touched page/sheet files
+sha256-confirmed unchanged from their pre-pass values.
+
+No in-repo defect found.
+
+LIVE HALF (Claude in Chrome, one tab, read-only throughout, nothing
+clicked/typed/submitted)
+Read uti-treatment-hirshmans-ainsdale.html and shingles-treatment-hirshmans-
+ainsdale.html live via javascript_tool:
+  - UTI: title "UTI treatment in Ainsdale - Hirshmans Chemist" (45 chars),
+    description 139 chars, both byte-identical to the SEO.md sheet entry
+    this pass proved rule 1/2 protect. H1 "UTI treatment in Ainsdale" (no
+    brand, family A pattern).
+  - Shingles: title "Shingles treatment in Ainsdale - Hirshmans Chemist",
+    H1 "Shingles treatment in Ainsdale", description byte-identical to the
+    sheet. Confirmed genuinely distinct from the earache page's H1 live, not
+    just in the repo - corroborating the rule 4 injection test's premise.
+sitemap.xml lastmod still 2026-08-14T16:09:17+00:00 across all Hirshmans
+Ainsdale URLs, confirming reconfirmation of a stable live state rather than
+new drift since the 21st/22nd passes.
+
+No live fault found, no new question.
+
+Guard coverage for this item now extends to 23 of 37 checkers (up from 22).
+Done 2026-09-18.

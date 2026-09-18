@@ -30622,6 +30622,48 @@ appended to the line. Do not move them; the status page reads them in place.
       no new question. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-18-twentysecond.txt.
       Done 2026-09-18
+      Twenty-third quality pass 2026-09-18 (unattended scheduled run -
+      rotation pool re-derived fresh via `git log --pretty="%aI|||%s"` per
+      the established word-boundary regex; 1.2 stalest at
+      2026-09-18T00:14:11+01:00, clear of every other pool item). REPO HALF:
+      FRESH ANGLE - tools/check-seo-lengths.js had never been proven by
+      injection against Hirshmans Ainsdale in twenty-two prior passes,
+      despite being a general SEO length/uniqueness checker that reads this
+      branch's own paste-sheet entries and page H1s. Full git-archive
+      scratch copy, tracked repo never opened for writing; branches.json,
+      modules/service/pages/SEO.md and the pharmacy-first and shingles pages
+      sha256-matched the tracked repo exactly before starting (the
+      pharmacy-first hash also matched the value recorded on the twenty-
+      first pass, confirming no drift since); 35/35 checkers clean before
+      any edit. Five injections against the scratch copy's SEO.md and the
+      shingles page, each restored from a sha256-confirmed backup before the
+      next: (1) UTI title lengthened past 65 characters - CAUGHT (rule 1,
+      title overrun); (2) Sinusitis description cut to 41 characters -
+      CAUGHT (rule 2, under the 80-character minimum); (3) Impetigo's title
+      overwritten with Earache's own title - CAUGHT (rule 3, duplicate
+      title); (4) the Shingles page's own H1 overwritten with the Earache
+      page's H1 text - CAUGHT (rule 4a, one branch reusing an H1 on two of
+      its own pages, named "hirshmans_ainsdale" and both filenames exactly);
+      (5) a benign reword of the Impetigo description, same length band, no
+      collision - PASSED clean, confirming the four catches are genuine rule
+      hits. All five fired or passed on the intended rule, first attempt.
+      Final restore sha256-reconfirmed identical on all four touched files;
+      full 35-checker suite re-run clean afterwards. Tracked repo confirmed
+      untouched throughout (git status --porcelain -- branches.json tools
+      modules core gbp-packs showed only the two long-standing pre-existing
+      untracked strays; all four files' sha256 unchanged). No in-repo defect
+      found. Guard coverage for this item now extends to 23 of 37 checkers.
+      LIVE HALF (Claude in Chrome, one tab, read-only, nothing
+      clicked/typed/submitted): read uti-treatment-hirshmans-ainsdale.html
+      and shingles-treatment-hirshmans-ainsdale.html live - title,
+      description and H1 all byte-identical to the repo sheet and to the
+      exact strings this pass proved rules 1/2/4 protect; the shingles and
+      earache H1s confirmed genuinely distinct live, not just in the repo.
+      sitemap.xml lastmod still 2026-08-14T16:09:17+00:00 across all
+      Hirshmans Ainsdale URLs, confirming reconfirmation rather than new
+      drift. No live fault found, no new question. Evidence:
+      audits/hirshmans-item-1.2-quality-pass-2026-09-18-twentythird.txt.
+      Done 2026-09-18
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

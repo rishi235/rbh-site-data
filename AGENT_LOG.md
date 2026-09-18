@@ -1,3 +1,82 @@
+## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 127;
+mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
+pull/status, the rotation-pool re-derivation, the git-archive scratch copy at
+/tmp/run-scratch, the five-round injection/restore cycle against
+tools/check-seo-lengths.js and the 35-checker suite runs (check-cdn-pins.js/
+check-live-hours.js excluded, network-dependent); mcp__claude-in-chrome__
+navigate/get_page_text/javascript_tool/tabs_context_mcp/tabs_close_mcp used
+for the step 3 portal answer pickup and the item 1.2 live half, two tabs
+total, read-only throughout, nothing clicked, typed or submitted;
+mcp__Windows-MCP__PowerShell used to clear a stuck .git/index.lock the
+sandbox's own unlink() could not remove (the standing Q87/Q96/Q102
+sandbox-FUSE fault) and to run git add/commit/push and the status-page
+publish, the established workaround; Write used for the new audits file;
+Edit used for AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 126's own
+entry confirms it cleared its lock before exiting). Wrote a fresh UTC
+timestamp lock (2026-09-18T21:34:36Z). git fetch origin, git checkout agents/
+audit-backlog (already on it) and git pull --ff-only both completed clean,
+confirmed up to date with origin (HEAD at run 126's commit for item 3.5).
+ANSWER PICKUP (step 3): Claude in Chrome connected, single tab, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed
+successfully. Newest entry still Q52, 2026-09-01T22:44:51.524Z, matching
+every run since 2026-09-01; QUESTIONS.json already carries Q52 as "answered"
+with matching text. Nothing new to apply. 113 total, 60 open before and
+after.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md as it stood at
+run start (run 126's own entry); no "Standing authorisation - autonomous
+window" heading present, proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged. Fell to the quality-pass fallback.
+ROTATION: re-derived via `git log --pretty="%aI|||%s"` parsed in Python with
+the established word-boundary regex `[Ii]tem\s+(\d+\.\d+)(?!\d)`, excluding
+the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the
+eight blocked items. 36-item pool. Item 1.2 (2026-09-18T00:14:11+01:00) came
+out stalest, clear of every other pool item (next stalest 2.3 at
+00:42:28+01:00). Chosen: 1.2 (Hirshmans Chemist, Ainsdale), twenty-third pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 1.2 block and
+audits/hirshmans-item-1.2-quality-pass-2026-09-18-twentythird.txt; this is
+the mirrored summary. tools/check-seo-lengths.js - a general SEO length and
+uniqueness checker (title <=65 chars, description 80-165 chars, no two pages
+sharing a title/description/permalink, no two pages sharing an H1) - had
+never been proven by injection against this specific branch in twenty-two
+prior passes, though it reads this branch's own paste-sheet entries and page
+H1s like any other. Baseline: 35/35 checkers clean on a fresh git-archive
+scratch copy, four target files sha256-matched the tracked repo exactly
+(including the pharmacy-first page hash carried over unchanged from the
+twenty-first pass). Five injections against modules/service/pages/SEO.md and
+modules/service/pages/shingles-treatment-hirshmans-ainsdale.html, each
+restored from a sha256-confirmed backup before the next: UTI title
+lengthened past 65 chars - CAUGHT (rule 1); Sinusitis description cut to 41
+chars - CAUGHT (rule 2, under the 80-char minimum); Impetigo's title
+overwritten with Earache's own - CAUGHT (rule 3, duplicate title); the
+Shingles page's H1 overwritten with the Earache page's H1 - CAUGHT (rule 4a,
+one branch reusing an H1 across its own pages, named "hirshmans_ainsdale" and
+both filenames); a benign reword of the Impetigo description - PASSED clean,
+confirming the four catches were genuine. All five fired or passed on the
+intended rule, first attempt. Final restore sha256-reconfirmed identical on
+all four files; full 35-checker suite re-run clean afterwards. Tracked repo
+confirmed untouched throughout (only the two long-standing pre-existing
+untracked strays present). No in-repo defect found. Guard coverage for this
+item now extends to 23 of 37 checkers. LIVE HALF (Claude in Chrome, one tab,
+read-only, nothing clicked/typed/submitted): read
+uti-treatment-hirshmans-ainsdale.html and
+shingles-treatment-hirshmans-ainsdale.html live - title, description and H1
+all byte-identical to the repo sheet and to the exact strings this pass
+proved the checker protects; shingles and earache H1s confirmed genuinely
+distinct live. sitemap.xml lastmod still 2026-08-14T16:09:17+00:00 across all
+Hirshmans Ainsdale URLs, confirming reconfirmation rather than new drift. No
+live fault, no new question.
+QUESTIONS: none raised this run.
+COMMIT: ticked item 1.2's twenty-third pass in place in AGENT_WORKLIST.md,
+added the evidence file, this log entry. git add / commit / push to
+origin/agents/audit-backlog (see commit hash in the git history for this
+entry).
+STATUS PAGE: node tools/build-audit-status.js run to republish
+Digital_Audit_Status.html to rishi235/rbh-data-portal via the GitHub API.
+LOCK: .agent-lock deleted before exit.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 126;
 mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
 pull/status, the rotation-pool re-derivation, the git-archive scratch copy at
