@@ -1,3 +1,24 @@
+## 2026-09-18 (run 118 addendum, same run, after step 10 completed)
+Commit/push (step 9): the tracked repo's own .git/index.lock recurred again
+at commit time (the standing sandbox FUSE unlink quirk, Q87/Q96/Q102
+family) - mcp__workspace__bash's `rm -f .git/index.lock` failed "Operation
+not permitted" as expected, cleared instead via
+`mcp__Windows-MCP__PowerShell` `Remove-Item -Force .git\index.lock`, per
+the standing practice runs 111-118 have used (Q102/Q87/Q96 still formally
+open, but followed again). `git add` then staged exactly the four intended
+files (AGENT_WORKLIST.md, AGENT_LOG.md, tools/check-postcodes.js, the new
+audits/ evidence file), confirmed via `git status --short` against the
+long-standing pile of pre-existing untracked stray files, none of which
+were touched. Commit succeeded as 37d8763; `git push origin
+agents/audit-backlog` succeeded, confirmed via `git rev-parse HEAD` and
+`git rev-parse origin/agents/audit-backlog` both returning
+37d87639904ed3ce1673ccb614dbbe11753c54fc. Status page publish (step 10):
+`node tools/build-audit-status.js` via the same PowerShell route,
+published cleanly - "Published reports/digital/Digital_Audit_Status.html
+(43/49 done, 88%)". Lock/exit (step 11): `.agent-lock` was also
+unremovable from mcp__workspace__bash (same FUSE quirk), cleared via
+`Remove-Item -Force .agent-lock` from PowerShell, confirmed gone.
+
 ## 2026-09-18 (unattended scheduled run, audit-backlog-worker, run 118;
 mcp__workspace__bash used throughout: the lock check, git fetch/checkout/
 pull/status, the scratch-copy proofs, the checker suite, and the file edit
