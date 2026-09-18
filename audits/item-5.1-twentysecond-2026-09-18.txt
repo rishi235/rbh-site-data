@@ -1,0 +1,204 @@
+Item 5.1, twenty-second quality pass, 2026-09-18 (unattended scheduled run,
+audit-backlog-worker, run 104).
+
+SELECTION
+---------
+All eight remaining unchecked AGENT_WORKLIST.md lines (5.3, 5.4, 5.5, 5.8,
+6.1, both Q60 lines under 6.4/6.5, 6.6) confirmed [BLOCKED] by direct grep.
+Fell to the quality-pass fallback. Rotation pool re-derived independently via
+`git log -1 --format=%ad --date=iso-strict -L<start>,<end>:AGENT_WORKLIST.md`
+run per candidate over each item's own current paragraph range, excluding the
+seven standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+the fourteen items already touched earlier today by runs 88-103 (1.2, 2.3,
+3.1, 3.2, 3.7, 3.9, 3.11, 3.12, 3.13, 4.6, 4.11, 4.12, 6.2, 6.3). 22
+candidates remained; 5.1 came out uniquely stalest at 2026-09-17T12:42:26+01:00,
+ahead of the next-stalest candidate (4.2, 2026-09-16T17:15:33+01:00 per run
+103's twenty-first-pass forward note, independently reconfirmed here at
+2026-09-17T13:15:10+01:00 - the small discrepancy is the pool having moved on
+since that note, not an error). Full ranked derivation:
+
+2.1 2026-09-17T14:11:58+01:00   4.5  2026-09-17T20:12:01+01:00
+3.3 2026-09-17T23:14:06+01:00   4.7  2026-09-17T18:45:13+01:00
+3.4 2026-09-17T14:41:08+01:00   4.8  2026-09-17T22:45:28+01:00
+3.5 2026-09-17T23:44:33+01:00   4.9  2026-09-17T16:52:05+01:00
+3.6 2026-09-17T15:10:40+01:00   4.10 2026-09-17T21:17:07+01:00
+3.8 2026-09-17T18:11:03+01:00   4.13 2026-09-17T22:11:34+01:00
+3.10 2026-09-17T15:41:58+01:00  4.14 2026-09-17T13:47:08+01:00
+4.1 2026-09-17T19:41:47+01:00   4.15 2026-09-17T17:10:05+01:00
+4.2 2026-09-17T13:15:10+01:00   1.3  2026-09-17T19:09:28+01:00
+4.3 2026-09-17T21:43:50+01:00   5.1  2026-09-17T12:42:26+01:00  <- stalest
+4.4 2026-09-17T16:13:03+01:00   5.2  2026-09-17T17:41:21+01:00
+
+BASELINE
+--------
+Full checker suite (36 tools/check-*.js, minus check-cdn-pins.js and
+check-live-hours.js which both need network) run individually before any
+change: 35/35 exit 0.
+
+FRESH ANGLE
+-----------
+Item 5.1's nineteenth, twentieth and twenty-first passes (2026-09-15 to
+2026-09-17) all widened sibling checkers (check-em-dashes.js,
+check-brand-spelling.js, check-uk-spelling.js) to read the newly-built
+WEEBLY_FURNITURE_CHECKLIST.md, all asking "is the character set right" of
+that file. None asked "is the CONTENT right" - specifically, whether the
+checked-in file is what tools/build-weebly-furniture-checklist.js would
+produce right now from the CURRENT branches.json, or whether branches.json
+has moved on since the file was last regenerated and committed, with nobody
+having re-run the generator. That is the identical fault class
+check-cdn-pins.js exists to catch for a jsDelivr pin, and the identical fault
+class the runtime-data-fetch WARN in that same checker catches for
+branches.json itself - "the repo is green, every other checker is green, and
+[the artefact] is quietly serving old [data]." WEEBLY_FURNITURE_CHECKLIST.md
+has no build step, no CI, and nothing that re-runs it after a branches.json
+edit; it is a plain committed snapshot.
+
+grep -l "build-weebly-furniture-checklist\|WEEBLY_FURNITURE_CHECKLIST"
+tools/*.js before this pass returned only check-brand-spelling.js,
+check-em-dashes.js, check-seo-pattern.js (an unrelated label string in a
+KNOWN_NON_PAGE-style list) and check-uk-spelling.js - none of which compare
+this file's field VALUES to branches.json. check-nap.js, the checker that
+would most obviously care about a phone number, does not appear in that list
+at all: its own PAGE_DIRS is
+[modules/service/pages, modules/switch/pages, modules/branch/pages] and its
+own PASTE_DIRS is [modules/service/weebly-paste] - three page directories and
+one paste-block directory, none of them the repo root, so
+WEEBLY_FURNITURE_CHECKLIST.md is invisible to it by construction, not by any
+decision anyone made about it. Same finding for check-gbp-packs.js (scoped to
+gbp-packs/ only) and check-branch-links.js (scoped to generated pages only).
+
+PROVED BY INJECTION, on a disposable /tmp scratch copy (git archive HEAD,
+tracked repo never opened for writing during the injection; the two files
+this pass itself changed - see below - copied into the scratch copy on top
+of the archive so the injection tests the FIXED state, matching this item's
+own 3.9/3.11/3.13/4.11 precedent for "fresh-check-only" injections):
+
+  TEST 1 (the scenario this checker exists for - branches.json moves on,
+  the checklist does not): left WEEBLY_FURNITURE_CHECKLIST.md untouched,
+  hand-edited ONLY the checklist file directly to change Scorah Chemists
+  Bramhall's Phone row from "0161 439 3744" to "0161 439 3700" (simulating a
+  branches.json phone correction that was never followed by a regeneration -
+  branches.json itself stayed at the real, correct 0161 439 3744 throughout).
+  Ran the full 35-checker suite (minus check-cdn-pins.js/check-live-hours.js):
+  34 of the 35 PRE-EXISTING checkers exited 0, completely unaware. Only the
+  new check-weebly-furniture-freshness.js caught it:
+
+    FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+    branches.json (in Scorah Chemists Bramhall (scorah_bramhall)'s table):
+          first differs at line 23 (checked-in has 301 total lines, a fresh
+          build would produce 301)
+          checked-in : | Phone | 0161 439 3700 |
+          fresh build: | Phone | 0161 439 3744 |
+
+  Confirms the claim precisely: this file's own content had no rule behind
+  it at all before this pass, and the nearest checker that "should" have
+  caught a wrong phone number (check-nap.js) structurally cannot, because the
+  repo root is outside every list it reads.
+
+  TEST 2 (mirror direction - the checklist is right, branches.json is the
+  one that changed, page generation not yet re-run): edited branches.json's
+  scorah_bramhall.phone to a fabricated "0161 439 9999" and left
+  WEEBLY_FURNITURE_CHECKLIST.md at its real, correct content. This
+  legitimately fails SIX pre-existing checkers (check-editor-snapshot.js,
+  check-gbp-packs.js, check-jsonld.js, check-nap.js, check-switch-copy.js,
+  check-travel-clinic-copy.js), because the generated pages and the GBP pack
+  still carry the old number against the new branches.json - correct,
+  expected behaviour, and a useful negative control: it shows this checker's
+  new failure in TEST 1 was not a side effect of some other, already-covered
+  fault, since a genuinely different injection produces a genuinely
+  different (and much larger) failure set through the pre-existing checkers,
+  while TEST 1's much narrower single-checker failure is exactly what a
+  previously-uncovered gap looks like.
+
+  CONTROL: full suite re-run against the tracked repo's own, unmodified
+  WEEBLY_FURNITURE_CHECKLIST.md and branches.json (i.e. no injection at all,
+  fixed checker in place): 35/35 exit 0, confirming no false positive from
+  the new checker on real content.
+
+Both injected copies were scratch-only; the tracked repo's branches.json
+(sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102) and
+WEEBLY_FURNITURE_CHECKLIST.md (sha256
+0f601ffa41a4bab5314cce0ba757049bdb4491b45194ea99a7eff73d64ff985b) were
+confirmed unchanged throughout, matching every prior pass's recorded hash for
+both files.
+
+FIXED IN REPO
+-------------
+1. tools/build-weebly-furniture-checklist.js refactored so its markdown-
+   building logic is a requirable, pure function `buildMarkdown(data)`
+   rather than only a CLI script that writes the file as a side effect.
+   KNOWN_FINDINGS, UNREAD_NOTE and the per-branch fmtBranch() helper are
+   unchanged in substance; fmtBranch() now takes `data` as an explicit
+   parameter instead of closing over a module-level variable, and the CLI
+   behaviour (reading branches.json, writing
+   WEEBLY_FURNITURE_CHECKLIST.md, logging the summary line) is now guarded
+   by `require.main === module` so `node tools/build-weebly-furniture-
+   checklist.js` still works exactly as before. Verified byte-identical
+   BEFORE writing the new checker: ran the refactored generator against the
+   tracked repo and diffed its output against a pre-refactor copy of
+   WEEBLY_FURNITURE_CHECKLIST.md - empty diff, same sha256
+   (0f601ffa41a4bab5314cce0ba757049bdb4491b45194ea99a7eff73d64ff985b) before
+   and after.
+
+2. tools/check-weebly-furniture-freshness.js (new). Requires the generator's
+   own buildMarkdown() - deliberately not a re-implementation, following the
+   same "read as data under test, do not hold a second copy of the string
+   being checked" principle already applied to check-app-membership.js's
+   app name/store URLs - calls it with the current branches.json, and diffs
+   the result byte-for-byte against the checked-in file. Fails if the file
+   is missing, if the generator no longer exports buildMarkdown(), or if the
+   two differ; on a mismatch, names the first differing line and, where it
+   falls inside a per-branch table, the branch.
+
+VERIFICATION
+------------
+Full 35-checker suite (36 minus check-cdn-pins.js, network-dependent; the
+new checker itself is the 36th of the 37 tools/check-*.js files now in the
+repo, check-live-hours.js the other network-dependent exclusion) re-run
+individually on the tracked repo after both changes: 35/35 exit 0.
+`git status --porcelain -- tools modules core branches.json gbp-packs
+WEEBLY_FURNITURE_CHECKLIST.md compliance` shows only the two files this pass
+intended to touch (tools/build-weebly-furniture-checklist.js modified,
+tools/check-weebly-furniture-freshness.js new) plus the same two long-
+standing pre-existing untracked strays every recent pass has recorded and
+left alone (gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak). No
+generator OUTPUT, page, pack or branches.json CONTENT changed - this pass's
+diff is checker/generator-internal maintenance only. Own diff checked for
+em/en dashes: zero in both the modified file's diff and the new file.
+
+RESULT
+------
+One genuine, previously-unguarded repo gap found and closed: the file the
+Q39 Weebly furniture sweep exists to be worked from mechanically ("the
+correct values are already held here") had no rule proving its "Correct
+values" tables actually stay current against branches.json once committed -
+exactly the CDN-pin-drift class of silent fault this audit keeps finding in
+new places. No sign-off needed: this is checker/generator maintenance with
+no live or patient-facing copy affected, and the real file was already
+correct throughout (verified byte-identical before and after).
+
+LIVE HALF
+---------
+Not attempted. This pass's own scope is a repo-internal freshness proof for
+a not-yet-performed live Weebly sweep (Q39); there is no distinct live
+surface for it to check beyond what other items' own live halves already
+cover.
+
+FORWARD NOTE
+------------
+With 5.1 touched again today, re-derive the rotation pool fresh next run
+rather than trust this note. As computed before selection this pass, the
+next tier up (excluding 5.1 itself and the seven standing one-offs) was led
+by 4.2 (2026-09-17T13:15:10+01:00), then 4.14, 3.6, 3.10, 4.4, 4.9, 4.15 and
+onward - the pool shifts every run, so re-derive rather than trust this.
+
+Checkers this item has still never named against WEEBLY_FURNITURE_CHECKLIST.md
+specifically (a future pass's fresh angle): check-postcodes.js is a full-
+repo scanner and almost certainly already reads this file's postcodes
+incidentally (1188 text files scanned, unchanged before and after this
+pass), but that has never been PROVEN by injection against this file the
+way it has been proven for GBP packs - worth doing on a future pass rather
+than assumed here, since this pass's own scope was the phone/address/
+trading-name freshness gap, not a full re-proof of every sibling checker's
+existing scope.

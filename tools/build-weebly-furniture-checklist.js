@@ -38,10 +38,6 @@
 var fs = require("fs");
 var path = require("path");
 
-var data = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8")
-);
-
 // Known live findings, keyed by branch id. Each entry is sourced from a
 // specific QUESTIONS.json id and the AGENT_WORKLIST.md pass that most
 // recently reconfirmed it. Do not add an entry here without a source -
@@ -238,7 +234,7 @@ var UNREAD_NOTE =
   "fault kinds found elsewhere: a wrong or abbreviated trading name, an " +
   "abbreviated street, and a mistyped address or mailbox.";
 
-function fmtBranch(b) {
+function fmtBranch(b, data) {
   var lines = [];
   lines.push("### " + b.branchName + " (`" + b.id + "`)");
   lines.push("");
@@ -280,6 +276,7 @@ function fmtBranch(b) {
   return lines.join("\n");
 }
 
+function buildMarkdown(data) {
 var trading = data.branches.filter(function (b) {
   return !b.disposed && b.id !== "rbh_head_office_aintree";
 });
@@ -323,7 +320,7 @@ md.push("---");
 md.push("");
 
 trading.forEach(function (b) {
-  md.push(fmtBranch(b));
+  md.push(fmtBranch(b, data));
 });
 
 md.push("---");
@@ -359,15 +356,34 @@ md.push(
 );
 md.push("");
 
-fs.writeFileSync(
-  path.join(__dirname, "..", "WEEBLY_FURNITURE_CHECKLIST.md"),
-  md.join("\n")
-);
+return md.join("\n");
+}
 
-console.log(
-  "Generated WEEBLY_FURNITURE_CHECKLIST.md: " +
-    trading.length +
-    " branches, " +
-    Object.keys(KNOWN_FINDINGS).length +
-    " with confirmed findings."
-);
+// CLI entry point only - lets tools/check-weebly-furniture-freshness.js
+// require() buildMarkdown() and KNOWN_FINDINGS below to prove the checked-in
+// file still matches what this generator would produce right now, without
+// re-running (or duplicating) this script's own write-to-disk behaviour.
+if (require.main === module) {
+  var data = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8")
+  );
+  var trading = data.branches.filter(function (b) {
+    return !b.disposed && b.id !== "rbh_head_office_aintree";
+  });
+  var md = buildMarkdown(data);
+
+  fs.writeFileSync(
+    path.join(__dirname, "..", "WEEBLY_FURNITURE_CHECKLIST.md"),
+    md
+  );
+
+  console.log(
+    "Generated WEEBLY_FURNITURE_CHECKLIST.md: " +
+      trading.length +
+      " branches, " +
+      Object.keys(KNOWN_FINDINGS).length +
+      " with confirmed findings."
+  );
+}
+
+module.exports = { buildMarkdown: buildMarkdown, KNOWN_FINDINGS: KNOWN_FINDINGS };
