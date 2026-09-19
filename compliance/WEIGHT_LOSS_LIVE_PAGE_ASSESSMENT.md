@@ -1528,3 +1528,90 @@ referral kickback scheme, raised separately as a distinct regulatory
 category). No repo file, no live page and no branches.json content was
 changed: this domain is not built by or referenced from this repo, and
 weight-loss advertising and inducement questions are reserved for Rishi.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+153): three more blank stub pages confirmed in the referral/partner chain,
+and about.html read for the first time - a live privacy-notice placeholder
+and named staff exposure
+
+Continuing the same sweep, read four more pages not reached by any prior
+pass: partner-benefits.html, partner-sign-up.html, testimonials.html and
+about.html. All four load cleanly (network requests all 200, no console
+errors, confirmed by checking read_console_messages and
+read_network_requests after a fresh navigation rather than assuming), so
+this is a genuine content gap, not a fetch failure on this worker's part.
+about.html was used as a control precisely to rule that out: it returned
+substantial real text on the first read, using the same tool, in the same
+session, immediately after the three blank ones.
+
+### Three more stub pages: partner-benefits.html, partner-sign-up.html,
+### testimonials.html
+
+Same shape as contact.html and book-an-appointment.html found on the
+2026-09-19 run 152 addition above: header, the newsletter-signup block and
+the footer render, but there is nothing between them. The accessibility
+tree confirms it structurally - a heading node immediately followed by the
+footer's table node, no body content at all - and a screenshot of
+partner-benefits.html shows a large empty dark panel where a hero section
+would normally sit.
+
+This matters beyond general data hygiene because of which three pages they
+are. Every one sits in the same primary-nav cluster as REFERRAL PROGRAM
+(Q117's kickback-scheme page), which does have real content: PARTNER
+SIGN-UP is presumably where a clinic, gym or wellness centre would actually
+enrol, and PARTNER BENEFITS is presumably where the scheme's terms would be
+spelled out. Both are blank. TESTIMONIALS is the dedicated page the nav
+promises for the "Rachel, Bootle" / "Chris, Bootle" - shaped quantified-
+outcome quotes already logged elsewhere on this domain (2026-09-15
+addition, Smartts Bootle) - also blank.
+
+Read together with Q117's own finding that the referral rate is an
+unfilled "£XX" placeholder, this is a second, independent signal pointing
+the same way: the scheme reads as a published draft rather than an
+operating programme, since the two pages that would make it operable (sign
+up, see the benefits) have no working machinery behind their nav links.
+Does not resolve Q117 either way on its own - a placeholder rate and two
+blank supporting pages could equally mean "not live yet" or "live but the
+partner-facing pages were simply never finished while sign-ups already
+happen by phone or email" - but it is material context for whoever
+actions Q117, so it is being added to that question's note rather than
+raised as a separate one.
+
+### about.html: real content, and two findings of a different kind
+
+about.html is the fullest page read on this domain to date. It names real
+staff by name and role: Dane Stratton-Powell (Director of Operations),
+James Moir (Superintendent Pharmacist) and Sara Newcombe (Customer
+Relations Lead), alongside a paragraph on GPhC "at a distance" compliance
+and a confirmation that fulfilment runs through "our sister company, Clear
+Chemist... Unit 20 Brookfield Trade Centre... Aintree, L9 7AS." This is the
+first page on this domain to attach named individuals to the exposure
+already logged against it (superlative Mounjaro/Wegovy claims, the
+disposed-Wilmslow listing, the referral kickback scheme) - not a new
+compliance category in itself, but it means this is not an anonymous page,
+and worth knowing before anyone decides how urgently to act on the rest.
+
+Two further findings, smaller but concrete:
+
+1. A heading reads "Established in 1976" directly above body text that
+   reads "RB Healthcare Ltd was established in 2005" - a 29-year internal
+   contradiction on the same page, about the same fact, with no obvious
+   reason for either figure to be right (neither matches a date this
+   worker has seen recorded anywhere else). Pure data hygiene, not a
+   regulatory question, but a strange one to have shipped uncorrected.
+2. The page's embedded privacy policy - live, public, and the only privacy
+   notice found on this domain - contains an unfilled template placeholder
+   where the data controller's contact details should be: "For any
+   questions regarding this policy, please contact us at [Insert Contact
+   Details]." UK GDPR Article 13 requires a controller to give its contact
+   details in a privacy notice; this notice collects health information
+   (the policy's own text: "Medical Information: Health history, BMI,
+   medication history, and consultation details") and does not. Raised as
+   new Q118, separately from Q106/Q116/Q117, because it is a data-
+   protection completeness question rather than an advertising-standards
+   or inducement one, and because - unlike those three - it looks like a
+   one-line, low-risk fix rather than a copy or commercial-model decision.
+
+No repo file, no live page and no branches.json content was changed: this
+domain is not built by or referenced from this repo. Browsing was
+read-only throughout - nothing clicked, typed or submitted.

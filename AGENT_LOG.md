@@ -1,3 +1,68 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 153;
+mcp__workspace__bash used read-only for repo state and for all file-content
+edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
+chrome__* used read-only for the step 3 answer pickup and the continued
+simpleweightloss.co.uk sweep, nothing clicked, typed or submitted anywhere;
+mcp__Windows-MCP__PowerShell used for git add/commit/push and the
+status-page publish against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround; ran inside a Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start, one created.
+No stale `.git\index.lock` found. `git fetch`, `checkout` (already on
+branch) and `pull --ff-only` all no-op, already at origin's tip (fb25c5a,
+confirmed identical on the real host via Windows-MCP before this run
+touched anything).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full feed read.
+Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged from every run
+back to at least 143. Spot-checked Q52 is correctly recorded as answered
+in QUESTIONS.json. No new answers to apply.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick. Per Q115's still-open recommendation (option 3, followed without
+re-litigating it, consistent with runs 145-152) this run spent its time on
+a live-page recheck instead of a further rotation-pool pass.
+WORK DONE: continued the simpleweightloss.co.uk sweep. Read four pages not
+reached by any prior pass: partner-benefits.html, partner-sign-up.html,
+testimonials.html and about.html. Checked read_console_messages and
+read_network_requests after a fresh navigation before concluding anything,
+rather than assuming a blank read was this worker's fault.
+FINDINGS: (1) partner-benefits.html, partner-sign-up.html and
+testimonials.html are three more blank stub pages (header, newsletter
+block, footer - nothing in between), the same shape as contact.html and
+book-an-appointment.html found on run 152. All three sit in the same
+primary-nav cluster as Q117's referral-program.html page; the two that
+would operationalise the referral scheme (sign-up, benefits) are both
+empty, a second signal alongside Q117's unfilled "£XX" rate that the
+scheme reads as a published draft rather than a live programme. Folded
+into Q117's note as an update rather than raised separately, since it is
+supporting evidence for the same open question. (2) about.html, read for
+the first time and used as a control (it returned full real content
+immediately after three blank reads, confirming the blanks are a genuine
+site gap, not a tool fault), names three real staff by name and role,
+confirms Clear Chemist Aintree as the fulfilment operation, and carries
+two further findings: an internal contradiction ("Established in 1976"
+heading directly above "RB Healthcare Ltd was established in 2005" body
+text), and MOST SIGNIFICANT, the domain's only privacy policy contains an
+unfilled template placeholder where the controller's contact details
+should be ("please contact us at [Insert Contact Details]"), on a notice
+that itself lists health data among what it collects. Raised as new Q118,
+separate from Q104/Q106/Q116/Q117 because it is a data-protection
+completeness gap rather than an advertising or inducement question, and
+looks like a lower-risk one-line fix rather than a copy or commercial
+decision. Full write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md,
+2026-09-19 (run 153) addition.
+Nothing on this domain was changed or could be: it is not built by or
+referenced from this repo, and weight loss advertising, inducement and
+data-protection questions on it are reserved for Rishi under the standing
+rule.
+COMMIT/PUSH (step 9): QUESTIONS.json, compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+and this log entry committed and pushed to `origin/agents/audit-backlog`
+via Windows-MCP PowerShell against the real host.
+STATUS PAGE (step 10): published via `node tools/build-audit-status.js` on
+the real host.
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 152;
 mcp__workspace__bash used read-only for repo state and for all file-content
 edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
