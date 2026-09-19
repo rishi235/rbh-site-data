@@ -1,3 +1,103 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 142;
+mcp__workspace__bash used for lock handling, repo reads, the rsync-based
+scratch copy, injection tests and the checker suite runs; mcp__Windows-MCP__
+PowerShell used to clear a stale .git/index.lock the sandbox's own FUSE
+mount could not unlink (Q96/Q102's standing constraint, hit again this run)
+and for the final commit/push and status-page publish per the established
+Q102 practice; mcp__claude-in-chrome__* used read-only for the step 3
+answer pickup and the live half, nothing clicked, typed or submitted) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 141 had
+released it cleanly). Wrote a fresh one. git fetch/checkout/pull --ff-only
+all completed clean, confirmed up to date with origin at run 141's commit
+(cd4fb61, item 4.6 twentieth pass) before starting. A `git status` call
+mid-run left a fresh .git/index.lock behind (the sandbox's FUSE mount can
+create but not unlink it, the standing Q96/Q102 constraint), cleared via
+mcp__Windows-MCP__PowerShell's Remove-Item before any further git command.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since run 141's own pickup, Q52
+(2026-09-01T22:44:51.524Z). No new answer, no status change to any
+question.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file (run 141's own entry was the current top at scan time).
+Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines
+reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Fell to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded) by
+matching `[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first
+(most recent) mention per item. With 4.6 now freshly touched by run 141 (and
+4.12 by run 140), 4.11 came out uniquely stalest (2026-09-18T07:16:20+01:00),
+ahead of 5.1 (09:16:19+01:00) and the rest, matching run 141's own forward
+note. Chosen: 4.11 (SK Chemists Bootle pack), twenty-second pass.
+FRESH ANGLE: the twenty-first pass's own forward note named
+check-branch-identity.js and check-em-dashes.js as the two checkers never
+once proven against this branch by direct injection across twenty-one prior
+passes despite both reading its pages every run. This pass closes that gap
+for both in one round.
+WORK DONE: full detail and every sha256 in
+audits/sk-chemists-bootle-identity-emdashes-4.11-twentysecond-2026-09-19.txt;
+this is the mirrored summary. Whole repo copied by rsync to a scratch
+directory under the session's own outputs mount (no .git); every injection,
+catch and restore below ran against that copy, and the tracked repo was
+never opened for writing during the round - confirmed afterwards by reading
+back the sha256 of every touched file from the tracked repo and matching
+this pass's own recorded baseline exactly. Baseline: both checkers clean,
+full 35-checker suite clean (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent).
+Four check-branch-identity.js injections against
+earache-treatment-sk-chemists-bootle.html and
+pharmacy-first-sk-chemists-bootle.html, each restored and sha256-reconfirmed
+before the next: (1) rule OWNER, data-branch swapped for smartts_bootle's
+name - CAUGHT, plus a bonus SPLIT catch since the branch's other 11 pages
+still said SK Chemists; (2) rule SCHEMANAME, JSON-LD name swapped the same
+way - CAUGHT, same bonus SPLIT catch; (3) rule OUTBOUND, the Google review
+link swapped for smartts_bootle's own - CAUGHT, correctly naming the true
+owner and warning that a wrong review cannot be moved back off a third-party
+profile; (4) rule SERVICELINK, the pharmacy-first page's own link to its uti
+page repointed at smartts_bootle's uti page - CAUGHT, correctly identified
+as a dead relative link to another host. Rules 4/5/6 (shared-brand
+ambiguity) do not apply to this branch (brandLabel "SK Chemists" is unique
+in the estate) and were not targeted; rules 9/11 (sister links) do not apply
+either, this branch having no sister and no landing page.
+Three check-em-dashes.js injections, each restored and sha256-reconfirmed:
+(5) a literal em dash into weight-loss-clinic-sk-chemists-bootle.html's
+hero-sub - a first attempt mistargeted the wrong line by sed line-number and
+silently no-opped, caught before any conclusion was drawn by re-checking the
+file's hash against baseline, then corrected with a direct text-content edit
+- CAUGHT on the corrected attempt; (6) an &mdash; entity into this branch's
+own Page Title line in modules/service/pages/SEO.md - CAUGHT, while the
+section heading immediately above it (already carrying two literal em
+dashes) correctly fell to the notes bucket rather than failing, confirming
+the heading/pasteable-line distinction holds on this branch's own sheet
+specifically; (7) a mixed injection into gbp-packs/sk-chemists-bootle.md's
+business description - a non-ASCII en dash, a non-ASCII accented character
+and a dash entity together - CAUGHT as one finding naming both defect kinds
+at once. Full 35-checker suite re-run clean after all seven rounds.
+Guard coverage for item 4.11 now extends to 15 of the 35 checkers proven by
+direct injection against this specific branch.
+LIVE HALF: fetched earache-treatment-sk-chemists-bootle.html live via Claude
+in Chrome (single tab, read-only, closed after) and read data-branch, the
+JSON-LD name and telephone, and the Google review link directly out of the
+rendered DOM via a read-only script evaluation. All four match
+branches.json exactly - the live page is correctly not exhibiting any of
+the seven faults this pass proved the checkers would catch. Q58, Q99 and
+item 5.3/Q34 positions not re-read this pass, unchanged since their last
+confirmation.
+QUESTIONS.json: no change, 114 total, 61 open. Zero in-repo defect found
+this pass, so no new question raised.
+COMMIT/PUSH (step 9): via mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data host per Q102's established practice. git add
+audits/sk-chemists-bootle-identity-emdashes-4.11-twentysecond-2026-09-19.txt
+AGENT_WORKLIST.md AGENT_LOG.md (no other files changed; every checker, page,
+generator, pack and branches.json byte-identical to before this run).
+Commit and push to origin agents/audit-backlog.
+STATUS PAGE (step 10): tools/build-audit-status.js run via the same
+PowerShell session after the push, to publish the worklist/log/questions
+state to the portal.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 141;
 mcp__workspace__bash used for lock handling, repo reads, injection tests,
 the checker suite runs and file writes; mcp__claude-in-chrome__* used

@@ -1,0 +1,167 @@
+Item 4.11 (SK Chemists Bootle pack), twenty-second quality pass, 2026-09-19
+(unattended scheduled run, audit-backlog-worker, rotation-pool pick, stalest
+item at 2026-09-18T07:16:20+01:00)
+
+FRESH ANGLE
+-----------
+The twenty-first pass's own forward note named check-branch-identity.js and
+check-em-dashes.js as the two checkers "never once given an actual injection
+record" against this specific branch across twenty-one prior passes, despite
+both reading this branch's pages every run. This pass closes that gap for
+both checkers in one round.
+
+METHOD
+------
+Whole repo (working tree only, no .git) copied by rsync to a scratch
+directory under the session's own outputs mount, entirely outside every path
+mcp__workspace__bash or the tracked repo resolves to. All injection, catch
+and restore work below ran against that scratch copy; the tracked repo at
+C:\dev\rbh-site-data was never opened for writing during the round. Confirmed
+afterwards: sha256 of every touched file in the tracked repo matches the
+scratch copy's own pre-injection baseline exactly (see FINAL VERIFICATION).
+
+Baseline (scratch copy, before any injection):
+  check-branch-identity.js: 177 pages matched, 0 failures, exit 0
+  check-em-dashes.js: 234 files scanned, 0 failures, exit 0
+  Full checker suite (37 files in tools/check-*.js, excluding
+  check-cdn-pins.js and check-live-hours.js, both network-dependent):
+  35/35 clean.
+
+Branch: skchemists_bootle. brandLabel "SK Chemists" is unique in the estate
+(brandCount 1), so rules 4/5/6 of check-branch-identity.js (the shared-brand
+ambiguity rules) do not apply to this branch by construction and were not
+targeted; the twenty prior passes already established this correctly.
+
+SHA256 baseline of files used in injections:
+  earache-treatment-sk-chemists-bootle.html
+    1c3813eb3018cd18abfa20769a7e5374b459a64c98a8b378267d51bde0e41575
+  pharmacy-first-sk-chemists-bootle.html
+    4befe14144fcbfee22b8838999a98a7ecf4c350db6ca741620980786cf0ea5bc
+  weight-loss-clinic-sk-chemists-bootle.html
+    72aca61202aed26c5ca31244d883ab95594a8fcee2e1cffa856a03aeb7ceeab5
+  modules/service/pages/SEO.md
+    2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+  gbp-packs/sk-chemists-bootle.md
+    637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+    (matches the twenty-first pass's own recorded hash for this file,
+    confirming no drift since)
+
+INJECTIONS: check-branch-identity.js (four rules, each restored and
+sha256-reconfirmed before the next)
+--------------------------------------------------------------------
+1. RULE OWNER (rule 2): earache page's data-branch changed from
+   "SK Chemists" to "Smartts Chemist" (the other Bootle branch's name).
+   CAUGHT: FAIL on "owner" naming smartts_bootle, plus a bonus catch on rule
+   SPLIT ("its pages declare 2 different values for data-branch") since the
+   branch's other 11 pages still say SK Chemists. Restored; sha256
+   reconfirmed identical to baseline.
+2. RULE SCHEMANAME (rule 3): same page's JSON-LD "name" changed to
+   "Smartts Chemist". CAUGHT: FAIL on "schemaname", plus the same SPLIT
+   bonus catch. Restored; sha256 reconfirmed.
+3. RULE OUTBOUND (rule 8): same page's Google review link swapped for
+   smartts_bootle's own googleReviewUrl (https://g.page/r/CVzJUbDqQwReEBM/
+   review). CAUGHT: FAIL on "outbound", correctly naming smartts_bootle as
+   the true owner and noting a patient following it "rates the wrong shop,
+   on a third-party profile neither this repo nor a repaste can move the
+   review back off". Restored; sha256 reconfirmed.
+4. RULE SERVICELINK (rule 10): pharmacy-first-sk-chemists-bootle.html's own
+   link to its uti-treatment page repointed at
+   "uti-treatment-smartts-bootle.html" (a real page, on a different host).
+   CAUGHT: FAIL on "servicelink", correctly identifying the link as relative
+   and reporting it as a dead route ("smartts_bootle is served from
+   www.smarttschemist.co.uk and the link is relative, so it 404s"). Restored;
+   sha256 reconfirmed.
+
+Not targeted this pass: rules 9/11 (sisterlink/sisterlabel), because this
+branch has no sister (unique brand, no landing page at all - confirmed no
+modules/branch/pages file exists for skchemists_bootle); rule 7 (data), which
+is a branches.json-only rule with no page-level injection shape and was
+already exercised in the item's own data by the pass that added the rule.
+
+INJECTIONS: check-em-dashes.js (three injections, each restored and
+sha256-reconfirmed before the next)
+--------------------------------------------------------------------
+5. GENERATED PAGE (hasDash literal rule): a literal em dash appended to the
+   hero-sub paragraph of weight-loss-clinic-sk-chemists-bootle.html, the
+   single most compliance-sensitive page family this branch owns. First
+   attempt used a line-anchored sed against the wrong line (the "Book a
+   consultation" button text sits on a different line than assumed) and
+   produced a silent no-op - caught before drawing any conclusion by
+   re-reading the file and confirming byte-identical to baseline, then
+   corrected to a Python edit targeting the actual hero-sub line (line 24).
+   CAUGHT on the corrected attempt: FAIL naming line 24, "em dash". Restored;
+   sha256 reconfirmed identical to baseline.
+6. PASTE SHEET (PASTEABLE_LINE rule): an &mdash; entity inserted into this
+   branch's own "Page Title" line in modules/service/pages/SEO.md (line 535,
+   "Pharmacy First at SK Chemists, Bootle"). The section heading on the line
+   immediately above it ("## SK Chemists — Bootle — Overview") already
+   carries two literal em dashes and correctly falls to the notes bucket
+   (heading, not a pasted value) rather than failing, confirming the
+   heading/pasteable-line distinction holds on this branch's own sheet
+   specifically, not just in the abstract. CAUGHT on the Page Title line:
+   FAIL naming line 535, "em dash (HTML entity)". Restored; sha256
+   reconfirmed.
+7. GBP PACK (checkPackFile's dual rule): the business description in
+   gbp-packs/sk-chemists-bootle.md had " – café-style service &mdash;
+   today" inserted after "SK Chemists is a friendly independent NHS
+   pharmacy", combining a literal non-ASCII en dash, a non-ASCII accented
+   character (é) and a dash HTML entity in one injection. CAUGHT: FAIL
+   naming line 16, reporting both defects in one message ("non-ASCII U+2013
+   U+00E9; en dash, which would paste literally"), proving the pack's dual
+   ASCII-and-entity rule catches a mixed violation, not only a pure one.
+   Restored; sha256 reconfirmed identical to the twenty-first pass's own
+   recorded hash for this file.
+
+FULL SUITE RE-RUN
+-----------------
+After all seven injections and restorations: 35/35 checkers (excluding
+check-cdn-pins.js, check-live-hours.js) exit 0 on the scratch copy.
+
+FINAL VERIFICATION - tracked repo untouched
+--------------------------------------------
+git status --short -- modules/ gbp-packs/ tools/ branches.json on the
+tracked repo (C:\dev\rbh-site-data) shows only two items, both pre-existing
+FUSE-mount cruft from earlier sessions (gbp-packs/.fuse_hidden0000000400000001,
+dated 8 Sep; modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak,
+dated 9 Sep, 0 bytes) - neither created nor touched by this pass. sha256 of
+every file used in an injection, read directly from the tracked repo after
+the round, matches this evidence file's own recorded baseline exactly:
+  earache-treatment-sk-chemists-bootle.html: 1c3813eb...e41575 (match)
+  pharmacy-first-sk-chemists-bootle.html: 4befe141...0ea5bc (match)
+  weight-loss-clinic-sk-chemists-bootle.html: 72aca612...ceeab5 (match)
+  modules/service/pages/SEO.md: 2d04b044...4628ee5 (match)
+  gbp-packs/sk-chemists-bootle.md: 637aed98...44e8a6f222da (match)
+
+LIVE HALF
+---------
+Fetched https://www.skchemist.co.uk/earache-treatment-sk-chemists-bootle.html
+live via Claude in Chrome (single tab, read-only, closed after). Read
+data-branch, the JSON-LD name and telephone, and the Google review link
+directly out of the rendered DOM via a read-only script evaluation:
+  data-branch: "SK Chemists" (matches branchName)
+  JSON-LD name: "SK Chemists" (matches)
+  JSON-LD telephone: "0151 944 1013" (matches branches.json phone)
+  Google review link: https://g.page/r/CeAIYeqSjIYBEAE/review (matches
+  branches.json googleReviewUrl)
+All four fields the injections above targeted are live-correct today. No new
+live finding; Q58, Q99 and item 5.3/Q34's positions on this branch not
+re-read this pass (unchanged since their last confirmation, per the
+twentieth and twenty-first passes).
+
+RESULT
+------
+No in-repo defect found. check-branch-identity.js and check-em-dashes.js are
+now both proven by direct injection against SK Chemists Bootle specifically,
+closing the gap the twenty-first pass's forward note identified. Guard
+coverage for item 4.11 now extends to 15 of the 35 checkers proven by direct
+injection against this branch (13 recorded after the twentieth pass, plus
+these two). No checker logic, pack copy, page, generator or data field
+changed anywhere in the repo. No new question raised.
+
+STEP 3 ANSWER PICKUP
+---------------------
+Portal feed (https://data.rbhealth.co.uk/api/feedback) read in full via
+Claude in Chrome, single tab, read-only, closed after. Newest entry
+unchanged since the twenty-first pass's own pickup earlier today: Q52
+(2026-09-01T22:44:51.524Z), already applied. No new answer, no status
+change to any question.

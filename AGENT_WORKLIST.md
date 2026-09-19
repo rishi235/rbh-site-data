@@ -25855,6 +25855,59 @@ directly rather than re-deriving the same facts by hand.
       not re-read this pass, unchanged since their last confirmation. No
       new defect, no new question raised. Evidence in
       audits/verify-4.11-2026-09-18-twentyfirst.js. Done 2026-09-18
+      Twenty-second quality pass 2026-09-19 (unattended scheduled run,
+      rotation-pool pick, second run today; pool re-derived fresh excluding
+      the seven standing out-of-rotation items and 4.6/4.12, both already
+      touched earlier today - 4.11 came out stalest at
+      2026-09-18T07:16:20+01:00, ahead of 5.1 and the rest, matching the
+      twenty-first pass's own forward note exactly): closed the gap that
+      pass's forward note named directly - check-branch-identity.js and
+      check-em-dashes.js, both reading this branch's pages every prior run
+      but never once proven against it by direct injection. Whole repo
+      copied by rsync to a scratch directory outside every tracked path (no
+      .git); all work below ran there, tracked repo never opened for
+      writing. Baseline both checkers clean, full 35-checker suite clean
+      (excluding check-cdn-pins.js and check-live-hours.js, both
+      network-dependent). Seven injections, each restored and
+      sha256-reconfirmed before the next: check-branch-identity.js rules
+      OWNER, SCHEMANAME and OUTBOUND on earache-treatment-sk-chemists-
+      bootle.html (data-branch, JSON-LD name and Google review link each
+      swapped for smartts_bootle's own) and rule SERVICELINK on pharmacy-
+      first-sk-chemists-bootle.html (a service link repointed at smartts_
+      bootle's own uti page) - all four CAUGHT, the first two with a bonus
+      SPLIT catch since the branch's other pages still carried the correct
+      value; check-em-dashes.js's generated-page rule (a literal em dash
+      into weight-loss-clinic-sk-chemists-bootle.html's hero-sub, the
+      branch's most compliance-sensitive page - a first attempt mistargeted
+      the wrong line and silently no-opped, caught by re-checking the file
+      against its own baseline hash before drawing any conclusion, then
+      corrected), the paste-sheet PASTEABLE_LINE rule (an &mdash; entity
+      into this branch's own Page Title line in modules/service/pages/
+      SEO.md, with the section heading immediately above it, which already
+      carries two literal em dashes, correctly falling to the notes bucket
+      rather than failing) and the GBP pack's dual rule (a mixed non-ASCII
+      character, non-ASCII en dash and dash entity injected together into
+      gbp-packs/sk-chemists-bootle.md's business description, caught as one
+      finding naming both defects) - all three CAUGHT. All seven
+      restorations sha256-reconfirmed identical to baseline; full
+      35-checker suite re-run clean after. Tracked repo confirmed untouched
+      throughout: git status shows only two items, both pre-existing
+      FUSE-mount cruft from earlier sessions dated 8 and 9 September, and
+      sha256 of every file used in an injection matches this pass's own
+      recorded baseline when read back from the tracked repo. Guard
+      coverage for item 4.11 now extends to 15 of the 35 checkers proven by
+      direct injection against this branch. LIVE HALF: fetched
+      earache-treatment-sk-chemists-bootle.html live via Claude in Chrome
+      (single tab, read-only) and read data-branch, the JSON-LD name and
+      telephone, and the Google review link directly out of the rendered
+      DOM - all four match branches.json exactly, confirming what the
+      injections above proved the checker would catch is, live, correctly
+      not the case today. Step 3 answer pickup: newest portal entry still
+      Q52, 2026-09-01, already recorded answered; nothing new. No in-repo
+      defect found; no checker, pack, page, generator or data field
+      changed; no new question raised. Evidence in
+      audits/sk-chemists-bootle-identity-emdashes-4.11-twentysecond-2026-09-19.txt.
+      Done 2026-09-19
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
