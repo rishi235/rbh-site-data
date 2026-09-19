@@ -1403,3 +1403,128 @@ advertising-standards decision Q106/Q104 already await). No repo file, no
 live page and no branches.json content was changed: this domain is not
 built by or referenced from this repo, and weight-loss advertising copy
 calls are reserved for Rishi under the standing rule.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+152): simpleweightloss.co.uk - the site navigation itself names both
+medicines, weight-loss-injections.html read in full, and a referral
+kickback scheme found on a page no prior pass had reached
+
+All eight worklist items remain [BLOCKED] this run (unchanged since run
+143; the answer-pickup feed was re-read first and is still capped at Q52,
+2026-09-01, nothing new), so this run again used its time on the
+live-page recheck Q115 recommends. Read the full sitemap.xml a second
+time (50 URLs total: 36 pages plus 15 blog posts, one more blog post than
+the "ten" run 151 recorded, evidently an undercount rather than a change
+to the site) and five pages not read on any prior pass: contact.html,
+book-an-appointment.html, weight-loss-injections.html,
+referral-program.html, faqs.html.
+
+STRUCTURAL FINDING, applies to the whole site rather than one page: the
+primary navigation bar printed at the foot of every page read so far on
+this domain, including the homepage, carries "WEIGHT LOSS INJECTIONS",
+"MOUNJARO" and "WEGOVY" as three separate top-level items, each its own
+dedicated page. Run 151 had already found that mounjaro-weight-lossuk.html
+and prices.html sit behind this same nav and reasoned each one individually
+into Regime 1. Reading the nav bar itself, sitewide, tightens that: the
+reference's Regime 1/Regime 2 test turns on whether a page is reached
+proactively (nav, ad, homepage link) or only by a visitor who has already
+chosen to read about the condition. A menu bar repeated on every page,
+naming two prescription-only medicines by brand as its own top-level
+entries, fails that test structurally and by design, not as a side effect
+of where any one page happens to sit. This reasoning was not previously
+written down explicitly even though the underlying nav was already visible
+on every page text extract taken since 2026-09-15; worth carrying forward
+so a future pass does not have to re-derive it page by page.
+
+### weight-loss-injections.html (Regime 1, reached from the sitewide nav
+described above)
+
+New template, not the branch-page template already on record four times
+over. Findings against the house reference:
+
+- "Lose up to 20% body weight" (Mounjaro) and "Lose up to 15% body weight"
+  (Wegovy): the same precise-amount-of-weight-loss pattern already found on
+  the five original Weebly pages and flagged there as a rule 13.9 breach.
+- A "COMPARE OUR TREATMENTS" table repeating ~15%/~22%, followed by the
+  unqualified standalone line "Weight loss thats 6 x more effective" (sic,
+  no apostrophe) - a comparative superlative derived by simple division of
+  the two percentages, not a claim from any cited study, and a step beyond
+  every comparison table read on this domain so far, which have stopped at
+  the bare percentages.
+- "The most effective GLP-1" - a superlative product claim, the same class
+  the reference gives as its own worked example of what an inner page may
+  not say (see this file's 2026-08-10 entry, item 2).
+- The NHS availability row of the same table states Mounjaro is available
+  on the NHS "From April 2025" - stale by seventeen months against today's
+  date and, more to the point, not something this worker can verify either
+  way from here; flagged as a factual-currency question rather than an
+  advertising one.
+- "Guarantee - if its not suitable you do not pay a penny" sits above the
+  fold ahead of any consultation framing, the same lead-commitment pattern
+  Q104 found on Clear Chemist's retail pages.
+- Numerous typos throughout ("WYEGOVY", "TIREPATIDE", "SEMGLUTIDE",
+  "CONSULATION", "WAHT") - a site-quality finding, not itself a compliance
+  breach, but worth a line because a page this publicly wrong on spelling
+  has evidently had no review pass of any kind, which bears on how much
+  weight to put on "nobody has read this recently" as an explanation for
+  the compliance findings above.
+
+### referral-program.html - a different kind of finding from everything
+else in this file
+
+Every other entry here is an advertising-standards question: is the wording
+on a page too promotional for where it sits. This page is not that. It
+describes, in plain terms, a commission scheme: "Additional Revenue Stream
+- Earn commissions for every successful referral through our competitive
+kickback scheme", offered to "clinics, gyms, and wellness centres" who refer
+clients into Mounjaro or Wegovy treatment, with "Earn £XX per referral for
+each successful sign-up" (the "XX" is a live, unfilled placeholder - the
+page appears to be an unfinished draft, not a scheme already running with a
+published rate) and "Tiered bonuses for higher referral volumes". Contact
+details given are info@simpleweightloss.co.uk and 07988911911, both
+previously unseen on this domain.
+
+This is flagged separately from Q106 rather than folded into it, because
+paying a third party a commission or kickback for referring a patient into
+a prescription-only medicine pathway is a different regulatory question
+from an overstated claim on a web page. It touches GPhC standards on
+inducements and financial interests in referral and prescribing decisions,
+and potentially wider healthcare anti-inducement law, not only CAP
+advertising rules - a question this worker is not qualified to resolve and
+is not attempting to. Raised as new Q117. Whether the scheme is live,
+in draft, or already paying anyone cannot be determined from the page
+alone; the "£XX" placeholder is the only evidence either way and it points
+towards draft rather than live.
+
+### Two stub pages, data-hygiene findings only
+
+contact.html carries no RBH or Simple Weight Loss contact details at all -
+its main body is unedited template placeholder text ("Muse Technologies,
+123 Main St. Suite 100, San Francisco, CA 93106") and empty
+"Email Address" / "Phone Number" footer fields, the same empty-field
+pattern seen on every page's footer on this domain. book-an-appointment.html
+is functionally empty, chrome only, no booking form or widget visible in
+the extracted text. Neither is a claims problem; both suggest this domain
+has live pages that were never finished rather than pages that were
+finished and have since drifted, which is a different explanation from the
+"stale paste" pattern found on the Weebly estate elsewhere in this file.
+
+faqs.html, by contrast, reads as the most balanced page found on this
+domain to date: informational Q&A framing throughout, a proper informed-
+consent pricing disclaimer at Q11, and only one soft finding - Q5's "Studies
+show 15-22% total body weight loss over 12-18 months with continued use" is
+an uncited aggregate figure rather than a personalised promise, closer to
+Regime 2 territory than anything else read on this site so far.
+
+Not read this run: eleven of the sixteen branch pages, fourteen of fifteen
+blog posts, and the remaining informational pages (about, testimonials,
+how-it-works, face-to-face-consultations, fully-online-option,
+partner-benefits, partner-sign-up, weight-loss-tips, blog.html,
+find-a-pharmacy-near-you, reordering-options, mounjaro.html [linked from
+nav, URL not yet confirmed against the sitemap]). This addition is the
+supporting evidence for Q106 (nav-bar and weight-loss-injections.html
+findings, folded into Q106's existing note) and new question Q117 (the
+referral kickback scheme, raised separately as a distinct regulatory
+category). No repo file, no live page and no branches.json content was
+changed: this domain is not built by or referenced from this repo, and
+weight-loss advertising and inducement questions are reserved for Rishi.

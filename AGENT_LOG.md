@@ -1,3 +1,71 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 152;
+mcp__workspace__bash used read-only for repo state and for all file-content
+edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
+chrome__* used read-only for the step 3 answer pickup and the continued
+simpleweightloss.co.uk sweep, nothing clicked, typed or submitted anywhere;
+ran inside a Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start, one created.
+No stale `.git\index.lock` found. `git fetch`, `checkout` (already on
+branch) and `pull --ff-only` all no-op, already at origin's tip.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full feed read (55
+entries). Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged
+from every run back to at least 143. Spot-checked that Q37 and Q43 (whose
+portal replies are requests for clarification rather than decisions) are
+correctly still recorded as "open" with their existing notes rather than
+misfiled as answered. No new answers to apply.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick, and not all items are complete, so per Q115's still-open
+recommendation (option 3, followed without re-litigating it, consistent
+with runs 145-151) this run spent its time on a live-page recheck instead
+of a further rotation-pool pass.
+WORK DONE: continued the simpleweightloss.co.uk sweep runs 146-151 have
+been building up (Q106/Q116). Re-read the full sitemap.xml (50 URLs: 36
+pages plus 15 blog posts - one more blog post than run 151 recorded,
+an undercount on that run's part rather than a site change) and read five
+pages not reached by any prior pass: contact.html, book-an-appointment.html,
+weight-loss-injections.html, referral-program.html, faqs.html.
+FINDINGS: (1) the sitewide primary nav, present on every page read on this
+domain including the homepage, carries WEIGHT LOSS INJECTIONS, MOUNJARO and
+WEGOVY as three separate top-level menu items - a structural finding that
+settles the reference's Regime 1 (proactively linked) test for every page
+behind that nav by design, not as a side effect of any one page's content,
+and was implicit but not previously written down across the five prior page
+reads since 2026-09-15. (2) weight-loss-injections.html, a template not
+seen before, adds a new unqualified comparative claim beyond anything
+logged so far: "Weight loss thats 6 x more effective" derived by simple
+division of the two treatments' percentages with no citation, alongside
+"Lose up to 20%/15% body weight" and "The most effective GLP-1". (3)
+MOST SIGNIFICANT, raised as new Q117 rather than folded into Q106:
+referral-program.html describes a live "competitive kickback scheme" paying
+clinics, gyms and wellness centres a commission for referring clients into
+Mounjaro or Wegovy treatment ("Earn £XX per referral", rate left as an
+unfilled placeholder, plus tiered volume bonuses). This is a different
+regulatory category from every other finding on this domain - an inducement
+/ referral-fee question for GPhC or wider healthcare regulation, not a CAP
+advertising-wording question - and this worker is not qualified to judge it
+and has not attempted to. (4) contact.html and book-an-appointment.html are
+both unfinished template stubs (contact.html's body is literally unedited
+Wix/Weebly placeholder text, "Muse Technologies... San Francisco"), a
+data-hygiene finding distinct from the "stale paste" pattern found
+elsewhere. (5) faqs.html is the most balanced page read on this domain to
+date, informational Q&A framing with a proper pricing disclaimer, one soft
+uncited-aggregate-figure finding only. Full write-up in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19 (run 152)
+addition. Not read this run: eleven branch pages, fourteen blog posts, and
+roughly a dozen remaining informational pages on this domain.
+Nothing on this domain was changed or could be: it is not built by or
+referenced from this repo, and weight loss advertising and inducement
+questions are reserved for Rishi under the standing rule.
+COMMIT/PUSH (step 9): QUESTIONS.json,
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and this log entry to be
+committed and pushed to `origin/agents/audit-backlog`.
+STATUS PAGE (step 10): to be published via `node
+tools/build-audit-status.js`.
+LOCK RELEASE (step 11): `.agent-lock` to be deleted at the end of this run.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 151;
 mcp__workspace__bash used read-only for repo state, and for all file-content
 edits (QUESTIONS.json, the compliance file, this entry), per run 150's own
