@@ -15893,6 +15893,83 @@ Done 2026-09-19 (twenty-second pass).
       proven clean against data already known correct, not a live-facing
       decision. Evidence: audits/tiffenbergs-item-3.12-quality-pass-
       2026-09-18-nineteenth.txt. Done 2026-09-18 (nineteenth pass)
+      Quality pass 2026-09-19, TWENTIETH PASS, FRESH ANGLE: tools/check-
+      whatsapp-route.js proven by injection against Tiffenbergs' own pages,
+      branches.json entry and a service-family generator for the first time
+      in this item's twenty-pass history (nineteen prior passes exercised
+      check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-
+      routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-
+      identity.js, check-map-embeds.js, check-pharmacy-first-eligibility.js,
+      check-weight-loss-copy.js, check-branch-links.js, check-opening-
+      hours.js, check-switch-copy.js, check-travel-clinic-copy.js, check-
+      contraception-copy.js, check-seo-lengths.js, check-seo-pattern.js,
+      check-seo-keywords.js and check-app-membership.js against this branch,
+      but never the checker that owns the WhatsApp destination, Q21).
+      BASELINE: full repo exported via `git archive HEAD | tar -x` to a
+      disposable scratch copy, tracked repo never opened for writing during
+      the injection round; branches.json sha256 confirmed at the standing
+      anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      throughout. Full checker suite clean on the tracked repo before
+      starting; 36/37 on the scratch copy, the one exception check-cdn-
+      pins.js's documented .git-less artefact. Six injections plus one
+      control, each on a target untried for this checker in any prior pass,
+      each restored by byte copy and sha256-reconfirmed identical before the
+      next: (1) RULE 4 page agreement - earache-treatment page's data-wa
+      changed to a foreign number - CAUGHT, naming both the wrong value and
+      the agreed one; (2) RULE 6 orphan button - sore-throat-treatment
+      page's data-wa removed while its WhatsApp button stayed - CAUGHT,
+      naming the silent runtime-default fallback risk; (3) RULE 5 unreplaced
+      token (plus RULE 4 compound) - impetigo-treatment page's data-wa
+      changed to the literal {{WHATSAPP_NUMBER}} - CAUGHT TWICE AT ONCE, the
+      token rule and the page-agreement rule together; (4) RULE 1 (data)
+      missing field - tiffenbergs_longmoor's whatsapp field deleted from
+      branches.json - CAUGHT, isolated, no page cross-fire since the
+      remaining 15 branches still agreed on one value; (5) RULE 3 format
+      (plus RULE 1 disagreement cascade) - tiffenbergs_longmoor's whatsapp
+      changed to a non-E.164 "07521775631" - CAUGHT TWICE, the format rule
+      and a source-agreement failure fired for all 16 branches once the
+      estate no longer agreed on one value; (6) RULE 1 (source) generator
+      regression - a hardcoded `const WHATSAPP = "447000000000";` inserted
+      into tools/build-service-pages.js, the exact pre-Q21 shape this
+      checker exists to stop - CAUGHT, isolated. CONTROL: an unrelated
+      wording change on the earache page ("Earache treatment" to "Ear ache
+      treatment") passed clean, no cross-firing. All seven events caught on
+      the first attempt on exactly the predicted rule(s) with the predicted
+      message. RESTORE AND RE-VERIFY: all five touched files (three
+      Tiffenbergs pages, branches.json, tools/build-service-pages.js)
+      sha256-reconfirmed identical to baseline after every restore; full
+      checker suite re-run on the scratch copy after the final restore
+      (36/37, same cdn-pins artefact) and on the tracked repo (clean);
+      branches.json sha256 unchanged; git status --porcelain on modules,
+      core, branches.json, gbp-packs and tools showing only the two long-
+      standing untracked strays, unchanged throughout. RESULT: zero in-repo
+      defect; check-whatsapp-route.js was already correctly holding all six
+      of its rule families against Tiffenbergs specifically, now proven
+      directly rather than correct by construction alone. Guard coverage for
+      item 3.12 now extends to 20 of the 36 checkers proven by direct
+      injection against this branch; 16 remain (check-address-region,
+      check-brand-spelling, check-editor-snapshot, check-fragment-targets,
+      check-gbp-pharmacy-first, check-live-hours, check-page-coverage,
+      check-pharmacy-first-cost, check-pharmacy-first-safety-net, check-
+      pharmacy-first-symptoms, check-seo-sheets, check-service-links,
+      check-uk-spelling, check-url-scheme, check-weebly-furniture-
+      freshness, check-widget-diaries). Note: this pass recomputed the
+      remaining-checker list directly from the tools/check-*.js directory
+      listing (37 files, cdn-pins excluded as network-dependent = 36) rather
+      than carrying forward the nineteenth pass's text unchecked; check-
+      weebly-furniture-freshness had not appeared in that prior list and is
+      folded in here rather than left silently uncounted. STEP 3 answer
+      pickup: Claude in Chrome connected, feedback endpoint read
+      successfully first attempt; no new answers found for any of the 60
+      currently open questions, newest entry still Q52 (2026-09-01),
+      unchanged since run 137's own pickup earlier today. No status change
+      made to Q37/Q43. Live half not attempted: full 12-of-12 live coverage
+      already stands from the fifth/sixth passes (2026-09-02), not re-read
+      this pass; this pass's fresh angle was entirely repo-side. No new
+      question raised - checker proven clean against data already known
+      correct, not a live-facing decision. Evidence: audits/tiffenbergs-
+      item-3.12-quality-pass-2026-09-19-twentieth.txt. Done 2026-09-19
+      (twentieth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

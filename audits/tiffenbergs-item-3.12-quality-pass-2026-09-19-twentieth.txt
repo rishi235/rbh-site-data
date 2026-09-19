@@ -1,0 +1,125 @@
+ITEM 3.12 QUALITY PASS - TWENTIETH PASS - 2026-09-19
+Branch: Tiffenbergs Chemist, Aintree (branches.json id tiffenbergs_longmoor)
+Fresh angle: tools/check-whatsapp-route.js proven by injection against
+Tiffenbergs' own pages, branches.json entry and a service-family generator for
+the first time in this item's twenty-pass history. Nineteen prior passes
+exercised check-nap.js, check-postcodes.js, check-em-dashes.js, check-booking-
+routes.js, check-jsonld.js, check-gbp-packs.js, check-branch-identity.js,
+check-map-embeds.js, check-pharmacy-first-eligibility.js, check-weight-loss-
+copy.js, check-branch-links.js, check-opening-hours.js, check-switch-copy.js,
+check-travel-clinic-copy.js, check-contraception-copy.js, check-seo-
+lengths.js, check-seo-pattern.js, check-seo-keywords.js and check-app-
+membership.js against this branch, but never the checker that owns the
+WhatsApp destination (Q21).
+
+BASELINE
+Full repo exported via `git archive HEAD | tar -x` to /tmp/scratch312b,
+outside the tracked tree; tracked repo never opened for writing during the
+injection round. branches.json sha256 confirmed at the standing regression
+anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102 on
+both the tracked repo and the scratch copy, before and after. Full checker
+suite run individually on the scratch copy before starting: 36/37 clean, the
+one exception check-cdn-pins.js's documented .git-less artefact (unrelated to
+this pass).
+
+TIFFENBERGS' WHATSAPP SURFACE
+branches.json::tiffenbergs_longmoor.whatsapp = "447521775631" (agrees with
+all 15 other trading branches). 12 generated pages under modules/service/
+pages/ and modules/switch/pages/ carry the module root with data-wa; 10 of
+the 12 carry a WhatsApp button or callback form, 2 (the Pharmacy First
+overview and one other) fall into the estate-wide 14-page inert-attribute
+note already on record under Q20 (not a defect, reported not failed).
+
+INJECTIONS
+Six injections plus one control, each on a target untried for check-
+whatsapp-route.js injection in any prior pass, each restored by byte copy
+and sha256-reconfirmed identical to its pre-injection backup before the
+next began:
+
+(1) RULE 4, page agreement - earache-treatment-tiffenbergs-aintree.html's
+    data-wa changed from 447521775631 to 447900112233 - CAUGHT: "data-
+    wa=\"447900112233\" but branches.json agrees on 447521775631". Restored,
+    sha256 e536edb3...cfce8cfd030 reconfirmed.
+
+(2) RULE 6, orphan button - sore-throat-treatment-tiffenbergs-aintree.html's
+    data-wa attribute removed entirely from the module root while the
+    svc-wa button stayed in place - CAUGHT: "carries a WhatsApp button but
+    no data-wa on its module root, so it would fall back to the runtime
+    default". Restored, sha256 93fedca7...53246fc8f reconfirmed.
+
+(3) RULE 5, unreplaced token (plus RULE 4 compound) -
+    impetigo-treatment-tiffenbergs-aintree.html's data-wa changed to the
+    literal placeholder {{WHATSAPP_NUMBER}} - CAUGHT TWICE AT ONCE: the
+    token rule ("still carries the template placeholder
+    {{WHATSAPP_NUMBER}}") and the page-agreement rule (a non-agreed value),
+    the first proof these two rules fire together on a real page. Restored,
+    sha256 27853a21...633a6edb59c8 reconfirmed.
+
+(4) RULE 1 (data), missing field - tiffenbergs_longmoor's whatsapp field
+    deleted from branches.json entirely - CAUGHT, isolated: "no whatsapp
+    field", with no page-agreement cross-fire, because the remaining 15
+    branches still agree on one value so AGREED stayed set and Tiffenbergs'
+    own pages (still carrying the correct data-wa) matched it. Restored,
+    sha256 169bb5a2...ad1b102 reconfirmed.
+
+(5) RULE 3, format (plus RULE 1 disagreement cascade) - tiffenbergs_longmoor's
+    whatsapp changed to "07521775631" (leading 0, not E.164) - CAUGHT TWICE:
+    the format rule ("07521775631 is not a UK mobile in E.164 without the
+    plus") and, because the estate no longer agreed on one value, a source-
+    agreement failure fired for every one of the 16 branches (AGREED became
+    null). Confirms the cascade is a real, predictable consequence of a
+    single malformed value, not a checker bug. Restored, sha256 169bb5a2...
+    ad1b102 reconfirmed.
+
+(6) RULE 1 (source), generator regression - `const WHATSAPP =
+    "447000000000";` inserted into tools/build-service-pages.js, the exact
+    pre-Q21 shape this checker exists to stop - CAUGHT, isolated: "declares
+    a hardcoded const WHATSAPP = \"447000000000\" again; Q21 moved this to
+    branches.json's whatsapp field, read per branch as b.whatsapp". No
+    cross-fire with the page or data rules, since the generator's own
+    constant is dead code once b.whatsapp is what pages actually receive.
+    Restored, sha256 29847225...9076 reconfirmed.
+
+CONTROL - an unrelated wording change on the same earache page ("Earache
+treatment" to "Ear ache treatment" in visible copy, no WhatsApp-related text
+touched) - check-whatsapp-route.js stayed clean, exit 0, confirming no
+cross-firing on unrelated edits to a file this checker also reads. Restored,
+sha256 e536edb3...cfce8cfd030 reconfirmed.
+
+All seven events (six injections, one control) landed on exactly the
+rule(s) predicted by reading the source before injecting, with message text
+matching what the source composes.
+
+RESTORE AND RE-VERIFY
+Every touched file (three Tiffenbergs pages, branches.json,
+tools/build-service-pages.js) restored by byte copy and sha256-reconfirmed
+identical to its pre-injection backup after each injection and again at the
+end. Full checker suite re-run on the scratch copy after the final restore:
+36/37 clean (same check-cdn-pins.js artefact). Tracked repo reconfirmed
+untouched throughout: branches.json sha256 unchanged at the standing anchor;
+git status --porcelain on modules, core, branches.json, gbp-packs and tools
+showing only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched.
+
+RESULT
+Zero in-repo defect. check-whatsapp-route.js was already correctly holding
+all six of its rule families against Tiffenbergs specifically (page
+agreement, orphan button, unreplaced token, missing field, format, and
+generator-level source regression), now proven directly by injection rather
+than left correct by construction alone. Guard coverage for item 3.12 now
+extends to 20 of the 36 checkers proven by direct injection against this
+branch; 16 remain: check-address-region, check-brand-spelling, check-
+editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first, check-
+live-hours, check-page-coverage, check-pharmacy-first-cost, check-pharmacy-
+first-safety-net, check-pharmacy-first-symptoms, check-seo-sheets, check-
+service-links, check-uk-spelling, check-url-scheme, check-widget-diaries,
+check-weebly-furniture-freshness, carried forward for a future pass. No
+page, generator, checker, pack or branches.json byte changed. No new
+question raised - checker proven clean against data already known correct,
+not a live-facing decision.
+
+Live half not attempted: full 12-of-12 live coverage already stands from the
+fifth/sixth passes (2026-09-02); this pass's fresh angle was entirely
+repo-side (a checker, not a live page).

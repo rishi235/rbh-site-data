@@ -1,8 +1,90 @@
-## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 137;
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 138;
 mcp__workspace__bash used for all read-only checker/injection work and file
 edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
 verification on the real host and for the final commit/push and status-page
 publish per the established Q102 practice) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 137 had
+released it cleanly). Wrote a fresh one. git fetch/checkout/pull --ff-only
+all completed clean, confirmed up to date with origin at run 137's commit
+(5baf9b5) before starting. This run's own read-only git status calls
+(mcp__workspace__bash) left an orphaned, zero-length .git/index.lock behind
+again, the same FUSE-mount create-succeeds/unlink-fails restriction as
+Q87/Q96/Q102 and every recent run - confirmed under a minute old and no git
+process running (checked via mcp__Windows-MCP__PowerShell's Get-Process),
+cleared via PowerShell's Remove-Item -Force against the real
+C:\Dev\rbh-site-data host, then reconfirmed clean before continuing.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since run 137's own pickup, Q52
+(2026-09-01T22:44:51.524Z). Of the 60 currently-open questions, only Q37 and
+Q43 appear in the feed, both already correctly recorded as non-decision
+portal replies (Q37: Rishi said he did not understand the question in plain
+English; Q43: Rishi said he was unsure and wanted advice) rather than
+actionable answers. No new answer, no new question, no status change. 113
+questions total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Fell
+to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded;
+completed-item count reconfirmed at 43, unchanged) by matching
+`[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first (most
+recent) mention per item. Stalest came out uniquely as 3.12
+(2026-09-18T05:13:37+01:00), ahead of 3.13 (05:42:07+01:00) and 4.12
+(06:16:57+01:00). Chosen: 3.12 (Tiffenbergs Chemist, Aintree), twentieth
+pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.12 block and
+audits/tiffenbergs-item-3.12-quality-pass-2026-09-19-twentieth.txt; this is
+the mirrored summary. Checker under fresh test: tools/check-whatsapp-
+route.js, chosen from the nineteenth pass's own 16-checker candidate list -
+never once tested by direct injection against this branch's own pages,
+branches.json entry or generators across nineteen prior passes, despite
+Tiffenbergs carrying twelve pages with a module root and a data-wa
+attribute.
+Full checker suite clean on the tracked repo before starting; 36/37 on a
+disposable scratch copy (`git archive HEAD | tar -x`, tracked repo never
+opened for writing during injection work), the one exception check-cdn-
+pins.js's documented .git-less artefact. branches.json sha256 confirmed at
+the standing anchor 169bb5a2...b102 throughout. Six injections plus one
+control, each restored by byte copy and sha256-reconfirmed before the next:
+(1) RULE 4 page agreement - earache-treatment page's data-wa swapped for a
+foreign number - CAUGHT; (2) RULE 6 orphan button - sore-throat-treatment
+page's data-wa removed while its WhatsApp button stayed - CAUGHT; (3) RULE 5
+unreplaced token - impetigo-treatment page's data-wa set to the literal
+{{WHATSAPP_NUMBER}} - CAUGHT TWICE AT ONCE (token rule plus page-agreement
+rule); (4) RULE 1 data - tiffenbergs_longmoor's whatsapp field deleted from
+branches.json - CAUGHT, isolated; (5) RULE 3 format - tiffenbergs_longmoor's
+whatsapp set to non-E.164 "07521775631" - CAUGHT TWICE (format rule plus a
+source-agreement cascade across all 16 branches once the estate no longer
+agreed on one value); (6) RULE 1 source - a hardcoded `const WHATSAPP =
+"447000000000";` inserted into tools/build-service-pages.js, the exact
+pre-Q21 regression shape - CAUGHT, isolated. CONTROL: an unrelated wording
+change on the earache page passed clean, no cross-firing. All seven events
+caught on the first attempt on exactly the predicted rule(s). RESTORE:
+all five touched files (three Tiffenbergs pages, branches.json, tools/build-
+service-pages.js) sha256-reconfirmed identical to baseline after every
+restore; full checker suite re-run clean on both the scratch copy (36/37,
+same cdn-pins artefact) and the tracked repo after. Zero in-repo defect.
+Guard coverage for item 3.12 now extends to 20 of the 36 checkers proven by
+direct injection against this branch; 16 remain, recomputed this pass
+directly from the tools/check-*.js directory listing (37 files minus cdn-
+pins), which also surfaced that check-weebly-furniture-freshness had been
+silently absent from the eighteenth/nineteenth passes' own remaining-list
+text - folded in rather than left uncounted, noted plainly in both the
+worklist entry and the evidence file. No new question raised.
+COMMIT/PUSH (step 9): git add AGENT_WORKLIST.md AGENT_LOG.md audits/
+tiffenbergs-item-3.12-quality-pass-2026-09-19-twentieth.txt (no other files
+changed; branches.json, all generators and all generated pages byte-
+identical to before this run). Commit and push to origin agents/audit-
+backlog via mcp__Windows-MCP__PowerShell against the real host, per the
+established practice for step 9/10 once mcp__workspace__bash's own git
+status calls have left an index.lock behind mid-run.
+STATUS PAGE (step 10): tools/build-audit-status.js run after the push to
+publish the worklist/log/questions state to the portal.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Wrote a fresh one.
 git fetch/checkout/pull --ff-only all completed clean, confirmed up to date
 with origin at run 136's commit (f72ac50). This run's own read-only git
