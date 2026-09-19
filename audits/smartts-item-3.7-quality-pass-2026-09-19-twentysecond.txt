@@ -1,0 +1,96 @@
+Item 3.7 (Smartts Chemist Bootle) quality pass, twenty-second, 2026-09-19
+==========================================================================
+
+Purpose
+-------
+The item's twenty-first pass (2026-09-18, check-seo-keywords.js) recorded
+tools/check-weight-loss-copy.js as a checker never proven by injection
+against Smartts Chemist Bootle specifically, despite being proven against
+nine other branches (Hirshmans, Scorah, Coleman and Leighs, Riddings,
+Tiffenbergs, Cherry Lane, Fishlocks Ainsdale, Clear Chemist, Gordon Short).
+This pass closes that gap.
+
+Target file
+-----------
+modules/service/pages/weight-loss-clinic-smartts-bootle.html
+
+Baseline
+--------
+Full checker suite run before any change (35 runnable checkers; cdn-pins and
+live-hours excluded per repo convention):
+
+  35/35 exit 0, zero failures.
+
+File backed up by direct copy (weight-loss-clinic-smartts-bootle.html.bak-
+3.7-pass) and hashed:
+
+  SHA256 (original) = EF9A9DB48CD74FFADD5FAD35427D582617CD15CB3C3BB22C340D81E1684E03D2
+
+Injections (each applied alone, checker run, then file restored from the
+backup and re-hashed before the next injection began)
+-------------------------------------------------------------------------
+
+1. RULE 8 - medicine name
+   Injected: <p>Ask about Wegovy at your consultation.</p>
+   Result: FAIL - 1 problem(s):
+     modules/service/pages/weight-loss-clinic-smartts-bootle.html names
+     "wegovy". tools/build-weight-loss-pages.js states in its own header,
+     and every page repeats in its paste comment, that no brand-name
+     medicine is named anywhere on these pages.
+   Restore check: SHA256 after restore == original. MATCH.
+
+2. RULE 9 - efficacy/results claim
+   Injected: <p>Lose up to 15% of your body weight with our clinically
+   proven plan.</p>
+   Result: FAIL - 1 problem(s):
+     modules/service/pages/weight-loss-clinic-smartts-bootle.html makes
+     quantified weight loss claim: "Lose up to". Weight loss copy carries
+     no promise about an outcome.
+   Restore check: SHA256 after restore == original. MATCH.
+
+3. RULE 6 - no guarantee
+   Removed: "This page is general information, not medical advice, and
+   does not guarantee eligibility, treatment or results."
+   Result: FAIL - 1 problem(s):
+     modules/service/pages/weight-loss-clinic-smartts-bootle.html has lost
+     a no-guarantee statement: "This page is general information, not
+     medical advice, and does not guarantee eligibility, treatment or
+     results.".
+   Restore check: SHA256 after restore == original. MATCH.
+
+4. RULE 7 - price-led wording
+   Injected: <p>Special offer this month on your consultation.</p>
+   Result: FAIL - 1 problem(s):
+     modules/service/pages/weight-loss-clinic-smartts-bootle.html uses
+     price-led wording: "Special offer". On a page that can end in a
+     prescription-only medicine the house reference permits a factual
+     price and bars offers, discounts and encouragement to choose on
+     price.
+   Restore check: SHA256 after restore == original. MATCH.
+
+Each injection produced exactly one failure (no other rule tripped
+alongside it), confirming the rules are correctly isolated from one
+another on this page.
+
+Post-restore verification
+--------------------------
+Backup file deleted. Full checker suite re-run on the tracked tree:
+
+  35/35 exit 0, zero failures.
+
+git status confirms no tracked file changed as a result of this pass
+(modules/service/pages/weight-loss-clinic-smartts-bootle.html identical to
+its pre-pass committed state).
+
+Scope not covered this pass
+----------------------------
+Rules 1 (coverage), 2 (pinned copy, read but not injection-tested), 3 (FAQ
+pairs, read but not injection-tested), 4 (private/paid marks), 5
+(eligibility cohorts), 10 (governance comment), 11 (branch landing pages -
+Smartts has none), and 12 (Weebly paste blocks - estate-wide, not
+per-branch) were not individually injection-tested against Smartts this
+pass. check-travel-clinic-copy.js, which also applies to Smartts (it holds
+a travelClinic widget) and has never been proven against this branch by
+injection in any prior pass, is flagged as the natural next angle.
+
+No in-repo defect found. No copy changed. No new question raised.

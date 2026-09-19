@@ -1,3 +1,149 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 134;
+mcp__Windows-MCP__PowerShell used throughout - lock check/clear, git fetch/
+checkout/pull/status/log, the full 35-checker suite baseline and re-runs, all
+four injection/restore cycles against Smartts's weight loss page, and the
+final commit/push; mcp__claude-in-chrome__navigate/get_page_text used for the
+step 3 portal answer pickup, one tab, read-only, nothing clicked, typed or
+submitted; Write used for the new audits file; Edit used for
+AGENT_WORKLIST.md and this entry) -
+LOCK/SYNC (steps 1-2): run 133's own entry (below) left .git/index.lock and
+.git/HEAD.lock in place, both dated 2026-09-19T01:16:27+01:00, because the
+rules require 1 hour of age before a stale index.lock may be cleared and the
+lock was then only ~26 minutes old. At this run's start the lock was ~49
+minutes old - still short of the bar. Rather than punt to a third run, this
+run waited out the remaining time in-session (a series of short PowerShell
+sleeps, since a single long sleep call was hitting a shorter tool-side
+timeout), re-checked age and confirmed no git process running
+(Get-Process git return nothing) once the lock passed 60.9 minutes old, then
+deleted both lock files. git checkout agents/audit-backlog then succeeded
+immediately. git fetch origin and git pull --ff-only both completed clean,
+confirmed up to date with origin at run 132's commit (0ab7a5c). No .agent-
+lock existed at this run's start (run 133 confirmed it never wrote a
+committed one and this run wrote its own at the very start, before the git-
+lock wait, timestamp 2026-09-19T01:something+01:00 sandbox/host clock -
+deleted at the end of this run per step 11).
+Housekeeping found while here, fixed immediately rather than left: this
+run's own `git log --pretty` dump to a scratch file at the repo root
+(.tmp-gitlog.txt, used only to compute the rotation order below) was picked
+up by check-postcodes.js as 24 UNKNOWN postcodes lifted from historic commit
+messages, because that checker scans the whole repo tree, not just tracked
+pages. Deleted the scratch file immediately on discovery and before it was
+ever at risk of being committed; check-postcodes.js clean again (0
+failures) once removed. Filed here as the twenty-sixth instance of the same
+shape CLAUDE.md's postcode section already documents twenty-five times:
+narrative/scratch text mentioning a postcode is not the same as a page
+stating one, and this checker cannot tell debris from evidence unless the
+debris never reaches disk. No tracked file affected; nothing to restore.
+The pre-existing pile of untracked scratch/probe files at the repo root and
+under a few subfolders (visible in every `git status` since at least run
+100, none created by this run) was left alone - out of scope for this run
+and not blocking anything, though it is worth a future run's attention as
+its own item.
+ANSWER PICKUP (step 3): navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed via get_page_text. Newest entry still Q52,
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01. Spot-checked
+Q37 specifically (the one open question whose portal text appears in the
+feed) against QUESTIONS.json: already correctly recorded as open with a
+plain-English restatement queued, matching the portal's non-decision reply.
+113 total, 60 open before and after. Nothing new to apply.
+AUTONOMOUS WINDOW CHECK (step 4): read the top of AGENT_LOG.md (run 133's
+entry, now below) - no "Standing authorisation" heading present. Proceeded
+under the normal rule (no autonomous decisions this run).
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` returned the
+same eight lines every run since at least run 130 (5.3, 5.4, 5.5, 5.8, 6.1,
+both Q60 lines under 6.4/6.5, 6.6), all still [BLOCKED]. No unblocked
+unchecked item exists. Fell to the quality-pass fallback.
+ROTATION: derived item mentions from `git log --pretty="%aI|||%s"` matched
+against `[Ii]tem\s+(\d+\.\d+)(?!\d)`, taking the first (most recent) mention
+per item as its last-touched date, against the same 36-item pool prior runs
+used (standing out-of-rotation set {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} and
+the eight currently-blocked items excluded). Stalest: 3.7 (2026-09-18T03:49:
+30+01:00, its own twenty-first pass), clear of the next candidate, 3.11
+(2026-09-18T04:12:55+01:00), by about 23 minutes. Chosen: 3.7, twenty-second
+pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.7 block and
+audits/smartts-item-3.7-quality-pass-2026-09-19-twentysecond.txt; this is
+the mirrored summary. The twenty-first pass's own forward note named
+tools/check-weight-loss-copy.js as never proven against Smartts Chemist
+Bootle specifically, so this pass took that angle directly, on the branch
+family CLAUDE.md and the checker's own header both flag as the highest-
+stakes copy in the estate.
+Baseline: full 35-checker suite (cdn-pins, live-hours excluded per
+convention) clean, 0 failures, once the scratch-file postcode false-failure
+above was cleared. modules/service/pages/weight-loss-clinic-smartts-
+bootle.html backed up by direct copy and sha256-hashed before any change
+(EF9A9DB48CD74FFADD5FAD35427D582617CD15CB3C3BB22C340D81E1684E03D2).
+Four separate single-line injections, each applied alone, checked, then
+restored and sha256-reconfirmed byte-identical before the next began: (1)
+RULE 8 (medicine name) - added a sentence naming "Wegovy" - CAUGHT, exactly
+one failure quoting the page and the medicine; (2) RULE 9 (efficacy claim) -
+added "Lose up to 15% of your body weight with our clinically proven plan" -
+CAUGHT, exactly one failure via the quantified-weight-loss pattern in
+tools/claim-patterns.js; (3) RULE 6 (no guarantee) - deleted the "does not
+guarantee eligibility, treatment or results" sentence - CAUGHT, exactly one
+failure naming the missing statement; (4) RULE 7 (price-led wording) - added
+"Special offer this month on your consultation" - CAUGHT, exactly one
+failure via the PRICE_LED pattern list. Each injection produced exactly one
+failure with no other rule tripping alongside it. Full 35-checker suite
+re-run clean (0 failures) after the final restore; git status confirms the
+target page is unchanged from its committed state.
+Zero in-repo defect found on any of the four angles - the page was already
+correct on all four, now proved directly for the first time. No copy
+changed. No new question. Forward note recorded in both files: check-
+travel-clinic-copy.js is the natural next candidate for Smartts (it holds a
+travelClinic widget and has never been injection-tested against this
+branch either).
+Only AGENT_WORKLIST.md, this log entry, and the new audits/ evidence file
+changed in the tracked repo; no generator, page or data field touched.
+
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 133; blocked
+before any repo write - no item attempted, nothing committed this run) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 132's entry
+above confirms it cleared its own lock before exiting). Wrote a fresh lock,
+2026-09-19T01:34:59+01:00. git fetch and git pull --ff-only both completed
+clean and confirmed up to date with origin at run 132's commit (0ab7a5c, the
+item 6.3 nineteenth pass). git checkout agents/audit-backlog then failed:
+"Unable to create .git/index.lock: File exists", and every retry over the
+following ~4 minutes (three attempts, spaced 30s/90s apart) hit the same
+error with the lock's mtime unchanged throughout (2026-09-19T01:16:27+01:00).
+`ps aux` inside this run's sandbox showed no git process, but the repo lives
+on the mounted Windows filesystem, so a host-side process cannot be fully
+ruled out from here.
+Traced the lock's origin rather than guessing: run 132's own commit (0ab7a5c,
+timestamped 01:16:03) is already on origin and the working tree is otherwise
+clean (only the long-standing pile of untracked scratch/probe files from
+earlier lock-testing passes, nothing tracked modified) - so run 132's actual
+worklist work is safely committed and pushed. The index.lock (and a sibling
+HEAD.lock) both date to 01:16:27, 24 seconds after that commit, so whatever
+created them was a trailing git invocation (plausibly during run 132's own
+step 10/11 housekeeping) that crashed after the substantive work was already
+safe, not mid-commit. That reading is reassuring but not proof a process
+isn't still holding it.
+DECISION: the scheduled-task rules set an explicit bar for this exact
+situation - delete a stale .git\index.lock only once it is older than 1 hour
+AND no git process is running. At the point of this decision the lock was
+about 26 minutes old, short of that bar, so this run did not delete it,
+despite the evidence above suggesting it is very likely safe to. Rather than
+force it through on this run's own judgement, this run did no repo writes at
+all: no worklist item was picked up, AGENT_WORKLIST.md and QUESTIONS.json are
+untouched, and the step 3 portal answer pickup was skipped as moot (run 132
+completed it minutes earlier with nothing new to apply, and this run has no
+way to commit a new answer regardless). This log entry itself is written to
+disk but NOT committed this run, for the same reason - the next run's
+git pull --ff-only should pick it up harmlessly (nothing else has touched
+origin in the meantime) and fold it into its own commit.
+NEXT RUN: by the time the next scheduled run starts, the lock will likely be
+past the 1-hour mark and should be cleared automatically per step 1, and
+normal worklist work should resume. If the lock is somehow still fresh, or
+recreated by whatever originally produced it, that is worth escalating to
+Rishi directly rather than continuing to defer silently.
+STATUS PAGE (step 10): ran anyway per the standing instruction to keep it
+honest even on a failed/blocked run - it only reads local files and shells
+out to `git log` (read-only, unaffected by the index lock), then publishes
+to rbh-data-portal over the GitHub API.
+No files changed in this repo. No commit. No question raised (this is an
+infrastructure blocker, not a worklist decision).
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 132;
 mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
 pull/status, the full checker suite, the six-generator rebuild, the postcode

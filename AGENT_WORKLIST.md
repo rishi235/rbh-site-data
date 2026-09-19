@@ -9774,6 +9774,48 @@ rules, check-seo-pattern.js's service-word/H1-exact-match rules,
 check-jsonld.js's rule 7 and check-seo-keywords.js's rule 8 (both
 structurally inapplicable to this branch).
 Done 2026-09-18 (twenty-first pass).
+Quality pass 2026-09-19 (twenty-second): the twenty-first pass's own forward
+note named tools/check-weight-loss-copy.js as never proven against Smartts
+specifically, and this pass closed that gap. Baseline: full 35-checker suite
+(cdn-pins and live-hours excluded per convention) clean, 0 failures, before
+any change. Backed up modules/service/pages/weight-loss-clinic-smartts-
+bootle.html by direct copy and sha256-confirmed
+(ef9a9db48cd74ffadd5fad35427d582617cd15cb3c3bb22c340d81e1684e03d2) before
+starting; the tracked file was restored from that copy after every injection
+below and reconfirmed byte-identical each time.
+Four separate single-line injections into the page's own lead paragraph,
+each run alone and restored before the next: (1) RULE 8, medicine name -
+added a sentence naming "Wegovy" - CAUGHT, exactly one failure, correctly
+quoting the page and the medicine; (2) RULE 9, efficacy claim - added "Lose
+up to 15% of your body weight with our clinically proven plan" - CAUGHT,
+exactly one failure via tools/claim-patterns.js's quantified-weight-loss
+pattern; (3) RULE 6, no-guarantee - deleted the "does not guarantee
+eligibility, treatment or results" sentence - CAUGHT, exactly one failure
+naming the missing statement; (4) RULE 7, price-led wording - added "Special
+offer this month on your consultation" - CAUGHT, exactly one failure via the
+PRICE_LED pattern list. All four fired in isolation (no other rule tripped
+alongside), all four restores confirmed byte-identical to the pre-injection
+hash, and the full 35-checker suite re-run clean (0 failures) after the
+final restore. Rules 1-5, 10, 11 and 12 either do not apply per-branch
+(coverage, price-drift, governance-comment, landing-page and Weebly-paste
+rules run estate-wide or on folders Smartts has no page in) or were left for
+a future pass; rules 2 (pinned copy) and 3 (FAQ pairs) were read as part of
+the baseline pass and matched byte for byte but were not independently
+injection-tested this run. No in-repo defect found, no copy changed, no new
+question. Evidence in
+audits/smartts-item-3.7-quality-pass-2026-09-19-twentysecond.txt.
+Checkers still never named against Smartts specifically: check-address-
+region.js, check-brand-spelling.js, check-editor-snapshot.js,
+check-live-hours.js, check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-symptoms.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js; plus
+check-switch-copy.js's remaining 6/11 rules, check-seo-pattern.js's
+service-word/H1-exact-match rules, check-jsonld.js's rule 7 and
+check-seo-keywords.js's rule 8 (both structurally inapplicable to this
+branch). check-travel-clinic-copy.js is the natural next candidate: Smartts
+holds a travelClinic widget in branches.json and this checker has likewise
+never been proven against Smartts by injection in any prior pass.
+Done 2026-09-19 (twenty-second pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
