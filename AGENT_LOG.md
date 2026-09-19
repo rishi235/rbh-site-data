@@ -1,3 +1,33 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 173;
+mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
+read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
+against the real C:\Dev\rbh-site-data host, per the standing Q96/Q102
+workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock
+created. `git fetch`, `checkout` (already on branch) and `pull --ff-only`
+all confirmed already at origin's tip (24db003, run 172's commit). No
+stale `.git\index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh via Claude in Chrome
+(navigate + get_page_text, read-only, no clicks/typing/submission).
+Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 18 days, zero new
+answers. QUESTIONS.json cross-checked: 65 still open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+No unblocked item to pick; rotation-pool model stays paused per Q115's
+still-open cadence recommendation (now over five weeks unanswered,
+alongside Q59/Q96/Q102). No new question raised - existing ones already
+cover this exact situation. No repo generator, live page or
+branches.json content changed; browsing read-only throughout.
+ESCALATION (restating plainly, in chat as well as here this run, since
+the automated channel has not moved Rishi in 18 days): this task has
+now run 173 times, the last ~30 of which have been pure no-ops. The
+technical audit is not the bottleneck - 65 decisions sit open in
+QUESTIONS.json, several (Q104, Q106, Q116, Q117, Q118) flagging live
+regulatory exposure on simpleweightloss.co.uk that no unattended run can
+close. Recommend Rishi actions Q115 (pause or slow this task's cadence)
+this session, independent of working through the backlog itself.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 172;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
