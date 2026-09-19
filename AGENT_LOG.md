@@ -1,3 +1,90 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 132;
+mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
+pull/status, the full checker suite, the six-generator rebuild, the postcode
+fix, and both fresh-angle tests (a read-only boundary script committed to
+audits/, and a disposable /tmp scratch copy for the host-cache instrumentation,
+discarded after use); mcp__claude-in-chrome__navigate/get_page_text used for
+the step 3 portal answer pickup, one tab, read-only, nothing clicked, typed or
+submitted; Write/Edit used for the new audit files, AGENT_WORKLIST.md,
+tools/check-postcodes.js and this entry) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 131's own
+entry, still at the top of this file when this run began, confirms it cleared
+its lock before exiting). Wrote a fresh UTC timestamp lock (2026-09-19T00:04:
+47Z, sandbox clock). git fetch origin, git checkout agents/audit-backlog
+(already on it) and git pull --ff-only both completed clean, confirmed up to
+date with origin (HEAD at run 131's commit for item 3.2, 3b6c48b).
+ANSWER PICKUP (step 3): navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed via get_page_text. Newest entry still Q52,
+2026-09-01T22:44:51.524Z, matching every run since 2026-09-01. Cross-checked
+every answered-looking portal entry against QUESTIONS.json: 34 already
+correctly recorded as answered; Q37 and Q43 both correctly remain open (their
+portal replies - "i need further explanation..." and "Unsure..." - are
+non-decisions, already documented as such with a plain-English restatement
+queued for next time). Nothing new to apply. 113 total, 60 open before and
+after.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the whole of AGENT_LOG.md for
+"Standing authorisation" - no such heading present anywhere. Proceeded under
+the normal rule (no autonomous decisions this run).
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` returned the
+same eight lines as run 131 (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6), all still [BLOCKED]. No unblocked unchecked item exists. Fell
+to the quality-pass fallback.
+ROTATION: derived item mentions from `git log --pretty="%aI|||%s"` matched
+against `[Ii]tem\s+(\d+\.\d+)(?!\d)`, taking the first (most recent) mention
+per item as its last-touched date, against the same 36-item pool run 131 used
+(standing out-of-rotation set {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} and the
+eight currently-blocked items excluded). Stalest: 6.3 (2026-09-18T03:11:43+
+01:00, its own eighteenth pass) - run 131's own item, 3.2, had dropped well
+down the list once touched today, and 6.3 was already the runner-up candidate
+in run 131's write-up ("by about 27 minutes"). Chosen: 6.3, nineteenth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 6.3 block and
+audits/verify-6.3-2026-09-19-nineteenth.txt; this is the mirrored summary.
+BASELINE found a real, if low-risk and fully expected, in-repo defect before
+any of this pass's own work began: tools/check-postcodes.js failed with one
+UNKNOWN, because run 131's own item 3.2 audit file
+(audits/scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt) quoted a
+fabricated postcode ("L20 3DA") as part of a genuine injection test without
+registering it in NARRATIVE_POSTCODES - the same recurring gap CLAUDE.md's
+"The postcode, and the difference between using a fact and talking about one"
+section describes, now the twenty-fifth time this exact shape has been found
+and closed. Fixed by adding the entry; check-postcodes.js clean afterwards (0
+failures, 3 pre-existing UNOWNED warnings unchanged); full 37-checker suite
+re-run clean (37/37); all six generators rebuilt, combined sha256 of
+modules/+core/ identical before and after
+(a64a32e2c0b777eb1401a28b78678dbab1367171dbffe21ba795ef7f0f7ee9ad).
+Eighteen prior passes on this item had proved essentially every fail path in
+tools/check-opening-hours.js by injection; this pass moved to the item's OTHER
+file, tools/check-live-hours.js (the live survey tool), and closed two angles
+never touched before, confirmed by a first-time grep for "NEAR_DAYS",
+"hostPages" and "once per host" across both worklist files (zero hits). (A)
+NEAR_DAYS's own inclusive <=14 boundary, tested for the first time at its
+exact edge via a read-only script (audits/verify-6.3-2026-09-19-nineteenth-
+neardays-boundary.js, committed to the repo, copies the diff computation
+verbatim from the tracked checker, makes no network call) run against four
+synthetic dates either side of the real 2026-12-25 bank holiday: all four
+matched the strict semantics exactly (14 days out included both sides, 15
+days out excluded both sides, the sibling 2026-12-28 date shown evaluating
+independently). (B) The "fetched once per host" claim in the file's own
+header comment, proved for the first time by instrumenting a disposable /tmp
+scratch copy (tracked tree never touched) with a fetch-start counter and
+running it for real across all 14 branches: exactly one genuine fetch per
+host across all 11 distinct hosts including the three shared-domain pairs,
+confirmed inert (the real tracked checker's output was byte-identical to the
+instrumented run) and confirmed the tool is not silently doubling live
+requests against any branch's real website. Zero in-repo defect on both
+angles - both were already correct, now proved directly for the first time
+in this item's nineteen-pass history.
+LIVE HALF: tools/check-live-hours.js re-run across all 14 branches, evidence
+audits/live-hours-check-2026-09-19.json. No bank holiday within 14 days of
+this run (next is 2026-12-25, 97 days out). gordonshorts_crosby read as
+control, correctly still shows its lunch closure. smartts_bootle remains the
+sole live mismatch, straight-through hours on both the homepage and the
+contact page, unchanged since 2026-08-11 across all nineteen passes now. Q55
+(answered 2026-09-02, option 1) stands as answered-but-not-yet-actioned, live
+Weebly edit outside this worker's write scope, not re-raised. No new
+question. Only tools/check-postcodes.js and the three new audits/ files
+changed in the tracked repo; no page, generator or data field touched.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 131;
 mcp__workspace__bash used for the lock check/creation, git fetch/checkout/
 pull/status, the tar scratch copy and the full injection/restore cycle

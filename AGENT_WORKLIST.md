@@ -36930,6 +36930,73 @@ live DOM, not saved to a separate audit file (same convention as the
       step. Newest entry still Q52, already applied. No new answer, no new
       question. Evidence: audits/verify-6.3-2026-09-18-eighteenth.txt,
       audits/live-hours-check-2026-09-18.json. Done 2026-09-18.
+      Quality pass (nineteenth), 2026-09-19 (unattended scheduled run,
+      audit-backlog-worker). BASELINE FOUND A REAL IN-REPO DEFECT AND FIXED IT
+      before any of this pass's own injection work began: tools/check-postcodes.js
+      failed with one UNKNOWN, audits/scorah-item-3.2-quality-pass-2026-09-19-
+      twentysecond.txt (today's earlier run, item 3.2's twenty-second pass)
+      quoting a fabricated Bootle-shaped postcode ("L20 3DA", paired with
+      Smartts Chemist Bootle's own real street) as part of its RULE 4/agreement
+      injection, committed without being registered in NARRATIVE_POSTCODES - the
+      same recurring gap CLAUDE.md's postcode section describes, now the
+      twenty-fifth instance. Fixed by adding the entry with a reason naming that
+      pass; check-postcodes.js re-run clean (0 failures, 3 pre-existing UNOWNED
+      warnings unchanged); full 37-checker suite re-run clean (37/37); all six
+      generators rebuilt, combined sha256 of modules/+core/ identical before and
+      after (a64a32e2c0b777eb1401a28b78678dbab1367171dbffe21ba795ef7f0f7ee9ad).
+      FRESH ANGLE, tools/check-live-hours.js (the live survey tool, distinct
+      from the static guard checker): grepped "NEAR_DAYS", "hostPages" and
+      "once per host" across both worklist files first - zero hits across all
+      eighteen prior passes. TWO NEVER-TESTED ANGLES CLOSED. (A) NEAR_DAYS's own
+      boundary (line 63/214, the inclusive "diff <= 14" cutoff): every prior
+      pass observed the bank-holiday label fire on whatever natural gap existed
+      that day, never a deliberate probe of the exact edge. A standalone script
+      (audits/verify-6.3-2026-09-19-nineteenth-neardays-boundary.js, read-only,
+      no mutation, copies the diff computation verbatim from the tracked
+      checker) tested four synthetic run dates either side of the real
+      2026-12-25 bank holiday: 14 days out correctly included on both sides,
+      15 days out correctly excluded on both sides, with the sibling
+      2026-12-28 date shown evaluated independently throughout. All four PASS
+      on the first run. (B) hostPages per-host fetch sharing (the file's own
+      "fetched once per host" comment, line 161's cache guard): never
+      instrumented directly in eighteen passes - every prior pass inferred
+      sharing from matching snippet counts, never counted the underlying fetch.
+      A disposable /tmp scratch copy (tracked tree never touched) was patched
+      with a HOST_FETCH_STARTS counter incremented only on a genuine
+      (non-cached) collectHost entry, then run for real across all 14 branches
+      (network egress confirmed first via curl). RESULT: exactly 1 genuine
+      fetch-start per one of the 11 distinct hosts, including all three
+      shared-domain pairs (Scorah, McCanns, Fishlocks), each pair's two
+      branches reporting identical page/snippet counts as the expected
+      consequence of reading the same cached array. Confirmed the
+      instrumentation was inert: the real, unmodified tracked checker run
+      afterwards produced a byte-identical audits/live-hours-check-2026-09-19
+      .json to the instrumented scratch run (diff empty). Scratch copy
+      discarded; branches.json and check-live-hours.js sha256-reconfirmed
+      unchanged throughout (169bb5a2...b102 and 3f547301...29126
+      respectively). RESULT: zero in-repo defect on both angles - the boundary
+      and the per-host cache were already exactly correct, now proved directly
+      for the first time, and the per-host test additionally confirms this
+      tool is not silently doubling live requests against any branch's real
+      website.
+      LIVE HALF (the real, tracked checker). tools/check-live-hours.js re-run
+      across all 14 branches, evidence audits/live-hours-check-2026-09-19.json.
+      No bank holiday within 14 days of this run (next is 2026-12-25, 97 days
+      out). gordonshorts_crosby read live as control, correctly still shows its
+      lunch closure throughout. smartts_bootle remains the sole live mismatch,
+      straight-through "9:00 - 18:00" / "9:00am - 6:00pm" hours on both the
+      homepage and the contact page, unchanged since 2026-08-11 across all
+      nineteen passes now. Q55 (answered 2026-09-02, option 1) stands as
+      answered-but-not-yet-actioned, live Weebly edit outside this worker's
+      write scope, not re-raised. ANSWER PICKUP this run (step 3): Chrome
+      navigated to the feedback API cleanly, one tab, read-only. Newest entry
+      still Q52 (2026-09-01T22:44:51.524Z). Cross-checked all currently-open
+      questions against the feed: Q37 and Q43 both correctly remain open (their
+      portal replies are non-decisions, already recorded as such). No new
+      answer, no new question. 113 questions total, 60 open before and after.
+      Evidence: audits/verify-6.3-2026-09-19-nineteenth.txt,
+      audits/verify-6.3-2026-09-19-nineteenth-neardays-boundary.js,
+      audits/live-hours-check-2026-09-19.json. Done 2026-09-19.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

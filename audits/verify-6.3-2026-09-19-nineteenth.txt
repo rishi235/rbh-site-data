@@ -1,0 +1,150 @@
+Item 6.3, quality pass (nineteenth), 2026-09-19 (unattended scheduled run,
+audit-backlog-worker). Full write-up; mirrored summary in AGENT_LOG.md and
+AGENT_WORKLIST.md.
+
+ROTATION. All eight unchecked worklist items remain [BLOCKED] (5.3, 5.4, 5.5,
+5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Fell to the quality-pass
+fallback. Rotation derived from `git log --pretty="%aI|||%s"` matched against
+`[Ii]tem\s+(\d+\.\d+)(?!\d)`, taking the first (most recent) mention per item,
+against the same 36-item pool run 131 (today's earlier run) used (standing
+out-of-rotation set {1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8} and the eight
+currently-blocked items excluded). Stalest: 6.3 (2026-09-18T03:11:43+01:00, its
+own eighteenth pass), now that today's earlier run touched 3.2 and dropped it
+down the list. 6.3 was itself the runner-up candidate in that earlier run's own
+write-up, "by about 27 minutes". Chosen: 6.3, nineteenth pass.
+
+BASELINE (before any change). Ran all 37 tools/check-*.js individually.
+tools/check-postcodes.js FAILED (1 failure): a new UNKNOWN, audits/
+scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt quoting postcode
+"L20 3DA" (a fabricated, Bootle-shaped value paired with Smartts Chemist
+Bootle's own real street, 42 Fernhill Road, as part of today's earlier item
+3.2 pass's RULE 4/agreement injection against pharmacy-scorah-hazel-grove.
+html), committed without being registered in NARRATIVE_POSTCODES - the exact,
+now twenty-fifth instance of the gap CLAUDE.md's "The postcode, and the
+difference between using a fact and talking about one" section describes:
+an audit narrative quotes a real test value and the checker correctly flags
+it as UNKNOWN until the value is named in the exemption list. branches.json
+sha256 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(standing hash, unchanged); combined sha256 of every file under modules/ and
+core/ a64a32e2c0b777eb1401a28b78678dbab1367171dbffe21ba795ef7f0f7ee9ad.
+
+FIX (in-repo defect, real, found and closed). Added "L20 3DA" to
+tools/check-postcodes.js's NARRATIVE_POSTCODES with a reason naming today's
+item 3.2 pass and its own audit file, on the established stale-key-fails
+convention. Re-ran check-postcodes.js: 0 failures, 3 pre-existing UNOWNED
+warnings unchanged (the standing gbp-packs/TEMPLATE.md and two INDEX/SEO.md
+sheet warnings). Full 37-checker suite re-run: 37/37 clean. All six page
+generators rebuilt (build-branch-landing-pages, build-contraception-pages,
+build-service-pages, build-switch-pages, build-travel-clinic-pages,
+build-weight-loss-pages): combined sha256 of modules/+core/ identical before
+and after (a64a32e2...ee9ad), confirming byte-identical regeneration. Only
+tools/check-postcodes.js changed; no page, generator, data field or
+patient-facing copy touched.
+
+FRESH ANGLE, tools/check-live-hours.js (the live survey tool, a separate file
+from the static guard checker). Grepped "NEAR_DAYS", "hostPages" and "once per
+host" across AGENT_WORKLIST.md and AGENT_LOG.md first: zero hits for all
+three, across this item's eighteen-pass history. Two genuinely untested angles
+identified and closed this pass.
+
+TEST A - NEAR_DAYS boundary (line 63, "var NEAR_DAYS = 14;"; line 214,
+"if (diff <= NEAR_DAYS) nearDates.push(d);"). Every prior live-half run had
+observed the bank-holiday label fire or not fire on whatever the natural gap
+between the run date and the nearest bankHolidays.dates2026 entry happened to
+be that day - never a deliberate probe of the inclusive <=14 / exclusive >14
+cutoff itself. Wrote a standalone script (audits/
+verify-6.3-2026-09-19-nineteenth-neardays-boundary.js, never touching the
+tracked checker) that copies the diff computation VERBATIM from
+check-live-hours.js
+lines 209-217 (same 86400000 ms divisor, same Math.abs, same "<=" comparison)
+and runs it against the REAL, tracked branches.json bankHolidays.dates2026 -
+no mutation needed, only synthetic run dates, so the logic under test is
+byte-identical to what ships. Pivoted on 2026-12-25 (Christmas Day), the
+nearest listed date to this run. Four cases: runDay 2026-12-11 (exactly 14
+days before, diff===14) - PASS, 2026-12-25 correctly included; runDay
+2026-12-10 (exactly 15 days before, diff===15) - PASS, correctly excluded;
+runDay 2027-01-08 (exactly 14 days after) - PASS, correctly included (and
+2026-12-28 also legitimately appears at 18 days... actually appears because
+it is within its own 14-day window separately, confirmed in the printed
+nearDates array); runDay 2027-01-09 (exactly 15 days after) - PASS,
+2026-12-25 correctly excluded while 2026-12-28 (12 days out) legitimately
+still appears, confirming the two dates are evaluated independently rather
+than the whole block succeeding or failing together. All four cases matched
+the strict <=14 semantics exactly on the first run. RESULT: zero in-repo
+defect - NEAR_DAYS's boundary was already exactly right, now proved by direct
+computation against the real data for the first time in nineteen passes.
+
+TEST B - hostPages per-host fetch sharing (the file's own header comment,
+"Shared-domain sites (Scorah x2, McCanns x2, Fishlocks x2) are fetched once
+per host", and the code's own cache guard at line 161, "if (hostPages[host])
+return Promise.resolve();"). Never instrumented or counted directly in
+eighteen prior passes - every pass READ the resulting snippet counts per
+branch and inferred sharing was happening, but nothing had proved the host was
+fetched exactly once rather than, say, twice with the second result silently
+discarded (which would still produce the same-looking output while doubling
+live network traffic against a pharmacy's real website, a conduct concern
+given this tool's own "read-only, GET requests only, same conduct as
+sweep-broken-links.js" rule). Made a disposable scratch copy under /tmp
+(tools/check-live-hours.js and branches.json only, tracked tree never
+touched), patched the SCRATCH COPY ONLY to add a HOST_FETCH_STARTS counter
+incremented exactly where collectHost() first creates hostPages[host] (i.e.
+only on a genuine, non-cached entry), and printed it before the report. Ran
+the instrumented copy for real, full 14-branch read-only sweep (network
+egress confirmed first via curl 301s against two branch hosts). RESULT:
+HOST_FETCH_STARTS showed exactly 1 for every one of the 11 distinct hosts
+across the 14 branches (three shared pairs - www.scorah-chemists.co.uk,
+www.mccannspharmacy.co.uk, www.fishlockpharmacy.co.uk - plus eight
+single-branch hosts), proving each shared domain triggers collectHost's real
+fetch path exactly once, with the second branch on that domain served from
+the cache. Cross-checked structurally: scorah_bramhall and scorah_hazel both
+report "2 page(s), 4 snippet group(s)" (identical), as do both McCanns
+branches and both Fishlocks branches, consistent with reading the same cached
+array rather than two independent fetches that happened to agree. Confirmed
+the instrumentation changed nothing observable: running the real, unmodified
+tracked checker afterwards produced a byte-identical audits/
+live-hours-check-2026-09-19.json to the instrumented scratch run (diff empty).
+Scratch copy discarded (rm -rf /tmp/6.3-hostcache-test); tracked
+tools/check-live-hours.js and branches.json reconfirmed untouched by sha256
+throughout (branches.json 169bb5a2...b102 unchanged; check-live-hours.js
+3f54730132cc725f191393c54b7c734f82d3b63f076c8ec16a230f0a47299126 unchanged).
+RESULT: zero in-repo defect - the per-host cache was already doing exactly
+what its own comment claims, now proved by direct instrumentation for the
+first time, and confirmed not to be silently doubling live requests against
+any branch's real website.
+
+LIVE HALF (the real, tracked checker, not the scratch instrumented copy).
+tools/check-live-hours.js re-run across all 14 trading branches, evidence
+audits/live-hours-check-2026-09-19.json. No bank holiday within 14 days of
+this run (next is 2026-12-25, now 97 days out). All 14 branches' snippets read
+against branches.json: gordonshorts_crosby read as control, correctly still
+shows "9:00am - 6:00pm (closed 1-2pm)" throughout, including the trust-bar and
+contact-page hours lines. smartts_bootle remains the sole live mismatch: both
+the homepage ("Weekdays / 09:00 - 18:00") and the contact page ("Monday
+9:00am - 6:00pm" through Friday, no lunch closure stated anywhere) still
+publish straight-through hours against branches.json's NHS-sourced
+09:00-13:00/14:00-18:00 split, unchanged since first found 2026-08-11, now
+confirmed on all nineteen passes. Q55 (answered by Rishi 2026-09-02, option 1:
+edit the live Smartts pages) stands as answered-but-not-yet-actioned - the
+live Weebly edit is outside this worker's write scope (browser use stays
+read-only) - not re-raised.
+
+ANSWER PICKUP this run (step 3): navigated to
+https://data.rbhealth.co.uk/api/feedback via Claude in Chrome, read the full
+JSON feed via get_page_text, one tab, nothing clicked/typed/submitted. Newest
+entry still Q52 (2026-09-01T22:44:51.524Z), matching every run since
+2026-09-01. Cross-checked all 36 answered-looking entries in the feed against
+QUESTIONS.json: 34 already correctly recorded as "answered"; Q37 and Q43 both
+correctly remain "open" (their portal replies are non-decisions - "i need
+further explanation..." and "Unsure..." respectively - already recorded as
+such with a plain-English restatement and a direct yes/no question queued for
+next time). No new answer applied, no new question raised, no worklist item
+newly unblocked. 113 questions total, 60 open before and after.
+
+AUTONOMOUS WINDOW CHECK (step 4): grepped AGENT_LOG.md for "Standing
+authorisation" - no such heading present. Proceeded under the normal rule (no
+autonomous decisions this run).
+
+Only tools/check-postcodes.js (the postcode fix), audits/
+live-hours-check-2026-09-19.json (evidence) and this file changed in the
+tracked repo. No page, generator, data field or patient-facing copy touched.
+AGENT_WORKLIST.md and AGENT_LOG.md updated separately per steps 7 and 9.
