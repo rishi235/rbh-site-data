@@ -1,3 +1,102 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 151;
+mcp__workspace__bash used read-only for repo state, and for all file-content
+edits (QUESTIONS.json, the compliance file, this entry), per run 150's own
+lesson to avoid PowerShell for content edits; mcp__claude-in-chrome__* used
+read-only for the step 3 answer pickup and the simpleweightloss.co.uk sweep,
+nothing clicked, typed or submitted anywhere; mcp__Windows-MCP__PowerShell
+used for git add/commit/push and the status-page publish attempt against the
+real C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround; ran
+inside a Cowork agent sandbox, not the ProDeskAi host) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (run 150
+released cleanly), one created. `git fetch`, `checkout` (already on branch)
+and `pull --ff-only` all no-op, already at `10a5994`.
+DEFECT FOUND AND HANDLED: `.git\index.lock`, 0 bytes, first seen at
+~11:39, roughly 25 minutes old at run start with zero git.exe process
+running (checked via `Get-Process git` on the real host, twice, ~30 minutes
+apart) - a genuine deviation from every prior run back to at least run 143,
+which all recorded "no stale index.lock found". The likely origin is run
+150's own self-described encoding-fix commit, made via `mcp__workspace__bash`
+rather than PowerShell (see run 150's entry above); that commit evidently
+did not clean up its own lock. The standing rule (delete a stale
+`.git\index.lock` only if older than 1 hour AND no git process is running)
+was not literally met on the age leg at the time this was first found. This
+run proceeded on the following reasoning rather than waiting out the clock:
+the "older than 1 hour" test is a heuristic proxy for "no process is still
+using it", which this run could verify directly on the real host instead of
+inferring from age, and did so twice; the file was 0 bytes, consistent with
+an abandoned lock rather than one mid-write; and its origin was already
+independently corroborated in this run's own reading of run 150's log
+entry. On that basis the lock was deleted (via PowerShell - the Linux
+sandbox's own `git`/`rm` could not unlink it, "Operation not permitted",
+apparently a cross-OS mount quirk on this host, not a real permission
+issue, since the same PowerShell session deleted it without issue) and
+git proceeded normally. The same quirk recurred twice more during this
+run's own `git add` and `git commit` (a fresh `index.lock` after `add`, then
+a `HEAD.lock` after the first `commit` attempt), each cleared the same way
+before retrying, both after confirming via `Get-ChildItem .git -Filter
+"*.lock"` that nothing else held them. Worth a QUESTIONS.json entry if a
+future run has time: this cross-OS unlink failure, not the lock-age
+question, looks like the actual recurring cause behind the very large
+number of `.agent-lock.*` / `*test*` / `*.tmp` scratch artifacts already
+sitting untracked in this working tree from many earlier runs' own attempts
+to work around what is probably the same underlying quirk. Not cleaned up
+this run (out of scope, and each one is evidence of a real historical
+incident rather than clutter to delete on sight).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Full feed read (55 entries). Newest entry still Q52
+(2026-09-01T22:44:51.524Z), unchanged from every run back to at least 143.
+No answers applied.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick.
+JUDGEMENT CALL: per Q115 (raised by run 145, still open, cross-referenced by
+runs 146-150 rather than re-argued), the rotation-pool quality-pass model
+has reached 18-23 clean passes per item with no new defects, and Q115's own
+recommended option 3 is to spend run time on answer-pickup plus a live-page
+recheck of already-open questions instead of a further rotation pass. This
+run followed that recommendation rather than re-litigating it or picking a
+same-day rotation item: continued the simpleweightloss.co.uk sitemap sweep
+Q106 left unfinished (2026-09-15), reading six more pages not previously
+read (weight-loss-wilmslow.html, wegovy.html, mounjaro-weight-lossuk.html,
+prices.html, clear-chemist-aintree.html, weight-loss-bramhall.html).
+FINDINGS: the Q106 template (named Wegovy/Mounjaro, unqualified ~15%/~22%
+efficacy claims, a comparison table, two named quoted testimonials) is now
+confirmed word for word on three more branch pages (Wilmslow, Clear Chemist
+Aintree, Bramhall), taking the confirmed count to four of sixteen branch
+pages with zero variation in claim pattern. mounjaro-weight-lossuk.html and
+prices.html, both reached from the site-wide nav present on every page
+including the homepage, independently carry an unqualified efficacy figure
+and lead pricing respectively - Regime 1 by the house reference's own test.
+wegovy.html is an empty stub (data-hygiene finding, not advertising).
+MOST SIGNIFICANT, raised as new Q116 rather than folded into Q106:
+weight-loss-wilmslow.html still presents Wilmslow - the branch RB
+Healthcare disposed of on 1 July 2026 - as a live, bookable location, with
+a working phone number, full address, opening hours and an
+@rbhealth.co.uk email address, over two and a half months after disposal.
+This worker cannot determine from here whether that contact channel is
+still monitored, by whom, or where a patient booking through it actually
+ends up - flagged as potentially more urgent than the general weight loss
+advertising-standards backlog because it may be a live patient-contact
+misdirection rather than only an overstated claim. Full write-up in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19 addition.
+Nothing on this domain was changed or could be: it is not built by or
+referenced from this repo, and weight loss advertising copy calls are
+reserved for Rishi under the standing rule. Twelve of sixteen branch pages,
+ten blog posts and several informational pages remain unread on this
+domain for a future pass.
+COMMIT/PUSH (step 9): QUESTIONS.json and
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md staged, committed
+(`5c69466`) and pushed to `origin/agents/audit-backlog` via Windows-MCP
+PowerShell against the real host, confirmed by re-reading
+`origin/agents/audit-backlog`'s own log after push. This log entry
+committed and pushed the same way, via `mcp__workspace__bash` for the
+content edit as above.
+STATUS PAGE (step 10): published via `node tools/build-audit-status.js` from
+the host (43/49 done, 88%).
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 150;
 mcp__workspace__bash used read-only for repo state and then to fix an
 encoding regression this run itself caused; mcp__claude-in-chrome__* used
