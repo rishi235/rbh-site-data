@@ -1,8 +1,35 @@
-## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 166;
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 167;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
 and the status-page publish against the real C:\Dev\rbh-site-data host,
 per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock created.
+`git fetch`, `checkout` (already on branch) and `pull --ff-only` all no-op,
+already at origin's tip (654588b, run 166's commit).
+ANSWER PICKUP (step 3): portal feed read fresh via Chrome, full JSON
+reviewed. Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 18 days,
+eleventh identical check today. No new answers.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked
+item to pick. Per Q115 (open since 2026-08-11, restated by every run
+today), the rotation-pool quality-pass model stays paused pending
+Rishi's cadence decision; not resumed. No new question raised. No repo
+generator, live page or branches.json content changed; browsing
+read-only throughout.
+REPO HYGIENE, noted but not actioned: `git status` on the real host shows
+roughly 230 untracked scratch/probe files at repo root and in `audits/`
+(`.agent-lock.released-run*`, `.locktest_probe*`, `err.log`, `qtmp.json`,
+`AGENT_LOG.md.tmp`/`.new`, etc.), accumulated across the delete-permission
+debugging that produced Q96/Q102. None are tracked or committed, so they
+carry no git risk, but they are real clutter on the live working copy and
+nothing in the worker's own procedure ever cleans them up. Not deleted
+this run: triaging 230 files for which are safe to remove is outside a
+single worklist item and is exactly the kind of scope-widening step 5
+warns against. Flagged in chat to Rishi directly rather than filed as a
+QUESTIONS.json entry, since the backlog of those (65 open) is itself the
+finding this run is making most strongly - see below.
 LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock created.
 `git fetch`, `checkout` (already on branch) and `pull --ff-only` all no-op,
 already at origin's tip (f7e3e2c, run 165's commit).
