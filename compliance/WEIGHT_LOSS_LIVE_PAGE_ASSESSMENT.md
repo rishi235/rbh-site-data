@@ -1303,3 +1303,103 @@ defect, no change needed to gbp-packs/smartts-bootle.md or any generator,
 since this platform is not built by or referenced from this repo. Item
 4.10's own sixteenth-pass writeup is in AGENT_WORKLIST.md; this addition
 is the supporting evidence for Q106.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+151): simpleweightloss.co.uk sitemap continued - template confirmed
+estate-wide across four branch pages, and a live contact channel into the
+disposed Wilmslow branch
+
+All eight worklist items remain [BLOCKED] this run (unchanged since run
+143), so this run used its time on the live-page recheck Q115 itself
+recommends rather than a further rotation-pool pass. Read the domain's full
+sitemap.xml (50 URLs, one call) and seven more pages not read on the
+2026-09-15 pass: weight-loss-wilmslow.html, wegovy.html,
+mounjaro-weight-lossuk.html, prices.html, clear-chemist-aintree.html,
+weight-loss-bramhall.html, and re-confirmed the homepage template shape
+already on record.
+
+Three branch pages read this run - Wilmslow, Clear Chemist Aintree and
+Bramhall - are byte-for-byte the same template already found at Smartts
+Bootle on 2026-09-15: the same "OUR WEIGHT LOSS TREATMENTS" heading, the
+same two paragraphs naming Wegovy and Mounjaro with the same unqualified
+efficacy figures ("an average of 15% of their body weight", "an average of
+22% of their body weight, making it one of the most effective treatments
+available"), the same COMPARE OUR TREATMENTS table repeating the ~15%/~22%
+figures with no citation, and two named, quoted patient testimonials per
+page attributing a specific outcome to a specific medicine (e.g. "Sue -
+Orrell Park... In just six months, I lost 3 stone", "Sophia, Bramhall...
+I started Mounjaro after a consultation"). This is now confirmed as the
+site-wide template for all sixteen branch pages the "FIND A PHARMACY NEAR
+YOU" footer nav lists on every single page of the site, not a one-off found
+by accident on Smartts. Four of sixteen branch pages have now been read
+word for word (Bootle 2026-09-15; Wilmslow, Clear Chemist Aintree and
+Bramhall this run); the same claim pattern was present on all four with no
+variation beyond the branch name, phone number, address and testimonial
+names, which is strong evidence, not proof, that the remaining twelve carry
+it too.
+
+THE WILMSLOW PAGE IS A DIFFERENT KIND OF FINDING FROM EVERY OTHER ENTRY IN
+THIS FILE. Every other instance here is advertising copy that oversteps
+CAP rule 12.12 on a location RB Healthcare still operates. Wilmslow was
+disposed on 1 July 2026 (branches.json, and Q2's own answer: "Remove
+Wilmslow from branches.json and take its pages down"). This page still
+presents Wilmslow as a live, bookable Simple Weight Loss location: a
+"BOOK NOW" button, a phone number (01625 523414), a full address (Unit 2,
+Summerfield Trade Centre, SK9 2TA), an email address
+(WILMSLOW@RBHEALTH.CO.UK) and a full weekly opening-hours block, exactly
+as live-looking as the Bramhall or Clear Chemist Aintree pages for branches
+RBH still trades from. Two named testimonials ("Sarah J, Cheshire",
+"David, Wilmslow") describe outcomes at "Wilmslow Pharmacy" in the present
+tense. Over two and a half months after disposal, nothing on the page
+signals a change of ownership. This is not only an advertising-standards
+question: if the phone and email are unmonitored, a patient trying to book
+a genuine weight-loss consultation gets no service and does not know why;
+if they are monitored by the branch's new owner, RB Healthcare's own brand
+and a still-active @rbhealth.co.uk mailbox are directing patients into a
+business RB Healthcare no longer operates or can vouch for. Neither this
+repo nor this worker can determine which, since the mailbox cannot be
+checked from here and no one has confirmed whether Wilmslow's phone line
+was ported, retained or disconnected at completion.
+
+wegovy.html, reached from the site-wide primary navigation on every page
+("WEIGHT LOSS INJECTIONS / MOUNJARO / WEGOVY"), carries no body copy at
+all beyond the site chrome - title, nav and footer only, no treatment
+description, no claim. This is a data-hygiene / broken-page finding, not
+an advertising-standards one: the page appears to exist only to hold the
+URL and carries no content to assess either way.
+
+mounjaro-weight-lossuk.html, reached from the same site-wide nav, does
+carry copy, and it independently repeats the same unqualified figure
+already on record: "Clinically proven to reduce body weight by up to
+22.5%." Because this page sits behind the persistent nav bar present on
+the homepage itself, it is Regime 1 by the house reference's own test (a
+page proactively linked, not a page a patient had to search into), so the
+usual Regime 2 balanced-overview exemption does not reach it either.
+
+prices.html, also in the site-wide nav, leads with "Prices from £139" above
+a six-row Mounjaro dose/price/colour table, with no accompanying
+consultation-first framing on the page itself - the same lead-pricing
+pattern already documented against Clear Chemist Aintree's retail pages
+under Q104.
+
+Not read this run, and still owed to a future pass: twelve of the sixteen
+branch pages (Aigburth, Stanley Road Bootle, Ainsdale Southport, Ainsdale
+Fishlocks, Sandringham, Eccleston, Walton Village, Cherry Lane, Crosby,
+Hazel Grove, Longmoor Lane, Timperley), the ten branch-named blog posts
+under /blog/, and the informational pages (about, testimonials, how-it-
+works, faqs, contact, referral-program, partner-benefits, partner-sign-up,
+fully-online-option, face-to-face-consultations, find-a-pharmacy-near-you,
+reordering-options, weight-loss-injections, weight-loss-tips, blog.html).
+Given four of four branch pages read to date carry an identical template,
+a future pass reading the remaining twelve should expect the same pattern
+rather than treat each one as a fresh discovery, and can focus its time on
+the still-unread blog posts and info pages instead, which are the only
+parts of this domain that might differ from the confirmed template.
+
+This addition is the supporting evidence for Q106 (general estate-wide
+pattern) and new question Q116 (the Wilmslow-specific contact-channel
+finding, raised separately because it may warrant faster handling than the
+advertising-standards decision Q106/Q104 already await). No repo file, no
+live page and no branches.json content was changed: this domain is not
+built by or referenced from this repo, and weight-loss advertising copy
+calls are reserved for Rishi under the standing rule.
