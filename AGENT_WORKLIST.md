@@ -17199,6 +17199,75 @@ Done 2026-09-19 (twenty-second pass).
       repo-side. See
       audits/clear-aintree-item-3.13-quality-pass-2026-09-18-fourth.txt for
       full detail.
+      Quality pass 2026-09-19 (twentieth), unattended scheduled run (run
+      139). All 8 unblocked worklist items confirmed [BLOCKED] by direct
+      grep, so this was the fallback quality pass, picked by the standing
+      rotation-pool method (36-item pool, the seven out-of-rotation
+      one-offs excluded, oldest last-mention-in-git-log wins): 3.13 came
+      out stalest, last touched 2026-09-18T05:42:07+01:00 (the
+      check-brand-spelling.js pass), ahead of 4.12, 4.6, 4.11 and the rest
+      of the pool.
+      Fresh angle: tools/check-service-links.js, the RULE 1 (link target),
+      RULE 2 (efficacy/results claim) and RULE 3 (POM medicine name)
+      checker, never proven by direct injection against Clear Chemist
+      Aintree's own three pages specifically before this pass despite
+      covering the estate since the item 3.7 quality pass, 2026-08-10, and
+      despite Q65 already flagging that these exact three pages promise a
+      walk-in service the branch record contradicts - the same file family
+      this checker's RULE 2 exists to police.
+      Full 35-checker suite (excludes check-cdn-pins.js and
+      check-live-hours.js, both network-dependent) clean on the tracked
+      repo before starting. Baseline sha256 of all three pages confirmed
+      matching every prior pass's recorded value (switch 8e18d901...,
+      weightloss 240b32e4..., travel a42a3d3a...).
+      Six injections plus one control, each targeted at Clear Aintree's own
+      pages (these are Weebly paste fragments with no body/html wrapper,
+      so append-to-end-of-file was used as the injection point rather than
+      a </body> anchor): (1) RULE 1 stale target - a link on the switch
+      page to a live-only page on Clear's own host this repo does not
+      generate - CAUGHT; (2) RULE 1 cross-host target - a link on the
+      weight loss page to a page this repo DOES generate, but for
+      Cherry Lane's host, not Clear's - CAUGHT (first attempt used a
+      non-existent basename and correctly fell through to "stale target"
+      instead; retested by hand with a real cross-host page and CAUGHT
+      correctly - a bad test fixture, not a checker gap, recorded in full
+      in the evidence file's addendum); (3) RULE 1 subpath - a link on the
+      travel page with a directory in its path - CAUGHT; (4) RULE 2 claim -
+      "delivers results" wording added to the weight loss page - CAUGHT;
+      (5) RULE 3 medicine - "Mounjaro" named in visible copy on the weight
+      loss page - CAUGHT. CONTROL - unrelated wording added to the travel
+      page - passed clean, no cross-firing. Six events, six correct
+      outcomes.
+      RESTORE NOTE: the cross-host retest's own `git checkout --` failed
+      with the standing Q87/Q96/Q102 sandboxed-shell fault (FUSE mount
+      creates index.lock but cannot unlink it); restored instead by reading
+      the pristine blob from git's object store (`git show HEAD:<path>`,
+      read-only, unaffected by the lock) and writing it back, sha256-
+      reconfirmed identical before anything else touched the file. The
+      stray lock was cleared via mcp__Windows-MCP__PowerShell's
+      Remove-Item -Force against the real C:\Dev\rbh-site-data host
+      (confirmed stale, no git process running), per the established Q102
+      practice, and git status on the real host reconfirmed clean
+      afterwards. All three pages sha256-reconfirmed byte-identical to
+      baseline after every restore; full 35-checker suite re-run clean
+      (35/35) on the tracked repo after. No generator, page, checker or
+      branches.json content changed.
+      Guard coverage for item 3.13 now extends to 20 of the 34 checkers
+      proven by direct injection against this branch specifically.
+      Untested and applicable: check-address-region.js,
+      check-editor-snapshot.js, check-gbp-packs.js, check-live-hours.js
+      (network-dependent), check-page-coverage.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js.
+      LIVE HALF: not attempted this pass; full coverage already stands
+      from the third pass (2026-08-30) and this pass's angle was entirely
+      repo-side. STEP 3 answer pickup: portal feed read via a single
+      Claude-in-Chrome tab, opened and closed cleanly; newest entry
+      unchanged at 2026-09-01T22:44:51.524Z; only Q37 and Q43 among the 60
+      currently open questions have any feed entry, both already recorded
+      as "not a decision"; no status change made, no new question raised.
+      No in-repo defect found. See
+      audits/clear-aintree-item-3.13-service-links-twentieth-2026-09-19.txt
+      for full detail.
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

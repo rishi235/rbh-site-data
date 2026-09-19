@@ -1,3 +1,81 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 139;
+mcp__workspace__bash used for all read-only checker/injection work and file
+edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
+verification and (planned) the final commit/push and status-page publish,
+per the established Q102 practice) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 138 had
+released it cleanly). Wrote a fresh one. git fetch/checkout/pull --ff-only
+all completed clean, confirmed up to date with origin at run 138's commit
+(a7d65c4) before starting.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since run 138's own pickup, Q52
+(2026-09-01T22:44:51.524Z). Of the 60 currently-open questions, only Q37 and
+Q43 appear in the feed, both already correctly recorded as non-decision
+portal replies. No new answer, no new question, no status change.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines
+reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Fell to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded;
+completed-item count reconfirmed at 43, unchanged) by matching
+`[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first (most
+recent) mention per item. Stalest came out uniquely as 3.13
+(2026-09-18T05:42:07+01:00), ahead of 4.12 (06:16:57+01:00) and 4.6
+(06:43:39+01:00). Chosen: 3.13 (Clear Chemist, Aintree/Liverpool),
+twentieth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.13 block and
+audits/clear-aintree-item-3.13-service-links-twentieth-2026-09-19.txt; this
+is the mirrored summary. Checker under fresh test: tools/check-service-
+links.js, never proven by direct injection against Clear Chemist Aintree's
+own three pages specifically across nineteen prior passes, despite covering
+the estate since the item 3.7 quality pass (2026-08-10) and despite Q65
+already flagging these exact three pages' promises.
+Full 35-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) clean before starting. Baseline sha256 of Clear
+Aintree's three pages reconfirmed matching every prior pass's recorded
+value. Six injections plus one control, appended to end-of-file (these
+pages are Weebly paste fragments with no body/html wrapper, so no </body>
+anchor exists): (1) RULE 1 stale target on the switch page - CAUGHT; (2)
+RULE 1 cross-host target on the weight loss page - first attempt used a
+non-existent basename and correctly fell through to "stale target" rather
+than "cross-host target" (a bad test fixture); retested by hand with a real
+cross-host page (a link to Cherry Lane's generated switch page, hosted on
+Clear's own domain) and CAUGHT correctly, full detail in the evidence
+file's addendum; (3) RULE 1 subpath on the travel page - CAUGHT; (4) RULE 2
+claim ("delivers results") on the weight loss page - CAUGHT; (5) RULE 3
+medicine ("Mounjaro") on the weight loss page - CAUGHT. CONTROL - unrelated
+wording on the travel page - passed clean, no cross-firing. Six events, six
+correct outcomes.
+RESTORE: the cross-host retest's own `git checkout --` failed with the
+standing Q87/Q96/Q102 sandboxed-shell fault (FUSE mount creates
+index.lock but cannot unlink it, confirmed again this run: no git process
+running, lock ~5 minutes old). Restored instead by reading the pristine
+blob straight from git's object store (`git show HEAD:<path>`, read-only,
+unaffected by the lock) and writing it back, sha256-reconfirmed identical
+to baseline before anything else touched the file. Stray lock cleared via
+mcp__Windows-MCP__PowerShell's Remove-Item -Force against the real
+C:\Dev\rbh-site-data host, then git status on the real host reconfirmed
+clean. All three touched files sha256-reconfirmed byte-identical to
+baseline after every restore; full 35-checker suite re-run clean (35/35) on
+the tracked repo after. No generator, page, checker or branches.json
+content changed. Guard coverage for item 3.13 now extends to 20 of the 34
+checkers proven by direct injection against this branch, up from 19. No new
+question raised.
+COMMIT/PUSH (step 9): git add AGENT_WORKLIST.md AGENT_LOG.md
+audits/clear-aintree-item-3.13-service-links-twentieth-2026-09-19.txt (no
+other files changed; branches.json, all generators and all generated pages
+byte-identical to before this run). Commit and push to origin
+agents/audit-backlog via mcp__Windows-MCP__PowerShell against the real
+host, per the established practice for step 9/10 once
+mcp__workspace__bash's own git status calls have left an index.lock behind
+mid-run.
+STATUS PAGE (step 10): tools/build-audit-status.js run after the push to
+publish the worklist/log/questions state to the portal.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 138;
 mcp__workspace__bash used for all read-only checker/injection work and file
 edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
