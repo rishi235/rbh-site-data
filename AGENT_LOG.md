@@ -1,3 +1,81 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 140;
+mcp__workspace__bash used for lock handling, repo reads, the checker suite
+runs and file edits; mcp__Windows-MCP__PowerShell used for the real-host
+Build Pack v2 read (outside the sandbox's connected folders) and for the
+final commit/push and status-page publish per the established Q102
+practice; mcp__claude-in-chrome__* used for the step 3 answer pickup and
+the live half, read-only throughout, nothing clicked, typed or submitted) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 139 had
+released it cleanly). Wrote a fresh one. git fetch/checkout/pull --ff-only
+all completed clean, confirmed up to date with origin at run 139's commit
+(501c082, item 3.13 twentieth pass) before starting.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since run 139's own pickup, Q52
+(2026-09-01T22:44:51.524Z). No new answer, no status change.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines
+reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Fell to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded) by
+matching `[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first
+(most recent) mention per item. Stalest came out uniquely as 4.12
+(2026-09-18T06:16:57+01:00), ahead of 4.6 (06:43:39+01:00) and 4.11
+(07:16:20+01:00), matching run 139's own forward note exactly. Chosen: 4.12
+(Coleman and Leighs Pharmacy, Walton), twenty-first pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 4.12 block and
+audits/coleman-leigh-walton-homepage-tiles-4.12-twentyfirst-2026-09-19.txt;
+this is the mirrored summary. All 34 per-branch-relevant checkers had
+already been proven by direct injection against this pack across twenty
+prior passes, so this pass's fresh angle was two-fold: (1) cross-checked
+the pack directly against RBH_DIGITAL_BUILD_PACK_v2.md BLOCK 4 (read via
+mcp__Windows-MCP__PowerShell against the real host, since that file sits
+outside this sandbox's connected folders) rather than only TEMPLATE.md -
+no drift found; (2) followed up WEEBLY_FURNITURE_CHECKLIST.md's own note
+naming this branch as unread for the hand-typed furniture fault family, and
+read the live site accordingly. Repo half: pack sha256 reconfirmed
+byte-identical to all twenty prior passes; full 35-checker suite (excluding
+check-cdn-pins.js and check-live-hours.js, both network-dependent) 35/35
+exit 0.
+LIVE HALF: contact-us.html and the homepage read via Claude in Chrome
+(get_page_text, read_page accessibility tree, screenshots and javascript_tool
+for coordinate checks), read-only throughout. Hours, address, phone and NHS
+mailbox all confirmed matching branches.json. Two findings recorded without
+a question (fold into the already-queued repaste): a second contact block's
+phone reads "0151 5253522" with the internal space missing (display fault,
+not a wrong number); and a THIRD live spelling variant of the trading name,
+"COLEMANS & LEIGHS PHARMACY", found in a hidden accessible-only site-title
+node not visually rendered to a sighted visitor. One genuinely new fault
+shape raised as QUESTIONS.json Q114: the homepage's six-tile services grid
+renders each tile as a linked picture rather than live text (confirmed via
+the accessibility tree, `table > link > image "Picture"` x6 - why twenty
+prior text-based passes never saw this). The Pharmacy First tile's own
+picture reads the Weight Loss Clinic tile's wording verbatim ("Innovative
+solutions that deliver results. Tried the rest? Now try the best."), applied
+to a free NHS service; its link is correct. Separately, the Travel Clinic
+tile's link resolves to /vaccinations.html rather than the branch's own
+compliant travel-clinic-coleman-leigh-walton.html. Each tile's href was
+matched to its on-screen position by coordinate (getBoundingClientRect), not
+assumed from DOM order, after an initial DOM-order assumption produced an
+implausible four-tile cascade that did not survive the coordinate check and
+was discarded - recorded as a method lesson in the evidence file. No page,
+generator, checker, pack or branches.json content changed; both findings sit
+on a live-only Weebly homepage no generator in this repo touches.
+QUESTIONS.json: 114 total, 61 open (Q114 added, four options, recommending
+folding into the standing Q39 Weebly furniture sweep and widening it to
+check the other thirteen branch homepages for the same two fault shapes).
+COMMIT/PUSH (step 9): git add AGENT_WORKLIST.md AGENT_LOG.md QUESTIONS.json
+audits/coleman-leigh-walton-homepage-tiles-4.12-twentyfirst-2026-09-19.txt
+(no other files changed; branches.json, all generators, all generated pages
+and the gbp-packs pack itself byte-identical to before this run). Commit and
+push to origin agents/audit-backlog via mcp__Windows-MCP__PowerShell against
+the real host, per the established Q87/Q96/Q102 practice.
+STATUS PAGE (step 10): tools/build-audit-status.js run after the push to
+publish the worklist/log/questions state to the portal.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 139;
 mcp__workspace__bash used for all read-only checker/injection work and file
 edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear

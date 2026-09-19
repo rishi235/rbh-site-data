@@ -26734,6 +26734,68 @@ directly rather than re-deriving the same facts by hand.
       unchanged (111 total, 58 open); portal answer pickup at step 3 returned
       nothing new, newest entry still Q52 (2026-09-01), already recorded.
       Done 2026-09-18.
+      Twenty-first quality pass 2026-09-19 (unattended scheduled run,
+      audit-backlog-worker; all eight open worklist items still [BLOCKED],
+      fell to the quality-pass fallback; rotation pool re-derived fresh from
+      git log commit dates per "Item N.N", excluding the seven out-of-
+      rotation items and the eight blocked items; 4.12 confirmed stalest at
+      2026-09-18T06:16:57+01:00, once 3.13 dropped out of the pool by being
+      touched earlier the same day). Repo half: pack sha256 reconfirmed
+      byte-identical to all twenty prior passes; full 35-checker suite
+      (check-cdn-pins.js and check-live-hours.js excluded, both network-
+      dependent; one new checker since the twentieth pass,
+      check-weebly-furniture-freshness.js, added 2026-09-18 under item 5.1,
+      but it is estate-wide rather than per-branch so a Coleman-specific
+      injection is not a meaningful new angle) - 35/35 exit 0. FRESH ANGLE:
+      with per-branch checker-injection coverage already exhausted on the
+      twentieth pass, cross-checked the pack directly against
+      RBH_DIGITAL_BUILD_PACK_v2.md BLOCK 4 (read via the real host, outside
+      this sandbox's connected folders) rather than only TEMPLATE.md - no
+      drift found (categories, photo count, vinyl shot, pending-Google-
+      updates reminder all present and correct). Followed up
+      WEEBLY_FURNITURE_CHECKLIST.md's own line naming Coleman and Leighs as
+      one of five branches "not yet had their contact block and footer read"
+      for the hand-typed furniture fault family. LIVE HALF via Claude in
+      Chrome, read-only, single tab, nothing clicked, typed or submitted.
+      contact-us.html: hours, address, phone and NHS mailbox
+      (pharmacy.FWK18@nhs.net) all confirmed matching branches.json, first
+      live confirmation of the NHS mailbox on this page specifically. Minor
+      new finding, recorded not raised: a second contact block's phone
+      reads "0151 5253522" (tel:01515253522), missing the internal space
+      every other instance of the number carries - a display fault, not a
+      wrong number, folded into the already-queued repaste. Homepage: found
+      a THIRD live spelling variant of the trading name, "COLEMANS & LEIGHS
+      PHARMACY" (S on Colemans, ampersand, Leighs plural), in a hidden
+      accessible-only site-title node present on both contact-us.html and
+      the homepage but not visually rendered (confirmed by screenshot -
+      no logo text is shown to a sighted visitor); this is one more instance
+      of the same "site publishes more than one spelling" fault the pack's
+      own paster notes already cover, so it was not raised as a new
+      question, only recorded for the same repaste. NEW FAULT SHAPE, raised
+      as Q114: the homepage's six-tile services grid renders each tile as a
+      linked picture, not live text (confirmed via the accessibility tree,
+      `table > link > image "Picture"` x6 - why twenty text-based prior
+      passes never saw this). The Pharmacy First tile's own graphic reads
+      the Weight Loss Clinic tile's wording verbatim ("Innovative solutions
+      that deliver results. Tried the rest? Now try the best."), applied to
+      a free NHS service; its link is correct (resolves to the compliant
+      generated Pharmacy First page). Separately, the Travel Clinic tile's
+      link resolves to /vaccinations.html, not the branch's own compliant
+      travel-clinic-coleman-leigh-walton.html that the site's own top nav
+      correctly links to. Each tile's href was matched to its on-screen
+      position by coordinate (getBoundingClientRect), not DOM order, after
+      an initial DOM-order assumption produced an implausible four-tile
+      cascade that did not survive the coordinate check - discarded, noted
+      as a method lesson rather than acted on. Both findings written up as
+      Q114 (four options, recommending folding into the standing Q39
+      Weebly furniture sweep and widening it to check the other thirteen
+      branch homepages for the same two fault shapes, since this is the
+      first time either has been looked for). No page, generator, checker,
+      pack or branches.json content changed; both live findings sit on a
+      live-only Weebly homepage no generator in this repo touches.
+      QUESTIONS.json: 114 total, 61 open (Q114 added). Evidence:
+      audits/coleman-leigh-walton-homepage-tiles-4.12-twentyfirst-2026-09-19.txt.
+      Done 2026-09-19.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

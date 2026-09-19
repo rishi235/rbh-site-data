@@ -1,0 +1,127 @@
+Item 4.12 (Coleman and Leighs Pharmacy, Walton) - twenty-first quality pass
+2026-09-19, unattended scheduled run, audit-backlog-worker
+
+SCOPE: all 34 (now 35, see below) tools/check-*.js files had already been proven
+by direct injection against this branch's own GBP pack across twenty prior
+passes (recorded item 4.12's own twentieth-pass entry in AGENT_WORKLIST.md,
+2026-09-18). Repo-side re-verification this pass: gbp-packs/coleman-leigh-
+walton.md sha256 6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88,
+byte-identical to every prior pass. Full checker suite re-run (35 of 37
+tools/check-*.js files, excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent): 35/35 exit 0. One new checker exists since the
+twentieth pass, tools/check-weebly-furniture-freshness.js (added 2026-09-18,
+item 5.1's own twenty-second pass); it is estate-wide (diffs the whole
+WEEBLY_FURNITURE_CHECKLIST.md against a fresh regeneration) rather than
+per-branch, so a Coleman-specific injection proof is not a meaningful new
+angle for this item - noted, not run again here.
+
+FRESH ANGLE THIS PASS: with checker-injection coverage exhausted, cross-
+checked the pack against RBH_DIGITAL_BUILD_PACK_v2.md BLOCK 4 directly
+(read via mcp__Windows-MCP__PowerShell against the real host, since this
+file sits outside the sandbox's connected folders) rather than only against
+TEMPLATE.md as every prior pass had done. Categories (Travel clinic, Weight
+loss service, Vaccination centre), the >=10 photo requirement, the vinyl
+storefront shot and the "action pending Google updates" reminder are all
+present and correctly worded in the pack; no drift found.
+
+Separately, WEEBLY_FURNITURE_CHECKLIST.md line 298 explicitly names Coleman
+and Leighs Pharmacy Walton as one of five branches "not yet had their contact
+block and footer read specifically for this fault family" (the hand-typed
+Weebly furniture fault family: wrong/abbreviated trading name, abbreviated
+street, mistyped address/mailbox - distinct from the already-known stale
+trading-name PASTE issue this item's own second pass recorded). This is
+unread ground the item's own supporting file names but no pass had followed
+up. Read live via Claude in Chrome, read-only, single tab throughout, nothing
+clicked, typed or submitted.
+
+LIVE HALF
+
+1. contact-us.html read via get_page_text and read_page (accessibility tree).
+   Hours box: "Weekdays / 09:00-18:00 (closed 1pm-2pm Lunch), Saturday /
+   Closed, Sunday / Closed" - matches branches.json. Location box: "241
+   Walton Village, Liverpool, Merseyside, L4 6TH" - matches address and
+   addressRegion. Contact Info box: "Phone: 0151 525 3522" and "Email:
+   pharmacy.FWK18@nhs.net" - both match branches.json exactly, first time
+   this specific NHS-mailbox-on-the-contact-page fact has been confirmed
+   live for this branch. NEW FINDING (minor): a second contact/address block
+   further down the same page reads the phone as a tel: link with visible
+   text "0151 5253522" (href="tel:01515253522") - the digit group "525" and
+   "3522" run together with no internal space, where every other instance of
+   this number on the same page and pack carries the correct "0151 525 3522"
+   spacing. The dialable number itself is unaffected (spaces are cosmetic in
+   a tel: href), so this is a display/typography fault, not a wrong number -
+   recorded here rather than raised as a question, since it needs no
+   decision, only a correction at the next paste session alongside the
+   already-queued repaste.
+
+2. Homepage (https://www.colemanandleighspharmacy.co.uk/) read the same way.
+   H1 "Coleman and Leighs Pharmacy" correct, matching every prior pass. The
+   accessibility tree's full dump (read_page, filter=all, 50000 chars) showed
+   a `generic "COLEMANS & LEIGHS PHARMACY"` node (ref_4) immediately after the
+   top switch banner and before the nav list - a THIRD spelling variant of
+   the trading name (S on "Colemans", ampersand, "Leighs" plural), distinct
+   from both previously-recorded live variants ("Coleman & Leigh Pharmacy" on
+   the banner/footer, "Coleman and Leighs Pharmacy" correct on the H1/body/
+   address block). Confirmed present identically on both contact-us.html and
+   the homepage via read_page; confirmed NOT visually rendered via a full-page
+   screenshot (no visible logo text appears in the header - only a hamburger
+   menu icon), so this is an accessible-only string (a hidden site-title
+   element a sighted visitor never sees, but a screen reader or an indexer
+   reading accessible text would). Not raised as its own question: it slots
+   into the same repaste already queued under item 5.3/Q8 and the existing
+   header/nav/footer name-correction note in this pack, since it is one more
+   instance of the same "site publishes more than one spelling" fault this
+   pack's own paster notes already describe, not a new fault shape needing a
+   fresh decision.
+
+3. NEW FINDING, genuinely fresh fault shape, written up as Q114: the
+   homepage's six-tile services grid (Blood Tests / Vaccinations / Weight
+   Loss Clinic / Pharmacy First / Travel Clinic / Medical Cannabis) renders
+   each tile as a linked PICTURE, not live text - confirmed via the
+   accessibility tree, `table > link > image "Picture"` x6, which is why
+   twenty prior text-based passes never saw this. A full-page screenshot,
+   then a zoomed screenshot of the second row, showed the Pharmacy First
+   tile's own graphic reads "Innovative solutions that deliver results.
+   Tried the rest? Now try the best." - word for word the Weight Loss
+   Clinic tile's wording (the Q22 estate-wide tagline), applied to a free
+   NHS service instead of the private clinic it was written for. Each
+   tile's href was then matched to its on-screen position via
+   getBoundingClientRect (x/y), not DOM order - an initial DOM-order
+   assumption was tested first and produced an implausible full four-tile
+   cascade of wrong links, which did not survive the coordinate check, so
+   it was discarded and is recorded here as a method note rather than acted
+   on. Coordinate-verified result: the Pharmacy First tile's own link IS
+   correct (resolves to pharmacy-first-coleman-leigh-walton.html, the
+   compliant generated page) - the fault is the picture's wording only, not
+   its destination. Separately, and independently: the Travel Clinic tile's
+   link resolves to /vaccinations.html, not to travel-clinic-coleman-leigh-
+   walton.html (which the site's own top nav links to correctly). Read
+   vaccinations.html to check it was not somehow a travel-focused page under
+   a different name: it is a general vaccinations booking page that mentions
+   travel vaccines in one sentence, not the branch's dedicated, compliant
+   travel clinic page. Both findings written up as QUESTIONS.json Q114 with
+   four options; recommended folding both into the standing Q39 Weebly
+   furniture sweep and widening that sweep to check the other thirteen
+   branch homepages for the same two fault shapes, since this is the first
+   time either has been looked for and whether it exists elsewhere is unread
+   ground, not confirmed absent. No page, generator, checker, pack or
+   branches.json content changed - both faults are on a live-only Weebly
+   homepage no generator in this repo touches.
+
+4. sitemap.xml not re-fetched this pass (already reconfirmed stable, 28 URLs,
+   lastmod 2026-08-14, on the twentieth pass one day prior; re-fetching an
+   unchanged sitemap a day later was not judged worth the round trip given
+   the pass's own time budget, unlike the tile grid and furniture-checklist
+   angles which were genuinely unread ground). Post A's pfLink target
+   (pharmacy-first-service-walton.html) not re-checked this pass for the
+   same reason; stands as a live 404 per the twentieth pass and all prior
+   passes since 2026-08-10 (now six weeks).
+
+RESULT: no in-repo defect found; no generator, page, checker, pack or
+branches.json content changed. Two new live findings recorded (the tel:
+link phone spacing, logged here; the tile picture wording and the
+Travel Clinic tile's misdirected link, raised as Q114). QUESTIONS.json:
+114 total, 61 open. Guard coverage for item 4.12 remains at all 34
+per-branch-relevant tools/check-*.js files proven by direct injection
+against this branch (unchanged from the twentieth pass; the one checker
+added since is estate-wide, not per-branch, see above).
