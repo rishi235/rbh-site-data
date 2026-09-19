@@ -1,3 +1,25 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 171;
+mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
+read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
+against the real C:\Dev\rbh-site-data host, per the standing Q96/Q102
+workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock
+created. `git fetch`, `checkout` (already on branch) and
+`pull --ff-only` all no-op, already at origin's tip (08d1470, run 170's
+commit). No stale `.git\index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh via Claude in Chrome
+(navigate + get_page_text, read-only). Identical to run 170's feed,
+newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days, zero new
+answers. QUESTIONS.json cross-checked: 65 still open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked
+item to pick; rotation-pool model stays paused per Q115's still-open
+cadence recommendation (now over a week unanswered). No new question
+raised. No repo generator, live page or branches.json content changed;
+browsing read-only throughout.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 170;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
