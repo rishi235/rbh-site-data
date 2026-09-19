@@ -18785,6 +18785,84 @@ Pharmacy First wording to the NHS service description.
       No new question raised; QUESTIONS.json unchanged at 111 total, 58
       open (confirmed at both the start and end of this run).
       Evidence: this AGENT_LOG.md entry, 2026-09-18.
+      Quality pass 2026-09-19 (twenty-third, unattended scheduled run):
+      rotation pool re-derived fresh (standing 36-item pool, the seven
+      out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded) by
+      matching `[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`,
+      first (most recent) mention per item. 4.2 came out uniquely stalest at
+      2026-09-18T09:45:08+01:00, exactly matching the twenty-second pass's
+      own forward note. Chosen: 4.2, twenty-third pass.
+      FRESH ANGLE: check-gbp-packs.js's two post-button rules - "post
+      buttons point at this branch's own page" and "post button LABELS, not
+      only their destinations" - had never been proved by injection against
+      cherry-lane-walton.md specifically in twenty-two prior passes (both
+      were originally proved on the item 4.5 pass, 2026-08-13, against
+      Scorah Hazel Grove; grep across this item's own history for "button"
+      found one incidental mention, no injection). Closed that gap.
+      BASELINE: pack sha256
+      831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching all twenty-two prior passes, no drift. Full 35-checker suite
+      (37 checkers total minus check-cdn-pins.js and check-live-hours.js,
+      both network/git-dependent) exits 0 against the tracked repo. Whole
+      repo copied via `git archive HEAD | tar -x` to a disposable scratch
+      directory under the session's own outputs mount (no .git); every
+      injection, catch and restore ran against that copy only, and the
+      tracked repo was never opened for writing during the round, confirmed
+      afterwards by sha256 and `git status --short` showing only the
+      long-standing pre-existing untracked strays, none touched. Scratch
+      baseline also sha256-identical and 35/35 clean before any change.
+      INJECTION A (button destination): Post D's "Book" button URL swapped
+      from this branch's own travel-clinic page to its own switch-
+      prescriptions page (a same-branch cross-post swap, since Cherry Lane
+      has no sister branch on a shared domain to test the sister-branch
+      case the rule's comment describes) - CAUGHT immediately and only,
+      naming Post D, the wrong leaf, this branch's correct travel clinic
+      page, and no other rule co-firing. Restored and sha256-reconfirmed
+      before the next injection.
+      INJECTION B (transactional CTA on a POM post): Post C's (weight loss)
+      button label changed from "Book" to "Buy now" - CAUGHT immediately
+      and only, exactly the expected message naming the transactional-CTA-
+      on-a-POM-post rule and compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md.
+      Restored and sha256-reconfirmed.
+      INJECTION C (unrecognised generic label, non-POM post): Post B's
+      "Learn more" button label changed to "Click here" - CAUGHT
+      immediately and only, the third and distinct failure message ("not a
+      button label any pack in this repo uses"), proving all three branches
+      of the two post-button rules independently: destination mismatch,
+      transactional CTA on a POM post, and an unrecognised label on a
+      non-POM post. Restored and sha256-reconfirmed.
+      CONTROL: an unrelated wording tweak in the Services section ("organise
+      your medicines" to "organise your medication", same Blister packs
+      bullet) - correctly passed clean (only the pre-existing Q72 known-
+      exception WARN), confirming no cross-firing from an unrelated copy
+      edit into either post-button rule. All four cases behaved exactly as
+      designed on the first attempt. No checker logic edited, no pack
+      content byte changed.
+      No in-repo defect found - both post-button rules already protect this
+      pack correctly, on all three failure paths, now proven directly for
+      the first time rather than assumed from the Scorah Hazel Grove
+      precedent that originally motivated them. Full 35-checker suite
+      re-run clean on the scratch copy after the final restore; tracked
+      repo confirmed sha256-unchanged and git-status-clean throughout; full
+      35-checker suite re-run individually against the tracked repo
+      afterwards, 35/35 exit 0.
+      LIVE HALF: read via Claude in Chrome. cherrylanepharmacy.co.uk
+      homepage fetched and read in full: the footer NHS mailbox still reads
+      "pharmacy.FA226@mhs.net" (Q36, answered 2026-09-01, not yet corrected
+      live) and the Weight Loss Clinic line still reads "Discover innovative
+      solutions that deliver results. Tried the rest? Now try the best."
+      (the estate-wide template phrase tracked under Q22/item 5.8). Footer
+      hours match branches.json on both days and both pairings. All three
+      reconfirmed unchanged, not re-raised as new findings.
+      ANSWER PICKUP CROSS-CHECK: Q37 and Q43, this item's own two open
+      quality-pass findings, checked against the portal feedback API this
+      run (step 3) - both already carry a 2026-09-01 reply recorded as "not
+      a decision" and prior reconfirmations that nothing newer exists; the
+      feed's newest entry is still 2026-09-01T22:44:51.524Z, so nothing new
+      to add and neither note re-appended again.
+      No new question raised; QUESTIONS.json unchanged at 114 total, 61
+      open (confirmed at both the start and end of this run).
+      Evidence: this AGENT_LOG.md entry, 2026-09-19.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

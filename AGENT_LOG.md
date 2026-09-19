@@ -1,3 +1,142 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 144;
+mcp__workspace__bash used for lock handling, repo reads, the git-archive
+scratch copy, injection tests and the checker suite runs; mcp__claude-in-chrome__*
+used read-only for the step 3 answer pickup and the live-half fetch, nothing
+clicked, typed or submitted; no computer-use or Windows-MCP tools used this
+run; this run executed inside a Cowork agent sandbox, not the ProDeskAi
+host) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (run 143 had
+released it cleanly per its own log entry below). Wrote a fresh one
+(`.git/index.lock` was present, 0 bytes, about 21 minutes old at the check -
+below the 1-hour staleness threshold this task's own step 1 sets, and no
+git process was running; left untouched per the letter of that rule, and it
+did not in fact block any read-only git command used this run). `git
+fetch origin` ran clean. `git status` showed local HEAD one commit ahead of
+`origin/agents/audit-backlog` (run 143's own commit, baa1d9e, item 5.1
+twenty-third pass) - `git checkout agents/audit-backlog` and `git pull
+--ff-only origin agents/audit-backlog` both completed with nothing to
+merge, confirming no divergence.
+PUSH ATTEMPT CARRIED OVER FROM RUN 143 (not this run's work item, logged
+here because it precedes it): `git push origin agents/audit-backlog` tried
+again at the start of this run in case this sandbox instance had a working
+credential run 143's did not - it does not. Failed identically:
+"fatal: could not read Username for 'https://github.com': No such device or
+address". Both `origin` and `origin-https` remain HTTPS-only, no
+credential.helper, no GITHUB_TOKEN-shaped environment variable, no `gh`
+CLI, no interactive terminal. This is the standing Q87/Q96/Q102 constraint,
+now on its 152nd recorded instance of this exact error across the log; not
+raised as a new question, and no computer-use or Windows-MCP route
+attempted, per the same standing decision run 143 and many runs before it
+recorded (an unattended agent driving the real desktop to push is not yet
+authorised). Run 143's commit and this run's own commit both sit locally,
+ahead of origin, until a session with a working push credential lands them.
+ANSWER PICKUP (step 3): Claude in Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since every run since 2026-09-01,
+Q52 (2026-09-01T22:44:51.524Z). Cross-checked the two open questions with a
+portal reply on file, Q37 and Q43 (both 2026-08-11): both already carry
+their "not a decision" notes and prior reconfirmations that nothing newer
+had arrived; this run's re-read confirms the same is still true, and
+neither note was re-appended a further time.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file at scan time (run 143's own entry was current top).
+Proceeded under the normal rule.
+WORKLIST SCAN (step 5): `grep -n "^\- \[ \]" AGENT_WORKLIST.md` - all eight
+unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6)
+confirmed [BLOCKED], unchanged from run 143. Fell to the quality-pass
+fallback.
+ROTATION: pool re-derived fresh exactly as run 143 describes its own method
+(standing 36-item pool: the 43 checked top-level worklist items minus the
+seven out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), matching
+`[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first (most
+recent) mention per item. With 5.1 now freshly touched by run 143, 4.2 came
+out uniquely stalest at 2026-09-18T09:45:08+01:00, exactly matching run
+143's own forward note (next tier: 4.15, 4.14, 2.1, 3.4, 3.6, 3.10, 4.4,
+4.9, 5.2, 3.8, 4.7, 4.1, 4.5, 4.10 and onward). Chosen: 4.2 (Cherry Lane
+GBP pack), twenty-third quality pass on this item.
+WORK DONE: full detail in AGENT_WORKLIST.md's own item 4.2 block; mirrored
+summary here. FRESH ANGLE: check-gbp-packs.js's two post-button rules -
+button destination and button label - had been proved by injection only
+once before, against Scorah Hazel Grove on the item 4.5 pass (2026-08-13),
+and never against cherry-lane-walton.md across twenty-two prior passes on
+this item (confirmed by grepping this item's own history for "button":
+one incidental, non-injection mention). Baseline: pack sha256
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2, matching
+all twenty-two prior passes exactly, no drift. Full 35-checker suite (37
+checkers total minus check-cdn-pins.js/check-live-hours.js, both
+network/git-dependent) exits 0 against the tracked repo. Whole repo copied
+via `git archive HEAD | tar -x` to a disposable scratch directory under the
+session's own outputs mount (no .git); tracked repo never opened for
+writing during the injection phase, confirmed afterwards by sha256 and
+`git status --short` (only long-standing pre-existing untracked strays,
+none touched). Scratch baseline also sha256-identical and 35/35 clean.
+Four cases against the scratch copy's own pack, each restored from a saved
+byte copy and sha256-reconfirmed before the next: (1) button destination -
+Post D's button URL swapped from this branch's own travel-clinic page to
+its own switch-prescriptions page (a same-branch cross-post swap, since
+Cherry Lane has no shared-domain sister to test the rule comment's sister-
+branch scenario) - CAUGHT immediately and only, naming Post D, the wrong
+leaf and the correct page, no co-firing; (2) transactional CTA on a POM
+post - Post C's (weight loss) "Book" changed to "Buy now" - CAUGHT
+immediately and only, exactly the expected message citing
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md; (3) unrecognised label on a
+non-POM post - Post B's "Learn more" changed to "Click here" - CAUGHT
+immediately and only, the third and distinct failure message ("not a
+button label any pack in this repo uses"), proving all three branches of
+the two rules independently. CONTROL: an unrelated wording tweak in the
+Blister packs services bullet ("organise your medicines" to "organise your
+medication") - correctly passed clean (only the pre-existing Q72 known-
+exception WARN), confirming no cross-firing. All four cases behaved exactly
+as designed on the first attempt; no checker logic edited, no pack content
+byte changed. No in-repo defect found - both post-button rules already
+protect this pack correctly on all three failure paths, now proven
+directly for the first time rather than assumed from the Scorah Hazel
+Grove precedent. Full 35-checker suite re-run clean on the scratch copy
+after the final restore; tracked repo confirmed sha256-unchanged and
+git-status-clean throughout; full 35-checker suite re-run individually
+against the tracked repo afterwards, 35/35 exit 0.
+LIVE HALF: read via Claude in Chrome (read-only). cherrylanepharmacy.co.uk
+homepage fetched and read in full: footer NHS mailbox still
+"pharmacy.FA226@mhs.net" (Q36, not yet corrected live) and the Weight Loss
+Clinic line still "Discover innovative solutions that deliver results.
+Tried the rest? Now try the best." (Q22/item 5.8). Footer hours match
+branches.json on both days and both pairings. All reconfirmed unchanged,
+not re-raised.
+QUESTIONS.json: no change, 114 total, 61 open (confirmed at both the start
+and end of this run). Zero in-repo defect found this pass, so no new
+question raised.
+COMMIT/PUSH (step 9): `git add AGENT_WORKLIST.md AGENT_LOG.md` (no other
+files changed; every checker, page, generator, pack and branches.json
+byte-identical to before this run). Committed locally to
+agents/audit-backlog on top of run 143's baa1d9e. `git push origin
+agents/audit-backlog` attempted and failed identically to the attempt
+logged above, carrying both run 143's commit and this run's commit;
+neither newly raised as a question, per Q87/Q96/Q102.
+STATUS PAGE (step 10): `node tools/build-audit-status.js` attempted per
+instruction ("run it even if the work item failed"). Failed immediately:
+the script's hardcoded `const REPO = 'C:/Dev/rbh-site-data'` does not
+resolve inside this sandbox's mount path, so it never reached the GitHub
+API write this session also lacks a credential for. Confirms the standing
+Q87 finding rather than adding anything new.
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
+FORWARD NOTE: with 4.2 touched again today, re-derive the rotation pool
+fresh next run rather than trust this note. As computed before selection
+this pass, the next tier up (excluding 4.2 and 5.1, plus the seven standing
+one-offs) was led by 4.15 (2026-09-18T10:12:51+01:00) - the pool shifts
+every run, re-derive fresh. This item's own remaining candidate fresh
+angles, if any future pass wants one: the "hours statement ANYWHERE in the
+pack must agree" rule found no genuine secondary clock-time statement to
+break in this pack's current text (its only non-hours-line time-shaped
+mentions - "open six days a week", "Open Saturdays too", the photo shot
+list's hours-board bullet - carry no clock time to corrupt), so proving it
+here would need an injected sentence rather than a corrupted existing one,
+a different and weaker shape of proof than every other rule this item has
+tested; the "road a pack names" / "town in the LOCATION clause" / "another
+branch's TOWN must not appear" rules remain unproved against this pack and
+are candidates, since Cherry Lane's own copy names no other branch or road
+today so any test would also need an injected mention rather than a
+corrupted existing one.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 143;
 mcp__workspace__bash used for lock handling, repo reads, the rsync-based
 scratch copy, injection tests and the checker suite runs; mcp__claude-in-chrome__*
