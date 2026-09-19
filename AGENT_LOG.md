@@ -1,3 +1,72 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 156;
+mcp__workspace__bash used read-only for repo state and for all file-content
+edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
+chrome__* used read-only for the step 3 answer pickup and the continued
+simpleweightloss.co.uk sweep, nothing clicked, typed or submitted anywhere;
+mcp__Windows-MCP__PowerShell used for git add/commit/push and the
+status-page publish against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround; ran inside a Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start, one created.
+No stale `.git\index.lock` found (the `.git\_trash\session-*` directories
+noted from past runs' lock-clearing are old, untracked and not touched).
+`git fetch`, `checkout` (already on branch) and `pull --ff-only` all
+no-op, already at origin's tip (73a6079, run 155's commit).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full 55-entry feed
+read. Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged from
+every run back to at least 143. No new answers to apply.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick. Per Q115's still-open recommendation (option 3, followed without
+re-litigating it, consistent with runs 145-155) this run again spent its
+time on a live-page recheck rather than a rotation-pool pass.
+WORK DONE: continued the simpleweightloss.co.uk sweep. Re-read the
+domain's sitemap.xml in full to get exact URLs for the seven branch pages
+still unread, rather than guessing slugs from the naming pattern of pages
+already read, then read three of them: weight-loss-cherry-lane-liverpool.html
+(Cherry Lane), weight-loss-ainsdale-southport-fishlocks.html (Fishlocks
+Ainsdale) and weight-loss-ainsdale-southport.html (Hirshmans Ainsdale).
+Nine of sixteen branch pages are now read as dedicated pages; all nine
+confirm the identical template already on record (named Wegovy/Mounjaro,
+unqualified ~15%/~22% efficacy figures, the same comparison table
+including the stale "Mounjaro: From April 2025" NHS-availability row,
+named quoted testimonials).
+New finding: both Ainsdale branch pages state "in Ainsdale, Liverpool" in
+their welcome paragraph, but Ainsdale is in Southport, roughly 17 miles
+from Liverpool - the same page's own footer nav correctly labels the
+branch "AINSDALE, SOUTHPORT" a few hundred words below, so the welcome
+paragraph's "Liverpool" suffix looks like a generic template default
+rather than a checked fact. Cherry Lane's "Anfield, Liverpool" is not
+wrong the same way, since Anfield is a Liverpool district, so this may be
+specific to branches genuinely outside Liverpool; the three still-unread
+pages worth checking against it are Hazel Grove, Timperley and Longmoor
+Lane. Hirshmans Ainsdale's three testimonials are all Mounjaro-specific
+with quantified pound-loss figures, a more explicit outcome claim than
+most pages read so far, reinforcing the existing testimonial finding
+rather than adding a new category. Full write-up in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19 run 156
+addition. Q106 and Q115 both updated with today's findings.
+Nothing on simpleweightloss.co.uk was changed or could be: it is not built
+by or referenced from this repo, and weight loss advertising and
+data-protection questions on it are reserved for Rishi under the standing
+rule.
+PROCESS NOTE, not part of the worklist: fourteenth run today on this
+branch landing on the identical "all 8 items BLOCKED" state Q115 already
+raised as a diminishing-returns concern. Q115 remains open and unanswered;
+this run logged one further data point in its note rather than repeating
+the recommendation as a new question. The several hundred untracked
+scratch/test files at the repo root noted by run 155 are unchanged and
+still not actioned; still worth a `git clean` housekeeping pass at
+Rishi's discretion, still costing nothing functionally.
+COMMIT/PUSH (step 9): QUESTIONS.json, compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+and this log entry committed and pushed to `origin/agents/audit-backlog` via
+Windows-MCP PowerShell against the real host.
+STATUS PAGE (step 10): published via `node tools/build-audit-status.js` on
+the real host.
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 155;
 mcp__workspace__bash used read-only for repo state and for the QUESTIONS.json
 and compliance-file edits; mcp__claude-in-chrome__* used read-only for the

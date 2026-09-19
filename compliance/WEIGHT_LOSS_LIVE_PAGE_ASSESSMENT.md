@@ -1751,3 +1751,78 @@ domain is not built by or referenced from this repo, and weight loss
 advertising and data-protection questions on it are reserved for Rishi
 under the standing rule. Browsing was read-only throughout - nothing
 clicked, typed or submitted.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+156): three more branch pages read using the sitemap directly - nine of
+sixteen now confirmed, plus a locality-accuracy finding on both Ainsdale
+listings
+
+All eight worklist items remain [BLOCKED] this run (unchanged since run
+143; answer-pickup feed re-read first, still capped at Q52, 2026-09-01,
+nothing new to apply - see this run's QUESTIONS.json/Q115 update). Per
+Q115's still-open recommendation (option 3, followed without
+re-litigating it, consistent with runs 145-155) this run again spent its
+time on a live-page recheck rather than a rotation-pool pass.
+
+Rather than continue guessing branch-page URLs from the naming pattern of
+pages already read, this run re-read the domain's sitemap.xml in full (one
+call, 50 URLs, unchanged from the 2026-09-15 and run 152 reads) to get the
+exact slugs for the seven branch pages still unread as dedicated pages,
+then read three of them: weight-loss-cherry-lane-liverpool.html (Cherry
+Lane), weight-loss-ainsdale-southport-fishlocks.html (Fishlocks Ainsdale)
+and weight-loss-ainsdale-southport.html (Hirshmans Ainsdale). Nine of
+sixteen branch pages are now read as dedicated pages (Wilmslow, Clear
+Chemist Aintree, Bramhall, Smartts Bootle, Gordon Short Crosby, Fishlocks
+Eccleston, Cherry Lane, Fishlocks Ainsdale, Hirshmans Ainsdale), all nine
+identical in template beyond branch name, contact details and testimonial
+names: named Wegovy/Mounjaro, the same unqualified ~15%/~22% efficacy
+figures, the same COMPARE OUR TREATMENTS table carrying the same stale
+"Mounjaro: From April 2025" NHS-availability row already flagged on the
+Crosby and Eccleston pages, and two or three named, quoted testimonials
+per page.
+
+One new finding, distinct in kind from the branch-name typo (Dishlocks,
+run 154) and the stale NHS-availability date already on record: both
+Ainsdale branch pages state, in the welcome heading paragraph, that the
+pharmacy is "in Ainsdale, Liverpool". Ainsdale is in Southport, a separate
+town roughly 17 miles from Liverpool - and the same page's own footer
+navigation, a few hundred words below, correctly labels this branch
+"AINSDALE, SOUTHPORT". So the welcome-paragraph template appears to append
+"Liverpool" as a generic regional suffix regardless of the branch's actual
+town, and it is wrong on at least these two pages while the site's own
+navigation on the same page gets it right. Cherry Lane's welcome paragraph
+("in Anfield, Liverpool") is not wrong in the same way, since Anfield is a
+district of Liverpool itself, so this looks like a fault specific to
+branches genuinely outside Liverpool rather than a sitewide error. The
+three still-unread pages most likely to show the same pattern are Hazel
+Grove (Stockport), Timperley (Altrincham) and Longmoor Lane (also
+Liverpool-adjacent, so may be clean like Cherry Lane) - worth checking on
+a future pass rather than assumed either way. This is a data-hygiene
+finding, the same class as the "Dishlocks" typo and the stale date, not an
+advertising-standards one: it misstates geography, not a clinical or
+pricing fact.
+
+Hirshmans Ainsdale's three testimonials are worth noting separately: all
+three are Mounjaro-specific (no Wegovy testimonial on this page, unlike
+most others) and each quotes a specific number of pounds lost over a
+specific number of months ("35 pounds in just four months", "28 pounds...
+in just three months", "40 pounds over five months") - a more explicit,
+more quantified outcome claim than the vaguer "lost weight and feel
+better" language on most other branch pages read so far. This reinforces
+the existing quantified-testimonial finding already logged against Q104
+and Q106 rather than adding a new category.
+
+Running total: nine of sixteen branch pages read as dedicated pages. The
+seven still unread: Aigburth, Sandringham, Stanley Road (SK Chemists
+Bootle), Walton Village (Coleman and Leighs), Timperley (Riddings), Hazel
+Grove (Scorah) and Longmoor Lane (Tiffenbergs) - all seven are covered
+indirectly via their blog posts (run 155 addition), so a future pass
+reading these seven should expect the same confirmed template and can
+focus on cross-checking the locality-accuracy finding above rather than
+treating the claim pattern itself as still in question.
+
+No repo file, no live page and no branches.json content was changed: this
+domain is not built by or referenced from this repo, and weight loss
+advertising and data-protection questions on it are reserved for Rishi
+under the standing rule. Browsing was read-only throughout - nothing
+clicked, typed or submitted.
