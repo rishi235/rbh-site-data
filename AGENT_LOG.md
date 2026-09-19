@@ -1,3 +1,37 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 158;
+mcp__workspace__bash used read-only for repo state; mcp__claude-in-chrome__*
+used read-only for the step 3 answer pickup, nothing clicked, typed or
+submitted anywhere) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (a large number
+of untracked `.agent-lock.*`/test-probe/scratch files from past runs' lock
+and delete-semantics testing remain in the working tree but are untracked
+and not touched here - out of this run's scope). Lock created. `git fetch`,
+`checkout` (already on branch) and `pull --ff-only` all no-op, already at
+origin's tip (f71f7de, run 157's commit).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full feed read. Newest
+entry still Q52 (2026-09-01T22:44:51.524Z), unchanged - 18 days, run 157
+made this same check roughly 25 minutes before this one. Cross-checked
+every feed answer against QUESTIONS.json programmatically: all resolve to
+status "answered" except Q37 and Q43, both already correctly left open by
+prior runs (Q37's portal reply was a request for clarification, not a
+decision; Q43's feed entry is a stray reuse of an old question number for
+unrelated content) - no change needed.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick, and per Q115's still-open recommendation (option 3) the
+rotation-pool quality-pass model is not being resumed. Following run 157's
+own judgement, this run did not add a further simpleweightloss.co.uk page
+read to Q106 either: the sweep is evidence-saturated for now (every page
+read across ~16 runs has confirmed the same already-written-up claim
+pattern) and a same-day, 25-minutes-later repeat of that call stands on
+the same reasoning without needing to be re-argued.
+WORK DONE: answer-pickup check only, this log entry, and the
+commit/push/publish steps. No repo generator, live page or branches.json
+content changed this run; browsing read-only throughout; no autonomous
+decisions taken (no authorisation window open).
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 157;
 mcp__workspace__bash used read-only for repo state; mcp__claude-in-chrome__*
 used read-only for the step 3 answer pickup, nothing clicked, typed or
