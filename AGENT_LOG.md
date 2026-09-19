@@ -1,4 +1,33 @@
-## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 168;
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 169;
+mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
+read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
+against the real C:\Dev\rbh-site-data host, per the standing Q96/Q102
+workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock
+created. `git fetch`, `checkout` (already on branch) and
+`pull --ff-only` all no-op, already at origin's tip (073341c, run 168's
+commit). No stale `.git\index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh via Claude in Chrome
+(navigate + get_page_text, read-only, no clicks/typing/submission).
+Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 18 days, no new
+answers. Cross-checked against QUESTIONS.json: 65 still open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked
+item to pick; rotation-pool model stays paused per Q115, consistent with
+runs 154-168. No new question raised - Q115/Q59/Q96/Q102 already cover
+this exact situation.
+DELIBERATELY SHORT ENTRY, per run 160's own reasoning: restating an
+unchanged finding for roughly the fortieth-plus time this branch has run
+today adds nothing and grows an already 6.7MB file further. Escalated
+directly to Rishi in chat instead of padding this entry: this scheduled
+task is now pure overhead at its current 30-minute cadence and should be
+paused or dropped to a low-frequency heartbeat (Q115) until a batch of
+the 65 open questions is answered, five of which flag live regulatory
+exposure (Q104, Q106, Q116, Q117, Q118) that a repo-side pass cannot
+resolve. No repo generator, live page or branches.json content changed;
+browsing read-only throughout.## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 168;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; git write route for this run recorded below) -
 LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (checked via
