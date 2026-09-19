@@ -1656,3 +1656,98 @@ page, the same shape as faqs.html.
 No repo file, no live page and no branches.json content was changed: this
 domain is not built by or referenced from this repo. Browsing was
 read-only throughout - nothing clicked, typed or submitted.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+155): blog.html reads every post in one page load - all fourteen branch
+and general posts now covered in a single call, plus two more blank
+stub pages and a third medicine named for the first time
+
+All eight worklist items remain [BLOCKED] this run (unchanged since run
+143; answer-pickup feed re-read first, still capped at Q52, 2026-09-01,
+nothing new to apply - see this run's QUESTIONS.json/Q115 update). Rather
+than read two more of the ten still-unread branch pages, which six-for-six
+so far have confirmed an identical template with no variation, this run
+followed run 151's own advice (recorded in this file, 2026-09-19 run 151
+addition) to prioritise the still-unread info and blog pages instead,
+since those are the only parts of this domain that might differ from the
+confirmed template. Read face-to-face-consultations.html,
+fully-online-option.html, find-a-pharmacy-near-you.html,
+reordering-options.html, mounjaro.html and blog.html.
+
+blog.html turned out to render all fifteen posts on one URL rather than
+one page per post as the sitemap's fifteen separate blog URLs implied, so
+this single page load reads the full posting history to date rather than
+the one or two posts a run's time budget would otherwise allow. Manual
+count of the extracted text: fifteen posts dated 5 March 2025 to 16 April
+2025, comprising twelve branch-specific posts, one general
+in-person-vs-online piece ("Why Choose Simple Weight Loss?"), and two
+further general pieces dated 7 February 2025: "Mounjaro vs. Wegovy" and
+"The Benefits of Weight Loss Injections". Every one of the twelve branch
+posts names Mounjaro and Wegovy by brand,
+tied to that branch's own address and phone number, in the same
+"pharmacist-led, NHS-approved" framing - the identical claim shape already
+confirmed on the branch pages themselves, now confirmed independently on
+a second content type reached from the site's primary nav (BLOG), which by
+the structural nav-bar reasoning already recorded in this file (run 152
+addition) puts every one of these fifteen posts in Regime 1 as well, not
+just the six branch pages read so far.
+
+Four of the sixteen branches - Cherry Lane, Clear Chemist Aintree,
+Ainsdale (Fishlocks) and Wilmslow - have no dedicated blog post; the
+twelve that do are Bramhall, Hazel Grove, Longmoor Lane (Tiffenbergs),
+Bootle/Fernhill Road (Smartts), Ainsdale/Sherwood House (Hirshmans),
+Aigburth (McCanns), Sandringham (McCanns), Stanley Road Bootle (SK
+Chemists), Walton Village (Coleman & Leigh), Timperley (Riddings), Crosby
+(Gordon Shorts) and Eccleston (Fishlocks).
+
+One new finding of note: the general post "Mounjaro vs. Wegovy" (2/7/2025)
+names a THIRD prescription-only medicine not previously logged anywhere on
+this domain - "weight loss injections like Mounjaro, Wegovy, and Ozempic"
+in its opening line - before going on to compare only the first two. This
+widens the exposure already on record at Q106 by one medicine; not raised
+as a separate question, folded into Q106's note since it is the same
+advertising-standards question applied to one more named drug rather than
+a new category of finding.
+
+find-a-pharmacy-near-you.html carries a Leaflet/OpenStreetMap embed and a
+full list of all sixteen locations with address and a "Book at <branch>"
+link each, including Wilmslow with its Summerfields Village address -
+independent confirmation, on a different page, of the disposed-branch
+listing already raised as Q116. No new finding beyond that.
+
+Two more pages join the blank-stub-page list already on record (contact,
+book-an-appointment, partner-benefits, partner-sign-up, testimonials):
+face-to-face-consultations.html and reordering-options.html both load
+cleanly (chrome only, no body content) - the same data-hygiene pattern,
+now seven stub pages out of the pages read so far rather than five.
+
+fully-online-option.html is not blank and names no medicine directly, but
+it is a Regime 1 nav-linked page (FULLY ONLINE OPTION, top-level nav) that
+states "Prices vary—expect £129–£300+ per month (depending on the brand &
+supplier)" ahead of any consultation framing - the same lead-pricing
+pattern already flagged against prices.html (run 151) and Clear Chemist's
+retail pages (Q104), folded into the existing note rather than raised
+separately.
+
+mounjaro.html, linked from the primary nav as "MOUNJARO", 404s. The nav
+item is either mis-pointed or the page was removed after the link was
+built; either way it is a broken link on every page of a live, publicly
+indexed site, a data-hygiene finding of the same kind as the wegovy.html
+empty-page finding already on record (run 151), not a compliance one.
+
+Running total: nine of sixteen branch pages now identified as read or
+covered (six read in full on runs 150-154, plus this run's blog post
+confirms Bramhall, Hazel Grove, Longmoor Lane, Aigburth, Sandringham,
+Stanley Road Bootle, Walton Village and Timperley's claim pattern via
+their blog posts even though their dedicated branch pages themselves
+remain unread) - the seven still fully unread as both branch page and
+blog post are Aigburth's, Sandringham's, Stanley Road's, Walton Village's,
+Timperley's, Ainsdale (both Southport listings) and Cherry Lane's own
+weight-loss-clinic-branch pages themselves (as opposed to their blog
+coverage, which this run reached for five of those seven).
+
+No repo file, no live page and no branches.json content was changed: this
+domain is not built by or referenced from this repo, and weight loss
+advertising and data-protection questions on it are reserved for Rishi
+under the standing rule. Browsing was read-only throughout - nothing
+clicked, typed or submitted.

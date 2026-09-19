@@ -1,3 +1,87 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 155;
+mcp__workspace__bash used read-only for repo state and for the QUESTIONS.json
+and compliance-file edits; mcp__claude-in-chrome__* used read-only for the
+step 3 answer pickup and the continued simpleweightloss.co.uk sweep, nothing
+clicked, typed or submitted anywhere; mcp__Windows-MCP__PowerShell used for
+git add/commit/push and the status-page publish against the real
+C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround; ran inside a
+Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (checked via
+mcp__workspace__bash), one created (timestamp 1789823082). No stale
+`.git\index.lock` found. `git fetch`, `checkout` (already on branch) and
+`pull --ff-only` all no-op, already at origin's tip (c113da1, run 154's
+commit).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full 55-entry feed read.
+Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged from every run
+back to at least 143. Cross-checked the two open questions with the most
+recent (but non-decisive) portal replies, Q37 and Q43: both replies are
+requests for clarification/more information rather than a selected option,
+so both correctly remain status "open" per the reasoning already recorded in
+their notes from the 2026-09-16 reconciliation. No new answers to apply.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading present
+at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick. Per Q115's still-open recommendation (option 3, followed without
+re-litigating it, consistent with runs 145-154) this run again spent its
+time on a live-page recheck rather than a further rotation-pool pass.
+WORK DONE: continued the simpleweightloss.co.uk sweep, but changed approach
+rather than repeating runs 150-154's branch-page-by-branch-page pattern.
+Six of sixteen branch pages were already confirmed, word for word, to carry
+an identical claim template with zero variation - reading a seventh and
+eighth would have added negligible new evidence. Instead followed run 151's
+own recorded advice to prioritise the still-unread info and blog pages,
+since those are the only parts of the domain that might differ from the
+confirmed template. Read face-to-face-consultations.html,
+fully-online-option.html, find-a-pharmacy-near-you.html,
+reordering-options.html, mounjaro.html and blog.html.
+blog.html turned out to render all fifteen posts on a single URL rather than
+one page per post, so this one page load read the full posting history:
+twelve branch-specific posts (Bramhall, Hazel Grove, Longmoor
+Lane/Tiffenbergs, Bootle/Smartts, Ainsdale/Hirshmans, Aigburth, Sandringham,
+Stanley Road/SK Chemists, Walton Village/Coleman and Leigh,
+Timperley/Riddings, Crosby/Gordon Shorts, Eccleston/Fishlocks), each naming
+Mounjaro and Wegovy by brand tied to that branch's address and phone number,
+plus three general posts. New findings: (1) the general post "Mounjaro vs.
+Wegovy" (7 Feb 2025) names a THIRD prescription-only medicine not previously
+logged on this domain, Ozempic, in its opening line; (2)
+fully-online-option.html, a Regime 1 top-nav page, states lead pricing
+"£129-£300+ per month depending on the brand & supplier" ahead of any
+consultation framing, the same pattern already flagged against prices.html
+and Clear Chemist; (3) two more blank stub pages
+(face-to-face-consultations.html, reordering-options.html), taking the
+stub-page count to seven; (4) mounjaro.html, linked from the primary nav,
+404s - a broken link on every page of a live indexed site, data hygiene not
+compliance; (5) find-a-pharmacy-near-you.html independently re-confirms the
+Wilmslow listing already raised at Q116, with the same address, phone and a
+live "Book at Wilmslow" link. Four branches (Cherry Lane, Clear Chemist
+Aintree, Ainsdale/Fishlocks, Wilmslow) have no dedicated blog post.
+Full write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19
+run 155 addition. Q106 and Q115 both updated with today's findings.
+Nothing on simpleweightloss.co.uk was changed or could be: it is not built
+by or referenced from this repo, and weight loss advertising and
+data-protection questions on it are reserved for Rishi under the standing
+rule.
+PROCESS NOTE, not part of the worklist: this is at least the thirteenth run
+today on this branch (runs 143-155 visible in this log's own recent
+history), all landing on the identical "all 8 items BLOCKED" state Q115
+already raised as a diminishing-returns concern on 2026-09-19. Q115 remains
+open and unanswered; this run did not repeat its recommendation as a new
+question, only logged one further data point in its note (see QUESTIONS.json
+Q115). Also noted but not actioned: the repo root carries several hundred
+untracked scratch/test files (.agent-lock.released-*, .test-*.tmp, and
+similar) accumulated across many runs' lock-mechanism testing, none of which
+are committed or block any git operation, but which make `git status` output
+very long on every run. Not raised as a new question since it costs nothing
+functionally; worth a housekeeping pass (`git clean` after review) at some
+point at Rishi's discretion.
+COMMIT/PUSH (step 9): QUESTIONS.json, compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+and this log entry committed and pushed to `origin/agents/audit-backlog` via
+Windows-MCP PowerShell against the real host.
+STATUS PAGE (step 10): published via `node tools/build-audit-status.js` on
+the real host.
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 154;
 mcp__workspace__bash used read-only for repo state and for all file-content
 edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
