@@ -1,3 +1,41 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 159;
+mcp__workspace__bash used read-only for repo state; mcp__claude-in-chrome__*
+used read-only for the step 3 answer pickup, nothing clicked, typed or
+submitted anywhere; mcp__Windows-MCP__PowerShell used for git add/commit/push
+and the status-page publish against the real C:\Dev\rbh-site-data host, per
+the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock created.
+`git fetch`, `checkout` (already on branch) and `pull --ff-only` all no-op,
+already at origin's tip (fcea244, run 158's commit, pushed roughly 27
+minutes before this run started).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full feed read. Newest
+entry still Q52 (2026-09-01T22:44:51.524Z), unchanged - 18 days, and this is
+the third check today within roughly an hour (runs 157, 158, 159) to return
+the identical result. No change needed to any question status.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick. Did not resume the simpleweightloss.co.uk sweep or a rotation-pool
+quality pass: per Q115 (open since this morning, now reinforced a further
+three times today by runs 157-159 finding nothing new), the repo-side
+backlog is functionally exhausted and manufacturing another re-verification
+pass this run would only repeat that finding, not add to it.
+WORK DONE: answer-pickup check only, this log entry, and the
+commit/push/publish steps. No repo generator, live page or branches.json
+content changed this run; browsing read-only throughout; no autonomous
+decisions taken (no authorisation window open).
+FLAGGING AGAIN, PLAINLY: this branch has now run three times in about an
+hour, each time finding zero new information, against 65 open questions
+(oldest from 2026-08-11) and a 6.7MB log. Q115's own recommendation
+(option 3, repurpose to answer-pickup only, already being followed) has
+been overtaken by events - even that reduced workload is now pure overhead
+while zero questions get answered. Q115 remains open and is Rishi's call,
+not this run's, but the evidence for pausing or dropping to a low-frequency
+heartbeat (Q115 options 1 or 2) is now strong enough that continuing to run
+this worker unattended every 30 minutes should itself be treated as a live
+decision, not a default.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 158;
 mcp__workspace__bash used read-only for repo state; mcp__claude-in-chrome__*
 used read-only for the step 3 answer pickup, nothing clicked, typed or
