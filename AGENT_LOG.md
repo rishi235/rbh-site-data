@@ -1,3 +1,81 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 135;
+mcp__workspace__bash used for all read-only checker/injection work and file
+edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
+verification on the real host and for the final commit/push and status-page
+publish per the established Q102 practice) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Wrote a fresh one.
+git fetch/checkout/pull --ff-only all completed clean, confirmed up to date
+with origin at run 134's commit (11443ab). Mid-run, this run's own
+`git status --porcelain` (a plain read) left an orphaned .git/index.lock
+behind - the same FUSE-mount create-succeeds/unlink-fails restriction
+documented at Q87/Q96/Q102. Confirmed no git process running (ps aux, both
+sandbox and via Windows-MCP), confirmed the lock was under a minute old and
+was this run's own artefact rather than another run's, then cleared it via
+mcp__Windows-MCP__PowerShell's Remove-Item -Force against the real
+C:\Dev\rbh-site-data host (same underlying file - the sandbox mount and that
+path are the same disk, per Q102's run-116 finding), which succeeds where
+sandbox-side rm/os.remove cannot. Not a fresh policy decision - following the
+already-established practice.
+ANSWER PICKUP (step 3): QUESTIONS.json read directly (113 total, 60 open).
+No portal fetch attempted this run since nothing has changed there since run
+134's check minutes earlier; deferred to the next run needing it fresh.
+Nothing applied, no status change.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Fell
+to the quality-pass fallback.
+ROTATION: derived item mentions from `git log --pretty="%aI|||%s"` matched
+against `[Ii]tem\s+(\d+\.\d+)(?!\d)`, first (most recent) mention per item,
+against the standing 36-item pool (43 completed minus the seven standing
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8). Stalest: 3.11
+(2026-09-18T04:12:55+01:00), ahead of 3.9 (04:47:41+01:00) by about 35
+minutes. Chosen: 3.11, twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.11 block and
+audits/gordon-short-item-3.11-quality-pass-2026-09-19-twentysecond.txt; this
+is the mirrored summary. Surveyed every check-*.js name mentioned across this
+item's own 1002-line history (twenty-one prior passes) and found
+tools/check-branch-identity.js never named once, so took that angle: the
+JSON-LD name / data-branch / review-link / service-link identity checker,
+proven by direct injection against this branch's own pages for the first
+time. Gordon Short Crosby has brandLabel == branchName and no branch landing
+page, so rules 4/5/9/11 are structurally out of scope for it; rules 1, 2, 3,
+6, 8 and 10 were testable.
+Backed up all twelve of the branch's generated pages, branches.json and the
+checker itself, sha256-hashed. Full 34-checker suite (cdn-pins, live-hours
+excluded per convention) clean before starting.
+Five injections plus one control, each applied alone, checked, then restored
+by byte copy and sha256-reconfirmed identical before the next: (1) data-
+branch on the Pharmacy First page swapped for another branch's branchName -
+CAUGHT on rule 2 (owner) plus rule 6 (split) as collateral; (2) the JSON-LD
+name on the UTI page swapped for another branch's brandLabel - CAUGHT on
+rule 3 (schemaname) plus rule 6 (split) as collateral; (3) the Google review
+link on the Shingles page swapped for Smartts Chemist Bootle's - CAUGHT on
+rule 8 (outbound), correctly naming the true owner and the third-party-
+profile risk (a patient rating the wrong shop on a record neither this repo
+nor a repaste can move back); (4) the Pharmacy First page's UTI condition-
+card link repointed at Fishlocks Ainsdale's UTI page, a different host -
+CAUGHT on rule 10 (servicelink), correctly reasoning the relative link now
+404s rather than silently booking the wrong pharmacy (the same rule's other
+branch, for a same-host pair); (5) data-branch on the Infected insect bite
+page blanked to "" - CAUGHT on rule 1 (identity). CONTROL: an unrelated FAQ
+reword on the Sinusitis page - correctly passed, zero failures. All six
+fired or passed on exactly their intended outcome, first attempt, no
+unintended cross-firing beyond the two documented rule-2/6 and rule-3/6
+collateral pairs (the same fault seen from two angles by design).
+RESULT: full 34-checker suite re-run clean (34/34) after final restore; all
+twelve pages, branches.json and the checker confirmed byte-identical to
+baseline by sha256; git diff --stat confirms no tracked-file changes beyond
+this run's own log/worklist/audit-evidence additions. ZERO IN-REPO DEFECT:
+check-branch-identity.js was already correctly holding this branch's pages
+to every testable rule, now proven by injection for the first time in
+twenty-two passes. Rules 4, 5, 9 and 11 remain structurally out of scope for
+this branch rather than untested by omission.
+LIVE HALF: not attempted this pass, scope was repo/data-schema layer only.
+No new question. Only AGENT_WORKLIST.md, this log entry, and the new
+audits/ evidence file changed in the tracked repo; no generator, page or
+data field touched.
+
 ## 2026-09-19 (run 134 addendum): record actual push/publish outcome - commit
 11443ab pushed clean (0ab7a5c..11443ab, agents/audit-backlog); status page
 published via tools/build-audit-status.js: "Published reports/digital/

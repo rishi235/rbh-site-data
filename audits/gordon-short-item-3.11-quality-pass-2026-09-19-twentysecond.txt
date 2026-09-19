@@ -1,0 +1,148 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - quality pass, twenty-second, 2026-09-19
+Unattended scheduled run (audit-backlog-worker).
+
+ROTATION
+--------
+All eight unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] first
+(grep "^\- \[ \]"): 5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5,
+6.6. No unblocked unchecked item exists, so fell to the quality-pass
+fallback as every recent run has.
+
+Rotation pool re-derived fresh from git log: `git log --pretty="%aI|||%s"`
+parsed for the first `[Ii]tem\s+(\d+\.\d+)` mention per commit message,
+taking the first (most recent) match per item id, against the same
+36-item pool prior runs have used (43 completed items minus the seven
+standing out-of-rotation one-offs: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Stalest: 3.11 at 2026-09-18T04:12:55+01:00 (its own twenty-first pass),
+ahead of the next candidate, 3.9, at 2026-09-18T04:47:41+01:00, by about
+35 minutes. Chosen: 3.11, twenty-second pass.
+
+FRESH ANGLE
+-----------
+Surveyed every check-*.js name mentioned anywhere in this item's own
+AGENT_WORKLIST.md block (1002 lines, all twenty-one prior passes) and
+found tools/check-branch-identity.js never named once - the JSON-LD
+name / data-branch / review-link / service-link identity checker never
+proven by direct injection against this branch's own pages, across
+twenty-one prior passes on other checkers (check-jsonld, check-seo-
+lengths, check-seo-pattern, check-weight-loss-copy and others already
+proven here).
+
+Gordon Short Crosby has brandLabel == branchName (no shared brand) and
+no branch landing page, so rules 4/5/6 (ambiguous/split/siteunique) and
+9/11 (sisterlink/sisterlabel) do not apply in their positive form to this
+branch specifically - it has no sister to collide with. The testable
+rules for this branch are 1 (identity), 2 (owner), 3 (schemaname), 7
+(data, already true by construction), 8 (outbound review link) and 10
+(servicelink). Rule 6 (split) fires as a side effect of rules 1/2/3
+whenever a second value appears across the branch's twelve pages, so it
+was proven as collateral rather than separately.
+
+BASELINE
+--------
+Backed up all twelve of Gordon Short Crosby's generated pages (eleven
+service-family pages plus the switch page), branches.json and
+tools/check-branch-identity.js itself to a scratch copy, sha256-hashed
+before any change. Full 34-checker suite (cdn-pins and live-hours
+excluded per convention) run clean, 0 failures, before starting.
+
+INJECTIONS
+----------
+Five real injections plus one control, each applied alone, checked, then
+restored by byte copy and sha256-reconfirmed identical to baseline before
+the next began.
+
+1. RULE 2 (owner) + RULE 6 (split) collateral - pharmacy-first-gordon-
+   short-crosby.html's data-branch changed from "Gordon Short Chemist" to
+   "Fishlocks Chemist Ainsdale" (another trading branch's branchName).
+   CAUGHT - two failures: "owner" naming fishlocks_ainsdale as the true
+   owner of that name, and "split" reporting the branch's twelve pages
+   now declaring two different data-branch values (11 pages vs 1).
+
+2. RULE 3 (schemaname) + RULE 6 (split) collateral - uti-treatment-
+   gordon-short-crosby.html's JSON-LD "name" changed from "Gordon Short
+   Chemist" to "Smartts Chemist" (another trading branch's brandLabel).
+   CAUGHT - two failures: "schemaname" naming smartts_bootle as the name's
+   true owner, and "split" reporting two JSON-LD name values across the
+   branch's pages.
+
+3. RULE 8 (outbound review link) - shingles-treatment-gordon-short-
+   crosby.html's Google review link swapped from Gordon Short's own
+   (g.page/r/CZcVDM6emi6OEAE) to Smartts Chemist Bootle's
+   (g.page/r/CVzJUbDqQwReEBM). CAUGHT - exactly one failure, correctly
+   naming smartts_bootle as the review link's true owner and stating the
+   third-party-profile consequence (a patient following it rates the
+   wrong shop, on a record neither this repo nor a repaste can move back).
+
+4. RULE 10 (servicelink) - pharmacy-first-gordon-short-crosby.html's UTI
+   condition-card link changed from "uti-treatment-gordon-short-
+   crosby.html" to "uti-treatment-fishlocks-ainsdale.html" (a real service
+   page belonging to a different branch on a different host). CAUGHT -
+   exactly one failure, correctly identifying fishlocks_ainsdale as the
+   link's true owner and correctly reasoning that because the two
+   branches are on different hosts and the link is relative, it 404s and
+   the service route is dead (rather than silently booking the wrong
+   pharmacy, which is the same rule's other branch for a same-host pair).
+
+5. RULE 1 (identity) - insect-bite-treatment-gordon-short-crosby.html's
+   data-branch attribute blanked to "". CAUGHT - exactly one failure,
+   "carries a module root but no data-branch, so an enquiry from it is
+   labelled 'our pharmacy'".
+
+6. CONTROL - sinusitis-treatment-gordon-short-crosby.html's FAQ answer
+   reworded ("No. You can come straight to the pharmacy..." to "No. You
+   can come straight in..."), touching no identity field. Correctly
+   PASSED with zero failures - confirms the checker does not cross-fire
+   on unrelated copy changes.
+
+All six injections/controls fired or passed on exactly their intended
+outcome, first attempt, with no other rule tripping alongside any of
+them (aside from the two documented rule-2/rule-6 and rule-3/rule-6
+collateral pairs, which are the same fault seen from two angles by
+design, not a false positive).
+
+RESULT
+------
+Full 34-checker suite re-run after final restore: 34/34 exit 0. All
+twelve tracked pages, branches.json and the checker itself confirmed
+byte-identical to baseline by sha256 (see baseline.sha256 / final.sha256
+diff, empty). git diff --stat against the tracked repo shows no changes
+to any tracked file (only the long-standing pile of untracked scratch
+files at the repo root, pre-existing from earlier runs, none touched by
+this pass).
+
+ZERO IN-REPO DEFECT. check-branch-identity.js was already correctly
+holding Gordon Short Chemist Crosby's own pages to rules 1, 2, 3, 6, 8
+and 10, now proven by direct injection against this specific branch for
+the first time in twenty-two passes. Rules 4, 5, 9 and 11 remain
+structurally out of scope for this branch (no shared brand, no sister,
+no branch landing page) rather than untested by omission.
+
+LIVE HALF: not attempted this pass. Scope was the repo/data-schema layer
+only, matching the precedent set by several other items' recent passes.
+
+STEP 3 (answer pickup): QUESTIONS.json read - 113 total, 60 open, none
+newly answered on the portal since run 134 last checked (Q37/Q43 remain
+the only open questions with portal text, both already correctly
+recorded as non-decisions). No status change.
+
+STEP 4 (autonomous window check): top of AGENT_LOG.md carries no
+"Standing authorisation - autonomous window" heading. Proceeded under
+the normal rule.
+
+INFRASTRUCTURE NOTE: this run's own `git status --porcelain` (a plain
+read) left an orphaned .git/index.lock behind, the same FUSE-mount
+unlink restriction documented at Q87/Q96/Q102 - the sandbox mount can
+create the lock but not unlink it once git tries to clean up after
+itself. Confirmed no git process running (`ps aux`), confirmed via
+mcp__Windows-MCP__PowerShell on the real C:\Dev\rbh-site-data host that
+the lock was the same file (dated identically) and less than a minute
+old, then cleared it there with Remove-Item -Force, which succeeds on
+this mount from the PowerShell side even though rm/os.remove from the
+sandbox side cannot - the same asymmetry Q102's run-116 update already
+recorded. Git writes for this run's own commit/push are being done via
+the same PowerShell route per that established practice, not decided
+freshly here.
+
+No new question raised. Evidence in this file.
+Done 2026-09-19

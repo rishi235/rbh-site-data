@@ -14872,6 +14872,58 @@ Done 2026-09-19 (twenty-second pass).
       audits/verify-3.11-2026-09-18-weight-loss-output.txt and
       audits/gordon-short-item-3.11-quality-pass-2026-09-18-twentyfirst.txt.
       Done 2026-09-18
+      Quality pass 2026-09-19 (twenty-second). Stalest item in the
+      36-item rotation pool this run (last touched 2026-09-18T04:12:55
+      +01:00, ahead of 3.9 at 04:47:41 by about 35 minutes), all eight
+      unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] first.
+      FRESH ANGLE: tools/check-branch-identity.js, never named once
+      across this item's own 1002-line history of twenty-one prior
+      passes - the JSON-LD name / data-branch / review-link /
+      service-link identity checker, never proven by direct injection
+      against this branch's own pages. This branch has brandLabel ==
+      branchName and no branch landing page, so rules 4/5/9/11
+      (ambiguous/siteunique/sisterlink/sisterlabel) are structurally out
+      of scope; rules 1, 2, 3, 6, 8 and 10 were testable.
+      Backed up all twelve of this branch's generated pages plus
+      branches.json and the checker itself, sha256-hashed. Full
+      34-checker suite clean before starting. Five injections plus one
+      control, each restored and sha256-reconfirmed before the next:
+      (1) data-branch on the Pharmacy First page changed to another
+      branch's branchName - CAUGHT on rule 2 (owner) plus rule 6 (split)
+      as collateral; (2) JSON-LD name on the UTI page changed to another
+      branch's brandLabel - CAUGHT on rule 3 (schemaname) plus rule 6
+      (split) as collateral; (3) the Google review link on the Shingles
+      page swapped for Smartts Bootle's - CAUGHT on rule 8 (outbound),
+      correctly naming the true owner and the third-party-profile risk;
+      (4) the Pharmacy First page's UTI condition-card link repointed at
+      Fishlocks Ainsdale's UTI page (different host) - CAUGHT on rule 10
+      (servicelink), correctly reasoning the relative link now 404s
+      rather than silently booking the wrong pharmacy; (5) data-branch on
+      the Infected insect bite page blanked to "" - CAUGHT on rule 1
+      (identity). CONTROL: an unrelated FAQ reword on the Sinusitis page
+      - correctly passed, zero failures. All six fired or passed on
+      exactly their intended outcome, first attempt, with no unintended
+      cross-firing. Full 34-checker suite re-run clean (34/34) after the
+      final restore; all twelve pages, branches.json and the checker
+      confirmed byte-identical to baseline by sha256; git diff --stat
+      confirms no tracked-file changes. ZERO IN-REPO DEFECT.
+      check-branch-identity.js was already correctly holding this
+      branch's pages to every testable rule, now proven by injection for
+      the first time.
+      LIVE HALF: not attempted this pass, scope was repo/data-schema
+      only.
+      INFRASTRUCTURE NOTE: this run's own git status left an orphaned
+      .git/index.lock via the same FUSE-mount unlink restriction as
+      Q87/Q96/Q102 (create succeeds, unlink does not); confirmed no git
+      process running, then cleared via mcp__Windows-MCP__PowerShell
+      against the real C:\Dev\rbh-site-data host, which can Remove-Item
+      the identical file cleanly. Git writes for this run continue via
+      that established PowerShell route.
+      STEP 3 answer pickup: QUESTIONS.json re-read, 113 total, 60 open,
+      nothing new since run 134. No new question this pass; QUESTIONS.json
+      otherwise unchanged. Evidence in
+      audits/gordon-short-item-3.11-quality-pass-2026-09-19-twentysecond.txt.
+      Done 2026-09-19
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
