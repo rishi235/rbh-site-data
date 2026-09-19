@@ -1,3 +1,26 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 164;
+mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
+read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
+and the status-page publish against the real C:\Dev\rbh-site-data host,
+per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock created.
+`git fetch`, `checkout` (already on branch) and `pull --ff-only` all no-op,
+already at origin's tip (f681492, run 163's commit).
+ANSWER PICKUP (step 3): portal feed read fresh via Chrome, full JSON
+reviewed. Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 18 days,
+eighth identical check today. No new answers. Spot-checked Q37's own
+note while there (portal reply "i need further explanation..." received
+2026-09-01, already correctly recorded as not a decision, plain-English
+restatement already written in) - nothing to change.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked
+item to pick. Per Q115 (open since 2026-08-11, restated by every run
+today), the rotation-pool quality-pass model stays paused pending
+Rishi's cadence decision; not resumed. No new question raised. No repo
+generator, live page or branches.json content changed; browsing
+read-only throughout.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 163;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
