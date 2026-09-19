@@ -1,0 +1,153 @@
+Item 5.1, twenty-third quality pass (2026-09-19, unattended scheduled run,
+audit-backlog-worker, run 143)
+
+FORWARD NOTE CLOSED: the twenty-second pass's own forward note read:
+"Checkers this item has still never named against WEEBLY_FURNITURE_CHECKLIST.md
+specifically: check-postcodes.js is a full-repo scanner and almost certainly
+already reads this file's postcodes incidentally, but that has never been
+PROVEN by injection against this file specifically - candidate fresh angle for
+a future pass." This pass takes that up.
+
+BASELINE: full 35-checker suite (36 minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually against the
+tracked repo before any change. 35/35 exit 0.
+
+METHOD: whole repo copied by rsync to a scratch directory under this
+session's own outputs mount (no .git, so `git diff`/`git checkout` cannot be
+used to restore - restoration is by direct byte copy from the tracked repo
+and sha256 comparison instead, the same convention several recent passes
+have used on this sandbox). Every injection, catch and restore below ran
+against that scratch copy; the tracked repo was opened only for reading
+(baseline run, and the two source files copied back in as restore
+originals) and confirmed sha256-identical to its pre-pass state throughout:
+
+  WEEBLY_FURNITURE_CHECKLIST.md   0f601ffa41a4bab5314cce0ba757049bdb4491b45194ea99a7eff73d64ff985b
+  tools/check-postcodes.js        bd506a61b62c0db70e2c5daf623191270edbe20bb4fc4cffc2880d577067b570
+  tools/check-weebly-furniture-freshness.js  4028b8b73d3299f4f13a283270e7759f47eb24e103c91d95bbadfb865c9d0d19
+
+INJECTION A (positive control - proves check-postcodes.js DOES read this
+file, and that rule 6/MISATTRIB fires on it when the shape it looks for is
+present): a line combining a full branchName and a foreign, real, live
+postcode was inserted into WEEBLY_FURNITURE_CHECKLIST.md, between the Scorah
+Chemists Bramhall and Scorah Chemists Hazel Grove sections:
+
+  "INJECTION TEST A (run 143): Scorah Chemists Bramhall's registered
+  pharmacy postcode is L17 7BP, confirmed on-site."
+
+(L17 7BP is McCanns Chemist Aigburth's real postcode; Scorah Chemists
+Bramhall's own is SK7 3LQ.) node tools/check-postcodes.js on the scratch
+copy immediately failed:
+
+  MISATTRIB WEEBLY_FURNITURE_CHECKLIST.md:34: line names Scorah Chemists
+  Bramhall (SK7 3LQ) but carries L17 7BP (mccanns_aigburth)
+
+Confirms the forward note's "almost certainly already reads this file"
+expectation for the positive case: this file is in the scan (root-level
+.md, matches TEXT_EXT, no SKIP_DIRS exclusion), and rule 6 fires on it
+exactly as it would on any other non-narrative, non-declaring file, given a
+line where a branch name and a foreign postcode co-occur.
+
+Reverted by byte copy from the tracked repo and sha256-reconfirmed
+identical (0f601ffa...) before injection B.
+
+INJECTION B (the gap this pass actually found): WEEBLY_FURNITURE_CHECKLIST.md
+is a per-branch table, one "### <branch name> (`<id>`)" heading per branch
+followed by a "Correct values" table with an Address row a few lines below
+it. The heading names the branch; the Address row carries the postcode; the
+two are never on the same physical line. Rule 6 (MISATTRIB) can only compare
+a postcode against a branch name when both appear on ONE line, so a
+mismatch confined to the Address row alone - with the heading left exactly
+as it was - has no line for rule 6 to catch it on.
+
+Proved concretely: on the scratch copy, Scorah Chemists Bramhall's own
+Address row was changed from its real postcode to a different, real, live
+branch's postcode, with nothing else on the page touched:
+
+  before: | Address | 61-63 North Park Road, Bramhall, SK7 3LQ |
+  after:  | Address | 61-63 North Park Road, Bramhall, SK7 6BG |
+
+(SK7 6BG is Scorah Chemists Hazel Grove's own real postcode - the single
+most confusable substitution available, same brand, sister branch, adjacent
+section in the same file.) Full 35-checker suite re-run on the mutated
+scratch copy:
+
+  - check-postcodes.js: exit 0, silent. Not UNKNOWN (SK7 6BG is a real,
+    live branches.json postcode). Not FOREIGN (WEEBLY_FURNITURE_CHECKLIST.md
+    is a repo-root file, not inside any of OWNED_DIRS, so rule 3 does not
+    apply to it at all). Not MISATTRIB (the Address row line itself contains
+    no branch identifier rule 6 recognises - not the full branchName, not
+    the brand+town alias, not a bare stem - only the bare town word
+    "Bramhall", which is not one of the three shapes rule 6 matches on).
+    Not UNOWNED (that warning is gated on ownedDir, which this file never
+    has). 34 of the 35 checkers were silent on this file for the same
+    reason a run 104-style mirror test would expect.
+  - check-weebly-furniture-freshness.js (added on the twenty-second pass
+    yesterday, 2026-09-18): FAILED immediately, naming the exact branch,
+    table and both values:
+
+      FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+            branches.json (in Scorah Chemists Bramhall (scorah_bramhall)'s
+            table):
+            checked-in : | Address | 61-63 North Park Road, Bramhall, SK7 6BG |
+            fresh build: | Address | 61-63 North Park Road, Bramhall, SK7 3LQ |
+
+So the gap is real - check-postcodes.js's rule 6 cannot see a postcode
+substitution confined to this file's own table body - but it is not a live
+risk: check-weebly-furniture-freshness.js, added the day before this pass
+for an unrelated reason (proving the checklist stays current against
+branches.json generally), independently and completely covers the exact
+scenario rule 6 misses on this specific file, because it diffs the whole
+file byte-for-byte against a fresh build rather than reading postcodes out
+of prose. Any hand-edit to this file - a postcode, a phone number, a street
+name, a heading, anything - fails the freshness checker the moment it
+diverges from what the generator would produce today.
+
+Reverted by byte copy from the tracked repo and sha256-reconfirmed
+identical (0f601ffa...) after. Full 35-checker suite re-run on the restored
+scratch copy: 35/35 exit 0 again.
+
+DECISION: no code change made to check-postcodes.js. Widening rule 6 to
+treat a preceding section heading as carrying forward to the rows below it
+would mean teaching a general-purpose, format-agnostic postcode scanner
+about the specific layout of one generated document - the "shape, not
+list" principle this repo has favoured throughout points the other way,
+and the freshness checker already gives this exact file a stronger
+guarantee (exact-content equality, not just postcode agreement) than rule 6
+could ever provide for it. Recorded here rather than left unrecorded,
+matching this item's own established practice of naming a gap even when a
+sibling checker already fully covers it.
+
+VERIFICATION: `sha256sum WEEBLY_FURNITURE_CHECKLIST.md tools/check-postcodes.js
+tools/check-weebly-furniture-freshness.js` on the tracked repo, taken before
+this pass began and again after it ended, identical both times (see hashes
+above). Full 35-checker suite re-run individually on the tracked repo after
+the pass: 35/35 exit 0. No generator, page, pack, checker or branches.json
+content changed on the tracked repo this pass.
+
+RESULT: zero in-repo defect. One real, previously-unproven checker
+limitation confirmed and fully explained; no fix needed because a sibling
+checker (built one pass earlier, for a different stated reason) already
+closes it completely. check-postcodes.js's coverage of
+WEEBLY_FURNITURE_CHECKLIST.md is now proven in both directions for the
+first time: it DOES catch a branch-name-plus-foreign-postcode line (rule 6,
+injection A), and it does NOT catch a same-branch postcode substitution
+confined to the table body (injection B) - the second case being fully
+covered instead by check-weebly-furniture-freshness.js.
+
+LIVE HALF: not attempted. Both findings are repo-internal (one checker's
+own blind spot on a specific file, closed by a second, more specific
+checker); WEEBLY_FURNITURE_CHECKLIST.md itself has no live surface of its
+own, being working documentation for a not-yet-performed Weebly sweep (Q39).
+
+QUESTIONS.json: no change, 114 total, 61 open. No new question raised - this
+finding needs no decision from Rishi, since nothing is unprotected and
+nothing live is affected.
+
+FORWARD NOTE: with 5.1 touched again today, re-derive the rotation pool
+fresh next run rather than trust this note. As computed before selection
+this pass (pool of 36, the seven standing one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8
+excluded, "most recent [Ii]tem N.N mention" per candidate taken from
+`git log --pretty="%aI|||%s"`), 5.1 came out uniquely stalest at
+2026-09-18T09:16:19+01:00, ahead of 4.2 (2026-09-16T17:15:33+01:00 at the
+time of the twenty-first pass's own note, now itself stale) and the rest of
+the pool - re-derive fresh, the pool shifts every run.

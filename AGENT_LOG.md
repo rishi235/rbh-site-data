@@ -1,3 +1,125 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 143;
+mcp__workspace__bash used for lock handling, repo reads, the rsync-based
+scratch copy, injection tests and the checker suite runs; mcp__claude-in-chrome__*
+used read-only for the step 3 answer pickup, nothing clicked, typed or
+submitted; no computer-use or Windows-MCP tools used this run) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 142 had
+released it cleanly). Wrote a fresh one. git fetch/checkout/pull --ff-only
+all completed clean, confirmed up to date with origin at run 142's commit
+(f3e2bc3, item 4.11 twenty-second pass) before starting. A `git status` call
+mid-run left a fresh .git/index.lock behind (the sandbox's FUSE mount can
+create but not unlink it, the standing Q96/Q102 constraint); cleared via
+`mv` (rename), which this mount permits even though unlink is refused,
+before any further git command.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Full feed read back to Q2/Q3/Q4/Q5 (2026-08-04). Newest entry
+unchanged since run 142's own pickup, Q52 (2026-09-01T22:44:51.524Z). Both
+currently-open questions with a portal reply on file (Q37, Q43) already
+carry their "PORTAL REPLY RECEIVED, NOT A DECISION" notes and a 2026-09-16
+reconfirmation that nothing newer had arrived; this run's re-read confirms
+the same is still true. No new answer, no status change to any question.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file (run 142's own entry was the current top at scan time).
+Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines
+reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Fell to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded) by
+matching `[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first
+(most recent) mention per item. With 4.11 now freshly touched by run 142,
+5.1 came out uniquely stalest (2026-09-18T09:16:19+01:00), matching run
+142's own forward note. Chosen: 5.1 (em dashes in public switch page copy /
+WEEBLY_FURNITURE_CHECKLIST.md family), twenty-third pass.
+FRESH ANGLE: the twenty-second pass's own forward note named
+check-postcodes.js as never having been proven by injection against
+WEEBLY_FURNITURE_CHECKLIST.md specifically. This pass closes that.
+WORK DONE: full detail and every sha256 in
+audits/item-5.1-twentythird-2026-09-19.txt; this is the mirrored summary.
+Whole repo copied by rsync to a scratch directory under the session's own
+outputs mount (no .git); every injection, catch and restore below ran
+against that copy, and the tracked repo was never opened for writing during
+the round, confirmed afterwards by reading back the sha256 of every touched
+file from the tracked repo and matching this pass's own recorded baseline
+exactly. Baseline: full 35-checker suite (36 minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent) clean before any change.
+Injection A (positive control): a line naming Scorah Chemists Bramhall's
+full branchName together with McCanns Chemist Aigburth's real postcode
+(L17 7BP, foreign to Bramhall) inserted into WEEBLY_FURNITURE_CHECKLIST.md -
+CAUGHT immediately by check-postcodes.js rule 6 (MISATTRIB). Reverted and
+sha256-reconfirmed before injection B.
+Injection B (the gap found): this file's per-branch table puts the section
+heading naming the branch several lines above the Address row carrying its
+postcode, never on the same physical line, and rule 6 only compares a
+branch name against a postcode sharing one line. Scorah Chemists Bramhall's
+Address-row postcode was swapped for its own sister branch Scorah Hazel
+Grove's real postcode (SK7 3LQ to SK7 6BG), heading and everything else
+left untouched: check-postcodes.js exited 0, completely silent (not
+UNKNOWN, real live postcode; not FOREIGN, this file sits outside
+OWNED_DIRS; not MISATTRIB, the Address row names no branch under any of
+rule 6's three matching shapes; not UNOWNED, that warning is ownedDir-only).
+check-weebly-furniture-freshness.js (built by run 142's own predecessor,
+the twenty-second pass, one day earlier, for the unrelated purpose of
+proving the checklist stays current against branches.json generally) FAILED
+immediately, naming the exact branch, table and both values byte for byte.
+Both injections reverted by byte copy from the tracked repo and
+sha256-reconfirmed identical; full 35-checker suite re-run clean on the
+scratch copy after each restore.
+DECISION: no code change to check-postcodes.js. The gap is real but carries
+no live risk, since check-weebly-furniture-freshness.js already gives this
+specific file a stronger guarantee (exact byte-for-byte equality against a
+fresh build) than widening rule 6 to understand one document's own table
+layout ever could; teaching a general-purpose postcode scanner about a
+single generated file's structure runs against the "shape, not list"
+principle this repo has favoured throughout. Recorded rather than left
+unrecorded, matching this item's own established practice.
+Full 35-checker suite re-run on the tracked repo after the pass: 35/35 exit
+0. Tracked repo's WEEBLY_FURNITURE_CHECKLIST.md, tools/check-postcodes.js
+and tools/check-weebly-furniture-freshness.js confirmed sha256-identical
+before and after. No generator, page, pack, checker or branches.json
+content changed.
+LIVE HALF: not attempted. Both findings are repo-internal; this file has no
+live surface of its own, being working documentation for the not-yet-
+performed Weebly sweep (Q39).
+QUESTIONS.json: no change, 114 total, 61 open. Zero in-repo defect found
+this pass, so no new question raised.
+COMMIT/PUSH (step 9): git add
+audits/item-5.1-twentythird-2026-09-19.txt AGENT_WORKLIST.md AGENT_LOG.md
+(no other files changed; every checker, page, generator, pack and
+branches.json byte-identical to before this run). Committed locally to agents/audit-backlog as cbcbe51 (on top of run 142's
+f3e2bc3). `git push origin agents/audit-backlog` attempted from this
+sandbox shell and, as expected per the standing Q87/Q96/Q102 constraint,
+failed: both `origin` and `origin-https` are HTTPS remotes in this
+checkout (no SSH remote configured at all this run, unlike some earlier
+runs' descriptions), and the push failed with "fatal: could not read
+Username for 'https://github.com': No such device or address" - no
+credential.helper configured, no GITHUB_TOKEN-shaped environment variable,
+no gh CLI present in this session (`which gh` empty), and no interactive
+terminal for git to prompt on. No computer-use or Windows-MCP tools were
+used by this run to route around that gap: this run chose not to reach for
+them, since Q87/Q96/Q102 record that decision as still open and awaiting
+Rishi's explicit sign-off (an unattended agent driving PowerShell against
+the real desktop rather than the sandbox), not as a standing default any
+run may adopt unasked. The commit sits locally, ahead of
+origin/agents/audit-backlog by one commit, until a session with a working
+push credential (or an explicitly authorised supervised run on the real
+host) lands it. Not raised as a new question: Q87, Q96 and Q102 already
+cover this exact gap in full, remain open, and this run adds nothing new to
+the decision they are waiting on beyond one more instance of the same
+failure.
+STATUS PAGE (step 10): attempted anyway per instruction ("run it even if
+the work item failed"). `node tools/build-audit-status.js` failed
+immediately with ENOENT on 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md' - the
+script's hardcoded `const REPO = 'C:/Dev/rbh-site-data'` (Q87's own
+finding) does not resolve to this sandbox's mount path
+(/sessions/jolly-vibrant-darwin/mnt/rbh-site-data), so it never even
+reached the GitHub API write this session also lacks a credential for.
+Confirms Q87's standing finding rather than adding anything new to it.
+Deferred to whichever session next has both a working push route and a
+resolvable REPO path, alongside the pending push itself.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 142;
 mcp__workspace__bash used for lock handling, repo reads, the rsync-based
 scratch copy, injection tests and the checker suite runs; mcp__Windows-MCP__

@@ -33023,6 +33023,97 @@ full-repo scanner and almost certainly already reads this file's postcodes
 incidentally, but that has never been PROVEN by injection against this file
 specifically - candidate fresh angle for a future pass.
 
+ITEM 5.1, TWENTY-THIRD QUALITY PASS (2026-09-19, unattended scheduled run,
+audit-backlog-worker, run 143). Rotation pool re-derived fresh (standing
+36-item pool, the seven out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8 excluded) by matching `[Ii]tem\s+(\d+\.\d+)` against
+`git log --pretty="%aI|||%s"`, first (most recent) mention per item: 5.1
+came out uniquely stalest at 2026-09-18T09:16:19+01:00, matching the
+twenty-second pass's own forward note. Took up that note's own suggested
+fresh angle: prove check-postcodes.js by injection against
+WEEBLY_FURNITURE_CHECKLIST.md specifically, for the first time.
+
+BASELINE: full 35-checker suite (36 minus check-cdn-pins.js and
+check-live-hours.js, both network-dependent) 35/35 exit 0 before any
+change. Full detail and every sha256 in
+audits/item-5.1-twentythird-2026-09-19.txt; this is the mirrored summary.
+Whole repo copied by rsync to a scratch directory under the session's own
+outputs mount (no .git); every injection, catch and restore below ran
+against that copy, and the tracked repo was never opened for writing during
+the round, confirmed by reading back the sha256 of every touched file from
+the tracked repo before and after and matching this pass's own recorded
+baseline exactly.
+
+INJECTION A (positive control): a line naming Scorah Chemists Bramhall's
+full branchName together with a foreign, real, live postcode (L17 7BP,
+McCanns Chemist Aigburth's own) inserted between the Scorah Bramhall and
+Scorah Hazel Grove sections - CAUGHT immediately by check-postcodes.js
+rule 6 (MISATTRIB), naming the line, the branch and both postcodes.
+Confirms the twenty-second pass's forward note: this file is in scan
+(root-level .md, no SKIP_DIRS exclusion) and rule 6 does fire on it given
+the shape it looks for.
+
+INJECTION B (the gap found): WEEBLY_FURNITURE_CHECKLIST.md is a per-branch
+table, one "### <branch name>" heading followed several lines later by an
+Address row; the two are never on the same physical line, and rule 6 can
+only compare a branch name against a postcode when both share one line.
+Scorah Chemists Bramhall's own Address row was changed from its real
+postcode (SK7 3LQ) to a different, real, live branch's postcode (SK7 6BG,
+its own sister branch Scorah Hazel Grove's), with the heading and
+everything else on the page left untouched. check-postcodes.js: exit 0,
+silent - not UNKNOWN (SK7 6BG is real and live), not FOREIGN (this file is
+outside OWNED_DIRS, so rule 3 never applies to it), not MISATTRIB (the
+Address row names no branch under any of rule 6's three matching shapes,
+only the bare town word "Bramhall"), not UNOWNED (gated on ownedDir, which
+this file never has). check-weebly-furniture-freshness.js (added by the
+twenty-second pass yesterday, for the unrelated purpose of proving the
+checklist stays current against branches.json generally) FAILED
+immediately, naming the exact branch, table and both values byte for byte.
+Both injections reverted by byte copy from the tracked repo and
+sha256-reconfirmed identical before and after; full 35-checker suite
+re-run clean on the scratch copy after each restore.
+
+DECISION: no code change. The gap is real but carries no live risk:
+check-weebly-furniture-freshness.js already gives this specific file a
+stronger guarantee (exact byte-for-byte content equality against a fresh
+build) than widening rule 6 to understand this one document's own layout
+ever could, and teaching a general-purpose, format-agnostic postcode
+scanner about one generated file's specific table structure runs against
+the "shape, not list" principle this repo has favoured throughout. Recorded
+rather than left unrecorded, matching this item's own established practice
+of naming a gap even when a sibling checker already fully covers it.
+
+VERIFICATION: tracked repo's WEEBLY_FURNITURE_CHECKLIST.md,
+tools/check-postcodes.js and tools/check-weebly-furniture-freshness.js
+confirmed sha256-identical before and after this pass. Full 35-checker
+suite re-run individually on the tracked repo after the pass: 35/35 exit 0.
+No generator, page, pack, checker or branches.json content changed.
+
+RESULT: zero in-repo defect. check-postcodes.js's coverage of
+WEEBLY_FURNITURE_CHECKLIST.md is now proven in both directions for the
+first time: it catches a branch-name-plus-foreign-postcode line (rule 6)
+and does not catch a same-branch postcode substitution confined to the
+table body, the second case being fully and independently covered by
+check-weebly-furniture-freshness.js.
+
+LIVE HALF: not attempted. Both findings are repo-internal; this file has no
+live surface of its own, being working documentation for the not-yet-
+performed Weebly sweep (Q39).
+
+WORKLIST (step 7): item 5.1 stays `[x]` (quality pass, not a state change).
+
+QUESTIONS (step 8): no new question raised - nothing unprotected, nothing
+live affected.
+
+FORWARD NOTE: with 5.1 touched again today, re-derive the rotation pool
+fresh next run rather than trust this note. As computed before selection
+this pass, the next tier up (excluding 5.1 itself and the seven standing
+one-offs) was led by 4.2 (2026-09-18T09:45:08+01:00) - the pool shifts
+every run, re-derive fresh. This item's own remaining candidate fresh
+angles, if any future pass wants one: no other checker gap on this file has
+been identified; the file's live-sweep half (Q39) remains not yet
+performed.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
