@@ -1,0 +1,131 @@
+Item 3.9 quality pass (twenty-second), 2026-09-19
+Branch: Coleman and Leighs Pharmacy, Walton, Liverpool (colemanleigh_liverpool)
+Checker under fresh test: tools/check-booking-routes.js, chosen from the
+twenty-first pass's own candidate list (check-address-region.js,
+check-app-membership.js, check-booking-routes.js, check-editor-snapshot.js,
+check-em-dashes.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js). check-booking-routes.js had never once been tested
+by direct injection against this branch's own pages across twenty-one prior
+passes.
+
+BASELINE
+--------
+Full 36-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) run individually against the tracked repo before
+starting: 35/35 exit 0.
+branches.json sha256 (standing anchor, unchanged throughout):
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+git status --porcelain -- modules core branches.json gbp-packs tools showed
+only the two long-standing pre-existing untracked strays
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched at any point in this pass.
+
+Scratch copy built via `git archive HEAD | tar -x` to /tmp/scratch_3_9. All
+injection and restore work happened there; the tracked repo was never opened
+for writing during the injection round.
+
+Branch detail: colemanleigh_liverpool, routing key coleman-leigh-walton.
+Eleven generated pages carry a booking mount, all in
+modules/service/pages/: contraception, earache-treatment,
+impetigo-treatment, insect-bite-treatment, pharmacy-first,
+shingles-treatment, sinusitis-treatment, sore-throat-treatment,
+travel-clinic, uti-treatment, weight-loss-clinic (all suffixed
+-coleman-leigh-walton.html). Widgets held: bloodPressure, contraception,
+pharmacyFirst, weightLoss, travelClinic. The seven Pharmacy First
+conditions (uti, soreThroat, sinusitis, earache, impetigo, shingles,
+insectBite) hold no widget of their own and fall back to pharmacyFirst,
+which is correct since all seven are linked from this branch's own
+Pharmacy First overview page. contraception, weightLoss and travelClinic
+are in service.js's own NO_FALLBACK_SERVICE_KEYS and must not fall back.
+
+INJECTIONS (five, one per page-level rule, each applied alone against the
+scratch copy, restored by direct byte copy, and sha256-reconfirmed identical
+to baseline before the next)
+----------------------------------------------------------------------------
+1. RULE route. sore-throat-treatment-coleman-leigh-walton.html renamed to
+   notaservice-coleman-leigh-walton.html (booking mount intact, service
+   prefix "notaservice" not in service.js's own routing alternation).
+   CAUGHT: "notaservice-coleman-leigh-walton.html carries a booking mount
+   but its filename does not parse under service.js's routing regex, so the
+   widget is never rendered and the page shows an empty booking box."
+   Restored by rename-back; sha256 926f673d...dca7e confirmed unchanged.
+
+2. RULE branch. earache-treatment-coleman-leigh-walton.html renamed to
+   earache-treatment-nonexistent-branch.html (valid service prefix, bogus
+   branch key). CAUGHT: "routes to branch key \"nonexistent-branch\", which
+   matches no trading branch in branches.json, so no widget is rendered."
+   Restored by rename-back; sha256 68c9d456...c32775 confirmed unchanged.
+
+3. RULE widget. branches.json (scratch copy only): deleted
+   colemanleigh_liverpool's widgets.contraception key. contraception is in
+   NO_FALLBACK_SERVICE_KEYS, so no fallback to pharmacyFirst is permitted.
+   CAUGHT: "contraception-coleman-leigh-walton.html needs
+   widgets.contraception on colemanleigh_liverpool and there is none (this
+   service must not fall back), so the booking box renders empty." Correctly
+   distinguishes this from a fallback-eligible service. Restored by byte
+   copy; branches.json sha256 confirmed back at the standing anchor
+   169bb5a2...b102.
+
+4. RULE branchattr. shingles-treatment-coleman-leigh-walton.html:
+   data-branch on #rbhsv-root changed from "Coleman and Leighs Pharmacy" to
+   "Fishlocks Chemist Ainsdale" (a real branch name, chosen so the checker's
+   own "matches no known branch" fallback text could not paper over a wrong
+   but valid-looking value). CAUGHT: "data-branch=\"Fishlocks Chemist
+   Ainsdale\" but the URL resolves to colemanleigh_liverpool (\"Coleman and
+   Leighs Pharmacy\"), so an enquiry from this page is filed against the
+   wrong pharmacy." Restored by byte copy; sha256 770a981d...ebb57 confirmed
+   unchanged.
+
+5. RULE serviceattr. insect-bite-treatment-coleman-leigh-walton.html:
+   data-service on #rbhsv-root blanked from "Infected insect bite treatment"
+   to "". CAUGHT: "has a booking mount but no data-service on #rbhsv-root,
+   so the enquiry is labelled \"Pharmacy service\"." Restored by byte copy;
+   sha256 2a606511...58a086 confirmed unchanged.
+
+CONTROL
+-------
+uti-treatment-coleman-leigh-walton.html: unrelated FAQ wording change
+("Pain or a burning feeling when you wee" -> "A burning or stinging feeling
+when passing urine"), booking mount and all #rbhsv-root attributes
+untouched. check-booking-routes.js stayed clean (156/156 pages routed,
+"clean, every booking mount routes to the right branch and the right
+diary"), confirming no cross-firing from an unrelated content edit. Restored
+by byte copy; sha256 b7992df8...21ca86 confirmed unchanged.
+
+RESULT
+------
+All five injections caught on their intended rule, first attempt, with
+correctly named files, branch ids and reasons; the control passed silently.
+No unexplained collateral. Full 36-checker suite re-run on the scratch copy
+after every injection and restore: 35/35 exit 0 (cdn-pins/live-hours
+excluded). Tracked repo reconfirmed untouched throughout: branches.json
+sha256 unchanged, all eleven target pages byte-identical to their
+pre-injection hashes, git status --porcelain showing only the two
+long-standing pre-existing untracked strays; full 36-checker suite re-run
+individually against the tracked repo, 35/35 exit 0. No generator, page,
+checker or branches.json content changed; no defect found.
+
+LIVE HALF: not attempted this pass, repo/data-schema scope only.
+
+QUESTIONS: none raised. QUESTIONS.json re-read via the standing answer-pickup
+step: 113 total, 60 open, unchanged; newest portal answer still Q52
+(2026-09-01T22:44:51.524Z). Only Q37 and Q43 appear in the feed and both are
+already correctly recorded as non-decision replies, not new answers.
+
+Guard coverage for item 3.9 now extends to 5 of the 20 previously-untested
+checkers proven by direct injection against Coleman and Leighs specifically:
+check-nap.js (eighteenth pass), check-opening-hours.js (nineteenth pass),
+check-seo-keywords.js (twentieth pass), check-whatsapp-route.js
+(twenty-first pass), check-booking-routes.js (this pass). Fifteen remain:
+check-address-region.js, check-app-membership.js, check-editor-snapshot.js,
+check-em-dashes.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js - a candidate list for a twenty-third pass, plus
+check-branch-identity.js (proven this run cycle, but against Gordon Short
+Chemist Crosby under item 3.11, not yet against Coleman and Leighs).

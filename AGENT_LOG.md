@@ -1,3 +1,92 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 137;
+mcp__workspace__bash used for all read-only checker/injection work and file
+edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
+verification on the real host and for the final commit/push and status-page
+publish per the established Q102 practice) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Wrote a fresh one.
+git fetch/checkout/pull --ff-only all completed clean, confirmed up to date
+with origin at run 136's commit (f72ac50). This run's own read-only git
+status calls (mcp__workspace__bash) left an orphaned, zero-length
+.git/index.lock behind again - the same FUSE-mount create-succeeds/
+unlink-fails restriction as Q87/Q96/Q102/run 135/run 136, confirmed under a
+minute old and no git process running (checked via mcp__Windows-MCP__
+PowerShell's Get-Process). Cleared it via PowerShell's Remove-Item -Force
+against the real C:\Dev\rbh-site-data host, same as the last two runs, then
+reconfirmed `git status`/`git log` clean and synced at f72ac50 before
+continuing.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since the last check, Q52
+(2026-09-01T22:44:51.524Z). Of the 60 currently-open questions, only Q37 and
+Q43 appear in the feed, both already correctly recorded as non-decision
+portal replies (not new answers). No new answer, no new question, no status
+change. 113 questions total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Fell
+to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded;
+completed-item count reconfirmed at 43, unchanged) by matching
+`[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first (most
+recent) mention per item. With 3.7, 3.11 and 6.3 freshly touched by today's
+runs 134-136, stalest came out uniquely as 3.9 (2026-09-18T04:47:41+01:00),
+ahead of 3.12 (05:13:37+01:00) and 3.13 (05:42:07+01:00). Chosen: 3.9,
+twenty-second pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 3.9 block and
+audits/coleman-leighs-booking-routes-3.9-twentysecond-2026-09-19.txt; this is
+the mirrored summary. Checker under fresh test: tools/check-booking-
+routes.js, chosen from the twenty-first pass's own 15-item candidate list -
+never once tested by direct injection against this branch's own pages across
+twenty-one prior passes, despite Coleman and Leighs carrying eleven booking
+mounts (seven Pharmacy First fallback conditions plus contraception, weight
+loss and travel clinic, the three NO_FALLBACK services).
+Full 36-checker suite (cdn-pins, live-hours excluded, both network-dependent)
+clean on the tracked repo before starting (35/35). branches.json sha256
+confirmed at the standing anchor 169bb5a2...b102 throughout. Scratch copy via
+`git archive HEAD | tar -x`, tracked repo never opened for writing during the
+injection round. Five injections, one per page-level rule, each restored by
+byte copy or rename-back and sha256-reconfirmed before the next: (1) RULE
+route - sore-throat-treatment renamed to notaservice-coleman-leigh-walton.html
+- CAUGHT, filename does not parse under the routing regex; (2) RULE branch -
+earache-treatment renamed to earache-treatment-nonexistent-branch.html -
+CAUGHT, branch key resolves to no trading branch; (3) RULE widget -
+branches.json's widgets.contraception deleted for colemanleigh_liverpool -
+CAUGHT, correctly naming that contraception must not fall back
+(NO_FALLBACK_SERVICE_KEYS); (4) RULE branchattr - shingles-treatment's
+data-branch changed to another real branch's name ("Fishlocks Chemist
+Ainsdale") - CAUGHT, naming both the wrong value and the true owner; (5) RULE
+serviceattr - insect-bite-treatment's data-service blanked - CAUGHT, enquiry
+would be mislabelled "Pharmacy service". CONTROL: an unrelated FAQ wording
+change on uti-treatment (booking mount/attrs untouched) - checker stayed
+clean, 156/156 routed, no cross-firing. All five caught on their intended
+rule, first attempt, no unexplained collateral; control silent.
+Full 36-checker suite re-run on the scratch copy after all injections and
+restores: 35/35 exit 0. Tracked repo reconfirmed untouched throughout:
+branches.json sha256 unchanged, all eleven target pages byte-identical to
+pre-injection hashes, `git status --porcelain -- modules core branches.json
+gbp-packs tools` showing only the two long-standing pre-existing untracked
+strays, neither touched; full 36-checker suite re-run individually against
+the tracked repo, 35/35 exit 0. No generator, page, checker or branches.json
+content changed; no defect found.
+LIVE HALF: not attempted this pass, repo/data-schema scope only.
+RESULT: no worklist item ticked (quality-pass fallback, not a worklist item);
+AGENT_WORKLIST.md's item 3.9 block appended in place. Guard coverage for item
+3.9 now extends to 5 of the 20 previously-untested checkers
+(check-nap.js, check-opening-hours.js, check-seo-keywords.js,
+check-whatsapp-route.js, check-booking-routes.js). Fifteen remain, listed in
+the worklist block, a candidate list for a twenty-third pass. No new
+question.
+Evidence: audits/coleman-leighs-booking-routes-3.9-twentysecond-2026-09-19.txt.
+NEXT (steps 9-10): git add AGENT_WORKLIST.md, AGENT_LOG.md and the new
+evidence file; commit; push origin agents/audit-backlog; run
+tools/build-audit-status.js to publish the status page - both via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data host per
+the established Q96/Q102 practice, since this sandbox has no push credential
+and cannot reliably unlink its own .git/index.lock. .agent-lock deleted at the
+end regardless of outcome.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 136;
 mcp__workspace__bash used for all read-only checker/injection work and file
 edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear

@@ -12408,6 +12408,77 @@ Done 2026-09-19 (twenty-second pass).
       check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
       check-widget-diaries.js - a candidate list for a twenty-second pass. No
       question raised. Done 2026-09-18.
+
+      Quality pass 2026-09-19 (twenty-second, unattended scheduled run,
+      audit-backlog-worker). Checker under fresh test: tools/check-booking-
+      routes.js, chosen from the twenty-first pass's own 15-item candidate
+      list. Never once tested by direct injection against this branch's own
+      pages across twenty-one prior passes, despite Coleman and Leighs
+      carrying eleven booking mounts across its seven Pharmacy First
+      fallback conditions plus contraception, weight loss and travel clinic,
+      the three NO_FALLBACK services.
+
+      Full detail in audits/coleman-leighs-booking-routes-3.9-twentysecond-
+      2026-09-19.txt. In brief: full 36-checker suite (check-cdn-pins.js and
+      check-live-hours.js excluded, both network-dependent) clean on the
+      tracked repo before starting (35/35). branches.json sha256 confirmed
+      at the standing anchor 169bb5a21cf62b196600d61260e0689fee040491fd0c363
+      7eb2ac91f2ad1b102 throughout. Scratch copy via `git archive HEAD | tar
+      -x`, tracked repo never opened for writing during the injection round.
+      Five injections, one per page-level rule, each restored by byte copy
+      (or rename-back) and sha256-reconfirmed before the next: (1) RULE
+      route, sore-throat-treatment-coleman-leigh-walton.html renamed to
+      notaservice-coleman-leigh-walton.html - CAUGHT, filename does not
+      parse under the routing regex; (2) RULE branch,
+      earache-treatment-coleman-leigh-walton.html renamed to
+      earache-treatment-nonexistent-branch.html - CAUGHT, branch key
+      resolves to no trading branch; (3) RULE widget, branches.json's
+      widgets.contraception deleted for colemanleigh_liverpool - CAUGHT,
+      correctly naming that contraception must not fall back (it is in
+      NO_FALLBACK_SERVICE_KEYS); (4) RULE branchattr,
+      shingles-treatment-coleman-leigh-walton.html's data-branch changed to
+      another real branch's name ("Fishlocks Chemist Ainsdale") - CAUGHT,
+      naming both the wrong value and the true owner; (5) RULE serviceattr,
+      insect-bite-treatment-coleman-leigh-walton.html's data-service blanked
+      - CAUGHT, enquiry would be mislabelled "Pharmacy service". CONTROL: an
+      unrelated FAQ wording change on uti-treatment-coleman-leigh-walton.html
+      (booking mount and #rbhsv-root attributes untouched) - checker stayed
+      clean, 156/156 pages routed, no cross-firing. All five injections
+      caught on their intended rule, first attempt, no unexplained
+      collateral; control silent.
+
+      Full 36-checker suite re-run on the scratch copy after all injections
+      and restores: 35/35 exit 0. Tracked repo reconfirmed untouched
+      throughout: branches.json sha256 unchanged, all eleven target pages
+      byte-identical to their pre-injection hashes, `git status --porcelain
+      -- modules core branches.json gbp-packs tools` showing only the two
+      long-standing pre-existing untracked strays
+      (gbp-packs/.fuse_hidden0000000400000001, modules/service/pages/
+      notarealservice-fishlocks-ainsdale.html.bak), neither touched; full
+      36-checker suite re-run individually against the tracked repo, 35/35
+      exit 0. No generator, page, checker or branches.json content changed;
+      no defect found.
+
+      LIVE HALF: not attempted this pass, repo/data-schema scope only.
+
+      STEP 3 answer pickup: portal feed read in full this run - newest entry
+      still Q52, 2026-09-01T22:44:51.524Z. No new answer for any currently
+      open question. QUESTIONS.json: 113 total, 60 open, unchanged.
+
+      Guard coverage for item 3.9 now extends to 5 of the 20
+      previously-untested checkers proven by direct injection against
+      Coleman and Leighs specifically: check-nap.js (eighteenth pass),
+      check-opening-hours.js (nineteenth pass), check-seo-keywords.js
+      (twentieth pass), check-whatsapp-route.js (twenty-first pass),
+      check-booking-routes.js (this pass). Fifteen remain:
+      check-address-region.js, check-app-membership.js,
+      check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
+      check-widget-diaries.js - a candidate list for a twenty-third pass. No
+      question raised. Done 2026-09-19.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
