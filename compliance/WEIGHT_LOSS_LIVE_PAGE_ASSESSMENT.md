@@ -1615,3 +1615,44 @@ Two further findings, smaller but concrete:
 No repo file, no live page and no branches.json content was changed: this
 domain is not built by or referenced from this repo. Browsing was
 read-only throughout - nothing clicked, typed or submitted.
+
+## 2026-09-19 addition (unattended scheduled run, audit-backlog-worker, run
+154): two more branch pages confirm the same template word for word, plus
+a stale NHS-availability date and a branch-name typo
+
+Continuing the same sweep, read weight-loss-crosby-liverpool.html (Gordon
+Short, Crosby), weight-loss-eccleston-chorley.html (Fishlocks, Eccleston)
+and how-it-works.html. Six of sixteen branch pages are now read
+(Wilmslow, Clear Chemist Aintree, Bramhall, Bootle/Smartts, Crosby,
+Eccleston); the claim template is identical on all six beyond branch name
+and contact details - named Wegovy/Mounjaro, the same unqualified ~15%/
+~22% efficacy figures, the same comparison table, two named testimonials
+per page quoting a specific personal result. Nothing here changes Q106's
+standing recommendation; it is confirming evidence, not a new pattern.
+
+Two smaller, genuinely new findings on these two pages:
+
+1. Both pages' comparison table carries a "NHS Availability" row reading
+   "Mounjaro: From April 2025". The page is live in September 2026, close
+   to eighteen months past that date, so a visitor is being told a future
+   rollout date that has already passed as if it were still upcoming - a
+   stale regulatory-status claim, distinct in kind from the efficacy and
+   testimonial findings already logged, and one that undersells rather
+   than oversells NHS access. Not raised as a new question on its own;
+   folded into Q106's note since it is the same "template frozen since
+   build, never revisited" root cause Q106 already describes.
+2. weight-loss-eccleston-chorley.html misspells its own branch name in its
+   second testimonial - "the new weight loss service at Dishlocks Chemist
+   in Eccleston" where the branch is Fishlocks throughout the rest of the
+   page and site. A copy-quality slip, not a compliance question, but
+   further evidence (alongside the Established 1976/2005 contradiction on
+   about.html) that this domain's copy has not been proofread since it was
+   built.
+
+how-it-works.html, read as a control, names no medicine anywhere and
+reads as straightforward pharmacist-led service description - a clean
+page, the same shape as faqs.html.
+
+No repo file, no live page and no branches.json content was changed: this
+domain is not built by or referenced from this repo. Browsing was
+read-only throughout - nothing clicked, typed or submitted.

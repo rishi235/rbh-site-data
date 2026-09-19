@@ -1,3 +1,60 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 154;
+mcp__workspace__bash used read-only for repo state and for all file-content
+edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
+chrome__* used read-only for the step 3 answer pickup and the continued
+simpleweightloss.co.uk sweep, nothing clicked, typed or submitted anywhere;
+mcp__Windows-MCP__PowerShell used for git add/commit/push and the
+status-page publish against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround; ran inside a Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start, one created.
+No stale `.git\index.lock` found. `git fetch`, `checkout` (already on
+branch) and `pull --ff-only` all no-op, already at origin's tip (68a0349,
+run 153's commit).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full 55-entry feed
+read. Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged from
+every run back to at least 143. No new answers to apply.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked item
+to pick. Per Q115's still-open recommendation (option 3, followed without
+re-litigating it, consistent with runs 145-153) this run again spent its
+time on a live-page recheck rather than a further rotation-pool pass.
+WORK DONE: continued the simpleweightloss.co.uk sweep. Read two more
+branch pages (weight-loss-crosby-liverpool.html, Gordon Short Crosby;
+weight-loss-eccleston-chorley.html, Fishlocks Eccleston) and
+how-it-works.html as a control. Six of sixteen branch pages are now read;
+the claim template (named Wegovy/Mounjaro, unqualified ~15%/~22% efficacy
+figures, comparison table, two named result-quoting testimonials) is
+confirmed identical on all six beyond branch name and contact details -
+no new pattern, further confirming evidence for Q106. Two smaller new
+findings, both folded into Q106's note rather than raised separately: (1)
+both pages' comparison table states Mounjaro NHS availability as "From
+April 2025", roughly eighteen months stale on a live page; (2) the
+Eccleston page misnames its own branch "Dishlocks" instead of "Fishlocks"
+in one testimonial, further evidence (with the Established 1976/2005
+contradiction found on run 153's about.html read) that this domain has
+not been proofread since it was built. how-it-works.html is clean, no
+medicine named. Full write-up in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19 run 154
+addition.
+Also updated Q115's note: today's answer pickup (twelfth run of the day on
+this branch) again returned zero new portal answers beyond Q52, against 65
+questions now open (up from 61 when Q115 was raised earlier today). Not a
+new decision, a further data point for the recommendation already
+standing there.
+Nothing on simpleweightloss.co.uk was changed or could be: it is not built
+by or referenced from this repo, and weight loss advertising and
+data-protection questions on it are reserved for Rishi under the standing
+rule.
+COMMIT/PUSH (step 9): QUESTIONS.json,
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md and this log entry
+committed and pushed to `origin/agents/audit-backlog` via Windows-MCP
+PowerShell against the real host.
+STATUS PAGE (step 10): published via `node tools/build-audit-status.js` on
+the real host.
+LOCK RELEASE (step 11): `.agent-lock` deleted at the end of this run.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 153;
 mcp__workspace__bash used read-only for repo state and for all file-content
 edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
