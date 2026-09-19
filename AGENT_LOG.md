@@ -1,3 +1,58 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 157;
+mcp__workspace__bash used read-only for repo state; mcp__claude-in-chrome__*
+used read-only for the step 3 answer pickup, nothing clicked, typed or
+submitted anywhere; mcp__Windows-MCP__PowerShell used for git add/commit/push
+and the status-page publish against the real C:\Dev\rbh-site-data host, per
+the standing Q96/Q102 workaround; ran inside a Cowork agent sandbox) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start, one created.
+`.git\index.lock` not present as a live file; the sandbox's own
+`rm -f`/`git status` still shows "unable to unlink '.git/index.lock':
+Operation not permitted" as a transient warning during status calls, the
+same standing FUSE-mount symptom Q87/Q96/Q102 already document, not a new
+fault and not touched. `git fetch`, `checkout` (already on branch) and
+`pull --ff-only` all no-op, already at origin's tip (44bdd1a, run 156's
+commit).
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, full 55-entry feed
+read. Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged since at
+least run 143 (eighteen days, roughly twenty runs). No new answers to
+apply. Spot-checked the two entries that look like unapplied answers on a
+skim (Q37, Q43): both already correctly handled by earlier runs - Q37's
+portal reply was Rishi asking for the question to be restated, not a
+decision, so it correctly stays open with that noted; the Q43 feed entry is
+a stray reuse of an old question number for unrelated content (the
+Bramhall/Cheshire travel-clinic wording), also already noted. No change
+needed to either.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all eight unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143.
+WORK DONE, and what this run deliberately did NOT do: this run did not add
+another simpleweightloss.co.uk page read to the Q106 pile. That sweep has
+now run for a full day (roughly runs 143-156) and every page has confirmed
+the same already-recorded template and claim pattern; a fifteenth
+confirmation of a finding already written up in
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md adds evidence weight but no
+new decision-relevant fact, and Q115 (still open) already makes this exact
+point. Instead this run's only content action was the answer-pickup spot
+check above. Everything else this run did was bookkeeping: this log entry,
+one short dated addition to Q115 (see QUESTIONS.json) recording that this
+is the twentieth-plus run today to land on the identical blocked state, and
+the commit/push/publish steps.
+PROCESS NOTE, escalated rather than restated: Q115 has been open since
+2026-08-11 with a clear recommendation (stop rotation-pool passes, keep
+answer-pickup and a live recheck only) and has already been re-raised
+inside its own note on runs 154, 155 and 156 without a decision. Checked
+the scheduled task configuration directly this run: audit-backlog-worker
+fires every 30 minutes, all day, every day (cron 0,30 * * * *), which is
+why this branch has taken over twenty commits today alone. This run is not
+proposing to change that cadence itself - Q115's own logic applies here
+too, no standing authorisation for an autonomous process change is present
+- but is flagging plainly, outside QUESTIONS.json as well as inside it,
+that the schedule's own frequency is now the single biggest lever on how
+fast AGENT_LOG.md and QUESTIONS.json grow relative to how fast Rishi's
+decision queue actually clears. No repo generator, live page or
+branches.json content changed this run; browsing read-only throughout.
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 156;
 mcp__workspace__bash used read-only for repo state and for all file-content
 edits (QUESTIONS.json, the compliance file, this entry); mcp__claude-in-
