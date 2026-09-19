@@ -1,3 +1,87 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 136;
+mcp__workspace__bash used for all read-only checker/injection work and file
+edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear
+verification on the real host and for the final commit/push and status-page
+publish per the established Q102 practice) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Wrote a fresh one.
+git fetch/checkout/pull --ff-only all completed clean, confirmed up to date
+with origin at run 135's commit (bd407c1). Mid-run, this run's own
+`git status --porcelain` left an orphaned, zero-length .git/index.lock behind
+(created at run start, confirmed under a minute old and no git process
+running via ps aux) - the same FUSE-mount create-succeeds/unlink-fails
+restriction as Q87/Q96/Q102, not yet stale under the 1-hour threshold, left in
+place for the Windows-MCP clear at commit time rather than treated as a fault.
+ANSWER PICKUP (step 3): Chrome navigated to https://data.rbhealth.co.uk/api/feedback
+read-only, one tab, closed afterwards. Newest entry unchanged since the last
+check, Q52 (2026-09-01T22:44:51.524Z). All 60 currently-open questions
+cross-checked by id against the feed: only Q37 and Q43 appear in it, both
+already correctly recorded as non-decision portal replies left open (most
+recently reconfirmed 2026-09-16 and again this run). No new answer, no new
+question, no status change. 113 questions total, 60 open before and after.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file. Proceeded under the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines confirmed
+[BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). Fell to
+the quality-pass fallback.
+ROTATION: derived item mentions from `git log --pretty="%aI|||%s"` matched
+against `[Ii]tem\s+(\d+\.\d+)(?!\d)`, first (most recent) mention per item,
+against the standing 36-item pool (43 completed minus the seven standing
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8; verified this
+run's pool composition against `grep -oP "^\- \[x\]\s+\K\d+\.\d+"
+AGENT_WORKLIST.md`, still 43, unchanged). Stalest: 6.3 (2026-09-18T03:11:43+01:00,
+run 133's nineteenth pass), ahead of 3.7 (03:49:30+01:00) by about 38 minutes;
+3.11, the item run 135 had just finished, correctly fell to the bottom of the
+list with today's timestamp. Chosen: 6.3, twentieth pass.
+WORK DONE: full detail in AGENT_WORKLIST.md's item 6.3 block; this is the
+mirrored summary. Surveyed which of check-opening-hours.js's ten numbered
+rules, both KNOWN-list anti-rot paths, both coverage floors, the JSON-LD
+parse-failure path, and check-live-hours.js's own disposed filter, NEAR_DAYS
+boundary and per-host fetch sharing had already been proved by injection
+across nineteen prior passes (grepped both worklist files for every rule
+number, KNOWN_ key, and function/constant name first) - all of it had been.
+Found one corner of check-live-hours.js genuinely never named once in
+nineteen passes: PAGE_HINT_RE, extractLocs() and the "urls.indexOf(u) === -1
+&& urls.length < 8" cap inside collectHost(), the logic that decides WHICH
+live pages the whole survey even reads. Wrote a standalone, read-only test
+(audits/verify-6.3-2026-09-19-twentieth-sitemap-urlselect.js) copying that
+logic VERBATIM from the tracked file (diff-confirmed identical line for line
+before running, since a checker testing its own reimplementation proves
+nothing), exercised against synthetic sitemap XML with no live HTTP call and
+no mutation: a well-formed sitemap, the empty-input path a 404'd sitemap.xml
+produces, a non-XML Cloudflare-style block page, six PAGE_HINT_RE positive
+matches and four negative matches, the 8-URL cap fed 15 hinted locs (must
+keep exactly the first 7 in document order), a sitemap listing the homepage
+itself as a <loc> (must not duplicate it via the indexOf guard and steal a
+slot from a real hinted page), and a realistic mixed sitemap. All 8 checks
+passed on the first run. Zero in-repo defect: the filter, the dedup guard and
+the cap all behave exactly as documented. branches.json and
+tools/check-live-hours.js reconfirmed byte-identical by sha256 throughout
+(169bb5a2...b102 and 3f547301...29126); full 35-checker suite (cdn-pins and
+live-hours excluded per convention) clean both before and after (35/35).
+LIVE HALF: network egress confirmed directly (curl 301 against
+smarttschemist.co.uk and gordonshortchemist.co.uk, Weebly's normal https
+redirect). tools/check-live-hours.js re-run for real across all 14 trading
+branches, evidence audits/live-hours-check-2026-09-19.json, byte-identical to
+run 133's file from earlier today (confirmed via `git diff --stat`, no
+tracked change). No bank holiday within 14 days (next 2026-12-25, 97 days
+out). gordonshorts_crosby read live as control, correctly still shows its
+lunch closure. smartts_bootle remains the sole live mismatch, straight-through
+hours unchanged since 2026-08-11, now confirmed on all twenty passes. Q55
+(answered 2026-09-02, option 1) stands as answered-but-not-yet-actioned, a
+live Weebly edit outside this worker's write scope, not re-raised.
+RESULT: no worklist item ticked (this was the quality-pass fallback, not a
+worklist item); AGENT_WORKLIST.md's item 6.3 block appended in place. No new
+question raised.
+Evidence: audits/verify-6.3-2026-09-19-twentieth-sitemap-urlselect.js,
+audits/live-hours-check-2026-09-19.json.
+NEXT (steps 9-10): git add AGENT_WORKLIST.md, AGENT_LOG.md and the new
+evidence script; commit; push origin agents/audit-backlog; run
+tools/build-audit-status.js to publish the status page - both via
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data host per
+the established Q96/Q102 practice, since this sandbox has no push credential
+and cannot reliably unlink its own .git/index.lock. .agent-lock deleted at the
+end regardless of outcome.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 135;
 mcp__workspace__bash used for all read-only checker/injection work and file
 edits, mcp__Windows-MCP__PowerShell used only for git status/lock-clear

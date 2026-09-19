@@ -37091,6 +37091,77 @@ live DOM, not saved to a separate audit file (same convention as the
       Evidence: audits/verify-6.3-2026-09-19-nineteenth.txt,
       audits/verify-6.3-2026-09-19-nineteenth-neardays-boundary.js,
       audits/live-hours-check-2026-09-19.json. Done 2026-09-19.
+      Quality pass (twentieth), 2026-09-19 (unattended scheduled run,
+      audit-backlog-worker, second run today). BASELINE: 35/35 runnable
+      checkers clean (cdn-pins and live-hours excluded per convention);
+      branches.json sha256 169bb5a2...b102 (standing hash, unchanged); git
+      status --porcelain showed only pre-existing untracked debris (several
+      un-committed audits/*.json snapshots and a scratch script from earlier
+      dates, none touched this run) plus a fresh .git/index.lock created by
+      this run's own read-only git status call, same standing FUSE-mount
+      unlink restriction as Q87/Q96/Q102, left for the Windows-MCP clear at
+      commit time. FRESH ANGLE: tools/check-live-hours.js's own sitemap-driven
+      URL selection logic - PAGE_HINT_RE, extractLocs() and the "urls.indexOf
+      (u) === -1 && urls.length < 8" cap inside collectHost() - grepped for
+      across every item-6.3 line in this file first (PAGE_HINT_RE,
+      extractLocs, sitemap.xml, "urls.length", htmlToText, daySnippets): zero
+      hits across all nineteen prior passes, despite two of the last three
+      passes finding fresh untested surface in this exact file (the disposed
+      filter on the eighteenth, NEAR_DAYS and hostPages sharing on the
+      nineteenth). This is the logic that decides WHICH live pages the whole
+      survey even reads, so a defect here would silently narrow or wrongly
+      choose the evidence every branch verdict is read off, while the tool
+      still exits 0 (a survey tool, never a gate) - the same "checker passes,
+      but which files did it read" shape CLAUDE.md names repeatedly for this
+      repo's other checkers. TEST: a standalone, read-only script
+      (audits/verify-6.3-2026-09-19-twentieth-sitemap-urlselect.js, no live
+      HTTP request, no mutation) copying PAGE_HINT_RE, extractLocs() and the
+      url-collection line VERBATIM from the tracked tools/check-live-hours.js
+      (diff-confirmed identical before running), exercised against synthetic
+      sitemap XML across eight cases: a well-formed sitemap, empty input (the
+      404-sitemap path, since collectHost's own .catch feeds "" into
+      extractLocs), a non-XML Cloudflare-style block page, six PAGE_HINT_RE
+      positive matches (contact/opening-hours/find/about/visit/hours paths),
+      four negative matches (ordinary content pages: shingles treatment,
+      travel clinic, weight loss, a blog post), the 8-URL cap fed 15 hinted
+      locs (must keep exactly the first 7 in document order, cutting off
+      branch-8 onward), a sitemap that lists the homepage itself as a <loc>
+      (must not duplicate it via the indexOf guard and steal a slot from a
+      real hinted page), and a realistic mixed sitemap interleaving hinted and
+      unrelated pages. RESULT: all 8 checks passed on the first run - zero
+      in-repo defect. The filter, the dedup guard and the cap all behave
+      exactly as documented: only genuinely hint-matching pages are ever
+      added, in the order the sitemap lists them, capped at 7 beyond the
+      origin, with no duplicate able to consume a slot. Evidence script kept
+      as a tracked file since it never touches the working tree it verifies;
+      branches.json and tools/check-live-hours.js reconfirmed byte-identical
+      by sha256 throughout (169bb5a2...b102 and 3f547301...29126). Full
+      35-checker suite re-run clean after the test (35/35, unaffected since
+      nothing tracked changed).
+      LIVE HALF: network egress confirmed directly (curl 301 against
+      smarttschemist.co.uk and gordonshortchemist.co.uk, both Weebly's usual
+      https redirect, not a failure). tools/check-live-hours.js re-run for
+      real across all 14 trading branches, evidence
+      audits/live-hours-check-2026-09-19.json (byte-identical to this
+      morning's nineteenth-pass file per git diff, since nothing live or in
+      branches.json changed between the two runs today). No bank holiday
+      within 14 days of this run (next is 2026-12-25, 97 days out).
+      gordonshorts_crosby read live as control, correctly still shows its
+      lunch closure ("9:00am - 6:00pm (closed 1-2pm)") on both the homepage
+      and contact page. smartts_bootle remains the sole live mismatch:
+      straight-through "09:00 - 18:00" / "9:00am - 6:00pm" hours on both the
+      homepage hours card and the contact page, unchanged since 2026-08-11,
+      now confirmed on all twenty passes. Q55 (answered 2026-09-02, option 1)
+      stands as answered-but-not-yet-actioned, live Weebly edit outside this
+      worker's write scope, not re-raised. ANSWER PICKUP this run (step 3):
+      Chrome navigated to the feedback API cleanly, one tab, read-only.
+      Newest entry still Q52 (2026-09-01T22:44:51.524Z). Cross-checked all
+      currently-open questions against the feed: Q37 and Q43 both correctly
+      remain open (their portal replies are non-decisions, already recorded
+      as such, most recently reconfirmed 2026-09-16). No new answer, no new
+      question. 113 questions total, 60 open before and after. Evidence:
+      audits/verify-6.3-2026-09-19-twentieth-sitemap-urlselect.js,
+      audits/live-hours-check-2026-09-19.json. Done 2026-09-19.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
