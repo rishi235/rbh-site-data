@@ -1,3 +1,78 @@
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 141;
+mcp__workspace__bash used for lock handling, repo reads, injection tests,
+the checker suite runs and file writes; mcp__claude-in-chrome__* used
+read-only for the step 3 answer pickup, nothing clicked, typed or
+submitted) - LOCK/SYNC (steps 1-2): no .agent-lock present at run start
+(run 140 had released it cleanly). Wrote a fresh one. git fetch/checkout/
+pull --ff-only all completed clean, confirmed up to date with origin at
+run 140's commit (cb00585, item 4.12 twenty-first pass) before starting.
+ANSWER PICKUP (step 3): Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback read-only, one tab, closed
+afterwards. Newest entry unchanged since run 140's own pickup, Q52
+(2026-09-01T22:44:51.524Z). Checked Q37 and Q43 specifically since they
+are the two open questions with a portal reply on record that is not a
+decision (both reconfirmed open by run 140 on 2026-09-16) - no reply newer
+than the one already recorded in each question's note. No status change to
+any question.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the
+top of this file (run 140's own entry is the current top). Proceeded under
+the normal rule.
+WORKLIST SCAN (step 5): all eight unchecked AGENT_WORKLIST.md lines
+reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under
+6.4/6.5, 6.6). Fell to the quality-pass fallback.
+ROTATION: rotation pool re-derived fresh (standing 36-item pool, the seven
+out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 excluded) by
+matching `[Ii]tem\s+(\d+\.\d+)` against `git log --pretty="%aI|||%s"`, first
+(most recent) mention per item. With 4.12 now freshly touched by run 140,
+4.6 came out uniquely stalest (2026-09-18T06:43:39+01:00), ahead of 4.11
+(07:16:20+01:00) and 5.1 (09:16:19+01:00), matching run 140's own forward
+note. Chosen: 4.6 (McCanns Chemist Aigburth pack), twentieth pass.
+FRESH ANGLE: a subagent was used to read through AGENT_LOG.md's prior 1st to
+19th pass entries for this item plus QUESTIONS.json, read-only research
+only, to identify what has already been proved against this specific pack so
+this pass would not repeat it. Findings: the 19th pass (2026-09-17) had
+already proved check-gbp-pharmacy-first.js rules 3, 4, 5, 6, 7, 8, 9 against
+this pack by injection, and explicitly flagged Rules 2 and 2b as not yet
+exercised here - the 19th pass's own forward note. This pass closes that
+gap. Full detail and exact injected/reverted text in
+audits/mccanns-aigburth-pf-rule2-2b-4.6-twentieth-2026-09-19.txt; mirrored
+summary follows.
+WORK DONE: baseline run of check-gbp-pharmacy-first.js confirmed clean (28
+Pharmacy First blocks across 14 packs, all clean) and the pack's sha256
+recorded before any edit. Two injections applied and reverted one at a
+time, each restoring the exact original bytes (sha256 reconfirmed) before
+the next: (1) Rule 2's hasPf branch - removed the "- NHS Pharmacy First:"
+services bullet and renamed the "### Post A - Pharmacy First" heading so
+pfScopes() locates neither block; failed exactly as the rule predicts
+("pack has neither an NHS Pharmacy First: service bullet nor a Post A
+body"). (2) Rule 2b - left the Post A heading in place but replaced its body
+with generic prose naming none of the seven conditions; failed exactly as
+the rule predicts ("Post A was located but names none of the 7 Pharmacy
+First conditions"). The other half of Rule 2 (the !hasPf stray-condition
+branch) structurally cannot apply to this pack, since branches.json gives
+mccanns_aigburth a pharmacyFirst widget; that branch was already proved on
+Clear Chemist Aintree, the sole no-widget pack, on item 4.9's twelfth pass,
+and is not re-tested here. `git status --short -- gbp-packs/ tools/
+branches.json modules/` confirmed no tracked-file change after both tests,
+only pre-existing untracked cruft neither created nor touched by this pass.
+Full 34-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent) run clean both before and after the injection cycle.
+Not attempted: a live read of the actual Google Business Profile listing for
+Q66 (the wrong-scheme, wrong-path website field) - that dashboard needs
+Google sign-in, which this run's read-only browser use may never perform.
+Q66 stays open, unchanged, a write-approval item.
+QUESTIONS.json: no change, 114 total, 61 open. Zero in-repo defect found
+this pass, so no new question raised.
+COMMIT/PUSH (step 9): git add
+audits/mccanns-aigburth-pf-rule2-2b-4.6-twentieth-2026-09-19.txt
+AGENT_LOG.md (no other files changed; the pack, branches.json, every
+generator, every generated page and every other checker's output are
+byte-identical to before this run). Commit and push to origin
+agents/audit-backlog.
+STATUS PAGE (step 10): tools/build-audit-status.js run after the push to
+publish the worklist/log/questions state to the portal.
+LOCK RELEASE (step 11): .agent-lock deleted at the end of the run.
+
 ## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 140;
 mcp__workspace__bash used for lock handling, repo reads, the checker suite
 runs and file edits; mcp__Windows-MCP__PowerShell used for the real-host

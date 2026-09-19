@@ -1,0 +1,76 @@
+Item 4.6 quality pass (twentieth), 2026-09-19
+Pack: gbp-packs/mccanns-aigburth.md (McCanns Chemist Aigburth)
+Branch id: mccanns_aigburth
+
+PURPOSE
+Prior passes on this item (1st-19th, per AGENT_LOG.md) proved most of the
+estate-wide GBP-pack checkers against this specific pack by deliberate
+injection and revert: check-gbp-pharmacy-first.js rules 3, 4, 5, 6, 7, 8, 9;
+check-brand-spelling.js rule 6; check-gbp-packs.js's em-dash, published-phone,
+categories/services allowlist, time/day pairing and shared-domain rules. The
+19th pass (2026-09-17) explicitly flagged check-gbp-pharmacy-first.js Rules 2
+and 2b as not yet exercised against this pack. This pass closes that gap.
+
+RULE 2 (coverage, both directions) - the hasPf branch
+branches.json gives mccanns_aigburth a pharmacyFirst widget, so the relevant
+half of Rule 2 is: hasPf true, scopes.length === 0 must fail. (The other half
+of Rule 2, the !hasPf stray-condition branch, only ever runs against Clear
+Chemist Aintree, the sole pack with no pharmacyFirst widget, and was already
+proved there on item 4.9's twelfth pass - not repeated here, it cannot apply
+to this pack.)
+
+Injection: removed the "- NHS Pharmacy First:" services bullet from section 3
+entirely, and renamed the "### Post A - Pharmacy First" heading to
+"### Pharmacist Consultation Highlight" so pfScopes() locates neither block.
+
+Result: FAILED as expected -
+  gbp-packs/mccanns-aigburth.md: branches.json gives this branch a
+  pharmacyFirst widget, but the pack has neither an "- NHS Pharmacy First:"
+  service bullet nor a "### Post A" body, so the profile would say nothing
+  about a free NHS service the branch actually runs
+
+RULE 2b (a located block naming no condition is mislocated, not empty)
+Injection: left the "### Post A - Pharmacy First" heading in place but
+replaced its body with generic prose naming none of the seven conditions
+(kept "no GP appointment or referral needed" framing so it still reads as
+plausible copy, to prove the rule catches silent condition loss rather than
+an obviously blank block).
+
+Result: FAILED as expected -
+  gbp-packs/mccanns-aigburth.md: Post A was located but names none of the 7
+  Pharmacy First conditions. Both Pharmacy First blocks publish the condition
+  list, so either the block has lost its clinical copy or the pattern that
+  locates it in tools/check-gbp-pharmacy-first.js is matching too little and
+  every rule below it is running on the wrong text
+
+REVERT
+Both injections applied and reverted one at a time (not together), file
+restored from a pre-injection copy after each, sha256 confirmed identical to
+the pre-injection original before moving to the next test and again at the
+end:
+  fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+`git status --short -- gbp-packs/ tools/ branches.json modules/` after both
+tests shows no tracked-file changes (only pre-existing untracked cruft:
+gbp-packs/.fuse_hidden0000000400000001 and
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak, neither
+created by this pass).
+
+FULL SUITE
+All 34 checkers not dependent on network access (excludes check-cdn-pins.js,
+check-live-hours.js) run clean, exit 0, against the unmodified repo, both
+before and after the injection/revert cycle.
+
+CONCLUSION
+Zero in-repo defect. Both previously-unexercised branches of
+check-gbp-pharmacy-first.js's Rule 2/2b now proven by direct injection
+against this pack, joining the rules proved on passes 1-19. No new question
+raised. Per-branch checker coverage for mccanns_aigburth is now complete
+across all rules in check-gbp-pharmacy-first.js that can apply to a pack with
+a pharmacyFirst widget (Rule 2's other branch structurally cannot apply here,
+see above).
+
+Not attempted this pass: live Google Business Profile listing read (Q66)
+requires the GBP owner dashboard, which needs Google sign-in this run cannot
+perform (browser use for this task is read-only and this repo's scheduled
+task rules never permit login). Q66 remains open, unchanged, a write-approval
+item for Rishi or Dane, not something a repo-side pass can close.
