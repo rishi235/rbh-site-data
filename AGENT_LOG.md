@@ -1,8 +1,40 @@
-## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 167;
+## 2026-09-19 (unattended scheduled run, audit-backlog-worker, run 168;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
-read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
-and the status-page publish against the real C:\Dev\rbh-site-data host,
-per the standing Q96/Q102 workaround) -
+read-only for step 3; git write route for this run recorded below) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (checked via
+mcp__workspace__bash). Lock created. `git fetch`, `checkout` (already on
+branch) and `pull --ff-only` all no-op, already at origin's tip (caf4bab,
+run 167's commit). No stale `.git/index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh via Claude in Chrome
+(navigate + get_page_text, read-only, no clicks/typing/submission).
+Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 18 days, no new
+answers since. 118 total feed entries reviewed, all previously recorded.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED], unchanged since run 143. No unblocked
+item to pick. All items are not complete, so the quality-pass fallback in
+step 5 does not apply either. Per Q115 (open since 2026-08-11, its own
+log restating today that this is run number 40+ on this branch today),
+the rotation-pool model stays paused pending Rishi's cadence decision;
+not resumed, consistent with runs 163-167. No new question raised - Q115,
+Q59 and Q96/Q102 already cover the process findings below and a further
+duplicate entry would be exactly the "list nobody prunes" failure mode
+this repo's own CLAUDE.md warns against elsewhere. No repo generator,
+live page or branches.json content changed; browsing read-only
+throughout.
+ESCALATION (not a new question, restating Q115/Q59/Q96/Q102 plainly
+because the automated answer channel is not reaching Rishi): this
+scheduled task fires every 30 minutes, all day, and has produced 40+
+commits today, all but a handful pure no-ops logging "still blocked, no
+new answers". The technical repo-side audit has been re-verified clean
+18-23 times per rotation-pool item; the actual bottleneck is 65 open
+decisions in QUESTIONS.json (oldest since 2026-08-11), none of which an
+unattended run can resolve for itself. Recommend Rishi read
+QUESTIONS.json (or the published Digital_Audit_Status.html) and either
+work through a batch of the open items, or act on Q115 to pause/reduce
+the run cadence in the meantime - continuing as-is burns run time for
+no further findings.
 LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start. Lock created.
 `git fetch`, `checkout` (already on branch) and `pull --ff-only` all no-op,
 already at origin's tip (654588b, run 166's commit).
