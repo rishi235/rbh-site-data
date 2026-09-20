@@ -1,3 +1,18 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 204) -
+
+Lock/sync (steps 1-2): no .agent-lock at run start, no .git/index.lock. The Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, tried twice, identical failure both times - the same sandbox infrastructure fault runs 200-203 already recorded, unrelated to git or this repo. Switched to mcp__Windows-MCP__PowerShell on the real host, as those runs did. Created .agent-lock. git fetch/checkout/pull confirmed the branch already up to date with origin/agents/audit-backlog, HEAD at f0dd3f6 (run 203's commit). git status also shows the untracked-scratch-file pile Q119 describes is still there (well over 250 entries at the repo root and in audits/), unchanged in kind since run 203.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked, typed or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - 19 days and 61 consecutive runs with zero new portal answers.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous window" heading present at the top of this file. Step 4 does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct grep against AGENT_WORKLIST.md, same as runs 200-203. Q115 (2026-09-19, still open, recommended option is to stop rotation-pool passes and spend run time on answer-pickup plus a live-page recheck of already-open questions) has sat open for a day short of three weeks with no portal answer. This run holds the same line as the roughly 60 prior runs: no unblocked item exists, and treating "all remaining items blocked" as the procedure's "all items complete" trigger for a fresh rotation-pool quality pass would go directly against Q115's still-standing recommendation, so no rotation-pool pass was taken.
+
+NOT ACTIONED: Q119 (2026-09-20, still open) flags AGENT_LOG.md and AGENT_WORKLIST.md size and the untracked scratch/probe file pile at the repo root as operating overhead that now slows every run's own state-check before any audit work starts. Neither trimmed, archived nor deleted unilaterally - reserved for Rishi's decision, same discipline as runs 180-203.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html.
+
+COULD NOT ACT ON: nothing new to act on this run. No new portal answers, no worklist item unblocked, no generator or data changed. This run's own report (outside this log) says plainly to Rishi that the scheduled cadence is producing runs with no output, run after run, and that Q115 and Q119 are the two decisions actually blocking further progress.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 203) -
 
 Lock/sync (steps 1-2): no .agent-lock at run start. Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, tried twice, identical failure both times - the same sandbox infrastructure fault runs 200-202 already recorded, unrelated to git or this repo. Switched to mcp__Windows-MCP__PowerShell on the real host, as those runs did. No .git/index.lock present this run. Created .agent-lock. git fetch/checkout/pull confirmed the branch already up to date with origin/agents/audit-backlog, HEAD at 2b85ef1 (run 202's commit), working tree otherwise clean at the point checked.
