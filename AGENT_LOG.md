@@ -1,3 +1,81 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 202) -
+
+Lock/sync (steps 1-2): no .agent-lock at run start. The Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, tried three times, identical failure each time - the same sandbox infrastructure fault runs 200-201 already recorded, unrelated to git or this repo. Switched to the real host via mcp__Windows-MCP__PowerShell, as those runs did. There, .git/index.lock was present at 14:13:48, about 82 minutes old at first check with no git process holding it, past the 1 hour staleness threshold, so it was removed per the procedure's own rule (unlike run 201, which found it under an hour old throughout and correctly left it alone). Created .agent-lock. git fetch/checkout/pull confirmed the branch already up to date with origin/agents/audit-backlog; the working tree still carried run 201's own AGENT_LOG.md entry uncommitted (64 lines, confirmed by git diff --stat as the only change), left in place and folded into this run's commit rather than overwritten, per the pattern runs 199-201 established.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked, typed or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - 19 days and 59 consecutive runs with zero new portal answers, against 66 open questions (unchanged from run 201).
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous window" heading present at the top of this file. Step 4 does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct search of AGENT_WORKLIST.md, same as runs 200-201. No rotation-pool quality pass taken this run. Q115 (2026-09-19, still open, recommended option is to stop rotation-pool passes and spend run time on answer-pickup plus a live-page recheck of already-open questions) has sat open 19 days with no portal answer, and roughly 50-plus prior runs have already held that line rather than resuming rotation-pool passes unilaterally. This run holds it too: no unblocked item exists, and treating "all remaining items blocked" as equivalent to the procedure's "all items complete" trigger for a fresh quality pass would go directly against Q115's still-standing recommendation. This run's time went to the infrastructure recovery above rather than to a further live-page recheck, since the real bottleneck, per Q115 itself, is Rishi's 66 open decisions rather than more unattended verification, and a further isolated recheck adds only marginal value against the 18-23 prior passes already logged per rotation-pool item.
+
+NOT ACTIONED (respecting prior runs' own discipline): Q119 (2026-09-20, still open) flags the untracked scratch and probe files at the repo root (well over 200 entries, confirmed present in git status this run) and file sizes as operating overhead. Neither deleted nor archived unilaterally - reserved for Rishi's decision, same as run 201.
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html cleanly (43/49 done, 88%).
+
+COULD NOT ACT ON: nothing new to act on. No new portal answers, no worklist item unblocked, no generator or data changed this run. This entry, and run 201's entry above it, are being committed together (step 9).
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 201) -
+
+STATE UNCHANGED FROM RUN 200. Lock/sync (steps 1-2): no .agent-lock at run
+start; created one. This run had genuine mcp__Windows-MCP__PowerShell access
+to the real ProDeskAi host from the start (unlike run 200, which only had the
+Cowork Linux sandbox shell). That sandbox shell was tried first this run too,
+per habit, and failed outright with "No space left on device" during its own
+workspace provisioning - a sandbox infrastructure fault, unrelated to git or
+this repo, so the run switched to the real-host route immediately. On the
+real host: .git/index.lock was present (about 22 minutes old at first check,
+no git process holding it) and, unlike the procedure text's assumption, it
+DID block index-writing commands (add, commit, checkout, reset) even though
+read-only commands (status, fetch, diff, log, push) worked past it - push of
+run 200's 3 queued commits succeeded cleanly this way, credential.helper is
+manager on this host, same route Q96/Q102 already documented. The lock never
+passed the 1-hour staleness threshold during this run's lifetime (it reached
+about 30 minutes old), so it was correctly left in place rather than force
+cleared, per the procedure's own 1-hour rule - this run simply could not
+complete steps that need to write the index. One real mistake made and fully
+corrected this run: an attempt to prepend this very entry using PowerShell's
+Get-Content/Set-Content against the 7MB file corrupted non-ASCII characters
+(the same GBP-sign double-encoding bug this file's own history already
+documents from earlier runs), confirmed by diffing 64000+ changed lines
+against HEAD. Caught before any commit was attempted again, and reverted to
+an exact byte match of HEAD:AGENT_LOG.md (hash 9310fc1, verified via
+git hash-object) using a raw byte-stream copy (cmd.exe redirection of
+git show output) rather than PowerShell's text pipeline, which is what
+corrupted it in the first place. This entry itself is being prepended the
+same safe way. Recommend any future run doing the same avoid Get-Content
+-Raw / Set-Content -Encoding UTF8 on this file entirely.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked, typed or
+submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read
+the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - 19 days
+and 58 consecutive runs with zero new portal answers, against 66 open
+questions (unchanged from run 200).
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) remain [BLOCKED], same as run 200. No rotation-pool quality pass taken
+this run: Q115 (2026-09-19, still open) recommends pausing that cadence until
+Rishi has worked through a batch of the 66 open questions, and roughly 50
+prior runs have already held that line. This run's time went to the
+infrastructure item above and to surfacing Q115/Q119 directly to Rishi in
+this session's own chat response, since this is a live Cowork session rather
+than a fully unattended run.
+
+NOT ACTIONED (respecting prior runs' own discipline): Q119 (2026-09-20, still
+open) flags roughly 230+ untracked scratch/probe files at the repo root and a
+7.1MB AGENT_LOG.md plus a large AGENT_WORKLIST.md as operating overhead.
+Neither deleted nor archived unilaterally - reserved for Rishi's decision per
+the convention run 180 established and Q119 already records.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real
+host (its hardcoded Windows path is correct there per Q96). Published
+reports/digital/Digital_Audit_Status.html cleanly (43/49 done, 88%).
+
+COULD NOT COMPLETE THIS RUN: step 9 (commit). The .git/index.lock blocked it
+throughout this run's lifetime and never reached the 1-hour threshold that
+would justify clearing it. This entry is left uncommitted in the working
+tree, matching the accepted pattern from run 199 (whose own uncommitted entry
+sat this way until run 200 folded it in) - a future run should commit this
+entry together with its own rather than overwrite it. No other file was
+changed. No new portal answers to apply, no worklist item unblocked, no
+generator or data changed this run.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 200) -
 
 STATE UNCHANGED FROM RUN 199. Lock/sync (steps 1-2): no .agent-lock at run
