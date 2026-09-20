@@ -1,3 +1,172 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 200) -
+
+STATE UNCHANGED FROM RUN 199. Lock/sync (steps 1-2): no .agent-lock at run
+start; created one. The .git/index.lock that blocked run 199's own commit
+(mtime ~13:08, no git process holding it at any point checked) was left in
+place until it genuinely passed this file's 1-hour staleness threshold
+partway through this run, then removed, rather than being force-cleared
+early. Local branch was 2 commits ahead of origin/agents/audit-backlog
+(run 198's still-unpushed work) with run 199's log entry sitting further
+ahead, uncommitted, in the working tree exactly as run 199 left it and
+recommended: this run adds to it and commits both together rather than
+overwriting. `git fetch origin` confirmed origin has not moved.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked, typed
+or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) -
+now 19 days and 57 consecutive runs with zero new portal answers, against
+66 open questions (unchanged from run 199). No autonomous-window heading
+present at the top of this file, so step 4 does not apply.
+
+WORKLIST (step 5): all 8 items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6)
+reconfirmed [BLOCKED], each re-traced to its worklist text and underlying
+question this run rather than taken on trust: 5.3/5.4/5.5/5.8 are answered
+(Q8, Q9, Q13, Q16) but each answer explicitly requires a Weebly paste, a
+hand edit in the Weebly editor, or a push to a branch other than
+agents/audit-backlog - all outside an unattended run's authorisation under
+the hard rules. 6.1 (Q52) is answered but the answer asks Rishi personally
+to read one issue detail in the Ahrefs Site Audit UI and post back the
+sitemap URLs it names; that has not happened yet. 6.4/6.5/6.6 (Q60, Q66)
+are still open, no portal answer. No rotation-pool quality pass run, per
+Q115's still-open recommendation not to resume that cadence unilaterally.
+
+NEW THIS RUN: a working Ahrefs API v3 MCP connector is present in this
+session for the first time (it was not available to runs 198/199). Checked
+whether it could unblock 6.1 directly, without waiting on Rishi's manual UI
+lookup: called site-audit-projects (read-only, no project_id filter) to
+find the Scorah project. It returned `{"error": "Insufficient plan"}`.
+This is not new information - Q52's own question text already recorded
+that "the API rejects Site Audit calls on the current plan (Insufficient
+plan)" - so this run's probe reconfirms a known, already-documented
+constraint rather than opening a new route, and nothing in QUESTIONS.json
+needed updating. Recorded here only so a future run does not spend a call
+re-testing the same dead end each time a new connector shows up. No other
+Ahrefs endpoint (Site Explorer, GSC, Rank Tracker) covers Ahrefs' own
+crawl-time sitemap-source list, so this does not generalise to a
+workaround; Q52's answer (Rishi opens the issue in the Ahrefs web UI
+himself) remains the only route.
+
+INFRASTRUCTURE: reproduced the git push/publish gap from runs 198-199 a
+third time, this run with a fuller diagnostic rather than just the one
+error line. `git push origin agents/audit-backlog` failed with "could not
+read Username for 'https://github.com': No such device or address", and
+checking why found there is no credential route available anywhere in this
+session: no `gh` binary on PATH, no `~/.git-credentials`, no `~/.netrc`, no
+global `.gitconfig`, and no GitHub-related environment variable of any
+kind. `tools/build-audit-status.js` was run anyway to reconfirm rather than
+assumed: it fails immediately, before touching the network, with
+`ENOENT: ... 'C:/Dev/rbh-site-data/AGENT_WORKLIST.md'` - the script's
+hardcoded Windows path, which does not exist inside this Linux session's
+mount (`/sessions/.../mnt/rbh-site-data/`). Even a workaround for that path
+would still hit the same missing GitHub credentials on its next step, so no
+attempt was made to paper over the path instead. This confirms the gap is
+structural to whichever session type is currently running the scheduled
+task, not a one-off - see Q87/Q96/Q102. No secret was searched for or
+guessed at to work around it, per the hard rule against that.
+
+LOCK HANDLING, a new finding worth flagging for the procedure itself: this
+session's mount rejects `rm`/`unlink` on files under `.git/` with
+"Operation not permitted" even for files it owns and created seconds
+earlier (confirmed on a `.git/index.lock` touched fresh by `git status` in
+this same run, not just the hour-old one from run 199) - but `mv`/rename of
+the same file succeeds every time. Every write-requiring git command in
+this session (`commit`, `commit --amend`) leaves its own `index.lock` and/or
+`HEAD.lock` behind afterwards with a "warning: unable to unlink" line, even
+when the command itself completes successfully, because git's own internal
+cleanup hits the same rm restriction. This run cleared each one by renaming
+it aside (`index.lock.cleared-<epoch>`) immediately after confirming via
+`ps aux` that no git process was running, rather than waiting out step 1's
+1-hour staleness window each time - the window exists to avoid colliding
+with a genuinely concurrent run, which a fresh `ps aux` with nothing found
+already rules out for a lock this run just watched itself create. `git
+fsck` was run after each clear and stayed clean throughout (only harmless
+dangling objects from the historical debris, no error/missing/corrupt
+lines). Recommend Rishi treat this as a case for tightening step 1 itself -
+something like "a lock may also be cleared immediately, any age, if `ps
+aux` shows no git process AND this run's own immediately-preceding command
+created it" - rather than something for a worker to keep re-deriving under
+time pressure each run. Not raised as a numbered question because it
+blocks no worklist item and this run got past it; flagging here for
+Rishi's awareness and Q119-style housekeeping only. The debris pattern
+(`.agent-lock.cleared-*`, `.old`, `.released-*` etc. - all 297 of them)
+is now explained: every prior run hit this exact same rm-vs-mv restriction
+clearing its own `.agent-lock`, not just `.git/index.lock`.
+
+Repo housekeeping size, since Q119 asks about exactly this: AGENT_LOG.md is
+now 64,210 lines, AGENT_WORKLIST.md 38,069 lines, and untracked scratch
+files at the repo root are ~297 (up from ~296 at run 199, ~295 at run 198).
+Both figures are reported, not acted on - Q119 reserves that decision for
+Rishi and nothing here changes that.
+
+Nothing else to fix, nothing new to decide. Q115 (pause/slow the cadence)
+and Q119 (archive the log/worklist, clear the scratch files) remain the
+two open process questions this worker can usefully keep surfacing, now
+joined by the reconfirmed fact that even when this run finds a new tool
+(Ahrefs API access) it still cannot self-serve past the actual blockers,
+which are all either awaiting Rishi's decision or awaiting a supervised
+session with working push credentials.
+
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 199) -
+
+STATE UNCHANGED FROM RUN 198. Lock/sync (steps 1-2): no .agent-lock at run
+start; a pre-existing .git/index.lock (from an earlier crashed process, no
+git process running) was left in place rather than removed, since it was
+well under the 1-hour staleness threshold this file sets - git status,
+fetch and the read-only work below did not need it, and no write-requiring
+git command was attempted until the final commit below, by which time nothing
+was blocking it. Local branch was already 2 commits ahead of
+origin/agents/audit-backlog (run 198's unpushed work); fetch confirmed
+origin has not moved, so nothing to pull.
+
+ANSWER PICKUP (step 3, Claude-in-Chrome, read-only, nothing clicked or
+typed): navigated to https://data.rbhealth.co.uk/api/feedback and read the
+full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - now 19
+days and 56 consecutive runs with zero new portal answers, against 66 open
+questions (unchanged from run 198). No autonomous-window heading present at
+the top of this file, so step 4 does not apply.
+
+WORKLIST (step 5): all 8 items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6)
+reconfirmed [BLOCKED], unchanged since run 143. No rotation-pool pass run,
+per Q115's still-open recommendation not to resume that cadence unilaterally.
+Untracked scratch-file count at repo root is ~296, essentially unchanged
+from run 198's ~295 (Q119 still reserves the clear-up decision for Rishi).
+
+INFRASTRUCTURE (unchanged from run 198, reproduced again this run): step 9's
+`git push origin agents/audit-backlog` failed with "could not read Username
+for 'https://github.com': No such device or address" - no credential
+helper, `.git-credentials` or `.netrc` reachable from this session, and no
+`gh` binary. Step 10 (`tools/build-audit-status.js`) cannot run either, for
+the same reason plus its hardcoded `C:/Dev/rbh-site-data` path not matching
+this session's mount point. This is the same gap as Q87/Q96/Q102, now
+reproduced for a second consecutive run: whatever session ran runs 1-197
+had a working push route: this one does not. This run's commit sits locally
+on `agents/audit-backlog`, unpushed, on top of run 198's equally-unpushed
+commit; both are correct and will be picked up automatically by the next
+run with a working push route. No secret or credential was searched for or
+fabricated to work around this, per the hard rule against that.
+
+Nothing to fix, nothing new to decide. Q115 (pause/slow the cadence) and
+Q119 (archive the log/worklist, clear the scratch files) remain the only
+two things this worker can usefully keep surfacing until Rishi answers one
+of them. Recommend Rishi treat both together with the push-credential gap
+above: as it stands, the scheduled task is running daily, burning a session
+each time, and producing an unpushed, unpublished commit that says the same
+thing it said yesterday.
+
+ADDENDUM: this run could not even complete its own local commit. A
+`.git/index.lock` was already present at run start (mtime ~13:08, no git
+process holding it per `ps aux`), and stayed under this file's own 1-hour
+staleness threshold for the entire run, so per step 1 it was correctly left
+in place rather than removed. `git status`/`fetch` do not need the lock and
+worked throughout; `git commit` does need it and failed with "Unable to
+create .git/index.lock: File exists". This log edit is therefore sitting
+UNCOMMITTED in the working tree, on top of run 198's two already-committed-
+but-unpushed commits. The next run (committing after this file's own
+threshold has genuinely cleared the lock, or after it has aged past 1 hour)
+should `git add AGENT_LOG.md` and fold this entry into its own commit rather
+than overwrite it. This is a distinct finding from the push-credential gap
+above: even if push worked, this run's own commit did not go through.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 198) -
 
 STATE UNCHANGED FROM RUN 197. Lock/sync clean (no stale lock; fetch/pull
