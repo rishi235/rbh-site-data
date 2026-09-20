@@ -1,3 +1,21 @@
+﻿## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 208) -
+
+Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on three attempts - same infrastructure fault as runs 200-207. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at 218b98f (run 207's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z). Zero new portal answers against 66 open questions in QUESTIONS.json.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading present at the top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct grep against AGENT_WORKLIST.md - no change since run 207.
+
+JUDGEMENT CALL THIS RUN: run 207, earlier today, already declined to repeat run 206's live-page recheck of Q116 and Q117 on the grounds that a same-day repeat adds no new information and itself contributes to the Q119 log-bloat problem. That reasoning has not changed in the short interval since: Q119 itself confirms that deleting the untracked scratch-file pile or archiving AGENT_LOG.md/AGENT_WORKLIST.md is explicitly reserved for Rishi's decision (per run 180's established convention), not something this run should do unilaterally, so no cleanup was attempted either. Nothing in the open-question set has a live, checkable, not-already-rechecked-today component that this run could usefully verify. This run therefore confines itself to the mandatory sync/pickup/publish steps and this log entry.
+
+FLAGGED, NOT ACTIONED (unchanged from run 207): Q116 and Q117 remain open, unanswered, and live on simpleweightloss.co.uk - a disposed branch (Wilmslow, sold 1 July 2026) still presenting as a bookable Simple Weight Loss location, and a live page describing an unfilled-rate "kickback scheme" for prescription referrals. Both are now three-plus weeks old. Q115 (run cadence, given the backlog is gated entirely on decisions only Rishi can make) and Q119 (operating-file bloat) also remain open. This run's chat report repeats the escalation on all four, since 66 open questions and roughly three weeks of silence indicate the portal/log channel is not reaching Rishi in time to action them.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked, no generator or data changed. This run's only contribution over run 207 is reconfirming the state is unchanged, without adding a duplicate live-page recheck to the log.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 207) -
 
 Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on four attempts - same infrastructure fault as runs 200-206. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at e7f9299 (run 206's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
