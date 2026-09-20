@@ -1,3 +1,43 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 177;
+mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
+for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
+the real C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (run 176
+cleaned up on exit). Lock created. `git fetch`, `checkout` (already on
+branch) and `pull --ff-only` confirmed already at origin's tip (a9e8ccf,
+run 176's commit). No stale `.git\index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh via Claude in Chrome
+(navigate + get_page_text, read-only). Newest entry still Q52
+(2026-09-01T22:44:51.524Z) - 19 days, zero new answers since run 176,
+confirmed against QUESTIONS.json (Q52 already recorded answered; Q53
+onward still open). 65 questions open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at
+the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+No unblocked item to pick. Did not run a further rotation-pool quality
+pass this run: per Q115 (still open, unanswered), the 36-item pool has
+already been independently re-verified 18-23 times each with zero new
+defects, so another pass has no expected value and was skipped rather
+than run reflexively. No new question raised - Q59/Q96/Q102/Q115 already
+cover the process situation, and Q104/Q106/Q116/Q117/Q118 already cover
+the live regulatory findings on simpleweightloss.co.uk / clearchemist.co.uk
+with clear options and recommendations pending Rishi's decision. No repo
+generator, live page or branches.json content changed; browsing
+read-only throughout.
+ESCALATION: this task has now run 177 times, on a 30-minute schedule,
+with the last ~34 runs producing no worklist progress because every
+remaining item is blocked on a decision only Rishi can make. Restating
+run 176's recommendation without change, since nothing material has
+changed in the intervening cycle: action Q115 (pause the schedule or
+drop it to a weekly heartbeat) to stop diminishing-returns re-verification,
+and prioritise clearing the open-question backlog, with Q116 (disposed
+Wilmslow branch still live and bookable on simpleweightloss.co.uk, 2.5
+months post-disposal) and Q117 (live referral kickback scheme paying
+commission into POM weight-loss sign-ups) treated as the most urgent of
+the 65, since both describe live, public, currently-running exposure
+rather than a repo-side defect.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 176;
 mcp__workspace__bash read-only for repo state; mcp__claude-in-chrome__*
 read-only for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
