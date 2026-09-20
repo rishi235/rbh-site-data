@@ -22,6 +22,27 @@ worklist and clear the untracked scratch files) are now the only things
 this worker can usefully report run over run until Rishi answers one of
 them.
 
+INFRASTRUCTURE NOTE (this run's own environment, not a repo defect): step
+9's `git push origin agents/audit-backlog` failed in this session with
+"could not read Username for 'https://github.com': No such device or
+address" - no credential helper, `.git-credentials` or `.netrc` is
+present anywhere reachable from this session, and `gh` is not installed.
+Separately, `tools/build-audit-status.js` (step 10) hardcodes
+`C:/Dev/rbh-site-data` as its working path and shells out to `gh` for the
+GitHub API publish, so it cannot run at all from this session even before
+the credential question, since this session's mount point is not that
+path and has no `gh` binary. This log entry's commit (8bfea23) is
+therefore sitting locally on `agents/audit-backlog`, one commit ahead of
+`origin/agents/audit-backlog`, unpushed, and the portal status page has
+not been republished this run. This is the same gap already open as
+Q87/Q96/Q102 (git write route / credentials), now reproduced concretely:
+this particular unattended session has no path to origin at all, distinct
+from whatever session executed runs 1-197, which evidently did. No secret
+or credential was fabricated or searched for outside this repo/session to
+work around it, per the hard rule against that. Next run with a working
+push route should pick this commit up automatically (it is already
+correct locally) - no data has been lost.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 197) -
 
 STATE UNCHANGED FROM RUN 196. Lock/sync clean (no stale lock, fetch/pull
