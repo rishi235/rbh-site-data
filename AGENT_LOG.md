@@ -1,3 +1,47 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 181;
+mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
+for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
+the real C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (run 180
+cleaned up on exit). Lock created via file write (not PowerShell text
+cmdlets). `git fetch`/`pull --ff-only` confirmed already at origin's tip
+(run 180's commit). No stale `.git\index.lock` found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - unchanged,
+zero new answers since run 180. QUESTIONS.json cross-checked: 65 open
+(Q53-Q118), 53 answered, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged. No
+rotation-pool pass run, per Q115 (still open, recommends option 3: no
+further rotation passes, answer-pickup plus live-page recheck only).
+LIVE-PAGE RECHECK (option 3, targeted at the two most urgent open live
+findings rather than a fresh sweep): re-read
+https://simpleweightloss.co.uk/referral-program.html directly. Both
+findings behind Q116 and Q117 are unchanged and still live: the "Find a
+pharmacy near you" list still carries WILMSLOW, CHESHIRE as a location
+(Wilmslow disposed 1 July 2026, per Q2/branches.json), and the page still
+names Mounjaro and Wegovy under "medically-approved treatments" while
+literally labelling the partner-payment structure a "kickback scheme"
+("Earn commissions for every successful referral through our competitive
+kickback scheme" / "Kickback Scheme - Earn £XX per referral"). No repo
+change possible here - this is a live-only Weebly/hosted page this repo
+does not generate. No new question raised; both remain open and
+unactioned pending Rishi's decision.
+No repo generator, live page or branches.json content changed this run;
+browsing read-only throughout.
+ESCALATION (unchanged substance from runs 174-180, restated because this
+is now the 38th consecutive no-progress run on worklist content): 181
+runs on a 30-minute schedule. Recommend Rishi action Q115 directly (pause
+the schedule or drop to a weekly heartbeat) rather than continue burning
+unattended runs with zero marginal defect yield. Q116 (disposed Wilmslow
+branch still live and bookable on simpleweightloss.co.uk, now 2.5+ months
+post-disposal) and Q117 (live referral-commission "kickback" scheme on
+POM weight-loss sign-ups, the page's own wording, not a characterisation)
+remain the two most urgent of the 65 open questions - both describe
+ongoing live public exposure, not a repo-side defect, and no unattended
+run can close either alone.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 180;
 mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
 for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
