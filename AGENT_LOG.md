@@ -1,3 +1,52 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 196;
+mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3) -
+
+LOCK/SYNC (steps 1-2): no .agent-lock at run start. Found .git/HEAD.lock,
+.git/ORIG_HEAD.lock, and (once git touched the index) .git/index.lock, all
+undeletable via rm ("Operation not permitted") on the same FUSE-bridged
+mount runs 193-195 already hit. mv (rename-aside) worked as before; fetch,
+checkout and pull then completed normally and confirmed already at origin's
+tip (facaf2d, run 195's commit). Created .agent-lock fresh.
+
+ANSWER PICKUP (step 3): portal feed read fresh via Claude-in-Chrome (navigate
++ get_page_text, read-only, tab closed after). Newest entry unchanged at Q52
+(2026-09-01T22:44:51.524Z) - 19 days and 53 consecutive runs with zero new
+portal answers, against 66 open questions (unchanged from run 195).
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before adding this
+entry - no "Standing authorisation - autonomous window" heading present.
+Proceeded under the normal rule.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked items (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still [BLOCKED], unchanged since run 143.
+Q115 and Q119 both still open, both still reserving their decision for
+Rishi. No rotation-pool pass and no live-page recheck run this time either,
+same reasoning as runs 191-195: with 53 straight runs producing no new
+portal answer and Q115 itself asking whether this cadence is worth keeping,
+adding another confirmatory pass is exactly the diminishing-returns pattern
+Q115 flags, not a way round it.
+
+REPO HEALTH: untracked debris at repo root effectively unchanged (mid-290s);
+this run's own lock-rename artefacts (.git/HEAD.lock.old,
+.git/ORIG_HEAD.lock.old, .git/index.lock.old2) sit inside .git and are not
+tracked or counted by git status, so they add to Q119's underlying problem
+without moving its headline number. Not fixed unilaterally - Q119 already
+reserves that decision for Rishi. Deliberately keeping this entry shorter
+than recent predecessors: the facts here (locks, zero answers, worklist
+still blocked) are identical in kind to runs 191-195, and restating the
+full reasoning at the same length each time is itself part of what Q119 is
+asking Rishi to weigh in on.
+
+No repo generator, live page or branches.json content changed this run. No
+new question raised - Q115 and Q119 already cover exactly what this run
+found. Nothing to commit beyond this log entry.
+
+ESCALATION: unchanged from run 195. Every worklist item is blocked on a
+decision already sitting in QUESTIONS.json. Recommend Rishi look at Q115 and
+Q119 before the next scheduled run - both are now over a month and 53 runs
+old with no response, and Q115 specifically asks whether the schedule
+itself should change.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 195;
 mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
 git push via the sandbox) -
