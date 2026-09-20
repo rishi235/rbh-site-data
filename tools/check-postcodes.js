@@ -105,6 +105,18 @@ var NARRATIVE_FILES = [
 ];
 // status/index.html was removed from this list 2026-09-01: the file it named
 // was retired per Q42 (see check-seo-pattern.js's KNOWN_NON_PAGE_BUILDER note).
+//
+// compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md is deliberately NOT on this
+// list, and must stay off it. The item 1.3 twelfth and seventeenth quality
+// passes (2026-09-04, 2026-09-11) proved rule 6 (MISATTRIB) specifically
+// against this file, on the basis that it is "a real, tracked, non-narrative,
+// non-declaring file that discusses named branches" - see the long comment
+// above rule 6 below and the MISATTRIB_KNOWN entry keyed to this same file.
+// Adding it here would silence rule 6 for it entirely (line ~764 skips
+// narrative and declaring files by design), which is the opposite of what
+// those two passes established. See UNKNOWN_KNOWN just below for the narrow
+// fix that keeps rule 6 live on this file while still letting it quote one
+// specific historical postcode under rule 1.
 
 var NARRATIVE_POSTCODES = {
   "CH49 1SX": "Item 1.3: the Wirral postcode found on McCanns Sandringham, whose correct value is L17 4JP. The audit files quote it to record the error that was fixed.",
@@ -609,6 +621,35 @@ var MISATTRIB_KNOWN = {
 };
 var misattribKnownUsed = {};
 
+// UNKNOWN_KNOWN: a narrow, per-(file, postcode) exemption from rule 1
+// (UNKNOWN) for a file that is deliberately kept OUTSIDE NARRATIVE_FILES
+// (see the comment above that list) so that rule 6 (MISATTRIB) keeps
+// checking it. Without this, such a file has no way to legitimately quote a
+// historical postcode already registered in NARRATIVE_POSTCODES: rule 1's
+// "if (!b)" branch below only consults NARRATIVE_POSTCODES when isNarrative
+// is true. Found run 185, 2026-09-20: Rishi's own commit 5c694665
+// (2026-09-19) added prose to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+// quoting Wilmslow's real historical postcode SK9 2TA (a value already
+// registered in NARRATIVE_POSTCODES since the item 1.3 tenth quality pass,
+// 2026-09-03, and already quoted without complaint in AGENT_LOG.md and other
+// true narrative files) to describe what a live, non-RBH third-party page
+// still shows for the disposed Wilmslow branch - see Q116. That postcode is
+// not a claim about any branch this repo tracks and could not be, since
+// Wilmslow carries no branches.json entry at all; failing the whole 37-file
+// suite over a quote the checker's own NARRATIVE_POSTCODES list already
+// recognises as legitimate is exactly the "right rule, wrong file-set" shape
+// this repo's own history keeps finding. Keyed on file + postcode, not just
+// postcode, so it excuses nothing else on this file and nothing on any other
+// file; the staleness check below fails the run if the quote is removed or
+// the postcode changes.
+var UNKNOWN_KNOWN = {
+  "compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md::SK9 2TA":
+    "Wilmslow's real historical postcode (disposed 1 July 2026, no " +
+    "branches.json entry), quoted to record what the live, non-RBH-owned " +
+    "simpleweightloss.co.uk still shows for that address. See Q116."
+};
+var unknownKnownUsed = {};
+
 var failures = [];
 var warnings = [];
 var seenPostcodes = {};      // postcode -> [every file carrying it]
@@ -657,6 +698,8 @@ function checkFile(p) {
 
     if (!b) {
       if (isNarrative && NARRATIVE_POSTCODES[pc]) return;
+      var unknownKey = r + "::" + pc;
+      if (UNKNOWN_KNOWN[unknownKey]) { unknownKnownUsed[unknownKey] = true; return; }
       if (isNarrative) {
         fail("UNKNOWN  " + r + ": postcode " + pc + " is in no branches.json entry and is not a named historical value. " +
              "If the audit legitimately quotes it, add it to NARRATIVE_POSTCODES with a reason; otherwise correct it.");
@@ -993,6 +1036,14 @@ Object.keys(BARE_STEM_EXCLUDE).forEach(function (key) {
 Object.keys(MISATTRIB_KNOWN).forEach(function (key) {
   if (!misattribKnownUsed[key]) {
     fail("STALE    MISATTRIB_KNOWN names \"" + key + "\", which did not fire this run. Remove the entry.");
+  }
+});
+
+// UNKNOWN_KNOWN staleness, same convention: an entry that never fired this
+// run is excusing nothing and must not sit here unnoticed.
+Object.keys(UNKNOWN_KNOWN).forEach(function (key) {
+  if (!unknownKnownUsed[key]) {
+    fail("STALE    UNKNOWN_KNOWN names \"" + key + "\", which did not fire this run. Remove the entry.");
   }
 });
 

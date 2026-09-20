@@ -1,3 +1,77 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 185;
+mcp__workspace__bash for repo state, checker execution and file edits;
+Claude-in-Chrome (read-only) for step 3; mcp__Windows-MCP__PowerShell for
+git add/commit/push against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround - bash confirmed no push credential again this
+run (`git push --dry-run` fails "could not read Username for
+'https://github.com'")) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Lock created via
+plain file write. git fetch confirmed already at origin's tip (b5539ae, run
+184's commit). A fresh, empty .git/index.lock appeared and could not be
+unlinked by a bash git status call mid-run (permission denied on this bind
+mount) but every git command still completed correctly around it - same
+class of mount quirk this log has recorded before, not a real lock, not
+touched per the 1-hour staleness rule since it was seconds old.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days,
+42nd consecutive run with zero new answers. Cross-checked directly against
+QUESTIONS.json: every answer through Q52 already applied (status
+"answered"); Q37 and Q43 correctly remain "open" because Rishi's own portal
+replies to both ask for clarification/are marked unsure rather than giving a
+decision to implement.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the top of this file fresh before
+adding this entry - no "Standing authorisation" heading present. Proceeded
+under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+VERIFICATION DONE THIS RUN: ran the full tools/check-*.js suite fresh
+end to end (37 files, not 35 - two more exist than run 184 recorded, not
+investigated further this run) rather than repeating run 184's just-done
+full-suite pass or picking a rotation-pool item, since a genuine change had
+landed on the branch since run 184's baseline was last independently
+verified: check-postcodes.js failed for the first time (1 failure, 36/37
+clean). Root cause: Rishi's own commit 5c694665 (2026-09-19, unrelated to
+this audit's own runs) added prose to compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
+quoting Wilmslow's real historical postcode SK9 2TA (Unit 2, Summerfield
+Trade Centre) to record what the live, non-RBH-owned simpleweightloss.co.uk
+still shows for the disposed Wilmslow branch (see Q116) - a postcode already
+registered in NARRATIVE_POSTCODES since the item 1.3 tenth quality pass
+(2026-09-03), but check-postcodes.js's rule 1 only consults
+NARRATIVE_POSTCODES for files in NARRATIVE_FILES, and this compliance file
+is deliberately NOT on that list (the item 1.3 twelfth and seventeenth
+quality passes proved rule 6, MISATTRIB, specifically against it, which
+NARRATIVE_FILES membership would silence).
+FIX: added a new, narrowly-scoped UNKNOWN_KNOWN exemption map to
+tools/check-postcodes.js, keyed on file + postcode
+("compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md::SK9 2TA"), consulted only
+by rule 1 and only when no branch matches - leaves isNarrative false for
+this file, so rule 6 (and its existing MISATTRIB_KNOWN entry for the same
+file) stays fully live. Added a matching staleness check (fails the run if
+the entry stops firing), the same convention as MISATTRIB_KNOWN,
+NARRATIVE_FILES and every other KNOWN-style list in this checker. Negative-
+tested before committing: mutated the compliance file's SK9 2TA to a
+fabricated postcode on the tracked file, confirmed the checker fails both
+ways (UNKNOWN on the new value, STALE on the now-unused UNKNOWN_KNOWN
+entry), then restored the file from a pre-mutation copy and sha256-confirmed
+byte-identical before re-running clean. Considered and rejected an earlier
+attempt at this fix that simply added the compliance file to NARRATIVE_FILES
+outright: that silenced rule 6 for the file entirely and turned the file's
+own pre-existing, correctly-firing MISATTRIB_KNOWN entry ("...hirshmans_
+ainsdale::L9 9DB") stale, which would have been trading one real gap for
+another. Full 37-file checker suite re-run clean after the fix: 37/37, same
+3 UNOWNED warnings as the established baseline, no other drift.
+Files changed: tools/check-postcodes.js only. No generated page, branches.json
+or live content touched. No worklist checkbox ticked (this was a checker-tooling
+defect found during suite-wide verification, not one of the 8 blocked items
+and not a rotation-pool pick). No new question raised - fully resolved without
+needing Rishi's input.
+ESCALATION (kept short per Q119): 185 runs on a 30-minute schedule, all 8
+worklist items still blocked on Rishi's own pending decisions (Q8, Q9, Q13,
+Q16, Q52, Q60, Q66). Q116/Q117 (live public exposure on
+simpleweightloss.co.uk) remain the most urgent open items. Repeating Q115's
+recommendation once more: consider pausing the schedule or dropping to a
+weekly heartbeat until those decisions land, since unattended runs cannot
+close them alone.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 184;
 mcp__workspace__bash for repo state, checker execution and file edits;
 Claude-in-Chrome (read-only) for step 3; mcp__Windows-MCP__PowerShell for
