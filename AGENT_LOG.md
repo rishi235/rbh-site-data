@@ -1,3 +1,60 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 195;
+mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
+git push via the sandbox) -
+
+LOCK/SYNC (steps 1-2): no .agent-lock at run start. Found .git/HEAD.lock and
+.git/objects/maintenance.lock present, plus .git/index.lock once git touched
+the index - all on the same undeletable FUSE-bridged mount every recent run
+has hit. Confirmed the breakage is not scoped to git this time: a plain
+touch+rm control probe on both this repo's mount and the unrelated outputs
+mount also failed "Operation not permitted", so this is a session-wide
+delete restriction right now, not a concurrent process holding the lock
+(checked ps aux - nothing; lock mtimes did not advance across a 45s wait).
+Used the same rename-aside pattern as runs 193-194 (mv, not rm) on all three
+lock files; git fetch/checkout/pull then worked normally and confirmed
+already at origin's tip (d4e01f3, run 194's commit). Created .agent-lock
+fresh. Note: two harmless 0-byte probe files (.rm-test-probe,
+.rm-test-probe-2, .write-test-probe) created while diagnosing the delete
+failure could not be cleaned up for the same reason and now add to the
+debris pile Q119 already covers - flagging rather than hiding it.
+
+ANSWER PICKUP (step 3): portal feed read fresh via Claude-in-Chrome (navigate
++ get_page_text, read-only, tab closed after). Newest entry unchanged at Q52
+(2026-09-01T22:44:51.524Z) - 19 days and 52 consecutive runs with zero new
+portal answers, against 66 open questions (unchanged from run 194).
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before adding this
+entry - no "Standing authorisation - autonomous window" heading present.
+Proceeded under the normal rule.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked items (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still [BLOCKED], unchanged since run 143.
+Q115 and Q119 both still open and both still explicitly reserve their
+decision for Rishi. Did not run a rotation-pool quality pass or re-check
+simpleweightloss.co.uk, same reasoning as runs 154-194: repeating an
+already-clean result adds no information, and Q115 itself is the open
+question about whether that repetition is worth the run at all.
+
+REPO HEALTH: untracked debris at repo root now 293 files (up from 290 at
+run 194's count - three more from this run's own delete-failure diagnostics,
+described above). The delete restriction this run also affected a mount
+unrelated to this repo, which is new information worth adding to Q119/Q87:
+this is not something a repo-side fix can solve, since the sandbox itself
+currently cannot delete a file anywhere it can see.
+
+No repo generator, live page or branches.json content changed this run. No
+new question raised - Q115 and Q119 already cover exactly what this run
+found.
+
+ESCALATION: unchanged in substance from run 194 and many before it. Every
+worklist item is blocked on a decision already sitting in QUESTIONS.json,
+and Q115/Q119 specifically ask whether to keep running this worker at its
+current cadence at all - now 52 runs and three weeks with no portal answer
+of any kind. Recommend Rishi look at Q115 and Q119 before the next scheduled
+run; if the answer is "keep running", also worth deciding once, in one
+place, how the undeletable-lock workaround should work long-term, since the
+mv-aside pattern is itself the debris source Q119 flags.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 194;
 mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
 git push via the sandbox) -
