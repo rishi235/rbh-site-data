@@ -1,4 +1,22 @@
-﻿## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 208) -
+﻿## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 209) -
+
+Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on two attempts - same infrastructure fault as runs 200-208. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at e756a96 (run 208's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z). Zero new portal answers against 66 open questions in QUESTIONS.json. Confirmed Q37 and Q43 both already carry a 2026-09-01 portal reply that is not a decision (Q37: "i need further explanation"; Q43: "unsure... need advise") and both are already correctly left open with that noted in QUESTIONS.json by an earlier run - no further action needed on either.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading present at the top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct grep against AGENT_WORKLIST.md - no change since run 208. No unblocked item exists, and not all items are complete (8 remain), so neither of step 5's two branches applies literally; per the discipline runs 180-208 have already established, this run does not treat "all remaining items blocked" as licence to run an unrequested rotation-pool quality pass while Q115 (cadence, still open) recommends against it.
+
+JUDGEMENT CALL THIS RUN: runs 206, 207 and 208 already covered the two live, checkable items open today - run 206 performed the live-page recheck of Q116 (Wilmslow) and Q117 (referral-program.html) in full, and runs 207 and 208 both declined to repeat it same-day since nothing changes in hours and a same-day repeat only adds to the Q119 log-bloat problem. That reasoning still holds at this run: no new portal answer, no new worklist state, no reason to expect either live page has moved since this morning. This run does not add a fourth same-day pass over the same two pages.
+
+FLAGGED, NOT ACTIONED (unchanged from run 208): Q116 and Q117 remain open, unanswered, and live on simpleweightloss.co.uk - a disposed branch (Wilmslow, sold 1 July 2026) still presenting as a bookable Simple Weight Loss location, and a live page describing an unfilled-rate "kickback scheme" for prescription referrals. Both are now three-plus weeks old. Q115 (run cadence) and Q119 (operating-file bloat) also remain open. This run's chat report repeats the escalation on all four, since 66 open questions and roughly three weeks of silence indicate the portal/log channel is not reaching Rishi in time to action them.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked, no generator or data changed. This run's only contribution over run 208 is reconfirming the state is unchanged, without adding a duplicate live-page recheck to the log.
+
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 208) -
 
 Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on three attempts - same infrastructure fault as runs 200-207. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at 218b98f (run 207's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
 
