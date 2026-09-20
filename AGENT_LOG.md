@@ -1,3 +1,16 @@
+## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 212) -
+
+Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on three consecutive attempts - same infrastructure fault as runs 200-211. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at 8cd375d (run 211's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z). Zero new portal answers against 66 open questions in QUESTIONS.json (119 total, unchanged from run 211).
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading present at the top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct check against AGENT_WORKLIST.md - no change since run 211. Per the discipline established across runs 145-211 (Q115, still open, recommends against a further rotation-pool pass on diminishing-returns grounds), no unrequested quality pass taken this run.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked, no generator, branches.json or live page changed. This run's only contribution is reconfirming the state is unchanged and publishing the status page. Chat report to Rishi repeats the Q115 (run cadence / diminishing returns), Q116-118 (simpleweightloss.co.uk, a disposed branch still live with a referral kickback scheme) and Q119 (repo-root scratch-file bloat, 200+ untracked files) escalations directly, since the portal/log channel has produced no decision on any of them in over three weeks.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 211) -
 
 Lock/sync (steps 1-2): Cowork Linux sandbox shell failed outright before any command ran, "No space left on device" during its own workspace provisioning, identical failure on four consecutive attempts - same infrastructure fault as runs 200-210. Switched to mcp__Windows-MCP__PowerShell on the real host. No .agent-lock or .git/index.lock at run start. Created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD at 0dfa002 (run 210's commit). git status shows the untracked scratch-file pile (Q119) still present, unchanged in kind.
