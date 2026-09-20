@@ -1,3 +1,57 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 184;
+mcp__workspace__bash for repo state, checker execution and file edits;
+Claude-in-Chrome (read-only) for step 3; mcp__Windows-MCP__PowerShell for
+git add/commit/push against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround - bash confirmed no push credential again this
+run (`git push --dry-run` still fails "could not read Username for
+'https://github.com'")) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start. Lock created via
+plain file write. git fetch confirmed already at origin's tip (f31c77b, run
+183's commit, matching HEAD before this run touched anything). No stale
+.git/index.lock found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days,
+zero new answers since run 183. QUESTIONS.json cross-checked directly: 119
+entries, 66 open, 53 answered - identical counts to run 183.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the top of this file fresh - no
+"Standing authorisation" heading present. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143. No
+rotation-pool pass run, per Q115 (still open, recommends no further passes
+absent a live recheck being independently due) - same call runs 180-183
+made. No live-page recheck repeated this run: run 182's Q116/Q117 read is
+under two hours old relative to this run's start and the pages cannot have
+changed without a Weebly edit.
+VERIFICATION DONE THIS RUN: ran the full 35-file tools/check-*.js suite
+fresh end to end (not trusted from a prior run's summary) rather than
+picking one item from the rotation pool, on the basis that a full-suite
+pass is at least as thorough as a single-item pick and Q115 already argues
+against another single-item pass this soon. Result: 35/35 clean, same
+warnings and KNOWN/accepted exceptions as the established baseline (Q15
+townSlug/seoTown mismatch, Q45 CDN pin drift x2, Q61 impetigo safety net,
+Q64 GBP address post-town x2, Q20 inert data-wa x14, Q111 eMAR personal
+inbox, the three UNOWNED postcode warnings on non-branch files, the one
+INSECURE URL warning on the untracked scratch file qtmp.json, the
+Clear Aintree no-review-link warning, the Smartts live-only link and the
+Weight Loss Clinic outcome-claim KNOWN entry under Q16) - no new failure
+and no new drift found. check-live-hours.js also ran clean (5 branches with
+split days, 2 pages each, consistent with branches.json).
+NEW QUESTION: none. Q119 (log size / untracked scratch) and Q115 (schedule
+cadence) already cover this run's only observations; restating them again
+in full would be exactly the bloat Q119 exists to stop.
+No repo generator, live page or branches.json content changed this run;
+only this log entry was written. Browsing read-only throughout.
+ESCALATION (unchanged substance, kept short deliberately per Q119): 184 runs
+on a 30-minute schedule, 41st consecutive run with no worklist-content
+progress (all 8 items still blocked on Rishi's own open decisions: Q8, Q9,
+Q13, Q16, Q52, Q60, Q66). Q116 (disposed Wilmslow branch still live and
+bookable on simpleweightloss.co.uk) and Q117 (live referral-commission
+wording on POM weight-loss sign-ups) remain the two most urgent of the 66
+open questions - both describe ongoing live public exposure that no
+unattended run can close alone. Recommend Rishi action Q115 (pause the
+schedule or drop to a weekly heartbeat) directly rather than continue
+unattended runs whose marginal yield, run 144 onward, has been zero new
+defects against a stable green baseline.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 183;
 mcp__workspace__bash read-only for repo state and file edits (bash confirmed
 this sandbox still has no push credential: `git push --dry-run` fails "could
