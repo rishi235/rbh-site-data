@@ -1,3 +1,33 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 178;
+mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
+for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
+the real C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no `.agent-lock` present at run start (run 177
+cleaned up on exit). Lock created. `git fetch`/`pull --ff-only` confirmed
+already at origin's tip (49705c8, run 177's commit).
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days,
+zero new answers since run 176/177. 65 questions open, unchanged.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+No rotation-pool pass run, per Q115 (still open): the 36-item pool has
+18-23 clean passes each with zero new defects, so a further pass has no
+expected value. No repo generator, live page or branches.json content
+changed this run; browsing read-only throughout. No new question raised.
+ESCALATION (unchanged from runs 173-177, restated because nothing has
+moved): 178 runs on a 30-minute schedule, ~35 consecutive runs with no
+worklist progress, all 8 remaining items blocked purely on Rishi's own
+decisions. Recommend actioning Q115 (pause the schedule, or drop to a
+weekly heartbeat) rather than continuing to burn runs on re-verification
+that already has zero marginal defect yield. Q116/Q117 (live, public
+regulatory exposure - disposed Wilmslow branch still bookable on
+simpleweightloss.co.uk, and a live referral-commission scheme on POM
+weight-loss sign-ups) remain the two most urgent of the 65 open
+questions, since both describe ongoing live exposure rather than a
+repo-side defect.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 177;
 mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
 for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
