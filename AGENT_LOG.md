@@ -1,3 +1,54 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 191;
+mcp__workspace__bash for repo state and the portal read; Claude-in-Chrome
+(read-only) for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
+and the status-page publish against the real C:\Dev\rbh-site-data host, per
+the standing Q96/Q102 workaround) -
+
+LOCK/SYNC (steps 1-2): no .agent-lock at run start; created fresh. git fetch
+confirmed already at origin's tip (7bd3822, run 190's commit). No stale
+.git/index.lock found this run.
+
+ANSWER PICKUP (step 3): portal feed read fresh via Claude-in-Chrome
+(navigate + get_page_text, read-only, tab closed after). Newest entry
+unchanged at Q52 (2026-09-01T22:44:51.524Z) - 19 days and 48 consecutive
+runs with zero new portal answers, against 66 open questions (unchanged from
+run 190).
+
+AUTONOMOUS WINDOW (step 4): grepped the top of this file before adding this
+entry - no "Standing authorisation" heading present. Proceeded under the
+normal rule.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked items (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still [BLOCKED], unchanged since run 143.
+Read Q115 and Q119 in full before deciding whether to run a rotation-pool
+quality pass: both are still open, both still explicitly reserve their
+decision (pause/repurpose the schedule; archive or delete operating files)
+for Rishi rather than for this run to take unilaterally. Consistent with
+runs 154-190's reasoning under Q115's recommended option 3, did not run a
+further rotation-pool checker pass this run - the 36-item pool has 18-23+
+independent clean passes each with zero new defects found on any of the last
+several dozen repeats, so another pass would document the identical result
+again rather than add information. Did not re-run the Q116/Q117
+(simpleweightloss.co.uk) live recheck either, since run 190's own recheck
+context (and run 186's before it) is current and nothing in this run's
+answer-pickup or worklist read suggests the site has changed.
+
+REPO HEALTH: not independently re-measured this run (Q119 already covers
+this, still open, still reserved for Rishi's decision; re-measuring the
+scratch-file count again here would just restate Q119 without adding
+anything new to act on).
+
+No repo generator, live page or branches.json content changed this run. No
+new question raised - Q115 and Q119 already cover exactly what this run
+would otherwise flag.
+
+ESCALATION (one line, unchanged in substance from run 190 and many before
+it): every worklist item is blocked on a decision already sitting in
+QUESTIONS.json, not on further repo work, and two of those open questions
+(Q115, Q119) are specifically asking whether to keep running this worker at
+its current cadence at all. Recommend Rishi look at Q115 and Q119 before the
+next scheduled run.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 190;
 mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
 mcp__Windows-MCP__PowerShell for git add/commit/push and lock clearance against
