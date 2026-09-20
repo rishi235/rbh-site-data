@@ -1844,5 +1844,21 @@
     "status": "open",
     "answer": null,
     "note": "Full write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md, 2026-09-19 (run 153) addition, under the about.html heading. This repo has no source file for this domain (not a Weebly branch site, not built by any generator here) so nothing was or could be changed in-repo; nothing on the live page was clicked, submitted or altered, read-only per the standing rule. Not decided autonomously: while this looks lower-risk than Q117, it still touches a live public-facing legal document (a privacy notice) and data-protection compliance is explicitly listed among the areas this worker must flag rather than act on unilaterally."
+  },
+  {
+    "id": "Q119",
+    "date": "2026-09-20",
+    "item": "process/infrastructure finding (does not block any single worklist item; degrades every future run's own read budget)",
+    "question": "Decision needed: this repo's own operating files have grown large enough to slow down the worker that maintains them. AGENT_LOG.md is now 63,000+ lines and AGENT_WORKLIST.md is 38,000+ lines - both too large for a single read call, so every run (this one included) has to grep or chunk-read them just to establish current state before doing any actual audit work. Separately, the repo root carries roughly 230+ untracked scratch and probe files (lock-test artefacts like .agent-lock.released-run104-*, delete-test probes, .tmp files, a stray literal-backslash-named file) left behind by earlier runs' own testing of the lock and git-safety logic described in this file's own history. None of this is committed, none of it is live-facing, and none of it affects branches.json, a generator or a live page - it is pure operating overhead, but it has been mentioned in AGENT_LOG.md prose by at least four separate runs (180, 181, 182, and this one) without ever being turned into a decision, which is exactly the failure mode this task's own step 8 exists to prevent (raise as a question, don't just describe it).",
+    "options": [
+      "Archive AGENT_LOG.md and AGENT_WORKLIST.md now: move everything before a cut-off date (e.g. everything before the last 20 runs, or before the last fully-answered question) into dated archive files, leaving a short current-state summary at the top of each live file. Restores fast reads for every future run, and the archives stay in the repo history if anyone needs the detail. Needs a one-off decision on where the cut-off falls, since a run should not choose its own cut-off unsupervised.",
+      "Delete the untracked scratch and probe files at the repo root (all confirmed untracked and never committed, per git status) and add a .gitignore pattern (e.g. .agent-lock.*, *.tmp, *-test-probe*) so future test runs stop littering the working tree. Lower-risk than option 1 since nothing tracked is touched, but still a bulk delete an unattended run should not decide alone per this repo's own convention (see AGENT_LOG.md run 180's note reserving exactly this decision for you).",
+      "Do both 1 and 2 in the same supervised session, since they are the same underlying problem (operating debris accumulating faster than anyone reviews it) and fixing one without the other leaves half the slowdown in place.",
+      "Leave everything as is. Costs nothing today, but the two files keep growing by roughly 400-700 lines per run at the current cadence, so the read-budget cost to every future run keeps rising, and the file-size ceiling for a single read call will eventually be hit mid-run rather than just at the start."
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Not actioned unilaterally: deleting untracked files or truncating/archiving these two files is explicitly outside an unattended run's authority per this repo's own established convention (AGENT_LOG.md, run 180). Raised as a formal question rather than left as prose, per this task's own step 8, because runs 180-182 all described this same problem in AGENT_LOG.md narrative text without ever creating a QUESTIONS.json entry for it - which is the identical failure this task's step 8 exists to catch. No repo generator, live page or branches.json content is affected either way; this is pure operating hygiene for the worker's own files."
   }
 ]

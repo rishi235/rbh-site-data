@@ -1,3 +1,59 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 183;
+mcp__workspace__bash read-only for repo state and file edits (bash confirmed
+this sandbox still has no push credential: `git push --dry-run` fails "could
+not read Username for 'https://github.com'"); Claude-in-Chrome read-only for
+step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against the real
+C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 182 cleaned
+up on exit). Lock created via bash file write (UTF-8, no BOM), not a
+PowerShell text cmdlet. git fetch / checkout / pull --ff-only confirmed
+already at origin's tip (e7f4c8a, run 182's commit). No stale .git/index.lock
+found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days,
+zero new answers since run 182. QUESTIONS.json cross-checked directly (not
+just trusted from the log): 65 open before this run's addition, 53 answered,
+matching run 182's count exactly.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the top of this file fresh - no
+"Standing authorisation" heading present. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143. Also
+independently verified, rather than assumed from the log, that each is
+genuinely blocked and not stale: cross-checked the linked question (Q8, Q9,
+Q13, Q16, Q52, Q60, Q66) against QUESTIONS.json and confirmed each is either
+still open (Q60, Q66) or answered but tied to a supervised Weebly session,
+branch merge or GBP edit that this unattended run cannot perform (Q8, Q9,
+Q13, Q16, Q52). No drift found. No rotation-pool pass run, per Q115 (still
+open, recommends no further passes absent a live recheck being independently
+due). No live-page recheck repeated this run: run 182 read the Q116/Q117
+evidence 30 minutes before this run started and the page cannot have changed
+without a Weebly edit; re-reading now would add a duplicate finding, not new
+evidence.
+NEW QUESTION RAISED (Q119): the recurring "log files too large to read /
+~230 untracked scratch files" observation that runs 180, 181 and 182 each
+restated in prose without ever making it a decision. Turned into a proper
+QUESTIONS.json entry this run, per this task's own step 8 (raise a question,
+do not just describe it), with four concrete options and a recommendation
+(do both: archive the two oversized log files and clean the untracked
+scratch files, in one supervised session). Not actioned unilaterally -
+deleting or truncating either of the worker's own operating files remains
+outside an unattended run's authority per run 180's established convention.
+No repo generator, live page or branches.json content changed this run;
+browsing read-only throughout; the only write is the QUESTIONS.json append
+(diffed clean: 16 insertions, 0 deletions, pure append, verified before
+commit).
+ESCALATION (unchanged substance from runs 174-182, restated because this is
+now the 40th consecutive no-progress run on worklist content): 183 runs on a
+30-minute schedule. Recommend Rishi action Q115 directly (pause the schedule
+or drop to a weekly heartbeat) rather than continue burning unattended runs
+with zero marginal defect yield. Q116 (disposed Wilmslow branch still live
+and bookable on simpleweightloss.co.uk, now 2.5+ months post-disposal) and
+Q117 (live referral-commission "kickback" scheme on POM weight-loss
+sign-ups, the page's own wording, not a characterisation) remain the two
+most urgent of the 66 open questions - both describe ongoing live public
+exposure, not a repo-side defect, and no unattended run can close either
+alone. Q119 (new this run) is lower urgency than either but compounds every
+future run's overhead until it is actioned.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 182;
 mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
 for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
