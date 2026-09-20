@@ -1,3 +1,51 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 187;
+mcp__workspace__bash for repo state and read-only file checks;
+Claude-in-Chrome (read-only) for step 3; mcp__Windows-MCP__PowerShell for
+git add/commit/push against the real C:\Dev\rbh-site-data host, per the
+standing Q96/Q102 workaround - bash confirmed no push credential again
+this run (`git push --dry-run` fails "could not read Username for
+'https://github.com'")) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 186
+cleaned up on exit). Lock created via plain file write. git fetch
+confirmed already at origin's tip (0aad120, run 186's commit). No stale
+.git/index.lock found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only, tab closed after). Newest entry still Q52
+(2026-09-01T22:44:51.524Z) - 19 days, 44th consecutive run with zero new
+portal answers. QUESTIONS.json cross-checked directly: 119 entries, 66
+open, 53 answered, unchanged from run 186.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the top of this file fresh
+before adding this entry - no "Standing authorisation" heading present.
+Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+Checked whether any answered-but-unimplemented question had a
+free, unattended action left in it before falling back further: item
+5.3's own accumulated text (Q8/Q34) already records that the
+free-repoint pattern was exhausted as of the run around 2026-09-14 - the
+three branches still open (Coleman and Leighs, Gordon Short, Smartts
+Bootle) all genuinely need a supervised Weebly session, not a further
+live-recheck, and nothing in the log since then shows that state
+changing. No other [BLOCKED] item's text showed an equivalent
+already-authorised-but-not-applied gap. Did not run a further
+rotation-pool checker pass or a further live-page recheck this run: run
+185 already covered checker-suite verification and run 186 already
+covered the Q116/Q117 live recheck, both within the last few hours the
+same day, so repeating either here would be duplication rather than new
+verification, and Q115 (still open) specifically argues against
+back-to-back passes with no new information to act on. Kept this run to
+answer pickup and status reconfirmation only.
+No repo generator, live page or branches.json content changed this run;
+browsing read-only throughout.
+ESCALATION (kept short per Q119, itself still open and unactioned): 187
+runs on a 30-minute schedule, all 8 worklist items still blocked on
+Rishi's own pending decisions (Q8, Q9, Q13, Q16, Q52, Q60, Q66) or, for
+Q8/Q34's three remaining branches, on a supervised Weebly session rather
+than a further decision. Q116 and Q117 remain the most urgent open items,
+last independently confirmed live and unchanged at run 186. Repeating
+Q115's recommendation once more: consider pausing the schedule or
+dropping to a weekly heartbeat until a batch of the open questions gets
+worked through.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 186;
 mcp__workspace__bash for repo state and read-only file checks;
 Claude-in-Chrome (read-only) for steps 3 and the live-page recheck below;
