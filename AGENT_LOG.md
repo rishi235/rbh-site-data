@@ -1,3 +1,27 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 198) -
+
+STATE UNCHANGED FROM RUN 197. Lock/sync clean (no stale lock; fetch/pull
+already at tip on entry). Answer pickup (Claude-in-Chrome, read-only,
+nothing clicked or typed): navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest
+entry is still Q52 (2026-09-01T22:44:51.524Z) - 19 days, 55 consecutive
+runs with zero new answers. Spot-checked Q8, Q9, Q13, Q16, Q52, Q60, Q66
+against QUESTIONS.json: all consistent with run 197's read (Q8/Q9/Q13/Q16/
+Q52 answered but blocked on hands-on work or a further decision; Q60 and
+Q66 still open). No autonomous-window heading at the top of this file, so
+step 4 does not apply. All 8 worklist items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) remain [BLOCKED], each still traceable to its underlying
+question as run 197 recorded. No rotation-pool quality pass run, per
+Q115's still-open recommendation not to resume that cadence unilaterally.
+Nothing to fix, nothing to commit beyond this entry.
+
+Not repeating the full escalation text here since it is unchanged from
+run 197 immediately above - see that entry. The two open process
+questions (Q115: pause or slow the cadence; Q119: archive the log/
+worklist and clear the untracked scratch files) are now the only things
+this worker can usefully report run over run until Rishi answers one of
+them.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 197) -
 
 STATE UNCHANGED FROM RUN 196. Lock/sync clean (no stale lock, fetch/pull
