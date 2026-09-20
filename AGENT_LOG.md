@@ -1,8 +1,57 @@
-## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 191;
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 192;
 mcp__workspace__bash for repo state and the portal read; Claude-in-Chrome
 (read-only) for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push
 and the status-page publish against the real C:\Dev\rbh-site-data host, per
 the standing Q96/Q102 workaround) -
+
+LOCK/SYNC (steps 1-2): no .agent-lock at run start; created fresh (timestamp
+2026-09-20T07:34:53Z). git fetch confirmed already at origin's tip (462c51e,
+run 191's commit). No stale .git\index.lock found on either the sandbox mount
+or the real host this run.
+
+ANSWER PICKUP (step 3): portal feed read fresh via Claude-in-Chrome (navigate
++ get_page_text, read-only, tab closed after). Newest entry unchanged at Q52
+(2026-09-01T22:44:51.524Z) - 19 days and 49 consecutive runs with zero new
+portal answers, against 66 open questions (unchanged from run 191). Read
+Q37 and Q43 in full (the two open questions whose only portal replies were
+non-decisions) to check whether their "RECONFIRMED 2026-09-16" notes were
+stale: they are, by four days, but the underlying fact they record - no
+portal reply newer than Q52 - is still true today, so left the notes as they
+are rather than bumping a date with nothing new attached.
+
+AUTONOMOUS WINDOW (step 4): grepped the top of this file before adding this
+entry - no "Standing authorisation" heading present (the string appears only
+inside other runs' prose, not as a heading). Proceeded under the normal rule.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked items (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still [BLOCKED], unchanged since run 143.
+Read Q115 and Q119 in full before deciding what this run should spend its
+time on: both are still open, and both still explicitly reserve their
+decision (pause/repurpose the schedule; archive the operating files or clean
+up scratch debris) for Rishi rather than for an unattended run to take
+unilaterally. Did not run a rotation-pool quality pass, for the same reason
+runs 154-191 have not: the 36-item pool has 18-23+ independent clean passes
+each with zero new defects, and Q115 itself argues, still unanswered, that
+another pass would document the identical result again rather than add
+information. Did not re-run the Q116/Q117 (simpleweightloss.co.uk) live
+recheck either - run 190's recheck is two runs old, not weeks, and nothing in
+this run's answer-pickup or worklist read suggests the site has changed in
+that time, so re-checking it again now would be exactly the diminishing-
+returns busywork Q115 is asking Rishi whether to keep paying for.
+
+REPO HEALTH: not independently re-measured this run (Q119 already covers
+this, still open, still reserved for Rishi's decision).
+
+No repo generator, live page or branches.json content changed this run. No
+new question raised - Q115 and Q119 already cover exactly what this run
+would otherwise flag, and nothing new emerged to add to either.
+
+ESCALATION (one line, unchanged in substance from run 191 and many before
+it): every worklist item is blocked on a decision already sitting in
+QUESTIONS.json, not on further repo work, and two of those open questions
+(Q115, Q119) are specifically asking whether to keep running this worker at
+its current cadence at all. Recommend Rishi look at Q115 and Q119 before the
+next scheduled run.
 
 LOCK/SYNC (steps 1-2): no .agent-lock at run start; created fresh. git fetch
 confirmed already at origin's tip (7bd3822, run 190's commit). No stale
