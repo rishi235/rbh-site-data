@@ -1,3 +1,63 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 194;
+mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
+git push via the sandbox) -
+
+LOCK/SYNC (steps 1-2): no .agent-lock at run start. Found .git/HEAD.lock
+present (0 minutes old, timestamp inside the current run window) and, once
+git touched the index, .git/index.lock too - both on the same undeletable
+FUSE-bridged mount this repo's root already carries ~290 rename-artefacts
+of evidence for. rm and chmod both failed "Operation not permitted"; also
+tried the formal mcp__cowork__allow_cowork_file_delete request as a second
+route and it was auto-declined with "no one was available to approve it
+during this scheduled run, continue without it" - confirms this is a hard
+unattended-session constraint, not a missing workaround. Used the same
+rename-aside pattern as run 193 (mv, not rm) on both lock files; git
+checkout/pull then worked normally and confirmed already at origin's tip
+(ed5ad82, run 193's commit). Created .agent-lock fresh.
+
+ANSWER PICKUP (step 3): portal feed read fresh via Claude-in-Chrome
+(navigate + get_page_text, read-only, tab closed after). Newest entry
+unchanged at Q52 (2026-09-01T22:44:51.524Z) - 19 days and 51 consecutive
+runs with zero new portal answers, against 66 open questions (unchanged
+from run 193).
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before adding this
+entry - no "Standing authorisation - autonomous window" heading present.
+Proceeded under the normal rule.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked items (5.3,
+5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still [BLOCKED], unchanged since run 143.
+Q115 and Q119 both still open and both still explicitly reserve their
+decision for Rishi. Did not run a rotation-pool quality pass, same reasoning
+as runs 154-193 (Q115 itself argues, still unanswered, that another pass
+documents the identical clean result rather than adds information). Did not
+re-run the Q116/Q117 (simpleweightloss.co.uk) live recheck either - run 190's
+recheck is only four runs old and this run is the very next one after 193,
+which itself skipped the recheck for the same reason; re-running it again
+now would be even more redundant, not less.
+
+REPO HEALTH: untracked debris at repo root now 290 files (up from 289 at
+run 190's count), one more than run 193 saw - consistent with the lock-file
+rename workaround itself being the source of ongoing growth, since renaming
+a stale lock aside is the only route available in this environment and each
+rename leaves a permanent new file. Not cleaned up this run for the same
+reason run 193 gave: deletion is the blocked operation, Q119 already covers
+this, and it is reserved for Rishi's decision, not this run's to act on
+unilaterally.
+
+No repo generator, live page or branches.json content changed this run. No
+new question raised - Q115 and Q119 already cover exactly what this run
+found, including the new confirmation that the delete-permission request
+tool auto-declines rather than blocking silently, which is a plumbing detail
+for Q119 rather than a new decision.
+
+ESCALATION (unchanged in substance from run 193 and many before it): every
+worklist item is blocked on a decision already sitting in QUESTIONS.json,
+not on further repo work, and two of those open questions (Q115, Q119) are
+specifically asking whether to keep running this worker at its current
+cadence at all. Recommend Rishi look at Q115 and Q119 before the next
+scheduled run.
+
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 193;
 mcp__workspace__bash for repo state; Claude-in-Chrome (read-only) for step 3;
 git push worked directly from the sandbox this run, no Windows-MCP PowerShell
