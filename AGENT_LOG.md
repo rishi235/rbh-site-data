@@ -1,3 +1,46 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 182;
+mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
+for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
+the real C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 181
+cleaned up on exit). Lock created via file write (not PowerShell text
+cmdlets). git fetch / git pull --ff-only confirmed already at origin's
+tip (467f07d, run 181's commit, pushed 30 minutes before this run
+started). No stale .git/index.lock found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - unchanged,
+zero new answers since run 181. QUESTIONS.json cross-checked: 65 open
+(Q37, Q43, Q53-Q118 minus the answered ones), 53 answered, unchanged. Q37
+and Q43 both already carry a plain-English restatement and a direct
+yes/no question in their notes (added and reconfirmed on earlier runs);
+Rishi's two portal replies on both remain requests for clarification
+rather than a chosen option, so both correctly stay open rather than
+being marked answered. Nothing further to clarify on either without
+repeating work already done.
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading
+present at the top of this file. Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+No rotation-pool pass run, per Q115 (still open, recommends option 3: no
+further rotation passes, answer-pickup only, unless a live-page recheck is
+independently due). No live-page recheck repeated this run: run 181 read
+the Q116/Q117 evidence (simpleweightloss.co.uk/referral-program.html)
+thirty minutes before this run started, and the page cannot have changed
+in that window without a Weebly edit nobody has made; re-reading it again
+now would add a duplicate finding, not new evidence. No repo generator,
+live page or branches.json content changed this run; browsing read-only
+throughout. No new question raised.
+ESCALATION (unchanged substance from runs 174-181, restated because this
+is now the 39th consecutive no-progress run on worklist content): 182
+runs on a 30-minute schedule. Recommend Rishi action Q115 directly (pause
+the schedule or drop to a weekly heartbeat) rather than continue burning
+unattended runs with zero marginal defect yield. Q116 (disposed Wilmslow
+branch still live and bookable on simpleweightloss.co.uk, now 2.5+ months
+post-disposal) and Q117 (live referral-commission "kickback" scheme on
+POM weight-loss sign-ups, the page's own wording, not a characterisation)
+remain the two most urgent of the 65 open questions - both describe
+ongoing live public exposure, not a repo-side defect, and no unattended
+run can close either alone.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 181;
 mcp__workspace__bash read-only for repo state; Claude-in-Chrome read-only
 for step 3; mcp__Windows-MCP__PowerShell for git add/commit/push against
