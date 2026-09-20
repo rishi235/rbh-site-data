@@ -1,3 +1,63 @@
+## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 186;
+mcp__workspace__bash for repo state and read-only file checks;
+Claude-in-Chrome (read-only) for steps 3 and the live-page recheck below;
+mcp__Windows-MCP__PowerShell for git add/commit/push against the real
+C:\Dev\rbh-site-data host, per the standing Q96/Q102 workaround - bash
+confirmed no push credential again this run (`git push --dry-run` fails
+"could not read Username for 'https://github.com'")) -
+LOCK/SYNC (steps 1-2): no .agent-lock present at run start (run 185
+cleaned up on exit). Lock created via plain file write. git fetch
+confirmed already at origin's tip (f2b8af2, run 185's commit). No stale
+.git/index.lock found.
+ANSWER PICKUP (step 3): portal feed read fresh (navigate + get_page_text,
+read-only). Newest entry still Q52 (2026-09-01T22:44:51.524Z) - 19 days,
+43rd consecutive run with zero new portal answers. QUESTIONS.json
+cross-checked directly: 119 entries, 66 open, 53 answered, unchanged from
+run 185.
+AUTONOMOUS WINDOW CHECK (step 4): grepped the top of this file fresh
+before adding this entry - no "Standing authorisation" heading present.
+Proceeded under the normal rule.
+WORKLIST (step 5): all 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) reconfirmed [BLOCKED] by direct grep, unchanged since run 143.
+No rotation-pool pass run, per Q115 (still open, recommends option 3:
+live-page recheck of already-open questions rather than further
+rotation-pool passes). Run 185 already covered checker-suite verification
+this cycle (found and fixed a genuine check-postcodes.js defect), so this
+run put its time into a live recheck instead of repeating that pass.
+LIVE-PAGE RECHECK (option 3, targeted at Q116/Q117, last independently
+read at run 182, roughly two hours before this run started): re-read both
+https://simpleweightloss.co.uk/weight-loss-wilmslow.html and
+https://simpleweightloss.co.uk/referral-program.html directly,
+read-only, no click/submit. Both findings are unchanged and still live.
+Wilmslow: still presents as a live, bookable "Wilmslow Pharmacy" location
+in Cheshire, over two and a half months after the 1 July 2026 disposal
+(Q2) - same address (Unit 2, Summerfield Trade Centre, SK9 2TA), same
+phone (01625 523414), same WILMSLOW@RBHEALTH.CO.UK mailbox, same two
+present-tense testimonials, "WILMSLOW, CHESHIRE" still listed under "Find
+a pharmacy near you". Referral program: still live, still names Mounjaro
+and Wegovy as "medically-approved treatments", still literally labels the
+partner-payment structure a "kickback scheme" ("Earn commissions for
+every successful referral through our competitive kickback scheme" /
+"Kickback Scheme - Earn £XX per referral"), and the £XX rate is still an
+unfilled placeholder - same second signal (alongside the still-blank
+partner-sign-up.html/partner-benefits.html pages, not re-read this run
+since their content cannot have changed independently of the referral
+page) that this reads as a published draft rather than an operating
+scheme, which does not resolve Q117 either way. No repo change possible
+for either - both are live-only pages on a domain this repo does not
+generate. No new question raised; QUESTIONS.json left untouched since
+nothing found differs from the Q116/Q117 write-ups already on record.
+No repo generator, live page or branches.json content changed this run;
+browsing read-only throughout.
+ESCALATION (kept short per Q119, itself still open and unactioned): 186
+runs on a 30-minute schedule, all 8 worklist items still blocked on
+Rishi's own pending decisions (Q8, Q9, Q13, Q16, Q52, Q60, Q66). Q116 and
+Q117 remain the most urgent open items and are now confirmed unchanged
+across three independent reads (runs 181, 182, 186) spanning several
+hours - this is ongoing live public exposure, not a repo-side defect, and
+no unattended run can close either alone. Repeating Q115's recommendation
+once more: consider pausing the schedule or dropping to a weekly
+heartbeat until a batch of the open questions gets worked through.
 ## 2026-09-20 (unattended scheduled run, audit-backlog-worker, run 185;
 mcp__workspace__bash for repo state, checker execution and file edits;
 Claude-in-Chrome (read-only) for step 3; mcp__Windows-MCP__PowerShell for
