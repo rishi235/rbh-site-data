@@ -1,3 +1,20 @@
+## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 226) -
+
+Fourteenth run today. Cowork Linux sandbox unusable at step 1 again (useradd "No space left on device" on its own workspace provisioning, two attempts, same fault as runs 200-225). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/pull confirmed up to date with origin/agents/audit-backlog, HEAD 1cc9c1b (run 225's commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in full. Newest entry still Q52 (2026-09-01), unchanged from run 225 - now 20 days with no new portal answer, 66 of 119 questions open.
+
+AUTONOMOUS WINDOW: no heading present, does not apply.
+
+WORKLIST: 43 checked / 8 unchecked, all 8 still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), byte-identical to run 225. Per the Q115 discipline, no unrequested rotation-pool pass taken - fourteenth consecutive zero-output run today.
+
+INFRASTRUCTURE: node tools/build-audit-status.js run, republished the portal status page.
+
+No worklist item ticked, no in-repo file changed other than this entry. Escalated to Rishi directly in this run's chat report rather than repeating the standing-question detail here again: Q115 (cadence - recommend pausing or dropping to a weekly heartbeat), Q116-118 (simpleweightloss.co.uk Wilmslow/referral-kickback/privacy-contact findings, 3+ weeks unanswered, highest regulatory exposure on the backlog), Q119 (log/worklist size and ~296 untracked scratch files, needs a one-off cut-off decision).
+
+Step 9 (commit/push) and step 10 (status page) completed. .agent-lock deleted at end.
 ## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 225) -
 
 Thirteenth run today. Cowork Linux sandbox failed at step 1 again, identical fault to runs 200-224 (useradd "No space left on device" on its own workspace provisioning, two attempts, both identical). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step, as established.
