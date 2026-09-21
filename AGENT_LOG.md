@@ -1,3 +1,24 @@
+## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 221) -
+
+Ninth run today. Cowork Linux sandbox failed again at step 1 ("No space left on device" during its own workspace provisioning, identical fault to runs 200-220); used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step, as established.
+
+LOCK/SYNC (steps 1-2): no stale .agent-lock or .git/index.lock at start; created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD c590ffc (run 220's own commit) unchanged before this run's own commit.
+
+ANSWER PICKUP (step 3, read-only, nothing clicked or submitted): read https://data.rbhealth.co.uk/api/feedback in full. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - 20 days with no new portal answer, against 66 open of 119 questions in QUESTIONS.json.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous window" heading present at the top of this file. Normal rule applies.
+
+WORKLIST (step 5): 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), byte-identical to run 220's own check. Per the discipline runs 213-220 adopted under still-open Q115, no unrequested rotation-pool quality pass taken this run either: AGENT_LOG.md is now 64,654 lines / 7.2MB (measured this run), so a further multi-paragraph quality-pass writeup adds exactly the cost Q119 already flags, for a ninth consecutive run finding nothing new to action.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host, republished reports/digital/Digital_Audit_Status.html.
+
+Escalating plainly rather than lengthening this file further. Three open questions are the actual blocker on this backlog now, and none of them needs technical work, only a reading and a decision:
+
+- Q115: this schedule has produced zero new output across runs 213-221 (at least nine consecutive runs in one calendar day). Recommend Rishi either pause or reduce the run cadence, or answer the question directly, rather than continuing to spend runs re-confirming an unchanged state.
+- Q116-118: simpleweightloss.co.uk carries three live findings unanswered for 3+ weeks - a disposed Wilmslow branch still bookable, a referral kickback scheme, and a privacy notice with an unfilled contact placeholder. This is the highest regulatory exposure item on the whole backlog and needs a reading of the three questions, not a code change.
+- Q119: AGENT_LOG.md and AGENT_WORKLIST.md have grown large enough that reading them costs real time on every run, and 296 untracked scratch/probe files sit at the repo root. Its own recommended option (option 3, archive both files past a cut-off and clean the untracked debris with a .gitignore) needs one supervised decision on where the cut-off falls; this run has not acted on it, since an unattended run should not pick that cut-off or bulk-delete files itself, per the repo's own standing convention already recorded against this question.
+
+No worklist item ticked this run; no in-repo file changed other than this log entry. Step 9 (commit/push) and step 10 (status page) completed as above. .agent-lock deleted at end.
 ## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 220) -
 
 Eighth run today. Cowork Linux sandbox unusable at step 1 (No space left on device during its own workspace provisioning, identical fault to runs 200-219). Used mcp__Windows-MCP__PowerShell on the real host throughout. No stale .agent-lock or .git/index.lock at start; created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog.
