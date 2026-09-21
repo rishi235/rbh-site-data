@@ -1,3 +1,20 @@
+## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 224) -
+
+Twelfth run today. Cowork Linux sandbox failed at step 1 again, identical fault to runs 200-223 (useradd "No space left on device" on its own workspace provisioning, two attempts, both identical). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step, as established.
+
+LOCK/SYNC (steps 1-2): no stale .agent-lock or .git/index.lock at start; created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD 4e77484 (run 223's own fix commit) unchanged before this run's own commit.
+
+ANSWER PICKUP (step 3, read-only, nothing clicked or submitted): read https://data.rbhealth.co.uk/api/feedback in full via mcp__claude-in-chrome. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - twenty days with no new portal answer, against 66 open of 119 questions in QUESTIONS.json, unchanged from run 223. Spot-checked Q37 and Q43 directly: both already carry their non-decision portal replies recorded (Rishi's "need further explanation" and "unsure" comments), correctly left open by prior runs, and the feed has nothing newer than those two entries.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation - autonomous window" heading present at the top of this file. Normal rule applies.
+
+WORKLIST (step 5): confirmed directly - 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), byte-identical to run 223's own check. Per the Q115 discipline runs 213-223 adopted, no unrequested rotation-pool quality pass taken this run either, for a twelfth consecutive run finding nothing new to action on the worklist itself.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host, republished reports/digital/Digital_Audit_Status.html.
+
+No worklist item ticked this run; no in-repo file changed other than this log entry. Standing asks unchanged and now three weeks-plus stale: Q115 (run cadence - twelve consecutive zero-output runs today alone; recommend Rishi pause or reduce the schedule, or answer directly), Q116-118 (simpleweightloss.co.uk: disposed Wilmslow branch still bookable, a referral kickback scheme, and an unfilled privacy contact placeholder - all three the highest regulatory exposure on the backlog), Q119 (log size and untracked scratch files, reconfirmed present, needs Rishi's cut-off decision).
+
+Step 9 (commit/push) and step 10 (status page) completed as above. .agent-lock deleted at end.
 ## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 223) -
 
 Eleventh run today. Cowork Linux sandbox failed at step 1 again, identical fault to runs 200-222 (useradd "No space left on device" on its own workspace provisioning, three attempts, all identical). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step, as established.
