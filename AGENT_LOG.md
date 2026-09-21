@@ -1,4 +1,18 @@
-## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 216) -
+## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 217) -
+
+Fifth run today, minutes after run 216 (HEAD already 0c18138 at start). Lock/sync (steps 1-2): Cowork Linux sandbox failed outright before any command ran, "No space left on device" during its own workspace provisioning (useradd failure on /etc/passwd) - same infrastructure fault as runs 200-216. Used mcp__Windows-MCP__PowerShell on the real host throughout. No stale .agent-lock or .git/index.lock at start; created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD unchanged at 0c18138.
+
+ANSWER PICKUP (step 3, Claude in Chrome, read-only, nothing clicked or submitted): navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry is still Q52 (2026-09-01T22:44:51.524Z) - zero new portal answers against the same 66 open / 119 total questions in QUESTIONS.json, unchanged from run 216.
+
+Also tried the Ahrefs Site Audit MCP directly this run (site-audit-projects), on the chance the API restriction noted against Q52 had lifted since it was last checked. Still returns "Insufficient plan". Confirmed: 6.1/Q52 genuinely cannot be progressed by this worker under current tool access; it needs Rishi reading the issue detail in the Ahrefs web UI himself, exactly as already recorded in Q52's note.
+
+AUTONOMOUS WINDOW CHECK (step 4): no "Standing authorisation" heading at the top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 remaining items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct check against AGENT_WORKLIST.md - byte-identical to run 216's check. Per Q115 discipline (still open, questions whether this run cadence makes sense given diminishing returns), no unrequested rotation-pool quality pass taken. Fifth identical finding in one calendar day (runs 213-217), and the seventeenth-plus consecutive run since run ~200 with nothing new to action.
+
+INFRASTRUCTURE (step 10): node tools/build-audit-status.js run on the real host. Published reports/digital/Digital_Audit_Status.html (43/49, 88 percent) for honesty even though nothing changed.
+
+COULD NOT ACT ON: nothing - identical blocked state to runs 213-216. Not adding further length here per Q119 (still open); escalating directly to Rishi in this run's chat report instead. Standing asks unchanged: Q115 (run cadence - recommend Rishi either answer it directly or pause/reduce this schedule), Q116-118 (simpleweightloss.co.uk: disposed Wilmslow branch still bookable with a live BOOK NOW flow, an unfilled-rate referral kickback scheme, and a privacy notice with no working contact route - all three now 3+ weeks unanswered and the highest-stakes items on the whole backlog).## 2026-09-21 (unattended scheduled run, audit-backlog-worker, run 216) -
 
 Fourth run today, minutes after run 215 (HEAD was already a61971f, run 215's commit, at this run's start). Lock/sync (steps 1-2): used mcp__Windows-MCP__PowerShell on the real host throughout (Cowork Linux sandbox not attempted this run - prior runs 200-215 recorded it failing outright with "No space left on device" during workspace provisioning). No stale .agent-lock or .git/index.lock at start; created .agent-lock. git fetch/checkout/pull confirmed branch up to date with origin/agents/audit-backlog, HEAD unchanged at a61971f. Untracked scratch-file pile (Q119) still present, unchanged in kind.
 
