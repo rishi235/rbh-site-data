@@ -102,13 +102,42 @@ no token in env, no `gh` CLI present in this session's sandbox. This is
 the same gap already recorded open as Q96 and Q102, not a new fault. This
 run's commit (this AGENT_LOG entry only) exists locally on
 agents/audit-backlog alongside run 257's still-unpushed commit (8bdebda) -
-two commits now waiting on origin. The next run with working credentials
-should push both before doing anything else, in commit order, or they will
-be silently superseded. No attempt was made to source or embed a token
-from anywhere; per the hard rules, a missing credential is logged and the
-run stops rather than being worked around. Step 10 (publish via
-build-audit-status.js) also not attempted this run, since it needs the
-same GitHub API access and would fail identically.
+two commits now waiting on origin, plus a follow-up commit this run for
+QUESTIONS.json's Q120 (git's own EPERM-on-unlink meant the first commit
+attempt landed only AGENT_LOG.md - see below - so it took a second commit
+to land QUESTIONS.json too). Three commits now waiting on origin in total
+(8bdebda, and this run's two). The next run with working credentials
+should push all three before doing anything else, in commit order, or
+they will be silently superseded. No attempt was made to source or embed
+a token from anywhere; per the hard rules, a missing credential is logged
+and the run stops rather than being worked around.
+
+Step 10 (publish via build-audit-status.js) was attempted despite the
+missing push credentials, on the chance it could still run locally and
+just fail at the API call - it did not get that far. It failed
+immediately with ENOENT reading C:/Dev/rbh-site-data/AGENT_WORKLIST.md:
+the script hardcodes a Windows path, which does not exist in this Cowork
+sandbox (this session's checkout is mounted at
+/sessions/.../mnt/rbh-site-data instead). This is a second, distinct
+environment gap from the missing GitHub credentials - even with a token
+this script cannot run unmodified in this session. Not fixed here: an
+unattended run should not be rewriting a build script's path handling
+without Rishi's sign-off, and the underlying credential gap (Q96/Q102)
+would still block the actual publish step regardless. Flagging alongside
+Q96/Q102 rather than opening a new question for it, since it is the same
+underlying fact (this session is not the ProDeskAi host the task was
+written for) surfacing a second way.
+
+GIT LOCK CASCADE while committing this run's own log entry: every commit
+in this session left behind its own uncleaned .git/index.lock (and once,
+.git/HEAD.lock and .git/objects/*/tmp_obj_* files), per the EPERM-on-
+unlink finding above, which then blocked the NEXT git command in the same
+run. Worked around live, each time, by renaming the specific lock file
+aside with a run-tagged suffix (not a bare generic name) rather than
+deleting it - four rounds of this were needed to land both files. This is
+the mechanism, seen from the inside this time rather than inferred from
+debris left by other runs, and is further evidence for Q120 rather than a
+new finding.
 
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 257) - zero-output
 
