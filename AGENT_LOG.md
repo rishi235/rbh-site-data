@@ -1,3 +1,71 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 241) -
+
+Fourteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
+(useradd ... No space left on device during its own workspace user
+provisioning, two consecutive identical failures before stopping per the
+tool's own guidance) - same fault as runs 200-240. Used
+mcp__Windows-MCP__PowerShell on the real host for git, and
+mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/checkout/
+pull confirmed up to date with origin/agents/audit-backlog, HEAD 68121dd
+(run 240's commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in
+full via mcp__claude-in-chrome. Newest entry still Q52 (2026-09-01T22:44:
+51.524Z) - 21 days with no new portal answer. Re-confirmed Q37 and Q43's
+replies are already fully transcribed in QUESTIONS.json and remain correctly
+non-decisive (Q37: Rishi says he does not understand the question in plain
+English; Q43: Rishi says he is unsure and wants advice) - status correctly
+stays open on both, no change made. QUESTIONS.json: 119 total, 66 open,
+unchanged from run 240.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: confirmed by direct grep - 43 checked, 8 unchecked, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 240. Read each blocked item's own text in full this run
+rather than relying on the header alone: 5.3, 5.4, 5.5 and 5.8 are all
+answered by Rishi but stay correctly [BLOCKED] because the fix in every case
+needs either a live Weebly hand-paste or a push to a branch other than
+agents/audit-backlog - both outside an unattended run's authorisation, a
+supervised session is what unblocks them, not another agent pass.
+
+NEW THIS RUN: this session has live Ahrefs MCP tools (site-audit-projects,
+site-audit-issues, site-audit-page-explorer etc.), which prior runs evidently
+did not have, or did not try. Q52/item 6.1 (sitemap duplication) asked Rishi
+to spend two minutes in the Ahrefs UI himself and post back the affected
+sitemap URLs so "the next run takes it from there". Tried to get that data
+directly via the API instead, to remove the need for Rishi's manual step:
+site-audit-projects returned {"error":"Insufficient plan"}. So Ahrefs Site
+Audit data is not reachable from this connector under the current
+subscription tier, regardless of which run tries it - this is a genuine new
+finding (rules out "an agent could have just looked it up"), not a repeat of
+prior non-findings. 6.1 stays [BLOCKED] on Rishi's own two-minute UI check,
+now confirmed as the only route rather than assumed.
+
+Per the Q115 discipline, no unrequested rotation-pool quality pass taken this
+run. Fourteenth consecutive zero-output run today.
+
+INFRASTRUCTURE: node tools/build-audit-status.js run, republished the portal
+status page.
+
+No worklist item ticked, no in-repo file changed other than this entry and
+the Ahrefs-plan finding recorded above. Flagging plainly, because it is now
+the fourteenth identical result today: every remaining open item is blocked
+on Rishi personally, not on more agent effort - either a live Weebly paste, a
+branch push outside agents/audit-backlog, or a direct decision on Q60/Q66/
+Q115-119. Running this task again on the current cadence before any of those
+land will produce run 242 with the same log shape as this one, just larger,
+which is itself part of what Q119 is about. Standing asks unchanged and
+unanswered: Q115 (cadence), Q116-118 (simpleweightloss.co.uk regulatory
+findings, unanswered over three weeks, highest exposure on the backlog),
+Q119 (AGENT_LOG.md size), Q60 (weight loss nav menu architecture) and Q66
+(GBP HTTP/HTTPS duplicate indexing).
+
+Step 9 (commit/push) and step 10 (status page) completed. .agent-lock
+deleted at end.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 240) -
 
 Thirteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1 (useradd ... No space left on device during its own workspace user provisioning, three consecutive identical failures before stopping per the tool's own guidance) - same fault as runs 200-239. Used mcp__Windows-MCP__PowerShell on the real host for git and node, and mcp__claude-in-chrome (read-only) for the browser step.
