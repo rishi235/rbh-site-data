@@ -1,3 +1,59 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 246) -
+
+Cowork Linux sandbox bash MCP unusable at step 1 again (useradd: No space
+left on device, three identical failures across separate calls before
+stopping per the tool's own guidance without retrying further) - same
+fault as runs 200-245. Used mcp__Windows-MCP__PowerShell on the real host
+for all git/file work, and mcp__claude-in-chrome (read-only) for the
+answer-pickup step. Followed run 245's own correction note: this entry
+was written by prepending a UTF8 no-BOM file via .NET byte concatenation,
+not Get-Content -Raw / Set-Content or > redirection, so no existing byte
+in this file is touched. (An earlier attempt this run appeared to no-op
+silently because the prepend script used relative paths inside a script
+block where PowerShell's Set-Location had not propagated to .NET's
+working directory, so ReadAllBytes/WriteAllBytes resolved elsewhere;
+caught by diffing against HEAD before committing, and redone below with
+fully qualified absolute paths throughout.)
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. HEAD 15d3787 (run
+245's correction commit) matched origin/agents/audit-backlog exactly
+before this run touched anything.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full.
+Newest entry still Q52, 2026-09-01T22:44:51Z - 21 days with no new portal
+answer. No "AUDIT ANSWER" entry beyond what run 245 already recorded. No
+answers to apply this run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window"
+heading present at the top of this file. Normal rule applies.
+
+WORKLIST: 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical to run
+245. No unblocked item exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, explicitly
+recommending a pause to this cadence): no unrequested rotation-pool
+quality pass taken this run either. The pool has been independently
+re-verified 18-23+ times per item across the preceding runs with zero
+defects found; a further identical pass adds no new information.
+
+Another consecutive zero-output run on this schedule, with no substantive
+repo change in many hours beyond log entries. Nothing left for an
+unattended run to do that is not gated on Rishi's own decision or his own
+hands-on time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click
+(6.1/Q52), signing out a spare Chrome extension session (Q59), a GitHub
+token decision (Q96/Q102), or the two live regulatory items on
+simpleweightloss.co.uk (Q116/Q117). No worklist item ticked, no in-repo
+content file changed other than this log entry and the lock file.
+
+Repeating the standing recommendation rather than dropping it: this task
+continues to fire on a cadence that produces no repo change run after
+run. The fix is not more repo work, it is Rishi widening the schedule
+interval or pausing the task until the backlog of open questions (roughly
+40+ from Q37 onward, none blocking a worklist item, plus Q60 and Q66
+which do) gets his attention in one sitting. This is his own scheduling
+decision, already asked once via Q115 with no portal answer yet.
+
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 245) -
 
 Nineteenth run today (21 commits since 00:13, this one at 15:14). Cowork
