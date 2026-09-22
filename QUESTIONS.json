@@ -1860,5 +1860,21 @@
     "status": "open",
     "answer": null,
     "note": "Not actioned unilaterally: deleting untracked files or truncating/archiving these two files is explicitly outside an unattended run's authority per this repo's own established convention (AGENT_LOG.md, run 180). Raised as a formal question rather than left as prose, per this task's own step 8, because runs 180-182 all described this same problem in AGENT_LOG.md narrative text without ever creating a QUESTIONS.json entry for it - which is the identical failure this task's step 8 exists to catch. No repo generator, live page or branches.json content is affected either way; this is pure operating hygiene for the worker's own files."
+  },
+  {
+    "id": "Q120",
+    "date": "2026-09-23",
+    "item": "process/infrastructure finding, root cause for Q119's scratch-file half (does not block any worklist item)",
+    "question": "Decision needed: run 258 found the actual mechanism behind Q119's 225+ stray .agent-lock.* files. This unattended session's mount of the repo folder does not support deleting files at all - rm -f, node fs.unlinkSync and git's own internal unlink calls all fail with EPERM on this mount, even on files this session owns with full rwx permissions, while renaming (mv) the same files succeeds every time. That means every prior run that tried to clean up .agent-lock (its own step 11) or clear a git lock has been hitting this same EPERM and silently falling back to renaming the file aside instead of removing it, which is why the debris has a dozen different naming schemes (.cleared-, .released-, .old, .stale, .tmp, .test) rather than one - each run improvised its own workaround. The same EPERM was confirmed inside git itself this run: `git commit` logged 'warning: unable to unlink' for three .git/objects/*/tmp_obj_* files and for .git/HEAD.lock, and still completed, meaning .git/ is accumulating the equivalent debris on every commit, not just the repo root. This is a limitation of the Cowork sandbox's mount of this folder, not of any script, generator or checker in this repo - no in-repo fix can make unlink work here.",
+    "options": [
+      "Treat as environment infrastructure, not a repo defect: raise it with whoever administers the Cowork sandbox / folder mount, since the fix (making delete work on this mount) is outside rbh-site-data entirely. In the meantime, add a .gitignore pattern (.agent-lock.*, .git/*.lock leftovers are already git-internal and untracked by nature) so the untracked debris stops showing up in git status noise, without pretending the files can be removed.",
+      "Change this task's own procedure to stop attempting delete on this mount at all: rename-with-cleanup already happens by accident, so make it deliberate - one single archive subfolder (e.g. .agent-lock-archive/) that every run moves its old lock file into with a consistent name, instead of a dozen ad hoc suffixes at the repo root. Doesn't fix the inability to delete, but turns uncontrolled sprawl into one tidy, git-ignored location.",
+      "Do both: file the mount limitation upstream AND adopt the single-archive-folder convention in the meantime, since the upstream fix (if it happens at all) is not on this task's timeline.",
+      "Leave as is. The debris is harmless to live pages and branches.json, and Q119 already covers the symptom; this just explains the cause without changing what any run does."
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Confirmed by direct test this run: rm -f .agent-lock -> EPERM; node fs.unlinkSync('.agent-lock') -> EPERM (errno -1, code EPERM); rm -f .git/index.lock -> EPERM; mv of the same files succeeded immediately every time. This run renamed its own .agent-lock and an orphaned .git/index.lock aside (using the run number in the filename rather than a generic suffix) rather than leaving them or inventing yet another naming scheme, but did not attempt any bulk cleanup of the existing 225 files, which stays Q119's and Rishi's decision."
   }
 ]
