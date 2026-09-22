@@ -1,4 +1,20 @@
-## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 239) -
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 240) -
+
+Thirteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1 (useradd ... No space left on device during its own workspace user provisioning, three consecutive identical failures before stopping per the tool's own guidance) - same fault as runs 200-239. Used mcp__Windows-MCP__PowerShell on the real host for git and node, and mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/checkout/pull confirmed up to date with origin/agents/audit-backlog, HEAD 6ee9d46 (run 239's correction commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in full via mcp__claude-in-chrome. Newest entry still Q52 (2026-09-01T22:44:51.524Z) - now 21 days with no new portal answer. Cross-checked the two open questions whose notes quote a non-decisive portal reply (Q37, Q43) against the live feed directly rather than relying on the newest-timestamp shortcut: both replies (2026-08-30 and 2026-09-01) are already fully transcribed into their QUESTIONS.json notes and were reconfirmed by the answer-pickup run on 2026-09-16 as not selecting an option, so status correctly stays open on both. No update made; confirms rather than changes prior state. QUESTIONS.json: 119 total, 66 open, unchanged from run 239.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading present at the top of this file. Normal rule applies.
+
+WORKLIST: confirmed by direct count - 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), byte-identical to run 239. No new portal answer landed to unblock any of them. Per the Q115 discipline recent runs have adopted, no unrequested rotation-pool quality pass taken this run, and no repeat of the Q116-118 live recheck (last done by run 231). Thirteenth consecutive zero-output run today.
+
+INFRASTRUCTURE: node tools/build-audit-status.js run, republished the portal status page.
+
+No worklist item ticked, no in-repo file changed other than this entry. Standing asks unchanged and unanswered, flagged again: Q115 (cadence - thirteen identical zero-output runs today against a 30-minute schedule; the case for pausing the schedule or dropping to a weekly heartbeat until the standing questions are answered gets stronger with each identical run), Q116-118 (simpleweightloss.co.uk Wilmslow live-contact, referral-kickback-scheme and privacy-contact-placeholder findings, highest regulatory exposure on the backlog, unanswered for over three weeks), Q119 (AGENT_LOG.md size, now over 7.2MB, needs a one-off cut-off decision before it stops being readable by a single call), Q60 (weight loss nav menu architecture) and Q66 (GBP HTTP/HTTPS duplicate indexing).
+
+Step 9 (commit/push) and step 10 (status page) completed. .agent-lock deleted at end.## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 239) -
 
 Twelfth run today. Cowork Linux sandbox bash MCP still unusable at step 1 (useradd ... No space left on device during its own workspace user provisioning, three consecutive identical failures before stopping per the tool's own guidance) - same fault as runs 200-238. Used mcp__Windows-MCP__PowerShell on the real host for git and node, and mcp__claude-in-chrome (read-only) for the browser step.
 
