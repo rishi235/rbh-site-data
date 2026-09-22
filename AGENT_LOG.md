@@ -1,3 +1,50 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 249) -
+
+Cowork Linux sandbox bash MCP worked normally this run for git status,
+fetch and the branches.json/QUESTIONS.json reads. tools/build-audit-status.js
+still failed in the sandbox with the same ENOENT on its hardcoded
+C:/Dev/rbh-site-data path recorded against Q96, so step 10 was run via
+mcp__Windows-MCP__PowerShell on the real host, as in every recent run.
+Used mcp__claude-in-chrome (read-only) for the answer-pickup step.
+
+LOCK/SYNC: no stale lock and no stale .git\index.lock at start; created
+.agent-lock. HEAD d6ca1ce (run 248's commit) matched origin/agents/audit-backlog
+exactly before this run touched anything.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full.
+Newest entry still Q52, 2026-09-01T22:44:51Z - 21 days become 22, still no
+new portal answer, unchanged from runs 246-248. No answers to apply this run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: independently re-grepped AGENT_WORKLIST.md for unchecked lines
+rather than trusting the previous entry's count: 8 unchecked, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) -
+byte-identical to runs 246-248. Cross-checked QUESTIONS.json: Q8, Q9, Q13,
+Q16 and Q52 are all recorded status "answered" - the [BLOCKED] tag on those
+five items is not an open decision, it is the hands-on action the answer
+calls for (a Weebly paste session, or two minutes in the Ahrefs UI for Q52)
+that this unattended run cannot perform under the read-only browser rule.
+Only Q60 and Q66 are genuinely open decisions. No unblocked item exists to
+take.
+
+Per the standing Q115 discipline (open since 2026-09-19, recommending a
+pause to this cadence, still unanswered) and Q119 (open since 2026-09-20,
+flagging log/worklist file size and 200+ untracked scratch files in the
+repo root, still unanswered): no unrequested rotation-pool quality pass
+taken this run, and no unilateral cleanup of untracked scratch files or
+log archiving attempted. Both remain Rishi's decision, not mine to take.
+
+Fifth consecutive zero-output run on this schedule (245-249). Nothing left
+for an unattended run to do that is not gated on Rishi's own decision or
+hands-on time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click
+(6.1/Q52), signing out a spare Chrome extension session (Q59), a GitHub
+token decision (Q96/Q102), or the two live regulatory items on
+simpleweightloss.co.uk (Q116/Q117). Repeating the standing recommendation
+once more without opening a new duplicate question: Q115 (cadence) and
+Q119 (file hygiene) both still need Rishi's attention before a future run
+on this schedule can do anything other than repeat this same finding.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 248) -
 
 Cowork Linux sandbox bash MCP worked normally this run for git fetch,
