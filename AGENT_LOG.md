@@ -1,3 +1,82 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 258) - zero-output
+
+LOCK/SYNC: no .agent-lock present at start (created one). Found a leftover
+.git/index.lock, timestamped roughly 28 minutes old with no git process
+running in this session. Left it in place per the 1-hour staleness rule
+(not stale yet) rather than deleting on a sub-threshold age. It did not
+block reads or writes this run: git fetch, git status and git push (attempt)
+all completed normally despite its presence, so it is inert debris rather
+than an active lock, most likely orphaned by an interrupted git operation
+in a previous session. Flagging for whoever next finds it still there past
+the 1-hour mark to delete per the standing rule.
+
+Also found, while in the repo root: 225 files matching .agent-lock.*
+(.agent-lock.cleared-<epoch>, .agent-lock.old[-<epoch>],
+.agent-lock.released-<epoch>, plus one .agent-lock-test-probe.scratch-
+cleared-<epoch>), dated between 31 Aug and 20 Sep 2026, all untracked
+(git status shows them as ?? - never committed). Nothing in this task's
+own procedure ever renames .agent-lock to any of these forms; the
+documented lock protocol only ever creates or deletes .agent-lock directly.
+This looks like accumulated debris from repeated lock-contention handling
+across many prior runs rather than anything this run caused or should
+unilaterally clean up - it is the same file-hygiene concern Q119 (open
+since 2026-09-20) already raised about the repo root, just with a larger
+count now visible (225 vs whatever Q119 saw at the time). Not touched.
+No git add of any of them; they remain untracked scratch and are not part
+of this run's commit.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only, single tab, closed immediately after reading).
+Newest entry still Q52, 2026-09-01T22:44:51Z - unchanged from runs 246-257,
+no new portal answer.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly for unchecked lines: 8 found,
+all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5
+Q60, 6.6 Q66) - byte-identical set to runs 245-257. Checked each blocking
+question's status in QUESTIONS.json directly: Q8, Q9, Q13, Q16 and Q52 all
+show status "answered", but every one of the five worklist items they
+block is explicit in its own text that the remaining work is a supervised
+Weebly session, a push to main outside this branch, or (for Q52/6.1) Rishi
+opening the Ahrefs UI himself - none of which an unattended run is
+authorised to do. Q60 and Q66 are themselves still open (Rishi's decision
+not yet given). No unblocked item exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, recommending a
+pause or repurpose of this cadence, still unanswered) and Q119 (open since
+2026-09-20, flagging log/worklist file size and untracked scratch files in
+the repo root, still unanswered): no unrequested rotation-pool quality pass
+taken this run, and no unilateral cleanup attempted. Both remain Rishi's
+decision, consistent with runs 245-257.
+
+Fourteenth consecutive zero-output run on this schedule (245-258). Nothing
+left for an unattended run to do that is not gated on Rishi's own decision
+or hands-on time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click
+(6.1/Q52), a decision on Q60 (weight loss nav architecture) or Q66
+(http/https canonicalisation), a GitHub token decision (Q96/Q102), or the
+two live regulatory items on simpleweightloss.co.uk (Q116/Q117). Repeating
+the standing recommendation: Q115 (cadence), Q119 (file hygiene, now with
+a sharper number behind it: 225 stray .agent-lock.* files) and the new
+index.lock observation above all still need Rishi's attention before this
+schedule produces further output.
+
+PUSH/PUBLISH FAILURE this run, same as run 257: `git push origin
+agents/audit-backlog` failed with "could not read Username for
+'https://github.com': No such device or address" - no credential helper,
+no token in env, no `gh` CLI present in this session's sandbox. This is
+the same gap already recorded open as Q96 and Q102, not a new fault. This
+run's commit (this AGENT_LOG entry only) exists locally on
+agents/audit-backlog alongside run 257's still-unpushed commit (8bdebda) -
+two commits now waiting on origin. The next run with working credentials
+should push both before doing anything else, in commit order, or they will
+be silently superseded. No attempt was made to source or embed a token
+from anywhere; per the hard rules, a missing credential is logged and the
+run stops rather than being worked around. Step 10 (publish via
+build-audit-status.js) also not attempted this run, since it needs the
+same GitHub API access and would fail identically.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 257) - zero-output
 
 LOCK/SYNC: no .agent-lock present at start. Created lock, git fetch/checkout/
@@ -38,6 +117,23 @@ or hands-on time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click
 two live regulatory items on simpleweightloss.co.uk (Q116/Q117). Repeating
 the standing recommendation: Q115 (cadence) and Q119 (file hygiene) both
 still need Rishi's attention before this schedule produces further output.
+
+PUSH/PUBLISH FAILURE this run: `git push origin agents/audit-backlog`
+failed with "could not read Username for 'https://github.com': No such
+device or address" - no credential helper, no token in env, no `gh` CLI
+present in this session's sandbox. This is the same gap already recorded
+open as Q96 and Q102 (git push / gh CLI credentials), not a new fault.
+Unlike earlier runs on the ProDeskAi host (which evidently had working
+credentials, given 256 prior commits reached origin), this session had
+none, so step 9 (push) and step 10 (publish via build-audit-status.js,
+which needs the same GitHub API access) could not be completed. This
+commit (8bdebda, this AGENT_LOG entry only) exists locally on
+agents/audit-backlog in this session's checkout but is NOT on origin as
+of this run - the next run with working credentials should push it before
+doing anything else, or it will be silently superseded. No attempt was
+made to source or embed a token from anywhere; per the hard rules, a
+missing credential is logged and the run stops rather than being worked
+around.
 
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 256) - zero-output
 
