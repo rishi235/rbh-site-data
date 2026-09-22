@@ -1,3 +1,50 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 248) -
+
+Cowork Linux sandbox bash MCP worked normally this run for git fetch,
+checkout and pull (fetch/checkout/pull all succeeded, unlike the
+useradd/no-space fault runs 200-247 recorded), so that fault looks
+intermittent rather than permanent. However tools/build-audit-status.js
+still failed in the sandbox with ENOENT on its hardcoded
+C:/Dev/rbh-site-data path, the same fault Q96 already recorded, so step 10
+was run via mcp__Windows-MCP__PowerShell on the real host as before. Used
+Claude in Chrome (read-only) for the answer-pickup step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. HEAD d0b386c (run
+247's commit) matched origin/agents/audit-backlog exactly before this run
+touched anything.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full.
+Newest entry still Q52, 2026-09-01T22:44:51Z - 21 days with no new portal
+answer, unchanged from runs 246 and 247. No answers to apply this run.
+Cross-checked QUESTIONS.json against every portal answer Q2-Q52: all
+recorded as answered except Q37 and Q43, both correctly left open because
+Rishi's replies to those two were requests for clarification, not
+decisions, as already noted in each question's record.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window"
+heading present at the top of this file. Normal rule applies.
+
+WORKLIST: 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical to runs
+246 and 247. No unblocked item exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, recommending a
+pause to this cadence, still unanswered) and Q119 (open since 2026-09-20,
+flagging log/worklist file size and 200+ untracked scratch files in the
+repo root, still unanswered): no unrequested rotation-pool quality pass
+taken this run, and no unilateral cleanup of untracked scratch files or
+log archiving attempted. Both remain Rishi's decision, not mine to take.
+
+Another consecutive zero-output run on this schedule. Nothing left for an
+unattended run to do that is not gated on Rishi's own decision or hands-on
+time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click (6.1/Q52),
+signing out a spare Chrome extension session (Q59), a GitHub token
+decision (Q96/Q102), or the two live regulatory items on
+simpleweightloss.co.uk (Q116/Q117). Repeating the standing recommendation
+once more without opening a new duplicate question: Q115 (cadence) and
+Q119 (file hygiene) both still need Rishi's attention before a future run
+on this schedule can do anything other than repeat this same finding.
+
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 247) -
 
 Cowork Linux sandbox bash MCP unusable at step 1 again (useradd: No space
