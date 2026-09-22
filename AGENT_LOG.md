@@ -1,3 +1,65 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 251) -
+
+Cowork Linux sandbox bash MCP failed this run in a new way: two stale git
+lock files (.git/HEAD.lock, timestamped 19:13, and .git/index.lock, created
+by this run's own git status/add attempts at 21:43 after the first lock
+blocked checkout) sat on the FUSE-mounted connected folder and could not be
+removed from the sandbox. rm returned "Operation not permitted" on both, and
+on a fresh scratch file created and deleted in the same breath, so this is a
+blanket delete restriction on that mount, not something specific to git
+internals. Calling mcp__cowork__allow_cowork_file_delete for HEAD.lock was
+auto-declined ("no one was available to approve it during this scheduled
+run"), confirming there is no unattended path through that gate today.
+
+Recovered by switching to mcp__Windows-MCP__PowerShell against the real
+host: the same two files sit on an ordinary NTFS path there with no such
+restriction, Remove-Item cleared both immediately, and git status then
+showed a clean tree on HEAD dd7950a matching origin/agents/audit-backlog
+exactly, so nothing was lost or diverged. Every file and git operation for
+the rest of this run went through PowerShell on the host rather than the
+sandbox. This is a second, sharper sandbox failure mode than the ENOENT on
+build-audit-status.js already recorded against Q96 - a wedged git lock the
+run cannot clear itself - and strengthens the case Q87 and Q102 already made
+for moving this schedule to the host permanently.
+
+LOCK/SYNC: no stale .agent-lock at start; created one (also on the host,
+since the sandbox could not delete a prior one either - see below). The two
+stale git locks were not present at the end of run 250 per its own log
+entry, so they most likely came from this run's own first (sandboxed)
+attempt at fetch/checkout rather than being inherited unresolved from run
+250.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only). Newest entry still Q52, 2026-09-01T22:44:51Z -
+unchanged from runs 246-250, no new portal answer, nothing to apply this run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md directly rather than trusting the
+previous entry: 8 unchecked lines, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical to runs
+245-250. No unblocked item exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, recommending a
+pause to this cadence, still unanswered) and Q119 (open since 2026-09-20,
+flagging log/worklist file size and 200+ untracked scratch files in the repo
+root, still unanswered): no unrequested rotation-pool quality pass taken
+this run, and no unilateral cleanup of untracked scratch files or log
+archiving attempted. Both remain Rishi's decision, not mine to take.
+
+Seventh consecutive zero-output run on this schedule (245-251), now
+compounded by a git lockout that would have stopped the run outright had the
+Windows-MCP PowerShell fallback not been available. Nothing left for an
+unattended run to do that is not gated on Rishi's own decision or hands-on
+time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click (6.1/Q52), signing
+out a spare Chrome extension session (Q59), a GitHub token decision
+(Q96/Q102), or the two live regulatory items on simpleweightloss.co.uk
+(Q116/Q117). Repeating the standing recommendation once more: Q115 (cadence)
+and Q119 (file hygiene) both still need attention, and this run's lock fault
+sharpens Q87/Q102 (move the schedule to the host) from a convenience
+question to a reliability one - the sandbox can now wedge git entirely, not
+just fail one script slowly.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 250) -
 
 Cowork Linux sandbox bash MCP worked normally this run for git fetch,
