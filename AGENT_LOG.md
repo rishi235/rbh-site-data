@@ -1,3 +1,42 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 247) -
+
+Cowork Linux sandbox bash MCP unusable at step 1 again (useradd: No space
+left on device, three identical failures across separate calls before
+stopping per the tool's own guidance without retrying further) - same
+fault as runs 200-246. Used mcp__Windows-MCP__PowerShell on the real host
+for all git/file work, and mcp__claude-in-chrome (read-only) for the
+answer-pickup step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. HEAD matched
+origin/agents/audit-backlog exactly before this run touched anything
+(run 246's entry, commit already on origin).
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full.
+Newest entry still Q52, 2026-09-01T22:44:51Z - 21 days with no new portal
+answer, unchanged from run 246. No answers to apply this run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window"
+heading present at the top of this file. Normal rule applies.
+
+WORKLIST: 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical to run
+246. No unblocked item exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, explicitly
+recommending a pause to this cadence, still unanswered) and Q119 (open
+since 2026-09-20, flagging that AGENT_LOG.md/AGENT_WORKLIST.md have grown
+past single-read size and that the repo root carries 200+ untracked
+scratch/probe files, also still unanswered and also not actioned
+unilaterally per its own note): no unrequested rotation-pool quality pass
+taken this run, and no unilateral cleanup of the untracked scratch files
+or log/worklist archiving attempted. Both remain Rishi's decision.
+
+Another consecutive zero-output run on this schedule. Nothing left for an
+unattended run to do that is not gated on Rishi's own decision or
+hands-on time. Flagging once more, without opening a new duplicate
+question, that Q115 (cadence) and Q119 (file hygiene) are both still
+open and both directly govern what future runs on this schedule can
+usefully do.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 246) -
 
 Cowork Linux sandbox bash MCP unusable at step 1 again (useradd: No space
