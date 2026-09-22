@@ -1,3 +1,51 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 255) - zero-output
+
+LOCK/SYNC: no stale .agent-lock at start. git fetch/checkout/pull clean, on
+agents/audit-backlog at 1e0568c (run 254's commit), matching origin exactly.
+Sandbox bash hit the same recurring FUSE-mount lock wedge (.git/index.lock
+left behind, un-removable with "Operation not permitted" from this side),
+same shape runs 251-254 documented, but as in those runs every git command
+(fetch, checkout, pull, status, log) completed correctly regardless, only
+warning on the unlink step. No host PowerShell fallback needed.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only, single tab, closed immediately after reading).
+Newest entry still Q52, 2026-09-01T22:44:51Z - unchanged from runs 246-254,
+no new portal answer.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly for unchecked lines: 8 found,
+all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5
+Q60, 6.6 Q66) - byte-identical set to runs 245-254. Checked each blocking
+question's status in QUESTIONS.json directly rather than trusting the
+worklist prose: Q8, Q9, Q13, Q16 and Q52 all show status "answered", but
+every one of the five worklist items they block is explicit in its own text
+that the remaining work is a supervised Weebly session, a push to main
+outside this branch, or (for Q52/6.1) Rishi opening the Ahrefs UI himself -
+none of which an unattended run is authorised to do. So "answered" here
+means the decision is settled, not that the item is unblockable by this
+run; confirmed genuinely stuck rather than stale-blocked. Q60 and Q66 are
+themselves still open (Rishi's decision not yet given). No unblocked item
+exists to take.
+
+Per the standing Q115 discipline (open since 2026-09-19, recommending a
+pause or repurpose of this cadence, still unanswered) and Q119 (open since
+2026-09-20, flagging log/worklist file size and untracked scratch files in
+the repo root, still unanswered): no unrequested rotation-pool quality pass
+taken this run, and no unilateral cleanup attempted. Both remain Rishi's
+decision, consistent with runs 245-254.
+
+Eleventh consecutive zero-output run on this schedule (245-255). Nothing
+left for an unattended run to do that is not gated on Rishi's own decision
+or hands-on time: a Weebly session (5.3/5.4/5.8), the Ahrefs UI click
+(6.1/Q52), a decision on Q60 (weight loss nav architecture) or Q66
+(http/https canonicalisation), a GitHub token decision (Q96/Q102), or the
+two live regulatory items on simpleweightloss.co.uk (Q116/Q117). Repeating
+the standing recommendation: Q115 (cadence) and Q119 (file hygiene) both
+still need Rishi's attention before this schedule produces further output.
+
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 254) - zero-output
 
 LOCK/SYNC: no stale .agent-lock at start. git fetch/checkout/pull clean, on
