@@ -1,3 +1,46 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 244) -
+
+Eighteenth run today. Sandbox bash MCP unusable at step 1 again (useradd:
+No space left on device, two identical failures, stopped per tool guidance
+without retrying further) - same fault as runs 200-243. Used
+mcp__Windows-MCP__PowerShell on the real host (credential.helper=manager,
+push works) for all git/file work, and mcp__claude-in-chrome (read-only)
+for the answer-pickup step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. HEAD c099522
+(run 243's commit) matched origin/agents/audit-backlog exactly before this
+run touched anything.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full.
+Newest entry still Q52, 2026-09-01T22:44:51Z - 22 days with no new portal
+answer. Checked the two open questions with portal history (Q37, Q43)
+directly: both already carry the same reply text recorded on previous
+runs, nothing newer. No answers to apply this run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation" heading at the top of this
+file. Normal rule applies.
+
+WORKLIST: 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical to run
+243. No unblocked item exists to take.
+
+Per the standing Q115 discipline (still open, 22 days, explicitly
+recommends pausing this cadence): no unrequested rotation-pool quality
+pass taken this run either. The pool has been re-verified 18-23+ times
+per item with zero defects found; taking another pass now would just add
+an eighteenth identical result rather than new information.
+
+Eighteenth consecutive zero-output run today. Nothing left for an
+unattended run to do that is not gated on Rishi's own decision (Q115) or
+his own hands-on time (a Weebly session, the Ahrefs UI click for Q52,
+signing out a spare Chrome extension session for Q59, a GitHub token
+decision for Q96/Q102, or the two live regulatory items Q116/Q117 on
+simpleweightloss.co.uk). No worklist item ticked, no in-repo file changed
+other than this entry. Recommend actually pausing the schedule (or
+dropping to a low-frequency heartbeat) until a batch of QUESTIONS.json is
+worked through - eighteen identical runs in one day is the cost Q115
+already warned about, now realised.
+
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 243) -
 
 Sixteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
