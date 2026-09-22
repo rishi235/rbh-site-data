@@ -1,3 +1,53 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 242) -
+
+Fifteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
+(useradd ... No space left on device during its own workspace user
+provisioning, two consecutive identical failures before stopping per the
+tool's own guidance) - same fault as runs 200-241. Used
+mcp__Windows-MCP__PowerShell on the real host for git, and
+mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/checkout/
+pull confirmed up to date with origin/agents/audit-backlog, HEAD 198dd45
+(run 241's commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in
+full via mcp__claude-in-chrome. Newest entry still Q52 (2026-09-01, 22:44
+UTC) - 22 days with no new portal answer. QUESTIONS.json: 119 total, 66 open,
+unchanged from run 241.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: confirmed by direct grep - 43 checked, 8 unchecked, all 8 still
+BLOCKED (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 241. Nothing has changed to unblock any of them: each
+needs either a live Weebly hand-paste, a push to a branch other than
+agents/audit-backlog, or a Rishi decision recorded in QUESTIONS.json, none of
+which an unattended run is authorised to do.
+
+Per the Q115 discipline established over the last several dozen runs, no
+unrequested rotation-pool quality pass taken this run. The pool has been
+independently re-verified 18 to 23 times per item with zero defects found,
+and Q115 itself (still open, 21 days) already asks whether continuing at this
+cadence is worth it. Adding another re-confirmation pass would just grow this
+file further without moving the backlog.
+
+INFRASTRUCTURE: node tools/build-audit-status.js run, republished the portal
+status page.
+
+No worklist item ticked, no in-repo file changed other than this entry.
+Fifteenth consecutive zero-output run today. Repeating what run 241 flagged,
+because it is now the stronger finding: every remaining open item is blocked
+on Rishi personally, not on more agent effort. Q115, Q116, Q117 and Q118 in
+particular are still open and unactioned - Q116 and Q117 flag live,
+patient-facing and regulatory exposure on simpleweightloss.co.uk (a stale
+Wilmslow booking page after disposal, and a live referral-commission scheme
+touching a prescription-only medicine pathway) that this worker is not
+authorised to act on unattended. Running this task again on the current
+cadence before Q115 (or a batch of the open questions) is answered will
+produce run 243 with the same log shape as this one.
+
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 241) -
 
 Fourteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
