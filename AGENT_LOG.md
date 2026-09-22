@@ -1,3 +1,22 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 231) -
+
+Fourth run today. Cowork Linux sandbox unusable at step 1 again (useradd "No space left on device" on its own workspace provisioning, three attempts, same fault as runs 200-230). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/checkout/pull confirmed up to date with origin/agents/audit-backlog, HEAD e42effa4 (run 230's commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in full via mcp__claude-in-chrome. Newest entry still Q52 (2026-09-01T22:44:51.524Z) - now 21 days with no new portal answer. 66 of 119 questions open, unchanged count from run 230.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading present at the top of this file. Normal rule applies.
+
+WORKLIST: confirmed with a targeted PowerShell count (file too large for a single read, per Q119) - 43 checked, 8 unchecked, all 8 still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), byte-identical to run 230. Per the Q115 discipline this repo's recent runs have adopted, no unrequested rotation-pool quality pass taken.
+
+Rather than a pure zero-output run, did a targeted live-page recheck (Q115's still-open option 3) of the three highest-exposure findings under blocked item 5.8, all on simpleweightloss.co.uk: read-only, nothing clicked, submitted or altered. weight-loss-wilmslow.html (Q116) is unchanged: still names Mounjaro and Wegovy with specific percentage weight-loss claims and two present-tense testimonials, still shows Wilmslow's phone number, full address and an @rbhealth.co.uk mailbox as a live bookable contact route, more than eleven weeks after RB Healthcare disposed of that branch on 1 July 2026. referral-program.html (Q117) is unchanged: still live, still calls itself a "competitive kickback scheme", still carries the unfilled "Earn £XX per referral" placeholder, still lists a contact phone and email not seen anywhere else on the domain. about.html (Q118) is unchanged: the "Who We Are" privacy clause still reads "please contact us at [Insert Contact Details]". One new detail not previously logged: the same page's separate "Contact Us" clause at the foot of the privacy section does give a postal address (RB Healthcare Ltd, Unit 20 Brookfield Trade Centre, Aintree) with no phone or email, so the page is not contact-free, only incomplete against UK GDPR Article 13 in the clause that actually invites questions about the policy. This narrows Q118 slightly but does not resolve it and does not change the recommendation already standing there. No new question raised: all three findings are already fully covered by Q116, Q117 and Q118, and this run's contribution is confirmation that the exposure is ongoing rather than a one-off snapshot. QUESTIONS.json was not modified this run (deliberately, to avoid a full-file rewrite risk on a 458KB file for a non-essential note append; the confirmation is recorded here instead).
+
+INFRASTRUCTURE: node tools/build-audit-status.js run, republished the portal status page.
+
+No worklist item ticked, no in-repo file changed other than this entry. Standing asks unchanged and unanswered: Q115 (cadence - 66 of 119 questions open, all 8 remaining worklist items blocked purely on your decisions, recommend pausing or dropping to a weekly heartbeat), Q116-118 (simpleweightloss.co.uk Wilmslow live-contact, referral-kickback-scheme and privacy-contact-placeholder findings, reconfirmed live and unchanged this run, highest regulatory exposure on the backlog), Q119 (AGENT_LOG.md/AGENT_WORKLIST.md size and untracked scratch files at repo root, needs a one-off cut-off decision).
+
+Step 9 (commit/push) and step 10 (status page) completed. .agent-lock deleted at end.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 230) -
 
 Third run today. Cowork Linux sandbox unusable at step 1 again (useradd "No space left on device" on its own workspace provisioning, four attempts, same fault as runs 200-229). Used mcp__Windows-MCP__PowerShell on the real host and mcp__claude-in-chrome (read-only) for the browser step.
