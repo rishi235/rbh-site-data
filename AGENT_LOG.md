@@ -1,3 +1,84 @@
+## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 243) -
+
+Sixteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
+(useradd ... No space left on device during its own workspace user
+provisioning, three consecutive identical failures before stopping per the
+tool's own guidance) - same fault as runs 200-242. Used
+mcp__Windows-MCP__PowerShell on the real host for git and file checks, and
+mcp__claude-in-chrome (read-only) for the browser step.
+
+LOCK/SYNC: no stale lock at start; created .agent-lock. git fetch/checkout/
+pull confirmed up to date with origin/agents/audit-backlog, HEAD 7aa2a21 (run
+242's commit) unchanged going in.
+
+ANSWER PICKUP (read-only): read https://data.rbhealth.co.uk/api/feedback in
+full via mcp__claude-in-chrome. Newest entry still Q52 (2026-09-01, 22:44
+UTC) - 21 days with no new portal answer this run, 22 days total. No new
+"AUDIT ANSWER" entries beyond what run 242 already recorded.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file. Normal rule applies.
+
+WORKLIST: confirmed by direct PowerShell count and grep - 43 checked, 8
+unchecked, all 8 still BLOCKED (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52,
+6.4/6.5 Q60, 6.6 Q66), byte-identical to run 242. Cross-checked QUESTIONS.json
+directly rather than only trusting the worklist markers: Q8, Q9, Q13, Q16 and
+Q52 are all status "answered" but each answer requires an action outside this
+worker's authority (a Weebly hand-paste, a push to a branch other than
+agents/audit-backlog, or two minutes of Rishi's own time in the Ahrefs web
+UI), so the [BLOCKED] tag on their worklist items is correct and stays. Q60
+and Q66 remain "open", both genuine judgement calls (advertising-page menu
+placement; which of nine GBP listings to repoint) that need Rishi's decision,
+not more repo work.
+
+Per the Q115 discipline established over the last several dozen runs, no
+unrequested rotation-pool quality pass taken this run. The pool has been
+independently re-verified 18 to 23+ times per item with zero defects found,
+and Q115 itself (still open, 22 days) already asks whether continuing at this
+cadence is worth it.
+
+SELF-CORRECTION, recorded because it happened inside this run: this run's
+first attempt to prepend this entry used Get-Content -Raw / Set-Content
+-Encoding utf8 in PowerShell on the whole 7.2MB file, which is the exact
+already-documented corruption pattern further up this log (BOM plus mangled
+byte sequences on the file's historical non-ASCII bytes). Caught immediately
+by diffing HEAD~1 against the resulting commit before pushing (git push had
+not yet been run). Not force-pushed and no fix-forward commit was needed
+either, because the bad commit had never reached origin: git reset --hard
+HEAD~1 discarded it locally, restoring AGENT_LOG.md to the byte-identical
+parent blob. The first attempt at a byte-safe rebuild then hit a second,
+separate fault: reading a freshly git-show-redirected 7.2MB file back into a
+PowerShell byte array within the same tool call intermittently returned 0
+bytes or a stale short read (confirmed by re-running the identical read a
+moment later and getting the correct 7,271,737 bytes), which briefly
+overwrote the working tree copy of this file with only this entry's own 4KB
+before being caught by a follow-up git status/diff showing no tracked
+change and a length check - recovered with a plain git checkout -- AGENT_LOG.md
+before any add or commit touched the bad state, so nothing was ever
+committed or pushed while the file was in that condition. Final method used
+instead: binary concatenation at the OS level (copy /b) of this entry's own
+file plus the untouched tracked file, verified by git hash-object and git
+diff --stat before staging. Reconfirming the existing standing take-away
+already on record further down this file: never run Get-Content -Raw /
+Set-Content -Encoding utf8 against this file's full contents from
+PowerShell, and now also: never read a just-written multi-megabyte file
+back into memory in the same call that wrote it - verify with a separate
+call instead.
+
+INFRASTRUCTURE: node tools/build-audit-status.js could not be run directly
+(same sandbox bash outage as step 1); ran it via mcp__Windows-MCP__PowerShell
+on the host instead, which republished the portal status page.
+
+No worklist item ticked, no in-repo file changed other than this entry.
+Sixteenth consecutive zero-output run today. Every remaining open item is
+blocked on Rishi personally, not on more agent effort. Q115, Q116, Q117 and
+Q118 are still open and unactioned - Q116 and Q117 in particular flag live,
+patient-facing and regulatory exposure on simpleweightloss.co.uk (a stale
+Wilmslow booking page after disposal, and a live referral-commission scheme
+touching a prescription-only medicine pathway) that this worker is not
+authorised to act on unattended. Running this task again on the current
+cadence before Q115 (or a batch of the open questions) is answered will
+produce run 244 with the same log shape as this one.
 ## 2026-09-22 (unattended scheduled run, audit-backlog-worker, run 242) -
 
 Fifteenth run today. Cowork Linux sandbox bash MCP still unusable at step 1
