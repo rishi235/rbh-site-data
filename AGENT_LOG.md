@@ -1,3 +1,65 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 264) - push backlog cleared, twentieth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no stale `.agent-lock` at start. `git fetch`/checkout/pull clean,
+on `agents/audit-backlog`, 9 commits ahead of `origin/agents/audit-backlog`
+(runs 255-263's accumulated unpushed work) and 0 behind - nothing to pull.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only, single tab, closed after reading). Newest
+entry is still Q52, 2026-09-01T22:44:51Z - unchanged since run 246,
+twenty-two runs ago now. No portal answer for Q59, Q60, Q66, Q96, Q102,
+Q115, Q116, Q117, Q118, Q119 or Q120. 67 of 120 questions still open.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 263's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md` directly: 8 unchecked lines, all
+8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60,
+6.6 Q66) - byte-identical set to runs 245-263. No unblocked item exists to
+take. Per the standing Q115/Q119 discipline (both still open, unanswered),
+no unrequested rotation-pool quality pass taken and no unilateral repo
+cleanup attempted.
+
+PUSH - this run's actual output: runs 254-263 had each independently
+re-confirmed that `git push` fails inside this Cowork sandbox shell
+("could not read Username for 'https://github.com'": no credential
+helper, no `GIT_*`/`GITHUB_*` env vars, no `gh` CLI), correctly per
+Q96, but none of them then tried the fallback that runs 200-253 used
+routinely and Q102 already recorded as proven: `mcp__Windows-MCP__PowerShell`
+against the real host working copy at `C:\Dev\rbh-site-data`, which has
+`credential.helper=manager` configured. That is the same physical repo as
+this sandbox's mount (`git rev-parse HEAD` matched exactly, 56455d9), so
+nothing needed re-committing. Ran `git push origin agents/audit-backlog`
+via the host route this run: it succeeded (`0b51162..56455d9
+agents/audit-backlog -> agents/audit-backlog`; PowerShell reported a
+non-zero exit only because it treated git's own progress-to-stderr output
+as an error stream, not because the push failed). `git fetch` afterwards
+confirmed local and origin now match exactly, 0 ahead/0 behind - the nine
+commits from runs 255-263 are live on GitHub for the first time.
+
+STEP 10: also ran `node tools/build-audit-status.js` via the same host
+route (its hardcoded `C:/Dev/rbh-site-data` path works there, unlike the
+sandbox mount runs 258-263 hit `ENOENT` on). Published successfully:
+"Published reports/digital/Digital_Audit_Status.html (43/49 done, 88%)".
+The portal status page is now current for the first time since run 254.
+
+This was not a standing procedural change - Q96/Q102 (whether the
+Windows-MCP host route should become the PRIMARY method for every run,
+rather than a fallback reached for after the sandbox route is confirmed
+broken) remain open and are Rishi's decision, not taken here. This run
+only used the already-established, already-proven fallback for its own
+push and publish steps, which runs 254-263 had stopped doing without
+recorded reason. Recommend whoever answers Q96/Q102 note that the gap
+was not the fallback failing - it simply stopped being tried for four
+days' worth of runs, silently growing an unpushed backlog each time.
+
+No new worklist item unblocked, no new question raised. Standing
+recommendations unchanged and repeated briefly: Q115 (whether to keep
+this cadence running at all - twenty runs now with no worklist item
+completed), Q119/Q120 (repo debris and its EPERM-on-unlink cause), Q59
+(portal answer pickup route, separate from tonight's push fix).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 263) - zero-output, nineteenth consecutive
 
 LOCK/SYNC: no `.agent-lock` present on arrival. Created it normally. `git
