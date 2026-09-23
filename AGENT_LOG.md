@@ -1,4 +1,48 @@
-﻿## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 284) - zero-output, fortieth consecutive run with no worklist item unblocked
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 285) - zero-output, forty-first consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on
+the branch, up to date with origin at 3c3d327 (run 284's commit), 0
+ahead/0 behind. No .git/index.lock present this run.
+
+ANSWER PICKUP: step 3 succeeded again this run. Claude in Chrome (navigate
+then get_page_text against https://data.rbhealth.co.uk/api/feedback)
+returned the full feed cleanly on the first attempt, no Cloudflare Access
+gate. Newest entry was still fb:2026-09-01T22:44:51Z (Q52) - identical to
+runs 283 and 284's reads. Nothing above Q52, so Q53 through Q120 still
+have no portal reply and there was nothing new to apply against any open
+question. This is now the fourth clean pickup in a row (2026-09-19, run
+283, run 284, this run). Added a short update to Q59 noting the streak;
+did not close it, since the underlying dual-sign-in state was not
+inspected this run either.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 284's entry, now
+below this one) before writing this one - no "Standing authorisation"
+heading present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. Re-checked each linked question
+in QUESTIONS.json: Q8, Q9, Q13, Q16 and Q52 remain "answered" but each
+answer still needs either a Weebly hand-paste/edit, a push to
+service-module-phase1 (outside this run's branch authorisation), or Rishi
+reading the Ahrefs UI himself and posting the sitemap URLs (Q52) - none
+performable from an unattended run under the hard rules. Q60 and Q66
+remain "open" with no portal reply. None newly unblocked, so no item was
+taken this run.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115, Q119
+and Q120 all remain open with no new information this run.
+
+GIT WRITE: this entry and the run were committed and pushed via
+Windows-MCP PowerShell against the real C:\Dev\rbh-site-data working copy,
+per the established fallback (Q96/Q102 remain open on making this the
+documented primary route rather than a manual fallback). Status page
+published the same way, via node tools\build-audit-status.js.
+
+FILES CHANGED: AGENT_LOG.md, QUESTIONS.json (Q59 note only).
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 284) - zero-output, fortieth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
 git fetch/checkout/pull on agents/audit-backlog came back clean, already on
