@@ -1,3 +1,94 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 261) - partial: run 260's commit landed, still no pushable output
+
+LOCK/SYNC: found .agent-lock at 2026-09-23T02:19:27Z, 52 minutes old against
+this run's start of 03:12 - past the 45-minute threshold, so treated as
+stale per the runbook (no 45-minute wait needed this time, unlike runs
+258-260's extra caution around the .git lock, because the runbook's own
+threshold for .agent-lock is 45 minutes flat, not 60). `rm -f` and
+`python3 os.remove` both failed EPERM as expected (Q120). Overwrote in
+place via shell redirection, which this mount permits, same workaround as
+every run since 258.
+
+`.git/index.lock` was also present (dated 02:14:58Z, ~58 minutes old, no
+git process running per `ps aux`). `rm`/`python3` failed EPERM as usual,
+but `mv` to a renamed path succeeded on the first attempt this run - no
+extended wait was needed before the rename worked, unlike run 260's
+experience. `git fetch`, `git status` and `git add` then worked normally.
+
+FOUND ON ARRIVAL: run 260 had left AGENT_LOG.md with its full write-up
+staged/modified but never committed (git commit had failed EPERM on
+`index.lock`/`HEAD.lock` repeatedly, as run 260's own entry below
+describes). This run re-attempted the commit rather than skip it, per run
+260's own instruction to the next run. It took two more rename-and-retry
+cycles (`index.lock` recreated by `git add`, then `HEAD.lock` recreated by
+the first `git commit` attempt) before a commit went through cleanly:
+commit 780a3cb, "run 260/261: zero-output, log intermittent EPERM-on-unlink
+and uncommitted-state finding". Confirms run 260's own conclusion: the
+EPERM-on-unlink is intermittent per-file and per-attempt, not a fixed
+age-based thing that can be waited out on a timer - persistence (rename,
+retry, rename again) got through this time where run 260's single retry
+did not.
+
+Also found, and worth flagging separately rather than folding into Q120
+silently: `.git/objects/` now holds 2,258 leftover `tmp_obj_*` files, debris
+from every commit attempt across recent runs that failed after git had
+already written its temp object but before it could rename/link it into
+place. Not fixed this run (harmless to git itself, which ignores them, and
+deleting 2,258 files one by one via rename-workarounds is well outside a
+single run's budget) but noted here and left for whoever answers Q119/Q120,
+since the true count is far larger than the `.agent-lock.*` pileup Q119 was
+originally raised against.
+
+PUSH: `git push origin agents/audit-backlog` failed with "could not read
+Username for 'https://github.com': No such device or address" - identical
+to runs 259-260. Checked for a way round it this run rather than assuming:
+no `credential.helper` configured, no `GIT_*`/`GITHUB_*` env vars set, no
+`gh` CLI installed. Confirms Q96/Q102 again - this Cowork sandbox session
+has no GitHub write credential at all, distinct from whatever lets the
+ProDeskAi host push. Commit 780a3cb (run 260's log entry) and this run's
+own commit (below) remain local-only, six commits now ahead of origin.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback via Claude in
+Chrome (read-only, single tab, closed after reading). Newest entry is still
+Q52 (2026-09-01T22:44:51Z) - unchanged since run 246. No portal answer
+exists for Q59, Q60, Q66, Q96, Q102, Q115, Q119 or Q120, nor for any
+question above Q52 raised since. All remain "open" in QUESTIONS.json.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+at the top of this file. Normal rule applies.
+
+WORKLIST: same 8 unchecked lines as runs 245-260 (5.3 Q8, 5.4 Q9, 5.5 Q13,
+5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), all still [BLOCKED] on a
+supervised Weebly session, a main-branch merge/push, or Rishi's own click
+in Ahrefs - none available to an unattended run. No unblocked item exists
+to take. Continuing the standing practice from runs 245-260 of not taking
+an unrequested rotation-pool quality pass while Q115 (whether to keep this
+cadence running at all) sits open - seventeenth consecutive run with no
+worklist item completed.
+
+STEP 10: ran `node tools/build-audit-status.js` anyway per the runbook
+("run it even if the work item failed"). Confirmed runs 258-260's finding
+unchanged: it fails immediately with `ENOENT: .../C:/Dev/rbh-site-data/AGENT_WORKLIST.md`
+because the script hardcodes a Windows path that does not exist on this
+Cowork sandbox mount (real path here is
+/sessions/.../mnt/rbh-site-data/). Not fixed this run - the fix (making the
+script resolve its own repo root, e.g. via `__dirname` or `git rev-parse
+--show-toplevel`, instead of a hardcoded absolute path) is a real code
+change to a script this run's remit does not otherwise touch, and doing it
+without a slot on today's one-item budget would be scope creep. Flagging
+for whoever next has a free worklist slot or answers Q119/Q120, since it
+means the portal status page has not reflected reality since at least run
+258.
+
+Standing recommendations unchanged and repeated for the fourth run running:
+Q115 (pause or repurpose this cadence while every remaining item needs
+hands-on time), Q119/Q120 (file/object debris and its EPERM-on-unlink
+cause, now confirmed worse than previously recorded), and Q96/Q102 (no
+git push credential in this session). No new question raised this run
+beyond sharpening Q119's scope (the 2,258 tmp_obj count) in this entry;
+QUESTIONS.json itself was not edited, since none of this changes any
+option or recommendation already on file there.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 260) - zero-output
 
 LOCK/SYNC: found .agent-lock at start dated 2026-09-23T00:12:21Z (run 259's
