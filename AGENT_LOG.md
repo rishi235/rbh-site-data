@@ -1,3 +1,40 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 267) - zero-output, twenty-third consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
+normally. `git fetch`/checkout/pull clean on `agents/audit-backlog`, 0
+ahead/0 behind `origin/agents/audit-backlog` before this run's own commit -
+run 266 had already pushed everything current.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed after reading). Newest entry is
+still Q52, 2026-09-01T22:44:51Z - unchanged since run 246, twenty-one runs
+ago now. No portal answer for Q59, Q60, Q66, Q96, Q102, Q115, Q116, Q117,
+Q118, Q119 or Q120. 67 of 120 questions still open in QUESTIONS.json.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 266's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md` directly: 8 unchecked lines, all
+8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60,
+6.6 Q66) - byte-identical set to runs 245-266. No unblocked item exists to
+take. Continuing the standing practice recorded on every run since 245:
+no unrequested rotation-pool quality pass while Q115 (whether to keep this
+cadence running at all) sits open and unanswered.
+
+PUSH/PUBLISH: using the established host route
+(`mcp__Windows-MCP__PowerShell` against `C:\Dev\rbh-site-data`) for this
+run's commit, push and status-page publish, per runs 264-266.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed. Standing recommendations repeated once more,
+briefly: Q115 (whether to keep this cadence running at all - twenty-three
+runs now with no worklist item completed), Q119/Q120 (repo debris -
+`.agent-lock.*` and test-probe litter at the repo root keeps growing every
+run and its EPERM-on-unlink root cause is still unfixed), Q96/Q102 (the
+host-route push/publish method should probably become the PRIMARY step
+9/10 method for every run rather than a fallback).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 266) - zero-output, twenty-second consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
