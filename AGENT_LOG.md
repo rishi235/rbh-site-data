@@ -1,3 +1,59 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 265) - zero-output, twenty-first consecutive run with no worklist item unblocked; confirms run 264's push/publish fix held
+
+LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
+normally. `git fetch`/checkout/pull clean on `agents/audit-backlog`, 0
+ahead/0 behind `origin/agents/audit-backlog` - run 264's push already
+landed all of runs 255-263's backlog, nothing left to pull or push.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome (read-only, single tab, closed after reading). Newest
+entry is still Q52, 2026-09-01T22:44:51Z - unchanged since run 246,
+nineteen runs ago. No portal answer for Q59, Q60, Q66, Q96, Q102, Q115,
+Q116, Q117, Q118, Q119, Q120 or anything raised since. 67 of 120
+questions still open in QUESTIONS.json.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 264's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md` directly: 8 unchecked lines, all
+8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60,
+6.6 Q66) - byte-identical set to runs 245-264. No unblocked item exists to
+take. Continuing the standing practice recorded on every run since 245:
+no unrequested rotation-pool quality pass while Q115 (whether to keep this
+cadence running at all) sits open and unanswered.
+
+PUSH/PUBLISH - checked whether run 264's fix actually held rather than
+assuming it: `git push origin agents/audit-backlog` from this session's
+own sandbox shell still fails identically to every prior run ("could not
+read Username for 'https://github.com'"), confirming Q96 is unchanged -
+the sandbox route has no credential and none is expected to appear on its
+own. Used the same host route run 264 established:
+`mcp__Windows-MCP__PowerShell` against `C:\Dev\rbh-site-data` (confirmed
+the same physical repo again - `git rev-parse HEAD` there matched this
+session's HEAD, `72942ea`, exactly). `git status -sb` on the host route
+showed 0 ahead/0 behind, so there was nothing new to push this run before
+this log entry. Ran `node tools/build-audit-status.js` via the host route
+(the sandbox route still hits the same hardcoded-path `ENOENT` recorded on
+runs 258-263, unchanged, not re-fixed here as it remains out of a
+zero-output run's one-item budget): republished successfully, unchanged
+at "43/49 done, 88%" since nothing in the worklist moved. This confirms
+run 264's finding was a real, durable fix and not a one-off - the host
+route works on demand, not only when reached for after a long unpushed
+backlog had built up.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed. Standing recommendations repeated once more,
+briefly: Q115 (whether to keep this cadence running at all - twenty-one
+runs now with no worklist item completed), Q119/Q120 (repo debris - the
+`.agent-lock.*` and test-probe litter at the repo root keeps growing every
+run and its EPERM-on-unlink root cause is still unfixed), Q96/Q102 (the
+host-route push/publish method should probably become the PRIMARY step
+9/10 method for every run rather than a fallback nobody defaults to,
+given it silently stopped being used for four days across runs 254-263).
+This run used it as primary from the start rather than trying the sandbox
+route first and falling back, per the recommendation logged in run 264.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 264) - push backlog cleared, twentieth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no stale `.agent-lock` at start. `git fetch`/checkout/pull clean,
