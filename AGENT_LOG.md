@@ -1,4 +1,74 @@
-﻿## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 282) - zero-output, thirty-eighth consecutive run with no worklist item unblocked
+﻿## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 283) - zero-output, thirty-ninth consecutive run with no worklist item unblocked; git-lock EPERM mechanism confirmed on .git/*.lock as well as .agent-lock.*
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch on
+agents/audit-backlog came back clean, but `git checkout agents/audit-backlog`
+initially failed: "unable to create '.git/HEAD.lock': File exists" - a stray
+HEAD.lock about 29 minutes old was present, and `git status` then produced its
+own fresh .git/index.lock and warned it could not unlink it. Both lock files
+were owned by this session (same uid, rwx permissions) yet `rm -f` returned
+"Operation not permitted" on both - the exact EPERM-on-delete mechanism Q120
+already documented for .agent-lock.*, now confirmed to extend to git's own
+internal lock files too, not just the convenience lock file. `mv` succeeded on
+both (renamed aside with a .bak suffix), which cleared them immediately: git
+checkout and pull then ran clean, confirming HEAD already matched
+origin/agents/audit-backlog at 68db21b (run 282's commit), 0 ahead/0 behind.
+Not reopening Q120 for this - it is already open with the correct diagnosis -
+just recording that the fault surfaces on .git/*.lock as well as
+.agent-lock.*, in case that widens whatever fix Rishi eventually picks.
+
+ANSWER PICKUP: step 3 succeeded this run. Claude in Chrome (navigate then
+get_page_text against https://data.rbhealth.co.uk/api/feedback) returned the
+full feed cleanly on the first attempt - no Cloudflare Access gate, no
+duplicate-session refusal, the failure mode every run from 245 to 282 hit.
+50 entries came back, fb:2026-08-04T20:32:43Z through fb:2026-09-01T22:44:51Z
+(Q52). Nothing above Q52 - Q53 through Q120 still have no portal reply, so
+there was nothing new to apply against any open question. Added a short
+corroborating note to Q59 (this is now the second run, after 2026-09-19,
+where pickup has worked cleanly) without changing its status - two clean runs
+is a pattern worth watching, not proof the dual-sign-in fault is gone.
+
+Also re-tried the Ahrefs API route for Q52/6.1 directly (site-audit-projects,
+no arguments): still returns {"error": "Insufficient plan"}, matching run
+222's finding. Confirms the blocker is Ahrefs plan tier, not tooling, and 6.1
+stays exactly where Q52's answer left it - it needs Rishi to open Site
+Audit's "Page in multiple sitemaps" issue in the browser himself and post the
+sitemap URLs it names.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 282's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. Checked each linked question in
+QUESTIONS.json directly: Q8, Q9, Q13, Q16 and Q52 are "answered" but each
+answer still needs either a Weebly hand-paste/edit, a push to
+service-module-phase1 (outside this run's branch authorisation), or Rishi
+reading the Ahrefs UI himself - none performable from an unattended run under
+the hard rules. Q60 and Q66 remain "open" with no portal reply. None newly
+unblocked, so no item was taken this run.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115's reasoning
+(the 36-item rotation pool has been re-verified many times with zero new
+defects; the real bottleneck is Rishi's 67 open decisions, not more
+unattended verification) still holds, and this run did not manufacture a
+pass on an already-exhausted pool. Q119 and Q120 (infrastructure/process
+findings) also remain open with no new information beyond the lock-file note
+above.
+
+GIT WRITE: confirmed again this Cowork sandbox shell has no git push
+credential (`git push --dry-run` returns "could not read Username for
+'https://github.com'"), consistent with Q96/Q102. Per the fallback recent
+runs have actually been using, this entry and the QUESTIONS.json note were
+committed and pushed via Windows-MCP PowerShell against the real
+C:\Dev\rbh-site-data working copy, where `gh` is authenticated as rishi235.
+Status page published the same way, via `node tools\build-audit-status.js`.
+
+FILES CHANGED: AGENT_LOG.md, QUESTIONS.json (Q59 note only, one clause
+appended).
+
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 282) - zero-output, thirty-eighth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (sandbox mount side). Created it.
 git fetch/checkout/pull on agents/audit-backlog came back clean, already on
