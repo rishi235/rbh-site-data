@@ -1,4 +1,49 @@
-﻿## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 281) - zero-output, thirty-seventh consecutive run with no worklist item unblocked
+﻿## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 282) - zero-output, thirty-eighth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start (sandbox mount side). Created it.
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on
+the branch, up to date with origin at fc81452 (run 281's commit), 0
+ahead/0 behind. No .git/index.lock present this run.
+
+ANSWER PICKUP: attempted step 3 via the built-in browser (preview_start
+then get_page_text) against https://data.rbhealth.co.uk/api/feedback. The
+call landed on the same Cloudflare Access gate
+(rbhealth.cloudflareaccess.com) rather than the feedback JSON, and the
+tool refused to read it without a request_access grant. Per the task's
+own rule - if the fetch fails or returns an Access login page, log that
+pickup was unavailable and carry on, do not try any other route and never
+attempt to log in - no request_access call was made and no other route
+was tried. Tab closed immediately after. Pickup unavailable this run.
+QUESTIONS.json still shows 120 total, 67 open, same counts as runs
+277-281.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 281's entry, now
+below this one) before writing this one - no "Standing authorisation"
+heading present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. Checked each linked question in
+QUESTIONS.json directly: Q8, Q9, Q13, Q16 and Q52 are "answered" but each
+answer still needs either a Weebly hand-paste/edit, a push to
+service-module-phase1 (outside this run's branch authorisation), or Rishi
+reading the Ahrefs UI himself - none performable from an unattended run
+under the hard rules. Q60 and Q66 remain "open" with no portal reply. None
+newly unblocked, so no item was taken this run.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115
+(2026-09-19, still open, recommended option "pause or drop cadence until
+a batch of the 67 open questions is worked through") argues the 36-item
+rotation pool has been re-verified many times with zero new defects and
+that the real bottleneck is Rishi's 67 open decisions, not more unattended
+verification. That reasoning still holds; this run did not manufacture a
+pass on an already-exhausted pool. Q119 and Q120 (infrastructure/process
+findings) also remain open with no new information this run.
+
+FILES CHANGED: AGENT_LOG.md only.
+
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 281) - zero-output, thirty-seventh consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (sandbox mount side). Created it
 (timestamp 1790174548). git fetch/checkout/pull on agents/audit-backlog came
