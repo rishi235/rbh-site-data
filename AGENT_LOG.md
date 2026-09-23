@@ -1,3 +1,65 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 275) - zero-output, thirty-first consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start (sandbox mount side this run).
+Created it. git fetch/checkout/pull on agents/audit-backlog came back clean,
+already on the branch, up to date with origin at 73f008a, 0 ahead/0 behind.
+No stale .git/index.lock found this run (none of the searched .git paths held
+one still owned by a live process; the dozen-plus renamed .cleared-/.old
+artefacts from the Q120 EPERM pattern are pre-existing and left untouched).
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude in
+Chrome (read-only, single tab, opened then closed immediately after reading).
+Newest entry is still Q52, 2026-09-01T22:44:51.524Z - unchanged since run 246,
+now twenty-nine days running. Cross-checked QUESTIONS.json directly for the
+seven questions tied to the eight blocked worklist items (Q8, Q9, Q13, Q16,
+Q52, Q60, Q66): Q8, Q9, Q13, Q16 and Q52 remain "answered", each answer still
+requiring either a Weebly hand-paste/edit or Rishi reading the Ahrefs UI
+himself, neither of which this run can perform (browser access is read-only
+per the hard rules). Q60 and Q66 remain "open" with no portal reply of any
+kind. 120 total questions in QUESTIONS.json, 67 still open, same counts as
+run 274.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 274's entry) before
+writing this one - no "Standing authorisation" heading present. Normal rule
+applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. Re-read each blocking reason in
+full: 5.3/5.4 need a Weebly hand-paste this run cannot perform; 5.5 needs a
+push to service-module-phase1, a branch outside this run's authorisation,
+plus a Weebly re-pin; 5.8 is blocked on the still-open Q22 choice-of-fix
+decision and on Weebly access regardless; 6.1's answer (Q52) asks Rishi to
+read one Ahrefs issue detail page himself and post the sitemap filenames
+back, which only he can do; 6.4/6.5 and 6.6 are open architecture/GBP
+decisions with no answer yet. None newly unblocked, so no item was taken
+this run.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Re-read Q115 in
+full this run rather than taking the prior summary on trust: it explicitly
+recommends pausing the scheduled cadence (or dropping to a weekly heartbeat)
+until a batch of the 67 open questions has been worked through, on the
+grounds that the 36-item rotation pool has now been independently
+re-verified 18 to 23 times each with zero new defects, and that continuing
+to run at the current frequency mostly regenerates confirmation of an
+already-clean state while growing AGENT_LOG.md and QUESTIONS.json. That
+reasoning still holds and nothing in this run's evidence weakens it, so the
+same restraint was applied again rather than manufacturing a thirty-seventh
+pass on the same pool.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed. Standing recommendations repeated unchanged:
+Q115 (thirty-one runs now with no worklist item completed), Q60/Q66/Q22
+(open architecture and GBP decisions), and the supervised Weebly session
+plus five minutes in the Ahrefs UI for Q52 as the single largest lever to
+unblock this backlog. Given Q115 is now four days old and unanswered while
+the worker keeps running unattended on schedule, the practical
+recommendation is unchanged from run 245 onward: a short human pass through
+QUESTIONS.json's open items (starting with Q115 itself, since answering it
+either restores real scope to these runs or stops them consuming runs for
+no gain) would do more for this backlog than any further unattended run can.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 274) - zero-output, thirtieth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (sandbox mount side this run).
