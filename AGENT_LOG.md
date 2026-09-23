@@ -1,3 +1,55 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 294) - zero-output, fiftieth consecutive run with no worklist item unblocked; run 293's stranded push recovered
+
+LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on
+the branch, up to date with origin/agents/audit-backlog at run 292's commit
+224b53c (origin had not yet seen run 293's two commits e9a4431/a2ca4ef,
+since run 293 could not push from the sandbox - see below). No stray
+.git/index.lock encountered this run.
+
+PUSH RECOVERY: repeated run 293's own push attempt from the sandbox shell
+first, to confirm the gap was still live rather than assuming it - same
+result, "fatal: could not read Username for `https://github.com`: No such
+device or address", no credential helper, no GITHUB_TOKEN, no gh CLI. Per
+the standing workaround from Q96/Q102 (route git writes through
+mcp__Windows-MCP__PowerShell against the real C:\Dev\rbh-site-data working
+copy, which shares the same disk as this sandbox mount and already has a
+working credential.helper=manager), pushed from there instead: git push
+origin agents/audit-backlog succeeded cleanly with no prompt, taking run
+293's two stranded local-only commits (e9a4431, a2ca4ef) to
+origin/agents/audit-backlog. Then ran node tools/build-audit-status.js from
+the same host session, which published reports/digital/Digital_Audit_Status.html
+(43/49 done, 88%) covering run 293's state - both of run 293's undone steps
+(9's push and step 10's publish) are now complete, one run late.
+
+ANSWER PICKUP: step 3 succeeded on the first attempt (Claude in Chrome,
+navigate then get_page_text against https://data.rbhealth.co.uk/api/feedback),
+no Cloudflare Access gate. Newest entry is still fb:2026-09-01T22:44:51.524Z
+(Q52), identical to every read since 2026-09-19. Nothing above Q52, so Q53
+through Q120 still have no portal reply and there was nothing new to apply
+against any open question.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 293's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. None newly unblocked, so no item
+was taken this run. QUESTIONS.json: 120 total, 67 open, unchanged from run
+293.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115, Q119 and
+Q120 all remain open with no new information this run. The push-credential
+gap itself (Q96/Q102) also remains open and, on the evidence of run 293 and
+this run, is not self-resolving - the sandbox shell has never once been able
+to push in any run checked, and the Windows-MCP route has worked every time
+it has been tried. Not changing the task's own standing procedure
+unilaterally (that is explicitly Rishi's call per Q102), but flagging again
+that a run which skips the Windows-MCP fallback, as run 293 did, leaves
+commits stranded until the next run happens to try it.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 293) - zero-output, forty-ninth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
