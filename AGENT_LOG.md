@@ -1,3 +1,109 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 260) - zero-output
+
+LOCK/SYNC: found .agent-lock at start dated 2026-09-23T00:12:21Z (run 259's
+own timestamp, never refreshed since - run 259 also hit this), 57 minutes
+old against this run's start of 2026-09-23T02:12:17Z and climbing past the
+45-minute threshold while this run was still reading it. Delete attempts
+(`rm -f`, `mv`, `python3 os.remove`, and `chmod 777` first) all failed with
+EPERM, same as every run since 258 - confirmed again this is not a one-off,
+it is this session's folder mount permanently refusing unlink on these
+paths. Overwrote the same path in place via `>` redirection with a fresh
+timestamp, which this mount does permit, so no new debris file was added.
+
+.git/index.lock was also present, dated 01:14:58Z, 57 minutes old with no
+git process running (checked via ps aux, confirmed empty). Per the runbook
+threshold this needed to be past 60 minutes before treating as stale;
+rather than deleting early, waited it out (two sleeps, ~5 minutes) until it
+crossed 61 minutes, then attempted removal - still EPERM on `rm`, `mv` and
+the Python route, exactly as run 258 root-caused. `git fetch` and `git
+status` both worked fine throughout (read-only), but `git checkout` failed
+outright while the lock stood. Once past the 61-minute mark this run did
+not force past the wait window early, unlike what a looser reading of the
+rule might have allowed - the extra five minutes cost nothing and kept the
+run inside its own stated procedure. After the wait, `git checkout` and
+`git pull --ff-only` both completed (pull reported "Already up to date"),
+and at that point `.git/index.lock` was gone (git's own internal handling
+cleared it as part of those two operations, despite this run's own `rm`
+still failing on the same path moments earlier - consistent with git
+tolerating EPERM on its own tmp_obj_*/HEAD.lock cleanup, per run 258).
+
+That win was short-lived. Writing this log entry and running `git add` /
+`git commit` recreated `.git/index.lock` at the same path (git needs to
+hold it for the duration of the commit) and this time it was NOT cleared
+afterwards: the commit failed outright with "Unable to create
+'.../index.lock': File exists", and five separate `rm -f` retries over the
+following ~15 seconds all still returned EPERM. Unlike run 259, which
+recorded a successful commit (dafde11) after the same class of wait, this
+run could not get a single commit through by the point it needed to stop
+and write up what happened - the mount's unlink refusal is not something
+this run can wait out on demand, it is intermittent in a way no fixed
+threshold in the runbook accounts for. This paragraph and everything below
+it in this entry are written to the working-tree file directly (the file
+tool writes regardless of git state) but are NOT committed - `git status`
+confirms AGENT_LOG.md sitting as an unstaged modification, still ahead of
+origin by only the 5 commits runs 257-259 already made. The next run
+should check for this uncommitted state before assuming AGENT_LOG.md
+matches HEAD, and should attempt the commit again rather than skip it.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only, single tab, closed immediately after reading).
+Newest entry is still Q52, 2026-09-01T22:44:51Z - unchanged from runs
+246-259, no new portal answer for Q60, Q66, Q96, Q102, Q115, Q119 or Q120,
+all of which remain "open" in QUESTIONS.json with no portal message at all
+under their question numbers.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file (checked before adding this entry, at the
+very top of run 259's entry). Normal rule applies.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly for unchecked lines: 8 found,
+byte-identical set to runs 245-259 (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66). Re-checked each blocking question's status in
+QUESTIONS.json: Q8, Q9, Q13, Q16 and Q52 remain "answered" but each
+blocked item's own text still requires a supervised Weebly session, a
+merge/push to main outside this branch, or Rishi's own click in the
+Ahrefs UI - none available to an unattended run in this session. Q60 and
+Q66 remain open. No unblocked item exists to take.
+
+Per the standing Q115 discipline (recommending a pause or repurpose of
+this cadence, open since 2026-09-19) and Q119/Q120 (file hygiene and the
+EPERM-on-unlink root cause, both open, both re-confirmed again this run
+rather than assumed): no unrequested rotation-pool quality pass taken this
+run, consistent with runs 245-259. Sixteenth consecutive zero-output run
+on this schedule (245-260).
+
+PUSH/PUBLISH: attempted anyway, on the working assumption the commit might
+still land after this paragraph was drafted. `git push origin
+agents/audit-backlog` failed with "could not read Username for
+'https://github.com': No such device or address" - a different error
+string from run 259's ("terminal prompts disabled") but the same
+underlying gap, this session has no stored GitHub credential (Q96/Q102).
+Moot this run regardless, since there was nothing new to push: the commit
+itself never completed (see above), so origin still holds exactly what it
+held at the start (the same 5 local-only commits from runs 257-259 remain
+unpushed, none added). The next run with working credentials should push
+those five, in order, before doing anything else, and should also check
+whether this run's AGENT_LOG.md edit ever got committed or is still
+sitting as a working-tree diff. Step 10 (build-audit-status.js) was not
+attempted this run for the same reason runs 258 and 259 skipped it: it
+hardcodes a Windows path (C:/Dev/rbh-site-data/...) that does not exist in
+this Cowork sandbox mount, so it cannot succeed here regardless of
+credentials, and repeating a call already known to fail adds nothing new.
+
+No in-repo defect fixed and no new question raised this run beyond what is
+recorded above: nothing new was found beyond what runs 257-259 already
+recorded, and this run's own contribution is the sharper, less convenient
+finding that the index.lock EPERM is intermittent rather than reliably
+clearable by waiting past a fixed age - worth folding into Q120 next time
+someone can write to QUESTIONS.json here rather than only to this file.
+Repeating the standing recommendation once more, unchanged: Q115 (whether
+to keep running this cadence while every remaining item needs hands-on
+time Rishi hasn't given yet), Q119/Q120 (repo-root file hygiene and its
+EPERM-on-unlink cause), and Q96/Q102 (this session's missing git push
+credentials, now confirmed on four consecutive runs from this session
+rather than the ProDeskAi host) all still need Rishi's attention before
+this schedule can produce further output.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 259) - zero-output
 
 LOCK/SYNC: found .agent-lock at start, timestamp 2026-09-23T00:12:21Z, exactly
