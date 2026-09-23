@@ -1,3 +1,54 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 262) - zero-output, eighteenth consecutive
+
+LOCK/SYNC: no `.agent-lock` present on arrival (clean start, unlike the last
+several runs). No `.git/index.lock` either. Created the lock normally, no
+EPERM workaround needed this run. `git fetch` clean. Local branch sits 7
+commits ahead of `origin/agents/audit-backlog` (runs 255-261's unpushed
+work); nothing to pull.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed after reading). Newest entry is
+still Q52, 2026-09-01T22:44:51Z - unchanged since run 246, seventeen runs
+ago now. No portal answer for any of Q59, Q60, Q66, Q96, Q102, Q115,
+Q119, Q120 or anything raised since. All remain "open" in QUESTIONS.json.
+
+AUTONOMOUS WINDOW: checked the top of this file before adding this entry
+(i.e. what was run 261's top line) - no "Standing authorisation" heading.
+Normal rule applies, no autonomous decisions taken.
+
+WORKLIST: same 8 unchecked lines as runs 245-261 (5.3 Q8, 5.4 Q9, 5.5 Q13,
+5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), all still [BLOCKED] on a supervised
+Weebly session, a main-branch merge/push, or Rishi's own click in Ahrefs -
+none available to an unattended run. Re-verified 6.1/Q52 specifically since
+this session has the Ahrefs MCP connector live: called `site-audit-projects`
+with no arguments, same "Insufficient plan" error run 222 already recorded -
+confirms the blocker is still the Ahrefs subscription tier, not a tooling
+gap, and nothing has changed since Q52 was marked answered-but-still-needs-
+Rishi's-two-minutes. Continuing the standing practice from runs 245-261 of
+not taking an unrequested rotation-pool quality pass while Q115 (whether to
+keep this cadence running at all) sits open - eighteenth consecutive run
+with no worklist item completed.
+
+PUSH: `git push origin agents/audit-backlog` failed identically to runs
+259-261: "could not read Username for 'https://github.com': No such device
+or address". No credential.helper, no GIT_*/GITHUB_* env vars, no `gh` CLI.
+Confirms Q96/Q102 again. This run's commit (below) makes local 8 commits
+ahead of origin.
+
+STEP 10: ran `node tools/build-audit-status.js` per the runbook. Same
+failure as runs 258-261: `ENOENT` on the hardcoded Windows path
+`C:/Dev/rbh-site-data/AGENT_WORKLIST.md`, which does not exist on this
+Cowork sandbox mount. Not fixed this run for the same reason as before -
+a real generator-script change is outside a zero-output run's one-item
+budget and would be scope creep without a proper worklist slot.
+
+No new question raised, no existing question's content changed - this run
+found nothing that shifts any option or recommendation already on file.
+Standing recommendations repeated once more, briefly rather than at
+run 261's length since nothing about them has moved: Q115 (pause/repurpose
+the cadence), Q119/Q120 (repo debris and its EPERM-on-unlink cause), Q96/
+Q102 (no git push credential in this session).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 261) - partial: run 260's commit landed, still no pushable output
 
 LOCK/SYNC: found .agent-lock at 2026-09-23T02:19:27Z, 52 minutes old against
