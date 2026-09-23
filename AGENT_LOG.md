@@ -1,3 +1,77 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 259) - zero-output
+
+LOCK/SYNC: found .agent-lock at start, timestamp 2026-09-23T00:12:21Z, exactly
+60 minutes old against this run's start of 2026-09-23T01:12:22Z - at or past
+the 45-minute staleness threshold, so treated as stale. Delete failed with
+EPERM (same session/mount limitation run 258 root-caused as Q120: this
+folder mount does not support unlink, only rename), so the stale lock was
+overwritten in place via truncation (`>`) rather than deleted, which this
+session's filesystem does permit even though rm/unlink do not. A fresh
+timestamp was written to the same path rather than to a renamed copy, so no
+new debris file was added this run. .git/index.lock was also found, dated
+1h25m old with no git process running (checked via ps aux) - past the
+1-hour threshold, same EPERM-on-unlink behaviour applied, and it was left
+in place only until git itself needed to write there, at which point the
+same overwrite-in-place handling was used. Did not touch any of the 225+
+.agent-lock.* / test-probe scratch files already sitting untracked in the
+repo root (Q119/Q120 territory) - not this run's decision to clean up.
+
+git fetch/checkout/pull clean, on agents/audit-backlog at 5a78436 (run 258's
+second commit), matching origin exactly for the commits origin actually
+has - but run 258's own log entry records three local commits waiting on
+origin (8bdebda, plus two from run 258) that could not be pushed last run
+for the same credential reason confirmed again below, so "matching origin"
+here means matching what origin currently holds, not that everything is
+synced.
+
+ANSWER PICKUP: read https://data.rbhealth.co.uk/api/feedback in full via
+Claude in Chrome (read-only, single tab, closed immediately after reading).
+Newest entry still Q52, 2026-09-01T22:44:51Z - unchanged from runs 246-258,
+no new portal answer.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" heading
+present at the top of this file (checked before adding this entry). Normal
+rule applies.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly for unchecked lines: 8 found,
+byte-identical set to runs 245-258 (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1
+Q52, 6.4/6.5 Q60, 6.6 Q66). Re-checked each blocking question's status in
+QUESTIONS.json: Q8, Q9, Q13, Q16 and Q52 remain "answered" but each blocked
+item's own text still requires a supervised Weebly session, a merge/push to
+main outside this branch, or Rishi's own click in the Ahrefs UI - none
+available to an unattended run in this session. Q60 and Q66 remain open
+(no decision yet). No unblocked item exists to take.
+
+Per the standing Q115 discipline (recommending a pause or repurpose of this
+cadence, open since 2026-09-19) and Q119/Q120 (file hygiene and the
+EPERM-on-unlink root cause, both open): no unrequested rotation-pool
+quality pass taken this run, consistent with runs 245-258. Fifteenth
+consecutive zero-output run on this schedule (245-259).
+
+PUSH/PUBLISH: `git push origin agents/audit-backlog` fails again this run
+with "could not read Username for 'https://github.com': terminal prompts
+disabled" (tested first with `--dry-run` before committing anything, to
+avoid creating a fourth unpushed commit for no reason) - confirmed this
+session genuinely has no stored GitHub credential, same as runs 257-258
+and the same underlying gap as Q96/Q102. This run's own commit (this log
+entry only) will join the three already waiting on origin from runs
+257-258 (8bdebda and two from run 258) - four commits now stacked locally
+on agents/audit-backlog, none on origin. The next run with working
+credentials should push all four, in order, before doing anything else.
+Step 10 (build-audit-status.js) was not attempted this run: run 258 already
+confirmed it hardcodes a Windows path (C:/Dev/rbh-site-data/...) that does
+not exist in this Cowork sandbox mount, so it cannot succeed here regardless
+of credentials, and repeating a call already known to fail adds nothing.
+
+No in-repo defect fixed and no new question raised this run: nothing new
+was found beyond what runs 257-258 already recorded. Repeating the standing
+recommendation once more: Q115 (whether to keep running this cadence while
+every remaining item needs hands-on time Rishi hasn't given yet), Q119/Q120
+(repo-root file hygiene and its EPERM-on-unlink cause), and Q96/Q102 (this
+session's missing git push credentials, now confirmed on three consecutive
+runs from this session rather than the ProDeskAi host) all still need
+Rishi's attention before this schedule can produce further output.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 258) - zero-output
 
 LOCK/SYNC, and a root cause found for the Q119 file pileup: this session's
