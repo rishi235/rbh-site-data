@@ -1,3 +1,50 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 295) - zero-output, fifty-first consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on
+the branch, up to date with origin/agents/audit-backlog at run 294's commit
+15f5718, 0 ahead/0 behind. No stray .git/index.lock encountered this run.
+
+ANSWER PICKUP: step 3 succeeded on the first attempt (Claude in Chrome,
+navigate then get_page_text against https://data.rbhealth.co.uk/api/feedback),
+no Cloudflare Access gate. Newest entry is still fb:2026-09-01T22:44:51.524Z
+(Q52), identical to every read since 2026-09-19. Cross-checked the seven
+question ids the eight blocked worklist items cite (Q8, Q9, Q13, Q16, Q52,
+Q60, Q66) against QUESTIONS.json directly rather than only against the feed:
+five (Q8, Q9, Q13, Q16, Q52) are already status "answered" from early
+August, and the worklist text for each explains why an answer did not
+unblock it - 5.3/Q8 and 5.4/Q9 need a hand edit in the Weebly editor, 5.5/Q13
+needs a push to a branch other than agents/audit-backlog plus a Weebly
+re-pin, 5.8/Q16 and 6.1/Q52 the same shape - so those five are correctly
+still [BLOCKED] on a supervised session, not on an unanswered question. Q60
+and Q66 remain genuinely status "open". Nothing new to apply against any
+open question.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 294's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. None newly unblocked, so no item
+was taken this run. QUESTIONS.json: 120 total, 67 open, unchanged from run
+294.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115, Q119 and
+Q120 all remain open with no new information this run. The push-credential
+gap itself (Q96/Q102) also remains open: confirmed again this run that
+`git push origin agents/audit-backlog --dry-run` from the sandbox shell
+fails with "fatal: could not read Username for `https://github.com`", so
+step 9's push and step 10's publish are being routed through the
+mcp__Windows-MCP__PowerShell fallback against the real C:\Dev\rbh-site-data
+working copy, per the standing workaround, rather than left stranded as in
+run 293. Not changing the task's own standing procedure unilaterally (that
+is explicitly Rishi's call per Q102), but the underlying question - whether
+this worker is still worth running at its current frequency given 51
+straight zero-output runs, all pinned in Q115 - has had no reply since it
+was raised.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 294) - zero-output, fiftieth consecutive run with no worklist item unblocked; run 293's stranded push recovered
 
 LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
