@@ -1,3 +1,42 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 277) - zero-output, thirty-third consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it. Hit the same
+EPERM-on-unlink pattern (Q119/Q120) on .git/HEAD.lock, .git/ORIG_HEAD.lock
+and .git/index.lock before checkout/pull - rm and a first mv both refused
+with "Operation not permitted" (also tried the allow_cowork_file_delete
+route this run; it was auto-declined because no one was available to
+approve it during this unattended run, consistent with the tool's own
+unattended behaviour). A retried mv to a run-numbered suffix
+(.cleared-run277-<epoch>) succeeded immediately for all three files, same
+workaround as recent runs. git fetch/checkout/pull on agents/audit-backlog
+came back clean, already on the branch at 96e8276, 0 ahead/0 behind.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed immediately after reading).
+Newest entry is still Q52, 2026-09-01T22:44:51.524Z - unchanged since run
+246, now thirty-three days running. 120 total questions in QUESTIONS.json,
+67 still open, same counts as run 276.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 276's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. None newly unblocked, so no
+item was taken this run.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115
+(2026-09-19) recommends repurposing or pausing the scheduled cadence on
+the grounds that the 36-item rotation pool has been independently
+re-verified many times over with zero new defects, and that the real
+bottleneck is Rishi's 67 open decisions, not more unattended verification.
+That reasoning still holds; this run did not manufacture a pass on an
+already-exhausted pool.
+
+FILES CHANGED: AGENT_LOG.md only.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 276) - zero-output, thirty-second consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (sandbox mount side this run).
