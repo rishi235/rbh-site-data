@@ -1,4 +1,39 @@
-## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 296) - zero-output, fifty-second consecutive run with no worklist item unblocked
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 297) - zero-output, fifty-third consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on
+the branch, up to date with origin/agents/audit-backlog at run 296's commit
+3bcae23, 0 ahead/0 behind. No stray .git/index.lock at the real path.
+
+ANSWER PICKUP: step 3 succeeded on the first attempt (Claude in Chrome,
+navigate then get_page_text against https://data.rbhealth.co.uk/api/feedback),
+no Cloudflare Access gate. Newest entry is still fb:2026-09-01T22:44:51.524Z
+(Q52), identical to every read since 2026-09-19. Nothing above Q52, so Q53
+through Q120 still have no portal reply and there was nothing new to apply
+against any open question.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 296's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to every run since 245. None newly unblocked, so no item
+was taken this run. QUESTIONS.json: 120 total, 67 open, unchanged from run
+296.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open. Q115, Q119 and
+Q120 all remain open with no new information this run. Not attempting the
+sandbox shell push this run given every prior run's identical result (no
+credential helper for https://github.com in this sandbox, per Q96/Q102);
+routing step 9's push and step 10's publish through the
+mcp__Windows-MCP__PowerShell fallback against the real C:\Dev\rbh-site-data
+working copy, per the standing workaround. Not changing the task's own
+standing procedure unilaterally (explicitly Rishi's call per Q102), but the
+underlying question in Q115 - whether this worker is still worth running at
+its current frequency given 53 straight zero-output runs - has still had no
+reply.
 
 LOCK/SYNC: no .agent-lock present at start on the sandbox mount. Created it.
 git fetch/checkout/pull on agents/audit-backlog came back clean, already on
