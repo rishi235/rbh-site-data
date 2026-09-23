@@ -1,3 +1,49 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 299) - zero-output, fifty-fifth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
+on agents/audit-backlog came back clean, already on the branch, up to date
+with origin/agents/audit-backlog at run 298's commit (no new commits since).
+The sandbox mount's git wrapper again regenerated .git/index.lock on the
+first status/porcelain call (0 bytes, fresh); `rm -f` refuses it with
+"Operation not permitted" as on every prior run, `mv` clears it. No stale
+.git/HEAD.lock present this time (run 298 recorded one; not reproduced here).
+
+ANSWER PICKUP: navigated Claude in Chrome to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text - no
+Cloudflare Access gate, succeeded first attempt. Newest entry is still
+fb:2026-09-01T22:44:51.524Z (Q52), identical to every read since 2026-09-19
+including run 298 earlier today. Nothing above Q52, so Q53 through Q120
+still have no portal reply. Cross-checked the two open questions with any
+portal history at all, Q37 and Q43: both already carry a "PORTAL REPLY
+RECEIVED 2026-09-01, NOT A DECISION" note from a prior run recording that
+Rishi's replies ("i need further explanation..." and "Unsure...") don't
+select an option, so both correctly remain open with nothing new to apply.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 298's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to run 298 and every run since 245. Same conclusion as
+run 298 on inspection: Q8/Q9/Q13/Q16/Q52 are "answered" in QUESTIONS.json
+but each answer ties the fix to a supervised Weebly paste session or a push
+to service-module-phase1 (Q13), neither of which this unattended run is
+authorised to do; Q60 and Q66 remain genuinely open with no reply. None
+newly unblocked, so no item was taken this run. QUESTIONS.json: 120 total,
+67 open, unchanged from run 298.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 sits open (re-checked
+Q115, Q119, Q120 this run - all three still open, no new information).
+Committed this log entry locally (d574b5a) then attempted `git push origin
+agents/audit-backlog` as usual rather than skipping it outright: failed with
+"could not read Username for 'https://github.com'", the same no-credential-
+helper limitation recorded at Q96/Q102 on every prior run. Commit stays
+local; nothing else changed this run (worklist ticks untouched, no other
+files edited), so no other content is stranded by the failed push. Routing
+step 10's publish through the standing mechanism below.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 298) - zero-output, fifty-fourth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it. The sandbox mount's
