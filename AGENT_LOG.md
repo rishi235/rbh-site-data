@@ -1,3 +1,59 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 272) - zero-output, twenty-eighth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no `.agent-lock` present at start (clean start, sandbox side).
+Created it from the sandbox. `git fetch`/checkout/pull on `agents/audit-
+backlog` came back clean, at `925a4c5`, 0 ahead/0 behind
+`origin/agents/audit-backlog`. No `.git/index.lock` or other stale git
+lock present. No `.agent-lock` older than 45 minutes to treat as stale.
+
+ANSWER PICKUP: fetched `https://data.rbhealth.co.uk/api/feedback` via
+Claude in Chrome (read-only, single tab, closed after reading). Newest
+entry is still Q52, 2026-09-01T22:44:51.524Z - unchanged since run 246.
+Cross-checked QUESTIONS.json directly: Q8, Q9, Q13, Q16 and Q52 are all
+already recorded as "answered" (matching the portal replies read this
+run, word for word), so there is nothing new to pick up on any of them.
+No portal answer for Q59, Q60, Q66, Q96, Q102, Q115, Q116, Q117, Q118,
+Q119 or Q120. 67 of 120 questions still open in QUESTIONS.json, identical
+set to run 271.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 271's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md`: 8 unchecked lines, all 8 still
+`[BLOCKED]` (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6
+Q66) - byte-identical set to runs 245-271. Read the blocking reason on
+each of the 8 in full this run rather than trusting the prior summary:
+5.3 and 5.4 are tied to a Weebly hand-paste an unattended run cannot do;
+5.5 needs a push to a branch other than agents/audit-backlog plus a
+Weebly re-pin, both outside this run's authorisation; 5.8 is blocked on
+an open choice-of-fix decision (Q22) and on Weebly access regardless;
+6.1 is answered (Q52) but the answer itself asks Rishi to read one
+Ahrefs issue detail page and post back the sitemap filenames it lists,
+which only he can do; 6.4/6.5 and 6.6 are open architecture/GBP
+decisions. All 8 confirmed still genuinely blocked, none newly
+answered. No unblocked item exists to take.
+
+Continuing the standing practice recorded on every run since 245: no
+unrequested rotation-pool quality pass while Q115 (whether to keep this
+cadence running at all) sits open and unanswered - the whole 36-item pool
+has already been independently re-verified 18 to 23 times each with zero
+in-repo defects found, so another pass would add re-confirmation, not new
+scope, while the actual bottleneck (Rishi's decisions on the 8 blocked
+items and on Q115 itself) is unaffected by it.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed beyond this log entry. Standing recommendations
+repeated once more, unchanged: Q115 (whether to keep this cadence running
+at all - twenty-eight runs now with no worklist item completed, getting on
+for three days of scheduled runs producing zero decided-scope output),
+Q119/Q120 (repo debris and the EPERM-on-unlink pattern on the sandbox
+mount, not re-tested this run), Q96/Q102 (the host-route push/publish
+method for steps 9/10). The largest single lever available to unblock
+this backlog is still a supervised Weebly session covering 5.3, 5.4 and
+5.5 together, plus five minutes in the Ahrefs UI for 6.1/Q52 - none of
+which an unattended run can do on its own.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 271) - zero-output, twenty-seventh consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no `.agent-lock` present at start (clean start, sandbox side).
