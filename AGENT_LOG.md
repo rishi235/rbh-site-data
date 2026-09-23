@@ -1,3 +1,66 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 269) - zero-output, twenty-fifth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
+normally. This run's own `git checkout` then hit a NEW blocker not seen in
+runs 245-268: a stale `.git/HEAD.lock` (28+ minutes old, growing) with no
+git process running (`ps aux` empty), plus a stale `.git/index.lock`
+created by this run's own failed unlink attempt. Sandbox-side `rm -f` on
+both returned "Operation not permitted" - the same EPERM-on-unlink root
+cause already open as Q119/Q120 for `.agent-lock.*` debris, now confirmed
+to hit real `.git/*.lock` files too, not just the worker's own housekeeping
+files. Cleared both from the HOST side instead, via
+`mcp__Windows-MCP__PowerShell` against `C:\Dev\rbh-site-data`
+(`Remove-Item -Force`, confirmed no git process running first). Checkout,
+pull and status then went through clean, 0 ahead/0 behind
+`origin/agents/audit-backlog`.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed after reading). Newest entry is
+still Q52, 2026-09-01T22:44:51.524Z - unchanged since run 246, twenty-three
+runs ago now. No portal answer for Q59, Q60, Q66, Q96, Q102, Q115, Q116,
+Q117, Q118, Q119 or Q120. 67 of 120 questions still open in QUESTIONS.json,
+identical set to run 268.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 268's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md` directly: 8 unchecked lines, all
+8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60,
+6.6 Q66) - byte-identical set to runs 245-268. No unblocked item exists to
+take. Before falling back to a bare zero-output entry, re-tested whether
+this session's connected Ahrefs MCP tools (available this run as
+`mcp__c3d7ef63...` `management-projects` etc., not confirmed present in
+every prior run) could unblock 6.1/Q52 directly rather than waiting on
+Rishi's Ahrefs UI click. Called `management-projects` with no arguments:
+`{"error": "Insufficient plan"}` - the identical error Q52's own note
+already recorded from run 222 testing `site-audit-projects` the same way.
+Confirms again that the blocker is the Ahrefs subscription tier, not a
+tooling gap, and did not change Q52's status. Continuing the standing
+practice recorded on every run since 245: no unrequested rotation-pool
+quality pass while Q115 (whether to keep this cadence running at all)
+sits open and unanswered.
+
+PUSH/PUBLISH: using the established host route
+(`mcp__Windows-MCP__PowerShell` against `C:\Dev\rbh-site-data`) for this
+run's commit, push and status-page publish, per runs 264-268 - the same
+route that was needed to clear this run's lock files, so no fallback to
+the sandbox git path was attempted for the write side at all.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed. Standing recommendations repeated once more:
+Q115 (whether to keep this cadence running at all - twenty-five runs now
+with no worklist item completed, roughly two and a half days of scheduled
+runs producing zero decided-scope output), Q119/Q120 (repo debris and now,
+per this run's finding, the same EPERM-on-unlink pattern hitting real
+`.git/*.lock` files, not only the worker's own scratch files - worth
+folding into whatever fixes Q119/Q120, since a genuinely long-running git
+operation one day could leave a real lock stuck the sandbox side can never
+clear on its own), Q96/Q102 (the host-route push/publish method should
+probably become the PRIMARY step 9/10 method for every run rather than a
+fallback - this run needed the host route for lock cleanup as well as for
+push/publish, which is a second independent reason to promote it).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 268) - zero-output, twenty-fourth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
