@@ -1,3 +1,62 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 273) - zero-output, twenty-ninth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. This run created it from a
+real Windows PowerShell session on ProDeskAi (not the sandbox mount prior
+runs used), so the EPERM-on-unlink pattern behind Q119/Q120 does not apply
+here. git fetch/checkout/pull on gents/audit-backlog came back clean at
+d2a08a4, 0 ahead/0 behind origin/agents/audit-backlog. No .git/index.lock`r
+present.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed after reading). Newest entry is
+still Q52, 2026-09-01T22:44:51.524Z - unchanged since run 246. Cross-checked
+QUESTIONS.json directly for the eight questions blocking the remaining
+worklist items (Q8, Q9, Q13, Q16, Q52, Q60, Q66): Q8, Q9, Q13, Q16 and Q52
+are already recorded as answered and match the portal text word for word;
+Q60 and Q66 remain open with no portal reply. 67 of 120 questions still open,
+same set as run 272.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 272's entry) before
+writing this one - no "Standing authorisation" heading present. Normal rule
+applied, no autonomous decisions taken.
+
+WORKLIST: 8 unchecked lines, all 8 still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13,
+5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66). Each blocking reason re-read in full:
+5.3/5.4 need a Weebly hand-paste this run cannot perform (browser access here
+is read-only per the hard rules); 5.5 needs a push to service-module-phase1,
+a branch outside this run's authorisation, plus a Weebly re-pin; 5.8 is
+blocked on the open Q22 choice-of-fix decision and on Weebly access; 6.1's
+answer (Q52) asks Rishi to read one Ahrefs issue detail page himself and post
+the sitemap filenames back, which only he can do; 6.4/6.5 and 6.6 are open
+architecture/GBP decisions with no answer yet. None newly unblocked.
+
+Having real Windows PowerShell access this run (rather than the sandbox
+mount) does not change any of the above: the blockers are Weebly access,
+a branch-push restriction and open decisions, not sandbox tooling limits.
+No unrequested rotation-pool quality pass taken, consistent with the standing
+practice recorded since run 245: Q115 (whether to keep this cadence running
+at all) is still open and unanswered, and the 36-item pool has already been
+independently re-verified many times over with zero in-repo defects found.
+
+SELF-CORRECTION, recorded because it happened inside this run: this run's
+first attempt to prepend this entry used Get-Content -Raw / Set-Content
+-Encoding utf8 in PowerShell, which added a UTF-8 BOM and mis-decoded an
+existing pound sign into the same "Â£" mojibake this file already documents
+from earlier runs. That commit was local only (never pushed), so it was
+undone with a plain git reset --hard HEAD~1 rather than any force-push,
+and this entry was rebuilt at the byte level: git cat-file -p on the
+previous commit's blob, read via a raw Process/MemoryStream rather than any
+PowerShell text cmdlet, with this entry's own bytes (System.Text.UTF8Encoding
+with no BOM) prepended ahead of the untouched old bytes. Reconfirming the
+existing standing take-away: never use Get-Content -Raw / Set-Content
+-Encoding utf8 on this file from PowerShell.
+
+No new worklist item unblocked, no new question raised. Standing
+recommendations repeated: Q115 (twenty-nine runs now with no worklist item
+completed), Q60/Q66/Q22 (open architecture and GBP decisions), and the
+supervised Weebly session plus five minutes in the Ahrefs UI for Q52 as the
+single largest lever to unblock this backlog.
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 272) - zero-output, twenty-eighth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no `.agent-lock` present at start (clean start, sandbox side).
