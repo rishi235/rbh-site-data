@@ -1,3 +1,65 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 263) - zero-output, nineteenth consecutive
+
+LOCK/SYNC: no `.agent-lock` present on arrival. Created it normally. `git
+pull --ff-only` first failed: `.git/ORIG_HEAD.lock` was present (no git
+process running per `ps aux`), so `update_ref` for `ORIG_HEAD` errored.
+Same EPERM-on-unlink limitation as every run since 258 (Q120) - `rm -f`
+refused with "Operation not permitted", `mv` to a renamed path succeeded on
+the first attempt for all three lock files found (`ORIG_HEAD.lock`,
+`HEAD.lock`, `index.lock`). After the rename, `git pull` reported "Already
+up to date" - local was not actually behind, the stale `ORIG_HEAD.lock` was
+just blocking the ref update, not signalling a real divergence.
+`.git/index.lock` was recreated once more during this run's own `git
+status` call (the warning "unable to unlink ... index.lock: Operation not
+permitted" appeared but the command's real output still returned
+correctly), renamed aside the same way before continuing. Confirms run
+260's conclusion again: the EPERM is per-file and per-attempt, not a fixed
+state that clears itself, and git's own commands still function even when
+they cannot clean up their own lock file afterward.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude
+in Chrome (read-only, single tab, closed after reading). Newest entry is
+still Q52, 2026-09-01T22:44:51Z - unchanged since run 246, eighteen runs
+ago. No portal answer for Q59, Q60, Q66, Q96, Q102, Q115, Q116, Q117,
+Q118, Q119, Q120 or anything raised since. All remain "open" in
+QUESTIONS.json (67 of 120 questions open).
+
+AUTONOMOUS WINDOW: checked the top of this file before adding this entry
+(run 262's own top line) - no "Standing authorisation" heading present.
+Normal rule applies, no autonomous decisions taken.
+
+WORKLIST: same 8 unchecked lines as runs 245-262 (5.3 Q8, 5.4 Q9, 5.5 Q13,
+5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66), all still [BLOCKED] on a
+supervised Weebly session, a main-branch merge/push, or Rishi's own click
+in Ahrefs - none available to an unattended run. Continuing the standing
+practice from runs 245-262 of not taking an unrequested rotation-pool
+quality pass while Q115 (whether to keep this cadence running at all)
+sits open - nineteenth consecutive run with no worklist item completed.
+
+PUSH: re-checked for a way round the missing credential rather than
+assuming run 262's finding still holds - no `credential.helper`
+configured, no `GIT_*`/`GITHUB_*` environment variables set, no `gh` CLI
+installed. Unchanged from runs 259-262. `git push origin
+agents/audit-backlog` will fail identically ("could not read Username for
+'https://github.com'"); this run's commit brings local to 9 commits ahead
+of origin, still unpushed. Confirms Q96/Q102 again.
+
+STEP 10: `tools/build-audit-status.js` still hardcodes `REPO =
+'C:/Dev/rbh-site-data'` (line 11) rather than resolving its own repo root,
+so it will fail with the same `ENOENT` on this Cowork sandbox mount as
+runs 258-262. Not fixed this run for the same reason as before: a real
+generator-script change is scope beyond a zero-output run's one-item
+budget, and the fix (swap the hardcoded path for `__dirname`-relative or
+`git rev-parse --show-toplevel`) belongs on a worklist slot or with
+whoever answers Q119/Q120, not slipped in unrequested.
+
+No new question raised, no existing question's content or options
+changed - nothing found this run shifts any recommendation already on
+file. Standing recommendations repeated once more, briefly: Q115
+(pause/repurpose the cadence - nineteen zero-output runs running), Q119/
+Q120 (repo debris and its EPERM-on-unlink cause, unchanged), Q96/Q102 (no
+git push credential in this session, unchanged).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 262) - zero-output, eighteenth consecutive
 
 LOCK/SYNC: no `.agent-lock` present on arrival (clean start, unlike the last
