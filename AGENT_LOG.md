@@ -1,3 +1,54 @@
+## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 270) - zero-output, twenty-sixth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no `.agent-lock` present at start (clean start, sandbox side). Ran
+this whole session from the sandbox for reads and from the Windows-MCP
+PowerShell host route (`C:\Dev\rbh-site-data`) for lock handling and writes,
+per the practice established runs 264-269 and recommended for promotion to
+primary under Q96/Q102. The host copy had its own stale `.git\index.lock`
+(no `git` process running) and a leftover `.agent-lock` from a prior run;
+both cleared with plain `Remove-Item -Force` on the host filesystem, which
+worked immediately (host is NTFS, not the sandbox mount that Q119/Q120
+document as EPERM-on-unlink). Also re-confirmed the sandbox-side EPERM
+directly this run: `rm -f` on a fresh scratch file and on the sandbox's own
+`.git/index.lock` both returned "Operation not permitted" while the
+equivalent host-side `Remove-Item` succeeded at once - same finding as
+Q120, now confirmed a further time. `git fetch`/checkout/pull on the host
+came back clean, 0 ahead/0 behind `origin/agents/audit-backlog`.
+
+ANSWER PICKUP: fetched `https://data.rbhealth.co.uk/api/feedback` via
+Claude in Chrome (read-only, single tab, closed after reading). Newest
+entry is still Q52, 2026-09-01T22:44:51.524Z - unchanged since run 246,
+twenty-four runs ago now. No portal answer for Q59, Q60, Q66, Q96, Q102,
+Q115, Q116, Q117, Q118, Q119 or Q120. 67 of 120 questions still open in
+QUESTIONS.json, identical set to run 269.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 269's entry) before
+writing this one - no "Standing authorisation" heading present. Normal
+rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped `AGENT_WORKLIST.md` directly on the host copy: 8
+unchecked lines, all 8 still `[BLOCKED]` (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16,
+6.1 Q52, 6.4/6.5 Q60, 6.6 Q66) - byte-identical set to runs 245-269. No
+unblocked item exists to take. Continuing the standing practice recorded
+on every run since 245: no unrequested rotation-pool quality pass while
+Q115 (whether to keep this cadence running at all) sits open and
+unanswered.
+
+PUSH/PUBLISH: using the host route (`mcp__Windows-MCP__PowerShell` against
+`C:\Dev\rbh-site-data`) for this run's commit, push and status-page
+publish, matching runs 264-269.
+
+No new worklist item unblocked, no new question raised, no existing
+question's content changed. Standing recommendations repeated once more:
+Q115 (whether to keep this cadence running at all - twenty-six runs now
+with no worklist item completed, roughly two and a half days of scheduled
+runs producing zero decided-scope output), Q119/Q120 (repo debris and the
+EPERM-on-unlink pattern, reconfirmed again this run on both a scratch file
+and a real `.git/index.lock`), Q96/Q102 (the host-route push/publish
+method should become the PRIMARY step 9/10 method for every run rather
+than a fallback, since it is now also the only reliable way to clear a
+stuck lock).
+
 ## 2026-09-23 (unattended scheduled run, audit-backlog-worker, run 269) - zero-output, twenty-fifth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no `.agent-lock` present at start (clean start). Created it
