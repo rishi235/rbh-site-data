@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-23T06:14:14Z",
+  "generated_at": "2026-09-24T06:14:29Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 37,
+    "total": 38,
     "overdue": 18,
-    "due_next_7_days": 2,
+    "due_next_7_days": 3,
     "no_due_date": 16
   },
   "tasks": [
@@ -183,6 +183,14 @@
         "Superintendent: Risks + Ops"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1212899392401977/task/1218234843096380"
+    },
+    {
+      "gid": "1218808104359494",
+      "name": "Consider updating your project progress",
+      "due_on": "2026-09-25",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1218808104359494"
     },
     {
       "gid": "1214228515439278",
