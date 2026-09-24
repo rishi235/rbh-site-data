@@ -1,3 +1,96 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 308) - zero-output, sixty-fourth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout
+came back clean, already on agents/audit-backlog, but local HEAD was one
+commit ahead of origin (7c3dacb, run 307's log/QUESTIONS.json update, which
+run 307 recorded as committed locally but unpushed because its sandbox had
+no GitHub credentials). Tried git push first, before touching anything else,
+on the chance this run's environment differed: it failed identically -
+"could not read Username for 'https://github.com': No such device or
+address" - so this run's sandbox also carries no GitHub credentials,
+consistent with run 307 and inconsistent with the runs that reported a
+working in-sandbox push route (e.g. run 306). Confirms credential
+availability is not stable across environments, as already flagged under
+Q96/Q102.
+
+Encountered fresh .git/HEAD.lock and .git/index.lock (age under a minute,
+left by the failed push attempt above) blocking a subsequent git add. No git
+process was running (ps aux clean). Cleared both by rename-aside, same
+EPERM-on-unlink pattern as Q119/Q120 - plain rm/unlink is refused on this
+mount, mv works. `git add` itself then recreated and failed to auto-remove
+its own index.lock afterward (harmless - add still completed), cleared the
+same way before the next command. The .git directory now holds roughly 1,349
+lock-named files accumulated this way across prior runs; left untouched, as
+it is Q119/Q120's problem to resolve, not this run's to clean up
+unrequested, and a bulk delete would risk the same EPERM behaviour on a much
+larger blast radius.
+
+ANSWER PICKUP: Claude in Chrome was connected and reached
+https://data.rbhealth.co.uk/api/feedback cleanly (Rishi's Cloudflare Access
+session held, no gate hit). Newest "AUDIT ANSWER" entry in the feed is still
+Q52, timestamped 2026-09-01T22:44:51.524Z - identical to every run since
+2026-09-19. No reply newer than that exists anywhere in the feed. Q37 (2.1
+footer finding) and Q43 (4.4 Scorah pack finding) still show only their
+already-logged 2026-09-01 non-decision replies, so both stay open exactly as
+recorded rather than being reconfirmed with a fresh duplicate note.
+
+Also re-tried the Ahrefs Site Audit MCP directly (site-audit-projects, no
+arguments) on the chance the account's plan tier had changed since run 222
+last checked, since Q52 is blocked specifically on Ahrefs UI-only sitemap
+data this worker cannot otherwise reach. Same result as run 222: {"error":
+"Insufficient plan"}. Nothing new to add to Q52; it still needs Rishi to
+open the issue in the Ahrefs web UI himself.
+
+WORKLIST: re-checked AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to run 307. Read every one of the 8 linked QUESTIONS.json
+entries in full this run rather than trusting the [BLOCKED] tag at face
+value, since four of them (Q8, Q9, Q13, Q16) show status "answered" while
+their worklist items remain blocked - worth checking whether an answered
+question had simply never been applied. All four check out as correctly
+still blocked: each answer's chosen fix is a live Weebly paste, a branch
+push outside agents/audit-backlog (Q13), or patient-facing regulatory copy
+reserved for Rishi under the autonomous-window carve-out (Q16) - none of
+which this run is authorised to execute unattended. QUESTIONS.json: 120
+total, 67 open, unchanged from run 307. Nothing newly unblocked, so no item
+was taken.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing this entry -
+no "Standing authorisation" heading present. Normal rule applied, no
+autonomous decisions taken.
+
+Per the Q115 discipline held since run 245, took no unrequested
+rotation-pool quality pass this run. Q115 is now sixty-four runs old and
+still unactioned; flagging again rather than repeating the argument in full.
+
+COULD NOT ACT ON: nothing new this run. Portal answers and the Ahrefs API
+were both checked and both came back unchanged; no worklist item unblocked;
+no generator or data changed.
+
+PUSH AND PUBLISH: this entry, plus the git-lock cleanup, are the only
+changes. Committing locally to agents/audit-backlog. git push will be
+attempted again after commit in case the credential gap is intermittent
+within a single run as well as across runs; if it fails again the commit
+(now two unpushed commits: run 307's 7c3dacb plus this one) stays local
+only. tools/build-audit-status.js will then be run regardless, per the
+standing instruction to publish even when a step fails, though it is
+expected to fail the same way run 307 recorded (hardcoded Windows path
+C:/Dev/rbh-site-data not present in this Linux sandbox, and no gh CLI
+installed here).
+
+Standing recommendations repeated once more, unchanged: Q115 (pause or
+repurpose the run cadence - sixty-four zero-output runs and counting), Q96/
+Q102 (git push/publish route is not stable across execution environments -
+this run had neither), Q119/Q120 (the growing .git lock-debris pile, now
+roughly 1,349 files, and the EPERM-on-unlink mount behaviour causing it),
+and the two open non-decisions Q37/Q43 (both still need Rishi to answer the
+specific plain-English/yes-no questions already written into their notes).
+Unchanged addition from run 307: build-audit-status.js's hardcoded
+C:/Dev/rbh-site-data path should be made relative to the script's own
+location so it runs correctly regardless of which environment executes it -
+flagging rather than fixing it now, since this run's push is not confirmed
+working either.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 307) - zero-output, sixty-third consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it (2026-09-24T04:42:36Z).
