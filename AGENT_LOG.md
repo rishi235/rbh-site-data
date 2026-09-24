@@ -1,3 +1,89 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 317) - zero-output, seventy-third consecutive run with no worklist item unblocked; landed the run 315/316 backlog commit that three prior attempts had failed to make
+
+LOCK/SYNC: no .agent-lock present at start. Created one. A 0-byte
+.git/index.lock (roughly 58 minutes old, no git process running) blocked
+the first fetch attempt; moved it aside per the Q120 workaround (mv, not
+rm - rm fails with the same EPERM-on-unlink behaviour every prior run has
+hit). git fetch/checkout/pull --ff-only then ran cleanly, confirming
+origin/agents/audit-backlog has not moved. This run then did what runs
+315 and 316 could not: `git add` and `git commit` both succeeded on the
+first real attempt after one more index.lock move-aside, landing run 317's
+own commit (dcf4045) which carries forward runs 315 and 316's entries
+exactly as they were staged/drafted, with no duplication or corruption -
+checked by reading the file after the commit and confirming the run
+316/315/314 sequence reads correctly. The mount still throws EPERM on its
+own tmp_obj and HEAD.lock/index.lock cleanup mid-operation (three more
+stray locks appeared and were moved aside during this run), but this run's
+data point is that the workaround now succeeds where it previously failed
+three times running - inconsistent, not fixed. Local HEAD is now 13
+commits ahead of origin/agents/audit-backlog (was 12), all still unpushed.
+
+PUSH: `git push --dry-run origin agents/audit-backlog` still fails with
+"could not read Username for 'https://github.com': No such device or
+address" - no GitHub credentials in this sandbox, unchanged since ~run 304.
+This is the real blocker on the growing unpushed-commit backlog, separate
+from the lock-cleanup flakiness above; landing commits locally does not
+reduce it.
+
+ANSWER PICKUP: navigated read-only to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed. Newest entry is still AUDIT ANSWER Q52
+(2026-09-01T22:44:51Z) - confirmed by full re-read, not assumed. Checked
+Q52's own record in QUESTIONS.json directly: it is already status
+"answered" (the sitemap-duplication decision was recorded 2026-09-01) but
+its note explicitly says the actual Ahrefs sitemap URLs are still
+outstanding pending Rishi opening Ahrefs Site Audit himself, so 6.1 stays
+genuinely blocked rather than being a stale block. Also had direct Ahrefs
+MCP access this session (site-audit-projects, site-audit-issues) and called
+site-audit-projects live: still returns {"error": "Insufficient plan"},
+matching the plan-tier block recorded on run 222. No entries for Q60, Q66,
+Q115, or any of the 67 open questions. No question status changed.
+
+WORKLIST: grepped AGENT_WORKLIST.md for `[ ]` and `[BLOCKED]` rather than a
+full read (file is large - see Q119). Same 8 lines unchecked and
+[BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6. All still need either a
+supervised Weebly-paste/cross-branch-push session or an answer to Q60/Q66
+that has not arrived.
+
+PUBLISH: ran `node tools/build-audit-status.js`. Fails as in every recent
+run, but checked one level deeper this time rather than re-flagging the
+same symptom: the script's hardcoded `REPO = 'C:/Dev/rbh-site-data'` is
+actually the CORRECT path on Rishi's real ProDesk, where this task is
+meant to run - it only fails here because this session's Linux sandbox
+mounts the folder at a different path. Also confirmed the `gh` CLI the
+script shells out to for the GitHub API publish is not installed in this
+sandbox at all (`gh: command not found`), which would stop the actual
+publish here even if the path were patched. Concluded this is not an
+in-repo defect to fix - patching the path to suit this sandbox would make
+it wrong for the real Windows host it runs on - so left the script
+unchanged, consistent with every run since 307 not touching it. This is a
+sandbox/runtime mismatch, not a repo bug.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation" heading present (this entry is now above where
+one would sit). Normal rule applied, nothing decided autonomously.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run.
+
+FLAG FOR RISHI, unchanged and now further overdue: 73 consecutive runs
+with zero worklist progress. Same three structural blockers as runs 245
+through 316: (1) no GitHub push credentials in this sandbox - 13 local
+commits now unpushed and climbing one per run; (2) 5.3/5.4/5.5/5.8 need a
+supervised Weebly-paste/cross-branch-push session; (3) Q60, Q66 and Q115
+remain open, and Q115 (whether to keep this cadence given the repeated
+zero-output result) is the one decision that would stop the other two
+growing further. New data point worth flagging on its own: the git lock
+workaround that failed three times running for runs 315/316 succeeded on
+the first real attempt this run, with no code or environment change on this
+end - the mount's lock-cleanup behaviour is intermittent, not reliably
+broken, which matters if anyone is deciding whether the 13-commit backlog
+is worth trying to land by hand versus waiting for real push credentials.
+
+COULD NOT ACT ON: nothing new. No worklist item unblocked, no generator or
+data changed. Confirmed the publish-script failure is a sandbox artefact
+rather than a repo defect, so nothing fixed there either.
+
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 316) - zero-output, seventy-second consecutive run with no worklist item unblocked; second same-day re-run following run 315; run 316's own commit also failed
 
 LOCK/SYNC: no .agent-lock present at start (run 315's own lock had already
