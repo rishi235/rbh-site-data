@@ -47,12 +47,20 @@ COULD NOT ACT ON: nothing new this run. No portal-answer check was possible
 (no Chrome connector), no worklist item unblocked, no generator or data
 changed.
 
-PUSH AND PUBLISH: this entry plus the two lock-file renames are the only
-changes. Committing locally to agents/audit-backlog on top of runs 307/308's
-unpushed commits. git push will be retried after commit and is expected to
-fail identically given the credential check above; documenting the actual
-result rather than assuming. tools/build-audit-status.js will then be run
-per the standing instruction to publish even when a step fails.
+PUSH AND PUBLISH: this entry plus the two lock-file renames were the only
+changes. Committed locally to agents/audit-backlog as b226c7f, on top of
+runs 307/308's unpushed commits (three local-only commits now waiting on a
+push from an environment with working GitHub credentials). git push retried
+after commit: failed identically, "could not read Username for
+'https://github.com': No such device or address", exit 128. Confirms the
+credential gap held for the whole run, not just the pre-check.
+tools/build-audit-status.js was then run anyway per the standing instruction
+to publish even when a step fails: it failed the same way runs 307/308
+recorded, ENOENT on its hardcoded path C:/Dev/rbh-site-data/AGENT_WORKLIST.md,
+which does not exist on this session's mount
+(/sessions/quirky-tender-turing/mnt/rbh-site-data/...). The portal status
+page was not updated this run. Deleted .agent-lock (rename-aside, same EPERM
+pattern) before exiting, per step 11.
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout
 came back clean, already on agents/audit-backlog, but local HEAD was one
