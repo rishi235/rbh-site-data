@@ -1,4 +1,58 @@
-## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 308) - zero-output, sixty-fourth consecutive run with no worklist item unblocked
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 309) - zero-output, sixty-fifth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start (clean). git fetch came back
+clean; already on agents/audit-backlog, local HEAD 3 commits ahead of origin
+(run 307's and run 308's unpushed log commits plus one). Found a fresh
+.git/index.lock (age approx 27 minutes, under the 1-hour stale threshold,
+but no git process was running per ps aux) and a .git/HEAD.lock, both
+left over from a prior run's aborted push. Same EPERM-on-unlink limitation
+as Q119/Q120: plain rm -f failed on both with "Operation not permitted"
+even though this session owns the files with full rwx; mv succeeded
+immediately, so both were renamed aside (index.lock.run309-<ts>,
+HEAD.lock.run309-<ts>) rather than deleted, consistent with the established
+workaround. Did not attempt any bulk cleanup of the accumulated debris at
+the repo root - that stays Q119/Q120's open decision, not this run's to
+action unrequested.
+
+CREDENTIAL CHECK: tested git push --dry-run before doing anything else, on
+the chance this session's sandbox differed from runs 307/308: it failed
+identically - "could not read Username for 'https://github.com': No such
+device or address". This session's sandbox also carries no GitHub
+credentials, consistent with the majority of recent runs (Q96/Q102).
+
+ANSWER PICKUP: this session has no Claude in Chrome connector available -
+only the built-in browser pane (mcp__Claude_Browser__*), which does not
+carry Rishi's Cloudflare Access session for data.rbhealth.co.uk. Per the
+task's own step 3 instruction ("if the fetch fails or returns an Access
+login page, log that pickup was unavailable and carry on; do not try any
+other route"), answer pickup was not attempted this run and is logged as
+unavailable, same outcome as runs like 306.
+
+WORKLIST: re-checked AGENT_WORKLIST.md directly - 8 unchecked lines, all 8
+still [BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6
+Q66), byte-identical set and line numbers to run 308. QUESTIONS.json: 120
+total entries, 67 open, unchanged from run 308 (newest Q120, dated
+2026-09-23, still open).
+
+AUTONOMOUS WINDOW: checked the top of this file before writing this entry -
+no "Standing authorisation" heading present. Normal rule applied, no
+autonomous decisions taken.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run. Q115 remains open and unanswered
+- sixty-five runs old as of this entry. Not re-litigating in full; the
+recorded recommendation stands.
+
+COULD NOT ACT ON: nothing new this run. No portal-answer check was possible
+(no Chrome connector), no worklist item unblocked, no generator or data
+changed.
+
+PUSH AND PUBLISH: this entry plus the two lock-file renames are the only
+changes. Committing locally to agents/audit-backlog on top of runs 307/308's
+unpushed commits. git push will be retried after commit and is expected to
+fail identically given the credential check above; documenting the actual
+result rather than assuming. tools/build-audit-status.js will then be run
+per the standing instruction to publish even when a step fails.
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout
 came back clean, already on agents/audit-backlog, but local HEAD was one
