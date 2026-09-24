@@ -1,3 +1,96 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 341) - zero-output, ninety-fifth consecutive run; answer pickup unavailable, gridlock unchanged; new corroborating evidence for Q120
+
+LOCK/SYNC: no `.agent-lock` present at start (checked via this session's bash
+mount of the repo), created one there at 2026-09-24T23:12:28+01:00. `git
+fetch origin` and `git pull --ff-only` clean via that same bash mount,
+already up to date with `origin/agents/audit-backlog` at `c7d5027` (run
+340's commit).
+
+ANSWER PICKUP: navigated to `https://data.rbhealth.co.uk/api/feedback`
+using the Claude in Chrome browser tools (read-only). Landed on the
+Cloudflare Access "Log in to RB Data Portal" page (Azure AD / Microsoft
+Entra ID option plus an email code form), not the JSON feed - no active
+SSO session in this session's Chrome. Per the task rule, no login
+attempted, no code requested, no form touched; tab closed immediately.
+Pickup recorded as unavailable this run, same as every recent run.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section
+present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST: reconfirmed by grep for `^- \[ \]`. Same 8 lines unchecked and
+[BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8
+(Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). Checked each blocking
+question's own record in QUESTIONS.json directly rather than taking the
+worklist line at its word: Q8, Q9, Q13, Q16 and Q52 are all in fact marked
+"answered" already, but every one of the five answers requires either a
+live Weebly hand-paste/edit (which this task's browser rule forbids an
+unattended run from doing - read only, no typing or submitting on any
+site) or pushing a branch other than agents/audit-backlog (Q13, explicitly
+reserved for a supervised session in its own answer text), or further
+information only Rishi can supply by opening Ahrefs Site Audit himself
+(Q52). None of the five is actually actionable by an unattended run
+regardless of "answered" status, which is exactly why they still carry
+[BLOCKED] on the worklist line rather than being a live bug in this task's
+tracking. Q60 and Q66 remain genuinely open. No unblocked item available
+to take.
+
+QUALITY PASS: not taken this run, same reasoning as every run since Q115 -
+the 36-item rotation pool has been independently re-verified many times
+over (18-23+ passes each per Q115) with zero new defects found, so another
+pass would add log volume without adding audit information, worsening the
+exact problem Q119 already raised. Q115 (whether to keep running this
+worker at 30-minute cadence given the above) remains open and unanswered;
+its recommended option (index 2: stop rotation passes, spend runs on
+answer-pickup plus live-page rechecks of already-open findings) is not
+implemented because implementing it would mean deviating from this task's
+own written procedure without Rishi's sign-off, which is not this run's
+call to make unilaterally.
+
+NEW FINDING, corroborates Q120: this run had bash shell access to the repo
+via a different route than prior runs (a Linux sandbox mount at
+`/sessions/.../mnt/rbh-site-data`, distinct from the `mcp__Windows-MCP__
+PowerShell` route recorded in earlier entries). Confirmed the same
+unlink/EPERM behaviour Q120 attributes to "the Cowork sandbox's mount of
+this folder" independently of access route: `rm -f` on a freshly created
+throwaway probe file failed with "Operation not permitted" even though the
+file was owned by the session user with full rwx. Worse, `git status`
+itself left a stale zero-byte `.git/index.lock` behind after completing
+(git could not unlink its own lock on exit), which then made every
+subsequent git write command fail immediately with "Unable to create
+'.git/index.lock': File exists" from that same bash mount - not just
+slow, but a hard block on `git add`/`git commit` from that route for the
+rest of this run. Confirmed the real host is unaffected: switched to
+`mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
+path, the stale lock was removable there with a plain `Remove-Item`, and
+`git status`/`git rev-parse HEAD` both ran clean immediately afterwards.
+This strengthens Q120's option 1 (treat as environment infrastructure to
+raise with whoever administers the sandbox mount, not a repo defect) and
+adds a sharper reason to prefer it: the fault is not confined to lock
+files renamed-instead-of-deleted at the repo root, it can silently disable
+git entirely mid-run on the sandbox route, with no way for this task's own
+scripts to detect or route around it in advance. All git write operations
+this run (see below) were therefore done via the real-host PowerShell
+route from the outset, once this was discovered, rather than mid-run
+after a failure.
+
+INFRASTRUCTURE: as above. QUESTIONS.json and AGENT_WORKLIST.md were not
+edited this run (no worklist item completed, no question answer applied),
+so the only write this run makes is this log entry and the status-page
+republish, both done via the real-host route.
+
+QUESTIONS: no new question raised - this finding sharpens Q120 rather than
+opening new scope, and Q120 already covers "environment mount limitation,
+not a repo defect" with a recommendation. No edits to QUESTIONS.json. All
+open questions, including Q96, Q102, Q115, Q119, Q120 and the blocking
+Q8/Q9/Q13/Q16/Q52/Q60/Q66, remain open and unchanged. Q115 remains the
+operative recommendation: this is the ninety-fifth consecutive zero-output
+run of a 30-minute schedule with no new answers landing since the last
+batch. Worth Rishi actioning directly (answering the blocking questions,
+or adopting Q115's recommended cadence change) rather than continuing to
+wait on further runs to say the same thing.
+
+
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 340) - zero-output, ninety-fourth consecutive run; answer pickup unavailable, gridlock unchanged
 
 LOCK/SYNC: no `.agent-lock` present at start, created one via
