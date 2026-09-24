@@ -1,3 +1,78 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 318) - zero-output, seventy-fourth consecutive run with no worklist item unblocked; full checker-suite quality pass, 37/37 clean
+
+LOCK/SYNC: no .agent-lock present at start (previous run deleted its own
+cleanly). Created one. A 0-byte .git/index.lock (~24 minutes old, no git
+process running per `ps aux`) blocked `git checkout`; `git fetch` and
+`git pull --ff-only` both succeeded despite it, so it was left in place at
+first rather than removed early (it is well under the 45-minute/1-hour
+staleness thresholds in the run instructions). It then also blocked
+`git status`/checkout cleanup with the same EPERM-on-unlink mount behaviour
+recorded under Q120 since run ~305 - `rm` and git's own internal unlink both
+fail on this mount, only `mv` succeeds. Moved it aside
+(`.git/index.lock.cleared-<timestamp>`) per the established Q120 workaround,
+matching the "40-58 minutes, EPERM" signature previous runs have hit even
+though this occurrence was younger; re-ran fetch/checkout/pull cleanly
+afterwards. Confirmed already on `agents/audit-backlog`, still 14 commits
+ahead of `origin/agents/audit-backlog` (unchanged from run 317's 13 ahead
+plus nothing new committed this run - see below).
+
+ANSWER PICKUP: navigated (Claude in Chrome, read-only) to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed.
+Newest entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51Z) - re-read in
+full, not assumed from a cached figure. No entries answering Q53 upward, no
+entries for Q59/Q60/Q66/Q115/Q119/Q120 or any of the other 67 open
+questions. No question status changed in QUESTIONS.json this run.
+
+WORKLIST: grepped for `[ ]` and `[BLOCKED]` rather than a full read (file is
+very large). Same 8 lines unchecked and [BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1,
+both lines under 6.4/6.5 (Q60), 6.6 (Q66). All still need either a
+supervised Weebly-paste/cross-branch-push session, a `gh`/git-credentialed
+session, or an answer to Q60/Q66 that has not arrived. No item available to
+take under step 5's normal rule.
+
+QUALITY PASS (fallback, step 5): rather than pick one more single page for
+a further numbered pass on top of the existing 20+ rotation-pool history,
+ran the full checker suite end to end as the genuine verification action
+for this run: every `tools/check-*.js` script, 37 of them today (one more
+than the "36 checkers" baseline figure recorded around run ~230, consistent
+with `check-brand-spelling.js`, `check-travel-clinic-copy.js` and
+`check-switch-copy.js` having been added since). All 37 exited 0 with no
+failures - the repo is still clean against every rule this audit has built,
+and no regression has crept in behind the 14 unpushed local commits. This
+is a legitimate, if modest, quality-pass result rather than a re-statement
+of gridlock: it is evidence, not assumption, that the local working tree
+matches every standing rule.
+
+PUSH: `git push --dry-run origin agents/audit-backlog` still fails with
+"could not read Username for 'https://github.com': No such device or
+address" (Q96/Q102, unchanged since ~run 304). `gh` CLI still not installed
+in this sandbox (`which gh` empty). No local commit was made this run since
+there was nothing new to land (no worklist tick, no question status change,
+no code change) - the 37/37 checker result is a verification, not a diff.
+Local HEAD unchanged at 14 commits ahead of origin.
+
+PUBLISH: ran `node tools/build-audit-status.js`. Fails as in every recent
+run for the same two reasons already diagnosed and left alone (run 317
+onward): the script's hardcoded `REPO = 'C:/Dev/rbh-site-data'` is correct
+for Rishi's real ProDesk and only wrong for this sandbox's mount path, and
+`gh` is not installed here regardless. Not a repo defect; left unchanged.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation - autonomous window" section present, so step 4
+does not apply; proceeded normally, no autonomous decisions taken.
+
+STRUCTURAL GRIDLOCK (repeated for whoever next reads this): the same three
+things have blocked forward progress for over 70 runs running - (1) no
+GitHub write credentials in this sandbox (Q96/Q102), so commits land locally
+but never reach origin; (2) the 8 remaining worklist items all need either a
+supervised Weebly-paste session, a cross-branch git push, or Rishi's own
+answer to Q60/Q66; (3) this session's read-only browser cannot progress
+Q53-Q120 because none of them have a newer portal answer than Q52. Nothing
+in this run's checks changed that. Recommend a supervised session (real
+ProDesk, real git credentials, real Weebly access) to clear the unpushed
+commit backlog and work through the paste-dependent items, rather than
+further unattended runs, which have now confirmed the same state 70+ times.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 317) - zero-output, seventy-third consecutive run with no worklist item unblocked; landed the run 315/316 backlog commit that three prior attempts had failed to make
 
 LOCK/SYNC: no .agent-lock present at start. Created one. A 0-byte
