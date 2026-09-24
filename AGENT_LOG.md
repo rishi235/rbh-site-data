@@ -1,3 +1,57 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 306) - zero-output, sixty-second consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start (run 305's had already been
+cleared). Created it. Two stale git lock files from an earlier interrupted
+run were found and cleared by rename-aside rather than delete, because this
+session's sandbox mount enforces the standing EPERM-on-unlink restriction
+(Q119/Q120): .git/index.lock (age 3608s, over the 1-hour threshold) and
+.git/ORIG_HEAD.lock (age 1844s, orphaned - confirmed no git process running
+via ps aux). git fetch/checkout/pull on agents/audit-backlog then came back
+clean, already on the branch, up to date with origin/agents/audit-backlog at
+run 305's commit 9a8e225 (no new commits since).
+
+ANSWER PICKUP: this session had no Claude in Chrome connector available, only
+the built-in browser pane, which does not carry Rishi's Cloudflare Access
+session. Navigating to https://data.rbhealth.co.uk/api/feedback returned a
+Cloudflare Access permission gate. Per the task's own rule, did not request
+access or attempt any login - logged as unavailable and moved on rather than
+trying an alternate route.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to run 305. QUESTIONS.json: 120 total, 67 open, unchanged.
+None newly unblocked (answer pickup was unavailable this run rather than
+negative), so no item was taken.
+
+AUTONOMOUS WINDOW: checked the top of AGENT_LOG.md before writing this entry -
+no "Standing authorisation" heading present. Normal rule applied, no
+autonomous decisions taken.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass this run - the pool remains independently re-verified many times
+over with zero new defects, and Q115 (open since before run 245) already
+recommends pausing or slowing the cadence rather than continuing to spend
+runs re-confirming the same clean state. That recommendation is now
+sixty-two runs old and still unactioned; flagging again rather than
+repeating the argument in full.
+
+COULD NOT ACT ON: nothing new this run. No portal answers retrieved (pickup
+route unavailable, not negative), no worklist item unblocked, no generator
+or data changed.
+
+PUSH AND PUBLISH: committing and pushing this log entry via the sandboxed
+git checkout (the lock files above were the only blocker and are cleared),
+then running tools/build-audit-status.js to republish the portal status page.
+
+Standing recommendations repeated once more, unchanged: Q115 (pause or
+repurpose the run cadence - sixty-two zero-output runs and counting, with
+the answer-pickup channel itself now also intermittently unavailable
+depending on which environment the run lands in), Q119/Q120 (repo root
+debris and the EPERM-on-unlink mount behaviour behind the stale-lock
+pattern), Q96/Q102 (git push/publish route varies by execution environment -
+this run used the in-sandbox git checkout directly rather than a
+native-host relay, and it worked cleanly).
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 305) - zero-output, sixty-first consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it (timestamp 2026-09-24T02:42:48Z).
