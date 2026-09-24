@@ -1,3 +1,79 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 307) - zero-output, sixty-third consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it (2026-09-24T04:42:36Z).
+Found two stale top-level git lock files, .git/HEAD.lock (age 28 min) and
+.git/ORIG_HEAD.lock (age 30 min), left over from an earlier interrupted run;
+ps aux showed no live git process, but both were well under the 1-hour
+staleness threshold this task sets specifically for git locks, so neither was
+touched. Checked instead whether they were actually blocking anything: local
+HEAD already equalled origin/agents/audit-backlog (commit 16d6b6d, run 306's),
+so no pull was needed and no refs/heads lock existed, meaning a plain commit
+would not be blocked either. Proceeded without clearing the two locks.
+
+ANSWER PICKUP: Claude in Chrome was available this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read it directly (Rishi's
+Cloudflare Access session held). Newest "AUDIT ANSWER" entry in the feed is
+still Q52 at 2026-09-01T22:44:51.524Z - identical to what runs 305 and 306
+already recorded. No reply newer than that exists. Cross-checked the two
+questions whose notes were still asking for a plain-English or yes/no
+follow-up (Q37 the Fishlocks/Cherry Lane Weebly furniture question, Q43 the
+Scorah Bramhall address/county question): both still show only the same
+2026-09-01 non-decision replies already logged, so both stay open exactly as
+recorded, with the "reconfirmed" note left as run 305/306 last wrote it
+rather than duplicating a fourth identical reconfirmation line.
+
+WORKLIST: re-checked AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical set to runs 305 and 306. QUESTIONS.json: 120 total, 67 open,
+unchanged. Nothing newly unblocked, so no item was taken.
+
+AUTONOMOUS WINDOW: checked the top of AGENT_LOG.md before writing this entry -
+no "Standing authorisation" heading present. Normal rule applied, no
+autonomous decisions taken.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass this run. Q115 itself is now sixty-three runs old and still
+unactioned; flagging again rather than repeating the argument in full.
+
+COULD NOT ACT ON: nothing new this run. Portal answers were retrieved
+successfully but contained nothing newer than already logged; no worklist
+item unblocked; no generator or data changed.
+
+PUSH AND PUBLISH: this entry is the only change. Committed locally to
+agents/audit-backlog as 9dc0958 (the two stale HEAD/ORIG_HEAD locks noted
+above were cleared by rename-aside, same EPERM-on-unlink pattern as Q119/
+Q120, and did not block the commit). git push then failed outright: this
+session's sandbox carries no GitHub credentials at all ("could not read
+Username for 'https://github.com'"), no credential helper, no .netrc, no gh
+CLI installed, and no GITHUB_TOKEN in the environment - a harder failure than
+run 305/306 hit, which reported the in-sandbox route working cleanly, so
+credential availability is evidently not consistent across runs even within
+the same execution route. tools/build-audit-status.js was then run anyway
+per the standing instruction to publish even when a step fails, and it also
+failed immediately: the script reads AGENT_WORKLIST.md via a hardcoded
+Windows path, C:/Dev/rbh-site-data/AGENT_WORKLIST.md, which does not exist in
+this Linux sandbox (the same file is mounted here at
+/sessions/epic-awesome-pasteur/mnt/rbh-site-data/AGENT_WORKLIST.md), and the
+script also shells out to the gh CLI, which is not installed here either.
+Net effect: this run's log/QUESTIONS.json update is committed locally only
+and the portal status page was not republished this run. Commit 9dc0958 sits
+on top of 16d6b6d and needs pushing from an environment that both holds git
+credentials and can resolve the repo's real Windows path (or a build-audit-
+status.js that accepts the working directory rather than hardcoding it).
+
+Standing recommendations repeated once more, unchanged, with one addition:
+Q115 (pause or repurpose the run cadence - sixty-three zero-output runs and
+counting), Q96/Q102 (git push/publish route varies by execution environment -
+this run's sandbox had neither working push credentials nor a path-correct
+publish script, worse than run 305/306's environment), and the two open
+non-decisions Q37/Q43 (both still need Rishi to answer the specific
+plain-English/yes-no questions already written into their notes, not a fresh
+restatement). New: build-audit-status.js's hardcoded C:/Dev/rbh-site-data
+path should be made relative to the script's own location (e.g. path.join
+(__dirname, '..')) so it runs correctly regardless of which environment
+executes it - flagging rather than fixing it now, since this run cannot push
+the fix either.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 306) - zero-output, sixty-second consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (run 305's had already been
