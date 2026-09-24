@@ -1,3 +1,47 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 336) - zero-output, ninetieth consecutive run; answer pickup unavailable, gridlock unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start, created one. `git fetch origin`
+clean, already up to date with `origin/agents/audit-backlog` at `a12c4f4`
+(run 335's commit). No stale `.git\index.lock`, no local divergence.
+
+ANSWER PICKUP: Claude in Chrome, read-only, navigated to
+`https://data.rbhealth.co.uk/api/feedback`. Landed on the Cloudflare Access
+"Log in to RB Data Portal" sign-in page (Azure AD), not the JSON feed - no
+active SSO session against `rbhealth.cloudflareaccess.com` in this
+session's Chrome. Per the task rule, no login attempted; tab closed.
+Pickup recorded as unavailable this run. QUESTIONS.json unread for new
+answers as a result; confirmed at 120 total, 67 open, 53 answered,
+unchanged from run 335.
+
+AUTONOMOUS WINDOW: none present at the top of this file at run start.
+Step 4 does not apply.
+
+WORKLIST: reconfirmed by grep for `^- \[ \]`. Same 8 lines unchecked and
+[BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8
+(Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). No unblocked item available to
+take.
+
+QUALITY PASS: not taken this run, same reasoning as every run since Q115 -
+the rotation pool has been re-verified repeatedly with zero new defects
+found, so another pass adds log volume without adding information. The
+blocker remains the 67 open questions, three of which (Q116-Q118,
+simpleweightloss.co.uk exposure) are the highest regulatory exposure items
+still open and are now over three weeks old.
+
+INFRASTRUCTURE RE-CHECK: not separately re-tested this run (matches Q96,
+open since 2026-09-04, and Q119/Q120, both still open, no bulk delete
+taken). This run's log entry and worklist state are pushed via the
+documented fallback per Q102.
+
+QUESTIONS: no edits. All 67 open questions, including Q96, Q102, Q115-Q120
+and the blocking Q8/Q9/Q13/Q16/Q52/Q60/Q66, remain open and unchanged.
+Q115 (run cadence) remains the operative recommendation: this is the
+ninetieth consecutive zero-output run of a 30-minute schedule with no new
+answers landing. Nothing in this run's scope can change that. Worth Rishi
+actioning directly (answering the blocking questions, or pausing/slowing
+this scheduled task per Q115) rather than continuing to wait on further
+runs.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 335) - zero-output, eighty-ninth consecutive run; answer pickup unavailable, gridlock unchanged
 
 LOCK/SYNC: no `.agent-lock` present at start, created one (timestamp
