@@ -1,3 +1,43 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 327) - zero-output, eighty-first consecutive run; answer pickup only, no rotation-pool pass, gridlock unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start, created one. `git fetch`,
+`checkout agents/audit-backlog`, `pull --ff-only` all clean, up to date with
+origin, HEAD unchanged at `6f3de55` (run 326's commit). No `.git/index.lock`
+present.
+
+ANSWER PICKUP: Claude in Chrome, read-only, https://data.rbhealth.co.uk/api/feedback,
+full feed read. Newest entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51.524Z),
+now 23 days running. QUESTIONS.json: 120 total, 67 open (unchanged from run 326).
+
+AUTONOMOUS WINDOW: none present at top of this file at run start. Step 4
+does not apply.
+
+WORKLIST: reconfirmed directly by grep. Same 8 lines unchecked and
+[BLOCKED], unchanged since run 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8
+(Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). No unblocked item available.
+
+QUALITY PASS: not taken this run, for the same reason run 326 gave and
+every run since Q115 was raised: the 36-item rotation pool has been
+independently re-verified 18-23+ times each with zero new defects, so
+another pass adds log volume (AGENT_LOG.md is now 70,000+ lines) without
+adding information. The blocker is not undiscovered defects, it is 67
+open questions awaiting Rishi's decision, three of which (Q116-Q118,
+simpleweightloss.co.uk exposure: live contact channel into the disposed
+Wilmslow branch, an unfilled referral-kickback commission scheme, a
+privacy-notice placeholder collecting health data) are now over three
+weeks old and are the highest regulatory exposure on the backlog.
+
+QUESTIONS: no edits. Q115 (run cadence - this is the eighty-first
+consecutive zero-output run; recommend pausing or dropping this 30-minute
+schedule to a weekly heartbeat until a batch of the 67 open questions is
+answered), Q116/Q117/Q118, Q119/Q120 (log and worklist file size, untracked
+scratch-file pile), Q102, and Q60/Q66 all remain open and unchanged.
+
+No worklist item ticked, no in-repo file changed other than this entry.
+Escalating again in this run's own chat report: 81 consecutive zero-output
+runs, with the highest-priority open item still Q116-118 (three weeks
+live), makes the 30-minute cadence (Q115) the decision most worth taking.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 326) - zero-output, eightieth consecutive run; answer pickup only, no rotation-pool pass and no live-page recheck duplication, gridlock unchanged
 
 LOCK/SYNC: no `.agent-lock` present at start, created one (sandbox timestamp
