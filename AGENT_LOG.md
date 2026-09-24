@@ -54,8 +54,19 @@ suffix immediately before the next git call, rather than deleting (EPERM for
 every process on this mount, not just this one) or leaving it to block the
 following command.
 
-PUSH AND PUBLISH: see below for actual results of this run's push attempt
-and tools/build-audit-status.js run, appended once known.
+PUSH AND PUBLISH: this log entry was the only content change. Committed
+locally to agents/audit-backlog as fac780b, on top of the 9 already-unpushed
+commits (now 10 local-only). git push failed identically - "could not read
+Username for 'https://github.com'", exit 128, no credentials. Commit itself
+hit the same lock-debris warnings as run 312 (three unlinkable
+.git/objects/*/tmp_obj_* files and .git/HEAD.lock, all EPERM) but completed
+successfully regardless - git tolerates the debris, it just cannot clean up
+after itself on this mount. tools/build-audit-status.js was run anyway per
+the standing instruction to publish even when a step fails: it failed
+exactly as runs 307-312 recorded, ENOENT on its hardcoded path
+C:/Dev/rbh-site-data/AGENT_WORKLIST.md, which does not exist on this
+session's Linux mount. The portal status page was not updated this run.
+Deleted .agent-lock before exiting, per step 11.
 
 ---
 
