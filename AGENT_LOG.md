@@ -1,3 +1,68 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 312) - zero-output, sixty-eighth consecutive run with no worklist item unblocked; same-day re-run of run 311, deliberately kept short
+
+This run landed the same day as run 311, with no intervening change to
+QUESTIONS.json, AGENT_WORKLIST.md or the portal feed, so it does not repeat
+run 311's full re-derivation. It exists to confirm nothing moved between the
+two, not to re-litigate a state that has now been independently verified 67
+times.
+
+LOCK/SYNC: no .agent-lock present at start, created one. No .git/index.lock
+or .git/HEAD.lock present this time (run 311's were gone by this run). git
+fetch and git pull --ff-only both came back "Already up to date." Local HEAD
+still 7 commits ahead of origin - the same 7 run 311 already recorded as
+local-only.
+
+CREDENTIAL CHECK: git push --dry-run failed identically - "could not read
+Username for 'https://github.com': No such device or address", exit 128.
+Sandbox still has no GitHub credentials. Consistent with every run since
+Q96/Q102.
+
+ANSWER PICKUP: Claude in Chrome connector worked. Navigated read-only to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed. Newest
+entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51Z), byte-identical to
+what runs 304-311 already recorded. No new answers, no question status
+changed.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly rather than re-deriving each
+block from scratch (already done in full by run 311 today). Same 8 lines
+unchecked and [BLOCKED]: 5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4 and
+6.5 Q60, 6.6 Q66. No line content changed since run 311. None actionable
+unattended, for the same reasons run 311 recorded in full.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation" heading present. Normal rule applied.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run, and none was needed to establish
+that nothing changed - the worklist grep and the feed fetch are sufficient
+on their own for a same-day confirmation. Q115 remains open, sixty-eight
+runs old.
+
+FLAG FOR RISHI, unchanged from run 311: the blockage is structural, not a
+matter of trying harder. (1) This sandbox has no GitHub push credentials -
+local-only commits will keep accumulating every run until an environment
+with working credentials pushes them; at 7 and climbing, that push should
+happen soon rather than being left to compound further. (2) 5.3/5.4/5.5 need
+a supervised Weebly-paste or cross-branch-push session. (3) Q60, Q66 and
+Q115 itself remain open and need a decision from you. Running this task
+again before one of those three inputs arrives will keep producing the same
+zero-output result - the scheduled cadence itself is worth reviewing until
+at least one unblocks.
+
+COULD NOT ACT ON: nothing new. No worklist item unblocked, no generator or
+data changed, no in-repo defect found or fixed.
+
+PUSH AND PUBLISH: this log entry was the only change. Committed locally to
+agents/audit-backlog, on top of the 7 already-unpushed commits (now 8
+local-only). git push retried after commit: failed identically (no
+credentials). tools/build-audit-status.js was run anyway per the standing
+instruction to publish even when a step fails; expected to fail the same way
+runs 307-311 recorded (ENOENT on its hardcoded Windows path, not present on
+this session's Linux mount) - actual result recorded below once run.
+Deleted .agent-lock before exiting, per step 11.
+
+---
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 311) - zero-output, sixty-seventh consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start (clean), created one. Found
