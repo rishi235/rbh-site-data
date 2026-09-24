@@ -1,3 +1,62 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 300) - zero-output, fifty-sixth consecutive run with no worklist item unblocked; live-page recheck taken instead
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
+on agents/audit-backlog came back clean, already on the branch, up to date with
+origin/agents/audit-backlog at run 299's commit a8a1efe (no new commits since).
+The sandbox mount's git wrapper again left a 0-byte .git/index.lock; `rm -f`
+refused it with "Operation not permitted" as on every prior run, `mv` cleared
+it as usual. No git process was running first (`ps aux` empty).
+
+ANSWER PICKUP: navigated Claude in Chrome to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text -
+succeeded first attempt, no Cloudflare Access gate. Newest entry is still
+fb:2026-09-01T22:44:51.524Z (Q52), identical to every read since 2026-09-19
+including run 299 earlier today. Nothing above Q52, so Q53 through Q120 still
+have no portal reply. Re-checked the two open questions that do have portal
+history, Q37 and Q43: both replies ("i need further explanation..." and
+"Unsure...") were already recorded on a prior run as not selecting an option,
+and nothing newer has arrived, so both correctly remain open with nothing new
+to apply.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 299's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 299. QUESTIONS.json: 120 total, 67 open, unchanged.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass (Q115 itself, Q119 and Q120 all re-checked, all three still open,
+no new information). Instead, since neither run 298 nor run 299 performed a
+live-page recheck of the standing Q116-118 simpleweightloss.co.uk exposure
+today, and today was otherwise the first opportunity, this run took that
+recheck (read-only, nothing clicked, submitted or altered):
+
+- weight-loss-wilmslow.html (Q116): unchanged. Still names Mounjaro and Wegovy
+  with specific percentage weight-loss claims (15%/22%) and two present-tense
+  testimonials, still lists Wilmslow's phone (01625 523414), full address
+  (Unit 2, Summerfield Trade Centre, SK9 2TA) and WILMSLOW@RBHEALTH.CO.UK as a
+  live bookable contact route, twelve weeks after the 1 July 2026 disposal.
+- referral-program.html (Q117): unchanged. Still calls itself a "competitive
+  kickback scheme", still carries the unfilled "Earn £XX per referral"
+  placeholder, still gives info@simpleweightloss.co.uk and 07988911911 as the
+  only contact route, not seen elsewhere on the domain.
+- about.html (Q118): unchanged. The privacy clause still reads "please contact
+  us at [Insert Contact Details]"; the separate Contact Us clause at the foot
+  of the same section still gives the Aintree postal address only, no phone or
+  email. The internal contradiction already on record ("Established in 1976"
+  heading over "established in 2005" body text) is also unchanged and is
+  already folded into Q118's own note, so no new question raised.
+
+No new finding on any of the three pages; this run's sole contribution is
+confirming the exposure is still live rather than a stale snapshot.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked,
+no generator or data changed. Committed this log entry locally, then
+attempted `git push origin agents/audit-backlog` as usual rather than skipping
+it outright.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 299) - zero-output, fifty-fifth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
