@@ -68,15 +68,19 @@ were both checked and both came back unchanged; no worklist item unblocked;
 no generator or data changed.
 
 PUSH AND PUBLISH: this entry, plus the git-lock cleanup, are the only
-changes. Committing locally to agents/audit-backlog. git push will be
-attempted again after commit in case the credential gap is intermittent
-within a single run as well as across runs; if it fails again the commit
-(now two unpushed commits: run 307's 7c3dacb plus this one) stays local
-only. tools/build-audit-status.js will then be run regardless, per the
-standing instruction to publish even when a step fails, though it is
-expected to fail the same way run 307 recorded (hardcoded Windows path
-C:/Dev/rbh-site-data not present in this Linux sandbox, and no gh CLI
-installed here).
+changes. Committed locally to agents/audit-backlog as 82d8ecd (on top of run
+307's unpushed 7c3dacb). git push retried after commit, in case the
+credential gap was intermittent within a run as well as across runs: failed
+identically, "could not read Username for 'https://github.com': No such
+device or address" - confirmed not intermittent within this run either. Two
+commits (7c3dacb, 82d8ecd) now sit local-only on agents/audit-backlog,
+needing a push from an environment that holds working GitHub credentials.
+tools/build-audit-status.js was then run anyway per the standing instruction
+to publish even when a step fails: it failed the same way run 307 recorded,
+ENOENT on its hardcoded path C:/Dev/rbh-site-data/AGENT_WORKLIST.md, which
+does not exist in this Linux sandbox (mounted here at
+/sessions/clever-cool-mendel/mnt/rbh-site-data/AGENT_WORKLIST.md). Portal
+status page was not republished this run.
 
 Standing recommendations repeated once more, unchanged: Q115 (pause or
 repurpose the run cadence - sixty-four zero-output runs and counting), Q96/
