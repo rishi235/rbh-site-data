@@ -1,3 +1,73 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 321) - zero-output, seventy-sixth consecutive run with no worklist item unblocked; 37/37 checker suite re-confirmed clean (no repo change since run 318), Q115 updated with a fresh data point on cadence
+
+LOCK/SYNC: no `.agent-lock` present at start. Created one
+(`2026-09-24T12:12:36Z`). No stale `.git/*.lock` files present. `git fetch` /
+`git checkout agents/audit-backlog` / `git pull --ff-only` all ran cleanly.
+Confirmed on `agents/audit-backlog`, up to date with
+`origin/agents/audit-backlog` - run 320's push landed, nothing unpushed at
+the start of this run.
+
+ANSWER PICKUP: navigated (Claude in Chrome, read-only) to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed.
+Newest entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51.524Z). No
+entries for Q53 upward, and none of the 67 currently-open questions have a
+newer answer. No question status changed.
+
+WORKLIST: grepped AGENT_WORKLIST.md for `[ ]` and `[BLOCKED]`. Same 8 lines
+unchecked and blocked as every run since ~245: 5.3 (Q8), 5.4 (Q9), 5.5
+(Q13), 5.8 (Q16), 6.1 (Q52), both lines under 6.4/6.5 (Q60), 6.6 (Q66). All
+still need either a supervised Weebly-paste/cross-branch-push session or an
+answer to Q60/Q66 that has not arrived. No item available under step 5's
+normal rule.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing (it was run
+320's entry) - no "Standing authorisation - autonomous window" section
+present, so step 4 does not apply. Proceeded normally.
+
+QUALITY PASS (fallback, step 5): checked `git log` first - the current HEAD
+(`777f401`, run 320's commit) is unchanged since run 318's own commit
+(`36cce40`, the last point at which the 37-checker suite was run and found
+clean), so nothing has touched any checked page, generator or data file in
+between. Re-ran the full suite anyway rather than assuming the old result
+still held: all 37 `tools/check-*.js` scripts, 37/37 clean, zero failures.
+This confirms the run 318 baseline still stands rather than repeating it
+unverified - genuine verification, even though the expected and actual
+results matched. No in-repo defect found.
+
+Rather than pick a further rotation-pool page (the pool has had 18-23+
+independent clean passes per item, per Q115's own note), spent the rest of
+this run's verification effort on Q115 itself: appended an UPDATE noting
+this is now the seventy-sixth consecutive zero-output run, the scheduled
+task still fires every 30 minutes per its own configuration, and the gap
+between questions raised (67 open, oldest Q37 from 2026-08-28 in this
+feed's terms, older still by QUESTIONS.json date) and questions answered
+(newest portal answer Q52, 2026-09-01) has now stood at 23 days with no
+narrowing. Did not change Q115's status or take any autonomous action on
+it - it is explicitly a process/cadence decision reserved for Rishi, and no
+autonomous window is open this run regardless.
+
+PUSH: sandbox `git push --dry-run origin agents/audit-backlog` still fails
+with "could not read Username for 'https://github.com'" (Q96/Q102,
+unchanged). Used the `mcp__Windows-MCP__PowerShell` native-host route
+(the same real `C:\Dev\rbh-site-data` working copy) to stage, commit and
+push this run's two changes (this log entry, the Q115 note update).
+
+PUBLISH: ran `node tools\build-audit-status.js` via the native host after
+the push, to keep the portal status page current with the freshly-pushed
+HEAD.
+
+STRUCTURAL GRIDLOCK (repeated for whoever next reads this): unchanged from
+run 320 - (1) sandbox has no git credential of its own, routed around via
+Windows-MCP, not fixed; (2) the 8 remaining worklist items all need either a
+supervised Weebly-paste session, a cross-branch git push, or Rishi's own
+answer to Q60/Q66; (3) the read-only browser cannot progress Q53-Q120
+because none of them have a newer portal answer than Q52; (4) Q115 itself -
+whether to keep this thirty-minute cadence at all - remains open and is the
+one decision that would end this specific pattern of entries. Recommend
+Rishi look at Q115 directly: the repo-side audit is, on 76 consecutive
+zero-output runs' worth of evidence, functionally exhausted, and further
+runs at this frequency are producing log growth rather than progress.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 320) - NOT zero-output: cleared the 16-commit unpushed backlog via the Windows-MCP native-host route (runs 317-319 had stopped trying it), status page republished; no worklist item unblocked, gridlock on items themselves unchanged
 
 LOCK/SYNC: no `.agent-lock` present at start. Created one. No stale
