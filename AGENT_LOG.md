@@ -1,3 +1,55 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 314) - zero-output, seventieth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start, created one. .git/HEAD.lock and
+.git/index.lock were present at start (created 08:44 and 09:12 respectively,
+well under the 1-hour staleness threshold at the time this run began), same
+EPERM-on-unlink mount behaviour Q120 diagnosed. Read-only git commands
+(status, fetch, checkout after retry, pull --ff-only) worked. Local HEAD
+still 11 commits ahead of origin/agents/audit-backlog, unpushed since no
+GitHub credentials exist in this sandbox (unchanged since run ~304).
+
+ANSWER PICKUP: Claude in Chrome connector worked. Navigated read-only to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed.
+Newest entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51Z), identical to
+every run since 304. No entries at all for Q60, Q66, Q115, or any of the
+current 67 open questions (Q53 onward, including the newest, Q116-Q120).
+No question status changed.
+
+WORKLIST: grepped AGENT_WORKLIST.md directly. Same 8 lines unchecked and
+[BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6, all needing either a
+supervised Weebly-paste/cross-branch session, or answers to Q60/Q66 that
+have not arrived. No line content changed since run 313.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation" heading present. Normal rule applied.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run - the worklist grep and the feed
+fetch are sufficient to establish nothing changed since run 313, which
+itself confirmed no change since run 312.
+
+FLAG FOR RISHI, unchanged and now overdue: this scheduled task has produced
+zero worklist progress for 70 consecutive runs. The three structural blockers
+are unchanged: (1) no GitHub push credentials in this sandbox - local
+commits are now 11 and climbing, unpushed, and need a session with working
+credentials to land them before they compound further; (2) 5.3/5.4/5.5/5.8
+need a supervised Weebly-paste or cross-branch-push session that this
+unattended worker cannot perform; (3) Q60, Q66 and Q115 remain open and
+need your decision - Q115 in particular is asking whether this scheduled
+task should keep firing on its current cadence while it produces the same
+zero-output result every time. Recommend either answering Q115 (stop,
+reduce cadence, or continue as-is) or running one supervised session to
+clear the local commit backlog and the four paste-blocked items together,
+since they share the same root cause (nobody with write access has sat down
+with this branch since 2026-09-01).
+
+COULD NOT ACT ON: nothing new. No worklist item unblocked, no generator or
+data changed, no in-repo defect found or fixed.
+
+LOCK DEBRIS: same EPERM-on-unlink behaviour as prior runs. Following
+established convention: any lock file git recreates during this run's add/
+commit will be renamed aside with a run-numbered suffix rather than deleted
+or left in place.
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 313) - zero-output, sixty-ninth consecutive run with no worklist item unblocked; same-day re-run of run 312, deliberately kept short
 
 LOCK/SYNC: no .agent-lock present at start, created one. .git/index.lock and
