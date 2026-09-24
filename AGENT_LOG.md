@@ -1,3 +1,59 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 302) - zero-output, fifty-eighth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
+on agents/audit-backlog came back clean, already on the branch, up to date with
+origin/agents/audit-backlog at run 301's commit c91d424 (no new commits since).
+No stale .git/index.lock or .git/HEAD.lock encountered this run.
+
+ANSWER PICKUP: navigated Claude in Chrome to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text -
+succeeded first attempt, no Cloudflare Access gate. Newest entry is still
+fb:2026-09-01T22:44:51.524Z (Q52), identical to every read since 2026-09-19
+including run 301 earlier today. Nothing above Q52, so Q53 through Q120
+still have no portal reply. The two open questions with any portal history,
+Q37 and Q43, are unchanged: both replies already recorded as not selecting an
+option, nothing newer arrived, both correctly remain open.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 301's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 301. QUESTIONS.json: 120 total, 67 open, unchanged.
+Q8/Q9/Q13/Q16/Q52 remain "answered" but each answer ties the fix to a
+supervised Weebly paste session or a push to service-module-phase1 (Q13),
+neither of which this unattended run is authorised to do; Q60 and Q66 remain
+genuinely open with no reply. None newly unblocked, so no item was taken
+this run.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass (Q115, Q119 and Q120 all re-checked, all three still open, no new
+information). Run 300 already took today's live-page recheck of the standing
+Q116-118 simpleweightloss.co.uk exposure, so this run did not repeat that
+check against the same day's evidence; nothing else in scope for an
+unattended run remained to verify that had not already been covered today.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked,
+no generator or data changed.
+
+PUSH: `git push origin agents/audit-backlog` failed with "could not read
+Username for 'https://github.com'", the same no-credential-helper limitation
+recorded at Q96/Q102 on every prior run. Commit stays local; this run's commit
+brings local to 1 commit ahead of origin.
+
+STEP 10: `tools/build-audit-status.js` still hardcodes `REPO =
+'C:/Dev/rbh-site-data'` (line 11) rather than resolving its own repo root, so
+it failed with the same ENOENT on this Cowork sandbox mount as every run since
+258. Not fixed this run, same reasoning as every prior run: a generator-script
+change is scope beyond a zero-output run's one-item budget, and belongs on a
+worklist slot or with whoever answers Q119/Q120, not slipped in unrequested.
+
+Standing recommendations repeated once more: Q115 (pause/repurpose the
+cadence - fifty-eight zero-output runs running), Q119/Q120 (repo debris and
+its EPERM-on-unlink cause, unchanged), Q96/Q102 (no git push credential in
+this session, unchanged).
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 301) - zero-output, fifty-seventh consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
