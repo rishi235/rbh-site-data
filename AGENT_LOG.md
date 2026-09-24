@@ -1,4 +1,52 @@
-## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 337) - zero-output, ninety-first consecutive run; answer pickup unavailable, gridlock unchanged
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 338) - zero-output, ninety-second consecutive run; answer pickup unavailable, gridlock unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start, created one (timestamp
+2026-09-24T20:37:45Z). `git fetch origin` clean, already up to date with
+`origin/agents/audit-backlog` at `5d4aafe` (run 337's commit). No stale
+`.git\index.lock`, no local divergence. Sandbox mount and the real
+`C:\Dev\rbh-site-data` host checked separately via `mcp__Windows-MCP__PowerShell`
+and agree on the same HEAD.
+
+ANSWER PICKUP: Claude in Chrome, read-only, navigated to
+`https://data.rbhealth.co.uk/api/feedback`. Landed on the Cloudflare Access
+"Sign in" page (`rbhealth.cloudflareaccess.com`), not the JSON feed - no
+active SSO session in this session's Chrome. Per the task rule, no login
+attempted; tab closed. Pickup recorded as unavailable this run.
+QUESTIONS.json unread for new answers as a result; confirmed at 120 total,
+67 open, 53 answered, unchanged from run 337.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section
+present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST: reconfirmed by grep for `^- \[ \]`. Same 8 lines unchecked and
+[BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8
+(Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). No unblocked item available to
+take.
+
+QUALITY PASS: not taken this run, same reasoning as every run since Q115 -
+the 36-item rotation pool has been independently re-verified many times
+over with zero new defects found on each pass, so another pass adds log
+volume without adding audit information. The actual blocker is the 67 open
+questions sitting with Rishi, not more repo-side checking; Q116-Q118
+(simpleweightloss.co.uk regulatory exposure) remain the highest-priority
+open items and are now well over three weeks old.
+
+INFRASTRUCTURE RE-CHECK: not separately re-tested this run (matches Q96,
+Q119, Q120, all still open, no bulk delete taken; the ~230 untracked
+scratch/lock-probe files at repo root are unchanged and left alone per
+Q120's EPERM finding). This run's log entry is pushed via the documented
+fallback per Q102: `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` host, since the sandbox shell still has no usable
+git push credential.
+
+QUESTIONS: no edits. All 67 open questions, including Q96, Q102, Q115-Q120
+and the blocking Q8/Q9/Q13/Q16/Q52/Q60/Q66, remain open and unchanged.
+Q115 (run cadence) remains the operative recommendation: this is the
+ninety-second consecutive zero-output run of a 30-minute schedule with no
+new answers landing. Nothing in this run's scope can change that -
+worth Rishi actioning directly (answering the blocking questions, or
+pausing/slowing this scheduled task per Q115) rather than continuing to
+wait on further runs.
 
 LOCK/SYNC: no `.agent-lock` present at start, created one. `git fetch origin`
 clean, already up to date with `origin/agents/audit-backlog` at `a12c4f4`
