@@ -1,3 +1,154 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 316) - zero-output, seventy-second consecutive run with no worklist item unblocked; second same-day re-run following run 315; run 316's own commit also failed
+
+LOCK/SYNC: no .agent-lock present at start (run 315's own lock had already
+been cleared before this run started). Created one. git fetch/checkout/pull
+--ff-only all worked cleanly. Local HEAD was 12 commits ahead of
+origin/agents/audit-backlog, unpushed, plus one further uncommitted change:
+run 315's own log entry was sitting in the working tree, written but never
+committed (that run's own log records a near-miss log-corruption incident
+that interrupted it before the commit/push steps). Read that entry in full,
+confirmed it was a clean, accurate, non-duplicated account of run 315, and
+attempted to commit it together with this run's own entry (prepended above
+run 315's).
+
+That commit attempt is the new finding this run. A stale .git/index.lock
+(0 bytes, present from before this run started) blocked the first attempt;
+per the Q120 rename-aside workaround, `mv` succeeded where `rm` would not.
+The retried `git commit` then got partway through - it wrote several loose
+objects into .git/objects/ but failed to unlink its own temp object files
+(`unable to unlink '.git/objects/xx/tmp_obj_xxxxxx': Operation not
+permitted`, the exact EPERM-on-unlink behaviour Q120 diagnosed) and then
+failed outright on `unable to create .git/HEAD.lock: File exists`. Moving
+HEAD.lock aside and retrying reproduced the identical failure, but this time
+back on index.lock: git had recreated its own index.lock during the failed
+attempt and then could not unlink that one either when it errored out. A
+third attempt, after moving index.lock aside again, failed exactly the same
+way a third time. This is Q120's finding operating within a single run
+rather than only across runs: on this mount, git cannot reliably clean up
+its own lock files even immediately after creating them in the same
+process, which means every commit attempt has a real chance of leaving a
+new stale lock behind regardless of what the previous run left. Stopped
+after three attempts rather than looping further - three data points are
+enough to confirm this is the known mount defect, not a one-off.
+
+Net effect: AGENT_LOG.md's working-tree change (this entry plus run 315's,
+prepended in the correct order) is staged (`git add`) but NOT committed.
+Left in that state deliberately for the next run to pick up and retry,
+rather than attempting a fourth git operation that has failed three times
+running to date. No file content was corrupted by this - re-read the file
+after each attempt and confirmed it still reads correctly, run 315's entry
+intact, this entry intact, nothing doubled.
+
+ANSWER PICKUP: Claude in Chrome connector worked this session. Navigated
+read-only to https://data.rbhealth.co.uk/api/feedback and read the full JSON
+feed end to end. Newest entry is still AUDIT ANSWER Q52
+(2026-09-01T22:44:51Z), byte-identical to every run since 304. No entries for
+Q60, Q66, Q115, Q119, Q120, or any of the other open questions. No question
+status changed.
+
+WORKLIST: read AGENT_WORKLIST.md directly (grepped for unchecked/blocked
+lines rather than a full read, given its size - see Q119). Same 8 lines
+unchecked and [BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6. All still
+need either a supervised Weebly-paste/cross-branch-push session this
+unattended worker cannot perform, or an answer to Q60/Q66 that has not
+arrived. QUESTIONS.json: 120 total, 67 open, none newly answered, none
+changed since run 314/315.
+
+PUBLISH: node tools/build-audit-status.js failed as in every recent run -
+the script reads a hardcoded Windows path (C:/Dev/rbh-site-data/...) that
+does not exist on this Linux mount. Not attempted further; this is the same
+already-flagged defect from run 307 onward, not investigated again this run
+per the Q115 discipline against redundant re-verification of settled
+findings.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation" heading present. Normal rule applied, nothing
+decided autonomously.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run - the worklist read and the feed
+fetch are sufficient to establish nothing has changed since run 315.
+
+FLAG FOR RISHI, unchanged and now further overdue, plus one addition: this
+scheduled task has produced zero worklist progress for 72 consecutive runs.
+The structural blockers are exactly as recorded in runs 245 through 315 -
+see Q115 (cadence decision), Q119/Q120 (repo operating-file size and the
+EPERM-on-unlink mount behaviour), and the unpushed local-commit backlog
+(still 12, since this run's own commit did not land - see above). New this
+run: Q120's mount defect is now confirmed to bite within a single run, not
+only between runs, which means the growing pile of stale .git/index.lock and
+.git/HEAD.lock files (now several more, moved aside rather than deleted,
+since deletion itself fails on this mount) is likely to keep growing at
+more than one per calendar day once multiple commit attempts happen in a
+run. Recommend, as every recent run has: answer Q115 first, since it is the
+one decision that would stop the other findings from compounding further.
+
+COULD NOT ACT ON: nothing. No worklist item unblocked, no generator or data
+changed, no in-repo defect found or fixed, and this run's own log entry
+could not be committed (see LOCK/SYNC above) or pushed or published.
+
+
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 315) - zero-output, seventy-first consecutive run with no worklist item unblocked; same-day re-run of run 314
+
+LOCK/SYNC: no .agent-lock present at start, created one. git fetch/checkout/
+pull --ff-only all worked cleanly at the start of this run (no lock debris
+encountered at that point). Local HEAD was 12 commits ahead of
+origin/agents/audit-backlog, unpushed - this sandbox has no GitHub
+credentials (git push --dry-run fails with "could not read Username for
+'https://github.com'", unchanged since run ~304). Mid-run, a stray
+.git/index.lock appeared (0 bytes, timestamped 09:14) while this entry was
+being drafted via the bash tool, and `rm` against it failed with the same
+EPERM-on-unlink behaviour Q120 diagnosed. A first attempt to write this log
+entry via a bash heredoc to /tmp also failed ("Permission denied") and the
+fallback python step that followed it wrote 41 lines of an unrelated,
+already-existing log entry (run 266's) onto the top of this file, doubling
+it. That accidental duplication was caught before commit by diffing against
+HEAD and was reverted via a direct file edit (not git checkout, which was
+blocked by the index.lock above); AGENT_LOG.md was confirmed byte-identical
+to the last commit before this entry was written. No other file was touched
+by the bad write. Logged here in full because it is a new failure mode, not
+one of the three Q119/Q120 already have open.
+
+ANSWER PICKUP: Claude in Chrome connector worked. Navigated read-only to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed. Newest
+entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51Z), byte-identical to
+every run since 304. No entries for Q60, Q66, Q115, or any of the current 67
+open questions (Q53 onward through Q120). No question status changed.
+
+WORKLIST: read AGENT_WORKLIST.md and QUESTIONS.json directly. Same 8 lines
+unchecked and [BLOCKED]: 5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6 - all need
+either a supervised Weebly-paste/cross-branch session, or answers to
+Q60/Q66 that have not arrived. 120 questions total in QUESTIONS.json, 67
+open, none newly answered. No line content changed since run 314.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing - no
+"Standing authorisation" heading present. Normal rule applied.
+
+Per the Q115 discipline (option 3, held since run 245): no unrequested
+rotation-pool quality pass taken this run - the worklist read and the feed
+fetch are sufficient to establish nothing changed since run 314.
+
+FLAG FOR RISHI, unchanged and now further overdue: this scheduled task has
+produced zero worklist progress for 71 consecutive runs. The three
+structural blockers are unchanged: (1) no GitHub push credentials in this
+sandbox - local commits are now 12(+1 for this entry) and climbing,
+unpushed; (2) 5.3/5.4/5.5/5.8 need a supervised Weebly-paste or
+cross-branch-push session this unattended worker cannot perform; (3) Q60,
+Q66 and Q115 remain open and need a decision - Q115 specifically asks
+whether this task should keep firing on its current cadence given the
+repeated zero-output result. Recommend answering Q115 and, separately,
+running one supervised session with working git credentials to land the
+growing local commit backlog before it compounds further. New this run:
+worth also deciding whether an unattended run should keep trying to write
+scratch files under /tmp at all, given it just failed and produced a
+near-miss data-corruption incident in this very log - logged as a candidate
+addition to Q119/Q120's scope rather than raised as a fresh question, since
+it is a process refinement of an already-open finding, not a new decision.
+
+COULD NOT ACT ON: nothing new. No worklist item unblocked, no generator or
+data changed, no in-repo defect found or fixed.
+
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 314) - zero-output, seventieth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start, created one. .git/HEAD.lock and
