@@ -29,14 +29,34 @@ quality pass this run.
 COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked,
 no generator or data changed.
 
-PUSH AND PUBLISH: attempted from the Cowork sandbox shell only this run (no
-Windows-MCP tool was available in this session to retry via the native-host
-route that run 303 used). Will record the sandbox result below once attempted.
+PUSH AND PUBLISH: `git commit` and `git push` were both first tried from the
+Cowork sandbox shell. The commit succeeded despite several
+"unable to unlink ... Operation not permitted" warnings on `.git/objects/*`
+tmp files and `.git/HEAD.lock` (the same EPERM-on-unlink symptom Q119/Q120
+already record); the push then failed with "could not read Username for
+'https://github.com'" (Q96/Q102, unchanged). Retried via Windows-MCP
+PowerShell against the real C:\Dev\rbh-site-data host, per the route Q102
+recommends making primary and per run 303's evidence that it works:
+`git push origin agents/audit-backlog` succeeded (`git status -sb` afterwards
+showed agents/audit-backlog level with origin/agents/audit-backlog, no
+ahead/behind), and `node tools\build-audit-status.js` ran to completion,
+publishing reports/digital/Digital_Audit_Status.html (43/49 done, 88%) with
+no ENOENT. This is the second consecutive run (303, now 304) where the
+native-host route worked cleanly on first try, further evidence for
+resolving Q102 in favour of making it primary rather than a last resort.
+
+Noted in passing, not acted on (same reasoning as every prior run - a
+generator/cleanup change is outside a zero-output run's one-item budget):
+`git status -sb` on the native host listed well over 200 untracked debris
+files at repo root and under audits/ and gbp-packs/ (test probes, .released/
+.cleared/.stale marker files, a stray literal-colon directory), which is the
+Q119/Q120 finding at a scale not previously quoted verbatim in this log.
 
 Standing recommendations repeated once more: Q115 (pause/repurpose the
 cadence - sixty zero-output runs running), Q119/Q120 (repo debris and its
-EPERM-on-unlink cause, unchanged), Q96/Q102 (native-host git route unchanged
-from run 303's evidence).
+EPERM-on-unlink cause, now directly quantified above), Q96/Q102 (second
+consecutive clean native-host push and publish, strengthens the case to make
+it primary).
 
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 303) - zero-output, fifty-ninth consecutive run with no worklist item unblocked; push and publish both succeeded this run via the native-host route
 
