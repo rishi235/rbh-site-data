@@ -1,3 +1,54 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 305) - zero-output, sixty-first consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it (timestamp 2026-09-24T02:42:48Z).
+git fetch/checkout/pull on agents/audit-backlog came back clean, already on the
+branch, up to date with origin/agents/audit-backlog at run 304's commit 0bf32da
+(no new commits since). No stale top-level .git/index.lock encountered as a
+blocker (the sandbox mount's EPERM-on-unlink symptom recurred on a later `git
+status`, consistent with Q119/Q120, but did not stop read operations).
+
+ANSWER PICKUP: navigated Claude in Chrome to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text -
+succeeded first attempt, no Cloudflare Access gate. Newest entry is still
+fb:2026-09-01T22:44:51.524Z (Q52), identical to every read since 2026-09-19
+including runs 303 and 304. Cross-checked the two open questions that do have
+portal replies recorded against them (Q37, Q43) - both replies are dated
+2026-09-01 and are not decisions (Q37: Rishi asked for a plain-English
+restatement; Q43: a partial comment on the Cheshire-vs-Greater-Manchester
+half only), both already correctly left as status "open" with that reasoning
+recorded in their notes from the 2026-09-16 reconfirmation. Nothing new to
+pick up. Q53 through Q120 still have no portal reply at all.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 304's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 304. QUESTIONS.json: 120 total, 67 open, unchanged.
+None newly unblocked, so no item was taken this run.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass this run - the pool is on record as independently re-verified
+18 to 23 times per item with zero new defects, and Q115 itself (open since
+before run 245) already recommends pausing or slowing the cadence rather than
+continuing to spend runs re-confirming the same clean state.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked,
+no generator or data changed.
+
+PUSH AND PUBLISH: this entry, once written, is committed and pushed via the
+native-host route (mcp__Windows-MCP__PowerShell against the real
+C:\Dev\rbh-site-data checkout on ProDeskAi), per Q102's recommendation and
+the last two runs' clean results on that route, tried first this run rather
+than as a fallback after a sandbox failure. `node tools\build-audit-status.js`
+is run afterwards to republish reports/digital/Digital_Audit_Status.html.
+
+Standing recommendations repeated once more, unchanged: Q115 (pause/repurpose
+the cadence - sixty-one zero-output runs running), Q119/Q120 (repo debris and
+its EPERM-on-unlink cause), Q96/Q102 (native-host push/publish route continues
+to work cleanly and should be made primary in the task's own procedure).
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 304) - zero-output, sixtieth consecutive run with no worklist item unblocked
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
