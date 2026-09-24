@@ -52,14 +52,29 @@ at least one unblocks.
 COULD NOT ACT ON: nothing new. No worklist item unblocked, no generator or
 data changed, no in-repo defect found or fixed.
 
-PUSH AND PUBLISH: this log entry was the only change. Committed locally to
-agents/audit-backlog, on top of the 7 already-unpushed commits (now 8
-local-only). git push retried after commit: failed identically (no
-credentials). tools/build-audit-status.js was run anyway per the standing
-instruction to publish even when a step fails; expected to fail the same way
-runs 307-311 recorded (ENOENT on its hardcoded Windows path, not present on
-this session's Linux mount) - actual result recorded below once run.
-Deleted .agent-lock before exiting, per step 11.
+LOCK DEBRIS: same EPERM-on-unlink behaviour Q120 already diagnosed. git add
+and git commit each recreated .git/index.lock (and one commit round also
+left .git/HEAD.lock and a couple of .git/objects/*/tmp_obj_* files) that git
+itself could not unlink afterward. Followed Q120's established convention
+rather than inventing a new one: renamed each aside with a run-numbered
+suffix (.git/index.lock.renamed-run312*, .git/HEAD.lock.renamed-run312-*)
+immediately before the next git call, rather than deleting (deletion is
+EPERM on this mount for every process, not just this one, per Q120) or
+leaving them to block the following command. Did not touch the pre-existing
+.git/index.lock left over from run 311 until it actually blocked a write
+command, consistent with the "don't delete under the 1-hour threshold" rule
+holding for read-only git commands, which all worked around it fine earlier
+in this run.
+
+PUSH AND PUBLISH: this log entry was the only content change. Committed
+locally to agents/audit-backlog as 3ea3a65, on top of the 7 already-unpushed
+commits (now 8 local-only). git push retried after commit: failed
+identically - "could not read Username for 'https://github.com'", exit 128,
+no credentials. tools/build-audit-status.js was run anyway per the standing
+instruction to publish even when a step fails: it failed exactly as runs
+307-311 recorded, ENOENT on its hardcoded path C:/Dev/rbh-site-data/AGENT_WORKLIST.md,
+which does not exist on this session's Linux mount. The portal status page
+was not updated this run. Deleted .agent-lock before exiting, per step 11.
 
 ---
 
