@@ -1,3 +1,51 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 324) - zero-output, seventy-eighth consecutive run with no worklist item unblocked; kept deliberately short per Q115/Q119 (log bloat, now 7.5MB)
+
+LOCK/SYNC: no `.agent-lock` present at start, created one. No stale
+`.git/*.lock` older than 1 hour (an `index.lock` dated seconds old from this
+run's own `git status`/`git log` calls, harmless - see Q120 on why these
+persist rather than unlink on this mount). `git fetch` / checkout /
+`git pull --ff-only` clean, 0 ahead/behind `origin/agents/audit-backlog` at
+start.
+
+ANSWER PICKUP: Claude in Chrome, read-only, https://data.rbhealth.co.uk/api/feedback.
+Same 55-entry feed, newest still AUDIT ANSWER Q52 (2026-09-01T22:44:51.524Z).
+No new answers - 23 days, zero new portal answers, against 67 open questions
+(up from 65 at run 155/156's last count five days ago).
+
+AUTONOMOUS WINDOW: none present in this file. Step 4 does not apply.
+
+WORKLIST: same 8 lines unchecked and [BLOCKED] as every run since ~245 (5.3
+Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, both Q60 lines under 6.4/6.5, 6.6
+Q66). No item available under step 5's normal rule.
+
+QUALITY PASS: not taken, per the option-3 discipline runs 145+ established
+under Q115 (rotation pool exhausted, 18-23+ clean passes per item, further
+passes are diminishing returns already flagged repeatedly). Did not repeat
+a live-page recheck either this run, specifically to keep this entry short
+rather than add another few hundred lines restating unchanged findings -
+Q119 already flags AGENT_LOG.md's size as its own problem and this run is
+now 7.5MB, up from 6.9MB when that question was raised.
+
+QUESTIONS: no edits beyond this entry. Q115 (cadence), Q119/Q120 (file
+bloat and the untracked-scratch-file pile), Q96/Q102 (git push/publish
+route), and Q3/Q45 (merge agents/audit-backlog to main - Rishi has twice
+recorded wanting this, on 2026-08-04 and 2026-09-01, and it remains
+un-actioned because merging to main is outside this task's authority) are
+all still open and are, between them, the entire remaining backlog. Nothing
+in this run's scope can move any of them without Rishi's decision or a
+supervised session.
+
+PUSH/PUBLISH: this entry only; committed and pushed to
+`agents/audit-backlog`, then `node tools/build-audit-status.js` run to
+refresh the portal status page.
+
+RECOMMENDATION (repeating Q115, not re-litigating it): the technical work
+here is done pending decisions. Continuing to run this worker at its
+current cadence mostly grows AGENT_LOG.md further. Suggest actioning Q115
+(pause or slow the schedule) alongside working through the open-question
+backlog, most usefully starting with Q3/Q45 (main merge) since several
+other blocked items and questions cascade from it.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 323) - recovered a stuck commit, not a zero-output run: found and fixed a genuinely stale git index.lock that had silently blocked run 322's commit despite its own log entry claiming success; no worklist or repo-content change
 
 LOCK/SYNC: `.agent-lock` absent at start, created one
