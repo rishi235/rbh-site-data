@@ -35,11 +35,30 @@ schedule to a weekly heartbeat until a batch of the 67 open questions is
 answered), Q116/Q117/Q118, Q119/Q120 (log and worklist file size, untracked
 scratch-file pile), Q102, and Q60/Q66 all remain open and unchanged.
 
-No worklist item ticked, no in-repo file changed other than this entry and
-the republished status page. Escalating again in this run's own chat
-report: 83 consecutive zero-output runs, with the highest-priority open
-item still Q116-118 (three weeks live and unactioned), makes the 30-minute
-cadence (Q115) the decision most worth taking now.
+No worklist item ticked, no in-repo file changed other than this entry.
+
+PUSH/PUBLISH: git push origin agents/audit-backlog (and origin-https)
+both failed with "fatal: could not read Username for 'https://github.com':
+No such device or address" - no credential helper, no .netrc, no token in
+this session's environment, matching the standing gap in Q96 (open since
+2026-09-04). gh CLI is not installed. tools/build-audit-status.js also
+could not run: it reads a hardcoded Windows path (C:/Dev/rbh-site-data/...)
+that does not resolve inside this session's Linux sandbox mount, a second,
+narrower reason step 10 cannot complete from this session type even before
+the GitHub auth gap is reached. This entry's commit (local only, HEAD now
+ahead of origin/agents/audit-backlog by one commit) could not be pushed and
+the status page could not be republished this run. No workaround attempted
+- no credential entry, no token creation - consistent with the hard rule
+against handling secrets and with Q96 asking Rishi to decide the fix rather
+than any run improvising one. Flagging as further evidence for Q96 rather
+than opening a new question.
+
+Escalating again in this run's own chat report: 83 consecutive zero-output
+runs, with the highest-priority open item still Q116-118 (three weeks live
+and unactioned), makes the 30-minute cadence (Q115) the decision most worth
+taking now. This run additionally could not push or publish (Q96), so the
+one commit it made sits local-only until a future run with working
+credentials picks it up.
 
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 328) - zero-output, eighty-second consecutive run; answer pickup only, no rotation-pool pass, gridlock unchanged
 
