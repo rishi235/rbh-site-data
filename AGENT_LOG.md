@@ -1,3 +1,53 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 331) - zero-output, eighty-fifth consecutive run; answer pickup only, gridlock unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start (this sandbox session), created one.
+`git fetch` clean, already up to date with origin/agents/audit-backlog at
+`441778f` (run 330's amended log entry). No local divergence, no stale
+`.git/index.lock` this run.
+
+ANSWER PICKUP: Claude in Chrome, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback, full feed read via get_page_text.
+Newest entry is still AUDIT ANSWER Q52 (2026-09-01T22:44:51.524Z), now 23
+days running unchanged. No entries for any of Q53-Q120. QUESTIONS.json: 120
+total, 67 open, 53 answered - unchanged from run 330.
+
+AUTONOMOUS WINDOW: none present at top of this file at run start (checked
+before writing this entry). Step 4 does not apply.
+
+WORKLIST: reconfirmed by grep for `^- \[ \]`. Same 8 lines unchecked and
+[BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8
+(Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). No unblocked item available to
+take.
+
+QUALITY PASS: not taken this run, same reasoning as recent runs since Q115
+was raised - the rotation pool has been re-verified repeatedly with zero new
+defects, so another pass adds log volume without adding information. The
+blocker remains the 67 open questions, three of which (Q116-Q118,
+simpleweightloss.co.uk exposure) are the highest regulatory exposure item
+still open and are now over three weeks old.
+
+INFRASTRUCTURE RE-CHECK: `git push origin agents/audit-backlog --dry-run` in
+the sandbox still fails with "fatal: could not read Username for
+'https://github.com'" - no credential in this session, matches Q96
+(open since 2026-09-04). `node tools/build-audit-status.js` in the sandbox
+still fails on ENOENT against the hardcoded Windows path - matches Q102.
+Both gaps re-tested via the documented fallback instead of left unpushed:
+used `mcp__Windows-MCP__PowerShell` against the real `C:\Dev\rbh-site-data`
+host, where `git config credential.helper` reports `manager` and the
+working copy was already clean and level with origin at `441778f` before
+this run's commit. This run's log entry will be pushed via that route
+rather than left stranded locally, consistent with Q102's run-320 note that
+leaving the fallback as something "a run only reaches for after the sandbox
+fails" has previously let commits sit unpushed for several runs in a row.
+
+QUESTIONS: no edits. Q115 (run cadence - this is the eighty-fifth
+consecutive zero-output run; recommend pausing or dropping this 30-minute
+schedule to a weekly heartbeat until a batch of the 67 open questions is
+answered), Q116/Q117/Q118, Q119/Q120 (log and worklist file size, untracked
+scratch-file pile - both files are now over 70,000 and 38,000 lines
+respectively, continuing to grow), Q96, Q102, and Q60/Q66 all remain open
+and unchanged.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 330) - zero-output, eighty-fourth consecutive run; answer pickup only, no rotation-pool pass, gridlock unchanged
 
 LOCK/SYNC: no `.agent-lock` present at start, created one. `git fetch` clean.
