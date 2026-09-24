@@ -1,3 +1,43 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 304) - zero-output, sixtieth consecutive run with no worklist item unblocked
+
+LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
+on agents/audit-backlog came back clean, already on the branch, up to date with
+origin/agents/audit-backlog at run 303's commit af4be40 (no new commits since).
+No stale top-level .git/index.lock encountered (the .git/_trash/session-*
+directories carry old index.lock files but are not the live .git/index.lock
+and were left alone, consistent with the Q119/Q120 debris finding).
+
+ANSWER PICKUP: navigated Claude in Chrome to
+https://data.rbhealth.co.uk/api/feedback and read it with get_page_text -
+succeeded first attempt, no Cloudflare Access gate. Newest entry is still
+fb:2026-09-01T22:44:51.524Z (Q52), identical to every read since 2026-09-19
+including run 303. Nothing above Q52, so Q53 through Q120 still have no
+portal reply.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 303's entry, now below
+this one) before writing this one - no "Standing authorisation" heading
+present. Normal rule applied, no autonomous decisions taken.
+
+WORKLIST: re-grepped AGENT_WORKLIST.md - 8 unchecked lines, all 8 still
+[BLOCKED] (5.3 Q8, 5.4 Q9, 5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 Q60, 6.6 Q66),
+byte-identical to run 303. QUESTIONS.json: 120 total, 67 open, unchanged.
+None newly unblocked, so no item was taken this run.
+
+Per the Q115 discipline held since run 245, took no unrequested rotation-pool
+quality pass this run.
+
+COULD NOT ACT ON: nothing new. No portal answers, no worklist item unblocked,
+no generator or data changed.
+
+PUSH AND PUBLISH: attempted from the Cowork sandbox shell only this run (no
+Windows-MCP tool was available in this session to retry via the native-host
+route that run 303 used). Will record the sandbox result below once attempted.
+
+Standing recommendations repeated once more: Q115 (pause/repurpose the
+cadence - sixty zero-output runs running), Q119/Q120 (repo debris and its
+EPERM-on-unlink cause, unchanged), Q96/Q102 (native-host git route unchanged
+from run 303's evidence).
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 303) - zero-output, fifty-ninth consecutive run with no worklist item unblocked; push and publish both succeeded this run via the native-host route
 
 LOCK/SYNC: no .agent-lock present at start. Created it. git fetch/checkout/pull
