@@ -1,4 +1,96 @@
-## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 319) - zero-output, seventy-fifth consecutive run with no worklist item unblocked; option-3 live recheck (Q59 answer-pickup reliability), no rotation-pool pass
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 320) - NOT zero-output: cleared the 16-commit unpushed backlog via the Windows-MCP native-host route (runs 317-319 had stopped trying it), status page republished; no worklist item unblocked, gridlock on items themselves unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start. Created one. No stale
+`.git/*.lock` files present this time (previous runs' EPERM-on-unlink debris
+from Q119/Q120 was not reproduced). `git fetch` / `git checkout
+agents/audit-backlog` / `git pull --ff-only` all ran cleanly. Confirmed on
+`agents/audit-backlog`, 16 commits ahead of `origin/agents/audit-backlog`
+(run 319's own log commit plus everything already unpushed before it).
+
+ANSWER PICKUP: this session has `mcp__Windows-MCP__PowerShell` available, so
+used the real host for git, but stuck to the Claude in Chrome route (read
+only) for the portal fetch per the task's own rule. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed: 44
+entries, newest AUDIT ANSWER still Q52 (2026-09-01T22:44:51Z), unchanged.
+No entries at Q53 or above. No question status changed on this basis.
+
+WORKLIST: grepped for `[ ]` and `[BLOCKED]`. Same 8 lines unchecked and
+blocked as every run since ~245: 5.3, 5.4, 5.5, 5.8, 6.1, both lines under
+6.4/6.5 (Q60), 6.6 (Q66). All still need either a supervised Weebly-paste/
+cross-branch-push session or Rishi's own answer to Q60/Q66. Fixing the git
+push route (below) does not unblock any of these eight - they are blocked on
+content/decision grounds, not on the infrastructure problem this run solved.
+No item available under step 5's normal rule.
+
+AUTONOMOUS WINDOW: checked the top of this file before writing (it was run
+319's entry) - no "Standing authorisation - autonomous window" section
+present, so step 4 does not apply. Proceeded normally; Q102 (below) was
+updated with evidence only, not decided.
+
+THE ACTUAL WORK THIS RUN: rather than repeat run 319's read of the sandbox
+push failure and stop there, tried the already-documented
+`mcp__Windows-MCP__PowerShell` fallback against the real
+`C:\Dev\rbh-site-data` working copy (established since run ~293, recommended
+as the primary route in open question Q102). It is the SAME filesystem the
+sandbox mounts (`git status` on both sides showed byte-identical untracked
+debris and the same 16-ahead count), so this is not a second copy to keep in
+sync, just a different execution surface with working credentials.
+
+- `git push origin agents/audit-backlog` via the native host succeeded on
+  the first attempt, no credential prompt: `16d6b6d..5e2901c
+  agents/audit-backlog -> agents/audit-backlog`. `gh auth status` confirms a
+  valid keyring token for `rishi235` with `repo`/`workflow`/`gist`/`read:org`
+  scopes. `git status` afterwards: "up to date with
+  'origin/agents/audit-backlog'". All 16 backlogged commits (runs 304-319,
+  mostly log-only entries, no worklist ticks among them) are now on origin.
+- `node tools\build-audit-status.js` via the native host succeeded
+  immediately: "Published reports/digital/Digital_Audit_Status.html (43/49
+  done, 88%)".
+
+This run's own push/publish (below) used the same route and also succeeded
+cleanly.
+
+REGRESSION NOTED: runs 317, 318 and 319 did not mention trying the
+Windows-MCP route at all in their PUSH/PUBLISH sections - they read the
+sandbox-only failure ("could not read Username", `gh` not installed) and
+logged it as unresolved gridlock, even though this exact fallback has worked
+in every run that tried it since ~run 293 (see Q102's note history). That
+left three runs' worth of commits sitting unpushed for no reason other than
+not attempting the documented fix. Logged as an UPDATE on Q102 (still open,
+not decided autonomously - it is a standing-procedure change, Rishi's call)
+rather than resolved silently, since whether to make the native-host route
+PRIMARY (so this can't recur) is exactly what Q102 asks.
+
+QUALITY PASS: not run fresh this time - the last full checker-suite pass
+(run 318, 37/37 clean) is only two runs old and nothing has been committed
+to the checked pages/generators/data since, so re-running it would not add
+information. Effort this run went to the push/publish fix instead, which is
+a genuine repo-state change (16 commits landing on origin, status page
+republished) rather than a passive re-verification.
+
+PUSH: this run's own changes (this log entry, the Q102 note update) - staged
+and committed on the sandbox side, then landed via the same
+`mcp__Windows-MCP__PowerShell` native-host route since the sandbox still has
+no git credential of its own (that part of Q96/Q102 is unchanged; only the
+routing decision changed for this run).
+
+PUBLISH: `node tools/build-audit-status.js` run again via the native host
+after this run's own commit, to keep the status page current with the
+freshly-pushed HEAD.
+
+STRUCTURAL GRIDLOCK (repeated, updated): (1) the sandbox itself still has no
+GitHub write credential - unchanged, but no longer actually blocking
+anything, since the native-host route is proven reliable and was used
+successfully this run; (2) the 8 remaining worklist items still need either
+a supervised Weebly-paste session, a cross-branch git push, or Rishi's own
+answer to Q60/Q66 - genuinely unchanged by anything in this run's reach;
+(3) the read-only browser still cannot progress Q53-Q120 because none of
+them have a newer portal answer than Q52. Recommend Rishi answer Q102
+specifically (make Windows-MCP primary) so future runs stop treating (1) as
+a blocker when it demonstrably is not one, and a supervised session and/or
+Q115 (cadence) answer for (2) and (3).
+
+
 
 LOCK/SYNC: no `.agent-lock` present at start. Created one. `.git/HEAD.lock`
 and `.git/ORIG_HEAD.lock` (both under an hour old by in-shell epoch
