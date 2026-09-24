@@ -1,3 +1,60 @@
+## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 325) - zero-output, seventy-ninth consecutive run; git lock cleared via Windows-MCP PowerShell (no live process), answer pickup only, gridlock unchanged
+
+LOCK/SYNC: no `.agent-lock` present at start, created one. Sandbox-side
+`git checkout` failed on `.git/HEAD.lock` (27 min old at first sight, then
+`ORIG_HEAD.lock` from the sandbox's own failed checkout retry). Confirmed
+via `mcp__Windows-MCP__Process` that no `git.exe` or editor process was
+running on the real host, then cleared `HEAD.lock`, `ORIG_HEAD.lock` and
+`index.lock` via `mcp__Windows-MCP__PowerShell` against the real
+`C:\Dev\rbh-site-data` path (sandbox `rm` again refused with "Operation not
+permitted" on `HEAD.lock`, consistent with Q120's delete-on-this-mount
+finding). Confirmed clean afterwards: branch `agents/audit-backlog`, HEAD
+`b6ebf4a` (run 324's commit), 0 ahead/behind origin, no divergence.
+
+ANSWER PICKUP: Claude in Chrome, read-only,
+https://data.rbhealth.co.uk/api/feedback, full feed read. Newest entry
+still AUDIT ANSWER Q52 (2026-09-01T22:44:51.524Z). No new answers - 23 days
+running, against 67 open questions.
+
+AUTONOMOUS WINDOW: none present at top of this file. Step 4 does not apply.
+
+WORKLIST: re-grepped directly rather than trusting the previous entry's
+summary. Exactly the same 8 lines unchecked and `[BLOCKED]`: 5.3 Q8, 5.4 Q9,
+5.5 Q13, 5.8 Q16, 6.1 Q52, 6.4/6.5 (both Q60), 6.6 Q66. Spot-checked 5.5
+specifically since Q13 shows as answered (2026-08-10): the item text itself
+records why it stays blocked - both remaining halves (fast-forwarding
+`service-module-phase1` to `main`, and the live Weebly re-pin) are outside
+this task's authorisation regardless of the answer's age. No item available
+under step 5's normal rule.
+
+QUALITY PASS: not taken, per the option-3 discipline (Q115) - rotation pool
+exhausted at 18-23+ clean re-verifications per item with zero new defects.
+Not repeated again this run to avoid adding to the log-bloat problem Q119
+already flags (AGENT_LOG.md ~70,000 lines / AGENT_WORKLIST.md ~38,000 lines
+before this entry).
+
+QUESTIONS: no edits beyond this entry. Open and unchanged: Q115 (run
+cadence), Q119/Q120 (file bloat, untracked scratch-file pile, and the
+mount's delete limitation), Q102 (make Windows-MCP PowerShell the
+documented primary git-write route rather than a fallback - today's own
+lock recovery is another data point in favour of that), and Q3/Q45 (merge
+`agents/audit-backlog` to main, both already answered by Rishi on
+2026-08-04 and 2026-09-01 respectively, still unactioned because the merge
+is outside this task's authority). These four/five questions are, between
+them, the entire remaining backlog.
+
+PUSH/PUBLISH: this entry only, committed and pushed to
+`agents/audit-backlog` via `mcp__Windows-MCP__PowerShell` against the real
+host (sandbox git write not attempted this run given the lock history
+above), then `node tools/build-audit-status.js` run to refresh the portal
+status page.
+
+RECOMMENDATION (repeating Q115/Q102, not re-litigating either): nothing
+this run's authority covers has changed since run 324. The two most
+useful next actions both need Rishi directly: a decision on Q115 (pause or
+slow the cadence), and a supervised session to action the already-answered
+Q3/Q45 main merge, which would itself unblock 5.5 and likely others.
+
 ## 2026-09-24 (unattended scheduled run, audit-backlog-worker, run 324) - zero-output, seventy-eighth consecutive run with no worklist item unblocked; kept deliberately short per Q115/Q119 (log bloat, now 7.5MB)
 
 LOCK/SYNC: no `.agent-lock` present at start, created one. No stale
