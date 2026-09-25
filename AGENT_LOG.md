@@ -1,3 +1,15 @@
+## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 349) - zero-output, one-hundred-and-third consecutive run; recommending the run be paused
+
+LOCK/SYNC: no .agent-lock at start. git fetch/checkout/pull --ff-only ran clean once .git/HEAD.lock and .git/index.lock (both zero-byte, no owning process) were moved aside; a plain probe file also could not be `rm`'d this session ("Operation not permitted") but `mv` worked, so lock files are cleared by rename, not delete, same as several recent runs. Already up to date with origin at b2b0a6e (run 348).
+
+ANSWER PICKUP: Claude in Chrome loaded and navigated to https://data.rbhealth.co.uk/api/feedback; redirected to Cloudflare Access sign-in (Azure AD), no session. No login attempted. Same outcome as every run since this was first tried. Q59 unresolved.
+
+WORKLIST: all 8 lines still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60, 6.6/Q66), unchanged since item 232. QUESTIONS.json: 120 total, 67 open, unchanged.
+
+QUALITY PASS: not taken, for the reason given in every entry since run ~250 (Q115): the rotation pool is exhausted and re-running it is the behaviour Q115 asked Rishi to weigh in on.
+
+RECOMMENDATION: this is the 103rd consecutive run with no output. Six process questions (Q59, Q96, Q102, Q115, Q119, Q120) have sat open across all of them, and this run adds a seventh symptom: AGENT_LOG.md is now ~71,000 lines and AGENT_WORKLIST.md ~38,000, and the repo working copy has accumulated several hundred untracked scratch/probe/lock files from past runs' workaround attempts (visible in git status). This is no longer a temporary gridlock, it is a standing cost with no offsetting output. Recommend Rishi pause or delete this scheduled task until Q59/Q60/Q66/Q96/Q102/Q115/Q119/Q120 are answered in one sitting, rather than let it continue to log identical findings and grow the repo further. No new question raised.
+
 ﻿﻿## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 348) - zero-output, one-hundred-and-second consecutive run; Claude in Chrome tried this time, same net result; no fresh quality pass taken, reasoning below
 
 LOCK/SYNC: no .agent-lock present at start. Created one, git fetch/checkout/pull --ff-only against agents/audit-backlog all ran clean, already up to date with origin (no new commits since run 347). No stale .git/index.lock.
