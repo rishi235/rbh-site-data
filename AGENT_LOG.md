@@ -1,3 +1,15 @@
+## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 350) - zero-output, one-hundred-and-fourth consecutive run; recommendation from run 349 stands, not repeating detail
+
+LOCK/SYNC: no .agent-lock at start. git fetch/checkout/pull --ff-only clean, already up to date with origin at d0e17b4 (run 349). .git/index.lock (zero-byte, no owning process) again could not be removed by rm ("Operation not permitted") but was cleared by mv, consistent with recent runs.
+
+ANSWER PICKUP: Claude in Chrome navigated to https://data.rbhealth.co.uk/api/feedback; same Cloudflare Access / Azure AD sign-in wall as every prior run, no session, no login attempted. Q59 unresolved.
+
+WORKLIST/QUESTIONS: reconfirmed directly rather than trusting the prior entry - same 8 lines [BLOCKED] unchanged since item 232 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60, 6.6/Q66); QUESTIONS.json still 120 total, 67 open, unchanged. No unblocked item available.
+
+QUALITY PASS: not taken, same standing reasoning as every run since Q115 (rotation pool exhausted, cadence decision pending Q115).
+
+ASSESSMENT: not repeating run 349's assessment in full here - it stands unchanged, including the recommendation that this scheduled task be paused or deleted pending Q59/Q60/Q66/Q96/Q102/Q115/Q119/Q120. No new question raised.
+
 ## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 349) - zero-output, one-hundred-and-third consecutive run; recommending the run be paused
 
 LOCK/SYNC: no .agent-lock at start. git fetch/checkout/pull --ff-only ran clean once .git/HEAD.lock and .git/index.lock (both zero-byte, no owning process) were moved aside; a plain probe file also could not be `rm`'d this session ("Operation not permitted") but `mv` worked, so lock files are cleared by rename, not delete, same as several recent runs. Already up to date with origin at b2b0a6e (run 348).
