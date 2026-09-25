@@ -18863,6 +18863,41 @@ Pharmacy First wording to the NHS service description.
       No new question raised; QUESTIONS.json unchanged at 114 total, 61
       open (confirmed at both the start and end of this run).
       Evidence: this AGENT_LOG.md entry, 2026-09-19.
+      Quality pass 2026-09-25 (twenty-fourth, unattended scheduled run):
+      rotation-pool selection by audits/ filename date initially picked 4.2 as
+      stalest (2026-09-16), but opening this paragraph showed the twenty-third
+      pass above actually landed 2026-09-19 with no matching audits/ filename -
+      the selection method undercounts inline-logged passes; noted rather than
+      restarted, since the work below stands on its own regardless of whether
+      4.2 was the single stalest pool item. FRESH ANGLE: none of the prior
+      twenty-three passes had read this branch's own generated weight-loss-
+      clinic page live and checked its JSON-LD, the exact page family item
+      3.10 fixed (Pharmacy vs MedicalBusiness) and where Q99 tracks a second,
+      Weebly-injected schema block on other sites. Pack sha256 unchanged
+      (831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2,
+      matching all twenty-three prior passes); full 36-checker suite exits 0
+      against the tracked repo. modules/service/pages/weight-loss-clinic-
+      cherry-lane-walton.html read directly: correctly declares "@type":
+      "Pharmacy" with openingHoursSpecification matching branches.json - no
+      in-repo defect. LIVE HALF via Claude in Chrome: the live page's own
+      content read clean against RBH_WeightLoss_Advertising_Standards.md and
+      compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (no medicine named, no
+      superlative or outcome claim, both hedges present, price stated once
+      plainly, safety cohorts and NHS/999/111 signpost present, hours match
+      branches.json). TWO LIVE FINDINGS, both extending already-open items:
+      (1) the live page's own JSON-LD ("Block A") still declares "@type":
+      "MedicalBusiness" with no openingHoursSpecification - a live-paste-lag
+      matching the pre-item-3.10-fix shape already tracked at SK Chemists
+      Bootle, not a repo defect since the tracked file is already correct;
+      (2) the live page carries a second JSON-LD block ("Block B", url set to
+      the homepage, plus email and its own hours) exactly matching Q99's
+      tracked pattern - the fourth of sixteen live sites now checked for it,
+      and accurate on every fact it carries (Cherry Lane has no lunch closure,
+      so no hours-misstatement risk the way Smartts Bootle's Block B has).
+      Appended as an addendum to Q99 rather than a new question. No in-repo
+      defect; no checker, generator, page or branches.json content changed.
+      Evidence: audits/cherry-lane-item-4.2-jsonld-live-2026-09-25-
+      twentyfourth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

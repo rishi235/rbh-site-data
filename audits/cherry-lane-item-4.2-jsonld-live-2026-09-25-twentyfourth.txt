@@ -1,0 +1,141 @@
+Item 4.2 (Cherry Lane Pharmacy Walton GBP pack) twenty-fourth quality pass, 2026-09-25
+Unattended scheduled run, audit-backlog-worker.
+
+ROTATION POOL SELECTION
+All 8 remaining AGENT_WORKLIST.md unchecked lines reconfirmed [BLOCKED] (5.3,
+5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6). QUESTIONS.json: 120
+total, 67 open, unchanged from the immediately preceding run. Quality-pass
+fallback applied, same as every run since item 232.
+
+Least-recently-verified item in the active rotation pool (36 checked items,
+minus the standing out-of-rotation one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8):
+initially selected by taking, for every pool item, the maximum YYYY-MM-DD date
+across every filename in audits/ whose name contains that item's number, which
+placed item 4.2 (Cherry Lane Pharmacy Walton) stalest at 2026-09-16. That method
+undercounts: on opening the item's own AGENT_WORKLIST.md paragraph to write this
+pass, its most recent entry was actually "Quality pass 2026-09-19 (twenty-third,
+unattended scheduled run)" - three days later than the filename search found,
+because that pass's own evidence was logged inline in the worklist/AGENT_LOG.md
+without a matching audits/ filename containing "4.2". This is the same class of
+gap the worklist has flagged before (a filename-only or header-only search
+missing an inline-logged pass, e.g. the 4.10 seventeenth-pass miss recorded on
+an earlier run) - noted here rather than silently corrected, since it means item
+4.2 was very likely NOT the genuinely stalest pool item this run (several other
+items' filename-derived dates of 2026-09-18/19 may also undercount by the same
+mechanism, not checked exhaustively given the time budget). Proceeding with 4.2
+anyway rather than restarting the search, since the work below stands on its own
+merits regardless of whether 4.2 was the single stalest pick: it closes a real,
+previously-unchecked gap in Q99's live-site coverage (see FRESH ANGLE). This
+pass is therefore the item's twenty-fourth, not its twenty-first as originally
+misnumbered before this correction - fixed before commit.
+
+ANSWER PICKUP (step 3, reported once here rather than duplicated per item):
+attempted via Claude in Chrome against https://data.rbhealth.co.uk/api/feedback.
+Landed on the Cloudflare Access sign-in form (Azure AD / email-code), no active
+session. Per the read-only rule, no login attempted; tab closed. Q59
+unresolved, unchanged.
+
+FRESH ANGLE
+Twenty-three prior passes on this item have proven, by direct injection or live
+fetch, ten checkers' worth of rules against gbp-packs/cherry-lane-walton.md
+itself (most recently the two post-button rules on the twenty-third pass,
+2026-09-19), plus a live homepage read (twentieth pass, 2026-09-16) that
+reconfirmed two already-tracked findings (the FA226 mailbox typo, Q36; the
+estate-wide Weight Loss Clinic superlative line, Q22/item 5.8) and found no
+sister-branch claim live. What none of the twenty-three passes had done was
+read this branch's own GENERATED weight-loss-clinic page live and check its
+JSON-LD - the exact page
+family item 3.10 originally fixed (Pharmacy vs MedicalBusiness) and where Q99
+tracks a second, Weebly-injected schema block found on skchemist.co.uk,
+smarttschemist.co.uk and gordonshortchemist's live sites but never yet checked
+on cherrylanepharmacy.co.uk. Confirmed by grepping every prior
+cherry-lane-item-4.2*.txt and the item 4.2 paragraph in AGENT_WORKLIST.md for
+"weight-loss-clinic-cherry-lane-walton" and "JSON-LD" together: no hit before
+this pass.
+
+BASELINE
+sha256(gbp-packs/cherry-lane-walton.md) =
+831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+- unchanged, matches all twenty-three prior passes exactly.
+Full 36 tools/check-*.js run individually against the tracked repo: 0
+failures, all exit 0.
+git status --porcelain -- tools modules core branches.json gbp-packs: only the
+two long-standing untracked strays every recent pass records
+(gbp-packs/.fuse_hidden0000000400000001,
+modules/service/pages/notarealservice-fishlocks-ainsdale.html.bak), neither
+touched.
+
+REPO CHECK
+modules/service/pages/weight-loss-clinic-cherry-lane-walton.html read directly:
+its JSON-LD block correctly declares "@type": "Pharmacy", includes
+openingHoursSpecification matching branches.json's cherrylane_liverpool record
+exactly (Mon-Fri 09:00-18:30, Sat 09:00-17:00), and its "url" is the page's own
+URL. This is the current, correct, item-3.10-fixed shape. No in-repo defect.
+
+LIVE HALF
+Fetched https://www.cherrylanepharmacy.co.uk/weight-loss-clinic-cherry-lane-walton.html
+via Claude in Chrome (connected this run). Page resolves (title and body both
+correct: "Weight Loss Clinic at Cherry Lane Pharmacy, Walton"). Read via
+get_page_text and confirmed clean against RBH_WeightLoss_Advertising_Standards.md
+and compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md: no medicine, vaccine or
+drug brand named anywhere; every mention of prescription-only medication is
+generic ("prescription-only weight-loss medication"); no superlative or
+results-outcome claim; "not right for everyone" and "individual results vary"
+hedges both present; price stated once, plainly, as "from £39.99" with no
+discount framing or lead banner; four safety/exclusion cohorts listed
+(pregnancy/breastfeeding, under-18s, specific medical histories, already on
+other weight-loss/diabetes medication); NHS/999/111 signpost present for
+urgent symptoms. Opening hours in the footer ("Open Mon-Fri 9am-6:30pm, Sat
+9am-5pm, Sun closed") match branches.json exactly. Compliant on every rule
+checked.
+
+TWO LIVE FINDINGS, both extending already-tracked, already-open items rather
+than raising anything new:
+
+(1) The live page's own JSON-LD block (the module's block, "Block A") still
+declares "@type": "MedicalBusiness", not "Pharmacy", and carries no
+openingHoursSpecification at all - the exact pre-item-3.10-fix shape. The
+repo's own copy of this same file (confirmed above) is already correct, so
+this is a live-paste-lag: this specific page has not been repasted to Weebly
+since the 2026-08-10 fix. Matches the identical, already-documented pattern
+found on SK Chemists Bootle's weight-loss-clinic page (item 3.8 twelfth pass,
+2026-09-05, reconfirmed unchanged at least twice since) and is the general
+"pre-repaste legacy copy" class AGENT_WORKLIST.md already records under item
+3.10's own live findings. Not a repo defect and not a new question - it needs
+a repaste, and the general repaste backlog is already tracked; this is simply
+the first confirmation that Cherry Lane Walton's weight-loss-clinic page
+specifically is on the list.
+
+(2) The live page in fact carries a SECOND JSON-LD block ("Block B"), which
+this repo's checkers cannot see (they read only tracked files, never a live
+merged page): a compact, minified "@type":"Pharmacy" object with
+"url":"https://www.cherrylanepharmacy.co.uk/" (the homepage, not this page),
+plus an "email" field and its own openingHoursSpecification. This is exactly
+Q99's tracked pattern (first raised 2026-09-08 against skchemist.co.uk,
+reconfirmed on smarttschemist.co.uk and gordonshortchemist's site since) -
+cherrylanepharmacy.co.uk had not yet been checked for it. Read in full and
+compared field for field against branches.json's cherrylane_liverpool record:
+name, phone, address, email (Cherry@rbhealth.co.uk) and both
+openingHoursSpecification sessions (Mon-Fri 09:00-18:30, Sat 09:00-17:00) all
+correct, matching Cherry Lane's own single-session (no lunch closure) hours
+exactly - so unlike Smartts Bootle's Block B (which misstates a lunch closure
+as open), Cherry Lane's Block B is accurate on every fact it carries, same as
+Gordon Short Crosby and SK Chemists Bootle's own Block B. This is now the
+fourth of sixteen live sites checked for this pattern (cherrylanepharmacy.co.uk
+joins skchemist.co.uk, smarttschemist.co.uk and gordonshortchemist's site);
+still no generator in this repo writes Block B and no repo action is possible.
+Appended as an addendum to Q99 rather than a new question, continuing to
+support Q99's own recommended option (check all sixteen sites before deciding
+a fix) over assuming a uniform estate-wide shape.
+
+No new question raised beyond the Q99 addendum. No in-repo defect. No checker,
+generator, page or branches.json content changed. gbp-packs/cherry-lane-walton.md
+untouched (sha256 unchanged, confirmed again after this pass).
+
+FILES CHANGED THIS PASS
+- audits/cherry-lane-item-4.2-jsonld-live-2026-09-25-twentyfourth.txt (new)
+- AGENT_WORKLIST.md (item 4.2's own paragraph, twenty-fourth pass appended,
+  "Done 2026-09-25")
+- QUESTIONS.json (Q99's "note" field appended with this pass's addendum)
+- AGENT_LOG.md (dated entry appended to top)
+No changes to gbp-packs/, modules/, core/, tools/ or branches.json.
