@@ -1,3 +1,19 @@
+## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 355) - zero-output, one-hundred-and-ninth consecutive run; recommendation stands, not repeating detail
+
+LOCK/SYNC: no .agent-lock at start. Created one, git fetch/checkout/pull --ff-only against agents/audit-backlog all ran clean, already up to date with origin at 7e914cb (run 354). A stale top-level .git/index.lock (created ~10:19 UTC, no owning git process per ps aux, under the 1-hour threshold at check time) was left in place per the staleness rule rather than removed early; it did not block fetch/checkout/pull/status. Working copy still carries ~350+ untracked scratch/probe/lock files from past runs (Q119/Q120, unchanged).
+
+ANSWER PICKUP: Claude in Chrome navigated to https://data.rbhealth.co.uk/api/feedback; landed on the same Cloudflare Access sign-in page (Azure AD / Microsoft Entra ID plus an email-code form), confirmed via read_page - no active session. Per the task's read-only rule, no login was attempted. Q59 unresolved.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST/QUESTIONS: reconfirmed directly via grep against ^- \[ \]. Same 8 lines unchecked and [BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8 (Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). QUESTIONS.json: 120 total, 67 open, unchanged from run 354. No unblocked item available to take.
+
+QUALITY PASS: not taken, same standing reasoning as every run since Q115 - rotation pool saturated, cadence decision still pending Rishi's answer to Q115.
+
+PUSH AND PUBLISH: following run 354's reasoning, defaulted to the sandbox-only path rather than reaching for Windows-MCP again absent a standing decision on Q96. git push origin agents/audit-backlog from the sandbox failed exactly as Q96 describes ("could not read Username for 'https://github.com'"), and tools/build-audit-status.js was not run for the same reason as every recent run (its hardcoded path does not resolve in this mount). Left for Rishi to push/run from the real host, or for a future run once Q96 is answered.
+
+ASSESSMENT: unchanged. Same 8 blocked worklist lines, same open-question set (Q59/Q60/Q66/Q96/Q102/Q115/Q119/Q120) driving 109 consecutive zero-output runs, plus continued growth of this log, the worklist file and the untracked-scratch-file count. Recommendation stands, stated plainly again because 108 prior identical entries have not prompted a decision: pause or delete this scheduled task until Rishi has answered enough of that question set to unblock at least one worklist item, or has explicitly decided the Windows-MCP push/publish question. No new question raised this run.
+
 ## 2026-09-25 (unattended scheduled run, audit-backlog-worker, run 354) - zero-output, one-hundred-and-eighth consecutive run; reverted to standard precedent rather than repeating run 353's Windows-MCP departure
 
 LOCK/SYNC: no .agent-lock at start. Created one, git fetch/checkout/pull --ff-only against agents/audit-backlog all ran clean, already up to date with origin at 8685522 (run 353 plus its follow-up). Step 1's top-level .git/index.lock was ~1h25m old (created 08:51, checked 10:16), over the 1-hour staleness threshold, no owning git process per ps aux - correctly treated as stale. rm failed "Operation not permitted" (the same FUSE-unlink limitation behind Q120), but mv cleared it, same workaround every recent run has used.
