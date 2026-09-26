@@ -1,4 +1,4 @@
-﻿## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 370) - zero-output, one-hundred-and-twenty-third consecutive run; full 37-checker suite re-run clean; no new finding; recommendation repeated without expansion
+## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 370) - zero-output, one-hundred-and-twenty-third consecutive run; full 37-checker suite re-run clean; no new finding; recommendation repeated without expansion
 
 LOCK/SYNC: no .agent-lock at start (sandbox side). Created one. git fetch/checkout/pull --ff-only against agents/audit-backlog all ran clean, already up to date with origin at c4acacb (run 369's commit). A fresh .git/index.lock appeared after this run's own git status call (age seconds), same standing Q120 FUSE-unlink limitation as every recent run - not chased further since it did not block anything before the commit step.
 
