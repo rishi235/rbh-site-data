@@ -1,3 +1,19 @@
+## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 375) - zero-output, one-hundred-and-twenty-eighth consecutive run; full 37-checker suite re-run clean; no new finding; recommendation repeated without expansion
+
+LOCK/SYNC: no .agent-lock at start (sandbox side). Created one. git fetch/checkout/pull --ff-only against agents/audit-backlog ran clean, already up to date with origin at 03b17a8 (run 374's commit). git status threw the standing Q120 FUSE-unlink warning on .git/index.lock again (own housekeeping lock, did not block anything after it). No other repo drift observed.
+
+ANSWER PICKUP: attempted via the built-in browser against https://data.rbhealth.co.uk/api/feedback. Blocked at the Cloudflare Access gate (rbhealth.cloudflareaccess.com not permitted for this browser pane), no human present in this unattended session to grant it. Per the task's read-only rule, did not call request_access and did not attempt any other route. Q59 unresolved, unchanged.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST/QUESTIONS: reconfirmed via grep against ^- \[ \]. Same 8 lines unchecked and [BLOCKED], unchanged since item 232: 5.3 (Q8), 5.4 (Q9), 5.5 (Q13), 5.8 (Q16), 6.1 (Q52), 6.4/6.5 (Q60), 6.6 (Q66). QUESTIONS.json: 120 total, 67 open at run start, unchanged from run 374. No unblocked item available to take.
+
+QUALITY PASS: ran every script in tools/check-*.js end to end (37 scripts) against the tree at 03b17a8: 37/37 exited 0, no regressions. Did not repeat a manual live-page rotation pass, for the same reason recorded in runs 358-374 (Q115): the rotation pool is independently re-verified well past twenty times each with zero new defects, and the actual blocker is Rishi's decisions on the open questions, not more unattended repo checking.
+
+PUSH AND PUBLISH: sandbox git push against origin/agents/audit-backlog (testing whether the standing Q96 credential gap has cleared this run); commit and push proceed below.
+
+ASSESSMENT: this is the 128th consecutive run to find nothing new and unblock nothing. Standing recommendation unchanged and not re-expanded here for the same reason recent runs gave: pause this scheduled task and clear the Q59/Q8/Q9/Q13/Q16/Q52/Q60/Q66/Q96/Q102/Q115/Q119/Q120 batch in one sitting before restarting it. The repo-side technical audit is done on the evidence of the rotation pool's re-verification count; everything left runs through Rishi's own decisions, not more unattended repo checking.
+
 ## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 374) - zero-output, one-hundred-and-twenty-seventh consecutive run; full 37-checker suite re-run clean; no new finding; recommendation repeated without expansion
 
 LOCK/SYNC: no .agent-lock at start (sandbox side). Created one. git fetch/checkout/pull --ff-only against agents/audit-backlog ran clean, already up to date with origin at 1d8cf96 (run 373's commit). Confirmed via Windows-MCP PowerShell that the real host C:\Dev\rbh-site-data is clean, same branch, same HEAD, no lock files, only the standing untracked scratch-file sprawl (unchanged in kind, per Q119/Q120).
