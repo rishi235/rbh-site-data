@@ -1,3 +1,19 @@
+## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 400) - zero worklist output, one-hundred-and-fifty-second consecutive run; Linux-mounted view and Claude in Chrome available this run, no direct Windows host PowerShell tool offered
+
+LOCK/SYNC: `.agent-lock` absent at start; created one from the Linux-mounted view. No stale `.git/index.lock` present (checked age directly rather than assuming). `git fetch origin`, confirmed already on `agents/audit-backlog`, `git pull --ff-only` reported already up to date with run 399's commit (9329a95), 0 ahead / 0 behind.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. Navigated to `https://data.rbhealth.co.uk/api/feedback` and read the page with `read_page` rather than assuming from the URL: resolved to the Cloudflare Access sign-in page ("Log in to RB Data Portal", Azure AD / email-code options, no active session) - same plain unauthenticated-gate outcome every recent run has hit. Did not sign in or try another route, per the read-only rule. Tab closed. Q59 unresolved, unchanged.
+
+WORKLIST/QUESTIONS: confirmed via `grep`, unchanged from run 399 - AGENT_WORKLIST.md still exactly 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); 43 items ticked done. QUESTIONS.json: 120 total, 67 open, no duplicate ids (checked programmatically). No "Standing authorisation - autonomous window" section at the top of this file, so step 4 does not apply.
+
+QUALITY PASS: ran the full 37-checker suite fresh via `node tools/check-*.js` from the Linux-mounted view - 37/37 exit 0, no failures, no regressions against run 399's result. Given the diminishing-returns finding already recorded against this backlog (Q115) and 151 prior runs' worth of narrow injection tests on an already heavily-verified tree, this run's contribution is the fresh full-suite re-run plus the answer-pickup and worklist/questions integrity checks above, not a further hand rotation pass on a single item.
+
+INFRASTRUCTURE: this run's tool set did not include Windows host PowerShell access, only the Linux-mounted view and Claude in Chrome, so `git push` from the Linux sandbox path is expected to fail for lack of credentials as in every prior sandbox-only run (`fatal: could not read Username for 'https://github.com'`), and `tools\build-audit-status.js` will be attempted from this view; if it fails on the hardcoded `C:/Dev/rbh-site-data/AGENT_WORKLIST.md` path as in prior sandbox-only runs, that failure will be recorded rather than worked around, per the standing finding.
+
+Not restating the three-precondition recommendation paragraph in full again (see runs 386-399): git push auth in a Linux-sandbox-only session, the Q8/Q9/Q13/Q16/Q52/Q60/Q66 worklist-blocking batch, and the ~67 open quality-pass questions are all still exactly where they were. No repo defect found or fixed this run.
+
+
+
 ## 2026-09-26 (unattended scheduled run, audit-backlog-worker, run 399) - zero worklist output, one-hundred-and-fifty-first consecutive run; both a Linux-mounted view and direct Windows host PowerShell access were available this run
 
 LOCK/SYNC: `.agent-lock` absent at start; created one from the Linux-mounted view. No stale `.git/index.lock` present. `git fetch origin`, confirmed already on `agents/audit-backlog`, `git pull --ff-only` reported already up to date with run 398's commit, 0 ahead / 0 behind - reconfirmed independently via host PowerShell against `C:\dev\rbh-site-data` (`git rev-list --left-right --count origin/agents/audit-backlog...HEAD` read `0 0`, `credential.helper` reads `manager`), same working tree, both views agree.
