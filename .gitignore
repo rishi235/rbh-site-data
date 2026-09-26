@@ -1,2 +1,5 @@
 .agent-lock
+.agent-lock.*
+.agent-lock-*
+_agent-run-debris/
 .notify-state.json
