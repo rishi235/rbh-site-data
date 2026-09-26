@@ -38099,6 +38099,42 @@ live DOM, not saved to a separate audit file (same convention as the
       Full 35-checker suite re-run clean after (35/35, 0 failures, same 3
       pre-existing UNOWNED warnings unchanged). Full detail in
       audits/questions-json-6.8-fifth-2026-09-18.txt. No new question raised.
+      Quality pass 2026-09-26 (sixth, unattended scheduled run): all eight
+      unchecked worklist items still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13,
+      5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66) and answer pickup via
+      Claude in Chrome at data.rbhealth.co.uk/api/feedback resolved to the
+      Cloudflare Access sign-in page again (no live session; confirmed via
+      javascript_tool reading document.body.innerText rather than assumed;
+      tab closed without signing in, per the read-only rule; Q59
+      unresolved, unchanged). Programmatic re-check of all 67 currently
+      open questions found one drifted out of compliance since the fifth
+      pass: Q116 (added 2026-09-19, after that pass) opened "Decision
+      needed, and flagged as potentially more urgent than..." - a comma
+      variant, not the plain-English summary sentence the rule asks for,
+      the same drift shape as Q104 on the fourth pass and the six questions
+      on the third. Fixed by prepending one new plain-English sentence
+      stating the choice (check today whether the Wilmslow phone/email are
+      still live, then take the page down or add a closure notice, ahead of
+      the wider weight loss decision) and the recommendation, with the
+      full original question text preserved completely unchanged straight
+      after, same convention as every prior retrofit - Q116's own text now
+      contains two "Decision needed" openings in a row for the same reason
+      Q104's does. No option, note or technical detail was shortened,
+      softened or dropped. Verified programmatically afterwards that all 67
+      open questions now open with "Decision needed:", JSON.parse still
+      succeeds, and the entry count is unchanged (only the one field on
+      Q116 was edited). check-em-dashes.js, check-postcodes.js and
+      check-url-scheme.js all still pass (0 failures each; the pre-existing
+      UNOWNED postcode warnings on gbp-packs/TEMPLATE.md and
+      modules/branch/pages/{INDEX,SEO}.md and the pre-existing INSECURE URL
+      warning on the untracked scratch file _agent-run-debris/qtmp.json are
+      unrelated to this change and unchanged by it). Full 37-checker suite
+      also re-run clean before and after this edit (37/37, 0 failures). No
+      page, generator or data field changed anywhere in the repo; only
+      QUESTIONS.json was edited. Sixteenth confirmation this item's
+      "genuinely complete" state drifts out of date on its own as new
+      questions arrive - this time one drifted rather than zero, so the
+      re-check earned its run. No new question raised; blocks nothing.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
