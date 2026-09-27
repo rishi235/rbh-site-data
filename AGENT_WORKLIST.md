@@ -14107,6 +14107,40 @@ Done 2026-09-19 (twenty-second pass).
       run since Q59 was raised, no active session, did not sign in, Q59
       unresolved. No autonomous window present. No in-repo defect, no
       new question, no worklist item unblocked. Done 2026-09-27
+
+      Quality pass 2026-09-27 (unattended run 414, fifth Q99 sample):
+      all 8 remaining worklist items confirmed still [BLOCKED] (5.3/Q8,
+      5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); no
+      unblocked item available, so continued the Q99 sweep. Picked the
+      next unsampled domain, hirshmanspharmacy.co.uk (Hirshmans Chemist
+      Ainsdale, a single-branch domain). Read the live
+      earache-treatment-hirshmans-ainsdale.html page via Claude in
+      Chrome, read-only. Confirmed the Q99 pattern again: Block A (this
+      repo's own per-page schema) is correct and matches branches.json
+      exactly. Block B (Weebly-injected) here, unlike every shared-domain
+      site sampled so far, is a single Pharmacy object rather than an
+      "@graph" of two entities, since only one branch sits on this
+      domain - so the duplicate-entity risk does not arise here. url is
+      still set to the homepage rather than the page itself, and
+      addressRegion is still absent, matching the standing pattern.
+      Every other field (name, telephone, streetAddress,
+      addressLocality, postalCode, email) matches branches.json exactly.
+      New sub-detail: this is the first site sampled where Block B DOES
+      carry a full openingHoursSpecification, and it matches
+      branches.json exactly for both split-lunch sessions on both
+      Monday-to-Friday and Saturday - no hours-misstatement risk here.
+      Not a repo defect: no generator here writes Block B. Folded into
+      Q99's own note as an addendum - nine of sixteen sites now sampled;
+      remaining unsampled: rbhealth.co.uk, clearchemist.co.uk,
+      colemanandleighspharmacy.co.uk and tiffenbergschemist.co.uk. Full
+      36-checker suite (check-live-hours excluded, needs network) run
+      clean before and after, 36/36 exit 0. git status showed only the
+      long-standing pre-existing untracked strays, none touched. Answer
+      pickup attempted per step 3: same Cloudflare Access sign-in gate as
+      every run since Q59 was raised, no active session, did not sign
+      in, Q59 unresolved. No autonomous window present at top of
+      AGENT_LOG.md. No in-repo defect, no new question, no worklist item
+      unblocked. Done 2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
