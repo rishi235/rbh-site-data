@@ -1,3 +1,14 @@
+## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 435) - zero worklist output, no rotation-pool pass taken this run
+
+LOCK/SYNC: .agent-lock absent at start, created fresh. No .git/index.lock present at start (sandbox side hit a stale one mid-run, cleared via Windows-MCP). git fetch/checkout/pull all clean, already up to date with run 434's commit ca1fe2c.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. https://data.rbhealth.co.uk/api/feedback resolved to the Cloudflare Access sign-in gate (Azure AD / email code, no active session) again, same as every run since Q59 was raised. Did not sign in. Q59 unresolved, unchanged.
+
+WORKLIST: all 8 unchecked items still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). QUESTIONS.json: 120 total, 67 open, unchanged.
+
+DELIBERATE CHANGE THIS RUN: did not take a rotation-pool/live-recheck quality pass. Per Q115 (raised 2026-09-19, still open after ~280 further runs of the recommended-but-unadopted option 3), the repo-side technical audit is functionally exhausted - every pool item independently re-verified 20+ times with zero new defects - and continuing to add recheck entries only grows AGENT_LOG.md (7.8MB) and QUESTIONS.json (508KB) for no decision-relevant new information. This run instead reported the backlog state directly to Rishi in chat, since this invocation (unlike the fully headless runs) had a live conversational channel to him. Recommend Rishi treat this as the trigger to action Q115 (cadence), Q119/Q120 (file bloat/cleanup), and Q87/Q96/Q102 (git push credential routing) directly, and to work through the 67 open questions, most efficiently via the published status page.
+
+Nothing committed to branches.json, generators, or any live-facing file this run besides this log entry.
 ## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 434) - zero worklist output; recheck of Q69 (branch landing tile "free NHS treatment" overclaim wording) and Q81 (claim-patterns.js comparative-outcome gap) - the two stalest open questions by last individual (non-cross-reference) mention line in this file, ranked freshly this run - both confirmed unchanged
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh with a timestamp via the sandbox bash tool. No `.git/index.lock` present at start. `git fetch origin`, `git checkout agents/audit-backlog` (already on it) and `git pull --ff-only origin agents/audit-backlog` all succeeded cleanly, already up to date with run 433's commit.
