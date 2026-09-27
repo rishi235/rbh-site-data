@@ -13942,6 +13942,54 @@ Done 2026-09-19 (twenty-second pass).
       - the eight genuinely actionable worklist items remain blocked on
       Rishi's own decisions and 58 of 111 questions are open. Done
       2026-09-18
+
+      Quality pass 2026-09-27 (run 407): fresh angle rather than a repeat
+      hand rotation, since the 37-checker suite has been re-run clean
+      against this tree on nearly every recent run with no new
+      information. Read riddingspharmacy.co.uk's live earache-treatment
+      page (earache-treatment-riddings-timperley.html) via Claude in
+      Chrome, read-only, and found the Q99 duplicate-JSON-LD pattern
+      here too: the page's own per-page Pharmacy block (url = the page
+      itself) is correct and matches branches.json exactly, but a
+      second, Weebly-injected "@type":"Pharmacy" block sits alongside it
+      with url set to the homepage, an email field, and its own
+      openingHoursSpecification. This is the fifth of sixteen live
+      sites now confirmed for the Q99 pattern (joining skchemist.co.uk,
+      smarttschemist.co.uk, gordonshortchemist.co.uk and
+      cherrylanepharmacy.co.uk). The second block's hours (Mon-Fri
+      09:00-18:00, no Saturday/Sunday) match branches.json's
+      riddings_timperley specification exactly - no hours-misstatement
+      risk here, since this branch has no lunch closure and no Saturday
+      trading to misstate. The second block's address object also omits
+      addressRegion entirely (the first, per-page block correctly
+      carries "Greater Manchester") - checked Q99's own note field
+      before writing this and found the same addressRegion-absent shape
+      was already recorded at SK Chemists Bootle's twentieth pass, so
+      this is a reconfirmation of an existing cross-site pattern, not a
+      new sub-detail. Not a repo defect: no generator in this repo writes the second
+      block, and check-jsonld.js remains correct about the one block it
+      can see. Folded into Q99's own note as an addendum rather than a
+      new question, continuing to support Q99's recommended option
+      (check all sixteen sites before deciding a fix) - five of sixteen
+      now sampled, eleven remaining (scorah-chemists.co.uk,
+      mccannspharmacy.co.uk, fishlockpharmacy.co.uk, rbhealth.co.uk,
+      clearchemist.co.uk, hirshmanspharmacy.co.uk,
+      colemandandleighspharmacy.co.uk and one more Scorah/McCanns/
+      Fishlocks sister-branch page each, since the two branches on a
+      shared domain need only one sample each, plus
+      tiffenbergschemist.co.uk). Full 36-checker suite (check-live-hours
+      excluded, needs network) re-run clean before and after, 36/36
+      exit 0. git status showed only the long-standing pre-existing
+      untracked strays (.scratch_audit/, _agentscratch/, thirteen dated
+      audits/ files), none touched. .git/index.lock was present at the
+      start of this round with no git process running (`ps aux`
+      confirmed) and could not be removed by `rm -f` or `os.remove`
+      (Operation not permitted, the standing Q87/Q96/Q102 FUSE-mount
+      quirk) but was cleared by `os.rename` per the established
+      workaround; a fresh one left behind by the subsequent `git
+      status` call was cleared the same way before the write below. No
+      in-repo defect, no new question, no worklist item unblocked. Done
+      2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
