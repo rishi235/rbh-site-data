@@ -14141,6 +14141,39 @@ Done 2026-09-19 (twenty-second pass).
       in, Q59 unresolved. No autonomous window present at top of
       AGENT_LOG.md. No in-repo defect, no new question, no worklist item
       unblocked. Done 2026-09-27
+      Quality pass 2026-09-27 (run 415, sixth Q99 live-site sample,
+      tiffenbergschemist.co.uk): first task of this run was pushing an
+      unpushed local commit (run 414's) left stranded on disk after that
+      run's Cowork sandbox had no git/gh credentials - confirmed via
+      mcp__Windows-MCP__PowerShell that the real host's gh CLI is
+      authenticated as rishi235, pushed c20032c..81b1d63 cleanly, matching
+      the established Q87/Q96/Q102 fallback runs 407-408 already used.
+      Answer pickup attempted per step 3 via Claude in Chrome: same
+      Cloudflare Access sign-in gate as every run since Q59, no active
+      session, did not sign in, Q59 unresolved. AGENT_WORKLIST.md still 8
+      unchecked lines, all [BLOCKED]; no unblocked item to take, so
+      continued the Q99 live-site sweep. Read tiffenbergschemist.co.uk's
+      live earache-treatment-tiffenbergs-aintree.html via Claude in
+      Chrome, read-only. Confirmed the same two-block pattern: Block A
+      (this repo's own module output) correct and matching branches.json
+      exactly. Block B (Weebly-injected) is a single Pharmacy object, not
+      an "@graph", matching the other single-branch domain sampled
+      (Hirshmans) rather than the three shared-domain sites. url still set
+      to the homepage, addressRegion still absent - standing pattern.
+      Hours match branches.json exactly (Monday-Friday 09:00-13:00 and
+      14:00-18:00, no Saturday trading), no hours-misstatement risk. New
+      sub-detail: Block B's email reads tiffenbergs@rbhealth.co.uk
+      (lower-case, plural) against branches.json's Tiffenberg@rbhealth.co.uk
+      (capitalised, singular) - not a fresh defect, this is Q56's own
+      finding (previously read only in the GBP pack) reconfirmed
+      independently on the live page's JSON-LD. Folded into Q99's own note
+      as a single surgical addendum, JSON validity confirmed after. Ten of
+      sixteen sites now sampled; remaining unsampled: rbhealth.co.uk,
+      clearchemist.co.uk, colemanandleighspharmacy.co.uk. Full 36-checker
+      suite (check-live-hours excluded, needs network) run clean before
+      and after, 36/36 exit 0. git status showed only the long-standing
+      pre-existing untracked strays, none touched or added. No in-repo
+      defect, no new question, no worklist item unblocked. Done 2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
