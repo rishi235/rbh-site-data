@@ -14036,6 +14036,45 @@ Done 2026-09-19 (twenty-second pass).
       quirk); each was cleared by renaming rather than deleting, the
       established workaround. No in-repo defect, no new question, no
       worklist item unblocked. Done 2026-09-27
+
+      Quality pass 2026-09-27 (unattended run 412, third Q99 sample):
+      continued the sweep after a three-run pause (409-411 deliberately
+      did not extend it, per Q115 discipline). Picked the next unsampled
+      domain, mccannspharmacy.co.uk (McCanns Chemist Aigburth and
+      Sandringham, a shared domain). Read the live
+      earache-treatment-mccanns-aigburth.html page via Claude in Chrome,
+      read-only. Confirmed the Q99 pattern again: Block A (this repo's
+      own per-page schema) is correct and matches branches.json exactly.
+      Block B (Weebly-injected) is a single "@graph" carrying both
+      branches, same shape as the Scorah domain. Unlike Scorah, every
+      field in Block B for both branches (name, telephone, streetAddress,
+      addressLocality, postalCode, email) matches branches.json exactly -
+      no address or phone inaccuracy here. addressRegion is absent from
+      both entities, reconfirming the existing pattern. New sub-detail:
+      Block B on this domain carries no openingHoursSpecification at all
+      for either branch, unlike every other site sampled so far, so there
+      is no hours-misstatement risk on this domain, only the standing
+      missing-addressRegion and duplicate-entity pattern. Not a repo
+      defect: no generator here writes Block B. Folded into Q99's own
+      note as an addendum - seven of sixteen sites now sampled (McCanns
+      counting as two branches at once), nine remaining:
+      fishlockpharmacy.co.uk, rbhealth.co.uk, clearchemist.co.uk,
+      hirshmanspharmacy.co.uk, colemanandleighspharmacy.co.uk and
+      tiffenbergschemist.co.uk (Fishlocks shared domain needs one sample).
+      Full 36-checker suite (check-live-hours excluded, needs network)
+      re-run clean before and after, 36/36 exit 0. git status showed only
+      the long-standing pre-existing untracked strays, none touched. This
+      run also found .git/index.lock, .git/HEAD.lock and
+      .git/ORIG_HEAD.lock all present at start with no git process
+      running (ps aux confirmed) and could not remove any of them with
+      rm -f (Operation not permitted, the standing FUSE-mount quirk, now
+      also observed to recreate itself after almost every git command
+      that touches a ref, e.g. git status/pull leaving a fresh
+      ORIG_HEAD.lock behind even on success); cleared each by rename
+      before proceeding, the established workaround, extended here to
+      cover all three lock files rather than just index.lock. No in-repo
+      defect, no new question, no worklist item unblocked. Done
+      2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
