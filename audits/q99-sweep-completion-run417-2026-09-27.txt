@@ -1,0 +1,84 @@
+Q99 live-site JSON-LD sweep - completion pass, run 417, 2026-09-27
+==================================================================
+
+Purpose: finish sampling the two domains remaining from the Q99 sweep
+(runs 407-408, 412-416), which had covered 11 of 16 branches across
+its own recommended precondition (option 3: check all sixteen live
+sites before deciding a fix).
+
+Remaining domains at start of this run: rbhealth.co.uk, clearchemist.co.uk
+
+--- clearchemist.co.uk (Clear Chemist Aintree) ---
+
+Fetched live, read-only, via Claude in Chrome:
+  https://www.clearchemist.co.uk/travel-clinic-clear-aintree.html
+  https://www.clearchemist.co.uk/weight-loss-clinic-clear-aintree.html
+  https://www.clearchemist.co.uk/ (homepage, control)
+
+Result: both branch service-page URLs return the site's own 404 page
+(title "404 Not Found 1 | Clear Chemist"). Homepage loads normally
+(title "UK Pharmacy & Medicines | Clear Chemist"), confirming the
+domain itself is live and the 404s are page-specific, not a domain
+outage.
+
+JSON-LD on the 404 page (travel-clinic-clear-aintree.html):
+[
+  {
+    "@context": "https://schema.org/",
+    "@type": "WebPage",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Clear Chemist",
+      "url": "https://www.clearchemist.co.uk/",
+      "logo": { "@type": "ImageObject", "url": "https://www.clearchemist.co.uk/media/logo/stores/1/logo.png" }
+    }
+  }
+]
+
+This is a generic Magento storefront block, not a Pharmacy entity of
+any kind, and not the Q99 "second Weebly-injected Pharmacy block"
+pattern - because clearchemist.co.uk is not a Weebly site. The
+media/logo/stores/1/logo.png path confirms this is a Magento
+e-commerce platform (ClearChem Ltd, a separate group entity), matching
+CLAUDE.md's own description and the platform identified in item 5.8's
+2026-09-14 sweep (Q104).
+
+This reconfirms, not newly finds, the 404 state for this branch's
+generated pages already on record:
+  - AGENT_WORKLIST.md item 5.8, 2026-09-14 entry (Q104 raised)
+  - AGENT_WORKLIST.md line ~32877 ("clearchemist_aintree: 404 live,
+    both via curl and via a retried fetch")
+  - AGENT_WORKLIST.md line ~35499 ("No compliant generated page for
+    this branch ... was found live on this domain")
+
+--- rbhealth.co.uk (RB Healthcare Ltd Head Office) ---
+
+grep -rl "rbh_head_office" modules/*/pages/*.html  -> no matches
+grep -ri "head-office\|headoffice" across modules/ -> no matches
+
+branches.json's own note (CLAUDE.md, Schema section): "Head office
+(rbh_head_office_aintree) has no phone, email, odsCode or nhsEmail.
+That is correct, not missing data." Consistent with head office
+carrying no generated service or branch-landing page in this repo at
+all. No page exists on this domain for the Q99 pattern to appear on.
+
+--- Conclusion ---
+
+All sixteen live branches now accounted for under Q99's option 3:
+  - 14 branches / 11 Weebly domains: two-block JSON-LD pattern present
+    and characterised (see Q99's own note field for full per-domain
+    detail across runs 407-416).
+  - 2 branches (Clear Chemist Aintree, Head Office): no such block,
+    because neither runs Weebly and neither serves a generated page
+    from this repo on the live domain.
+
+No repo-side action taken or needed: check-jsonld.js remains correct
+about the one block it can see (this repo's own per-page schema), and
+nothing in this repo writes or can influence either the Weebly
+site-wide injected block or the Clear Chemist Magento platform. Q99's
+fix decision (options 1-3 as originally framed) is now backed by
+full-estate evidence; it is unchanged as a decision still owed by
+Rishi.
+
+Full 36-checker suite (check-live-hours.js excluded, requires network)
+run clean before and after this run's edits: 36/36 exit 0.

@@ -14220,6 +14220,41 @@ Done 2026-09-19 (twenty-second pass).
       long-standing pre-existing untracked strays, none touched or added.
       No in-repo defect, no new question, no worklist item unblocked. Done
       2026-09-27
+      Quality pass 2026-09-27 (run 417, item 3.10 continuation, Q99 sweep
+      completion): sampled the two remaining domains. clearchemist.co.uk
+      (Clear Chemist Aintree) is not a Weebly branch site, it is ClearChem
+      Ltd's own Magento e-commerce platform, so the Q99 duplicate-JSON-LD
+      pattern does not apply there by construction and no generator here
+      writes anything served on that domain. This repo's own generated
+      pages for the branch are not live on it: travel-clinic-clear-aintree
+      .html and weight-loss-clinic-clear-aintree.html both returned the
+      store's own 404 page when fetched live via Claude in Chrome this
+      run, carrying only a generic WebPage/Organization JSON-LD block, no
+      Pharmacy entity at all. Not a new finding - reconfirms the 404 state
+      already on record for this branch (item 5.8's 2026-09-14 sweep, Q104,
+      and earlier item 4.9 passes) from the JSON-LD angle specifically.
+      rbhealth.co.uk (RB Healthcare Ltd Head Office) carries no generated
+      service or branch-landing pages at all - grepping modules/*/pages for
+      any head-office slug returns nothing, consistent with branches.json's
+      own note that this branch deliberately has no phone, email, odsCode
+      or nhsEmail - so there is no page on this domain for the pattern to
+      appear on either. All sixteen live sites have now been examined for
+      Q99's own recommended precondition (option 3): fourteen branches
+      across eleven Weebly domains show the two-block pattern (missing
+      addressRegion and homepage-pointing url on the injected block
+      estate-wide; two live inaccuracies found in passing, Scorah
+      Bramhall's truncated street number and the Coleman and Leighs stale
+      trading name; hours accuracy varying site to site, wrong only at
+      Smartts Bootle); two branches (Clear Chemist Aintree, Head Office)
+      carry no such block because neither runs Weebly or serves a
+      generated page. Folded into Q99's own note as a single surgical
+      addendum, JSON validity confirmed after. Full 36-checker suite
+      (check-live-hours excluded, needs network) run clean before and
+      after, 36/36 exit 0. git status showed only the long-standing
+      pre-existing untracked strays, none touched or added. No in-repo
+      defect, no worklist item unblocked - Q99's fix decision (options 1
+      to 3) is now supported by full-estate evidence rather than a
+      two-site sample, but remains Rishi's to make. Done 2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
