@@ -1318,7 +1318,8 @@
     ],
     "recommended": 0,
     "status": "open",
-    "answer": null
+    "answer": null,
+    "note": "Rechecked 2026-09-27 (run 430): since 2026-09-19 every run has been a zero-worklist-output verification run against QUESTIONS.json entries only; none has ticked or added a dated pass note to any AGENT_WORKLIST.md item, so no fresh instance of the original drift (a quality-pass note logged in AGENT_LOG.md but missing from the item line in AGENT_WORKLIST.md) has occurred since this question was raised. The underlying process gap in steps 5/7 (item selection trusts AGENT_WORKLIST.md dates, which can lag AGENT_LOG.md) remains unaddressed and the question remains open; nothing to backfill today since no worklist item has been touched since 2026-09-19."
   },
   {
     "id": "Q85",
@@ -1532,7 +1533,7 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05 addition for Scorah Chemists. The checker-side half (check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule, fixed for a mojibake-corrupted £ literal on item 4.6's twelfth pass earlier the same run) was proven by injection against gbp-packs/scorah-hazel-grove.md using this exact live wording; the pack itself carries no price and was restored byte-identical after the test."
+    "note": "Full element-by-element write-up in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05 addition for Scorah Chemists. The checker-side half (check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule, fixed for a mojibake-corrupted £ literal on item 4.6's twelfth pass earlier the same run) was proven by injection against gbp-packs/scorah-hazel-grove.md using this exact live wording; the pack itself carries no price and was restored byte-identical after the test. Rechecked 2026-09-27 (run 430), read-only, via Claude in Chrome: https://www.scorah-chemists.co.uk/weight-loss-clinic-hazel-grove-bramhall.html is still live and unchanged in every element this question describes - Wegovy/Mounjaro/Orlistat named in an Explore treatments picker, the outcome slider (\"Drag the slider to your start weight\"), the \"Real Results with Mounjaro\" superlative heading, and \"From £39.99 including your consultation\" as a lead price above the fold. No repo file touched (this is a live-only Weebly page, matching the question text). Still a ninth confirmed instance of the same live-page pattern; the scoping decision remains Rishi's."
   },
   {
     "id": "Q99",
