@@ -1,3 +1,29 @@
+## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 421) - zero worklist output; live recheck of Q114 (unchanged) and partial recheck of Q113 (weaker evidence only); no rotation-pool pass taken
+
+LOCK/SYNC: `.agent-lock` absent at start; created fresh with a UTC timestamp. No `.git/index.lock` present. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` reported already up to date with run 420's commit (2e84f7b), 0 ahead / 0 behind.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. Navigated to `https://data.rbhealth.co.uk/api/feedback`: resolved to the same Cloudflare Access sign-in gate (Azure AD / Microsoft Entra ID option, one-time-code email form, no active session) as every run since Q59 was raised. Did not sign in, did not try any other route. Tab closed. Q59 unresolved, unchanged.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST/QUESTIONS: AGENT_WORKLIST.md still exactly 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); 43 items ticked done. No unblocked item available to take. QUESTIONS.json: 120 total, 67 open before this run's notes (status counts unchanged by this run - two existing entries had recheck notes appended, no status changes), no new portal answer landed (consistent with the answer-pickup gate above).
+
+QUALITY PASS: none taken this run. Run 420 (the immediately preceding run, same day) already re-ran the full 36-checker suite as a regression check and found it clean; repeating that again this run would add no new information. Followed Q115's own recommended option (3) instead: spent this run on answer-pickup plus a live recheck of open, not-recently-rechecked questions rather than a further rotation-pool pass, consistent with runs 409-411/417-420.
+
+LIVE RECHECK (read-only, Claude in Chrome, no sign-in, no clicks beyond navigation):
+- Q114 (Coleman and Leighs Pharmacy homepage, two live tile-grid faults found on the twenty-first quality pass on item 4.12, 2026-09-19): unchanged, confirmed by two independent checks rather than relying on stale text. A full-page screenshot of the tile grid at https://www.colemanandleighspharmacy.co.uk/ shows the Pharmacy First tile still reads "Innovative solutions that deliver results. Tried the rest? Now try the best." - byte-identical to the Weight Loss Clinic tile's own wording, the same NHS-service-styled-as-a-private-clinic-outcome fault recorded eight days ago. Separately, read_page (interactive filter) confirms the Travel Clinic tile's href is still `/vaccinations.html`, identical to the adjacent Vaccinations tile's href, not the branch's own compliant `travel-clinic-coleman-leigh-walton.html`. Neither fault is inside this repo (live-only Weebly homepage, no generator touches it); nothing was changed. Recheck note appended to Q114 in QUESTIONS.json.
+- Q113 (McCanns Chemist Sandringham live Google Business Profile name divergence, found on the twenty-second quality pass on item 4.7, 2026-09-18): only a partial recheck this run - did not open the actual Google Business Profile / Maps knowledge panel (the direct evidence the original finding used). A plain Google web search for "McCanns Chemist Sandringham" still surfaces a third-party aggregator (pharmanearme.co.uk) titling the listing "Mccanns Pharmacy - Sandringham - Travel Vaccination And Simple Weight Loss Clinic", consistent with the keyword-stuffed name recorded nine days ago, but this is weaker, indirect evidence and is recorded as such rather than as a full reconfirmation. Recheck note appended to Q113 in QUESTIONS.json, status left open. Still needs Rishi's or Dane's own Google Business Profile access to resolve; nothing in this repo can edit a live listing.
+
+Did not attempt Q112 (Clear Chemist Aintree GBP hours) this run - verifying it properly needs the same direct Business Profile panel view as Q113's original finding, and this run's time was already committed to the two rechecks above; leaving it for a future pass rather than doing a shallower check and reporting it as equivalent evidence.
+
+ASSESSMENT: no in-repo defect, no worklist item unblocked, no new question raised (two existing questions got recheck notes only, no status changes). Q59, Q97, Q112, Q113, Q115 all remain open and are cross-referenced here rather than repeated in full. Q115's standing observation stands: the technical audit of the repo side remains functionally exhausted pending Rishi's decisions on the open question backlog and the small number of hands-on (Weebly paste, GBP profile edit) items no unattended run can perform.
+
+FILES CHANGED: AGENT_LOG.md (this entry), QUESTIONS.json (recheck notes appended to Q113 and Q114 only, no status changes). AGENT_WORKLIST.md unchanged. No generator, data, or checker files touched.
+
+QUESTIONS: none newly raised.
+
+---
+
 ## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 420) - zero worklist output; full 36-checker suite re-run clean as a genuine regression check against run 419's commit; no rotation-pool pass taken
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh with a UTC timestamp. No `.git/index.lock` or `.git/HEAD.lock` present. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` reported already up to date with run 419's commit (c1a9c08), 0 ahead / 0 behind.
