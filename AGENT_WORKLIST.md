@@ -14174,6 +14174,52 @@ Done 2026-09-19 (twenty-second pass).
       and after, 36/36 exit 0. git status showed only the long-standing
       pre-existing untracked strays, none touched or added. No in-repo
       defect, no new question, no worklist item unblocked. Done 2026-09-27
+      Quality pass 2026-09-27 (run 416, seventh Q99 live-site sample,
+      colemanandleighspharmacy.co.uk): lock check found .agent-lock stale
+      (60 minutes old, past the 45-minute threshold) and could not be
+      deleted (rm -f: Operation not permitted, the standing FUSE-mount
+      quirk), overwritten in place with a fresh timestamp instead, the
+      established workaround. .git/index.lock, HEAD.lock and ORIG_HEAD.lock
+      were all present at start with no git process running; cleared via
+      mv to timestamped names, same established workaround. fetch/checkout/
+      pull all clean, already up to date with run 415's commit (44b891f).
+      Answer pickup attempted via Claude in Chrome: same Cloudflare Access
+      sign-in gate as every run since Q59, no active session, did not sign
+      in, Q59 unresolved. AGENT_WORKLIST.md still 8 unchecked lines, all
+      [BLOCKED]; no unblocked item to take, so continued the Q99 live-site
+      sweep. Read colemanandleighspharmacy.co.uk's live
+      pharmacy-first-coleman-leigh-walton.html via Claude in Chrome,
+      read-only. Confirmed the same two-block pattern: Block B
+      (Weebly-injected) is a single Pharmacy object, not an "@graph",
+      matching the other single-branch domains sampled (Hirshmans,
+      Tiffenbergs). url still set to the homepage, addressRegion still
+      absent - standing pattern. Hours match branches.json exactly on both
+      Monday-to-Friday lunch-closure sessions (09:00-13:00 and
+      14:00-18:00), so no hours-misstatement risk despite the branch's
+      split day. New sub-detail: Block B's email reads
+      colemans@rbhealth.co.uk (lower case) against branches.json's
+      Colemans@rbhealth.co.uk (capitalised) - the same case-only divergence
+      pattern already raised at Tiffenbergs (Q56 cross-reference), not a
+      fresh defect. Separate, more significant finding, independently
+      reconfirmed rather than new: BOTH blocks on this page still name the
+      pharmacy "Coleman & Leigh Pharmacy" rather than the item-1.1-confirmed
+      "Coleman and Leighs Pharmacy" - Block A's staleness is the
+      long-tracked live-paste-lag already recorded in item 5.3/Q8's own
+      history (the 2026-08-11 fourth quality pass first found this exact
+      page reading "Coleman & Leigh" 21 times), but Block B carrying the
+      SAME old name is new information for Q99: since no generator here
+      writes Block B, its value must come from a Weebly site-wide
+      business-name setting rather than a per-page paste, meaning fixing
+      the page paste will not by itself correct Block B's name. Folded into
+      Q99's own note as a single surgical addendum, JSON validity confirmed
+      after. Eleven of sixteen sites now sampled (Scorah, McCanns and
+      Fishlocks each counting as two branches via their shared domains);
+      remaining unsampled: rbhealth.co.uk, clearchemist.co.uk. Full
+      36-checker suite (check-live-hours excluded, needs network) run clean
+      before and after, 36/36 exit 0. git status showed only the
+      long-standing pre-existing untracked strays, none touched or added.
+      No in-repo defect, no new question, no worklist item unblocked. Done
+      2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
