@@ -1,3 +1,17 @@
+## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 410) - zero worklist output, no repo drift; same Q115 option 3 discipline as run 409
+
+LOCK/SYNC: `.agent-lock` absent at start; created fresh. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` already up to date with run 409's commit (0b4e521). No `.git/index.lock` present this run.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. Navigated to `https://data.rbhealth.co.uk/api/feedback`: resolved to the same Cloudflare Access sign-in gate (Azure AD / email-code options, no active session) as every run since Q59 was raised. Did not sign in or try another route. Tab closed. Q59 unresolved, unchanged.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST/QUESTIONS: AGENT_WORKLIST.md still exactly 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); 43 items ticked done. No unblocked item available to take. QUESTIONS.json unchanged: 67 open of 120, oldest from 2026-08-11, no new portal answers landed (Q115's own recommendation to pause or drop cadence is itself still open).
+
+QUALITY PASS: deliberately did not run a further rotation-pool pass or the checker suite this run. Run 409 already reconfirmed the full 36-checker suite clean (36/36 exit 0) against this exact commit with nothing in the repo having changed since, so rerunning it now would only reproduce that same result while adding nothing - the discipline Q115's recommended option (3) and runs 319 onward have already been following. git status --short was not run either, for the same reason.
+
+ASSESSMENT: unchanged from run 409. All 8 remaining worklist items are blocked on Rishi's decisions, not on more unattended work; 67 questions have sat open since as early as 2026-08-11 with no portal answer landing since Q52 on 2026-09-01; and Q115, which recommends pausing or dropping this scheduled worker's cadence until a batch of open questions is worked through, remains itself unanswered. This run's contribution is limited to the answer-pickup attempt and keeping the status page honest.
+
 ## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 409) - zero worklist output, no repo drift; deliberately short run per Q115 option 3 discipline (no rotation-pool pass, no further live-site sweep)
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` already up to date with run 408's commit (b6b983f). A fresh `.git/index.lock` appeared after the first `git status` call on this mount, same standing FUSE quirk as every recent run (Q87/Q96/Q102) - cleared by `mv` to a `.stale-<epoch>` name before the write below, since `rm -f` fails with "Operation not permitted" on this mount.
