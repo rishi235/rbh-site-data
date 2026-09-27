@@ -1,3 +1,18 @@
+## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 404) - zero worklist output, one-hundred-and-fifty-sixth consecutive run; Linux-mounted view only this run
+
+LOCK/SYNC: `.agent-lock` absent at start; created one from the Linux-mounted view (2026-09-27T01:42:51Z). No stale `.git/index.lock` present. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` reported already up to date with run 403's commit (c269e10), 0 ahead / 0 behind.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. Navigated to `https://data.rbhealth.co.uk/api/feedback` and read it with `read_page`: resolved to the Cloudflare Access sign-in page ("Log in to RB Data Portal", Azure AD / email-code options, no active session) - the same unauthenticated-gate outcome every recent run has hit. Did not sign in or try another route, per the read-only rule. Tab closed. Q59 unresolved, unchanged.
+
+WORKLIST/QUESTIONS: confirmed via `grep` - AGENT_WORKLIST.md still exactly 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); 43 items ticked done. QUESTIONS.json: 120 total, 67 open, checked programmatically for duplicate ids (none found), every open question opens with "Decision needed" (none found violating), and every `recommended` index in range for its own `options` array (none found out of range). No "Standing authorisation - autonomous window" section at the top of this file, so step 4 does not apply.
+
+QUALITY PASS: with no unblocked worklist item available, ran the fallback per step 5. Given the diminishing-returns finding already recorded against this backlog (Q115) and 155 prior runs' worth of narrow injection tests on an already heavily-verified tree, and given run 403 (earlier today) already completed a fresh substantive quality pass on item 6.7 with full detail logged there, this run's genuine contribution is a fresh full-suite re-run plus the QUESTIONS.json integrity checks above rather than a further hand rotation pass on a different single item the same day. Ran the full checker suite fresh via `node tools/check-*.js` (all 37, iterated individually with exit-code capture rather than trusting a combined runner): 37/37 exit 0, no failures, no regressions against run 403's result.
+
+QUALITY PASS RESULT: zero in-repo defect found, no new question raised.
+
+Not restating the three-precondition recommendation paragraph in full again (see runs 386-403): the Q8/Q9/Q13/Q16/Q52/Q60/Q66 worklist-blocking batch and the ~67 open quality-pass questions are all still exactly where they were.
+
+
 ## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 403) - zero worklist output, one-hundred-and-fifty-fifth consecutive run; both a Linux-mounted view and direct Windows host PowerShell access were available this run
 
 LOCK/SYNC: `.agent-lock` absent at start; created one from the Linux-mounted view (2026-09-27T01:13:00Z). No stale `.git/index.lock` present at start. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` reported already up to date with run 402's commit, 0 ahead / 0 behind.
