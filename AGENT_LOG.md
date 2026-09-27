@@ -1,3 +1,19 @@
+## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 411) - zero worklist output, no repo drift; full checker suite re-run clean, same Q115 option 3 discipline as runs 409-410
+
+LOCK/SYNC: `.agent-lock` absent at start; created fresh. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` already up to date with run 410's commit (4a9a990). No `.git/index.lock` present this run.
+
+ANSWER PICKUP: attempted via Claude in Chrome per step 3. Navigated to `https://data.rbhealth.co.uk/api/feedback`: resolved to the same Cloudflare Access sign-in gate (Azure AD / email-code options, no active session) as every run since Q59 was raised. Did not sign in or try another route. Tab closed. Q59 unresolved, unchanged.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section present at the top of this file at run start. Step 4 does not apply.
+
+WORKLIST/QUESTIONS: AGENT_WORKLIST.md still exactly 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66); 43 items ticked done. No unblocked item available to take. QUESTIONS.json unchanged: 120 total, 67 open, oldest from 2026-08-11, no new portal answers landed (Q115's own recommendation to pause or drop cadence is itself still open).
+
+QUALITY PASS: ran the full 36-checker suite fresh this run (`node tools/check-*.js`, `check-live-hours.js` excluded, needs network), each invoked individually with its own exit code captured into a fresh `mktemp -d` scratch directory rather than a fixed `/tmp` path, per the shared-`/tmp`-permission lesson recorded by runs 407-408: 36/36 exit 0, no regressions against run 410's result. Did not extend this into a further rotation-pool injection pass or another Q99 live-site sample - per Q115's recommended option 3 and the discipline runs 319 onward have followed, a plain re-run confirming zero drift is the honest ceiling for this run given the backlog is otherwise blocked on Rishi's decisions. `git status --short` showed only the long-standing pre-existing untracked strays (`.scratch_audit/`, `_agentscratch/`, thirteen dated `audits/` files, one stray verify script) - none touched.
+
+QUALITY PASS RESULT: no in-repo defect found, no new question raised, no worklist item unblocked.
+
+ASSESSMENT: unchanged from runs 409-410. All 8 remaining worklist items are blocked on Rishi's decisions, not on more unattended work; 67 questions have sat open since as early as 2026-08-11 with no portal answer landing since Q52 on 2026-09-01; and Q115, which recommends pausing or dropping this scheduled worker's cadence until a batch of open questions is worked through, remains itself unanswered. This run's contribution is limited to the answer-pickup attempt, a clean full-suite reconfirmation, and keeping the status page honest.
+
 ## 2026-09-27 (unattended scheduled run, audit-backlog-worker, run 410) - zero worklist output, no repo drift; same Q115 option 3 discipline as run 409
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh. `git fetch origin`, confirmed on `agents/audit-backlog`, `git pull --ff-only` already up to date with run 409's commit (0b4e521). No `.git/index.lock` present this run.
