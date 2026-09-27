@@ -14075,6 +14075,38 @@ Done 2026-09-19 (twenty-second pass).
       cover all three lock files rather than just index.lock. No in-repo
       defect, no new question, no worklist item unblocked. Done
       2026-09-27
+
+      Quality pass 2026-09-27 (unattended run 413, fourth Q99 sample):
+      continued the sweep. Picked the next unsampled domain,
+      fishlockpharmacy.co.uk (Fishlocks Chemist Ainsdale and Eccleston, a
+      shared domain). Read the live
+      earache-treatment-fishlocks-ainsdale.html page via Claude in Chrome,
+      read-only. Confirmed the Q99 pattern again: Block A (this repo's
+      own per-page schema) is correct and matches branches.json exactly.
+      Block B (Weebly-injected) is a single "@graph" carrying both
+      branches, same shape as the Scorah and McCanns domains, url set to
+      the homepage for both. Every field in Block B for both branches
+      (name, telephone, streetAddress, addressLocality, postalCode,
+      email) matches branches.json exactly - no address or phone
+      inaccuracy here, unlike Scorah's truncated street number.
+      addressRegion is absent from both entities, reconfirming the
+      existing pattern. Block B on this domain carries no
+      openingHoursSpecification for either branch, the same no-hours
+      shape as mccannspharmacy.co.uk, so there is no hours-misstatement
+      risk on this domain. Not a repo defect: no generator here writes
+      Block B. Folded into Q99's own note as an addendum - eight of
+      sixteen sites now sampled (Scorah, McCanns and Fishlocks each
+      counting as two branches at once via their shared domains);
+      remaining unsampled: rbhealth.co.uk, clearchemist.co.uk,
+      hirshmanspharmacy.co.uk, colemanandleighspharmacy.co.uk and
+      tiffenbergschemist.co.uk. Full 35-checker suite
+      (check-live-hours excluded, needs network) re-run clean before
+      and after, 35/35 exit 0. git status showed only the long-standing
+      pre-existing untracked strays, none touched. Answer pickup
+      attempted per step 3: same Cloudflare Access sign-in gate as every
+      run since Q59 was raised, no active session, did not sign in, Q59
+      unresolved. No autonomous window present. No in-repo defect, no
+      new question, no worklist item unblocked. Done 2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
