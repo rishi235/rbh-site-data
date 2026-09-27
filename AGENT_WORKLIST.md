@@ -13990,6 +13990,52 @@ Done 2026-09-19 (twenty-second pass).
       status` call was cleared the same way before the write below. No
       in-repo defect, no new question, no worklist item unblocked. Done
       2026-09-27
+
+      Quality pass 2026-09-27 (unattended run, second pass same day):
+      picked the next unsampled Q99 site from the eleven remaining,
+      scorah-chemists.co.uk (a shared domain, both sister branches).
+      Read the live earache-treatment-scorah-bramhall.html page via
+      Claude in Chrome, read-only, and confirmed the Q99 pattern here
+      too, with two new sub-details not seen at the five single-branch
+      sites sampled so far. First: because this domain serves both
+      sister branches, the second, Weebly-injected block is a single
+      "@graph" carrying TWO Pharmacy entities on every page, Bramhall
+      and Hazel Grove together, not one, so a page about either branch
+      publishes both branches' schema.org entities at once, an extra
+      entity-resolution wrinkle on top of Q99's existing homepage-url
+      finding. Second, and more significant: Bramhall's entity in that
+      second block gives streetAddress "61 North Park Road", dropping
+      the "-63" that both branches.json and the page's own first,
+      correct per-page block ("61-63 North Park Road") carry - a live
+      address inaccuracy, not just the previously-catalogued missing
+      addressRegion (which is also absent here, on both entities,
+      reconfirming the existing pattern). Checked both branches' hours
+      in the second block against branches.json: Bramhall's Mon-Fri
+      09:00-18:00 plus Saturday 09:00-13:00 matches its specification
+      exactly, and Hazel Grove's Mon-Fri-only (no Saturday) correctly
+      reflects its ceased Saturday trading (branches.json's own note,
+      confirmed 2026-06-24) - no hours-misstatement risk on this
+      domain, unlike Smartts Bootle. Not a repo defect: no generator
+      here writes the second block, and check-jsonld.js remains
+      correct about the one block it can see; the address truncation
+      is a live Weebly-paste-content fault with no repo-side fix
+      available. Folded into Q99's own note as an addendum, continuing
+      to support its recommended option (check all sixteen sites
+      before deciding a fix) - six of sixteen now sampled (this domain
+      counting as both Bramhall and Hazel Grove at once), ten
+      remaining: mccannspharmacy.co.uk, fishlockpharmacy.co.uk,
+      rbhealth.co.uk, clearchemist.co.uk, hirshmanspharmacy.co.uk,
+      colemanandleighspharmacy.co.uk and tiffenbergschemist.co.uk (the
+      McCanns and Fishlocks shared domains need one sample each,
+      already reflected in that count). Full 36-checker suite
+      (check-live-hours excluded, needs network) re-run clean before
+      and after, 36/36 exit 0. git status showed only the long-standing
+      pre-existing untracked strays, none touched. This session's
+      mounted view could not delete its own .agent-lock or any stale
+      .git/*.lock files (Operation not permitted, the standing FUSE
+      quirk); each was cleared by renaming rather than deleting, the
+      established workaround. No in-repo defect, no new question, no
+      worklist item unblocked. Done 2026-09-27
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
