@@ -37947,6 +37947,56 @@ live DOM, not saved to a separate audit file (same convention as the
       the standard reason/attribution text. Full 36-checker suite re-run
       after the fix: 36/36 exit 0. No new question raised; no answer pickup
       available beyond Q52 (already applied).
+      Quality pass 2026-09-27 (third; unattended scheduled run, run 403; the
+      stalest completed item in the pool, last touched 2026-09-16, eleven
+      days without a re-check, and the item AGENT_LOG.md had gone longest
+      without mentioning at all - all eight remaining worklist items are
+      [BLOCKED] this run, so this was the fallback quality pass rather than
+      a hand-rotation choice). Data first: fetched gov.uk/bank-holidays live
+      via the browser and confirmed all eight dates in branches.json's
+      bankHolidays.dates2026 exactly against the published "Past bank
+      holidays in England and Wales 2026" (1 Jan, 3 Apr, 6 Apr, 4 May,
+      25 May, 31 Aug) and "Upcoming... 2026" (25 Dec, 28 Dec) tables - no
+      drift since Q79. check-opening-hours.js run clean against the tracked
+      repo (6 landing pages, rule 7's 88 clock-time sweep, rule 8's
+      177-file sweep, rule 10's 171-page JSON-LD sweep, all pass).
+      check-live-hours.js run live: today (2026-09-27) sits 27 days after
+      the 31 August bank holiday and 89 days before 25 December, both
+      outside the 14-day window, so nearThisRun correctly returned []
+      (audits/live-hours-check-2026-09-27.json); swept all 159 "closed"-ish
+      snippets in the fresh report by hand and every one is the standing
+      weekly Saturday/Sunday pattern (or a lunch-hour split), none a
+      one-off weekday closure, so there was nothing this run to mislabel
+      either way. Re-ran all six of the item's standing negative tests on a
+      disposable /tmp scratch copy (full repo copied minus .git, tracked
+      repo never opened for writing): invalid ISO date, duplicated date,
+      invalid tradingPolicy and emptied dates2026 each FAILed by name with
+      exit 1 (confirmed via explicit $? capture, not just piped output);
+      the whole bankHolidays block deleted degraded correctly to a NOTE and
+      exit 0; and a genuine Tuesday hours mismatch injected into
+      modules/branch/pages/pharmacy-mccanns-aigburth.html (9am-1pm/2pm-6pm
+      changed to 2pm-7pm) still FAILed with the exact mismatch quoted,
+      proving the bank-holiday exemption still cannot swallow a real
+      defect. Scratch copy deleted after; sha256 of the tracked
+      branches.json unchanged throughout (169bb5a2...b102); diff against
+      the tracked pharmacy-mccanns-aigburth.html confirmed byte-identical
+      after restore; git status --porcelain on branches.json/modules/tools
+      empty throughout.
+      Infrastructure note, not a repo defect: this run had both the
+      Linux-mounted view and direct Windows host PowerShell. A `git status`
+      call from the Linux view left a fresh, empty .git/index.lock behind
+      that the Linux view could not unlink (the same connected-folder
+      delete restriction runs 401-402 documented - confirmed again here
+      with `os.remove` failing "Operation not permitted"); it was under the
+      1-hour staleness threshold so not eligible for the lock-cleanup rule
+      by age, but since it was demonstrably orphaned (the git status call
+      that created it had already completed) it was removed via host
+      PowerShell rather than left for a future run to trip over, and
+      `git status --porcelain` confirmed empty immediately after. No
+      subsequent git command was blocked by it either way.
+      Full 37-checker suite re-run against the tracked repo before and
+      after this pass: 37/37 exit 0 both times. Zero in-repo defect found,
+      no new question raised.
 
 - [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
