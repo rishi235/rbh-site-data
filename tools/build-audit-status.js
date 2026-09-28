@@ -64,7 +64,11 @@ for (const line of wlLines) {
 // ---------- questions (structured) and recent activity ----------
 let allQuestions = [];
 try { allQuestions = JSON.parse(fs.readFileSync(QFILE, 'utf8')); } catch (e) {}
-const openQs = allQuestions.filter(q => q.status === 'open');
+const openQs = allQuestions.filter(q => q.status === 'open').sort((a, b) => {
+  const aFlag = /NOT A DECISION/.test(a.note || '') ? 0 : 1;
+  const bFlag = /NOT A DECISION/.test(b.note || '') ? 0 : 1;
+  return aFlag - bFlag;
+});
 const answeredQs = allQuestions.filter(q => q.status === 'answered');
 let commits = [];
 try {
@@ -121,6 +125,7 @@ function questionCard(q) {
   }).join('\n');
   return '<div class="border border-gray-200 rounded-xl p-4 mb-3 bg-gray-50" data-qid="' + esc(q.id) + '">' +
     '<p class="text-xs text-gray-500 mb-1"><span class="font-semibold text-gray-700">' + esc(q.id) + '</span> - ' + esc(q.date) + ' - worklist item ' + esc(q.item) + '</p>' +
+    (/NOT A DECISION/.test(q.note || '') ? '<p class="text-xs font-semibold text-amber-700 mb-1">You already replied to an earlier version of this question - still needs an answer</p>' : '') +
     '<p class="text-sm font-medium text-gray-900 mb-3">' + esc(q.question) + '</p>' +
     '<div class="space-y-2">' + opts +
     '<label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 bg-white cursor-pointer">' +
@@ -149,19 +154,29 @@ const questionsHtml = openQs.length
     '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi</h2>' +
     '<p class="text-sm text-gray-500">None at the moment.</p>' + answeredHtml + '</section>';
 const answerScript = '<script>' +
-  'function markSent(card, saved){' +
+  'function markJustSent(card, saved){' +
   'card.querySelectorAll("label,[data-submit]").forEach(function(el){ el.style.display = "none"; });' +
   'var note = card.querySelector("[data-sent-note]");' +
   'if (!note) { note = document.createElement("div");' +
   'note.setAttribute("data-sent-note", "1");' +
   'note.className = "mt-2 p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-900";' +
   'card.appendChild(note); }' +
-  'note.textContent = "Your answer (" + saved.at + "): " + saved.val + ". The agents record it on their next run; this card disappears once it is applied.";' +
+  'note.textContent = "Your answer (" + saved.at + "): " + saved.val + ". The agents pick it up on their next run.";' +
+  '}' +
+  'function markPriorAnswer(card, saved){' +
+  'var note = card.querySelector("[data-prior-note]");' +
+  'if (!note) { note = document.createElement("div");' +
+  'note.setAttribute("data-prior-note", "1");' +
+  'note.className = "mb-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-900";' +
+  'var opts = card.querySelector(".space-y-2");' +
+  'if (opts) { card.insertBefore(note, opts); } else { card.appendChild(note); }' +
+  '}' +
+  'note.textContent = "You answered this on " + saved.at + ": " + saved.val + ". Still shown as open below because the agents did not read that as picking one of the current options, check the note above then answer again.";' +
   '}' +
   'document.querySelectorAll("[data-qid]").forEach(function(card){' +
   'var qid = card.getAttribute("data-qid"); var saved = null;' +
   'try { saved = JSON.parse(localStorage.getItem("auditAnswer:" + qid)); } catch (e) {}' +
-  'if (saved) { markSent(card, saved); }' +
+  'if (saved) { markPriorAnswer(card, saved); }' +
   '});' +
   'document.querySelectorAll("[data-submit]").forEach(function(btn){' +
   'btn.addEventListener("click", async function(){' +
@@ -180,7 +195,7 @@ const answerScript = '<script>' +
   'if (r.ok && out && out.ok) {' +
   'var saved = { val: val, at: new Date().toLocaleString("en-GB", { hour12: false }) };' +
   'try { localStorage.setItem("auditAnswer:" + qid, JSON.stringify(saved)); } catch (e) {}' +
-  'markSent(card, saved);' +
+  'markJustSent(card, saved);' +
   'if (out.written === "kv-fallback") { var n = card.querySelector("[data-sent-note]"); if (n) n.textContent += " (Recorded via the fallback box, not written straight to the file yet - tell Claude if this keeps happening.)"; }' +
   '} else { status.textContent = "Send failed (" + (out && out.error ? out.error : r.status) + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
   '} catch (e) { status.textContent = "Send failed. Try again or answer in Claude chat."; btn.disabled = false; }' +
