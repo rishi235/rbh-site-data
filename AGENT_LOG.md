@@ -1,3 +1,24 @@
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 457) - zero worklist output; no rotation-pool pass; state unchanged from run 456
+
+LOCK/SYNC: `.agent-lock` found at start, created `2026-09-28T12:42:22Z`, run start `~14:44Z` - roughly 2 hours old, well over the 45-minute threshold, so treated as stale. `rm`, `chmod` + `rm`, and Python `os.remove()` all returned EPERM (the same sandbox-mount unlink limitation recorded in Q120); cleared by rename instead (`.agent-lock` to `.agent-lock.old`), then a fresh `.agent-lock` written for this run. No stale `.git/index.lock`. `git fetch origin`, already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` completed cleanly: already up to date with run 456's commit `ca6454a`. Working tree clean except the same long-standing untracked scratch/audit files under `.scratch_audit/` and `audits/live-hours-check-*`/`audits/broken-links-sweep-*`/`audits/mccanns-build-check-*` that have carried across every recent run.
+
+Noted in passing, not acted on: the working directory now carries roughly 19 `.agent-lock.*` rename-aside artifacts accumulated across runs back to 2026-09-26 (`.released-*`, `.stale-*`, `.done-run*`, `.removing`, `.removed-*`, plus this run's `.old`). Checked QUESTIONS.json before writing this up: Q120 (2026-09-23, still open) already diagnoses this exact mechanism in full - EPERM on unlink from the Cowork sandbox mount for `rm`, `fs.unlinkSync` and git's own internal unlink, rename working every time, three options on the table (file it upstream, adopt a single git-ignored archive folder, or both), recommended option is "do both". Nothing new to add; not raising a duplicate question. This run's `.agent-lock` was renamed to `.agent-lock.old` per the existing (imperfect) convention rather than pre-empting Rishi's still-open choice between Q120's options.
+
+ANSWER PICKUP: navigated to `https://data.rbhealth.co.uk/api/feedback` via the built-in browser, read-only. Same Cloudflare Access sign-in gate as every run since Q59. Did not sign in, no interaction attempted beyond navigation. Q59 unchanged.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 456's entry). No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: confirmed 8 unchecked lines in AGENT_WORKLIST.md, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to runs 448-456. No unblocked item to take. QUESTIONS.json: 120 total, 67 open, unchanged.
+
+DECISION: not running a rotation-pool recheck, for the same reason runs 449-456 gave (Q115, Q119, Q120): the pool has been independently re-verified repeatedly with zero new defects, and this branch's own operating files remain the live problem those questions describe. Adding another same-state confirmation worsens that rather than helping. No content, generator, checker, page, pack or branch-data edits made this run.
+
+RECOMMENDATION: unchanged - Q115, Q59, Q87, Q96, Q102, Q119, Q120 are the actual blockers. A supervised session to clear these (answer the open questions, or explicitly stand down the scheduled cadence per Q115) would unstick the backlog; unattended runs cannot do either. Nine consecutive runs (448-456) have now reported this identical unchanged state; continuing the current 30-45 minute cadence with nothing to action is not adding information, it is adding log volume to files already flagged as oversized in Q119/Q120.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). `.agent-lock` renamed aside (`.agent-lock.old`) and rewritten (EPERM on unlink, per Q120).
+
+QUESTIONS: none newly raised - checked Q120 before considering a new one; it already covers this run's lock-litter finding in full.
+
+---
 ## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 456) - zero worklist output; no rotation-pool pass; state unchanged from run 455
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh for this run. No stale `.git/index.lock` found. `git fetch origin` then confirmed already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` completed cleanly: already up to date with run 455's commit `a7d0a41`. Working tree clean except the same long-standing untracked scratch/audit files under `.scratch_audit/` and `audits/live-hours-check-*`/`audits/broken-links-sweep-*`/`audits/mccanns-build-check-*` that have carried across every recent run.
