@@ -1,3 +1,43 @@
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 466) - zero worklist output; state unchanged from run 465
+
+Kept brief deliberately, same reasoning as run 465: this is the 19th consecutive run (448-466) reporting identical state. One new, minor finding below; everything else matches run 465/464 and is not repeated.
+
+LOCK/SYNC: no `.agent-lock` present at start; fresh one written. Fetch/pull clean, up to date with run 465's commit (unpushed, along with runs 458-465 - now seven commits ahead of origin locally per `git rev-list --count origin/agents/audit-backlog..HEAD`). A stale `.git/index.lock` (0 bytes, dated 20:15, over an hour old, no git process running) was present at start. Step 1 says delete a stale one; `rm -f`, Python `os.remove`, `lsattr` all returned EPERM/"Operation not permitted" on it, the same unlink quirk already on record for this sandbox's fuse mount (Q120, and the `.status-payload.json` unlink issue run 464 fixed). Despite that, `git checkout` / `git pull --ff-only` completed cleanly regardless (git itself doesn't need to remove a pre-existing index.lock to read the index), so this did not block steps 2 onward. Noting it because the stale-lock deletion is an explicit instruction and it genuinely could not be carried out this run, not because it caused a failure.
+
+ANSWER PICKUP: opened `https://data.rbhealth.co.uk/api/feedback` in the built-in browser pane. Hit the same `rbhealth.cloudflareaccess.com` Access gate as most runs since Q59 - no page content reachable without an approval nobody is present to grant. Per step 3 and the hard rules, no access request, login or approval was attempted. Tab closed. Q59 unchanged.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 465's entry, now below). No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: same 8 lines, all still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). No unblocked item to take, no rotation-pool pass run (Q115/Q119/Q120 reasoning, unchanged). QUESTIONS.json: 120 total, 67 open, unchanged.
+
+PUSH: confirmed still fails, same error as runs 457-465 (`fatal: could not read Username for 'https://github.com'`). No git credentials, no `gh` binary, no `~/.netrc`/`~/.git-credentials`, no `GITHUB_TOKEN` in this sandbox. Per Q96/Q102.
+
+STATUS PAGE: ran `node tools/build-audit-status.js` per step 10. Same as run 465: builds correctly, fails only at the publish call on `gh: not found` - confirms no regression and no new cause.
+
+RECOMMENDATION: unchanged - see run 464/465 and Q59/Q60/Q66/Q87/Q96/Q102/Q115/Q119/Q120. A supervised, credentialed session (or running from the actual ProDeskAi host) is what unsticks this, not further unattended runs on the current cadence. Worth deciding Q115 (stand the cadence down until one of those is scheduled) given 19 consecutive no-progress runs.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 465) - zero worklist output; state unchanged from run 464
+
+Kept brief deliberately: this is the 18th consecutive run (448-465) reporting identical state, and Q119/Q120 already establish that this file's own growth is part of the problem. Full detail is in run 464's entry immediately below; not repeating it.
+
+LOCK/SYNC: no lock present, fresh one written. Fetch/pull clean, up to date with run 464's commit d9369da (unpushed, along with runs 458-464 - eight commits ahead of origin locally).
+
+ANSWER PICKUP: built-in browser hit the same rbhealth.cloudflareaccess.com Access gate as most runs since Q59. No login attempted, per the hard rules. Q59 unchanged.
+
+WORKLIST: same 8 lines, all still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). No unblocked item to take, no rotation-pool pass run (Q115/Q119/Q120 reasoning, unchanged).
+
+PUSH: confirmed still fails, same error as runs 457-464 (`fatal: could not read Username for 'https://github.com'`). No git credentials in this sandbox, per Q96/Q102.
+
+STATUS PAGE: ran `node tools/build-audit-status.js` per step 10. Gets past the path/crash bugs run 464 fixed, fails only at the publish call on `gh: not found` - confirms run 464's fix and narrows the blocker to the same single cause (Q96/Q102).
+
+RECOMMENDATION: unchanged - see run 464 and Q59/Q60/Q66/Q87/Q96/Q102/Q115/Q119/Q120. A supervised, credentialed session (or running from the actual ProDeskAi host) is what unsticks this, not further unattended runs on the current 30-45 minute cadence.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 464) - no worklist item unblocked, but two real in-repo defects fixed in tools/build-audit-status.js (Q96/Q102 partly narrowed)
 
 LOCK/SYNC: no `.agent-lock` present at start; fresh one written (`2026-09-28T19:11:59Z`). `git fetch origin`, already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` clean: already up to date with run 463's commit `738ec70` (itself unpushed, along with runs 458-462 - origin still sat at `9b02ca8`/run 457, six commits behind local before this run's commit). No stale `.git/index.lock`.
