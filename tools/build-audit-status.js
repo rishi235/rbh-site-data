@@ -4,11 +4,17 @@
 // self-contained HTML status page and publishes it to the data portal
 // (rishi235/rbh-data-portal) via the GitHub API using the gh CLI.
 // Run: node C:\Dev\rbh-site-data\tools\build-audit-status.js
+// REPO is derived from this file's own location (tools/..), not hardcoded,
+// so the script works from any checkout path - the ProDeskAi host's
+// C:\Dev\rbh-site-data, a different drive letter, or a sandboxed mount such
+// as /sessions/.../mnt/rbh-site-data. A hardcoded 'C:/Dev/rbh-site-data' used
+// to make every run outside that exact path fail before reaching the GitHub
+// API publish step (see Q96/Q102/Q87 in QUESTIONS.json for the run history).
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const REPO = 'C:/Dev/rbh-site-data';
+const REPO = path.join(__dirname, '..');
 const WORKLIST = path.join(REPO, 'AGENT_WORKLIST.md');
 const LOGFILE = path.join(REPO, 'AGENT_LOG.md');
 const QFILE = path.join(REPO, 'QUESTIONS.json');
@@ -251,5 +257,9 @@ try {
   sh('gh api -X PUT repos/' + PORTAL + '/contents/' + DEST + ' --input "' + tmp + '"');
   console.log('Published ' + DEST + ' (' + doneCount + '/' + total + ' done, ' + pct + '%)');
 } finally {
-  fs.unlinkSync(tmp);
+  // Best-effort cleanup only. Some sandboxed mounts (see Q120 in
+  // QUESTIONS.json) throw EPERM on unlink even though the write above
+  // succeeded; a failure here must never replace or hide a real error from
+  // the gh call above it, so it is swallowed rather than left to propagate.
+  try { fs.unlinkSync(tmp); } catch (e) { /* stale tmp file, harmless */ }
 }

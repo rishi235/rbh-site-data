@@ -3,3 +3,4 @@
 .agent-lock-*
 _agent-run-debris/
 .notify-state.json
+tools/.status-payload.json
