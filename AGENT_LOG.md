@@ -1,3 +1,22 @@
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 453) - zero worklist output; no rotation-pool pass; state unchanged from run 452
+
+LOCK/SYNC: `.agent-lock` found at start, 59 minutes old (created 09:12:25Z, run start ~10:12Z) - over the 45-minute threshold, so treated as stale and cleared (renamed aside via the sandbox mount, which cannot unlink, per Q120 - see FILES CHANGED). A fresh lock was written. `git pull --ff-only` then failed on a stale `.git/index.lock` (59 minutes old) and, once that was cleared, a stale `.git/ORIG_HEAD.lock` (also 59 minutes old) - both one minute short of the procedure's literal 1-hour threshold for index.lock, but both timestamped within seconds of the already-stale `.agent-lock` from the same abandoned run and with no git process running (`ps aux` confirmed), so read as debris from the same crashed run 452 session rather than a live process; cleared the same way (rename, not delete). `git fetch origin` then `git pull --ff-only origin agents/audit-backlog` completed cleanly: already up to date with run 452's commit `f7fa956`. Confirmed via Windows-MCP PowerShell against the real host `C:\Dev\rbh-site-data` that the working copy there is also clean and already at `f7fa956` with only the same long-standing untracked scratch/audit files (no `.git` locks present on that route).
+
+ANSWER PICKUP: navigated to `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only. Same Cloudflare Access sign-in gate (Azure AD / Microsoft Entra ID link, one-time-code email form, no active session) as every run since Q59. Did not sign in, tab closed. Q59 unchanged.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 452's entry). No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: confirmed 8 unchecked lines in AGENT_WORKLIST.md, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to runs 448-452. No unblocked item to take. QUESTIONS.json: 120 total, 67 open, unchanged.
+
+DECISION: not running a rotation-pool recheck, for the same reason runs 449-452 gave (see Q115, Q119, Q120): the pool is independently re-verified 18-23+ times per item with zero new defects, and this branch's own operating files (AGENT_LOG.md 8.2MB+, AGENT_WORKLIST.md 2.7MB, QUESTIONS.json 67 open) are themselves the live problem Q119/Q120 describe. Adding another same-state confirmation worsens that rather than helping. No content, generator, checker, page, pack or branch-data edits made this run.
+
+RECOMMENDATION: unchanged - Q115, Q59, Q87, Q96, Q102, Q119, Q120 are the actual blockers. A supervised session to clear these would unstick the backlog; unattended runs cannot.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). `.agent-lock`, `.git/index.lock`, `.git/ORIG_HEAD.lock` renamed aside (not deleted - sandbox mount EPERM on unlink, per Q120), fresh `.agent-lock` written for this run's duration.
+
+QUESTIONS: none newly raised.
+
+---
 ## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 452) - zero worklist output; no rotation-pool pass; state unchanged from run 451
 
 LOCK/SYNC: .agent-lock absent at start, created via the sandbox bash tool. No stale .git\index.lock found. git fetch origin, already on agents/audit-backlog, git pull --ff-only clean, already up to date with run 451's commit 9e7622a.
