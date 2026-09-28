@@ -1,3 +1,24 @@
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 461) - zero worklist output; state unchanged from run 460
+
+LOCK/SYNC: no `.agent-lock` present at start; fresh one written. `git fetch origin`, already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` clean: already up to date with run 460's commit `d35fd90` (itself unpushed, per below). A handful of fresh, zero-byte `.git/*.lock` files were created by this run's own `git push --dry-run` probe and self-cleared; not stale, left alone.
+
+ANSWER PICKUP: opened `https://data.rbhealth.co.uk/api/feedback` in the built-in browser pane, read-only. Hit the same `rbhealth.cloudflareaccess.com` Access gate as every run since Q59 - no page content reachable without an approval nobody is present to grant. Per step 3 and the hard rules, no access request, login or approval was attempted. Tab closed. Q59 unchanged.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 460's entry). No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: confirmed 8 unchecked lines in AGENT_WORKLIST.md, all still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to runs 448-460. No unblocked item to take, so no work item done and no rotation-pool quality pass triggered (items are blocked, not complete). QUESTIONS.json: 120 total, 67 open, unchanged.
+
+DECISION: not running a discretionary rotation-pool recheck, same reasoning as runs 449-460 (Q115/Q119/Q120): the pool has been independently re-verified repeatedly with zero new defects, and this branch's own operating files (AGENT_LOG.md now well over 8MB, AGENT_WORKLIST.md 2.7MB, QUESTIONS.json 120 entries/67 open) are themselves the live problem those questions describe. No content, generator, checker, page, pack or branch-data edits made this run.
+
+PUSH: `git push origin agents/audit-backlog --dry-run` fails outright, same as runs 457-460: `fatal: could not read Username for 'https://github.com': No such device or address`. No credential helper, `~/.netrc`, `~/.git-credentials`, `GITHUB_TOKEN` or `gh` binary in this sandbox. Per Q96/Q102. This entry is added on top of runs 458-460's already-unpushed commits and will also fail to push, so the branch is now four commits ahead of origin locally with no way to reconcile from this environment.
+
+STATUS PAGE: attempted step 10 (`node tools/build-audit-status.js`) regardless, per instructions to run it even on a failed/no-op work item. It failed before reaching the GitHub API publish call: the script reads a hardcoded Windows path (`C:/Dev/rbh-site-data/AGENT_WORKLIST.md`) that does not exist inside this sandbox's mount (`/sessions/.../mnt/rbh-site-data/` here). This is a new, distinct failure mode from the previously-documented push-credential one and is worth flagging separately - the script has never actually reached its GitHub API publish step in any of these unattended runs, for two independent reasons now.
+
+RECOMMENDATION: unchanged and now 14 consecutive runs reporting identical state (448-461). Every remaining blocked item needs either a Weebly paste session, a push to a branch this task isn't authorised to touch, or an answer to Q60/Q66 behind the Cloudflare gate - and separately, this sandbox cannot push to origin or publish the status page at all, on two independent grounds (no git credentials; hardcoded Windows path in build-audit-status.js). Worth a supervised session to clear Q59/Q60/Q66/Q87/Q96/Q102/Q115/Q119/Q120, fix or path-parametrise build-audit-status.js, and decide whether to stand the unattended cadence down (Q115) until the environment issues are resolved - continuing to run it as-is produces only same-state log growth with no reachable output.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). QUESTIONS.json unchanged. No new questions raised.
+
+---
 ## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 460) - zero worklist output; state unchanged from run 459
 
 LOCK/SYNC: no `.agent-lock` present at start; fresh one written. A stray `.git/index.lock` (0 bytes, ~28 minutes old at run start) was present from a prior git operation but no git process was running; this sandbox mount's known EPERM-on-unlink quirk (Q120) meant it could not be removed directly, but as in earlier runs this did not block `git fetch`/`git status`/`git pull` from completing successfully, so it was left alone rather than force-deleted. `git fetch origin`, already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` clean: already up to date with run 459's commit `fa71d2c`.
