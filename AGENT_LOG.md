@@ -1,4 +1,20 @@
-## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 449) - no worklist or rotation-pool work; state unchanged from run 448 (completed earlier the same day), declined to add another recheck entry given Q115/Q119/Q120
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 450) - zero worklist output; no rotation-pool pass; state unchanged from run 449
+
+LOCK/SYNC: .agent-lock absent at start, created against the real host via Windows-MCP PowerShell. A stray .git\index.lock (created by this run's own earlier fetch attempt via the sandbox bash tool, not by any live process) was found and removed via Windows-MCP FileSystem/PowerShell, consistent with Q120's confirmed workaround (sandbox rm/unlink EPERM on this mount, Windows-MCP delete succeeds). git fetch/checkout/pull all clean, already up to date with run 449's commit afded08.
+
+ANSWER PICKUP: navigated to https://data.rbhealth.co.uk/api/feedback via Claude in Chrome, read-only. Same Cloudflare Access sign-in gate (Azure AD link, one-time-code form, no active session) as every run since Q59. Did not sign in. Q59 unchanged.
+
+WORKLIST: confirmed 8 unchecked lines in AGENT_WORKLIST.md, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to run 449. No unblocked item to take.
+
+DECISION: not running a rotation-pool recheck, for the same reason run 449 gave and does not repeat in full here (see Q115, Q119, Q120): the pool is independently re-verified 18-23 times per item with zero new defects, and this branch's own operating files (AGENT_LOG.md now 8.2MB, QUESTIONS.json 67 open) are themselves the live problem Q119/Q120 describe. Adding another same-state confirmation worsens that rather than helping. No content, generator, checker, page, pack or branch-data edits made this run.
+
+RECOMMENDATION: unchanged - Q115, Q59, Q87, Q96, Q102, Q119, Q120 are the actual blockers. A supervised session to clear these would unstick the backlog; unattended runs cannot.
+
+FILES CHANGED: AGENT_LOG.md (this entry only).
+
+QUESTIONS: none newly raised.
+
+---## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 449) - no worklist or rotation-pool work; state unchanged from run 448 (completed earlier the same day), declined to add another recheck entry given Q115/Q119/Q120
 
 LOCK/SYNC: .agent-lock absent at start, created via Windows-MCP PowerShell against the real host at 2026-09-28T08:13:29Z. No stale .git\index.lock. Already on agents/audit-backlog, git fetch origin then git pull --ff-only both clean, already up to date with run 448's commit aef76fb.
 
