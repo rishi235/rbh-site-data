@@ -961,7 +961,7 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct."
+    "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct. Recheck 2026-09-28 (unattended run 444, in-repo): ran tools/check-pharmacy-first-safety-net.js again - output unchanged, still WARN (not FAIL) on impetigo only, all 98 condition pages otherwise clean. No regression. Status left open, still Rishi's or the superintendent pharmacist's call."
   },
   {
     "id": "Q62",
