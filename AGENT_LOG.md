@@ -1,3 +1,43 @@
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 459) - zero worklist output; state unchanged from run 458
+
+LOCK/SYNC: no lock present at start; fresh `.agent-lock` written. `git fetch` + `git pull --ff-only` clean, already at run 458's commit `f31ac89` (unpushed - see below). No stale git locks found.
+
+ANSWER PICKUP: read `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only - went straight through, no Cloudflare gate this run. Newest entry is still the Q52 answer (2026-09-01). Cross-checked Q8, Q9, Q13, Q16, Q52 (the answered questions behind 5 of the 8 blocked worklist items): all correctly recorded in QUESTIONS.json already, each blocked on a supervised action (Weebly paste, or a push to a branch other than agents/audit-backlog) that this unattended run cannot perform. Q60 and Q66 remain genuinely unanswered. Nothing new to apply.
+
+AUTONOMOUS WINDOW: none declared at top of log. Step 4 does not apply.
+
+WORKLIST: same 8 unchecked lines, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to runs 448-458. No unblocked item to take, and items are blocked rather than complete, so the quality-pass fallback in step 5 does not trigger either.
+
+DECISION: no rotation-pool pass, same reasoning as runs 449-458 (Q115/Q119/Q120) - the pool is over-verified, not under-verified, and this branch's own log/worklist size is itself the problem those questions raise. No repo edits this run.
+
+PUSH: local commit from run 458 (`f31ac89`) still cannot reach origin - this sandbox has no git credential helper, no `~/.netrc`/`~/.git-credentials`, no `GITHUB_TOKEN`, and no `gh` binary, confirmed again this run. Same condition as run 458, per Q96/Q102. This entry is added on top locally and will also fail to push. Step 10 (portal publish via `gh`) also cannot run for the same reason.
+
+RECOMMENDATION: unchanged from run 458 - this is now 12 consecutive runs (448-459) reporting identical state. The task cannot self-unstick: every remaining blocked item needs either a Weebly paste session, a push to a branch this task isn't authorised to touch, or an answer to Q60/Q66. Worth a supervised session to clear Q59/Q60/Q66/Q87/Q96/Q102/Q115/Q119/Q120, or a decision under Q115 to stand the cadence down until one of those is scheduled - continuing to run every 30-45 minutes with nothing actionable is adding log volume, not progress.
+
+FILES CHANGED: AGENT_LOG.md (this entry). QUESTIONS.json unchanged. No new questions raised.
+
+---
+## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 451) - zero worklist output; no rotation-pool pass; state unchanged from run 450
+
+LOCK/SYNC: .agent-lock absent at start, created via the sandbox bash tool. No stale .git\index.lock older than 1 hour found (a fresh 0-byte index.lock appeared during this run's own git operations, consistent with the sandbox mount quirk Q120 already documents; git fetch/checkout/pull/log/status all completed successfully regardless, so it was left alone rather than force-deleted). git fetch origin, already on agents/audit-backlog, git pull --ff-only clean, already up to date with run 450's commit d47b71b.
+
+ANSWER PICKUP: navigated to https://data.rbhealth.co.uk/api/feedback via Claude in Chrome, read-only. Same Cloudflare Access sign-in gate (Azure AD link, one-time-code form, no active session) as every run since Q59. Did not sign in. Q59 unchanged.
+
+AUTONOMOUS WINDOW: checked top of this file at run start (run 450's entry). No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: confirmed 8 unchecked lines in AGENT_WORKLIST.md, all [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66), identical to runs 448-450. No unblocked item to take. QUESTIONS.json: 120 total, 67 open, unchanged.
+
+DECISION: not running a rotation-pool recheck, for the same reason runs 449-450 gave (see Q115, Q119, Q120): the pool is independently re-verified 18-23+ times per item with zero new defects, and this branch's own operating files (AGENT_LOG.md now over 8MB, QUESTIONS.json 67 open) are themselves the live problem Q119/Q120 describe. Adding another same-state confirmation worsens that rather than helping. No content, generator, checker, page, pack or branch-data edits made this run.
+
+RECOMMENDATION: unchanged - Q115, Q59, Q87, Q96, Q102, Q119, Q120 are the actual blockers. A supervised session to clear these would unstick the backlog; unattended runs cannot.
+
+FILES CHANGED: AGENT_LOG.md (this entry only).
+
+QUESTIONS: none newly raised.
+
+---
+
+---
 ## 2026-09-28 (unattended scheduled run, audit-backlog-worker, run 458) - zero worklist output; no rotation-pool pass; state unchanged from run 457
 
 LOCK/SYNC: `.agent-lock` absent at start; created fresh for this run. No stale `.git/index.lock` found. `git fetch origin`, already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` completed cleanly: already up to date with run 457's commit. Working tree clean except the same long-standing untracked scratch/audit files under `.scratch_audit/` and `audits/live-hours-check-*`/`audits/broken-links-sweep-*`/`audits/mccanns-build-check-*` that have carried across every recent run.
