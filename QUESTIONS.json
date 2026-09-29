@@ -887,9 +887,10 @@
       "Add an alias so both spellings deliver, then align branches.json and the live pages to one spelling at leisure - cheapest way to stop any patient email bouncing today, works whichever spelling is currently real"
     ],
     "recommended": 2,
-    "status": "open",
-    "answer": null,
-    "note": "Same shape as Q36 (misspelled NHS mailbox in a site footer) and Q41 (published email unchecked). One minute in the Microsoft 365 admin centre answers which mailbox exists. The Shorts@ singular note from the 3.11 pass may be worth checking in the same minute. Recheck 2026-09-27 (unattended run 424, read-only, Claude in Chrome): live site www.tiffenbergschemist.co.uk still publishes the branch email as tiffenbergs@rbhealth.co.uk (plural) in the page text (two occurrences, contact block and footer); branches.json still holds Tiffenberg@rbhealth.co.uk (singular). Divergence unchanged since the question was raised on the 4.15 pass, 2026-08-11 - no Microsoft 365 admin centre check has been done in the meantime (outside repo/browser-read-only scope), so which mailbox actually exists is still Rishi's call. Status left open."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 29/09/2026, 15:26:10 (UK time): \"tiffenberg@rbhealth.co.uk\"",
+    "note": "Same shape as Q36 (misspelled NHS mailbox in a site footer) and Q41 (published email unchecked). One minute in the Microsoft 365 admin centre answers which mailbox exists. The Shorts@ singular note from the 3.11 pass may be worth checking in the same minute. Recheck 2026-09-27 (unattended run 424, read-only, Claude in Chrome): live site www.tiffenbergschemist.co.uk still publishes the branch email as tiffenbergs@rbhealth.co.uk (plural) in the page text (two occurrences, contact block and footer); branches.json still holds Tiffenberg@rbhealth.co.uk (singular). Divergence unchanged since the question was raised on the 4.15 pass, 2026-08-11 - no Microsoft 365 admin centre check has been done in the meantime (outside repo/browser-read-only scope), so which mailbox actually exists is still Rishi's call. Status left open.",
+    "answeredDate": "2026-09-29"
   },
   {
     "id": "Q57",
