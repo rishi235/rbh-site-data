@@ -855,9 +855,10 @@
       "Leave it and read around the noise in future audits. Costs nothing now but keeps the top-issue list dominated by a non-issue."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Neither question blocks item 6.2 itself: the sweep, the report and the generator-owned check are done. These are the live-only follow-ups the item asked to be logged, same as 5.8."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 29/09/2026, 15:25:19 (UK time): \"Add /cdn-cgi/ to the ignore or exclude patterns in each affected Ahrefs Site Audit project. Keeps the obfuscation protection, clears the noise so real broken links stand out, changes nothing live. Ahrefs UI only, so Rishi or Dane.\"",
+    "note": "Neither question blocks item 6.2 itself: the sweep, the report and the generator-owned check are done. These are the live-only follow-ups the item asked to be logged, same as 5.8.",
+    "answeredDate": "2026-09-29"
   },
   {
     "id": "Q55",
