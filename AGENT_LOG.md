@@ -1,3 +1,28 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 491) - no new portal answers since run 490; tried the Ahrefs Site Audit API as a possible route into Q52/6.1, found it gated by plan; two live rechecks unchanged; all 36 non-live checkers re-run clean, zero drift; worklist unchanged, all 8 items still [BLOCKED]; push and publish via the host route
+
+LOCK: `.agent-lock` found holding `2026-09-29T19:12:14Z` (this run's own overwrite from the start-of-run check), no separate stale marker present - run 490's entry confirms it released cleanly. Treated as available and proceeded, same convention as recent runs. `rm -f` still gives "Operation not permitted" on the Cowork sandbox mount (Q120); overwrote the file's contents in place with a fresh timestamp, will overwrite again with a RELEASED marker at the end of this run.
+
+GIT: sandbox-side `git fetch`/`checkout`/`pull --ff-only` all clean, already up to date with `origin/agents/audit-backlog` at `6f994db` (run 490's own commit) - confirms run 490's push landed, 0 ahead / 0 behind. Sandbox `git push --dry-run` reconfirmed the standing credential gap: "could not read Username for 'https://github.com'" - unchanged since Q96/Q102, so the host route is used for the actual write below.
+
+ANSWER PICKUP (step 3): Claude in Chrome reading `https://data.rbhealth.co.uk/api/feedback` returned cleanly. Newest entry is still `fb:2026-09-01T22:44:51.524Z` (Q52) - identical to run 490's read, nothing past it. QUESTIONS.json unchanged, 51 open (same as run 490).
+
+AUTONOMOUS WINDOW: checked the top of run 490's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). Nothing changed since run 490.
+
+NEW THIS RUN: this session has the Ahrefs API MCP connected, which earlier runs did not have, so it was worth checking whether it could do the manual step Q52's answer asks Rishi to do by hand ("open the issue detail yourself in Ahrefs Site Audit... click Page in multiple sitemaps... post the sitemap URLs"). Called `site-audit-projects` (no filter, to list projects and find Scorah's project id) - the API returned `{"error": "Insufficient plan"}`. Site Audit is not reachable on the connected Ahrefs plan via this API route, so this does not open a new path to 6.1; it stays exactly where Q52 left it, waiting on Rishi's two minutes in the Ahrefs UI. Not logged as a new question since it changes nothing actionable, only rules out one route this run tried.
+
+LIVE RE-CHECKS (read-only, via Claude in Chrome): two fetches, chosen to rotate away from the six Q35 pages run 490 just completed, both confirming no change.
+- `smarttschemist.co.uk/pharmacy-first-service-bootle.html` (blocks the third of 5.3's remaining three): hours block still shows Monday-Friday 9:00am-6:00pm with no lunch closure listed (branches.json records 1pm-2pm), and the email case mismatch persists (`E: smartts@rbhealth.co.uk` in the contact block vs `Smartts@rbhealth.co.uk` in the footer). Unchanged since the 3.7 quality pass and since run 488's check.
+- `riddingspharmacy.co.uk/clinic-prices` (the Q53/Q54 stale-permalink finding behind part of 5.3 and 6.2): still a live 404, `service-price-list.html` remains the serving permalink. Unchanged since 2026-08-30.
+
+QUALITY CHECK: ran all 36 non-live `tools/check-*.js` checkers (`check-live-hours.js` skipped, needs a live browser fetch this sandbox cannot make). All 36 passed clean with no findings - zero drift in the repo since run 490's commit, consistent with nothing having touched a generator, `branches.json` or a page since then.
+
+RECOMMENDATION: unchanged from runs 487-490. The five long-blocked items (5.3, 5.4, 5.5, 5.8, 6.1) and the two answered-but-still-blocked ones (6.4/6.5, 6.6) all need either a supervised Weebly session, a live GBP write, or Q22's outstanding sequencing guidance before any of them can move further - none of that is unattended-run work. Q52/6.1 specifically needs Rishi's own two minutes in the Ahrefs Site Audit UI (confirmed this run that the API route is closed off by plan, so no unattended run can substitute for that click). Q115 (cadence), Q119/Q120 (log/worklist file bloat and the sandbox delete restriction) and Q96/Q102 (git write route) remain the open process questions that would most change how future runs spend their time; none actioned this run since all four call for a decision this task's own rules reserve for Rishi, not an unattended run.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, generator or page changed.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 490) - no new portal answers since run 489; live-checked the remaining four of the six Q35 branch landing pages (all still 404, completing the set run 489 only covered two of); all 36 non-live checkers re-run clean, zero drift; worklist unchanged, all 8 remaining items still [BLOCKED]; push and publish via the host route
 
 LOCK: `.agent-lock` found holding `RELEASED-run489-2026-09-29T17:46:26Z`, mtime about 26 minutes old at run start - under the 45-minute stale threshold by the letter of the rule, but the content itself says RELEASED, meaning run 489 had already finished and marked it released rather than this being a genuinely active run. Treated as available on that basis, same convention as run 489's own note on run 488's lock. `rm -f` gave "Operation not permitted" on the Cowork sandbox mount as usual (Q120); overwrote the file's contents in place with a fresh timestamp, and will overwrite again with a RELEASED marker at the end of this run.
