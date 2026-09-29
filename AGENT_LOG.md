@@ -1,3 +1,26 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 483) - zero worklist output, state unchanged from run 482; push and publish via the host route again
+
+36th consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-482 for the accumulated detail.
+
+LOCK: `.agent-lock` found holding a plain UTC timestamp with no `RELEASED-`/run marker (`2026-09-29T11:14:17Z`, i.e. run 482's own pattern of overwriting rather than a proper release marker), but its mtime was about 58 minutes old at run start - past the 45-minute stale threshold either way, so treated as stale and proceeded. `rm -f` gave EPERM as usual on this Cowork sandbox mount; overwrote the file's contents in place with a fresh timestamp per the established workaround (Q120).
+
+GIT: sandbox-side fetch/checkout/pull --ff-only all clean, already up to date with `origin/agents/audit-backlog` at `5a7d9ac` (run 482's own commit) - confirms run 482's push landed, 0 ahead / 0 behind. A stray `.git/ORIG_HEAD.lock` blocked the first `git pull` attempt; rename-aside cleared it and the retry succeeded. Noted in passing: `.git/*.lock*` rename-aside debris on this mount has now reached 1,611 files (was not counted in recent entries) - this is the same delete-restriction root cause as Q119/Q120, now visible inside `.git` as well as in the repo root, and is worth Rishi seeing as a number rather than a general description. Host side (via Windows-MCP PowerShell against the real `C:\Dev\rbh-site-data`) independently confirmed local HEAD `5a7d9ac` matches `origin/agents/audit-backlog` exactly, 0 ahead / 0 behind.
+
+ANSWER PICKUP (step 3): Claude in Chrome, `https://data.rbhealth.co.uk/api/feedback` fetched cleanly, no Cloudflare Access gate. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z - identical to every run since 470. No new answers for Q60 or Q66 (the two genuinely open blockers). Nothing to apply.
+
+AUTONOMOUS WINDOW: checked the top of run 482's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). QUESTIONS.json: 120 total, 67 open, unchanged from run 482.
+
+No rotation-pool quality pass attempted, same reasoning as runs 467-482: the pool is functionally exhausted against the current checker set, and Q115 is the standing decision that would change this. Not unilaterally adopting Q115's recommended option here either, for the same reason runs 478-482 gave.
+
+PUSH AND PUBLISH: sandbox `git push` was not retried (certain to fail identically to every run since Q96/Q102 - no credential in this Cowork sandbox). Used the Windows-MCP PowerShell route against the real host (`C:\Dev\rbh-site-data`) for the write steps, per Q102's now repeatedly-confirmed working path (runs 478-482). `git add AGENT_LOG.md`, `git commit`, `git push origin agents/audit-backlog`, then `node tools/build-audit-status.js` - result appended below this entry once run.
+
+RECOMMENDATION: unchanged from runs 468-482. Q115 (cadence) and Q119/Q120 (log/worklist file bloat and the sandbox delete restriction, now also visible as 1,611 stray files inside `.git` on this mount) remain the live decisions that would most change future runs. The Windows-MCP PowerShell route continues to work reliably (six consecutive successful pushes: 478-483) - recommend Rishi close Q96/Q102/Q87 on that evidence.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 482) - zero worklist output, state unchanged from run 481; push and publish via the host route again
 
 35th consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-481 for the accumulated detail.
