@@ -1,3 +1,22 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 475) - zero worklist output, state unchanged from run 474; kept brief per Q119
+
+LOCK: `.agent-lock` found at start marked `RELEASED-run474-2026-09-29T02:45:00Z` - not a live lock, so proceeded. Overwrote its contents with a fresh timestamp per the established workaround (unlink still EPERM on this FUSE mount, confirmed again this run; a stray `.git/index.lock` was cleared the same way - renamed aside with a timestamp suffix rather than deleted, since `rm -f`/`os.remove` both still return EPERM while rename succeeds. Now well over a thousand `.git/index.lock.*` rename-aside artifacts accumulated across runs on this mount - a real cleanup would need a session that can actually delete, per Q120).
+
+GIT: `git fetch origin` clean. Local HEAD confirmed 14 commits ahead of `origin/agents/audit-backlog` (one more than run 474's 13, i.e. run 474's own commit sitting unpushed as expected), 0 behind - no new upstream commits, so `git checkout`/`git pull --ff-only` had nothing further to do (already on `agents/audit-backlog`).
+
+ANSWER PICKUP (step 3): used Claude in Chrome (`navigate` + `get_page_text`), per the Q59 correction. Fetched `https://data.rbhealth.co.uk/api/feedback` cleanly, no Cloudflare Access gate. Newest entry still `Q52`, dated 2026-09-01T22:44:51.524Z - identical to runs 470-474. No new portal answers for Q60 or Q66 (the two genuinely open blockers) or for anything else. Nothing to apply.
+
+AUTONOMOUS WINDOW: checked the top of this file (run 474's entry) before writing this one. No "Standing authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still `[BLOCKED]` by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). No unblocked item to take. QUESTIONS.json: 120 total, 67 open, unchanged from run 474. No rotation-pool quality pass attempted this run, for the same reason runs 467-474 gave.
+
+PUSH: reconfirmed no git-write credential in this sandbox - `git push origin agents/audit-backlog --dry-run` returns `fatal: could not read Username for 'https://github.com': No such device or address`; no `gh` binary, no `~/.netrc`, no `GITHUB_TOKEN`. Push not attempted for real (certain to fail identically to every run since Q96/Q102). STATUS PAGE (step 10): ran `node tools/build-audit-status.js` anyway per the instruction to run it even on failure - builds correctly, fails only at the `gh api` publish call (`gh: not found`), same as every run since the missing-credential finding.
+
+RECOMMENDATION: unchanged from runs 468-474. Q115 (cadence), Q119 (log/worklist file bloat) and Q96/Q102 (no git-write credential in this sandbox) remain the live decisions blocking any further progress from an unattended run in this environment. This is now the 28th consecutive run with no worklist movement. Recommend Rishi action Q115 and Q119 directly rather than waiting for a further run to re-flag them.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 474) - zero worklist output, state unchanged from run 473; kept brief per Q119
 
 LOCK: `.agent-lock` found at start timestamped `2026-09-29T01:42:02Z`, exactly 60 minutes old (over the 45-minute threshold) - treated as stale. `rm -f` on it, and on a fresh probe file, both returned "Operation not permitted" (same FUSE-mount EPERM as every prior run). Overwriting the file's contents in place via the Write tool worked, same as the established workaround - used that to refresh the lock rather than delete-and-recreate.
