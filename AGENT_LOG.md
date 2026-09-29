@@ -1,3 +1,24 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 477) - zero worklist output, state unchanged from run 476; kept brief per Q119
+
+Now the 30th consecutive run with no worklist movement. Not re-deriving the full history each time per Q119 - see runs 448-476 for the accumulated detail.
+
+LOCK: `.agent-lock` found marked `RELEASED-run476-2026-09-29T04:12:04Z` - not a live lock, so proceeded. `.git/HEAD.lock` and `.git/index.lock` were both present at start and blocked `git fetch`; `rm -f` gave EPERM as usual on this FUSE mount, rename-aside cleared both and the retry succeeded cleanly.
+
+GIT: fetch/checkout/pull --ff-only all clean, already up to date, 0 behind. Local HEAD 16 commits ahead of `origin/agents/audit-backlog` (one more than run 476, i.e. run 476's own commit sitting unpushed as expected).
+
+ANSWER PICKUP (step 3): Claude in Chrome, `https://data.rbhealth.co.uk/api/feedback` fetched cleanly, no Cloudflare Access gate. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z - identical to every run since 470. No new answers for Q60 or Q66 (the two genuinely open blockers). Nothing to apply.
+
+AUTONOMOUS WINDOW: no "Standing authorisation" section at the top of run 476's entry. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66) - Q8/Q9/Q13/Q16/Q52 are answered but their implementations need either a supervised Weebly paste session or a credentialed git push, neither available here; Q60/Q66 are still genuinely open. QUESTIONS.json: 120 total, 67 open, unchanged. No rotation-pool quality pass attempted, same reasoning as runs 467-476.
+
+PUSH: reconfirmed no git-write credential in this sandbox - `git push origin agents/audit-backlog` returns `fatal: could not read Username for 'https://github.com': No such device or address`; no `gh`, no `~/.netrc`, no `GITHUB_TOKEN`. STATUS PAGE (step 10): ran `node tools/build-audit-status.js` anyway per instruction - builds correctly, fails only at the `gh api` publish call (`gh: not found`), same as every run since the missing-credential finding.
+
+RECOMMENDATION: unchanged from runs 468-476. Q115 (cadence), Q119 (log/worklist file bloat) and Q96/Q102 (no git-write credential in this sandbox) remain the live decisions blocking any further progress from an unattended run in this environment. This is now the 30th consecutive run with no worklist movement. Strongly recommend Rishi action Q115 and Q119 directly - AGENT_LOG.md is now large enough that a full read of the recent history costs real time on every run for no new information.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 476) - zero worklist output, state unchanged from run 475; kept brief per Q119
 
 LOCK: `.agent-lock` found at start marked `RELEASED-run475-2026-09-29T03:14:53Z` - not a live lock, so proceeded. `rm -f` still EPERM on this FUSE mount (confirmed again). Overwrote the file's contents in place via the Write tool per the established workaround. `.git/HEAD.lock`, `.git/ORIG_HEAD.lock` and `.git/index.lock` were all present at start (the `ORIG_HEAD.lock` dated 02:43, well over an hour stale) and blocked a no-op `git pull --ff-only` with the usual `cannot lock ref 'ORIG_HEAD'` error; rename-aside (`mv x x.stale-<ts>`) cleared all three and the retry succeeded cleanly.
