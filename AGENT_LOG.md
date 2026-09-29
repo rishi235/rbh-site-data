@@ -1,4 +1,26 @@
-## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 485) - zero worklist output, state unchanged from run 484; push and publish via the host route again
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 486) - zero worklist output, state unchanged from run 485; push and publish via the host route again
+
+39th consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-485 for the accumulated detail.
+
+LOCK: `.agent-lock` found holding `RELEASED-run485-2026-09-29T13:13:49Z`, mtime about 58 minutes old at run start - past the 45-minute stale threshold, treated as stale and proceeded. `rm -f` gave "Operation not permitted" as usual on this Cowork sandbox mount; overwrote the file's contents in place with a fresh timestamp per the established workaround (Q120).
+
+GIT: sandbox-side fetch/checkout/pull --ff-only all clean, already up to date with `origin/agents/audit-backlog` at `5c31d43` (run 485's own commit) - confirms run 485's push landed, 0 ahead / 0 behind. Sandbox `git push --dry-run` reconfirmed the standing credential gap: "could not read Username for 'https://github.com'" - unchanged since Q96/Q102, so the host route is used for the actual write below.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, `https://data.rbhealth.co.uk/api/feedback`. Hit the Cloudflare Access login page (Azure AD / email code prompt) again rather than the JSON feed - this Chrome profile/session is not signed in to Cloudflare Access this run either. Per the skill's fixed rule, did not attempt to log in or enter a code; closed the tab and logged pickup as unavailable this run. No answers applied for Q60 or Q66 (the two genuinely open blockers) - unknown whether new answers exist, simply unreadable this run.
+
+AUTONOMOUS WINDOW: checked the top of run 485's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). QUESTIONS.json: 67 open, unchanged from run 485 (Q60, Q66, Q87, Q96, Q102, Q115, Q119, Q120 all confirmed still open with no answer set).
+
+No rotation-pool quality pass attempted, same reasoning as runs 467-485: the pool is functionally exhausted against the current checker set, and Q115 is the standing decision that would change this. Not unilaterally adopting Q115's recommended option here either, for the same reason runs 478-485 gave.
+
+PUSH AND PUBLISH: sandbox `git push` was not retried further (confirmed above to fail identically to every run since Q96/Q102 - no credential in this Cowork sandbox). Using the Windows-MCP PowerShell route against the real host (`C:\Dev\rbh-site-data`) for the write steps, per Q102's now repeatedly-confirmed working path (runs 478-485): `git add AGENT_LOG.md`, `git commit`, `git push origin agents/audit-backlog`, then `node tools/build-audit-status.js`.
+
+RECOMMENDATION: unchanged from runs 468-485. Q115 (cadence) and Q119/Q120 (log/worklist file bloat and the sandbox delete restriction) remain the live process questions; Q60 and Q66 remain the only genuinely open worklist blockers. Rishi needs to either answer via the portal with a Cloudflare Access session active in this Chrome profile, or set an autonomous window per the skill's step 4 if he wants this backlog to move without his direct input.
+
+---
+
+
 
 38th consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-484 for the accumulated detail.
 
