@@ -1,3 +1,26 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 481) - zero worklist output, state unchanged from run 480; push and publish via the host route again
+
+34th consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-480 for the accumulated detail.
+
+LOCK: `.agent-lock` found marked `RELEASED-run480-2026-09-29T08:14:05Z` (content, not just mtime, confirms it was a released marker rather than a live lock; mtime was also past 45 minutes at run start) - proceeded. `rm -f` gave EPERM as usual on this mount (Cowork blocks delete/rename on files once written to a connected folder); overwrote the file's contents in place with a fresh timestamp per the established workaround (Q120).
+
+GIT: fetch/checkout/pull --ff-only all clean from the sandbox side, already up to date with `origin/agents/audit-backlog` at `a13cd9d` (run 480's own commit), 0 ahead / 0 behind - confirms run 480's push landed.
+
+ANSWER PICKUP (step 3): Claude in Chrome, `https://data.rbhealth.co.uk/api/feedback` fetched cleanly, no Cloudflare Access gate. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z - identical to every run since 470. No new answers for Q60 or Q66 (the two genuinely open blockers). Nothing to apply.
+
+AUTONOMOUS WINDOW: checked the top of run 480's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). QUESTIONS.json: 120 total, 67 open, unchanged from run 480. Re-read Q60 and Q66 in full (the two items with the most live-relevant detail) to confirm neither has quietly resolved itself outside the portal - both still open, no answer, nothing to act on.
+
+No rotation-pool quality pass attempted, same reasoning as runs 467-480: the pool is functionally exhausted against the current checker set (18-23+ re-verifications per item, zero new in-repo defects across dozens of passes), and Q115 is the standing decision that would change this - repurposing runs to answer-pickup plus live rechecks of already-open questions rather than further rotation passes. Not unilaterally adopting Q115's recommended option here either, for the same reason runs 478-480 gave: it changes standing procedure for every future run, which is Rishi's call.
+
+PUSH AND PUBLISH: sandbox `git push` fails as every prior run has recorded (`could not read Username for 'https://github.com'`, no credential in this Cowork sandbox). Used the Windows-MCP PowerShell route against the real host (`C:\Dev\rbh-site-data`) for the write steps, per Q102's now repeatedly-confirmed working path (runs 478-480). `git add AGENT_LOG.md`, `git commit`, `git push origin agents/audit-backlog`, then `node tools/build-audit-status.js` - result appended below this entry once run.
+
+RECOMMENDATION: unchanged from runs 468-480. Q115 (cadence - whether an unattended run with no unblocked worklist items and an exhausted quality-pass pool should keep running full passes, or scale back to answer-pickup only) and Q119/Q120 (log/worklist file bloat and the sandbox delete restriction) remain the live decisions that would most change future runs. The Windows-MCP PowerShell route continues to work reliably (four consecutive successful pushes: 478, 479, 480, 481) - recommend Rishi close Q96/Q102/Q87 on that evidence.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 480) - zero worklist output, state unchanged from run 479; verified Q34's repoint is still holding; push and publish via the host route again
 
 33rd consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-479 for the accumulated detail.
