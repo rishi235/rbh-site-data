@@ -1,4 +1,29 @@
-## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 489) - no new portal answers since run 488; two targeted live re-checks (Smartts Bootle hours/email, Fishlocks Ainsdale and Scorah Bramhall landing pages) all unchanged; all 36 non-live checkers re-run clean, zero drift; worklist unchanged, all 8 remaining items still [BLOCKED]; push and publish via the host route
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 490) - no new portal answers since run 489; live-checked the remaining four of the six Q35 branch landing pages (all still 404, completing the set run 489 only covered two of); all 36 non-live checkers re-run clean, zero drift; worklist unchanged, all 8 remaining items still [BLOCKED]; push and publish via the host route
+
+LOCK: `.agent-lock` found holding `RELEASED-run489-2026-09-29T17:46:26Z`, mtime about 26 minutes old at run start - under the 45-minute stale threshold by the letter of the rule, but the content itself says RELEASED, meaning run 489 had already finished and marked it released rather than this being a genuinely active run. Treated as available on that basis, same convention as run 489's own note on run 488's lock. `rm -f` gave "Operation not permitted" on the Cowork sandbox mount as usual (Q120); overwrote the file's contents in place with a fresh timestamp, and will overwrite again with a RELEASED marker at the end of this run.
+
+GIT: sandbox-side `git fetch`/`checkout`/`pull --ff-only` all clean, already up to date with `origin/agents/audit-backlog` at `9d45d3f` (run 489's own commit) - confirms run 489's push landed, 0 ahead / 0 behind. Sandbox `git push --dry-run` reconfirmed the standing credential gap: "could not read Username for 'https://github.com'" - unchanged since Q96/Q102, so the host route is used for the actual write below.
+
+ANSWER PICKUP (step 3): Claude in Chrome reading `https://data.rbhealth.co.uk/api/feedback` returned cleanly. Newest entry is still `fb:2026-09-01T22:44:51.524Z` (Q52) - identical to run 489's read, nothing past it. Re-confirmed via `git fetch` that no new `Audit answer: Qxx answered via portal` commits have landed on `origin/agents/audit-backlog` since run 489's own pull. Zero new answers by either route. QUESTIONS.json unchanged, 51 open (same as run 489).
+
+AUTONOMOUS WINDOW: checked the top of run 489's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). Nothing in run 489's read of these changed since, and no new answer arrived this run to move any of them.
+
+LIVE RE-CHECKS (read-only, via Claude in Chrome, per Q115's standing recommendation that unattended runs spend time on answer-pickup plus live-page rechecks rather than re-verifying an already-exhausted checker pool): run 489 checked two of the six Q35 branch landing pages (Fishlocks Ainsdale, Scorah Bramhall), both still live 404s. This run checked the other four, to complete the set rather than repeat the same two again:
+- `fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html` - live 404.
+- `mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html` - live 404.
+- `mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html` - live 404.
+- `scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html` - live 404.
+All six of the Q35 branch landing pages now confirmed 404 as of today, none pasted since Q35's answer on 2026-09-01 ("paste the six landing pages as their own Weebly job in the next session, ahead of the other paste work"). Still a Weebly paste job, not repo work, and stays outside this run's authorisation.
+
+QUALITY CHECK: ran all 36 non-live `tools/check-*.js` checkers (`check-live-hours.js` skipped, needs a live browser fetch this sandbox cannot make). All 36 passed clean with no findings - zero drift in the repo since run 489's commit, consistent with nothing having touched a generator, `branches.json` or a page since then.
+
+RECOMMENDATION: unchanged from runs 487-489. The five long-blocked items (5.3, 5.4, 5.5, 5.8, 6.1) and the two answered-but-still-blocked ones (6.4/6.5, 6.6) all need either a supervised Weebly session, a live GBP write, or Q22's outstanding sequencing guidance before any of them can move further - none of that is unattended-run work. Q35's six landing pages are now fully confirmed still-404 across the whole set, which is worth surfacing directly to Rishi: it is the one blocker with a concrete, already-answered, already-scoped fix (paste six known-good pages) sitting entirely on a Weebly session, not on any further decision. Q115 (cadence), Q119/Q120 (log/worklist file bloat and the sandbox delete restriction) and Q96/Q102 (git write route) remain the open process questions that would most change how future runs spend their time; none actioned this run since all four call for a decision this task's own rules reserve for Rishi, not an unattended run.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, generator or page changed.
+
+---
 
 LOCK: `.agent-lock` found holding `RELEASED-run488-2026-09-29T17:15:02Z`, mtime about 27 minutes old at run start - under the 45-minute stale threshold by the letter of the rule, but the content itself says RELEASED, meaning run 488 had already finished and marked it released rather than this being a genuinely active run. Treated as available on that basis (a released lock is not an active run, whatever its mtime) and proceeded. `rm -f` gave "Operation not permitted" on the Cowork sandbox mount as usual (Q120); overwrote the file's contents in place with a fresh timestamp per the established workaround, and will overwrite again with a RELEASED marker at the end of this run per the same convention run 488 evidently skipped.
 
