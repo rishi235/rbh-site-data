@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-28T06:14:35Z",
+  "generated_at": "2026-09-29T06:14:29Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 38,
-    "overdue": 19,
+    "total": 36,
+    "overdue": 17,
     "due_next_7_days": 2,
     "no_due_date": 16
   },
@@ -167,14 +167,6 @@
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1217373771172802"
     },
     {
-      "gid": "1218567804814844",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-09-18",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218567804814844"
-    },
-    {
       "gid": "1218234843096380",
       "name": "Security review: rbh-site-data GitHub repo is public",
       "due_on": "2026-09-21",
@@ -183,14 +175,6 @@
         "Superintendent: Risks + Ops"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1212899392401977/task/1218234843096380"
-    },
-    {
-      "gid": "1218808104359494",
-      "name": "Consider updating your project progress",
-      "due_on": "2026-09-25",
-      "overdue": true,
-      "projects": [],
-      "url": "https://app.asana.com/1/768589943956440/task/1218808104359494"
     },
     {
       "gid": "1214228515439278",
