@@ -967,9 +967,10 @@
       "Ask the superintendent pharmacist to review all seven safety-net blocks together, not just impetigo, and treat the wording as one clinical sign-off. Slower, but it is the only option that checks the other six are right rather than assuming they are because they are consistent."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct. Recheck 2026-09-28 (unattended run 444, in-repo): ran tools/check-pharmacy-first-safety-net.js again - output unchanged, still WARN (not FAIL) on impetigo only, all 98 condition pages otherwise clean. No regression. Status left open, still Rishi's or the superintendent pharmacist's call."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 29/09/2026, 15:37:09 (UK time): \"Add a third-line red flag to impetigo in the same shape as the other six, wording to be signed off by the superintendent pharmacist, for example spreading redness, a high temperature or feeling very unwell needs urgent help, call NHS 111. Makes the seven pathways consistent and gives the patient somewhere to escalate.\"",
+    "note": "No copy was changed on the strength of this. The scheduled task rules put a live patient-facing regulatory or clinical claim outside what I may decide, even during an autonomous window, so this is raised rather than actioned. The new tools/check-pharmacy-first-safety-net.js pins the copy as it stands today across all 98 condition pages, so whichever way you answer, the wording cannot now drift or be dropped by an edit without a checker failing. Option 1 is the lightest change and needs one line signed off. Option 3 is the safest but needs pharmacist time on copy that eleven quality passes have already read and found correct. Recheck 2026-09-28 (unattended run 444, in-repo): ran tools/check-pharmacy-first-safety-net.js again - output unchanged, still WARN (not FAIL) on impetigo only, all 98 condition pages otherwise clean. No regression. Status left open, still Rishi's or the superintendent pharmacist's call.",
+    "answeredDate": "2026-09-29"
   },
   {
     "id": "Q62",
