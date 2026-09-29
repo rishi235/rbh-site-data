@@ -1,3 +1,22 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 488) - no new portal answers since run 487; all 36 non-live checkers re-run clean, zero drift; worklist unchanged, all 8 remaining items still [BLOCKED]; push and publish via the host route
+
+LOCK: `.agent-lock` found holding `RELEASED-run487-2026-09-29T16:12:34Z`, mtime about 60 minutes old at run start - past the 45-minute stale threshold, treated as stale. `rm -f` gave "Operation not permitted" on the Cowork sandbox mount as usual (Q120); overwrote the file's contents in place with a fresh timestamp per the established workaround.
+
+GIT: sandbox-side `git fetch`/`pull --ff-only` clean, already up to date with `origin/agents/audit-backlog` at `9f0a15f` (run 487's own commit) - confirms run 487's push landed, 0 ahead / 0 behind.
+
+ANSWER PICKUP (step 3): attempted both routes. The task file's own route - Claude in Chrome reading `https://data.rbhealth.co.uk/api/feedback` - returned cleanly (no Cloudflare Access gate this time) but its newest entry is still `fb:2026-09-01T22:44:51.524Z` (Q52), the same stale Cloudflare KV feed every recent run has read; it carries nothing past Q52 and nothing run 487 had not already applied. Separately re-fetched `origin/agents/audit-backlog` directly to check for the newer direct-commit answer route run 487 discovered (`Audit answer: Qxx answered via portal` commits) - none have landed since run 487's own pull (`a3b59e5`..`9f0a15f` is unchanged, no new `Audit answer:` commits on origin). So: zero new answers by either route this run. QUESTIONS.json unchanged, 51 open (same as run 487).
+
+AUTONOMOUS WINDOW: checked the top of run 487's entry before writing this one. No "Standing authorisation" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). Re-read Q60 and Q66's answer text and run 487's own annotation in AGENT_WORKLIST.md - both correctly still marked blocked: Q66 needs a live Google Business Profile write (no GBP write tool in this session, browser use is read-only by hard rule) and Q60 needs Q22's still-open sequencing guidance (Rishi's own Q22 answer is "Unsure - need to loop back, will produce guidance") before any generator or page work can start. Nothing to change on either.
+
+QUALITY CHECK (in place of a rotation-pool pass, per Q115's standing recommendation that unattended runs stop re-verifying an exhausted pool and instead spend time on answer-pickup and light verification): ran all 36 non-live `tools/check-*.js` checkers (`check-live-hours.js` skipped, it needs a live browser fetch this sandbox cannot make). All 36 passed clean with no findings - zero drift in the repo since run 487's commit, consistent with the fact nothing has touched a generator, `branches.json` or a page since then.
+
+RECOMMENDATION: unchanged from run 487. The five long-blocked items (5.3, 5.4, 5.5, 5.8, 6.1) and the two newly-answered-but-still-blocked ones (6.4/6.5, 6.6) all need either a supervised Weebly session, a live GBP write, or Q22's outstanding guidance before any of them can move - none of that is unattended-run work. Q115 (cadence), Q119/Q120 (log/worklist file bloat and the sandbox delete restriction) remain the open process questions that would most change how future runs spend their time.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, generator or page changed.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 487) - streak broken: 16 questions answered via the portal since run 486, including both genuinely-open blockers Q60 and Q66; worklist annotated, no item completable unattended, push and publish via the host route
 
 First substantive movement since run 448. The 39-run "zero worklist output" streak recorded in runs 448-486 is over on the answer-pickup side, though it does not yet translate into a completed worklist item, for reasons below.
