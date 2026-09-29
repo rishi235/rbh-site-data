@@ -1,3 +1,20 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 471) - zero worklist output, state unchanged from run 470; kept brief per Q119
+
+LOCK: no `.agent-lock` present at start. `.git/index.lock` (0 bytes, dated 01:16) present; `rm -f` returned EPERM as usual (same FUSE mount quirk, Q120), rename-aside worked. No `.git/ORIG_HEAD.lock` this run.
+
+GIT: fetch + `pull --ff-only` both clean, already up to date. Local HEAD still 10 commits ahead of `origin/agents/audit-backlog` (unchanged from run 470's 9 plus that run's own commit).
+
+ANSWER PICKUP (step 3): used Claude in Chrome per run 470's correction (not the built-in browser pane). Fetched `https://data.rbhealth.co.uk/api/feedback` cleanly, no Cloudflare gate. Newest entry still `Q52`, dated 2026-09-01T22:44:51Z - identical to run 470's read, nothing new to apply. Q59 stays resolved as "use Claude in Chrome, not Claude_Browser."
+
+WORKLIST: all 8 unchecked lines confirmed still `[BLOCKED]` by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). No unblocked item to take. No rotation-pool quality pass attempted, per the standing Q115/Q119/Q120 reasoning that the pool is functionally exhausted and further passes mostly add read-budget cost to two already-oversized operating files without new findings.
+
+PUSH: not attempted. Reconfirmed no `gh` binary, no `~/.netrc`/`~/.git-credentials`, no `GITHUB_TOKEN`/credential in this sandbox - certain to fail identically to every run since Q96/Q102, and a failed push attempt risks leaving more unremovable lock debris on this mount for zero chance of success. STATUS PAGE (step 10) also skipped for the same reason: `build-audit-status.js`'s publish step needs the same missing `gh` auth.
+
+RECOMMENDATION: unchanged from run 470 - Q115 (cadence), Q119 (log/worklist file bloat) and Q96/Q102 (no git-write credential in this sandbox) remain the live decisions. This is now roughly the 24th consecutive run with no worklist movement; the repo-only technical work is exhausted and everything left needs either a Rishi decision already sitting in QUESTIONS.json or a supervised, credentialed session.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 470) - zero worklist output, but a real correction: step 3 answer pickup works fine, run 469 (and 466-468) were using the wrong browser tool
 
 LOCK: `.agent-lock` found at start timestamped `2026-09-28T23:12:16Z`, ~60 minutes old (over the 45-minute threshold) - treated as stale. `rm -f`/Python `os.remove` both still return EPERM on this FUSE mount for any file, confirmed again this run (a fresh probe file created and `rm`'d also failed). Rewriting the lock file's *contents* in place (`> .agent-lock`, or a shell redirect) and renaming stale files out of the way (`mv x x.stale-<ts>`) both work even though `unlink` does not - this is the same workaround runs 464-469 already found and it still holds. Used it to clear `.agent-lock`, `.git/index.lock` and `.git/ORIG_HEAD.lock` at various points this run.
