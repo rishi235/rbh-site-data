@@ -1,3 +1,24 @@
+## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 478) - zero worklist output, state unchanged from run 477; kept brief per Q119
+
+31st consecutive run with no worklist movement. Not re-deriving the full history per Q119 - see runs 448-477 for the accumulated detail.
+
+LOCK: `.agent-lock` found marked `RELEASED-run477-...` (not a live lock by content, and its mtime was ~59 minutes old at run start, past the 45-minute stale threshold either way) - proceeded. `rm -f` gave EPERM as usual on this FUSE mount; overwrote the file's contents in place with a fresh timestamp per the established workaround.
+
+GIT: fetch/checkout/pull --ff-only all clean, already up to date, 0 behind. Local HEAD 17 commits ahead of `origin/agents/audit-backlog` (one more than run 477's 16, i.e. run 477's own commit sitting unpushed as expected).
+
+ANSWER PICKUP (step 3): Claude in Chrome, `https://data.rbhealth.co.uk/api/feedback` fetched cleanly, no Cloudflare Access gate. Newest entry still Q52, dated 2026-09-01T22:44:51.524Z - identical to every run since 470. No new answers for Q60 or Q66 (the two genuinely open blockers). Nothing to apply.
+
+AUTONOMOUS WINDOW: no "Standing authorisation" section at the top of run 477's entry. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked lines confirmed still [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.5/Q60 x2, 6.6/Q66). QUESTIONS.json: 120 total, 67 open, unchanged. No rotation-pool quality pass attempted, same reasoning as runs 467-477.
+
+PUSH: reconfirmed no git-write credential in this sandbox - `git push origin agents/audit-backlog` returns `fatal: could not read Username for 'https://github.com': No such device or address`; no `gh`, no `~/.netrc`, no `GITHUB_TOKEN`. STATUS PAGE (step 10): ran `node tools/build-audit-status.js` anyway per instruction - builds correctly, fails only at the `gh api` publish call (`gh: not found`), same as every run since the missing-credential finding.
+
+RECOMMENDATION: unchanged from runs 468-477. Q115 (cadence), Q119 (log/worklist file bloat) and Q96/Q102 (no git-write credential in this sandbox) remain the live decisions blocking any further progress from an unattended run in this environment. This is now the 31st consecutive run with no worklist movement. Strongly recommend Rishi action Q115 and Q119 directly.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No worklist, QUESTIONS.json, or code changes.
+
+---
 ## 2026-09-29 (unattended scheduled run, audit-backlog-worker, run 477) - zero worklist output, state unchanged from run 476; kept brief per Q119
 
 Now the 30th consecutive run with no worklist movement. Not re-deriving the full history each time per Q119 - see runs 448-476 for the accumulated detail.
