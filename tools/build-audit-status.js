@@ -153,60 +153,181 @@ const answeredHtml = answeredQs.length
   : '';
 const questionsHtml = openQs.length
   ? '<section class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 border-red-400">' +
-    '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi (' + openQs.length + ')</h2>' +
-    '<p class="text-xs text-gray-500 mb-3">Pick an answer and press Send. The agents pick it up on their next hourly run.</p>' +
+    '<div class="flex items-center justify-between gap-3 mb-1">' +
+    '<h2 class="font-semibold text-gray-900">Questions waiting on Rishi (' + openQs.length + ')</h2>' +
+    '<button id="commit-answers-btn" class="shrink-0 bg-amber-600 text-white text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-amber-700">Commit answers</button>' +
+    '</div>' +
+    '<p class="text-xs text-gray-500 mb-1">Each answer saves the moment you press its own Send answer button. If you pick several and want to send them all in one go before you leave, use Commit answers above - it sends every question you have selected an answer for but not yet sent. Your selections and any typed text are also saved in this browser as you go, so if you navigate away or the page reloads before you send, they are restored.</p>' +
+    '<p class="text-xs text-gray-500 mb-3" id="commit-answers-status"></p>' +
     openQs.map(questionCard).join('\n') + answeredHtml + '</section>'
   : '<section class="bg-white rounded-xl shadow-sm p-5 mb-4">' +
     '<h2 class="font-semibold text-gray-900 mb-1">Questions waiting on Rishi</h2>' +
     '<p class="text-sm text-gray-500">None at the moment.</p>' + answeredHtml + '</section>';
-const answerScript = '<script>' +
-  'function markJustSent(card, saved){' +
-  'card.querySelectorAll("label,[data-submit]").forEach(function(el){ el.style.display = "none"; });' +
-  'var note = card.querySelector("[data-sent-note]");' +
-  'if (!note) { note = document.createElement("div");' +
-  'note.setAttribute("data-sent-note", "1");' +
-  'note.className = "mt-2 p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-900";' +
-  'card.appendChild(note); }' +
-  'note.textContent = "Your answer (" + saved.at + "): " + saved.val + ". The agents pick it up on their next run.";' +
-  '}' +
-  'function markPriorAnswer(card, saved){' +
-  'var note = card.querySelector("[data-prior-note]");' +
-  'if (!note) { note = document.createElement("div");' +
-  'note.setAttribute("data-prior-note", "1");' +
-  'note.className = "mb-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-900";' +
-  'var opts = card.querySelector(".space-y-2");' +
-  'if (opts) { card.insertBefore(note, opts); } else { card.appendChild(note); }' +
-  '}' +
-  'note.textContent = "You answered this on " + saved.at + ": " + saved.val + ". Still shown as open below because the agents did not read that as picking one of the current options, check the note above then answer again.";' +
-  '}' +
-  'document.querySelectorAll("[data-qid]").forEach(function(card){' +
-  'var qid = card.getAttribute("data-qid"); var saved = null;' +
-  'try { saved = JSON.parse(localStorage.getItem("auditAnswer:" + qid)); } catch (e) {}' +
-  'if (saved) { markPriorAnswer(card, saved); }' +
-  '});' +
-  'document.querySelectorAll("[data-submit]").forEach(function(btn){' +
-  'btn.addEventListener("click", async function(){' +
-  'var qid = btn.getAttribute("data-submit");' +
-  'var card = document.querySelector("[data-qid=\\"" + qid + "\\"]");' +
-  'var sel = document.querySelector("input[name=\\"" + qid + "\\"]:checked");' +
-  'var status = document.querySelector("[data-status-for=\\"" + qid + "\\"]");' +
-  'var val = sel ? sel.value : "";' +
-  'if (val === "__other__") { val = (document.querySelector("[data-other-for=\\"" + qid + "\\"]").value || "").trim(); }' +
-  'if (!val) { status.textContent = "Pick an option or type an answer first."; return; }' +
-  'btn.disabled = true; status.textContent = "Sending...";' +
-  'try {' +
-  'var r = await fetch("/api/audit-answer", { method: "POST", headers: { "Content-Type": "application/json" },' +
-  'body: JSON.stringify({ id: qid, answer: val }) });' +
-  'var out = null; try { out = await r.json(); } catch (e2) {}' +
-  'if (r.ok && out && out.ok) {' +
-  'var saved = { val: val, at: new Date().toLocaleString("en-GB", { hour12: false }) };' +
-  'try { localStorage.setItem("auditAnswer:" + qid, JSON.stringify(saved)); } catch (e) {}' +
-  'markJustSent(card, saved);' +
-  'if (out.written === "kv-fallback") { var n = card.querySelector("[data-sent-note]"); if (n) n.textContent += " (Recorded via the fallback box, not written straight to the file yet - tell Claude if this keeps happening.)"; }' +
-  '} else { status.textContent = "Send failed (" + (out && out.error ? out.error : r.status) + "). Try again or answer in Claude chat."; btn.disabled = false; }' +
-  '} catch (e) { status.textContent = "Send failed. Try again or answer in Claude chat."; btn.disabled = false; }' +
-  '});});' +
-  '</scr' + 'ipt>';
+const answerScript = '<script>' + `
+function submitAnswer(qid, btn) {
+  var card = document.querySelector('[data-qid="' + qid + '"]');
+  if (!card) return Promise.resolve(false);
+  if (card.getAttribute('data-sent') === '1') return Promise.resolve(true);
+  var sel = document.querySelector('input[name="' + qid + '"]:checked');
+  var status = document.querySelector('[data-status-for="' + qid + '"]');
+  var val = sel ? sel.value : '';
+  if (val === '__other__') {
+    var otherEl = document.querySelector('[data-other-for="' + qid + '"]');
+    val = ((otherEl && otherEl.value) || '').trim();
+  }
+  if (!val) {
+    if (status) status.textContent = 'Pick an option or type an answer first.';
+    return Promise.resolve(false);
+  }
+  if (btn) btn.disabled = true;
+  if (status) status.textContent = 'Sending...';
+  return fetch('/api/audit-answer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: qid, answer: val }), keepalive: true
+  }).then(function (r) {
+    return Promise.resolve(r.json().catch(function () { return null; })).then(function (out) {
+      if (r.ok && out && out.ok) {
+        var saved = { val: val, at: new Date().toLocaleString('en-GB', { hour12: false }) };
+        try { localStorage.setItem('auditAnswer:' + qid, JSON.stringify(saved)); } catch (e) {}
+        try { localStorage.removeItem('auditDraft:' + qid); } catch (e) {}
+        card.setAttribute('data-sent', '1');
+        markJustSent(card, saved);
+        if (out.written === 'kv-fallback') {
+          var n = card.querySelector('[data-sent-note]');
+          if (n) n.textContent += ' (Recorded via the fallback box, not written straight to the file yet - tell Claude if this keeps happening.)';
+        }
+        return true;
+      }
+      if (status) status.textContent = 'Send failed (' + (out && out.error ? out.error : r.status) + '). Try again or use Commit answers.';
+      if (btn) btn.disabled = false;
+      return false;
+    });
+  }).catch(function () {
+    if (status) status.textContent = 'Send failed. Try again or use Commit answers.';
+    if (btn) btn.disabled = false;
+    return false;
+  });
+}
+function markJustSent(card, saved) {
+  card.querySelectorAll('label,[data-submit]').forEach(function (el) { el.style.display = 'none'; });
+  var note = card.querySelector('[data-sent-note]');
+  if (!note) {
+    note = document.createElement('div');
+    note.setAttribute('data-sent-note', '1');
+    note.className = 'mt-2 p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-900';
+    card.appendChild(note);
+  }
+  note.textContent = 'Saved (' + saved.at + '): ' + saved.val + '. The agents pick it up on their next run.';
+}
+function markPriorAnswer(card, saved) {
+  var note = card.querySelector('[data-prior-note]');
+  if (!note) {
+    note = document.createElement('div');
+    note.setAttribute('data-prior-note', '1');
+    note.className = 'mb-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-900';
+    var opts = card.querySelector('.space-y-2');
+    if (opts) { card.insertBefore(note, opts); } else { card.appendChild(note); }
+  }
+  note.textContent = 'You answered this on ' + saved.at + ': ' + saved.val + '. Still shown as open below because the agents did not read that as picking one of the current options - check the note above then answer again.';
+}
+function saveDraft(qid) {
+  var sel = document.querySelector('input[name="' + qid + '"]:checked');
+  var val = sel ? sel.value : '';
+  var other = '';
+  if (val === '__other__') {
+    var otherEl = document.querySelector('[data-other-for="' + qid + '"]');
+    other = (otherEl && otherEl.value) || '';
+  }
+  try {
+    if (val) { localStorage.setItem('auditDraft:' + qid, JSON.stringify({ val: val, other: other })); }
+    else { localStorage.removeItem('auditDraft:' + qid); }
+  } catch (e) {}
+}
+function hasPendingSelection() {
+  var pending = false;
+  document.querySelectorAll('[data-qid]').forEach(function (card) {
+    if (card.getAttribute('data-sent') === '1') return;
+    var qid = card.getAttribute('data-qid');
+    var sel = document.querySelector('input[name="' + qid + '"]:checked');
+    if (!sel) return;
+    if (sel.value === '__other__') {
+      var otherEl = document.querySelector('[data-other-for="' + qid + '"]');
+      if (otherEl && otherEl.value.trim()) pending = true;
+    } else {
+      pending = true;
+    }
+  });
+  return pending;
+}
+document.querySelectorAll('[data-qid]').forEach(function (card) {
+  var qid = card.getAttribute('data-qid');
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem('auditAnswer:' + qid)); } catch (e) {}
+  if (saved) { markPriorAnswer(card, saved); }
+  var draft = null;
+  try { draft = JSON.parse(localStorage.getItem('auditDraft:' + qid)); } catch (e) {}
+  if (draft && draft.val) {
+    var radios = card.querySelectorAll('input[name="' + qid + '"]');
+    var radio = null;
+    radios.forEach(function (r) { if (r.value === draft.val) radio = r; });
+    if (radio) {
+      radio.checked = true;
+      if (draft.val === '__other__') {
+        var otherEl = card.querySelector('[data-other-for="' + qid + '"]');
+        if (otherEl) otherEl.value = draft.other || '';
+      }
+      var status = card.querySelector('[data-status-for="' + qid + '"]');
+      if (status) status.textContent = 'Restored your unsent selection from last time - press Send answer, or use Commit answers above to send it now.';
+    }
+  }
+  card.querySelectorAll('input[type=radio]').forEach(function (r) {
+    r.addEventListener('change', function () { saveDraft(qid); });
+  });
+  var otherInput = card.querySelector('[data-other-for="' + qid + '"]');
+  if (otherInput) { otherInput.addEventListener('input', function () { saveDraft(qid); }); }
+  var btn = card.querySelector('[data-submit="' + qid + '"]');
+  if (btn) { btn.addEventListener('click', function () { submitAnswer(qid, btn); }); }
+});
+var commitBtn = document.getElementById('commit-answers-btn');
+var commitStatus = document.getElementById('commit-answers-status');
+if (commitBtn) {
+  commitBtn.addEventListener('click', function () {
+    var qids = [];
+    document.querySelectorAll('[data-qid]').forEach(function (card) {
+      if (card.getAttribute('data-sent') === '1') return;
+      var qid = card.getAttribute('data-qid');
+      var sel = document.querySelector('input[name="' + qid + '"]:checked');
+      if (!sel) return;
+      if (sel.value === '__other__') {
+        var otherEl = document.querySelector('[data-other-for="' + qid + '"]');
+        if (otherEl && otherEl.value.trim()) qids.push(qid);
+      } else {
+        qids.push(qid);
+      }
+    });
+    if (!qids.length) {
+      if (commitStatus) commitStatus.textContent = 'No unsent selections found - pick an answer on one or more questions first.';
+      return;
+    }
+    commitBtn.disabled = true;
+    commitBtn.textContent = 'Sending ' + qids.length + '...';
+    if (commitStatus) commitStatus.textContent = '';
+    var okCount = 0;
+    var chain = Promise.resolve();
+    qids.forEach(function (qid) {
+      chain = chain.then(function () { return submitAnswer(qid); }).then(function (ok) { if (ok) okCount++; });
+    });
+    chain.then(function () {
+      commitBtn.disabled = false;
+      commitBtn.textContent = 'Commit answers';
+      if (commitStatus) commitStatus.textContent = 'Sent ' + okCount + ' of ' + qids.length + '.' + (okCount < qids.length ? ' Check the failed ones above and try again.' : '');
+    });
+  });
+}
+window.addEventListener('beforeunload', function (e) {
+  if (hasPendingSelection()) { e.preventDefault(); e.returnValue = ''; }
+});
+` + '</scr' + 'ipt>';
 const commitsHtml = commits.length
   ? commits.map(c => '<li class="py-1.5 border-b border-gray-100 last:border-0 text-sm">' +
       '<span class="text-gray-400 mr-2">' + esc(c.when) + '</span>' +
