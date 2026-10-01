@@ -1,0 +1,57 @@
+Item 2.2 (Fishlocks Ainsdale/Eccleston branch landing pages) - tenth quality pass, 2026-10-01
+
+BASELINE
+- All six generators rebuilt from branches.json; sha256 of all 200 tracked
+  files under modules/ and core/ unchanged before and after (zero diff).
+- git status --porcelain modules core branches.json tools: empty throughout.
+- Full checker suite run individually: 35/35 exit 0 (check-cdn-pins.js and
+  check-live-hours.js skipped, both network-dependent, per standing
+  convention).
+
+FRESH ANGLE: check-opening-hours.js had never been injection-tested against
+these two pages specifically in nine prior passes (hours were only ever
+checked by observation - see the ninth pass's own note that hours sit
+outside check-jsonld's eight rules and are "check-opening-hours.js's job").
+Proved against an ISOLATED SCRATCH COPY built via `git archive HEAD` into
+/tmp/run534/scratch, never against the tracked working tree. Confirmed
+byte-identical to the tracked repo before, after each restore, and at the
+end (sha256 match on both touched files).
+
+Three rounds, each mutated then restored immediately after capturing the
+checker's own output:
+1. Rule 2 (visible row): Fishlocks Ainsdale's Monday row changed from
+   "8.45am to 6pm" to "9am to 6pm" - CAUGHT ("Monday reads "9am to 6pm" but
+   branches.json says "8.45am to 6pm"").
+2. Rule 3 (JSON-LD session): Fishlocks Eccleston's weekday closing time in
+   openingHoursSpecification changed from 18:00 to 19:00 - CAUGHT ("JSON-LD
+   opening hours do not match branches.json", full session diff printed).
+3. Rule 7 (clock time outside the card): Fishlocks Ainsdale's contact-card
+   footnote changed to add a time outside the hours card ("Call us before
+   9am if you need an urgent prescription.") - CAUGHT (""9am" is printed
+   outside the opening hours card").
+
+NOTE ON METHOD: the first attempt at round 1 was run against the real
+repo's tools/check-opening-hours.js (which resolves its ROOT from its own
+__dirname, not cwd) while sitting in the scratch directory, so it read the
+unmodified tracked files and wrongly reported clean. Caught by sha256/diff
+discipline before being reported as a finding; corrected by running the
+scratch copy's own tools/check-opening-hours.js, after which all three
+rounds behaved exactly as expected. Recorded here so the same self-inflicted
+false negative is not repeated on a future pass of this or another item.
+
+All three rounds fired on the first corrected attempt with the expected
+rule-specific message. Full checker re-run clean after the round (exit 0,
+"check-opening-hours: clean, every visible and structured opening time
+matches branches.json."). No in-repo defect found; no page, generator or
+data field changed anywhere in the tracked repo - a proof gap closed, not a
+live breach. No new question: the correct behaviour was already fully
+defined by the existing generator and checker logic.
+
+LIVE HALF (read-only, Claude in Chrome): both pages still 404
+(https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+checked directly). sitemap.xml still exactly 40 URLs, all at the same
+2026-08-14T17:32:10+00:00 lastmod as every prior pass since the 14th,
+neither branch landing page listed. No publish since. Q35 (branch pages
+404, awaiting Weebly paste, answered 2026-09-01) and Q69 (the "Free NHS
+treatment" wording, still open) both still accurately describe current
+live state; neither re-opened or re-answered by this pass.

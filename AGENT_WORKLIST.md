@@ -1887,6 +1887,45 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       tools/ beyond invoking the real checker as a child process against its
       own scratch copy; re-runnable standalone, builds its own scratch
       mirror via `git archive HEAD`), audits/verify-2.2-2026-09-06-ninth-output.txt.
+      Quality pass 2026-10-01 (tenth): a proof gap closed, not a defect.
+      Baseline clean first: all six generators rebuilt from branches.json to
+      a byte-identical tree (200 files under modules/ and core/, sha256
+      unchanged), git status empty throughout, full 35-checker suite
+      individually clean (check-cdn-pins.js and check-live-hours.js skipped,
+      both network-dependent). Nine prior passes had proved NAP, the
+      SISTERLINK/OUTBOUND link targets, the SISTERLABEL text, the Pharmacy
+      First cost claim, the WhatsApp-by-design absence, hasApp gating,
+      check-jsonld's five fields and the fragment-targets CTA exemption on
+      these two pages, but opening hours had only ever been checked by
+      OBSERVATION, never by injection against check-opening-hours.js itself.
+      Proved against an ISOLATED SCRATCH COPY built via `git archive HEAD`,
+      never against the tracked working tree (confirmed byte-identical
+      before, after each restore and at the end by sha256). Three rounds,
+      each mutated then restored immediately after capturing the checker's
+      own output: (1) rule 2 - Fishlocks Ainsdale's visible Monday row
+      changed from "8.45am to 6pm" to "9am to 6pm" - CAUGHT; (2) rule 3 -
+      Fishlocks Eccleston's JSON-LD weekday closing time changed from 18:00
+      to 19:00 - CAUGHT, full session diff printed; (3) rule 7 - a clock
+      time ("9am") added to Ainsdale's contact-card footnote, outside the
+      hours card - CAUGHT. All three fired on the first corrected attempt
+      with the expected rule-specific message (the very first attempt at
+      round 1 was run against the real repo's checker file while sitting in
+      the scratch directory, since the checker resolves its ROOT from its
+      own file location rather than cwd, and wrongly read clean against the
+      unmodified tracked files; caught immediately by the sha256/diff
+      discipline before being reported as a finding, and corrected by
+      running the scratch copy's own checker script). Full 35-checker suite
+      and a full generator rebuild re-run clean after the round. No in-repo
+      defect found; no page, generator or data field changed anywhere in the
+      repo - a proof gap closed, not a live breach. No new question: the
+      correct behaviour was already fully defined by the existing generator
+      and checker logic. LIVE HALF, read-only via Claude in Chrome: both
+      pages still 404 (fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+      checked directly); sitemap.xml still exactly 40 URLs, all at the same
+      2026-08-14T17:32:10 lastmod as every pass since the 14th, neither
+      landing page listed - no publish since, now nearly seven weeks. Q35
+      and Q69 re-read against current live state and both still accurately
+      describe it. Evidence: audits/verify-2.2-2026-10-01-tenth.txt.
 - [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
