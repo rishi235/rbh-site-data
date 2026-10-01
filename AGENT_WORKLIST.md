@@ -35234,6 +35234,44 @@ seven passes in between. No repo defect found, no page, generator or data
 field changed. Evidence gathered inline via javascript_tool against the
 live DOM, not saved to a separate audit file (same convention as the
 2026-08-14 and 2026-08-31 live reads of this item).
+Quality pass 2026-10-01 (ninth pass, unattended, audit-backlog-worker run
+533; least recently verified completed item, picked because its own most
+recent quality-pass mention was run 41 on 2026-09-17, further back than any
+other completed item's most recent mention). REPO HALF: clean for the ninth
+pass running. check-seo-lengths.js and check-seo-pattern.js both exit 0
+(177 pages, 0 failures, KNOWN empty on both). All six generators rebuilt;
+sha256 of every file under modules/ and core/ unchanged before and after
+(byte-identical), git status on modules/core/branches.json/tools empty
+throughout. LIVE HALF: Claude in Chrome reachable this run. Read
+https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+via read_page (full accessibility tree, not just document.title this time).
+Tab title (document.title) still "Infected insect bite treatment in Walton
+- Coleman & Leigh Pharmacy", unchanged from every prior read since
+2026-08-10/11: wrong length, wrong brand form (ampersand, singular
+"Leigh"), not the repo's 61-character rescued title. On-page H1 still reads
+"Infected insect bite treatment in Walton" with no brand at all. This run
+checked that second fact against the CURRENT repo rule rather than
+repeating the eighth pass's description of it, because Q44 (brand added to
+family-A H1s where the seoTown is shared between two live branches) was
+applied in-repo on 2026-09-15, five days before the eighth pass's own
+read and over two weeks before this one - and Walton is one of Q44's three
+named shared towns (Cherry Lane also trades there). The repo's own
+generated H1 for this exact page now reads "Infected insect bite treatment
+in Walton - Coleman and Leighs Pharmacy" (confirmed by grep against the
+freshly rebuilt file this run, not by memory). So the eighth pass's
+"exactly as the family A pattern requires" description of the live,
+brand-less H1 was accurate on the day it was written but is now stale: the
+pattern it was describing changed two days after that pass ran, and the
+live H1 and the repo H1 have been diverging ever since without anyone
+noting it. This is not a new repo defect - the repo is correct and
+byte-identical to what nine checker runs have verified - it is a widening
+of the known live-side gap. Addendum appended to Q14's note recording that
+the single outstanding Weebly repaste for this page now needs to carry
+three fields (title, description, H1), not the two previously tracked, all
+sourced from modules/service/pages/SEO.md and the regenerated page. No new
+question: still the same Q14 repaste, just confirmed wider in scope; Q44's
+own "APPLIED" note already covers why the H1 changed. No repo defect found,
+no page, generator or data field changed this run.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
