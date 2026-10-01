@@ -1,0 +1,135 @@
+Item 3.8 (SK Chemists Bootle), twenty-fourth quality pass, 2026-10-01 (run 538)
+================================================================================
+
+SCOPE
+-----
+Fresh angle: tools/check-pharmacy-first-eligibility.js had never been named
+once in item 3.8's own 23-pass history (confirmed by grepping every
+tools/check-*.js basename, with and without the .js suffix, against the
+item's own AGENT_WORKLIST.md block). Checked against SK Chemists Bootle's own
+seven Pharmacy First condition pages.
+
+BASELINE
+--------
+git status --porcelain on the tracked repo: clean aside from the long-standing
+pre-existing untracked junk (.scratch_audit/, .git-junk-quarantine/, assorted
+test*/zz* probe files) - none touched.
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the standing regression anchor used across prior passes)
+node tools/check-pharmacy-first-eligibility.js: clean, 98 pages, 0 failures.
+
+METHOD
+------
+Full-tree scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path (/sessions/.../work/scratch38). Tracked working tree never opened for
+writing during the injection phase. Injections against SK Chemists Bootle's
+own two files, restored by sed/byte-copy and sha256-reconfirmed before the
+next.
+
+INJECTION 1 (rule 7, age-number drift): shingles page pill, "Age 18 and over"
+-> "Age 16 and over". CAUGHT: "ageNote missing from the page (rule 6)" and
+"states age 16 which is not in the NHS criteria for shingles (18) (rule 7)".
+Restored, sha256-confirmed identical (12fa2ecb...a40c5).
+
+INJECTION 2 (rule 5, cohort-word drift): UTI page eligibility <li>, "Women
+aged 16 to 64" -> "Adults aged 16 to 64" (the "women only" restriction
+dropped, with the age range left untouched so no age-number rule would
+fire). RESULT ON THE ORIGINAL (UNFIXED) CHECKER: PASSED CLEANLY. This is a
+genuine gap, not a false negative of the test: rule 5 matched the corrupted
+page because UTI is the one condition (of the seven) where ageNote and
+eligibleYes.points[0] are the IDENTICAL string ("Women aged 16 to 64"), so
+the page carries that exact text twice - once in the hero pill (untouched by
+the injection), once in the eligibility bullet (the one corrupted). The old
+rule 5 searched the FLATTENED WHOLE-PAGE TEXT for the string
+(`text.indexOf(c.yesFirst)`), so the still-correct pill copy satisfied the
+search and hid the corrupted bullet. Re-run against shingles, whose ageNote
+("Age 18 and over") and eligibleYes[0] ("Adults aged 18 and over") are
+DIFFERENT strings, so no stand-in copy exists: the equivalent injection there
+(INJECTION 1's companion, "Adults aged 18 and over" -> "Adults aged 18 to
+65") was caught immediately on the first attempt. That is what hid this gap
+for nine quality passes and twenty-three prior runs against other branches:
+the condition most likely to be tested (shingles, sore-throat, etc.) always
+caught the drift, because only UTI has the duplicate-string shape, and no
+prior pass had injected specifically into UTI's own eligibility list on any
+branch.
+
+CONFIRMED ESTATE-WIDE: UTI is the only one of the seven pinned conditions
+where ageNote === eligibleYes.points[0] (checked programmatically against
+tools/build-service-pages.js's CONDITIONS table). The other six all differ
+("Age 5 and over" vs "Anyone aged 5 and over", etc.), so this blind spot is
+specific to the UTI pathway - which happens to be the one sex-restricted
+pathway in the set, the highest-stakes cohort word in the file.
+
+FIX APPLIED
+-----------
+tools/check-pharmacy-first-eligibility.js, rule 5: changed the heading and
+cohort-line checks from `text.indexOf(...)` (flat whole-page text) to
+`segments.indexOf(...)` (exact match against one block-level segment, the
+same `visibleSegments()` machinery rule 7 already uses). A segment is scoped
+to one block element (li, p, h1-6, div, section, td, th, dd, dt) or a <br>
+break, so the eligibility <li> and the hero pill (an inline <span> that
+bleeds into its surrounding block) can never be the same segment, and an
+exact match against the <li>'s own segment cannot be satisfied by the pill
+sitting elsewhere on the page.
+
+VERIFICATION OF THE FIX
+------------------------
+1. Dry run against all 98 live condition pages with the new exact-segment
+   rule (script run separately, not the checker itself): 0 failures. Safe to
+   apply estate-wide, no false positives introduced.
+2. Applied the edit to the real tracked file.
+3. Re-ran the full checker against the tracked repo: clean, 98 pages, 0
+   failures (same clean result as baseline, confirming the fix does not
+   regress the passing estate).
+4. Ran the OTHER 35 checkers (check-live-hours.js excluded as network-
+   dependent) directly against the tracked repo: all exit 0.
+5. Re-copied the fixed checker into a fresh scratch copy and re-ran
+   INJECTION 2 (UTI "Women" -> "Adults"): now CAUGHT - "eligibility cohort
+   line missing from the page (rule 5), expected: Women aged 16 to 64".
+   Restored, sha256-reconfirmed identical to the UTI baseline
+   (03add12e...98a718f).
+6. CONTROL: a harmless double-space inside the same UTI <li> ("Women  aged
+   16 to 64") - correctly PASSED (norm() collapses whitespace before the
+   exact-match comparison), confirming the tightened rule does not false-fire
+   on incidental formatting.
+7. Full 33-checker suite (excluding check-live-hours.js, check-cdn-pins.js
+   and check-editor-snapshot.js, which do not apply cleanly to a scratch
+   copy with no .git or editor state by established convention) re-run
+   against the scratch copy after the fix: all clean.
+8. Tracked repo confirmed to carry only the intended change:
+   `git status --porcelain -- modules tools gbp-packs core branches.json`
+   shows exactly one modified file, tools/check-pharmacy-first-eligibility.js;
+   branches.json sha256 unchanged (169bb5a2...b102).
+9. Scratch directory deleted after use.
+
+LIVE HALF
+---------
+Not re-attempted this pass beyond the standing answer-pickup fetch (below).
+This pass's finding and fix are entirely in the checker's own verification
+logic; no page, generator or branches.json field was touched, so there is no
+new live surface to read. SK Chemists Bootle's UTI page on both the tracked
+repo and (per the twenty-second pass's prior live read) the live site both
+correctly read "Women aged 16 to 64" today - this was a coverage gap in the
+checker, not a live defect.
+
+ANSWER PICKUP (step 3)
+-----------------------
+mcp__claude-in-chrome, read-only: navigated to
+https://data.rbhealth.co.uk/api/feedback, read the full JSON feedback array,
+closed the tab. Newest entry still fb:2026-09-01T22:44:51.524Z (Q52) -
+unchanged since run 494, now one month and a week. No new portal answers.
+QUESTIONS.json: 120 total, 48 open before this run; no change from this pass
+(no question raised, none closed - this was a straightforward checker-
+precision fix in the established pattern of this repo, not a judgment call
+needing Rishi's decision).
+
+RESULT
+------
+Genuine in-repo defect found and fixed: tools/check-pharmacy-first-eligibility.js
+rule 5 could not detect a corrupted UTI eligibility cohort line when the
+page's hero pill still carried the original (identical) string elsewhere.
+Fixed by scoping the match to the eligibility list's own block segment.
+Guard coverage for item 3.8 extends from 23 to 24 named checkers across its
+pass history (adding check-pharmacy-first-eligibility.js), and the fix
+itself hardens all 98 Pharmacy First condition pages estate-wide, not only
+SK Chemists Bootle's seven.

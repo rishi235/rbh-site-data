@@ -381,10 +381,26 @@ pages.forEach(function (p) {
   var segments = visibleSegments(html);
   var name = rel(p.file);
 
-  if (c.yesTitle && text.indexOf(c.yesTitle) === -1) {
+  // Rule 5 matches against SEGMENTS (one block element each), not the flat
+  // page text. UTI is the one condition where ageNote and eligibleYes[0]
+  // are the identical string ("Women aged 16 to 64"), so the page carries
+  // it twice: once in the hero pill, once in the eligibility <li>. A flat
+  // text.indexOf() lets the <li> drift - eg losing the "Women" restriction
+  // - while the unrelated pill copy upstream still satisfies the search,
+  // so the corrupted eligibility line is never actually read. Proved by
+  // injection on 2026-10-01: changing SK Chemists Bootle's own UTI <li>
+  // from "Women aged 16 to 64" to "Adults aged 16 to 64" passed the old
+  // rule cleanly, because the pill alone still contained the original
+  // string. The same injection against shingles (whose ageNote and
+  // eligibleYes[0] are different strings, so there is no stand-in copy)
+  // was caught immediately, which is what hid the gap for nine quality
+  // passes. Segments are block-scoped (see visibleSegments above), so the
+  // cohort <li> and the hero pill are never the same segment, and an exact
+  // match against the <li>'s own segment cannot be satisfied by the pill.
+  if (c.yesTitle && segments.indexOf(c.yesTitle) === -1) {
     failures.push(name + ": eligibility heading missing from the page (rule 5)\n         expected: " + c.yesTitle);
   }
-  if (c.yesFirst && text.indexOf(c.yesFirst) === -1) {
+  if (c.yesFirst && segments.indexOf(c.yesFirst) === -1) {
     failures.push(name + ": eligibility cohort line missing from the page (rule 5)\n         expected: " + c.yesFirst);
   }
   if (c.ageNote && text.indexOf(c.ageNote) === -1) {

@@ -11093,6 +11093,52 @@ Done 2026-09-19 (twenty-second pass).
       read of https://data.rbhealth.co.uk/api/feedback this run. Evidence
       in audits/verify-3.8-2026-09-18-twentythird.txt. Done 2026-09-18
       (twenty-third).
+      Twenty-fourth pass, 2026-10-01 (run 538): fresh angle - proved
+      tools/check-pharmacy-first-eligibility.js against SK Chemists Bootle's
+      own seven Pharmacy First condition pages for the first time across
+      twenty-four passes. FOUND AND FIXED A GENUINE IN-REPO DEFECT, not
+      a clean pass. Injecting a cohort-word drift on the UTI page
+      (eligibility bullet "Women aged 16 to 64" changed to "Adults aged
+      16 to 64", the sex restriction silently dropped, age range left
+      untouched) PASSED the then-current rule 5 cleanly, because UTI is
+      the one pinned condition (of seven) where ageNote and
+      eligibleYes.points[0] are the identical string, so the page carries
+      it twice - once in the hero pill (left untouched by the injection),
+      once in the corrupted bullet - and the old rule matched against the
+      flattened whole-page text, so the still-correct pill hid the
+      corrupted bullet. The equivalent injection on shingles (whose two
+      strings differ, so no stand-in copy exists) was caught immediately,
+      which is exactly what hid this gap for nine quality passes and
+      twenty-three prior runs: whichever condition got tested usually
+      wasn't UTI, and UTI is the only one with this shape. FIX: rule 5 now
+      matches against block-scoped segments (the same visibleSegments()
+      machinery rule 7 already uses) instead of flat page text, so the
+      eligibility <li> and the hero pill can never satisfy each other.
+      Verified safe against all 98 live condition pages before applying
+      (0 false positives under the tightened rule), then applied, then
+      re-ran the full 98-page check clean, then re-ran all other 35
+      checkers (check-live-hours.js excluded, network-dependent) directly
+      against the tracked repo: all exit 0. Re-injected the same UTI
+      cohort-word drift against the fixed checker on a fresh scratch copy:
+      now CAUGHT cleanly. CONTROL (harmless double-space inside the same
+      bullet): correctly passed, no false-fire. Tracked repo confirmed to
+      carry only the one intended file change
+      (tools/check-pharmacy-first-eligibility.js); branches.json sha256
+      unchanged (169bb5a2...b102). This is a checker-precision fix in the
+      repo's own established pattern (see CLAUDE.md's "ask which bytes it
+      actually read" lesson), not a live content, copy or regulatory-
+      wording change, so no question was raised. LIVE HALF: not
+      re-attempted; the fix is entirely in verification logic and SK
+      Bootle's own UTI page (tracked and, per the twenty-second pass's
+      prior live read, live) already correctly reads "Women aged 16 to
+      64" - this was a coverage gap in the checker, not a live defect.
+      ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via
+      Claude in Chrome, read-only; newest entry still Q52 (2026-09-01),
+      unchanged. QUESTIONS.json: 120 total, 48 open, unchanged. Guard
+      coverage for item 3.8 now names 24 distinct checkers across its pass
+      history. Full detail:
+      audits/sk-bootle-pharmacy-first-eligibility-3.8-twentyfourth-2026-10-01.txt.
+      Done 2026-10-01 (twenty-fourth).
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
