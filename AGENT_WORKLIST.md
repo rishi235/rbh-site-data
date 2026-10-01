@@ -8727,6 +8727,67 @@ Answer pickup (this run's own step 3): newest portal entry still the Q52
 answer (2026-09-01), unchanged; 58 questions now open in QUESTIONS.json.
 No new question raised. Evidence in
 audits/mccanns-address-region-3.6-twentysecond-2026-09-18.txt.
+Quality pass 2026-10-01 (twenty-third, run 537). Picked as the stalest
+item in the rotation pool after validating the orchestrator's rough
+candidate list by hand: "2.3" was a false positive (every hit for it sits
+inside item 2.2's own block, a cross-reference, not a real top-level
+item); 1.4 and 5.7 both carry a later own-block date but are both named in
+item 5.7's own 2026-08-30 "rotation-exclusion list" of one-off items and so
+are not part of the rotation pool at all. Remaining genuine candidates
+(2.1, 3.3, 3.4, 3.6, 3.8, 4.1, 4.3, 4.4, 4.8, 4.10, 4.13, 4.14, 4.15, 5.2)
+all tie at a genuine 2026-09-18 own-block pass; tiebroken on checker-
+coverage headroom (3.3 at 34/36, 4.1 at 35/36, both near-exhausted; 3.6 the
+only one with meaningful headroom at 23/36). FRESH ANGLE: comm -23 against
+this item's own 22-pass history gave thirteen never-named checkers;
+tools/check-switch-copy.js chosen as the heaviest (eleven rules) and most
+relevant, since its own file header names McCanns's family of three prior
+"frame but not promise" gaps (Pharmacy First, contraception, travel
+clinic) without ever having been run against McCanns's own two switch
+pages. BASELINE: tracked repo clean; branches.json sha256
+169bb5a2...b102 unchanged; check-switch-copy.js OK on the tracked repo (15
+pages, 11 rules, 3 accepted KNOWN breaches, all still genuinely open).
+METHOD: full-repo scratch copy via `git archive HEAD | tar -x`, six
+injections against McCanns's own two switch pages, each restored by byte
+copy and sha256-reconfirmed before the next: (1) RULE 6 time-claim,
+Aigburth's "30 seconds" changed to "45 seconds" - CAUGHT on rule 6 plus an
+expected rule 3 verbatim cross-fire; (2) RULE 7 no-medicines, "Mounjaro"
+appended to Sandringham's collection notice - CAUGHT cleanly; (3) RULE 8
+town, Aigburth's trust bar given "in Sandringham" - FIRST ATTEMPT PASSED,
+not a checker defect: mccanns_sandringham's seoTown moved to "St Michael's"
+under 5.7/Q15, so "Sandringham" is a retired town word no live CONFIG
+entry carries any more, the same class of gap item 5.7's fourth pass found
+and fixed in check-seo-keywords.js's own rule 8, which check-switch-copy.js
+has no equivalent of; RE-RUN with the branch's CURRENT town word ("in St
+Michael's") CAUGHT cleanly, proving rule 8 works correctly on a live town
+word. Recorded as a latent, unfixed observation, not acted on this pass.
+(4) RULE 9 form-copy, an undescribed "address" field added to Aigburth's
+form-grid - CAUGHT cleanly; (5) RULE 10 collection-notice, Sandringham's
+privacy line deleted - CAUGHT on rule 10 plus an expected rule 3 cross-
+fire; (6) CONTROL, two Aigburth trust-bar items reordered with no value
+changed - correctly PASSED. All six fired or passed as expected, no
+unexplained cross-firing. RESTORE: all five touched/watched files
+(branches.json, both McCanns switch pages, build-switch-pages.js,
+check-switch-copy.js) sha256-reconfirmed byte-identical to baseline; full
+36-checker suite re-run clean on the scratch copy (35/36, the standing
+.git-less check-cdn-pins.js artefact, not a defect); `git status
+--porcelain -- modules core branches.json gbp-packs tools` on the tracked
+repo clean throughout; check-switch-copy.js and check-cdn-pins.js both
+re-run directly against the tracked repo afterwards, unchanged from
+baseline. RESULT: zero in-repo defects found. tools/check-switch-copy.js,
+never named once in this item's prior 22 passes, is now proven by direct
+injection across rules 3 (cross-fire), 6, 7, 8 and 9 plus one clean
+negative control, against McCanns's own two switch pages for the first
+time. Guard coverage for item 3.6 now extends to 24 of 36 checkers proven
+by direct injection (up from 23). LIVE HALF: not attempted, the fresh
+angle tested has no live-page surface distinct from what the eighteenth
+and twenty-second passes already read; prior passes' standing live
+findings (Sandringham switch/UTI pages still "Sandringham" live, queued
+5.7/Q15; both branch landing pages still HTTP 404, Q35; Q39 footer set)
+stand unclaimed and unchanged, not re-verified this pass. ANSWER PICKUP:
+attempted and succeeded via claude-in-chrome, read-only GET on
+https://data.rbhealth.co.uk/api/feedback; newest entry still the Q52
+answer (2026-09-01); no new answer found. No new question raised. Evidence
+in audits/mccanns-switch-copy-3.6-twentythird-2026-10-01.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

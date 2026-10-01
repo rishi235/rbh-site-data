@@ -1,0 +1,165 @@
+item 3.6 (McCanns Chemist, Aigburth and Sandringham/St Michael's) - run 537
+quality pass, 2026-10-01, twenty-third pass.
+
+STALENESS CHECK (step 2 of the run procedure)
+Orchestrator's rough 17-item candidate list (most recent mention 2026-09-18
+excluding 1.2) was validated against each item's own AGENT_WORKLIST.md block
+before trusting it:
+  - "2.3" is not a real top-level worklist item. Every grep hit for it sits
+    inside item 2.2's own block, referring to item 2.3's pass count in a
+    cross-reference ("item 2.3 now 21 of 36 checkers..."). False positive,
+    confirmed the prior-run warning about naive grep.
+  - 1.4 and 5.7 both carry a genuine 2026-09-18-or-later own-block date, but
+    both are explicitly named in the item 5.7 2026-08-30 entry's own
+    "rotation-exclusion list" ("1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 are
+    one-offs, not part of the rotation pool"). Excluded from consideration
+    for that reason, not picked despite being candidates.
+  - Remaining candidates (2.1, 3.3, 3.4, 3.6, 3.8, 4.1, 4.3, 4.4, 4.8, 4.10,
+    4.13, 4.14, 4.15, 5.2) all carry a genuine, dedicated own-block pass
+    dated 2026-09-18, so staleness ties across all of them.
+  - Tiebreak used: checker-coverage headroom ("N of 36 checkers proven by
+    direct injection"). Of the candidates reporting a running count, 3.3 was
+    at 34/36 and 4.1 at 35/36 (near-exhausted); 3.6 was the only one with
+    meaningful headroom at 23/36 (twenty-second pass, 2026-09-18). Picked 3.6
+    on that basis.
+
+FRESH ANGLE
+comm -23 between the 36 tools/check-*.js filenames (37 files on disk; the
+36-count convention used throughout this item's history excludes
+check-live-hours.js, network-dependent) and every check-*.js name mentioned
+anywhere in item 3.6's own 22-pass block gave thirteen never-named checkers.
+Picked tools/check-switch-copy.js: it is the heaviest unproven checker left
+for this item (11 rules), covers McCanns's own fifteen-page family (both
+switch pages), and per its own file header exists specifically because three
+prior checkers (Pharmacy First eligibility, contraception, travel clinic)
+were each found to cover only the page FRAME and never the promise inside
+it - the exact "ask which files/lines it read" failure mode this repo's
+culture is built around, and never yet asked of McCanns's two switch pages.
+
+BASELINE
+git status --porcelain on the tracked repo: clean before starting (aside
+from known pre-existing untracked junk this run did not create).
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+(matches the standing regression anchor recorded on this item's prior passes).
+tools/check-switch-copy.js run directly against the tracked repo: OK,
+15 pages, 33 lines of body copy, 11 rules, 3 accepted KNOWN breaches
+(Q49 resolved entries already removed; the three banner-shared-host Q63
+entries, including www.mccannspharmacy.co.uk, still open and correctly
+still pinned).
+
+METHOD
+Full-repo scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path (/tmp/scratch-3.6-run537), tracked working tree never opened for
+writing during the injection round. Baseline sha256 recorded for both
+McCanns switch pages, build-switch-pages.js, check-switch-copy.js and
+branches.json before any injection. Six injections, one at a time, each
+restored by byte copy from a pristine pre-injection backup and
+sha256-reconfirmed identical before the next:
+
+1. RULE 6 (time-claim), Aigburth: "30 seconds" changed to "45 seconds" in
+   both the SEO description, H1 and form-sub line. CAUGHT, on both RULE 6
+   ("30 on 14 pages, 45 on 1 page") and RULE 3 verbatim (as an expected
+   cross-fire, since the static sentence no longer matches the generator's
+   output word for word).
+
+2. RULE 7 (no-medicines), Sandringham: appended "Ask us about Mounjaro too."
+   to the collection-notice line. CAUGHT cleanly on RULE 7 alone, no
+   cross-firing: "the switch page names mounjaro".
+
+3. RULE 8 (town), Aigburth, FIRST ATTEMPT: appended "in Sandringham" to the
+   trust-bar "Simple switching" item. Checker PASSED. Not a checker defect:
+   confirmed by reading branches.json that mccanns_sandringham.seoTown is
+   now "St Michael's" (moved from "Sandringham" under item 5.7/Q15,
+   2026-08-10), so build-switch-pages.js's CONFIG (confirmed dynamically
+   derived from branches.json, not the hardcoded table Q19 used to
+   describe) no longer treats "Sandringham" as any live branch's town.
+   RULE 8's cross-branch check only tests the CURRENT CONFIG town per
+   branch, so a retired town word is invisible to it by design, the same
+   gap item 5.7's fourth pass (2026-08-14) found and fixed in
+   check-seo-keywords.js (RULE 8, retired town word) but which has no
+   counterpart in check-switch-copy.js. RE-RUN with the branch's CURRENT
+   town word instead ("in St Michael's") to prove the rule actually works:
+   CAUGHT cleanly - "the body copy names St Michael's, which is
+   mccanns_sandringham's town, not this branch's."
+   OBSERVATION, not a defect raised this pass: check-switch-copy.js RULE 8
+   has no "retired town word" guard. It is out of scope to fix within a
+   quality pass (would need its own negative-tested change and a decision
+   on whether it is worth mirroring), and "Sandringham" appearing in a
+   switch page's body copy is not plausible generated-page drift today (no
+   generator or CONFIG table still emits that word), so this is recorded as
+   a latent gap for a future pass, not acted on.
+
+4. RULE 9 (form-copy), Aigburth: added an "Address" field
+   (`<input type="text" name="address" required>`) to the form-grid with no
+   matching FIELD_WORDS entry or step-1 wording. CAUGHT cleanly: "the form
+   asks for a field named address that this rule has no wording for."
+
+5. RULE 10 (collection-notice), Sandringham: removed the
+   `<p class="privacy">...</p>` line entirely. CAUGHT on both RULE 10
+   ("the page carries no statement of what they are used for") and RULE 3
+   verbatim (expected cross-fire, same reasoning as injection 1).
+
+6. CONTROL, Aigburth: reordered two trust-bar `<div class="trust-item">`
+   blocks (NHS pharmacy / Local Aigburth team) with no value changed.
+   Correctly PASSED, confirming RULE 3 and the other rules key on content,
+   not DOM position.
+
+All six fired or passed on their intended rule(s), with only the expected
+RULE 3 cross-fires on injections 1 and 5 (both of which genuinely do break
+the generator's exact wording, so the cross-fire is correct behaviour, not
+a false positive). Final restore sha256-reconfirmed identical to baseline
+for both switch pages; full 36-checker suite re-run on the scratch copy
+(35/36, the single .git-less check-cdn-pins.js artefact every prior
+scratch-copy pass on this item has recorded as not-a-defect); branches.json
+untouched throughout.
+
+RESTORE AND VERIFICATION
+`diff` of before/after sha256 of all five touched-or-watched files: byte-
+identical. `git status --porcelain -- modules core branches.json gbp-packs
+tools` on the tracked repo: clean (only the long-standing pre-existing
+untracked strays, none of which this pass created or touched).
+tools/check-switch-copy.js re-run directly against the tracked repo after
+the scratch work: OK, unchanged output. tools/check-cdn-pins.js re-run
+directly against the tracked repo: exit 0, 3 warnings and 7 known issues,
+unchanged from baseline (same standing Q45 core/site-data.js @main warning
+already on record, not new). Scratch directory deleted at the end of the
+run.
+
+RESULT
+Zero in-repo defects found. tools/check-switch-copy.js - previously never
+named once in this item's 22-pass history despite covering McCanns's own
+two switch pages - is now proven by direct injection across rules 3
+(cross-fire), 6, 7, 8 and 9, plus one clean negative control, the first
+time any of this checker's eleven rules has been proven against this
+branch pair. Guard coverage for item 3.6 now extends to 24 of 36 checkers
+proven by direct injection (up from 23). One latent, unfixed gap recorded
+as an observation (RULE 8 has no retired-town-word guard, unlike its sister
+rule in check-seo-keywords.js) but not acted on, since it is out of scope
+for a quality-pass verification run and is not matched by any live defect.
+
+LIVE HALF
+Not attempted this pass. claude-in-chrome tools were searched for via
+ToolSearch and loaded, but this run did not attempt a live fetch because
+the fresh angle tested (switch-page body copy) has no live-page surface
+distinct from what the eighteenth and twenty-second passes on this item
+already read (both pages' live titles/H1s/body text), and re-reading it
+would not test anything this pass's injections exercised. Prior passes'
+standing live findings (Sandringham switch/UTI pages still read
+"Sandringham" not "St Michael's" live, queued 5.7/Q15 repaste; both branch
+landing pages still HTTP 404, Q35; Q39 footer set) stand unclaimed and
+unchanged, not re-verified this pass.
+
+FEEDBACK/ANSWER PICKUP
+Attempted and succeeded. claude-in-chrome tools loaded via ToolSearch
+(tabs_context_mcp, navigate, get_page_text, tabs_create_mcp), navigated
+read-only to https://data.rbhealth.co.uk/api/feedback, read the full JSON
+feedback array with get_page_text (no clicking or typing), and closed the
+tab afterwards. Newest entry is still the Q52 answer
+(fb:2026-09-01T22:44:51.524Z, "AUDIT ANSWER Q52"), matching every record
+already on file; nothing newer. No new answer picked up this run.
+QUESTIONS.json itself was not separately re-read this pass, since the
+feedback-portal pickup is the live source of new answers and it showed
+none newer than what AGENT_LOG.md already records.
+
+QUESTIONS
+None raised this pass. No change to QUESTIONS.json.
