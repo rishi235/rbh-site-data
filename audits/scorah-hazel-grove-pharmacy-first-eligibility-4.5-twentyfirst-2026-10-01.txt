@@ -1,0 +1,92 @@
+Item 4.5 - Scorah Chemists Hazel Grove GBP pack
+Quality pass (twenty-first), 2026-10-01 (unattended scheduled run, audit-backlog-worker, run 539)
+Fresh angle: tools/check-pharmacy-first-eligibility.js rules 9, 10, 11 (estate-wide pack rules,
+never proven by dedicated injection against this specific pack across the item's prior 20 passes)
+
+BASELINE
+--------
+Tracked repo clean at run start. git status --porcelain showed only long-standing pre-existing
+untracked junk (not touched).
+sha256 gbp-packs/scorah-hazel-grove.md : 968a86dce9de706e2c2948a322c895c581e7c4c59dd933a2a896b5c79561045a
+sha256 branches.json                   : 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+sha256 tools/check-pharmacy-first-eligibility.js : 9aa2b3dc3279254f08d418daf349a598282cba1f3e3497bd3f653bf0c4d2d349
+
+Full 34-checker suite (excluding check-live-hours.js, check-cdn-pins.js, check-editor-snapshot.js)
+run directly against the tracked repo: all clean.
+
+check-pharmacy-first-eligibility.js baseline run (tracked repo):
+  7 pinned conditions, 98 condition pages, 14 overview pages, 15 GBP packs, 6 landing pages
+  clean, every page states the NHS cohort and no other age.
+
+METHOD
+------
+Full-tree scratch copy via `git archive HEAD | tar -x` to /tmp/scratch-4.5. Tracked working
+tree never opened for writing. Each injection restored by byte copy from a saved baseline
+and sha256-reconfirmed identical before the next round.
+
+TEST 1 - rule 9 (pinned cohort phrase)
+  Edit: Post A's "women aged 16 to 64" -> "women aged 16 to 65"
+  Result: CAUGHT immediately.
+    FAIL states age 16, which is not part of any NHS cohort this copy may state (rule 9)
+    FAIL states age 65, which is not part of any NHS cohort this copy may state (rule 9)
+  Restored; sha256 matched baseline.
+
+TEST 2 - rule 10 (seven-pathway enumeration)
+  Edit attempt 1: sed removal of "shingles" from the Post A list.
+  Result: checker reported clean - but this was a FALSE NEGATIVE caused by a methodology
+  error, not a genuine test. The target phrase wraps across a line break in the source file
+  ("earache\nin children, impetigo, shingles, infected insect bites..."), so the single-line
+  sed pattern never matched and the file was left byte-identical to baseline (confirmed by
+  diff and sha256 before trusting the "pass"). Caught and corrected before being recorded as
+  a result.
+  Edit attempt 2 (genuine): Python replacement spanning the line break, removing "shingles"
+  from the enumerated list only.
+  Result: CAUGHT cleanly.
+    FAIL lists the Pharmacy First conditions but omits shingles, so the profile advertises
+    6 of the 7 NHS pathways this branch is commissioned for (rule 10)
+  Restored; sha256 matched baseline.
+
+TEST 3 - rule 11 (age-ranges caveat)
+  Edit: deleted "Age ranges set by the NHS apply to each condition." from the end of Post A.
+  Result: CAUGHT cleanly.
+    FAIL names two or more of the 7 Pharmacy First conditions in one sentence but nowhere
+    says the NHS age ranges apply to each of them (rule 11) ...
+  Restored; sha256 matched baseline.
+
+CONTROL - list reordering, no content change
+  Edit: swapped "shingles" and "impetigo" within the same Post A enumeration, same seven
+  conditions, same wording, different order.
+  Result: correctly PASSED, exit 0, confirming rule 10 matches by content membership rather
+  than list position.
+  Restored; sha256 matched baseline.
+
+FINAL VERIFICATION
+-------------------
+Scratch copy's gbp-packs/scorah-hazel-grove.md sha256-reconfirmed identical to baseline
+(968a86dc...1045a) after the final restore. Scratch copy's own full 34-checker suite
+re-run: 34/34 clean.
+
+Tracked repo reconfirmed untouched throughout and afterwards:
+  - sha256 of gbp-packs/scorah-hazel-grove.md, branches.json and the checker all unchanged
+  - git status --porcelain -- modules core branches.json gbp-packs tools compliance showed
+    only the same long-standing untracked strays, neither touched
+  - full 34-checker suite re-run directly against the tracked repo afterwards: 34/34 clean
+
+RESULT
+------
+Zero in-repo defect. Rules 9, 10 and 11 of check-pharmacy-first-eligibility.js all correctly
+protect gbp-packs/scorah-hazel-grove.md's own copy, now proven by direct injection for the
+first time across the item's twenty-one quality passes. Guard coverage for item 4.5 against
+this checker: rules 9, 10, 11 now proven (rules 1-8 and 12 do not apply to a GBP pack - they
+read the generator, the condition pages and the Pharmacy First overview pages).
+
+LIVE HALF
+---------
+Not attempted this pass beyond the standing step-3 answer-pickup fetch (Claude in Chrome,
+read-only, single tab, https://data.rbhealth.co.uk/api/feedback, newest entry still Q52,
+2026-09-01, nothing new). No new live surface was exercised by this pass's injections, so
+no live read was made, to keep the live footprint proportionate.
+
+QUESTIONS
+---------
+No new question raised. QUESTIONS.json unchanged: 120 total, 48 open.

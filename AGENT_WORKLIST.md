@@ -21669,6 +21669,86 @@ pass, to keep the live footprint to the one fresh confirmatory check. No
 new defect, no new question. See
 audits/scorah-hazel-grove-pack-check-2026-09-17-twentieth.txt. Done
 2026-09-17.
+Quality pass (twenty-first), 2026-10-01 (unattended scheduled run,
+audit-backlog-worker, run 539): all 8 unchecked worklist lines (5.3, 5.4,
+5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed [BLOCKED] by direct grep, so this
+was the quality-pass fallback. Step 3 answer pickup: Claude in Chrome,
+read-only, single tab, navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed; newest entry still Q52 (2026-09-01), unchanged
+for a second month; nothing to apply. No "Standing authorisation -
+autonomous window" section at the top of AGENT_LOG.md, so step 4 does not
+apply. CANDIDATE SELECTION: parsed every non-excluded item's own block in
+AGENT_WORKLIST.md for its most recent date and its "quality pass" mention
+count. Eighteen items tied stalest at 2026-09-18; of those, 4.5, 4.6 and 4.9
+tied lowest on mention count (20 each). 4.9 already carries an open question
+(Q112) from its own 2026-09-18 pass and 4.6's 2026-09-18 pass found zero
+defect on its one remaining fresh angle, so 4.5 was chosen as having the
+most real headroom of the three.
+FRESH ANGLE: tools/check-pharmacy-first-eligibility.js's rules 9, 10 and 11
+(the pinned-cohort, the seven-pathway list and the age-ranges caveat, all
+estate-wide rules that read every pack in one pass) had never been proven
+by a dedicated injection against this specific pack across the item's prior
+twenty passes, confirmed by grepping the item's own history for the
+checker's name. The checker itself was touched only yesterday (run 538,
+item 3.8, a rule 5 precision fix unrelated to rules 9-11), so proving it
+clean against a different pack's own copy is a reasonable continuation.
+BASELINE: tracked repo clean, `git status --porcelain` showed only the
+long-standing pre-existing untracked junk; sha256 of gbp-packs/scorah-
+hazel-grove.md 968a86dc...1045a, branches.json 169bb5a2...b102 (unchanged,
+matching the standing regression anchor), tools/check-pharmacy-first-
+eligibility.js 9aa2b3dc...349. Full 34-checker suite (excluding check-live-
+hours.js, check-cdn-pins.js, check-editor-snapshot.js, the established
+exclusions for a scratch copy) ran clean directly against the tracked
+repo first.
+Full-tree scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path (/tmp/scratch-4.5); tracked working tree never opened for writing.
+THREE INJECTIONS plus a control against the scratch copy's own
+gbp-packs/scorah-hazel-grove.md, each restored by byte copy and
+sha256-reconfirmed identical before the next: (1) RULE 9 - Post A's "women
+aged 16 to 64" changed to "women aged 16 to 65" - CAUGHT immediately, two
+failures (16 and 65 both flagged as outside any pinned cohort, matching the
+rule's phrase-bound design). (2) RULE 10 - "shingles" removed from Post A's
+seven-condition enumeration - FIRST ATTEMPT WAS A FALSE NEGATIVE DUE TO A
+METHODOLOGY ERROR, NOT A REAL PASS: a naive sed replacement failed silently
+because the target phrase wraps across a line break in the source file
+("earache\nin children, impetigo, shingles, ..."), so the substitution
+never actually ran and the unedited pack correctly stayed clean. Caught the
+error before recording it as a result, confirmed via diff that the file was
+untouched, then redid the injection correctly with a Python replacement
+spanning the line break - CAUGHT cleanly on the second, genuine attempt:
+"lists the Pharmacy First conditions but omits shingles ... advertises 6 of
+the 7 NHS pathways". Recorded here as a caution for future passes: a line-
+wrapped source file defeats a single-line sed/regex silently, and a
+negative test's "pass" must be confirmed as a real edit (diff or sha256
+change) before it is trusted. (3) RULE 11 - the trailing "Age ranges set by
+the NHS apply to each condition." sentence deleted from Post A - CAUGHT
+cleanly, exact message naming the missing caveat. CONTROL - shingles and
+impetigo swapped in order within the same Post A list, no wording added or
+removed - correctly PASSED, exit 0, confirming rule 10 matches by content
+membership rather than list position. All three real injections caught on
+a genuine edit, the control passed, and the line-wrap near-miss was
+investigated rather than filed as a result.
+RESTORE: scratch file restored by byte copy and sha256-reconfirmed
+identical (968a86dc...1045a) after the final round; scratch copy's own
+full 34-checker suite re-run clean (34/34) after the restore. Tracked
+repo reconfirmed untouched throughout and afterwards: sha256 of
+gbp-packs/scorah-hazel-grove.md, branches.json and the checker all
+unchanged; `git status --porcelain -- modules core branches.json gbp-packs
+tools compliance` showed only the same long-standing untracked strays,
+neither touched; full 34-checker suite re-run directly against the tracked
+repo afterwards, 34/34 clean. Scratch directory deleted after use.
+RESULT: zero in-repo defect - rules 9, 10 and 11 all correctly protect this
+pack's own copy, now proven by injection for the first time in twenty-one
+passes. Guard coverage for item 4.5 against check-pharmacy-first-
+eligibility.js: rules 9, 10, 11 now proven; rules 1-8 and 12 do not apply to
+a GBP pack (they read the generator, the condition pages and the overview
+pages).
+LIVE HALF: not attempted this pass beyond the standing answer-pickup fetch,
+to keep the live footprint proportionate to a checker-logic verification
+pass with no new live surface to test.
+No new question; QUESTIONS.json unchanged, 120 total, 48 open.
+Evidence: audits/scorah-hazel-grove-pharmacy-first-eligibility-4.5-
+twentyfirst-2026-10-01.txt. Done 2026-10-01.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
