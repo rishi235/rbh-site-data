@@ -31728,6 +31728,80 @@ appended to the line. Do not move them; the status page reads them in place.
       drift. No live fault found, no new question. Evidence:
       audits/hirshmans-item-1.2-quality-pass-2026-09-18-twentythird.txt.
       Done 2026-09-18
+      Twenty-fourth quality pass 2026-10-01 (unattended scheduled run, run
+      536; rotation re-derived by scanning AGENT_LOG.md for the most recent
+      "item N.N" mention per completed worklist item, attributed to the
+      nearest preceding date header - 1.2 tied oldest at 2026-09-18 alongside
+      several other items, confirmed by direct grep that its own most recent
+      mention there is a genuine dedicated pass, run 128's twenty-third,
+      not an incidental cross-reference). REPO HALF: FRESH ANGLE -
+      tools/check-whatsapp-route.js had never been proven by injection
+      against Hirshmans Ainsdale in twenty-three prior passes, despite the
+      branch carrying its own whatsapp field in branches.json and three
+      generated pages with a module root (pharmacy-first, travel-clinic,
+      switch-prescriptions) that route through it. Full git-archive scratch
+      copy (/tmp/run536/scratch), tracked repo never opened for writing;
+      branches.json, pharmacy-first-hirshmans-ainsdale.html,
+      travel-clinic-hirshmans-ainsdale.html and
+      switch-prescriptions-hirshmans-ainsdale.html sha256-matched the tracked
+      repo exactly before starting (the pharmacy-first hash
+      fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468 also
+      matched the value recorded on the twenty-first pass, confirming no
+      drift since); 35/35 checkers clean before any edit. Five injections,
+      each restored from a sha256-confirmed backup before the next: (1)
+      Hirshmans' own branches.json whatsapp value changed to a non-E.164
+      shape ("07521775631") - CAUGHT (format rule, named
+      branches.json::hirshmans_ainsdale directly, with the expected knock-on
+      "source agreement" disagreement fired against every other branch since
+      the single-agreed-value precondition no longer held); (2) the
+      travel-clinic page's data-wa changed to a different number
+      ("447111111111") - CAUGHT (page agreement rule, named the file and the
+      agreed number it should have carried); (3) an unreplaced
+      "{{BRANCH_PROMO}}" token inserted on the pharmacy-first page, next to
+      its module root - CAUGHT (unreplaced token rule, quoted the exact
+      token); (4) the travel-clinic page's data-wa attribute stripped while
+      its "Send via WhatsApp instead" button (id="svc-wa") was left in place
+      - CAUGHT (orphan button rule, named the file and explained the silent
+      fallback it would cause); (5) a benign reword of the switch page's "not
+      ready yet" FAQ answer, touching no number, button or token - PASSED
+      clean, confirming the four catches are genuine rule hits rather than
+      the checker failing on any edit. All five fired or passed on the
+      intended rule, first attempt, no cross-firing beyond the documented
+      side effect in (1). Final restore sha256-reconfirmed identical on all
+      four touched files; full 35-checker suite re-run clean on the scratch
+      copy afterwards. Tracked repo confirmed untouched throughout
+      (git status --porcelain -- branches.json tools modules core gbp-packs
+      showed only the long-standing pre-existing untracked strays; all four
+      files' sha256 unchanged). No in-repo defect found. Guard coverage for
+      this item now extends to 25 of 37 checkers (check-whatsapp-route.js
+      and, incidentally, the branches.json-wide source-agreement rule, added
+      to the 24 named individually across the prior 23 passes).
+      LIVE HALF (Claude in Chrome, one tab at a time, read-only throughout,
+      nothing clicked/typed/submitted): read
+      pharmacy-first-hirshmans-ainsdale.html live via javascript_tool -
+      module root carries data-wa="447521775631", matching branches.json and
+      the repo page exactly; no WhatsApp button present, consistent with
+      this being one of the 14 Pharmacy First overview pages the checker
+      already reports as deliberately inert (Q20). Read
+      travel-clinic-hirshmans-ainsdale.html the same way: data-wa is absent
+      from the DOM entirely (searched the full outerHTML for "svc-wa",
+      "wa-btn" and "WhatsApp" - zero matches), and get_page_text confirms the
+      page offers only "Call 01704 577376", no WhatsApp button and no
+      callback form. This is not a new fault: it is the live side of the
+      same outstanding repaste Q20 already describes (the travel clinic
+      generator gained the WhatsApp button and callback form on 2026-08-30,
+      queued for repaste along with the rest of the backlog) - the repo page
+      this pass proved clean carries the button, the live page predates it.
+      Flagging it here only because this is the first pass to have checked
+      this specific page's live WhatsApp route by DOM query rather than
+      visible text; the gap itself is Q20's, not new. sitemap.xml lastmod
+      still 2026-08-14T16:09:17+00:00 across all Hirshmans Ainsdale URLs
+      (checked via the sitemap directly), confirming reconfirmation rather
+      than new drift - no publish since the twenty-third pass or any pass
+      before it. No new question raised; Q20's existing note already covers
+      this page and branch. Evidence: audits/run536-check-whatsapp-route.txt
+      (checker output across all five injection rounds) and this entry.
+      Done 2026-10-01
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

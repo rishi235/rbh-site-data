@@ -1,0 +1,95 @@
+=== check-whatsapp-route.js - item 1.2 (Hirshmans Ainsdale), run 536, 2026-10-01 ===
+
+--- baseline (before any injection) ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+
+--- injection 1: branches.json hirshmans_ainsdale whatsapp = 07521775631 (malformed E.164) ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+FAILURES (17):
+  FAIL  [source agreement] branches.json::scorah_bramhall: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::scorah_hazel: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::mccanns_aigburth: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::mccanns_sandringham: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::fishlocks_ainsdale: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::fishlocks_eccleston: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::rbh_head_office_aintree: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::clearchemist_aintree: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::smartts_bootle: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::hirshmans_ainsdale: whatsapp=07521775631
+  FAIL  [source agreement] branches.json::skchemists_bootle: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::colemanleigh_liverpool: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::riddings_timperley: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::gordonshorts_crosby: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::cherrylane_liverpool: whatsapp=447521775631
+  FAIL  [source agreement] branches.json::tiffenbergs_longmoor: whatsapp=447521775631
+  FAIL  [format] branches.json::hirshmans_ainsdale: 07521775631 is not a UK mobile in E.164 without the plus (447 plus nine digits)
+
+The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it
+there, then regenerate the five service-family generators. Do not fix a page by
+hand; the next regeneration overwrites it.
+
+--- injection 2: travel-clinic-hirshmans-ainsdale.html data-wa changed to 447111111111 ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+FAILURES (1):
+  FAIL  [page agreement] modules/service/pages/travel-clinic-hirshmans-ainsdale.html: data-wa="447111111111" but branches.json agrees on 447521775631
+
+The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it
+there, then regenerate the five service-family generators. Do not fix a page by
+hand; the next regeneration overwrites it.
+
+--- injection 3: pharmacy-first-hirshmans-ainsdale.html unreplaced {{BRANCH_PROMO}} token ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+FAILURES (1):
+  FAIL  [unreplaced token] modules/service/pages/pharmacy-first-hirshmans-ainsdale.html: still carries the template placeholder {{BRANCH_PROMO}}
+
+The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it
+there, then regenerate the five service-family generators. Do not fix a page by
+hand; the next regeneration overwrites it.
+
+--- injection 4: travel-clinic-hirshmans-ainsdale.html data-wa stripped, svc-wa button left ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 170 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+FAILURES (1):
+  FAIL  [orphan button] modules/service/pages/travel-clinic-hirshmans-ainsdale.html: carries a WhatsApp button but no data-wa on its module root, so it would fall back to the runtime default
+
+The WhatsApp number lives in branches.json's whatsapp field, per branch. Fix it
+there, then regenerate the five service-family generators. Do not fix a page by
+hand; the next regeneration overwrites it.
+
+--- injection 5 (benign control): switch-prescriptions-hirshmans-ainsdale.html FAQ reword ---
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+
+--- final restore sha256 check ---
+169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102  branches.json
+fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468  modules/service/pages/pharmacy-first-hirshmans-ainsdale.html
+ceae216134bd9db28aa20f45652fc3503fe8a358564c4e0323d1852b58599587  modules/service/pages/travel-clinic-hirshmans-ainsdale.html
+cf1f87f2e144fbf193bdaaa817159291f8a9ba01755d2e8855cb67088133672d  modules/switch/pages/switch-prescriptions-hirshmans-ainsdale.html
