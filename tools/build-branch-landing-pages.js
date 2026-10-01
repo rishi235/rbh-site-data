@@ -139,7 +139,13 @@ function servicesOf(b) {
   var ss = b.brandSlug + "-" + b.townSlug;
   return [
     { name: "NHS Pharmacy First", href: "pharmacy-first-" + ss + ".html",
-      blurb: "Free NHS treatment for seven common conditions, with no GP appointment needed." },
+      // Q69 (answered 2026-10-01): "treatment" overstated what is free - only
+      // the consultation is, non-exempt patients still pay the prescription
+      // charge for any medicine supplied. Changed to "consultation" per
+      // Rishi's answer. The full charge caveat lives on the linked Pharmacy
+      // First page, which this tile links to (see check-pharmacy-first-cost.js
+      // rule 7's note on why a landing tile is not held to the caveat itself).
+      blurb: "Free NHS consultation for seven common conditions, with no GP appointment needed." },
     { name: "NHS repeat prescriptions", href: "switch-prescriptions-" + ss + ".html",
       blurb: "Order your NHS repeat prescriptions with us, with collection or delivery." + (b.hasApp ? " Manage everything in the free RB Healthcare Pharmacy app." : "") },
     { name: "Weight loss clinic", href: "weight-loss-clinic-" + ss + ".html",

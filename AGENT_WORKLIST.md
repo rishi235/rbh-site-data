@@ -1926,7 +1926,33 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       landing page listed - no publish since, now nearly seven weeks. Q35
       and Q69 re-read against current live state and both still accurately
       describe it. Evidence: audits/verify-2.2-2026-10-01-tenth.txt.
-- [x] 2.3 Cherry Lane: build-from-near-zero per Build Pack v2. Full page set
+      Q69 actioned 2026-10-01 (run 535): Rishi answered via the portal the
+      same day the tenth pass asked it, so this run applied the decision
+      rather than leaving it recorded only in QUESTIONS.json. The six
+      branch landing pages' Pharmacy First tile blurb changed from "Free
+      NHS treatment for seven common conditions, with no GP appointment
+      needed." to "Free NHS consultation for seven common conditions, with
+      no GP appointment needed.", per Rishi's answer (only the consultation
+      is unambiguously free; non-exempt patients still pay the prescription
+      charge, and the tile links through to the Pharmacy First page which
+      carries the full caveat). Changed at source in
+      tools/build-branch-landing-pages.js (servicesOf(), the "NHS Pharmacy
+      First" tile), with a comment recording the Q69 reasoning so the next
+      reader does not have to find this log entry. Regenerated all six
+      pages; git diff shows exactly the one tile sentence changed on each,
+      nothing else. Rebuilt all six generators afterwards (service, switch,
+      weight loss, travel clinic, contraception, branch landing) - the
+      other five produced zero diff, confirming the edit was scoped to the
+      one tile as intended. Ran all 35 checkers individually: 0 failures,
+      including check-pharmacy-first-cost.js rule 7, whose own comment
+      names this exact wording as "asked as a question instead of being
+      enforced or quietly rewritten here" - confirmed the new wording still
+      satisfies FREE_CLAIM (/\bfree\s+NHS\b/i) and still calls the service
+      free, so rule 7 passes for the reason it is meant to. Still needs a
+      Weebly repaste on all six branch pages before the live sites carry
+      the corrected wording (same outstanding paste as Q35; both are
+      unpublished pending a supervised Weebly session). No worklist item
+      unblocked - Q69 was explicitly scoped as "does not block any item".
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
       cherrylanepharmacy.co.uk with all pages in the site navigation. Titles,
