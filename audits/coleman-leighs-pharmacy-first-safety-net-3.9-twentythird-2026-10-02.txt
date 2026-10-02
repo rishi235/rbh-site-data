@@ -1,0 +1,97 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Liverpool/Walton) - twenty-third
+quality pass, 2026-10-02 (unattended scheduled run, audit-backlog-worker,
+run inside a Cowork session via mcp__workspace__bash for lock/git/worklist
+reads and mcp__Windows-MCP__PowerShell/FileSystem for the real host git
+push and the injection work against C:\Dev\rbh-site-data; Edit/Write used
+for this file and the AGENT_WORKLIST.md/AGENT_LOG.md content changes).
+
+Fresh angle: tools/check-pharmacy-first-safety-net.js, never proven by
+direct injection against Coleman and Leighs's own seven Pharmacy First
+condition pages across the item's prior twenty-two passes (confirmed
+against the item's own "fifteen remain" candidate list left by the
+twenty-second pass).
+
+BASELINE: full 35-checker suite (check-cdn-pins.js and check-live-hours.js
+excluded, both network-dependent) run directly against the tracked repo
+first - 35/35 exit 0. branches.json sha256 confirmed at the standing
+anchor 169BB5A21CF62B196600D61260E0689FEE040491FD0C3637EB2AC91F2AD1B102.
+
+SCRATCH COPY: git archive HEAD --format=zip, extracted to a sandboxed
+temp folder outside the tracked working copy. All injection and restore
+work happened there; the tracked working copy was never opened for
+writing during the round, confirmed throughout by sha256 comparison
+against the live C:\Dev\rbh-site-data files and by `git status --porcelain
+-- modules core branches.json gbp-packs tools` showing no diff at the end.
+
+INJECTION 1 (rule 5, emergency wording independent of rule 6): editing
+only the Coleman and Leighs insect-bite page's own "call 999 now" to
+"999 now" is masked by rule 6 (verbatim mismatch fires first, since the
+page no longer matches the generator's still-correct text) - not a useful
+isolation of rule 5 on its own. To test rule 5 independently, both
+tools/build-service-pages.js's insect-bite eligibleNo text AND Coleman and
+Leighs's own page were edited identically (dropping "call"), so rule 6
+sees a match and cannot fire. Result: rule 5 CAUGHT the defect at the
+condition level ("insect-bite: a safety-net point names 999 without
+instructing the reader to call it"), while rule 6 correctly fired instead
+on every OTHER branch's unchanged insect-bite page (14 branches), since
+only Coleman and Leighs's own page had been brought into sync with the
+edited generator text. Confirms rule 5 is a real, independently-firing
+rule and not shadowed dead code behind rule 6's stricter verbatim check.
+Restored both files from the scratch zip's original entries; sha256
+reconfirmed identical to the tracked repo for both.
+
+INJECTION 2 (rule 7, cross-condition contamination): appended the
+insect-bite anaphylaxis line ("Swelling of the face, lips or throat... call
+999 now") into Coleman and Leighs's own shingles page's safety-net list.
+CAUGHT cleanly: "shingles-treatment-coleman-leigh-walton.html: carries a
+safety-net point that belongs to the insect-bite pathway, not this one
+(rule 7)", naming the contaminating line exactly. Restored, sha256
+reconfirmed identical.
+
+CONTROL: an unrelated heading-text change on Coleman and Leighs's
+sore-throat page ("How it works at Coleman and Leighs Pharmacy" ->
+"...Pharmacy today"), outside the safety-net block entirely. Checker
+stayed clean, exit 0, no cross-firing. Restored, sha256 reconfirmed
+identical.
+
+Full 35-checker suite re-run on the scratch copy after all injections and
+restores: 35/35 exit 0. Tracked repo reconfirmed untouched throughout.
+
+No generator, page, checker or branches.json content changed. No in-repo
+defect found. No new question raised.
+
+Guard coverage for item 3.9 now extends to 7 of the 20 previously-untested
+checkers proven by direct injection against Coleman and Leighs
+specifically: check-nap.js, check-opening-hours.js, check-seo-keywords.js,
+check-whatsapp-route.js, check-booking-routes.js (prior passes), plus
+check-pharmacy-first-safety-net.js rules 5 and 7 (this pass, two separate
+rules proven in one session). Thirteen remain: check-address-region.js,
+check-app-membership.js, check-editor-snapshot.js, check-em-dashes.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js - a
+candidate list for a twenty-fourth pass.
+
+LIVE HALF: not attempted this pass; repo/data-schema scope only.
+
+STEP 3 answer pickup: Claude in Chrome, one tab, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON with
+get_page_text (nothing clicked, typed or submitted), closed the tab.
+Newest entry still Q52 (2026-09-01T22:44:51.524Z). No new answers to
+apply. QUESTIONS.json: 120 total, 48 open, unchanged by this pass.
+
+INFRASTRUCTURE NOTE (relevant to Q87/Q96/Q102, plus a new finding this
+run): the standing push-credential gap did NOT reproduce this run.
+`git push origin agents/audit-backlog` from the real C:\Dev\rbh-site-data
+host working copy (via mcp__Windows-MCP__PowerShell, git
+credential.helper=manager) succeeded on the first attempt and cleared a
+backlog of 7 commits left unpushed by the immediately preceding run.
+Separately, this run also found that direct PowerShell file writes to
+this connected folder via Windows-MCP can be silently reverted by
+Cowork's own sync of the folder, and that naive Get-Content/Set-Content
+round-tripping corrupts existing non-ASCII bytes. Both findings are
+recorded in full in this run's AGENT_LOG.md entry and in item 3.9's own
+worklist block; the recommendation going forward is to make all tracked
+content edits via Edit/Write/Read and reserve Windows-MCP for git
+commit/push and lock handling only.

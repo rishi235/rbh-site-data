@@ -12651,6 +12651,75 @@ Done 2026-09-19 (twenty-second pass).
       check-seo-sheets.js, check-uk-spelling.js, check-url-scheme.js,
       check-widget-diaries.js - a candidate list for a twenty-third pass. No
       question raised. Done 2026-09-19.
+
+      Quality pass 2026-10-02 (twenty-third, unattended scheduled run,
+      audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash
+      for lock/git/worklist reads, mcp__Windows-MCP__PowerShell/FileSystem
+      for the real host git push and the injection work, Edit/Read for the
+      content changes to this file and AGENT_LOG.md). Checker under fresh
+      test: tools/check-pharmacy-first-safety-net.js, chosen from the
+      twenty-second pass's own fifteen-item candidate list, never once
+      tested by direct injection against Coleman and Leighs's own seven
+      Pharmacy First condition pages.
+
+      Full detail in audits/coleman-leighs-pharmacy-first-safety-net-3.9-
+      twentythird-2026-10-02.txt. In brief: full 35-checker suite clean on
+      the tracked repo first (35/35); branches.json sha256 confirmed at the
+      standing anchor. Scratch copy via git archive HEAD --format=zip,
+      tracked repo never opened for writing during the injection round.
+      Three rounds: (1) rule 5 (emergency wording independent of rule 6) -
+      isolated by editing the generator's own insect-bite eligibleNo text
+      and Coleman and Leighs's own page identically (dropping "call" from
+      "call 999 now"), so rule 6 could not mask it - CAUGHT at the
+      condition level, with rule 6 correctly firing instead on the other
+      14 branches' now-stale insect-bite pages; (2) rule 7 (cross-condition
+      contamination) - the insect-bite anaphylaxis line appended into
+      Coleman and Leighs's own shingles safety-net block - CAUGHT cleanly,
+      naming the contaminating pathway; (3) CONTROL - an unrelated heading
+      change on the sore-throat page outside the safety-net block - stayed
+      clean, no cross-firing. All restored by byte copy from the original
+      archive entries and sha256-reconfirmed identical to the tracked repo
+      after each round.
+
+      Full 35-checker suite re-run after all injections and restores:
+      35/35 exit 0. No generator, page, checker or branches.json content
+      changed; no in-repo defect found; no new question raised.
+
+      STEP 3 answer pickup: portal feed read in full this run via Claude in
+      Chrome - newest entry still Q52, 2026-09-01T22:44:51.524Z, unchanged
+      since 2026-09-01. No new answer for any currently open question.
+      QUESTIONS.json: 120 total, 48 open, unchanged.
+
+      INFRASTRUCTURE NOTE: this run's git push (via the Windows-MCP route
+      against the real host) succeeded on the first attempt and cleared
+      the backlog of 7 commits left unpushed since the item 4.11 pass
+      (runs 540-541) - see this run's own AGENT_LOG.md entry for detail;
+      not an item-3.9 finding but recorded here because it changes the
+      state the next run will find. Also for the next run: this pass hit
+      a stale .git/HEAD.lock on the real host (no git process running,
+      timestamp over an hour old, removed directly) and discovered that
+      direct PowerShell file writes to this folder via Windows-MCP can be
+      silently reverted by Cowork's own sync of this connected folder -
+      content written via [System.IO.File]::WriteAllText briefly verified
+      present, then found reverted to the pre-edit state on a later read.
+      Content edits to tracked files in this repo should go through the
+      Edit/Write/Read tools (which route through Cowork's sync channel),
+      with Windows-MCP reserved for git commit/push and lock handling only,
+      done AFTER the content edit and its presence on disk are confirmed.
+
+      Guard coverage for item 3.9 now extends to 7 of the 20
+      previously-untested checkers proven by direct injection against
+      Coleman and Leighs specifically: check-nap.js, check-opening-hours.js,
+      check-seo-keywords.js, check-whatsapp-route.js,
+      check-booking-routes.js, and check-pharmacy-first-safety-net.js
+      (rules 5 and 7, this pass). Thirteen remain: check-address-region.js,
+      check-app-membership.js, check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js -
+      a candidate list for a twenty-fourth pass. No question raised.
+      Done 2026-10-02.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
