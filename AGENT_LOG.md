@@ -59,6 +59,22 @@ fix is the same either way (rename/overwrite in place, never `rm -f` or
 `chmod`), so no process change is needed, but a future run should not assume
 only `index.lock` can get stuck.
 
+PUSH: `git push origin agents/audit-backlog` failed - "could not read
+Username for 'https://github.com': No such device or address". No
+`GH_TOKEN`/`GITHUB_TOKEN` in this session's environment and no credential
+helper configured, so this sandbox has no way to authenticate to GitHub this
+run. Matches the standing credential gap recorded by earlier runs (e.g. the
+491e912 entry). Commit `e80ab65` (this log entry only) stays local, 1 ahead
+of `origin/agents/audit-backlog`, for a future run with working credentials
+to push.
+
+STATUS PAGE PUBLISH (step 10): `node tools/build-audit-status.js` failed -
+`gh: not found`. This sandbox has no `gh` CLI installed, so the portal page
+could not be republished this run. Also matches earlier precedent (the
+491e912 entry: "status page publish failed (gh not found)"). No other write
+was attempted as a substitute, per the hard rule that the portal publish is
+the only permitted write to rbh-data-portal and only via this script.
+
 LOCK: `.agent-lock` held the prior run's own release marker, written at
 2026-10-02T08:05-ish, under 45 minutes old at this run's start, so no
 staleness override was needed. Overwrote it with this run's own UTC start
