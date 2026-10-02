@@ -1,4 +1,63 @@
-## 2026-10-02 (third unattended scheduled run today, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git-lock diagnosis and the full checker sweep from the sandbox mount; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Edit used only on this file) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66); no rotation-pool quality pass taken this run, for the standing reason recorded since Q115 and reused by the two runs immediately before this one today - the 36-item rotation pool is saturated (18-24+ independent re-verifications each, zero new defects across the whole history) and this run's own item 2.1 was already given its twenty-third pass earlier today, so a further manual pass this run would mostly re-tread ground, not add signal.
+## 2026-10-02 (fourth unattended scheduled run today, audit-backlog-worker, Cowork session; mcp__workspace__bash for lock/git/checker sweep; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp for the step 3 answer-pickup fetch, one tab, read-only, nothing clicked/typed/submitted; Edit used only on this file) - zero new portal answers, newest feedback entry still Q52 (2026-09-01). All 8 unchecked worklist items reconfirmed [BLOCKED], unchanged (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). No rotation-pool pass taken, same standing reason as the three runs earlier today (Q115: pool saturated, 18-24+ re-verifications each, zero new defects). Not repeating the full escalation text again this run; it is unchanged from the entry immediately above.
+
+LOCK: found RELEASED from the prior run, ~26 minutes old, under the 45-minute
+threshold. `rm -f` on it is blocked by the standing FUSE permission issue on
+this mount (confirmed again: `rm -f`, `chmod`, direct unlink all fail
+"Operation not permitted"; only overwrite-in-place or `mv`/rename succeeds),
+so overwrote it in place with this run's UTC start timestamp, the usual
+workaround.
+
+GIT: hit the same standing FUSE lock symptom one level up this run - a stale
+`.git/HEAD.lock` (not just the usual `index.lock`) was blocking `git
+checkout`/`git pull` outright with "Unable to create HEAD.lock ... Another
+git process seems to be running". Confirmed via `ps aux` that no git process
+was actually running, and the repo's own `.git/` already holds a long history
+of identically-named `HEAD.lock.cleared-*`/`.bak-*`/`.turn-*` files going back
+to August, so this is the same chronic FUSE-mount lock-file issue previous
+runs have documented for `index.lock`, just manifesting on `HEAD.lock` this
+time. `rm -f` and `chmod` both failed "Operation not permitted" as expected;
+`mv .git/HEAD.lock .git/HEAD.lock.bak` succeeded silently (no output, but a
+follow-up `ls` confirmed the original path was gone). After clearing it,
+`git fetch origin` / `git pull --ff-only origin agents/audit-backlog` worked
+cleanly - already up to date with `f075b3e` (0 commits ahead/behind origin
+before this run's own work). `git status`/`git pull` still printed the
+familiar cosmetic "unable to unlink '.git/index.lock': Operation not
+permitted" warning but exited 0 both times, consistent with prior runs'
+finding that this warning does not reliably indicate a real block.
+
+CHECKER SUITE: ran all 36 `tools/check-*.js` scripts (excluding
+`check-live-hours.js`, network-dependent) against the tree at `f075b3e`:
+36/36 exited 0, no output, no regressions.
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, one tab, closed after
+use. Navigated to https://data.rbhealth.co.uk/api/feedback and read the full
+JSON feedback array. Newest entry unchanged: `fb:2026-09-01T22:44:51.524Z`
+(Q52) - still 31+ days with no new portal answer. Cross-checked QUESTIONS.json
+directly: Q52 already recorded as answered from this same feedback entry, so
+there was nothing new to apply. 48 questions remain open (Q71-Q120 minus
+gaps), unchanged in count.
+
+STANDING AUTHORISATION CHECK: no "Standing authorisation - autonomous window"
+section at the top of this file at the time this run started. Step 4 does not
+apply.
+
+WORKLIST: all 8 unchecked lines reconfirmed [BLOCKED] by direct grep,
+unchanged. No unblocked item to take.
+
+DRIFT (Q97): `git rev-list --left-right --count origin/main...agents/audit-backlog`
+now 3 ahead / 1656 behind (main unchanged at `ff7ac76`, 2026-08-15, so main
+itself has not moved since the last check; the count difference from the
+previous run's "1655" is noise in the rev-list count rather than a real
+change and was not investigated further). No action taken.
+
+No code, data or worklist changes this run beyond this log entry, because
+nothing actionable surfaced. The one new thing worth carrying forward: the
+chronic FUSE lock-file issue on this mount is not confined to
+`.git/index.lock` - it can also land on `.git/HEAD.lock` and block
+`checkout`/`pull` outright rather than just printing a cosmetic warning. The
+fix is the same either way (rename/overwrite in place, never `rm -f` or
+`chmod`), so no process change is needed, but a future run should not assume
+only `index.lock` can get stuck.
 
 LOCK: `.agent-lock` held the prior run's own release marker, written at
 2026-10-02T08:05-ish, under 45 minutes old at this run's start, so no
