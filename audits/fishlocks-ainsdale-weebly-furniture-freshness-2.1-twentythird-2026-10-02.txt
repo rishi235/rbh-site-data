@@ -1,0 +1,118 @@
+Item 2.1 (Fishlocks Chemist Ainsdale) quality pass (twenty-third), 2026-10-02
+Scheduled unattended run (audit-backlog-worker, Cowork sandbox)
+
+CONTEXT
+-------
+Prior pass count for this item: twenty-two, latest on 2026-09-18 (check-switch-copy.js,
+rules 1/2/6/7/10, completing all 11 rules of that checker against this branch).
+check-weebly-furniture-freshness.js (added 2026-09-18, item 5.1 twenty-second pass)
+had never been mentioned anywhere in this item's own block across all twenty-two
+prior passes - zero hits on a full-text grep for the checker's name - so it was
+chosen as this pass's fresh angle: prove it by injection against Fishlocks Chemist
+Ainsdale's own row in WEEBLY_FURNITURE_CHECKLIST.md for the first time.
+
+PRE-FLIGHT BASELINE FIX (found before this item's own work began)
+-------------------------------------------------------------------
+A routine baseline full-checker-suite run at the start of this session found
+tools/check-postcodes.js already FAILing on the tracked repo (3 UNKNOWN failures
+naming AGENT_LOG.md, AGENT_WORKLIST.md and
+audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt, all
+quoting "L9 9DZ" - the injected value from this session's own immediately
+preceding run, item 4.15's twenty-first quality pass, committed without being
+registered in NARRATIVE_POSTCODES). This is the same gap this list has now
+closed twenty-five times (see the checker's own header comment and the new
+"L9 9DZ" entry). Fixed before any of this item's own work began, in the same
+commit as this pass, per the established convention (KNOWN/NARRATIVE lists
+cannot be left stale). Re-ran the full 36-checker suite after the fix: clean
+except check-cdn-pins.js, which is explained below (environmental, not a repo
+defect).
+
+METHOD
+------
+Tracked repo anchors recorded before any mutation:
+  branches.json                    sha256 169bb5a2...b102
+  WEEBLY_FURNITURE_CHECKLIST.md     sha256 0f601ffa...4ff985b
+Repo copied via `git archive HEAD | tar -x` into a scratch directory outside
+the tracked tree (/sessions/laughing-awesome-curie/scratch/repo21, on the
+sandbox's own filesystem, not the FUSE-mounted connected folder, so normal
+unlink/overwrite semantics are available for the injection-and-restore cycle).
+The working-tree-only fix to tools/check-postcodes.js (not yet committed at
+archive time) was copied on top, since the archive only captures HEAD.
+
+Scratch baseline: 35/36 checkers clean. check-cdn-pins.js failed 6 ways, all
+of them git-ref resolution ("ref 'service-module-phase1' does not resolve in
+git", "ref 'main' does not resolve") - `git archive` strips the .git directory
+entirely, so this checker's live git-ref lookups have nothing to resolve
+against in a scratch copy made this way. Confirmed this is an artefact of the
+archive method, not a repo defect, by re-running check-cdn-pins.js directly
+against the tracked mount: clean (0 failures), matching the full baseline run
+at the top of this session. Noted for any future pass using the same
+archive-based scratch method: check-cdn-pins.js specifically needs a full
+`cp -a` (including .git) rather than `git archive`, or must be excluded from
+the scratch suite re-run and verified only against the tracked copy instead.
+
+INJECTION 1 - branches.json moves on, checklist does not (the shape this
+checker's own header comment describes as its reason for existing)
+Changed fishlocks_ainsdale's phone in the scratch branches.json from
+"01704 575478" to "01704 999999"; WEEBLY_FURNITURE_CHECKLIST.md left
+untouched.
+CAUGHT, first attempt, naming the exact branch and field:
+  FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+  branches.json (in Fishlocks Chemist Ainsdale (fishlocks_ainsdale)'s table):
+        first differs at line 103
+        checked-in : | Phone | 01704 575478 |
+        fresh build: | Phone | 01704 999999 |
+Restored by byte copy from branches.json.bak; sha256-reconfirmed identical.
+Re-ran: clean.
+
+INJECTION 2 - the checklist is hand-edited directly (the failure mode the
+checker's own tail message warns against by name: "Do not hand-edit
+WEEBLY_FURNITURE_CHECKLIST.md")
+branches.json left untouched. Edited the checked-in
+WEEBLY_FURNITURE_CHECKLIST.md's own Fishlocks Chemist Ainsdale row, changing
+"NHS mailbox | pharmacy.FK848@nhs.net" to
+"NHS mailbox | pharmacy.FK848-STALE@nhs.net".
+CAUGHT, first attempt, same branch, same precision:
+  FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+  branches.json (in Fishlocks Chemist Ainsdale (fishlocks_ainsdale)'s table):
+        first differs at line 104
+        checked-in : | NHS mailbox | pharmacy.FK848-STALE@nhs.net |
+        fresh build: | NHS mailbox | pharmacy.FK848@nhs.net |
+Restored by byte copy from WEEBLY_FURNITURE_CHECKLIST.md.bak;
+sha256-reconfirmed identical. Re-ran: clean.
+
+Both injections caught the fault from opposite directions - branches.json
+moving on under a static checklist, and the checklist itself being edited by
+hand - which are the two failure modes this checker's own header comment and
+tail message separately describe. Both name Fishlocks Chemist Ainsdale's
+table specifically, proving the checker's branch-context lookup (scanning
+upward for the nearest "### <name> (`id`)" heading) resolves correctly for
+this branch.
+
+TRACKED REPO VERIFICATION
+--------------------------
+Both anchor hashes reconfirmed unchanged on the real mounted repo after the
+injection work:
+  branches.json                    sha256 169bb5a2...b102 (unchanged)
+  WEEBLY_FURNITURE_CHECKLIST.md     sha256 0f601ffa...4ff985b (unchanged)
+git status on the tracked repo shows only the pre-existing long-standing
+untracked strays (sandbox probe files, .agent-lock debris, old audit JSONs)
+already documented elsewhere in this log, plus this pass's own intended
+change (tools/check-postcodes.js). Scratch directory deleted after use.
+
+RESULT
+------
+Zero in-repo defect. check-weebly-furniture-freshness.js is now proven by
+direct injection against Fishlocks Chemist Ainsdale specifically, in both
+directions the checker exists to guard against, for the first time across
+twenty-three passes on this item.
+
+LIVE HALF
+---------
+Not re-checked this pass (budget spent on the baseline fix and the injection
+proof; the branch's live switch page and sitemap state were already
+reconfirmed as recently as the twenty-second pass, 2026-09-18, with no reason
+to expect drift in twelve days on a site with no republish since 2026-08-14
+per Q35).
+
+No new question raised.

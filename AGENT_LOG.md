@@ -1,4 +1,92 @@
-## 2026-10-02 (unattended scheduled run, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git diagnosis from the sandbox mount and the scratch-copy injection work for item 4.15's twenty-first pass; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used for the real C:\Dev\rbh-site-data host index.lock clear and git fetch/checkout/pull/add/commit/push; Write/Edit used for the content changes to AGENT_WORKLIST.md, this file and the new audit evidence file, per the previous run's own near-miss note - a direct host-side write can be reverted by Cowork's own folder sync, so all content edits went through the connected-folder file tools instead) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66, each genuinely needing a supervised live session rather than a stale tag), so this was the quality-pass fallback.
+## 2026-10-02 (second unattended scheduled run today, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git diagnosis and baseline checker suite from the sandbox mount, plus the scratch-copy injection work for item 2.1's twenty-third pass, this time copied to the sandbox's own filesystem outside the FUSE-mounted connected folder rather than another mount-local scratch directory; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for all content changes to AGENT_WORKLIST.md, this file, tools/check-postcodes.js and the new audit evidence file) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66, each genuinely needing a supervised live session rather than a stale tag), so this was the quality-pass fallback, same as the run immediately before it.
+
+LOCK: `.agent-lock` held "RELEASED (run complete, 2026-10-02T05:53:42Z)",
+about 48 minutes old at this run's start - past the 45-minute staleness
+threshold. `rm -f` failed "Operation not permitted" (the standing FUSE
+unlink restriction on this mount); overwriting the same filename with a
+fresh UTC timestamp via direct write succeeded instead, the same
+workaround every prior run on this mount has needed.
+
+GIT: `git fetch origin`, `git checkout agents/audit-backlog` (already on
+it), `git pull --ff-only origin agents/audit-backlog` - already up to date
+with `a37d46b` (item 4.15's own twenty-first pass, the immediately
+preceding run today), 0 commits ahead/behind origin before this run's own
+work.
+
+BASELINE CHECKER SUITE (before any of this run's own work): 36/36 run,
+tools/check-postcodes.js FAILED with 3 UNKNOWN failures, all naming the
+postcode "L9 9DZ" in AGENT_LOG.md, AGENT_WORKLIST.md and
+audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt.
+That value is the injection this session's own immediately preceding run
+used to prove check-postcodes.js's own RULE 2 (MISSING) against Tiffenbergs
+Chemist Longmoor during item 4.15's twenty-first pass - a real, legitimate
+test record, committed without being registered in NARRATIVE_POSTCODES, the
+same gap this list's own header comment says it has now closed twenty-four
+times before (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER,
+WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG,
+L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00
+0XX, ZZ97 6ZZ, L9 9DC, L23 3AU, L20 3DA). Fixed first, before any of this
+run's own chosen work began: added "L9 9DZ" to NARRATIVE_POSTCODES in
+tools/check-postcodes.js with the standard reason-and-reference format
+(the twenty-fifth instance). Re-ran check-postcodes.js alone: 0 failures,
+3 warnings (the standing UNOWNED template/branch-module warnings,
+unrelated). Full 37-checker suite (36 named check-*.js plus the one
+freshly counted) re-run clean.
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, one tab, closed after
+use. Navigated to https://data.rbhealth.co.uk/api/feedback and read the
+full JSON feedback array. Newest entry still fb:2026-09-01T22:44:51.524Z
+(Q52), unchanged - same result as the run immediately before this one.
+
+STANDING AUTHORISATION CHECK: no "Standing authorisation - autonomous
+window" section at the top of this file. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by
+direct grep, unchanged from the run immediately before this one. Quality-
+pass fallback.
+
+CANDIDATE SELECTION: derived the most recent "item N.N" commit per item
+from `git log --format="%cI|%s"`, excluding the standing rotation-exclusion
+list (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the blocked-item identifiers
+(5.8, 6.6, which appear in commit subjects despite not being completed
+rotation-pool items) and the nine items already touched earlier today
+(1.2, 3.6, 3.8, 3.9, 4.5, 4.6, 4.11, 4.14, 4.15). Stalest by a wide margin:
+2.1 (Fishlocks Chemist Ainsdale), last touched 2026-09-18T11:45:49+01:00 -
+over two weeks, and ahead of the next-stalest cluster (3.4, 4.4, 5.2, 4.7,
+4.1, 4.10, 4.3, 4.8, 3.3, all also 2026-09-18). Read item 2.1's own current
+block (twenty-two prior passes) before choosing: the twenty-second pass
+completed proving all 11 rules of check-switch-copy.js against this
+branch. Full-text grep of the item's own block for every one of the
+repo's 36 checker filenames found check-weebly-furniture-freshness.js at
+zero mentions - the only checker never once discussed against this item -
+so that was chosen as the fresh angle.
+
+WORK DONE (item 2.1, twenty-third quality pass): full detail in
+AGENT_WORKLIST.md's item 2.1 block and
+audits/fishlocks-ainsdale-weebly-furniture-freshness-2.1-twentythird-2026-10-02.txt.
+Repo copied via `git archive HEAD | tar -x` into a scratch directory on the
+sandbox's own filesystem (/sessions/laughing-awesome-curie/scratch/repo21,
+not the connected-folder mount, so unlink/overwrite work normally for the
+injection-and-restore cycle), with the not-yet-committed check-postcodes.js
+fix copied on top since `git archive` only captures HEAD. Scratch baseline:
+35/36 clean; check-cdn-pins.js failed 6 ways, all git-ref resolution
+failures, because `git archive` strips `.git` entirely and that checker's
+live ref lookups had nothing to resolve against - confirmed as an
+archive-method artefact, not a repo defect, by re-running it directly
+against the tracked mount (clean). Two injections against Fishlocks
+Chemist Ainsdale's own WEEBLY_FURNITURE_CHECKLIST.md row, both caught on
+the first attempt: (1) branches.json's phone changed, checklist left
+untouched - CAUGHT, naming the branch and the Phone row exactly; (2) the
+checklist's own NHS mailbox row hand-edited, branches.json left untouched
+- CAUGHT, naming the branch and the NHS mailbox row exactly. Both restored
+by byte copy and sha256-reconfirmed identical. Tracked repo's two anchor
+hashes (branches.json, WEEBLY_FURNITURE_CHECKLIST.md) unchanged throughout.
+Scratch directory deleted after use. RESULT: zero in-repo defect;
+check-weebly-furniture-freshness.js now proven by direct injection against
+this branch for the first time, in both directions the checker exists to
+guard against. No new question raised.
+
+QUESTIONS.json: 120 total, 48 open, unchanged by this run.
 
 LOCK: `.agent-lock` in the sandbox mount held "RELEASED (run complete,
 2026-10-02T04:28:31Z)", roughly 73 minutes before this run's start - past

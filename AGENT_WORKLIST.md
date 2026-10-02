@@ -1598,6 +1598,33 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       QUESTIONS.json unchanged: 111 total, 58 open.
       Full detail: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-09-18-twentysecond.txt.
       Done 2026-09-18.
+      TWENTY-THIRD PASS (2026-10-02, scheduled unattended run): fresh angle -
+      check-weebly-furniture-freshness.js (added 2026-09-18, item 5.1
+      twenty-second pass) had never been mentioned anywhere in this item's
+      twenty-two prior passes. Pre-flight: a baseline full-checker-suite run
+      found tools/check-postcodes.js already failing on the tracked repo
+      (3 UNKNOWN failures quoting "L9 9DZ", the injected value from this
+      session's own immediately preceding run on item 4.15, committed
+      without being registered in NARRATIVE_POSTCODES); fixed first, in the
+      same commit, the twenty-fifth time this exact gap has recurred. Then,
+      on a git-archive scratch copy outside the tracked tree: two injections
+      against Fishlocks Chemist Ainsdale's own row, both caught on the first
+      attempt and both naming the branch precisely - (1) branches.json's
+      phone changed with the checklist left untouched (the "branches.json
+      moved on" shape the checker's own header exists for), and (2) the
+      checklist's own NHS mailbox row hand-edited with branches.json left
+      untouched (the "do not hand-edit" shape its own tail message warns
+      against by name). Both restored by byte copy and sha256-reconfirmed
+      identical; tracked repo's two anchor hashes unchanged throughout.
+      check-cdn-pins.js failed on the scratch copy only because `git archive`
+      strips .git, so its live ref-resolution lookups had nothing to resolve
+      against - confirmed as an archive-method artefact, not a repo defect,
+      by re-running it directly against the tracked mount (clean). Zero
+      in-repo defect; check-weebly-furniture-freshness.js now proven by
+      direct injection against this branch for the first time, in both
+      directions. No new question raised.
+      Full detail: audits/fishlocks-ainsdale-weebly-furniture-freshness-2.1-twentythird-2026-10-02.txt.
+      Done 2026-10-02.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
