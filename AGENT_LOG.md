@@ -1,4 +1,109 @@
-## 2026-10-02 (unattended scheduled run, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git diagnosis from the sandbox mount, QUESTIONS.json/AGENT_WORKLIST.md reads and candidate-staleness grepping; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell/FileSystem used for the real C:\Dev\rbh-site-data host lock overwrite, git fetch/pull/push and the scratch-copy injection work for item 3.9's twenty-third pass; Edit/Read used for the content changes to AGENT_WORKLIST.md and this file, after a near-miss where a direct PowerShell file write was found reverted by Cowork's own folder sync - see INFRASTRUCTURE NOTE below) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), so this was the quality-pass fallback.
+## 2026-10-02 (unattended scheduled run, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git diagnosis from the sandbox mount and the scratch-copy injection work for item 4.15's twenty-first pass; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; mcp__Windows-MCP__PowerShell used for the real C:\Dev\rbh-site-data host index.lock clear and git fetch/checkout/pull/add/commit/push; Write/Edit used for the content changes to AGENT_WORKLIST.md, this file and the new audit evidence file, per the previous run's own near-miss note - a direct host-side write can be reverted by Cowork's own folder sync, so all content edits went through the connected-folder file tools instead) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66, each genuinely needing a supervised live session rather than a stale tag), so this was the quality-pass fallback.
+
+LOCK: `.agent-lock` in the sandbox mount held "RELEASED (run complete,
+2026-10-02T04:28:31Z)", roughly 73 minutes before this run's start - past
+the 45-minute staleness threshold. `rm -f` from the sandbox mount failed
+"Operation not permitted" (the standing FUSE unlink restriction); `mv`
+within the same directory succeeded, so the stale file was renamed aside
+and a fresh file written with a current UTC timestamp, the same
+rename-not-delete workaround this mount has needed every run. Noted in
+passing: the directory already held three dozen-plus `.agent-lock.*`
+debris files from past runs hitting the identical restriction (all
+gitignored via `.agent-lock*`, so none of this reaches the tracked repo);
+not cleaned up this run, out of scope for a single work item.
+
+GIT: a fresh, 0-byte `.git/index.lock` (no git process holding it) was
+hit mid-run during a `git status` call from the sandbox mount - the same
+standing fault. Cleared via `mcp__Windows-MCP__PowerShell`'s
+`Remove-Item -Force` against the real `C:\Dev\rbh-site-data\.git\index.lock`.
+`git fetch origin`, `git checkout agents/audit-backlog` (already on it),
+`git pull --ff-only origin agents/audit-backlog` - already up to date with
+`c1f56ca` (run 3.9's twenty-third pass), 0 commits ahead/behind origin, no
+backlog to clear.
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, one tab, closed
+after use. Navigated to https://data.rbhealth.co.uk/api/feedback and read
+the full JSON feedback array. Newest entry still fb:2026-09-01T22:44:51.524Z
+(Q52), unchanged for over a month. No new answers to apply.
+
+STANDING AUTHORISATION CHECK: no "Standing authorisation - autonomous
+window" section at the top of this file. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by
+direct grep (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6).
+Spot-checked 5.3's own text: Rishi's answer (Q8) deliberately ties the
+repo repoint to a live Weebly paste in the same visit, which an unattended
+run cannot do - genuinely blocked, not a stale tag. Quality-pass fallback.
+
+CANDIDATE SELECTION: derived the 29-item main rotation pool (all checked
+items minus the standing rotation-exclusion list 1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8) and pulled each item's most recent "item N.N"/"Item N.N" commit
+timestamp via `git log --oneline --format="%cI %s" | grep -iE`. Excluding
+the eight items touched today or yesterday (1.2, 3.6, 3.8, 3.9, 4.5, 4.6,
+4.11, 4.14), the stalest by a clear margin was 4.15 (Tiffenbergs Chemist
+Aintree GBP pack), last touched 2026-09-18T10:12:51+01:00 (run 106,
+twentieth pass) - ahead of the next-stalest cluster at 2026-09-18T11:45 to
+21:43 (2.1, 3.4, 4.4, 5.2, 4.7, 4.1, 3.3/1.3/4.8). Read item 4.15's own
+current block in full before choosing: its twentieth pass left an
+explicit forward note naming tools/check-postcodes.js rules 0 (MALFORMED),
+2 (MISSING), 4 (DISPOSED) and 7 (DUPLICATE) as unproven against this
+specific pack. Chosen: 4.15, twenty-first pass, that fresh angle.
+
+WORK DONE (item 4.15, twenty-first quality pass): full detail in
+AGENT_WORKLIST.md's item 4.15 block and
+audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt.
+Baseline: full 37-checker suite clean on the tracked repo (37/37);
+gbp-packs/tiffenbergs-aintree.md sha256 59d288c1...6811b and branches.json
+sha256 169bb5a2...b102 both confirmed at their standing baselines. Repo
+byte-copied (cp -a, .git included) to a scratch directory outside the
+tracked tree; tracked repo never opened for writing during the injection
+round, confirmed by sha256 comparison after each restore and by
+`git status --porcelain -- branches.json tools modules core gbp-packs`
+showing no change at the end.
+
+Four rounds against check-postcodes.js, each restored by byte copy and
+sha256-reconfirmed identical before the next: (1) rule 0 MALFORMED -
+tiffenbergs_longmoor's own postalCode corrupted from "L9 9DB" to "L99DB"
+(space removed) - CAUGHT, naming the branch, reproducing the documented
+UNKNOWN cascade (75 failures) the rule's own header comment describes,
+and proving this rule against Tiffenbergs' own value for the first time
+(previously only proven against gordonshorts_crosby, item 1.3 thirteenth
+pass); (2) rule 2 MISSING - postalCode changed to "L9 9DZ" (valid shape,
+used nowhere), pages/pack left untouched - CAUGHT, the declared-but-
+unused branch of the rule, naming tiffenbergs_longmoor exactly; (3) rule 4
+DISPOSED - a scratch-only disposed:true branch added to branches.json
+carrying Wilmslow's own real historical postcode (SK9 2TA), then that
+postcode injected into THIS pack's own Post A intro sentence - CAUGHT,
+naming gbp-packs/tiffenbergs-aintree.md specifically and the disposed
+branch (two expected STALE warnings on the pre-existing
+NARRATIVE_POSTCODES/UNKNOWN_KNOWN entries for the same postcode, the
+identical side effect the item 1.3 tenth-pass proof of this rule
+recorded); (4) rule 7 DUPLICATE - postalCode changed to "L20 5DW", SK
+Chemists Bootle's real live postcode, no DELIBERATE_SHARED_POSTCODES
+exemption - CAUGHT, naming both skchemists_bootle and tiffenbergs_longmoor.
+All four fired on the first attempt, each naming the intended
+branch/file. No checker gap found; no in-repo defect.
+
+RESULT: all eight rules of check-postcodes.js are now proven by direct
+injection against this pack specifically, closing the twentieth pass's
+own forward note - no further candidate angle recorded for this checker
+on this item. Full 37-checker suite re-run clean after the final restore:
+37/37. No generator, page, checker or branches.json content changed; no
+new question raised.
+
+LIVE HALF: not attempted this pass, repo/data-schema scope only (these
+rules govern branches.json content and text pasted into Weebly/GBP, not a
+URL a read-only fetch could verify). The seventeenth pass's live verdicts
+(2026-09-15) stand.
+
+INFRASTRUCTURE NOTE: following the immediately preceding run's own
+near-miss finding (a direct PowerShell file write to the real host being
+silently reverted by Cowork's own folder sync), every content edit this
+run (AGENT_WORKLIST.md, this file, the new audit evidence file) was made
+through the connected-folder Write/Edit tools rather than through
+Windows-MCP PowerShell/FileSystem; Windows-MCP was used only for the
+index.lock clear and the git plumbing (fetch/checkout/pull/add/commit/
+push), per the same precedent.
 
 LOCK AND ENVIRONMENT: this run began in the Cowork sandbox mount at
 /sessions/.../mnt/rbh-site-data (the same underlying files as the real

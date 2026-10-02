@@ -30509,6 +30509,54 @@ directly rather than re-deriving the same facts by hand.
       still the Q52 answer (2026-09-01), unchanged; no answer arrived for any
       of the 58 currently-open questions. No new question raised. Evidence in
       audits/tiffenbergs-aintree-postcode-check-4.15-twentieth-2026-09-18.txt.
+      Quality pass 2026-10-02 (twenty-first re-verification, repo half only,
+      Cowork session): pack re-confirmed byte-identical to baseline (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b) and
+      all 37 checkers re-run clean before and after testing. Fresh angle:
+      the twentieth pass's own forward note - check-postcodes.js rules 0
+      (MALFORMED), 2 (MISSING), 4 (DISPOSED) and 7 (DUPLICATE) unproven
+      against this specific pack. Full repo byte-copied (.git included) to
+      a scratch directory outside the tracked tree; all injections and
+      checker runs against the scratch copy only, tracked files never
+      opened for writing. Four rounds, each restored by byte copy and
+      sha256-reconfirmed identical before the next: (1) rule 0 -
+      tiffenbergs_longmoor's branches.json postalCode corrupted from
+      "L9 9DB" to "L99DB" (no space) - CAUGHT, naming the branch and
+      producing the documented UNKNOWN cascade, the same rule proven on
+      2026-08-10 against gordonshorts_crosby but never before against this
+      branch's own value; (2) rule 2 - postalCode changed to "L9 9DZ", a
+      valid-shaped postcode used nowhere else, pages/pack left untouched -
+      CAUGHT, "is only declared or narrated (branches.json): no page, pack
+      or paste block carries this branch's address"; (3) rule 4 - a
+      scratch-only disposed:true branch added to branches.json (Wilmslow's
+      own real historical postcode, SK9 2TA) and that postcode injected into
+      THIS pack's own Post A intro sentence - CAUGHT, "DISPOSED gbp-packs/
+      tiffenbergs-aintree.md: postcode SK9 2TA belongs to disposed branch
+      wilmslow_disposed_scratch" (two expected STALE warnings on the
+      pre-existing NARRATIVE_POSTCODES/UNKNOWN_KNOWN entries for the same
+      postcode, the identical side effect the item 1.3 tenth-pass proof of
+      this rule recorded); (4) rule 7 - postalCode changed to "L20 5DW", SK
+      Chemists Bootle's real live postcode, no DELIBERATE_SHARED_POSTCODES
+      exemption - CAUGHT, "DUPLICATE ... shared by live branches
+      skchemists_bootle, tiffenbergs_longmoor". All four rounds fired on
+      the first attempt, each naming the intended branch/file. No checker
+      gap found; no in-repo defect. Full 37-checker suite re-run clean
+      after the final restore; branches.json and the pack both
+      sha256-reconfirmed identical to baseline; tracked repo (sandbox mount
+      and, separately, the real host via Windows-MCP) confirmed untouched
+      throughout (`git status --porcelain` on branches.json, tools,
+      modules, core, gbp-packs clean). All eight rules of
+      check-postcodes.js are now proven by direct injection against this
+      pack specifically; no further candidate angle recorded for this
+      checker on this item. Live half not attempted: these rules govern
+      branches.json content and text pasted into Weebly/GBP, not a URL a
+      read-only fetch could verify regardless; the seventeenth pass's live
+      verdicts (2026-09-15) stand. Answer pickup (this run's own step 3):
+      Claude in Chrome, one tab, read-only, closed after use; newest portal
+      entry still the Q52 answer (2026-09-01), unchanged; no answer arrived
+      for any of the 48 currently-open questions. No new question raised.
+      Evidence in
+      audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date

@@ -1,0 +1,120 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) - twenty-first quality pass
+2026-10-02 (unattended scheduled run, audit-backlog-worker)
+
+PURPOSE
+Close the fresh-angle gap the twentieth pass (2026-09-18) left open: of
+tools/check-postcodes.js's eight rules, rules 1 (UNKNOWN), 3 (FOREIGN) and 6
+(MISATTRIB) had been proven by direct injection against this pack's own copy
+that day; rules 0 (MALFORMED), 2 (MISSING), 4 (DISPOSED) and 7 (DUPLICATE)
+had not, and were recorded as the candidate for a future pass. This pass
+closes all four.
+
+METHOD
+Full repo byte-copied (cp -a, .git included) to /tmp/scratch-4.15-21st,
+outside the tracked tree. All injections and checker runs performed against
+the scratch copy only; the tracked repo (both the sandbox mount and, for the
+git operations, the real host C:\Dev\rbh-site-data) was never opened for
+writing during the injection round.
+
+BASELINE
+branches.json sha256: 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+gbp-packs/tiffenbergs-aintree.md sha256: 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+(both match the standing baselines quoted throughout this item's and item
+3.9's history). Full 37-checker suite (tools/check-*.js): 37/37 exit 0
+before any injection.
+
+ROUND 1 - Rule 0 (MALFORMED)
+branches.json (scratch): tiffenbergs_longmoor's postalCode changed from
+"L9 9DB" to "L99DB" (space removed, fails the UK postcode shape regex).
+CAUGHT, first attempt:
+  MALFORMED branches.json: tiffenbergs_longmoor's postalCode "L99DB" is not
+  shaped like a UK postcode, so no rule below can match it against any
+  page, pack or paste block. Correct the value at source.
+Produced the documented cascade (every file still correctly carrying the
+real "L9 9DB" now reads as UNKNOWN, 75 failures total), matching the header
+comment's own description of this rule's effect and the shape of the
+original proof on gordonshorts_crosby (item 1.3, thirteenth pass) - this is
+the same rule proven for the first time specifically against Tiffenbergs'
+own value rather than a sibling branch's.
+Restored by byte copy from branches.json.bak; sha256 reconfirmed identical
+to baseline. Re-run: 0 failures, 3 warnings.
+
+ROUND 2 - Rule 2 (MISSING)
+branches.json (scratch): tiffenbergs_longmoor's postalCode changed from
+"L9 9DB" to "L9 9DZ" (valid shape, used nowhere in the repo), pages and pack
+left untouched so the old postcode "L9 9DB" still appears everywhere it
+should (confirmed by the cascade of UNKNOWN failures on every file
+correctly carrying the branch's real postcode).
+CAUGHT, first attempt, exactly the declared-but-not-used branch of the rule:
+  MISSING  postcode L9 9DZ (tiffenbergs_longmoor) is only declared or
+  narrated (branches.json): no page, pack or paste block carries this
+  branch's address
+Restored by byte copy; sha256 reconfirmed identical to baseline. Re-run: 0
+failures, 3 warnings.
+
+ROUND 3 - Rule 4 (DISPOSED)
+branches.json (scratch): appended a scratch-only entry
+"wilmslow_disposed_scratch" with disposed:true and Wilmslow's own real
+historical postcode (SK9 2TA, the same value the standing NARRATIVE_POSTCODES
+and UNKNOWN_KNOWN entries already excuse elsewhere in the file - Wilmslow
+itself carries no live branches.json entry today per the Q2 answer, 5
+August 2026).
+gbp-packs/tiffenbergs-aintree.md (scratch): one sentence inserted
+immediately before "Post A" - "We also used to serve patients near SK9 2TA
+before that branch left the group." - injecting the disposed postcode into
+THIS pack specifically (gbp-packs is in OWNED_DIRS, and the rule fires on
+any owned-dir file carrying a disposed branch's postcode, independent of
+which branch the file itself belongs to).
+CAUGHT, first attempt, naming this exact file:
+  DISPOSED gbp-packs/tiffenbergs-aintree.md: postcode SK9 2TA belongs to
+  disposed branch wilmslow_disposed_scratch
+Two expected STALE warnings also fired (NARRATIVE_POSTCODES and
+UNKNOWN_KNOWN both naming SK9 2TA, now a real - if scratch-only - branch
+postcode), the identical side effect the item 1.3 tenth-pass proof of this
+same rule recorded; not a defect, a consequence of using the same real
+historical postcode for the test.
+Both files restored by byte copy from their .bak backups; sha256
+reconfirmed identical to baseline on both. Re-run: 0 failures, 3 warnings.
+
+ROUND 4 - Rule 7 (DUPLICATE)
+branches.json (scratch): tiffenbergs_longmoor's postalCode changed from
+"L9 9DB" to "L20 5DW" - SK Chemists Bootle's real, live postcode, and not
+one of the DELIBERATE_SHARED_POSTCODES exemptions (that list covers only
+rbh_head_office_aintree/clearchemist_aintree sharing L9 7AS).
+CAUGHT, first attempt, naming both branches:
+  DUPLICATE branches.json: postcode L20 5DW is shared by live branches
+  skchemists_bootle, tiffenbergs_longmoor, with no DELIBERATE_SHARED_
+  POSTCODES entry excusing it. If the branches genuinely occupy the same
+  building, add an entry naming both ids and why; otherwise correct the
+  wrong branch's postalCode.
+Restored by byte copy; sha256 reconfirmed identical to baseline. Re-run: 0
+failures, 3 warnings.
+
+VERIFICATION
+Full 37-checker suite re-run clean on the scratch copy after the final
+restore: 37/37 exit 0. Scratch copy's branches.json and
+gbp-packs/tiffenbergs-aintree.md confirmed byte-identical (diff -rq, no
+output) against the tracked repo. Tracked repo (sandbox mount) itself
+re-run: 37/37 exit 0, git status --porcelain on branches.json, tools,
+modules, core, gbp-packs clean (aside from the standing .git/index.lock
+FUSE artefact, cleared via Windows-MCP against the real host, unrelated to
+any tracked file). Scratch directory deleted after use.
+
+RESULT
+No in-repo defect found; no generator, page, checker or branches.json
+content changed. All eight rules of tools/check-postcodes.js (0 MALFORMED,
+1 UNKNOWN, 2 MISSING, 3 FOREIGN, 4 DISPOSED, 5 [not a numbered rule - see
+file], 6 MISATTRIB, 7 DUPLICATE) are now proven by direct injection against
+this pack specifically, closing the twentieth pass's own forward note. No
+new question raised.
+
+LIVE HALF
+Not attempted this pass. This checker's rules govern branches.json content
+and text typed into GBP's picker fields / pasted into Weebly, not a URL a
+read-only fetch could verify regardless. The seventeenth pass's live
+verdicts (2026-09-15) stand, not re-verified this pass.
+
+ANSWER PICKUP (this run's own step 3)
+Claude in Chrome, read-only, one tab, closed after use. Newest portal entry
+still the Q52 answer (2026-09-01T22:44:51.524Z), unchanged for over a
+month. No answer arrived for any of the 48 currently-open questions.
