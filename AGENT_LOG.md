@@ -118,12 +118,17 @@ in-repo defect found". Final check: `git status --porcelain` shows exactly
 those tracked changes plus the same pre-existing untracked junk noted above.
 
 COMMIT/PUSH/PUBLISH: committed locally as `c4b2dbf` ("Run (2026-10-01/02,
-Cowork): item 4.6 (McCanns Aigburth) twenty-first quality pass - prove
-check-gbp-pharmacy-first.js rule 2 (coverage both directions) by injection; no
-in-repo defect, every rule in the checker now exercised at least once against
-this pack"). `git push origin agents/audit-backlog` outcome, and the
-`node tools/build-audit-status.js` publish outcome, are recorded in the next
-log entry below (this one, for the log-entry commit itself) once known.
+Cowork): item 4.6 (McCanns Aigburth) twenty-first quality pass...") and
+`a6d2748` ("...log entry for item 4.6 twenty-first quality pass"). `git push
+origin agents/audit-backlog` failed: "could not read Username for
+'https://github.com': No such device or address" - no `gh` binary on PATH, no
+`GITHUB_TOKEN`/credential env var, no credential helper configured, all
+checked directly this run. Same standing gap as Q87/Q96/Q102, now also hit
+from inside a Cowork session rather than only the standalone sandbox, so the
+gap is environment-independent, not an artifact of one sandbox's setup. Both
+commits left on the local `agents/audit-backlog` branch for a run with
+host-level push access to pick up. `node tools/build-audit-status.js` was run
+per step 10 regardless; see its own outcome immediately below.
 
 RECOMMENDATION: unchanged in substance from runs 487-539. Zero new portal
 answers since Q52, now a full month; the 8 blocked worklist items are
