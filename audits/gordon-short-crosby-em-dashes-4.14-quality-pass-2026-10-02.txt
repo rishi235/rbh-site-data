@@ -1,0 +1,99 @@
+Item 4.14 (Gordon Short Chemist Crosby GBP pack) - quality pass, 2026-10-02
+Unattended scheduled run (audit-backlog-worker), executed inside a Cowork session.
+
+FRESH ANGLE
+Of the ten checkers that actually read gbp-packs/*.md (confirmed by grepping
+each tools/check-*.js for a real PACK_DIR/readdirSync reference against
+"gbp-packs", not a comment mentioning another checker's filename -
+check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js), nine had already been proven by injection against
+gbp-packs/gordon-short-crosby.md across this item's prior quality passes
+(confirmed by grepping this item's own AGENT_WORKLIST.md history, with lines
+re-joined to undo markdown word-wrap before matching, since a hyphenated
+checker filename can wrap mid-word across a line break - the exact shape
+CLAUDE.md records as having hidden a reference before). check-em-dashes.js's
+own checkPackFile() rule (a whole-file scan of every gbp-packs/*.md for
+non-ASCII dash characters and named/numeric HTML dash entities) had never
+been exercised against this specific pack by direct injection.
+
+BASELINE
+- git status --porcelain: only the long-standing pre-existing untracked
+  strays (test probes, audit JSON files from scheduled runs, etc.) present;
+  nothing in modules/, core/, gbp-packs/, tools/, compliance/ or
+  branches.json touched before this pass began.
+- sha256(gbp-packs/gordon-short-crosby.md) =
+  49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+- sha256(branches.json) =
+  169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+  (matches the standing regression anchor)
+- sha256(tools/check-em-dashes.js) =
+  29a407cb73926f035e9a7a68123246d339195cc9d3b7d197348164e561a336fe
+- Full 35-checker suite (excluding check-live-hours.js, network-dependent,
+  and check-editor-snapshot.js, per established convention) run directly
+  against the tracked repo: 35/35 exit 0.
+
+METHOD
+Full-tree scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path (/tmp/scratch-4.14), outside the Windows-mounted working tree; the
+tracked working tree was never opened for writing during injection. Baseline
+re-confirmed on the scratch copy (sha256 identical, check-em-dashes.js clean:
+"16 GBP pack(s) held to ASCII only plus no dash entities ... clean, no em or
+en dashes in public copy, literal or HTML entity").
+
+INJECTION 1 (literal non-ASCII em dash): in Section 1 (Business description),
+"serving Crosby, Waterloo and the wider Sefton area" changed to "serving
+Crosby — Waterloo and the wider Sefton area" (one U+2014 character
+inserted). CAUGHT cleanly, exit 1, first attempt:
+  FAIL  gbp-packs/gordon-short-crosby.md line 18 (in GBP pack (non-ASCII
+  U+2014)): Crosby, serving Crosby — Waterloo and the wider Sefton area,
+  and open six
+Restored by byte copy from a saved baseline copy; sha256-reconfirmed
+identical (49acd885...281f9); re-run clean.
+
+INJECTION 2 (named HTML dash entity, the historical defect shape): in Section
+1's closing sentence, "closed 1pm to 2pm for lunch." changed to "closed
+1pm&mdash;2pm for lunch." CAUGHT cleanly, exit 1, first attempt:
+  FAIL  gbp-packs/gordon-short-crosby.md line 26 (in GBP pack (em dash (HTML
+  entity), which would paste literally)): closed 1pm&mdash;2pm for lunch.
+This is the exact entity shape (&mdash;) that the item 3.9/5.1 history
+records as having reached 14 live pages before this checker existed.
+Restored by byte copy; sha256-reconfirmed identical; re-run clean.
+
+CONTROL (harmless ASCII hyphen, no em/en dash introduced): in Section 2,
+"nearest GBP picker name" changed to "nearest GBP-picker name". Correctly
+PASSED, exit 0, same clean summary as baseline, confirming the rule does not
+false-fire on an ordinary compound-word hyphen. Restored; sha256-reconfirmed
+identical.
+
+RESTORE AND RE-VERIFICATION
+Final byte-copy restore of gbp-packs/gordon-short-crosby.md on the scratch
+copy; sha256 reconfirmed identical to baseline (49acd885...281f9) after the
+control round. Full 34-checker suite (excluding check-live-hours.js,
+check-editor-snapshot.js and check-cdn-pins.js, which needs a .git directory
+the archive does not carry) re-run on the scratch copy: 34/34 exit 0. Scratch
+directory deleted after use (`rm -rf /tmp/scratch-4.14`).
+
+Tracked repo reconfirmed untouched throughout: sha256 of
+gbp-packs/gordon-short-crosby.md, branches.json and
+tools/check-em-dashes.js all unchanged from baseline; `git status
+--porcelain -- modules core branches.json gbp-packs tools compliance` empty
+(no tracked-path changes); full 35-checker suite re-run directly against the
+tracked repo afterwards: 35/35 exit 0.
+
+RESULT
+No in-repo defect. check-em-dashes.js's checkPackFile() rule already
+correctly protects gbp-packs/gordon-short-crosby.md against both a literal
+non-ASCII dash character and a named HTML dash entity, while correctly
+leaving an ordinary hyphen alone, now proven by direct injection for the
+first time. All ten checkers that read gbp-packs/*.md have now been proven
+against this specific pack at least once.
+
+LIVE HALF
+Not attempted beyond the standing step-3 answer-pickup fetch (see
+AGENT_LOG.md's entry for this run) - this pass's fresh angle is checker logic
+against the repo's own copy, with no new live surface to exercise.
+
+No generator, page, checker or branches.json field changed. No new question
+raised.

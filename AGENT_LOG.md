@@ -1,3 +1,149 @@
+## 2026-10-02 (unattended scheduled run, audit-backlog-worker, executed inside a Cowork session; mcp__workspace__bash used for lock/git handling, the git-archive scratch-copy injection work for item 4.14's twenty-second pass, and the 35-checker suite runs; Edit used for AGENT_WORKLIST.md/AGENT_LOG.md; Write used for the new audits file; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), so this was the quality-pass fallback.
+
+LOCK AND ENVIRONMENT: this run also executed inside a Cowork session. At step
+1, `.agent-lock` contained "RELEASED (run complete, 2026-10-02T00:40:00Z)"
+with an mtime roughly 52 minutes before this run's start - older than the
+45-minute staleness threshold, so treated as stale per step 1. `rm` on it
+failed "Operation not permitted" (the same standing Cowork connected-folder
+delete restriction runs 540+ already documented); overwrote it in place with
+a plain write carrying this run's start timestamp, the established
+rename-aside/overwrite-in-place convention, rather than deleting it. A stale
+`.git/index.lock` (~52 minutes old, no git process running per `pgrep -fl
+git`) was left in place rather than deleted (also undeletable the same way)
+and did not interfere with any git read or write operation this run.
+
+GIT: `git fetch origin`; already on `agents/audit-backlog`; already
+up to date locally. `git log origin/agents/audit-backlog..HEAD --oneline`
+showed 5 commits ahead (11fb496, ca35942, c4b2dbf, a6d2748, 6fa1f1e - runs
+538/539/540's work, all already recorded in their own AGENT_LOG.md entries as
+unpushed due to the standing credential gap). Push credential check repeated:
+`git push --dry-run origin agents/audit-backlog` failed "could not read
+Username for 'https://github.com'"; no `gh` binary on PATH; no `GITHUB_TOKEN`
+env var; no credential helper configured - identical to the gap recorded
+against Q87/Q96/Q102 and hit again by runs 538, 539 and 540. This run's own
+commit is left alongside the prior 5 on the local branch for a run with
+host-level push access to pick up (see COMMIT/PUSH/PUBLISH below).
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome`, read-only, one tab. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`, read the full JSON feedback
+array with `get_page_text` (nothing clicked, typed or submitted), closed the
+tab. Newest entry still `fb:2026-09-01T22:44:51.524Z` (Q52), unchanged for
+over a month. No new answers to apply.
+
+STANDING AUTHORISATION CHECK: checked the top of AGENT_LOG.md (the prior
+run's header, then at the top) before writing this entry. No "Standing
+authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by
+direct grep: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60,
+6.6/Q66. Quality-pass fallback per the standard procedure.
+
+CANDIDATE SELECTION: rather than trust the "most recent date mentioned"
+heuristic alone (which several prior runs noted produces wide ties), computed
+which of the ten checkers that actually read gbp-packs/*.md (confirmed by
+grepping each tools/check-*.js for a real PACK_DIR/readdirSync reference
+against "gbp-packs", not a comment mentioning another checker's filename:
+check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js) each of the fourteen 4.x GBP-pack items had already
+proven against its own pack, by grepping each item's full AGENT_WORKLIST.md
+history for every checker's filename with markdown line-wrapping undone first
+(a hyphenated checker filename can wrap mid-word across a line break and hide
+from a naive grep - the exact shape this repo's own CLAUDE.md records as
+having hidden a reference before; confirmed this was happening on a first,
+naive pass before the lines were rejoined). Nine of the fourteen items showed
+full ten-checker coverage already; 4.14 (Gordon Short Chemist Crosby) was the
+only one with exactly one genuine gap: check-em-dashes.js had never been
+exercised against gbp-packs/gordon-short-crosby.md by direct injection in
+twenty-one prior passes. 4.6 excluded as just touched by the immediately
+preceding run. Chosen: 4.14, for having the clearest and narrowest remaining
+fresh angle of any candidate.
+
+WORK DONE (item 4.14, twenty-second quality pass): full detail in
+AGENT_WORKLIST.md's item 4.14 block and
+`audits/gordon-short-crosby-em-dashes-4.14-quality-pass-2026-10-02.txt`.
+Baseline clean: `git status --porcelain` showed only the long-standing
+pre-existing untracked junk; sha256(gbp-packs/gordon-short-crosby.md) =
+49acd885...281f9; sha256(branches.json) = 169bb5a2...b102 (matching the
+standing regression anchor); sha256(tools/check-em-dashes.js) =
+29a407cb...336fe. Full 35-checker suite (excluding check-live-hours.js and
+check-editor-snapshot.js) ran clean directly against the tracked repo first.
+Full-tree scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path (/tmp/scratch-4.14); tracked working tree never opened for writing.
+INJECTION 1: a literal U+2014 em dash inserted into the business description
+("serving Crosby — Waterloo and the wider Sefton area") - CAUGHT
+cleanly, exit 1, first attempt, exact line, file and character code named.
+Restored by byte copy, sha256-reconfirmed identical, re-run clean. INJECTION
+2: the named HTML entity &mdash; inserted into the same section's closing
+sentence ("closed 1pm&mdash;2pm for lunch") - the exact entity shape that
+reached 14 live pages before this checker existed (CLAUDE.md, "The fourth SEO
+field, and the sheets nothing opened") - CAUGHT cleanly, exit 1, first
+attempt, correctly identified as "em dash (HTML entity), which would paste
+literally". Restored, sha256-reconfirmed identical. CONTROL: an ordinary
+ASCII hyphen added to a compound word ("GBP picker" -> "GBP-picker") -
+correctly PASSED, exit 0, confirming the rule does not false-fire on a
+harmless hyphen. Final restore sha256-reconfirmed identical to baseline;
+scratch copy's own 34-checker suite (excluding check-live-hours.js,
+check-editor-snapshot.js and check-cdn-pins.js, which needs a .git directory
+the archive does not carry) re-run clean after restore; scratch directory
+deleted after use. Tracked repo reconfirmed untouched throughout: sha256 of
+all three watched files unchanged; `git status --porcelain -- modules core
+branches.json gbp-packs tools compliance` empty; full 35-checker suite re-run
+individually against the tracked repo afterwards, 35/35 exit 0. No generator,
+page, checker or branches.json field changed. RESULT: no in-repo defect -
+check-em-dashes.js's whole-file dash/entity scan already correctly protects
+this pack on both the literal-character and named-entity shapes while
+leaving an ordinary hyphen alone, now proven by direct injection for the
+first time in twenty-two passes. All ten checkers that read gbp-packs/*.md
+have now been proven against this specific pack at least once.
+
+LIVE HALF: not attempted this pass beyond the standing answer-pickup fetch.
+The fresh angle tested is checker logic against the repo's own copy, with no
+new live surface to exercise.
+
+QUESTIONS (step 8): no new question raised, none closed. QUESTIONS.json
+unchanged.
+
+FILES TOUCHED: `AGENT_WORKLIST.md` (item 4.14's twenty-second-pass note
+appended), `audits/gordon-short-crosby-em-dashes-4.14-quality-pass-2026-10-02.txt`
+(new evidence file), this entry in `AGENT_LOG.md`. No generator, page, checker
+or `branches.json` touched, consistent with "no in-repo defect found". Final
+check: `git status --porcelain` shows exactly those tracked changes plus the
+same pre-existing untracked junk noted above.
+
+COMMIT/PUSH/PUBLISH: committed locally as `ec35f90` ("Run (2026-10-02,
+Cowork): item 4.14 (Gordon Short Crosby) twenty-second quality pass..."),
+after renaming aside a stale `.git/index.lock` from a prior run (confirmed no
+git process running via `pgrep -fl git`; `rm` failed "Operation not
+permitted" as usual, `os.replace`/rename succeeded where unlink does not,
+same convention runs 533+ established) - git also warned on several
+`.git/objects/*/tmp_obj_*` files and a recreated `HEAD.lock` it could not
+unlink mid-commit, all harmless (the commit completed and recorded correctly;
+these are loose temp objects git itself abandons, not index state). `git push
+origin agents/audit-backlog` failed "could not read Username for
+'https://github.com'" - the same standing credential gap as Q87/Q96/Q102,
+confirmed again this run. This run's commit is left on the local branch
+alongside the prior 5 unpushed commits (11fb496, ca35942, c4b2dbf, a6d2748,
+6fa1f1e), now 6 commits ahead of origin, for a run with host-level push
+access to pick up. `node tools/build-audit-status.js` run per step 10
+regardless and failed the same way at its GitHub API publish step ("gh:
+not found") - the status page could not be republished this run, for the
+same credential reason.
+
+RECOMMENDATION: unchanged in substance from runs 487-540. Zero new portal
+answers since Q52, now over a month; the 8 blocked worklist items are
+unchanged; Q115 (whether to pause or slow this schedule) remains the single
+highest-value open question. The local branch is now 6 commits ahead of
+origin with no run in this environment able to push - worth flagging again
+that the portal's published status page is drifting further from the real
+repo state each time this happens, and that a run with host-level git
+credentials should push the backlog of commits and republish the status page
+at the next opportunity. None of Q87/Q96/Q102/Q115/Q119/Q120 decided
+autonomously this run - no autonomous window is open.
+
+---
+
 ## 2026-10-01/2026-10-02 (unattended scheduled run, audit-backlog-worker, run executed inside a Cowork session rather than the usual standalone sandbox; mcp__workspace__bash used for lock/git handling, the git-archive scratch-copy injection work for item 4.6's twenty-first pass, the 34-checker suite runs, and the AGENT_WORKLIST.md/AGENT_LOG.md/audits/QUESTIONS.json-check edits; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch and the live-half read, two tabs total, read-only throughout, nothing clicked/typed/submitted) - zero new portal answers since Q52 (2026-09-01, now one month); all 8 unchecked worklist items reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), so this was the quality-pass fallback.
 
 LOCK AND ENVIRONMENT: this run executed inside a Cowork session, unlike runs

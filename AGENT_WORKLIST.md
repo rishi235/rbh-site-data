@@ -29698,6 +29698,64 @@ directly rather than re-deriving the same facts by hand.
       new question raised. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-09-18-twentyfirst.txt.
       Done 2026-09-18.
+      Quality pass 2026-10-02 (twenty-second, unattended scheduled run,
+      audit-backlog-worker, executed inside a Cowork session): all 8
+      unchecked worklist lines reconfirmed [BLOCKED] by direct grep, so this
+      was the quality-pass fallback. Candidate selection: of the ten checkers
+      that actually read gbp-packs/*.md (confirmed by grepping each
+      tools/check-*.js for a real PACK_DIR/readdirSync reference, not a
+      comment naming another checker), nine 4.x GBP-pack items already showed
+      full coverage against their own pack and 4.14 was the only one with a
+      genuine single-checker gap: check-em-dashes.js's checkPackFile() rule
+      had never been exercised against gbp-packs/gordon-short-crosby.md by
+      direct injection (a hyphenated checker filename wrapping mid-word
+      across a markdown line break in this item's own prior passes had hidden
+      the gap from a naive grep; re-checked with lines rejoined before
+      matching). Baseline: git status clean (only the long-standing
+      pre-existing untracked strays); sha256(gbp-packs/gordon-short-crosby.md)
+      = 49acd885...281f9, sha256(branches.json) = 169bb5a2...b102 (matching
+      the standing regression anchor), sha256(tools/check-em-dashes.js) =
+      29a407cb...336fe. Full 35-checker suite (excluding check-live-hours.js
+      and check-editor-snapshot.js) ran clean directly against the tracked
+      repo first. Full-tree scratch copy via `git archive HEAD | tar -x` to
+      a native sandbox path; tracked working tree never opened for writing.
+      INJECTION 1: a literal U+2014 em dash inserted into the business
+      description ("serving Crosby — Waterloo and the wider Sefton
+      area") - CAUGHT cleanly, exit 1, first attempt, exact line and
+      character code named. Restored by byte copy, sha256-reconfirmed
+      identical, re-run clean. INJECTION 2: the named HTML entity &mdash;
+      inserted into the same section's closing sentence ("closed
+      1pm&mdash;2pm for lunch"), the exact shape that reached 14 live pages
+      before this checker existed - CAUGHT cleanly, exit 1, first attempt,
+      correctly identified as "em dash (HTML entity), which would paste
+      literally". Restored, sha256-reconfirmed identical. CONTROL: an
+      ordinary ASCII hyphen added to a compound word ("GBP picker" ->
+      "GBP-picker") - correctly PASSED, exit 0, confirming no false-fire on
+      a harmless hyphen. Restored; sha256-reconfirmed identical to baseline
+      after all three rounds. Full 34-checker suite (excluding
+      check-live-hours.js, check-editor-snapshot.js and check-cdn-pins.js,
+      which needs a .git directory the archive does not carry) re-run clean
+      on the scratch copy; scratch directory deleted after use. Tracked repo
+      reconfirmed untouched throughout (sha256 of all three watched files
+      unchanged, git status --porcelain scoped to modules/core/branches.json/
+      gbp-packs/tools/compliance empty); full 35-checker suite re-run
+      directly against the tracked repo afterwards, 35/35 exit 0. No
+      generator, page, checker or branches.json field changed. RESULT: no
+      in-repo defect - check-em-dashes.js's whole-file dash/entity scan
+      already correctly protects this pack on both the literal-character and
+      named-entity shapes while leaving an ordinary hyphen alone, now proven
+      by direct injection for the first time. All ten checkers that read
+      gbp-packs/*.md have now been proven against this specific pack at
+      least once. LIVE HALF: not attempted beyond the standing step-3
+      answer-pickup fetch (see AGENT_LOG.md) - the fresh angle tested is
+      checker logic against the repo's own copy, with no new live surface to
+      exercise. Step 3 answer pickup this run: portal feed read in full via
+      Claude in Chrome, single tab, read-only, nothing clicked/typed/
+      submitted; newest entry still Q52 (2026-09-01), unchanged for over a
+      month; no new answers. No new question raised; QUESTIONS.json
+      unchanged. Evidence:
+      audits/gordon-short-crosby-em-dashes-4.14-quality-pass-2026-10-02.txt.
+      Done 2026-10-02.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
