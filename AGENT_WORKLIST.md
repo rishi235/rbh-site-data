@@ -21199,6 +21199,85 @@ re-read before and after, 111 total, 58 open, unchanged. No checker logic,
 generator, page, pack or branches.json content changed. See
 audits/verify-4.4-2026-09-18-twentysecond.js and
 audits/verify-4.4-2026-09-18-twentysecond-output.txt. Done 2026-09-18
+Quality pass 2026-10-02 (twenty-third pass, unattended scheduled run): BASELINE
+clean, all 34 non-cdn-pins/non-live-hours tools/check-*.js re-run individually
+against the untouched worktree, 0 failures; gbp-packs/scorah-bramhall.md
+sha256 de82fd011746500bb8baf62acb4e18b7f06c57e1510f58ae56d44e776ae6df14,
+matching every prior pass unchanged; git status --porcelain on gbp-packs/,
+tools/, modules/, core/ and branches.json empty (only the standing untracked
+debris, Q87/Q119). Rotation pool re-derived fresh via git log against a
+word-boundary regex per pool item (35-item pool, the standing seven
+out-of-rotation one-offs excluded): 4.4 came out uniquely stalest at
+2026-09-18T15:43:42+01:00, ahead of 5.2 at 2026-09-18T16:41:26+01:00.
+Fresh angle this pass: by the twenty-second pass, all ten checkers that
+genuinely scan gbp-packs/ as a directory and every granular rule within
+check-gbp-packs.js previously named against this item (sister-branch,
+OUTCOME_PROMISE, photo shot list, catchment lead-town and membership,
+categories primary and omission, all six CLINIC_QUALIFIERS keys, the four
+hours-are-days legs plus the pairing rule, transactional CTA, lead pricing,
+POM-class allusion, PF eligibility cohorts, PF cost, app membership, brand
+spelling, URL scheme, UK spelling) had been proven by direct injection
+against this pack's own copy, so a twenty-third repo-side injection pass
+would very likely repeat ground rather than add information. Chose the LIVE
+half instead, which had last been fully re-read on the nineteenth pass
+(2026-09-15), seventeen days stale, and Q43 (the Cheshire-county and
+truncated-house-number finding this item raised on 2026-08-11) received a
+decision from Rishi via the portal on 2026-09-29 (option 0, the pattern-check
+recommendation) that no live recheck since has looked at - so this was also
+the first live check against a pack whose own standing question has moved
+from open to answered-but-not-yet-implemented. Claude in Chrome reachable
+this run, read-only throughout, nothing clicked, typed or submitted except
+one read-only javascript_tool DOM read (see below). All five referenced
+URLs fetched: profile website pharmacy-scorah-bramhall.html still 404,
+unchanged since first found 2026-08-11 (now the seventh separate date
+reconfirming it); Post A (pharmacy-first-scorah-bramhall.html) 200, correct
+trading name, address, phone and all seven Pharmacy First conditions with
+the correct NHS age cohorts; Post B (switch-prescriptions-scorah-bramhall.html)
+200, NAP correct, the pre-Q7 em-dash mojibake in the "How switching works"
+intro still present and unchanged since 2026-09-02 (live-paste-lag, not a
+repo defect); Posts C and D (weight-loss-clinic and travel-clinic) both 200,
+name no specific medicine, vaccine or drug brand in their visible copy, lead
+with no price in the hero (the £39.99 figure sits only in the booking card),
+and carry the required hedges. FRESH SURFACE never read live by any of the
+twenty-two prior passes: both Posts C and D use <details>/<summary> FAQ
+accordions whose answer text is not exposed by a plain visible-text read
+(confirmed directly - get_page_text on the weight-loss page returned the
+seven FAQ QUESTIONS with no answer text at all, which is why no prior pass's
+"both resolve, name no specific medicine" finding can actually have read
+these seven answers). Read via a read-only javascript_tool DOM call
+(summary.closest('details').textContent, no click/type/submit) rather than
+clicking each disclosure open. Weight loss page's seven FAQ answers read in
+full: all hedge correctly ("we cannot guarantee that any particular product
+will be available or right for you, this is decided case by case" for
+"Which medication will I be offered?", "this is a clinical assessment, not
+an automatic prescription" for "Will I definitely be prescribed weight-loss
+medication?"), no medicine named by brand or drug name anywhere, cost framed
+as "from £39.99" for the consultation only with any medication cost
+"separate" and "explained clearly before you agree to anything". Travel
+clinic page's five FAQ answers read in full: "Will you definitely have the
+vaccine I need in stock?" answers "availability can vary and some vaccines
+need to be ordered in... the pharmacist will confirm what is available" -
+correctly hedged, no stock guarantee. Both compliant under
+RBH_WeightLoss_Advertising_Standards.md and the travel clinic copy rules
+regardless of regime, since no brand or drug name appears anywhere in either
+page including the previously-unread accordion text. STANDING Q43 FINDING
+RECONFIRMED, STILL NOT IMPLEMENTED: the Weebly contact block on every one of
+the four non-404 pages still reads "...Bramhall, Cheshire SK7 3LQ" against
+branches.json's addressRegion of Greater Manchester, and the site-wide
+footer trust bar still truncates the house number to "61 North Park Road"
+(missing "-63"). Rishi's 2026-09-29 portal answer to Q43 picked option 0
+(fix both at the next supervised Weebly session, and check the same two
+things on the other 13 sites) but the live site is unchanged since the
+decision - this is a live-copy implementation gap, not a repo defect, and
+nothing in this repo can fix Weebly-native furniture unattended. RESULT:
+zero in-repo defect, zero new compliance defect; one genuinely new verified
+surface (both pages' hidden FAQ accordion text) brought to parity with the
+rest of the live-half checking for the first time, and Q43's answered-but-
+not-yet-live status explicitly reconfirmed rather than assumed. No new
+question; QUESTIONS.json unchanged (120 total, 48 open). No checker logic,
+generator, page, pack or branches.json content changed - this pass's only
+file changes are this log entry and this worklist entry. See
+AGENT_LOG.md, 2026-10-02, for the fuller transcript.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
