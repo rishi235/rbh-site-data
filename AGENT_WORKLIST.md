@@ -26644,6 +26644,62 @@ directly rather than re-deriving the same facts by hand.
       changed; no new question raised. Evidence in
       audits/sk-chemists-bootle-identity-emdashes-4.11-twentysecond-2026-09-19.txt.
       Done 2026-09-19
+      Twenty-third quality pass, 2026-10-02 (unattended scheduled run). Of
+      the ten checkers confirmed to read gbp-packs/*.md
+      (check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+      check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+      check-postcodes.js, check-uk-spelling.js, check-url-scheme.js),
+      check-uk-spelling.js and check-url-scheme.js had never been proven
+      against this pack by direct injection, the narrowest remaining gap of
+      any of the fifteen 4.x items at the time of selection. Chose
+      check-url-scheme.js. Baseline: sha256(gbp-packs/sk-chemists-bootle.md)
+      = 637aed98...2da, full 35-checker suite clean against the tracked
+      repo first. Full-tree scratch copy via `git archive HEAD | tar -x` to
+      a native sandbox path; tracked working tree never opened for writing
+      during the injection work. INJECTION 1: changed one Button line's
+      https:// to http:// (a live insecure URL on this published surface) -
+      CAUGHT cleanly, exit 1, rule 1 (INSECURE), both occurrences of the
+      value on the page named. RESTORE: reverted, sha256-reconfirmed
+      identical to baseline, re-run clean. CONTROL 1 (should NOT fire):
+      same URL recased to HTTPS:// (still secure, just unusual casing) -
+      correctly PASSED, exit 0, confirming the rule does not false-fire on
+      a harmless scheme casing. FOLLOW-UP INJECTION (should fire but did
+      not): the same URL recased to HTTP:// (insecure, unusual casing) -
+      WRONGLY PASSED, exit 0, 0 insecure URLs reported. REAL DEFECT FOUND:
+      `HTTP_RE` in tools/check-url-scheme.js was `/http:\/\/.../g`, matching
+      the literal lowercase string only, so an insecure URL typed or pasted
+      with any uppercase letter in its scheme evaded rule 1 outright - the
+      exact shape of gap this repo's own CLAUDE.md keeps finding ("a list
+      of names/a literal match is not a rule, it is a snapshot"), here a
+      literal case rather than a literal list. A URL scheme is
+      case-insensitive per RFC 3986, so HTTP://, Http:// etc. are exactly as
+      insecure as http:// and item 6.6 (the duplicate-indexing issue this
+      checker exists to guard) does not care how the scheme was cased.
+      FIXED AT SOURCE: added the `i` flag, `/http:\/\/.../gi`. Checked first
+      that no uppercase HTTP:// occurs anywhere in the current tracked repo
+      (grep across every text extension, zero matches), so the widened rule
+      fires on nothing today and cannot newly fail any existing page, pack
+      or sheet. Re-ran the follow-up injection after the fix: now CAUGHT
+      cleanly, exit 1, same two-occurrence report shape as the lowercase
+      case. Restored, sha256-reconfirmed identical to baseline. Full
+      35-checker suite re-run against the tracked repo after the fix:
+      35/35 exit 0. `isNamespace()`'s own prefix match stays case-sensitive
+      on purpose and was not touched - NAMESPACE_PREFIXES are literal,
+      always-lowercase XML/RDF identifier strings by specification, a
+      different kind of "case" to a URL scheme, and no instance in the
+      repo uses anything but lowercase for one. Tracked repo confirmed
+      untouched beyond the one intended line: `git status --porcelain`
+      showed only `tools/check-url-scheme.js` modified, plus the same
+      long-standing untracked debris every pass has noted. No generator,
+      page, pack or branches.json field changed. RESULT: one real, narrow,
+      fixed-at-source defect - the first found on this item's twenty-three
+      passes. Guard coverage for item 4.11 now extends to 16 of the 35
+      checkers proven by direct injection against this branch, and all ten
+      gbp-packs-reading checkers have now been proven against this specific
+      pack at least once. Evidence in
+      audits/sk-chemists-bootle-url-scheme-4.11-twentythird-2026-10-02.txt.
+      Done 2026-10-02
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

@@ -1,4 +1,129 @@
-## 2026-10-02 (unattended scheduled run, audit-backlog-worker, executed inside a Cowork session; mcp__workspace__bash used for lock/git handling, the git-archive scratch-copy injection work for item 4.14's twenty-second pass, and the 35-checker suite runs; Edit used for AGENT_WORKLIST.md/AGENT_LOG.md; Write used for the new audits file; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), so this was the quality-pass fallback.
+## 2026-10-02 (unattended scheduled run, audit-backlog-worker, executed inside a Cowork session; mcp__workspace__bash used for lock/git handling, the git-archive scratch-copy injection work for item 4.11's twenty-third pass, and the 35-checker suite runs; Edit used for AGENT_WORKLIST.md/AGENT_LOG.md/tools/check-url-scheme.js; Write used for the new audits file; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), so this was the quality-pass fallback. UNLIKE recent passes, this one found and fixed a real in-repo defect: see WORK DONE below.
+
+LOCK AND ENVIRONMENT: this run executed inside a Cowork session. At step 1,
+`.agent-lock` contained a stale "RELEASED" note from a prior run
+(mtime 2026-10-02T01:00:00Z, well over the 45-minute staleness threshold
+against this run's ~02:41Z start). `rm -f .agent-lock` failed "Operation not
+permitted" - the same standing Cowork connected-folder delete restriction
+documented in Q119/Q120 and hit by every run since 533. `mv` to a sandbox
+path outside this mount (`/tmp`) ALSO failed EPERM (cross-device mv needs to
+unlink the source), but `mv` to a new name WITHIN the same mount
+(`.agent-lock.released-541-<epoch>`) succeeded immediately - confirming the
+restriction is unlink-on-this-mount specifically, not mv in general, exactly
+as runs 533+ recorded. Same treatment for a stale `.git/index.lock`
+(renamed aside; no git process running). Wrote a fresh `.agent-lock`
+containing this run's start timestamp (`2026-10-02T02:43:30Z`) by plain
+overwrite-via-new-file rather than editing in place. A second stray
+`.git/index.lock` reappeared mid-run (git itself creates and tries to
+clean up its own lock during `git status`/`git pull`, and hits the same
+EPERM on its own internal unlink) - renamed aside the same way, harmless,
+consistent with the mechanism Q120 already documents. Debris counts
+observed this run for context: 40 stray `.agent-lock.*` files, 1188 stray
+`.git/index.lock*` files - Q119/Q120 remain open and unactioned (Rishi's
+call on the archive-folder convention), so no bulk cleanup attempted.
+
+GIT: `git fetch origin` (no change); already on `agents/audit-backlog`;
+`git pull --ff-only origin agents/audit-backlog` - "Already up to date"
+(warned once on the same `.git/ORIG_HEAD.lock` unlink EPERM, harmless).
+`git log origin/agents/audit-backlog..HEAD --oneline` showed 6 commits
+ahead (066be7a, 6fa1f1e, a6d2748, c4b2dbf, 11fb496, ca35942 - runs
+538-540's and the immediately preceding run's work, already recorded in
+their own AGENT_LOG.md entries as unpushed due to the standing credential
+gap). Push credential check not yet repeated this run (see
+COMMIT/PUSH/PUBLISH below) - expected to fail the same way per Q87/Q96/Q102.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome`, read-only, one tab.
+Navigated to `https://data.rbhealth.co.uk/api/feedback`, read the full JSON
+feedback array with `get_page_text` (nothing clicked, typed or submitted),
+closed the tab. Newest entry still `fb:2026-09-01T22:44:51.524Z` (Q52),
+unchanged for over a month. No new answers to apply.
+
+STANDING AUTHORISATION CHECK: checked the top of AGENT_LOG.md (the prior
+run's header, then at the top) before writing this entry. No "Standing
+authorisation - autonomous window" section present. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by
+direct grep: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60,
+6.6/Q66. Quality-pass fallback per the standard procedure.
+
+CANDIDATE SELECTION: built a coverage matrix of the ten checkers confirmed
+(by `grep -l "gbp-packs" tools/check-*.js`) to actually read gbp-packs/*.md
+against each of the fifteen 4.x items, dehyphenating markdown line-wraps
+before matching (the same wrap-across-a-break risk CLAUDE.md records as
+having hidden a checker reference before). Four items showed a remaining
+gap: 4.3 (3 checkers), 4.5 (7), 4.6 (5), 4.10 (3), 4.11 (2 - the narrowest).
+4.11 (SK Chemists Bootle) chosen; its two missing checkers were
+check-uk-spelling.js and check-url-scheme.js. Chose check-url-scheme.js.
+
+WORK DONE (item 4.11, twenty-third quality pass): full detail in
+AGENT_WORKLIST.md's item 4.11 block and
+`audits/sk-chemists-bootle-url-scheme-4.11-twentythird-2026-10-02.txt`.
+Baseline clean: sha256(gbp-packs/sk-chemists-bootle.md) = 637aed98...2da;
+full 35-checker suite ran clean directly against the tracked repo first.
+Full-tree scratch copy via `git archive HEAD | tar -x` to a native sandbox
+path; tracked working tree never opened for writing during the injection
+work. INJECTION 1: the pack's own https:// button URL (and its prose
+citation of the same URL) recased to http:// - CAUGHT cleanly, exit 1, rule
+1 (INSECURE), both occurrences named. Restored, sha256-reconfirmed
+identical. CONTROL: the same URL recased to HTTPS:// (still secure, unusual
+casing only) - correctly PASSED, exit 0. FOLLOW-UP INJECTION: the same URL
+recased to HTTP:// (insecure, unusual casing only) - WRONGLY PASSED, exit 0,
+0 insecure URLs reported. REAL DEFECT: `HTTP_RE` in
+tools/check-url-scheme.js matched the literal lowercase string only; a URL
+scheme is case-insensitive per RFC 3986, so an insecure link typed or pasted
+with any uppercase letter in its scheme evaded rule 1 outright - the same
+shape of gap this repo keeps finding ("a list/a literal match is not a
+rule"), here a literal case rather than a literal list. FIXED AT SOURCE:
+added the `i` flag to `HTTP_RE`. Checked first that no uppercase "HTTP://"
+occurs anywhere in the current tracked repo (grepped every text extension),
+so the widened rule fires on nothing today and cannot newly fail any
+existing page, pack or sheet. `isNamespace()`'s own prefix match against
+NAMESPACE_PREFIXES left case-sensitive on purpose - those are literal,
+spec-fixed, always-lowercase namespace identifier strings, a different kind
+of "case" to a URL scheme, and nothing in the repo uses anything but
+lowercase for one. Re-ran the follow-up injection after the fix: now CAUGHT,
+exit 1, same two-occurrence shape. Restored, sha256-reconfirmed identical.
+Full 35-checker suite re-run against the tracked repo after the fix: 35/35
+exit 0, and check-url-scheme.js's own estate-wide counts (222 published
+files, 59 branches.json URL values, 16 GBP rows, 9 held under KNOWN)
+unchanged before and after - the fix changes detection only for a casing
+the estate does not currently contain. RESULT: one real, narrow, fixed-at-
+source defect, the first found on this item across twenty-three passes.
+Guard coverage for item 4.11 now extends to 16 of the 35 checkers proven by
+direct injection against this branch, and all ten gbp-packs-reading
+checkers have now been proven against this specific pack at least once.
+
+LIVE HALF: not attempted this pass. The fresh angle tested was checker logic
+against the repo's own copy, and the finding does not imply any live page
+is currently wrong (no uppercase-scheme URL exists anywhere in the estate
+today).
+
+QUESTIONS (step 8): no new question raised, none closed. This was a
+fixable in-repo checker defect with a verified-safe fix, not a decision for
+Rishi, so it did not meet the bar for a QUESTIONS.json entry.
+
+FILES TOUCHED: `tools/check-url-scheme.js` (the fix - `HTTP_RE` gains the
+`i` flag), `AGENT_WORKLIST.md` (item 4.11's twenty-third-pass note
+appended), `audits/sk-chemists-bootle-url-scheme-4.11-twentythird-2026-10-02.txt`
+(new evidence file), this entry in `AGENT_LOG.md`. No generator, page, pack
+or `branches.json` field changed. Final check: `git status --porcelain`
+(tracked files) shows exactly `tools/check-url-scheme.js` modified.
+
+COMMIT/PUSH/PUBLISH: see next entry for outcome (committed, push attempted,
+status page publish attempted per step 10).
+
+RECOMMENDATION: unchanged in substance from runs 487-540 plus the
+immediately preceding run. Zero new portal answers since Q52, now over a
+month; the 8 blocked worklist items are unchanged; Q115 (whether to pause or
+slow this schedule) remains the single highest-value open question. This
+run's fix is small and self-contained (one regex flag, verified safe against
+the whole estate before applying), but the local branch is still growing
+unpushed commits in this environment - worth flagging again that a run with
+host-level git credentials should push the backlog and republish the status
+page at the next opportunity. None of Q87/Q96/Q102/Q115/Q119/Q120 decided
+autonomously this run - no autonomous window is open.
+
+---
 
 LOCK AND ENVIRONMENT: this run also executed inside a Cowork session. At step
 1, `.agent-lock` contained "RELEASED (run complete, 2026-10-02T00:40:00Z)"

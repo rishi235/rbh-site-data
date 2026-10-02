@@ -1,0 +1,133 @@
+Item 4.11 (SK Chemists Bootle GBP pack) - twenty-third quality pass
+Run: unattended scheduled run, audit-backlog-worker, 2026-10-02 (Cowork session)
+
+SELECTION
+---------
+Ten checkers confirmed (by grep -l "gbp-packs" against each tools/check-*.js)
+to actually read gbp-packs/*.md:
+  check-app-membership.js
+  check-brand-spelling.js
+  check-em-dashes.js
+  check-gbp-packs.js
+  check-gbp-pharmacy-first.js
+  check-pharmacy-first-cost.js
+  check-pharmacy-first-eligibility.js
+  check-postcodes.js
+  check-uk-spelling.js
+  check-url-scheme.js
+
+Coverage matrix built by dehyphenating line-wrapped checker names across
+AGENT_WORKLIST.md's 4.x item blocks (markdown wraps a hyphenated filename
+mid-word across a line break - the same shape CLAUDE.md records as having
+hidden a reference before) and matching each of the ten names against each
+item's full history. Items with remaining gaps against this specific
+ten-checker list at selection time:
+  4.3  missing: check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js, check-url-scheme.js
+  4.5  missing: check-brand-spelling.js, check-em-dashes.js, check-gbp-pharmacy-first.js,
+                check-pharmacy-first-cost.js, check-postcodes.js, check-uk-spelling.js,
+                check-url-scheme.js
+  4.6  missing: check-em-dashes.js, check-pharmacy-first-cost.js, check-postcodes.js,
+                check-uk-spelling.js, check-url-scheme.js
+  4.10 missing: check-em-dashes.js, check-pharmacy-first-eligibility.js, check-postcodes.js
+  4.11 missing: check-uk-spelling.js, check-url-scheme.js   <- narrowest gap (2)
+  (all other 4.x items: full coverage)
+
+4.11 had the narrowest remaining gap (2 checkers) of any item with a gap.
+Chose check-url-scheme.js as the fresh angle.
+
+BASELINE
+--------
+sha256(gbp-packs/sk-chemists-bootle.md) = 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+sha256(branches.json)                   = 169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+Full 35-checker suite (excluding check-live-hours.js and check-editor-snapshot.js,
+per standing convention) run directly against the tracked repo first: 35/35 exit 0.
+
+METHOD
+------
+Full-tree scratch copy via `git archive HEAD | tar -x` to /tmp/scratch-411 (a
+native sandbox path). Tracked working tree never opened for writing during
+the injection work. check-url-scheme.js resolves its own ROOT as
+path.join(__dirname, ".."), so running it from inside the scratch copy's own
+tools/ directory correctly scopes every read to the scratch copy.
+
+INJECTION 1 (should fire, did)
+  Changed gbp-packs/sk-chemists-bootle.md line 83's button URL and line 118's
+  prose citation of the same URL from
+    https://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html
+  to
+    http://www.skchemist.co.uk/pharmacy-first-sk-chemists-bootle.html
+  Result: exit 1. Two FAIL lines, rule 1 (INSECURE), both occurrences named
+  with the exact file and URL. CAUGHT cleanly, first attempt.
+
+RESTORE 1
+  Reverted both lines. sha256 reconfirmed 637aed98...2da (identical to
+  baseline). Re-run: exit 0.
+
+CONTROL (should NOT fire, didn't)
+  Same URL recased to HTTPS:// (still a secure scheme, unusual casing only).
+  Result: exit 0, 0 insecure URLs reported. Correctly does not false-fire -
+  HTTPS is secure regardless of casing.
+
+FOLLOW-UP INJECTION (should fire, did NOT - real defect)
+  Same URL recased to HTTP:// (an INSECURE scheme, unusual casing only).
+  Result: exit 0, 0 insecure URLs reported. WRONG - this is exactly as
+  insecure as http://, and item 6.6 (duplicate indexing) does not care how
+  the scheme was cased. Cause: HTTP_RE was `/http:\/\/[^\s"'<>)\]]+/g`,
+  matching the literal lowercase string only. A URL scheme is
+  case-insensitive per RFC 3986.
+
+FIX
+  tools/check-url-scheme.js, HTTP_RE: added the `i` flag.
+    before: /http:\/\/[^\s"'<>)\]]+/g
+    after:  /http:\/\/[^\s"'<>)\]]+/gi
+  Pre-check: grepped every text extension across the whole tracked repo for
+  "HTTP://" or "Http://" before widening the rule - zero matches anywhere,
+  so the fix fires on nothing today and cannot newly fail any existing
+  generated page, Weebly paste block, GBP pack or branches.json value.
+  isNamespace()'s own prefix match against NAMESPACE_PREFIXES was left
+  case-sensitive on purpose: those are literal, spec-fixed, always-lowercase
+  XML/RDF namespace identifier strings, a different kind of "case" to a URL
+  scheme, and no instance anywhere in the repo uses anything but lowercase
+  for one.
+
+RE-TEST AFTER FIX
+  Follow-up injection (HTTP:// recasing) re-run against the scratch copy:
+  exit 1, same two-occurrence FAIL shape as the original lowercase
+  injection. CAUGHT.
+  Restored. sha256 reconfirmed 637aed98...2da (identical to baseline).
+  Full 35-checker suite re-run against the SCRATCH copy after restore: clean
+  (excluding check-cdn-pins.js, which needs a .git directory the archive
+  does not carry, and check-live-hours.js / check-editor-snapshot.js per
+  the standing exclusion).
+
+TRACKED REPO, FINAL STATE
+  Full 35-checker suite re-run directly against the tracked repo after
+  applying the fix there: 35/35 exit 0.
+  `git status --porcelain` (tracked files only): exactly one line,
+  ` M tools/check-url-scheme.js`. No generator, page, pack or
+  branches.json field touched.
+  check-url-scheme.js's own run against the tracked repo, before and after
+  the fix, reports identical counts for every real estate value (222
+  published files scanned, 59 branches.json URL values, 16 GBP table rows,
+  9 held under KNOWN, 0 failures) - the fix changes detection behaviour only
+  for a casing this repo does not currently contain.
+
+RESULT
+  One real, narrow, fixed-at-source defect: check-url-scheme.js rule 1 was
+  blind to an insecure URL typed or pasted in anything other than all-lowercase
+  scheme casing. Fixed by widening the regex to be case-insensitive, verified
+  safe against the whole current estate before applying, and reconfirmed by
+  re-running the exact injection that exposed it. First real finding on this
+  item across twenty-three quality passes. Guard coverage for item 4.11 now
+  extends to 16 of the 35 checkers proven by direct injection against this
+  branch, and all ten gbp-packs-reading checkers have now been proven against
+  this specific pack at least once.
+
+LIVE HALF: not attempted this pass. The fresh angle tested was checker logic
+against the repo's own copy; nothing in the finding or the fix implies a live
+page is currently wrong (the repo has no uppercase-scheme URL anywhere today).
+
+ANSWER PICKUP (step 3): checked https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome (one tab, get_page_text, nothing clicked or typed, tab
+closed after). Newest entry still fb:2026-09-01T22:44:51.524Z (Q52). No new
+answers since 2026-09-01.

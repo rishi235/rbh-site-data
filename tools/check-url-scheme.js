@@ -180,7 +180,14 @@ var warnings = [];
 var usedKnown = {};
 var SKIP_DIRS = { ".git": 1, "node_modules": 1, ".vscode": 1 };
 var TEXT_EXT = /\.(html|md|js|json|txt|css)$/i;
-var HTTP_RE = /http:\/\/[^\s"'<>)\]]+/g;
+// Case-insensitive: a URL scheme is case-insensitive per RFC 3986, so an
+// insecure link typed or pasted as HTTP:// (or Http://, etc.) is exactly as
+// insecure as http:// and must not evade rule 1 by casing alone. Found by
+// direct injection on the item 4.11 (SK Chemists Bootle) quality pass,
+// 2026-10-02: an HTTP:// URL pasted into gbp-packs/sk-chemists-bootle.md
+// passed with 0 insecure URLs found, because this regex matched the literal
+// lowercase string only.
+var HTTP_RE = /http:\/\/[^\s"'<>)\]]+/gi;
 
 function rel(p) { return path.relative(ROOT, p).replace(/\\/g, "/"); }
 function fail(m) { failures.push("  FAIL  " + m); }
