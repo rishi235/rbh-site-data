@@ -22404,6 +22404,64 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       defect, no new live finding, no new question; open question count
       unchanged at 58 of 111. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-09-18-twentieth.txt.
+      Quality pass 2026-10-01/2026-10-02 (unattended scheduled run,
+      audit-backlog-worker, twenty-first pass, run executed inside a Cowork
+      session): all eight unchecked worklist lines confirmed still [BLOCKED]
+      (5.3, 5.4, 5.5, 5.8, 6.1, both Q60 lines under 6.4/6.5, 6.6), so this run
+      fell to the quality-pass rotation. Candidates re-derived from
+      AGENT_WORKLIST.md directly, minus the seven standing one-offs and the
+      three items the three immediately preceding runs had touched (3.6, 3.8,
+      4.5); eighteen items tied stalest at 2026-09-18, tiebroken by
+      quality-pass-mention count to 4.6 and 4.9 at 20 each. Read both
+      candidates' own twentieth passes before choosing: 4.9's raised Q112
+      (still open, a live unresolved finding rather than checker headroom);
+      4.6's twentieth pass explicitly flagged tools/check-gbp-pharmacy-
+      first.js's rule 2 ("coverage, both directions") as not yet exercised
+      against this pack, with no scoping reason given (unlike rules 2b/10/11/
+      12, which that pass explained were out of scope). Chosen: 4.6.
+      FRESH ANGLE: rule 2's "hasPf && scopes.length === 0" branch - a branch
+      with a pharmacyFirst widget must publish a located Pharmacy First scope.
+      BASELINE: sha256 of gbp-packs/mccanns-aigburth.md
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+      (unchanged since 2026-08-04), branches.json
+      169bb5a21cf62b196600d61260e0689fee040491fd0c3637eb2ac91f2ad1b102
+      (matching the standing regression anchor); full 34-checker suite
+      (check-live-hours.js, check-cdn-pins.js, check-editor-snapshot.js
+      excluded) clean on the tracked repo. Full-tree scratch copy via git
+      archive HEAD to a native sandbox path outside the Windows-mounted
+      working tree, sha256-confirmed identical before editing. INJECTION:
+      renamed the "- NHS Pharmacy First:" service-bullet label and the
+      "### Post A" heading so pfScopes() locates neither block, with every
+      word of clinical copy left in place (a structural-location break, not a
+      content change) - CAUGHT, exit 1, exactly the intended rule-2 message
+      plus the expected rule-11/12 knock-on ("read Pharmacy First copy in 13
+      packs, but branches.json has 14..."), both correct consequences of the
+      one injection. Restored, sha256-reconfirmed identical; re-run clean (7
+      pathways, 28 blocks across 14 packs). CONTROL: harmless reorder within
+      the same Services bullet (impetigo/shingles swapped, same words) -
+      correctly PASSED, confirming membership-based matching. Restored,
+      sha256-reconfirmed identical. Full 34-checker suite re-run clean on the
+      restored scratch copy; tracked repo reconfirmed untouched throughout
+      (git status and sha256 of all three watched files unchanged); full
+      34-checker suite re-run on the tracked repo afterwards, 34/34 clean.
+      Scratch directory deleted after use. RESULT: no in-repo defect - every
+      rule in check-gbp-pharmacy-first.js has now been exercised by injection
+      against this pack at least once across twenty-one passes. LIVE HALF
+      (Claude in Chrome, read-only): the live Pharmacy First page read in
+      full - all seven conditions and age ranges match the generator's canon
+      and this pack's own copy exactly, "where appropriate" hedge present, no
+      price; footer still carries the pre-existing "Sandrigham Medical
+      Centre" typo (Q36, answered, pending the next Weebly sweep), not new.
+      ANSWER PICKUP (this run's step 3): newest portal entry still Q52,
+      2026-09-01T22:44:51.524Z, unchanged for one month; nothing new to
+      apply. No new in-repo defect, no new live finding, no new question;
+      QUESTIONS.json unchanged at 120 total, 48 open. ENVIRONMENT NOTE: this
+      run's lock handling hit the same standing Cowork connected-folder
+      delete limitation runs 533-539 documented (cannot unlink a lock file it
+      did not itself just create via a plain write); resolved the same way,
+      by renaming lock files aside rather than deleting them - see
+      AGENT_LOG.md for detail. Evidence:
+      audits/mccanns-aigburth-gbp-pack-quality-pass-2026-10-01-twentyfirst.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
