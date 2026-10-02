@@ -1,4 +1,69 @@
-## 2026-10-02 (second unattended scheduled run today, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git diagnosis and baseline checker suite from the sandbox mount, plus the scratch-copy injection work for item 2.1's twenty-third pass, this time copied to the sandbox's own filesystem outside the FUSE-mounted connected folder rather than another mount-local scratch directory; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Read/Edit/Write used for all content changes to AGENT_WORKLIST.md, this file, tools/check-postcodes.js and the new audit evidence file) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66, each genuinely needing a supervised live session rather than a stale tag), so this was the quality-pass fallback, same as the run immediately before it.
+## 2026-10-02 (third unattended scheduled run today, audit-backlog-worker, run inside a Cowork session; mcp__workspace__bash used for the lock/git-lock diagnosis and the full checker sweep from the sandbox mount; mcp__claude-in-chrome__navigate/get_page_text/tabs_close_mcp used for the step 3 answer-pickup fetch, one tab, read-only throughout, nothing clicked/typed/submitted; Edit used only on this file) - zero new portal answers since Q52 (2026-09-01, now over a month); all 8 unchecked worklist items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66); no rotation-pool quality pass taken this run, for the standing reason recorded since Q115 and reused by the two runs immediately before this one today - the 36-item rotation pool is saturated (18-24+ independent re-verifications each, zero new defects across the whole history) and this run's own item 2.1 was already given its twenty-third pass earlier today, so a further manual pass this run would mostly re-tread ground, not add signal.
+
+LOCK: `.agent-lock` held the prior run's own release marker, written at
+2026-10-02T08:05-ish, under 45 minutes old at this run's start, so no
+staleness override was needed. Overwrote it with this run's own UTC start
+timestamp via direct write (the standing workaround, `rm -f` on this mount
+returns "Operation not permitted" every time it has been tried).
+
+GIT: `git fetch origin`, confirmed already on `agents/audit-backlog`,
+`git pull --ff-only origin agents/audit-backlog` - already up to date with
+`89dfd94` (item 2.1's twenty-third pass plus the check-postcodes.js
+L9 9DZ fix, both from the run immediately before this one), 0 commits
+ahead/behind origin before this run's own work. Hit the standing Q120
+FUSE index.lock symptom while fetching `origin/main` for the drift check
+below: `git status` printed "unable to unlink '.git/index.lock':
+Operation not permitted" but still exited 0 with a clean porcelain
+result, so the lock was cosmetic noise rather than a real block this
+time (worth recording: it does not always block the read, only
+sometimes block a write, and there is no way to tell which from the
+warning text alone). Cleared it anyway with the lighter `mv` workaround
+(`.git/index.lock` -> `.git/index.lock.cleared-<epoch>`) before doing
+anything else, consistent with the method runs have used since the
+FUSE-unlink limitation was first found.
+
+BASELINE/ONLY CHECKER SUITE: ran all 37 `tools/check-*.js` scripts except
+`check-live-hours.js` (network-dependent, excluded as every prior run
+has done) against the tree at `89dfd94`: 36/36 exited 0, no output, no
+regressions.
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, one tab, closed
+after use. Navigated to https://data.rbhealth.co.uk/api/feedback and
+read the full JSON feedback array (54 entries). Newest entry still
+fb:2026-09-01T22:44:51.524Z (Q52) - unchanged, now 31 days with no new
+portal answer. Nothing in the feed answers any of the 48 currently-open
+questions (Q71-Q120); the newest answered id in the feed is Q52, and
+every open question postdates it.
+
+STANDING AUTHORISATION CHECK: no "Standing authorisation - autonomous
+window" section at the top of this file. Step 4 does not apply.
+
+WORKLIST: all 8 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED]
+by direct grep, unchanged from the run immediately before this one. No
+unblocked item to take.
+
+DRIFT (Q97): `git rev-list --left-right --count origin/main...agents/audit-backlog`
+now 3 ahead / 1655 behind (last main commit `ff7ac76`, 2026-08-15) -
+continuing to drift purely by commit count as main moves, no new
+incompatible change found. Unchanged from the standing position every
+run since Q97 has recorded; no action taken.
+
+QUESTIONS.json: 120 total, 48 open, unchanged in count from the run
+immediately before this one.
+
+ASSESSMENT: this scheduled task has now gone well over a hundred
+consecutive runs finding nothing new to unblock on the worklist itself,
+with the 36-item rotation pool independently re-verified far past the
+point of adding signal. The standing recommendation from Q115 is
+unchanged and still the accurate read of this repo's state: pause the
+schedule and have Rishi clear the Q8/Q9/Q13/Q16/Q52/Q59/Q60/Q66
+worklist-blocking batch, the process/infrastructure questions (Q96,
+Q102, Q115, Q119, Q120), and the 48 open quality-pass findings in one
+sitting, before restarting it. The repo-side technical audit is
+complete on the evidence; everything left runs through Rishi's own
+decisions, not more unattended repo checking. This run did not repeat
+that escalation at length in the log beyond this paragraph, to avoid
+adding log volume that restates an already-made point.
 
 LOCK: `.agent-lock` held "RELEASED (run complete, 2026-10-02T05:53:42Z)",
 about 48 minutes old at this run's start - past the 45-minute staleness
