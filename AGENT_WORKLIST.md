@@ -6717,6 +6717,95 @@ Next stalest by this run's own computation, for whoever runs next: 3.6
 4.5, 4.10, 4.3, 4.13, 4.8, 3.3, 3.5 - re-derive rather than assume, since
 other runs may land in between.
 
+Quality pass 2026-10-02 (twenty-fourth; unattended scheduled run,
+audit-backlog-worker): REPO HALF CLEAN, ZERO IN-REPO DEFECTS. Selected via
+the established two-step method: all eight remaining worklist lines (5.3,
+5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines under 6.4/6.5/6.6) are still
+[BLOCKED], so the quality-pass fallback applied. Rotation pool re-derived
+fresh rather than trusting any prior forward note: 42 completed items minus
+the standing seven out-of-rotation one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8) leaves a 35-item pool; each candidate's most recent touch found via
+`git log --pretty=%aI|||%s` matched against a word-boundary regex on the
+item number (the same method named on the 2026-09-18 twenty-third pass).
+3.4 came out uniquely stalest at 2026-09-18T12:15:28+01:00, clear of the
+next candidate (4.4 at 2026-09-18T15:43:42+01:00) and every other pool item.
+ANSWER PICKUP (step 3): unavailable this run. Chrome was not signed in to
+the Cloudflare Access session for data.rbhealth.co.uk (navigated to
+/api/feedback, landed on the Cloudflare Access login page, read_page
+confirmed the Azure AD SSO link plus an email/one-time-code form); not
+attempting to sign in, per standing instruction. Same gap as every run
+today.
+AUTONOMOUS WINDOW (step 4): none present at the top of AGENT_LOG.md this
+run; proceeded normally, no autonomous decisions taken.
+FRESH ANGLE: tools/check-pharmacy-first-safety-net.js, never named once
+against this item across its twenty-three prior passes (confirmed by grep
+of the item's own section for "check-pharmacy-first-safety-net" before
+selecting it: zero hits), despite the checker reading all seven of Cherry
+Lane's own Pharmacy First condition pages and carrying the same class of
+patient-safety weight CLAUDE.md records for the opening-hours "locked
+door" checker.
+BASELINE: branches.json sha256 169bb5a2...b102 (standing anchor,
+unchanged) and the three target pages' own hashes confirmed matching the
+tracked repo before any mutation. Full 36-script suite (excluding
+check-live-hours.js and check-cdn-pins.js, both network-dependent) clean on
+the tracked repo. A `git archive HEAD | tar -x` scratch copy was built
+under the sandbox's own temp mount (not the connected workspace folder, to
+avoid the unlink/lock litter documented under Q87); the tracked repo was
+never opened for writing at any point this pass. Scratch copy's branches.json
+and page hashes reconfirmed identical to the tracked repo before starting,
+and the full 36-script suite re-run clean on the scratch copy too.
+TWO INJECTIONS PLUS ONE CONTROL against the scratch copy only, each
+restored by byte copy from a pristine backup and sha256-reconfirmed before
+the next: (1) rule 6 (verbatim), the UTI page's own kidney-infection
+safety-net point deleted - CAUGHT ("a safety-net point is missing from the
+page", exact text named); (2) rule 7 (no cross-condition contamination),
+earache's own exclusion point ("Adults aged 18 and over are not covered by
+this pathway") pasted onto the impetigo page, which does not own it -
+CAUGHT ("carries a safety-net point that belongs to the earache pathway,
+not this one"), correctly naming the donor pathway. CONTROL: the earache
+page's phone number changed in all three shapes (visible, tel:, JSON-LD) -
+zero mentions in check-pharmacy-first-safety-net.js's output (checker
+exited 0 bar the standing Q61 impetigo-urgent warning); check-nap.js
+independently caught the same injection by name (ten MISMATCH lines),
+confirming the control was a real fault outside this checker's own scope
+rather than untested ground. All three injections restored, sha256
+reconfirmed identical to the pristine backups (uti:
+8de627d9...fd74bf, impetigo: a2fa0c69...8caf0d4, earache:
+c83afff1...cdcd05); full 36-script suite re-run on the scratch copy after
+the final restore, clean.
+Tracked repo reconfirmed untouched throughout: branches.json and all three
+target pages' sha256 hashes unchanged from the baseline above; the scratch
+copy lived entirely outside the connected workspace folder so no new
+untracked debris was added to the repo root by this pass's own file
+operations (the pre-existing sandbox unlink-bug litter, recorded under Q87
+and Q119, is unrelated to this pass and was not added to).
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 21 of
+36 checkers proven by direct injection (up from 20).
+LIVE HALF: not attempted this pass. The checker's subject (the seven
+condition pages' own safety-net copy) was last read live in full by the
+twenty-third pass (2026-09-18, under check-app-membership.js's own live
+read of the switch page) and the twentieth pass (2026-09-15, hours); this
+pass's own subject has no live counterpart beyond re-reading copy already
+confirmed static since 2026-08-04, so it was not re-read to keep scope
+tight, and is not claimed freshly checked either way.
+QUESTIONS.json re-read (120 total, 48 open, unchanged); no new question
+raised - this pass proved a checker's rules sound against a specific
+branch's data and pages rather than surfacing a decision for Rishi.
+ENVIRONMENT NOTE: this sandbox's connected workspace folder still rejects
+unlink() (confirmed again this run: `rm` on an existing, owned, 0700 file
+returns "Operation not permitted", while `mv`/rename and in-place overwrite
+both succeed), so a stray `.git/index.lock` left by a read-only `git
+status` call had to be renamed aside rather than deleted. Same mechanism as
+Q87/Q119, not a new finding; step 9's commit and step 10's publish are
+queued for the Windows-MCP PowerShell route against the real host, per
+Q87/Q102's confirmed working method.
+No code, data or worklist-checkbox change this pass; FILES CHANGED:
+AGENT_WORKLIST.md and AGENT_LOG.md only (this entry).
+Next stalest by this run's own computation, for whoever runs next: 4.4
+(2026-09-18T15:43:42+01:00), then 5.2, 4.7, 4.1, 4.10, 4.3, 1.3, 4.8, 3.3,
+3.5, 3.1 - re-derive rather than assume, since other runs may land in
+between.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
