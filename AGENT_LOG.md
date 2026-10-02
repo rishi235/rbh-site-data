@@ -109,19 +109,35 @@ appended), `audits/sk-chemists-bootle-url-scheme-4.11-twentythird-2026-10-02.txt
 or `branches.json` field changed. Final check: `git status --porcelain`
 (tracked files) shows exactly `tools/check-url-scheme.js` modified.
 
-COMMIT/PUSH/PUBLISH: see next entry for outcome (committed, push attempted,
-status page publish attempted per step 10).
+COMMIT/PUSH/PUBLISH: committed locally as `74184c3` (message above), after
+renaming aside several lock files git itself created and could not unlink
+mid-add/mid-commit (`.git/index.lock` twice, `.git/HEAD.lock`,
+`.git/ORIG_HEAD.lock`, a handful of `.git/objects/*/tmp_obj_*`) - confirmed
+no git process running via `pgrep -fl git` before each rename, same
+rename-not-delete convention runs 533+ established; all harmless loose
+temp/lock state, not index state, and the commit recorded correctly. `git
+push origin agents/audit-backlog` failed "could not read Username for
+'https://github.com'" - the same standing credential gap as
+Q87/Q96/Q102, confirmed again. This run's commit is left on the local
+branch alongside the prior 6, now 7 commits ahead of origin
+(74184c3, 066be7a, 6fa1f1e, a6d2748, c4b2dbf, 11fb496, ca35942), for a run
+with host-level push access to pick up. `node tools/build-audit-status.js`
+run per step 10 regardless and failed the same way at its GitHub API
+publish step ("gh: not found") - the status page could not be republished
+this run, for the same credential reason.
 
 RECOMMENDATION: unchanged in substance from runs 487-540 plus the
 immediately preceding run. Zero new portal answers since Q52, now over a
 month; the 8 blocked worklist items are unchanged; Q115 (whether to pause or
 slow this schedule) remains the single highest-value open question. This
 run's fix is small and self-contained (one regex flag, verified safe against
-the whole estate before applying), but the local branch is still growing
-unpushed commits in this environment - worth flagging again that a run with
-host-level git credentials should push the backlog and republish the status
-page at the next opportunity. None of Q87/Q96/Q102/Q115/Q119/Q120 decided
-autonomously this run - no autonomous window is open.
+the whole estate before applying), but the local branch is now 7 commits
+ahead of origin with no run in this environment able to push - worth
+flagging again that the portal's published status page is drifting further
+from the real repo state each time this happens, and that a run with
+host-level git credentials should push the backlog of commits and republish
+the status page at the next opportunity. None of Q87/Q96/Q102/Q115/Q119/Q120
+decided autonomously this run - no autonomous window is open.
 
 ---
 
