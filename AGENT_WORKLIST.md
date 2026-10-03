@@ -35549,6 +35549,106 @@ performed.
       or on 2026-09-18 by other runs today, since 5.2 itself now moves
       to the back of the queue at 2026-09-18. Other runs may land in
       between before the next pass.
+      Quality pass 2026-10-03 (twenty-first, unattended scheduled run,
+      rotation-pool pick): all eight remaining unchecked worklist lines
+      reconfirmed [BLOCKED] this run (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+      6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged. Answer pickup (step
+      3): Chrome reached https://data.rbhealth.co.uk/api/feedback and
+      landed on the Cloudflare Access login page (Azure AD SSO link plus
+      an email/one-time-code form, confirmed via read_page), not signed
+      in; per standing instruction did not attempt to log in, tab closed.
+      QUESTIONS.json unchanged, 120 total, 48 open. No autonomous-window
+      section at the top of AGENT_LOG.md, so step 4 does not apply.
+      ROTATION POOL re-derived fresh via `git log --pretty=%aI|||%s`
+      against a word-boundary regex per pool item, 35-item pool (the 42
+      checked items minus the seven standing out-of-rotation one-offs
+      1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8): item 5.2 (this one) came out
+      uniquely stalest at 2026-09-18T16:41:26+01:00, clear of the next
+      tier (4.7, 2026-09-18T17:45:13+01:00, then 4.1, 4.10, 4.3, 1.3/4.8
+      tied, 3.3, 3.5, 3.1).
+      NEW ANGLE. Of the nineteen checkers already proven by direct
+      injection against this item's own four pages across twenty prior
+      passes, tools/check-seo-pattern.js had never been run against them,
+      despite being one of the five core SEO checkers CLAUDE.md names
+      explicitly and despite its own DIRS list including
+      modules/branch/pages alongside the service and switch families -
+      confirmed by reading the source before testing, not assumed.
+      check-seo-sheets.js (proven last pass, twentieth) guards the paste
+      sheets against drift from each other; check-seo-pattern.js is the
+      one that asserts the title and H1 are correct in the first place,
+      against seo-pattern.js's own pick()/landingTitle()/landingH1()
+      composition, plus its service-word, one-h1, one-line, cross-town
+      and data-source rules. A materially different rule, not a repeat.
+      METHOD: full `cp -a` scratch copy of the whole tracked repo
+      (including .git) to /tmp/scratch52c, no injection against the
+      tracked working copy this pass launched from. BASELINE confirmed
+      first: full 36-checker suite (excluding check-live-hours.js,
+      network-dependent) run individually, 36/36 exit 0; check-seo-
+      pattern.js itself reports 177 pages checked, 0 untyped, 0 failures,
+      with the two standing PINNED cross-town findings against Q71
+      (McCanns Sandringham naming Aigburth, Scorah Bramhall and Hazel
+      Grove naming each other) unchanged and already known. FOUR ROUNDS
+      against this item's own four pages, each restored by direct copy
+      from a pre-injection backup and sha256-reconfirmed byte-identical
+      before the next: (1) TITLE DRIFT - " Extra" appended to the Weebly
+      SEO title line on pharmacy-mccanns-aigburth.html - CAUGHT, "title
+      '...Extra' != '...McCanns Chemist'"; (2) CROSS-TOWN - "Timperley"
+      (riddings_timperley's own seoTown, not in this branch's
+      serviceAreaList) inserted into pharmacy-scorah-bramhall.html's
+      description - CAUGHT, "description names 'Timperley' ... and
+      'Timperley' is not in this branch's serviceAreaList" (the existing
+      Q71 Hazel Grove PINNED finding fired alongside it unchanged, as
+      expected, since that one is excused and this one is not); (3) H1
+      DRIFT - pharmacy-mccanns-sandringham.html's h1 changed from "...St
+      Michael's..." back to the pre-Q15 "...Sandringham..." wording -
+      CAUGHT twice at once, the exact-match rule and the seoTown-presence
+      rule, the second of which also reconfirms live that the item 5.7
+      seoTown correction is still holding in this page nearly two months
+      on, since only the injected copy disagreed; (4) SERVICE-WORD DROP -
+      "Pharmacy" replaced with "Health Services" in pharmacy-scorah-hazel-
+      grove.html's title - CAUGHT twice at once, the exact-match rule and
+      "title missing service words (pharmacy)". All four rounds fired on
+      their own intended rule, first attempt. Full 36-checker suite
+      re-run once after all four rounds restored: 36/36 exit 0. All four
+      target pages and tools/check-seo-pattern.js itself sha256-
+      reconfirmed byte-identical to their pre-injection baseline at the
+      end. git status --porcelain on the tracked working copy (modules,
+      tools, branches.json, gbp-packs, core) empty throughout.
+      LIVE HALF: re-read this pass, Chrome reachable. All four of this
+      item's own landing URLs fetched read-only via get_page_text:
+      pharmacy-mccanns-aigburth.html, pharmacy-mccanns-sandringham.html,
+      pharmacy-scorah-bramhall.html and pharmacy-scorah-hazel-grove.html
+      all still return a 404 "Page Not Found" Weebly error page, unchanged
+      since first observed on the 2026-08-10 pass and reconfirmed on
+      every live-reachable pass since (now nearly eight weeks running).
+      Q35 (why these four pages have never been pasted to Weebly) stands
+      exactly as before; nothing new to add to it.
+      RESULT: no in-repo defect, no live-copy change. check-seo-pattern.js
+      was already correctly typing and verifying all four of this item's
+      pages (title, H1, service words, one-h1, one-line, cross-town,
+      data-source), now proven directly by injection for the first time
+      in this item's twenty-one-pass history. No checker logic, page,
+      generator or data field changed anywhere in the repo. No new
+      question raised; QUESTIONS.json unchanged (120 total, 48 open).
+      Guard coverage for this item now extends to 20 of the estate's 36
+      checkers proven by direct injection against one of its own four
+      pages, its own branches.json/generator records, or a checker's own
+      source: check-address-region, check-app-membership (trivial),
+      check-branch-identity, check-branch-links, check-brand-spelling,
+      check-em-dashes, check-fragment-targets, check-jsonld, check-live-
+      hours, check-map-embeds, check-nap, check-opening-hours, check-
+      page-coverage, check-pharmacy-first-eligibility, check-postcodes,
+      check-seo-keywords, check-seo-pattern (new this pass), check-seo-
+      sheets, check-weight-loss-copy (trivial), check-whatsapp-route
+      (trivial).
+      FORWARD NOTE: next stalest by this run's own re-derivation is 4.7
+      (2026-09-18T17:45:13+01:00), followed by 4.1, 4.10, 4.3, 1.3/4.8
+      (tied), 3.3, 3.5, 3.1, 3.2 and 3.7, since 5.2 itself now moves to
+      the back of the queue at 2026-10-03. Other runs may land in between
+      before the next pass. Checker suite this run: all 36 non-live-hours
+      tools/check-*.js re-run individually on the tracked working copy
+      after the scratch-based pass above (separately from the scratch
+      runs, as a final sanity sweep); 36/36 exit 0, no regressions.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
