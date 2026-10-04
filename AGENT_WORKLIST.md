@@ -25899,6 +25899,35 @@ directly rather than re-deriving the same facts by hand.
       question. Evidence in
       audits/smartts-bootle-pharmacy-first-cost-4.10-twentieth-2026-09-18.txt.
       Done 2026-09-18.
+      Twenty-first quality pass 2026-10-04 (unattended scheduled run). Of the
+      ten checkers confirmed to actually read gbp-packs/*.md by a real
+      directory reference rather than a comment mentioning the string
+      (check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+      check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+      check-uk-spelling.js, check-postcodes.js, check-url-scheme.js), nine
+      had already been proven against this pack by direct injection across
+      the prior twenty passes; check-postcodes.js had not, despite being
+      proven against several sister packs. Baseline: sha256(gbp-packs/
+      smartts-bootle.md) = 541239e0...003796b, unchanged since the sixth
+      pass; full 35-checker suite clean; six generators plus the Weebly
+      furniture checklist byte-stable. INJECTION on a git-archive scratch
+      copy (/tmp/scratch-4.10-run, tracked file never opened for writing):
+      TEST 1 (FOREIGN) replaced the pack's own L20 9HH with another live
+      branch's real postcode, L4 8SG (Coleman and Leighs Walton) - CAUGHT,
+      named both branches correctly. TEST 2 (UNKNOWN) replaced it with a
+      fabricated postcode-shaped value matching no branch, ZZ96 5ZZ -
+      CAUGHT. CONTROL (unrelated wording change, no postcode touched) -
+      PASSED, 0 failures, no cross-firing, same three long-standing WARNs
+      on unrelated files only. All three rounds restored by byte copy and
+      sha256-reconfirmed identical to baseline after each. Tracked repo
+      confirmed untouched throughout; full 35-checker suite re-run clean
+      after the pass. No in-repo defect - all ten gbp-packs-reading
+      checkers are now proven against this specific pack by direct
+      injection at least once, closing the last gap in its own
+      checker-coverage matrix. No new question. Evidence in
+      audits/smartts-bootle-postcode-check-4.10-twentyfirst-2026-10-04.txt.
+      Done 2026-10-04.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
