@@ -48,11 +48,15 @@
                 2026-08-31: McCanns to Mccanns, SK to Sk, RB to Rb), and
                 (added by the ninth 1.1 pass, 2026-09-06) any word set
                 entirely in capitals (Cherry Lane Pharmacy to CHERRY LANE
-                PHARMACY). So "Fishlock Chemist", "Fishlock's Chemist",
+                PHARMACY), and (added by the eleventh 1.1 pass, 2026-10-04)
+                a connecting "and" dropped outright rather than swapped for
+                "&" (Coleman and Leighs Pharmacy to Coleman Leighs
+                Pharmacy). So "Fishlock Chemist", "Fishlock's Chemist",
                 "Gordon Shorts Chemist", "Coleman & Leigh Pharmacy",
-                "Hirshmans Pharmacy", "Cherry Lane Chemist", "Mccanns
-                Chemist", "Sk Chemists" and "CHERRY LANE PHARMACY" are all
-                caught without anyone having thought of them in advance. The
+                "Coleman Leighs Pharmacy", "Hirshmans Pharmacy", "Cherry
+                Lane Chemist", "Mccanns Chemist", "Sk Chemists" and "CHERRY
+                LANE PHARMACY" are all caught without anyone having thought
+                of them in advance. The
                 one deliberate, derived exception is masked rather than
                 excepted by name: every generated page's own leading HTML
                 comment opens with store.brand.toUpperCase() (or
@@ -307,9 +311,28 @@ var brandPatterns = [];
 Object.keys(CANONICAL).forEach(function (id) {
   var label = CANONICAL[id];
   if (brandPatterns.some(function (p) { return p.label === label; })) return;
-  var body = label.split(/\s+/).map(function (w) {
-    return "(?:" + wordForms(w).map(esc).join("|") + ")";
-  }).join("\\s+");
+  // A connecting "and" can be dropped outright, not only swapped for "&"
+  // (wordForms already derives that swap via the "and"->"&" rule). The
+  // word-by-word pattern below otherwise requires every word in the
+  // canonical label to be present in sequence, so an omitted middle word
+  // produces no match at all rather than a near-miss, and the near-miss
+  // check silently passes it. "Coleman Leighs Pharmacy" (the only
+  // canonical name carrying an "and") proved this by injection on the item
+  // 1.1 eleventh pass, 2026-10-04: all 36 checkers passed it. Only the
+  // literal word "and" is made optional, and only as its own group plus
+  // trailing separator together, so the words on either side still need
+  // exactly one separator between them whether "and" is present or not.
+  var words = label.split(/\s+/);
+  var body = "";
+  words.forEach(function (w, i) {
+    var group = "(?:" + wordForms(w).map(esc).join("|") + ")";
+    if (w.toLowerCase() === "and") {
+      body += "(?:" + group + "\\s+)?";
+    } else {
+      body += group;
+      if (i < words.length - 1) body += "\\s+";
+    }
+  });
   brandPatterns.push({ label: label, re: new RegExp("\\b" + body + "\\b", "g") });
 });
 
