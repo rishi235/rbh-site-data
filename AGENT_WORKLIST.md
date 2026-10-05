@@ -39525,6 +39525,37 @@ no page, generator or data field changed this run.
       "genuinely complete" state drifts out of date on its own as new
       questions arrive - this time one drifted rather than zero, so the
       re-check earned its run. No new question raised; blocks nothing.
+      Quality pass 2026-10-05 (seventh, unattended scheduled run): picked
+      as the item re-derived directly from this file's own dated entries
+      being the stalest real verification in the backlog (last touched
+      2026-09-26, over a week before any other rotation-pool item's
+      narrower last-touch dates seen on this run). QUESTIONS.json now
+      holds 120 entries, 48 open. Programmatic re-check of all eight
+      structural rules this item has accumulated: no duplicate ids, every
+      required field present on all 120 entries, every "options" array
+      within the 2-4 bound, every "recommended" index valid against its
+      own options array, every "status" value one of open/answered, no
+      answered entry with an empty answer, and every open entry's
+      "question" field opening with "Decision needed:". Zero defects
+      found; all 48 open questions still comply, no drift since the sixth
+      pass. Full 37-checker suite also re-run clean before and after
+      (37/37, 0 failures; same pre-existing warnings as every recent run -
+      UNOWNED postcode notes on modules/branch/pages and
+      gbp-packs/TEMPLATE.md, the eMAR Q111 personal-inbox note, the
+      Smartts Q16 claim, the impetigo Q61 safety-net note, the yellow
+      fever Q48 note, Clear Chemist Aintree's missing NHS review link,
+      core/site-data.js's @main runtime fetch of branches.json per Q45).
+      No page, generator or data field changed; only this item's own
+      QUESTIONS.json structural check was re-run, and nothing in it
+      needed fixing. Separately, this run's own git lock handling (see
+      AGENT_LOG.md) turned up something new and relevant to Q120: the
+      repo's .git directory now carries roughly 1,900 renamed-aside lock
+      files accumulated across prior runs' EPERM-on-unlink workarounds,
+      not the few dozen earlier entries described. Not cleaned up as part
+      of this item (out of scope for a QUESTIONS.json structural check,
+      and a bulk delete through the same EPERM-prone path is its own
+      piece of work); flagged for whoever picks up Q120. No new question
+      raised; blocks nothing.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)
