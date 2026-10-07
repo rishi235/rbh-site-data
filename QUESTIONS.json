@@ -1912,5 +1912,20 @@
     "status": "open",
     "answer": null,
     "note": "Confirmed this run: `git push` fails with no credential prompt path available and no stored credentials; `gh auth status` reports gh is not installed; env has no GITHUB_TOKEN; no ~/.netrc or ~/.gitconfig with a credential section. The local commit 0d7bd1a0 (this run's AGENT_LOG.md entry) is sitting ahead of origin in the mounted working copy and should push cleanly the next time a context with credentials runs git push on this branch - nothing needs to be redone, just pushed."
+  },
+  {
+    "id": "Q122",
+    "date": "2026-10-07",
+    "item": "process/infrastructure finding (does not block any single worklist item; separate from Q119's general file-size finding)",
+    "question": "Decision needed: AGENT_LOG.md contains at least three corrupted lines (around lines 72031, 72405 and 74053 in the pre-this-run file) that are each roughly 7.2 million characters long - not legitimate log prose, but a runaway mojibake cascade of a single pound-sign (£) character in a quoted price string (\"from £...\"), re-encoded through what looks like a repeated, non-converging encoding-fix pass (UTF-8 read as Latin-1 and re-saved as UTF-8, several generations deep, each generation multiplying the garbage by roughly 2 to 3x). These three lines alone account for over 21 million characters, a meaningful fraction of the file's current 58.9MB/76,000+ line size - this is a distinct data-integrity defect, not simply more of the volume growth Q119 already covers, and it is the kind of thing a well-meant automated 'fix the encoding' pass could make dramatically worse rather than better, which is presumably how it reached 7 million characters in the first place. Not fixed this run: editing or truncating these lines by hand risks losing or further mangling whatever genuine log content sits either side of the corrupted span, and this worker has no safe, verified way to isolate the boundary without a careful, supervised pass. Recommended: option 2.",
+    "options": [
+      "Leave the three corrupted lines exactly as they are and fold the fix into whatever archiving work is eventually done under Q119 (the archive pass would need to find the clean boundary around each corrupted line anyway).",
+      "Have a supervised session (not an unattended scheduled run) locate the exact start and end of each corrupted span, confirm the readable text immediately before and after each one is intact, and replace each span with a short bracketed note (e.g. '[a corrupted price-string encoding cascade, originally one £ character, was removed from this line on <date> - see Q122]') rather than deleting the whole surrounding entry.",
+      "Restore AGENT_LOG.md from a git commit that predates the corruption (git log -p / git blame on the relevant lines would date it) and re-apply only the genuinely new entries made since, discarding the corrupted copies. More thorough but more work, and risks losing any real content from the affected entries if it was never duplicated elsewhere."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "Found this run while reading AGENT_LOG.md for the standard pickup/worklist checks (step 1-5). No attempt was made to edit, re-encode or otherwise touch the corrupted lines - they were only measured (wc -c / awk length) and viewed a few hundred characters at a time via sed. This finding should not be treated as blocking any of the eight open worklist items or the six existing meta-questions (Q87/Q96/Q102/Q115/Q119/Q120/Q121); it is additive to them."
   }
 ]
