@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-08T06:14:33Z",
+  "generated_at": "2026-10-09T06:15:10Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
-    "total": 37,
+    "total": 69,
     "overdue": 19,
-    "due_next_7_days": 2,
-    "no_due_date": 16
+    "due_next_7_days": 21,
+    "no_due_date": 27
   },
   "tasks": [
     {
@@ -201,6 +201,16 @@
       "url": "https://app.asana.com/1/768589943956440/task/1219288778941565"
     },
     {
+      "gid": "1219295643455753",
+      "name": "Refinance - give Rangewell's incoming lender an answer",
+      "due_on": "2026-10-09",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295643455753"
+    },
+    {
       "gid": "1218389054018316",
       "name": "Look at fee's per item ratio for 28/56/84 cycle analysis instead of RWAPharmsmart - sort",
       "due_on": "2026-10-11",
@@ -209,6 +219,192 @@
         "Mission Control"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206418357353936/task/1218389054018316"
+    },
+    {
+      "gid": "1219295725535499",
+      "name": "Rent reviews - Sandringham, Ainsdale, Cherry Lane",
+      "due_on": "2026-10-12",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295725535499"
+    },
+    {
+      "gid": "1219300274646206",
+      "name": "Service contract renewal terms, dates, options and costs, plus hardware/software upgrade details - receive before meeting",
+      "due_on": "2026-10-12",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219300274646206"
+    },
+    {
+      "gid": "1219299957492604",
+      "name": "Monthly data export - drug usage and trays by branch (promised 31 July)",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219299957492604"
+    },
+    {
+      "gid": "1219300161025014",
+      "name": "Numbers mismatch - export 760k tablets vs AshaEve report 714k (Apr-Jun): which date basis to use",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219300161025014"
+    },
+    {
+      "gid": "1219299957464503",
+      "name": "Omnicell - outstanding items ahead of 13 Oct SK visit",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219299957464503"
+    },
+    {
+      "gid": "1219299957527180",
+      "name": "Remote demo of Bridge reports (promised 31 July)",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219299957527180"
+    },
+    {
+      "gid": "1219300244505106",
+      "name": "Scheduled exports / API - developer feedback, and read-only reporting login (requested 8 Oct)",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219300244505106"
+    },
+    {
+      "gid": "1219299957476734",
+      "name": "Update on hub and spoke reporting development with Mandy Tindale (March)",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219299957476734"
+    },
+    {
+      "gid": "1219300244504946",
+      "name": "Which report gives trays per hour and trays by branch",
+      "due_on": "2026-10-13",
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219300244504946"
+    },
+    {
+      "gid": "1219295662036423",
+      "name": "Hazel Grove lease - chase Gorvins for draft lease",
+      "due_on": "2026-10-14",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295662036423"
+    },
+    {
+      "gid": "1219295725535563",
+      "name": "Townsend Lane - reply to Designed Nation on next steps",
+      "due_on": "2026-10-14",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295725535563"
+    },
+    {
+      "gid": "1219295725306435",
+      "name": "Chris Law - RB Properties facility remortgage",
+      "due_on": "2026-10-15",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295725306435"
+    },
+    {
+      "gid": "1219295725535435",
+      "name": "11 Stanton Street - decide on garden wall DPC quote",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295725535435"
+    },
+    {
+      "gid": "1219295696974600",
+      "name": "16 Printers Close - decide on works quote",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295696974600"
+    },
+    {
+      "gid": "1219295643549117",
+      "name": "ATL Head Office system - book training with Raj",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295643549117"
+    },
+    {
+      "gid": "1219295563701223",
+      "name": "Lilly Mounjaro reconciliation - respond to discrepancy table",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295563701223"
+    },
+    {
+      "gid": "1219295643548989",
+      "name": "Snowdrop SK10 4TB remortgage - get corrected title",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295643548989"
+    },
+    {
+      "gid": "1219295725535627",
+      "name": "Van leases ending - decide hand back, extend or replace (4 vans)",
+      "due_on": "2026-10-16",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295725535627"
+    },
+    {
+      "gid": "1219295662036339",
+      "name": "Clear Chemist outreach drafts - approve, rework or drop",
+      "due_on": "2026-10-21",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295662036339"
+    },
+    {
+      "gid": "1219295662036487",
+      "name": "GPhC revalidation and registration renewal",
+      "due_on": "2026-10-23",
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295662036487"
     },
     {
       "gid": "1217797013377103",
@@ -263,6 +459,98 @@
         "Rishi WORK"
       ],
       "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219146122533537"
+    },
+    {
+      "gid": "1219296055509872",
+      "name": "Follow up on Current Branch Performance Report- 14/04/2026 07:55:41",
+      "due_on": null,
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219296055509872"
+    },
+    {
+      "gid": "1219296733310482",
+      "name": "Follow up on Delivery and MDS",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219296733310482"
+    },
+    {
+      "gid": "1219297408385148",
+      "name": "Follow up on Introducing the ChatGPT for small businesses program",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219297408385148"
+    },
+    {
+      "gid": "1219297720829018",
+      "name": "Follow up on June update: free guide, AI assistant & promotion ideas for your pharmacy",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219297720829018"
+    },
+    {
+      "gid": "1219297293286343",
+      "name": "Follow up on Landlord Ref - 106599",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219297293286343"
+    },
+    {
+      "gid": "1219296368189315",
+      "name": "Follow up on Meeting 04.03.2025",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219296368189315"
+    },
+    {
+      "gid": "1219297293305528",
+      "name": "Follow up on Meeting summary - New Forecast and re-finance/failing branches",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219297293305528"
+    },
+    {
+      "gid": "1219296314477842",
+      "name": "Follow up on O2 Business Mobile - R B Healthcare",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219296314477842"
+    },
+    {
+      "gid": "1219296737616106",
+      "name": "Follow up on Point Of Care",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219296737616106"
+    },
+    {
+      "gid": "1219297440849584",
+      "name": "Follow up on Smart SMS (2.7p) messaging in a smart way : PatientSmart (Free)",
+      "due_on": null,
+      "overdue": false,
+      "projects": [],
+      "url": "https://app.asana.com/1/768589943956440/task/1219297440849584"
+    },
+    {
+      "gid": "1219295910763048",
+      "name": "Follow up on Update & Meeting",
+      "due_on": null,
+      "overdue": false,
+      "projects": [
+        "Rishi WORK"
+      ],
+      "url": "https://app.asana.com/1/768589943956440/project/1206384486490976/task/1219295910763048"
     },
     {
       "gid": "1217052318316046",
