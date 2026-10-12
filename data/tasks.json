@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-11T06:14:39Z",
+  "generated_at": "2026-10-12T06:14:22Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 71,
-    "overdue": 21,
-    "due_next_7_days": 19,
+    "overdue": 22,
+    "due_next_7_days": 18,
     "no_due_date": 29
   },
   "tasks": [
@@ -214,7 +214,7 @@
       "gid": "1218389054018316",
       "name": "Look at fee's per item ratio for 28/56/84 cycle analysis instead of RWAPharmsmart - sort",
       "due_on": "2026-10-11",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Mission Control"
       ],
