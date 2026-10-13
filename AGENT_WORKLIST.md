@@ -5389,6 +5389,38 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       question raised; QUESTIONS.json unchanged at 113 total, 60 open. Full
       detail in
       audits/fishlocks-item-3.3-quality-pass-2026-09-18-twentysecond.txt.
+      Quality pass 2026-10-13 (twenty-third, unattended scheduled run): picked
+      as the genuinely stalest rotation-pool item, re-derived fresh from this
+      file's own dated entries (3.3 last touched 2026-09-18T21:43:33+01:00,
+      narrowly ahead of 3.5 and 3.1 the same day). NEW ANGLE:
+      check-weight-loss-copy.js, never named in this item's own entry across
+      twenty-two prior passes, proven by injection against both Fishlocks
+      pages (weight-loss-clinic-fishlocks-ainsdale.html and -eccleston.html)
+      for the first time. Scratch copy via git archive, tracked repo
+      untouched. Four injections, each restored by byte copy and
+      sha256-reconfirmed before the next: a named medicine (RULE 8) on
+      Ainsdale - CAUGHT; the "We cannot guarantee..." FAQ sentence rewritten
+      into an actual guarantee (RULE 6) on Eccleston - CAUGHT; the footer
+      no-guarantee sentence replaced with a quantified "lose up to 20%"
+      claim on Ainsdale - CAUGHT both ways (lost pinned sentence, quantified
+      claim); the consultation fee changed from £39.99 to £29.99 on
+      Eccleston (RULE 7) - CAUGHT all three ways (page fee, Q51 booking-card
+      sentence, estate-wide same-fee check). One no-op control stayed clean.
+      Both files confirmed byte-identical to the original after every
+      restore and at the end of the run; full 35-checker suite (excl.
+      check-cdn-pins.js, check-live-hours.js) clean before and after;
+      regeneration via tools/build-weight-loss-pages.js byte-stable for both
+      pages. No in-repo defect: the checker already protects this branch
+      pair correctly on every rule exercised. LIVE HALF (Claude in Chrome,
+      read-only): both live weight-loss-clinic pages on
+      fishlockpharmacy.co.uk read in full, match the compliant generated
+      copy exactly (no medicine named, no efficacy claim, price and
+      no-guarantee wording both correct), no drift. Reconfirmed, not new:
+      the shared Weebly-native footer on both pages still reads "Fishlock
+      Pharmacy" (missing the "s") and the abbreviated "17 Station Rd" - the
+      standing Q37/Q38 finding, last reconfirmed live 2026-09-28, unchanged.
+      No new in-repo or live defect, no new question raised. Full detail in
+      audits/fishlocks-item-3.3-quality-pass-2026-10-13-twentythird.txt.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

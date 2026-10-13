@@ -1,0 +1,120 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - twenty-third quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-10-13
+
+PICK
+----
+All 8 unchecked AGENT_WORKLIST.md items reconfirmed [BLOCKED] (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). No "Standing
+authorisation" autonomous window found in AGENT_LOG.md. Fell to the
+quality-pass fallback.
+
+Rotation pool re-derived directly from AGENT_WORKLIST.md's own dated entries
+(not trusted from a prior run's note), excluding the seven standing one-offs
+this item's own 2026-08-30 pass corrected itself over (1.1, 1.4, 2.2, 5.6, 5.7,
+6.7, 6.8 are not part of the rotation pool) and the eight items already touched
+earlier today (4.7, 4.1, 3.11, 3.12, 2.1, 1.3, 4.3, 4.8). Of the remainder, 3.3
+(last touched 2026-09-18T21:43:33+01:00, its twenty-second pass) was the
+stalest, narrowly ahead of 3.5 (22:09:54 the same day) and 3.1 (23:39:02 the
+same day). Picked 3.3, its twenty-third pass.
+
+FRESH ANGLE
+-----------
+Checked which of the 36 tools/check-*.js checkers had never been named inside
+item 3.3's own worklist entry across twenty-two prior passes. Nine were unread:
+check-contraception-copy.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-symptoms.js, check-travel-clinic-copy.js,
+check-weebly-furniture-freshness.js, check-weight-loss-copy.js.
+
+Picked check-weight-loss-copy.js: the highest compliance stakes of the nine
+(the only page family in the estate with a live regulatory question already
+open against it - item 5.8/Q16, the house standard at
+AI\RBH_WeightLoss_Advertising_Standards.md), and genuinely unproven against
+this branch pair - the GBP-pack checkers listed above are already exercised
+elsewhere, in items 4.1 and 4.8, which own Fishlocks Ainsdale's and
+Eccleston's own GBP packs.
+
+METHOD
+------
+Scratch copy via `git archive HEAD | tar -x`, tracked repo never opened for
+writing. Baseline: all 35 static checkers (excl. check-cdn-pins.js,
+check-live-hours.js, both network-dependent) exit 0, including
+check-weight-loss-copy.js's own clean summary (15 pages, 21 pinned lines, 7
+FAQ pairs, 21 barred medicine names, 18 claim patterns, "from £39.99" on all
+15, 6 branch landing pages and 2 Weebly paste blocks read as Regime 1).
+
+Four injections against the two Fishlocks pages specifically, each restored by
+byte copy from a pristine saved original and sha256-reconfirmed before the
+next:
+
+(A) RULE 8, medicine name - inserted "such as Mounjaro" into
+    weight-loss-clinic-fishlocks-ainsdale.html's "which medication" FAQ
+    answer. CAUGHT: exact file and medicine named.
+
+(B) RULE 6, no-guarantee statement - rewrote the FAQ answer on
+    weight-loss-clinic-fishlocks-eccleston.html from "We cannot guarantee
+    that any particular product will be available or right for you" to a
+    guarantee. CAUGHT: exact file, exact missing pinned sentence named.
+
+(C) RULE 9 (claim-patterns.js) and RULE 6 together - replaced the page-footer
+    "Individual results vary depending on factors including starting weight,
+    diet and lifestyle." on the Ainsdale page with a quantified "Most
+    patients lose up to 20% of their body weight within months." Both fired:
+    the lost no-guarantee sentence, and the quantified claim itself ("lose up
+    to").
+
+(D) RULE 7, price discipline - changed "from £39.99" to "from £29.99" in all
+    three places on the Eccleston page. All three price sub-checks fired: the
+    page's fee no longer matches CONSULT_FEE, the Q51 booking-card sentence no
+    longer matches verbatim, and the estate-wide "same fee on every page"
+    check correctly reports a 42-page/3-page split.
+
+CONTROL: a no-op edit (identical string substituted for itself) on the
+Ainsdale page left the checker clean, confirming the harness itself was not
+forcing a failure.
+
+Both files restored and sha256-verified byte-identical to the original
+git-archive extraction after every injection and at the end of the run. Full
+diff against the originals: empty. Regenerated via
+`node tools/build-weight-loss-pages.js`: both files byte-identical before and
+after (sha256 unchanged), confirming the generator is still deterministic for
+this branch pair. Full 35-checker suite (excl. the two network-dependent
+checkers) re-run clean after the final restore and after regeneration: 0
+failures.
+
+No in-repo defect found: check-weight-loss-copy.js already correctly protects
+both Fishlocks pages across every rule exercised (8, 9, 6, 7), proven directly
+for this branch pair for the first time in twenty-three passes.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, closed after reading)
+--------------------------------------------------------------------------
+Read both live pages in full:
+  https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-ainsdale.html
+  https://www.fishlockpharmacy.co.uk/weight-loss-clinic-fishlocks-eccleston.html
+
+Both match the compliant generated copy exactly: no medicine named anywhere,
+no efficacy or results claim, "from £39.99" on both, the "We cannot
+guarantee..." sentence present and unedited, "not an NHS treatment" stated,
+the eligibility/exclusion list and safety-net sentence all present verbatim.
+No drift since generation.
+
+Reconfirmed, not new: both live pages' shared Weebly-native footer still reads
+"Fishlock Pharmacy, Ainsdale, Southport" / "Fishlock Pharmacy, Eccleston,
+Chorley" (dropping the "s") and "Fishlock Chemist (GPHC no. 1121085 and
+1034673)" in the legal line, plus the abbreviated "17 Station Rd". This is the
+standing Q37/Q38 finding (WEEBLY_FURNITURE_CHECKLIST.md lines 110-133;
+QUESTIONS.json Q37, last reconfirmed live 2026-09-28), site furniture no
+generator or checker here can reach. Not a new finding; recorded here only
+because this pass's own live read happened to cover the same pages.
+
+OUTCOME
+-------
+No new in-repo defect, no new live defect, no new question raised. Item 3.3
+and check-weight-loss-copy.js both confirmed sound against this branch pair.
+Nine checkers never named in item 3.3's entry before this pass is now eight
+(check-weight-loss-copy.js moves to the proven list); the remaining eight
+(check-contraception-copy.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-symptoms.js, check-travel-clinic-copy.js,
+check-weebly-furniture-freshness.js) remain candidates for a future pass on
+this item.
