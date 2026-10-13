@@ -1,0 +1,124 @@
+Item 3.1 (title/H1 pattern generator) - twenty-third quality pass
+Run 191, 2026-10-13, unattended scheduled run, audit-backlog-worker, Cowork sandbox.
+
+ROTATION POOL DERIVATION
+Three methods tried to find the stalest non-blocked, non-standing worklist item:
+1. git log subject regex anchored at start: ^(?:item\s+)?(\d+\.\d+)\b, case-insensitive.
+   Missed commit b39f05b ("4.1 quality pass (twenty-third): ...") because the
+   anchor required the token at the very start and this subject has no "Item"
+   prefix - same class of bug as run 190's note on item 4.14's lowercase miss.
+2. Looser regex matching "item N.N" OR "N.N quality pass"/"N.N (" anywhere in
+   the subject. Missed the true most recent touch of item 4.15 (a 2026-10-02
+   commit titled "Run (2026-10-02, Cowork): item 4.15 (Tiffenbergs Aintree)
+   twenty-first quality pass...") because an unrelated, even-newer commit
+   happened to contain a "3.4"-shaped substring and claimed that dictionary key
+   first in iteration order - a false positive from noisy commit text, not a
+   method flaw in the regex itself.
+3. Direct per-item grep (git log | grep -iE "(^|[^0-9])3\.1([^0-9]|$)" | grep -i
+   "quality\|pass\|item") for each of the ~34 pool candidates, newest-first,
+   taking the first match. This is slower but was cross-checked by hand for
+   the two items above and confirmed those were genuinely more recent than
+   method 1/2 suggested once correctly resolved.
+
+All three methods agreed, once corrected, that 3.1's own last genuine touch is
+the twenty-second pass, 2026-09-18T23:39:02+01:00 (commit: "Item 3.1 quality
+pass (twenty-second): prove the plain unpinned-foreign-town branch of
+check-seo-pattern.js's checkCrossTown by injection against Gordon Short
+Chemist Crosby..."), with no later commit for item 3.1 anywhere in the
+history. No commit for 4.1, 4.15, 3.4/"2.3" (a confirmed legacy mislabel of
+3.4 used by several older commits), 3.2, 3.7, 6.3, 3.13, 4.12, 5.1, 4.2, 3.10,
+4.13, 4.9, 3.6, 3.8, 4.5 or any other pool member predates 2026-09-18
+23:39:02. 3.1 is the correct pick.
+
+BASELINE
+check-seo-pattern.js on the tracked working tree:
+  7 ready conditions read from build-service-pages.js.
+  PAGE_TYPES contract: 14 title/H1 legs verified across 6 generators, 2
+  non-page builders excused.
+  177 pages checked, 0 untyped, 0 failures.
+branches.json sha256: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+  (matches the standing anchor used by every recent pass on this item).
+check-seo-pattern.js sha256: 2b7936a722e5c5fa53de642e23505814fc63b25fc052e3c4f77373f19974d214
+
+FULL CHECKER SWEEP
+All tools/check-*.js scripts (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually on the tracked
+working tree. One failure: check-postcodes.js, 181 failures, 3 warnings.
+
+Re-ran the identical script against a fresh `git archive HEAD | tar -x`
+extraction to a scratch directory (excludes untracked files by construction).
+179 of the 181 failures disappeared, confirming they trace entirely to three
+untracked, unpublished debris files sitting at the repo root
+(.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md) - the same
+recurring non-issue multiple recent passes (including run 190 on item 4.14)
+have already recorded; could not be cleared, unlink() still blocked on this
+sandbox mount.
+
+The remaining 2 failures persisted on the clean archive extraction:
+  MISATTRIB .tmp_log_combined.md:... (debris, not fixed, not tracked)
+  UNKNOWN AGENT_WORKLIST.md: postcode ZZ11 1ZZ is in no branches.json entry...
+  UNKNOWN audits/gordon-short-item-4.14-quality-pass-2026-10-13-twentythird.txt:
+    postcode ZZ11 1ZZ is in no branches.json entry...
+
+Both ZZ11 1ZZ hits are in TRACKED, committed files (confirmed present in the
+archive extraction, which only contains HEAD's tracked content). This traces
+to run 190's own item 4.14 twenty-third-pass write-up earlier today, which
+used ZZ11 1ZZ as its MISSING-rule injection value (changing
+gordonshorts_crosby's postalCode on a scratch branches.json copy from the
+real L23 3AT to ZZ11 1ZZ, never touching any tracked page/pack) and quoted
+the value in its own commit log entry and evidence file without registering
+it in NARRATIVE_POSTCODES - the same recurring gap this list has now closed
+twenty-eight times (see tools/check-postcodes.js's own running tally in the
+dictionary's comments).
+
+FIX
+Added "ZZ11 1ZZ" to tools/check-postcodes.js's NARRATIVE_POSTCODES dictionary,
+following the established entry format (what was injected, which rule it
+proved, which files quote it, and which pass found and closed the gap).
+
+Re-ran check-postcodes.js against the same clean archive extraction with the
+updated checker copied in: 0 failures, 3 pre-existing UNOWNED warnings only
+(modules/branch/pages/INDEX.md and SEO.md - long-standing, unrelated, no
+branch can be matched to those filenames by design).
+
+Re-ran the full 36-checker suite (excluding cdn-pins/live-hours) on the
+tracked working tree with the fix applied: 0 failures across all scripts
+(the three debris files still trip check-postcodes.js's MISATTRIB rule on the
+live tree only, as before - archive-clean confirms this is not a real
+regression).
+
+No page, generator, pack or branches.json content changed this pass. Only
+tools/check-postcodes.js carries a tracked change, and it is additive (one
+new dictionary key), not a logic edit.
+
+LIVE HALF
+Claude in Chrome, read-only. The twenty-second pass explicitly skipped the
+live half to stay within its time budget; this pass closes that gap.
+Navigated to
+https://www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
+(the branch used for this item's own twenty-second-pass scratch injection,
+read via get_page_text):
+  Title: "Pharmacy First at Gordon Shorts Chemist, Crosby"
+  H1:    "Pharmacy First at Gordon Shorts Chemist in Crosby"
+Both match the pattern this checker composes verbatim; h1Count 1; no drift
+from every prior pass's live reading.
+
+The live page reads "Gordon Shorts Chemist" rather than the Q1-standardised
+"Gordon Short Chemist" (no trailing s on Short). This is the pre-existing,
+already-tracked standing finding (Q32, most recently reconfirmed on item
+4.14's twenty-first pass, 2026-09-18) owned by check-brand-spelling.js, not a
+finding for this item: check-seo-pattern.js's job is to prove the title/H1
+pattern is composed correctly from whatever brandLabel string it is handed,
+not to own brand spelling itself. Reconfirmed unchanged, not raised again
+here.
+
+QUESTIONS
+No new question. QUESTIONS.json unchanged at 125 total, 47 open, reconfirmed
+during this run's own answer-pickup step (newest feed entry still Q52,
+2026-09-01T22:44:51.524Z, six weeks unchanged).
+
+RESULT
+No in-repo defect on item 3.1 itself (the title/H1 pattern generator remains
+correct, both at the repo level and reconfirmed live). One real, tracked-file
+checker-suite regression found and fixed (NARRATIVE_POSTCODES gap, ZZ11 1ZZ),
+inherited from an unrelated item's write-up earlier the same day.

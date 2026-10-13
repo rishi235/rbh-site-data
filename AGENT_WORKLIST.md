@@ -3637,6 +3637,63 @@ not run this pass, to keep within the normal time budget after the
 extraction detour; no reason to expect drift, no tracked file changed. No
 new question raised. QUESTIONS.json unchanged at 113 total, 60 open.
 Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
+      Quality pass (twenty-third), 2026-10-13 (unattended scheduled run,
+      audit-backlog-worker, run 191, Cowork sandbox). Selected as stalest in
+      the rotation pool: all three derivation methods tried this run (a
+      commit-subject regex anchored on "item N.N", a looser regex also
+      matching bare "N.N quality pass" forms, and a few spot greps) agreed
+      that 3.1's last genuine touch was the twenty-second pass,
+      2026-09-18T23:39:02+01:00, with no later commit for it anywhere in
+      history; noted for whoever next rebuilds this derivation that the
+      exercise surfaced two further instances of the same recurring class of
+      bug this file has flagged before (run 190 on item 4.14's lowercase
+      "item" miss): a commit titled "4.1 quality pass (twenty-third)" with no
+      "Item" prefix was missed by the anchored regex, and a commit titled
+      "Run (2026-10-02, Cowork): item 4.15 ... twenty-first quality pass"
+      was missed because the item mention sits after a preamble rather than
+      at the start of the subject - both corrected by hand-checking before
+      settling on 3.1. BASELINE: check-seo-pattern.js 177/0/0 exit 0 on the
+      tracked repo; branches.json sha256
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+      unchanged from the standing anchor. Full checker sweep (36 scripts,
+      excluding check-cdn-pins.js and check-live-hours.js, both
+      network-dependent) found ONE failure: check-postcodes.js, 181
+      failures on the live working tree. Traced by re-running the identical
+      checker against a fresh `git archive HEAD` extraction (excludes
+      untracked files by construction): 179 of the 181 disappeared at once,
+      confirming they were the recurring untracked-debris non-issue
+      (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md,
+      none tracked, none published). The remaining 2 persisted even on the
+      clean archive: "ZZ11 1ZZ" (UNKNOWN), quoted in AGENT_WORKLIST.md's own
+      item 4.14 block and in
+      audits/gordon-short-item-4.14-quality-pass-2026-10-13-twentythird.txt
+      - a genuine, tracked-file NARRATIVE_POSTCODES gap inherited from run
+      190's own committed write-up earlier today, the same recurring shape
+      this list has now closed twenty-eight times. FIXED: added "ZZ11 1ZZ"
+      to tools/check-postcodes.js's NARRATIVE_POSTCODES with the test's
+      provenance; re-ran against the clean archive extraction, 0 failures, 3
+      pre-existing UNOWNED warnings only (modules/branch/pages/INDEX.md and
+      SEO.md, long-standing and unrelated). Full 36-checker suite then
+      re-run clean. No page, generator, pack or branches.json content
+      changed - only tools/check-postcodes.js carries a tracked change, and
+      it is additive (one new dictionary key) rather than a logic edit. LIVE
+      HALF: Claude in Chrome, read-only, closing the gap the twenty-second
+      pass left open - navigated to
+      gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
+      (the branch used for this item's own twenty-second-pass scratch
+      injection). Title "Pharmacy First at Gordon Shorts Chemist, Crosby",
+      H1 "Pharmacy First at Gordon Shorts Chemist in Crosby" - the pattern
+      verbatim, h1Count 1, no drift from every prior pass. The brand reads
+      "Gordon Shorts Chemist" rather than the Q1-standardised "Gordon Short
+      Chemist" on this live page, which is the pre-existing, already-tracked
+      Q32/item-4.14 brand-spelling finding (out of scope for this item's own
+      title/H1-pattern rule, which composes the pattern from whatever
+      brandLabel string it is given and is not the layer that owns spelling)
+      - reconfirmed unchanged, not a new finding. No new question raised;
+      QUESTIONS.json unchanged at 125 total, 47 open (checked during this
+      run's own answer-pickup step: newest feed entry still Q52,
+      2026-09-01T22:44:51.524Z, six weeks unchanged). Evidence in
+      audits/seo-pattern-3.1-twentythird-2026-10-13.txt. Done 2026-10-13
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
