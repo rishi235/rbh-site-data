@@ -18736,6 +18736,61 @@ Pharmacy First wording to the NHS service description.
       Evidence:
       audits/fishlocks-ainsdale-item-4.1-category-service-rules-quality-pass-2026-09-18-twentysecond.txt.
       Done 2026-09-18
+
+      Quality pass 2026-10-13 (twenty-third, unattended scheduled run, run
+      181, Cowork sandbox): selected as stalest in the rotation pool
+      (checked items minus the 2.2/5.1/5.2/5.6/5.7/6.2/6.3/6.7/6.8 one-offs),
+      last touched 2026-09-18 per `git log --pretty` over every commit
+      subject, oldest of all pool items - re-derived fresh rather than
+      trusting a prior note, consistent with this file's own convention.
+      REPO HALF: gbp-packs/fishlocks-ainsdale.md re-checked fact by fact
+      against branches.json's fishlocks_ainsdale entry - name, 17 Station
+      Road/Ainsdale/PR8 3HN, phone 01704 575478, hours Monday to Friday
+      8:45am-6:00pm with Saturday and Sunday both closed (branches.json's
+      closedDays grew to include Saturday since the last pass; the pack
+      already states Saturday closed, so no drift), review link, catchment
+      Ainsdale/Birkdale/Southport, hasApp true - all match. Full 37-checker
+      suite run (excl. check-cdn-pins.js and check-live-hours.js, both
+      network-dependent): 36/37 clean. The one failure, check-postcodes.js
+      (181 failures), traces entirely to three untracked, unpublished
+      debris files (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+      .tmp_log_combined.md), confirmed by grepping the checker's own output
+      for the failing filenames - none tracked, none published, same
+      recurring non-issue as prior passes; could not be cleared, unlink()
+      still blocked in this sandbox mount (confirmed again this run).
+      LIVE HALF (Claude in Chrome, read-only): pharmacy-fishlocks-
+      ainsdale.html still 404 (Q35, unchanged since 2026-08-12). Checked
+      two other live pages directly rather than relying on a search
+      snippet: pharmacy-first-fishlocks-ainsdale.html and weight-loss-
+      clinic-fishlocks-ainsdale.html both resolve and match branches.json
+      exactly, including the shared two-branch footer (Ainsdale 8.45am,
+      Eccleston 9:00am - a Google search snippet alone made this look like
+      a possible hours mismatch; the actual page confirms both sets of
+      hours are correct for their own branch, so this is not a new
+      finding). Weight loss page: Regime 1 copy, names no medicine,
+      balanced "consultation may not lead to a prescription" framing,
+      exclusion cohorts and price shown only inside the booking card, not
+      as a headline - consistent with check-weight-loss-copy.js staying
+      clean. NEW FINDING: read the actual Google Business Profile (Maps
+      listing reached via the pack's own googleReviewUrl) for the first
+      time since the 4.7 item's twenty-second pass found the same shape at
+      McCanns Sandringham (Q113, 2026-09-18). This branch's live profile
+      NAME is "Fishlocks Pharmacy - Travel Vaccination and Simple Weight
+      Loss Clinic", diverging from branches.json's branchName and from
+      this pack's own "Name on GBP" line the same two ways Q113 found:
+      brand word altered and a keyword-stuffed service suffix added,
+      including the group's separately-parked Simple Weight Loss brand. A
+      "people also search for" panel on the same page also showed
+      "Hirshmans Pharmacy - Travel Vaccination and Simple Weight Loss
+      Clinic", suggesting this is not isolated to two branches. Raised as
+      Q125, cross-referencing Q113, recommending Q113's answer (once given)
+      be applied estate-wide rather than branch by branch. Reviews/hours
+      also read on the same visit: 103 reviews at 4.9 stars, "Open - Closes
+      6pm" at time of check, consistent with branches.json, no locked-door
+      fault. No autonomous-window section found at the top of AGENT_LOG.md,
+      so this was logged as an open question rather than decided. Nothing
+      else changed in-repo this pass; no in-repo defect found. Item stays
+      `[x]` (quality pass, not a state change).
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
