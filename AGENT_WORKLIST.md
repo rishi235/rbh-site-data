@@ -1625,6 +1625,33 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       directions. No new question raised.
       Full detail: audits/fishlocks-ainsdale-weebly-furniture-freshness-2.1-twentythird-2026-10-02.txt.
       Done 2026-10-02.
+      Quality pass 2026-10-13 (twenty-fourth, run 184): picked as the rotation
+      pool's stalest in-scope item (last touched 2026-09-18 by date, ahead of
+      4.1/4.3/4.8 which have each been re-verified since; 5.7 and 6.6 excluded
+      as standing out-of-rotation/blocked items per established practice).
+      REPO HALF: full 35-checker suite run (excl. check-cdn-pins.js and
+      check-live-hours.js, both network-dependent): 34/35 clean. The one
+      failure, check-postcodes.js, traces entirely to the same three
+      untracked, unpublished debris files in the repo root recorded by every
+      recent run (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+      .tmp_log_combined.md) - not a defect in tracked or published content;
+      still could not be cleared, unlink() still blocked on this sandbox
+      mount. LIVE HALF (Claude in Chrome, read-only): read
+      switch-prescriptions-fishlocks-ainsdale.html directly (not already
+      covered by run 181's same-day 4.1 pass, which read the landing,
+      Pharmacy First and weight loss pages and the GBP profile instead).
+      Ainsdale contact card, NAP, phone, both opening-hours sessions and the
+      app download card (Fishlocks is a hasApp member) all match
+      branches.json's fishlocks_ainsdale entry exactly. One already-tracked
+      state reconfirmed rather than rediscovered: the page's hero/bullet/trust-
+      bar copy still reads the pre-Q49 unconditional wording ("We contact your
+      GP. We handle everything. You do nothing.") although Q49 was answered
+      2026-09-01 and the generator fixed 2026-09-15 (tools/build-switch-
+      pages.js lines 79 and 177 carry the qualified wording) - this is the
+      same paste-lag already logged against Q49 multiple times (see lines
+      ~23098-30154 above), not a new defect. NO NEW DEFECT FOUND, NO NEW
+      QUESTION RAISED. Item 2.1 stays `[x]` (quality pass, not a state
+      change). Done 2026-10-13.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
