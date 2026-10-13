@@ -24692,6 +24692,41 @@ directly rather than re-deriving the same facts by hand.
       comes next.
       See audits/fishlocks-eccleston-postcode-ownerof-prefix-fallback-4.8-
       twentysecond-2026-09-18.txt.
+      Quality pass 2026-10-13 (twenty-third, run 187): stalest item in the
+      rotation pool (last touched 2026-09-18), re-derived via git log against
+      the items NOT touched by runs 180-186 (4.7, 4.1, 3.11, 3.12, 2.1, 1.3,
+      4.3). REPO HALF: gbp-packs/fishlocks-eccleston.md re-checked fact by
+      fact against branches.json fishlocks_eccleston - address (Unit 3 The
+      Carrington Centre, New Mill Street, Eccleston, Chorley PR7 5SZ), phone
+      01257 451251, hours (Mon-Fri 9-6, Sat 9-12, Sun closed), review link,
+      catchment (Eccleston, Charnock Richard, Coppull), hasApp true, all
+      match; profile website line still correctly the branch landing page
+      (pharmacy-fishlocks-eccleston.html), not the pfLink or the shared
+      homepage. Full 35-checker suite run (excl. check-cdn-pins.js and
+      check-live-hours.js, network-dependent): 34/35 clean; the one failure
+      (check-postcodes.js, 181 failures) traces entirely to the same
+      untracked debris files prior passes have recorded (unlink() still
+      blocked on this sandbox mount) - confirmed by grepping the checker's
+      own output down to 3 WARN lines (UNOWNED multi-branch sheets, expected)
+      once the debris paths are filtered out; no failure in tracked content.
+      LIVE HALF (Claude in Chrome, read-only): read the pack's own
+      googleReviewUrl directly against the Eccleston branch's own live
+      profile - address, phone and hours (closed Tue evening, "Opens 9am
+      Wed", consistent with the Mon-Fri 9-6 spec) all match branches.json.
+      NEW FINDING: the live profile's NAME is "Fishlock Pharmacy - Travel
+      Vaccination and Simple Weight Loss Clinic", not the plain trading name
+      "Fishlocks Chemist Eccleston" branches.json and the pack's own "Name on
+      GBP" line both state - the same divergence shape as Q113 (McCanns
+      Sandringham), Q125 (Fishlocks Ainsdale) and run 186's Hirshmans
+      Ainsdale finding, except this is a FOURTH independent branch, and this
+      time the brand word itself is altered too ("Fishlock" singular, not
+      "Fishlocks"), not only suffixed. Folded into Q125 as a further
+      addendum rather than raised as a new question, per established
+      practice for a repeat finding of an already-open pattern. No in-repo
+      defect found or fixed this pass; nothing in this repo can edit a live
+      Google Business Profile.
+      See audits/fishlocks-eccleston-gbp-name-check-4.8-twentythird-
+      2026-10-13.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
