@@ -7728,6 +7728,38 @@ per Q51's own answer note), now confirmed on a third branch alongside McCanns
 Aigburth (Q83) and Fishlocks Eccleston (Q88). No new question raised;
 QUESTIONS.json unchanged at 113 total, 60 open. Full detail in
 audits/hirshmans-item-3.5-quality-pass-2026-09-18-twentythird.txt.
+Quality pass 2026-10-13 (twenty-fourth, run 189): new angle, tools/check-
+booking-routes.js, never named once across twenty-three prior passes on this
+item. Hirshmans Ainsdale carries all five widget types and 11 booking-mount
+pages. Baseline: 34-checker suite clean (34/34, check-cdn-pins and check-
+live-hours excluded as network-dependent); sha256(branches.json) =
+7ba2569b...325ffef1 (expected drift since 09-18, multiple intervening
+commits); the two targeted pages' hashes unchanged from the twenty-third
+pass's own recorded values. Two injections on a disposable /tmp scratch copy,
+tracked repo never opened for writing, each restored and sha256-reconfirmed
+before the next: (1) blanked hirshmans_ainsdale.widgets.weightLoss in
+branches.json - CAUGHT, rule 3 (WIDGET/no-fallback), exact filename and
+reason quoted back; (2) changed contraception-hirshmans-ainsdale.html's
+data-branch from "Hirshmans Chemist" to "Fishlocks Chemist" - CAUGHT, rule 4
+(BRANCHATTR), correctly named the wrong-pharmacy misfiling risk. Both caught
+first attempt. Final control: 34/34 clean, all hashes reconfirmed identical.
+No in-repo defect: check-booking-routes.js already correctly protects this
+branch's widget-fallback and data-branch rules. LIVE HALF: Claude in Chrome,
+read-only, read the live weight-loss-clinic-hirshmans-ainsdale.html page (the
+page targeted by injection 1) - no medicine name, £39.99 fee, address, phone
+and hours all match branches.json exactly, working booking CTA present (not
+an empty box), consistent with the branch's real widget id being correctly
+wired live. Standing Q51/Q83/Q88 booking-sub qualifier finding not re-read
+this pass (already confirmed on this branch on the twenty-third pass; not
+relitigated). No new question; QUESTIONS.json unchanged at 125 total, 47
+open. Fifteen checkers remain untested against this item (check-address-
+region, check-app-membership, check-branch-identity, check-em-dashes,
+check-fragment-targets, check-gbp-pharmacy-first, check-page-coverage,
+check-pharmacy-first-cost, check-pharmacy-first-safety-net, check-pharmacy-
+first-symptoms, check-service-links, check-uk-spelling, check-url-scheme,
+check-weebly-furniture-freshness, check-widget-diaries), left for a future
+pass. Full detail in
+audits/hirshmans-item-3.5-quality-pass-2026-10-13-twentyfourth.txt.
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.

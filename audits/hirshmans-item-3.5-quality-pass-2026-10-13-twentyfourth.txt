@@ -1,0 +1,148 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - twenty-fourth quality pass
+Run 189, unattended scheduled run, audit-backlog-worker, 2026-10-13
+
+ROTATION DERIVATION
+Re-derived fresh via `git log --format='%ad|%s' --date=iso-strict` parsed with
+the established word-boundary regex matching "Item N.N" / "N.N" quality-pass
+subjects, excluding the standing out-of-rotation pool (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) and the eight blocked worklist items (5.3, 5.4, 5.5, 5.8, 6.1,
+6.4, 6.5, 6.6). 36-item pool. 3.5 came out uniquely stalest at
+2026-09-18T22:09:54+01:00 (its own twenty-third pass), narrowly ahead of 2.3
+(23:11), 3.1 (23:39) and the rest of the pool, all refreshed on 2026-10-13 by
+runs 186-188 earlier the same day (1.3, 2.1, 3.11, 3.12, 4.1, 4.3, 4.7, 4.8,
+3.3). Chosen: 3.5 (Hirshmans Chemist, Ainsdale), twenty-fourth pass.
+
+LOCK AND GIT
+.agent-lock held a content-valid "RELEASED ... run 188 complete" note with an
+mtime inside the 45-minute window, so treated as a genuine release, not
+stale; overwritten with a fresh run-189 timestamp rather than deleted (unlink
+still EPERM on this mount, the established workaround). Two stale git lock
+files found, .git/HEAD.lock and .git/index.lock, both dated to run 188's
+release moment; confirmed no git process running (ps aux), then cleared both
+by mv-aside. Fetched, already on agents/audit-backlog, pulled --ff-only:
+already up to date at a5b6ab3 (run 188's final commit). No new history from
+origin.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome, single tab, read-only. Navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full JSON feed -
+returned successfully. Newest entry still Q52, 2026-09-01T22:44:51.524Z,
+matching every run since 2026-09-01. QUESTIONS.json: 125 total, 47 open,
+already carries Q52 (and Q8, Q9, Q13, Q16, Q60, Q66, the questions behind the
+eight blocked worklist items) as "answered" with matching text. Nothing new
+to apply.
+
+AUTONOMOUS WINDOW CHECK (step 4)
+Read the top of AGENT_LOG.md as it stood at run start - no "Standing
+authorisation - autonomous window" heading present. Proceeded under the
+normal rule.
+
+WORKLIST SCAN (step 5)
+`grep -n "\[BLOCKED\]"` against AGENT_WORKLIST.md's unchecked lines: all eight
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66)
+confirmed still blocked on Rishi's own open decisions (merge-to-main,
+Weebly repastes, a supervised live session) - none actionable by this
+unattended worker under the hard rules. Fell to the quality-pass fallback.
+
+NEW ANGLE
+tools/check-booking-routes.js, never named once across twenty-three prior
+passes on this item. Extracted item 3.5's own AGENT_WORKLIST.md block
+(lines 6868-7731) and matched every check-*.js filename against the 36 files
+on disk: twenty already named (check-switch-copy, check-whatsapp-route,
+check-seo-pattern, check-travel-clinic-copy, check-pharmacy-first-eligibility,
+check-seo-lengths, check-seo-sheets, check-seo-keywords, check-opening-hours,
+check-map-embeds, check-jsonld, check-gbp-packs, check-contraception-copy,
+check-branch-links, check-postcodes, check-nap, check-live-hours,
+check-editor-snapshot, check-brand-spelling, check-weight-loss-copy); sixteen
+never named (check-address-region, check-app-membership,
+check-booking-routes, check-branch-identity, check-cdn-pins [network,
+excluded], check-em-dashes, check-fragment-targets, check-gbp-pharmacy-first,
+check-page-coverage, check-pharmacy-first-cost,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+check-service-links, check-uk-spelling, check-url-scheme,
+check-weebly-furniture-freshness, check-widget-diaries). Chosen:
+check-booking-routes.js, the filename-to-diary chain CLAUDE.md singles out
+as unchecked until the item 3.11 pass that wrote it - genuinely untested
+against Hirshmans Ainsdale's own widgets, not a synthetic gap. Hirshmans
+Ainsdale carries all five widget types (bloodPressure, contraception,
+pharmacyFirst, weightLoss, travelClinic) and 11 booking-mount pages (7
+Pharmacy First conditions, the Pharmacy First overview, contraception,
+travel clinic, weight loss), a good spread for this checker's rules.
+
+BASELINE
+All work done on a disposable scratch copy (`git archive HEAD -o` then
+`tar -xf` to /tmp/run189-scratch/tree); the tracked repo's branches.json,
+modules/, core/, tools/ and gbp-packs/ were never opened for writing.
+Full 34-checker suite (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent) run clean first: 34/34 exit 0.
+sha256(branches.json) =
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1 (differs
+from the value recorded on 2026-09-18, as expected: multiple commits have
+touched branches.json since, including run 188's own NARRATIVE_POSTCODES fix
+earlier today).
+sha256(modules/service/pages/contraception-hirshmans-ainsdale.html) =
+180f0f6e3f6d0cd5ca41bd62c57a0259944292b749dc768b66be10e947905de3
+sha256(modules/service/pages/weight-loss-clinic-hirshmans-ainsdale.html) =
+ac11b1c47b9793f1d0df45fa18a42aeefbcee265e4b07346e5335f1608835896 (byte-
+identical to the value run 126 recorded on 2026-09-18, confirming no drift
+to this specific page in the interim).
+
+INJECTION (two rounds, each restored and sha256-reconfirmed identical to
+baseline before the next; scratch copy only, tracked repo never opened for
+writing):
+
+  ROUND 1 (rule 3, WIDGET/no-fallback) - blanked
+  branches.json's hirshmans_ainsdale.widgets.weightLoss to "". CAUGHT, exit 1:
+  "weight-loss-clinic-hirshmans-ainsdale.html needs widgets.weightLoss on
+  hirshmans_ainsdale and there is none (this service must not fall back), so
+  the booking box renders empty" - correctly refused the Pharmacy First
+  fallback, consistent with weight loss being in NO_FALLBACK_SERVICE_KEYS.
+  Restored, branches.json sha256-reconfirmed identical to baseline, and a
+  post-restore run of check-booking-routes.js alone confirmed exit 0 before
+  round 2.
+
+  ROUND 2 (rule 4, BRANCHATTR) - changed
+  contraception-hirshmans-ainsdale.html's data-branch from "Hirshmans
+  Chemist" to "Fishlocks Chemist". CAUGHT, exit 1: 'contraception-hirshmans-
+  ainsdale.html: data-branch="Fishlocks Chemist" but the URL resolves to
+  hirshmans_ainsdale ("Hirshmans Chemist"), so an enquiry from this page is
+  filed against the wrong pharmacy' - exactly the silent-misfiling fault this
+  rule exists to catch. Restored, file sha256-reconfirmed identical to
+  baseline.
+
+Both injections caught on the first attempt, both for the reason the rule
+documents itself as existing for. Final control: full 34-checker suite
+re-run clean (34/34 exit 0), all three hashes above re-confirmed identical to
+baseline. No in-repo defect: check-booking-routes.js already correctly
+protects Hirshmans Ainsdale's widget-fallback rule and its data-branch
+labelling rule.
+
+LIVE HALF
+Claude in Chrome, single tab, read-only. Read
+https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-hirshmans-ainsdale.html
+in full (the exact page targeted by round 1's injection). Live: no medicine
+name anywhere, consultation fee "from £39.99" matches the repo's pinned
+price, address "56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW" and
+phone "01704 577376" both match branches.json exactly, footer hours "Open
+Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun closed" match the
+branch's openingHours.specification field for field (both weekday sessions,
+both Saturday sessions), nhs.net footer email "pharmacy.FW378@nhs.net"
+correct, and a working "BOOK NOW WEIGHT LOSS CLINIC" / "Book a consultation"
+call to action is present rather than an empty box - consistent with the
+branch's real weightLoss widget id being live and correctly wired, which is
+exactly what round 1's injection proved the checker would have caught had it
+been missing. Booking-sub qualifier wording not re-read this pass (already
+confirmed missing live, standing Q51/Q83/Q88 finding, on the twenty-third
+pass eight weeks ago; not re-litigated here).
+
+RESULT
+No new in-repo defect. No new question. QUESTIONS.json unchanged at 125
+total, 47 open. check-booking-routes.js now proven by injection against
+Hirshmans Ainsdale specifically, for the first time in twenty-four passes on
+this item; fifteen checkers remain untested against it (check-address-
+region, check-app-membership, check-branch-identity, check-em-dashes,
+check-fragment-targets, check-gbp-pharmacy-first, check-page-coverage,
+check-pharmacy-first-cost, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-service-links, check-uk-spelling,
+check-url-scheme, check-weebly-furniture-freshness, check-widget-diaries),
+left for a future pass.
