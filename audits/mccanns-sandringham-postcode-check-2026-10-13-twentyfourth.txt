@@ -1,0 +1,95 @@
+Item 1.3 quality pass (twenty-fourth), 2026-10-13
+check-postcodes.js - NARRATIVE_POSTCODES raw-key lookup proof
+
+Closing the twenty-second pass's own forward note (2026-09-17): a
+NARRATIVE_POSTCODES key used as a raw dictionary lookup, rather than run
+through norm() first, remained untested; zero live risk was assumed since
+every existing key was already well-formed. This pass tested that assumption
+directly rather than leaving it as a standing note for a twenty-fifth pass to
+repeat.
+
+Baseline (git archive HEAD into /tmp/scratch-1.3, tracked repo untouched
+throughout): node tools/check-postcodes.js - 0 failures, 3 warnings (the
+standing UNOWNED trio on gbp-packs/TEMPLATE.md and modules/branch/pages/
+INDEX.md and SEO.md).
+
+TEST 1 (rule 1 exemption, false UNKNOWN direction). On the scratch copy only:
+added a NARRATIVE_POSTCODES entry keyed "L9  8CD" (one extra internal space -
+not the normalized single-space form norm() produces), and wrote a plain
+English sentence quoting it in normalized form, "L9 8CD", in a scratch-only
+audits file (audits/_test-injection-1.3-norm.md, never committed). Ran the
+UNMODIFIED checker: the audit file that legitimately quotes a declared
+historical value failed as UNKNOWN ("is in no branches.json entry and is not
+a named historical value"), because extract() always returns postcodes
+already normalized (norm(m[1] + " " + m[2])), and the raw object lookup
+NARRATIVE_POSTCODES[pc] at the old rule 1 line cannot match a key that was
+never itself normalized. 3 failures total (2 UNKNOWN - the scratch audit file
+and this checker's own self-quote of the test value in its working comment -
+plus 1 STALE "no narrative file quotes it", explained in test 2 below).
+
+TEST 2 (STALE check, wrong-diagnosis direction). Kept the same non-normalized
+key but changed its value to a REAL, live branch postcode written in a
+different non-normalized form - lower case "l9 7as" (Clear Chemist Aintree /
+head office's real L9 7AS, Unit 20 Brookfield). Ran the UNMODIFIED checker:
+the run still failed overall (so nothing silently passed), but with the WRONG
+message - "STALE NARRATIVE_POSTCODES names l9 7as but no narrative file
+quotes it. Remove the entry." - rather than the correct, actionable one,
+"STALE NARRATIVE_POSTCODES names l9 7as, which is now a real branches.json
+postcode (clearchemist_aintree). Remove the entry: it is excusing a value
+that no longer needs excusing." The misdiagnosis happens because the old
+STALE block iterates Object.keys(NARRATIVE_POSTCODES) and uses the RAW key
+string to index both narrativeQuotes[] and byPostcode[], both of which are
+keyed by normalized postcodes; a raw, non-normalized key cannot match either
+lookup, so the first check ("not quoted") always fires first regardless of
+which is actually true, and the second, more informative check
+(byPostcode[pc]) is masked behind an early return and never reached. Whoever
+reads the wrong message goes looking for a missing quote that does not
+exist, instead of being told the entry has quietly become live data.
+
+Both tests confirm a real defect in check-postcodes.js: it still CORRECTLY
+FAILS in every case tested (never a silent pass), but with the wrong
+diagnosis for a non-normalized key, and with a spurious failure against a
+genuinely-exempted narrative file. Not a live breach: every NARRATIVE_POSTCODES
+key in the tracked repo today is already written in norm()'s own output
+format (uppercase, single internal space), so neither bug fires today.
+
+FIX, applied to the tracked tools/check-postcodes.js (not the scratch copy):
+added NARRATIVE_POSTCODES_NORM, a normalized-key index built the same way
+INTEREST already builds its own (Object.keys(...).forEach(function (k) {
+...[norm(k)] = k; })), and routed both the rule 1 exemption check and the two
+STALE checks through it instead of the raw NARRATIVE_POSTCODES object. The
+STALE block's forEach parameter was renamed rawPc (used only in the fail()
+message text, so existing entries still print exactly as written) with a
+local `var pc = norm(rawPc);` used for both lookups.
+
+Re-verified on the scratch copy with both test injections still in place:
+TEST 1's audit file no longer fails (0 failures from that pair, exemption now
+recognised). TEST 2 now fails with the CORRECT message naming
+clearchemist_aintree, proving the fix resolves the real risk direction, not
+just the cosmetic one. A negative control (TEST 1's key kept, its quoting
+file removed) still correctly fails as STALE "no narrative file quotes it" -
+proving the fix did not loosen the genuine staleness check, only made its
+lookup correct. All three results matched prediction on the first attempt.
+Both scratch injections were then reverted and the scratch directory
+discarded; the tracked repo's own branches.json, modules/, core/ and
+gbp-packs/ were never touched by any of this testing.
+
+This file itself, and the fixed checker's own explanatory comment above
+NARRATIVE_POSTCODES_NORM, both quote the fabricated test value L9 8CD in
+prose to record the test, which is exactly what NARRATIVE_POSTCODES exists
+for - and L9 8CD has been added to that list in the same commit as this
+proof, rather than left for the next run to find (the twenty-seventh time
+this exact self-referential gap has been closed in the same commit as its
+own finding, following the item 4.15/4.10 precedent).
+
+Full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent) re-run after the fix: no new failures attributable to
+this change. The only failures present both before and after this pass's own
+work are the pre-existing, already-documented debris files in the repo root
+(.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md and similar)
+that this sandbox cannot delete (unlink() blocked, per Q87/Q96/CLAUDE.md) -
+not a defect in any tracked page, pack, generator or branches.json. No
+generator needed to run: this change is confined to one checker, tools/
+check-postcodes.js, and does not touch branches.json, modules/ or core/.
+
+No new question raised. Done 2026-10-13.

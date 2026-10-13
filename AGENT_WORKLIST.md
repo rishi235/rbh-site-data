@@ -31779,6 +31779,48 @@ appended to the line. Do not move them; the status page reads them in place.
       untested; zero live risk today since every existing key is already
       well-formed. Done 2026-09-18. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-09-18-twentythird.txt.
+      Quality pass 2026-10-13 (twenty-fourth pass, unattended scheduled run,
+      run 185): a real, previously-latent gap found and fixed in
+      check-postcodes.js, closing the twenty-second pass's own forward note
+      (the raw NARRATIVE_POSTCODES[pc] lookup was never run through norm()
+      first); no in-repo data defect, no live branch affected, nothing in
+      branches.json, modules/ or core/ touched. Proved on a git-archive
+      scratch copy in two parts, both confirmed before any fix was written:
+      (1) a key written with one extra internal space ("L9  8CD", quoted
+      elsewhere in the normalized single-space form "L9 8CD") made the
+      unmodified rule 1 exemption miss the match, failing the genuinely-
+      quoting file as UNKNOWN; (2) the same shape of non-normalized key,
+      coinciding with a real live postcode (Clear Chemist Aintree's L9 7AS,
+      written "l9 7as"), still failed the run but with the WRONG message -
+      "no narrative file quotes it" instead of the correct "now a real
+      branches.json postcode (clearchemist_aintree)" - because the STALE
+      block's byPostcode[]/narrativeQuotes[] lookups are also keyed by
+      normalized postcodes and cannot match a raw key either. Neither case
+      let anything pass silently (the run always failed), but the second
+      misdiagnoses the real finding, the first produces a false failure
+      against a legitimately-exempted file. Zero live risk today: every
+      NARRATIVE_POSTCODES key in the tracked repo is already written in
+      norm()'s own output form. Fix: added NARRATIVE_POSTCODES_NORM, built
+      the same way INTEREST already builds its own normalized index, and
+      routed the rule 1 exemption and both STALE checks through it instead of
+      the raw object. Re-verified on the scratch copy with both injections
+      still present (both now resolve correctly, the second now naming
+      clearchemist_aintree) and with a negative control (key kept, its
+      quoting file removed - STALE still correctly fires, for the right
+      reason this time); both injections then reverted and the scratch copy
+      discarded. L9 8CD (the fabricated test value, quoted in this checker's
+      own working comment, which it self-scans) added to NARRATIVE_POSTCODES
+      in the same commit as this fix, the same self-referential gap this list
+      has now closed twenty-seven times before it. Full 35-checker suite
+      re-run after the fix: 34/35 clean; the one failure, check-postcodes.js
+      itself, traces entirely to three pre-existing, already-documented
+      debris files in the repo root (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+      .tmp_log_combined.md) that this sandbox cannot delete (unlink() blocked)
+      - not a defect in any tracked page, pack, generator or branches.json,
+      confirmed by grepping every failing line's own source filename. No
+      generator rebuild needed (checker-only change). No new question. Done
+      2026-10-13. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-10-13-twentyfourth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

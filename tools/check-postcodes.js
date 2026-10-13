@@ -153,8 +153,34 @@ var NARRATIVE_POSTCODES = {
   "L23 3AU": "Item 4.14 quality pass (twenty-first, run 107), 2026-09-18: a one-character-off variant of Gordon Short Chemist Crosby's own L23 3AT, injected into Post D's body (\"We also see travellers coming from as far as L23 3AU\") as TEST 1 (RULE 1, UNKNOWN) of that pass's check-postcodes.js proof against gbp-packs/gordon-short-crosby.md, to confirm the UNKNOWN rule catches a one-character-off variant matching no branch. The pack was restored by byte copy and sha256-reconfirmed identical before the pass ended, but AGENT_LOG.md, AGENT_WORKLIST.md's item 4.14 block and audits/gordon-short-item-4.14-quality-pass-2026-09-18-twentyfirst.txt all quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; unlike run 106's own L9 9DC entry immediately above, run 107 did not register this value before committing, so the tracked repo's own check-postcodes.js failed (3 UNKNOWN failures naming AGENT_LOG.md, AGENT_WORKLIST.md and the audit file) until this run's own baseline checker-suite pass caught it - the same gap this list has now closed twenty-three times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00 0XX, ZZ97 6ZZ, L9 9DC). Found and fixed on item 6.8's quality pass (fifth), 2026-09-18, run 108, during that pass's own routine full-checker-suite baseline re-run rather than left for the next run to find.",
   "L20 3DA": "Item 3.2 quality pass (twenty-second), 2026-09-19: a fabricated, Bootle-shaped postcode - distinct from Smartts Chemist Bootle's own real L20 9HH - paired with Smartts's own real street name (42 Fernhill Road, Bootle) as RULE 4 (agreement)'s injection into pharmacy-scorah-hazel-grove.html's contact-card address, to prove check-map-embeds.js's agreement rule catches a contact card that disagrees with both the map iframe and branches.json even when the injected street name is a real one borrowed from a different branch. The page was restored by byte copy and sha256-reconfirmed identical before that pass ended, but audits/scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt quotes the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed twenty-four times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00 0XX, ZZ97 6ZZ, L9 9DC, L23 3AU). Found and fixed on the item 6.3 quality pass (nineteenth), 2026-09-19, during this pass's own baseline full-checker-suite re-run, before any of this pass's own injection work began.",
   "L9 9DZ": "Item 4.15 quality pass (twenty-first, run 2026-10-02), 2026-10-02: a valid-shape, non-branch variant of Tiffenbergs Chemist Longmoor's own L9 9DB, used as ROUND 2's injection into a scratch copy of branches.json (postalCode changed, every page/pack left carrying the real L9 9DB untouched) to prove RULE 2 (MISSING) catches a branch postcode that is declared in branches.json but used nowhere else in the repo. The scratch mutation was restored by byte copy and sha256-reconfirmed identical before the pass ended, but audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt and AGENT_LOG.md both quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed twenty-five times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00 0XX, ZZ97 6ZZ, L9 9DC, L23 3AU, L20 3DA). Found and fixed on this run's own baseline full-checker-suite re-run, 2026-10-02, before any of this run's own quality-pass work began on item 2.1.",
-  "ZZ96 5ZZ": "Item 4.10 quality pass (twenty-first), 2026-10-04: a fabricated, non-branch postcode used as TEST 2 (UNKNOWN) of that pass's check-postcodes.js proof against gbp-packs/smartts-bootle.md, on a git-archive scratch copy, to confirm the UNKNOWN rule catches a postcode-shaped value matching no branch at all (distinct from TEST 1's FOREIGN case, which swapped in Coleman and Leighs' real L4 8SG). The scratch mutation was restored by byte copy and sha256-reconfirmed identical before the pass ended and the tracked gbp-packs/smartts-bootle.md was never touched, but AGENT_LOG.md, AGENT_WORKLIST.md's item 4.10 block and audits/smartts-bootle-postcode-check-4.10-twentyfirst-2026-10-04.txt all quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed twenty-six times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00 0XX, ZZ97 6ZZ, L9 9DC, L23 3AU, L20 3DA, L9 9DZ). Found and fixed on this run's own baseline full-checker-suite re-run, 2026-10-04, during the step 6/7 verification before any new quality-pass work was taken this run."
+  "ZZ96 5ZZ": "Item 4.10 quality pass (twenty-first), 2026-10-04: a fabricated, non-branch postcode used as TEST 2 (UNKNOWN) of that pass's check-postcodes.js proof against gbp-packs/smartts-bootle.md, on a git-archive scratch copy, to confirm the UNKNOWN rule catches a postcode-shaped value matching no branch at all (distinct from TEST 1's FOREIGN case, which swapped in Coleman and Leighs' real L4 8SG). The scratch mutation was restored by byte copy and sha256-reconfirmed identical before the pass ended and the tracked gbp-packs/smartts-bootle.md was never touched, but AGENT_LOG.md, AGENT_WORKLIST.md's item 4.10 block and audits/smartts-bootle-postcode-check-4.10-twentyfirst-2026-10-04.txt all quote the injected value to record the test, which is exactly what NARRATIVE_POSTCODES exists for; the value was committed without being added here, the same gap this list has now closed twenty-six times before it (L23 6TX, L23 3AZ, L9 8ZZ, L4 7TH, L9 9AA, L21 8JG/L20 3ER, WA14 9ZZ, ZZ99 9ZZ, SK7 3AB, L17 7BX/L17 9BP, AA1 1AA, L1 1AA, L4 9SG, L4 9ZZ, L9 7AZ, PR9 3HW, L20 1DN, L9 9ZZ, L20 9ZZ, L20 9XX, ZZ98 8ZZ/XX00 0XX, ZZ97 6ZZ, L9 9DC, L23 3AU, L20 3DA, L9 9DZ). Found and fixed on this run's own baseline full-checker-suite re-run, 2026-10-04, during the step 6/7 verification before any new quality-pass work was taken this run.",
+  "L9 8CD": "Item 1.3 quality pass (twenty-fourth), 2026-10-13: a fabricated, non-branch postcode used on a git-archive scratch copy to prove the twenty-second pass's own forward note - a NARRATIVE_POSTCODES key used as a raw dictionary lookup without being run through norm() first - was a real, provable gap, not merely theoretical. Registered here because the proof quoted it in this very file's own explanatory comment, above NARRATIVE_POSTCODES_NORM, which this checker self-scans; the value was never written to any page, pack, branches.json or any other tracked file. Found and fixed on the same item 1.3 quality pass (twenty-fourth), 2026-10-13, before committing, rather than left for the next run to find."
 };
+
+// Twenty-fourth quality pass, item 1.3, 2026-10-13: every lookup against the
+// dictionary above must compare NORMALIZED forms, the same discipline
+// INTEREST already applies at its own construction below (norm(pc) rather
+// than the raw key). A key written here exactly as norm() would produce it
+// (uppercase, single internal space) works correctly either way, which is
+// why this was invisible for twenty-three prior passes. Proved on a
+// git-archive scratch copy, in two parts: (1) a key written with one extra
+// internal space ("L9  8CD") and quoted elsewhere as plain English ("L9
+// 8CD", the single-spaced form norm() and extract() both produce) made the
+// unmodified rule 1 exemption at NARRATIVE_POSTCODES[pc] miss the match, so
+// the genuinely-quoting file failed as UNKNOWN instead of being exempted;
+// (2) the same non-normalized key, once it coincided with a real, live
+// branch postcode (Clear Chemist Aintree's L9 7AS, written as lower-case
+// "l9 7as"), still failed the run but with the WRONG diagnosis - "no
+// narrative file quotes it" rather than the correct "now a real
+// branches.json postcode (clearchemist_aintree)" - because byPostcode[],
+// like narrativeQuotes[], is keyed by normalized postcodes and a raw,
+// non-normalized key cannot match either. Both scratch injections were
+// restored by byte copy before the pass ended; the tracked repo's own
+// NARRATIVE_POSTCODES keys are all already normalized today, so this closes
+// a latent gap, not a live breach. Fix: resolve every lookup through this
+// normalized index instead of the raw NARRATIVE_POSTCODES object.
+var NARRATIVE_POSTCODES_NORM = {};
+Object.keys(NARRATIVE_POSTCODES).forEach(function (k) { NARRATIVE_POSTCODES_NORM[norm(k)] = k; });
 
 // Files that DECLARE or DOCUMENT a postcode rather than USE it. This
 // distinction is what makes rules 1 and 2 mean anything, and getting it wrong
@@ -699,7 +725,7 @@ function checkFile(p) {
     var b = byPostcode[pc];
 
     if (!b) {
-      if (isNarrative && NARRATIVE_POSTCODES[pc]) return;
+      if (isNarrative && NARRATIVE_POSTCODES_NORM[pc]) return;
       var unknownKey = r + "::" + pc;
       if (UNKNOWN_KNOWN[unknownKey]) { unknownKnownUsed[unknownKey] = true; return; }
       if (isNarrative) {
@@ -1002,13 +1028,14 @@ Object.keys(DELIBERATE_SHARED_POSTCODES).forEach(function (pc) {
 // narrative file that has been deleted or renamed must not sit here unnoticed.
 // Measured against the narrative files ONLY, and never against this file, or
 // the entry would keep itself alive just by being written down here.
-Object.keys(NARRATIVE_POSTCODES).forEach(function (pc) {
+Object.keys(NARRATIVE_POSTCODES).forEach(function (rawPc) {
+  var pc = norm(rawPc);
   if (!narrativeQuotes[pc]) {
-    fail("STALE    NARRATIVE_POSTCODES names " + pc + " but no narrative file quotes it. Remove the entry.");
+    fail("STALE    NARRATIVE_POSTCODES names " + rawPc + " but no narrative file quotes it. Remove the entry.");
     return;
   }
   if (byPostcode[pc]) {
-    fail("STALE    NARRATIVE_POSTCODES names " + pc + ", which is now a real branches.json postcode (" +
+    fail("STALE    NARRATIVE_POSTCODES names " + rawPc + ", which is now a real branches.json postcode (" +
       byPostcode[pc].id + "). Remove the entry: it is excusing a value that no longer needs excusing.");
   }
 });
