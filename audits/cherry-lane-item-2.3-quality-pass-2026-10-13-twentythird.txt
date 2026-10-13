@@ -1,0 +1,101 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - twenty-third quality pass
+Run 192, 2026-10-13
+
+ROTATION: derived fresh via git log --format='%ad|%s' --date=iso-strict,
+matched against both "item N.N" and bare "N.N quality pass"/"N.N pass"
+patterns (the bare-number form was needed because run 192's own predecessor
+found a commit titled "4.1 quality pass (twenty-third)" with no "Item"
+prefix, which the narrower pattern alone would have undercounted - same
+class of false-stalest risk run 191 recorded for 4.1/4.15). Excluding the
+seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight
+currently [BLOCKED] items (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+6.5/Q60, 6.6/Q66), item 2.3 (Cherry Lane Pharmacy, Walton) came out uniquely
+stalest, last touched 2026-09-18T23:11:11+01:00 (its own twenty-second
+pass), ahead of 3.2 (2026-09-19T01:16:03+01:00) and the rest of the pool.
+(3.1, touched the same cluster of dates, had already been picked and
+refreshed by run 191 earlier today, so it drops out of today's pool.)
+
+ANSWER PICKUP: Claude in Chrome, single tab, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full feed fresh.
+Newest entry is still the Q52 answer from 2026-09-01T22:44:51.524Z -
+unchanged for six weeks, no answers for Q77-Q125. No "Standing authorisation"
+section found in AGENT_LOG.md, so the autonomous window (step 4) does not
+apply. All 8 unchecked worklist lines reconfirmed [BLOCKED] via grep - fell
+to the quality-pass fallback.
+
+NEW ANGLE: of the 37 checkers in tools/, scanning item 2.3's own worklist
+entry (lines ~1986-2802 of AGENT_WORKLIST.md as it stood at pickup) for
+checker filenames found 21 proven by direct injection, and a further handful
+mentioned only in passing as part of a generic clean sweep rather than
+proven for this item specifically. check-nap.js was one of those: named once
+("check-nap clean") as part of the original 2026-08-04 build note, but never
+exercised by injection against Cherry Lane's own pages across twenty-two
+prior passes. Picked it as the highest-value unproven angle: it is the
+checker that guards the one fact that sends a patient to the right building
+and the right phone, and CLAUDE.md records it as the checker most often
+caught missing a phone-shaped number outside its original narrow regex
+(the switch-page FAQ "Call us on <number>" pattern specifically).
+
+Proved by injection against an ISOLATED SCRATCH COPY built via
+`git archive HEAD | tar -x` to /tmp/scratch_item23, never against the
+tracked working tree. Baseline: full 35-checker suite (excl.
+check-cdn-pins.js and check-live-hours.js, both network-dependent) clean on
+the fresh archive; sha256 of all 12 Cherry Lane pages (11 service-family
+pages plus the switch page) captured before any mutation.
+
+Four cases, each restored from the original string immediately after
+capturing check-nap.js's own output, sha256-reconfirmed byte-identical
+before the next:
+
+1. switch-prescriptions-cherry-lane-walton.html, FAQ "Call us on
+   0151 226 2051" changed to "Call us on 0161 439 3744" (Scorah Chemists
+   Bramhall's real number) - CAUGHT: "MISMATCH ... phone "0161 439 3744"
+   belongs to Scorah Chemists Bramhall, not Cherry Lane Pharmacy". This is
+   exactly the shape CLAUDE.md records the pre-item-1.4 checker as blind to
+   (a phone-shaped number with "us on" between "Call" and the digits); the
+   current whole-page sweep catches it correctly.
+
+2. pharmacy-first-cherry-lane-walton.html, visible contact-line address
+   changed from "202 Cherry Lane, Liverpool, L4 8SG" to "198 Smithdown Road,
+   Liverpool, L4 8SG" (tel:/JSON-LD left untouched) - CAUGHT: "MISMATCH ...
+   contact address "198 Smithdown Road, Liverpool, L4 8SG" vs "202 Cherry
+   Lane, Liverpool, L4 8SG"".
+
+3. earache-treatment-cherry-lane-walton.html, the contact-line address div
+   deleted outright (phone/website/reviews lines left in place) - CAUGHT:
+   "MISMATCH ... carries no contact-line address, so nothing on this page
+   was checked for it against branches.json" - the surface-presence rule
+   (added on the item 1.4 pass specifically so a missing surface cannot
+   pass by default) firing correctly.
+
+4. CONTROL: earache-treatment-cherry-lane-walton.html, step-2 body sentence
+   reworded ("You are seen in private." -> "You are seen privately."),
+   touching no NAP token - PASSED clean on check-nap.js (0 mismatches) and
+   on the full 35-checker suite, confirming the three catches above were
+   genuine rather than overreach.
+
+All four fired or passed on the intended rule, first attempt. Final sha256
+of all 12 target files reconfirmed identical to the pre-mutation baseline;
+full 35-checker suite re-run clean afterwards (35/35); tracked repo
+confirmed untouched throughout (`git status --porcelain modules core
+branches.json tools` empty in the real repo at every point - only the one
+long-standing untracked stray present elsewhere in the tree, unrelated).
+No in-repo defect found. Guard coverage for item 2.3 now 22 of 37 checkers
+proven by direct injection (up from 21; count also revised from "36" to "37"
+checkers, reflecting a checker added to tools/ since the last count in this
+item's own entries).
+
+LIVE HALF (Claude in Chrome, one tab, read-only throughout, nothing
+clicked/typed/submitted): read
+https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+live. Address, phone and opening hours (Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun
+closed) all match branches.json's cherrylane_liverpool entry exactly. One
+item reconfirmed, not new: the page's own Weebly-native legal footer still
+publishes the branch NHS mailbox as "pharmacy.FA226@mhs.net" (should be
+pharmacy.FA226@nhs.net) - this is the standing Q36/Q39 finding, already
+open and already recorded against this exact page on the 2026-08-31 (item
+3.4) pass and the 2026-09-15 (5.8 sitemap sweep) pass. Folded into Q36 as a
+further reconfirmation (addendum) rather than raised as a new question,
+per established practice for a repeat finding of an already-open pattern.
+No new in-repo or live defect, no new question raised; QUESTIONS.json
+total unchanged at 125, 47 open.

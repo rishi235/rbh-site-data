@@ -2799,6 +2799,32 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-09-18-twentysecond.txt.
       Done 2026-09-18.
+      Quality pass 2026-10-13 (twenty-third, run 192): new angle,
+      check-nap.js, named once in passing on this item's original build note
+      but never proven by injection against Cherry Lane specifically across
+      twenty-two prior passes. Proved by injection against an isolated
+      scratch copy (git archive HEAD), never the tracked tree: (1) switch
+      page FAQ "Call us on 0151 226 2051" changed to another branch's real
+      number - CAUGHT, named the wrong branch; (2) Pharmacy First page's
+      visible contact-line address changed to a different street - CAUGHT;
+      (3) Earache page's contact-line address div deleted outright -
+      CAUGHT by the surface-presence rule; (4) CONTROL, a benign body
+      reword touching no NAP token - passed clean on check-nap.js and the
+      full 35-checker suite. All four fired or passed on the intended rule,
+      first attempt; all touched files sha256-reconfirmed byte-identical
+      after restore; full 35-checker suite clean before and after; tracked
+      repo confirmed untouched throughout. No in-repo defect found. Guard
+      coverage for item 2.3 now 22 of 37 checkers proven by direct
+      injection. LIVE HALF (Claude in Chrome, read-only): pharmacy-first-
+      cherry-lane-walton.html read live - address, phone and opening hours
+      all match branches.json exactly. The page's Weebly-native footer
+      still publishes the branch NHS mailbox as "pharmacy.FA226@mhs.net"
+      (should be @nhs.net) - the standing Q36/Q39 finding, already open,
+      reconfirmed on this exact page (not new; folded into Q36 as a further
+      addendum). No new in-repo or live defect, no new question raised.
+      Evidence:
+      audits/cherry-lane-item-2.3-quality-pass-2026-10-13-twentythird.txt.
+      Done 2026-10-13.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
