@@ -15665,6 +15665,29 @@ Done 2026-09-19 (twenty-second pass).
       otherwise unchanged. Evidence in
       audits/gordon-short-item-3.11-quality-pass-2026-09-19-twentysecond.txt.
       Done 2026-09-19
+      Quality pass 2026-10-13 (twenty-third, unattended run 182, Cowork
+      sandbox). Picked as the stalest item in the 1.1-1.4/2.1/3.1-3.13/4.1-4.15
+      rotation pool (last touched 2026-09-19, tied with 3.12/3.13/4.12) since
+      all 8 worklist unchecked lines remain [BLOCKED] and run 181 had just
+      taken 4.1. REPO HALF: full 37-checker suite re-run (excl.
+      check-cdn-pins.js and check-live-hours.js, network-dependent), 36/37
+      clean - the one failure, check-postcodes.js, traces entirely to
+      untracked debris files in the repo root (same cause as every recent
+      pass; not a defect in tracked or published content). LIVE HALF (Claude
+      in Chrome, read-only, no sign-in): gordonshortchemist.co.uk homepage and
+      pharmacy-first-service-crosby.html (the pfLink target) both read
+      directly. NAP, phone, email, full address and both opening-hours
+      sessions (Mon-Fri 9-1/2-6, Sat 9-1/2-5, Sun closed) match
+      branches.json's gordonshorts_crosby entry exactly on both pages, and the
+      pfLink page still correctly reads "Gordon Short Chemist" (not "Gordon
+      Shorts") and still carries all seven Pharmacy First cohorts. The
+      homepage's "Weight Loss Clinic: Innovative solutions that deliver
+      results. Tried the rest? Now try the best." tagline is still present -
+      reconfirmed, not a new finding, already covered by Q22 (estate-wide
+      homepage weight loss claim, open, Rishi's decision). No new defect
+      found; no new question raised. Evidence in this log entry only (no
+      separate audits/ file this pass, given the narrow scope).
+      Done 2026-10-13
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
