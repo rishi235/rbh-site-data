@@ -1,0 +1,87 @@
+Item 3.12 quality pass, TWENTY-FIRST PASS, 2026-10-13
+Branch: Tiffenbergs Chemist (tiffenbergs_longmoor), Aintree, L9
+Fresh angle: tools/check-brand-spelling.js, never proven by direct injection
+against this branch in any of the prior twenty passes (confirmed against the
+twentieth pass's own remaining-checker list in AGENT_WORKLIST.md, which named
+check-brand-spelling as one of sixteen checkers not yet exercised here).
+
+BASELINE
+- Full 35-checker suite (excludes check-cdn-pins.js and check-live-hours.js,
+  both network-dependent) run on the tracked repo before touching anything:
+  34/35 clean. The one failure, check-postcodes.js, traces entirely to three
+  untracked, unpublished debris files in the repo root
+  (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md) -
+  confirmed by grepping the checker's own FAIL/MISATTRIB lines for their
+  source filenames; not a defect in tracked or published content. This is the
+  same cause runs 180-182 already recorded; re-confirmed rather than
+  rediscovered.
+- branches.json sha256 (unchanged throughout this pass):
+  7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+- node tools/check-brand-spelling.js alone: clean (20 quoted-evidence NOTE
+  lines, 0 failures) before any injection.
+
+INJECTIONS (three events, one checker, one branch, each restored by byte
+copy and sha256-reconfirmed before the next)
+
+1. VARIANT - trailing-g-dropped-plus-wrong-suffix near miss ("Tiffenburg")
+   injected into the visible H1 of
+   modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html
+   (line 21), replacing "Tiffenbergs Chemist" with "Tiffenburg Chemist".
+   CAUGHT: "FAIL modules/service/pages/sore-throat-treatment-tiffenbergs-
+   aintree.html:21: reads "Tiffenburg", a known misspelling. The trading
+   name is "Tiffenbergs Chemist"" - exit code 1. Restored by byte copy from
+   a pre-injection backup; sha256 reconfirmed identical
+   (93fedca73f7804d4a52d83e88a3410bae1b539ac735bb5833a01f8953246fc8f) both
+   before injection and after restore. Re-ran check-brand-spelling.js alone:
+   clean again.
+
+2. VARIANT - apostrophe-s near miss ("Tiffenberg's") injected into the
+   contact card of
+   modules/service/pages/impetigo-treatment-tiffenbergs-aintree.html
+   (line 138), replacing "Tiffenbergs Chemist" with "Tiffenberg's Chemist".
+   CAUGHT: "FAIL modules/service/pages/impetigo-treatment-tiffenbergs-
+   aintree.html:138: reads "Tiffenberg's Chemist". The trading name is
+   "Tiffenbergs Chemist"" - exit code 1. Restored by byte copy; sha256
+   reconfirmed identical
+   (27853a21f49858624803b2a3712e1ce5dc3ea044662bb47539e1633a6edb59c8) both
+   before injection and after restore.
+
+3. CONTROL - unrelated wording change (no brand mention touched) in
+   modules/service/pages/uti-treatment-tiffenbergs-aintree.html's hero
+   paragraph ("can assess ... supply treatment ... without a GP appointment"
+   reworded to "can check ... provide treatment ... without needing to see
+   a GP"). PASSED CLEAN as predicted: check-brand-spelling.js exit 0, no
+   cross-firing on an unrelated copy edit. Restored by byte copy; sha256
+   reconfirmed identical
+   (c2ba3c4ddcc42128d58822b98bce096527134f3a77a7edf2b9345b748fd592d7) both
+   before injection and after restore.
+
+All three events fired exactly as predicted, on the first attempt, naming
+the correct file, line and expected trading name each time.
+
+RE-VERIFICATION AFTER ALL RESTORES
+- branches.json sha256 unchanged:
+  7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+- Full 35-checker suite re-run: 34/35 clean, same single pre-existing
+  check-postcodes.js failure (same three debris files, confirmed again by
+  filename), nothing newly broken.
+- git status --porcelain against modules, core, branches.json, gbp-packs and
+  tools: no output, i.e. no tracked-path diff survives this pass.
+
+RESULT: zero in-repo defect. check-brand-spelling.js was already correctly
+holding the Tiffenbergs trading name against both a dropped-g/wrong-suffix
+variant and an apostrophe-s variant; now proven directly against this branch
+rather than correct only by construction. Guard coverage for item 3.12 now
+extends to 21 of the 35 checkers (37 total minus the two network-dependent
+ones) proven by direct injection against this branch; remaining untested
+against Tiffenbergs specifically: check-address-region, check-editor-
+snapshot, check-fragment-targets, check-gbp-pharmacy-first, check-page-
+coverage, check-pharmacy-first-cost, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-seo-sheets, check-service-links,
+check-uk-spelling, check-url-scheme, check-weebly-furniture-freshness,
+check-widget-diaries (fourteen, since check-brand-spelling and check-
+whatsapp-route are now both proven, down from sixteen after the twentieth
+pass).
+
+No new question raised - checker proven clean against data already known
+correct, not a live-facing decision requiring Rishi's input.

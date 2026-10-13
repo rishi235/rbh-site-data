@@ -16663,6 +16663,42 @@ Done 2026-09-19 (twenty-second pass).
       correct, not a live-facing decision. Evidence: audits/tiffenbergs-
       item-3.12-quality-pass-2026-09-19-twentieth.txt. Done 2026-09-19
       (twentieth pass)
+      Quality pass 2026-10-13, TWENTY-FIRST PASS, FRESH ANGLE: tools/check-
+      brand-spelling.js proven by injection against Tiffenbergs for the
+      first time (the twentieth pass's own remaining-checker list named it
+      as one of sixteen never exercised against this branch). Three events,
+      each restored by byte copy and sha256-reconfirmed before the next:
+      (1) VARIANT - "Tiffenburg" (dropped g, wrong suffix) injected into the
+      visible H1 of sore-throat-treatment-tiffenbergs-aintree.html - CAUGHT,
+      correct file/line/trading-name named; (2) VARIANT - "Tiffenberg's"
+      (apostrophe-s) injected into the contact card of impetigo-treatment-
+      tiffenbergs-aintree.html - CAUGHT, same precision; (3) CONTROL -
+      unrelated wording change on uti-treatment-tiffenbergs-aintree.html's
+      hero paragraph, no brand mention touched - PASSED CLEAN as predicted,
+      no cross-firing. All three fired exactly as predicted on the first
+      attempt. BASELINE/RE-VERIFICATION: branches.json sha256 unchanged
+      throughout
+      (7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1);
+      full 35-checker suite (excl. check-cdn-pins.js, check-live-hours.js,
+      network-dependent) 34/35 clean before and after, the one failure
+      (check-postcodes.js) tracing entirely to three untracked debris files
+      in the repo root, not tracked/published content, same cause runs
+      180-182 already recorded; git status --porcelain on modules, core,
+      branches.json, gbp-packs and tools shows no diff after restore. STEP
+      3 answer pickup: Claude in Chrome hit the same Cloudflare Access
+      sign-in wall as every recent run (confirmed via tabs_context_mcp
+      title "Sign in - Cloudflare Access"); no login attempted, tab closed.
+      No "Standing authorisation" section at the top of AGENT_LOG.md, so no
+      autonomous window this run. Guard coverage for item 3.12 now extends
+      to 21 of 35 checkers proven by direct injection against this branch
+      (fourteen remain: check-address-region, check-editor-snapshot,
+      check-fragment-targets, check-gbp-pharmacy-first, check-page-
+      coverage, check-pharmacy-first-cost, check-pharmacy-first-safety-net,
+      check-pharmacy-first-symptoms, check-seo-sheets, check-service-links,
+      check-uk-spelling, check-url-scheme, check-weebly-furniture-
+      freshness, check-widget-diaries). No new defect found; no new
+      question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
+      pass-2026-10-13-twentyfirst.txt. Done 2026-10-13 (twenty-first pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
