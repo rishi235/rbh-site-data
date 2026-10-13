@@ -1,0 +1,150 @@
+Item 4.14 (Gordon Short Chemist Crosby pack) - twenty-third quality pass
+Run 190, audit-backlog-worker, unattended scheduled run, 2026-10-13
+
+CONTEXT
+All 8 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both lines under Q60, 6.6/Q66), so
+this run fell to the quality-pass fallback. Rotation pool re-derived from
+`git log --format='%ad|%s' --date=iso-strict` parsed for "Item N.N" subjects,
+excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+the eight blocked items. 4.14 came out stalest by this derivation (last
+matched commit 2026-09-17, the twenty-first pass). Note: the twenty-second
+pass's commit title ("Run (2026-10-02, Cowork): item 4.14 (Gordon Short
+Crosby) twenty-second quality pass...") used lowercase "item 4.14" and did
+not match the grep pattern `Item [0-9]+\.[0-9]+`, so the derivation
+understates 4.14's true last-touch date by eleven days. Flagged rather than
+silently worked around; does not change the pick, since 4.14 was still among
+the stalest items either way.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome, single tab, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest entry
+still Q52, 2026-09-01T22:44:51.524Z, unchanged for six weeks. No new answers
+to apply. QUESTIONS.json unchanged.
+
+AUTONOMOUS WINDOW CHECK (step 4)
+No "Standing authorisation - autonomous window" section found at the top of
+AGENT_LOG.md. Step 4 does not apply this run.
+
+LOCK AND GIT (steps 1-2)
+.agent-lock found reading "RELEASED 2026-10-13T20:18:34Z - run 189 complete."
+- content-valid and the file's own mtime was approximately 24 minutes old at
+pickup, inside the 45-minute threshold, so treated as a genuine release and
+overwritten in place with a fresh run-190 timestamp (unlink EPERM on this
+sandbox mount, the established workaround). No stale .git/*.lock found at
+pickup. git fetch + pull --ff-only: already up to date at 969d097 (run 189's
+final commit).
+
+FRESH ANGLE
+The twenty-first pass's own forward note (2026-09-18) recorded
+tools/check-postcodes.js's rules 2 (MISSING), 4 (DISPOSED) and 5 (UNOWNED) as
+unproven against gbp-packs/gordon-short-crosby.md specifically across
+twenty-one prior passes. Rule 4 had previously only been proven generically,
+via a synthetic page, on the item 1.3 quality pass (tenth), 2026-09-03.
+
+BASELINE
+Pack sha256: 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+- matches all twenty-two prior passes, no drift.
+
+Running check-postcodes.js directly against the live working tree first
+showed 181 failures. Traced immediately to three large untracked debris files
+at the repo root - .AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+.tmp_log_combined.md - leftover scratch from prior runs' EPERM-on-unlink
+workarounds. These are untracked, not part of any commit, and the checker's
+whole-repo text scan reads them like any other .md file, picking up stale
+historical postcode values and MISATTRIB-shaped sentences as if they were
+live copy. Not a repo defect. Re-ran via `git archive HEAD | tar -x` to a
+disposable /tmp scratch directory (excludes untracked files by construction):
+34/34 checkers (36 minus check-cdn-pins.js and check-live-hours.js, both
+network-dependent) exit 0 clean. This confirms why prior passes' own entries
+insist on the git-archive step rather than running checkers against the live
+working tree directly - recorded here as a reminder for the next run.
+
+INJECTIONS (three rounds, each against a fresh git-archive extraction so no
+round's side effects could contaminate the next; restored by discarding the
+scratch directory, never by reverting in place)
+
+Round 1 - rule 5 (UNOWNED):
+  Attempt A: renamed gbp-packs/gordon-short-crosby.md to
+  gbp-packs/gordon-short-crosby-TYPO.md (content untouched). Passed silently
+  (exit 0, no new warning). Traced to ownerOf()'s brandSlug-length prefix
+  fallback: "gordon-short-crosby-TYPO" still starts with "gordon-short", and
+  no other branch shares that brandSlug, so the fallback still uniquely
+  resolves it to gordonshorts_crosby. Not a defect - this is the fallback
+  behaving exactly as its own code comment describes.
+  Attempt B: renamed to gbp-packs/crosby-pharmacy-pack.md instead (no
+  brandSlug prefix at all). CAUGHT cleanly: exit 0 (UNOWNED is a warning by
+  design, not a failure) with a new warning:
+    "WARN  UNOWNED gbp-packs/crosby-pharmacy-pack.md carries L23 3AT but no
+    branch could be matched to the filename"
+  Restored (renamed back); fresh archive re-run confirmed clean.
+
+Round 2 - rule 2 (MISSING):
+  First attempt: scrubbed the literal string "L23 3AT" out of all 60 files
+  in the scratch tree that contained it (plain sed). Produced UNKNOWN
+  failures instead of MISSING, because branches.json itself was among the
+  60 files and its own postalCode field was scrubbed too, breaking the
+  byPostcode lookup for "L23 3AT" - and because a handful of generated pages
+  carry the postcode with an HTML-entity space (&nbsp; or similar) that the
+  checker's own loose regex (PC_RE_LOOSE) normalises on read but a
+  plain-string sed does not touch, so those pages still "contained" the
+  postcode in the checker's eyes after the edit.
+  Second attempt (the one recorded as the proof): on a fresh archive,
+  changed ONLY gordonshorts_crosby's postalCode field in branches.json from
+  "L23 3AT" to "ZZ11 1ZZ" - no page, pack or paste block touched. CAUGHT
+  cleanly, exit 1, first attempt:
+    "MISSING  postcode ZZ11 1ZZ (gordonshorts_crosby) is only declared or
+    narrated (branches.json): no page, pack or paste block carries this
+    branch's address"
+  This is both the correct way to exercise rule 2 (it is a
+  branches.json-vs-repo rule, not a per-file rule) and the smaller, safer
+  change. Restored by discarding the scratch directory.
+
+Round 3 - rule 4 (DISPOSED):
+  On a fresh archive, set gordonshorts_crosby.disposed = true in
+  branches.json only. CAUGHT cleanly, exit 1, first attempt, 13 DISPOSED
+  failures across every page/pack this branch owns, including:
+    "DISPOSED gbp-packs/gordon-short-crosby.md: postcode L23 3AT belongs to
+    disposed branch gordonshorts_crosby"
+  naming the pack specifically, closing the gap the twenty-first pass noted.
+  Restored by discarding the scratch directory.
+
+All three rounds fired on their intended rule only, no cross-firing.
+
+RESULT
+All five of check-postcodes.js's live-branch rules (1 UNKNOWN, 2 MISSING, 3
+FOREIGN, 4 DISPOSED, 5 UNOWNED) are now proven by direct injection against
+this specific pack. Rules 0 (MALFORMED) and 7 (DUPLICATE) are
+branches.json-level invariants with no single pack to attach to and remain
+out of scope for a per-pack pass, as the twenty-first pass itself noted. No
+checker logic edited, no pack, page or generator content changed.
+
+INTEGRITY CHECKS
+Tracked repo's own copies of gbp-packs/gordon-short-crosby.md, branches.json
+and tools/check-postcodes.js reconfirmed byte-identical (sha256) after all
+three rounds:
+  gbp-packs/gordon-short-crosby.md:
+    49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+  branches.json:
+    7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+  tools/check-postcodes.js:
+    b0da5202bfaac73b7f22dde44503ff7753900068e4fb50dd6c6ba08956c060c9
+git status scoped to modules/core/branches.json/gbp-packs/tools/compliance
+showed only the standing untracked .git/index.lock EPERM-unlink warning
+(cleared each time by the usual mv-aside) and one pre-existing untracked
+stray from run 189's own failed publish step (tools/.status-payload.json.
+stale-1791917339); neither touched. Fresh git-archive extraction re-run
+clean, 34/34, after the final round.
+
+LIVE HALF
+Not attempted this pass. The fresh angle exercised is checker logic against
+the repo's own copy of this branch's data, with no new live surface to
+check. The standing Q32 hard stop (Post A's branch-specific Pharmacy First
+page still reading "Gordon Shorts Chemist", plural, wrong) was last
+reconfirmed live on the twenty-first pass (2026-09-18) and is not re-claimed
+here.
+
+No new in-repo defect, no new live fault, no new question raised.
+QUESTIONS.json unchanged at 125 total, 47 open.
+
+Done 2026-10-13.

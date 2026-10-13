@@ -30476,6 +30476,100 @@ directly rather than re-deriving the same facts by hand.
       unchanged. Evidence:
       audits/gordon-short-crosby-em-dashes-4.14-quality-pass-2026-10-02.txt.
       Done 2026-10-02.
+      Quality pass 2026-10-13 (twenty-third, unattended scheduled run,
+      audit-backlog-worker, run 190). Taken because all 8 unchecked worklist
+      lines are still [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52,
+      both lines under Q60, 6.6/Q66), confirmed by direct grep, so this was
+      the quality-pass fallback. ANSWER PICKUP (step 3): Claude in Chrome,
+      single tab, read-only, navigated to data.rbhealth.co.uk/api/feedback
+      and read the full feed fresh; newest entry still Q52 (2026-09-01),
+      unchanged for six weeks; no new answers, QUESTIONS.json unchanged.
+      No "Standing authorisation" section in AGENT_LOG.md, so no autonomous
+      window this run. ITEM SELECTION: rotation pool re-derived from
+      `git log --format='%ad|%s' --date=iso-strict` parsed for "Item N.N",
+      excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+      6.8) and the eight blocked items; 4.14 came out stalest (last matched
+      commit 2026-09-17, the twenty-first pass; the twenty-second pass's own
+      commit title used lowercase "item 4.14" and did not match the grep
+      pattern, so the derivation understates its true last-touch date by
+      eleven days - noted here rather than silently corrected, since the
+      pick itself does not change: 4.14 was still among the stalest either
+      way). FRESH ANGLE: the twenty-first pass's own forward note recorded
+      tools/check-postcodes.js's rules 2 (MISSING), 4 (DISPOSED) and 5
+      (UNOWNED) as unproven against this specific pack across twenty-one
+      prior passes (rule 4 had only been proven generically, via a
+      synthetic page, on the item 1.3 tenth pass). Baseline: pack sha256
+      49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9,
+      matching all twenty-two prior passes, no drift. Baseline run directly
+      against the tracked working tree first showed check-postcodes.js
+      failing with 181 failures - traced immediately to three large
+      untracked debris files at the repo root (.AGENT_LOG_fix_2.md,
+      .AGENT_LOG_merged.md, .tmp_log_combined.md), leftover historical
+      scratch from prior runs' EPERM-on-unlink workarounds, which the
+      checker's whole-repo text scan picks up like any other .md file. Not
+      a repo defect: these are untracked debris, not part of any commit.
+      Re-ran via `git archive HEAD | tar -x` to a disposable /tmp scratch
+      directory (excludes untracked files by construction) - 34/34
+      checkers (36 minus check-cdn-pins.js and check-live-hours.js,
+      network-dependent) exit 0 clean. This is the same reason prior
+      passes' own entries insist on the archive step rather than running
+      checkers against the live working tree directly; recorded here as a
+      reminder for the next run rather than a new finding. Three rounds
+      against the scratch copy, each on a fresh git-archive extraction so
+      no injection's side effects could contaminate the next, restored by
+      discarding the scratch directory rather than reverting in place: (1)
+      rule 5 (UNOWNED) - renamed gbp-packs/gordon-short-crosby.md to
+      gbp-packs/crosby-pharmacy-pack.md (content untouched). A first attempt
+      renaming only to gordon-short-crosby-TYPO.md passed silently - the
+      brandSlug-length prefix fallback in ownerOf() still resolves it,
+      correctly, since no other branch shares the "gordon-short" prefix;
+      not a defect, confirms the fallback is doing its documented job. The
+      second rename, carrying no brandSlug prefix at all, CAUGHT cleanly:
+      exit 0 (UNOWNED is a warning, not a failure, by design) with a new
+      warning naming exactly "gbp-packs/crosby-pharmacy-pack.md carries
+      L23 3AT but no branch could be matched to the filename". (2) rule 2
+      (MISSING) - on a fresh archive, changed only gordonshorts_crosby's
+      own postalCode in branches.json from "L23 3AT" to "ZZ11 1ZZ" (no page,
+      pack or paste block edited) - CAUGHT cleanly, exit 1, first attempt:
+      "MISSING postcode ZZ11 1ZZ (gordonshorts_crosby) is only declared or
+      narrated (branches.json): no page, pack or paste block carries this
+      branch's address". An earlier attempt at this same rule by scrubbing
+      the literal string "L23 3AT" out of all 60 files that contained it
+      produced UNKNOWN failures instead, because a handful of generated
+      pages carry the postcode with an HTML-entity space the checker's own
+      loose regex normalises but a plain-string sed does not touch -
+      abandoned in favour of the branches.json-only edit above, which is
+      both the correct way to exercise this rule and the smaller, safer
+      change. (3) rule 4 (DISPOSED) - on a fresh archive, set
+      gordonshorts_crosby.disposed = true in branches.json only - CAUGHT
+      cleanly, exit 1, first attempt, with one of the thirteen DISPOSED
+      failures naming this pack specifically: "DISPOSED
+      gbp-packs/gordon-short-crosby.md: postcode L23 3AT belongs to
+      disposed branch gordonshorts_crosby". All three rounds fired on their
+      intended rule only. No checker logic edited, no pack, page or
+      generator content changed. Tracked repo's own copies of
+      gbp-packs/gordon-short-crosby.md, branches.json and
+      tools/check-postcodes.js reconfirmed byte-identical (sha256) after
+      all three rounds; git status scoped to modules/core/branches.json/
+      gbp-packs/tools/compliance showed only the standing untracked
+      .git/index.lock EPERM-unlink warning (cleared by the usual mv-aside)
+      and one pre-existing untracked stray from run 189's own failed
+      publish step, neither touched. Fresh git-archive extraction re-run
+      clean, 34/34. RESULT: all five of check-postcodes.js's live-branch
+      rules (1 UNKNOWN, 2 MISSING, 3 FOREIGN, 4 DISPOSED, 5 UNOWNED) are now
+      proven by direct injection against this specific pack; only rules 0
+      (MALFORMED) and 7 (DUPLICATE), which are branches.json-level
+      invariants with no single pack to attach to, remain out of scope for
+      a per-pack pass, as the twenty-first pass itself noted. No in-repo
+      defect found. LIVE HALF: not attempted this pass - the fresh angle
+      exercised is checker logic against the repo's own copy of this
+      branch's data, with no new live surface to check; the standing
+      Q32 hard stop (Post A's branch-specific Pharmacy First page still
+      reading "Gordon Shorts Chemist") was last reconfirmed live on the
+      twenty-first pass and is not re-claimed here. No new question raised;
+      QUESTIONS.json unchanged at 125 total, 47 open. Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-10-13-twentythird.txt.
+      Done 2026-10-13.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
