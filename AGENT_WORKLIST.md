@@ -20646,6 +20646,57 @@ Pharmacy First wording to the NHS service description.
       chosen. Evidence:
       audits/app-membership-reproof-4.3-2026-09-18-twentyfirst.txt. Done
       2026-09-18
+      Quality pass 2026-10-13 (twenty-second pass, unattended scheduled run,
+      run 186): rotation pool re-derived fresh via git log, excluding items
+      already touched earlier the same day by runs 180-185 (4.7, 4.1, 3.11,
+      3.12, 2.1, 1.3) - 4.3 came out stalest among the rest at its own
+      twenty-first pass, 2026-09-18T20:11:28+01:00. REPO HALF: full
+      35-checker suite (excl. check-cdn-pins.js, check-live-hours.js, both
+      network-dependent): 34/35 clean, the one failure (check-postcodes.js)
+      traces entirely to the same three untracked, unpublished debris files
+      every recent run has recorded (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+      .tmp_log_combined.md) - not a defect in tracked or published content;
+      unlink() still blocked in this sandbox mount, reconfirmed. Pack
+      re-checked fact by fact against branches.json's hirshmans_ainsdale
+      entry (address, phone, hours, review link, odsCode, nhsEmail,
+      hasApp=false) - all match, no drift since the twenty-first pass. The
+      twenty-first pass's own residual (rule 8e, "the missing positive," in
+      check-app-membership.js, unproven against this pack) reconsidered
+      rather than re-injected: Hirshmans Ainsdale has hasApp=false, and rule
+      8e only fires for a TRUE member branch's pack missing its app mention,
+      so it cannot be meaningfully exercised against this branch's own data
+      without fabricating a hasApp=true scenario that contradicts
+      branches.json. Rules 8a-8d (the direction that does apply to a
+      non-member branch) were already proven by injection on the twenty-first
+      pass. Treating this residual as structurally closed rather than
+      inventing a synthetic angle that would prove nothing new, consistent
+      with the item 4.5 precedent of declining to invent further angles once
+      none remain. LIVE HALF (Claude in Chrome, read-only): read the pack's
+      own googleReviewUrl directly for the first time against Hirshmans'
+      OWN profile (not inferred from a sidebar) - address, phone and hours
+      all match branches.json (Maps display drops the "Sherwood House"
+      building name, normal Maps simplification, not a fault); 45 reviews,
+      4.0 stars. NEW FINDING, DIRECT CONFIRMATION: the live profile's
+      business NAME is "Hirshmans Pharmacy - Travel Vaccination and Simple
+      Weight Loss Clinic", not the plain trading name branches.json and the
+      pack's own "Name on GBP" line state - the same divergence shape Q113
+      (McCanns Sandringham) and Q125 (Fishlocks Ainsdale, found earlier the
+      same day by run 181) already carry. Q125 had surfaced this exact name
+      for Hirshmans second-hand, via a "people also search for" panel seen
+      while checking a different branch; this pass confirms it directly
+      against Hirshmans' own listing for the first time, making this the
+      third independent branch found with the pattern, across three separate
+      rotation-pool items. Also noted a related secondary listing, "Practio
+      Travel Vaccinations at Hirshmans Chemist" (no reviews), at the same
+      address under a slightly different name - a possible duplicate/stale
+      listing, flagged for a human look in any future supervised GBP session,
+      not folded into Q125 since it is a different kind of divergence.
+      Appended as an addendum to Q125 (not a new question), per the
+      established practice of folding a repeat finding of an already-open
+      pattern into its existing question. NO NEW IN-REPO DEFECT, NO NEW
+      QUESTION. Evidence:
+      audits/hirshmans-ainsdale-item-4.3-twentysecond-2026-10-13.txt. Done
+      2026-10-13
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

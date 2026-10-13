@@ -1,0 +1,75 @@
+Item 4.3 quality pass (twenty-second), 2026-10-13 18:xx UTC, run 186 (audit-backlog-worker,
+Cowork sandbox session, scheduled run, claude-sonnet-5)
+
+SCOPE: Hirshmans Chemist Ainsdale, gbp-packs/hirshmans-ainsdale.md
+
+REPO HALF
+- Full checker suite (excl. check-cdn-pins.js, check-live-hours.js, both network-dependent):
+  35 run, 34 clean, 1 fail (check-postcodes.js).
+- check-postcodes.js failure traces entirely to three untracked, unpublished debris files
+  still present in the repo root (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+  .tmp_log_combined.md) - confirmed by grepping the checker's own MISATTRIB lines for their
+  source filename. Not a defect in any tracked or published content. unlink() on these files
+  still returns "Operation not permitted" in this sandbox mount (re-confirmed this run);
+  content-overwrite is not applicable here since these files are not ones this run owns or
+  needs to modify, only to note as pre-existing non-issues (same as every run since ~165).
+- gbp-packs/hirshmans-ainsdale.md re-checked fact by fact against branches.json's
+  hirshmans_ainsdale entry: address (56-62 Sherwood House, Station Road, Ainsdale, Southport
+  PR8 3HW), phone 01704 577376, website, review link, hours (Mon-Fri 8:30am-1pm/2pm-6pm, Sat
+  9am-1pm/2pm-5:30pm, Sun closed, both lunch closures), odsCode FW378, nhsEmail, hasApp=false -
+  all match. No drift since the twenty-first pass (2026-09-18).
+- RULE 8e (check-app-membership.js, "the missing positive") reconsidered rather than
+  re-injected: Hirshmans Ainsdale has hasApp=false, so rule 8e (which only fires for a TRUE
+  member branch whose pack is missing its app mention) cannot meaningfully be exercised
+  against this pack's own data without also fabricating a hasApp=true scenario that
+  contradicts branches.json. Rules 8a-8d (the false-claim direction, which DOES apply to a
+  non-member branch) were already proven by injection against this pack on the twenty-first
+  pass (2026-09-18). Treating the 8e residual as structurally inapplicable to this branch
+  rather than inventing a synthetic injection that proves nothing new - consistent with the
+  seventeenth-pass precedent of declining to invent further angles once none remain
+  (AGENT_WORKLIST.md, item 4.5 history, "did not invent a fifteenth synthetic injection
+  angle - nothing named"). No further residual outstanding for this item's app-membership
+  coverage.
+
+LIVE HALF (Claude in Chrome, read-only, no sign-in)
+- Navigated to the pack's own googleReviewUrl (https://g.page/r/CUagKTNTXwMYEAE/review),
+  resolved to the live Google Maps listing for this branch.
+- Address shown: "56-62 Station Rd, Ainsdale, Southport PR8 3HW" - matches branches.json
+  (Maps display drops the "Sherwood House" building name, which is normal Google Maps
+  address simplification, not a data fault).
+- Phone: 01704 577376 - matches exactly.
+- Hours: "Closed - Opens 8:30 am Wed" at time of check - consistent with branches.json's
+  Monday-Friday 8:30am opening, no locked-door fault.
+- Reviews: 45 reviews, 4.0 stars.
+- NEW FINDING, DIRECT CONFIRMATION: the live profile's business NAME is "Hirshmans Pharmacy -
+  Travel Vaccination and Simple Weight Loss Clinic", not the plain trading name "Hirshmans
+  Chemist" that branches.json and the pack's own "Name on GBP" line state. This is the same
+  divergence shape as Q113 (McCanns Chemist Sandringham, found 2026-09-18) and Q125
+  (Fishlocks Chemist Ainsdale, found 2026-10-13 earlier today by run 181): altered brand word
+  ("Chemist" -> "Pharmacy"), a keyword-stuffed service suffix, and the group's separately
+  parked Simple Weight Loss brand named in a live public listing.
+  Q125 had already surfaced "Hirshmans Pharmacy - Travel Vaccination and Simple Weight Loss
+  Clinic" as a name shown in a Google Maps "people also search for" panel while checking a
+  DIFFERENT branch (Fishlocks Ainsdale) - that was second-hand evidence about Hirshmans, not
+  a direct check of Hirshmans' own profile. This pass checked Hirshmans' own listing directly
+  for the first time and confirms the name is exactly as the panel suggested. This is now
+  THREE independent branches (McCanns Sandringham, Fishlocks Ainsdale, Hirshmans Ainsdale)
+  with the identical fault pattern, found across three separate items in the rotation, which
+  is itself evidence the pattern is estate-wide rather than isolated.
+  Also noted on the same visit: "Hirshmans Pharmacy - Travel Vaccination and Simple Weight
+  Loss Clinic" lists an adjacent "Practio Travel Vaccinations at Hirshmans Chemist" as a
+  related listing with no reviews - a second, separate GBP-type listing at the same address
+  under a slightly different name ("Hirshmans Chemist" this time, not "Pharmacy") - flagged
+  here as a related oddity worth a human look during any supervised GBP session, not folded
+  into Q125's own finding since it is a different kind of divergence (a possible duplicate or
+  stale secondary listing rather than a renamed primary one).
+- Appended as an addendum to the existing Q125 (not a new question), per the established
+  practice of folding a repeat finding of an already-open pattern into its existing question
+  rather than raising a duplicate. QUESTIONS.json's Q125.note field updated with this branch's
+  confirmation; Q125's options and recommendation are unchanged since they already cover an
+  estate-wide sweep (option 0).
+
+RESULT: no new in-repo defect found; no checker, generator, page or branches.json content
+changed this pass. One live finding, folded into Q125 as a third-branch confirmation, no new
+question raised. Nothing decided autonomously (no standing authorisation window found in
+AGENT_LOG.md).
