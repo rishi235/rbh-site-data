@@ -23640,6 +23640,86 @@ directly rather than re-deriving the same facts by hand.
       used elsewhere in this file.
       Evidence: audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-18-
       twentysecond.txt.
+      Quality pass 2026-10-13 (twenty-third, unattended scheduled run, Cowork
+      sandbox session, claude-sonnet-5). Taken because all 8 remaining
+      unchecked worklist lines are still [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1,
+      both Q60 lines under 6.4/6.5, 6.6), confirmed by direct grep, and 4.7
+      was still the oldest in the rotation at its twenty-second pass
+      (2026-09-18). ENVIRONMENT NOTE FIRST, because it changed since the last
+      entry: AGENT_LOG.md's oversized tracked blob (257MB, over GitHub's
+      100MB limit) was split by Rishi directly on 2026-10-13 (commit fde100c),
+      and archive/AGENT_LOG_ARCHIVE_*.md untracked the same day (cda69d7).
+      git push now works (`git push --dry-run` returns "Everything
+      up-to-date" against a PAT already in the remote URL) - the credential
+      and oversized-blob blockers recorded in the 2026-10-11 run 179 entry no
+      longer apply. unlink() is still not permitted anywhere in this sandbox
+      mount (confirmed again: `rm` on a fresh test file fails "Operation not
+      permitted"), so stale debris cannot be cleared here, only overwritten.
+      REPO HALF: pack re-verified fact by fact against branches.json - 1b
+      Aigburth Road, Liverpool L17 4JP; phone 0151 727 3076; both weekday
+      sessions (9:00am-1:00pm, 2:00pm-6:00pm, Sat/Sun closed); catchment St
+      Michael's, Lark Lane, Dingle; review link
+      https://g.page/r/CbMDr1qOLqnrEAE/review - all match, nothing changed
+      since the twenty-second pass. ONE REAL IN-REPO DEFECT FOUND AND FIXED,
+      not in this pack: tools/check-weebly-furniture-freshness.js failed
+      estate-wide because WEEBLY_FURNITURE_CHECKLIST.md's "lastUpdated" stamp
+      (2026-09-14) had drifted behind branches.json's own lastUpdated
+      (2026-10-11) after other edits landed since. Re-ran
+      tools/build-weebly-furniture-checklist.js and committed the refreshed
+      file; diff is the stamp line only in each of the 10 branch sections
+      with findings, no field value changed, checker now clean.
+      Full 37-checker suite re-run (check-cdn-pins.js and check-live-hours.js
+      excluded, both network-dependent): 36/37 clean. The one failure,
+      check-postcodes.js, traces entirely to three untracked, unpublished
+      debris files left in this sandbox mount from the 2026-10-07/
+      2026-10-13 AGENT_LOG splitting work (.AGENT_LOG_fix_2.md,
+      .AGENT_LOG_merged.md, .tmp_log_combined.md - none tracked by git, none
+      gitignored, none reachable by a patient): every MISATTRIB line check-
+      postcodes.js reports is inside one of those three files. Not a defect
+      in any tracked or published content. Could not be cleared because
+      unlink() is blocked in this mount (see ENVIRONMENT NOTE); not added to
+      check-postcodes.js's NARRATIVE_FILES allowlist, because that list
+      exists for legitimate narrative files this repo keeps, not for debris
+      that should simply be deleted once a session with working unlink picks
+      this up.
+      LIVE HALF (Claude in Chrome, read-only): pharmacy-mccanns-
+      sandringham.html still returns 404 (Q35, unchanged, now 23+ passes).
+      Read the actual Google Business Profile via the pack's own
+      googleReviewUrl (g.page/r/CbMDr1qOLqnrEAE/review): address, phone and
+      the live "Opens soon - 2 pm" status (checked at 13:43 BST, inside the
+      1-2pm lunch closure) all agree with branches.json; review count is now
+      37 at 4.8 stars (up from 35 at the twenty-second pass). Q113's finding
+      stands unchanged: the profile's own NAME field still reads "McCanns
+      Pharmacy - Sandringham - Travel Vaccination and Simple Weight Loss
+      Clinic", diverging from branchName on brand word (Pharmacy vs Chemist)
+      and still carrying the Simple Weight Loss suffix on a live public
+      listing; website field still shows the bare domain, not the landing
+      page (reconfirms Q35). No new live fault, no new question - Q113 is
+      still open and still accurate.
+      ANSWER PICKUP (step 3): not attempted this run. Navigated to
+      https://data.rbhealth.co.uk/api/feedback and got the Cloudflare Access
+      sign-in page (screenshot confirmed), not a signed-in session; per the
+      hard rule, no login was attempted. Separately, while reading
+      QUESTIONS.json for this pass, found that Q8, Q9, Q13, Q16, Q52, Q60 and
+      Q66 - the questions behind all 8 currently [BLOCKED] worklist lines -
+      are already marked "answered" in QUESTIONS.json (answered 2026-08-08
+      through 2026-09-29, likely folded into QUESTIONS.json directly by a
+      human/Cowork session rather than via the broken portal-pickup path,
+      given the push/blob state at the time). Read all 8 answers and the
+      current worklist text for each blocked line: all 8 remain genuinely
+      blocked on something this unattended run cannot do - a Weebly paste or
+      hand edit (5.3, 5.4, 5.5, 6.4/6.5's styling half), a live Google
+      Business Profile write (6.6), a further open decision (5.8 is blocked
+      on Q22, not Q16; 6.1 is blocked on Rishi supplying sitemap URLs from
+      the Ahrefs UI, not yet provided) - so none could be unblocked and
+      actioned this run. Recorded here so the next run does not re-walk the
+      same 8 lines from scratch.
+      VERIFICATION: WEEBLY_FURNITURE_CHECKLIST.md diff reviewed in full
+      (stamp-only); 37-checker suite re-run after the fix, same 36/37 result
+      confirming no regression; pack and branches.json untouched this pass.
+      Evidence: this entry; no separate audit file written (no pack edit was
+      needed this pass, the defect found was estate-wide tooling, not this
+      branch).
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by

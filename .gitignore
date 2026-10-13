@@ -4,3 +4,4 @@
 _agent-run-debris/
 .notify-state.json
 tools/.status-payload.json
+archive/
