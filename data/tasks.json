@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-12T06:14:22Z",
+  "generated_at": "2026-10-13T06:14:21Z",
   "source": "asana",
   "workspace": "rbhealth.co.uk",
   "assignee": "Rishi Bhatia",
   "counts": {
     "total": 71,
-    "overdue": 22,
-    "due_next_7_days": 18,
+    "overdue": 24,
+    "due_next_7_days": 16,
     "no_due_date": 29
   },
   "tasks": [
@@ -224,7 +224,7 @@
       "gid": "1219295725535499",
       "name": "Rent reviews - Sandringham, Ainsdale, Cherry Lane",
       "due_on": "2026-10-12",
-      "overdue": false,
+      "overdue": true,
       "projects": [
         "Rishi WORK"
       ],
@@ -234,7 +234,7 @@
       "gid": "1219300274646206",
       "name": "Service contract renewal terms, dates, options and costs, plus hardware/software upgrade details - receive before meeting",
       "due_on": "2026-10-12",
-      "overdue": false,
+      "overdue": true,
       "projects": [],
       "url": "https://app.asana.com/1/768589943956440/task/1219300274646206"
     },
