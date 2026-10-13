@@ -17,10 +17,10 @@ Profile basics (for checking, not pasting):
   the profile stays local to Hazel Grove. Check it resolves before pasting.)
 - Review link: https://g.page/r/CZbFKrky9BUsEAE/review
 
-## 1. Business description (max 750 chars - this is 712)
+## 1. Business description (max 750 chars - this is 702)
 An independent NHS pharmacy on Macclesfield Road, Scorah Chemists Hazel
-Grove looks after patients from Hazel Grove, Bramhall, Offerton, Great Moor
-and Poynton. Alongside NHS prescription dispensing we offer three free NHS
+Grove looks after patients from Hazel Grove, Offerton, Great Moor and
+Poynton. Alongside NHS prescription dispensing we offer three free NHS
 services: blood pressure checks for adults aged 40 and over, the
 contraception service, and Pharmacy First, where a pharmacist can assess
 and treat seven common conditions with no GP appointment. For travellers we
@@ -37,8 +37,7 @@ team is here Monday to Friday and always happy to help.
 ## 3. Services section content
 NHS services first:
 - NHS prescription dispensing: prescriptions dispensed by a team that knows
-  its regulars, serving Hazel Grove, Bramhall, Offerton, Great Moor and
-  Poynton.
+  its regulars, serving Hazel Grove, Offerton, Great Moor and Poynton.
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
@@ -90,7 +89,7 @@ Switching your prescriptions to Scorah Chemists in Hazel Grove takes about
 30 seconds. Tell us your name, date of birth and GP surgery - we contact
 the surgery and handle everything else. A local team on Macclesfield Road
 you can actually speak to, by phone or WhatsApp if you prefer. Serving
-Hazel Grove, Bramhall, Offerton, Great Moor and Poynton.
+Hazel Grove, Offerton, Great Moor and Poynton.
 Button: Learn more -> https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-hazel-grove.html
 
 ### Post C - Weight loss clinic
@@ -114,6 +113,15 @@ Macclesfield Road, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.scorah-chemists.co.uk/travel-clinic-scorah-hazel-grove.html
 
 Notes for the paster:
+- Bramhall was removed from the catchment list (description, services
+  section and Post B) on 2026-10-11, per Q71 (answered by Rishi
+  2026-10-10): it is the seoTown of the sister Scorah branch sharing this
+  domain, so naming it here put two of our own pages in competition for
+  one catchment word. Removing it also puts Hazel Grove back as the
+  leading word in the catchment list, matching this branch's seoTown. The
+  sister branch is still named in the business description ("Our sister
+  branch is in Bramhall"), which is a different, permitted sentence
+  construct from the catchment list.
 - The scorah-chemists.co.uk domain is shared with Bramhall. Set the profile
   website to the Hazel Grove landing page
   (pharmacy-scorah-hazel-grove.html), not the shared homepage, so the two

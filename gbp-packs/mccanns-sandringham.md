@@ -23,9 +23,9 @@ Profile basics (for checking, not pasting):
   the profile stays local to St Michael's. Check it resolves before pasting.)
 - Review link: https://g.page/r/CbMDr1qOLqnrEAE/review
 
-## 1. Business description (max 750 chars - this is 721)
+## 1. Business description (max 750 chars - this is 711)
 At 1b Aigburth Road, McCanns Chemist Sandringham is an independent pharmacy
-providing NHS services to St Michael's, Aigburth, Lark Lane and Dingle. NHS
+providing NHS services to St Michael's, Lark Lane and Dingle. NHS
 prescriptions are dispensed on site, free NHS blood pressure checks are
 available to adults aged 40 and over, and the NHS contraception service
 means you can start or continue oral contraception at the pharmacy.
@@ -44,7 +44,7 @@ welcome.
 ## 3. Services section content
 NHS services first:
 - NHS prescription dispensing: prescriptions dispensed by a team that knows
-  its regulars, serving St Michael's, Aigburth, Lark Lane and Dingle.
+  its regulars, serving St Michael's, Lark Lane and Dingle.
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
@@ -98,7 +98,7 @@ Button: Learn more -> https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-s
 Switching your prescriptions to McCanns Chemist Sandringham takes about 30
 seconds. Tell us your name, date of birth and GP surgery - we contact the
 surgery and handle everything else. A local team at 1b Aigburth Road you
-can actually speak to. Serving St Michael's, Aigburth, Lark Lane and
+can actually speak to. Serving St Michael's, Lark Lane and
 Dingle.
 Button: Learn more -> https://www.mccannspharmacy.co.uk/switch-prescriptions-mccanns-sandringham.html
 
@@ -159,17 +159,21 @@ Notes for the paster:
   pick the closest match.
 - No app mention anywhere in this pack: branches.json has hasApp false for
   this branch.
-- The catchment list reads "St Michael's, Aigburth, Lark Lane and Dingle"
-  in that order on purpose, and it is not a typo to correct. Item 5.7
-  (Q15, answered 2026-08-10) moved this branch's local word from
-  Sandringham to St Michael's, because Sandringham was the only seoTown in
-  the estate that was not a place in its own branch's catchment list. Every
-  one of this branch's own pages now leads with St Michael's, and the
-  profile must agree with them. Leading with Aigburth would point this
-  profile at the town the sister branch further along the same road already
-  targets, which is the exact overlap the landing pages exist to stop. The
-  branch is still named McCanns Chemist Sandringham on the profile; only
-  the catchment wording changed.
+- The catchment list reads "St Michael's, Lark Lane and Dingle" in that
+  order on purpose, and it is not a typo to correct. Item 5.7 (Q15,
+  answered 2026-08-10) moved this branch's local word from Sandringham to
+  St Michael's, because Sandringham was the only seoTown in the estate that
+  was not a place in its own branch's catchment list. Every one of this
+  branch's own pages now leads with St Michael's, and the profile must
+  agree with them. Aigburth was removed from the catchment list entirely on
+  2026-10-11 (Q71, answered by Rishi 2026-10-10): it is the seoTown of the
+  sister McCanns branch further along the same road and sharing this
+  domain, so naming it here put two of our own pages in competition for
+  one catchment word. The sister branch is still named in the business
+  description ("Our sister McCanns Chemist branch is further along Aigburth
+  Road"), which is a different, permitted sentence construct from the
+  catchment list. The branch is still named McCanns Chemist Sandringham on
+  the profile; only the catchment wording changed.
 - While in the profile, action any pending Google updates (Build Pack 4.1):
   review and accept or reject Google's suggested edits so they do not apply
   silently.

@@ -24,18 +24,18 @@ Meta keywords are ignored by Google/Bing (kept for completeness only).
 ## McCanns Chemist Sandringham
 - **Page Title:** Pharmacy in St Michael's, Merseyside - McCanns Chemist
 - **Page Permalink:** pharmacy-mccanns-sandringham
-- **Page Description:** McCanns Chemist Sandringham, St Michael's L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving St Michael's, Aigburth, Lark Lane and Dingle.
+- **Page Description:** McCanns Chemist Sandringham, St Michael's L17 4JP. NHS prescriptions, Pharmacy First and private clinics. Serving St Michael's, Lark Lane and Dingle.
 - **Meta Keywords:** pharmacy St Michael's, chemist St Michael's, McCanns Chemist, L17
 
 ## Scorah Chemists Bramhall
 - **Page Title:** Pharmacy in Bramhall, Greater Manchester - Scorah Chemists
 - **Page Permalink:** pharmacy-scorah-bramhall
-- **Page Description:** Scorah Chemists Bramhall, Bramhall SK7 3LQ. NHS prescriptions, Pharmacy First and private clinics. Serving Bramhall, Cheadle Hulme, Hazel Grove and Handforth.
+- **Page Description:** Scorah Chemists Bramhall, Bramhall SK7 3LQ. NHS prescriptions, Pharmacy First and private clinics. Serving Bramhall, Cheadle Hulme, Handforth and Poynton.
 - **Meta Keywords:** pharmacy Bramhall, chemist Bramhall, Scorah Chemists, SK7
 
 ## Scorah Chemists Hazel Grove
 - **Page Title:** Pharmacy in Hazel Grove, Greater Manchester - Scorah Chemists
 - **Page Permalink:** pharmacy-scorah-hazel-grove
-- **Page Description:** Scorah Chemists Hazel Grove, Hazel Grove SK7 6BG. NHS prescriptions, Pharmacy First and private clinics. Serving Hazel Grove, Bramhall, Offerton and Great Moor.
+- **Page Description:** Scorah Chemists Hazel Grove, Hazel Grove SK7 6BG. NHS prescriptions, Pharmacy First and private clinics. Serving Hazel Grove, Offerton, Great Moor and Poynton.
 - **Meta Keywords:** pharmacy Hazel Grove, chemist Hazel Grove, Scorah Chemists, SK7
 

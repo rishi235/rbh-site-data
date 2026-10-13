@@ -540,7 +540,20 @@ const seenHoursDaysKnown = {};
 // another branch's town in copy that is pasted into the public profile, and
 // say so with a question id. Same anti-rot convention: a key that no longer
 // matches a real breach fails the run.
-const KNOWN_FOREIGN_TOWN = {};
+const KNOWN_FOREIGN_TOWN = {
+  "mccanns_sandringham::foreignTown": {
+    question: "Q71",
+    reason:
+      "this branch's own street address is 1b Aigburth Road, so the word " +
+      "\"Aigburth\" appears in the business description, Post A, Post B and " +
+      "Post D as part of the branch's own correct street name, not as a " +
+      "claim on the sister branch's catchment. The catchment-list use of " +
+      "\"Aigburth\" (naming the sister's town in the served-areas list) was " +
+      "the Q71 finding and was removed from serviceAreaList and from every " +
+      "catchment-list sentence on 2026-10-11; what remains is unavoidable " +
+      "given the branch's real address."
+  }
+};
 const seenForeignTownKnown = {};
 
 // Accepted exceptions to the road-name rule, keyed "<branch id>::road". Use

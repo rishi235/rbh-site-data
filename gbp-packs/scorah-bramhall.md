@@ -16,7 +16,7 @@ Profile basics (for checking, not pasting):
   the profile stays local to Bramhall. Check it resolves before pasting.)
 - Review link: https://g.page/r/CZdA75DAMigGEAE/review
 
-## 1. Business description (max 750 chars - this is 742)
+## 1. Business description (max 750 chars - this is 729)
 Scorah Chemists on North Park Road is Bramhall's independent NHS pharmacy.
 Prescriptions are dispensed by a team that knows its regulars, and adults
 aged 40 and over can have a free NHS blood pressure check without an
@@ -25,9 +25,9 @@ Pharmacy First our pharmacists assess and treat seven common conditions
 free of charge, no GP appointment needed. Privately, we offer a travel
 health clinic covering vaccinations and malaria prevention for your trip,
 and a pharmacist-led weight loss clinic with a full clinical assessment.
-Patients come to us from Bramhall, Cheadle Hulme, Hazel Grove, Handforth
-and Poynton, and our sister branch in Hazel Grove is close by. Call in any
-time we are open.
+Patients come to us from Bramhall, Cheadle Hulme, Handforth and Poynton,
+and our sister branch in Hazel Grove is close by. Call in any time we are
+open.
 
 ## 2. Categories
 - Primary: Pharmacy
@@ -37,8 +37,7 @@ time we are open.
 ## 3. Services section content
 NHS services first:
 - NHS prescription dispensing: prescriptions dispensed by a team that knows
-  its regulars, serving Bramhall, Cheadle Hulme, Hazel Grove, Handforth and
-  Poynton.
+  its regulars, serving Bramhall, Cheadle Hulme, Handforth and Poynton.
 - NHS Pharmacy First: free NHS assessment and, where appropriate, treatment
   for sinusitis, sore throat, earache, impetigo, shingles, infected insect
   bites and uncomplicated UTIs in women, with no GP appointment needed.
@@ -89,7 +88,7 @@ Switching your prescriptions to Scorah Chemists in Bramhall takes about 30
 seconds. Tell us your name, date of birth and GP surgery - we contact the
 surgery and handle everything else. A local team on North Park Road you can
 actually speak to, by phone or WhatsApp if you prefer. Serving Bramhall,
-Cheadle Hulme, Hazel Grove, Handforth and Poynton.
+Cheadle Hulme, Handforth and Poynton.
 Button: Learn more -> https://www.scorah-chemists.co.uk/switch-prescriptions-scorah-bramhall.html
 
 ### Post C - Weight loss clinic
@@ -113,6 +112,13 @@ Park Road, no GP visit needed. Book your travel consultation today.
 Button: Book -> https://www.scorah-chemists.co.uk/travel-clinic-scorah-bramhall.html
 
 Notes for the paster:
+- Hazel Grove was removed from the catchment list (description, services
+  section and Post B) on 2026-10-11, per Q71 (answered by Rishi
+  2026-10-10): it is the seoTown of the sister Scorah branch sharing this
+  domain, so naming it here put two of our own pages in competition for
+  one catchment word. The sister branch is still named in the business
+  description ("our sister branch in Hazel Grove is close by"), which is a
+  different, permitted sentence construct from the catchment list.
 - The scorah-chemists.co.uk domain is shared with Hazel Grove. Set the
   profile website to the Bramhall landing page
   (pharmacy-scorah-bramhall.html), not the shared homepage, so the two

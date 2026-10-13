@@ -204,14 +204,13 @@ if (!sharedHosts) {
 // listed case that has gone away FAILS as stale so the list cannot rot into a
 // blanket exemption. That keeps the Fishlocks injection failing while the
 // three real ones wait on an answer.
-var KNOWN_SISTER_TOWN = {
-  "pharmacy-mccanns-sandringham.html|Aigburth":
-    "Q71 - McCanns Sandringham (St Michael's) lists neighbouring Aigburth, the seoTown of its sister branch on www.mccannspharmacy.co.uk",
-  "pharmacy-scorah-bramhall.html|Hazel Grove":
-    "Q71 - Scorah Bramhall lists neighbouring Hazel Grove, the seoTown of its sister branch on www.scorah-chemists.co.uk",
-  "pharmacy-scorah-hazel-grove.html|Bramhall":
-    "Q71 - Scorah Hazel Grove lists neighbouring Bramhall, the seoTown of its sister branch on www.scorah-chemists.co.uk"
-};
+// Q71 answered by Rishi 2026-10-10 (option 2): take only the sister town out
+// of serviceAreaList for each of the three branches, keep the rest of the
+// catchment. Done 2026-10-11 - serviceAreaList edited in branches.json, pages
+// regenerated, so these three cases no longer occur. List left empty rather
+// than deleted so the stale-key check above stays meaningful if a future
+// cross-town case needs pinning.
+var KNOWN_SISTER_TOWN = {};
 var sisterSeen = {};
 
 // Returns a list of problem strings for one page's three public strings.
