@@ -1,0 +1,111 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) - twenty-third quality pass
+Run 195, scheduled audit-backlog-worker, 2026-10-14
+
+ROTATION PICK
+Re-derived the stalest-item pool from git log (excluding the seven standing
+one-offs and the eight [BLOCKED] items). Item 3.2's last genuine pass was its
+twenty-second, 2026-09-19T00:40:46+01:00 (check-map-embeds.js) - stalest in the
+pool by a wide margin (25 days; next-stalest item was touched 2026-09-19
+within hours of 3.2, everything else refreshed since 2026-10-01).
+
+FRESH ANGLE
+Of 36 checkers, 22 had already been proven by direct injection against item
+3.2 across 22 prior passes. check-contraception-copy.js had never been
+exercised against this branch pair - both Scorah branches hold a
+contraception widget in branches.json (scorah_bramhall, scorah_hazel) and a
+generated contraception page each.
+
+METHOD
+Baseline: `git archive HEAD | tar -x` to an isolated scratch copy (tracked
+repo never opened for writing). Baseline run of check-contraception-copy.js
+clean (14 pages read, 22 pinned lines, 5 FAQ pairs, 1 accepted KNOWN
+breach - safeguarding, unrelated to this branch). Full 35-checker sweep
+(excl. check-cdn-pins.js/check-live-hours.js, network-dependent) clean,
+0 failures.
+
+sha256 baseline captured for both Scorah contraception pages before any
+mutation:
+  contraception-scorah-bramhall.html    db3329e4...43b3
+  contraception-scorah-hazel-grove.html 031157b2...5d10
+
+Four rounds, each restored and sha256-reconfirmed identical to baseline
+before the next:
+
+1. RULE 5 (free) - Bramhall page: "Is it free?" FAQ answer changed from the
+   no-charge statement to a "£9.99 consultation fee" version. CAUGHT on
+   three fronts at once: [verbatim] (line no longer matches the generator),
+   [free] missing no-charge answer, [free] states a price "£9", [free] says
+   "consultation fee". Exactly the triple-angle catch the checker's own
+   header describes for this rule.
+
+2. RULE 6 (consent) - Bramhall page: reversed the confidentiality sentence
+   from "We will only tell your GP ... if you give your consent" to "Your GP
+   will always be informed ...". CAUGHT: [verbatim] and [consent], named the
+   exact pinned sentence.
+
+3. RULE 7 (long-acting/LARC) - Hazel Grove page: changed the coil/implant
+   signposting line "we will advise where to get this locally" to "we can
+   fit a coil for you at this appointment". CAUGHT: [verbatim] and [larc],
+   quoting "we can fit" as the offending phrase.
+
+4. CONTROL - Hazel Grove page: benign reword of the booking sub-line
+   ("Choose a time that suits you." -> "Pick whatever time works best for
+   your day."), touching no pinned claim. Ran clean on
+   check-contraception-copy.js.
+
+All four fired on (or passed) their intended rule only, first attempt. Final
+sha256 of both target pages reconfirmed identical to baseline. Full
+35-checker suite re-run clean on a fresh archive extraction (0 failures).
+Tracked repo confirmed untouched throughout (`git status --porcelain
+modules core branches.json tools` empty in the real repo at every check).
+No checker logic edited, no page/generator/pack/branches.json content
+changed. Guard coverage for item 3.2 now 23 of 36 checkers proven by direct
+injection (up from 22).
+
+LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked/typed/
+submitted, tab closed after reading)
+scorah-chemists.co.uk/contraception-scorah-bramhall.html read live in full:
+free/no-charge claim, no-GP-appointment claim, consent/confidentiality
+sentence, and the coil/implant signposting line (not an offer to fit one)
+all present and worded exactly as the generator and branches.json specify.
+Contact card: phone 0161 439 3744, address "61-63 North Park Road, Bramhall,
+SK7 3LQ" - both match branches.json's scorah_bramhall record exactly.
+odsCode/nhsEmail cross-checked for both branches (FL495/pharmacy.FL495@
+nhs.net for Bramhall, FKD04/pharmacy.FKD04@nhs.net for Hazel Grove) - both
+match the live footer exactly, no typo found this pass (contrast with the
+standing Q36/Q39 NHS-mailbox-typo finding on other branches, not present
+here).
+
+One pre-existing item reconfirmed, not new: the site-wide Weebly footer
+widget still prints the Bramhall address as "...Bramhall, Cheshire SK7 3LQ"
+against branches.json's addressRegion "Greater Manchester" - the standing
+Q43 finding, unchanged since first recorded 2026-08-11 and reconfirmed on
+multiple prior 3.2 passes. Not relitigated; Q43's note not extended this
+pass (nothing new to add beyond "still present, still live").
+
+No new in-repo or live defect. No new question raised. QUESTIONS.json
+unchanged at 125 total, 47 open.
+
+ANSWER PICKUP (step 3)
+Performed before item selection: Claude in Chrome, single tab, read-only,
+navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed.
+Newest entry still the Q52 answer, 2026-09-01T22:44:51.524Z - unchanged for
+six-plus weeks. Cross-checked Q2-Q52 (every answer the feed carries) against
+QUESTIONS.json: all already marked "answered". Nothing new to apply.
+
+WORKLIST STATE
+All 8 unchecked lines reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66) - genuinely blocked on
+Rishi's own pending manual actions, not on missing answers.
+
+LOCK / GIT HOUSEKEEPING
+.agent-lock found reading "RELEASED 2026-10-13T23:45:53Z - run 194 complete"
+at an mtime past the literal 45-minute threshold (and content was an
+explicit release note); overwritten in place with a fresh run marker
+(unlink EPERM on this sandbox's FUSE mount, the established workaround -
+confirmed again this run). One stale .git/index.lock found at pickup
+(0 bytes, same moment as run 194's own release), no git process running
+(`ps aux`), cleared by rename per the established workaround (not `rm`,
+which still returns EPERM on this mount). A second index.lock appeared
+mid-run after a `git status` call and was cleared the same way before
+proceeding.

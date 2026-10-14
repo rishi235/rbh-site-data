@@ -4627,6 +4627,39 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       51.524Z, identical to every run since 2026-09-01, nothing new to pick
       up. No in-repo defect, no new fault class, no new question. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-09-19-twentysecond.txt.
+      Item 3.2 quality pass (twenty-third, run 195, 2026-10-14): stalest item
+      in the rotation pool by 25 days. Fresh angle: check-contraception-
+      copy.js, never proven against this branch pair in 22 prior passes -
+      both Scorah branches hold a contraception widget. Four injection
+      rounds on an isolated archive copy, each restored and sha256-
+      reconfirmed before the next: (1) RULE 5 free - Bramhall FAQ answer
+      given a "£9.99 consultation fee" - CAUGHT on three fronts at once
+      (verbatim, missing no-charge answer, states a price, says
+      "consultation fee"); (2) RULE 6 consent - Bramhall confidentiality
+      sentence reversed to "Your GP will always be informed" - CAUGHT
+      (verbatim, consent); (3) RULE 7 long-acting - Hazel Grove coil/implant
+      signposting line changed to "we can fit a coil for you at this
+      appointment" - CAUGHT (verbatim, larc, quoting "we can fit"); (4)
+      CONTROL - benign booking-sub reword on Hazel Grove - ran clean. All
+      four fired on (or passed) their intended rule only, first attempt.
+      Full 35-checker suite (excl. cdn-pins/live-hours) clean before and
+      after on a fresh archive; tracked repo confirmed untouched throughout.
+      No checker logic, generator, page, pack or branches.json content
+      changed. Guard coverage for item 3.2 now 23 of 36 checkers proven by
+      direct injection (up from 22). LIVE HALF (Claude in Chrome, read-only,
+      one tab, closed after reading): contraception-scorah-bramhall.html
+      read live in full - free/no-charge, no-GP, consent and coil/implant
+      signposting lines all present and worded exactly as the generator
+      specifies; phone, address, odsCode and nhsEmail for both branches all
+      match branches.json exactly, no mailbox typo found on this pair this
+      pass. Standing Q43 footer-county finding (Bramhall address given as
+      "Cheshire" against branches.json's Greater Manchester) reconfirmed
+      unchanged, not new, not relitigated. Step 3 answer pickup performed
+      first via Claude in Chrome: newest portal entry still Q52, unchanged
+      since 2026-09-01; Q2-Q52 cross-checked against QUESTIONS.json, all
+      already "answered". No in-repo or live defect, no new question.
+      Evidence in audits/scorah-item-3.2-quality-pass-2026-10-14-
+      twentythird.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
