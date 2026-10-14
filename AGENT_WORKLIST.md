@@ -10265,6 +10265,40 @@ branch). check-travel-clinic-copy.js is the natural next candidate: Smartts
 holds a travelClinic widget in branches.json and this checker has likewise
 never been proven against Smartts by injection in any prior pass.
 Done 2026-09-19 (twenty-second pass).
+Quality pass 2026-10-14 (twenty-third pass, unattended scheduled run 196):
+fresh angle, prove check-travel-clinic-copy.js by injection against Smartts
+Chemist Bootle's own travel clinic page for the first time, the candidate
+named by the twenty-second pass's own forward note. Isolated scratch copy
+(git archive HEAD), baseline 35-checker sweep clean, then four single-point
+injections, each restored and sha256-reconfirmed before the next: RULE 4
+(private/paid statement removed) - CAUGHT, 2 failures; RULE 8 (medicine name
+"Typhim Vi" added) - CAUGHT, 1 failure naming the medicine; RULE 7 (lead-time
+window changed to "3 to 4 weeks") - CAUGHT, 5 failures across every static
+line it touched; CONTROL (cosmetic CSS class on a decorative div, no copy
+change) - ran clean, confirming the three catches were genuine. First
+control attempt used a pinned wording tweak and was itself caught by RULE 3
+- discarded as the wrong choice of "benign" edit, not a defect, replaced with
+the cosmetic-class version above. All fired or passed on the intended rule
+only, first attempt after that one discard. Final sha256 reconfirmed
+identical to baseline; full 35-checker suite re-run clean; tracked repo
+confirmed untouched throughout. No checker logic, generator, page, pack or
+branches.json content changed. Guard coverage for item 3.7 now 12 of 37
+checkers proven by direct injection (up from 11). LIVE HALF (Claude in
+Chrome, one tab, read-only, nothing clicked/typed/submitted, tab closed
+after reading): travel-clinic-smartts-bootle.html read live in full at
+https://www.smarttschemist.co.uk/travel-clinic-smartts-bootle.html - hero
+private/paid statement, all "6 to 8 weeks" lead-time lines, no medicine
+names, yellow fever and the other five conditions, all four safety-cohort
+bullets and the FAQ pairs all present and worded exactly as the generator
+specifies, no drift; contact card (42 Fernhill Road, Bootle, L20 9HH, 0151
+922 4984) and opening hours (Mon-Fri 9am-6pm, Sat/Sun closed) match
+branches.json exactly. No new live defect found. No in-repo or live defect,
+no new question raised; QUESTIONS.json unchanged at 125 total, 47 open.
+check-pharmacy-first-eligibility.js is the natural next candidate: Smartts
+holds a pharmacyFirst widget and this checker has never been proven against
+Smartts by injection in any prior pass. Full detail in
+audits/smartts-item-3.7-quality-pass-2026-10-14-twentythird.txt.
+Done 2026-10-14 (twenty-third pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

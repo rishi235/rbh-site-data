@@ -1,0 +1,67 @@
+Item 3.7 (Smartts Chemist Bootle) - quality pass, twenty-third, run 196
+Date: 2026-10-14
+Fresh angle: check-travel-clinic-copy.js had never been proven by injection
+against Smartts Chemist Bootle specifically (named as the natural next
+candidate in the twenty-second pass's own forward note, 2026-09-19).
+Target: modules/service/pages/travel-clinic-smartts-bootle.html
+Baseline sha256: 5c225df6029177c6ec20c6a9c663dbe629ca725dfa37cefb123659a6cad8e0ce
+
+Method: isolated scratch copy via `git archive HEAD | tar -x` to
+/tmp/scratch_item37 (tracked repo never opened for writing). Baseline full
+checker sweep (35 checkers, excl. check-cdn-pins.js and check-live-hours.js,
+both network-dependent): 0 failures. Four single-point injections into the
+scratch copy only, each restored and sha256-reconfirmed before the next.
+
+1. RULE 4 (private/paid statement removed from hero paragraph) - CAUGHT,
+   2 failures: [verbatim] missing generator line, [private] hero no longer
+   says "private, paid service".
+2. RULE 8 (medicine name injected - "Typhim Vi" added to the page's help
+   row) - CAUGHT, 1 failure: [medicine] names "typhim", a prescription-only
+   medicine, in advertising copy.
+3. RULE 7 (lead-time window changed from "6 to 8 weeks" to "3 to 4 weeks"
+   across the page) - CAUGHT, 5 failures, all [verbatim], naming every
+   static line the change broke.
+4. CONTROL (cosmetic CSS class added to a decorative div, no copy change) -
+   ran clean, 0 failures, confirming the three catches above were genuine
+   and not noise from the harness itself. (First attempt at a control used
+   a wording tweak to a pinned line and was itself caught by RULE 3 -
+   discarded, not a defect, just the wrong choice of "benign" edit; the
+   cosmetic-class version is the valid control.)
+
+All four fired on (or passed) their intended rule only, first attempt (after
+the one discarded control mis-pick, explained above). Final sha256 of the
+target file reconfirmed identical to baseline. Full 35-checker suite re-run
+clean (0 failures) after the final restore. Tracked repo confirmed untouched
+throughout (`git status --porcelain modules core branches.json tools` empty
+at every check). No checker logic, generator, page, pack or branches.json
+content changed.
+
+Guard coverage for item 3.7 now 12 of 37 checkers proven by direct injection
+against Smartts Chemist Bootle specifically (up from 11; check-weight-loss-
+copy.js was already proven on the twenty-second pass, check-travel-clinic-
+copy.js is new this pass). Checkers still never named against Smartts
+Bootle specifically: check-address-region.js, check-brand-spelling.js,
+check-editor-snapshot.js, check-live-hours.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-symptoms.js, check-uk-spelling.js, check-url-scheme.js;
+plus check-switch-copy.js's remaining 6/11 rules, check-seo-pattern.js's
+service-word/H1-exact-match rules, check-jsonld.js's rule 7 and
+check-seo-keywords.js's rule 8 (both structurally inapplicable to this
+branch). check-pharmacy-first-eligibility.js is the natural next candidate:
+Smartts holds a pharmacyFirst widget and this checker has never been proven
+against Smartts by injection in any prior pass.
+
+LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked, typed or
+submitted, tab closed after reading): travel-clinic-smartts-bootle.html read
+live in full via get_page_text at
+https://www.smarttschemist.co.uk/travel-clinic-smartts-bootle.html. Hero
+private/paid statement, all three "6 to 8 weeks" lead-time lines, no
+medicine names, yellow fever and the other five conditions listed, all four
+safety-cohort bullets, and the FAQ pairs all present and worded exactly as
+the generator specifies - no drift. Contact card: 42 Fernhill Road, Bootle,
+L20 9HH, 0151 922 4984, matching branches.json's smartts_bootle entry
+exactly. Opening hours shown (Mon-Fri 9am-6pm, Sat/Sun closed) match
+branches.json. No new live defect found on this page this pass.
+
+No in-repo or live defect found. No new question raised. QUESTIONS.json
+unchanged at 125 total, 47 open.
