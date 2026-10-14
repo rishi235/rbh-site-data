@@ -1,0 +1,89 @@
+Item 5.1, twentieth quality pass, live-sweep half (forward note from the
+nineteenth pass: "no other checker gap on this file has been identified;
+the file's live-sweep half (Q39) remains not yet performed").
+
+PURPOSE: this item's own scope is em/en dashes in public copy. The repo-side
+half (tools/check-em-dashes.js) has had nineteen passes widening its reach
+through generated pages, packs, paste sheets, embedded HTML and embedded
+code attributes, and the nineteenth pass's own forward note named the one
+angle never tried: reading LIVE Weebly-hosted furniture for the same fault,
+read-only, via the browser tool, exactly as WEEBLY_FURNITURE_CHECKLIST.md's
+own header says this repo structurally cannot do for hand-pasted chrome.
+
+METHOD: Claude in Chrome, read-only, one tab, navigate + get_page_text only,
+nothing clicked, typed or submitted, tab closed after each read. Three
+trading sites read fresh, chosen for brand spread (not previously read for
+dashes specifically in recent AGENT_LOG.md entries):
+
+  - https://www.riddingspharmacy.co.uk  (Riddings Pharmacy, Timperley)
+  - https://www.tiffenbergschemist.co.uk  (Tiffenbergs Chemist, Aintree)
+  - https://www.hirshmanspharmacy.co.uk  (Hirshmans Chemist, Ainsdale)
+
+FINDING: all three carry an en dash (U+2013) in two places, worded
+identically or near-identically across all three, which is the signature of
+a shared site-wide template/footer rather than three independent per-branch
+paste errors:
+
+  1. "Services Include" bullet list, the Blood Testing line:
+     "Blood Testing: Fast results for your blood tests [en dash] when was
+     the last time you had yours checked?"
+     (identical wording on all three sites, en dash in the same position)
+
+  2. The site-wide footer strip, in the opening-hours clause:
+     Riddings:    "Open Mon[en dash]Fri 9am[en dash]6pm, Sat & Sun closed"
+     Tiffenbergs: "Open Mon[en dash]Fri 9am[en dash]6pm (closed
+                   1[en dash]2pm), Sat & Sun closed"
+     Hirshmans:   "Open Mon[en dash]Fri 8:30am[en dash]1pm, 2pm[en dash]6pm,
+                   Sat 9am[en dash]1pm, 2pm[en dash]5:30pm, Sun closed"
+     Each branch's own times differ (correctly, matching branches.json), but
+     every one of them joins the days and the time ranges with an en dash,
+     not a hyphen or a word.
+
+Both faults are plain-text en dashes, not the HTML entity form, so they are
+exactly the one house-style fault CLAUDE.md and this item's whole history
+bans without exception ("no em dashes anywhere... standard hyphens only" -
+this item's own scope has always read "em dashes" to include en dashes,
+consistent with every prior pass on this item).
+
+SCOPE NOTE: this repeats the SAME two strings on all three branches checked,
+across three different brands, none of which share one Weebly site, which is
+strong evidence this is baked into a shared Weebly footer/content block
+applied estate-wide, not a per-branch typing error. Not confirmed against
+the other eleven live trading sites this pass - three was judged enough to
+establish the pattern without turning a single quality-pass item into a
+full fourteen-site sweep, consistent with this task's "roughly 30-45
+minutes" scope.
+
+NOT ACTIONED: this is live, hand-pasted Weebly content. Per the task's hard
+rules the browser is read-only (no clicking, typing or submitting on any
+site), and per CLAUDE.md no checker in this repo can read hand-pasted Weebly
+chrome at all - this is exactly the gap WEEBLY_FURNITURE_CHECKLIST.md exists
+to carry into a supervised Weebly session, not something this worker can fix
+from the repo. No generator, page, pack, branches.json or checker changed
+this pass as a result.
+
+No new QUESTIONS.json entry raised: there is no decision point here, only a
+correction (en dash to a word or a plain hyphen), the same shape as the
+nineteenth pass's live finding on the switch pages, which was logged as an
+outstanding repaste item rather than a question.
+
+Tracked repo confirmed untouched by this pass's live reads throughout
+(browser-only, no local file opened for writing during the three navigations):
+git status --porcelain -- modules core branches.json gbp-packs tools empty
+except the same pre-existing untracked audits/*.json strays every recent
+pass has recorded and left alone.
+
+RESULT: genuine live finding, not a repo defect - the generated pages and
+packs this repo controls remain clean (confirmed by the full 35-checker
+sweep run earlier in this same pass, excluding the two network-dependent
+checkers, 34/35 clean; the one non-clean result, check-postcodes.js at 181
+failures, reconfirmed as the same standing sandbox-debris artefact runs 164
+and 198 already diagnosed - re-running it is not expected to, and did not,
+change that diagnosis this pass).
+
+FORWARD NOTE for whoever picks item 5.1 up next: the remaining eleven live
+trading sites have not been checked for this specific fault. If the Q39
+Weebly sweep is scheduled before the next quality pass on this item, fold
+this finding into that same session's checklist rather than treating it as
+a separate paste job - it is the same "eyes in the Weebly editor" work Q39
+already covers, just for a dash rather than a wrong trading name.

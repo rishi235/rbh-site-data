@@ -35125,6 +35125,37 @@ angles, if any future pass wants one: no other checker gap on this file has
 been identified; the file's live-sweep half (Q39) remains not yet
 performed.
 
+Quality pass 2026-10-14 (twentieth, run 200). UNATTENDED SCHEDULED RUN.
+Rotation pool re-derived fresh via git log date extraction, standing
+one-offs and the 8 blocked lines excluded: 5.1 came out stalest again
+(2026-09-19T07:43:01+01:00), ahead of 4.2 (2026-09-25). Picked 5.1. FRESH
+ANGLE: the nineteenth pass's own forward note named the one angle never
+tried - the live-sweep half (Q39). Claude in Chrome, read-only, three
+trading sites read fresh (riddingspharmacy.co.uk, tiffenbergschemist.co.uk,
+hirshmanspharmacy.co.uk), nothing clicked, typed or submitted. FINDING: all
+three carry a live en dash in two places - the "Blood Testing" services
+bullet ("Fast results for your blood tests - when was the last time you
+had yours checked?", en dash before "when") and the site-wide footer strip's
+opening-hours clause (e.g. "Open Mon-Fri 9am-6pm..." with en dashes joining
+the days and the time ranges, not hyphens). Identical wording across three
+unrelated brands on three separate Weebly sites strongly suggests a shared
+template/footer rather than three independent paste errors; not confirmed
+against the other eleven trading sites this pass. This is hand-pasted
+Weebly furniture, which no checker in this repo can read and which this
+worker cannot edit (browser read-only, no live-site writes) - logged as a
+live finding for the Q39 Weebly sweep, not actioned. No new QUESTIONS.json
+entry: no decision point, only a correction. Full 35-checker suite (excl.
+check-cdn-pins.js/check-live-hours.js) run before this pass: 34/35 clean;
+check-postcodes.js's 181 failures reconfirmed as the same standing
+sandbox-debris artefact runs 164/198 already diagnosed, not a new defect.
+Also spot-checked, as a separate negative-result confirmation ahead of
+picking this item (see AGENT_LOG.md for detail): seven previously-answered
+questions (Q18, Q19, Q20, Q21, Q24, Q28, Q38) all confirmed already
+implemented in branches.json and the generators - no unactioned
+answered-question backlog found this pass. No generator, page, pack,
+checker or branches.json content changed. Full detail in
+audits/item-5.1-live-endash-sweep-2026-10-14-twentieth.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
