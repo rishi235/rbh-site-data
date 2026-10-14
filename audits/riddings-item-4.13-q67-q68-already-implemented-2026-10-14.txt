@@ -1,0 +1,123 @@
+Item 4.13 quality pass (twenty-second) - Riddings Pharmacy Timperley GBP pack
+Run 203, 2026-10-14, audit-backlog-worker
+
+FINDING: Q67 and Q68 (both raised 2026-08-13, both "answered" by Rishi since
+2026-09-29, both still showing as open-but-unimplemented as of run 427's
+2026-09-27 recheck) are in fact ALREADY IMPLEMENTED, by checker rules added to
+tools/check-gbp-packs.js on 2026-08-13 and 2026-08-14 respectively - the same
+day or the day after each question was raised - for a different item (4.7,
+McCanns Sandringham; 4.6, Smartts/general). Nobody had cross-referenced that
+the generic, branches.json-composed shape of those two rules also closes the
+specific gap Q67 and Q68 describe for item 4.13's own branch, Riddings
+Pharmacy Timperley. This pass proves it directly, by injection against
+Riddings' own pack, for the first time.
+
+BACKGROUND
+Q67 asked: should a rule read the HOURS sentence embedded in a pack's
+description/prose (not just the "- Hours:" line) and compare it with
+branches.json? Rishi's recommended answer (2026-09-29): yes, a narrow rule
+covering both wordings in use (plain single-session, and lunch-closure).
+
+Q68 asked: should a rule check EVERY town named in a pack's catchment list
+against serviceAreaList, not just the first (lead) town? Rishi's recommended
+answer (2026-09-29): yes, membership only, order not enforced.
+
+Both questions' own "note" fields record a recheck on 2026-09-27 (run 427)
+that re-verified the PACKS currently state correct hours/towns - but that
+recheck never asked whether a RULE exists to catch a future wrong edit. It
+assumed none did, because neither question's own history mentions one.
+
+WHAT WAS ACTUALLY ALREADY THERE
+1. tools/check-gbp-packs.js, commit 380f4dec (2026-08-13, item 4.7 quality
+   pass): "The catchment rule read the ORDER of a pack's list only... a town
+   not on the list was invisible rather than wrong... Membership rule added
+   beside the order rule, composed from branches.json... All 15 packs
+   already comply." This is exactly Q68's recommended option (membership,
+   order not enforced), added the same day Q68 was raised, for a different
+   pack (McCanns Sandringham), but generic across all 15 packs including
+   Riddings.
+2. tools/check-gbp-packs.js, commit cb10fdb4 (2026-08-14, item 4.6 quality
+   pass) plus 893974f8 (2026-09-03, item 3.12 seventh pass, fixing a
+   comma-split day-clause blind spot and explicitly naming Coleman and
+   Leighs/Smartts Bootle, two of Q67's six lunch-closure packs): "hours
+   stated outside the guarded line were read by nothing" - a rule that reads
+   every hours-shaped and lunch-break-shaped sentence anywhere in a pack
+   (not only the "- Hours:" line) and compares it against
+   branches.json's own specification, day by day. This covers both wordings
+   Q67 describes (plain "Open 9am to 6pm Monday to Friday" and lunch-closure
+   "closed 1pm to 2pm for lunch"), estate-wide.
+
+PROOF, by injection against gbp-packs/riddings-timperley.md specifically
+(this item's own branch), method: direct edit of the tracked repo's working
+copy of the file under test only AFTER saving a verbatim backup, restored by
+byte copy and sha256-reconfirmed after each round. All runs via
+`node tools/check-gbp-packs.js` from the tracked repo root; file sha256
+8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04 confirmed
+identical before the first injection, between each round, and after the
+final restore.
+
+TEST 1 (Q68 scenario, re-run exactly as Q68's own question describes it):
+changed "Trafford" to "Stockport" in all three places the catchment list
+appears (description, services section, Post B) - CAUGHT, two FAILs (one per
+surface where the run has 3+ comma-separated elements - description and
+Post B; the services-section bullet line is shorter prose and did not form
+a run, consistent with the rule's own >=3-element threshold), both naming
+"Stockport" explicitly as "not in this branch's serviceAreaList in
+branches.json (Timperley, Altrincham, Trafford)".
+
+TEST 2 (Q67 scenario, re-run exactly as Q67's own question describes it):
+changed the Post A closing sentence "Open 9am to 6pm Monday to Friday." to
+"Open 9am to 5pm Monday to Friday." - CAUGHT, five FAILs, one per weekday
+(Monday-Friday), each naming the exact wrong range ("publishes Monday as
+09:00 to 17:00, but branches.json holds Monday as 09:00 to 18:00") and
+explicitly stating the Q67 finding in its own wording: "The '- Hours:' line
+may be perfect and still leave this wrong, because nothing read past it."
+
+CONTROL 1 (length-changing but keyword-neutral reword, run first): "Alongside
+NHS prescription dispensing" -> "In addition to NHS prescription dispensing"
+- fired check-gbp-packs.js's UNRELATED character-count self-consistency rule
+("description heading claims 657 characters, actual is 662"), a known
+artefact of any length-changing edit to the description block, not evidence
+against the two rules under test. Discarded as a flawed control (same shape
+as several prior passes' own discarded first-attempt controls) rather than
+mis-read as a finding.
+
+CONTROL 2 (clean, length-changing, no hours/town/price/service keyword
+touched): Post A's "No GP appointment or referral" changed to "No GP visit or
+hospital referral" - ran CLEAN, 0 FAILs against riddings-timperley.md (only
+the pre-existing, unrelated switch-permalink WARN present). Confirms the two
+catches above are genuine, rule-specific hits and not an artefact of editing
+the file at all.
+
+All three injections (two positive, one clean control) restored by byte copy
+from the tracked repo's own file immediately after each round; sha256
+reconfirmed identical to the tracked original at every checkpoint. Full
+35-checker suite (excl. check-cdn-pins.js/check-live-hours.js, both
+network-dependent) run individually after the final restore: 35/35 exit 0.
+Tracked repo confirmed untouched throughout this pass: `git status
+--porcelain -- gbp-packs tools branches.json modules core` empty before,
+during and after. No generator, checker, pack or branches.json content
+changed - this pass is proof of existing coverage, not a fix.
+
+ASSESSMENT
+Both Q67 and Q68 can be closed as implemented rather than left open pending a
+build decision. The gap each question originally found (on Riddings
+specifically, in both cases) was real at the time each question was raised,
+but a same-day or next-day fix made elsewhere in the estate (items 4.6 and
+4.7) already closed it generically, composed from branches.json rather than
+hardcoded per branch, before either question had a chance to be
+cross-checked against the checker's own current rule set. The decision text
+in both questions' "recommended" option already matches what shipped almost
+exactly (Q68: membership only, order not enforced, exactly as implemented;
+Q67: a narrow rule covering both wordings, which is what the "anywhere in the
+pack" hours rule already is, slightly broader than "narrow" in that it reads
+the whole pack rather than only the closing sentence, which is a stronger,
+not weaker, version of what was asked). No further build work is needed for
+either question. QUESTIONS.json updated accordingly (see below); status left
+as "answered" per the Q76 precedent (run 199), since Rishi's decision was
+never in question - only whether it had been built - and it already has.
+
+FILES CHANGED THIS PASS: AGENT_WORKLIST.md (item 4.13 gained a
+twenty-second quality-pass paragraph), QUESTIONS.json (Q67 and Q68 notes
+extended with this implementation finding, status unchanged), AGENT_LOG.md
+(dated entry), this evidence file.

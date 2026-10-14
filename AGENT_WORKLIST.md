@@ -29815,6 +29815,68 @@ directly rather than re-deriving the same facts by hand.
       unchanged at 113 total, 60 open. Evidence: audits/riddings-timperley-
       url-scheme-4.13-twentyfirst-2026-09-18.txt.
       Done 2026-09-18.
+      Twenty-second quality pass 2026-10-14 (run 203): all ten checkers
+      confirmed to genuinely read gbp-packs/*.md (via a real PACK_DIR/
+      readdirSync/PUBLISHED_DIRS reference) had already been proven against
+      this pack by the twenty-first pass, so this pass took a different
+      angle: checked whether Q67 and Q68 (both raised 2026-08-13 on this same
+      item, both answered by Rishi since 2026-09-29, both still showing as
+      open-but-unimplemented after run 427's 2026-09-27 recheck) were
+      actually still open gaps, rather than assuming the questions' own
+      history was complete. FINDING: both are already implemented. Q68's
+      recommended option (catchment-list membership against serviceAreaList,
+      order not enforced) was added to tools/check-gbp-packs.js on
+      2026-08-13 (commit 380f4dec, item 4.7 pass, proved then against
+      mccanns-sandringham.md), the same day Q68 was raised, composed from
+      branches.json and therefore generic across all 15 packs including this
+      one. Q67's recommended option (a rule reading hours/lunch-closure
+      sentences anywhere in a pack, not only the "- Hours:" line, covering
+      both wordings) was added 2026-08-14 (commit cb10fdb4, item 4.6 pass)
+      and fixed for a comma-split day clause 2026-09-03 (commit 893974f8,
+      item 3.12 seventh pass, which names two of Q67's own six packs).
+      Neither prior pass, nor run 427's recheck, had cross-referenced that a
+      fix landed elsewhere in the estate already closed this item's own two
+      open questions.
+      PROOF, by injection against gbp-packs/riddings-timperley.md specifically
+      (sha256 8cc587968d3f6b83a3509aa27151c7dc30172b626b9d0fed824630a775917c04
+      confirmed unchanged before, between and after every round): Q68
+      scenario, re-run exactly as the question describes it - "Trafford"
+      changed to "Stockport" in all three places the catchment list appears
+      (description, services section, Post B) - CAUGHT, two FAILs naming
+      "Stockport" explicitly as not in serviceAreaList (Timperley,
+      Altrincham, Trafford). Q67 scenario, re-run exactly as the question
+      describes it - Post A's "Open 9am to 6pm Monday to Friday." changed to
+      "Open 9am to 5pm Monday to Friday." - CAUGHT, five FAILs (one per
+      weekday), the checker's own wording echoing the question almost
+      verbatim ("the '- Hours:' line may be perfect and still leave this
+      wrong, because nothing read past it"). One discarded first-attempt
+      control (a length-changing reword that happened to trip the pack's own
+      unrelated character-count self-consistency rule, a known artefact of
+      editing the description block at all) is recorded in the evidence file
+      as a methodology note, not a defect. A second, clean, keyword-neutral
+      control (a reworded sentence touching no hours/town/price/service word)
+      ran clear, confirming the two catches were genuine rule hits. All
+      injections restored by byte copy and sha256-reconfirmed identical
+      before the next round and at the end. Full 35-checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js, network-dependent) run
+      individually after the final restore: 35/35 exit 0. Tracked repo
+      confirmed untouched throughout (git status --porcelain -- gbp-packs
+      tools branches.json modules core empty before, during and after). No
+      generator, checker, pack or branches.json content changed - this pass
+      is proof of existing coverage, not a fix.
+      ANSWER PICKUP (step 3): Claude in Chrome navigated to
+      https://data.rbhealth.co.uk/api/feedback - resolved to the Cloudflare
+      Access sign-in gate (Azure AD / one-time-code form, no active session),
+      the same gap Q59 names; did not sign in, did not try any other route;
+      tab closed. Logged as unavailable per the task's own instruction rather
+      than assumed clean.
+      QUESTIONS.json: Q67 and Q68 notes both extended with this
+      implementation finding (evidence file linked in each); status left
+      "answered" on both per the Q76 precedent (run 199) - Rishi's decision
+      was never in doubt, only whether it had been built, and it already has.
+      No new question raised. Evidence: audits/riddings-item-4.13-q67-q68-
+      already-implemented-2026-10-14.txt.
+      Done 2026-10-14.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
