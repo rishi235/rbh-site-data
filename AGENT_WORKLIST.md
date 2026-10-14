@@ -39645,6 +39645,56 @@ no page, generator or data field changed this run.
       question. 113 questions total, 60 open before and after. Evidence:
       audits/verify-6.3-2026-09-19-twentieth-sitemap-urlselect.js,
       audits/live-hours-check-2026-09-19.json. Done 2026-09-19.
+      Quality pass (twenty-first), 2026-10-14 (unattended scheduled run 197,
+      Cowork sandbox session). ROTATION: re-derived fresh via `git log
+      --format='%ad|%s'`, matching both "item N.N" and bare "N.N " subject
+      forms (the bare form had been silently missed by at least two recent
+      runs' own derivations, including this run's first attempt, which
+      mis-ranked items 4.1 and 4.7 as stale when both had in fact been
+      touched the day before under a bare "4.1 quality pass..." subject;
+      corrected by widening the match pattern before trusting the result).
+      With the seven standing one-offs and the eight currently-[BLOCKED]
+      items excluded, 6.3 came out stalest at 2026-09-19T03:12:52+01:00, 25
+      days old and the oldest of the pool.
+      FRESH ANGLE: proved tools/check-gbp-packs.js's hours-DAYS rules (a
+      day stated open must be open in the spec; every day the spec opens
+      must be stated; distinct from the clock-TIME rules already proven
+      elsewhere) by injection against this item's own two key branches for
+      the first time - gordon-short-crosby.md (the split-hours control) and
+      smartts-bootle.md (the branch carrying the standing live mismatch).
+      Isolated git archive scratch copy, tracked repo never opened for
+      writing. Two injections, each caught on the first attempt and
+      restored with sha256 reconfirmed identical to baseline before the
+      next: dropping Saturday from Gordon Short's stated hours line (caught,
+      two FAILs - missing open day and a close time no longer named); and
+      falsely adding a Saturday opening to Smartts Bootle's hours line
+      against its Monday-to-Friday-only specification (caught, one FAIL,
+      explicit locked-door framing). One cosmetic-wording control edit on
+      Gordon Short's pack ran clean, confirming the two catches were genuine
+      rule hits. Full 35-checker suite clean before and after; tracked repo
+      git status empty throughout. RESULT: zero in-repo defect - both packs'
+      DATA correctly guard against exactly the fault shape Q55 describes,
+      confirming the standing Smartts mismatch is purely a live Weebly-paste
+      issue, not a data or pack defect.
+      LIVE HALF: tools/check-live-hours.js re-run fresh over real network
+      egress (curl 301 confirmed for both hosts first; read-only GETs only).
+      All 14 branches read, audits/live-hours-check-2026-10-14.json written.
+      gordonshorts_crosby (control) still correctly shows the lunch closure
+      on both pages. smartts_bootle remains the sole live mismatch,
+      straight-through hours unchanged since 2026-08-11, now confirmed on
+      all twenty-one passes. Q55 (answered 2026-09-02, option 1) stands as
+      answered-but-not-yet-actioned, live Weebly edit outside this worker's
+      write scope, not re-raised. No bank holiday within 14 days (next
+      2026-12-25, 72 days out). No new live defect.
+      ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only,
+      navigated to the feedback API fresh. Newest entry still the Q52
+      answer, 2026-09-01T22:44:51.524Z, unchanged for six-plus weeks; all
+      answers the feed carries already recorded in QUESTIONS.json as
+      answered. No new answer, no new question. 125 questions total, 47
+      open, unchanged by this pass.
+      Evidence:
+      audits/verify-6.3-2026-10-14-twentyfirst-gbp-hoursdays-injection.txt,
+      audits/live-hours-check-2026-10-14.json. Done 2026-10-14.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the

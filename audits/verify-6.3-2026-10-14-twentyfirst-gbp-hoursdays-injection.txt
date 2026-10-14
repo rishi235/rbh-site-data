@@ -1,0 +1,109 @@
+Item 6.3, quality pass (twenty-first), 2026-10-14 (unattended scheduled run 197,
+Cowork sandbox session, claude-sonnet-5).
+
+PURPOSE
+Prove tools/check-gbp-packs.js's hours-DAYS rules (as distinct from its
+clock-TIME rules, already proven on earlier passes) by direct injection
+against the two branches this item itself turns on: gordon-short-crosby.md
+(the split-hours control, confirmed correct on every pass since 2026-08-11)
+and smartts-bootle.md (the branch carrying the standing live mismatch, Q55,
+answered 2026-09-02 but not yet actioned - a live Weebly edit outside this
+worker's write scope). This exact rule set had not been exercised by
+injection under item 6.3 before (grepped the item's full history for
+KNOWN_HOURS_DAYS / hoursDays: two incidental mentions only, neither a
+deliberate test of these rules - see AGENT_WORKLIST.md item 6.3, lines
+around the fourteenth pass, 2026-09-12).
+
+METHOD
+Isolated git archive HEAD extracted to /tmp/scratch63 (outside the tracked
+working copy, which was never opened for writing). Baseline:
+node tools/check-gbp-packs.js on the scratch copy: 0 failures, only the
+pre-existing, already-known WARNs this file's own history already carries
+(Q64 address/post-town, Q72 qualifier wording, Q71 Aigburth address,
+live-only link targets). sha256 of the two target packs recorded before any
+edit:
+  gordon-short-crosby.md 49acd88584a9d20b3d7e0b5afc045b8d24eaa5f24b0b8800e4b7e05b59f281f9
+  smartts-bootle.md      541239e0869bc60bfceb7dd57414c2872a0104a294785a10c8aa2f387003796b
+
+INJECTION 1 (gordon-short-crosby.md, "every open day must be stated" rule):
+dropped Saturday from the hours line entirely ("Monday to Friday ... Sunday
+closed", no Saturday clause). CAUGHT: two FAILs, naming both that branches.json
+opens this branch on Saturday and the pack's hours line does not state it,
+and that the branch's 17:00 close time no longer appears anywhere in the
+(now-shorter) hours line. Restored by byte copy from a pre-saved original;
+sha256 reconfirmed identical to baseline afterwards.
+
+INJECTION 2 (smartts-bootle.md, "a day stated as open must be open in the
+specification" rule): changed "Saturday and Sunday closed" to "Saturday
+9:00am to 1:00pm, Sunday closed", falsely claiming a Saturday opening this
+branch's own branches.json entry does not carry. CAUGHT: one FAIL, naming
+the branch is published open on Saturday against a Monday-to-Friday-only
+specification, with the explicit "locked door" framing this checker's own
+header carries for this exact rule. Restored by byte copy; sha256
+reconfirmed identical to baseline afterwards.
+
+CONTROL (gordon-short-crosby.md): cosmetic wording-only edit to the pack's
+own top-of-file note ("Facts checked against" to "Facts verified against"),
+touching no hours claim, no pinned value, no structural line. Ran clean:
+same single pre-existing WARN only, 0 failures, confirming the two catches
+above were genuine rule hits and not an artefact of the harness or a change
+that happens to touch unrelated structure. Restored by byte copy; sha256
+reconfirmed identical to baseline afterwards.
+
+Final state: both packs byte-for-byte identical to the tracked repo's own
+copies (diff -q confirmed, in addition to sha256), and `git status
+--porcelain -- gbp-packs tools branches.json modules core` on the real
+tracked working copy came back empty throughout - the tracked repo was never
+opened for writing at any point in this test. Full 35-checker suite (all of
+tools/check-*.js except check-cdn-pins.js and check-live-hours.js, both
+network-dependent per this repo's standing convention) re-run on the scratch
+copy after the final restore: clean, matching the pre-injection baseline.
+
+RESULT
+Zero in-repo defect. check-gbp-packs.js's hours-days rules already correctly
+protect both of item 6.3's key branches, now proven by direct injection for
+the first time. This also answers a standing implicit question about item
+6.3's live mismatch: Smartts Bootle's underlying DATA (branches.json) and its
+GBP PACK (smartts-bootle.md) both correctly state the Monday-to-Friday-only,
+split-lunch hours - the mismatch lives entirely on the live Weebly page and
+the published Google profile, not anywhere upstream of them. Nothing here
+changes Q55's status (answered, not yet actioned, outside this worker's
+write scope) or raises a new question.
+
+LIVE HALF (fresh read, 2026-10-14, via tools/check-live-hours.js run
+directly over real network egress confirmed working - curl 301 redirects
+observed for both target hosts before the full run; nothing clicked, typed
+or submitted anywhere, read-only GET requests only, same conduct as every
+prior pass): all 14 trading branches read fresh, report written to
+audits/live-hours-check-2026-10-14.json. gordonshorts_crosby (control) still
+correctly shows "9:00am - 6:00pm (closed 1-2pm)" on both the homepage and
+the contact page, unchanged. smartts_bootle remains the sole live mismatch:
+both pages still show straight-through "9:00am - 6:00pm" with no lunch
+closure mentioned anywhere, against the Monday-to-Friday split-hours
+specification - unchanged since 2026-08-11, now confirmed on all twenty-one
+passes. No bank holiday within 14 days of this run (next is 2026-12-25, 72
+days out, per branches.json's bankHolidays block). No new live defect.
+
+ANSWER PICKUP (step 3, this run): Claude in Chrome, single tab, read-only,
+navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed
+fresh. Newest entry still the Q52 answer, 2026-09-01T22:44:51.524Z, unchanged
+for six-plus weeks. Cross-checked every answer the feed carries (Q2-Q52)
+against QUESTIONS.json: all already "answered". No new answer to apply.
+125 questions total, 47 open, unchanged by this pass.
+
+Files touched by this pass: AGENT_WORKLIST.md (item 6.3 gains this
+twenty-first quality-pass paragraph), this evidence file (new),
+audits/live-hours-check-2026-10-14.json (new, untracked per this item's own
+established convention - these snapshot files have never been committed
+across any prior pass either), AGENT_LOG.md (run entry).
+
+Natural next angle for item 6.3's twenty-second pass: check-opening-hours.js
+itself has already been proven exhaustively against this item's branches
+(see the fifteenth-through-eighteenth passes); check-gbp-packs.js's clock-TIME
+rules (as opposed to the day rules proven here) have likewise been covered
+elsewhere. The remaining genuinely untested surface for this item is
+tools/check-live-hours.js's PAGE_HINT_RE / collectHost() logic re-run against
+a branch pair this item has not yet specifically exercised it against
+(Fishlocks or McCanns, the two other shared-domain pairs), since the
+twentieth pass proved it only generically against synthetic sitemap XML, not
+against either live shared-domain host.
