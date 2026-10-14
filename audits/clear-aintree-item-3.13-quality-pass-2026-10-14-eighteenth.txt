@@ -1,0 +1,90 @@
+Item 3.13 (Clear Chemist Liverpool/Aintree) - quality pass, eighteenth, run 198
+Date: 2026-10-14T10:46 UTC (scheduled unattended run, claude-sonnet-5)
+
+ROTATION: derived via `git log --format='%ad|%s' --date=iso-strict`, matching
+both "item N.N" and bare "N.N" subject prefixes, excluding the seven standing
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight blocked worklist
+lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). Item 3.13 came out stalest at
+2026-09-19T04:42:16+01:00 (its own seventeenth pass that day), ahead of 4.12
+and 5.1 (also 2026-09-19, later the same day). Cross-checked against
+AGENT_WORKLIST.md's own text for item 3.13 before trusting the derivation:
+its block (line 16943 onward) carries no dated pass later than the morning
+of 2026-09-16/09-27 cluster referenced around line 39986, consistent with
+the derived date being genuinely the most recent.
+
+FRESH ANGLE: tools/check-widget-diaries.js (added 2026-08-11, item 3.7 pass)
+appears in item 3.13's own block only inside full-suite run lists, never as a
+checker deliberately proven by injection against Clear Chemist Aintree
+specifically. Clear Chemist Aintree (id clearchemist_aintree) is a single-site
+brand holding two widget ids (weightLoss, travelClinic), so under the
+checker's own stated policy both must be unique estate-wide (RULE 2) and must
+not be reused under a different service key even within the same branch
+(RULE 4).
+
+METHOD: isolated `git archive HEAD` extraction to /tmp/scratch313; tracked
+repo never opened for writing at any point (confirmed below). Baseline run of
+all 35 non-network checkers (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent per established convention):
+35/35 clean. check-widget-diaries.js baseline: 79 widget ids across 16 live
+branches, 73 distinct, 6 legitimately shared between sister sites, 0
+illegitimate cross-brand shares.
+
+Three single-point injections into the scratch copy's branches.json only,
+each restored and sha256-reconfirmed byte-identical to the pre-injection
+baseline (7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1)
+before the next case ran:
+
+1. RULE 2, crossbrand collision - clearchemist_aintree.weightLoss set to
+   mccanns_aigburth/mccanns_sandringham's shared weightLoss id
+   (66bb29f1328f6dafbb88971b). CAUGHT, first attempt: "widget id
+   ...88971b is held by 2 different brands (mccanns/mccanns_aigburth.
+   weightLoss, mccanns/mccanns_sandringham.weightLoss,
+   clearchemist/clearchemist_aintree.weightLoss). A booking made on one
+   brand's page would land in another brand's diary." Exit 1.
+
+2. RULE 4, sharedservice collision - clearchemist_aintree's own
+   travelClinic id (6a5bf020900e97b9c7d8aa46) copied into its own
+   weightLoss slot. CAUGHT, first attempt: "widget id ...8aa46 is held
+   under 2 different service keys (clearchemist_aintree.weightLoss,
+   clearchemist_aintree.travelClinic). Two different services are pointing
+   at one diary across two branches, so a booking for one service arrives
+   filed as the other." Exit 1.
+
+3. CONTROL - bumped branches.json's top-level lastUpdated field only, no
+   widget, service or branch structure touched. check-widget-diaries.js
+   ran clean, exit 0, confirming the two catches above were genuine rule
+   hits and not a harness artefact triggered by any file edit at all.
+
+RESTORE AND VERIFY: after each case, branches.json restored from its
+pre-case backup and sha256-reconfirmed identical to the original baseline
+hash before the next case began; final state reconfirmed identical again
+after case 3. Full 35-checker suite re-run on the final restored scratch
+copy: 35/35 clean, 0 failures, matching the pre-injection baseline exactly.
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core` empty at both the start and the end of
+this pass.
+
+RESULT: no in-repo defect found. check-widget-diaries.js's RULE 2 and RULE 4
+both correctly guard Clear Chemist Aintree's two widget ids against the
+exact fault shapes the checker's own header describes (a booking landing in
+another branch's diary, or in the wrong service's diary at the same branch).
+Guard coverage for item 3.13 now explicitly includes check-widget-diaries.js
+proven by direct injection, in addition to the checkers already proven on
+prior passes.
+
+LIVE HALF: not performed this run. Claude in Chrome / the built-in browser
+were not available in this session (no browser MCP connected), so the
+step 3 answer-pickup fetch against https://data.rbhealth.co.uk/api/feedback
+and any live-page read were both skipped. Logged as a gap in AGENT_LOG.md
+rather than silently omitted or faked.
+
+No new question raised. QUESTIONS.json unchanged (125 total, 47 open).
+Next candidate for item 3.13's next pass: check-gbp-pharmacy-first.js and
+check-pharmacy-first-safety-net.js have not been confirmed proven by
+injection specifically against Clear Chemist Aintree in this item's block
+either, but Clear Chemist Aintree carries no pharmacyFirst widget (its
+widgets object holds only weightLoss and travelClinic), so those two
+checkers would have nothing live to exercise on this branch; worth
+confirming that absence is deliberate (it matches the item 3.13 ninth-pass
+note referenced around line 37803) before picking either as a "next angle"
+on a future pass.

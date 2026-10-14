@@ -18238,6 +18238,60 @@ Done 2026-10-14 (twenty-third pass).
       No in-repo defect found. See
       audits/clear-aintree-item-3.13-service-links-twentieth-2026-09-19.txt
       for full detail.
+      Quality pass 2026-10-14 (twenty-first; unattended scheduled run, run
+      198; stalest item in the rotation pool, last touched 2026-09-19,
+      ahead of 4.12 and 5.1 the same day - all eight remaining worklist
+      lines are [BLOCKED] this run, so this was the fallback quality pass).
+      FRESH ANGLE: check-widget-diaries.js, named "untested and applicable"
+      at the end of the twentieth pass above, proved by direct injection
+      against Clear Chemist Aintree for the first time. Isolated `git
+      archive HEAD` scratch copy at /tmp/scratch313, tracked repo never
+      opened for writing. Baseline: 35-checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js, network-dependent) clean;
+      check-widget-diaries.js baseline 79 ids, 73 distinct, 6 legitimately
+      shared, 0 illegitimate cross-brand shares. Three single-point
+      injections into branches.json, each restored and sha256-reconfirmed
+      byte-identical to baseline before the next: (1) RULE 2 crossbrand -
+      clearchemist_aintree.weightLoss set to the McCanns sisters' shared
+      weightLoss id - CAUGHT first attempt, named all three holders and the
+      booking-misroute consequence; (2) RULE 4 sharedservice - Clear
+      Chemist Aintree's own travelClinic id copied into its own weightLoss
+      slot - CAUGHT first attempt, named the conflated id and both service
+      keys; (3) CONTROL - branches.json's lastUpdated field bumped only, no
+      widget or structure change - ran clean, confirming the two catches
+      were genuine. Final restore sha256-reconfirmed identical to baseline;
+      full 35-checker suite re-run clean (35/35) after; tracked repo
+      confirmed untouched throughout (`git status --porcelain -- branches.
+      json tools modules core` empty before and after). No generator, page,
+      checker or branches.json content changed. Guard coverage for item
+      3.13 now extends to 21 of 37 checkers proven by direct injection
+      against this branch specifically (up from 20; checker count itself
+      has grown to 37 since the twentieth pass's "34").
+      LIVE HALF: not attempted this pass - Claude in Chrome and the
+      built-in browser were both unavailable in this session (no browser
+      MCP connected), so the step 3 answer-pickup fetch against
+      https://data.rbhealth.co.uk/api/feedback and any live-page read were
+      both skipped rather than assumed or fabricated; flagged in
+      AGENT_LOG.md as a genuine gap, not treated as "no answers found".
+      No in-repo defect found, no new question raised; QUESTIONS.json
+      unchanged (125 total, 47 open). Remaining untested-and-applicable
+      checkers for item 3.13: check-address-region.js, check-editor-
+      snapshot.js, check-gbp-packs.js, check-page-coverage.js, check-seo-
+      sheets.js, check-uk-spelling.js, check-url-scheme.js (check-live-
+      hours.js remains network-dependent and out of this item's injection
+      scope). Clear Chemist Aintree carries no pharmacyFirst widget (only
+      weightLoss and travelClinic in branches.json), so the Pharmacy
+      First-specific checkers (check-pharmacy-first-eligibility.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-gbp-pharmacy-first.js) have
+      nothing live to exercise on this branch and are not candidates for a
+      future pass's "fresh angle" on this item. See
+      audits/clear-aintree-item-3.13-quality-pass-2026-10-14-eighteenth.txt
+      for full detail (filename numbered against this item's own prior
+      "eighteenth"-named evidence file sequence, not the pass-count stated
+      above; the two numbering sequences have drifted apart over the
+      item's history and this pass did not attempt to reconcile them,
+      consistent with how prior passes have left the same drift alone).
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section
