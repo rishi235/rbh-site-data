@@ -9111,6 +9111,34 @@ attempted and succeeded via claude-in-chrome, read-only GET on
 https://data.rbhealth.co.uk/api/feedback; newest entry still the Q52
 answer (2026-09-01); no new answer found. No new question raised. Evidence
 in audits/mccanns-switch-copy-3.6-twentythird-2026-10-01.txt.
+
+Quality pass 2026-10-14 (twenty-fourth, run 206): fresh-angle check, same
+rotation-pool methodology as the twenty-third pass. Item 3.6's own block
+named 25 of 37 tools/check-*.js files already proven against it by prior
+passes; check-weebly-furniture-freshness.js (added 2026-09-18, item 5.1
+twenty-second pass, previously proven only against Scorah Chemists Bramhall)
+was not among them and both McCanns branches are in
+WEEBLY_FURNITURE_CHECKLIST.md, so it applied. Isolated git-archive scratch
+copy (tracked repo never opened for writing; branches.json sha256 confirmed
+7ba2569b...25ffef1 before, unchanged after): checker ran clean on the scratch
+copy first, then changed mccanns_aigburth's phone from "0151 727 3185" to
+"0151 220 9999" without regenerating WEEBLY_FURNITURE_CHECKLIST.md - CAUGHT
+first attempt, one FAIL naming the branch and quoting both values. A clean
+negative control (editing shortCode, a field CLAUDE.md records as read by no
+checker) on a fresh scratch extraction ran clear, confirming the catch was
+genuine and selective rather than the checker firing on any edit. Full
+35-checker suite (excl. check-cdn-pins.js/check-live-hours.js, network-
+dependent) clean on a third fresh scratch extraction. Tracked repo confirmed
+untouched throughout. No in-repo defect - McCanns Aigburth's (and, by the
+same table, Sandringham's) checklist entries are currently accurate. Guard
+coverage for item 3.6 now 26 of 37 checkers proven by injection (up from 25).
+No generator, page, pack, checker or branches.json content changed. ANSWER
+PICKUP: attempted and succeeded via claude-in-chrome, read-only GET on
+https://data.rbhealth.co.uk/api/feedback; newest entry still the Q52 answer
+(2026-09-01); nothing new for the 47 open questions. No "Standing
+authorisation - autonomous window" section found at the top of AGENT_LOG.md,
+so step 4 did not apply. No new question raised. Evidence in
+audits/mccanns-item-3.6-weebly-furniture-freshness-injection-2026-10-14.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

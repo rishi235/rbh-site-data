@@ -1,0 +1,95 @@
+Item 3.6 quality pass - 2026-10-14 (run 206)
+McCanns Chemist (Aigburth and Sandringham)
+Checker: tools/check-weebly-furniture-freshness.js
+
+Why this item, why this checker
+--------------------------------
+Rotation pool (git log --format='%ad|%s' --date=iso-strict, matching both
+"item N.N" and bare "N.N " subject forms, excluding the seven standing
+one-offs (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the eight [BLOCKED] worklist
+lines, re-verified unchanged via grep: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+6.1/Q52, both Q60 lines, 6.6/Q66) put item 3.6 (McCanns Chemist, Aigburth and
+Sandringham) stalest at 2026-10-01T18:25:04+01:00, ahead of 3.8 and 4.5 (the
+same Oct-1 cluster run 205's own log named), now that run 205 itself moved
+item 1.2 out of that cluster.
+
+Checked item 3.6's own block (lines 7880-9113 of AGENT_WORKLIST.md) for every
+check-*.js filename it already mentions, against the full list of 37 files
+in tools/check-*.js. 25 checkers already proven by prior passes on this item:
+check-address-region.js, check-app-membership.js, check-booking-routes.js,
+check-branch-identity.js, check-branch-links.js, check-brand-spelling.js,
+check-cdn-pins.js, check-em-dashes.js, check-gbp-packs.js, check-jsonld.js,
+check-live-hours.js, check-map-embeds.js, check-nap.js, check-opening-hours.js,
+check-page-coverage.js, check-postcodes.js, check-seo-keywords.js,
+check-seo-lengths.js, check-seo-pattern.js, check-seo-sheets.js,
+check-service-links.js, check-switch-copy.js, check-weight-loss-copy.js,
+check-whatsapp-route.js, check-widget-diaries.js.
+
+Twelve never mentioned: check-contraception-copy.js, check-editor-snapshot.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js.
+
+Picked check-weebly-furniture-freshness.js: added 2026-09-18 (item 5.1
+twenty-second pass), proven once before against Scorah Chemists Bramhall,
+never against either McCanns branch. Both McCanns branches are in
+WEEBLY_FURNITURE_CHECKLIST.md (confirmed: lines 53 and 73 of that file name
+them), so the checker applies.
+
+Method
+------
+Isolated git-archive scratch copy, tracked repo never opened for writing.
+Baseline: tracked rbh-site-data working tree confirmed clean before starting
+(`git status --porcelain -- branches.json tools modules core gbp-packs
+WEEBLY_FURNITURE_CHECKLIST.md` empty) and branches.json sha256 confirmed
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1, matching the
+value run 202/205 already recorded - no drift since.
+
+Extracted a fresh `git archive HEAD` scratch copy (plain tarball, not a git
+working copy, so a mid-test `git checkout --` restore is not available there -
+noted below as a methodology correction). check-weebly-furniture-freshness.js
+ran clean on this scratch copy before any injection (16 branches, 301 lines
+checked-in matching 301 a fresh build would produce).
+
+Injection: changed mccanns_aigburth's phone in the scratch branches.json from
+"0151 727 3185" to "0151 220 9999", WEEBLY_FURNITURE_CHECKLIST.md left
+untouched - CAUGHT first attempt. Exactly one FAIL, naming
+"McCanns Chemist Aigburth (mccanns_aigburth)", quoting both the stale
+checked-in value and the fresh-build value, identifying line 63 as the first
+difference.
+
+Methodology correction made during the run: because the scratch copy is a
+plain extracted tarball (no .git directory), `git checkout -- branches.json`
+cannot restore it mid-test the way an isolated git worktree would. The first
+control attempt tried that command, it failed (as expected, logged, not
+silently ignored), and the half-reverted scratch copy was discarded rather
+than reused. A second, completely fresh `git archive HEAD` extraction was
+made for the negative control instead, confirmed at the correct baseline
+sha256 before the control edit.
+
+Negative control: on the fresh extraction, edited mccanns_aigburth's
+shortCode field only (from "AIG" to "AIG-TEST") - a field CLAUDE.md names as
+read by no checker, because no generator reads it either. Ran clean,
+confirming the earlier catch was a genuine, selective rule hit on the phone
+field specifically, not the checker firing on any branches.json edit.
+
+Verification: full checker suite (all tools/check-*.js except
+check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+against a third, clean scratch extraction - 35/35 exit 0, no failures.
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs WEEBLY_FURNITURE_CHECKLIST.md`
+empty before, during and after every scratch operation; tracked branches.json
+sha256 unchanged at the end
+(7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1).
+
+Result
+------
+No in-repo defect. McCanns Chemist Aigburth's (and, by the same checked-in
+table, Sandringham's) WEEBLY_FURNITURE_CHECKLIST.md entries are currently
+accurate. Guard coverage for item 3.6 now 26 of 37 checkers proven by
+injection (up from 25).
+
+No generator, page, pack, checker or branches.json content changed by this
+pass - evidence-gathering only.
