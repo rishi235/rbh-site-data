@@ -28509,6 +28509,41 @@ directly rather than re-deriving the same facts by hand.
       QUESTIONS.json: 114 total, 61 open (Q114 added). Evidence:
       audits/coleman-leigh-walton-homepage-tiles-4.12-twentyfirst-2026-09-19.txt.
       Done 2026-09-19.
+      Q76 implemented 2026-10-14 (unattended scheduled run 199,
+      audit-backlog-worker; all eight open worklist items still [BLOCKED];
+      item 4.12's own twenty-first pass had already exhausted every
+      per-branch checker-injection angle, so rather than a further
+      quality-pass cycle this run took the oldest answered-but-
+      unimplemented decision instead, following the precedent run 164 set
+      with Q71). Rishi answered Q76 via the portal 2026-10-10 (recorded in
+      the feed 2026-10-11 00:32:38 UK time), choosing the recommended
+      option: add a rule to tools/check-gbp-packs.js failing any other live
+      branch's branchName in the business description or post bodies (not
+      the services section), with the existing sister-claim exemption
+      carried over. Implemented as answered: new KNOWN_BRANCH_NAME
+      exception map (same anti-rot convention as every other KNOWN_* map in
+      the file) and a new rule block mirroring the foreign-town rule's
+      shape (sentence-bounded match, governed sister-claim sentences
+      exempt). Proved by injection on an isolated scratch copy (tracked
+      repo never opened for writing during the proof): the original Q76
+      finding - "Cherry Lane Pharmacy" substituted for "Coleman and Leighs
+      Pharmacy" in Post C of coleman-leigh-walton.md, the same injection
+      the 2026-09-28 recheck used - now FAILS on first attempt; a benign
+      control reword in the same paragraph stayed clean; sha256 restore
+      confirmed byte-identical to the standing baseline
+      (6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec54c4fde9d93ba7ea724d88);
+      mccanns-aigburth.md's own deliberate sister mention stayed clean
+      throughout, confirming the exemption survived. Full 35-checker suite
+      (excl. check-cdn-pins.js/check-live-hours.js) clean on a pristine
+      scratch copy; the live working tree's own tools/check-postcodes.js
+      result (181 failures) confirmed pre-existing and unrelated, caused
+      entirely by accumulated untracked debris in this sandbox's working
+      copy (0 failures on a clean checkout of the same commit). No pack,
+      generator, page or branches.json content changed - checker-only.
+      QUESTIONS.json Q76 note extended to record the implementation; status
+      remains "answered" (it never blocked a worklist line). Evidence:
+      audits/q76-branchname-rule-implementation-2026-10-14.txt. Done
+      2026-10-14.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

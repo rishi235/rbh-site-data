@@ -556,6 +556,18 @@ const KNOWN_FOREIGN_TOWN = {
 };
 const seenForeignTownKnown = {};
 
+// Accepted exceptions to the branch-name rule, keyed
+// "<branch id>::branchName". Use one only where a pack deliberately names
+// another live branch's branchName in copy that is pasted into the public
+// profile, and say so with a question id. Same anti-rot convention: a key
+// that no longer matches a real breach fails the run. Raised as Q76 (item
+// 4.12 fifth quality pass, 2026-08-14), answered by Rishi 2026-10-10: add
+// the rule, keep the existing sister-claim exemption so a governed sister
+// mention (mccanns-aigburth.md naming "McCanns Chemist Sandringham") stays
+// green.
+const KNOWN_BRANCH_NAME = {};
+const seenBranchNameKnown = {};
+
 // Accepted exceptions to the road-name rule, keyed "<branch id>::road". Use
 // one only where a pack deliberately names a road that is not this branch's
 // own and not a governed sister reference, with the question that allowed it.
@@ -3278,6 +3290,70 @@ for (const file of packFiles) {
     seenForeignTownKnown[`${b.id}::foreignTown`] = false;
   }
 
+  // --- another branch's NAME must not appear in the pasted copy ----------
+  // Raised as Q76 on the item 4.12 quality pass (fifth), 2026-08-14: a
+  // Google post could name a different shop in the group instead of its
+  // own, since the trading name was the one identifying detail with no
+  // safeguard even though phone numbers, postcodes, review links, street
+  // addresses, house numbers, roads and towns are all guarded. Injecting
+  // "the pharmacist-led weight loss clinic at Cherry Lane Pharmacy in
+  // Walton" into Post C of coleman-leigh-walton.md, replacing this
+  // branch's own trading name, passed all checkers clean. Re-confirmed
+  // still open on recheck 2026-09-28 (run 441, in-repo, unattended): the
+  // same injection against the then-current file still passed 0 failures,
+  // 14 warnings, none referencing the injected name.
+  //
+  // Answered by Rishi via the portal, 11/10/2026 (Q76, option 1 of 4, the
+  // recommended option): add a rule failing any other live branch's
+  // branchName in the published copy, scoped to the business description
+  // and the post bodies only (not the services section - Q76's own
+  // wording, narrower than the foreign-town rule above), with the existing
+  // sister-claim exemption carried over so mccanns-aigburth.md can keep
+  // naming "a second branch, McCanns Chemist Sandringham" inside its
+  // description. Mirrors the foreign-town rule immediately above:
+  // sentence-bounded match, a sentence making a governed sister claim
+  // ("sister"/"second" + "branch(es)") is exempt, and a KNOWN map holds any
+  // future deliberate exception under the same anti-rot convention.
+  const descForBranchName = descriptionOf(text);
+  const branchNameScopes = [];
+  if (descForBranchName) branchNameScopes.push(["business description", descForBranchName]);
+  for (const p of postsOf(text)) branchNameScopes.push([p.label, p.body]);
+
+  const otherBranchNames = branches
+    .filter((o) => isPackable(o) && o.id !== b.id && o.branchName)
+    .map((o) => o.branchName);
+
+  const branchNameBreaches = [];
+  for (const [scope, body] of branchNameScopes) {
+    const flatBody = String(body || "").replace(/\s+/g, " ");
+    for (const name of otherBranchNames) {
+      const re = new RegExp(`\\b${escapeRe(name)}\\b`, "gi");
+      if (!re.test(flatBody)) continue;
+      // Sentence-bounded, so a governed sister claim exempts only itself,
+      // the same restriction the foreign-town rule applies above.
+      const guilty = (flatBody.match(/[^.]*\.|[^.]+$/g) || []).filter(
+        (s) => new RegExp(`\\b${escapeRe(name)}\\b`, "i").test(s) &&
+               !/\b(?:sister|second)\s+branch(?:es)?\b/i.test(s)
+      );
+      if (!guilty.length) continue;
+      branchNameBreaches.push(
+        `the ${scope} names "${name}", which is another live branch's own trading name, not ${b.branchName}'s. This copy is pasted verbatim into the public Google profile, so it would identify the wrong pharmacy. The sentence reads "${guilty[0].trim()}"`
+      );
+    }
+  }
+  if (branchNameBreaches.length) {
+    const key = `${b.id}::branchName`;
+    const known = KNOWN_BRANCH_NAME[key];
+    if (known) {
+      seenBranchNameKnown[key] = true;
+      warn(file, `KNOWN ${branchNameBreaches[0]}. ${known.question}: ${known.reason}`);
+    } else {
+      for (const msg of branchNameBreaches) fail(file, msg);
+    }
+  } else if (KNOWN_BRANCH_NAME[`${b.id}::branchName`]) {
+    seenBranchNameKnown[`${b.id}::branchName`] = false;
+  }
+
   // --- the ROAD a pack names, not just the town ----------------------------
   // Found on the item 4.3 quality pass, 2026-08-30, by injection into
   // gbp-packs/hirshmans-ainsdale.md. Post B closes "a local team on Station
@@ -3554,6 +3630,11 @@ for (const key of Object.keys(KNOWN_HOURS_DAYS)) {
 for (const key of Object.keys(KNOWN_FOREIGN_TOWN)) {
   if (!seenForeignTownKnown[key]) {
     fails.push(`stale exception: KNOWN_FOREIGN_TOWN["${key}"] no longer matches a pack naming another branch's town in its pasted copy. Remove it (${KNOWN_FOREIGN_TOWN[key].question}).`);
+  }
+}
+for (const key of Object.keys(KNOWN_BRANCH_NAME)) {
+  if (!seenBranchNameKnown[key]) {
+    fails.push(`stale exception: KNOWN_BRANCH_NAME["${key}"] no longer matches a pack naming another live branch's branchName in its pasted copy. Remove it (${KNOWN_BRANCH_NAME[key].question}).`);
   }
 }
 

@@ -1,0 +1,136 @@
+Q76 implementation - check-gbp-packs.js branchName rule
+Run: audit-backlog-worker, scheduled run 199, 2026-10-14
+
+BACKGROUND
+----------
+Q76 was raised on the item 4.12 fifth quality pass (2026-08-14): a GBP post
+could name a different RBH shop instead of its own, because the trading name
+was the one identifying detail in published GBP pack copy with no safeguard,
+even though phone numbers, postcodes, review links, street addresses, house
+numbers, roads and towns are all already guarded by existing rules in
+tools/check-gbp-packs.js. Injecting "the pharmacist-led weight loss clinic at
+Cherry Lane Pharmacy in Walton" into Post C of coleman-leigh-walton.md,
+replacing the branch's own trading name, passed all checkers clean at the
+time. Recheck on 2026-09-28 (run 441, in-repo, unattended) confirmed the gap
+was still open against the then-current checker.
+
+Rishi answered via the portal, 2026-10-10 (recorded in the feed 2026-10-11
+00:32:38 UK time), choosing option 1 of 4 (the recommended option): add a
+rule to check-gbp-packs.js failing any other live branch's branchName in the
+published copy (business description and post bodies only - explicitly NOT
+the services section, narrower than the existing foreign-town rule), with
+the existing sister-claim exemption carried over so mccanns-aigburth.md can
+keep naming "a second branch, McCanns Chemist Sandringham" inside its own
+description.
+
+This answer sat in QUESTIONS.json as "answered" since the portal pickup but
+had not been implemented in the repo by any run between then and run 198
+(confirmed by grepping AGENT_LOG.md and git log for "Q76" / "branchName" -
+no implementing commit found). Per the established precedent of run 164
+(which implemented Q71 when the worklist's 8 unchecked lines were all
+[BLOCKED] and no quality-pass checker-injection angle remained for the
+rotation-pool item), this run implemented Q76 as its single work item
+instead of a further quality pass, since:
+  - all 8 unchecked AGENT_WORKLIST.md lines were reconfirmed [BLOCKED]
+    (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66);
+  - the rotation-pool item for a quality pass (4.12, stalest at
+    2026-09-19T05:16) has had all 35 non-network checkers already proven
+    against it by direct injection as of its twentieth pass (2026-09-18),
+    so a further quality pass on 4.12 specifically would not exercise a
+    genuinely new checker angle;
+  - Q76 is a concrete, scoped, answered-but-unimplemented decision that
+    improves a real guard rather than re-verifying already-clean work.
+
+WHAT CHANGED
+------------
+tools/check-gbp-packs.js:
+  - new KNOWN_BRANCH_NAME / seenBranchNameKnown exception map (anti-rot
+    convention identical to every other KNOWN_* map in this file), added
+    immediately after KNOWN_FOREIGN_TOWN;
+  - new rule block, inserted immediately after the existing foreign-town
+    rule: scans the business description and the post bodies (via the
+    existing descriptionOf()/postsOf() helpers) for any other live branch's
+    branchName; a sentence-bounded match that is NOT inside a governed
+    sister-claim sentence ("sister"/"second" + "branch(es)", the same
+    exemption phrase the foreign-town rule already uses) fails; a KNOWN
+    exception, if one is ever added, downgrades to WARN;
+  - new stale-exemption sweep entry for KNOWN_BRANCH_NAME, mirroring every
+    other KNOWN_* sweep in the file.
+
+No pack, generator, page or branches.json content was changed. This is a
+checker-only change.
+
+VERIFICATION
+------------
+All work against the live checker file was first proven correct against an
+isolated git-archive scratch copy (/sessions/.../outputs/scratch_q76),
+never against the tracked repo, before being left in place in the tracked
+tools/check-gbp-packs.js.
+
+1. Baseline (tracked repo, with the new rule in place): `node
+   tools/check-gbp-packs.js` -> 0 failures, 15 warnings, all 15 pre-existing
+   and already recorded/KNOWN. No new WARN or FAIL from the new rule, so no
+   live pack is currently naming another branch's branchName in a way that
+   would now fail.
+
+2. Injection (scratch copy only): Post C of coleman-leigh-walton.md's
+   "loss clinic at Coleman and Leighs Pharmacy in Walton starts" changed to
+   "loss clinic at Cherry Lane Pharmacy in Walton starts" (Cherry Lane
+   Pharmacy being another live branch's actual branches.json branchName,
+   sharing the Walton seoTown) - CAUGHT first attempt:
+     FAIL coleman-leigh-walton.md: the Post C - Weight loss clinic names
+     "Cherry Lane Pharmacy", which is another live branch's own trading
+     name, not Coleman and Leighs Pharmacy's. [...] The sentence reads
+     "Thinking about losing weight with proper support? The pharmacist-led
+     weight loss clinic at Cherry Lane Pharmacy in Walton starts with a
+     private consultation and a full clinical assessment."
+   This is the exact injection Q76's own finding and the 2026-09-28 recheck
+   used, now caught.
+
+3. Restore: injected file replaced back to the pre-injection text; sha256
+   reconfirmed identical to the baseline recorded in Q76's own note and in
+   every prior item 4.12 pass: 6c8b9cac1d70fd6330d9a801b6dd74367c70f973ec5
+   4fde9d93ba7ea724d88. Full suite re-run clean, 0 failures.
+
+4. Control: a benign reword inside the same Post C paragraph (reordering
+   "your health history, your goals" to "your health goals, your history",
+   touching no protected fact) - ran clean, no FAIL, confirming the catch in
+   step 2 was a genuine rule hit and not a harness artefact. Restored the
+   same way, sha256 reconfirmed identical.
+
+5. Sister-claim exemption re-verified: full suite run against the restored
+   scratch copy shows no FAIL or WARN naming mccanns-aigburth.md, confirming
+   the new rule does not break the existing, deliberate sister mention
+   ("a second branch, McCanns Chemist Sandringham") inside that branch's
+   own business description.
+
+6. Tracked repo confirmed untouched throughout steps 2-5: `git status
+   --porcelain -- gbp-packs tools branches.json modules core` in the
+   tracked repo showed only the one intended change
+   (tools/check-gbp-packs.js, the rule itself) at every check; no pack file
+   was ever modified in the tracked copy.
+
+7. Full 35-checker suite (excluding check-cdn-pins.js and
+   check-live-hours.js, both network-dependent) run in the tracked repo
+   after landing the change: 34/35 clean. The one non-clean result,
+   tools/check-postcodes.js (181 failures), is pre-existing and unrelated:
+   confirmed by running the same checker against a separate, pristine
+   `git archive HEAD` scratch copy with no untracked debris present, which
+   returns 0 failures (1156 files scanned there vs 1328 in the live working
+   tree). The 181 failures in the live tree come entirely from the large
+   amount of untracked debris (stale lock/probe files, old log fragments,
+   leftover audit JSON) that has accumulated in this sandbox's working
+   copy across many prior runs - the same shape run 164 already recorded
+   ("check-postcodes.js (120 failures, all against untracked debris
+   files)"), now grown further. Not this run's change; not actioned this
+   run (separate operational-hygiene scope, see AGENT_LOG.md for this run's
+   own note on the git-refs debris found and fixed as a prerequisite to
+   fetch/pull working at all).
+
+RESULT
+------
+Q76 implemented as answered. check-gbp-packs.js now guards the one
+identifying fact in published GBP copy (the trading name) that previously
+had no rule, matching every other identifying fact (phone, postcode, review
+link, street address, house number, road, town) already guarded in this
+file. QUESTIONS.json Q76 note extended to record the implementation.
