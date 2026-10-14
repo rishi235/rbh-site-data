@@ -25827,6 +25827,76 @@ directly rather than re-deriving the same facts by hand.
       entry still Q52, 2026-09-01T22:44:51.524Z, matching every run since
       2026-09-01 including run 113 earlier today. Nothing new to apply.
       Done 2026-09-18
+      Quality pass 2026-10-14 (unattended scheduled run): item 4.9 came out
+      stalest in the rotation pool (git log last touched it 2026-09-27, the
+      run 428 recheck of Q73/Q74 - both gaps "confirmed still open, no
+      drift"). Browser answer pickup (this run's step 3) found no new
+      answer beyond Q52, matching every run since 2026-09-01. Worklist: all
+      8 unchecked lines still [BLOCKED] (unchanged since run 193). Rather
+      than another injection-coverage pass on this item specifically, this
+      run implemented Q73 and Q74, both raised on this item's own fifth
+      pass (2026-08-14), both answered by Rishi via the portal on
+      2026-10-11, neither yet implemented (confirmed by `git log --since
+      2026-10-11` showing no commit mentioning Q73 or Q74). Both are
+      checker-only safety rules, touch no money, legal risk or clinical
+      claim, so in scope to action directly, the same precedent run 199 set
+      for Q76.
+      Q73 IMPLEMENTED: tools/check-gbp-packs.js gained a rule, immediately
+      after the existing locationTown rule, reading this branch's own
+      brandLabel/branchName followed by "in <Town>" or ", <Town>," with no
+      road required, failing when the town is neither seoTown nor
+      addressLocality - a serviceAreaList catchment town does NOT exempt it
+      here, by design, because Q73's whole point is that a catchment claim
+      is not a location claim. Verified by injection against this pack:
+      reproduced Q73's own finding, "the weight loss clinic at Clear
+      Chemist in Walton" in Post C - caught first attempt, naming Walton as
+      Coleman and Leighs' and Cherry Lane's town; reverted, sha256-confirmed
+      byte-identical (3350d54c...52dd2a7d, unchanged since the nineteenth
+      pass). A negative control (unrelated reword) ran clean.
+      Q74 IMPLEMENTED: a second rule reads bullets inside "Notes for the
+      paster:" (not the whole file for a bare "404" - a first attempt at
+      that was too blunt and false-positived on five unrelated packs, see
+      below) and fails when a bullet names a lettered Post A-D together
+      with 404 unless some bullet in the same Notes section ties a
+      STOP/DO NOT POST instruction to a 404. No KNOWN exception map: it
+      derives both halves from the pack's own text and retires itself the
+      day the pack stops naming a dead post link. Verified by injection
+      against this pack: deleting the "Do not post a button to a page that
+      404s" paragraph (Q74's own original injection) was caught first
+      attempt; reverted, sha256-confirmed byte-identical. A negative
+      control ran clean. Also cross-checked against coleman-leigh-walton.md
+      (a pack with a differently-worded warning, "DO NOT POST POST A AS IT
+      STANDS ... returns a 404 error page", split across two sentences of
+      one bullet): stayed clean, confirming the bullet-level match (rather
+      than sentence-level) was the right grain.
+      FALSE-POSITIVE FOUND AND FIXED BEFORE LANDING, not a live defect: the
+      first draft of the Q74 rule (fail if the file contains "404" anywhere
+      with no nearby STOP/DO NOT POST) fired on fishlocks-ainsdale.md,
+      mccanns-aigburth.md, mccanns-sandringham.md, scorah-bramhall.md and
+      scorah-hazel-grove.md. All five name a 404 on the unpasted branch
+      landing page and warn against setting the profile WEBSITE field, a
+      real and already-guarded hazard, but a different one, with no post
+      button involved. Narrowed the rule to require a lettered Post A-D in
+      the same bullet as the 404 before it counts as a declared broken post
+      link, which cleared all five correctly without weakening the real
+      catch on Clear Chemist or Coleman and Leighs.
+      Full 35-checker suite (excl. check-cdn-pins.js/check-live-hours.js,
+      network-dependent) run after both changes: 34/35 clean; the one
+      failure, check-postcodes.js, traces entirely to the three pre-
+      existing, already-documented debris files this sandbox cannot delete
+      (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md),
+      confirmed by reading every failing line's own source filename - not a
+      defect in any tracked page, pack, generator or branches.json.
+      QUESTIONS.json: Q73 and Q74 notes both extended with the
+      implementation finding; status left "answered" on both, same
+      convention run 199 used for Q76 (it never blocked a worklist line).
+      No pack, generator, page or branches.json content changed - checker-
+      only. Files changed: tools/check-gbp-packs.js (two new rules),
+      QUESTIONS.json (Q73/Q74 notes extended), AGENT_WORKLIST.md (this
+      paragraph),
+      audits/q73-q74-gbp-pack-location-and-404-warning-rules-2026-10-14.txt
+      (new evidence file), AGENT_LOG.md.
+      Done 2026-10-14
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

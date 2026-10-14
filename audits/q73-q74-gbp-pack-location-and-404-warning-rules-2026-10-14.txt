@@ -1,0 +1,117 @@
+Q73/Q74 implementation evidence - item 4.9 (Clear Chemist Aintree GBP pack)
+Unattended scheduled run, 2026-10-14
+
+BACKGROUND
+Q73 and Q74 were both raised on item 4.9's fifth quality pass, 2026-08-14, by
+injection against gbp-packs/clear-aintree.md. Both were answered by Rishi via
+the portal on 2026-10-11 (option 1 recommended and chosen on both). Run 428's
+2026-09-27 recheck confirmed both gaps were still open in the code at that
+point. As of this run's start, neither had an implementing commit (checked via
+`git log --since 2026-10-11 | grep -i "q73\|q74"`, zero matches).
+
+Q73 - "<brand/branch name> in <Town>" with no road required
+---------------------------------------------------------
+Rishi's answer: "Widen the item 3.5 rule so any '<brand or branch name> in
+<town>' construct fails when the town is neither seoTown nor addressLocality,
+dropping the requirement that a road be named."
+
+Implementation: tools/check-gbp-packs.js, new block immediately after the
+existing locationTown rule (inside the per-branch pack loop). Reuses that
+rule's own `townScopes`, `estateTowns` and `ownTowns` variables. Builds a
+regex from this branch's own brandLabel/branchName, matches
+"<name> in <Town>" or "<name>, <Town>,", resolves the captured town against
+the estate's known towns, and fails if that town is neither this branch's
+seoTown nor addressLocality - serviceAreaList membership does NOT exempt it,
+by design (the whole point of Q73 is that a catchment claim is not a location
+claim).
+
+Positive test (reproduces Q73's own original injection):
+  sed -i '110s/Clear Chemist in Aintree/Clear Chemist in Walton/' \
+    gbp-packs/clear-aintree.md
+  node tools/check-gbp-packs.js
+  -> FAIL clear-aintree.md: the Post C - Weight loss clinic says the branch
+     itself is "in Walton", which is the town of Coleman and Leighs Pharmacy
+     and Cherry Lane Pharmacy, while branches.json puts it in "Aintree"
+     (postal "Liverpool") ... The construct reads "Clear Chemist in Walton"
+  Caught first attempt.
+
+Restore: cp from pre-edit backup; sha256 matched the pre-change baseline
+(3350d54caa54185adf677e97f4b6f7ce7b891941223191da5155ddae52dd2a7d) both
+before and after.
+
+Negative control: unrelated reword elsewhere in the same pack's notes ran
+clean (0 failures).
+
+Q74 - the do-not-post warning must stay wherever a post declares a 404
+-----------------------------------------------------------------------
+Rishi's answer: "Make the checker require the warning wherever the pack still
+carries the URL it warns about: if a pack names a link it has recorded as
+404, it must also carry the do-not-post warning."
+
+Implementation, attempt 1 (REJECTED, too blunt): fail if the whole pack text
+contains "404" anywhere with no POST_INSTRUCTION-style line in the whole
+file. Running node tools/check-gbp-packs.js against the unmodified, tracked
+repo produced 6 failures: coleman-leigh-walton.md, fishlocks-ainsdale.md,
+mccanns-aigburth.md, mccanns-sandringham.md, scorah-bramhall.md,
+scorah-hazel-grove.md. Inspection showed:
+  - coleman-leigh-walton.md DOES carry its warning ("DO NOT POST POST A AS
+    IT STANDS ... returns a 404 error page"), split across two sentences of
+    one bullet - POST_INSTRUCTION's line-start anchor and the sentence-level
+    split both missed the tie.
+  - fishlocks-ainsdale.md, mccanns-aigburth.md, mccanns-sandringham.md,
+    scorah-bramhall.md, scorah-hazel-grove.md name a 404 on the unpasted
+    branch LANDING PAGE and warn against setting the profile WEBSITE field -
+    a real, already-guarded hazard, but a different one, with no post
+    button anywhere near it. These would have been five false positives.
+
+Implementation, attempt 2 (LANDED): scope to bullets inside the file's
+"Notes for the paster:" block only. A bullet counts as a declared broken
+POST link only if it names a lettered Post A-D (\bPost\s+[A-D]\b) together
+with 404 or 404s in the SAME bullet. The pack passes only if some bullet
+(not necessarily the same one) ties a STOP/DO NOT POST instruction to a 404
+in the same way. \b404s?\b, not \b404\b, because "404s" (as in "a page that
+404s") has no word boundary after the digits under \b404\b - "4" and "s" are
+both word characters - so the stricter form silently never matched Clear
+Chemist's own warning sentence on the first pass of attempt 2 either, and
+was caught and fixed before landing.
+
+Positive test (reproduces Q74's own original injection):
+  Removed the two-line paragraph "Do not post a button to a page that 404s:
+  a Google post pointing at an error page is worse than no button." from
+  gbp-packs/clear-aintree.md's Notes section.
+  node tools/check-gbp-packs.js
+  -> FAIL clear-aintree.md: a sentence names a lettered Post (A-D) returning
+     404, but no sentence in the pack ties a "STOP"/"DO NOT POST" warning to
+     a 404 (Q74). Deleting that warning while the dead post link remains
+     lets a public Google post get wired to an error page.
+  Caught first attempt.
+
+Restore: cp from pre-edit backup; sha256 matched the baseline
+(3350d54caa54185adf677e97f4b6f7ce7b891941223191da5155ddae52dd2a7d) both
+before and after.
+
+Negative control: unrelated reword in the same Notes block ran clean.
+
+Cross-check against a second pack with a differently-worded warning:
+coleman-leigh-walton.md, whose real warning ("DO NOT POST POST A AS IT
+STANDS. Its button carries the pfLink from branches.json, and that URL was
+fetched again on 2026-08-12 and still returns a 404 error page...") splits
+the declaration and the warning across two sentences of ONE bullet, which is
+exactly why bullet-level matching (not sentence-level) was needed. Ran clean
+against the real, unmodified file, confirming the grain was right.
+
+SUITE RUN
+Full 35-checker suite (excl. check-cdn-pins.js and check-live-hours.js,
+both network-dependent) run individually after both changes landed:
+34/35 exit 0. The one failure, check-postcodes.js, traces entirely to three
+pre-existing, already-documented, undeletable sandbox debris files
+(.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md) -
+confirmed by reading every failing line's own source filename - not a
+defect in any tracked page, pack, generator or branches.json.
+
+TRACKED-REPO INTEGRITY
+`git status --porcelain -- gbp-packs tools branches.json modules core`
+showed only the one intended change (tools/check-gbp-packs.js) throughout;
+every injection above was made, tested, and reverted with a sha256 check
+before the next step. No pack, generator, page or branches.json content was
+changed by this run - this is a checker-only change.

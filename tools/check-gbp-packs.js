@@ -581,6 +581,13 @@ const seenRoadKnown = {};
 let roadMentionPacks = 0;
 const KNOWN_LOCATION_TOWN = {};
 const seenLocationTownKnown = {};
+// Accepted exceptions to the brand-location-town rule (Q73), keyed
+// "<branch id>::brandLocationTown". Use one only where a pack deliberately
+// says the branch itself is "in" a town that is neither its seoTown nor its
+// addressLocality, with the question that allowed it. Same anti-rot
+// convention as every KNOWN map here: a stale key fails.
+const KNOWN_BRAND_LOCATION_TOWN = {};
+const seenBrandLocationTownKnown = {};
 // "<branch id>::publishedPhone". Use one only where a pack deliberately
 // publishes a number that is not the branch's own in copy that reaches the
 // profile, and say so with a question id. Same anti-rot convention.
@@ -3586,6 +3593,135 @@ for (const file of packFiles) {
   } else if (KNOWN_LOCATION_TOWN[`${b.id}::locationTown`]) {
     seenLocationTownKnown[`${b.id}::locationTown`] = false;
   }
+
+  // --- Q73: "<brand/branch name> in <Town>", no road required -------------
+  // Raised on the item 4.9 fifth quality pass, 2026-08-14; answered by Rishi
+  // via the portal, 2026-10-11: widen the rule above so it fires without a
+  // road being named. The finding that raised it: injecting "the weight loss
+  // clinic at Clear Chemist in Walton" into Post C of clear-aintree.md passed
+  // every checker clean, although branches.json puts Clear Chemist in
+  // Aintree. The rule above requires the branch to be named on its own ROAD
+  // as well ("<road> in <Town>"), which this construct is not, and the
+  // catchment rule exempts Walton because it is in Clear's own
+  // serviceAreaList - exactly right for a catchment sentence and wrong for a
+  // LOCATION claim, which is what "<brand> in <Town>" is.
+  //
+  // This rule reads the branch's own brandLabel or branchName followed
+  // directly by "in <Town>" or ", <Town>,". The town must be this branch's
+  // own seoTown or addressLocality; being in serviceAreaList does NOT exempt
+  // it here, deliberately, because that is the exact gap Q73 closes. Scope
+  // matches the rule above: the business description, the services section
+  // and the post bodies.
+  {
+    const ownNames = [b.brandLabel, b.branchName].filter(Boolean);
+    if (ownNames.length) {
+      const namesAlt = [...new Set(ownNames.map((n) => escapeRe(n)))].join("|");
+      const brandLocationRe = new RegExp(
+        `\\b(?:${namesAlt})\\b\\s*(?:\\bin\\b|,)\\s*([A-Z][A-Za-z'’]*(?:\\s+[A-Z][A-Za-z'’]*)*)`,
+        "g"
+      );
+      const brandLocationBreaches = [];
+      for (const [scope, body] of townScopes) {
+        const flatBody = String(body || "").replace(/\s+/g, " ");
+        for (const m of flatBody.matchAll(brandLocationRe)) {
+          const captured = m[1];
+          let named = null;
+          for (const [lc, orig] of estateTowns) {
+            if (captured.toLowerCase() === lc || captured.toLowerCase().startsWith(lc + " ")) {
+              if (!named || lc.length > named.toLowerCase().length) named = orig;
+            }
+          }
+          if (!named) continue;
+          if (ownTowns.has(named.toLowerCase())) continue;
+          const owners = branches
+            .filter(
+              (o) =>
+                isPackable(o) &&
+                o.id !== b.id &&
+                [...splitPlaces(o.seoTown), ...splitPlaces(o.addressLocality)].some(
+                  (t) => t.toLowerCase() === named.toLowerCase()
+                )
+            )
+            .map((o) => o.branchName);
+          const whose = owners.length
+            ? `, which is the town of ${[...new Set(owners)].join(" and ")},`
+            : "";
+          brandLocationBreaches.push(
+            `the ${scope} says the branch itself is "in ${named}"${whose} while branches.json puts it in "${b.seoTown}" (postal "${b.addressLocality}"). No road is named, so the rule above does not see it, and "${named}" being in this branch's own serviceAreaList does not exempt it here, because a catchment claim is not a location claim (Q73). The construct reads "${m[0].trim()}"`
+          );
+        }
+      }
+      if (brandLocationBreaches.length) {
+        const key = `${b.id}::brandLocationTown`;
+        const known = KNOWN_BRAND_LOCATION_TOWN[key];
+        if (known) {
+          seenBrandLocationTownKnown[key] = true;
+          warn(file, `KNOWN ${brandLocationBreaches[0]}. ${known.question}: ${known.reason}`);
+        } else {
+          for (const msg of brandLocationBreaches) fail(file, msg);
+        }
+      } else if (KNOWN_BRAND_LOCATION_TOWN[`${b.id}::brandLocationTown`]) {
+        seenBrandLocationTownKnown[`${b.id}::brandLocationTown`] = false;
+      }
+    }
+  }
+
+  // --- Q74: a declared-404 link must keep its do-not-post warning ---------
+  // Raised on the item 4.9 fifth quality pass, 2026-08-14; answered by Rishi
+  // via the portal, 2026-10-11: tie the requirement to the actual hazard.
+  // The finding that raised it: deleting the whole "Do not post a button to
+  // a page that 404s" warning from clear-aintree.md's paster notes, while
+  // the pack still names the Post B/C/D URLs as returning 404 and still
+  // carries those same dead links on the post buttons, passed every checker
+  // clean. Every other rule in this file bans wording; this is one of the
+  // few that requires it, the same shape as Q68's catchment-list rule.
+  //
+  // Scope is deliberately narrower than "the pack mentions 404 anywhere":
+  // five packs (fishlocks-ainsdale, mccanns-aigburth, mccanns-sandringham,
+  // scorah-bramhall, scorah-hazel-grove) say a 404 belongs to the unpasted
+  // branch LANDING PAGE and warn the paster not to set the profile WEBSITE
+  // field until it resolves - a real, already-guarded hazard, but a
+  // different one, with no post button anywhere near it. Flagging those
+  // would be a false positive this rule must not create. So it reads
+  // sentences, not the raw presence of the digits "404": a sentence must
+  // name a lettered Post (A-D) AND say 404 before it counts as a declared
+  // broken POST link, and the matching warning must likewise tie a
+  // STOP/DO NOT POST instruction to a 404 in the same sentence (covering
+  // both the Clear Chemist shape, one blanket warning for three post
+  // letters, and the Coleman and Leighs shape, "DO NOT POST POST A AS IT
+  // STANDS ... returns a 404 error page", a single sentence naming both).
+  //
+  // Deliberately no KNOWN exception map: the rule derives both halves from
+  // the pack's own text (does a sentence declare a lettered post 404; does
+  // another tie a stop warning to a 404), so it retires itself the day the
+  // pack stops naming a dead post link, exactly as Rishi's answer says,
+  // rather than needing anyone to delete a stale exemption by hand.
+  {
+    // Read bullet-by-bullet within "Notes for the paster:" rather than
+    // sentence-by-sentence across the whole file: both real examples state
+    // the lettered-post declaration and the stop warning in the SAME note
+    // bullet (one multi-sentence item each), and a period inside that
+    // bullet ("DO NOT POST POST A AS IT STANDS. Its button ... returns a
+    // 404 error page") would otherwise split the two halves onto either
+    // side of a sentence boundary and miss the tie. \b404s?\b, not \b404\b,
+    // because "404s" (as in "a page that 404s") has no word boundary after
+    // the digits - "4" and "s" are both word characters - so the stricter
+    // form silently never matches Clear Chemist's own warning sentence.
+    const notesBlock = String(text || "").split(/^Notes for the paster:/m)[1] || "";
+    const bullets = notesBlock.split(/^-\s+/m).map((b) => b.replace(/\s+/g, " "));
+    const declaredPostBreach = bullets.some(
+      (b) => /\bPost\s+[A-D]\b/.test(b) && /\b404s?\b/.test(b)
+    );
+    const warningTied404 = bullets.some(
+      (b) => /\b(?:DO NOT POST|STOP)\b/i.test(b) && /\b404s?\b/.test(b)
+    );
+    if (declaredPostBreach && !warningTied404) {
+      fail(
+        file,
+        `a sentence names a lettered Post (A-D) returning 404, but no sentence in the pack ties a "STOP"/"DO NOT POST" warning to a 404 (Q74). Deleting that warning while the dead post link remains lets a public Google post get wired to an error page.`
+      );
+    }
+  }
 }
 
 // --- the exception list cannot rot ---------------------------------------
@@ -3654,6 +3790,12 @@ if (roadMentionPacks < 10) {
 for (const key of Object.keys(KNOWN_LOCATION_TOWN)) {
   if (!seenLocationTownKnown[key]) {
     fails.push(`stale exception: KNOWN_LOCATION_TOWN["${key}"] no longer matches a pack stating the wrong town in its location clause. Remove it (${KNOWN_LOCATION_TOWN[key].question}).`);
+  }
+}
+
+for (const key of Object.keys(KNOWN_BRAND_LOCATION_TOWN)) {
+  if (!seenBrandLocationTownKnown[key]) {
+    fails.push(`stale exception: KNOWN_BRAND_LOCATION_TOWN["${key}"] no longer matches a pack saying the branch itself is in the wrong town (Q73). Remove it (${KNOWN_BRAND_LOCATION_TOWN[key].question}).`);
   }
 }
 
