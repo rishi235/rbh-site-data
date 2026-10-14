@@ -5,3 +5,68 @@ _agent-run-debris/
 .notify-state.json
 tools/.status-payload.json
 archive/
+
+# Lock-cleanup and git-lock debris (item diagnostic, 2026-10-14, run 194).
+# Confirmed directly in the Cowork sandbox: unlink() on this FUSE-mounted
+# working copy returns EPERM even on a file this session just created itself,
+# while rename() and truncate() both succeed. That is a real, reproducible
+# property of this mount, not a one-off or a Windows-side artefact. Every
+# earlier run's "clear a stale lock by renaming/overwriting it" workaround was
+# therefore correct, but each rename or probe file it left behind (to
+# characterise the bug afresh) became a new piece of untracked debris,
+# because nothing told git to stop caring about that shape of filename.
+# These patterns are root-anchored (leading /) so they cannot catch a
+# similarly-named file deliberately placed inside tools/, modules/ etc.
+/.agent-lock.*
+/.AGENT_LOG_*.md
+/.tmp_log_combined.md
+/AGENT_LOG.md.restored
+/AGENT_LOG.md.testprobe
+/.new_entry_*.md
+/.new-entry-*.md
+/.new-log-entry.md.done
+/.scratch_entry.md
+/.scratch_qsummary.txt
+/.scratch-probe-test.tmp
+/.scratch_audit/
+/.git-junk-quarantine/
+/.probe*
+/._probe*
+/.canary-test*
+/.delete-test*
+/.delete-canary*
+/.lock-test*
+/.lock_test*
+/.rm-test*
+/.runtest-*
+/.unlink*
+/.write-test*
+/.zzz-test*
+/.zzz_test*
+/test_overwrite_probe*
+/testfile*
+/testwrite*
+/testperm*
+/testnew*
+/newtestfile.txt
+/scratch_a.txt
+/b_test_dst.txt
+/zz_test_delete.txt
+/zzz_test_add_check.txt
+/_delete_test_123.txt
+/CLAUDE.md.probe
+/.commit-test-probe.txt*
+/.git-test-add-probe-*
+/C:/
+*.cleared-*
+*.released-*
+*.aside-*
+*.movedaside-*
+*.recovered-*
+*.REMOVED-*
+*.moved-ok
+*.stale-*
+*.used-*
+/._tmp_entry_*.md
+/.test-probe-*
+/test_write.tmp
