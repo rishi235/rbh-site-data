@@ -14853,6 +14853,61 @@ Done 2026-10-14 (twenty-third pass).
       defect, no worklist item unblocked - Q99's fix decision (options 1
       to 3) is now supported by full-estate evidence rather than a
       two-site sample, but remains Rishi's to make. Done 2026-09-27
+
+      Quality pass 2026-10-14 (unattended run 202). Rotation pool
+      re-derived fresh from git log (matching both "item N.N" and bare
+      "N.N " subject forms, excluding the seven standing one-offs and
+      the eight currently [BLOCKED] lines: 5.3/Q8, 5.4/Q9, 5.5/Q13,
+      5.8/Q16, 6.1/Q52, both Q60 lines under 6.4/6.5, 6.6/Q66, all
+      reconfirmed [BLOCKED] by direct grep first); item 3.10 came out
+      stalest at 2026-09-27T11:48:44+01:00 (run 417), ahead of 4.13 and
+      4.9 (both also 2026-09-27, later the same day). ANSWER PICKUP
+      (step 3): Claude in Chrome, single tab, read-only, navigated to
+      https://data.rbhealth.co.uk/api/feedback and read the full feed
+      fresh - newest entry still the Q52 answer, 2026-09-01T22:44:51Z,
+      unchanged for six-plus weeks; cross-checked against QUESTIONS.json,
+      all answers already recorded - nothing new for the 47 currently
+      open questions (Q77-Q125). No "Standing authorisation - autonomous
+      window" section at the top of AGENT_LOG.md, so step 4 did not
+      apply. FRESH ANGLE: of the 37 tools/check-*.js files, 35 had
+      already been proved by injection against this item; the two
+      remaining were check-cdn-pins.js (network-dependent, out of scope
+      by the standing convention) and check-weebly-furniture-freshness.js
+      (proved once before, item 5.1's twenty-second pass, but only
+      against Scorah Chemists Bramhall, never against Riddings Pharmacy).
+      Proved it here for the first time: isolated git-archive scratch
+      copy, tracked repo never opened for writing throughout (confirmed
+      by `git status --porcelain` on branches.json/tools/modules/core/
+      gbp-packs, empty throughout, and by branches.json's sha256,
+      7ba2569b...25ffef1, unchanged before and after). Baseline 35/35
+      clean (excl. the two network-dependent checkers). Injection:
+      riddings_timperley's phone changed in branches.json from
+      "0161 973 2951" to "0161 973 9999", WEEBLY_FURNITURE_CHECKLIST.md
+      left untouched - CAUGHT first attempt, naming Riddings Pharmacy
+      by id and quoting both the stale and fresh values; six other
+      checkers (check-editor-snapshot.js, check-gbp-packs.js,
+      check-jsonld.js, check-nap.js, check-switch-copy.js,
+      check-travel-clinic-copy.js) also failed on the same edit, which
+      is expected (a source-data edit with no regeneration desyncs the
+      already-generated page/pack/switch copy too) and does not
+      duplicate this checker's own distinct job of catching the
+      checklist file specifically, which no other checker reads. Restored
+      and sha256-reconfirmed identical to baseline. True negative
+      control: riddings_timperley's branchNumber changed (9 to 999), a
+      field CLAUDE.md itself names as read by no checker and absent from
+      the generator's own field list - full suite clean except
+      check-editor-snapshot.js, separately confirmed (via a second,
+      lastUpdated-only control) to fire on any branches.json byte change
+      regardless of field, so not evidence either way; the freshness
+      checker itself stayed clean, confirming its phone-change catch was
+      genuinely selective rather than a harness artefact. Full detail in
+      audits/riddings-item-3.10-weebly-furniture-freshness-injection-2026-10-14.txt.
+      No in-repo defect. Guard coverage for item 3.10 now extends to 36
+      of 37 checkers proved by injection against this branch specifically
+      (up from 35; check-cdn-pins.js remains the sole network-dependent
+      exception). No generator, page, pack, checker or branches.json
+      content changed. No new question raised; QUESTIONS.json unchanged
+      at 125 total, 47 open. Done 2026-10-14
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from

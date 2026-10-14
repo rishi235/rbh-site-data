@@ -1,0 +1,89 @@
+Item 3.10 (Riddings Pharmacy, Timperley) - quality pass, run 202, 2026-10-14
+Fresh angle: prove tools/check-weebly-furniture-freshness.js by injection against
+Riddings Pharmacy specifically, for the first time under this item.
+
+Context
+-------
+Item 3.10's own block in AGENT_WORKLIST.md shows its Q99 live-site JSON-LD sweep
+completed across all 16 branches as of run 417 (2026-09-27), the stalest item in
+the rotation pool at the start of this run. Of the 37 tools/check-*.js files,
+35 have already been exercised by injection against this item across its prior
+history. The two remaining are check-cdn-pins.js (network-dependent, excluded
+from injection scope by the same convention as check-live-hours.js) and
+check-weebly-furniture-freshness.js, which had been proved once before (item 5.1,
+twenty-second pass, 2026-09-18) but only against Scorah Chemists Bramhall, never
+against Riddings Pharmacy specifically. That is this run's fresh angle.
+
+Method
+------
+All testing performed in an isolated `git archive HEAD` scratch copy under the
+sandbox's own scratch area, outside the tracked working tree. The tracked repo
+was never opened for writing during any of this; confirmed by
+`git status --porcelain -- branches.json tools modules core gbp-packs` (empty
+before, during and after) and by branches.json's sha256
+(7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1) matching
+exactly before and after the whole pass.
+
+Baseline: fresh scratch copy, full checker suite excluding the two
+network-dependent checkers (check-cdn-pins.js, check-live-hours.js) run
+individually - 35/35 clean, no failures.
+
+Injection 1 (the target fault): in a scratch copy, changed riddings_timperley's
+phone in branches.json from "0161 973 2951" to "0161 973 9999" and left
+WEEBLY_FURNITURE_CHECKLIST.md untouched - the exact "branches.json moved on,
+the checklist did not" scenario this checker exists to catch.
+  - check-weebly-furniture-freshness.js: CAUGHT first attempt. FAIL naming
+    Riddings Pharmacy (riddings_timperley) by id, line 234, quoting both the
+    stale checked-in value (0161 973 2951) and the fresh-build value
+    (0161 973 9999).
+  - Running the rest of the suite with the same injection still live showed
+    six further checkers also failing: check-editor-snapshot.js,
+    check-gbp-packs.js, check-jsonld.js, check-nap.js, check-switch-copy.js,
+    check-travel-clinic-copy.js. This is expected and correct, not noise:
+    editing branches.json's phone without regenerating the branch's pages,
+    pack and switch copy also desyncs those already-generated, already
+    checked-in artefacts from the new source value, and those six checkers
+    exist precisely to catch page/pack content disagreeing with
+    branches.json. It does not weaken the freshness checker's own result -
+    WEEBLY_FURNITURE_CHECKLIST.md is a separate, generator-produced file with
+    no other checker reading it (confirmed: check-nap.js's own PAGE_DIRS/
+    PASTE_DIRS list three page directories and does not include the repo
+    root), so its staleness is caught only by check-weebly-furniture-
+    freshness.js and by nothing else - the six other failures are a
+    different, independently-true finding about the same single edit, not
+    double-counting of this checker's own job.
+
+Restored branches.json from the scratch backup, sha256-reconfirmed identical
+to the pre-injection baseline, before the next step.
+
+Injection 2 (true negative control): in a fresh scratch copy, changed only
+riddings_timperley's branchNumber (9 -> 999) - a field CLAUDE.md itself names
+as read by no checker and no generator ("shortCode, branchNumber and
+pfBooking are also read by no checker ... no generator reads them, so they
+reach no page and there is nothing public to guard"), and confirmed absent
+from build-weebly-furniture-checklist.js's own fmtBranch() field list
+(branchName, brandLabel, streetAddress/addressLocality/postalCode,
+addressRegion, phone, nhsEmail, email, website only).
+  - Full suite: only check-editor-snapshot.js failed. Confirmed separately
+    (by a second control touching only the top-level lastUpdated field) that
+    check-editor-snapshot.js fires on any byte-level edit to branches.json
+    regardless of field - it is a whole-file snapshot check, not sensitive to
+    this checker's own target fields, so its failure here is not evidence
+    either way.
+  - check-weebly-furniture-freshness.js: clean, as expected - branchNumber
+    does not appear anywhere in the generated checklist, so there is nothing
+    for it to disagree about. This confirms Injection 1's catch was a genuine,
+    selective result tied to a field the checklist actually carries, not a
+    harness artefact that fires on any branches.json edit.
+
+Result
+------
+No in-repo defect. check-weebly-furniture-freshness.js correctly, and
+selectively, catches a branches.json value for Riddings Pharmacy moving ahead
+of the checked-in WEEBLY_FURNITURE_CHECKLIST.md, proven for this branch for
+the first time. Guard coverage for item 3.10 now extends to 36 of 37
+tools/check-*.js files having been proved by injection against this branch
+specifically (up from 35; check-cdn-pins.js remains the sole network-dependent
+exception, out of injection scope by the standing convention). No generator,
+page, pack, checker or branches.json content changed; the tracked repo was
+not touched during the proof.
