@@ -11524,6 +11524,29 @@ Done 2026-10-14 (twenty-third pass).
       history. Full detail:
       audits/sk-bootle-pharmacy-first-eligibility-3.8-twentyfourth-2026-10-01.txt.
       Done 2026-10-01 (twenty-fourth).
+      Quality pass 2026-10-14 (twenty-fifth, run 207): check-opening-hours.js
+      proven by injection against SK Chemists Bootle for the first time -
+      genuinely untested against this branch across the prior 24 passes (21
+      of 36 checkers already proven, per a direct grep of this block for
+      check-*.js filenames). Isolated git-archive scratch extraction
+      throughout, tracked repo never opened for writing, branches.json sha256
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1 before
+      and unchanged after. Checker ran clean on a fresh scratch copy first;
+      changed skchemists_bootle's weekday closing time from 18:00 to 19:00
+      without regenerating pages - CAUGHT first attempt, 36 failures across
+      all nine of the branch's generated pages, naming each file and quoting
+      both the page's and the data's hours. Restored by fresh git-archive
+      re-extraction (a json.dump round-trip was tried first and rejected: it
+      reproduced the content but not the exact bytes, logged as methodology
+      in the evidence file). Negative control (shortCode edit, a field no
+      checker reads) ran clean, confirming the catch was genuine and
+      selective. Full 35-checker suite (excl. check-cdn-pins.js/check-live-
+      hours.js, network-dependent) ran clean on the restored copy, 35/35.
+      No in-repo defect - SK Chemists Bootle's hours are correct on every
+      page. Guard coverage for item 3.8 now 22 of 36 checkers proven by
+      injection against this specific branch (up from 21). No generator,
+      page, pack, checker or branches.json content changed. Full detail:
+      audits/sk-chemists-item-3.8-opening-hours-injection-2026-10-14.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

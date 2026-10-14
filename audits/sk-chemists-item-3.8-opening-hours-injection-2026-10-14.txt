@@ -1,0 +1,71 @@
+Item 3.8 quality pass (fourth) - run 207, 2026-10-14
+Target: SK Chemists, Bootle (branches.json id: skchemists_bootle)
+Checker under test: tools/check-opening-hours.js (not previously proven by
+injection against this item - item 3.8's own AGENT_WORKLIST.md block names 21
+of 36 tools/check-*.js files as already proven by injection; check-opening-
+hours.js was one of 15 genuinely untested, and was chosen because this branch
+carries a single-session weekday schedule and no lunch split, a clean target
+for the rule 10 JSON-LD/data comparison and rule 7 visible-card comparison).
+
+Method: isolated `git archive HEAD` scratch extraction at
+/sessions/peaceful-serene-johnson/mnt/outputs/run207_scratch. Tracked repo at
+/sessions/peaceful-serene-johnson/mnt/rbh-site-data never opened for writing.
+
+1. Baseline: branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9
+   d970452c39b325ffef1 (matches the value recorded by runs 205/206, no drift).
+   node tools/check-opening-hours.js run clean on the fresh scratch copy before
+   any edit: "check-opening-hours: clean, every visible and structured opening
+   time matches branches.json."
+
+2. Injection: changed skchemists_bootle's openingHours.specification[0].closes
+   from "18:00" to "19:00" in the scratch branches.json only, without
+   regenerating any page. Re-ran the checker. CAUGHT first attempt: 36
+   failures, naming every one of SK Chemists Bootle's nine generated pages
+   (eight modules/service pages plus the one modules/switch page) and quoting
+   both the page's JSON-LD hours (09:00-18:00 for Mon/Tue/Wed/Thu/Fri) and the
+   data's (09:00-19:00), i.e. the exact branch and the exact two conflicting
+   values.
+
+3. Restore: branches.json replaced with a second, independent `git archive
+   HEAD -- branches.json` extraction (not a reformatted json.dump round-trip,
+   which was tried first and rejected after it produced a byte-different file
+   despite identical content - noted below as methodology). sha256 confirmed
+   byte-identical to the pre-injection value. Checker reconfirmed clean.
+
+4. Negative control: edited skchemists_bootle's shortCode field ("SKC" to
+   "SKX") via a targeted sed line edit (preserving file formatting elsewhere),
+   a field CLAUDE.md records as read by no checker. check-opening-hours.js ran
+   clean, confirming the earlier catch was a genuine, selective rule hit on
+   hours data rather than the checker firing on any branches.json edit.
+
+5. Final restore: branches.json replaced with a third fresh `git archive`
+   extraction; sha256 reconfirmed 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9
+   d970452c39b325ffef1, identical to the baseline.
+
+6. Full suite: all 35 tools/check-*.js files (excluding check-cdn-pins.js and
+   check-live-hours.js, both network-dependent) run individually against the
+   restored scratch copy. 35/35 exit 0, no regressions. (Note: this run saw no
+   check-postcodes.js failure, unlike runs 204/205's tracked-repo baseline run,
+   because the scratch extraction carries none of the tracked repo's root-level
+   debris files that checker reads.)
+
+Methodology note: a first attempt at step 3 used Python's json.load/json.dump
+to toggle the closing time back to "18:00" programmatically. This produced a
+file that was logically identical but not byte-identical (different sha256),
+because json.dump's own serialisation does not reproduce the source file's
+exact formatting. Discarded in favour of re-extracting the file fresh from
+git archive for every restore, which is now the confirmed-safe method for this
+kind of test on this checker.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain --
+branches.json tools modules core gbp-packs` empty before, during and after;
+tracked branches.json sha256 unchanged at the end (7ba2569b52bc017bc6909e3f3f
+161d3bd7b40e4b56ef9d970452c39b325ffef1).
+
+Result: no in-repo defect. SK Chemists Bootle's opening hours are correctly
+rendered, byte for byte, on all nine of its generated pages' visible cards and
+JSON-LD blocks, and check-opening-hours.js now reliably catches a mismatch
+introduced after the fact. Guard coverage for item 3.8 is now 22 of 36
+checkers proven by injection against this specific branch (up from 21).
+
+No generator, page, pack, checker or branches.json content changed.
