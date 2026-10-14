@@ -33490,6 +33490,35 @@ appended to the line. Do not move them; the status page reads them in place.
       this page and branch. Evidence: audits/run536-check-whatsapp-route.txt
       (checker output across all five injection rounds) and this entry.
       Done 2026-10-01
+      Twenty-fifth quality pass 2026-10-14 (unattended scheduled run 205):
+      check-map-embeds.js had never been proven by injection against this
+      branch across the prior 24 passes and was the remaining branch-specific
+      fresh angle (the untested checkers beyond it are either estate-wide
+      family copy checks or check-cdn-pins.js, network-dependent and out of
+      injection scope). Full 35-checker suite clean on the tracked repo
+      before any change (34/35; the one failure, check-postcodes.js, traces
+      entirely to the standing pre-existing sandbox debris files, not to any
+      tracked content). Isolated git-archive scratch copy at /tmp/run205,
+      branches.json sha256-confirmed 7ba2569b...25ffef1 beforehand (matching
+      run 202's recorded value, no drift). Changed hirshmans_ainsdale's
+      streetAddress to "12 Different Road" without regenerating pages -
+      CAUGHT on all 11 of the branch's pages carrying a map embed, naming
+      each file and both the page's and the data's address. Restored and
+      ran a control (an unrelated keywords-array addition, a field the
+      checker does not read): passed clean, confirming the catch was a
+      genuine rule hit rather than the checker firing on any edit. Final
+      restore sha256-reconfirmed identical to the pre-injection value;
+      tracked repo confirmed untouched throughout
+      (git status --porcelain -- branches.json tools modules core gbp-packs
+      empty before, during and after; tracked branches.json sha256
+      unchanged). No in-repo defect found. Guard coverage for this item now
+      24 of 37 checkers proven by injection (branch-specific count; the
+      25-of-37 figure on the prior pass included one estate-wide rule
+      alongside the branch-specific tally, so this pass's own branch-
+      specific count is stated directly rather than incremented from it).
+      Evidence: audits/hirshmans-item-1.2-map-embeds-injection-2026-10-14-
+      twentyfifth.txt. No generator, page, pack, checker or branches.json
+      content changed. Done 2026-10-14
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

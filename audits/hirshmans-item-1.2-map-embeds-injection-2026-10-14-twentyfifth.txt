@@ -1,0 +1,81 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale) - twenty-fifth quality pass, 2026-10-14
+Scheduled run 205 (audit-backlog-worker, Cowork sandbox session)
+
+SCOPE OF THIS PASS
+
+Item 1.2's prior 24 passes had proven 23 of the 37 tools/check-*.js checkers by
+injection against this specific branch (confirmed by direct grep of the item's
+own AGENT_WORKLIST.md block for "check-*.js" filenames). Of the 14 remaining,
+most either do not apply to this branch's own page set (check-pharmacy-first-*
+three files and check-travel-clinic-copy.js/check-weight-loss-copy.js are
+family-wide copy checkers already covered estate-wide elsewhere, not branch-
+specific), or are out of injection scope for a read-only pass
+(check-cdn-pins.js, network-dependent). check-map-embeds.js was genuinely
+untested against Hirshmans Ainsdale and was branch-specific (it reads this
+branch's own streetAddress/addressLocality/postalCode against the map iframe
+and directions button on its own generated pages), so it was the fresh angle
+for this pass.
+
+BASELINE
+
+Full 35-checker suite (excl. check-cdn-pins.js and check-live-hours.js,
+network-dependent) run against the tracked repo before any change: 34/35
+clean. The one failure, check-postcodes.js, traces entirely to pre-existing,
+already-documented undeletable sandbox debris files in the repo root
+(.tmp_log_combined.md and others, confirmed untracked by git ls-files/git
+status), not to any tracked page, pack, generator or branches.json content -
+the same standing artefact runs 164, 198 and 200 already diagnosed.
+
+Isolated scratch copy taken via `git archive HEAD | tar -x` to /tmp/run205.
+branches.json sha256 confirmed 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d
+970452c39b325ffef1 before any edit, matching the value run 202's own log entry
+already recorded - confirms no drift since. check-map-embeds.js run clean on
+the scratch copy before injection (16 branches, 177 pages, 177 map embeds, 6
+directions buttons, 6 generators checked).
+
+INJECTION
+
+Changed hirshmans_ainsdale's streetAddress in the scratch copy's branches.json
+from "56-62 Sherwood House, Station Road" to "12 Different Road" (town and
+postcode left alone). Did not regenerate the pages, so the generated HTML
+still carries the correct, original address in its map iframe and contact
+card - this is exactly the live fault shape CLAUDE.md describes: a data change
+that has not yet been regenerated, which should be CAUGHT as a mismatch
+between page and data, not silently accepted.
+
+RESULT: caught, on all 11 of Hirshmans Ainsdale's generated pages carrying a
+map embed (10 modules/service pages plus the one modules/switch page),
+naming the file, the address the map actually points at, and the address
+branches.json now gives for the branch. No cross-firing on any other branch's
+pages.
+
+CONTROL
+
+Restored branches.json from the pre-injection copy (sha256-reconfirmed
+identical). Appended an unrelated, benign entry to hirshmans_ainsdale's own
+keywords array (a field check-map-embeds.js does not read) and re-ran the
+checker: clean, 0 failures - confirming the catch above was a genuine rule hit
+on the address fields specifically, not the checker firing on any edit to the
+branch's record.
+
+RESTORE AND VERIFICATION
+
+branches.json restored again from the pre-injection backup, sha256-confirmed
+7ba2569b...25ffef1 (identical to the baseline value above) both immediately
+after restore and again after the control ran. check-map-embeds.js re-run
+clean on the restored scratch copy. Tracked repo confirmed untouched
+throughout: `git status --porcelain -- branches.json tools modules core
+gbp-packs` empty before, during and after this pass, and the tracked
+branches.json's own sha256 unchanged at 7ba2569b...25ffef1 at the end. Scratch
+directory deleted afterwards.
+
+ASSESSMENT
+
+No in-repo defect. Hirshmans Ainsdale's map embed and directions button
+already match branches.json on every generated page, and check-map-embeds.js
+correctly catches a data/page mismatch when one is introduced. Guard coverage
+for item 1.2 is now 24 of 37 checkers proven by injection (up from 23; the
+estate-wide family copy checkers and the network-dependent one remain the
+genuinely out-of-scope minority for this item).
+
+No generator, page, pack, checker or branches.json content changed this run.
