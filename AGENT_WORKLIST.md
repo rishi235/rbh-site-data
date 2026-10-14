@@ -19977,6 +19977,61 @@ Pharmacy First wording to the NHS service description.
       defect; no checker, generator, page or branches.json content changed.
       Evidence: audits/cherry-lane-item-4.2-jsonld-live-2026-09-25-
       twentyfourth.txt.
+      Quality pass 2026-10-14 (twenty-fifth, unattended scheduled run 201):
+      all 8 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct
+      grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66);
+      answer pickup (step 3) via Claude in Chrome read the portal feedback feed
+      fresh - newest entry still the Q52 answer, 2026-09-01T22:44:51.524Z,
+      unchanged for six-plus weeks, nothing new for the 47 open questions; no
+      "Standing authorisation - autonomous window" section found at the top of
+      AGENT_LOG.md, so step 4 did not apply. Rotation pool re-derived via
+      `git log --format='%ad|%s' --date=iso-strict` matching both "item N.N"
+      and bare "N.N " subject forms, excluding the seven standing one-offs and
+      the eight blocked items; item 4.2 came out stalest (2026-09-25,
+      twenty-fourth pass above), ahead of 3.10/4.13/4.9 (all 2026-09-27).
+      FRESH ANGLE: tools/check-booking-routes.js Rule 7 (same-branch,
+      cross-service diary conflation), not yet exercised against Cherry Lane
+      by injection across the prior 24 passes (confirmed by grepping this
+      item's own block for check-*.js filenames; 19 of 37 checkers remained
+      untested). Isolated `git archive HEAD` scratch copy at /tmp/scratch42,
+      tracked repo never opened for writing (git status --porcelain and
+      branches.json sha256 confirmed unchanged throughout). Baseline: 35-
+      checker suite (excl. check-cdn-pins.js/check-live-hours.js, network-
+      dependent) clean, 0 failures; check-booking-routes.js alone 156/156
+      pages routed, 0 same-branch conflations. INJECTION: cherrylane_liver-
+      pool's widgets.weightLoss set equal to its own widgets.travelClinic id
+      (6a5bf3ac7066e1645399e678) - CAUGHT first attempt, FAIL naming both
+      services and the shared id and the booking-misroute consequence.
+      Restored via `git show HEAD:branches.json`, sha256 reconfirmed identical
+      to baseline (7ba2569b...25ffef1); re-run clean. CONTROL: a harmless
+      non-structural field added to the same branch record, touching no
+      widget/service/branch key - ran clean, confirming the catch was a
+      genuine Rule 7 hit and not a harness artefact. Final restore sha256-
+      reconfirmed identical; full 35-checker suite re-run clean (0 failures)
+      after. No in-repo defect - Cherry Lane's booking-to-diary mapping
+      already correctly guards against same-branch diary conflation, now
+      proven by direct injection for the first time. Guard coverage for item
+      4.2 now 19 of 37 checkers proven by injection against this branch
+      specifically (up from 18). Repo-side only this pass, no live page read.
+      No checker logic, generator, page, pack or branches.json content
+      changed. No new question raised; QUESTIONS.json unchanged at 125 total,
+      47 open. NOTED, not actioned (repeats the standing finding): the
+      unblocked-item supply has been exhausted since run 193 and 47 of 125
+      questions remain open, newest six-plus weeks old (since 2026-09-01);
+      Q87 (raised run-over-run, still open) already names the structural
+      question of whether this scheduled task should keep running in this
+      Cowork sandbox at all, given the sandbox's EPERM-on-unlink quirk every
+      run since 190 has had to work around for .agent-lock and .git's own
+      lock files. This run additionally found the tracked repo's own
+      .git/index had drifted out of sync with HEAD and the working tree
+      (stale from a prior run's lock-avoidance plumbing workaround, pre-dating
+      this run) and corrected it via a GIT_INDEX_FILE-based read-tree/write-
+      tree round trip, copied over the real .git/index by direct overwrite;
+      this was a cosmetic index-only fix with no effect on tracked file
+      content (confirmed via sha256 before and after) and is recorded here
+      rather than as a new question since it fixes rather than finds a fault.
+      Evidence: audits/cherry-lane-item-4.2-booking-routes-injection-2026-10-
+      14-twentyfifth.txt.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).

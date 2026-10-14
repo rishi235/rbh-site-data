@@ -1,0 +1,66 @@
+Item 4.2 (Cherry Lane Pharmacy, Walton) - twenty-fifth quality pass
+Run 201, 2026-10-14, audit-backlog-worker (Cowork sandbox session, claude-sonnet-5)
+
+FRESH ANGLE
+Of the 37 tools/check-*.js checkers, 19 had never been exercised by direct
+injection against Cherry Lane specifically across the item's prior 24 passes
+(confirmed by grepping this item's own AGENT_WORKLIST.md block, lines
+19148-19979, for check-*.js filenames). Picked tools/check-booking-routes.js,
+Rule 7 ("within a branch, two services must not share one diary"), not yet
+proven for this branch.
+
+METHOD
+Isolated scratch copy via `git archive HEAD | tar -x -C /tmp/scratch42`; the
+tracked repo at C:\dev\rbh-site-data was never opened for writing during this
+pass (confirmed by `git status --porcelain` before and after, empty both
+times, and sha256 of the tracked branches.json unchanged throughout:
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1).
+
+BASELINE: full checker suite (35 of 37, excluding check-cdn-pins.js and
+check-live-hours.js which need network egress) run individually against the
+scratch copy - 0 failures. check-booking-routes.js alone: 156 pages with a
+booking mount, all 156 routed correctly, 6 widget ids legitimately shared
+between sister branches, 0 same-branch diary conflations.
+
+INJECTION: in the scratch copy's branches.json only, set
+cherrylane_liverpool's widgets.weightLoss to the same id already held by its
+own widgets.travelClinic (6a5bf3ac7066e1645399e678) - a same-branch,
+cross-service diary conflation, the shape Rule 7 exists to catch.
+
+RESULT: caught on the first attempt -
+  FAIL  cherrylane_liverpool: services weightLoss and travelClinic share one
+  Appointedd id (6a5bf3ac7066e1645399e678), so a booking for one lands in the
+  other's diary
+
+RESTORE: branches.json restored from `git show HEAD:branches.json`; sha256
+reconfirmed identical to baseline (7ba2569b...25ffef1); check-booking-routes.js
+re-run clean (156/156 routed, 0 failures).
+
+CONTROL: added a harmless, non-structural field (lastUpdatedNote) to the
+cherrylane_liverpool record, touching no widget, service or branch key -
+check-booking-routes.js ran clean, confirming the earlier catch was a genuine
+Rule 7 hit and not a harness artefact (e.g. the checker firing on any edit to
+the branch's record at all). Restored again; sha256 reconfirmed identical;
+full 35-checker suite re-run clean (0 failures) after the final restore.
+
+RESULT
+No in-repo defect. Cherry Lane's own booking-to-diary mapping is already
+correctly guarded against the same-branch diary-conflation fault, now proven
+by direct injection for the first time. Guard coverage for item 4.2 extends
+from 18 to 19 of 37 checkers proven by direct injection against this branch
+specifically.
+
+SCOPE
+Repo-side only this pass; no live page read. Remaining untested-and-applicable
+checkers for item 4.2's next pass: check-branch-identity.js, check-branch-
+links.js, check-contraception-copy.js, check-editor-snapshot.js, check-
+fragment-targets.js, check-jsonld.js (manual JSON-LD reading was done on the
+twenty-fourth pass but not via this checker specifically), check-map-
+embeds.js, check-pharmacy-first-safety-net.js, check-pharmacy-first-
+symptoms.js, check-seo-keywords.js, check-seo-lengths.js, check-seo-
+pattern.js, check-seo-sheets.js, check-service-links.js, check-switch-
+copy.js, check-whatsapp-route.js, check-widget-diaries.js.
+
+No checker logic, generator, page, pack or branches.json content changed.
+No new question raised. QUESTIONS.json unchanged this pass: 125 total, 47
+open (confirmed via step 3 answer pickup below).
