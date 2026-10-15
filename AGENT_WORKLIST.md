@@ -31809,6 +31809,40 @@ directly rather than re-deriving the same facts by hand.
       for any of the 48 currently-open questions. No new question raised.
       Evidence in
       audits/tiffenbergs-aintree-postcode-check-4.15-twentyfirst-2026-10-02.txt.
+      Quality pass 2026-10-15 (twenty-second re-verification, live half,
+      Cowork sandbox scheduled run 210): the repo half was last re-proven on
+      2026-10-02 (twenty-first) with all eight check-postcodes.js rules now
+      covered; this pass's fresh angle is the LIVE half, not repeated since
+      the seventeenth pass (2026-09-15, now 30 days stale). Re-read via
+      Claude in Chrome, read-only, one tab, closed after use. Homepage
+      querySelectorAll on a[href*="weight-loss"]: unchanged, still 7 links,
+      4 routing to the old regime-1 template /weight-loss-clinic-aintree.html
+      and 3 to the compliant generated /weight-loss-clinic-tiffenbergs-
+      aintree.html - the same split the seventeenth pass recorded, not this
+      run's to act on (Q56/Q58 already ask the correct operative questions).
+      sitemap.xml: still 28 URLs, every lastmod still
+      2026-08-15T07:39:10+00:00, now 61 days with no republish (was 31 days
+      at the seventeenth pass). branches.json's tiffenbergs_longmoor record
+      re-read: email still the singular "Tiffenberg@rbhealth.co.uk", matching
+      the pack's own paster note. No new live fault, no new in-repo defect,
+      no new question for this item - Q56 and Q58 stand unchanged. Repo half
+      re-confirmed in passing: gbp-packs/tiffenbergs-aintree.md sha256 still
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b,
+      branches.json sha256 still
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1, both
+      matching every prior run's recorded value. Incidental finding, not
+      about this item: running the full tools/check-*.js suite directly
+      against the live working tree (36 of 37 clean) surfaced
+      check-postcodes.js failing with 181 failures, traced entirely to an
+      untracked, gitignored 58.9MB debris file at the repo root
+      (.tmp_log_combined.md, dated 2026-10-07, log-splitting leftover) that
+      the checker's own file walk does not exclude; confirmed by renaming it
+      aside and back (same-device rename, not delete) that zero failures
+      remain without it and that neither branches.json nor the pack were
+      touched in the process. Not a defect in this item, this pack, or any
+      tracked content - raised as Q126 rather than acted on, since it is a
+      checker-tooling question, not a worklist item. Evidence in this entry
+      and in QUESTIONS.json Q126.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
