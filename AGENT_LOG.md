@@ -1,4 +1,20 @@
-﻿## 2026-10-15 18:12 UTC (audit-backlog-worker, Cowork sandbox session, scheduled run 218, claude-sonnet-5) - infrastructure fix: cleared the actual root cause blocking git fetch/push on the canonical mount, not just a lock file; no worklist item actioned.
+﻿## 2026-10-15 18:14 UTC (audit-backlog-worker, Cowork sandbox session, scheduled run 220, claude-sonnet-5) - no worklist item actionable, no new ground to cover; minor lock cleanup only.
+
+LOCK: no stale .agent-lock found at pickup (run 219 released cleanly). Fresh lock written normally.
+
+GIT: fetch/checkout/pull --ff-only all clean; HEAD matched origin/agents/audit-backlog exactly at pickup (5946081, run 219's entry). This run's own git status/fetch calls left a fresh .git/index.lock behind on the sandbox mount (self-created, under a minute old, same EPERM-on-unlink symptom as Q120/Q121) - cleared it via mcp__Windows-MCP__FileSystem delete mode direct to C:\dev\rbh-site-data\.git\index.lock, which succeeded, consistent with every prior run that has hit this. Not a new finding, just another reconfirmation of Q120.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome against https://data.rbhealth.co.uk/api/feedback - landed on the Cloudflare Access sign-in page (Azure AD / Microsoft Entra ID, email-code form), not signed in. Read-only, no click or type, tab closed. Same gate as every recent run; no answers retrievable this way without Rishi's own signed-in Chrome profile.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Does not apply.
+
+WORKLIST (step 5): reconfirmed all 8 remaining unchecked lines are [BLOCKED] - 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66 - identical to runs 218 and 219. No unblocked item exists. Did not run a rotation quality pass: Q115/Q119 already flag diminishing returns on that, and manufacturing another pass with zero expected new defects is not a better use of this run than confirming state honestly and stopping.
+
+QUESTIONS.json: 127 total, 49 open, unchanged from run 219's pickup. Did not reopen or re-litigate Q127 (live GitHub PAT in cleartext in .git/config) - credential rotation is explicitly outside this run's authority per the task's hard rules, no autonomous window was open to change that, and run 219 already escalated it correctly. Nothing new to add there.
+
+DECISION THIS RUN: no code or data change beyond this log entry and the lock cleanup above. Escalation of Q127 and Q123/Q124 stands as run 219 left it; repeating the same recommendation a third time in a row would not make it more true. Stopping here rather than inventing scope.
+
+## 2026-10-15 18:12 UTC (audit-backlog-worker, Cowork sandbox session, scheduled run 218, claude-sonnet-5) - infrastructure fix: cleared the actual root cause blocking git fetch/push on the canonical mount, not just a lock file; no worklist item actioned.
 
 LOCK: .agent-lock at pickup read "RELEASED - run 217 complete... (no-op by choice...)" timestamped 2026-10-15T16:17:23Z, measured 55 minutes old at pickup (over the 45-minute staleness threshold). Deletion via the Cowork sandbox bash mount failed with "Operation not permitted" (same EPERM class as Q120). Deleted cleanly instead via Windows-MCP PowerShell acting directly on C:\Dev\rbh-site-data (not through the Linux mount translation layer), and a fresh lock written the same way. This confirms Q120's finding generalises: any delete/unlink on this mount should go through Windows-MCP (PowerShell or FileSystem), never bash rm or git's internal unlink via the sandbox route, which is EPERM-blocked.
 
