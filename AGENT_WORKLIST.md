@@ -22634,6 +22634,37 @@ pass with no new live surface to test.
 No new question; QUESTIONS.json unchanged, 120 total, 48 open.
 Evidence: audits/scorah-hazel-grove-pharmacy-first-eligibility-4.5-
 twentyfirst-2026-10-01.txt. Done 2026-10-01.
+Quality pass (twenty-second), 2026-10-15 (unattended scheduled run 209,
+audit-backlog-worker): rotation-pool fallback, least recently verified item
+at pickup (last touched 2026-10-01). FRESH ANGLE: check-gbp-pharmacy-first.js
+(added item 4.4 pass, 2026-08-14) - the sibling clinical checker reading the
+Pharmacy First condition list in each pack's Services section and Post A -
+was genuinely untested against this branch; the eligibility checker's rules
+9-11 (age ranges, caveat sentence, 7-of-7 count) were already proven against
+it on the twenty-first pass. Baseline clean on the tracked repo: "7 pathways
+read from the generator, 28 Pharmacy First blocks across 14 packs, all
+clean." branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d
+970452c39b325ffef1, unchanged. Isolated git-archive scratch copy; checker ran
+clean there first. Injection: removed "shingles" from Post A's seven-
+condition list (Python string replace, to avoid the line-wrap sed near-miss
+the twenty-first pass recorded) - CAUGHT first attempt, naming the pack, the
+count (6 of 7) and the missing condition. Control: fresh scratch copy,
+reordered the same seven conditions with none added or removed - correctly
+PASSED, confirming content-membership rather than position matching. Both
+scratch copies deleted after use; tracked repo confirmed untouched
+throughout and after (git status clean on gbp-packs/tools/branches.json/
+modules/core bar the standing cosmetic index.lock warning; sha256 of the
+pack, branches.json and the checker all unchanged). Full 34-checker suite
+(excl. check-cdn-pins.js/check-live-hours.js) re-run against the tracked
+repo: 33/34 clean, the one failure (check-postcodes.js) tracing entirely to
+the standing untracked debris and template files every recent run has
+already documented, not a tracked-content defect. No in-repo defect - zero
+findings. Guard coverage for item 4.5 now 8 of the checkers reading
+gbp-packs/*.md proven by injection against this specific pack (up from 7).
+No generator, page, pack, checker or branches.json content changed. No new
+question; QUESTIONS.json unchanged, 125 total, 47 open. Evidence:
+audits/scorah-hazel-grove-item-4.5-gbp-pharmacy-first-injection-2026-10-15.txt.
+Done 2026-10-15.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

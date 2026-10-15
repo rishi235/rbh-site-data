@@ -1,0 +1,82 @@
+Item 4.5 (Scorah Chemists Hazel Grove GBP pack) - quality pass (twenty-second),
+2026-10-15, scheduled run 209 (audit-backlog-worker).
+
+WHY THIS ITEM: rotation pool re-derived by reading the last dated quality-pass
+paragraph inside each rotation-pool item's own AGENT_WORKLIST.md section
+(excluding the seven standing one-offs: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8).
+Two earlier derivation attempts - matching commit subjects for "item N.N",
+and matching "Quality pass" followed immediately by a date - both
+under-counted (commit subjects do not reliably name the item worked, and
+pass paragraphs use varied phrasing such as "Quality pass (twenty-first),
+2026-10-14" with text between the words and the date). Settled on taking the
+maximum of every YYYY-MM-DD-shaped date found inside each item's own section,
+then manually spot-checking the two apparent extremes (6.3 falsely showed
+2026-12-28, which is the Christmas bank-holiday test date discussed inside
+that item's own copy, not a pass date - discarded; 4.5 checked directly and
+confirmed genuine). Item 4.5 last touched 2026-10-01 (twenty-first pass,
+check-pharmacy-first-eligibility.js rules 9-11 proven by injection), the
+stalest of the 34 rotation-pool items at pickup.
+
+FRESH ANGLE: of the checkers that read gbp-packs/*.md, item 4.5's own section
+already records check-app-membership.js, check-branch-links.js,
+check-cdn-pins.js, check-editor-snapshot.js, check-gbp-packs.js,
+check-live-hours.js and check-pharmacy-first-eligibility.js all proven
+against this pack. check-gbp-pharmacy-first.js (added item 4.4 pass,
+2026-08-14) - the sibling clinical checker that reads the Pharmacy First
+condition list and age ranges inside each pack's Services section and Post A,
+as distinct from check-pharmacy-first-eligibility.js's age/cost/caveat rules
+- was genuinely untested against this specific branch.
+
+BASELINE: tracked repo, clean - "7 pathways read from the generator, 28
+Pharmacy First blocks across 14 packs, all clean." branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1, matching
+every prior run's recorded value - no drift.
+
+ISOLATION: git archive HEAD extracted to a scratch directory under this
+session's outputs folder (tracked repo never opened for writing).
+gbp-packs/scorah-hazel-grove.md sha256
+a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84 confirmed on
+the scratch copy before injection; checker ran clean on the scratch copy
+first.
+
+INJECTION: removed "shingles" from Post A's condition list in the scratch
+copy only (Python string replace across the line-wrapped sentence, to avoid
+the line-wrap sed/regex near-miss recorded in this item's own twenty-first
+pass) - CAUGHT first attempt: "Post A names 6 of the 7 Pharmacy First
+conditions and omits shingles. This block is pasted verbatim into the public
+Google profile, so an omitted condition is a service the branch runs and the
+profile denies."
+
+CONTROL: fresh scratch extraction (sha256-reconfirmed identical to the
+pre-injection original), then reordered the same seven conditions within
+Post A with no addition or removal (sinusitis, shingles, earache, impetigo,
+sore throat, insect bites, UTIs) - correctly PASSED, exit 0, confirming the
+checker matches by content membership rather than list position, as its own
+header states.
+
+RESTORE / TRACKED-REPO CHECK: both scratch directories deleted after use.
+`git status --porcelain -- gbp-packs tools branches.json modules core`
+against the tracked repo showed no change at any point in this pass (the
+only other output was the standing, cosmetic .git/index.lock unlink warning
+this mount always produces). sha256 of gbp-packs/scorah-hazel-grove.md,
+branches.json and tools/check-gbp-pharmacy-first.js all reconfirmed
+unchanged after the pass.
+
+FULL SUITE: ran all 34 checkers (excl. check-cdn-pins.js and
+check-live-hours.js, both network-dependent) against the tracked repo
+afterwards: 33/34 clean. The one failure, check-postcodes.js, traces entirely
+to the standing, already-documented untracked debris at the repo root
+(gbp-packs/TEMPLATE.md and modules/branch/pages/*.md correctly flagged as
+UNOWNED by design - they are templates, not live packs - plus the pre-existing
+.AGENT_LOG_fix_2.md / similar scratch files), the same shape every recent run
+has recorded; not a defect in any tracked page, pack, generator or
+branches.json.
+
+RESULT: zero in-repo defect - check-gbp-pharmacy-first.js's clinical condition
+rule correctly protects Scorah Chemists Hazel Grove's own Pharmacy First copy,
+now proven by injection for the first time. Guard coverage for item 4.5 now 8
+of the checkers that read gbp-packs/*.md proven by injection against this
+specific pack (up from 7).
+
+No generator, page, pack, checker or branches.json content changed. No new
+question raised.
