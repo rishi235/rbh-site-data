@@ -21899,6 +21899,51 @@ question; QUESTIONS.json unchanged (120 total, 48 open). No checker logic,
 generator, page, pack or branches.json content changed - this pass's only
 file changes are this log entry and this worklist entry. See
 AGENT_LOG.md, 2026-10-02, for the fuller transcript.
+      Quality pass 2026-10-15 (twenty-fourth, unattended scheduled run 212):
+      rotation pool re-derived with git log -1 --grep (case-insensitive,
+      end-anchored and non-digit-boundary patterns to avoid "4.4" matching
+      "4.40"-style false positives, none of which exist here but the method
+      now guards against it) against all 36 non-one-off, non-blocked items;
+      3.4, 3.9, 4.4 and 4.11 tied stalest at 2026-10-02. Of those, 3.9 and
+      4.4 tied fewest recorded passes (23 each); picked 4.4 (Scorah Chemists
+      Bramhall pack) as the one this worker's own prior note already flagged
+      as a live-copy-gap item worth a repo-side recheck. Of the 36 checkers
+      in tools/, 18 were already proven by injection against this item's
+      branch (scorah_bramhall) per this section's own history; check-branch-
+      links.js was genuinely untested against it. Verified by hand first:
+      Scorah Bramhall's odsCode (FL495), nhsEmail
+      (pharmacy.FL495@nhs.net), nhsReviewUrl, googleReviewUrl, website and
+      pfLink all match check-branch-links.js's six stated rules exactly.
+      Ran the checker directly against the tracked repo: clean, 16 branches
+      read, the one standing WARN (Clear Chemist Aintree, no NHS review
+      link, deliberate per its own item) unchanged, exit 0. Proved it
+      actually discriminates on this branch specifically via an isolated
+      git-archive scratch copy (tracked repo never opened for writing):
+      truncated scorah_bramhall's nhsReviewUrl to stop at the ODS code
+      (the historical Gordon Short Crosby bug shape) - CAUGHT first
+      attempt, naming the branch, the wrong value and the consequence
+      ("lands the patient on the profile page instead of the review
+      form"). Negative control on the same scratch copy (nhsReviewUrl
+      restored, keywords array reordered, a field no rule reads) ran
+      clean. Scratch directory deleted after use; `git status --porcelain
+      -- branches.json tools` on the tracked repo confirmed empty
+      throughout and after. No in-repo defect - Scorah Chemists Bramhall's
+      link fields are all correct and now proven by injection against this
+      checker for the first time. Guard coverage for item 4.4 now 19 of 36
+      checkers proven by injection against this specific branch (up from
+      18). ANSWER PICKUP cross-check (this run): portal feedback feed read
+      in full via Claude in Chrome, read-only, single tab, closed after -
+      newest entry still the Q52 answer, 2026-09-01T22:44:51.524Z, now over
+      six weeks stale; none of the 48 currently open questions (Q77-Q126)
+      have a newer answer. Standing Q43 live-copy gap (Bramhall's Weebly
+      contact block still reading Cheshire against branches.json's Greater
+      Manchester, and the truncated house number) not re-checked this pass
+      since item 4.4's own section is about the repo-side pack, not the
+      live site; see item 4.5's history for that branch's live-half note.
+      No generator, page, pack, checker logic or branches.json content
+      changed. Files changed: AGENT_WORKLIST.md (this paragraph),
+      AGENT_LOG.md (this run's entry). No new question raised; QUESTIONS.json
+      unchanged, 126 total, 48 open.
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
