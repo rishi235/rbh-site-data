@@ -1996,5 +1996,20 @@
     "status": "open",
     "answer": null,
     "note": "Found while this run used 'run every checker once' as a sanity habit before logging item 4.15's own twenty-second pass; not itself part of that item's verification. The file was renamed aside and back during diagnosis only, never deleted; its sha256 and the rest of the working tree were confirmed unchanged before and after."
+  },
+  {
+    "id": "Q127",
+    "date": "2026-10-15",
+    "item": "process/security finding (does not block any single worklist item)",
+    "question": "This run's git remote inspection (`git remote -v`) showed the origin URL for this repo embeds a live GitHub Personal Access Token in cleartext inside .git/config (https://rishi235:<PAT>@github.com/...), which the push/pull operations have clearly been using successfully (confirmed working this run: fetch, pull and a push dry-run all succeeded, HEAD matches origin exactly). That token is not in any tracked file or commit, but it is sitting in plain text in the working copy's local git config on a shared/automated host, and this run's own tool output displayed it in full. Should it be rotated and replaced with a credential helper or short-lived token, left as is since it only grants push to this one repo, or something else?",
+    "options": [
+      "Rotate the PAT now via GitHub settings and reconfigure the remote with the new token (or a credential helper), since the current one has been displayed in plaintext at least once and the exposure window is unknown. Costs a few minutes and one re-auth.",
+      "Leave it as is: the token is scoped to this repo only (per Q87-era setup) and rotating it risks breaking the only working push route this sandbox has, which took multiple runs to establish.",
+      "Something else - Rishi specifies."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Also corrects Q87 (dated 2026-08-31): that question's premise, that this sandbox has no working route to GitHub, is no longer true. This run confirmed git fetch/pull/push all succeed via the HTTPS+PAT remote shown above, HEAD exactly matches origin/agents/audit-backlog, and the publish script ran cleanly (see AGENT_LOG.md this run). Q87 should be treated as answered/superseded by events rather than still blocking anything."
   }
 ]
