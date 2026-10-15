@@ -39002,6 +39002,68 @@ no page, generator or data field changed this run.
       new injection round; the case dimension closed yesterday appears to have
       been the last one worth testing via injection, and no new untested angle
       was found this run.
+      Twentieth quality pass, 2026-10-15 (scheduled run, Cowork sandbox
+      session, claude-sonnet-5): picked as the least recently verified
+      rotation-pool item by this file's own inline dates (last paragraph
+      here dated 2026-09-19; 1.1, 1.4, 2.2, 5.6, 5.7, 6.7 and 6.8 remain
+      excluded from the rotation pool per the 2026-08-30 correction note
+      above). CORRECTION TO THE RECORD: this file's own text is stale by
+      11 days. `git log --grep` found a twentieth pass already happened on
+      2026-10-04 (commit b479453), but that run touched only AGENT_LOG.md
+      and QUESTIONS.json, not this file, so the paragraph below is actually
+      the TWENTY-FIRST pass and this item was really 11 days stale, not 26.
+      Flagging for whoever reads this next: a commit message claiming an
+      item's "quality pass" is not proof this file was updated to match -
+      check both. SEPARATE CORRECTION, found while re-reading Q53 directly
+      in QUESTIONS.json rather than trusting this paragraph's own prior
+      wording: Q53 and Q54 are NOT open. Both have been status "answered"
+      since 2026-08-04/2026-10-04 respectively. Q53 was answered by Rishi
+      ("claude to make the changes or add to my asana explicit
+      instructions") and actioned on 2026-10-04 by creating Asana task gid
+      1219146122533537 in Rishi WORK, carrying the three fix instructions;
+      Q54 was answered (tell Ahrefs Site Audit to ignore protected email
+      addresses per project). Every pass from the fifth (2026-08-30) through
+      the nineteenth (2026-09-19) wrote "Q53 and Q54 stay open" in this file
+      without re-reading QUESTIONS.json itself, so the error compounded for
+      seven passes before the 2026-10-04 run (which read QUESTIONS.json,
+      found Rishi's answer, and actioned it, but logged only to
+      AGENT_LOG.md/QUESTIONS.json, not here) and then eleven more days
+      before this pass caught it in this file. REPO HALF: ran
+      tools/check-service-links.js as-is against the tracked repo, no new
+      injection (no new untested dimension of RULE 1/2/3 identified this
+      run). Clean: 177 generated pages, 6 non-generated public-copy files, 2
+      JS copy sources, 1000 links, 423 to the estate's 13 branch domains,
+      exit 0, same 6 KNOWN issues as every prior pass (5 link targets + 1
+      claim), none stale. LIVE HALF (Claude in Chrome, one tab, read-only,
+      nothing clicked, typed or submitted): all three dead links named in
+      Q53 re-read and unchanged - www.riddingspharmacy.co.uk/clinic-prices
+      still 404s, www.tiffenbergschemist.co.uk/book-now.html still 404s,
+      and www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+      still 404s while switch-prescriptions.html still serves live and
+      still carries the "Support that delivers results." weight loss tile.
+      Q53 is answered and tracked as Asana task gid 1219146122533537
+      (status there not checked this run - Asana is outside this repo and
+      this run did not open it); the fix is Rishi's or Dane's to make live,
+      not a decision this repo is waiting on. Nothing new to add to Q53 or
+      Q54's own notes. INCIDENTAL, OUT OF SCOPE FOR 6.2: a full
+      tools/check-*.js sweep run alongside this pass found
+      tools/check-postcodes.js exiting 1, but entirely against three
+      untracked, gitignored scratch files at the repo root
+      (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md, .tmp_log_combined.md -
+      debris from earlier runs' AGENT_LOG.md splitting work, confirmed
+      absent from `git ls-files` and from `git status --porcelain`). Not
+      this item's subject matter and not a tracked or live-facing defect;
+      left alone rather than widening this pass's scope, consistent with
+      Q119/Q120's existing description of this exact class of repo-root
+      debris. STEP 3 answer pickup: portal feed
+      (https://data.rbhealth.co.uk/api/feedback) read in full this run -
+      newest entry still Q52, 2026-09-01T22:44:51.524Z, unchanged for
+      six-plus weeks; cross-checked against all 47 currently open
+      questions, nothing new (Q53/Q54 correctly excluded from that count,
+      being answered). RESULT: zero in-repo defect, no new question, one
+      stale-record correction made in this file (Q53/Q54 status). This was
+      a re-verification, not a new injection round; no new untested angle
+      of check-service-links.js was identified this run.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
