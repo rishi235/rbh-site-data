@@ -1,0 +1,67 @@
+Item 4.6 (McCanns Chemist Aigburth GBP pack) - twenty-second quality pass
+2026-10-15, scheduled run 211 (audit-backlog-worker)
+
+Checker under test: tools/check-uk-spelling.js
+Reason selected: of the checkers reading gbp-packs/*.md, item 4.6's own
+AGENT_WORKLIST.md section already recorded check-app-membership.js,
+check-brand-spelling.js, check-cdn-pins.js, check-editor-snapshot.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-live-hours.js and
+check-pharmacy-first-eligibility.js all proven against this pack.
+check-uk-spelling.js was genuinely untested against McCanns Aigburth
+specifically (it was first proven, by design, against Hirshmans Ainsdale
+on the item 4.3 pass that created it, 2026-08-13).
+
+Baseline (tracked repo):
+  node tools/check-uk-spelling.js
+  -> clean. 167 US spellings held against their UK forms (floor 120),
+     198 page/paste/banner files, 28 pack/sheet files, 4 live scripts,
+     3 stylesheets, 1 data file. markup 559450 chars, markdown 257828,
+     script strings 5999, stylesheet content 2, data strings 8896. Exit 0.
+
+Integrity values before testing:
+  branches.json sha256: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+  gbp-packs/mccanns-aigburth.md sha256: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+  Both match every prior run's recorded value - no drift.
+
+Method: isolated git-archive scratch extraction (git archive HEAD | tar -x
+into /tmp/scratch-4.6), tracked repo never opened for writing.
+
+POSITIVE TEST (injection):
+  File: gbp-packs/mccanns-aigburth.md, business description (section 1).
+  Change: "...as an independent NHS pharmacy." ->
+          "...as an independent NHS pharmacy, and we prioritize your health."
+  Result: FAIL gbp-packs/mccanns-aigburth.md:22: reads "prioritize". UK
+  English is "prioritise" - caught on the first attempt.
+
+NEGATIVE CONTROL:
+  Fresh scratch extraction (sha256-reconfirmed identical to the
+  pre-injection original). File: same pack, closing line of section 1.
+  Change: "Drop in and talk to us." -> "Drop in and talk to us, and the
+  pharmacist will organise your medicines review colour-coded by priority."
+  Both inserted words ("organise", "colour-coded") are the UK-correct
+  forms. Result: clean, exit 0 - confirms the checker matches the US word
+  list rather than any near-miss substring of the UK form.
+
+Both scratch directories deleted after use (/tmp/scratch-4.6,
+/tmp/scratch-4.6b).
+
+Tracked repo confirmed untouched throughout and afterwards:
+  git status --porcelain -- gbp-packs tools branches.json modules core
+  -> empty
+  sha256sum branches.json gbp-packs/mccanns-aigburth.md
+  -> both unchanged, matching the values recorded above.
+
+Full suite re-run against the tracked repo afterwards (35 checkers,
+excluding check-cdn-pins.js and check-live-hours.js as network-dependent):
+34/35 clean. The one failure, check-postcodes.js, traces entirely to the
+pre-existing untracked, gitignored debris file .AGENT_LOG_fix_2.md at the
+repo root (257MB, left over from earlier AGENT_LOG.md size-reduction work),
+already raised as Q126 by the previous run (210) against Tiffenbergs
+Aintree - not a defect in any tracked page, pack, generator or
+branches.json, and not this item's subject matter.
+
+Conclusion: no in-repo defect. McCanns Chemist Aigburth's GBP pack is
+written in UK English and is now proven by injection against
+check-uk-spelling.js specifically. Guard coverage for item 4.6: 9 of the
+checkers reading gbp-packs/*.md now proven by injection against this pack
+(up from 8).

@@ -23378,6 +23378,41 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       by renaming lock files aside rather than deleting them - see
       AGENT_LOG.md for detail. Evidence:
       audits/mccanns-aigburth-gbp-pack-quality-pass-2026-10-01-twentyfirst.txt.
+      Quality pass 2026-10-15 (twenty-second): check-uk-spelling.js proven by
+      injection against this pack for the first time (of the checkers
+      reading gbp-packs/*.md, this item's own section had already recorded
+      check-app-membership.js, check-brand-spelling.js, check-cdn-pins.js,
+      check-editor-snapshot.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-live-hours.js and check-pharmacy-first-eligibility.js proven
+      against it; check-uk-spelling.js was genuinely untested here).
+      branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+      and the pack's own sha256
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693 both
+      matched every prior run, no drift. Baseline clean on the tracked repo
+      (167 US spellings held against their UK forms, 198 page/paste/banner
+      files, 28 pack/sheet files, exit 0). Isolated git-archive scratch
+      extraction throughout, tracked repo never opened for writing. Injection:
+      inserted "and we prioritize your health" into the business description
+      - CAUGHT first attempt, naming the file, the line and the correct UK
+      form ("reads \"prioritize\". UK English is \"prioritise\""). Negative
+      control: a fresh scratch extraction with "organise" and
+      "colour-coded" added to the same description (both UK-correct) - ran
+      clean, confirming the checker reads the word list rather than any
+      near-miss substring. Both scratch copies deleted after use; tracked
+      repo confirmed untouched throughout (git status --porcelain -- gbp-packs
+      tools branches.json modules core empty; both sha256 values
+      reconfirmed unchanged afterwards). Full 35-checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js, network-dependent) re-run
+      against the tracked repo: 34/35 clean; the one failure,
+      check-postcodes.js, traces entirely to the same pre-existing untracked
+      debris file (.AGENT_LOG_fix_2.md) every recent run has already
+      documented against Q126 - not a defect in any tracked page, pack,
+      generator or branches.json. No in-repo defect - McCanns Chemist
+      Aigburth's pack is written in UK English and now proven by injection
+      against this checker. Guard coverage for item 4.6 now 9 of the
+      checkers reading gbp-packs/*.md proven by injection against this
+      specific pack (up from 8). No generator, page, pack, checker or
+      branches.json content changed. No new question raised.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
