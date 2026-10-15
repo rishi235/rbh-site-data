@@ -1,5 +1,9 @@
 ## 2026-10-15 18:43 UTC (audit-backlog-worker, Cowork sandbox session, scheduled run 221, claude-sonnet-5) - no worklist item actionable, no new ground to cover; pure state reconfirmation, no changes.
 
+PUBLISH (step 10): node tools/build-audit-status.js attempted - failed with gh: not found, same pre-existing gap as Q124, no new information. Logged rather than skipped.
+
+LOCK: releasing cleanly before exit.
+
 LOCK: no stale .agent-lock found at pickup (run 220 released cleanly). Fresh lock written normally via the sandbox bash mount, no EPERM encountered this run.
 
 GIT: fetch/checkout/pull --ff-only all clean on first attempt, no stray lock or ref debris encountered this time. HEAD matched origin/agents/audit-backlog exactly at pickup, zero ahead/behind. Noted in passing but not displayed again: the GitHub PAT remains visible in cleartext in .git/config's remote URL, same as Q127 already recorded. Not re-escalated beyond confirming it is still there and still unrotated, since rotation is outside this run's authority and repeating the same flag a fourth time adds nothing.
