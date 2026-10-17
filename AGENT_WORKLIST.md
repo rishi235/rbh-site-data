@@ -27910,6 +27910,59 @@ directly rather than re-deriving the same facts by hand.
       pack at least once. Evidence in
       audits/sk-chemists-bootle-url-scheme-4.11-twentythird-2026-10-02.txt.
       Done 2026-10-02
+      Twenty-fourth quality pass, 2026-10-17 (unattended scheduled run).
+      Picked as the rotation-pool item last touched longest ago (3.4 and 3.9
+      tied on the same date, 2026-10-02; 4.11 chosen as this run had already
+      started reading it). Of the ten checkers confirmed to read
+      gbp-packs/*.md, check-uk-spelling.js was the one remaining never proven
+      against this specific pack by direct injection - the twenty-third pass's
+      closing line ("all ten gbp-packs-reading checkers have now been proven
+      against this specific pack at least once") was written one checker
+      early; that pass covered check-url-scheme.js only, and check-uk-
+      spelling.js was still untested here. Chose it to close that gap.
+      Baseline: sha256(gbp-packs/sk-chemists-bootle.md) =
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da. Full
+      37-checker suite run against the tracked repo first: 36/36 clean plus
+      the one pre-existing check-postcodes.js failure, which is not a repo
+      defect - confirmed this run to be entirely against two gitignored
+      scratch files (.AGENT_LOG_merged.md, .AGENT_LOG_fix_2.md, debris from
+      an earlier AGENT_LOG.md split attempt, matched by /.AGENT_LOG_*.md in
+      .gitignore and absent from `git ls-files`), not against any tracked
+      file, page, pack or branches.json. Full-tree scratch copy via
+      `git archive HEAD | tar -x` to a native sandbox path; tracked working
+      tree never opened for writing during the injection work.
+      INJECTION 1: planted "organized" (US spelling) into the pack's own
+      business description, real visible copy, not inside a quoted span or
+      a URL - CAUGHT cleanly, exit 1, line 17 named, UK form "organised"
+      offered. RESTORE: reverted, sha256-reconfirmed identical to baseline,
+      re-run clean. CONTROL (should NOT fire): the pack's four existing uses
+      of "check" ("blood pressure check[s]") left untouched throughout -
+      correctly never flagged, confirming the deliberate exclusion in the
+      checker's own word list holds on this pack's actual copy, not just in
+      the abstract. FOLLOW-UP INJECTION (quote-masking should not swallow
+      real copy): wrapped the word "paid" in Post C's own sentence in
+      literal quotation marks ("This is a private, "paid" service") to
+      check the .md reader's maskQuotes() step, which exists to read a
+      pack's quoted record of what a live page says as evidence rather than
+      as a claim, does not also blank out a pack's own unquoted prose
+      elsewhere on the same line by accident - re-run stayed clean for the
+      right reason (no US spelling was in that span either way), restored,
+      sha256-reconfirmed identical to baseline. Full 37-checker suite
+      re-run against the tracked repo after restoring: unchanged, 36/36
+      clean plus the same pre-existing, non-defect check-postcodes.js
+      debris-only failure. `git status --porcelain` on the tracked working
+      tree showed no change to gbp-packs/sk-chemists-bootle.md or any
+      tools/*.js file. No generator, page, pack or branches.json field
+      changed. RESULT: no defect found this pass. Guard coverage for item
+      4.11 now genuinely extends to all ten gbp-packs-reading checkers
+      proven by direct injection against this specific pack, closing the
+      gap the twenty-third pass's own closing line described one pass
+      early. Step 3 answer pickup attempted via Claude in Chrome:
+      https://data.rbhealth.co.uk/api/feedback returned the same Cloudflare
+      Access sign-in page (Azure AD / Microsoft Entra ID, email+code form)
+      every recent run has hit, confirming no live Rishi session in this
+      session's Chrome context; no login attempted, tab closed. No new
+      question raised; blocks nothing.
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
