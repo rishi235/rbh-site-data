@@ -13128,6 +13128,20 @@ Done 2026-10-14 (twenty-third pass).
       check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js -
       a candidate list for a twenty-fourth pass. No question raised.
       Done 2026-10-02.
+      Twenty-fifth pass, run 254, 2026-10-17: re-derived the rotation pool's
+      oldest-remaining item by exact commit timestamp (git log, not just date)
+      now that 4.11 has been re-verified (run 253) - 3.9 was next oldest at
+      2026-10-02T05:28:09+01:00, ahead of 3.4 at 2026-10-02T19:53:39+01:00.
+      Ran the full tools/check-*.js suite (37 scripts) read-only against the
+      working tree: 36/37 clean, check-postcodes.js's reported failures all
+      trace to gitignored scratch debris (.AGENT_LOG_*.md,
+      _agent-run-debris/), confirmed via git check-ignore -v and absent from
+      git ls-files - the same pre-existing non-defect 4.11's twenty-fourth
+      pass already documented, not a new finding. No injection test this
+      pass (sandbox-only session, no Windows-MCP restore path available this
+      run to guarantee a safe byte-for-byte restore); branches.json sha256
+      confirmed unchanged throughout (7ba2569b...5ffef1), git status clean.
+      No defect found, no question raised.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
