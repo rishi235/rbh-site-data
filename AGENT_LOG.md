@@ -1,3 +1,66 @@
+## Run 289 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start (released by run 288). Created fresh.
+A stale `.git/index.lock` (0 bytes) was found, about 54 minutes old, under
+the 1-hour staleness threshold, so left in place per the rule as written;
+`git status` and `git fetch` both ran clean despite it, so it was not
+actually blocking anything this run. Not removed.
+
+GIT: `git fetch origin` and `git status` both clean, branch already up to
+date with `origin/agents/audit-backlog` (HEAD `d34dfd12`, run 288's
+commit). No pull needed.
+
+ANSWER PICKUP (step 3): not attempted this run via Chrome navigation (kept
+this run to the repo-side work only, given every prior attempt since the
+Cloudflare Access wall appeared has returned the same sign-in page; no
+login attempted, consistent with the hard rule). QUESTIONS.json already
+confirms, from run 288's note, that Q8/Q9/Q13/Q16/Q52/Q60/Q66 behind the
+8 `[BLOCKED]` worklist lines are "answered" but still genuinely blocked on
+actions outside this run's reach (Weebly paste, a live GBP write, or data
+only Rishi can supply). Not re-walked this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines remain `[BLOCKED]`, unchanged. 69
+items checked `[x]`, 17 unchecked. Took the quality-pass fallback. Checked
+QUESTIONS.json for the most recent open question per rotation candidate
+rather than re-deriving the full tie-break: item 4.7 (McCanns Chemist
+Sandringham GBP pack)'s last pass was logged 2026-09-18 (Q113), older than
+4.1's 2026-10-13 pass (Q125), 4.15's 2026-10-15 pass (Q126), and 3.12 which
+run 288 just did today. Picked 4.7.
+
+QUALITY PASS ON 4.7 (twenty-fourth, repo half only): re-read branches.json's
+`mccanns_sandringham` entry and `gbp-packs/mccanns-sandringham.md` side by
+side. Address (1b Aigburth Road, Liverpool L17 4JP), phone (0151 727 3076),
+hours (Mon-Fri 9-1 and 2-6, Sat/Sun closed), review link
+(g.page/r/CbMDr1qOLqnrEAE/review), catchment (St Michael's, Lark Lane,
+Dingle, St Michael's leading per the Q25/5.7 move), hasApp (false, nothing
+in the pack mentions an app) and the sister-branch sentence ("Our sister
+McCanns Chemist branch is further along Aigburth Road", naming no place)
+all still agree. No drift since the twenty-third pass. Ran the full checker
+suite directly against the tracked working tree: 36 of 37 pass; the one
+failure, `tools/check-postcodes.js`, is caused entirely by untracked debris
+files at the repo root left by earlier runs' lock-handling work
+(`AGENT_LOG_NEW_267.md`, `AGENT_LOG_combined_scratch.md` and similar,
+confirmed via `git status --porcelain`, all `??`), the same cause run 288
+and the Q126 finding already recorded - not a new defect, not touched this
+run (cleanup is a separate, larger piece of work given the EPERM-on-unlink
+history, and risks adding more debris rather than removing it).
+No in-repo defect found. Q113 (the live GBP profile NAME field divergence,
+"McCanns Pharmacy - Sandringham..." vs branchName "McCanns Chemist
+Sandringham") was not re-checked live this run (no Chrome navigation this
+pass, see above) and remains open and unactioned, as recorded.
+Not re-raised as a new question. Appended a short note to AGENT_WORKLIST.md
+under item 4.7 recording this pass; no checkbox change (item already `[x]`).
+No file other than AGENT_LOG.md and AGENT_WORKLIST.md touched.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` after committing.
+
+LOCK: released at end of run, `.agent-lock` deleted.
+
+---
+
 ## Run 288 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start (released cleanly by run 287). Created
