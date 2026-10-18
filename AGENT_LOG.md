@@ -1,3 +1,76 @@
+## Run 307 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start; new lock written (22:42:48Z).
+
+GIT: `git fetch`/`git checkout agents/audit-backlog`/`git pull --ff-only` all
+clean this run, no lock quirk, no index.lock debris found. HEAD (`796925b`)
+matched `origin/agents/audit-backlog` exactly, zero ahead/behind, before any
+work started - confirms no other run or human edit landed between run 306
+(23:16 BST) and this one.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page (sixteenth consecutive run this has happened). No sign-in
+attempted, per the hard rule. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Not in an autonomous window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-306 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6), all
+8 still carry `[BLOCKED]`. Zero unblocked unchecked items.
+
+QUALITY-PASS FALLBACK: did not re-run the 37 `tools/check-*.js` scripts this
+run. `git log --stat -1 HEAD` confirms the only change since run 303's fresh
+full suite run (36/37 clean) has been five further log-entry-only commits
+(runs 304-306, now adding this one). Re-running against byte-identical
+tracked content would burn this run's time budget for zero new information,
+the standing finding since run 292.
+
+QUESTIONS.json: 127 total, 49 open, unchanged counts from run 306. Q127
+(GitHub PAT exposed in cleartext in this working copy's `.git/config`)
+checked again via the QUESTIONS.json record only (not re-displayed via
+`git remote -v`, to avoid re-exposing it in this log) - still open, still
+unrotated, dated 2026-10-15 (now day 4 open). Not actioned: rotating a live
+credential is outside this run's authority per the hard rule that credentials
+are never an autonomous decision, regardless of any autonomous window.
+
+FINDING: no actionable worklist item, same as the last twenty runs (287-306).
+Nothing in the repo content changed this run.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` was attempted. This
+run executed inside the Cowork Linux sandbox mount (`/sessions/.../mnt/
+rbh-site-data`), which has no `gh` CLI installed (`which gh` returns nothing,
+`gh auth status` fails with "command not found") - the same environment
+runs 302-305 hit, not the authenticated host run 306 happened to land on.
+Publish failed at the GitHub API call as expected; `reports/digital/
+Digital_Audit_Status.html` was NOT refreshed this run. This reconfirms run
+306's own observation: publish reliability depends entirely on which host
+executes the schedule, not on anything in this repo, and is unrelated to
+Q124's credential-scope question.
+
+RECOMMENDATION (restated, unchanged in substance, now twenty-one consecutive
+no-op runs on the actionable-work side): every unchecked worklist item is
+still blocked on a supervised human action (Weebly repaste, GBP edit, Ahrefs
+UI decision) this unattended worker cannot perform, and the quality-pass
+rotation pool remains clean with nothing new to surface. Q127's live,
+cleartext push credential has now gone unrotated across twenty-one runs of a
+scheduled task that reads it, and this run's own `gh`-less sandbox is a
+second argument for the same fix: a short-lived or credential-helper-based
+token would not need to sit in cleartext in a config file that different
+unattended hosts keep reading. The correct next action is still for Rishi to
+triage QUESTIONS.json - Q127 specifically - and decide whether to pause this
+schedule until fresh unblocked work exists, rather than keep firing identical
+runs at this cadence.
+
+GIT COMMIT/PUSH (step 9): only this log entry and `.agent-lock` lifecycle to
+commit; no worklist line changed, no generator/page/pack/checker/
+branches.json content changed.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 306 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start; new lock written (22:13:41Z).
