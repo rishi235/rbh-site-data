@@ -19354,6 +19354,44 @@ Pharmacy First wording to the NHS service description.
       so this was logged as an open question rather than decided. Nothing
       else changed in-repo this pass; no in-repo defect found. Item stays
       `[x]` (quality pass, not a state change).
+
+      Quality pass 2026-10-18 (twenty-fourth, unattended scheduled run, run
+      287, Cowork sandbox): selected as stalest in the rotation pool (checked
+      items in phases 2/3/4 only, excluding the one-off Phase 1/5/6 items),
+      re-derived fresh: this item's own last-mentioned date was 2026-10-13,
+      tied with several other pool items at that date, broken by picking the
+      item with the fewest quality-pass mentions in its own section (23, tied
+      lowest with 3.12/4.3/4.7; this one also had the smallest section by
+      character count of that tied group). REPO HALF: full checker suite run
+      (52 files in tools/check-*.js, excluding check-cdn-pins.js and
+      check-live-hours.js, both network-dependent): 51/52 clean. The one
+      failure, check-postcodes.js, traces entirely to four untracked,
+      unpublished debris files (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md,
+      AGENT_LOG_NEW_267.md, AGENT_LOG_combined_scratch.md), confirmed by
+      grepping the checker's own output for the failing filenames and then
+      confirming with `git ls-files --error-unmatch` that none is tracked -
+      same recurring non-issue as the twenty-third pass, not cleared, as
+      unlink() is still blocked on this sandbox mount (not re-tested this
+      pass, out of this run's one-item scope). gbp-packs/fishlocks-
+      ainsdale.md re-checked field by field against the fishlocks_ainsdale
+      entry in branches.json: branchName "Fishlocks Chemist Ainsdale",
+      brandLabel "Fishlocks Chemist", address 17 Station Road/Ainsdale/
+      PR8 3HN, phone 01704 575478, hasApp true, serviceAreaList [Ainsdale,
+      Birkdale, Southport] - all match the pack's "Name on GBP", address,
+      phone and catchment lines exactly, no drift since the twenty-third
+      pass. LIVE HALF: not re-read this pass. Claude in Chrome was available
+      and used earlier in this run only for the step 3 answer-pickup attempt
+      (https://data.rbhealth.co.uk/api/feedback, same canvas/image-only
+      sign-in wall seen on every run; no login attempted); re-browsing the
+      live Fishlocks Ainsdale pages and GBP listing a third and fourth time
+      inside two runs would not add a new fact, since the twenty-second and
+      twenty-third passes already read the post targets, the two live
+      service pages and the GBP profile name (Q125) directly. Checked
+      QUESTIONS.json instead: Q113 and Q125 both still "open", unchanged -
+      the estate-wide GBP name divergence this item surfaced on the
+      twenty-third pass has not yet been decided, so nothing to apply. No
+      new question. Nothing changed in-repo this pass; no in-repo defect
+      found. Item stays `[x]` (quality pass, not a state change).
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

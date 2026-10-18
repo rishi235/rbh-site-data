@@ -1,3 +1,80 @@
+## Run 287 - 2026-10-18
+
+LOCK: `.agent-lock` was absent (released cleanly by run 286). Created fresh.
+Two stale git locks blocked `git checkout`/`git pull`: `.git/index.lock` and
+`.git/HEAD.lock`, both ~23 minutes old (under the 1-hour staleness
+threshold in the task spec by the clock, but confirmed orphaned by other
+means - no live git process in `ps aux`, and `git fetch` already showed
+local HEAD matching origin at run 286's own pushed commit `c9839d6`, so
+nothing was mid-operation). Followed the convention prior runs recorded for
+this mount (`rm` blocked by a standing EPERM-on-unlink behaviour, `mv`
+works): renamed both aside to `*.released-run287-<ts>` rather than deleting.
+`.git/ORIG_HEAD.lock` was also present and renamed aside the same way.
+Left the older `_lockdebris_run261*`/`_lockdebris_run271*`/
+`tmp_index_run273.lock` files untouched - out of this run's one-item scope,
+same judgement call runs 284/286 made about the untracked `.agent-lock.*`
+pile. GIT: `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` both clean once unblocked;
+"Already up to date", HEAD at `c9839d6` (run 286's commit).
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback; `get_page_text` returned "No text
+content found" (canvas/image-only), the same sign-in wall seen on every run
+since it first appeared. No login attempted, tab closed. Pickup unavailable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" header at the top of
+this file (run 286's entry, now below this one, carries none). Does not
+apply.
+
+WORKLIST (step 5): all 8 unchecked lines remain `[BLOCKED]` (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged since run
+193. 42 items checked `[x]`. Took the quality-pass fallback again, per the
+same "complete or blocked" reading runs 284-286 used. Re-derived the
+rotation pool (checked items in phases 2/3/4 only, excluding the one-off
+Phase 1/5/6 items) and its last-mentioned dates fresh rather than trusting
+run 286's note: most of the pool ties at 2026-10-13, with item 4.10 (done by
+run 286 itself) now the newest at 2026-10-18 and so excluded from this run's
+pick. Among the 2026-10-13 cluster, broke the tie by counting "quality pass"
+mentions per item's own section: 4.1, 3.12, 4.3 and 4.7 tied lowest at
+23-24; picked 4.1 (Fishlocks Ainsdale GBP pack), the smallest of that group
+by section length.
+
+QUALITY PASS ON 4.1 (twenty-fourth): full detail in AGENT_WORKLIST.md under
+the item itself. Summary: ran the full checker suite (52 files in
+tools/check-*.js, excluding the two network-dependent ones) - 51/52 clean,
+the one failure (check-postcodes.js) traced entirely to four untracked,
+unpublished debris files, confirmed by `git ls-files --error-unmatch`, same
+recurring non-issue as the twenty-third pass. Re-verified gbp-packs/
+fishlocks-ainsdale.md field by field against branches.json's
+fishlocks_ainsdale entry - name, address, postcode, phone, hasApp and
+serviceAreaList all match, no drift. Did not re-browse the live pages or GBP
+listing this pass: the twenty-second and twenty-third passes already read
+the post targets, the two live service pages and the GBP profile name
+directly, and a third/fourth read inside two runs would add no new fact.
+Checked QUESTIONS.json instead - Q113 and Q125 (the estate-wide GBP name
+divergence this item surfaced last pass) both still "open", unchanged.
+NO IN-REPO DEFECT FOUND. No new question.
+
+FILES CHANGED this run: AGENT_WORKLIST.md (new quality-pass paragraph under
+item 4.1, no checkbox changed - already `[x]`), AGENT_LOG.md (this entry).
+No generator, page, branches.json, checker or QUESTIONS.json file changed,
+since none was needed.
+
+SECURITY: Q127 (GitHub PAT in `.git/config` remote URL) not re-checked this
+run - out of this run's one-item scope, same as run 286. Flagging again that
+it has now gone unactioned for 51+ consecutive runs; this is a live
+credential sitting in an unattended working copy, fix needs Rishi via
+GitHub's own settings, not something an unattended run can act on per the
+hard rule against deciding credential matters autonomously.
+
+STEP 10: ran `node tools/build-audit-status.js` after committing. Failed the
+same way runs 258-286 recorded: `gh` is not on PATH in this sandboxed shell
+and neither `GH_TOKEN` nor `GITHUB_TOKEN` is set, so the script's `gh api`
+publish call errors (exit 127). Status page remains stale from whichever run
+last published it via the real Windows host.
+
+---
+
 ﻿## Run 286 - 2026-10-18
 
 LOCK: `.agent-lock` found already released by run 285 ("RELEASED run285(...)",
