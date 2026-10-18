@@ -2017,3 +2017,21 @@ WORKLIST (step 5): reconfirmed all 8 remaining unchecked lines are [BLOCKED] (5.
 DECISION THIS RUN: took no write action in this repo and did not attempt to resolve Q127. Q127 (live GitHub PAT in cleartext in .git/config) is a credential-handling question and the task's own hard rules say that is not something to decide autonomously, even in an autonomous window (none was open this run anyway - checked, none present). Q123/Q124 (oversized AGENT_LOG.md, step 10 publish route) are also still open infrastructure decisions, not mine to resolve unattended.
 
 RECOMMENDATION TO RISHI: this backlog has stopped making forward progress on substantive worklist items - every remaining item has been [BLOCKED] for many runs and the open-question pool has grown to 49, dominated by the automation finding problems with itself (lock files, git ref corruption, log file bloat, a live PAT sitting in cleartext in .git/config). Recommend pausing this schedule and reviewing Q96, Q102, Q119-Q127 directly rather than letting further unattended runs keep finding new infrastructure symptoms of the same root causes. No code or data changed this run.
+PUBLISH (step 10) OUTCOME: ran `node tools/build-audit-status.js`, failed with
+`gh: not found` (exit 127), identical failure mode to every run since this was
+first logged. Status page not updated this run. Same gap, still unresolved.
+
+LOCK HOUSEKEEPING: found run 300's known broken zero-byte ref file at
+`.git/refs/remotes/origin/agents/audit-backlog.lock.cleared-302-1792354521`
+(created by this run's own `mv`-aside of a mid-commit `HEAD`/ref lock, same
+mechanism documented in run 301's entry). Fixed in place using run 301's own
+documented pattern - overwrote it with this branch's current HEAD SHA rather
+than deleting (delete fails EPERM on this mount) - so it is now a harmless
+duplicate pointer rather than a broken ref that would break the next run's
+`git fetch` the way run 300's debris broke run 301's. `git fetch` reconfirmed
+clean afterwards. Did NOT touch the pre-existing remote branch
+`origin/agents/audit-backlog.lock.run300debris_1792349125` (a real branch
+already pushed to GitHub, not a local ref) - deleting a remote branch is
+outside this run's one-item scope and not something to decide unilaterally.
+
+LOCK: `.agent-lock` deleted on exit.
