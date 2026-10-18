@@ -1,3 +1,73 @@
+## Run 290 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start, created fresh. A `.git/index.lock`
+(0 bytes, about 23 minutes old, no git process running) did not actually
+block `git fetch` or `git status`, consistent with every recent run's
+finding that this class of lock is inert debris, not a real block. Left in
+place. At end of run, `.agent-lock` renamed aside to
+`.agent-lock.released-run290-<ts>` rather than deleted (same EPERM-on-
+unlink / Cowork workspace-folder delete restriction every recent run has
+hit; `mv` works, `rm` does not).
+
+GIT: `git fetch origin` clean. Local HEAD and `origin/agents/audit-backlog`
+both at `1c8799f` (run 289's last commit) before this run's own commit -
+fully in sync, nothing queued or unpushed from a prior run.
+
+ANSWER PICKUP (step 3): not attempted (no Claude in Chrome browser tool
+available in this session context; consistent with the standing Cloudflare
+Access wall recorded on every recent attempt). Pickup unavailable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed still `[BLOCKED]`
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). Ran
+the full 37-checker suite directly against the tracked working tree: 36/37
+pass. The one failure, `tools/check-postcodes.js`, is caused entirely by
+untracked debris files at the repo root (junk/placeholder postcodes in
+files like `.AGENT_LOG_fix_2.md`), the same pre-existing, already-recorded
+cause as every recent run - not a new defect, not touched.
+
+Did NOT take a rotation-pool quality pass this run. Three things already on
+record in QUESTIONS.json cover exactly what a fresh pass would find, and
+re-confirming them a further time adds log volume without moving anything
+forward:
+
+- Q115 (open): recommends pausing or slowing the scheduled worker, since
+  all 8 remaining worklist items are blocked on Rishi's own decisions, not
+  on more repo work, and the 36-item rotation pool has each been
+  independently re-verified 18-23+ times with zero new in-repo defects.
+  Nothing this run found changes that recommendation; it stands,
+  unactioned.
+- Q127 (open): a live GitHub PAT sitting in cleartext in this working
+  copy's `.git/config` origin remote URL. Confirmed still present this run
+  (`git remote -v`, not displayed here or logged in full). Not touched -
+  rotating or re-scoping a credential is Rishi's decision, not this run's.
+- Q124 (open): step 10's publish to rbh-data-portal is still blocked on
+  credential scope even where `gh` itself can be worked around. Confirmed
+  `gh` is still absent from this sandbox's PATH this run. Step 10 not
+  attempted.
+
+No page, generator or data field changed. No new QUESTIONS.json entry
+raised (nothing found that Q115/Q124/Q127 do not already cover). Only this
+log entry was written.
+
+PUBLISH (step 10): not attempted, per Q124 above (known blocked, not a new
+finding).
+
+RECOMMENDATION (echoing Q115, not a new question): given three consecutive
+runs now (288, 289, 290) have found the repo-side audit clean with nothing
+left for an unattended run to usefully re-verify, and the backlog's real
+blockers are all questions sitting in Rishi's queue, this run suggests the
+next session with Rishi present works through the open QUESTIONS.json
+backlog (61+ entries, oldest from 2026-08-11), starting with Q115 (worker
+cadence), Q127 (credential) and Q124 (publish step), before scheduling
+further unattended runs.
+
+LOCK: released at end of run (renamed aside, see above, not deleted).
+
+---
+
 ## Run 289 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start (released by run 288). Created fresh.
