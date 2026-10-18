@@ -56,6 +56,14 @@ identical paragraph.
 GIT COMMIT/PUSH (step 9): only this log entry committed. No lock-debris
 or scratch files added - they remain untracked by design.
 
+PUBLISH (step 10): ran `node tools/build-audit-status.js` as instructed,
+even though step 5 produced no work item. Failed: `gh: not found` in this
+sandbox's shell - the same gap already recorded against Q119/Q124. Portal
+status page was not updated this run. Not fixed in-run: changing the
+publish mechanism (e.g. to a raw GitHub API call via curl with a token)
+is a decision beyond this run's single-item scope and belongs with
+Q119/Q124's triage, not improvised silently.
+
 LOCK: `.agent-lock` deleted on exit.
 
 ---
