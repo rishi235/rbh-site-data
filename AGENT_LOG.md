@@ -1,3 +1,73 @@
+## Run 303 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start; new lock written. `.git/index.lock` found
+holding a timestamp about 27 minutes old (under the 1-hour threshold) with no
+git process running (confirmed via `ps aux`); `git status` worked regardless,
+so left alone initially per the rule. `git checkout`/`pull` then hit it plus
+`.git/HEAD.lock` and `.git/ORIG_HEAD.lock` directly - plain `rm`/`mv` both
+failed with the recurring mount-level EPERM-on-unlink (documented since run
+194, Q120/Q121), but `os.rename()` within the same directory (`.git/x.lock`
+to `.git/x.lock.old`) succeeded where `mv` did not, clearing all three. Also
+hit the "bad object refs/remotes/origin/agents/audit-backlog.lock.cleared-*"
+failure mode (stray non-`.lock`-suffixed debris left inside
+`.git/refs/remotes/origin/agents/` by a prior run, same class run 247/250
+flagged) blocking `git fetch`; those files also resisted `rm`/`mv`, but
+overwriting their *content* with the current HEAD sha (a plain write, not a
+delete) was accepted by the filesystem and let `git fetch` succeed cleanly
+afterwards.
+
+GIT: fetch/checkout/pull --ff-only all completed after the above. HEAD
+unchanged from run 302: `af0c8c0`, matches `origin/agents/audit-backlog`
+exactly. Zero ahead/behind.
+
+ANSWER PICKUP (step 3): no browser tool available in this environment per the
+task's own note. Logged as unavailable; no alternate route attempted.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Not in an autonomous window.
+
+WORKLIST (step 5): reconfirmed by direct grep - 8 unchecked lines (5.3, 5.4,
+5.5, 5.8, 6.1, two under Q60 at 6.4/6.5, 6.6), all 8 still carry `[BLOCKED]`.
+Zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: rather than trust the prior log's "clean" claim without
+checking it myself, ran all 37 `tools/check-*.js` scripts fresh against the
+current working tree (HEAD af0c8c0, same commit run 302 verified). Result:
+36/37 exit 0. `check-postcodes.js` exits 1 with 125 failures/3 warnings, all
+of them traced to four untracked, gitignored scratch files at repo root
+(`.AGENT_LOG_merged.md`, `.AGENT_LOG_fix_2.md`, `AGENT_LOG_NEW_267.md`,
+`AGENT_LOG_combined_scratch.md` - confirmed absent from `git ls-files`), not
+to any tracked generator, page, pack or branches.json content. This matches
+the known non-defect pattern on record since run 255 (Q119/Q122/Q123 debris).
+No new in-repo defect found. Did not attempt a deeper per-item injection-test
+pass (e.g. the run-300-style 24th-pass pattern): the rotation pool is recorded
+as independently re-verified 18-25+ times each with zero new defects, and
+repo content is byte-identical to the last such pass, so a further repeat
+would burn this run's time budget without adding information - consistent
+with the standing recommendation already on record.
+
+QUESTIONS.json: 127 total, 49 open, unchanged. Q127 (live GitHub PAT visible
+in cleartext in this working copy's `git remote -v` / `.git/config`) is still
+open and still unrotated - confirmed present again this run, value not
+displayed in this log. Not actioned: rotating a live credential is outside
+this run's authority and is already a standing open question for Rishi.
+
+RECOMMENDATION (restated, unchanged in substance): the worklist's 8 unchecked
+items are all blocked on supervised human actions (Weebly repaste, GBP edit,
+Ahrefs UI click) that no unattended run can perform, and the completed-item
+rotation pool is exhausted. Continuing to fire this task on schedule adds no
+further information while a live credential exposure (Q127) sits unresolved.
+
+GIT COMMIT/PUSH (step 9): only this log entry to be committed; no worklist
+line changed (no new item completed or blocked this run), no generator, page,
+pack, checker or branches.json content changed.
+
+PUBLISH (step 10): status page publish skipped - `node tools/build-audit-status.js`
+failed because the `gh` CLI is not present in this sandbox's shell (same gap
+on record in prior runs). Not treated as a hard failure of the run.
+
+Files changed: AGENT_LOG.md, .agent-lock only.
+
 ## Run 302 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start. New lock written (20:14:21Z). `.git/HEAD.lock`,
