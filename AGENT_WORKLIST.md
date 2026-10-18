@@ -6980,6 +6980,95 @@ Next stalest by this run's own computation, for whoever runs next: 4.4
 (2026-09-18T15:43:42+01:00), then 5.2, 4.7, 4.1, 4.10, 4.3, 1.3, 4.8, 3.3,
 3.5, 3.1 - re-derive rather than assume, since other runs may land in
 between.
+Quality pass 2026-10-18 (twenty-fifth; unattended scheduled run,
+audit-backlog-worker): REPO HALF CLEAN, ZERO IN-REPO DEFECTS. All 8
+remaining worklist lines (5.3-5.5, 5.8, 6.1, 6.4-6.6) were still [BLOCKED],
+so the quality-pass fallback applied again. Rotation re-derived fresh: runs
+255-284 (the 70 runs between the twenty-fourth pass and this one) were all
+no-op entries that touched no item, so 3.4 - last verified 2026-10-02 -
+remained the single stalest item in the pool, unchanged.
+FRESH ANGLE: check-pharmacy-first-eligibility.js, never named once against
+this item across its twenty-four prior passes (confirmed by grep of the
+item's own section for that string before selecting it). Cherry Lane has no
+branch-landing page (it is one of the ten branches without one), so this
+checker's rule 9 bites here only via gbp-packs/cherry-lane-walton.md's own
+"aged 40 and over" blood-pressure cohort line.
+METHOD: a `git archive HEAD | tar -x` scratch copy was built under the
+sandbox's own /tmp (not the connected workspace folder), per the standing
+Q87/Q119 workaround for this mount's unlink() rejection. Scratch copy's
+branches.json (sha256 7ba2569b...ffef1) and the eleven Cherry Lane page
+hashes (uti 8de627d9...fd74bf, earache c83afff1...cdcd05, impetigo
+a2fa0c69...8caf0d4, and the other eight) reconfirmed identical to the
+tracked repo before any mutation. Full 34-script suite (excluding
+check-live-hours.js and check-cdn-pins.js, network-dependent) ran clean on
+the scratch copy.
+NOTE ON THE TRACKED WORKING TREE: running the same 34-script suite directly
+against the connected mount showed one FAIL, check-postcodes.js, which is
+the one checker that reads the whole repo rather than a fixed page list
+(CLAUDE.md, "The postcode..." section). The failure was entirely
+sandbox-debris lines inside the known junk files `.AGENT_LOG_fix_2.md` and
+`.AGENT_LOG_merged.md` (257MB+ stray copies named in this run's own
+environment note) carrying postcode-shaped and MISATTRIB-shaped strings
+that are not part of any tracked file. Re-run on the scratch copy (which
+git archive excludes untracked debris from) passed clean, confirming this
+is not an in-repo defect - no tracked file changed.
+TWO INJECTIONS PLUS ONE CONTROL against the scratch copy's
+gbp-packs/cherry-lane-walton.md only, each restored by byte copy from a
+pristine backup and diffed identical before the next: (1) the pack's blood
+pressure line changed from "for adults aged 40 and over, no appointment
+needed" to "if you are over 40, no appointment needed" - CAUGHT by
+check-pharmacy-first-eligibility.js rule 9 ("states age 40, which is not
+part of any NHS cohort this copy may state"). (2) CONTROL: the pack's phone
+number changed from 0151 226 2051 to 0151 999 9999 - zero mentions in
+check-pharmacy-first-eligibility.js's output (out of that checker's scope,
+as expected), while check-gbp-packs.js independently caught it with two
+lines naming the wrong number and the missing real one, confirming the
+control was a real fault outside this checker's own remit rather than
+untested ground. Both injections restored; diff against the pristine backup
+showed byte-identical content before continuing, and the scratch copy's
+full 34-script suite was re-run clean after the final restore.
+Tracked repo reconfirmed untouched throughout: branches.json and all eleven
+Cherry Lane page hashes, plus gbp-packs/cherry-lane-walton.md's own hash
+(831e72c1...052ec2), matched before and after this pass; the scratch copy
+lived entirely outside the connected workspace folder so no new untracked
+debris was added to the repo root.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 22 of
+34 applicable checkers proven by direct injection (up from 21; check-cdn-pins.js
+and check-live-hours.js remain untested here as both are network-dependent
+and out of this pass's scope).
+LIVE HALF: read directly this pass (Claude in Chrome available).
+https://www.cherrylanepharmacy.co.uk/uti-treatment-cherry-lane-walton.html
+returned 200 with title "UTI treatment in Walton - Cherry Lane Pharmacy",
+the correct "Women aged 16 to 64" Pharmacy First cohort line, address "202
+Cherry Lane, Liverpool, L4 8SG", phone 0151 226 2051 in both the visible
+contact card and the footer, and the single already-documented Q36 footer
+mailbox typo ("pharmacy.FA226@mhs.net" instead of nhs.net) - no new live
+defect.
+ANSWER PICKUP (step 3): unavailable this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback; get_page_text returned "No text
+content found" (canvas/image-only), the same Cloudflare Access sign-in wall
+documented on every run since it first appeared. No login attempted, tab
+closed.
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+header present at the top of this file; does not apply.
+QUESTIONS.json re-read (127 total, 49 open, unchanged); no new question
+raised.
+ENVIRONMENT NOTE: this sandbox's connected workspace folder still rejects
+unlink() on every file tested (`.agent-lock`, `.git/index.lock`,
+`.probe_lock_test.txt` all returned "Operation not permitted" on `rm`,
+`mv` and `mv`-aside alike), while in-place overwrite (truncate+write)
+succeeds. Where a git command needed the index (`git add`/`commit`) and a
+stale `.git/index.lock` blocked it, `GIT_INDEX_FILE` was pointed at a
+scratch copy of the index in /tmp instead of fighting the lock - a variant
+of the standing Q87/Q119 workaround that does not require deleting
+anything inside the connected mount. Step 9's commit and step 10's publish
+both went via this route.
+No code or data change this pass; FILES CHANGED: AGENT_WORKLIST.md and
+AGENT_LOG.md only (this entry).
+Next stalest by this run's own computation, unchanged from the twenty-fourth
+pass since nothing landed in between: 4.4 (2026-09-18T15:43:42+01:00), then
+5.2, 4.7, 4.1, 4.10, 4.3, 1.3, 4.8, 3.3, 3.5, 3.1 - re-derive rather than
+assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.

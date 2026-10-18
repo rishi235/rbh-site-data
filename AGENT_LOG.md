@@ -1,4 +1,26 @@
-﻿## Run 284 - 2026-10-18
+﻿## Run 285 - 2026-10-18
+
+ACTIONABLE QUALITY PASS - first since run 257 of the worklist's dedicated numbered-item form. LOCK: found a non-timestamped "RELEASED run284(...)" marker (no staleness question), overwritten in place with a fresh UTC timestamp (in-place write succeeded; `rm`/`mv` both failed EPERM on this mount, consistent with the long-documented behaviour). GIT: fetch and `pull --ff-only origin agents/audit-backlog` both clean, "Already up to date", HEAD unchanged at `4f6b899` (run 284's own commit). A stray zero-byte `.git/index.lock` (left by this run's own earlier `git status`) could not be removed by `rm` or `mv` (EPERM on unlink, same mechanism as every prior run) and blocked `git checkout`/`git add` directly; worked around for step 9 by pointing `GIT_INDEX_FILE` at a scratch copy of `.git/index` in `/tmp` rather than fighting the lock - a new variant of the standing workaround, recorded here in case it helps a future run.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome - navigated to https://data.rbhealth.co.uk/api/feedback; `get_page_text` returned "No text content found" (canvas/image-only), the same sign-in wall seen on every run since it first appeared. No login attempted, tab closed. Pickup unavailable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" header at the top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed [BLOCKED] by direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged since run 193. Per this run's own instructions, "every item complete or blocked" triggers the quality-pass fallback (note: prior runs 255-284 read this condition as requiring ALL items complete and therefore treated 70 consecutive runs as true no-ops; this run's instructions state the condition as "complete OR blocked", which the worklist already satisfies, so the fallback was taken). A subagent cross-referenced AGENT_LOG.md's quality-pass history against AGENT_WORKLIST.md's checked items and identified item 3.4 (Cherry Lane Pharmacy title/H1 treatment) as the single stalest item in the rotation pool - last quality-pass-verified 2026-10-02 (24th pass), with no run since (the 70 no-ops) having touched any item.
+
+QUALITY PASS ON 3.4 (25th): full detail logged in AGENT_WORKLIST.md under the item itself. Summary: ran the full 34-script checker suite (excluding the two network-dependent checkers) both directly on the tracked repo and on a `git archive` scratch copy in /tmp. The tracked-repo run showed one FAIL, check-postcodes.js, caused entirely by the known oversized debris files `.AGENT_LOG_fix_2.md` / `.AGENT_LOG_merged.md` (untracked, explicitly flagged as ignorable junk for this run) carrying stray postcode-shaped strings - the scratch copy (which excludes untracked files) ran clean, confirming no in-repo defect. Picked check-pharmacy-first-eligibility.js as a fresh angle never run against this item before, and proved its coverage by two injections plus a control against the scratch copy's gbp-packs/cherry-lane-walton.md: weakening the blood-pressure cohort wording was caught by rule 9; a wrong phone number (control) was correctly ignored by this checker and correctly caught by check-gbp-packs.js instead. Both injections restored and diff-confirmed identical to the pristine backup; full suite re-run clean afterwards. Tracked repo was never opened for writing - branches.json, all eleven Cherry Lane pages and the GBP pack file were hash-reconfirmed unchanged throughout. Live: fetched https://www.cherrylanepharmacy.co.uk/uti-treatment-cherry-lane-walton.html directly - 200, correct title, cohort line, address, phone in all surfaces; no new defect, only the already-documented Q36 footer mailbox typo. NO IN-REPO DEFECT FOUND. No question raised.
+
+FILES CHANGED this run: AGENT_WORKLIST.md (new quality-pass paragraph appended under item 3.4, no checkbox state changed - it was already [x]) and AGENT_LOG.md (this entry). No generator, page or branches.json change, since none was needed.
+
+STEP 10: `node tools/build-audit-status.js` run after committing - see its own output for success/failure, not repeated here to avoid this entry going stale if a later run edits this file.
+
+SECURITY: Q127 (GitHub PAT in `.git/config` remote URL) was not re-checked this run - out of this run's one-item scope, and the prior run's 50th-consecutive-flag milestone stands; no new information to add.
+
+ESCALATION NOTE: this run's instructions differed from the interpretation the last 70 runs used for the step-5 fallback condition ("complete or blocked" vs. the prior runs' "all complete"). Flagging this explicitly so a future run - or Rishi - can reconcile which reading is intended; if "complete or blocked" is correct, this worklist in fact had one quality-pass item available throughout runs 255-284 and the schedule was not genuinely exhausted. If "all complete" was the intended reading, this run should be treated as the anomaly instead. Not resolving this ambiguity unilaterally beyond doing the one pass described above.
+
+---
+
+## Run 284 - 2026-10-18
 
 No actionable item, 69th consecutive no-op on the worklist itself, but this run found something the prior 68 could not see and corrects it below.
 
