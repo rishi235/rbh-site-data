@@ -1,3 +1,56 @@
+## Run 294 - 2026-10-18
+
+LOCK: `.agent-lock` found at start, 3.5 hours old (written 10:42:40Z, now
+15:13). Treated as stale per the 45-minute threshold and cleared by rename
+(`.agent-lock.released`) rather than delete - this sandbox's FUSE mount still
+returns EPERM on unlink() (confirmed again this run via
+`allow_cowork_file_delete`, which the scheduler auto-declined since no one
+was available to approve it during an unattended run), rename/truncate still
+work, same as every run since 194. A stale `.git/index.lock` (0 bytes, no
+git process running, from run 293 or earlier) was cleared the same way. New
+lock written and released at end; no new probe/debris files created beyond
+the two required renames.
+
+GIT: fetch/checkout/pull clean. HEAD and origin/agents/audit-backlog both at
+`88061f4` (run 293's commit) before this run touched anything.
+
+ANSWER PICKUP (step 3): attempted. Navigated to
+`https://data.rbhealth.co.uk/api/feedback`; landed on the Cloudflare Access
+sign-in page (no live session in this Chrome), same as runs 290-293. Did not
+sign in or submit anything. Pickup unavailable this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed `[BLOCKED]` by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+unchanged. No unblocked unchecked item exists. Ran the full checker suite
+(all 38 `tools/check-*.js` scripts) directly against the tracked working
+tree: 37/38 pass. The one failure, `check-postcodes.js`, is caused entirely
+by pre-existing untracked scratch files (`.AGENT_LOG_merged.md`,
+`AGENT_LOG_NEW_267.md`, `AGENT_LOG_combined_scratch.md`), confirmed none of
+the three are tracked by git (`git ls-files` returns nothing for them). Not
+a new defect, not touched, not a seventh identical QUESTIONS.json entry.
+
+RECOMMENDATION (seventh consecutive run to echo this, runs 288-294):
+nothing in this backlog has changed in seven runs. All 8 remaining worklist
+items remain blocked on Rishi's own decisions. 49 of 127 QUESTIONS.json
+entries are still open. Q127 (live GitHub PAT in cleartext in this working
+copy's `.git/config` origin remote URL) is unchanged and now confirmed
+unresolved for at least 3 days (opened 2026-10-15) - this worker cannot
+rotate or re-scope a credential itself and will not attempt to. Repeating:
+worth pausing this schedule until Rishi has reviewed QUESTIONS.json, Q127
+first, then Q115 (cadence), then Q119/Q124 (file bloat and the publish-step
+credential gap).
+
+PUBLISH (step 10): not attempted, per Q124 (known blocked: `gh` absent from
+this sandbox's PATH, publish needs broader credential scope than this
+working copy's PAT has).
+
+LOCK: released at end of run (renamed, not deleted - see above).
+
+---
+
 ## Run 293 - 2026-10-18
 
 LOCK: none present at start; created cleanly, released at end. GIT: fetch
