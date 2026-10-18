@@ -1,0 +1,105 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - quality pass 2026-10-18, TWENTY-SECOND PASS
+Run 288, agents/audit-backlog branch.
+
+FRESH ANGLE: tools/check-seo-sheets.js proven by injection against Tiffenbergs
+for the first time (the twenty-first pass's own remaining-checker list named
+it as one of fourteen never exercised against this branch).
+
+BASELINE
+--------
+Full repo exported via `git archive HEAD | tar -x` to a disposable scratch
+copy at /tmp/scratch-3.12; the tracked repo was never opened for writing
+during the injection round. branches.json sha256 confirmed at the standing
+anchor 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+throughout (unchanged from the twenty-first pass). Full 35-checker suite
+(excl. check-cdn-pins.js, check-live-hours.js, both network-dependent) ran
+clean on both the tracked repo (34/35, the one failure check-postcodes.js
+tracing entirely to untracked debris files at repo root - .AGENT_LOG_merged.md,
+AGENT_LOG_NEW_267.md, AGENT_LOG_combined_scratch.md - confirmed not
+tracked/published content, same recurring non-issue runs 180-182 and the
+twenty-first pass already recorded) and the scratch copy (35/35, no debris
+there).
+
+INJECTIONS (four, each restored from a fresh `git archive` extract of the
+two touched files and sha256-reconfirmed identical before the next)
+----------------------------------------------------------------------
+(1) TITLE DRIFT, SEO dialect - modules/service/pages/SEO.md's Tiffenbergs
+    UTI block "Page Title" changed to "UTI treatment in Bootle - Smartts
+    Chemist" (another branch, another brand, another town) - CAUGHT:
+    "uti-treatment-tiffenbergs-aintree: title drift", page vs sheet values
+    both printed correctly.
+
+(2) DESCRIPTION DRIFT, INDEX dialect - modules/service/pages/INDEX.md's
+    Tiffenbergs Sore throat block "SEO description" changed to name
+    Hirshmans Chemist / Ainsdale instead of Tiffenbergs / Aintree - CAUGHT:
+    "sore-throat-treatment-tiffenbergs-aintree: description drift against
+    the INDEX sheet", both values printed correctly. First proof of the
+    INDEX-dialect rule against this branch; the twenty-first pass and all
+    before it only ever exercised SEO-dialect sheets for Tiffenbergs.
+
+(3) DUPLICATE LABEL - a second "Page Title:" line (reading "Shingles
+    treatment in Ainsdale - Hirshmans Chemist") inserted ahead of the real
+    one in the Tiffenbergs Shingles SEO.md block - CAUGHT TWICE AT ONCE: the
+    one-label-per-block rule ("2 'Page Title' labels in one block") and the
+    resulting title-drift rule, since last-write-wins made the compared
+    title Hirshmans' while the page itself still reads Tiffenbergs'.
+
+(4) CONTROL - Meta Keywords line on the Tiffenbergs Impetigo SEO.md block
+    reworded ("Impetigo Aintree" -> "Impetigo Aintree area"), a field this
+    checker does not read - PASSED CLEAN as predicted: "check-seo-sheets:
+    clean, every page and its paste sheet agree", no cross-firing with
+    check-seo-keywords.js's territory.
+
+All four events fired on the first attempt, on exactly the predicted
+rule(s), with the predicted message and branch names.
+
+RESTORE AND RE-VERIFY
+----------------------
+Both touched files (SEO.md, INDEX.md) sha256-reconfirmed identical to
+baseline after every restore. Full 35-checker suite re-run on the scratch
+copy after the final restore: 35/35 clean. Tracked repo: branches.json
+sha256 unchanged; `git status --porcelain -- modules core branches.json
+gbp-packs tools` showed no diff before or after (the injection round never
+touched the tracked working copy, only /tmp/scratch-3.12).
+
+RESULT
+------
+Zero in-repo defect. check-seo-sheets.js was already correctly holding all
+of its rule families (SEO-dialect title/description drift, INDEX-dialect
+title/description drift, the one-label-per-block rule, and non-interference
+with unrelated fields) against Tiffenbergs specifically, now proven directly
+rather than correct by construction alone.
+
+Guard coverage for item 3.12 now extends to 22 of 35 checkers proven by
+direct injection against this branch; 13 remain: check-address-region,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-page-coverage, check-pharmacy-first-cost, check-pharmacy-first-
+safety-net, check-pharmacy-first-symptoms, check-service-links, check-uk-
+spelling, check-url-scheme, check-weebly-furniture-freshness, check-widget-
+diaries.
+
+STEP 3 ANSWER PICKUP: Claude in Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback; get_page_text returned "No text
+content found" (canvas/image-only), the same Cloudflare Access sign-in wall
+seen on every recent run. No login attempted, tab closed. Pickup
+unavailable.
+
+LOCK / GIT HOUSEKEEPING THIS RUN: .agent-lock absent at start (released
+cleanly by run 287). A fresh `.git/index.lock` (0 bytes, created by this
+run's own early `git status`, ~5 seconds old, no live git process) was
+renamed aside rather than deleted (rm blocked by the standing EPERM-on-
+unlink behaviour on this mount, mv works - same convention runs 284-287
+recorded). More significantly: run 287's own lock-release had renamed a
+stale ref-lock file INTO the refs tree itself, at
+`.git/refs/remotes/origin/agents/audit-backlog.lock.released-run287b-
+<ts>`, which made every `git fetch` in this run fail with "fatal: bad
+object" until it was found and moved out of `.git/refs/` entirely (to a new
+`.git-lock-debris-quarantine/` folder at repo root, left in place,
+untracked). This is worth flagging forward: lock-release renames must stay
+OUTSIDE `.git/refs/`, `.git/objects/` and any other directory git parses
+structurally, not just outside `.git/` proper - renaming a lock file one
+level too deep breaks fetch for every subsequent run until someone notices.
+Not raised as a QUESTIONS.json item since it was self-resolving within this
+run and needed no decision from Rishi, only housekeeping.
+
+No new defect found; no new question raised for Rishi.

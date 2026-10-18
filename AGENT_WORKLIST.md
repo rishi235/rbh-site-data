@@ -17149,6 +17149,50 @@ Done 2026-10-14 (twenty-third pass).
       freshness, check-widget-diaries). No new defect found; no new
       question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
       pass-2026-10-13-twentyfirst.txt. Done 2026-10-13 (twenty-first pass)
+      Quality pass 2026-10-18, TWENTY-SECOND PASS, FRESH ANGLE: tools/check-
+      seo-sheets.js proven by injection against Tiffenbergs for the first
+      time (the twenty-first pass's own remaining-checker list named it as
+      one of fourteen never exercised against this branch). Four events on
+      a scratch copy, each restored by fresh git-archive extract and
+      sha256-reconfirmed before the next: (1) SEO-dialect title drift on
+      the Tiffenbergs UTI block (swapped to Smartts/Bootle wording) -
+      CAUGHT; (2) INDEX-dialect description drift on the Tiffenbergs Sore
+      throat block (swapped to Hirshmans/Ainsdale wording), the first proof
+      of the INDEX dialect against this branch - CAUGHT; (3) a duplicate
+      "Page Title:" label inserted into the Tiffenbergs Shingles SEO.md
+      block - CAUGHT TWICE AT ONCE, the one-label-per-block rule and the
+      resulting title-drift rule; (4) CONTROL, a Meta Keywords reword on
+      the Tiffenbergs Impetigo block (a field this checker does not read) -
+      PASSED CLEAN, no cross-firing. All four fired exactly as predicted on
+      the first attempt. BASELINE/RE-VERIFICATION: branches.json sha256
+      unchanged throughout
+      (7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1);
+      full 35-checker suite (excl. check-cdn-pins.js, check-live-hours.js,
+      network-dependent) 34/35 clean on the tracked repo before and after
+      (the one failure, check-postcodes.js, traced entirely to untracked
+      debris files at repo root, same cause runs 180-182 and the
+      twenty-first pass already recorded), 35/35 clean on the scratch copy;
+      git status --porcelain on modules, core, branches.json, gbp-packs and
+      tools showed no diff after restore. STEP 3 answer pickup: Claude in
+      Chrome hit the same Cloudflare Access sign-in wall as every recent
+      run; no login attempted, tab closed. No "Standing authorisation"
+      section at the top of AGENT_LOG.md, so no autonomous window this run.
+      Guard coverage for item 3.12 now extends to 22 of 35 checkers proven
+      by direct injection against this branch (thirteen remain: check-
+      address-region, check-editor-snapshot, check-fragment-targets,
+      check-gbp-pharmacy-first, check-page-coverage, check-pharmacy-first-
+      cost, check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+      check-service-links, check-uk-spelling, check-url-scheme, check-
+      weebly-furniture-freshness, check-widget-diaries). This run also
+      found and fixed a git-fetch blocker left by run 287's own lock
+      housekeeping (a ref-lock file renamed into .git/refs/remotes/origin/
+      itself instead of out of the refs tree, which made every fetch fail
+      with "fatal: bad object" until moved to a new top-level
+      .git-lock-debris-quarantine/ folder) - logged in AGENT_LOG.md, not
+      raised as a question since it was self-resolving and needed no
+      decision from Rishi. No new in-repo defect found; no new question
+      raised. Evidence: audits/tiffenbergs-item-3.12-quality-pass-
+      2026-10-18-twentysecond.txt. Done 2026-10-18 (twenty-second pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

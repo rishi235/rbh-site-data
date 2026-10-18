@@ -1,3 +1,101 @@
+## Run 288 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start (released cleanly by run 287). Created
+fresh. A new `.git/index.lock` (0 bytes, ~5 seconds old, created by this
+run's own early `git status`, no live git process) was renamed aside rather
+than deleted (`rm` blocked by the standing EPERM-on-unlink behaviour on this
+mount, `mv` works - same convention runs 284-287 recorded).
+
+GIT: `git fetch origin` initially failed on every attempt with "fatal: bad
+object refs/remotes/origin/agents/audit-backlog.lock.released-run287b-
+<ts>" and "did not send all necessary objects". Traced to run 287's own
+lock-release: a ref-lock file had been renamed INTO the refs tree itself,
+at `.git/refs/remotes/origin/agents/audit-backlog.lock.released-run287b-
+<ts>`, which git tries to parse as a ref on every fetch/walk. Moved it out
+of `.git/refs/` entirely to a new top-level `.git-lock-debris-quarantine/`
+folder (left in place, untracked, not deleted per the same EPERM behaviour).
+`git fetch`/`checkout agents/audit-backlog`/`pull --ff-only` then ran clean;
+"Already up to date", HEAD unchanged at `2eb51a0` (run 287's own commit).
+Flagging forward for future runs: a lock-release rename must land OUTSIDE
+`.git/refs/`, `.git/objects/` and any other directory git parses
+structurally, not merely outside `.git/` proper - one level too deep breaks
+fetch for every subsequent run until noticed. Not raised as a
+QUESTIONS.json item, self-resolving within this run, no decision needed
+from Rishi.
+
+ANSWER PICKUP (step 3): Claude in Chrome navigated to
+https://data.rbhealth.co.uk/api/feedback; `get_page_text` returned "No
+text content found" (canvas/image-only), the same Cloudflare Access
+sign-in wall seen on every run since it first appeared. No login attempted,
+tab closed. Pickup unavailable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file (run 287's entry, now below this one, carries none). Does not
+apply.
+
+WORKLIST (step 5): all 8 unchecked lines remain `[BLOCKED]` (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged since run
+193. 42 items checked `[x]`. Took the quality-pass fallback again, same
+"complete or blocked" reading runs 284-287 used. Re-derived the rotation
+pool fresh (checked items in phases 2/3/4 only: 2.1, 2.2, 3.1-3.13, 4.1-
+4.15, excluding the one-off Phase 1/5/6 items, and excluding 4.15 whose
+worklist section carries a malformed date token and an outsized length -
+likely corrupted content, flagged below, not touched this run since fixing
+it is outside a single quality-pass item's scope). Oldest last-mentioned
+date in the pool was 2026-10-13, tied among 2.1, 2.2, 3.1, 3.3, 3.5, 3.11,
+3.12, 4.3, 4.7, 4.8 and 4.14 (4.1 and 4.10 excluded as newest, touched
+2026-10-18 by runs 287/286). Broke the tie by counting "quality pass"
+mentions per item's own section, lowest tied between 3.12 and 4.7 at 23;
+broke that tie by section length in characters, 3.12 (72,180) smaller than
+4.7 (72,757); picked 3.12 (Tiffenbergs Chemist, Aintree).
+
+QUALITY PASS ON 3.12 (twenty-second): full detail in AGENT_WORKLIST.md
+under the item itself and in audits/tiffenbergs-item-3.12-quality-pass-
+2026-10-18-twentysecond.txt. Summary: fresh angle, tools/check-seo-sheets.js
+proven by four injections against a /tmp scratch copy (git archive, never
+the tracked repo) - SEO-dialect title drift, INDEX-dialect description
+drift, a duplicate-label block, and a clean control on an unrelated field -
+all four fired exactly as predicted, each restored and sha256-reconfirmed
+before the next. Full 35-checker suite 34/35 on the tracked repo (the one
+failure, check-postcodes.js, traced entirely to untracked debris files at
+repo root, same recurring non-issue as prior passes) and 35/35 on the
+scratch copy, both before and after. branches.json sha256 unchanged
+throughout. NO IN-REPO DEFECT FOUND. No new question. Guard coverage for
+item 3.12 now 22 of 35 checkers proven by direct injection; 13 remain,
+listed in the evidence file.
+
+FILES CHANGED this run: audits/tiffenbergs-item-3.12-quality-pass-
+2026-10-18-twentysecond.txt (new evidence file), AGENT_WORKLIST.md (new
+quality-pass paragraph under item 3.12, no checkbox changed - already
+`[x]`), AGENT_LOG.md (this entry). No generator, page, branches.json or
+checker file changed, since none was needed for the item itself.
+
+GIT HOUSEKEEPING: also created `.git-lock-debris-quarantine/` at repo root
+(untracked) to hold the ref-lock file moved out of `.git/refs/` - see GIT
+section above. Left the older untracked `.agent-lock.*`/`_lockdebris_*`/
+`tmp_index_*.lock` pile and the oversized `.AGENT_LOG_*`/`AGENT_LOG_NEW_*`
+scratch files untouched - out of this run's one-item scope, same judgement
+call runs 284-287 made.
+
+SECURITY: Q127 (GitHub PAT in `.git/config` remote URL) not re-checked this
+run - out of this run's one-item scope, same as runs 285-287. Flagging
+again that it has now gone unactioned for 52+ consecutive runs; this is a
+live credential sitting in an unattended working copy, fix needs Rishi via
+GitHub's own settings, not something an unattended run can act on per the
+hard rule against deciding credential matters autonomously.
+
+WORKLIST FILE HEALTH: item 4.15's section in AGENT_WORKLIST.md is ~9,700
+lines / ~685,000 characters versus a pool average of ~1,000 lines / ~75,000
+characters, and contains at least one malformed date token ("2026-13-03",
+invalid month). Flagged for a future run or for Rishi's attention; not
+investigated or edited this run, which stayed inside item 3.12.
+
+STEP 10: will run `node tools/build-audit-status.js` after committing;
+expected to fail the same way runs 258-287 recorded (`gh` not on PATH in
+this sandboxed shell, neither GH_TOKEN nor GITHUB_TOKEN set, exit 127).
+
+---
+
 ## Run 287 - 2026-10-18
 
 LOCK: `.agent-lock` was absent (released cleanly by run 286). Created fresh.
