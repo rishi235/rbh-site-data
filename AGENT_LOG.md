@@ -78,7 +78,31 @@ only so a future run or Rishi can decide whether the `.gitignore` debris
 section should be swept more broadly in one go rather than one checker
 failure at a time.
 
-QUESTIONS.json: 127 total, 49 open, unchanged counts. Q127 (GitHub PAT
+ESCALATION, found after the above was written: the git operations below hit
+three separate lock collisions in a row (`checkout`, `add`+`commit`, and the
+`refs/remotes/origin/...` update after push). Checking `.git/` directly
+found this is not an occasional quirk - `ls .git/ | grep -c '^index\.lock'`
+returned **1001** distinct `index.lock.*` debris files (cleared/stale/
+renamed/released/moved/old/probe/bak variants going back roughly 48 days by
+their embedded epoch timestamps), and `.git` itself is now **1.2GB**. This
+is the same run-194 FUSE unlink() EPERM bug every prior log entry references,
+but the "rename it aside" workaround this repo has used since then does not
+fix anything - it only relocates the stuck file to a new permanent name, one
+more time, every time it fires. The pile has been growing for 48 days with
+nothing ever removing an entry from it. This run's own git add/commit/push
+still succeeded (confirmed: `git ls-remote origin agents/audit-backlog` now
+shows this run's commit hash, matching local HEAD exactly), by renaming one
+more stuck lock aside (`.git/index.lock.RELEASED-run308-<ts>`) - i.e. this
+run added file #1002 to the same pile rather than fixing it, which is exactly
+the pattern that needs to stop. Logged as **Q128**: recommending the
+schedule pause for a human (or a separate supervised session) to re-clone
+the repo fresh on this host, or fix the mount's unlink() bug at its root,
+rather than keep absorbing one more renamed-lock file per run indefinitely.
+Not actioned autonomously - re-cloning or touching `.git` internals beyond
+the already-established rename-aside workaround is outside this run's
+authority.
+
+QUESTIONS.json: 128 total, 50 open (Q128 added this run). Q127 (GitHub PAT
 exposed in cleartext in this working copy's `.git/config`) not re-displayed
 this run, to avoid re-exposing it in this log - still open, still unrotated,
 now day 5 open. Not actioned: rotating a live credential is outside this
@@ -89,8 +113,10 @@ the `gh api` call with `gh: not found`, same as runs 302-305 and 307 - this
 run also executed inside the `gh`-less Cowork sandbox mount.
 `reports/digital/Digital_Audit_Status.html` was NOT refreshed this run.
 
-GIT COMMIT/PUSH (step 9): `tools/check-postcodes.js`, `.gitignore`, and this
-log entry.
+GIT COMMIT/PUSH (step 9): two commits this run - (1) `tools/check-postcodes.js`,
+`.gitignore`, and the log entry above the escalation note; (2) `QUESTIONS.json`
+(Q128) and this escalation addendum. Both pushed; `git ls-remote` confirms
+origin matches local HEAD after each.
 
 LOCK: `.agent-lock` deleted on exit.
 

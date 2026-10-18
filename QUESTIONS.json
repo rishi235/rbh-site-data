@@ -2011,5 +2011,21 @@
     "status": "open",
     "answer": null,
     "note": "Also corrects Q87 (dated 2026-08-31): that question's premise, that this sandbox has no working route to GitHub, is no longer true. This run confirmed git fetch/pull/push all succeed via the HTTPS+PAT remote shown above, HEAD exactly matches origin/agents/audit-backlog, and the publish script ran cleanly (see AGENT_LOG.md this run). Q87 should be treated as answered/superseded by events rather than still blocking anything."
+  },
+  {
+    "id": "Q128",
+    "date": "2026-10-19",
+    "item": "process/environment finding (does not block any single worklist item, but affects every run)",
+    "question": "This run (308) found the working copy's .git directory has accumulated 1001 \"index.lock\"-family debris files and is now 1.2GB, the product of roughly 48 days of repeated runs hitting the same documented FUSE unlink() EPERM bug on this mount (see .gitignore, run 194) and working around it by renaming the stuck lock aside rather than deleting it - each workaround leaves one more permanent file, and nothing has ever cleaned the pile up. This run also found a 257MB stray file (.AGENT_LOG_fix_2.md, from an earlier failed AGENT_LOG repair attempt) and several smaller siblings, all gitignored or now gitignored, but still physically present. One of them (.AGENT_LOG_fix_2.md) was large and public-copy-shaped enough to cause 125 false failures in tools/check-postcodes.js this run (fixed this run by teaching that checker to respect .gitignore). The rename-aside workaround is not safe to keep doing indefinitely: it never reduces the debris, only relocates it, and a .git directory of this size slows every fetch/clone and risks eventually exhausting disk or inode limits on whatever host runs this schedule. Should the schedule be paused for a manual fix (fresh clone of the repo on this host/mount, or a host-level fix for the FUSE unlink() bug itself), or is this an acceptable standing cost of the current setup?",
+    "options": [
+      "Pause the schedule and have a human (or a one-off supervised session, not this unattended worker) delete the .git directory and re-clone agents/audit-backlog fresh on this host, which would clear all 1001 debris files and the 1.2GB bloat in one step, then resume the schedule.",
+      "Leave it running as is: the rename workaround keeps every run functional (this run's own git add/commit/push succeeded despite three separate lock collisions), the debris is gitignored so it never reaches origin, and disk space on this host has not yet been reported as a problem.",
+      "Fix the root cause instead of the symptom: find out why this specific mount cannot unlink() its own lock files (host filesystem, permissions, or FUSE configuration) and correct that, which would stop the pile from growing without needing a re-clone.",
+      "Something else - Rishi specifies."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Not actioned autonomously: re-cloning or deleting any part of .git is well outside this run's authority and the hard rule against destructive git operations. This run only added .gitignore entries and a small parser to check-postcodes.js; it did not delete any debris file itself (one lock file was renamed aside, the repo's own established workaround, not deleted, in order to get this run's own commit through)."
   }
 ]
