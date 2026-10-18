@@ -56,6 +56,25 @@ under item 4.7 recording this pass; no checkbox change (item already `[x]`).
 No file other than AGENT_LOG.md and AGENT_WORKLIST.md touched.
 
 PUBLISH (step 10): ran `node tools/build-audit-status.js` after committing.
+Failed with `gh: not found` (no GitHub CLI in this sandbox) - the same
+known gap recorded in the "Run 198 addendum" commit and Q124. Not a new
+finding, not re-raised. Status page on the portal is therefore stale
+after this run; Rishi or a session with `gh` available needs to re-run
+this script, or the step needs a non-`gh` publish path (Q124's business).
+
+GIT HOUSEKEEPING: this run also hit the same stale-lock class run 287/288
+documented. A `.git/index.lock` from an earlier run blocked `git commit`
+(58 minutes old, just under the 1-hour `.agent-lock` convention but
+confirmed stale, no git process running); `rm` failed with the same
+EPERM-on-unlink behaviour, `mv` worked, moved aside. The push itself
+succeeded (`d34dfd1..04dee02` landed on origin) but updating the local
+remote-tracking ref then failed on a stale
+`.git/refs/remotes/origin/agents/audit-backlog.lock`, the exact fault
+class run 288 flagged ("one level too deep breaks fetch for every
+subsequent run until noticed") - moved it to
+`.git-lock-debris-quarantine/` (outside `.git/refs/`, per that note) and
+re-fetched to confirm the local tracking ref resolves to `04dee02`. Left
+in place, untracked, per the same EPERM-on-unlink convention.
 
 LOCK: released at end of run, `.agent-lock` deleted.
 
