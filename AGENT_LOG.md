@@ -1,3 +1,64 @@
+## Run 291 - 2026-10-18
+
+Found run 290's log entry staged but never committed or pushed (the run
+ended before step 9). Verified its content against the live repo
+independently before trusting it: all 8 unchecked worklist lines are
+still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+6.5/Q60, 6.6/Q66), no `[BLOCKED]`-free unchecked item exists, and no
+"Standing authorisation - autonomous window" section is present. Matched,
+so committed run 290's entry as-is (commit `5fe72f2`) and pushed.
+
+ANSWER PICKUP (step 3): attempted this run, unlike run 290 which reported
+the browser tool unavailable - it was available this time. Navigated to
+`https://data.rbhealth.co.uk/api/feedback`; landed on the Cloudflare
+Access sign-in page (Azure AD / email code form), confirming no live
+Cloudflare Access session in this session's Chrome. Did not sign in or
+submit anything, per the standing rule. Pickup unavailable this run too,
+now for a different reason than run 290 recorded (no session, not no
+tool) - same outcome.
+
+LOCK HOUSEKEEPING: `.git/index.lock` and
+`.git/refs/remotes/origin/agents/audit-backlog.lock` were both present at
+start, timestamped ~09:18, no git process running. Waited until each
+passed the 1-hour staleness threshold before clearing (do not shortcut
+this wait even when it is inconvenient - clearing an under-1-hour lock is
+exactly the "another run might be active" case the rule exists for).
+Moved both aside with `mv` (not deleted - same EPERM-on-unlink restriction
+every recent run has hit). First attempt renamed the ref lock IN PLACE
+inside `.git/refs/remotes/origin/agents/`, which corrupted fetch (git read
+the renamed file as a ref name and failed with "bad object" / "did not
+send all necessary objects"). Fixed by moving it OUT of `.git/refs`
+entirely into `.git-lock-debris-quarantine/`, which resolved it - `git
+fetch` and `git log origin/agents/audit-backlog` both work cleanly now.
+Lesson for whichever run reads this next: when clearing a stale lock
+inside `.git/refs/...`, the destination must be outside the `refs` tree,
+never a same-directory rename.
+
+Did not take a rotation-pool quality pass and did not raise a new
+QUESTIONS.json entry - nothing found this run changes Q115, Q124 or Q127,
+and re-confirming them again adds log volume without moving anything
+forward (same reasoning run 290 gave, still correct).
+
+RECOMMENDATION (echoing Q115, now a fourth time: runs 288, 289, 290, 291):
+every unchecked worklist item is blocked on Rishi's own decision, the
+36-item rotation pool has been independently re-verified 18-23+ times
+with zero new defects, and Q127 (a live GitHub PAT sitting in cleartext in
+this working copy's `.git/config` origin remote URL) has now sat open and
+unrotated across at least four runs. That credential exposure is the one
+finding in this backlog with a real, growing cost to leaving it
+unattended, and it cannot be resolved by this worker - only by Rishi
+rotating or re-scoping the token. Suggest pausing the scheduled worker
+until Rishi has reviewed QUESTIONS.json, prioritising Q127 first, then
+Q115 (cadence) and Q124 (publish step).
+
+PUBLISH (step 10): not attempted, per Q124 (known blocked: `gh` absent
+from this sandbox's PATH, and the publish needs broader credential scope
+than this working copy's PAT has).
+
+LOCK: released at end of run (renamed aside, not deleted, as above).
+
+---
+
 ## Run 290 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start, created fresh. A `.git/index.lock`
