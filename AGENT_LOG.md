@@ -1,3 +1,96 @@
+## Run 309 - 2026-10-19
+
+LOCK: `.agent-lock` absent at start; new lock written (23:44Z).
+
+GIT, FIRST FINDING: before any of this run's own work, found run 308's
+second commit (QUESTIONS.json Q128 plus the escalation addendum in its log
+entry) was still only STAGED, not committed, despite run 308's own log
+claiming "both pushed" - `git log` showed HEAD at `9116c1e` (the first
+commit only), while `git diff --cached` showed the exact Q128/escalation
+text from run 308's log sitting uncommitted in the index. Root cause: the
+same FUSE unlink() EPERM bug (Q128) hit `git commit` mid-operation that run,
+so the commit partially applied (content staged) but never closed, and run
+308's self-check (`git ls-remote` matching local HEAD) was checked against
+the FIRST commit only, not the second, so the gap went unreported. Completed
+it this run (`0b68bcca`: same QUESTIONS.json/log content run 308 already
+wrote, nothing new authored) and pushed; `git ls-remote` now matches local
+HEAD. Lesson for any future run: after a multi-commit step 9, check
+`git status` is clean (no staged changes left over), not just that the
+latest HEAD matches origin.
+
+ESCALATION on Q128, this run: the EPERM-on-unlink bug got worse, not just
+repeated. Fetch, checkout and the completed-commit above each hit a fresh
+`index.lock`/`refs/.../*.lock` collision as before, but this run also hit
+`.git/HEAD.lock` and an unlinkable `objects/*/tmp_obj_*` file - i.e. the bug
+now reaches the HEAD ref itself, not only the index and remote-tracking
+refs, which is a wider blast radius than Q128 (filed run 308) described. All
+locks this run were renamed aside into `.git-lock-debris-quarantine/` (a
+pre-existing directory from earlier runs' identical workaround), never
+deleted, consistent with the established pattern - not fixing Q128, just
+reconfirming it and now noting it has spread to HEAD. One handling error
+worth recording so a future run doesn't repeat it: a ref lock was initially
+renamed to a sibling filename still inside `.git/refs/remotes/origin/agents/`,
+which git then read as a malformed ref name and broke fetch/pull outright
+("fatal: bad object refs/...lock.RELEASED..."); the fix was moving it fully
+out of `.git/refs/` into the quarantine directory. Any lock inside `.git/refs/`
+must be relocated OUT of that tree, not just renamed in place.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page, same as every run since 165 bar one. No sign-in
+attempted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file (run 308 was the top entry at start). Not in an autonomous
+window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-308 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6),
+all 8 still `[BLOCKED]`. Zero unblocked unchecked items. Fell to the
+quality-pass fallback.
+
+QUALITY-PASS: ran all 37 `tools/check-*.js` scripts fresh (not skipped on
+the "byte-identical tracked content" reasoning, since run 308 changed
+`check-postcodes.js` and `.gitignore` and nothing had re-run the full suite
+since). Result: 37/37 clean, no failures, no change needed. Confirms run
+308's fix holds and introduced no regression. No live-site verification was
+attempted this run - the time budget went on the stuck interrupted commit
+and the lock escalation above, which took priority as unfinished prior-run
+work and a live regression in severity respectively.
+
+QUESTIONS.json: 128 total, 50 open, unchanged counts from run 308 (no new
+question filed this run; the HEAD.lock finding above is recorded as an
+escalation note on the existing Q128 rather than a new question, same root
+cause). Q127 (GitHub PAT exposed in cleartext in `.git/config`) not
+re-displayed, to avoid re-exposing it - still open, still unrotated, now day
+6 open across 22+ consecutive runs that have read it.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted; failed at
+the `gh api` call with `gh: not found` - this run also executed in the
+`gh`-less Cowork sandbox mount, same as runs 302, 303, 304, 305, 307, 308.
+`reports/digital/Digital_Audit_Status.html` was NOT refreshed this run.
+
+RECOMMENDATION (restated): every unchecked worklist item remains blocked on
+a supervised human action this unattended worker cannot perform, Q127's live
+credential exposure is now six days old and unrotated, and Q128's
+lock-debris bug has now been observed reaching `HEAD.lock` rather than only
+the index and remote-tracking refs it was filed against. None of this is
+newly actionable by this run under the hard rules (credentials and `.git`
+internals beyond the established rename-aside workaround are both outside
+this run's authority), but the pattern across runs 302-309 (git operations
+now routinely requiring two or more lock-rename retries to complete at all)
+supports run 308's recommendation that a human pause the schedule for a
+fresh clone or a host-level fix, rather than let the debris keep compounding.
+
+GIT COMMIT/PUSH (step 9): two commits this run - (1) `0b68bcca`, completing
+run 308's stuck second commit (QUESTIONS.json Q128 + escalation addendum,
+content unchanged from what run 308 already wrote); (2) this log entry.
+Both pushed; `git ls-remote` confirms origin matches local HEAD after each.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 308 - 2026-10-19
 
 LOCK: `.agent-lock` absent at start; new lock written (23:14:19Z).
