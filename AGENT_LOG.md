@@ -43,8 +43,29 @@ QUESTIONS.json - Q127 first (security, most time-sensitive and the one
 growing worse with every run this continues), then Q115 (cadence), then
 Q119/Q124 (bloat and the publish-step credential gap).
 
-PUBLISH (step 10): not attempted, per Q124 (unchanged: `gh` absent from
-this sandbox's PATH).
+GIT COMMIT/PUSH (step 9): this run's lock files (`.git/HEAD.lock`,
+`.git/index.lock`, `.git/ORIG_HEAD.lock`) were cleared by rename
+(`.git/_lockdebris_run297_*.lock`) rather than delete, same workaround as
+every run since 194. `git add`/`commit`/`push` of this log entry then all
+succeeded cleanly (`db293e9`, pushed to `origin/agents/audit-backlog`),
+with only non-blocking "unable to unlink" warnings on git's own internal
+temp objects and `.git/HEAD.lock` during the commit - the operations
+themselves completed. Worth noting for future runs: once the lock files
+blocking a given git command are cleared, the git write path (add, commit,
+push) is not actually broken end to end on this sandbox - only the
+unlink-of-leftover-lock-file step is. This is a small positive data point
+against the standing Q127/Q124 framing and is logged honestly rather than
+quietly folded into "still blocked".
+
+PUBLISH (step 10): attempted this run (not skipped), unlike runs 294-296.
+`node tools/build-audit-status.js` ran and failed as the script itself
+expects: `gh: not found`, `Error: Command failed: gh api -X PUT
+repos/rishi235/rbh-data-portal/contents/...`. Confirms Q124 exactly - the
+script hard-depends on the `gh` CLI binary, which this sandbox's PATH does
+not have, not merely on a missing token. No workaround attempted (no `gh`
+install, no credential substitution) - out of scope and the publish target
+is a different repo, where the hard rule restricts writes to this script
+alone succeeding, not improvising around its dependency.
 
 LOCK: released at end of run (renamed, not deleted - see above).
 
