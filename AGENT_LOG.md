@@ -1,3 +1,69 @@
+## Run 305 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start; new lock written (21:43:50Z).
+
+GIT: `git fetch`/`git checkout agents/audit-backlog`/`git pull --ff-only`
+all effectively clean. `git status` again threw the EPERM-on-unlink
+`.git/index.lock` warning documented since run 194 (Q120/Q121) - a fresh
+zero-byte lock file git's own status check leaves behind and cannot remove
+on this mount, not a stuck lock from a prior run. Confirmed HEAD (`e5ac10b`)
+matches `origin/agents/audit-backlog` exactly, zero ahead/behind. Left it
+untouched, same as run 304.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page (fourteenth consecutive run this has happened). No
+sign-in attempted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+run 304 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6), all 8
+still carry `[BLOCKED]`. Zero unblocked unchecked items.
+
+QUALITY-PASS FALLBACK: did not re-run the 37 `tools/check-*.js` scripts this
+run. HEAD is byte-identical to run 304's HEAD content (the only diff between
+`4ded51f` and `e5ac10b` is the run 304 log entry and lock lifecycle), and
+run 303 already ran the full suite fresh against this same tracked content
+(36/37 clean, the one failure traced to untracked scratch debris). Re-running
+again would burn this run's time budget for zero new information - the
+standing finding since run 292.
+
+QUESTIONS.json: 127 total, 49 open, unchanged counts. Q127 (GitHub PAT
+exposed in cleartext in this working copy's `.git/config`) checked again -
+still present, still open, still unrotated, still dated 2026-10-15 (day 4).
+Not actioned: rotating a live credential is outside this run's authority per
+the hard rule that credentials are never an autonomous decision; it stays a
+standing open question for Rishi.
+
+FINDING: no actionable worklist item, same as the last eighteen runs
+(287-304). Nothing in the repo content changed this run.
+
+RECOMMENDATION (restated, unchanged in substance, now nineteen consecutive
+no-op runs): every unchecked worklist item is still blocked on a supervised
+human action (Weebly repaste, GBP edit, Ahrefs UI decision) this unattended
+worker cannot perform, and the quality-pass rotation pool remains clean with
+nothing new to surface. Q127's live, cleartext push credential has now gone
+unrotated across nineteen runs of a scheduled task that reads it. The correct
+next action is still for Rishi to triage QUESTIONS.json - Q127 specifically -
+and decide whether to pause this schedule until fresh unblocked work exists,
+rather than keep firing identical runs.
+
+GIT COMMIT/PUSH (step 9): only this log entry and `.agent-lock` lifecycle to
+commit; no worklist line changed, no generator/page/pack/checker/
+branches.json content changed.
+
+PUBLISH (step 10): attempted `node tools/build-audit-status.js`. Failed at
+the first `gh api` call with `gh: not found` (same missing-CLI blocker
+recorded at run 302) - this sandbox has no `gh` binary. No portal write
+occurred; `tools/.status-payload.json` is the script's own gitignored scratch
+output and was left in place, not committed.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 304 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start; new lock written (21:13:46Z).
