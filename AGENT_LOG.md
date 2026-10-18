@@ -1,3 +1,55 @@
+## Run 297 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start (run 296 released cleanly by rename).
+New lock written (`.agent-lock`, timestamp 16:42:45Z). `.git/HEAD.lock`,
+`.git/index.lock` and `.git/ORIG_HEAD.lock` appeared during this run's own
+`git fetch`/`status` calls (all under 2 minutes old, not pre-existing
+debris) and could not be unlinked - same EPERM-on-unlink quirk documented
+since run 194, reconfirmed again (`rm` and `chmod` both fail silently or
+with "Operation not permitted" on this FUSE mount). Left in place; git
+still completed fetch/pull/status around them as before.
+
+GIT: fetch/pull clean. HEAD and origin/agents/audit-backlog both at
+`cccc3ba` (run 296's commit) before this run touched anything - fully in
+sync, no tracked-file drift (`git diff --stat HEAD` empty).
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only.
+`https://data.rbhealth.co.uk/api/feedback` redirected to the same
+Cloudflare Access sign-in page as runs 290-296. No live session, did not
+sign in or interact. Tab closed. Pickup unavailable again.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed `[BLOCKED]` by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+unchanged from run 296. No unblocked unchecked item exists. Not re-running
+the full 37-checker suite this run: repo state is byte-identical to run
+296 (same HEAD, no tracked changes), and the suite has already been run
+clean three times today (runs 294-296) against that identical state -
+a fourth identical run would be pure repetition, not verification, which
+is the diminishing-returns point run 296 itself raised.
+
+THIS RUN'S FINDING: nothing new. This is now the tenth consecutive
+scheduled run (288 through 297) to reconfirm the identical blocked state
+with zero worklist progress. Q127 (live GitHub PAT in cleartext in this
+working copy's `.git/config` origin remote, reconfirmed present again this
+run via `git remote -v`, value not echoed) has now been open and
+unresolved for 3+ days across all ten of those runs. Q124 (publish step
+blocked, `gh` absent from this sandbox's PATH) and Q119 (working-copy file
+bloat) are both unchanged and still open. Reiterating the standing
+recommendation a tenth time: pause this schedule until Rishi has reviewed
+QUESTIONS.json - Q127 first (security, most time-sensitive and the one
+growing worse with every run this continues), then Q115 (cadence), then
+Q119/Q124 (bloat and the publish-step credential gap).
+
+PUBLISH (step 10): not attempted, per Q124 (unchanged: `gh` absent from
+this sandbox's PATH).
+
+LOCK: released at end of run (renamed, not deleted - see above).
+
+---
+
 ## Run 296 - 2026-10-18
 
 LOCK: `.agent-lock` present at start with a stale placeholder timestamp
