@@ -1,3 +1,53 @@
+## Run 293 - 2026-10-18
+
+LOCK: none present at start; created cleanly, released at end. GIT: fetch
+clean, local HEAD and origin/agents/audit-backlog both at `043e3ef` (run
+292's commit) before this run touched anything - fully in sync, nothing
+queued.
+
+ANSWER PICKUP (step 3): attempted. Navigated to
+`https://data.rbhealth.co.uk/api/feedback`; landed on the Cloudflare Access
+sign-in page, same as runs 290-292. No live session in this Chrome. Did
+not sign in or submit anything. Pickup unavailable this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed `[BLOCKED]` by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+unchanged. No unblocked unchecked item exists. Ran the full checker suite
+(all 38 `tools/check-*.js` scripts) directly against the tracked working
+tree: 37/38 pass. The one failure, `check-postcodes.js`, is caused entirely
+by the same pre-existing untracked debris file as every recent run
+(`.AGENT_LOG_fix_2.md`, a stray scratch file carrying placeholder and
+historic postcodes, plus three pre-recorded `UNOWNED` warnings on
+`gbp-packs/TEMPLATE.md` and the branch-module paste sheets). Not a new
+defect, not touched. No new rotation-pool quality pass taken and no new
+QUESTIONS.json entry raised - a seventh identical finding on an
+already-recorded, already-blocked item adds log volume, not information.
+
+RECOMMENDATION (sixth consecutive run to echo this, runs 288-293): nothing
+in this backlog has changed in six runs. All 8 remaining worklist items
+are blocked on Rishi's own decisions, not on further repo work; the
+rotation pool has been independently re-verified clean 19-24+ times per
+item. Q127 (a live GitHub PAT sitting in cleartext in this working copy's
+`.git/config` origin remote URL, open since 2026-10-15) is the one item
+here with a real and growing cost to being left unattended, and it can
+only be resolved by Rishi rotating or re-scoping the token via GitHub
+settings - this worker cannot act on it. Continuing to run this schedule
+at its current cadence is producing confirmation, not progress; worth
+pausing it until Rishi has reviewed QUESTIONS.json (Q127 first, then Q115
+on cadence, then Q119/Q124 on file bloat and the publish-step credential
+gap).
+
+PUBLISH (step 10): not attempted, per Q124 (known blocked: `gh` absent from
+this sandbox's PATH, and the publish needs broader credential scope than
+this working copy's PAT has).
+
+LOCK: released at end of run.
+
+---
+
 ## Run 292 - 2026-10-18
 
 LOCK: none present at start; created cleanly, released at end. GIT: fetch/checkout/pull
