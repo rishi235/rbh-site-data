@@ -1,3 +1,101 @@
+## Run 308 - 2026-10-19
+
+LOCK: `.agent-lock` absent at start; new lock written (23:14:19Z).
+
+GIT: `git fetch` clean. `git checkout agents/audit-backlog` hit the standing
+`.git/index.lock` EPERM-on-unlink artefact documented since run 194 (file
+present, ~29 minutes old at the time, so under the 1-hour staleness
+threshold and correctly left alone rather than removed) - the command itself
+failed with "Unable to create .git/index.lock: File exists", but it was a
+no-op anyway: `git branch --show-current` already read `agents/audit-backlog`
+and `git pull --ff-only` succeeded immediately after ("Already up to date").
+Confirmed HEAD (`7683182`) matched `origin/agents/audit-backlog` exactly,
+zero ahead/behind, before any work started.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page (seventeenth consecutive run this has happened). No
+sign-in attempted, per the hard rule. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file (run 307 was the top entry at start). Not in an autonomous
+window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-307 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6), all
+8 still carry `[BLOCKED]`. Zero unblocked unchecked items. Fell back to a
+quality-pass this run, since it had been several log-only runs since run
+303's last fresh full-suite execution.
+
+QUALITY-PASS FINDING: re-ran all 37 `tools/check-*.js` scripts fresh rather
+than skipping on the "byte-identical tracked content" reasoning runs 304-307
+used - that reasoning only holds for TRACKED content, and this sandbox's
+working copy carries a large amount of untracked debris (lock-test probes,
+and several stray `.AGENT_LOG_*` / `AGENT_LOG_*` log-concatenation artefacts
+from a past run's repair attempt, one of them ~257MB) that no prior run's
+log mentions checking against the live suite. `tools/check-postcodes.js`
+failed on this run with 125 failures, the only one of the 37 to fail - every
+single failure was against `.AGENT_LOG_fix_2.md`, a gitignored file carrying
+fabricated/placeholder postcodes from the log-repair attempt, not real audit
+content. Root cause: `check-postcodes.js` walks the filesystem directly by
+extension (`TEXT_EXT`) and has never consulted `.gitignore`, so the very
+debris pattern `.gitignore` has been actively maintained against since run
+194 was invisible to git but fully visible to this checker.
+
+FIX APPLIED: `tools/check-postcodes.js` - added a small gitignore parser
+(`GITIGNORE_LINES` / `GITIGNORE_RULES` / `isDebris()`) that reads `.gitignore`
+once and skips any file or directory matching its patterns during `scan()`,
+rather than hand-listing the one filename that happened to fail this run
+(deliberately avoiding the "a list of names is not a rule" trap this repo's
+own history keeps hitting - see CLAUDE.md). This dropped the failure count
+from 125 to 4, all four now against two untracked-but-not-yet-gitignored
+files in the same family (`AGENT_LOG_NEW_267.md`, `AGENT_LOG_combined_
+scratch.md`, no leading dot, so no existing pattern caught them). Added two
+targeted entries to `.gitignore` for those two filenames, same convention as
+the many other one-off entries already there. Re-ran `check-postcodes.js`:
+0 failures, 1202 files scanned (down from 1310), 3 warnings (pre-existing,
+unrelated `UNOWNED` findings on template/index files, not a regression).
+Re-ran the full 37-checker suite: 37/37 clean. Sanity-tested the new
+`isDebris()` logic against known-real paths (`branches.json`,
+`modules/service/pages/foo.html`, `gbp-packs/TEMPLATE.md`, `AGENT_LOG.md`,
+`AGENT_WORKLIST.md`, `QUESTIONS.json`, `tools/check-postcodes.js`) - all
+correctly return `false` (not debris), while the known debris paths
+correctly return `true`. No generator or `branches.json` content changed, so
+no page regeneration was needed or run.
+
+SCOPE NOTE: did not attempt to delete any of the untracked debris files
+itself. This mount has the documented EPERM-on-unlink bug (see .gitignore's
+own comment, run 194), so deletion is unreliable here and the repo's
+established pattern for this exact problem is to gitignore the pattern, not
+to fight the unlink bug file by file. A large amount of further untracked
+debris remains on disk (further `.AGENT_LOG_*`, lock-test and probe files
+already covered by existing `.gitignore` patterns, several newer ones -
+`.git-lock-debris-quarantine/`, `.rmtest_*`, `LOCKTEST_SCRATCH.txt`,
+`entry273_scratch.md`, `plaintest_repo.txt`, etc. - that are harmless
+clutter but not yet gitignored). None of them tripped any of the 37
+checkers this run, so no further action was taken on them; flagging here
+only so a future run or Rishi can decide whether the `.gitignore` debris
+section should be swept more broadly in one go rather than one checker
+failure at a time.
+
+QUESTIONS.json: 127 total, 49 open, unchanged counts. Q127 (GitHub PAT
+exposed in cleartext in this working copy's `.git/config`) not re-displayed
+this run, to avoid re-exposing it in this log - still open, still unrotated,
+now day 5 open. Not actioned: rotating a live credential is outside this
+run's authority per the hard rule.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted; failed at
+the `gh api` call with `gh: not found`, same as runs 302-305 and 307 - this
+run also executed inside the `gh`-less Cowork sandbox mount.
+`reports/digital/Digital_Audit_Status.html` was NOT refreshed this run.
+
+GIT COMMIT/PUSH (step 9): `tools/check-postcodes.js`, `.gitignore`, and this
+log entry.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 307 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start; new lock written (22:42:48Z).

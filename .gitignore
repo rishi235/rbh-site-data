@@ -70,3 +70,10 @@ archive/
 /._tmp_entry_*.md
 /.test-probe-*
 /test_write.tmp
+
+# Same AGENT_LOG-repair debris as above but without the leading dot, found by
+# check-postcodes.js on the 2026-10-19 quality-pass re-run (run 308): both
+# files carry fabricated placeholder postcodes (ZZ11 1ZZ, L9 8CD) from a
+# prior run's log-concatenation attempt, not real content.
+/AGENT_LOG_NEW_267.md
+/AGENT_LOG_combined_scratch.md

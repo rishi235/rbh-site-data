@@ -207,6 +207,70 @@ var OWNED_DIRS = [
 var SKIP_DIRS = { ".git": 1, "node_modules": 1, ".vscode": 1 };
 var TEXT_EXT = /\.(html|md|js|json|txt|css|ps1)$/i;
 
+// Gitignore-derived debris skip list. Found on the 2026-10-19 quality-pass
+// re-run of the full checker suite: of all 37 checkers, only this one
+// failed, with 125 UNKNOWN/MISATTRIB findings, every single one of them
+// against ".AGENT_LOG_fix_2.md" - a stray log-concatenation artefact from
+// the run-194-documented FUSE unlink() bug on this mount (see .gitignore,
+// "Lock-cleanup and git-lock debris"). That file is already gitignored, so
+// it carries no real audit content and git itself has never tracked it, but
+// this scanner walks the filesystem directly rather than through git and is
+// therefore blind to .gitignore - it was reading probe/scratch debris as if
+// it were public copy and flagging the random postcode-shaped text inside a
+// pasted log dump as a real misattribution.
+//
+// The fix does not hand-list ".AGENT_LOG_fix_2.md": that is the same
+// "a list of names is not a rule, it is a snapshot of what somebody could
+// remember on the day they wrote it" trap this repo has hit repeatedly (see
+// CLAUDE.md, the SEO-keywords and em-dash sections). .gitignore is the one
+// place these debris patterns are already declared and actively maintained
+// run over run, so the scanner now derives its own skip list from it. A new
+// probe filename matching an existing .gitignore pattern is excluded
+// automatically; a genuinely new debris shape is NOT in .gitignore yet and
+// still surfaces here as a real failure, which is the correct prompt to add
+// it there rather than to this checker.
+var GITIGNORE_LINES = (function () {
+  var p = path.join(ROOT, ".gitignore");
+  if (!fs.existsSync(p)) return [];
+  return fs.readFileSync(p, "utf8").split(/\r?\n/)
+    .map(function (l) { return l.trim(); })
+    .filter(function (l) { return l && l.charAt(0) !== "#"; });
+})();
+
+function globToRegExp(body) {
+  var esc = body.replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*/g, "[^/]*")
+    .replace(/\?/g, "[^/]");
+  return new RegExp("^" + esc + "$");
+}
+
+var GITIGNORE_RULES = GITIGNORE_LINES.map(function (pat) {
+  var anchored = pat.charAt(0) === "/";
+  var isDir = pat.charAt(pat.length - 1) === "/";
+  var body = pat;
+  if (anchored) body = body.slice(1);
+  if (isDir) body = body.slice(0, -1);
+  return { re: globToRegExp(body), anchored: anchored, isDir: isDir, body: body };
+});
+
+function isDebris(relPath) {
+  var segments = relPath.split("/");
+  var basename = segments[segments.length - 1];
+  return GITIGNORE_RULES.some(function (rule) {
+    if (rule.anchored) {
+      if (rule.isDir) {
+        return relPath === rule.body || relPath.indexOf(rule.body + "/") === 0;
+      }
+      return rule.re.test(relPath);
+    }
+    if (rule.isDir) return segments.indexOf(rule.body) !== -1;
+    if (rule.body.indexOf("/") !== -1) {
+      return relPath === rule.body || relPath.slice(-(rule.body.length + 1)) === "/" + rule.body;
+    }
+    return rule.re.test(basename);
+  });
+}
+
 // Found on the item 1.3 quality pass (sixteenth), 2026-09-09. TEXT_EXT is an
 // extension test, and modules/emar/weebly - one of the six files
 // tools/extra-public-copy-files.js exists specifically to name, because it
@@ -692,8 +756,13 @@ function warn(m) { warnings.push(m); }
 function scan(dir) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
     var p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (!SKIP_DIRS[e.name]) scan(p); return; }
-    if (!TEXT_EXT.test(e.name) && !EXTRA_FORCE_INCLUDE[rel(p)]) return;
+    var r = rel(p);
+    if (e.isDirectory()) {
+      if (!SKIP_DIRS[e.name] && !isDebris(r)) scan(p);
+      return;
+    }
+    if (!EXTRA_FORCE_INCLUDE[r] && isDebris(r)) return;
+    if (!TEXT_EXT.test(e.name) && !EXTRA_FORCE_INCLUDE[r]) return;
     checkFile(p);
   });
 }
