@@ -1,0 +1,8 @@
+
+## Run 283 - 2026-10-18
+
+No actionable item, 68th consecutive no-op. LOCK/GIT: .git carries persistent EPERM-on-unlink filesystem behaviour (Q120) - every git operation that touches the index leaves a fresh zero-byte index.lock (and this run also found a leftover HEAD.lock) that cannot be rm'd, only mv-aside'd; cleared three such locks this run via the established workaround. HEAD confirmed at 8136fe3 (run 282's commit), matching origin/agents/audit-backlog exactly - already up to date, nothing to pull. WORKLIST: all 8 unchecked lines (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) reconfirmed [BLOCKED] by direct grep, unchanged since run 193. QUESTIONS.json: 127 total, 49 open, 78 answered, unchanged. No fallback quality pass (items are BLOCKED not complete).
+
+SECURITY, UNACTIONED FOR THE 49TH CONSECUTIVE RUN: Q127 - GitHub PAT still sits in cleartext in .git/config remote origin URL (not in tracked history). Reconfirmed present, not displayed.
+
+RECOMMENDATION TO RISHI, now at 68 consecutive no-ops: this scheduled task has done no tracked-content work since run ~193 and cannot do any until a human actions Q8/Q9/Q13/Q16/Q52/Q60/Q66 (Weebly/GBP/Ahrefs/branch steps) or rotates the Q127 PAT. Separately, the working copy itself is now unhealthy: 130+ accumulated lock-debris files from the unfixable EPERM-on-unlink behaviour, AGENT_LOG.md at ~588KB and AGENT_WORKLIST.md at ~2.9MB from 67+ runs of near-identical entries, plus an unrelated 257MB stray file (.AGENT_LOG_fix_2.md) sitting in the working tree. Strongly recommend pausing this schedule and doing one supervised session to: action the 7 blocked questions, rotate the PAT, and either clean or re-clone this working copy before resuming automated runs.
