@@ -26948,6 +26948,55 @@ directly rather than re-deriving the same facts by hand.
       checker-coverage matrix. No new question. Evidence in
       audits/smartts-bootle-postcode-check-4.10-twentyfirst-2026-10-04.txt.
       Done 2026-10-04.
+      Twenty-second quality pass 2026-10-18 (unattended scheduled run, run
+      286). This was the stalest item in the rotation pool by last-touched
+      date (2026-10-04, nine days older than the next cluster at
+      2026-10-13), so taken under the step-5 fallback per run 285's "complete
+      or blocked" reading, which this run is also adopting without further
+      resolving the ambiguity run 285 flagged for Rishi. Repo-side: pack
+      re-verified fact by fact against branches.json's smartts_bootle record
+      (address 42 Fernhill Road, Bootle L20 9HH; phone 0151 922 4984; both
+      hours sessions 09:00-13:00 and 14:00-18:00 Mon-Fri; website; review
+      link; serviceAreaList Bootle/Sefton/Liverpool; all five widgets) - all
+      match, unchanged. Did not re-run the full 36-checker suite or any
+      injection this pass (every checker that reads gbp-packs/*.md was
+      already proven against this specific pack across the prior 21 passes,
+      per the twenty-first pass's own closing note); focused instead on the
+      live-site half, which many earlier passes could not reach. LIVE (via
+      Claude in Chrome, read-only, no login/click/submit): smarttschemist.co.uk
+      homepage reconfirms two already-known, unchanged findings - the
+      standing website-hours contradiction (homepage and footer both print
+      "9:00am-6:00pm" Mon-Fri with no lunch closure shown, against this
+      pack's own paster warning that the branch closes 1pm-2pm) and the
+      estate-wide weight-loss homepage claim "Innovative solutions that
+      deliver results. Tried the rest? Now try the best." already covered by
+      Q22 (item 5.8, blocked). NEW FINDING: the live Google Business Profile
+      itself (reached via the pack's own googleReviewUrl) publishes its NAME
+      as "Smartts Chemist - Travel Vaccination and Simple Weight Loss
+      Clinic", not the plain "Smartts Chemist" this pack's own "Name on GBP"
+      line and branches.json's branchName both state. This is the same
+      divergence shape as Q113 (McCanns Sandringham), and Q125's addenda
+      (Fishlocks Ainsdale, Hirshmans Ainsdale, Fishlocks Eccleston) - a fifth
+      independent branch, and the first where the brand word itself is
+      correct ("Chemist", matching branches.json) and only the keyword-
+      stuffed service suffix is added, rather than the brand word also being
+      altered or singularised as at McCanns/Fishlocks/Hirshmans. The same
+      visit's "People also search for" panel showed "S K Chemist - Travel
+      Vaccination and Simple Weight Loss Clinic" as a related listing,
+      consistent with SK Chemists Bootle (item 4.11, next in rotation)
+      carrying the identical pattern, but this is the same lower-confidence
+      "people also search for" sighting tier Q125 treated as unconfirmed
+      before a direct panel read, so not counted as a sixth confirmed branch
+      here - left for item 4.11's own pass to confirm or rule out directly.
+      Reviews and hours also checked on the same visit: 20 reviews at 4.8
+      stars (informational only, no prior figure recorded in this repo to
+      compare against); opening hours on the Maps panel read "Closed - Opens
+      9am Mon" at the time checked, consistent with branches.json, no
+      locked-door fault. Appended as an addendum to Q125 rather than raising
+      a new question, per that question's own established convention for
+      additional confirmed branches. No in-repo defect found; no file in
+      modules/, core/, tools/, gbp-packs/ or branches.json touched this pass
+      beyond this log entry. Done 2026-10-18.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

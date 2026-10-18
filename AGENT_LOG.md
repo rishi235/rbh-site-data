@@ -1,4 +1,98 @@
-﻿## Run 285 - 2026-10-18
+﻿## Run 286 - 2026-10-18
+
+LOCK: `.agent-lock` found already released by run 285 ("RELEASED run285(...)",
+mtime ~47 minutes old, past the 45-minute staleness threshold). `mv`/rename
+succeeded (the standing EPERM-on-unlink behaviour on this mount blocks `rm`
+but not `mv`), renamed aside to `.agent-lock.released-run286-<ts>` and a fresh
+timestamped `.agent-lock` written in its place. A stray `.git/index.lock`
+(zero-byte, ~59.5 minutes old, no live git process in `ps aux`) blocked
+`git checkout`/`git pull`; renamed aside the same way, which then surfaced a
+second stale `.git/HEAD.lock` plus a pile of old `.git/_lockdebris_*`/
+`tmp_index_*.lock` files from runs 261/271/273 - left the older debris
+untouched (out of this run's one-item scope, same judgement call run 284 made
+about the untracked `.agent-lock.*` pile) but renamed aside the one live
+`HEAD.lock` that was actually blocking this run's own `git checkout`. GIT:
+fetch and `pull --ff-only origin agents/audit-backlog` both clean once the
+live locks were cleared, "Already up to date", HEAD unchanged at `bc86942`
+(run 285's own commit).
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome - navigated to
+https://data.rbhealth.co.uk/api/feedback; `get_page_text` returned "No text
+content found" (canvas/image-only), the same sign-in wall seen on every run
+since it first appeared. No login attempted, tab closed. Pickup unavailable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" header at the top of
+this file (run 285's entry, now below this one, carries none). Does not
+apply.
+
+WORKLIST (step 5): all 8 unchecked lines remain `[BLOCKED]` (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged since run 193.
+42 items checked `[x]`. Following run 285's "complete or blocked" reading of
+the step-5 fallback condition (flagged by that run as an unresolved ambiguity
+against the literal task wording, "ALL items complete") rather than
+re-litigating it unilaterally, took the quality-pass fallback again this run.
+Re-derived the stalest item in the rotation pool by scanning every checked
+item's own paragraph for its most recent mentioned date (excluding the
+one-off Phase 1/5/6 items which are not part of the recurring-verification
+pool, and two false-positive "dates" in items 6.3/6.7 that are not real
+calendar dates): item 4.10 (Smartts Chemist Bootle GBP pack) was last touched
+2026-10-04, nine days older than the next cluster (2026-10-13), confirmed by
+reading that item's own closing paragraph directly (same caution run 285's own
+staleness-scan near-miss on this item, recorded on its ninth pass, warns
+about).
+
+QUALITY PASS ON 4.10 (twenty-second): full detail in AGENT_WORKLIST.md under
+the item itself. Summary: all ten gbp-packs-reading checkers had already been
+proven against this specific pack by direct injection across the prior 21
+passes (confirmed by the twenty-first pass's own closing note), so this pass
+did not re-run the checker suite or any injection, and instead focused on the
+live-site half many earlier passes could not reach (browser unavailable).
+Repo-side: every fact in gbp-packs/smartts-bootle.md re-verified against
+branches.json's smartts_bootle record - unchanged, all match. LIVE (Claude in
+Chrome, read-only, no login/click/submit): smarttschemist.co.uk homepage
+reconfirms two already-known findings unchanged (the website-hours
+contradiction, and the Q22 estate-wide weight-loss homepage claim). NEW
+FINDING: the live Google Business Profile's own NAME field reads "Smartts
+Chemist - Travel Vaccination and Simple Weight Loss Clinic", not the plain
+trading name the pack and branches.json both state - the same divergence
+shape as Q113/Q125 (McCanns Sandringham, Fishlocks Ainsdale, Hirshmans
+Ainsdale, Fishlocks Eccleston), now a fifth confirmed branch, and the first
+where the brand word itself is correct and only the service suffix is added.
+Appended as an addendum to Q125 (QUESTIONS.json) rather than a new question,
+per that question's own established convention. A "people also search for"
+sighting suggesting SK Chemists Bootle (item 4.11) carries the same pattern
+was noted but left unconfirmed at the lower-confidence sighting tier, for
+4.11's own pass to check directly. NO IN-REPO DEFECT FOUND.
+
+FILES CHANGED this run: AGENT_WORKLIST.md (new quality-pass paragraph under
+item 4.10, no checkbox changed - already `[x]`), QUESTIONS.json (Q125 note
+extended with this run's addendum, status/options/recommendation unchanged),
+AGENT_LOG.md (this entry). No generator, page, branches.json or checker file
+changed, since none was needed.
+
+SECURITY: Q127 (GitHub PAT in `.git/config` remote URL) was not re-checked
+this run - out of this run's one-item scope. Flagging again, as run 285 did,
+that it has now gone unactioned for 50+ consecutive runs; this is a live
+credential sitting in an unattended working copy and the fix (rotating the
+token, which only Rishi can do via GitHub's own settings) is outside what any
+unattended run can act on per the hard rule against deciding credential
+matters autonomously. Not re-reading `.git/config` this run to avoid
+re-surfacing the token value in a tool result unnecessarily.
+
+STEP 10: ran `node tools/build-audit-status.js` after committing. Failed the
+same way runs 258-283/285 recorded: `gh` is not on PATH in this sandboxed
+shell and neither `GH_TOKEN` nor `GITHUB_TOKEN` is set, so the script's
+`gh api -X PUT repos/rishi235/rbh-data-portal/contents/reports/digital/
+Digital_Audit_Status.html` call errors with "gh: not found" (exit 127). Not
+repurposing the Q127-flagged embedded PAT for this, per the hard rule
+restricting any write outside rbh-site-data to this one script's own path
+with its own credential. Status page remains stale from whichever run last
+published it (run 284, via the real Windows host this sandboxed run did not
+have access to).
+
+---
+
+## Run 285 - 2026-10-18
 
 ACTIONABLE QUALITY PASS - first since run 257 of the worklist's dedicated numbered-item form. LOCK: found a non-timestamped "RELEASED run284(...)" marker (no staleness question), overwritten in place with a fresh UTC timestamp (in-place write succeeded; `rm`/`mv` both failed EPERM on this mount, consistent with the long-documented behaviour). GIT: fetch and `pull --ff-only origin agents/audit-backlog` both clean, "Already up to date", HEAD unchanged at `4f6b899` (run 284's own commit). A stray zero-byte `.git/index.lock` (left by this run's own earlier `git status`) could not be removed by `rm` or `mv` (EPERM on unlink, same mechanism as every prior run) and blocked `git checkout`/`git add` directly; worked around for step 9 by pointing `GIT_INDEX_FILE` at a scratch copy of `.git/index` in `/tmp` rather than fighting the lock - a new variant of the standing workaround, recorded here in case it helps a future run.
 
