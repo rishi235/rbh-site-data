@@ -12,7 +12,7 @@ QUALITY PASS ON 3.4 (25th): full detail logged in AGENT_WORKLIST.md under the it
 
 FILES CHANGED this run: AGENT_WORKLIST.md (new quality-pass paragraph appended under item 3.4, no checkbox state changed - it was already [x]) and AGENT_LOG.md (this entry). No generator, page or branches.json change, since none was needed.
 
-STEP 10: `node tools/build-audit-status.js` run after committing - see its own output for success/failure, not repeated here to avoid this entry going stale if a later run edits this file.
+STEP 10: `node tools/build-audit-status.js` run after committing. Failed: `gh` is not on PATH in this sandboxed shell and neither `GH_TOKEN` nor `GITHUB_TOKEN` is set, so the script's `gh api -X PUT repos/rishi235/rbh-data-portal/contents/reports/digital/Digital_Audit_Status.html` call errored with "gh: not found" (exit 127). Not repurposing the Q127-flagged embedded PAT in `.git/config` for this, per the hard rule restricting any write outside rbh-site-data to this one script's own path with its own credential. Status page remains stale from whichever run last published it. This is the same environment gap runs 258-283 recorded (run 284 found `gh` present on the real Windows host via Windows-MCP, which this run did not have access to).
 
 SECURITY: Q127 (GitHub PAT in `.git/config` remote URL) was not re-checked this run - out of this run's one-item scope, and the prior run's 50th-consecutive-flag milestone stands; no new information to add.
 
