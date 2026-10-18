@@ -1,3 +1,79 @@
+## Run 301 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start. New lock written (19:13:19Z).
+
+GIT: `git fetch origin` failed outright with `fatal: bad object
+refs/remotes/origin/agents/audit-backlog.lock.run300debris_1792349125` /
+`did not send all necessary objects`. Traced to a zero-byte, invalid
+remote-tracking ref file left in `.git/refs/remotes/origin/agents/` by run
+300's own lock-handling activity (its name matches run 300's lock timestamp).
+An empty file there is not a valid ref, so any git operation that walks refs
+during the fetch connectivity check failed before anything could be fetched -
+this is a new failure mode in the same family as the EPERM-on-unlink mount
+quirk documented since run 194 (Q120/Q121), not a repeat of it.
+
+Could not delete the file (`rm`, and `git update-ref -d`, both failed with
+`Operation not permitted` on unlink, the same quirk). Fixed instead by
+writing a valid SHA (this branch's own current HEAD) into the broken ref
+file in place, since the sandbox permits overwriting file contents even
+when it blocks unlink. That turns the corrupt ref into a harmless duplicate
+pointer at a commit already on this branch, rather than deleting history or
+touching any branch content. `git fetch` and `git pull --ff-only` both then
+succeeded cleanly; branch was already up to date with
+`origin/agents/audit-backlog`, no new commits since run 300.
+
+Flagging this for whoever triages Q119-Q124: the lock-handling debris this
+worker's own earlier runs leave behind is not confined to harmless stray
+files in the working tree any more - run 300 produced one that actively
+broke `git fetch` for the following run. Worth folding into that cluster's
+triage rather than opening a fresh question, since no decision is needed
+here (already fixed) and the fix pattern (overwrite-in-place rather than
+delete) is now on record if it recurs.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page (tab title "Sign in - Cloudflare Access"), identical to
+every run since this check was added. No sign-in attempted; tab closed.
+Pickup unavailable - eleventh consecutive run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): 8 unchecked lines, all 8 still carry `[BLOCKED]` (5.3,
+5.4, 5.5, 5.8, 6.1, two under Q60 at 6.4/6.5, 6.6). Zero unblocked unchecked
+items. Did not re-run the full checker suite: HEAD is unchanged from run
+300 (confirmed above - fetch/pull were a no-op once the ref was fixed), and
+the suite has already been independently reconfirmed clean across runs
+292-300. A repeat confirmation against the same commit adds nothing.
+
+THIS RUN'S FINDING: no actionable worklist item, same as the last fourteen
+runs (288-300). QUESTIONS.json: 127 total, 49 open, unchanged. Q127 (live
+GitHub PAT in cleartext in this working copy's `.git/config`) is still open,
+now its fifth day and fourteenth run with no decision - this worker still
+has no authority to rotate a credential autonomously. Q115 (cadence) and
+Q119/Q120/Q121/Q122/Q123/Q124 (working-copy bloat, the lock-debris class
+this run's own fix belongs to, and the step 10 `gh` CLI gap) are all
+unchanged and open.
+
+RECOMMENDATION (restated, per this file's own convention): pause this
+hourly schedule until Rishi has triaged QUESTIONS.json - Q127 first as a
+live credential exposure, then the Q115/Q119-Q124 infrastructure cluster
+together, which this run's git-fetch failure now makes slightly more
+urgent than "advisory". Running again on the next trigger will very likely
+reproduce this identical paragraph for a fifteenth time.
+
+GIT COMMIT/PUSH (step 9): only this log entry and the worklist (no content
+change, already correct) committed. Lock-debris and scratch files remain
+untracked by design.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` as instructed,
+even though step 5 produced no work item. `gh` CLI still not found in this
+sandbox's shell - same gap on record against Q119/Q124, unresolved.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 300 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start. New lock written (18:43:52Z). `.git/HEAD.lock`
