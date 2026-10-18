@@ -1,3 +1,67 @@
+## Run 300 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start. New lock written (18:43:52Z). `.git/HEAD.lock`
+and `.git/index.lock` present, ~28 minutes old (epoch-checked), well under the
+1-hour staleness threshold, and `git fetch`/`git pull` both succeeded cleanly
+regardless - same harmless debris documented since run 194, left untouched.
+
+GIT: fetch/pull clean, no-op. HEAD already matched origin/agents/audit-backlog.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated to
+`https://data.rbhealth.co.uk/api/feedback`, redirected to the Cloudflare Access
+sign-in page (tab title "Sign in - Cloudflare Access"). No sign-in attempted;
+tab closed. Pickup unavailable - tenth consecutive run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Not in an autonomous window.
+
+WORKLIST (step 5): 8 unchecked lines, all 8 carry `[BLOCKED]` (5.3, 5.4, 5.5,
+5.8, 6.1, two under Q60 at 6.4/6.5, 6.6). Zero unblocked unchecked items. Did
+not re-run the full checker suite: HEAD is unchanged from run 299 and the
+suite has already been independently reconfirmed clean across runs 292-299.
+A fourteenth identical confirmation adds nothing a diff wouldn't already show.
+
+THIS RUN'S FINDING: nothing new, same as the last thirteen runs (288-299).
+QUESTIONS.json: 127 total, 49 open, unchanged. Q127 (live GitHub PAT in
+cleartext in this working copy's `.git/config`, displayed in plaintext by a
+tool call on 2026-10-15) is still open and unresolved, now its fourth day and
+thirteenth run - this worker still has no authority to rotate a credential
+autonomously (explicit hard-rule carve-out: "credentials are not something to
+decide autonomously"). Q115 (cadence) and Q119/Q124 (working-copy bloat and
+the step 10 `gh` CLI gap) are also unchanged and open.
+
+Separate from the worklist, and worth escalating rather than just restating:
+the working copy's own untracked debris has grown past merely annoying. There
+are now several stray `AGENT_LOG`/scratch copies in the repo root, one of
+which (`.AGENT_LOG_fix_2.md`) is 257MB, plus dozens of lock-test and probe
+files from past runs' lock-handling experiments. None of this is tracked or
+committed (confirmed via `git status`, which lists it all as untracked), so
+it is not reaching origin, but it is sitting on disk growing every run. This
+is the same risk Q119/Q120/Q121/Q122/Q123 already raised; it has not resolved
+itself in the runs since and the single 257MB file is new information worth
+adding to that pile when Rishi triages it.
+
+RECOMMENDATION (restated for the thirteenth time rather than silently
+repeated, per this file's own convention): pause this hourly schedule until
+Rishi has triaged QUESTIONS.json, Q127 first given it is a live credential
+exposure, then Q115/Q119/Q120/Q121/Q122/Q123/Q124 together since they are all
+the same underlying infrastructure backlog. Running again on the next trigger
+will very likely reproduce this identical paragraph for a fourteenth time.
+
+GIT COMMIT/PUSH (step 9): only this log entry committed. No lock-debris or
+scratch files added - they remain untracked by design.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` as instructed, even
+though step 5 produced no work item. Failed: `gh: not found` in this sandbox's
+shell, same gap already recorded against Q119/Q124. Portal status page was
+not updated this run. Not fixed in-run for the same reason as every prior
+run: switching the publish mechanism is a decision for that question's
+triage, not something to improvise silently mid-run.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 299 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start (run 298 cleared its own on exit). New
