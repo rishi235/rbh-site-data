@@ -1,3 +1,54 @@
+## Run 296 - 2026-10-18
+
+LOCK: `.agent-lock` present at start with a stale placeholder timestamp
+(1 Jan 2020, not a real recent run), correctly treated as abandoned.
+`rm` failed with the now-familiar EPERM-on-unlink quirk (reconfirmed, same
+as runs 194+ and 295); released by the established rename workaround
+(`.agent-lock.RELEASED-run296-stale-<epoch>`), new lock written with the
+current UTC timestamp. `.git/index.lock` was present but only ~51 minutes
+old with no git process running, so left untouched this run (under the
+1-hour/no-process threshold for treating it as stale).
+
+GIT: fetch/checkout/pull clean. HEAD and origin/agents/audit-backlog both
+at `e346764` (run 295's commit) before this run touched anything.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only.
+`https://data.rbhealth.co.uk/api/feedback` redirected to the same
+Cloudflare Access sign-in page as runs 290-295. No live session, did not
+sign in or interact. Tab closed. Pickup unavailable again.
+
+WORKLIST (step 5): all unchecked lines remain `[BLOCKED]`, confirmed by
+grep (`grep '^\- \[ \]' AGENT_WORKLIST.md | grep -v BLOCKED` returns
+nothing). No unblocked unchecked item exists. Working tree has no pending
+modifications to tracked files; not re-running the full 37-checker suite
+this run given it was independently verified clean twice today already
+(runs 294 and 295), 9+ consecutive identical confirmations is diminishing
+returns in itself (this is Q115's own point).
+
+THIS RUN'S FINDING: nothing new. This is now the ninth consecutive
+scheduled run (288 through 296) to reconfirm the identical blocked state
+with zero worklist progress. Q127 (live GitHub PAT in cleartext in this
+working copy's `.git/config` origin remote, reconfirmed present again this
+run via `git remote -v`) has now been open and unresolved for 3+ days
+across all nine of those runs; this worker still cannot rotate or re-scope
+a credential itself. Q124 (publish step blocked, `gh` absent from this
+sandbox's PATH, reconfirmed again this run) and Q119 (working-copy file
+bloat - 1.5GB, 262 top-level entries, 147 historic `.agent-lock.*` debris
+variants, a 257MB `.AGENT_LOG_fix_2.md`) are both unchanged and still
+open. Repeating the standing recommendation one more time rather than
+silently continuing: pause this schedule until Rishi has reviewed
+QUESTIONS.json Q127 (security, most time-sensitive), then Q115 (whether to
+keep polling on this cadence with nothing left to action), then Q119/Q124
+(bloat and the publish-step credential gap). This worker will keep running
+on schedule and keep finding nothing to do until that review happens.
+
+PUBLISH (step 10): not attempted, per Q124 (unchanged: `gh` absent from
+this sandbox's PATH).
+
+LOCK: released at end of run (renamed, not deleted).
+
+---
+
 ## Run 295 - 2026-10-18
 
 LOCK: none present at start (run 294 released cleanly by rename). New lock
