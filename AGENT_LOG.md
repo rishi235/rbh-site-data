@@ -1,3 +1,60 @@
+## Run 302 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start. New lock written (20:14:21Z). `.git/HEAD.lock`,
+`.git/index.lock`, `.git/ORIG_HEAD.lock` present, all under 1 hour old - same
+harmless EPERM-on-unlink debris documented since run 194 (Q120/Q121). Left
+untouched; fetch/pull succeeded regardless.
+
+GIT: fetch/pull clean, no-op. HEAD unchanged from run 301
+(`f4b23e7`), matches `origin/agents/audit-backlog` exactly.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated to
+`https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare Access
+sign-in page (tab title "Sign in - Cloudflare Access"), identical to every run
+since this check was added. No sign-in attempted; tab closed. Pickup
+unavailable - twelfth consecutive run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Not in an autonomous window.
+
+WORKLIST (step 5): reconfirmed by direct read - 8 unchecked lines (5.3, 5.4,
+5.5, 5.8, 6.1, two under Q60 at 6.4/6.5, 6.6), all 8 still carry `[BLOCKED]`.
+Zero unblocked unchecked items. Did not re-run the full checker suite: HEAD is
+unchanged from run 301 and the suite has been independently reconfirmed clean
+across runs 292-301 with nothing to re-verify against an identical commit.
+
+THIS RUN'S FINDING: no actionable worklist item, same as the last fifteen runs
+(287-301). QUESTIONS.json: 127 total, 49 open, unchanged. Q127 (live GitHub PAT
+in cleartext in this working copy's `.git/config`) is still open, now its sixth
+day and sixteenth consecutive run with no decision taken. Q115 (cadence) and
+Q119-Q124 (working-copy bloat, now compounded by a 246MB and a 57MB stray log
+file sitting untracked at repo root, plus 150+ stray `.agent-lock.*` debris
+files and at least one stray lock-shaped branch pushed to `origin`) remain open
+and, on this run's own observation, getting worse rather than stabilising.
+
+RECOMMENDATION (restated, unchanged in substance since run 288, now with
+sharper urgency): this hourly schedule has produced sixteen consecutive runs
+of identical output while a live credential exposure sits unresolved and the
+working copy's debris footprint keeps growing. Continuing to fire this task
+on schedule adds no further information and keeps multiplying housekeeping
+risk (stray branches already reaching `origin`, a repo now 1.5GB against a
+healthy few hundred MB). Pausing the schedule until Rishi actively triages
+QUESTIONS.json - Q127 first - is the correct next action, not a seventeenth
+identical run.
+
+GIT COMMIT/PUSH (step 9): only this log entry and the worklist (no content
+change, already correct) to be committed. Lock-debris, scratch files and the
+two oversized stray log files remain untracked by design (not this run's call
+to delete without instruction).
+
+PUBLISH (step 10): will run `node tools/build-audit-status.js` as instructed,
+even though step 5 produced no work item. `gh` CLI not found in this sandbox's
+shell on this run either - same gap on record against Q119/Q124, unresolved.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 301 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start. New lock written (19:13:19Z).
