@@ -1,3 +1,84 @@
+## Run 295 - 2026-10-18
+
+LOCK: none present at start (run 294 released cleanly by rename). New lock
+written (`.agent-lock`, timestamp 15:19:19Z) and released at end, same
+rename-not-delete pattern (this sandbox's FUSE mount still returns EPERM on
+unlink() - confirmed repeatedly again this run, including on the tracked
+file AGENT_LOG.md itself after a drafting mistake below, not only on lock
+files). A stale 0-byte `.git/index.lock` was present at start (created by an
+earlier failed `git fetch` in this session, no git process running) and was
+moved into `.git-lock-debris-quarantine/` rather than deleted. It recurred
+twice more during the run, once after the first `git status` call and once
+after an attempted `git checkout -- AGENT_LOG.md`; both quarantined the same
+way and neither blocked any git operation that mattered.
+
+GIT: fetch/checkout/pull clean. HEAD and origin/agents/audit-backlog both at
+`1583d9e` (run 294's commit) before this run touched anything - fully in
+sync.
+
+OPERATIONAL INCIDENT THIS RUN, logged in full rather than quietly corrected:
+while drafting this entry, a `cat ... > /tmp/...` redirect failed silently
+(`Permission denied`, not surfaced as a blocking error) because a stale
+`/tmp/AGENT_LOG_new.md` from an earlier session (dated 2026-10-16, owned by
+a different user than this run) already existed at that path and this run
+had no write access to it. A subsequent `cp` of that same stale path over
+the real `AGENT_LOG.md` then silently replaced 1483 lines of log history
+with that old 330-line snapshot (run 228 and earlier). Caught immediately by
+`git diff --stat` before anything was staged or committed, and restored by
+reading `git show HEAD:AGENT_LOG.md` and writing it back in place with
+Python's truncating write (not `git checkout`, which itself could not
+unlink the tracked file under this mount's EPERM quirk - the same
+unlink-is-blocked behaviour runs 194+ have documented for lock files turns
+out to apply to ordinary tracked files too, not only files git itself
+creates). No corrupted content reached a commit or a push. Lesson for future
+runs: never trust a `/tmp` path as empty or current in this sandbox without
+checking its timestamp and owner first; prefer building file content in
+memory (or under the per-session working directory) and writing back
+in place rather than redirecting through `/tmp`.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; landed on the Cloudflare
+Access sign-in page (Azure AD / Entra ID login prompt, no live session in
+this Chrome), same as runs 290-294. Did not sign in, click, or submit
+anything. Tab closed. Pickup unavailable this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed `[BLOCKED]` by direct
+grep, unchanged from run 294: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52,
+6.4/Q60, 6.5/Q60, 6.6/Q66. No unblocked unchecked item exists. Ran the full
+checker suite (37 `tools/check-*.js` scripts) directly against the tracked
+working tree: 36/37 pass. The one failure, `check-postcodes.js`, is again
+caused entirely by pre-existing untracked scratch files
+(`.AGENT_LOG_merged.md`, `AGENT_LOG_NEW_267.md`,
+`AGENT_LOG_combined_scratch.md`), reconfirmed none of the three are tracked
+by git (`git ls-files` returns nothing for any of them). Not a new defect,
+not touched, not an eighth identical QUESTIONS.json entry for the same
+finding.
+
+RECOMMENDATION (eighth consecutive run to echo this, runs 288-295): nothing
+in this backlog has changed in eight runs. All 8 remaining worklist items
+remain blocked on Rishi's own decisions, independently re-verified clean
+20-25+ times per item. Q127 (live GitHub PAT in cleartext in this working
+copy's `.git/config` origin remote URL) is unchanged and now unresolved for
+at least 3 days running (opened 2026-10-15); this worker cannot rotate or
+re-scope a credential itself and will not attempt to, but the exposure
+window keeps growing the longer this goes unreviewed. Repeating the standing
+recommendation: pause this schedule until Rishi has reviewed QUESTIONS.json
+- Q127 first (security), then Q115 (cadence/diminishing returns), then
+Q119/Q124 (file bloat and the publish-step credential gap). An automated
+worker re-confirming the same clean state eight times running is producing
+confirmation, not progress.
+
+PUBLISH (step 10): not attempted, per Q124 (known blocked: `gh` absent from
+this sandbox's PATH, publish needs broader credential scope than this
+working copy's PAT has).
+
+LOCK: released at end of run (renamed, not deleted - see above).
+
+---
+
 ## Run 294 - 2026-10-18
 
 LOCK: `.agent-lock` found at start, 3.5 hours old (written 10:42:40Z, now
