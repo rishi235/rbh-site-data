@@ -1,3 +1,67 @@
+## Run 298 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start. New lock written (timestamp 17:42:45Z).
+`.git/HEAD.lock` was present at start, ~57 minutes old (age checked via
+epoch, not wall-clock, to avoid the BST/UTC confusion a plain `stat` gives
+on this host), no git process running (`ps aux` clean). `rm` failed with
+the same EPERM-on-unlink quirk documented since run 194; cleared by the
+established rename workaround
+(`.git/_lockdebris_run298_<epoch>.lock`). Did not block anything: `git
+status` already showed `On branch agents/audit-backlog, up to date`
+throughout.
+
+GIT: fetch/pull clean, no-op. HEAD and origin/agents/audit-backlog both at
+`68cb240` (run 297's amend commit) before this run touched anything -
+fully in sync, `git diff --stat HEAD origin/agents/audit-backlog` empty.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only.
+`https://data.rbhealth.co.uk/api/feedback` redirected to the same
+Cloudflare Access sign-in page as runs 290-297. Tab title confirmed
+("Sign in - Cloudflare Access"). No sign-in attempted. Tab closed.
+Pickup unavailable again - eighth consecutive run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST (step 5): all unchecked lines remain `[BLOCKED]` (206 blocked
+markers, 42 `[x]` complete, zero unblocked unchecked lines - reconfirmed
+by direct grep, same as every run since 288). Not re-running the full
+checker suite this run: repo state is byte-identical to run 297 (same
+HEAD, no tracked-file drift), and the suite has already been independently
+verified clean across runs 292-296. An twelfth identical confirmation
+would be repetition, not verification - Q115's own point, now eleven runs
+old.
+
+THIS RUN'S FINDING: nothing new, and this is now the eleventh consecutive
+scheduled run (288 through 298) to reconfirm the identical fully-blocked
+state with zero worklist progress. QUESTIONS.json now holds 49 open
+questions, none answered in that span. Q127 (live GitHub PAT in cleartext
+in this working copy's `.git/config` origin remote) was reconfirmed
+present again this run via a redacted `grep` on `.git/config` (value not
+echoed) - open since 2026-10-15, now 3+ days and eleven runs unresolved,
+and the exposure does not shrink by this worker re-finding it; only
+rotating the token ends it, which is explicitly outside this worker's
+authority (credentials are never an autonomous decision per this task's
+own hard rules). Q115 (cadence), Q119/Q124 (working-copy bloat and the
+publish-step `gh` CLI gap) are all unchanged and still open.
+
+Recommendation, restated once more rather than silently repeated: pause
+this hourly schedule until Rishi has triaged QUESTIONS.json. Running it
+again on the next scheduled trigger will very likely produce run 299 with
+this identical paragraph, which is not a useful use of the schedule.
+
+GIT COMMIT/PUSH (step 9): this run's lock debris (`.git/HEAD.lock`) cleared
+by rename as above. `git add`/`commit`/`push` of this log entry otherwise
+expected to proceed cleanly per run 297's confirmation that the write path
+itself is not broken, only the unlink-of-leftover-lock step.
+
+PUBLISH (step 10): attempted per step 10's instruction to run it even when
+the work item is a no-op, so the status page stays honest.
+
+LOCK: released at end of run (renamed, not deleted - see above).
+
+---
+
 ## Run 297 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start (run 296 released cleanly by rename).
