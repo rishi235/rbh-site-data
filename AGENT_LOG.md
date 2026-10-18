@@ -1,3 +1,70 @@
+## Run 306 - 2026-10-18
+
+LOCK: `.agent-lock` absent at start; new lock written (22:13:41Z).
+
+GIT: `git fetch`/`git checkout agents/audit-backlog`/`git pull --ff-only` all
+clean this run, no lock quirk. HEAD (`d6ab50d`) matched
+`origin/agents/audit-backlog` exactly, zero ahead/behind, before any work
+started.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page (fifteenth consecutive run this has happened). No sign-in
+attempted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Not in an autonomous window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-305 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6), all
+8 still carry `[BLOCKED]`. Zero unblocked unchecked items.
+
+QUALITY-PASS FALLBACK: did not re-run the 37 `tools/check-*.js` scripts this
+run. `git log --stat -1 HEAD` confirms the only changes since run 303's fresh
+full suite run (36/37 clean) have been log-entry-only commits (runs 304, 305).
+Re-running against byte-identical tracked content would burn this run's time
+budget for zero new information, the standing finding since run 292.
+
+QUESTIONS.json: 127 total, 49 open, unchanged counts. Q127 (GitHub PAT exposed
+in cleartext in this working copy's `.git/config`) checked again via the
+QUESTIONS.json record only (not re-displayed via `git remote -v`, to avoid
+re-exposing it in this log) - still open, still unrotated, dated 2026-10-15
+(day 4). Not actioned: rotating a live credential is outside this run's
+authority per the hard rule that credentials are never an autonomous
+decision.
+
+FINDING: no actionable worklist item, same as the last nineteen runs
+(287-305). Nothing in the repo content changed this run.
+
+PUBLISH DIFFERENCE THIS RUN: step 10 succeeded. `node tools/build-audit-status.js`
+ran to completion and published `reports/digital/Digital_Audit_Status.html`
+(42/48 done, 88%) via the GitHub API, unlike runs 302-305, which all failed at
+the first `gh api` call with `gh: not found`. This run executed on a host
+where the GitHub CLI is installed and already authenticated (`gh auth status`
+confirmed an active `rishi235` session before the publish call), rather than
+the `gh`-less sandbox runs 302-305 used. Worth noting for whoever reconciles
+run environments: the publish step's reliability depends on which host runs
+the schedule, not on anything in this repo.
+
+RECOMMENDATION (restated, unchanged in substance, now twenty consecutive
+no-op runs on the actionable-work side): every unchecked worklist item is
+still blocked on a supervised human action (Weebly repaste, GBP edit, Ahrefs
+UI decision) this unattended worker cannot perform, and the quality-pass
+rotation pool remains clean with nothing new to surface. Q127's live,
+cleartext push credential has now gone unrotated across twenty runs of a
+scheduled task that reads it. The correct next action is still for Rishi to
+triage QUESTIONS.json - Q127 specifically - and decide whether to pause this
+schedule until fresh unblocked work exists, rather than keep firing identical
+runs.
+
+GIT COMMIT/PUSH (step 9): only this log entry and `.agent-lock` lifecycle to
+commit; no worklist line changed, no generator/page/pack/checker/
+branches.json content changed.
+
+LOCK: `.agent-lock` deleted on exit.
+
+---
+
 ## Run 305 - 2026-10-18
 
 LOCK: `.agent-lock` absent at start; new lock written (21:43:50Z).
