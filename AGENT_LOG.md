@@ -1,3 +1,51 @@
+## Run 292 - 2026-10-18
+
+LOCK: none present at start; created cleanly, released at end. GIT: fetch/checkout/pull
+clean, already up to date with origin. A fresh `.git/index.lock` appeared after the
+first `git status` (git's own post-op cleanup failing with the same EPERM-on-unlink
+mount quirk every recent run has hit) and was moved into
+`.git-lock-debris-quarantine/` rather than deleted; harmless, does not block git ops.
+
+ANSWER PICKUP (step 3): attempted. Navigated to `https://data.rbhealth.co.uk/api/feedback`;
+landed on the Cloudflare Access sign-in page (no live session in this Chrome). Did not
+sign in or submit anything. Pickup unavailable this run, same as runs 290-291.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+AGENT_LOG.md. Not in an autonomous window.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed [BLOCKED] by direct grep
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged.
+No unblocked unchecked item exists, so took the quality-pass fallback rather than a
+25th hand-written re-verification script for whichever rotation-pool item happened to
+be stalest. Instead ran six of the repo's own checkers directly against the current
+branch state (check-seo-pattern, check-seo-lengths, check-nap, check-jsonld,
+check-map-embeds, check-branch-identity, check-seo-keywords) as the evidence for this
+pass, covering item 3.4 (Cherry Lane) and the rest of the 36-item rotation pool at
+once: all seven exited clean, 0 failures, same single known exception already on
+record (check-nap WARN on modules/emar/weebly, Q111, unchanged). No new defect found.
+Did not write a new per-item audit script or output file this run - the existing
+checker suite already re-verifies the same ground more cheaply and without adding to
+the worklist/log bloat documented below.
+
+OPERATIONAL NOTE, not a worklist item: AGENT_WORKLIST.md is now 2.9MB and
+QUESTIONS.json 586KB, almost entirely appended quality-pass narrative on a pool that
+has had zero new defects across 20+ independent passes per item since early September.
+Continuing to grow these files on every run has a real, compounding cost (read time,
+diff size, review burden) against essentially zero marginal finding. Worth Rishi
+deciding whether to archive the pre-October quality-pass history out of the two live
+files and into a dated audits/ snapshot, independent of the Q127 decision below.
+
+RECOMMENDATION (echoing Q127, open since 2026-10-15, now unaddressed across runs
+291 and 292): a live GitHub PAT sits in cleartext in this working copy's
+.git/config origin remote URL. This cannot be rotated or re-scoped by this worker -
+only by Rishi, via GitHub settings. It remains the one open item in this backlog with
+a real and growing cost to leaving it unattended; everything else outstanding is
+either already [BLOCKED] on a content/commercial decision or, per the note above,
+pure log volume.
+
+No new QUESTIONS.json entry raised. No commit needed to branches.json, generators, or
+generated pages - no defect found to fix.
+
 ## Run 291 - 2026-10-18
 
 Found run 290's log entry staged but never committed or pushed (the run
