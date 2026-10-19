@@ -1,3 +1,81 @@
+## Run 322 - 2026-10-19
+
+No actionable item, 35th+ consecutive no-op. LOCK: found containing
+"RELEASED 2026-10-19T11:46:51Z - run 321 complete", about 56 minutes old
+at pickup (just over the 45-minute threshold) - treated as stale per the
+rule. `rm` refused with "Operation not permitted" (same Q128
+EPERM-on-unlink quirk), `mv` to a timestamped quarantine name succeeded;
+fresh `.agent-lock` created for this run. `.git/index.lock` present at
+pickup, about 57 minutes old, under the 1-hour staleness bar and no git
+process running (`ps -ef` clean) - left in place; it did not block
+fetch, pull, status or diff this run (only `checkout` refused with it
+present, same as prior runs - unneeded here since already on the right
+branch).
+
+GIT: fetch + pull --ff-only both succeeded, already up to date on
+agents/audit-backlog. HEAD unchanged from run 321 (a593c02).
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no Cloudflare sign-in
+redirect. 129 entries read, newest still Q52 (2026-09-01). Re-verified
+the seven questions named in the current [BLOCKED] worklist lines (Q8,
+Q9, Q13, Q16, Q52, Q60, Q66) against QUESTIONS.json: all seven still
+"status": "answered", with no newer portal entry superseding them. No
+status changes made; nothing newly unblockable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. 42 items
+ticked. Zero unblocked items.
+
+QUALITY-PASS: ran the full tools/check-*.js suite fresh (36/36 non-live-
+hours checkers exit 0, no FAIL output; live-hours checker excluded per
+the established convention since it depends on live network state and
+is tracked separately in audits/live-hours-check-*.json). `git diff
+--stat HEAD` on the tracked tree shows no content changes (only git's
+own CRLF-normalisation warnings on files already committed with CRLF
+line endings - not a real diff). No new finding this run.
+
+INFRASTRUCTURE BLOCKER re-checked: `which gh` still empty, no token in
+env - same Q124/Q127 gap, unchanged.
+
+NEW PROCESS FINDING: stray files from earlier runs persist in /tmp
+across runs rather than starting empty each time, and some are owned by
+a different user (uid "nobody") so this run cannot overwrite or delete
+them - a `cat ... > /tmp/<name>.md` redirect to a pre-existing stale
+file of that name silently failed with "Permission denied" partway
+through, leaving the OLD stale content in place under that filename,
+and a follow-up `cp` of that filename over AGENT_LOG.md very nearly
+replaced the live 3421-line log with a stale 3065-line copy from a
+different run's leftover temp file. Caught immediately via `git diff
+--stat` showing 356 unexpected deletions, restored by `git show
+HEAD:AGENT_LOG.md`, and verified byte-for-byte identical to HEAD before
+continuing. No data was lost in the repo itself (nothing had been
+committed yet), but the near-miss means every run using a fixed /tmp
+filename for a multi-step read-modify-write on a tracked file is at
+risk, not just AGENT_LOG.md. Recommend always using a freshly-named
+scratch path (timestamp or PID in the name, checked empty on creation)
+for this kind of operation, and diffing against HEAD before any
+overwrite of a tracked file, as this run now has. Not filing a new
+QUESTIONS.json entry for this - it does not need Rishi's decision, it
+is a procedural note for future runs, same class as Q119-Q122.
+
+PUBLISH (step 10): not run - `gh` CLI absent (Q124/Q127), same as every
+run since the gap was first found. Status page therefore not refreshed
+this run.
+
+STANDING POINT, unchanged: 35+ consecutive runs with zero unblocked
+worklist items. The three live blockers - the 8 [BLOCKED] worklist
+lines (all needing a supervised Weebly/branch session), the Q127
+PAT/portal-publish gap, and the Q124 gh/token gap - still cannot be
+touched by any unattended run under the hard rules. Recommendation to
+pause the schedule until a supervised sitting clears them stands.
+
+LOCK: released by rename (`.agent-lock.RELEASED-run322-<epoch>`) before
+exit, per the EPERM-on-unlink workaround.
+
 ## Run 321 - 2026-10-19
 
 No actionable item, 34th+ consecutive no-op. LOCK: `.agent-lock` absent
