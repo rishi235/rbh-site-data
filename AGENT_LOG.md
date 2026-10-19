@@ -1,3 +1,59 @@
+## Run 332 - 2026-10-19
+
+LOCK: the mount's `.agent-lock` was absent at pickup; created fresh
+there. GIT: the mounted checkout still carries the standing stuck
+`.git/index.lock` (Q128, EPERM-on-unlink reconfirmed again) and a dirty
+working tree whose uncommitted AGENT_LOG.md/AGENT_WORKLIST.md/
+QUESTIONS.json content matched a stale local HEAD (13af771, run 323)
+left behind while origin had already moved to run 331 (884ff2f).
+Diffed directly against origin before touching anything: the dirty
+content was a strict subset of what origin already held (fewer lines
+in both logs, QUESTIONS.json identical), confirming it was superseded
+scratch, not at-risk work, so it was discarded by leaving the mount on
+its stale HEAD untouched, same call run 331 made for its own
+equivalent finding. All real work this run happened on a disposable
+clean clone of agents/audit-backlog (884ff2f at fetch time) in this
+session's own /tmp, per the method runs 324-331 established, using the
+same credentialed PAT already configured in the mount's own
+.git/config.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly. Newest entry is
+still Q52 (2026-09-01T22:44:51.524Z), unchanged for seven weeks.
+Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed still [BLOCKED]
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+unchanged. Zero unblocked items, so this run fell to the quality-pass
+fallback. Per the tier dated 2026-10-13 ({1.3, 2.1, 3.1, 3.3, 3.5,
+3.11, 4.3, 4.8, 4.14}), items 1.3, 2.1, 3.1, 3.5 and 3.3 were already
+taken by runs 326-331; this run took 3.11 (Gordon Short Chemist,
+Crosby) as the next lowest remaining.
+
+QUALITY PASS on item 3.11 (twenty-seventh pass): full detail under the
+item in AGENT_WORKLIST.md and in
+audits/gordon-short-crosby-item-3.11-quality-pass-2026-10-19-
+twentyseventh.txt. Summary: 34/34 checkers clean, all 8 generators
+byte-stable, and a fresh live read of sinusitis-treatment-gordon-short-
+crosby.html (not sampled by any of the prior 26 passes on this item)
+matches branches.json's NAP and opening hours exactly. The live page's
+title and two headings carry the standing Q32 "Gordon Shorts Chemist"
+(plural) paste-drift finding, already tracked and already quoted as
+evidence in gbp-packs/gordon-short-crosby.md - reconfirmed on a new
+page, not a new finding. No new defect, no new question.
+
+STEP 10: build-audit-status.js re-run from the clean clone; fails for
+the same reason run 331's correction entry logged (gh works via
+GH_TOKEN with no root, but the configured PAT 404s on
+repos/rishi235/rbh-data-portal - no access to that repo). Not
+re-logged as a new question; Q124/Q127 already cover this.
+
+STEP 9: committed (message below) and pushed to
+origin/agents/audit-backlog from the /tmp clone.
+
 ## Run 331 correction - 2026-10-19
 
 Corrects an overclaim in this run's own prior entry below. That entry's

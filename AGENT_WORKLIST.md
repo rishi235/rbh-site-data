@@ -16286,6 +16286,31 @@ Done 2026-10-14 (twenty-third pass).
       found; no new question raised. Evidence in this log entry only (no
       separate audits/ file this pass, given the narrow scope).
       Done 2026-10-13
+      Twenty-seventh quality pass 2026-10-19 (run 332, audit-backlog-worker).
+      All 8 worklist items confirmed [BLOCKED] by direct grep; 2026-10-13
+      tier {1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14} had 1.3/2.1/3.1/
+      3.5/3.3 already taken by runs 326-331, so 3.11 was the next lowest
+      remaining. REPO HALF: full 34-checker suite clean (excl. cdn-pins and
+      live-hours, both network-dependent), all 8 build-*.js generators
+      byte-stable against the tracked tree. gordonshorts_crosby's
+      branches.json fields re-verified against a page not sampled by any of
+      the prior 26 passes on this item (sinusitis-treatment-gordon-short-
+      crosby.html) - all match, and the tracked source reads "Gordon Short
+      Chemist" (singular) in all 11 occurrences including <title> and
+      JSON-LD name. LIVE HALF (Claude in Chrome, read-only): the same live
+      page's NAP and opening hours match branches.json exactly; the live
+      <title>, hero-sub, booking-sub and two headings carry "Gordon Shorts
+      Chemist" (plural) while the footer and contact strip correctly read
+      singular - this reconfirms the STANDING Q32 finding (live Weebly
+      paste drift, already quoted as evidence in gbp-packs/gordon-short-
+      crosby.md) on a page not previously used as evidence for it, not a
+      new finding. Answer pickup (step 3): newest feed entry still Q52,
+      unchanged seven weeks. No autonomous-window section found (step 4
+      does not apply). NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item
+      3.11 stays `[x]` (quality pass, not a state change). Evidence:
+      audits/gordon-short-crosby-item-3.11-quality-pass-2026-10-19-
+      twentyseventh.txt. Done 2026-10-19.
+
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent

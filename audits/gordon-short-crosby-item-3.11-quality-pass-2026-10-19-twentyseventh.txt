@@ -1,0 +1,112 @@
+Item 3.11 quality pass (twenty-seventh), run 332, 2026-10-19
+=============================================================
+
+Scope: item 3.11 (Gordon Short Chemist, Crosby/Liverpool) - "same
+treatment" as the other service-family branches. All 8 worklist items
+confirmed [BLOCKED] by direct grep before falling to the rotation-pool
+quality-pass fallback. 2026-10-13 tier {1.3, 2.1, 3.1, 3.3, 3.5, 3.11,
+4.3, 4.8, 4.14}: 1.3 (run 326), 2.1 (run 327), 3.1 (run 328), 3.5
+(run 330), 3.3 (run 331) already taken; 3.11 is the next lowest
+remaining untaken item in that tier.
+
+REPO HALF
+---------
+Full 34-checker suite run directly on a disposable clean clone of
+agents/audit-backlog (HEAD 884ff2f at clone time), excluding
+check-cdn-pins.js and check-live-hours.js (both network-dependent):
+34/34 exit 0, no failures.
+
+All 8 build-*.js generators re-run (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weebly-furniture-checklist,
+build-weight-loss-pages; build-audit-status.js is the status-page
+publisher, not a page generator, see STEP 10 note below). `git status`
+after regeneration showed zero diff against the tracked tree: byte-
+stable output confirmed for every page this item's branch
+(gordonshorts_crosby) appears on.
+
+gordonshorts_crosby's branches.json entry re-verified field by field
+against modules/service/pages/sinusitis-treatment-gordon-short-
+crosby.html (chosen because it had not been named by any of the
+twenty-six prior passes on this item, per a text search of this item's
+own AGENT_WORKLIST.md block): address "159 College Road", Liverpool,
+L23 3AT; phone 0151 924 3449; email shorts@rbhealth.co.uk (case-
+insensitive match to branches.json's "Shorts@rbhealth.co.uk", not a
+defect); odsCode FPD45; seoTown Crosby; serviceAreaList Crosby/
+Waterloo/Sefton - all match. The repo-generated source for this page
+reads "Gordon Short Chemist" (singular) in all 11 occurrences of the
+brand name, including <title>, hero-sub, booking-sub, the "How it
+works" heading, the contact heading and the JSON-LD name - confirmed
+by direct grep, no drift in the tracked source.
+
+LIVE HALF (Claude in Chrome, read-only, no sign-in, single tab)
+-----------------------------------------------------------------
+gordonshortchemist.co.uk/sinusitis-treatment-gordon-short-crosby.html
+read via get_page_text. NAP matches branches.json exactly: address
+"159 College Road, Liverpool, L23 3AT"; phone "0151 924 3449"; email
+"shorts@rbhealth.co.uk". Opening hours match the specification exactly:
+Mon-Fri 9:00am-6:00pm (closed 1-2pm), Sat 9:00am-5:00pm (closed 1-2pm),
+Sun closed.
+
+Brand spelling: the live page's <title> ("Sinusitis treatment in
+Crosby - Gordon Shorts Chemist"), hero-sub ("Gordon Shorts Chemist
+offers the NHS Pharmacy First service..."), booking-sub, the "How it
+works at Gordon Shorts Chemist" heading and the "Contact Gordon Shorts
+Chemist" heading all carry the plural "Gordon Shorts Chemist", while
+the footer address block and the page's final contact strip correctly
+read singular "Gordon Short Chemist". This is the STANDING, ALREADY-
+TRACKED Q32 finding (live Weebly paste drift from the pre-Q1 brand
+name, out of scope for any repo checker because check-brand-
+spelling.js can only read tracked/generated content, not the live
+site) - reconfirmed on a page not previously sampled for it
+(pharmacy-first-gordon-short-crosby.html and the homepage had been
+checked by earlier passes; this is the first time sinusitis-treatment-
+gordon-short-crosby.html specifically was read live). NOT a new
+finding; gbp-packs/gordon-short-crosby.md already quotes this exact
+"Gordon Shorts Chemist" live wording as evidence (lines 121, 143, 148,
+176, 192) and Q32 already covers it estate-wide.
+
+ANSWER PICKUP (step 3)
+----------------------
+Claude in Chrome, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback. Newest entry is still Q52
+(2026-09-01T22:44:51.524Z) - unchanged for seven weeks, consistent with
+every run since. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4)
+--------------------------
+No "Standing authorisation - autonomous window" section found at the
+top of AGENT_LOG.md. Does not apply.
+
+RESULT
+------
+No new in-repo defect found. No new question raised. Item 3.11 stays
+[x] (quality pass, not a state change).
+
+INFRASTRUCTURE (mount vs clean clone, same as runs 324-331)
+------------------------------------------------------------
+The mounted checkout (C:\dev\rbh-site-data, reached via the Cowork
+sandbox at /sessions/.../mnt/rbh-site-data) still carries the standing
+stuck .git/index.lock (Q128, EPERM-on-unlink reconfirmed again: rm
+fails identically) and a dirty working tree whose uncommitted
+AGENT_LOG.md/AGENT_WORKLIST.md/QUESTIONS.json content was a stale local
+HEAD (13af771, run 323) left behind while origin had already moved to
+run 331 (884ff2f). Diffed directly against origin before touching
+anything (`git diff --stat origin/agents/audit-backlog -- ...`): the
+mount's dirty content was a strict subset of what origin already held
+(AGENT_LOG.md 493 fewer lines, AGENT_WORKLIST.md 113 fewer lines,
+QUESTIONS.json identical), confirming it was superseded scratch, not
+at-risk work - left untouched on the mount rather than fought, same
+call run 331 made for its own equivalent finding. All real work this
+run happened on a disposable clean clone of agents/audit-backlog
+(884ff2f at fetch time) in /tmp, per the method runs 324-331
+established, using the same credentialed PAT already configured in the
+mount's own .git/config.
+
+STEP 10: build-audit-status.js re-run from the clean clone; still
+fails, same cause run 331's correction entry logged (gh binary works
+via GH_TOKEN, user-local fetch, no root - but `gh api
+repos/rishi235/rbh-data-portal` 404s: the configured PAT has no access
+to that repo). Not re-logged as a new question; Q124/Q127 already
+cover this at the right granularity and run 331's correction already
+sharpened the cause.
