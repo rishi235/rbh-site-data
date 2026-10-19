@@ -1,3 +1,79 @@
+## Run 316 - 2026-10-19
+
+No actionable item, 29th+ consecutive no-op. LOCK: `.agent-lock` found at
+start containing "RELEASED 2026-10-19T05:47:00Z - run 315 complete" (about
+53 minutes old at run start, past the 45-minute staleness threshold either
+way). `rm` on it failed with "Operation not permitted" under this mount's
+standing EPERM-on-unlink behaviour (Q128); overwrote the content in place
+instead, same workaround as every prior run.
+
+GIT: `fetch` succeeded; already on `agents/audit-backlog`; `pull --ff-only`
+reported already up to date. HEAD `3e27267b...` unchanged from run 315's own
+commit, confirmed by an empty `git diff --stat HEAD` - no answer or external
+change landed since. No `.git/index.lock` debris encountered this run (the
+plain status/diff commands above did not trigger the Q128 symptom this
+time; noting the absence rather than assuming the bug is fixed, since it has
+been intermittent before).
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Single
+read-only tab navigated to `https://data.rbhealth.co.uk/api/feedback`;
+redirected to the Cloudflare Access sign-in page (confirmed via
+`tabs_context_mcp`, title "Sign in - Cloudflare Access"), same as every run
+since 165 bar one. No sign-in attempted, no credentials entered, tab closed
+immediately after confirming the redirect.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before this entry
+was added; no "Standing authorisation - autonomous window" section present.
+Step 4 does not apply this run.
+
+WORKLIST (step 5): reconfirmed by direct grep against the live file, not by
+trusting the previous log entry - the same 8 unchecked lines as runs
+303-315, all still carrying `[BLOCKED]`: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero unblocked items available. 42 items
+ticked complete, unchanged.
+
+QUALITY-PASS: not re-run this run. Run 313 ran the full `tools/check-*.js`
+suite fresh (35/35 clean) and rebuilt all 8 generators byte-identical
+against `branches.json`, and the tracked tree is byte-identical to that run
+(HEAD unchanged across runs 314, 315 and this one, `git diff --stat HEAD`
+empty throughout). Re-running the identical suite against the identical
+tree a third time since would spend this run's time budget to reconfirm a
+fact already established twice, not to find anything new - same convention
+runs 255/300/312/313/314/315 already established, and continuing to extend
+it here rather than treating each run as licence to re-verify from scratch.
+
+QUESTIONS.json: 128 total, 50 open, unchanged from run 315 - no new finding
+this run to add one.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted and failed
+in the expected way - `gh` is not on PATH in this sandbox (`which gh`
+returns nothing) and the only available token is the cleartext PAT recorded
+under Q127, which the standing credential rule says to leave alone rather
+than extract and use myself (this is explicit even during an autonomous
+window, and no window is active this run regardless). Checked whether `gh`
+could simply be installed and used with some other, non-leaked
+authentication already present in this environment first, since that would
+be an environment fix rather than a credential decision: no `gh` binary
+anywhere on PATH, and `env | grep -i token` turned up nothing, confirming
+there is no legitimate credential sitting unused here. Same blocker as runs
+309-315 (Q124/Q127). Status page not published this run.
+
+STANDING POINT, repeating because it is still true: 29+ consecutive runs
+with zero unblocked worklist items and a quality-pass rotation pool
+independently re-verified clean well beyond any plausible remaining risk.
+The three live blockers - the 8 `[BLOCKED]` worklist lines, the Q127 PAT
+rotation, and the Q124 `gh`/token gap stopping step 10 - all need Rishi
+directly in a supervised session; none of them is fixable from inside an
+unattended run without touching a credential, which the hard rules
+correctly forbid regardless of how long the queue has been stuck. Worth his
+call on pausing this schedule until he has time to clear them in one sitting
+- at the current cadence this task will keep producing the same no-op shape
+indefinitely, and the AGENT_WORKLIST.md/AGENT_LOG.md files are growing by a
+near-identical block on every run (AGENT_WORKLIST.md is now 41,000+ lines),
+which is itself worth a look next time he is in a supervised session: the
+worklist was meant to be a tracker, not a growing log of "still blocked"
+restatements.
+
 ## Run 315 - 2026-10-19
 
 No actionable item, 28th+ consecutive no-op. LOCK: `.agent-lock` found at
