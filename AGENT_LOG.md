@@ -1,3 +1,77 @@
+## Run 319 - 2026-10-19
+
+No actionable item, 32nd+ consecutive no-op. LOCK: `.agent-lock` found at
+start containing "RELEASED 2026-10-19T08:54:23Z - run 318 complete" (about
+49 minutes old at run start, under the 45-minute... actually past it -
+overwrote in place with this run's claim timestamp, same Q128 EPERM-on-
+unlink workaround as every prior run (`rm` refused with "Operation not
+permitted"). A `.git/index.lock` from an earlier session was present at
+run start, ~52 minutes old (epoch-checked) with no git process running
+(`ps aux` clean) - per the 1-hour staleness rule this was not yet stale
+enough to clear, so this run waited out the remaining ~8 minutes rather
+than overriding the threshold early, then quarantined it by rename once
+it crossed 3600 seconds (`rm` again refused EPERM, `mv` succeeded). The
+pre-existing debris pile from earlier runs' own probes was left exactly as
+found, same reasoning as runs 313-318.
+
+GIT: `fetch` succeeded; already on `agents/audit-backlog`; `pull --ff-only`
+reported already up to date. HEAD `5415f3f` (run 318's own commit)
+unchanged at pickup - no answer or external change had landed via git
+since.
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run and, unlike
+every run since 165 bar one, the read-only tab reached
+`https://data.rbhealth.co.uk/api/feedback` directly without a Cloudflare
+Access sign-in redirect this time (returned the raw JSON feed instead of
+the sign-in page) - worth noting as a change in session state, not acted
+on beyond reading. 129 entries read; newest is Q52 (2026-09-01). All open
+questions in `QUESTIONS.json` are Q77 and above, so none of the newest
+portal entries answer anything currently open - no status changes made.
+Tab closed immediately after reading.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before this entry
+was added; no "Standing authorisation - autonomous window" section
+present. Step 4 does not apply this run.
+
+WORKLIST (step 5): reconfirmed by direct grep against the live file: the
+same 8 unchecked lines as runs 303-318, all still carrying `[BLOCKED]`:
+5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero
+unblocked items available. 42 items ticked complete, unchanged.
+
+QUALITY-PASS: ran the full `tools/check-*.js` suite fresh (37 checkers,
+all exit 0) rather than trusting run 318's result unverified, since this
+run's budget allowed it and the last fresh run before that was six runs
+earlier. Did not re-run all 8 page generators this time - run 318 already
+proved the tree byte-identical against current `branches.json` a run ago,
+and `git diff --stat HEAD` for the tracked tree is empty at pickup, so
+nothing has moved that regeneration could catch. No new finding beyond
+Q129 (still open, raised last run).
+
+INFRASTRUCTURE BLOCKERS re-checked directly rather than assumed: `which gh`
+still empty, `env | grep -i token` still empty - same gap as runs 309-318
+(Q124/Q127). Read `tools/build-audit-status.js` itself (line 371/378) to
+confirm it has no fallback path other than the `gh` CLI for the portal PUT;
+this was not previously quoted directly in the log, only referenced. The
+only credential present anywhere in this environment is the PAT embedded
+in `origin`'s remote URL, scoped to this repo's own push and not to
+`rbh-data-portal` - not something to extract or repurpose, consistent with
+every prior run's reasoning.
+
+PUBLISH (step 10): not attempted this run beyond confirming the same `gh`
+gap above - re-running the script to watch it fail the identical way for
+the tenth-plus time would add nothing. Status page not published this run.
+
+STANDING POINT, repeating because it is still true and getting more true,
+not less: 32+ consecutive runs with zero unblocked worklist items. The
+schedule is spending real time every run re-confirming facts that have not
+changed in six or more runs (repo clean, `gh` absent, 8 items blocked). The
+standing recommendation remains to pause the schedule until Rishi can
+clear the three live blockers - the 8 `[BLOCKED]` worklist lines, the Q127
+PAT/portal-publish gap, and the Q124 `gh`/token gap - in one supervised
+sitting, since no unattended run can touch any of the three under the hard
+rules (no money/legal/credential decisions, no main, no force-push,
+browser read-only).
+
 ## Run 318 - 2026-10-19
 
 No actionable item, 31st+ consecutive no-op, but a genuine fresh finding
