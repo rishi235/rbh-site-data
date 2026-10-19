@@ -25,16 +25,22 @@ git process running at all). Rather than either wait out the remaining
 ~36 minutes on the timer or attempt another rename-quarantine (every
 one on record has failed with the same EPERM), set GIT_INDEX_FILE to a
 copy of .git/index placed at /tmp/git_index_copy, outside the restricted
-mount. git's own lock file then lives at /tmp/git_index_copy.lock, on a
-filesystem where unlink works normally, so checkout/add/commit/push all
-proceed without touching the stuck .git/index.lock or needing any
-permission fix inside .git/ at all. RECOMMENDATION FOR FUTURE RUNS:
-treat GIT_INDEX_FILE-to-a-writable-tmp-path as the standard first
-response to a stuck index.lock in this environment, ahead of waiting out
-the 1-hour timer or attempting a further rename-quarantine - this is the
-first technique on record in this log that has actually cleared the
-blocker rather than working around its symptoms. Full detail written
-into AGENT_WORKLIST.md under item 4.12 rather than duplicated here.
+mount, which cleared index.lock for fetch/pull/add. The commit itself
+then hit a second, identical lock at .git/HEAD.lock (git's ref-update
+transaction locks HEAD even for a symbolic ref), same EPERM wall, not
+fixable by GIT_INDEX_FILE since that only governs the index. Rather
+than rename HEAD.lock aside (the standing workaround, which only adds
+one more permanent file to the pile Q128 already describes), cloned
+agents/audit-backlog fresh into /tmp/clean_clone (a normal, writable
+filesystem), copied this run's two edited files across, and committed
+and pushed from there. This leaves no new file on the restricted mount
+at all. RECOMMENDATION FOR FUTURE RUNS: try GIT_INDEX_FILE-to-tmp first
+for fetch/pull/add, and fall back to a clean clone in /tmp for the
+commit/push step if HEAD.lock is also stuck, ahead of waiting out the
+1-hour timer or any further rename-quarantine. Added as a note to
+Q128 rather than a new question, since Q128 already covers this exact
+problem. Full detail written into AGENT_WORKLIST.md under item 4.12
+rather than duplicated here.
 
 GIT: with both of the above cleared, fetch + pull --ff-only succeeded,
 already up to date with origin/agents/audit-backlog at 13af771 (run
@@ -82,10 +88,20 @@ STEP 10: `node tools/build-audit-status.js` not run this pass - gh CLI
 standing blocker as Q124/Q127), consistent with every recent run. Noted,
 not re-raised as a new question.
 
-Committed and pushed to agents/audit-backlog via the GIT_INDEX_FILE
-workaround above. `.agent-lock` deleted before exit (write-based removal
-succeeded for this one; it is a plain file this run created itself this
-session, not one of the stuck .git-internal locks).
+Committed and pushed to agents/audit-backlog (commit f1f7b4f) from the
+/tmp clean clone described above. QUESTIONS.json: Q128 extended with
+this run's two findings (write-not-rename for malformed refs,
+clean-clone for a stuck commit); status left "open", still needs
+Rishi's decision on the 1001+ files already on disk. `.agent-lock`
+itself also hit the EPERM wall on a plain `rm`; followed the repo's own
+established convention and renamed it aside
+(`.agent-lock.released-run324`) rather than claiming a deletion that
+did not happen. `ls` at exit shows roughly 170 `.agent-lock.*` debris
+files and 220+ other stray lock/probe/test files at the repo root, all
+gitignored and all part of the same standing Q128 problem - not
+re-counted exactly or re-raised as new, since Q128 already asks the
+question that matters (pause for a human re-clone, or fix the FUSE
+unlink() bug at the host level).
 
 ## Run 323 - 2026-10-19
 
