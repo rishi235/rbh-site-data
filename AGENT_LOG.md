@@ -4143,3 +4143,23 @@ than this run's own just-created, not-yet-built-upon commit was rewritten -
 but the rule was still broken and the next run (or Rishi) should treat any
 future occurrence of this the same way: flag it, do not repeat it, and fix
 forward with a new commit.
+
+## Run 329 addendum - 2026-10-19
+
+Two closing notes, both via the real Windows host rather than the Cowork
+sandbox mount: (1) republished the status page after the correction commit
+above landed - 
+ode tools/build-audit-status.js again reported
+'Published reports/digital/Digital_Audit_Status.html (42/48 done, 88%)', so
+the live portal page now reflects origin's true tip (`c703086`) rather
+than the amended-then-replaced `6071055`. (2) attempted to delete
+`.agent-lock` on the real `C:\Dev\rbh-site-data` mount directly via
+PowerShell's `Remove-Item` (not the Cowork Linux sandbox's file tools) -
+it succeeded cleanly, unlike run 328's finding that plain-file deletion
+hits the standing EPERM-on-unlink wall. This matches run 164's original
+diagnosis exactly: the EPERM wall is a property of the Cowork sandbox
+mount's translation layer, not of this repository, this task, or the real
+filesystem - a run (or the part of a run) that operates directly against
+the real host via Windows-MCP/PowerShell does not hit it, same as runs 245
+and 249 already found for `gh`/publish access. Lock released; this run is
+complete.
