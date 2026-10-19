@@ -1,3 +1,76 @@
+## Run 335 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox (Linux). LOCK: C:\Dev\rbh-site-data\.agent-lock
+was absent at pickup on the sandbox mount; created fresh at session start,
+to be deleted at the end of this run.
+
+REPO-STATE RECOVERY (before any of steps 3-9 below): the mount's working
+copy held stale uncommitted edits to AGENT_LOG.md/AGENT_WORKLIST.md/
+QUESTIONS.json against a stale local HEAD (13af771, run 323), 17-18 commits
+behind origin's actual tip (be8cd65f, run 334). Diffed the stale content
+against origin directly: byte-identical on all three files and on every
+untracked audits/ file the mount also held, confirming superseded scratch
+from an earlier crashed attempt, not at-risk unique work (same finding
+runs 327/331/332/333/334 each made about this recurring state). The
+mount's git write-path is broken for any operation that unlinks a tracked
+file - checkout, stash, merge --ff-only and reset --hard all failed with
+EPERM on this FUSE mount, confirmed freshly this run - so the stale state
+was discarded by writing origin's blob content directly over the three
+tracked files (`git show origin/...:<path> > <path>`, a truncate-and-write
+which this mount does permit) and then moving HEAD with `git update-ref
+HEAD origin/agents/audit-backlog` once the working tree and index already
+matched, avoiding the unlink step entirely. Several stray index/ORIG_HEAD/
+HEAD lock files recreated mid-recovery (same Q128 EPERM-on-unlink family)
+were each cleared by same-directory rename as they appeared. All real work
+below was then done on a disposable shallow clone in /tmp (the established
+workaround from runs 324+), using the origin PAT already present in the
+mount's .git/config. /tmp itself proved EPERM-on-unlink too (several stale
+debris clones from earlier runs failed to delete), but a fresh clone in a
+new directory was unaffected. Disk space was also tight on this sandbox
+(757MB free of 9.6GB) - a full clone would not have fit given the repo's
+.git history size, so a shallow (--depth 1) clone of just the branch tip
+was used instead, which fit comfortably.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read via
+Claude in Chrome, read-only, one tab opened and closed, nothing clicked or
+typed. Newest entry is still Q52 (2026-09-01), unchanged for seven weeks.
+Nothing new for any of the eight currently-[BLOCKED] questions (Q8, Q9,
+Q13, Q16, Q52, Q60 x2, Q66).
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): all eight unchecked lines confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+so this was the quality-pass fallback. Per the 2026-10-13 rotation tier
+{1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}, runs since have taken
+1.3/2.1/3.1/3.5/3.3/3.11/4.3/4.8 (most recently run 334 on 4.8), leaving
+4.14 as the sole untaken item in that tier; taken as this run's pick.
+
+QUALITY PASS on item 4.14 (Gordon Short Chemist Crosby pack): full
+35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+network-dependent) run on the clean clone: 35/35 exit 0. All seven page
+generators regenerate byte-stable (zero diff against modules/). Pack facts
+re-verified field by field against branches.json (gordonshorts_crosby):
+name, address, phone, review link, website and opening hours (Mon-Fri 9-1
+and 2-6, Sat 9-1 and 2-5, Sun closed) all match the pack exactly,
+unchanged since the twenty-third pass. No em dash in the pack file.
+Checked for a genuinely untested checker/rule pair against this specific
+pack: none found - the page-level checkers do not apply to a GBP pack, and
+this branch's generated-page surface is already covered under item 3.11
+(twenty-seventh pass, this same week). This item's own 23-pass history
+already covers all five check-postcodes.js live-branch rules plus
+check-gbp-packs.js's body-image, EFFICACY_FAIL and OUTCOME_PROMISE rules by
+direct injection against this exact file, so this pass is a confirmatory
+re-verification. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 4.14
+stays `[x]`. Evidence:
+audits/gordon-short-item-4.14-quality-pass-2026-10-20-twentyfourth.txt.
+
+STEP 10: gh CLI not present in this sandbox clone (`which gh` empty).
+Status-page publish not attempted this run; gh availability is
+host-dependent (present on the Windows-MCP ProDeskAi host per run 334,
+absent in this sandbox).
+
 ## Run 334 - 2026-10-19
 
 Run via mcp__Windows-MCP__PowerShell against the real ProDeskAi host (not a

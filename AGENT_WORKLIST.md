@@ -31812,6 +31812,29 @@ directly rather than re-deriving the same facts by hand.
       QUESTIONS.json unchanged at 125 total, 47 open. Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-10-13-twentythird.txt.
       Done 2026-10-13.
+      Quality pass 2026-10-20 (twenty-fourth, unattended scheduled run):
+      full 35-checker suite re-run (excluding check-cdn-pins.js and
+      check-live-hours.js, network-dependent), 35/35 exit 0; all seven page
+      generators regenerate byte-stable (zero diff against modules/). Pack
+      facts re-verified field by field against branches.json
+      (gordonshorts_crosby): name, address 159 College Road/Liverpool/
+      L23 3AT, phone 0151 924 3449, review link, website, and opening hours
+      (Mon-Fri 9-1 and 2-6, Sat 9-1 and 2-5, Sun closed, both split-day
+      sessions present) all match the pack exactly, unchanged. No em dash
+      in the pack file. Checked for a genuinely untested checker/rule pair
+      against this specific pack: none found this pass - the page-level
+      checkers (booking-routes, jsonld, map-embeds, nap, branch-identity)
+      do not apply to a GBP pack at all, and this branch's generated-page
+      surface is already covered under item 3.11 (twenty-seventh pass, same
+      week). This item's own 23-pass history already covers all five
+      check-postcodes.js live-branch rules plus check-gbp-packs.js's
+      body-image, EFFICACY_FAIL and OUTCOME_PROMISE rules by direct
+      injection against this exact file, so this pass is a confirmatory
+      re-verification rather than a new-angle round. NO NEW DEFECT FOUND,
+      NO NEW QUESTION RAISED. Item 4.14 stays `[x]` (quality pass, not a
+      state change). Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-10-20-twentyfourth.txt.
+      Done 2026-10-20.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
