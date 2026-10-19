@@ -1,0 +1,73 @@
+Item 3.1 - twenty-fourth quality pass - 2026-10-19 (run 328, audit-backlog-
+worker, unattended scheduled run)
+
+SELECTION: all 8 open worklist lines (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) confirmed still [BLOCKED] by direct
+grep, so this run fell to the quality-pass fallback. Per run 326/327's own
+rotation note, the tier dated 2026-10-13 was {1.3, 2.1, 3.1, 3.3, 3.5, 3.11,
+4.3, 4.8, 4.14}; run 326 took 1.3, run 327 took 2.1, so this run took 3.1 as
+the next lowest item number remaining in that same tier.
+
+PICKUP NOTE: at pickup, the mounted checkout at C:\dev\rbh-site-data had a
+dirty working tree (AGENT_LOG.md, AGENT_WORKLIST.md, QUESTIONS.json showing
+runs 324-327's content) sitting on top of a stale local HEAD (13af771, run
+323), plus .git/HEAD.lock and .git/index.lock both present and orphaned
+(same standing EPERM-on-unlink wall, Q128). Diffed the working tree against
+a fresh anonymous clone of origin/agents/audit-backlog: zero difference.
+Confirmed via the clone's own log that runs 324-327 had already committed
+and pushed this content via the clean-clone-in-/tmp workaround (commits
+f7b9a00 .. 6edbb72), and the mounted checkout's own branch ref simply never
+advanced. Nothing was at risk and nothing needed recovering. This run's own
+work (below) and its commit/push were done entirely from a second fresh
+clone, /tmp/rbh-clean-clone-2, the same established workaround, to avoid
+adding any further debris to the broken mount.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no sign-in redirect.
+Newest entry is still Q52 (2026-09-01T22:44:51.524Z), unchanged for seven
+weeks. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of AGENT_LOG.md. Does not apply.
+
+BASELINE (from the twenty-third pass, 2026-10-13): check-seo-pattern.js
+177/0/0 exit 0; branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1.
+
+THIS PASS:
+- check-seo-pattern.js re-run directly: 177 pages checked, 0 untyped, 0
+  failures, 7 ready Pharmacy First conditions read from
+  build-service-pages.js (data under test, not mirrored), PAGE_TYPES
+  contract verified across all 6 generators, one-h1 and one-line rules both
+  clean, cross-town rule read against all 11 live seoTowns with
+  serviceAreaList excusing the 5 branches with a declared catchment
+  overlap. Unchanged from baseline.
+- branches.json sha256 re-hashed: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+  - byte-identical to the standing anchor.
+- Full checker sweep: all 35 scripts in tools/check-*.js except
+  check-cdn-pins.js and check-live-hours.js (both network-dependent) run
+  directly against the fresh clone's tracked tree. 35/35 exit 0, no
+  failures. (The fresh clone has no untracked debris at all, so the
+  recurring untracked-debris false-positive class on check-postcodes.js
+  that has needed a NARRATIVE_POSTCODES fix on prior passes did not arise
+  this time - nothing to fix.)
+- All 8 generators (tools/build-*.js) re-run: git status --porcelain --
+  modules core branches.json gbp-packs empty before and after, confirming
+  byte-stable regeneration. tools/build-audit-status.js was also run as
+  part of this sweep (it is one of the 8 build-*.js scripts) and failed at
+  its final step with "gh: not found" (exit 127) - the standing Q124/Q127
+  gap, unchanged, no side effect: it failed before attempting any network
+  write, and git status confirmed no file was altered by the attempt.
+- LIVE HALF, fresh angle (Claude in Chrome, read-only, nothing clicked,
+  typed or submitted): rather than re-reading Gordon Short Crosby (the
+  twenty-second/twenty-third passes' sample), read
+  https://www.smarttschemist.co.uk/uti-treatment-smartts-bootle.html, a
+  branch and page this item's own pass history had not sampled before.
+  Title "UTI treatment in Bootle - Smartts Chemist", H1 "UTI treatment in
+  Bootle" - both match the family A pattern exactly (condition in town,
+  brand suffix on the title only), confirming the pattern is still being
+  served correctly live on a page outside the usual sample set.
+
+NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.1 stays `[x]` (quality
+pass, not a state change). QUESTIONS.json unchanged (newest feed entry
+still Q52). Done 2026-10-19.

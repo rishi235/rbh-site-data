@@ -1,3 +1,62 @@
+## Run 328 - 2026-10-19
+
+LOCK: `.agent-lock` absent at pickup on the mounted checkout; created
+fresh. GIT: the mounted checkout at C:\dev\rbh-site-data had a dirty
+working tree (runs 324-327's AGENT_LOG.md/AGENT_WORKLIST.md/QUESTIONS.json
+content) sitting over a stale local HEAD (13af771, run 323), plus
+`.git/HEAD.lock` and `.git/index.lock` both present and orphaned (standing
+EPERM-on-unlink wall, Q128, confirmed again: `rm -f` failed on both).
+Diffed the working tree against a fresh anonymous clone of
+origin/agents/audit-backlog: zero difference, confirming runs 324-327 had
+already committed and pushed this content via the clean-clone-in-/tmp
+workaround and only the mount's own branch ref had failed to advance.
+Nothing was at risk; nothing needed recovering. This run's own work and
+its commit/push were done entirely from a second fresh clone,
+/tmp/rbh-clean-clone-2, the same established workaround, adding no further
+file to the broken mount.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no sign-in redirect.
+Newest entry still Q52 (2026-09-01), unchanged for seven weeks. Nothing new
+to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66 (confirmed by
+direct grep). Zero unblocked items, so this run fell to the quality-pass
+fallback. Per run 326/327's rotation note, the 2026-10-13 tier was {1.3,
+2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}; 1.3 and 2.1 already taken, so
+this run took 3.1 (the title/H1 pattern) as the next lowest remaining item.
+
+QUALITY PASS on item 3.1 (twenty-fourth pass): full detail under the item
+in AGENT_WORKLIST.md. Summary: check-seo-pattern.js 177/0/0 exit 0,
+branches.json sha256 unchanged from the standing anchor, full 35-checker
+suite (excluding the two network-dependent checkers) 35/35 clean on a
+fresh clone of the tracked tree, all 8 generators byte-stable
+(git status --porcelain empty before and after). build-audit-status.js
+failed on the standing missing-gh-CLI gap (Q124/Q127) with no side effect.
+Live half (Claude in Chrome, read-only): sampled a fresh page this item
+had not checked before, uti-treatment-smartts-bootle.html - title and H1
+both match the pattern verbatim, no drift. No new defect, no new question.
+Evidence: audits/seo-pattern-3.1-twentyfourth-2026-10-19.txt.
+
+STEP 10: ran tools/build-audit-status.js from the clean clone as part of
+the generator sweep above; it reached the `gh` publish step and failed
+with "gh: not found" (exit 127), same standing Q124/Q127 gap every recent
+run has hit. Not re-attempted separately since the outcome is identical to
+every prior run and the clean clone has no gh auth either.
+
+QUESTIONS.json: 129 total, 51 open - unchanged by this run.
+
+COMMIT/PUSH: committed and pushed from /tmp/rbh-clean-clone-2 (clean-clone
+workaround, Q128), not from the mounted checkout. Did not touch the
+mounted checkout's .git directory beyond the read-only diff check above.
+
+LOCK: deleted `.agent-lock` on the mounted checkout at the end of this
+run.
+
 ## Run 327 - 2026-10-19
 
 LOCK: `.agent-lock` absent at pickup; created fresh (timestamp

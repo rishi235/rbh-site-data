@@ -3755,6 +3755,30 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       run's own answer-pickup step: newest feed entry still Q52,
       2026-09-01T22:44:51.524Z, six weeks unchanged). Evidence in
       audits/seo-pattern-3.1-twentythird-2026-10-13.txt. Done 2026-10-13
+      Quality pass (twenty-fourth), 2026-10-19 (unattended scheduled run,
+      audit-backlog-worker, run 328, Cowork sandbox). Selected as next-
+      lowest remaining item in the 2026-10-13 rotation tier {1.3, 2.1, 3.1,
+      3.3, 3.5, 3.11, 4.3, 4.8, 4.14} after run 326 took 1.3 and run 327
+      took 2.1. check-seo-pattern.js re-run directly: 177/0/0 exit 0,
+      unchanged from the twenty-third pass's baseline. branches.json
+      sha256 re-hashed: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1,
+      byte-identical to the standing anchor. Full 35-checker suite
+      (excluding check-cdn-pins.js and check-live-hours.js) re-run against
+      a fresh clone of the tracked tree: 35/35 exit 0. All 8 generators
+      re-run, git status --porcelain -- modules core branches.json
+      gbp-packs empty before and after (byte-stable regeneration);
+      build-audit-status.js failed at its final step on the standing
+      missing-gh-CLI gap (Q124/Q127), no side effect. LIVE HALF, fresh
+      angle (Claude in Chrome, read-only): read
+      uti-treatment-smartts-bootle.html, a page this item had not sampled
+      on any prior pass (Gordon Short Crosby was the last sample, twenty-
+      second/twenty-third passes). Title "UTI treatment in Bootle -
+      Smartts Chemist", H1 "UTI treatment in Bootle" - pattern verbatim on
+      a fresh branch, no drift. NO NEW DEFECT FOUND, NO NEW QUESTION
+      RAISED. Item 3.1 stays `[x]` (quality pass, not a state change).
+      QUESTIONS.json unchanged (newest feed entry still Q52,
+      2026-09-01T22:44:51.524Z, seven weeks unchanged). Evidence in
+      audits/seo-pattern-3.1-twentyfourth-2026-10-19.txt. Done 2026-10-19
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
