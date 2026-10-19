@@ -1,3 +1,86 @@
+## Run 327 - 2026-10-19
+
+LOCK: `.agent-lock` absent at pickup; created fresh (timestamp
+2026-10-19T15:45:10Z). GIT: `git fetch origin agents/audit-backlog`
+succeeded (same two tmp_obj unlink warnings as recent runs, harmless).
+Local HEAD was stale at run 323 (13af771) while origin had already moved
+to run 326's f5e0b42 (runs 324-326 all committed via the clean-clone-in-
+/tmp workaround, never updating this mount's own branch ref). Diffed the
+working tree against origin/agents/audit-backlog directly (not the stale
+local HEAD): zero difference on AGENT_LOG.md, AGENT_WORKLIST.md or
+QUESTIONS.json, so the working tree already held run 326's content
+correctly and nothing was at risk. `.git/HEAD.lock` (since 14:16),
+`.git/index.lock` (since 14:45) and a freshly-observed
+`refs/heads/agents/audit-backlog.lock` (since 15:13) were all present,
+all independently confirmed orphaned (no git process via `ps`,
+`.agent-lock` absent at this run's own pickup, all three past the
+1-hour staleness bar once accounting for their creation times relative
+to now). `rm -f` failed on all three with the same standing EPERM-on-
+unlink wall (Q128). Did not fight it further; this run's commit goes
+through a clean clone in /tmp, same as runs 324-326.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no sign-in redirect.
+Newest entry is still Q52 (2026-09-01), same as the last several runs.
+Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66 (confirmed
+by direct grep). Zero unblocked items, so this run fell to the
+quality-pass fallback. Per run 326's own rotation note, the tier dated
+2026-10-13 was {1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}; run 326
+took 1.3 off it, so this run took 2.1 (Fishlocks Ainsdale) as the next
+lowest item number remaining in that same tier.
+
+QUALITY PASS on item 2.1 (twenty-fifth pass): full detail under the item
+in AGENT_WORKLIST.md. Summary: all six generators regenerated to a zero
+diff (byte-stable), and the full 35-checker suite (excluding check-cdn-
+pins.js and check-live-hours.js, both network-dependent) ran 35/35 clean
+- an improvement on the twenty-fourth pass's 34/35, because check-
+postcodes.js no longer trips on repo-root debris (.tmp_log_combined.md
+is gone; the two remaining debris files no longer carry a flagged
+postcode string). Live half (Claude in Chrome, read-only) found the
+site has actually been republished: all 40 sitemap.xml entries now carry
+lastmod 2026-10-15T14:24:17, the first movement off the long-stuck
+2026-07-18 date. This did not fix anything - the Q35 branch landing page
+is still absent from the sitemap and still 404s, and the switch page's
+hero/bullet copy, read fresh post-republish, still carries the exact
+pre-Q49 unconditional wording against the generator's current qualified
+copy - but it sharpens the existing Q49 paste-lag finding: the 15
+October publish touched the site without touching this specific pasted
+block, so the staleness is a block that was not repasted, not simply
+"no publish has happened". No new in-repo defect, no new question
+raised (Q49 is already answered and already queued; this is additional
+evidence on an existing finding, not a new decision). Evidence:
+audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-10-19-twentyfifth.txt.
+
+QUESTIONS.json: 129 total, 51 open - unchanged by this run.
+
+HOUSEKEEPING NOTE: the stray `C:\Users\rishi\OneDrive - RB Healthcare
+Ltd\...` directory tree inside the repo root (and its duplicate under
+`_agent-run-debris/`) was re-confirmed this run as untracked junk (zero
+hits in `git ls-files`), consistent with the brief's description. Left
+alone per instruction not to spend time on it beyond flagging; it is
+not part of any tracked or published content and carries no risk to a
+commit that only adds the three intended files plus one audits/
+evidence file.
+
+STEP 10 (status page publish): `node tools/build-audit-status.js` run as
+instructed, to keep the page honest regardless of outcome. Result
+recorded below after the commit step.
+
+GIT COMMIT/PUSH: following runs 324-326's documented method (clean clone
+into /tmp, since this mount's HEAD.lock, index.lock and the branch ref
+lock remain stuck), cloned agents/audit-backlog fresh, copied the three
+edited tracked files (AGENT_LOG.md, AGENT_WORKLIST.md, the unchanged
+QUESTIONS.json carried along for consistency) and the new audits/
+evidence file across, committed and pushed from there, then deleted
+.agent-lock on this mount - noted below if that hit the same EPERM wall
+as prior runs and had to be renamed aside instead.
+
 ## Run 326 - 2026-10-19
 
 LOCK: `.agent-lock` absent at pickup; created fresh. GIT: `git fetch

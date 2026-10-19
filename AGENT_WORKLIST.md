@@ -1652,6 +1652,41 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       ~23098-30154 above), not a new defect. NO NEW DEFECT FOUND, NO NEW
       QUESTION RAISED. Item 2.1 stays `[x]` (quality pass, not a state
       change). Done 2026-10-13.
+      Quality pass 2026-10-19 (twenty-fifth, run 327): picked as the lowest-
+      numbered item in the tied-oldest rotation tier dated 2026-10-13 ({2.1,
+      3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}, 1.3 having just been taken off
+      that same tier by run 326). REPO HALF: all six generators regenerated
+      to a zero diff against the tracked tree, confirming byte-stable output.
+      Full 35-checker suite (excl. check-cdn-pins.js and check-live-hours.js,
+      both network-dependent) now 35/35 clean - an improvement on the
+      twenty-fourth pass's 34/35, because check-postcodes.js no longer trips
+      on the debris files in the repo root (.tmp_log_combined.md is gone
+      from the tree; .AGENT_LOG_fix_2.md and .AGENT_LOG_merged.md remain but
+      no longer carry a postcode-shaped string the checker reads as foreign).
+      LIVE HALF (Claude in Chrome, read-only): the site has been republished
+      - all 40 sitemap.xml entries now carry lastmod 2026-10-15T14:24:17,
+      the first movement off the 2026-07-18 timestamp every prior pass since
+      2.1's original audit has recorded. This resolves nothing on its own:
+      pharmacy-fishlocks-ainsdale.html (the Q35 branch landing page) is still
+      absent from the sitemap and still 404s, and
+      switch-prescriptions-fishlocks-ainsdale.html, read fresh after the
+      republish, still carries the exact pre-Q49 unconditional wording
+      ("We contact your GP. We handle everything. You do nothing.", "We
+      handle the full switch for you", "No interruption to your medication"
+      with no qualifier) against the generator's current, Q49-answered,
+      qualified copy ("We contact your GP where it is needed... We will tell
+      you if anything else is needed.", "No interruption to your medication
+      wherever possible" - tools/build-switch-pages.js lines 79/177). So the
+      2026-10-15 publish touched the site without touching this block: proof
+      that the paste-lag is a specific unpasted block, not simply "no publish
+      has happened in weeks" as the dating evidence alone would suggest.
+      Logged as a refinement of the existing Q49 paste-lag finding, not a new
+      question - Q49 is already answered and already queued for repaste; this
+      only sharpens what "stale" means now that a fresh publish date exists.
+      NO NEW DEFECT FOUND IN REPO, NO NEW QUESTION RAISED. Item 2.1 stays
+      `[x]` (quality pass, not a state change). Evidence: audits/fishlocks-
+      ainsdale-item-2.1-quality-pass-2026-10-19-twentyfifth.txt. Done
+      2026-10-19.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
