@@ -1,3 +1,58 @@
+## Run 320 - 2026-10-19
+
+No actionable item, 33rd+ consecutive no-op. LOCK: found containing
+"RELEASED 2026-10-19T09:56:40Z - run 319 complete", ~46 minutes old at
+pickup (just over the 45-minute threshold) - same Q128 EPERM-on-unlink
+(`rm` refused, `mv` to a `.released-<epoch>` name succeeded). `.git/index.lock`
+present at ~47 minutes old, under the 1-hour staleness bar and no git
+process running - left in place rather than cleared early; git operations
+not needing the index (fetch, pull, diff, this run's eventual add+commit)
+were unaffected by its presence until commit time (see below).
+
+GIT: fetch + pull --ff-only both succeeded, already up to date on
+agents/audit-backlog, HEAD unchanged from run 319 (9a225c5).
+
+ANSWER PICKUP (step 3): Chrome reached the feedback feed directly again
+(no Cloudflare sign-in redirect this run either). 129 entries, newest still
+Q52 (2026-09-01). Cross-checked every ID named in the feed (Q2-Q52 minus
+gaps) against QUESTIONS.json: all already "answered". No open question
+(Q53 and above) has a matching portal entry. No status changes made.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. 42 items
+ticked. Zero unblocked items.
+
+QUALITY-PASS: ran the full tools/check-*.js suite fresh (37/37 exit 0,
+no FAIL output). git diff --stat HEAD on the tracked tree shows no
+content changes (only git's own CRLF-normalisation warnings on files
+already committed with CRLF line endings - not a real diff). No new
+finding this run.
+
+INFRASTRUCTURE BLOCKER re-checked: `which gh` still empty, no token in
+env - same Q124/Q127 gap, unchanged. Not re-investigated further this
+run since runs 309-319 already read the relevant build-audit-status.js
+lines and reasoned through the alternatives; nothing new to add.
+
+BLOAT NOTE: flagging rather than acting on it - AGENT_LOG.md is now
+~740KB and QUESTIONS.json ~593KB, almost entirely repeated "still
+blocked, still clean" narrative across 30+ no-op runs. This run kept its
+own entry short rather than adding to that pattern. Worth a question to
+Rishi on whether to archive pre-October history (prior runs raised the
+same point without opening a formal question - not opening one here
+either, since it is a housekeeping preference, not a defect, and every
+run so far has chosen not to invent that scope unasked).
+
+PUBLISH (step 10): not run - `gh` CLI absent (Q124/Q127), same as every
+run since the gap was first found. Status page therefore not refreshed
+this run; last successful publish remains whatever run last had gh
+available.
+
+LOCK: released by rename (`.agent-lock.released-<epoch>`) before exit,
+per the EPERM-on-unlink workaround.
+
 ## Run 319 - 2026-10-19
 
 No actionable item, 32nd+ consecutive no-op. LOCK: `.agent-lock` found at
