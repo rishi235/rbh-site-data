@@ -1,3 +1,65 @@
+## Run 323 - 2026-10-19
+
+No actionable item, 36th+ consecutive no-op. LOCK: `.agent-lock` absent
+at pickup (prior run released and quarantined its own marker as usual),
+created fresh. `.git/index.lock` present, created 13:48 (about 24
+minutes old at pickup), under the 1-hour staleness bar and no git
+process running (`ps -ef` clean) - left in place per the rule, same as
+every recent run; confirmed it still does not block fetch, pull, diff
+or this run's own commit, only `checkout` (unneeded, already on the
+right branch). Did not attempt removal since it had not reached the
+1-hour bar; a direct `rm` test against it after that check still hit
+the same EPERM-on-unlink quirk recorded under Q128, confirming the bug
+is unchanged rather than resolved.
+
+GIT: fetch + pull --ff-only both succeeded, already up to date on
+agents/audit-backlog. HEAD unchanged from run 322 (5eca7c5).
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no Cloudflare sign-in
+redirect. Newest entry read is still Q52 (2026-09-01); re-verified the
+seven questions behind the current [BLOCKED] worklist lines (Q8, Q9,
+Q13, Q16, Q52, Q60, Q66) directly against QUESTIONS.json - all seven
+still "status": "answered", no newer portal entry superseding any of
+them. No status changes made; nothing newly unblockable. Q77-Q129
+remain "open" in QUESTIONS.json but are standing findings from quality
+passes, not tied to a [BLOCKED] worklist line, so they do not affect
+item selection.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. 42 items
+ticked. Zero unblocked items, so this run fell to the quality-pass
+fallback.
+
+QUALITY-PASS: ran the full tools/check-*.js suite fresh - 36/36 non-
+live-hours checkers exit 0, no FAIL output (live-hours checker excluded
+per the established convention, tracked separately under
+audits/live-hours-check-*.json). `git diff --stat HEAD` on the tracked
+tree shows no content changes (only the same CRLF-normalisation
+warnings on files already committed with CRLF line endings). No new
+defect found this run.
+
+INFRASTRUCTURE BLOCKER re-checked: `which gh`/`command -v gh` still
+empty, no GITHUB_TOKEN or similar in env (checked by name, not printed)
+- same Q124/Q127 gap, unchanged.
+
+PUBLISH (step 10): not run - `gh` CLI absent (Q124/Q127), same as every
+run since the gap was first found. Status page not refreshed this run.
+
+STANDING POINT, unchanged: 36+ consecutive runs with zero unblocked
+worklist items. The three live blockers - the 8 [BLOCKED] worklist
+lines (all needing a supervised Weebly/branch session), the Q127
+PAT/portal-publish gap, and the Q124 gh/token gap - still cannot be
+touched by any unattended run under the hard rules. Recommendation to
+pause the schedule until a supervised sitting clears them stands.
+
+LOCK: `.agent-lock` released by rename (`.agent-lock.RELEASED-run323-<epoch>`)
+before exit, per the EPERM-on-unlink workaround; `.git/index.lock` left
+untouched since it had not reached the 1-hour staleness bar this run.
+
 ## Run 322 - 2026-10-19
 
 No actionable item, 35th+ consecutive no-op. LOCK: found containing
