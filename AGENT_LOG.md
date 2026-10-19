@@ -1,3 +1,53 @@
+## Run 311 - 2026-10-19
+
+LOCK: `.agent-lock` absent at start; wrote a new one.
+
+GIT: `git fetch` / `checkout agents/audit-backlog` / `pull --ff-only` all
+succeeded cleanly this run, no leftover `.git/*.lock` at start. The Q128
+EPERM-on-unlink bug still fired mid-run though: a plain `git status` and then
+`git fsck --no-progress` each silently recreated `.git/index.lock` and each
+failed to unlink it afterwards ("Operation not permitted"). Both quarantined
+by rename into `.git-lock-debris-quarantine/` (never deleted, never moved
+into `.git/refs/`), same convention as runs 308-310. `git fsck --no-progress`
+itself reported only dangling (unreachable, harmless) commits and blobs, no
+corruption. Local HEAD (`00d561b4d4...`) matches `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page, same as every run since 165 bar one. No sign-in
+attempted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of AGENT_LOG.md at run start. Not in an autonomous window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-310 (5.3, 5.4, 5.5, 5.8, 6.1, the two Q60 lines at 6.4/6.5, 6.6),
+all 8 still `[BLOCKED]`. Zero unblocked unchecked items. 24th+ consecutive
+no-op on the worklist proper.
+
+QUALITY-PASS: since no unblocked item exists, ran the full `tools/check-*.js`
+suite fresh (37 checkers) rather than picking a single rotation-pool item,
+on the reasoning that confirming repo integrity was the higher-value check
+this run given the lock/unlink turbulence logged above and in run 310.
+Result: 37/37 clean, no failures, no new findings. No live-site verification
+attempted this run; time budget went to the git-lock handling above.
+
+QUESTIONS.json: 128 total, 50 open, unchanged counts from run 310 (no new
+question filed - nothing new found). Q127 (GitHub PAT exposed in cleartext
+in `.git/config`) left alone as before, still open, still unrotated. Q128
+not updated with a new note this run since the symptom (status/fsck
+recreating and failing to unlink index.lock) is already fully described
+there from run 310; nothing new to add beyond "still happening."
+
+PUBLISH (step 10): `node tools/build-audit-status.js` - same `gh` CLI/token
+block as runs 309-310 (Q124/Q127). Not attempted again this run since
+nothing has changed since run 310 established the blocker and the only
+available token is the cleartext PAT in `.git/config`, which the standing
+credential rule says to stop and ask about rather than extract and use.
+Status page not published this run.
+
+LOCK RELEASE: see below.
+
 ## Run 310 - 2026-10-19
 
 LOCK: `.agent-lock` absent at start; wrote a new one. Could not delete it (or
