@@ -1,3 +1,75 @@
+## Run 331 - 2026-10-19
+
+LOCK: the mount's `.agent-lock` was absent at pickup; created fresh there
+(timestamp 2026-10-19T19:45:24Z). GIT: the mounted checkout
+(C:\dev\rbh-site-data, reached via the Cowork Linux sandbox mount) still
+carries the standing stuck `.git/index.lock`/`ORIG_HEAD.lock` family
+(Q128, EPERM-on-unlink reconfirmed again) and a dirty working tree whose
+uncommitted AGENT_LOG.md/AGENT_WORKLIST.md/QUESTIONS.json content matched
+a stale local HEAD (13af771, run 323) left behind while origin had
+already moved to run 330 (37722fb). Diffed against origin directly before
+touching anything: the dirty content was superseded scratch, not
+at-risk work, so it was discarded with `git checkout --` and the mount
+was left on its stale HEAD rather than fought further. All real work this
+run happened on a disposable clean clone of agents/audit-backlog
+(37722fb at fetch time) in this session's own /tmp, per the method runs
+324-330 established, using the same credentialed PAT already configured
+in the mount's own .git/config (reset onto the clone's origin remote).
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly. Newest entry is still
+Q52 (2026-09-01T22:44:51.524Z), unchanged for seven weeks. Nothing new to
+apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed still [BLOCKED] (5.3/
+Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+unchanged. Note on 5.5/Q13: the answer-pickup feed shows Q13 has in fact
+been answered since 2026-08-10 ("fast-forward service-module-phase1 to
+main"), but the action it calls for is a merge/fast-forward onto main,
+which this run has no authority to perform under the hard no-touch-main
+rule - the item correctly stays [BLOCKED] pending a supervised session,
+not for lack of an answer but for lack of authority to act on it. Zero
+unblocked items, so this run fell to the quality-pass fallback. Per the
+tier dated 2026-10-13 ({1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}),
+items 1.3, 2.1, 3.1 and 3.5 were already taken today by runs 326-330;
+this run took 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) as the next
+lowest remaining.
+
+QUALITY PASS on item 3.3 (twenty-fifth pass): full detail under the item
+in AGENT_WORKLIST.md. Summary: 35/35 checkers clean, six generators
+byte-stable, and a fresh live read of
+earache-treatment-fishlocks-eccleston.html (not sampled by any prior
+pass on this item) matches the paste sheet and the generated page title/
+H1 exactly. No new defect, no new question.
+
+INFRASTRUCTURE NOTE, relevant to Q124/Q127 (gh CLI missing, blocking
+step 10): this run found that `gh` does not need a root install to
+function in the Cowork Linux sandbox. The static binary tarball
+(cli/cli releases, linux_amd64) downloads and extracts into /tmp with no
+privilege, runs immediately, and authenticates against the API using the
+GH_TOKEN environment variable set to the same PAT already in the repo's
+own git remote - no `gh auth login` needed. This run used that path to
+run tools/build-audit-status.js to completion for the first time in many
+runs (see below). This does not fix Q124/Q127's root cause (the sandbox
+is reprovisioned fresh each run, so the binary itself does not persist,
+and a 50MB binary has no business being committed to this repo), but it
+means step 10 need not be skipped every run going forward: any future
+run hitting the same `gh: command not found` wall can download and use
+the binary the same way in under a minute, without root and without
+asking Rishi for anything. Recommend downgrading Q124/Q127 from "blocks
+step 10 every run" to "a one-line workaround exists, no decision
+needed", unless Rishi would rather have a persistent fix (a host-level
+gh install on ProDeskAi itself, outside this sandbox's reach).
+
+STEP 9/10: committed (message below) and pushed to
+origin/agents/audit-backlog from the /tmp clone. Status page published
+via build-audit-status.js using the locally-fetched gh binary above -
+first successful run of step 10 in a long while per the prior runs'
+logged failures; see commit for confirmation.
+
 ## Run 330 - 2026-10-19
 
 LOCK: `.agent-lock` absent on the mounted checkout (C:\dev\rbh-site-data,

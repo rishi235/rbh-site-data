@@ -5636,6 +5636,30 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       Q49 paste-lag, not new, already queued). No new in-repo or live
       defect, no new question raised. QUESTIONS.json unchanged at 129 total,
       51 open.
+      Quality pass 2026-10-19 (twenty-fifth, run 331): picked as the
+      lowest-numbered item remaining unclaimed today in the tied-oldest
+      rotation tier dated 2026-10-13 ({1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3,
+      4.8, 4.14}) - 1.3, 2.1, 3.1 and 3.5 were each already taken earlier
+      today by runs 326, 327, 328/329 and 330. REPO HALF: full 35-checker
+      suite (excl. check-cdn-pins.js and check-live-hours.js, both network-
+      dependent) run clean, 35/35, no failures. All six generators
+      regenerated to a zero diff against the tracked tree (git status
+      --porcelain empty before and after), confirming byte-stable output;
+      no page, generator or branches.json content changed by this pass.
+      LIVE HALF (Claude in Chrome, read-only): read
+      earache-treatment-fishlocks-eccleston.html live on
+      fishlockpharmacy.co.uk, a page not sampled by any of the prior
+      twenty-four passes on this item (which covered the UTI, switch,
+      landing and GBP-pack surfaces). Title "Earache treatment in
+      Eccleston - Fishlocks Chemist" and H1 "Earache treatment for
+      children in Eccleston" both match the paste sheet
+      (modules/service/pages/SEO.md) and the generated page exactly, no
+      drift. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3 stays
+      `[x]` (quality pass, not a state change). QUESTIONS.json unchanged
+      at 129 total, 51 open (newest feed entry still Q52,
+      2026-09-01T22:44:51.524Z, seven weeks unchanged - answer pickup
+      re-checked this run via Claude in Chrome, nothing new). Done
+      2026-10-19.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

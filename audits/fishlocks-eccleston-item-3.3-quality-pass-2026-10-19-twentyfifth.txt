@@ -1,0 +1,37 @@
+Item 3.3 quality pass, twenty-fifth, run 331, 2026-10-19
+=========================================================
+
+Scope: Fishlocks Chemist (Ainsdale and Eccleston). Picked as the lowest-
+numbered item unclaimed today in the 2026-10-13 rotation tier
+{1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}.
+
+REPO HALF
+---------
+Full checker suite, excluding check-cdn-pins.js and check-live-hours.js
+(both network-dependent, run separately where relevant):
+35/35 checkers, 0 failures.
+
+All six generators re-run; `git status --porcelain` empty before and
+after. Byte-stable output confirmed, no page/generator/data change.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only. Fetched:
+  https://www.fishlockpharmacy.co.uk/earache-treatment-fishlocks-eccleston.html
+
+Expected (modules/service/pages/SEO.md, line 175-178):
+  Page Title: Earache treatment in Eccleston - Fishlocks Chemist
+  Page Description: Earache treatment for children aged 1 to 17 at
+    Fishlocks Chemist in Eccleston. Free NHS service, assessed by a
+    pharmacist, no GP appointment needed.
+
+Live page:
+  <title>: Earache treatment in Eccleston - Fishlocks Chemist (MATCH)
+  <h1>: Earache treatment for children in Eccleston (matches generated
+    page modules/service/pages/earache-treatment-fishlocks-eccleston.html
+    line 21 exactly)
+  Contact card: phone 01257 451251, address Unit 3 The Carrington Centre,
+    New Mill Street, Eccleston, PR7 5SZ - both match branches.json
+    fishlocks_eccleston record.
+
+No drift found. No new defect. No new question raised.
