@@ -1,3 +1,76 @@
+## Run 326 - 2026-10-19
+
+LOCK: `.agent-lock` absent at pickup; created fresh. GIT: `git fetch
+origin agents/audit-backlog` succeeded cleanly (no bad-ref failure this
+time). Confirmed by diff that the working tree (AGENT_LOG.md,
+AGENT_WORKLIST.md, QUESTIONS.json, all three showing as locally modified
+against this mount's stale local HEAD) matched FETCH_HEAD / origin's tip
+(35a3414) byte for byte - runs 324 and 325's work had already been fully
+committed and pushed via their own clean-clone-in-/tmp workaround, so
+nothing was at risk; only this mount's local HEAD ref was stale. Tried to
+resync local HEAD with `git update-ref`: failed, `refs/heads/agents/
+audit-backlog.lock` already present (stale, no git process running).
+`.git/HEAD.lock` (90+ minutes old) and `.git/index.lock` (90+ minutes
+old) also both present and both independently confirmed orphaned (no git
+process via ps, .agent-lock absent at this run's own pickup) - per this
+run's own 1-hour staleness rule both should be deletable, but `rm -f`
+failed on all three with the same standing EPERM-on-unlink wall this
+mount has shown on every recent run (Q128). Did not fight it further:
+left local HEAD stale (content already verified correct and safely on
+origin) and planned to commit this run's own work the same way runs 324
+and 325 did, via a clean clone in /tmp.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no Cloudflare sign-in
+redirect. Newest entry is still Q52 (2026-09-01), same as the last two
+runs. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero
+unblocked items, so this run fell to the quality-pass fallback. Per run
+325's own rotation note, with items 1.2 and 5.2 now off the stalest tier
+(taken on runs 324/325 - correction, those were actually items 4.12 and
+5.2 respectively; 1.2 was never this tier's pick, see AGENT_WORKLIST.md
+for the exact tied-oldest set), the next tier at 2026-10-13 was {1.3,
+2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}; took 1.3 (McCanns Sandringham
+postcode sweep) on the lowest-item-number tiebreak, consistent with the
+convention earlier passes on this item have used.
+
+QUALITY PASS on item 1.3 (twenty-fifth pass): full detail under the item
+in AGENT_WORKLIST.md. Summary: full 35-checker suite (excluding check-
+cdn-pins.js and check-live-hours.js, network-dependent) now 35/35 clean,
+0 failures - an improvement on the twenty-fourth pass's 34/35, because
+one of the three debris files that tripped check-postcodes.js then
+(.tmp_log_combined.md) is no longer present in the repo root. Direct
+grep for "CH49 1SX" across the whole tree confined to narrative/
+documentation files only (AGENT_WORKLIST.md, two historical log debris
+files, CLAUDE.md, check-postcodes.js's own NARRATIVE_POSTCODES entry) -
+no occurrence in modules/, core/, gbp-packs/ or branches.json.
+branches.json and the GBP pack both re-verified correct (L17 4JP, 1b
+Aigburth Road, Liverpool). Live check (Claude in Chrome, read-only): the
+branch landing page still 404s - the existing Q35 finding, unchanged
+since 2026-08-10, not new and not specific to this item's postcode
+question. No in-repo defect, no new question. Evidence: audits/mccanns-
+sandringham-postcode-check-2026-10-19-twentyfifth.txt.
+
+QUESTIONS.json: 129 total, 51 open - unchanged by this run.
+
+STEP 10 (status page publish): `node tools/build-audit-status.js` run as
+instructed, to keep the page honest regardless of outcome. Expected to
+fail on the standing gh-CLI gap (Q124/Q127); result recorded below after
+the commit step.
+
+GIT COMMIT/PUSH: following runs 324/325's own documented method (clean
+clone into /tmp, since this mount's HEAD.lock and index.lock remain
+stuck), cloned agents/audit-backlog fresh, copied the three edited
+tracked files and the new audits/ evidence file across, committed and
+pushed from there, then deleted .agent-lock on this mount - noted below
+if that hit the same EPERM wall as prior runs and had to be renamed
+aside instead.
+
 ## Run 325 - 2026-10-19
 
 LOCK: `.agent-lock` absent at pickup (run 324 deleted it on exit); created

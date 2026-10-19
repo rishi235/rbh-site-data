@@ -33105,6 +33105,28 @@ appended to the line. Do not move them; the status page reads them in place.
       generator rebuild needed (checker-only change). No new question. Done
       2026-10-13. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-10-13-twentyfourth.txt.
+      Quality pass 2026-10-19 (twenty-fifth pass, unattended scheduled run,
+      run 326): full 35-checker suite re-run (excluding check-cdn-pins.js
+      and check-live-hours.js, network-dependent): 35/35 clean, 0 failures,
+      3 warnings (the standing UNOWNED warnings on gbp-packs/TEMPLATE.md and
+      modules/branch/pages/INDEX.md and SEO.md, not a defect). Unlike the
+      twenty-fourth pass's 34/35 result, check-postcodes.js now also passes
+      clean: one of the three debris files that previously tripped it
+      (.tmp_log_combined.md) is no longer present in the repo root; the
+      other two (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md) no longer trip
+      it this run either. Direct grep for "CH49 1SX" across the whole tree:
+      confined to AGENT_WORKLIST.md, the two historical log debris files,
+      CLAUDE.md's documented NARRATIVE_POSTCODES rule and check-postcodes.js
+      itself - no occurrence in modules/, core/, gbp-packs/ or branches.json.
+      branches.json field check (mccanns_sandringham): postalCode "L17 4JP",
+      streetAddress "1b Aigburth Road", addressLocality "Liverpool",
+      seoTown "St Michael's" - correct, unchanged. gbp-packs/mccanns-
+      sandringham.md Address line: "1b Aigburth Road, Liverpool L17 4JP" -
+      correct, unchanged. Live check (Claude in Chrome, read-only): the
+      branch landing page still 404s, the existing Q35 finding (unpasted
+      since 2026-08-10), not new and not specific to the postcode question.
+      No in-repo defect, no new question. Done 2026-10-19. Evidence:
+      audits/mccanns-sandringham-postcode-check-2026-10-19-twentyfifth.txt.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged

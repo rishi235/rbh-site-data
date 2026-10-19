@@ -1,0 +1,46 @@
+Item 1.3 - McCanns Sandringham postcode sweep - twenty-fifth quality pass
+Run 326, 2026-10-19 (unattended scheduled run, audit-backlog-worker)
+
+1. Full checker suite re-run (35 checkers, excluding check-cdn-pins.js and
+   check-live-hours.js as network-dependent): 35/35 clean, 0 failures.
+   check-postcodes.js itself: 0 failures, 3 warnings (the three standing
+   UNOWNED warnings on gbp-packs/TEMPLATE.md and modules/branch/pages/
+   INDEX.md and SEO.md, which carry no branch-resolvable filename and are
+   not a defect). Unlike the twenty-fourth pass's 34/35 result, check-
+   postcodes.js now also passes clean: one of the three previously-blocking
+   debris files (.tmp_log_combined.md) is no longer present in the repo
+   root, and the remaining two (.AGENT_LOG_fix_2.md, .AGENT_LOG_merged.md)
+   no longer trip the checker this run.
+
+2. Direct grep of the whole tree for "CH49 1SX" (the Wirral postcode this
+   item exists to keep off McCanns Sandringham): confined to six classes of
+   file, all legitimate narrative/documentation references, none of them a
+   live or generated page, a pack, or branches.json:
+   - AGENT_WORKLIST.md (this item's own pass history)
+   - .AGENT_LOG_fix_2.md / .AGENT_LOG_merged.md (historical log debris)
+   - CLAUDE.md (the documented NARRATIVE_POSTCODES rule)
+   - tools/check-postcodes.js (the checker's own NARRATIVE_POSTCODES entry
+     and comments)
+   No occurrence in any file under modules/, core/, gbp-packs/, or in
+   branches.json.
+
+3. branches.json field check (mccanns_sandringham): postalCode "L17 4JP",
+   streetAddress "1b Aigburth Road", addressLocality "Liverpool", seoTown
+   "St Michael's". Correct, unchanged.
+
+4. gbp-packs/mccanns-sandringham.md: Address line reads "1b Aigburth Road,
+   Liverpool L17 4JP". Correct, unchanged.
+
+5. Live check via Claude in Chrome (read-only): https://www.mccannspharmacy
+   .co.uk/pharmacy-mccanns-sandringham.html returns 404. This is the
+   existing, already-documented finding (Q35: six branch landing pages,
+   including this one, remain unpasted on Weebly since 2026-08-10) - not a
+   new fault and not specific to the postcode question, which this item
+   covers at the data/pack level. No CH49 1SX visible anywhere live
+   (nothing to check on a 404 page beyond confirming it carries no address
+   at all).
+
+CONCLUSION: item 1.3 verified clean again. No in-repo defect, no new
+question. The debris-file-triggered check-postcodes.js warning noted on
+the twenty-fourth pass has partially self-resolved (one of three files
+gone) and no longer affects the result.
