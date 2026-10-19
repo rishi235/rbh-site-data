@@ -1,3 +1,64 @@
+## Run 321 - 2026-10-19
+
+No actionable item, 34th+ consecutive no-op. LOCK: `.agent-lock` absent
+at pickup (unusual - no prior run's release marker found), created fresh.
+`.git/index.lock` and `.git/ORIG_HEAD.lock` were present at run start with
+no git process running (`ps -ef` clean across the whole container) -
+`rm`/`unlink` refused with "Operation not permitted" (same Q128
+EPERM-on-unlink quirk on this mount), `mv` to a timestamped name succeeded
+both times. Confirmed from this run's own observation: the lock
+reappears with a fresh mtime after essentially any git command (fetch,
+pull, status) on this mount, which matches the EPERM-on-unlink root cause
+already recorded under Q128 rather than a second concurrent writer - no
+competing git process was ever found running.
+
+GIT: fetch + pull --ff-only both succeeded, already up to date on
+agents/audit-backlog. HEAD unchanged from run 320 (8510ff5).
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no Cloudflare sign-in
+redirect. 129 entries read, newest still Q52 (2026-09-01). Explicitly
+re-verified the seven questions named in the current [BLOCKED] worklist
+lines (Q8, Q9, Q13, Q16, Q52, Q60, Q66) against QUESTIONS.json: all seven
+are already "status": "answered". Read the worklist text around each of
+the first three blocked lines (5.3/Q8, 5.4/Q9, 5.5/Q13) directly to
+confirm why they stay [BLOCKED] despite an answer on file: each answer
+explicitly requires an action outside an unattended run's authorisation
+(a Weebly paste, a hand edit in the Weebly editor, or pushing a branch
+other than agents/audit-backlog) - the answer is recorded but the
+follow-through needs a supervised session, consistent with every prior
+run's reasoning. No status change made; nothing newly unblockable.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. 42 items
+ticked. Zero unblocked items.
+
+QUALITY-PASS: ran the full tools/check-*.js suite fresh (36/36 non-live-
+hours checkers exit 0, no FAIL output; live-hours checker excluded per
+the established convention since it depends on live network state and
+is tracked separately in audits/live-hours-check-*.json). git diff
+--stat HEAD on the tracked tree is empty - no content drift since run
+320's commit. No new finding this run.
+
+INFRASTRUCTURE BLOCKER re-checked: `which gh` still empty, no token in
+env - same Q124/Q127 gap, unchanged.
+
+PUBLISH (step 10): not run - `gh` CLI absent (Q124/Q127), same as every
+run since the gap was first found. Status page not refreshed this run.
+
+STANDING POINT, unchanged: 34+ consecutive runs with zero unblocked
+worklist items. The three live blockers - the 8 [BLOCKED] worklist
+lines (all needing a supervised Weebly/branch session), the Q127
+PAT/portal-publish gap, and the Q124 gh/token gap - still cannot be
+touched by any unattended run under the hard rules. Recommendation to
+pause the schedule until a supervised sitting clears them stands.
+
+LOCK: released by rename (`.agent-lock.released-<epoch>`) before exit,
+per the EPERM-on-unlink workaround.
+
 ## Run 320 - 2026-10-19
 
 No actionable item, 33rd+ consecutive no-op. LOCK: found containing
