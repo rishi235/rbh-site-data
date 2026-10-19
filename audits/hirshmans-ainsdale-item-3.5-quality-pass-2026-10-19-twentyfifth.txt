@@ -1,0 +1,75 @@
+Item 3.5 - Hirshmans Chemist (Ainsdale) - twenty-fifth quality pass
+Run 330, audit-backlog-worker, 2026-10-19
+
+SELECTION
+All 8 unchecked AGENT_WORKLIST.md lines (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) confirmed still [BLOCKED] by direct
+grep, so this was the quality-pass fallback. Per the 2026-10-13 rotation
+tier {1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}: 1.3, 2.1, 3.1 and 3.3
+already taken on runs 326-329, so this run took 3.5 (Hirshmans Chemist,
+Ainsdale) as the next lowest remaining item.
+
+NEW ANGLE
+check-branch-identity.js had never been named once across the prior
+twenty-four passes on this item. Proven by two independent injections on
+a disposable copy of modules/service/pages/uti-treatment-hirshmans-
+ainsdale.html, each restored by byte copy and sha256-reconfirmed before
+the next, tracked checkout never opened for writing:
+
+(A) data-branch on the module root changed from "Hirshmans Chemist" to
+    "Fishlocks Chemist Ainsdale" (a real neighbouring brand sharing the
+    same seoTown). check-branch-identity.js failed twice: once on the
+    page itself (wrong owner), once on the branch overall (hirshmans_
+    ainsdale now presenting two different data-branch values across its
+    own pages).
+
+(B) JSON-LD "name" changed from "Hirshmans Chemist" to "Hirshmans Chemist
+    Ainsdale Pharmacy" (data-branch left untouched). Same two-failure
+    shape, this time on JSON-LD name rather than data-branch.
+
+Both injections restored; sha256 of the file after restoration matched
+the pre-injection baseline exactly. A third run of check-branch-identity.js
+after restoration returned clean.
+
+BASELINE
+Full 35-checker suite (all of tools/check-*.js excluding check-cdn-pins.js
+and check-live-hours.js, both network-dependent) run directly against a
+clean clone of agents/audit-backlog (fd7a645b at fetch time): 35/35 exit 0,
+no failures, no new warnings beyond the standing ones already recorded
+elsewhere (Q64/Q72-class, unrelated to this item).
+
+REGENERATION
+All eight build-*.js generators re-run against the clean clone. git status
+and git diff --stat both empty afterward: byte-stable regeneration
+confirmed. (build-audit-status.js itself failed in this sandbox with
+"gh: not found", which is the standing Q124/Q127 infrastructure gap, not a
+defect in this item or in the generator.)
+
+LIVE CHECK (Claude in Chrome, read-only, one tab, nothing clicked, typed
+or submitted)
+Read https://www.hirshmanspharmacy.co.uk/uti-treatment-hirshmans-
+ainsdale.html by page text. Cross-checked against branches.json's
+hirshmans_ainsdale record field by field:
+  - Name: "Hirshmans Chemist" used consistently everywhere on the page
+    (header, hero, contact card, footer, GPhC line) - no drift, no
+    Fishlocks/Hirshmans crossover of the kind the injection above tests
+    for.
+  - Address: 56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW -
+    matches streetAddress/addressLocality/postalCode exactly.
+  - Phone: 01704 577376 - matches, same shape in the tel link text, the
+    "Call" line and both footer blocks.
+  - Email: Hirshmans@rbhealth.co.uk (public contact) and
+    pharmacy.FW378@nhs.net (NHS line) - both match branches.json's email
+    and nhsEmail fields.
+  - Opening hours: "Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm,
+    2pm-5:30pm, Sun closed" - matches the two weekday sessions and two
+    Saturday sessions in openingHours.specification exactly, including
+    the lunch split check-opening-hours.js exists to protect.
+  - Superintendent Pharmacist and Company No lines match the standard
+    footer text used across the estate.
+
+No drift found between the live page and branches.json on this pass.
+
+RESULT
+NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.5 stays [x] (quality
+pass, not a state change).

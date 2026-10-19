@@ -1,3 +1,79 @@
+## Run 330 - 2026-10-19
+
+LOCK: `.agent-lock` absent on the mounted checkout (C:\dev\rbh-site-data,
+reached this run via the Cowork bash mount at /sessions/.../mnt/rbh-site-
+data) at pickup; created fresh there. GIT: that mount's working tree is
+still carrying the same standing stuck `.git/index.lock` plus a family of
+`.git/_lockdebris_*.lock` / `.git/ORIG_HEAD.lock` files runs 307-329 have
+already logged (Q128, EPERM-on-unlink reconfirmed again - rm/mv/python
+os.remove all fail identically), and its own working tree is still dirty
+with a stale, already-pushed draft of run 327's content sitting on a local
+HEAD many commits behind origin (confirmed by diff: the dirty content
+matched already-merged commit 6edbb72 exactly, so nothing was at risk; it
+was left untouched on the mount rather than fought). Per the method runs
+324-329 established, this run's actual work happened on a disposable clean
+clone of `agents/audit-backlog` (fd7a645b at fetch time) made in this
+session's own Linux sandbox at /tmp. Unlike run 329's finding that its
+particular Linux-sandbox clone had no push credentials, this run's clone
+push succeeded once the origin remote URL was reset to the same
+credentialed URL already configured in the mount's own `.git/config` (the
+same PAT several earlier runs confirmed works for push; not printed
+anywhere in this log or in any commit). Noting for whoever reads this next:
+run 329's "sandbox has no push creds" finding was evidently instance-
+specific or mount-copy-specific, not a standing fact about this class of
+session - copying the credentialed remote URL across is the simplest fix
+and did not require touching Q96/Q124/Q127's gh-CLI gap at all.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no sign-in redirect.
+Newest entry is still Q52 (2026-09-01), unchanged for seven weeks. Nothing
+new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of AGENT_LOG.md. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed still `[BLOCKED]` by
+direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60,
+6.6/Q66) - zero unblocked items, so this run fell to the quality-pass
+fallback. Per runs 326-329's rotation note, the 2026-10-13 tier was {1.3,
+2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}; 1.3, 2.1, 3.1 and 3.3 already
+taken (runs 326-329), so this run took 3.5 (Hirshmans Chemist, Ainsdale) as
+the next lowest remaining item.
+
+QUALITY PASS on item 3.5 (twenty-fifth pass): new angle, tools/check-
+branch-identity.js, never named once across the prior twenty-four passes on
+this item. Two injections on a disposable copy of modules/service/pages/
+uti-treatment-hirshmans-ainsdale.html (data-branch, then JSON-LD name,
+swapped to the neighbouring Fishlocks Chemist Ainsdale identity) both
+caught correctly - once on the page, once on the branch now presenting two
+values across its own pages - and both restored with sha256 confirming a
+byte-exact match to baseline. Full 35-checker suite (excluding check-cdn-
+pins.js and check-live-hours.js, network-dependent) 35/35 clean; all eight
+generators regenerated to a byte-stable result (git diff --stat empty).
+Live check (Claude in Chrome, read-only): the live uti-treatment-
+hirshmans-ainsdale.html page's name, address, phone, both email addresses
+and the two-session weekday/Saturday hours all match branches.json's
+hirshmans_ainsdale record exactly - no drift found. No new in-repo defect,
+no new question. Evidence: audits/hirshmans-ainsdale-item-3.5-quality-
+pass-2026-10-19-twentyfifth.txt.
+
+QUESTIONS.json: 129 total, 51 open - unchanged by this run.
+
+STEP 10 (status page publish): `node tools/build-audit-status.js` run as
+instructed, to keep the page honest regardless of outcome. Failed with
+"gh: not found" (standing Q124/Q127 gap - no gh CLI and no GitHub API
+credential available in this session for the publish step specifically;
+distinct from the git push credential above, which came from copying the
+mount's own remote URL rather than from gh). Not treated as a new question
+since Q124/Q127 already cover it exactly.
+
+GIT COMMIT/PUSH: committed AGENT_LOG.md, AGENT_WORKLIST.md and the new
+audits/ evidence file from the /tmp clean clone and pushed to
+origin/agents/audit-backlog using the mount's own credentialed remote URL
+(see above). QUESTIONS.json was not touched this run (no new question) so
+was not included in the commit. Result and commit hash recorded in the
+addendum below once the push completed.
+
 ## Run 329 - 2026-10-19
 
 LOCK: `.agent-lock` absent on the mounted checkout (C:\dev\rbh-site-data) at

@@ -8065,6 +8065,31 @@ check-weebly-furniture-freshness, check-widget-diaries), left for a future
 pass. Full detail in
 audits/hirshmans-item-3.5-quality-pass-2026-10-13-twentyfourth.txt.
 
+Quality pass 2026-10-19 (twenty-fifth, run 330): new angle, tools/check-
+branch-identity.js, never named once across the prior twenty-four passes on
+this item. Proven by two injections on a disposable copy of modules/
+service/pages/uti-treatment-hirshmans-ainsdale.html, each restored by byte
+copy and sha256-reconfirmed before the next: (A) data-branch changed from
+"Hirshmans Chemist" to "Fishlocks Chemist Ainsdale" (a real neighbouring
+brand sharing the same seoTown) - caught twice, once on the page and once
+on the branch now presenting two data-branch values across its own pages;
+(B) JSON-LD "name" changed the same way, data-branch left alone - same
+two-failure shape on the name field. Both restored; file sha256 matched
+baseline after each restore; a clean re-run confirmed. Full 35-checker
+suite (excluding check-cdn-pins.js and check-live-hours.js, network-
+dependent) 35/35 clean on a fresh clone of agents/audit-backlog; all eight
+generators regenerated to a byte-stable (git diff --stat empty) result.
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted): read https://www.hirshmanspharmacy.co.uk/uti-treatment-
+hirshmans-ainsdale.html by page text and checked name, address, phone,
+both email addresses and the two-session weekday/Saturday opening hours
+against branches.json's hirshmans_ainsdale record field by field - all
+match exactly, no drift found. NO NEW DEFECT FOUND, NO NEW QUESTION
+RAISED. Item 3.5 stays `[x]` (quality pass, not a state change). Full
+detail in audits/hirshmans-ainsdale-item-3.5-quality-pass-2026-10-19-
+twentyfifth.txt. Done 2026-10-19.
+
+
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
 Quality pass 2026-08-12 (third; earlier passes run 22 and run 64 were logged
