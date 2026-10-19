@@ -1,3 +1,73 @@
+## Run 313 - 2026-10-19
+
+No actionable item, 26th+ consecutive no-op. LOCK: `.agent-lock` absent at
+start; wrote a fresh one, released at the end as usual. GIT: fetch succeeded;
+already on `agents/audit-backlog`; `pull --ff-only` reported already up to
+date (HEAD unchanged from run 312). A plain `git status` reproduced the
+standing Q128 EPERM-on-unlink symptom on `.git/index.lock` again this run
+(43 untracked debris files counted, unchanged shape from prior runs); not
+investigated further since runs 308-312 already diagnosed it and nothing new
+followed from it this run - left in place, not quarantined again, since it
+carries no tracked-content risk and churning quarantine folders adds debris
+rather than removing it.
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Single read-only
+tab navigated to `https://data.rbhealth.co.uk/api/feedback`; redirected to
+the Cloudflare Access sign-in page, same as every run since 165 bar one. No
+sign-in attempted, no credentials entered, tab closed immediately after
+confirming the redirect.
+
+AUTONOMOUS WINDOW (step 4): grepped the top of this file for a "Standing
+authorisation - autonomous window" section before relying on run 312's
+account of it; none present. Step 4 does not apply this run.
+
+WORKLIST (step 5): re-confirmed by direct grep, not by trusting the log -
+42 items checked, 8 unchecked, all 8 still carrying `[BLOCKED]` (5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged
+since run 193. Zero unblocked items available.
+
+QUALITY-PASS: rather than repeat the full-suite reconfirmation run 311 ran
+hours earlier on an unchanged tree (which its own log entry correctly
+flagged as adding no new information), re-derived the rotation pool fresh
+from AGENT_WORKLIST.md itself (max embedded date per item section, excluding
+the seven standing one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8 and the 2026-12-28
+false positive already documented against item 6.3, which is a bank-holiday
+test date inside that item's own copy, not a pass date). Item 5.2 came out
+stalest at 2026-10-03, but its own section already records twelve
+exhaustive injection-proof passes covering essentially every checker that
+reads modules/branch/pages/ (check-seo-keywords, check-brand-spelling,
+check-weight-loss-copy RULE 11, check-nap, and more) - a thirteenth pass in
+the same style would cost well past this task's 30-45 minute budget for
+very little remaining marginal coverage. Ran the cheaper, still-genuine
+baseline check instead: `branches.json` sha256
+`7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1` (matches
+every prior run's recorded value, no drift); all 35 `tools/check-*.js`
+checkers run individually, 35/35 clean; all 8 `tools/build-*.js` generators
+rebuilt from `branches.json`, `git status --porcelain -- modules core`
+empty before and after (byte-identical, zero diff). No in-repo defect. No
+new question raised.
+
+QUESTIONS.json: 128 total, 50 open, unchanged from run 312 - no new finding
+this run to add one.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted. Same
+blocker as runs 309-312 (Q124/Q127) - no `gh` CLI in this sandbox and the
+only available token is the cleartext PAT under Q127, which the standing
+credential rule says to leave alone rather than extract and use myself.
+Status page not published this run.
+
+STANDING POINT, repeating because it is still true and nothing in this run
+changed it: 26+ consecutive runs with zero unblocked worklist items and a
+rotation pool that is now mostly over-verified relative to any plausible
+remaining risk (item 5.2 alone has twelve independent injection-proof
+passes). The three live blockers - the 8 [BLOCKED] worklist lines, the Q127
+PAT rotation, and the Q124 `gh`/token gap stopping step 10 - all need Rishi
+directly in a supervised session. Worth his call on pausing this schedule
+until he has time to clear them, since further unattended runs at the
+current cadence will keep producing the same no-op shape.
+
+LOCK RELEASE: see below.
+
 ## Run 312 - 2026-10-19
 
 No actionable item, same as the last 25+ runs. LOCK: `.agent-lock` absent at
