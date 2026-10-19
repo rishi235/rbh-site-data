@@ -25669,6 +25669,33 @@ directly rather than re-deriving the same facts by hand.
       Google Business Profile.
       See audits/fishlocks-eccleston-gbp-name-check-4.8-twentythird-
       2026-10-13.txt.
+      Quality pass 2026-10-19 (run 334): selected as the last remaining
+      lower-numbered item in the 2026-10-13 rotation tier {1.3, 2.1, 3.1,
+      3.3, 3.5, 3.11, 4.3, 4.8, 4.14} after runs 326-333 took the other
+      seven. Full 34-checker suite (excluding check-cdn-pins.js and
+      check-live-hours.js) re-run directly: 33/34 exit 0. The one FAIL,
+      check-weebly-furniture-freshness.js, is a false positive on this
+      Windows checkout caused by core.autocrlf=true: regenerating
+      WEEBLY_FURNITURE_CHECKLIST.md produced a file `git diff` shows as
+      byte-identical (zero lines changed) once CRLF normalisation is
+      accounted for, so the regenerated file was reverted rather than
+      committed as a no-op change; not treated as a repo defect. All six
+      generators regenerate to a zero diff. gbp-packs/fishlocks-
+      eccleston.md re-verified field by field against branches.json:
+      address (Unit 3 The Carrington Centre, New Mill Street, Eccleston,
+      PR7 5SZ), phone 01257 451251, review link, hours (Monday to Friday
+      9:00am to 6:00pm, Saturday 9:00am to 12:00pm, Sunday closed) and
+      catchment (Eccleston, Charnock Richard and Coppull) all match
+      exactly; no other branch's facts present; no em dash. LIVE HALF
+      (Claude in Chrome, read-only): pharmacy-fishlocks-eccleston.html
+      (the branch landing page) is still a live 404, the known queued-
+      paste state (Q35, answered, not new). pharmacy-first-fishlocks-
+      eccleston.html is live, correct and matches branches.json exactly
+      on address, phone, postcode and hours, and lists all seven Pharmacy
+      First conditions (UTI, sore throat, sinusitis, earache, impetigo,
+      shingles, infected insect bite) with the correct NHS age ranges. NO
+      NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 4.8 stays `[x]`
+      (quality pass, not a state change). Done 2026-10-19.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

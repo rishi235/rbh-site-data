@@ -1,3 +1,69 @@
+## Run 334 - 2026-10-19
+
+Run via mcp__Windows-MCP__PowerShell against the real ProDeskAi host (not a
+Linux Cowork sandbox shell). LOCK: C:\Dev\rbh-site-data\.agent-lock was
+absent at pickup; created fresh. GIT: that mount's .git\index.lock is a
+long-standing orphaned ghost (0 bytes, EPERM on rename/unlink even though
+no git process is running - same symptom as Q128, now also reproduced from
+Windows-MCP rather than only the sandbox bash tool). The mount's working
+tree held stale uncommitted edits to AGENT_LOG.md/AGENT_WORKLIST.md/
+QUESTIONS.json against a stale local HEAD (13af771, run 323), while origin
+had already moved to run 333 (d536c3f) via runs 324-333's own clean-clone-
+in-tmp workaround. Diffed the stale working tree against origin directly:
+identical content, confirmed superseded scratch, not at-risk work (same
+finding runs 327/331/332/333 made). Discarded it with `git checkout --`
+and left the mount's stuck HEAD/lock untouched; did all real work on a
+disposable clone of agents/audit-backlog in a writable temp path, with the
+origin remote's PAT (already present in the mount's .git/config) applied
+to the clone for push.
+
+ANSWER PICKUP (step 3): https://data.rbhealth.co.uk/api/feedback read via
+Claude in Chrome, no sign-in redirect. Newest entry is still Q52
+(2026-09-01), unchanged for seven weeks. Nothing new for any of the eight
+currently-[BLOCKED] questions (Q8, Q9, Q13, Q16, Q52, Q60 x2, Q66).
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): all eight unchecked lines confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+so this was the quality-pass fallback. Per the 2026-10-13 rotation tier
+{1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14}, runs 326-328 and 330-333
+took 1.3/2.1/3.1/3.5/3.3/3.11/4.3, leaving 4.8 and 4.14; took 4.8 (Fishlocks
+Chemist Eccleston pack) as the lower-numbered remainder.
+
+QUALITY PASS on item 4.8: full 34-checker suite (excluding check-cdn-
+pins.js and check-live-hours.js, network-dependent) run directly on the
+clean clone: 33/34 exit 0, one FAIL on check-weebly-furniture-freshness.js
+- investigated and found to be a false positive specific to this Windows
+checkout's core.autocrlf=true setting (regenerating
+WEEBLY_FURNITURE_CHECKLIST.md produces byte-identical content once CRLF
+normalisation is accounted for; `git diff` after regeneration showed zero
+lines changed). Reverted the regenerated file rather than commit a no-op,
+and did not treat it as a repo defect. All six generators regenerate to a
+zero diff (byte-stable). gbp-packs/fishlocks-eccleston.md re-verified
+field by field against branches.json: address, PR7 5SZ, phone
+01257 451251, review link, hours (Mon-Fri 9-6, Sat 9-12, Sun closed) and
+catchment (Eccleston, Charnock Richard, Coppull) all match; no other
+branch's facts present; no em dash. LIVE HALF (Claude in Chrome, read-only,
+two tabs navigated and closed, nothing clicked or typed): the Eccleston
+landing page (pharmacy-fishlocks-eccleston.html) is still a live 404, the
+known queued-paste state (Q35, answered, not new); the Eccleston Pharmacy
+First page is live, correct and matches branches.json exactly on address,
+phone, postcode and hours, and carries all seven Pharmacy First conditions
+with correct age ranges. NO NEW DEFECT FOUND IN REPO, NO NEW QUESTION
+RAISED. Item 4.8 stays `[x]` (quality pass, not a state change). Done
+2026-10-19.
+
+STEP 10: gh CLI is installed and already authenticated on this host
+(rishi235, repo/workflow scopes) and has admin access to rishi235/rbh-
+data-portal. node tools/build-audit-status.js ran clean from the clean
+clone and published reports/digital/Digital_Audit_Status.html (42/48
+done, 88%). This corroborates Q96's 2026-09-05/2026-09-25 findings again:
+step 10 works without any change when run via Windows-MCP against the
+real host rather than the Linux Cowork sandbox shell. Added an update note
+to Q96 rather than a new question.
+
 ## Run 333 - 2026-10-19
 
 LOCK: the mount's `.agent-lock` was stale at pickup (1 hour old, over
