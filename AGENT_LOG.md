@@ -1,3 +1,65 @@
+## Run 310 - 2026-10-19
+
+LOCK: `.agent-lock` absent at start; wrote a new one. Could not delete it (or
+any file) at exit via unlink - same Q128 bug - so it was renamed aside into
+`.agent-lock.RELEASED-thisrun-<ts>-fs-unlink-blocked`, the established
+convention, rather than left in place.
+
+GIT: `git checkout agents/audit-backlog` failed immediately on a leftover
+`.git/index.lock` from an earlier run. Quarantined it (rename into
+`.git-lock-debris-quarantine/`, not into `.git/refs/`, per run 309's lesson).
+Checkout then failed a second time on `.git/HEAD.lock`; quarantined that too.
+A plain `git status` afterwards logged "unable to unlink .git/index.lock" for
+a THIRD, freshly-recreated lock file it had made for itself mid-command, and
+a `git pull` likewise recreated and failed to unlink `.git/ORIG_HEAD.lock`.
+All quarantined the same way. This is a wider finding than run 309's: the
+EPERM-on-unlink bug (Q128) now fires on ordinary read commands (`status`,
+`pull`, `fsck`), not only on commit/checkout as before - git is evidently
+creating and trying to clean up its own lock files on every invocation that
+touches the index or refs, and every single one of those cleanups fails on
+this mount. Added a note to Q128 recording this; did not file a new question,
+since Q128 already covers the bug and already recommends pausing the
+schedule for a manual re-clone or host-level fix (option 1 of 4, unchanged).
+
+Verified repo integrity was not affected by any of this: `git fsck
+--no-progress` returned only dangling (unreachable, harmless) commits and
+blobs, no errors; local HEAD (`ed40b589d7...`) matched
+`origin/agents/audit-backlog` exactly both before and after. Nothing was
+deleted, only renamed aside; nothing was force-pushed; main was not touched.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, read-only. Navigated
+to `https://data.rbhealth.co.uk/api/feedback`; redirected to the Cloudflare
+Access sign-in page, same as every run since 165 bar one. No sign-in
+attempted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file at run start (run 309 was the top entry). Not in an autonomous
+window.
+
+WORKLIST (step 5): confirmed by direct grep - the same 8 unchecked lines as
+runs 303-309 (5.3, 5.4, 5.5, 5.8, 6.1, the two under Q60 at 6.4/6.5, 6.6),
+all 8 still `[BLOCKED]`. Zero unblocked unchecked items. 23rd+ consecutive
+no-op on the worklist proper.
+
+QUALITY-PASS: skipped running the full `tools/check-*.js` suite fresh, since
+run 309 ran all 37 checkers minutes earlier against unchanged tracked content
+and got 37/37 clean - rerunning immediately would have been pure repetition,
+not verification of anything new. No live-site verification attempted this
+run either; the time budget went to the lock escalation above, same
+trade-off run 309 made.
+
+QUESTIONS.json: 128 total, 50 open, unchanged counts from run 309 (no new
+question filed; Q128 updated with this run's note, see above). Q127 (GitHub
+PAT exposed in cleartext in `.git/config`) not re-displayed, to avoid
+re-exposing it - still open, still unrotated, now day 6+, read and left alone
+by 23+ consecutive runs.
+
+PUBLISH (step 10): see this run's status-page publish result immediately
+below this entry once written.
+
+LOCK RELEASE: `.agent-lock` renamed aside (could not unlink), same as every
+other lock this run.
+
 ## Run 309 - 2026-10-19
 
 LOCK: `.agent-lock` absent at start; new lock written (23:44Z).
