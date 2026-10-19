@@ -54,8 +54,14 @@ COMMIT/PUSH: committed and pushed from /tmp/rbh-clean-clone-2 (clean-clone
 workaround, Q128), not from the mounted checkout. Did not touch the
 mounted checkout's .git directory beyond the read-only diff check above.
 
-LOCK: deleted `.agent-lock` on the mounted checkout at the end of this
-run.
+LOCK: attempted to delete `.agent-lock` on the mounted checkout at the
+end of this run; `rm -f` failed with the same standing EPERM-on-unlink
+wall (Q128), confirming the wall is not limited to .git internals -
+plain files dropped on this mount cannot be unlinked either. Left in
+place, timestamped 2026-10-19T16:44:57Z; the next run's own step-1
+staleness check (>45 min) will treat it as stale and should attempt
+the same delete, which will fail the same way - worth folding into
+Q128 rather than treating as new.
 
 ## Run 327 - 2026-10-19
 
