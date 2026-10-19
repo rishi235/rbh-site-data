@@ -1,3 +1,59 @@
+## Run 312 - 2026-10-19
+
+No actionable item, same as the last 25+ runs. LOCK: `.agent-lock` absent at
+start; wrote a fresh one. GIT: fetch/checkout/pull --ff-only all succeeded
+cleanly, HEAD matched origin/agents/audit-backlog at start. ANSWER PICKUP
+(step 3): Claude in Chrome available; one read-only tab navigated to
+`https://data.rbhealth.co.uk/api/feedback`, redirected to the Cloudflare
+Access / Azure AD sign-in page as every run has hit since run 248 (bar one),
+confirming no live Rishi session in this sandbox's Chrome context. No login
+attempted, tab closed. AUTONOMOUS WINDOW (step 4): no "Standing
+authorisation" header present at the top of this file; does not apply.
+WORKLIST (step 5): all 8 unchecked lines reconfirmed [BLOCKED] by direct
+grep - 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66 -
+unchanged since run 193, each still answered in QUESTIONS.json with a
+supervised human action (Weebly repaste, GBP edit, Ahrefs UI click, PAT
+rotation) that no unattended run can perform.
+
+QUALITY-PASS: not re-run this run. Run 311 (same day, same branch, zero
+tracked-file changes between then and now) already re-ran the full
+`tools/check-*.js` suite fresh (37/37 clean) a few minutes before this run
+started; re-running it again this run would add no new information and
+only burn the run's time budget, consistent with the skip-when-recently-
+verified convention runs 255/300 already established. Confirmed
+`branches.json` and `git diff --stat HEAD` are both unchanged from run 311.
+
+QUESTIONS.json: 128 total, 50 open, unchanged from run 311 - no new finding
+this run. Q127 (GitHub PAT exposed in cleartext in `.git/config`) re-read
+directly, still open, still unrotated (value not displayed or logged).
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted and failed
+in the expected way - this sandbox has no `gh` CLI (`which gh` returns
+nothing) and the only available token is the cleartext PAT sitting in
+`.git/config` under Q127, which the standing credential rule says to leave
+alone rather than extract and feed to `gh auth login` myself. Same blocker
+as runs 309-311 (Q124/Q127). Status page not published this run. The
+script's own `tools/.status-payload.json` scratch output is listed in
+`.gitignore` and was left in place untracked, not deleted.
+
+GIT-LOCK NOTE: a plain `git status` recreated `.git/index.lock` and could
+not unlink it afterwards (`Operation not permitted`) - the same Q128
+EPERM-on-unlink mount behaviour runs 308-311 documented. Quarantined by
+rename into `.git-lock-debris-quarantine/` rather than left in place or
+retried as a delete.
+
+STANDING POINT, repeating because nothing has changed it: this task has now
+logged 25+ consecutive runs with zero unblocked worklist items and a
+quality-pass rotation pool independently re-verified clean 18-25+ times.
+Every path to further progress - the 8 blocked items, the Q127 PAT
+rotation, and the Q124 `gh` CLI/token gap blocking step 10 - needs Rishi
+directly, in a supervised session, not another unattended run. Continuing
+to fire this schedule produces identical no-op log entries at the current
+cadence; worth Rishi's call whether to pause the schedule until he has time
+to clear the blockers, rather than have it keep running for no output.
+
+LOCK RELEASE: see below.
+
 ## Run 311 - 2026-10-19
 
 LOCK: `.agent-lock` absent at start; wrote a new one.
