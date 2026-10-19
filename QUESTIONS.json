@@ -1963,7 +1963,7 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "Not blocking any worklist item directly - the status page staying stale does not stop audit work, it only means the portal view of progress lags behind AGENT_WORKLIST.md/AGENT_LOG.md/QUESTIONS.json, which remain the source of truth and were all pushed successfully this run (commit 8088aaa5). Raised alongside the finding that Q96 and Q123 (the other two standing infrastructure questions) now look resolved in practice in this sandbox and may be worth closing formally once you confirm the credential's provenance."
+    "note": "Not blocking any worklist item directly - the status page staying stale does not stop audit work, it only means the portal view of progress lags behind AGENT_WORKLIST.md/AGENT_LOG.md/QUESTIONS.json, which remain the source of truth and were all pushed successfully this run (commit 8088aaa5). Raised alongside the finding that Q96 and Q123 (the other two standing infrastructure questions) now look resolved in practice in this sandbox and may be worth closing formally once you confirm the credential's provenance. Run 325 (2026-10-19) reconfirms, no change: `gh` is still not installed in this Cowork sandbox (`which gh` empty, `apt-get install gh` refused with \"Unable to acquire the dpkg frontend lock\", not root). git push itself continues to work fine via the PAT already in the origin remote URL (this run's own commit 326eec0 pushed cleanly); only the step 10 status-page publish is blocked, and only by the missing `gh` binary specifically, not by a missing credential. AGENT_WORKLIST.md and AGENT_LOG.md stay the source of truth and were both updated and pushed correctly this run regardless."
   },
   {
     "id": "Q125",

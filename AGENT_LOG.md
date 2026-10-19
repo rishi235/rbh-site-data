@@ -63,6 +63,18 @@ unchanged since 2026-08-10 (Q35 stands). Evidence:
 audits/verify-5.2-2026-10-19-twentysecond.js and
 audits/verify-5.2-2026-10-19-twentysecond-output.txt.
 
+STEP 10 (status page publish): `node tools/build-audit-status.js` run as
+instructed, even though the work item above succeeded, so the page
+stays honest either way. Failed: `gh` is not installed in this sandbox
+(`which gh` empty) and `apt-get install gh` was refused
+(`dpkg-frontend-lock`, not root). git push itself is unaffected (this
+run's own commit 326eec0 pushed cleanly via the PAT already in the
+origin remote URL); only the gh-dependent publish step is blocked. Not
+a new question: this is the same gap Q124 already records, reconfirmed
+unchanged, so a note was appended to Q124 instead of opening a new one.
+AGENT_WORKLIST.md and AGENT_LOG.md remain the source of truth and are
+both pushed correctly.
+
 ## Run 324 - 2026-10-19
 
 LOCK: `.agent-lock` absent at pickup, created fresh at 13:45. Before
