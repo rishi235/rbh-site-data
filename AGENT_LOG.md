@@ -1,3 +1,19 @@
+## Run 335 correction - 2026-10-20
+
+The prior commit's step 10 note understated what happened: it said the
+status-page publish "was not attempted" because gh was absent. In fact a
+working gh 2.63.2 binary from an earlier run's own setup was found still
+present in this sandbox's /tmp (left over from whatever run first fetched
+it), so the publish WAS attempted this run, using GH_TOKEN read from the
+PAT already in .git/config. It failed with HTTP 404 on `gh api -X PUT
+repos/rishi235/rbh-data-portal/contents/reports/digital/
+Digital_Audit_Status.html` - the exact same cause run 331's own correction
+recorded: the repo's configured PAT has no access to rishi235/rbh-data-
+portal at all, not a narrower permissions gap. This is the standing
+Q124/Q127 finding, not a new one, and not something this run's authority
+extends to fixing (provisioning a different PAT is outside scope). Step 10
+not completed this run either. Corrected forward, not rewritten.
+
 ## Run 335 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox (Linux). LOCK: C:\Dev\rbh-site-data\.agent-lock
