@@ -1,3 +1,76 @@
+## Run 317 - 2026-10-19
+
+No actionable item, 30th+ consecutive no-op. LOCK: `.agent-lock` found at
+start containing "RELEASED 2026-10-19T06:42:49Z - run 316 complete" (about
+60 minutes old at run start, past the 45-minute staleness threshold).
+`rm` on it failed with "Operation not permitted" under this mount's standing
+EPERM-on-unlink behaviour (Q128); overwrote the content in place instead,
+same workaround as every prior run.
+
+GIT: `fetch` succeeded; checked out `agents/audit-backlog` (already current
+branch); `pull --ff-only` reported already up to date. The Q128
+EPERM-on-unlink symptom fired on `.git/index.lock` (60 minutes old, so
+deleted per the 1-hour staleness rule), `.git/HEAD.lock` (same age) and a
+fresh `.git/index.lock`/`.git/ORIG_HEAD.lock` pair that `git checkout`/
+`git pull` created and then could not unlink themselves - all four handled
+by rename-to-timestamped-name rather than delete, since `rm`/`unlink` is
+refused on this mount but `rename` is not. `git status`/`git diff --stat
+HEAD` confirm a clean, unchanged tree against HEAD `e1b4e96` (run 316's own
+commit) - no answer or external change landed since.
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Single
+read-only tab navigated to `https://data.rbhealth.co.uk/api/feedback`;
+redirected to the Cloudflare Access sign-in page (confirmed via
+`tabs_context_mcp`, title "Sign in ・ Cloudflare Access"), same as every run
+since 165 bar one. No sign-in attempted, no credentials entered, tab closed
+immediately after confirming the redirect.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before this entry
+was added; no "Standing authorisation - autonomous window" section present.
+Step 4 does not apply this run.
+
+WORKLIST (step 5): reconfirmed by direct grep against the live file, not by
+trusting the previous log entry - the same 8 unchecked lines as runs
+303-316, all still carrying `[BLOCKED]`: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero unblocked items available. 42 items
+ticked complete, unchanged.
+
+QUALITY-PASS: not re-run this run. Run 313 ran the full `tools/check-*.js`
+suite fresh (35/35 clean) and rebuilt all 8 generators byte-identical
+against `branches.json`, and the tracked tree is byte-identical to that run
+(HEAD unchanged across runs 314-316 and this one, `git diff --stat HEAD`
+empty throughout). Re-running the identical suite against the identical
+tree a fourth time since would spend this run's time budget to reconfirm a
+fact already established repeatedly, not to find anything new - same
+convention runs 255/300/312/313/314/315/316 already established.
+
+QUESTIONS.json: 128 total, 50 open, unchanged from run 316 - no new finding
+this run to add one.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted and failed
+in the expected way - `gh` is not on PATH in this sandbox (`which gh`
+returns nothing). Checked `git remote -v` for this repo while diagnosing
+connectivity for step 9 (push works fine here - the configured remote
+already carries a working credential for `rishi235/rbh-site-data`, which is
+a separate matter from step 10's blocker). That credential is scoped to
+this repo's own push, is the one already recorded under Q127, and is not
+something to extract or repurpose for a PUT against a different repo
+(`rbh-data-portal`) via a hand-rolled API call standing in for the missing
+`gh` binary - the standing credential rule forbids that regardless of
+whether it would technically work, and no legitimate `gh`/token for the
+portal repo specifically is present (`env | grep -i token` empty). Same
+blocker as runs 309-316 (Q124/Q127). Status page not published this run.
+
+STANDING POINT, repeating because it is still true: 30+ consecutive runs
+with zero unblocked worklist items and a quality-pass rotation pool
+independently re-verified clean well beyond any plausible remaining risk.
+The three live blockers - the 8 `[BLOCKED]` worklist lines, the Q127 PAT
+rotation, and the Q124 `gh`/token gap stopping step 10 - all need Rishi
+directly in a supervised session; none is fixable from inside an unattended
+run without touching a credential, which the hard rules correctly forbid.
+Worth his call on pausing this schedule until he has time to clear them in
+one sitting.
+
 ## Run 316 - 2026-10-19
 
 No actionable item, 29th+ consecutive no-op. LOCK: `.agent-lock` found at
