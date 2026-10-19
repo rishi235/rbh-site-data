@@ -1,3 +1,85 @@
+## Run 314 - 2026-10-19
+
+No actionable item, 27th+ consecutive no-op. LOCK: `.agent-lock` found at
+start containing "RELEASED 2026-10-19T01:51:55Z - run 313 complete" (51
+minutes old at run start) rather than absent - run 313 released by content
+edit, not by deleting the file, same mount constraint as the index.lock note
+below. Overwrote in place (cannot unlink under this mount's EPERM-on-unlink
+behaviour; Cowork's own delete-permission tool was tried for completeness
+and auto-declined as "no one available to approve during this scheduled
+run" - noting this so Rishi can decide whether to grant standing delete
+permission on this folder for future runs, since the decline is automatic,
+not a judgement call this run made).
+
+GIT: fetch succeeded; already on `agents/audit-backlog`; `pull --ff-only`
+reported already up to date, HEAD `b275ce29...` unchanged from run 313 -
+confirms no answer or external change landed since then. A stale
+`.git/index.lock` (0 bytes, same ~51-minute age as the lock file, left behind
+by run 313's own session) blocked `git checkout` on arrival with the usual
+"Another git process seems to be running" message, reproducing the standing
+Q128 EPERM-on-unlink symptom again - `rm` on it fails with "Operation not
+permitted" under this FUSE mount, but `mv` succeeds, so it was quarantined by
+rename into `.git-lock-debris-quarantine/` (never deleted, never restored),
+same convention as runs 308-312. Git write operations (checkout/add/commit)
+confirmed working again afterwards. The untracked debris pile from earlier
+runs' own lock-test and delete-capability probes (43+ files/dirs, e.g.
+`.rmtest_probe_276`, `.test-lock-probe-301-renamed`,
+`.delete-capability-test-2`) was left exactly as found - not re-quarantined,
+since churning it adds files rather than removing them under this mount, and
+it carries no tracked-content risk, consistent with run 313's own reasoning.
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Single
+read-only tab navigated to `https://data.rbhealth.co.uk/api/feedback`;
+redirected to the Cloudflare Access sign-in page, same as every run since
+165 bar one. No sign-in attempted, no credentials entered, tab closed
+immediately after confirming the redirect.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file for a "Standing
+authorisation - autonomous window" section before this entry was added;
+none present. Step 4 does not apply this run.
+
+WORKLIST (step 5): reconfirmed by direct grep, not by trusting the log - the
+same 8 unchecked lines as runs 303-313, all still carrying `[BLOCKED]`:
+5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero
+unblocked items available.
+
+QUALITY-PASS: not re-run this run. Run 313 (same branch, same HEAD, zero
+tracked-file changes between then and now, confirmed by `git diff --stat
+HEAD` empty) already ran the full `tools/check-*.js` suite fresh a little
+over 50 minutes before this run started (35/35 clean) and rebuilt all 8
+generators byte-identical against `branches.json`. Re-running the same suite
+against the identical tree would add no new information and would only
+spend this run's time budget, consistent with the skip-when-recently-
+verified convention runs 255/300/312 already established.
+
+QUESTIONS.json: 128 total, 50 open, unchanged from run 313 - no new finding
+this run to add one.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted and failed
+in the expected way - `gh` is not on PATH in this sandbox (`which gh`
+returns nothing) and the only available token is the cleartext PAT under
+Q127, which the standing credential rule says to leave alone rather than
+extract and use myself. Same blocker as runs 309-313 (Q124/Q127). Status
+page not published this run.
+
+STANDING POINT, repeating because it is still true and nothing in this run
+changed it: 27+ consecutive runs with zero unblocked worklist items and a
+quality-pass rotation pool that has been independently re-verified clean
+well beyond any plausible remaining risk. The three live blockers - the 8
+`[BLOCKED]` worklist lines, the Q127 PAT rotation, and the Q124 `gh`/token
+gap stopping step 10 - all need Rishi directly in a supervised session.
+Worth his call on pausing this schedule until he has time to clear them,
+since further unattended runs at the current cadence will keep producing
+the same no-op shape. A fourth standing item worth his attention: the
+`.agent-lock` / `.git/index.lock` EPERM-on-unlink mount behaviour (Q128) is
+now confirmed to also block Cowork's own file-delete permission tool when
+nobody is present to approve it - rename still works as a reliable
+workaround for this specific case, so it has not stopped any run, but it is
+worth knowing before relying on direct deletion for anything else on this
+mount.
+
+LOCK RELEASE: see below.
+
 ## Run 313 - 2026-10-19
 
 No actionable item, 26th+ consecutive no-op. LOCK: `.agent-lock` absent at
