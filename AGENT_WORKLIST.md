@@ -37285,6 +37285,99 @@ audits/item-5.1-live-endash-sweep-2026-10-14-twentieth.txt.
       tools/check-*.js re-run individually on the tracked working copy
       after the scratch-based pass above (separately from the scratch
       runs, as a final sanity sweep); 36/36 exit 0, no regressions.
+      Quality pass 2026-10-19 (twenty-second, unattended scheduled run,
+      rotation-pool pick): the eight remaining unchecked worklist lines
+      reconfirmed [BLOCKED] this run (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16,
+      6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged. Answer pickup (step
+      3): Chrome reached https://data.rbhealth.co.uk/api/feedback
+      directly, no Cloudflare sign-in redirect this run; newest entry is
+      still Q52 (2026-09-01), all of which (Q2 through Q52) are already
+      "answered" in QUESTIONS.json; nothing new to apply. No
+      autonomous-window section at the top of AGENT_LOG.md, so step 4
+      does not apply. ROTATION POOL: last-verified dates re-derived from
+      this file's own "Quality pass" lines per item (excluding the seven
+      standing one-off items 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 and the
+      eight [BLOCKED] lines above); item 5.2 (this one) came out stalest
+      at 2026-10-03, over a week clear of the next tier (1.3, 2.1, 3.1,
+      3.3, 3.5, 3.11, 4.3, 4.8, 4.14, all last touched 2026-10-13), so it
+      was this run's pick.
+      NEW ANGLE. Of the twenty checkers already proven by direct injection
+      against this item's own four pages (McCanns Aigburth, McCanns
+      Sandringham, Scorah Bramhall, Scorah Hazel Grove) across twenty-one
+      prior passes, tools/check-seo-lengths.js had never been run against
+      them at all, despite being one of the five core SEO checkers
+      CLAUDE.md names explicitly and despite its own PAGE_DIRS and SHEETS
+      lists both naming modules/branch/pages and its SEO.md directly. It
+      is also the one SEO checker with no overlap with check-seo-pattern.js
+      (proven last pass): that checker asks whether a title/H1 matches the
+      composed pattern, this one asks whether it fits the SERP and is
+      unique against every other page in the estate, a materially
+      different question.
+      METHOD: full `cp -a` scratch copy of the whole tracked repo to
+      /tmp/scratch52_item522 (sha256-confirmed byte-identical to the
+      tracked working copy's own modules/branch/pages/SEO.md and all four
+      target pages before any injection), no mutation against the tracked
+      working copy this pass launched from. BASELINE confirmed first: full
+      35-checker suite (excluding check-live-hours.js and
+      check-cdn-pins.js, both network-dependent) run individually on the
+      tracked working copy, 35/35 exit 0; check-seo-lengths.js itself
+      clean on the scratch copy too (177 paste-sheet entries, titles 36 to
+      65 chars, descriptions 129 to 164 chars, 0 shared H1s).
+      FOUR ROUNDS, one per rule the checker holds, each restored from an
+      in-memory buffer immediately after capturing the checker subprocess's
+      output and before any assertion, sha256-reconfirmed byte-identical
+      before the next: (1) RULE 1 TITLE LENGTH - McCanns Aigburth's Page
+      Title padded past 65 characters in SEO.md - CAUGHT, "title is 80
+      characters, over the 65 limit, so Google truncates it". (2) RULE 2
+      DESCRIPTION LENGTH - Scorah Bramhall's Page Description shortened to
+      25 characters - CAUGHT, "description is only 25 characters, under
+      the 80 minimum". (3) RULE 3 DUPLICATE PERMALINK - Scorah Hazel
+      Grove's Page Permalink overwritten with Scorah Bramhall's own (its
+      sister branch on the same host, the exact same-domain self-
+      competition risk CLAUDE.md names for this item's own shared
+      domains) - CAUGHT, "duplicate permalink shared by 2 pages: Scorah
+      Chemists Bramhall ..., Scorah Chemists Hazel Grove ...". (4) RULE 4
+      DUPLICATE H1 - McCanns Sandringham's H1 overwritten with McCanns
+      Aigburth's own exact H1, its sister branch on the same host -
+      CAUGHT, "two branches on one website host share an H1, so they
+      compete on one domain - www.mccannspharmacy.co.uk: pharmacy-mccanns-
+      aigburth.html and pharmacy-mccanns-sandringham.html". All four caught
+      on the first attempt with the expected rule-specific message; the
+      whole script was then re-run a second time end to end with identical
+      results (4/4 caught both times). SEO.md and all four target pages
+      sha256-confirmed byte-identical to their pre-injection baseline
+      after every individual restoration and again at the end. Full
+      35-checker suite re-run on the scratch copy after the round: 35/35
+      exit 0. All five touched files on the scratch copy re-confirmed
+      sha256-identical to the tracked working copy's own versions at the
+      end, proving no contamination crossed back.
+      RESULT: no in-repo defect. tools/check-seo-lengths.js was already
+      correctly holding this item's own four pages to all four of its
+      rules (title length, description length, permalink uniqueness, H1
+      uniqueness), now proven directly by injection for the first time in
+      this item's twenty-two-pass history, closing the last of the five
+      core SEO checkers CLAUDE.md names against this item specifically
+      (check-seo-pattern, check-seo-sheets, check-em-dashes and
+      check-seo-keywords were each proven on earlier passes; this pass
+      completes the set). No checker logic, page, generator or data field
+      changed anywhere in the repo. No new question raised; QUESTIONS.json
+      unchanged (129 total, 51 open). Guard coverage for this item now
+      extends to 21 of the estate's checkers proven by direct injection.
+      LIVE HALF: re-read this pass, Chrome reachable. All four of this
+      item's own landing URLs re-read read-only (pharmacy-mccanns-
+      aigburth.html, pharmacy-mccanns-sandringham.html, pharmacy-scorah-
+      bramhall.html, pharmacy-scorah-hazel-grove.html): all four still
+      return a 404 "Page Not Found" Weebly error page, unchanged since
+      first observed 2026-08-10 and reconfirmed on every live-reachable
+      pass since (now over ten weeks running). Q35 (why these four pages
+      have never been pasted to Weebly) stands exactly as before; nothing
+      new to add to it.
+      FORWARD NOTE: next stalest by this run's own re-derivation is 1.3,
+      2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8 and 4.14 (five-way-plus tie at
+      2026-10-13), since 5.2 itself now moves to the back of the queue at
+      2026-10-19. Other runs may land in between before the next pass.
+      Evidence: audits/verify-5.2-2026-10-19-twentysecond.js and
+      audits/verify-5.2-2026-10-19-twentysecond-output.txt.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

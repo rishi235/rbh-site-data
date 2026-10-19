@@ -1,0 +1,98 @@
+Baseline SEO.md sha256: 80a64c636f73924321c7d18cef366b7527cf3877347e4faa6107668ed8370c9e
+Baseline aigburth sha256: 1f797c1fb2446a424500ec95f1c8ff1b07ff1a670d6bbd1138ebb6838329af8d
+Baseline sandringham sha256: ea1b4b571fb84811d45e37a437c68d2c708373530100c5c4b58b046453232aa6
+Baseline bramhall sha256: 6d4b804387194d6c263679c2280d33bc01640c7313e2c475dff34c7418fc7d57
+Baseline hazelgrove sha256: 2ac2ce0bd45aacc221c5d03749a3ee854de128a0c2f99f588f98fa2bc1990b84
+
+=== BASELINE RUN ===
+exit 0
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+
+
+=== RULE1_TITLE_TOO_LONG ===
+exit 1 caught=true
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 80 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL pharmacy-mccanns-aigburth (modules/branch/pages/SEO.md): title is 80 characters, over the 65 limit, so Google truncates it
+         Pharmacy in Aigburth, Merseyside - McCanns Chemist Extra Long Padding Words Here
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+
+=== RULE2_DESCRIPTION_TOO_SHORT ===
+exit 1 caught=true
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 25 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL pharmacy-scorah-bramhall (modules/branch/pages/SEO.md): description is only 25 characters, under the 80 minimum
+         Scorah Chemists Bramhall.
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+
+=== RULE3_DUPLICATE_PERMALINK ===
+exit 1 caught=true
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL duplicate permalink shared by 2 pages: Scorah Chemists Bramhall (modules/branch/pages/SEO.md), Scorah Chemists Hazel Grove (modules/branch/pages/SEO.md)
+         pharmacy-scorah-bramhall
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+
+=== RULE4_DUPLICATE_H1 ===
+exit 1 caught=true
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+  FAIL two branches on one website host share an H1, so they compete on one domain - www.mccannspharmacy.co.uk: pharmacy-mccanns-aigburth.html and pharmacy-mccanns-sandringham.html
+         Pharmacy in Aigburth - McCanns Chemist
+
+check-seo-lengths: 1 failure(s), 0 known issue(s) awaiting a decision.
+
+
+=== FINAL RESTORE CONFIRMATION ===
+SEO.md sha256 matches baseline: true
+aigburth sha256 matches baseline: true
+sandringham sha256 matches baseline: true
+bramhall sha256 matches baseline: true
+hazelgrove sha256 matches baseline: true
+
+=== FINAL BASELINE RE-RUN ===
+exit 0
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+
+
+=== SUMMARY ===
+RULE1_TITLE_TOO_LONG: CAUGHT
+RULE2_DESCRIPTION_TOO_SHORT: CAUGHT
+RULE3_DUPLICATE_PERMALINK: CAUGHT
+RULE4_DUPLICATE_H1: CAUGHT
+
+ALL CAUGHT: true

@@ -1,3 +1,68 @@
+## Run 325 - 2026-10-19
+
+LOCK: `.agent-lock` absent at pickup (run 324 deleted it on exit); created
+fresh. `git fetch` succeeded cleanly (the seven malformed ref files run
+324 wrote a valid SHA into stayed clean, no fetch failure this run).
+Origin had moved (13af771 -> f7b9a008): run 324's own pickup had left
+AGENT_LOG.md, AGENT_WORKLIST.md and QUESTIONS.json modified-but-
+uncommitted on this mount (local HEAD still 13af771), because run 324's
+own commit went through a clean clone in /tmp rather than this mount
+(its HEAD.lock was stuck, as its own log entry below explains) and was
+pushed from there instead. Confirmed by diffing the working tree against
+origin/agents/audit-backlog: all three files matched byte for byte, so
+nothing was lost or duplicated, only the local ref was stale. `.git/
+index.lock` was present and 27 minutes old at pickup (confirmed orphaned:
+no git process running via ps, .agent-lock absent at this run's own
+pickup); rather than wait out the remaining time, re-synced the three
+tracked files from origin via GIT_INDEX_FILE pointed at a /tmp copy of
+the index (clears index.lock for read/checkout operations), then left
+the branch ref itself stale rather than fighting the equally-stuck
+HEAD.lock a second time this run, since the working tree content was
+already correct and that was what this run's own work needed. This
+run's own commit, like run 324's, goes through a clean clone in /tmp;
+see Q128 for the standing recommendation.
+
+ANSWER PICKUP (step 3): Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no Cloudflare
+sign-in redirect. Newest entry is still Q52 (2026-09-01); all entries
+Q2-Q52 are already "answered" in QUESTIONS.json (spot-checked several
+against the portal text, all match). Nothing new to apply. Q77-Q129
+(51 open) remain standing findings, not tied to any [BLOCKED] worklist
+line.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): same 8 lines unchecked, all still [BLOCKED]:
+5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66.
+Zero unblocked items, so this run fell to the quality-pass fallback.
+Last-verified dates derived from AGENT_WORKLIST.md's own "Quality pass"
+notes per item, excluding the seven standing one-offs (1.1, 1.4, 2.2,
+5.6, 5.7, 6.7, 6.8). Item 5.2 (branch landing pages: McCanns Aigburth,
+McCanns Sandringham, Scorah Bramhall, Scorah Hazel Grove) came out
+stalest at 2026-10-03, over a week ahead of the next tier (1.3, 2.1,
+3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14, all 2026-10-13), so it was this
+run's pick.
+
+QUALITY PASS on item 5.2 (twenty-second pass): full detail under the
+item in AGENT_WORKLIST.md. Summary: NEW ANGLE was tools/check-seo-
+lengths.js, never run against this item's own four pages in twenty-one
+prior passes despite being one of CLAUDE.md's five core SEO checkers.
+Proved by injection against a /tmp scratch copy of the whole repo
+(never the tracked working tree): all four rules caught on the first
+attempt (title length, description length, duplicate permalink,
+duplicate H1 - the last two both exercised cross-sister-branch on the
+item's own two shared-domain pairs), reproduced on a second run, all
+five touched files confirmed byte-identical to baseline after every
+restore. Full 35-checker suite (excluding check-live-hours.js and
+check-cdn-pins.js, network-dependent) clean before and after, both on
+the tracked working copy and on the scratch copy. No in-repo defect,
+no page or data changed, no new question. Live half: all four landing
+URLs re-read via Claude in Chrome, read-only, all four still 404,
+unchanged since 2026-08-10 (Q35 stands). Evidence:
+audits/verify-5.2-2026-10-19-twentysecond.js and
+audits/verify-5.2-2026-10-19-twentysecond-output.txt.
+
 ## Run 324 - 2026-10-19
 
 LOCK: `.agent-lock` absent at pickup, created fresh at 13:45. Before
