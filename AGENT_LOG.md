@@ -1,3 +1,67 @@
+## Run 333 - 2026-10-19
+
+LOCK: the mount's `.agent-lock` was stale at pickup (1 hour old, over
+the 45-minute bar) and was overwritten with a fresh timestamp;
+`.git/index.lock` was also stale (over 1 hour, no git process running)
+and was moved aside. GIT: the mounted checkout's working tree carried
+uncommitted AGENT_LOG.md/AGENT_WORKLIST.md/QUESTIONS.json edits against
+a stale local HEAD (13af771, run 323) while origin had already moved
+to run 332 (4e9156c). Diffed directly against origin before touching
+anything: the dirty content was a strict subset of what origin already
+held (confirmed via `git diff origin/agents/audit-backlog`), so it was
+superseded scratch, not at-risk work - same finding runs 331 and 332
+made for their own equivalent situations. Left the mount's stale HEAD
+untouched and did all real work on a disposable clean clone of
+agents/audit-backlog (4e9156c at fetch time) in this session's own
+/tmp, using the credentialed PAT already configured in the mount's own
+.git/config, per the method runs 324-332 established.
+
+ANSWER PICKUP (step 3): Claude in Chrome reached
+https://data.rbhealth.co.uk/api/feedback directly, no sign-in redirect.
+Newest entry is still Q52 (2026-09-01T22:44:51.524Z), unchanged for
+seven weeks, same as the last several runs. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed still [BLOCKED]
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66).
+Zero unblocked items, so this run fell to the quality-pass fallback.
+Per the tier dated 2026-10-13 ({1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8,
+4.14}), items 1.3, 2.1, 3.1, 3.3, 3.5 and 3.11 were already taken by
+runs 326-332; this run took 4.3 (Hirshmans Chemist, Ainsdale) as the
+next lowest remaining.
+
+QUALITY PASS on item 4.3 (twenty-third pass): full detail under the
+item in AGENT_WORKLIST.md and in audits/hirshmans-ainsdale-item-4.3-
+quality-pass-2026-10-19-twentythird.txt. Summary: 35/35 checkers clean,
+all six generators byte-stable, and branches.json's hirshmans_ainsdale
+entry re-verified against the pack with no drift. Live half found the
+standing pre-Q7 em-dash mojibake on switch-prescriptions-hirshmans-
+ainsdale.html unchanged, but also found - new this pass - that the
+page's own sitemap.xml lastmod is 2026-10-15T14:30:57, the same date as
+the site-wide republish item 2.1 found this cycle (run 327) for
+Fishlocks Ainsdale. Independent confirmation at a second branch that
+the republish bumps every URL's metadata without repasting this
+specific block. Recorded as corroborating evidence under the existing
+Q49/Q7 thread, not a new question. No in-repo defect, no new question.
+
+QUESTIONS.json: unchanged (129 total, 51 open).
+
+STEP 10: `node tools/build-audit-status.js` run from the clean clone;
+fails because the `gh` binary itself is simply not present in this
+sandbox (`/bin/sh: 1: gh: not found`), not reached far enough to hit
+the PAT-scope issue runs 331-332 logged. No `gh auth login` attempted
+(step 3's hard rule against logging in anywhere applies with equal
+force here). Not re-logged as a new question; Q124/Q127 already cover
+"step 10 is blocked" at the right granularity, and the exact proximate
+cause has now varied between runs (missing binary vs PAT scope),
+consistent with the sandbox's `gh` availability being inconsistent
+run to run rather than a single fixed defect.
+
+STEP 9: committed (message below) and pushed to
+origin/agents/audit-backlog from the /tmp clone.
+
 ## Run 332 - 2026-10-19
 
 LOCK: the mount's `.agent-lock` was absent at pickup; created fresh

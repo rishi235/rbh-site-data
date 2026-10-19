@@ -21484,6 +21484,42 @@ Pharmacy First wording to the NHS service description.
       QUESTION. Evidence:
       audits/hirshmans-ainsdale-item-4.3-twentysecond-2026-10-13.txt. Done
       2026-10-13
+      Quality pass 2026-10-19 (twenty-third pass, run 333, unattended
+      scheduled run via audit-backlog-worker): rotation tier dated
+      2026-10-13 was {1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14};
+      items 1.3, 2.1, 3.1, 3.3, 3.5 and 3.11 had already been taken by
+      runs 326-332, so this run took 4.3 as the next lowest remaining.
+      REPO HALF: full 35-checker suite (excl. check-cdn-pins.js,
+      check-live-hours.js, both network-dependent) run against a clean
+      clone of origin/agents/audit-backlog: 35/35 exit 0. All six
+      generators rebuilt to zero diff (sha256 identical across all 203
+      modules/*/pages files). branches.json's hirshmans_ainsdale entry
+      re-verified field by field against the pack (name, street,
+      locality, postcode, phone, review link, both lunch closures) -
+      all match, no drift since the twenty-second pass. LIVE HALF
+      (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+      submitted): switch-prescriptions-hirshmans-ainsdale.html's NAP,
+      hours summary, GPhC registration and company details all match
+      branches.json exactly. The page still carries the pre-Q7 em dash
+      as mojibake ("it usually is not ÔÇö we make the first step quick and
+      easy"), unchanged since 2026-08-30. NEW THIS PASS: read the
+      page's own sitemap.xml entry for the first time on this item -
+      lastmod 2026-10-15T14:30:57+00:00, the same date as the
+      site-wide republish item 2.1 found this same run cycle (run 327)
+      for Fishlocks Ainsdale's switch page. Independent confirmation at
+      a second branch that the 15 October republish touched every
+      URL's lastmod without repasting this specific embed block, so the
+      mojibake survived a republish that post-dates it by seven weeks.
+      All 28 of this site's sitemap entries carry the same lastmod,
+      including both the legacy weight-loss-clinic.html (Q85/item 5.8)
+      and the compliant generated weight-loss-clinic-hirshmans-
+      ainsdale.html, consistent with a metadata-only republish. Recorded
+      as corroborating evidence under the existing Q49/Q7 paste-lag
+      thread, not a new question, the same convention run 327 used for
+      its own equivalent Fishlocks finding. NO NEW IN-REPO DEFECT, NO
+      NEW QUESTION RAISED. Item 4.3 stays `[x]` (quality pass, not a
+      state change). Evidence: audits/hirshmans-ainsdale-item-4.3-
+      quality-pass-2026-10-19-twentythird.txt. Done 2026-10-19
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
