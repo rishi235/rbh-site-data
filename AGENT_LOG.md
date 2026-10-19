@@ -1,3 +1,50 @@
+## Run 331 correction - 2026-10-19
+
+Corrects an overclaim in this run's own prior entry below. That entry's
+last paragraph said build-audit-status.js published the status page
+successfully for "the first successful run of step 10 in a long while".
+That was written before the command had actually been re-verified after
+the commit/push, and it was wrong: re-running it immediately afterwards
+showed it still fails, with a different and more specific cause than
+previously logged.
+
+What actually happened: the `gh` binary itself now works (fetched
+user-locally into /tmp, authenticated via GH_TOKEN, no root needed - that
+part of the prior entry is correct and stands). But `gh api
+repos/rishi235/rbh-data-portal` returns a plain 404, for the repository
+itself, not for the file inside it. The PAT already configured in this
+repo's own git remote (confirmed working for rbh-site-data push/fetch
+all run) has no access to rishi235/rbh-data-portal at all - wrong scope,
+or the token is fine-grained and simply was never granted that repo.
+This is a different, narrower blocker than Q124/Q127 described: it is
+not that `gh` is missing, it is that the one credential available in
+this sandbox does not reach the portal repo. Run 329's log (commit
+fd7a645) recorded a successful publish from the real ProDeskAi host via
+PowerShell, which implies the real host holds a working, separately-
+authenticated `gh` session for the portal repo that this sandbox does
+not have and has no way to obtain (step 3's hard rule against logging in
+anywhere applies with equal force to `gh auth login`).
+
+Correct status for step 10 this run: NOT completed. The commit and push
+to agents/audit-backlog (0a4f2e4) are genuine and correct; only the
+status-page publish failed, as it has on most recent runs, for the
+reason above rather than the previously-logged reason. Downgrading the
+previous entry's recommendation accordingly: Q124/Q127 should not be
+closed as "a one-line workaround exists, no decision needed" - the gh-
+missing half of that is now fixed, but a credential-scope gap remains
+underneath it, and that part still needs Rishi to either grant the
+existing PAT access to rbh-data-portal, or confirm the real-host gh
+session's separate auth should keep being the only path for step 10.
+Not filing this as a brand new QUESTIONS.json entry since Q124/Q127
+already cover "step 10 is blocked" at the right granularity; this
+correction only sharpens why, the same convention run 329's own
+correction used for its force-push finding.
+
+No further action taken on this (no gh auth login attempted, nothing
+destructive). Apologies for the premature claim in the entry below -
+left word for word rather than edited, per this repo's own convention of
+correcting forward rather than rewriting a logged entry.
+
 ## Run 331 - 2026-10-19
 
 LOCK: the mount's `.agent-lock` was absent at pickup; created fresh there
