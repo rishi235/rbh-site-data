@@ -37467,6 +37467,33 @@ audits/item-5.1-live-endash-sweep-2026-10-14-twentieth.txt.
       main and service-module-phase1 is fast-forwarded to it. service.js and
       service.css are still byte-identical across phase1 and main today,
       re-checked on 2026-08-11, so the fast-forward itself is still free.
+      PREMISE NOW FALSE, found on the 42nd quality pass, 2026-10-19 (run
+      318): the "byte-identical" claim above has not been re-checked since
+      2026-08-11 and no longer holds. `git diff origin/service-module-phase1
+      origin/main -- modules/service/service.js` is empty (the live pin and
+      main still agree with each other), but both now differ from
+      agents/audit-backlog: the live/main copy still carries the three
+      `&mdash;` instances this note already named, and is also missing the
+      NO_FALLBACK_SERVICE_KEYS contraception entry (Q17) that this branch
+      added. So the fast-forward described above - point service-module-
+      phase1 at main - is no longer free and no longer the fix: main itself
+      still has the bug. The actual fix now needs agents/audit-backlog's
+      service.js merged onto main FIRST (a supervised-session action under
+      the same hard rule as the fast-forward itself - never push main from
+      an unattended run), and only then a fast-forward of service-module-
+      phase1 to the updated main. tools/check-cdn-pins.js was re-run this
+      pass and still only WARNs that the branch ref is behind main (64
+      commits now, up from 63 at Q13) - it has no rule that would have
+      caught this, because it was written when Q13's "happens to be
+      identical" was still true and never got a content check for the
+      mutable-ref case against the WORKING branch, only against itself over
+      time. Raised as Q129 rather than folded into Q13, because Q13's
+      question ("how should the pins be brought back into line") assumed a
+      free fast-forward and Rishi's answer to it no longer matches what a
+      supervised session would actually need to do. Item stays [BLOCKED].
+      All other repo-side facts in this item's note re-confirmed unchanged
+      this pass: 37/37 checkers clean, all 8 generators byte-identical
+      against branches.json, zero tracked diff.
 - [x] 5.6 Q14 shorten the one over-length page title in the estate: the
       Coleman and Leighs infected insect bite title ran to 70 characters
       against Google's 65, so the brand was the part being truncated away.

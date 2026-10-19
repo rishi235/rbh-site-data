@@ -1,3 +1,96 @@
+## Run 318 - 2026-10-19
+
+No actionable item, 31st+ consecutive no-op, but a genuine fresh finding
+this run rather than a repeat confirmation. LOCK: `.agent-lock` found at
+start containing "RELEASED 2026-10-19T07:45:49Z - run 317 complete" (about
+58 minutes old at run start, past the 45-minute staleness threshold).
+Content overwritten in place with this run's claim timestamp rather than
+deleted, same EPERM-on-unlink workaround as every prior run (Q128). A
+`.git/index.lock` from an earlier session was also present, ~60 minutes
+old (epoch-checked) with no git process running (`ps aux` clean); waited
+to clear the full 1-hour staleness threshold rather than deleting early,
+then quarantined it and `.git/ORIG_HEAD.lock` by rename (`rm`/`unlink`
+refused with "Operation not permitted" on this mount, `mv` succeeds, same
+Q128 workaround). A further `.git/index.lock` reappeared later from a
+plain `git status`/`git fetch` and was likewise renamed rather than
+deleted. The pre-existing debris pile from earlier runs' own probes
+(now 1750+ files under similar names) was left exactly as found - not
+re-quarantined, consistent with runs 313-314's own reasoning that
+churning it adds files rather than removing them under this mount.
+
+GIT: `fetch`/`checkout agents/audit-backlog`/`pull --ff-only` all
+succeeded once the lock was cleared; HEAD `955f3d6` unchanged from run
+317 at pickup - no answer or external change had landed via git since.
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Single
+read-only tab navigated to `https://data.rbhealth.co.uk/api/feedback`;
+redirected to the Cloudflare Access sign-in page (confirmed via
+`tabs_context_mcp`, title "Sign in ・ Cloudflare Access"), same as every
+run since 165 bar one. No sign-in attempted, tab closed immediately.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before this
+entry was added; no "Standing authorisation - autonomous window" section
+present. Step 4 does not apply this run.
+
+WORKLIST (step 5): reconfirmed by direct grep against the live file: the
+same 8 unchecked lines as runs 303-317, all still carrying `[BLOCKED]`:
+5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. Zero
+unblocked items available. 42 items ticked complete, unchanged.
+
+QUALITY-PASS: ran the full `tools/check-*.js` suite fresh rather than
+reusing run 313's reconfirmation again - it had been reused unverified
+across runs 314-317 (4 runs) and this run's budget allowed a cheap, bounded
+re-run rather than open-ended log archaeology to find the single "least
+recently verified" item by date. All 37 checkers exit clean (0 failures).
+Regenerated all 8 generators against the current `branches.json`:
+`git status --porcelain` showed zero tracked changes afterwards, so every
+page and paste sheet reproduces byte-identical. Confirms the repo half is
+still sound six runs on from 313.
+
+ONE GENUINE FINDING, on item 5.5 (still [BLOCKED], not unblocked by this):
+the item's own note claims "service.css and service.js are still
+byte-identical between the branch and main," last checked 2026-08-11, which
+is the stated reason Q13's fast-forward is "free." Re-checked directly this
+run rather than trusted: `git diff origin/service-module-phase1
+origin/main -- modules/service/service.js` is empty (the live pin and main
+agree with each other), but `git diff origin/service-module-phase1
+origin/agents/audit-backlog -- modules/service/service.js` is NOT empty -
+the live/main copy still carries the three `&mdash;` instances the item
+already named (Q7) and is also missing the Q17 contraception
+NO_FALLBACK_SERVICE_KEYS entry this branch added. service.css is still
+byte-identical across all three, confirmed. So the premise behind Q13's
+answer has quietly gone stale: fast-forwarding service-module-phase1 to
+main would not fix anything, because main itself still has the bug this
+branch already fixed. `tools/check-cdn-pins.js` was re-run and still only
+WARNs that the branch ref is 64 commits behind main (up from 63 at Q13) -
+it has no rule that would have caught the content gap, because it was
+built when "happens to be identical" was still true and was never given a
+content check for the mutable-ref case against the WORKING branch, only a
+behind-count against main. Logged a dated finding directly under item 5.5
+in AGENT_WORKLIST.md (not unblocking it - the actual fix is still a
+supervised-session merge-then-fast-forward, same hard-rule territory as
+before) and raised Q129 rather than folding it into Q13, since Q13's own
+question no longer matches what a supervised session would need to do.
+QUESTIONS.json now 129 total, 51 open (was 128/50 at run 317).
+
+PUBLISH (step 10): `node tools/build-audit-status.js` attempted and failed
+in the expected way - `gh` is not on PATH in this sandbox (`which gh`
+returns nothing) and `env | grep -i token` is empty, so no legitimate
+unused credential is sitting here either. The only present credential is
+the cleartext PAT embedded in this repo's own `origin` remote URL (Q127),
+scoped to `rishi235/rbh-site-data`'s own push and not something to extract
+or repurpose for a PUT against `rbh-data-portal`. Same blocker as runs
+309-317 (Q124/Q127). Status page not published this run.
+
+STANDING POINT, repeating because it is still true: 31+ consecutive runs
+with zero unblocked worklist items. Unlike recent prior runs, this one did
+turn up something new (Q129), which is some evidence the quality-pass
+rotation is not yet fully exhausted even after six runs of "nothing
+changed" - worth weighing against the standing recommendation to pause the
+schedule until Rishi can clear the three live blockers (the 8 `[BLOCKED]`
+worklist lines, the Q127 PAT rotation, and the Q124 `gh`/token gap) in one
+supervised sitting.
+
 ## Run 317 - 2026-10-19
 
 No actionable item, 30th+ consecutive no-op. LOCK: `.agent-lock` found at
