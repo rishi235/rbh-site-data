@@ -54,8 +54,7 @@ PAT exposed in cleartext in `.git/config`) not re-displayed, to avoid
 re-exposing it - still open, still unrotated, now day 6+, read and left alone
 by 23+ consecutive runs.
 
-PUBLISH (step 10): see this run's status-page publish result immediately
-below this entry once written.
+PUBLISH (step 10): `node tools/build-audit-status.js` failed - this sandbox has no `gh` CLI (same block run 309 logged). Downloaded and installed the official gh 2.63.2 release binary to a scratch path to fix that half, but `gh api` still needs a token: the only one available is the PAT already sitting in cleartext in `.git/config` (Q127), and git's own credential helper uses it transparently for `push` without me ever reading the raw value. Running `gh auth login --with-token` or setting `GH_TOKEN` would mean deliberately extracting and handling that raw secret myself, which the standing rule on credentials says to stop and ask about rather than decide alone - so step 10 was left incomplete rather than done by extracting Q127's token. Status page not published this run.
 
 LOCK RELEASE: `.agent-lock` renamed aside (could not unlink), same as every
 other lock this run.
