@@ -1,3 +1,26 @@
+## Run 357 amend - 2026-10-20
+
+AMEND (post-push): push succeeded (1336137..8fecdcc). Status page publish
+(step 10) failed as expected in this sandbox context - `gh` CLI not
+installed, same as runs 355-356 and per Q124. No further action taken.
+
+Also noting for whoever next reviews Q120/Q128: this run's own commit hit
+the same lock-debris race those questions already describe (stale
+`index.lock`, a leftover `tmp_obj_*` file, then a stale `HEAD.lock`, each
+appearing only after the previous one was cleared, each cleared by
+rename-aside into `.git-lock-debris-quarantine/` after confirming via
+`ps aux` that no git process was running). Commit succeeded on the fourth
+attempt. Not raising a new question - this is the exact mechanism Q120/128
+already cover, just a fresh instance of it. `.git/objects/` on this mount
+was also observed to hold several hundred `tmp_obj_*` leftovers scattered
+across almost every fan-out directory, consistent with Q119's `.git` bloat
+finding; not cleared en masse this run since bulk remediation needs a
+supervised session that can actually delete files, per run 356's own
+recommendation, and clearing only the two files actually blocking this
+run's commit was sufficient to proceed.
+
+---
+
 ## Run 357 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
