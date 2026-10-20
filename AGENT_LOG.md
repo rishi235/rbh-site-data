@@ -1,3 +1,68 @@
+## Run 357 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup. Created fresh (UTC timestamp). No stale
+`.git/index.lock` found this run.
+
+GIT SYNC (step 2): fetch, checkout, pull --ff-only all succeeded cleanly,
+no debris to clear this time. HEAD unchanged from run 356 (`5a3de39`).
+
+ANSWER PICKUP (step 3): attempted (not skipped on assumption, since a prior
+sign-in could in principle have changed this). Navigated to
+`https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome; resolved to
+the same Cloudflare Access sign-in page as every run since this was first
+logged. No text read, nothing typed or submitted, tab closed. Still
+unavailable; nothing to pick up.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): re-checked directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193
+(now 164 runs ago).
+
+FALLBACK QUALITY PASS: not run. Runs 302, 347-355 (ten consecutive) already
+reconfirmed the 35-checker pool clean with no new defect, and run 356
+reconfirmed the same via a different angle (reading the automation's own
+operating state rather than the checkers again). Nothing in this run's
+state - HEAD unchanged, worklist unchanged, no new answers - gives reason to
+think an eleventh or twelfth pass would find something new. Not repeating
+it again this run for the same diminishing-returns reason runs 349-356
+already gave.
+
+WHAT THIS RUN DID: confirmed nothing has changed since run 356's detailed
+findings (Q119/120/122/123/127/128 all still open, still accurately
+describing the repo's operating state; no indication anyone has acted on
+run 356's recommendation yet). Deliberately did not re-walk `.git` size,
+stray file sizes or the worklist-file bloat again - run 356 already did
+that in detail three hours ago at most and nothing points to it having
+changed. Writing a shorter confirmation entry rather than a long one is a
+judgement call to limit log growth now that the same finding has been
+restated five times running (Q115 already flagged this exact pattern as a
+process risk in its own right).
+
+RECOMMENDATION, repeated rather than re-argued: this task has had nothing
+new to action for 164 consecutive runs. The open questions actually
+blocking worklist items are still just Q8, Q9, Q13, Q16, Q52, Q60 (x2), Q66
+- a batch answer to those would unblock real work. Until then, each run's
+marginal output is a few hundred words of log and no change to the repo.
+Suggest again that Rishi either batch-answers that short list or pauses /
+lengthens this schedule. Not actioned by this worker (outside its
+authority; no autonomous window is open).
+
+QUESTIONS.json: 130 total, 52 open, unchanged. No new question filed.
+
+STATUS PAGE: build-audit-status.js run per standing instruction regardless
+of outcome (see result logged in the amend entry above this one, added
+after the attempt).
+
+LOCK: released at end of run (see release note for the exact mechanism used
+this run).
+
+---
+
 ## Run 356 amend - 2026-10-20
 
 AMEND (post-push): push succeeded (df6255c..5a3de39). Status page publish
