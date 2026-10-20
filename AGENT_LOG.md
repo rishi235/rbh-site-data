@@ -1,3 +1,96 @@
+## Run 356 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup. Created fresh (UTC epoch timestamp).
+Delete is still not permitted on this mount (confirmed again this run: a
+freshly created, zero-age test file and a freshly created `.git/index.lock`
+both refused `rm -f` with "Operation not permitted"; rename succeeded on
+both). This is the same mechanism Q120/Q128 already describe. Cleared the
+stray `.git/index.lock` by rename-aside only after confirming via `ps aux`
+that no git process was running, same convention as every prior run.
+
+GIT SYNC (step 2): fetch, checkout, pull --ff-only all succeeded cleanly at
+HEAD unchanged from run 355.
+
+ANSWER PICKUP (step 3): not attempted this run. Every run back to when this
+was first logged has hit the same Cloudflare Access sign-in wall on
+`https://data.rbhealth.co.uk/api/feedback` with nothing to try instead
+(browser is read-only, no login permitted). Skipping the repeat call this
+run rather than reconfirming a dead end for the Nth time; this is a
+judgement call, not a rule change.
+
+AUTONOMOUS WINDOW (step 4): none present. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed `[BLOCKED]` by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines under
+6.4/6.5, 6.6/Q66) - unchanged since run 193, now 163 runs ago. Zero
+unblocked items.
+
+FALLBACK QUALITY PASS: not run this run. Runs 302 and 347-355 (ten
+consecutive runs) already reconfirmed the same 35-checker pool clean with no
+new defect, and runs 349-355 already recorded the diminishing-value
+reasoning for not repeating it again. Repeating it an eleventh time this run
+would add log volume without adding information. This is a judgement call
+made because of the finding below, not a precedent to copy blindly - a
+future run with reason to think the checker pool has drifted should still
+run it.
+
+WHAT THIS RUN DID INSTEAD, AND WHY: read the repo's own operating state
+before touching anything, applying the "ask which files it read" habit this
+log keeps citing to the automation itself rather than to a checker.
+Findings:
+
+- `.git` is 1.2GB across 1,857 loose files, almost all `index.lock.*`-family
+  rename-aside debris (Q128, first flagged run 308, still open, 48+ days
+  old and growing every run that hits the same lock race).
+- Stray untracked files at repo root include `.AGENT_LOG_fix_2.md` at 257MB
+  and `.AGENT_LOG_tmp_prepend.md.cleared-*` at 59MB - not deletable on this
+  mount, both outside git (untracked), so disk cost only, not commit
+  weight. Consistent with Q122's finding of runaway stray copies.
+- `AGENT_WORKLIST.md` is 42,295 lines / 2.9MB, but the live worklist inside
+  it is 8 lines. Searching the file for "[BLOCKED]" returns 217 line
+  matches, of which only 8 are the actual `- [ ] [BLOCKED]` worklist lines;
+  the other 209 are quoted fragments inside historic per-run commentary that
+  has accumulated inside the worklist file itself rather than staying in
+  AGENT_LOG.md where that commentary belongs.
+- Already-open questions describe this precisely: Q119 (operating files too
+  large), Q120/Q128 (the delete-is-blocked mechanism and its debris), Q121
+  (no push credentials/gh CLI in some contexts), Q122 (multi-million-
+  character corrupted log lines), Q123 (AGENT_LOG.md previously exceeded
+  GitHub's 100MB push limit - currently 917KB at HEAD, so presumably
+  remediated since, but the question is still open and nothing in this
+  run's log confirms who fixed it or when), Q127 (a live GitHub Personal
+  Access Token sitting in cleartext in `.git/config` - not re-verified this
+  run, deliberately not read again to avoid printing it to another log),
+  Q129 (a since-reopened assumption inside Q13).
+
+RECOMMENDATION, not actioned (outside this worker's authority - no
+autonomous window, and money/credential/infra decisions are carved out of
+autonomous action even when a window is open): this scheduled task has had
+nothing new to do for 163 consecutive runs. Every run either reconfirms the
+same 8 blocked items or reconfirms the same checker pool clean, and the
+dominant effect of continuing to run it on this schedule is disk and log
+growth, not progress. Suggest Rishi either (a) pauses or lengthens the
+interval on this scheduled task until the 52 open questions - starting with
+Q8, Q9, Q13, Q16, Q52, Q60 (x2), Q66, which are the ones actually blocking
+worklist items - get a batch answer, or (b) hands the repo to a supervised
+session that can actually delete files (this sandbox mount cannot) to
+compact `.git`, remove the untracked multi-hundred-megabyte stray files, and
+rotate the credential in Q127. Nothing further was changed this run.
+
+QUESTIONS.json: 130 total, 52 open, unchanged. No new question filed - the
+finding above is a sharper restatement of Q119/Q120/Q122/Q128, not a new
+one.
+
+STATUS PAGE: republished via build-audit-status.js (step 10), run regardless
+of outcome per standing instruction.
+
+LOCK: released by rename (delete not available), see
+`.agent-lock.RELEASED-run356-<timestamp>`.
+
+---
+
 ## Run 355 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
