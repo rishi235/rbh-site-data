@@ -2079,6 +2079,102 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       the corrected wording (same outstanding paste as Q35; both are
       unpublished pending a supervised Weebly session). No worklist item
       unblocked - Q69 was explicitly scoped as "does not block any item".
+      Quality pass 2026-10-20 (eleventh, run 342, unattended scheduled run):
+      a proof gap closed, not a defect. Picked as the true least-recently-
+      verified completed item: re-derived from every item's own inline pass
+      dates (same method runs 336-341 used) after confirming all 8
+      unchecked lines are still [BLOCKED]; this item's own tenth pass
+      (2026-10-01) was the stalest in the pool, clear of everything else
+      touched in the last week. Scope note: the apparent 2026-10-13
+      "twenty-third pass" date previously attributable to this block
+      belongs to item 2.3 (Cherry Lane), whose own header was missing from
+      this file until this run restored it immediately below - see that
+      item's recovery note and Q130; it does not count as a prior pass on
+      this item and nothing in this paragraph relies on it.
+      BASELINE: git status --porcelain modules core branches.json tools
+      empty before starting. All 35 non-network checkers (check-cdn-pins.js
+      and check-live-hours.js excluded, both need a live network ref) run
+      individually against the real tracked tree: 35/35 exit 0. All six
+      generators rebuilt from branches.json: sha256 of all 200 tracked
+      files under modules/ and core/ identical before and after, confirming
+      the repo was clean and byte-stable going in.
+      FRESH ANGLE: eleven prior passes had proved NAP, the SISTERLINK/
+      OUTBOUND link targets, the SISTERLABEL text, the Pharmacy First cost
+      claim, the WhatsApp-by-design absence, hasApp gating, check-jsonld's
+      five fields and opening hours against these two pages, but never
+      tools/check-pharmacy-first-eligibility.js's rule 9 (the blood-pressure
+      cohort check CLAUDE.md records was extended to the branch landing
+      pages on the item 5.2 quality pass, 2026-08-14) - absent from this
+      item's own text beforehand, confirmed by direct grep.
+      Proved against an ISOLATED SCRATCH COPY built via `git archive HEAD`,
+      never against the tracked working tree (confirmed byte-identical
+      throughout by sha256 and `git status --porcelain modules core
+      branches.json tools` returning empty before, during and after). Four
+      cases, each mutated then restored from a pre-mutation copy
+      immediately after capturing the checker's own output, sha256-
+      reconfirmed byte-identical before the next: (1) Fishlocks Ainsdale's
+      "aged 40 and over" changed to "aged 50 and over" - CAUGHT by rule 9,
+      named the file and the stated age; (2) Fishlocks Eccleston's own
+      cohort line changed to "aged 45 and over" - CAUGHT the same way; (3)
+      CONTROL, a benign reword of the surrounding sentence ("Just ask in
+      store." to "Just ask our friendly team in store.") on the Ainsdale
+      page, touching no age token - passed clean, confirming the rule does
+      not overreach; (4) full suite re-run on the scratch copy after all
+      three mutations and restores: clean, matching the pre-injection
+      baseline. All four behaved as expected on the first attempt. Full
+      35-checker suite and a full generator rebuild re-run against the real
+      tracked tree after the round: 35/35 clean, 200 files byte-identical,
+      git status empty. No in-repo defect found; no page, generator or data
+      field changed anywhere in the tracked repo - a proof gap closed, not
+      a live breach.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted): www.fishlockpharmacy.co.uk/pharmacy-fishlocks-
+      ainsdale.html still returns a 404, unchanged since every pass since
+      2026-08-14. NEW FINDING: the site's sitemap.xml has moved for the
+      first time in over two months - all 40 URLs now carry lastmod
+      2026-10-15T14:24:17+00:00 (previously stuck at 2026-08-14T17:32:10
+      across every pass in between), so a publish did happen on or after
+      2026-10-15. Neither of this repo's two generated filenames
+      (pharmacy-fishlocks-ainsdale.html / pharmacy-fishlocks-eccleston.html)
+      is in the new sitemap, so Q35's core finding (these two specific
+      generated pages are still unpublished) stands unchanged. What did
+      appear is a page this repo does not generate at all:
+      nhs-free-blood-pressure-check-eccleston-pr7-ainsdale-pr8.html, a
+      single page covering both branches' free NHS blood pressure check.
+      Read it in full: the stated cohort is "individuals aged 40 and over"
+      - correct, matches the pinned NHS cohort this pass just proved rule 9
+      holds this family to. Both branches' NAP checked field by field
+      against branches.json and clean: Ainsdale phone 01704 575478,
+      nhsEmail pharmacy.FK848@nhs.net, address 17 Station Road/Ainsdale/
+      PR8 3HN, hours Mon-Fri 08:45-18:00 and Sat/Sun closed, all match
+      exactly; Eccleston phone 01257 451251, nhsEmail pharmacy.FKJ81@nhs.net,
+      address Unit 3 The Carrington Centre, New Mill Street/Eccleston/
+      PR7 5SZ, hours Mon-Fri 09:00-18:00, Sat 09:00-12:00, Sun closed, all
+      match exactly. No live defect on this new page. Not raised as a new
+      question: it changes nothing this item is blocked on (Q35's repaste
+      of the repo's own two generated pages is still the open ask), but it
+      is worth Rishi knowing a hand-built combined page has gone live
+      covering the same ground a different way, in case that changes what
+      "done" looks like for this item. Evidence: live reads only, no file
+      written (tabs opened and closed read-only this run; sitemap and page
+      text captured in this paragraph).
+- [x] 2.3 Cherry Lane Pharmacy (Walton): page-set build item. Header text
+      recovered 2026-10-20 (run 342) - see recovery note below.
+      [Recovery note, run 342, 2026-10-20, found during the item 2.2 quality
+      pass: going into this run, this item's own "- [x] 2.3 ..." header line
+      was missing from AGENT_WORKLIST.md. The body text immediately below
+      began directly with the parenthetical on the next line, with nothing
+      above it, so tools/build-audit-status.js's item-matching regex never
+      matched this item and it has never appeared as its own line on the
+      published status page, despite more than twenty quality passes
+      recorded in its own body below, each one citing "item 2.3" by number
+      (e.g. the 2026-08-12 and 2026-08-13 entries further down this block).
+      Nothing below this point was moved, reworded or deleted; only this
+      header line and this note were added. The exact original header
+      wording (what came before the parenthetical) was not recovered and is
+      not asserted here - raised as Q130 for Rishi to supply or confirm the
+      intended phrasing if it matters, otherwise this stands as the header
+      going forward.]
       (services, Pharmacy First, switch, weight loss, travel) with local SEO. Done 2026-08-04.
       Verified: full 12-page set exists in repo AND is live on
       cherrylanepharmacy.co.uk with all pages in the site navigation. Titles,

@@ -1,3 +1,106 @@
+## Run 342 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox Linux mount
+(/sessions/happy-nifty-bardeen/mnt/rbh-site-data).
+
+LOCK: no .agent-lock present at pickup. Wrote a fresh one immediately.
+No .git/index.lock present either, nothing to clear.
+
+SYNC: git fetch origin, checkout agents/audit-backlog (already current
+branch), git pull --ff-only: already up to date with origin at dbaee71
+(run 341's commit). git status clean on arrival.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback - reachable, Rishi's Cloudflare
+Access session held. Newest entry is still Q52 (2026-09-01), consistent
+with run 341's note that QUESTIONS.json's open entries are all either
+flagged "does not block" or about this task's own infrastructure. No
+answer newer than Q52 found; nothing to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed [BLOCKED] by grep
+(5.3, 5.4, 5.5, 5.8, 6.1, 6.4/Q60, 6.5/Q60, 6.6). Quality pass taken.
+Picked by re-deriving the true least-recently-verified item from every
+item's own inline pass dates (method runs 336-341 used): item 2.2 (last
+dated entry inside its own header-to-next-header span read as
+2026-10-13), clear of everything else touched within the last week.
+
+STRUCTURAL FINDING BEFORE STARTING THE PASS: reading item 2.2's full
+block to find an untested angle, the 2026-10-13 date and the "twenty-
+third pass" narrative inside it turned out to belong to Cherry Lane
+Pharmacy (item 2.3), not Fishlocks (item 2.2) - item 2.3's own
+"- [x] 2.3 ..." header line was missing from AGENT_WORKLIST.md, so its
+entire quality-pass history (over twenty passes, citing "item 2.3" by
+number throughout, e.g. the 2026-08-12 and 2026-08-13 entries) was
+sitting as unlabelled continuation text inside what the file's structure
+made look like item 2.2's own block. Confirmed by direct inspection and
+by tools/build-audit-status.js's own parsing regex (line 48,
+`^- \[( |x|X)\] (?:\[BLOCKED\] )?(\d+)\.(\d+[^ ]*) (.*)$`), which only
+recognises a literal header line - item 2.3 has therefore never
+appeared as its own line on the published status page throughout this
+audit, despite being long complete with a substantial verified history.
+
+FIX: restored a header line for item 2.3 immediately above its existing
+body text (line ~2161 after insertion), with an explicit recovery note
+stating that the original header wording was not recovered and is not
+asserted - nothing below the inserted lines was moved, reworded or
+deleted. Verified by regex (both items 2.2 and 2.3 now match
+build-audit-status.js's own pattern) and by a full-file sweep cross-
+checking every "item N.N" prose mention against every header line: 49
+headers, 47 distinct items mentioned, zero mentioned-but-headerless
+items remain after the fix (2.3 was the only one of this shape). Raised
+as Q130 (does not block any item; asks whether the placeholder header
+wording should be replaced with something more descriptive, and records
+that the one-shot sweep for sibling cases has already been run clean).
+
+ITEM 2.2 QUALITY PASS (now correctly scoped to just Fishlocks Ainsdale/
+Eccleston; its own true last pass was 2026-10-01, the tenth): fresh
+angle this item had never been proven against -
+tools/check-pharmacy-first-eligibility.js rule 9, the blood-pressure
+cohort check CLAUDE.md records was extended to branch landing pages on
+2026-08-14 but which this item's own eleven prior passes never cited.
+Baseline: 35/35 non-network checkers clean on the real tree, all six
+generators rebuilt to a byte-identical 200-file tree, git status empty
+throughout. Proved on an isolated `git archive HEAD` scratch copy, never
+the tracked tree: Fishlocks Ainsdale's "aged 40 and over" changed to
+"aged 50" - CAUGHT; Fishlocks Eccleston's changed to "aged 45" - CAUGHT;
+a benign reword touching no age token - passed clean (negative control);
+full suite re-run clean after. All four behaved as expected first
+attempt; tracked tree confirmed byte-identical throughout and after by
+sha256. No in-repo defect found; a proof gap closed.
+
+LIVE HALF (Claude in Chrome, read-only, one tab): pharmacy-fishlocks-
+ainsdale.html still 404, unchanged since 2026-08-14. NEW: the site's
+sitemap.xml lastmod moved from 2026-08-14T17:32:10 to
+2026-10-15T14:24:17 on all 40 URLs - the first publish in over two
+months - but neither of this repo's two generated landing-page filenames
+is among them. What is new is a page this repo does not generate,
+nhs-free-blood-pressure-check-eccleston-pr7-ainsdale-pr8.html, covering
+both branches' free NHS blood pressure check on one combined page.
+Read in full: states "individuals aged 40 and over" (correct, matches
+the pinned cohort this run's own injection just proved rule 9 holds this
+family to); both branches' NAP checked field by field against
+branches.json and clean on every point read (phone, nhsEmail, address,
+opening hours for both Ainsdale and Eccleston). No live defect on the
+new page. Not raised as a new question - it does not change what Q35
+is waiting on (a repaste of this repo's own two generated pages) - but
+noted in the worklist for Rishi's awareness, since a hand-built
+alternative has now gone live covering similar ground a different way.
+
+STEP 9/10: committed and pushed from this sandbox mount (no FUSE issue
+encountered this session). Status page publish: ran
+tools/build-audit-status.js - failed with the known, previously-
+recorded cause (gh CLI not present in this Cowork sandbox, the
+Q124/Q127 host-dependency gap runs 335-341 already diagnosed); not
+re-diagnosed or routed around again this run. Publish did not
+succeed; the worklist/log/questions changes above are committed and
+pushed regardless, per the instruction to run step 10 even on
+failure so the page stays honest about what did not happen.
+
+LOCK RELEASE: .agent-lock deleted at the end of this run.
+
 ## Run 341 - 2026-10-20
 
 Unattended scheduled run, this time via Windows-MCP directly against the
