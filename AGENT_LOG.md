@@ -1,3 +1,21 @@
+## Run 337 correction - 2026-10-20
+
+The prior commit's step 10 note said the status-page publish "was not
+attempted" because no gh/Windows-MCP route was available in this sandbox
+session. A Windows-MCP route was in fact available and was used after
+that commit was pushed: found the real ProDeskAi host's native checkout
+of C:\Dev\rbh-site-data in the same stale, two-then-three-commits-behind
+state as the Cowork sandbox mount (same underlying path, same shape of
+problem runs 324-336 keep recording), cleared two stale lock files
+(.git/index.lock, then .git/HEAD.lock, both "File exists" on the first
+attempt) and ran `git reset --hard origin/agents/audit-backlog`, which
+this time succeeded natively (no EPERM-on-unlink here, unlike the FUSE
+mount) and landed HEAD on this run's own commit, 4f24e26. Ran
+`node tools\build-audit-status.js` from that clean checkout: succeeded,
+published reports/digital/Digital_Audit_Status.html to rishi235/rbh-data-
+portal via the GitHub API, 42/48 done (88%). Step 10 is therefore
+complete for this run. Corrected forward, not rewritten.
+
 ## Run 337 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox (Linux). LOCK: the mount's
