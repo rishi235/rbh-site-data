@@ -42,7 +42,14 @@ worklist has been fully blocked since run 193 and the token exposure since
 run (Q127's origin). No new work item was available to action this run.
 
 RESULT: no-op. Worklist unchanged (8/8 blocked). Checkers clean (35/35).
-Q127 still open and unrotated. Status page republished per step 10.
+Q127 still open and unrotated. Commit ca9c594 pushed clean (fast-forward,
+1b805ac..ca9c594) to agents/audit-backlog after clearing three stale
+.git/*.lock files (HEAD.lock, index.lock, next-index-3.lock) by
+rename-aside, no git process running, same documented sandbox quirk. Step
+10 status-page publish failed again: `gh` CLI absent from PATH, same
+known blocker as Q124 (the available PAT also lacks scope on
+rbh-data-portal). Not re-diagnosed further this run; left as-is per the
+existing Q124 entry rather than reopening it.
 
 ## Run 353 - 2026-10-20
 
