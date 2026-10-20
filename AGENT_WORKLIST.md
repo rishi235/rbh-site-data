@@ -299,6 +299,43 @@ which files/lines a checker reads"; this is the same lesson one layer
 down - ask which OS a checker was proven under, now that pushes and
 publishes sometimes route through native Windows instead of the sandbox.
 No other item blocked. No new question raised.
+Quality pass 2026-10-20 (run 341): item 1.4 was the least recently
+verified completed item in the rotation pool (last touched 2026-09-18,
+over a month stale against everything else in the 1.x-4.x pool having
+been re-proven within the last week). Worked entirely in an isolated
+local clone (C:\Dev\scratch_1p4_run341, `git clone --local --no-hardlinks
+-c core.autocrlf=false`, tracked repo never opened for writing), because
+a first clone attempt with the host's default core.autocrlf=true produced
+a branches.json that hashed differently from the tracked copy purely on
+line endings (confirmed byte-for-byte identical in content via `git diff
+--no-index`) and made check-weebly-furniture-freshness.js fail on a
+genuine false positive (it compares the checked-in file to a freshly
+generated one and the CRLF/LF mismatch moved every line); re-cloned with
+autocrlf forced off and the hash matched the tracked repo exactly
+(sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1)
+and the freshness checker went clean. Worth carrying alongside this
+repo's existing "which OS was a checker proven under" lesson: a
+disposable clone's own git config can silently rewrite file content
+before a single checker line runs, and the first clean-or-not result is
+worth distrusting if the file hash does not match the tracked repo's.
+Full 35-checker suite (excl. check-cdn-pins.js/check-live-hours.js,
+network-dependent) ran clean on the corrected clone, 35/35. Injection
+test against check-nap.js, this item's own checker, picked Gordon Short
+Chemist Crosby (not named in any of the last several 1.4 passes) and its
+travel clinic page, backed the file up, replaced its phone number
+0151 924 3449 with 0151 924 9999 in all three places it appears on that
+one page. CAUGHT, all four NAP surfaces: visible phone (twice), JSON-LD
+telephone, and the estate-wide "not any branch's number" sweep (three
+further hits), 6 mismatches total, exit 1, Q111's existing emar/weebly
+warning unchanged alongside them. Restored from the backup, sha256-
+confirmed byte-identical to the pre-injection file, full 35-checker suite
+re-run clean afterwards, 35/35, `git status --porcelain` empty in the
+clone. No defect found in check-nap.js or in branches.json; the checker
+still does its job correctly across the Windows-path-separator fix from
+the last pass, the phone-shape sweep, and a branch untested in recent
+passes. No generator, page, pack, checker or branches.json content
+changed in the tracked repo. Scratch clone deleted at the end of this
+run. Full outcome logged in AGENT_LOG.md.
 
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;

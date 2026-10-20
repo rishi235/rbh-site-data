@@ -1,3 +1,73 @@
+## Run 341 - 2026-10-20
+
+Unattended scheduled run, this time via Windows-MCP directly against the
+real host's native checkout (C:\Dev\rbh-site-data), not the Cowork
+sandbox's Linux mount - chosen up front because runs 337-340 all
+recorded that mount wedged with a standing EPERM-on-unlink FUSE quirk
+that blocks rm on .agent-lock and .git/index.lock, and Windows-MCP is
+the route those same runs used successfully once they hit it.
+
+LOCK: .agent-lock present, stamped 2026-10-20T01:42:26Z (left behind by
+run 339's own session, consistent with run 340's note that run 339's rm
+failed on the mount's FUSE quirk), about 2.5 hours old at pickup, well
+past the 45-minute staleness threshold. No git process running (checked
+via Process list). Deleted cleanly on the native host (no FUSE issue
+here), along with a stale .git/index.lock (dated 01:21:22Z, over an hour
+old). Wrote a fresh .agent-lock immediately after.
+
+SYNC: local HEAD was at 2c9299d (run 337 correction) with run 338's own
+uncommitted log/worklist/audit changes still sitting staged - the same
+leftover run 340 described, never cleared because the lock blocked
+every run since from touching this checkout. Diffed those staged changes
+against origin's tip first: content-identical bar a file-mode line and a
+later, unrelated worklist edit further up the file, confirming they had
+already landed via commit c3cf9d5 and were safe to discard rather than
+re-commit. git fetch showed origin had moved to 9eaed6f (runs 339 and 340
+both landed since). `git reset --hard origin/agents/audit-backlog` left
+a clean tree at 9eaed6f.
+
+ANSWER PICKUP: not attempted this run - QUESTIONS.json has 51 open
+entries, all of them either marked "does not block any item" in their
+own item field or (Q87/Q96/Q102/Q119-Q124/Q127/Q128) about this task's
+own step 9/10 write infrastructure rather than a worklist item, so
+nothing here was waiting on a portal answer to proceed. Flagged for a
+future run with more budget rather than skipped silently.
+
+AUTONOMOUS WINDOW: none present in AGENT_LOG.md. Step 4 does not apply.
+
+ITEM SELECTION: all 8 remaining unchecked worklist lines are already
+[BLOCKED], so per step 5 this run did a quality pass instead, picking
+the least recently verified completed item. Re-derived properly rather
+than continuing whatever rotation runs 338-340 happened to be on:
+extracted every inline date from each 1.x-4.x item's own block and took
+the latest per item. Item 1.4 (NAP checker) came out stalest by a wide
+margin - last touched 2026-09-18, versus everything else in that pool
+having a pass within the last week (2026-10-13 to 2026-10-15). Full
+method and result in AGENT_WORKLIST.md's new paragraph under item 1.4;
+summary: worked in an isolated local clone, found and worked around a
+clone-only false positive caused by the host's default
+core.autocrlf=true (re-cloned with it forced off, hash then matched the
+tracked repo exactly), ran the full 35-checker suite clean, then proved
+check-nap.js still catches a wrong phone number by injecting one into
+Gordon Short Chemist Crosby's travel clinic page (a branch not named in
+any of the last several 1.4 passes) - caught on all four NAP surfaces,
+6 mismatches, restored and sha256-confirmed byte-identical, suite re-run
+clean, 35/35. No defect found; no generator, page, pack, checker or
+branches.json content changed in the tracked repo. Scratch clone deleted
+at the end of the run.
+
+STEP 9/10: committed and pushed directly from the native host checkout
+(no FUSE issue here, unlike the sandbox mount) - see this commit.
+STATUS PAGE: not re-attempted. Per Q124/run 338-340's own diagnosis, the
+fine-grained PAT in this checkout's origin remote has no access at all to
+rishi235/rbh-data-portal (confirmed directly by run 340 via a plain read
+returning HTTP 404), which is a credential-scope gap for Rishi to close,
+not something to re-diagnose or route around again this run. Flagged
+again here rather than silently skipped: publish still did not succeed.
+
+LOCK RELEASE: .agent-lock deleted at the end of this run on the native
+host (confirmed, no FUSE quirk blocking it here).
+
 ## Run 340 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox (Linux mount at
