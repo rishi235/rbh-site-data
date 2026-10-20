@@ -1,3 +1,94 @@
+## Run 338 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox (Linux mount at
+/sessions/wizardly-laughing-clarke/mnt/rbh-site-data). LOCK: .agent-lock
+absent at pickup; created with a fresh UTC timestamp at session start, to
+be deleted at the end of this run.
+
+MOUNT STATE: same standing EPERM-on-unlink FUSE quirk prior runs have
+recorded since run 190 - `rm -f .git/index.lock` failed "Operation not
+permitted" on this mount, and the untracked-debris listing (179+
+agent-lock/probe files, several oversized `.AGENT_LOG_*` scratch
+artefacts, stray local/remote-tracking branches) matches the brief's own
+description exactly. Per this run's explicit instruction, none of that
+debris or those branches were touched, moved or deleted, and no new
+debris of the same shape was created; only this run's own `.agent-lock`
+was added and will be removed at the end. `git fetch`/`checkout`/`pull
+--ff-only origin agents/audit-backlog` all succeeded cleanly despite the
+index.lock warning (consistent with prior runs' finding that this
+specific lock is cosmetic); already up to date with origin, HEAD
+unchanged going in.
+
+ANSWER PICKUP (step 3): QUESTIONS.json held 51 open questions (Q77-Q129,
+Q89 absent from the sequence). Claude in Chrome available this session;
+one read-only tab navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full JSON feed (tab closed after). Newest entries are still
+the Q2-Q52 answers already applied in past runs (newest: Q52,
+2026-09-01T22:44:51.524Z) - nothing newer, and no answer for any
+currently-open question (Q77 and above). No question's status changed.
+
+AUTONOMOUS WINDOW (step 4): `head -100 AGENT_LOG.md` at pickup showed no
+"Standing authorisation - autonomous window" section; does not apply.
+
+WORKLIST (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md | grep -v
+'\[BLOCKED\]'` returned nothing - every unchecked line is already
+[BLOCKED] (the standing eight: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52,
+6.4/Q60, 6.5/Q60, 6.6/Q66), so this fell to the quality-pass fallback.
+ROTATION POOL: re-derived the least-recently-verified completed item by
+extracting the MAXIMUM 2026-MM-DD date mentioned inside each item's own
+AGENT_WORKLIST.md section (excluding the seven standing one-offs 1.1, 1.4,
+2.2, 5.6, 5.7, 6.7, 6.8, and discarding 6.3/6.7's in-copy test dates
+2026-12-28/2026-13-03 as known non-pass noise, same class run 210 already
+flagged for 6.3). Ten items tied stalest at 2026-10-14 (1.2, 3.2, 3.6, 3.7,
+3.8, 3.10, 3.13, 4.2, 4.13, 5.1). Tiebreak by counting "quality pass"
+occurrences within each item's own section (fewest = least revisited):
+3.8 had the fewest at 22, against 24-35 on the other nine. Picked 3.8 (SK
+Chemists Bootle), its twenty-sixth pass.
+
+FRESH ANGLE AND FINDING: of the 36 checkers in tools/, item 3.8's own
+section already recorded 22 proven by injection against this specific
+branch; check-address-region.js was genuinely untested against it. Method
+and full output in audits/sk-chemists-item-3.8-address-region-injection-
+2026-10-20.txt; summary: isolated git-archive scratch extraction
+(/tmp/scratch38, tracked repo never opened for writing). Baseline clean
+(branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1,
+16 branches, 2 standing warnings unchanged). Injection: skchemists_bootle's
+addressRegion changed "Merseyside" -> "Sefton" (a borough, not a county) -
+CAUGHT first attempt, naming the branch and the exact reason. Restored by
+a fresh `git show HEAD:branches.json` byte copy (not `git checkout`);
+sha256 reconfirmed identical to baseline. Negative control (shortCode
+changed to a value no rule reads) ran clean, confirming the catch was
+genuine and selective. Full 35-checker suite (excl. check-cdn-pins.js/
+check-live-hours.js, network-dependent) re-run clean on the restored
+scratch copy, 34/34. Tracked repo confirmed untouched throughout:
+`git status --porcelain -- branches.json tools modules core` empty before,
+during and after. No in-repo defect - SK Chemists Bootle's addressRegion
+is correctly "Merseyside". Guard coverage for item 3.8 now 23 of 36
+checkers proven by injection against this specific branch (up from 22).
+No generator, page, pack, checker or branches.json content changed.
+
+REPO DEBRIS, FLAGGED NOT ACTIONED (per this run's explicit instruction):
+the repo mount carries substantial accumulated lock/log/branch debris -
+~179 .agent-lock-shaped probe/release/test files at the repo root, several
+oversized or corrupted log artefacts (.AGENT_LOG_fix_2.md at roughly
+257MB, .AGENT_LOG_merged.md, .AGENT_LOG_tmp_prepend.md.cleared-* and
+similar), dozens of smaller untracked junk/probe files, and several stray
+local and remote-tracking git branches with "lock.cleared"/"debris"-style
+names - accumulated across many prior automated runs (consistent with
+runs 245/246/250/253's own repeated flagging of this exact shape of
+problem). This almost certainly needs a dedicated, supervised cleanup
+pass of its own rather than being absorbed into any single worklist
+item's quality pass; flagged here for visibility and deliberately left
+untouched, as instructed.
+
+Files changed: AGENT_WORKLIST.md (item 3.8 gained a twenty-sixth
+quality-pass paragraph), audits/sk-chemists-item-3.8-address-region-
+injection-2026-10-20.txt (new evidence file), AGENT_LOG.md (this entry).
+No new question raised; QUESTIONS.json unchanged, 129 total, 51 open (all
+cross-checked against the portal feedback feed this run, nothing new
+since the Q52 answer on 2026-09-01). No generator, page, pack, checker
+logic or branches.json content changed in the tracked repo.
+
 ## Run 337 correction - 2026-10-20
 
 The prior commit's step 10 note said the status-page publish "was not

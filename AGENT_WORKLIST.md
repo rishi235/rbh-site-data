@@ -11784,6 +11784,34 @@ Done 2026-10-14 (twenty-third pass).
       injection against this specific branch (up from 21). No generator,
       page, pack, checker or branches.json content changed. Full detail:
       audits/sk-chemists-item-3.8-opening-hours-injection-2026-10-14.txt.
+      Quality pass 2026-10-20 (twenty-sixth, run 338): check-address-
+      region.js proven by injection against SK Chemists Bootle for the
+      first time - genuinely untested against this branch across the
+      prior 25 passes. Isolated git-archive scratch extraction throughout
+      (/tmp/scratch38, tracked repo never opened for writing), branches.json
+      sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+      before and unchanged after. Checker ran clean on a fresh scratch copy
+      first (16 branches, 2 standing warnings unchanged - the McCanns
+      Sandringham Q15 townSlug hold and Cherry Lane's deliberate Liverpool-
+      first ordering - exit 0). Changed skchemists_bootle's addressRegion
+      from "Merseyside" to "Sefton" (a borough, not a county) without
+      regenerating anything - CAUGHT first attempt: "addressRegion is
+      'Sefton', which is not one of the counties this group trades in
+      (Merseyside, Greater Manchester, Lancashire, Cheshire)." Restored by
+      a fresh `git show HEAD:branches.json` byte copy, not `git checkout`;
+      sha256-reconfirmed identical to baseline. Negative control
+      (shortCode changed to "ZZZ", a field no rule in this checker reads)
+      ran clean, confirming the catch was genuine and selective rather than
+      a harness artefact. Full 35-checker suite (excl. check-cdn-pins.js/
+      check-live-hours.js, network-dependent) re-run clean on the restored
+      scratch copy afterwards, 34/34. Tracked repo confirmed untouched
+      throughout: `git status --porcelain -- branches.json tools modules
+      core` empty before and after. No in-repo defect - SK Chemists
+      Bootle's addressRegion is correctly "Merseyside". Guard coverage for
+      item 3.8 now 23 of 36 checkers proven by injection against this
+      specific branch (up from 22). No generator, page, pack, checker or
+      branches.json content changed. Full detail:
+      audits/sk-chemists-item-3.8-address-region-injection-2026-10-20.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

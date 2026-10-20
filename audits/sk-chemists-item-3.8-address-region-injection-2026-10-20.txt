@@ -1,0 +1,53 @@
+Item 3.8 (SK Chemists Bootle) quality pass, 2026-10-20, run 338
+Checker under test: tools/check-address-region.js
+Fresh angle: genuinely untested against skchemists_bootle across the prior
+25 quality passes on this item (22 of 36 checkers were already proven by
+injection against this specific branch).
+
+Method: isolated git-archive scratch extraction (/tmp/scratch38), tracked
+repo never opened for writing.
+
+1. Baseline
+   branches.json sha256: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+   node tools/check-address-region.js -> exit 0
+   16 trading branches checked, 2 standing warnings unchanged
+   (mccanns_sandringham KNOWN Q15 townSlug hold; cherrylane_liverpool
+   deliberate Liverpool-first serviceAreaList ordering).
+
+2. Injection
+   skchemists_bootle.addressRegion changed "Merseyside" -> "Sefton" (a
+   Merseyside borough, not a county), no page regenerated.
+   node tools/check-address-region.js -> exit 1
+   FAIL  skchemists_bootle: addressRegion is "Sefton", which is not one of
+   the counties this group trades in (Merseyside, Greater Manchester,
+   Lancashire, Cheshire). addressRegion must be the county, not a borough,
+   district or town. If it was meant as a search qualifier, put it in
+   seoRegion instead.
+   Caught first attempt, naming the branch and the exact reason.
+
+3. Restore
+   `git show HEAD:branches.json` written over the scratch copy (byte copy,
+   not `git checkout`).
+   sha256 reconfirmed: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+   (identical to baseline).
+   node tools/check-address-region.js -> exit 0 (clean, same 2 warnings).
+
+4. Negative control
+   skchemists_bootle.shortCode changed "SKC" -> "ZZZ" (a field no rule in
+   this checker reads).
+   node tools/check-address-region.js -> exit 0 (clean).
+   Confirms the rule 2 catch above was genuine and selective, not a
+   harness artefact.
+   Scratch copy re-restored to baseline afterwards.
+
+5. Full suite re-run (restored scratch copy)
+   All 34 checkers excluding check-cdn-pins.js and check-live-hours.js
+   (network-dependent) exit 0.
+
+6. Tracked repo
+   `git status --porcelain -- branches.json tools modules core` empty
+   before, during and after this pass.
+
+Result: no in-repo defect. SK Chemists Bootle's addressRegion is correctly
+"Merseyside". Guard coverage for item 3.8 now 23 of 36 checkers proven by
+injection against this specific branch (up from 22).
