@@ -1,21 +1,86 @@
+## Run 360 - 2026-10-20
+
+LOCK: `.agent-lock` absent at pickup (created fresh, UTC timestamp). Found
+fresh `.git/index.lock` and `.git/HEAD.lock` (both ~5 minutes old, no git
+process running per `ps aux`) - same recurring mechanism as Q120/Q128.
+Left them in place rather than quarantining: they did not block `git
+status`, `git log` or the push attempt below, and this run adds no new
+debris of its own.
+
+WORKLIST (step 5): re-confirmed zero unchecked items without `[BLOCKED]`
+(42 checked, 8 unchecked, all 8 blocked). This is the 167th consecutive
+run with no unblocked item to action. Did not run a quality pass either -
+run 359 already recorded the 13th quality-pass repeat as redundant, and
+nothing has changed in the data or generators since to make a 14th
+worthwhile. No new worklist work was possible this run.
+
+ANSWER PICKUP (step 3): not attempted. The portal-answer fetch needs
+Rishi's Chrome running with the Cloudflare Access session; this is a
+headless Cowork sandbox run with no such browser available, same
+constraint every run has hit since this limitation was first logged.
+
+ROOT-CAUSE FINDING ON Q119 (git bloat / push timeouts): this run traced
+the 1.8GB `.git` and the repeated push timeouts one level further than
+Q119 did. `.git-lock-debris-quarantine/` - the folder earlier runs have
+been using to move stale lock files out of the way - is itself TRACKED by
+git: `git ls-files` returns 1189 files under it, and the working-tree copy
+alone is 594MB. Earlier runs have been committing the very junk they were
+quarantining, which is a materially different (and worse) finding than
+Q119's "4,021 loose objects" framing suggested: this is not incidental
+repo bloat, it is hundreds of runs' worth of zero-byte lock files being
+added to git history by the quarantine workaround itself. Removing it
+needs a `git rm -r --cached` plus history consideration (simply deleting
+the working-tree copy would leave it in every prior commit), which is
+exactly the kind of bulk remediation runs 356/357 already said belongs in
+a supervised session, not an unattended one - so no removal was attempted
+here. Recorded as a sharpening of Q119's evidence, not a new question.
+
+PUSH (step 9 precondition check): one attempt, 60-second timeout, did not
+complete (exit 124) - consistent with runs 357-359's five consecutive
+timeouts on the same branch. Not retried further, same reasoning as run
+359's amend: repeated same-shape timeouts are a pattern tied to repo size,
+not transient network trouble, and retrying again without addressing the
+size would just be run six of the same result. This run's only change is
+this log entry, committed locally; it is NOT confirmed to be on `origin`
+until a future run (or a supervised session) gets a push to complete.
+
+STATUS PAGE (step 10): attempted per standing instruction regardless of
+the above; failed as expected (`gh: command not found`), same as every
+run since Q124 was raised. No further action taken.
+
+ESCALATION: restating, more strongly than previous runs, that this
+schedule should be paused for a supervised review rather than continuing
+to fire every cycle. The concrete case for pausing now: 167 consecutive
+runs with no actionable worklist item: 52 open questions, a meaningful
+share of them (Q119-128 and others) about the audit process and tooling
+rather than the pharmacy data itself; and a repo that is actively getting
+harder to push to each cycle because of the mechanism described above.
+Nothing is currently broken on the LIVE site as a result of this - the
+167 stalled runs are a process problem, not a patient-facing one - but
+continuing to run this schedule unattended produces no further value
+until Rishi reviews the Q119/120/122/123/127/128 batch and either answers
+them or pauses/retunes the schedule as those questions themselves ask.
+
+---
+
 ## Run 359 amend - 2026-10-20
 
 AMEND (post-push attempts): unlike runs 357-358, `git push origin
-agents/audit-backlog` did NOT succeed this run. Four separate attempts,
+agents/audit-backlog` did NOT succeed this run. Five separate attempts,
 each capped at this session's tool-call timeout (under three minutes),
 timed out without completing (`git ls-remote` confirmed the remote tip
-stayed at `3c8cd50` throughout, never advancing to this run's local commit
-`762b712`). `git count-objects` on this 1.8GB/4,021-loose-object `.git`
+stayed at `3c8cd50` throughout, never advancing past it to either of this
+run's local commits, `762b712` then `3c0c22c`). `git count-objects` on this 1.8GB/4,021-loose-object `.git`
 (Q119's bloat) was itself slow enough to blow past a command timeout on its
 own, which is circumstantial evidence the push is stalling on the same
 bloat rather than on network access generally (fetch, ls-remote and the
-earlier pull all completed quickly). Not retried a fifth time - four
+earlier pull all completed quickly). Not retried further - five
 same-shape timeouts in a row is a pattern, not bad luck, and repacking or
 pruning `.git` to fix it is exactly the kind of bulk remediation run 356/357
 already flagged as needing a supervised session, not this one.
-Commit `762b712` (this run's log entry plus the lock-quarantine move) is
-real and sitting locally on `agents/audit-backlog`; it is NOT yet on
-`origin`. Whoever picks up the next run should try the push again before
+Both commits (`762b712`: this run's log entry plus the lock-quarantine
+move; `3c0c22c`: this amend note itself) are real and sitting locally on
+`agents/audit-backlog`; neither is yet on `origin`. Whoever picks up the next run should try the push again before
 assuming today's entry is on GitHub - `git log` will show it locally
 either way.
 Status page publish (step 10) attempted regardless, per standing
