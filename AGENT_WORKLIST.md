@@ -31037,6 +31037,22 @@ directly rather than re-deriving the same facts by hand.
       No new question raised. Evidence: audits/riddings-item-4.13-q67-q68-
       already-implemented-2026-10-14.txt.
       Done 2026-10-14.
+      Quality pass 2026-10-20 (unattended scheduled run 344): fresh angle -
+      tools/check-branch-links.js had never been proven against this item
+      directly (13 of 35 checkers, now 14). Isolated scratch copy via git
+      archive HEAD, branches.json sha256 7ba2569b... confirmed unchanged
+      throughout. Injection 1 (Gordon Short shape): riddings_timperley's
+      nhsReviewUrl truncated to drop /leave-a-review - CAUGHT, named the
+      branch, quoted the value, stated the consequence. Injection 2:
+      nhsEmail case changed to uppercase NHS - also CAUGHT (rule is
+      case-sensitive by design, confirmed second catch rather than a false
+      positive). Control on the clean copy passed with only the standing
+      Clear Chemist Aintree warning. Restored by direct copy; sha256
+      reconfirmed identical on both copies. No in-repo defect -
+      check-branch-links.js already protects this item's link fields
+      correctly. Evidence:
+      audits/riddings-item-4.13-branch-links-injection-2026-10-20.txt.
+      Done 2026-10-20.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

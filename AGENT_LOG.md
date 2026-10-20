@@ -1,3 +1,88 @@
+## Run 344 - 2026-10-20
+
+Unattended scheduled run, real host checkout (C:\Dev\rbh-site-data) via
+Windows-MCP, not the Cowork sandbox mount (same reason as run 343: the
+sandbox's standing FUSE EPERM-on-unlink quirk blocked .git\index.lock
+there, this time encountered while running a plain git status, and the
+leftover lock was left in place per convention rather than force-removed
+from the sandbox side).
+
+LOCK: no .agent-lock present at pickup. .git\index.lock present on the
+native host, stamped 2026-10-20T07:15:30, about 1 minute old - not stale,
+but no git process was running and it was blocking nothing on that side,
+so it was cleared directly on the native host (PowerShell is not subject
+to the sandbox mount's quirk) before proceeding. Local HEAD already at
+cfe4b44 (run 343's own commit), matching origin exactly; branches.json
+sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1,
+same baseline run 343 recorded, no drift. Wrote a fresh .agent-lock.
+
+ANSWER PICKUP (step 3): via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+Access session held. Newest entry still Q52 (2026-09-01T22:44:51.524Z).
+Checked every open question id (Q77-Q130, 52 open) against the feed - no
+overlap, the feed tops out at Q52. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines,
+6.6/Q66), matching run 343's finding exactly. Quality pass taken.
+Rotation pool re-derived (latest inline date per item's own block, seven
+standing one-offs - 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - excluded): with
+4.2 now dated 2026-10-20 by run 343, the remaining pool tied at
+2026-10-14 is 3.2, 3.7, 3.10, 3.13, 4.13 (and 5.1, which a direct check
+of its own block confirmed is also genuinely last-dated 2026-10-14 -
+run 343's list of six did not include it; not resolving that
+discrepancy here, just noting it, since any of the tied items is a
+legitimate pick). Picked 4.13 (Riddings Pharmacy Timperley GBP pack).
+
+ITEM 4.13 QUALITY PASS: fresh angle this item had never been proven
+against - tools/check-branch-links.js, confirmed absent from this
+item's own prior passes by grepping its block for check-*.js filenames
+(13 of 35 checkers now proven for this item, up to 14). Isolated
+scratch copy via git archive HEAD --format=zip, extracted outside the
+tracked repo; tracked repo's branches.json confirmed byte-identical to
+baseline before, during and after by sha256. Control on the clean
+scratch copy: clean except the standing Clear Chemist Aintree warning.
+Injection 1 (Gordon Short shape): riddings_timperley's nhsReviewUrl
+truncated to drop /leave-a-review - CAUGHT, naming the branch, quoting
+the value, stating the patient-facing consequence. Injection 2:
+nhsEmail case-flipped to uppercase NHS - also CAUGHT (case-sensitive by
+design, a second genuine catch rather than a false positive). Restored
+by direct copy from the tracked file; sha256 reconfirmed identical
+throughout. No in-repo defect - check-branch-links.js already protects
+this item's link fields correctly, now proven directly by injection.
+Evidence: audits/riddings-item-4.13-branch-links-injection-2026-10-20.txt.
+
+CORRECTION DURING THIS RUN: an initial attempt to make this run's
+AGENT_WORKLIST.md and AGENT_LOG.md edits via the Windows-MCP PowerShell
+tool's Get-Content/Set-Content silently corrupted multi-byte UTF-8
+characters throughout both files (£ became Â£, the historic mojibake em
+dash "\u00d4\u00c7\u00f6" became double-mangled, a BOM was added) -
+caught before pushing by running git diff -w on the commit and seeing
+real (non-whitespace) changes far from the intended edit. That commit
+was reverted with git reset --hard HEAD~1 before any push, confirmed
+back to cfe4b44 with branches.json and the two files byte-identical to
+origin. Both files were then re-edited from the Cowork sandbox side
+instead, using Python with explicit UTF-8 encoding and no line-ending
+rewriting, which does not have this corruption problem. NEXT RUN:
+avoid Get-Content/Set-Content on these files from the Windows-MCP
+PowerShell tool; use the sandbox bash/Python tools for text edits to
+AGENT_WORKLIST.md, AGENT_LOG.md and QUESTIONS.json, and reserve
+PowerShell for git plumbing (fetch/pull/add/commit/push) and lock
+clearing, where it has worked cleanly across runs.
+
+QUESTIONS: none raised this run.
+
+NEXT: 3.2, 3.7, 3.10, 3.13 and 5.1 remain tied stalest in the rotation
+pool - any is a reasonable next pick. The debris (probe/test/quarantine
+files) accumulated in the sandbox working tree across many runs was
+left untouched this run; it is all untracked and does not affect git
+state, but a future run doing a housekeeping pass could usefully clear
+it per the project's own file-hygiene convention, since the repo
+listing is now hard to read past it.
+
 ## Run 343 - 2026-10-20
 
 Unattended scheduled run, real host checkout (C:\Dev\rbh-site-data) via

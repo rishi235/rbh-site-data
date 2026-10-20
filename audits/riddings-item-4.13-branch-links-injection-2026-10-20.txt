@@ -1,0 +1,37 @@
+Item 4.13 quality pass - fresh angle: tools/check-branch-links.js
+Date: 2026-10-20 (unattended scheduled run 344)
+Branch tested: riddings_timperley (Riddings Pharmacy, Timperley)
+
+Confirmed by grep of item 4.13's own worklist block that check-branch-links.js
+had never been proven against this item directly (13 of 35 checkers had been,
+this takes it to 14).
+
+Method: isolated scratch copy via git archive HEAD --format=zip, extracted to
+a temp directory outside the tracked repo. Tracked repo's branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1 confirmed
+unchanged before, during and after (same baseline as the 4.2 pass, run 343).
+
+Control (no injection): node tools/check-branch-links.js on the clean scratch
+copy -> clean, only the standing Clear Chemist Aintree WARN. No false positive
+on Riddings.
+
+Injection 1 (Gordon Short shape): riddings_timperley.nhsReviewUrl truncated to
+drop "/leave-a-review" (same fault class that was found live on Gordon Short
+Crosby on the 3.8 quality pass). Result: FAIL, named riddings_timperley,
+quoted the bad value, stated the consequence (lands on the profile page
+instead of the review form). Caught immediately and only.
+
+Injection 2 (case-only email edit): riddings_timperley.nhsEmail changed from
+pharmacy.FDW90@nhs.net to pharmacy.FDW90@NHS.net (uppercase NHS). Result: FAIL
+- this rule is case-sensitive by design (exact string match against the
+pharmacy.<odsCode>@nhs.net pattern), so this is a second confirmed catch, not
+a false positive. Both injected faults were caught, nothing else cross-fired.
+
+Restore: scratch branches.json overwritten from the tracked repo's own file by
+direct copy; sha256 reconfirmed identical (7ba2569b...) on both copies.
+Scratch directory deleted afterward.
+
+Verdict: no in-repo defect. check-branch-links.js already protects Riddings
+Pharmacy Timperley's link fields (nhsReviewUrl, nhsEmail) correctly, now
+proven directly by injection rather than assumed from the Gordon Short
+precedent.
