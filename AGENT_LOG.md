@@ -1,3 +1,13 @@
+## Run 356 amend - 2026-10-20
+
+AMEND (post-push): push succeeded (df6255c..5a3de39). Status page publish
+(step 10) failed as expected in this sandbox context - `gh` CLI not
+installed, same as run 355 and per Q124. No further action taken; recorded
+here rather than retried, since nothing in this run's environment can
+install `gh`.
+
+---
+
 ## Run 356 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
