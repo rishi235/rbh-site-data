@@ -1,3 +1,82 @@
+## Run 340 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox (Linux mount at
+/sessions/festive-magical-franklin/mnt/rbh-site-data).
+
+MOUNT STATE: C:\Dev\rbh-site-data's mount is wedged with the same
+standing EPERM-on-unlink FUSE quirk prior runs have recorded since run
+190 (most recently 338/339): .agent-lock (stamped 2026-10-20T01:42:26Z by
+run 339's own session, over two hours old at pickup, well past the
+45-minute staleness threshold) could not be rm -f'd, .git/index.lock and
+.git/ORIG_HEAD.lock on the same mount likewise could not be removed, and
+git pull on that mount failed outright ("Another git process seems to be
+running"). The mount also carried a stale uncommitted mirror of run 338's
+own log/worklist/audit changes, already superseded: comparing them against
+origin showed they were byte-identical in substance to commit c3cf9d5
+(Run 338), which had already landed on origin via a different route in a
+later session. Per the established pattern (run 335 onward), did not
+fight the mount: took a fresh disposable clone of
+https://github.com/rishi235/rbh-site-data.git (branch agents/audit-backlog)
+into session scratch space and did all real git work there instead. The
+mount's own .agent-lock and git locks were left exactly as found; nothing
+on the mount was deleted, moved or force-removed, and no new debris of
+that shape was added there.
+
+ANSWER PICKUP (step 3): not attempted. Claude in Chrome was not loaded
+this session and the feedback endpoint needs Rishi's own Cloudflare
+Access session, which this sandbox cannot authenticate as. No open
+question depended on an answer for the item picked, so this was skipped
+for budget rather than blocking the run, the same choice run 337 made.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" section at the top of AGENT_LOG.md; does not apply.
+
+WORKLIST (step 5): all unchecked lines are already [BLOCKED] (the
+standing eight: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+6.5/Q60, 6.6/Q66), so this fell to the quality-pass fallback. Re-derived
+the rotation pool from the maximum date mentioned inside each completed,
+non-standing item's own AGENT_WORKLIST.md section: 3.6, 3.2, 3.7, 4.2,
+4.13, 5.1, 3.10 and 3.13 tied stalest at 2026-10-14. Tiebroken on fewest
+checkers already proven by injection: 3.6 (McCanns Chemist, Aigburth and
+Sandringham) had 24 of 37, the lowest in the tied group, so it was picked
+for its twenty-fifth pass.
+
+WORK DONE: full detail and checker output in
+audits/mccanns-item-3.6-travel-clinic-copy-injection-2026-10-20.txt.
+Summary: tools/check-travel-clinic-copy.js, never run against this item
+before, was proven by direct injection against McCanns Aigburth's travel
+clinic page (RULE 3 verbatim and RULE 10 town both fired correctly on a
+town-swap injection, a clean negative control produced no false positive,
+and the page was restored to its original sha256 throughout). Guard
+coverage for item 3.6 is now 27 of 37. The full 36-checker suite (all
+non-network checkers) also ran clean against the tracked repo, and all
+seven generators rebuilt byte-identical against the committed modules/
+tree, so this also stands as a general health check of the whole estate
+at HEAD c1359c82, not just item 3.6. check-live-hours.js ran live against
+mccannspharmacy.co.uk as a side effect of the full suite (network was
+reachable this run) and both McCanns pages still carry "McCann's
+Pharmacy" branding, corroborating the open Q39 finding rather than a new
+one; raw snippets for all 14 branches saved in
+audits/live-hours-check-2026-10-20.json. No generator, page, pack,
+checker or branches.json content changed. No defect found. No new
+question raised.
+
+STEP 10: node tools/build-audit-status.js failed in the disposable
+clone (no GitHub credential available in this sandbox session to publish
+to rishi235/rbh-data-portal), the same class of gap run 339 recorded
+("gh not found"). Not attempted via Windows-MCP or gh this run; no such
+route was available in this sandbox session.
+
+LOCK: this run's git work happened entirely in a disposable clone, which
+has no .agent-lock concept of its own, so nothing needed creating or
+deleting there. The mount's own stale .agent-lock was left in place (see
+MOUNT STATE above) because it could not be removed and is not this
+run's own lock to own. Flagging again, as run 338 already did: the
+.agent-lock/debris/branch pile on the real mount needs a dedicated,
+supervised cleanup pass (ideally run directly on ProDeskAi rather than
+from a Cowork sandbox), since no unattended run can clear FUSE-level
+EPERM from inside the sandbox.
+
 ## Run 339 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox (Linux mount at

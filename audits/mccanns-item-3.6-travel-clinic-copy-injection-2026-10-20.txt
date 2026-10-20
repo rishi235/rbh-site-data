@@ -1,0 +1,80 @@
+Item 3.6 (McCanns Chemist, Aigburth and Sandringham) - twenty-fifth quality
+pass, 2026-10-20, unattended scheduled run.
+
+METHOD: comm against this item's own 24-pass history (37 tools/check-*.js
+files total) gave 11 never-named checkers. Of those, tools/check-travel-
+clinic-copy.js was the most relevant and most branch-specific (RULE 10
+"town" resolves the trust bar to the branch's own seoTown), and had never
+been run against McCanns's own two travel clinic pages.
+
+BASELINE: isolated extraction via `git archive HEAD | tar -x` into a scratch
+directory outside the tracked clone. sha256 recorded before any edit:
+  branches.json                                            7ba2569b...25ffef1
+  modules/service/pages/travel-clinic-mccanns-aigburth.html 202a06d9...dee7da8
+  tools/check-travel-clinic-copy.js                        28ad7421...099a52
+check-travel-clinic-copy.js ran clean on the scratch copy first (15 pages,
+0 failures, 1 accepted KNOWN breach: yellowfever).
+
+INJECTION 1 (positive): changed the Aigburth page's trust-bar line from
+"Local Aigburth team" to "Local St Michael's team" (the sister pair's own
+pattern, McCanns Aigburth/Sandringham being the second shared-domain pair
+after Scorah and Fishlocks where this class of fault matters). CAUGHT on
+first attempt, two problems reported: RULE 3 (verbatim - page no longer
+carries the generator's line) and RULE 10 (town - page names a town that is
+not this branch's own seoTown). Exact checker output:
+  [verbatim] modules/service/pages/travel-clinic-mccanns-aigburth.html does
+  not carry the generator line "Local Aigburth team". Either the page is a
+  stale build or it has been hand-edited.
+  [town] modules/service/pages/travel-clinic-mccanns-aigburth.html says
+  "Local St Michael's team" but this branch's seoTown is Aigburth. On a
+  shared domain that is the sister branch's town on this branch's page.
+
+NEGATIVE CONTROL: restored the page to baseline (sha256 reconfirmed
+202a06d9...dee7da8), reran clean, then reordered two trust-bar items
+("Qualified advisors" and "Personalised advice") with no value changed.
+Ran clean - no false positive on a harmless edit.
+
+RESTORE: page restored again from the pristine tracked clone (same sha256,
+reconfirmed), branches.json and the checker file untouched throughout
+(sha256 unchanged). Full checker suite rerun on the scratch copy: all clean
+except the standing .git-less check-cdn-pins.js artefact (not a defect,
+same exception every prior pass on a non-git extraction records). Tracked
+clone's git status for modules/core/branches.json/gbp-packs/tools confirmed
+clean throughout (no accidental write landed there).
+
+RESULT: zero in-repo defect found. tools/check-travel-clinic-copy.js, never
+named once in this item's prior 24 passes, is now proven by direct
+injection across RULE 3 and RULE 10 against McCanns's own travel clinic
+pages for the first time. Guard coverage for item 3.6 now 27 of 37
+checkers proven by injection (up from 26).
+
+FULL-SUITE AND REGENERATION CHECK (whole estate, not just this item): all
+36 non-network checkers ran clean against the tracked repo at HEAD
+c1359c82. All seven generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-
+pages.js, build-travel-clinic-pages.js, build-weebly-furniture-checklist.js,
+build-weight-loss-pages.js) rebuilt with zero diff against the tracked
+modules/ tree (byte-identical). No generator, page, pack, checker or
+branches.json content changed this run.
+
+LIVE HALF: tools/check-live-hours.js was run as part of the full suite and
+genuinely fetched https://www.mccannspharmacy.co.uk/ and /contactus.html
+live (network reachable from this sandbox, unlike several recent runs).
+Both McCanns pages still read "McCann's Pharmacy" branding rather than
+"McCanns Chemist", which corroborates the existing Q39 finding rather than
+raising a new one. Live Monday hours snippet for Aigburth ("9am - 1pm, 2pm
+- 6pm") and Sandringham (same page, same snippet - both branches share one
+live site) match branches.json's split-day specification for the days
+visible in the captured snippet; the full week was not hand-verified
+against the snippet text this pass, only skimmed for a branding/gross-
+mismatch check, so this is not a substitute for a dedicated live-hours
+read. Raw snippets saved in audits/live-hours-check-2026-10-20.json
+(estate-wide, 14 branches).
+
+ANSWER PICKUP: not attempted this run. The Claude in Chrome tools were not
+loaded and the feedback endpoint requires Rishi's own Cloudflare Access
+session in his real Chrome, which this sandbox cannot authenticate as.
+Skipped for budget, consistent with several prior runs (e.g. run 337) that
+skipped when there was no dependency blocking the chosen work item.
+
+QUESTIONS: none raised.

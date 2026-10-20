@@ -9376,6 +9376,39 @@ https://data.rbhealth.co.uk/api/feedback; newest entry still the Q52 answer
 authorisation - autonomous window" section found at the top of AGENT_LOG.md,
 so step 4 did not apply. No new question raised. Evidence in
 audits/mccanns-item-3.6-weebly-furniture-freshness-injection-2026-10-14.txt.
+
+Quality pass 2026-10-20 (twenty-fifth, unattended run). Rotation-pool pick:
+this item tied stalest (2026-10-14) among the genuine candidates and had
+the fewest checkers proven against it (24 of 37), so it was picked over
+3.2, 3.7, 4.2, 4.13, 5.1, 3.10 and 3.13, which tied the same date with more
+checkers already proven. FRESH ANGLE: comm against the 24-pass history
+gave 11 never-named checkers; tools/check-travel-clinic-copy.js chosen as
+the most branch-specific (RULE 10, town). Isolated git-archive scratch
+copy, baseline sha256 recorded, checker ran clean first. Injected McCanns
+Aigburth's travel clinic trust-bar town ("Local Aigburth team" to "Local
+St Michael's team") - CAUGHT on first attempt, RULE 3 (verbatim) and RULE
+10 (town) both fired with the exact wording quoted. Restored (sha256
+reconfirmed), clean negative control (two trust-bar items reordered, no
+value changed) ran clear with no false positive. Restored again from the
+pristine tracked clone, sha256 matched baseline throughout; tracked repo's
+git status for modules/core/branches.json/gbp-packs/tools stayed clean the
+whole time. RESULT: zero in-repo defect found. Guard coverage for item 3.6
+now 27 of 37 checkers proven by direct injection (up from 26). Full
+36-checker suite (excluding check-cdn-pins.js, which fails on any
+.git-less extraction, and check-live-hours.js, network-dependent) also run
+clean against the tracked repo at HEAD, and all seven generators rebuilt
+byte-identical against the committed modules/ tree. LIVE HALF: check-
+live-hours.js ran live against mccannspharmacy.co.uk as part of the full
+suite (network reachable this run); both McCanns pages still show
+"McCann's Pharmacy" branding, corroborating the open Q39 finding rather
+than raising a new one; not a substitute for a dedicated live-hours read,
+only a branding/gross-mismatch skim. ANSWER PICKUP: not attempted (no
+Claude in Chrome loaded, feedback endpoint needs Rishi's own Cloudflare
+Access session; skipped for budget, no dependency on this item). No
+"Standing authorisation - autonomous window" section present. No new
+question raised. Evidence in
+audits/mccanns-item-3.6-travel-clinic-copy-injection-2026-10-20.txt and
+audits/live-hours-check-2026-10-20.json.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
