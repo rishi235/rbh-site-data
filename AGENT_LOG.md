@@ -62,7 +62,10 @@ keep running unattended while the worklist has been fully blocked since run
 available to action this run.
 
 RESULT: no-op. Worklist unchanged (8/8 blocked). Checkers clean (35/35).
-Q127 still open and unrotated.
+Q127 still open and unrotated. Commit b6914f96 pushed clean (fast-forward,
+6e6b738..b6914f9) to agents/audit-backlog. Step 10 status-page publish failed
+again: `gh` CLI absent from PATH, same known blocker as Q124. Not
+re-diagnosed further this run; left as-is per the existing Q124 entry.
 
 ## Run 354 - 2026-10-20
 
