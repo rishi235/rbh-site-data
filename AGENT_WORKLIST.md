@@ -26488,6 +26488,84 @@ directly rather than re-deriving the same facts by hand.
       audits/q73-q74-gbp-pack-location-and-404-warning-rules-2026-10-14.txt
       (new evidence file), AGENT_LOG.md.
       Done 2026-10-14
+      Twenty-second quality pass, 2026-10-20 (unattended scheduled run,
+      audit-backlog-worker): all 8 unchecked worklist lines reconfirmed
+      [BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+      6.5/Q60, 6.6/Q66), each already "answered" in QUESTIONS.json but
+      blocked on a supervised action (Weebly paste, GBP edit, or a branch
+      push outside agents/audit-backlog) no unattended run can perform -
+      so this run fell to the quality-pass fallback. Re-derived the
+      rotation pool stale-ranking fresh from AGENT_WORKLIST.md's own
+      inline pass-date notes rather than reusing the fixed nine-item tier
+      runs 326-335 had been cycling (which had drifted: several items in
+      that tier were re-verified as recently as 2026-10-19/20, while a
+      wider group last touched 2026-10-14 - 3.2, 3.6, 3.7, 3.8, 3.10,
+      3.13, 4.2, 4.9, 4.13, 1.2, 5.1 - had gone unvisited for six days).
+      Of that older group, 4.9 carried the fewest recorded passes (21,
+      against 22-35 for the others), so picked 4.9 by the same
+      stalest-then-fewest-passes rule run 212 established.
+      FRESH ANGLE: the twenty-first pass (2026-10-14) implemented Q73/Q74
+      as new rules in tools/check-gbp-packs.js. Separately, and after
+      that pass, commit 9116c1e (2026-10-19, outside this item, fixing
+      125 false postcode failures against gitignored debris) rewrote
+      check-postcodes.js's directory-walk to derive a skip list from
+      .gitignore via a new isDebris() function gating both the directory
+      recursion and the per-file check. That function had never been
+      proven, on this pack specifically, not to also exclude a real
+      tracked file by accident - the exact "silent" failure shape
+      CLAUDE.md warns about (a rule change nobody re-proves against the
+      files it is supposed to keep covering). Confirmed first that
+      gbp-packs/clear-aintree.md and all three of Clear Aintree's
+      generated pages are not matched by any .gitignore pattern
+      (`git check-ignore -v`, all four paths: no match, exit 1).
+      Injected a wrong postcode into the pack (L9 7AS to CH49 1SX, the
+      same placeholder value CLAUDE.md's NARRATIVE_POSTCODES section uses
+      elsewhere, chosen deliberately to rule out an accidental narrative-
+      exemption match too) - CAUGHT on the first run
+      ("UNKNOWN gbp-packs/clear-aintree.md: postcode CH49 1SX is in no
+      branches.json entry", exit 1, 1 failure). Reverted by restoring
+      from a pre-edit copy; sha256 confirmed identical to the baseline
+      recorded on the twenty-first pass
+      (3350d54caa54185adf677e97f4b6f7ce7b891941223191da5155ddae52dd2a7d)
+      both before and after the injection, and check-postcodes.js clean
+      again post-revert (0 failures, 3 pre-existing unrelated UNOWNED
+      warnings unchanged). So the 2026-10-19 skip-list rewrite still
+      scans this pack correctly; no in-repo defect found.
+      Full checker suite re-run clean: 35/36 (check-live-hours.js
+      excluded, network-dependent, tracked separately); the one
+      exception, check-cdn-pins.js, failed only on ref resolution for
+      `service-module-phase1`, `6a275e1` and `main` because this run's
+      working copy is a shallow single-branch clone of agents/audit-
+      backlog with those refs unreachable locally (confirmed: fetching
+      main and service-module-phase1 as additional refs did not change
+      the result, and 6a275e1 is a non-tip commit a shallow clone cannot
+      address directly) - the same documented .git-less/shallow-clone
+      exception prior passes have hit when working from a scratch or tar
+      copy, not a repo defect and not specific to item 4.9's own content.
+      LIVE HALF (Claude in Chrome, read-only, one tab, closed after):
+      clearchemist.co.uk/contact-us re-read in full - phone still 0151
+      203 6535 with 8365 nowhere (Q28 unchanged), WhatsApp still 07512
+      330 076 distinct from the estate-wide default (Q21's concrete case,
+      unchanged), both opening-hours windows unchanged (Non-NHS Mon-Fri
+      8am-4:30pm, NHS Mon-Thu 8am-6pm) and still match this pack's Q112
+      note exactly. weight-loss-clinic-clear-aintree.html re-read: still
+      404 (Q29 unchanged, homepage-button workaround in the pack still
+      correct and necessary). No new live finding; Q28/Q29/Q112 all
+      reconfirmed exactly as last recorded, no drift.
+      ANSWER PICKUP (this run's step 3): https://data.rbhealth.co.uk/api/
+      feedback read directly (no Cloudflare sign-in redirect this run).
+      Newest entry still Q52 (2026-09-01T22:44:51.524Z), unchanged for
+      seven weeks. Cross-checked Q8, Q9, Q13, Q16, Q52, Q60 and Q66
+      directly in QUESTIONS.json: all seven already "answered"; each
+      worklist line stays [BLOCKED] for the reason given above, matching
+      every run since 193. No status change made.
+      No pack, generator, page or branches.json content changed; this
+      pass's only lasting changes are this paragraph and the matching
+      AGENT_LOG.md entry. Evidence saved outside the repo this run
+      (sandbox scratch area, not committed, per the same convention as
+      every prior pass's audits/ evidence file where the finding itself
+      is written up here in full). No new question raised.
+      Done 2026-10-20
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

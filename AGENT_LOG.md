@@ -1,3 +1,95 @@
+## Run 336 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox session (Linux), working on a
+disposable clone rather than the mounted checkout. LOCK: the mount's own
+.agent-lock was absent at pickup and a stale .git/index.lock (26 minutes
+old at first observation, under the 1-hour staleness threshold) was left
+untouched there rather than deleted early, consistent with the rule; a
+small amount of uncommitted debris on the mount (a staged deletion of
+audits/gordon-short-item-4.14-quality-pass-2026-10-20-twentyfourth.txt,
+and matching net-zero add/remove churn on AGENT_LOG.md/AGENT_WORKLIST.md
+that cancelled out to the committed HEAD exactly) was confirmed harmless
+and left alone rather than force-cleared, since HEAD (e40c36a) already
+matched origin/agents/audit-backlog exactly and nothing was at risk. All
+real work this run was done on a fresh shallow clone
+(--branch agents/audit-backlog --depth 50) taken directly from GitHub
+rather than from the mount, the same established workaround runs 310+
+have used for this mount's EPERM-on-unlink wall (Q128) - this run never
+attempted to clone the mount itself after an initial local-clone attempt
+timed out against its 1.2GB .git directory over the network-mounted
+filesystem.
+
+ANSWER PICKUP (step 3): Claude in Chrome, one read-only tab to
+https://data.rbhealth.co.uk/api/feedback, full JSON feed returned (no
+Cloudflare sign-in redirect). Newest entry still Q52 (2026-09-01
+22:44:51Z), unchanged for seven weeks. Cross-checked Q8, Q9, Q13, Q16,
+Q52, Q60 and Q66 directly in QUESTIONS.json rather than assuming: all
+seven already "answered". Read the worklist text around 5.3/Q8, 5.4/Q9
+and 5.5/Q13 to confirm why each stays [BLOCKED] despite an answer on
+file: every one specifies an action outside an unattended run's
+authorisation (a Weebly paste, a hand edit in the Weebly editor, or
+pushing a branch other than agents/audit-backlog). No status change
+made.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file. Does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed [BLOCKED] by direct
+grep - 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60,
+6.6/Q66 - so this run fell to the quality-pass fallback. Rather than
+continuing the fixed nine-item tier runs 326-335 had been cycling
+(1.3, 2.1, 3.1, 3.3, 3.5, 3.11, 4.3, 4.8, 4.14), re-derived the true
+least-recently-verified item directly from AGENT_WORKLIST.md's own
+inline pass-date notes across all 42 completed items (excluding the
+seven standing one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8, which the
+2026-08-30 pass on 5.7 explicitly recorded as outside the rotation
+pool). That tier had drifted stale relative to a wider, genuinely
+older group last touched 2026-10-14 (3.2, 3.6, 3.7, 3.8, 3.10, 3.13,
+4.2, 4.9, 4.13, 1.2, 5.1); of those, 4.9 (Clear Chemist Aintree pack)
+carried the fewest recorded passes (21 against 22-35 for the others),
+so picked 4.9 by the same stalest-then-fewest-passes rule run 212 used.
+
+QUALITY PASS on item 4.9 (twenty-second pass): full detail under the
+item in AGENT_WORKLIST.md. Summary: proved by injection that commit
+9116c1e's (2026-10-19) rewrite of check-postcodes.js's directory walk,
+which now derives a debris skip-list from .gitignore via a new
+isDebris() function, still correctly scans gbp-packs/clear-aintree.md
+and all three of Clear Aintree's generated pages (none match any
+.gitignore pattern; a wrong postcode injected into the pack was caught
+on the first run and the pack restored byte-identical,
+sha256 3350d54caa54185adf677e97f4b6f7ce7b891941223191da5155ddae52dd2a7d
+confirmed unchanged before and after). 35/36 checkers clean
+(check-live-hours.js excluded, network-dependent); the one exception,
+check-cdn-pins.js, failed only on git ref resolution
+(service-module-phase1, 6a275e1, main) because this run's working copy
+is a shallow single-branch clone with those refs unreachable locally -
+confirmed not a repo defect, matching the documented exception prior
+passes have hit on scratch/tar copies without full git history. Live
+half (Claude in Chrome, read-only): clearchemist.co.uk/contact-us and
+the weight-loss-clinic-clear-aintree.html post-target both re-read;
+Q28 (phone), Q29 (404 post link) and Q112 (GBP hours window) all
+reconfirmed exactly as previously recorded, no drift, no new question.
+
+STEP 10: node tools/build-audit-status.js not attempted this run - no
+gh CLI and no Windows-MCP/PowerShell route available in this sandbox
+session (same standing Q124/Q127 gap most sandbox-only runs hit); an
+honest gap, not a silent skip.
+
+QUESTIONS.json: 129 total, 51 open - unchanged by this run.
+
+COMMIT/PUSH: committed and pushed from the disposable clone
+(/sessions/.../outputs/audit-work/repo), not from the mounted checkout,
+per the established clean-clone workaround. The mounted checkout's own
+.git directory and its lock files were not touched by this run at all.
+
+LOCK: no .agent-lock was created on the mounted checkout this run (all
+work happened in the disposable clone, which needs no lock of its own);
+nothing to release there. The mount's pre-existing stray git debris
+(the staged deletion noted above) was left exactly as found, since it
+is net-zero against HEAD and this run's own authority does not extend
+to tidying an unrelated prior run's uncommitted mount state beyond
+confirming it is harmless.
+
 ## Run 335 correction - 2026-10-20
 
 The prior commit's step 10 note understated what happened: it said the
