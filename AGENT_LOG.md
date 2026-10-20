@@ -1,3 +1,67 @@
+## Run 361 - 2026-10-20
+
+LOCK: `.agent-lock` found at pickup, dated 2026-10-20T15:13:53Z - roughly
+59 minutes old, so stale under the 45-minute rule and treated as a
+crashed prior attempt rather than a live run. Could not delete it (this
+mount still refuses unlink on files this session owns in full, rwx -
+same FUSE EPERM behaviour Q120 documented); overwrote it in place with a
+fresh timestamp instead, which is sufficient for the lock's purpose.
+`.git/index.lock` (46 minutes old) and `.git/ORIG_HEAD.lock` (also from
+the same crashed attempt) were both present and both equally
+undeletable. `git pull --ff-only` failed outright on the ORIG_HEAD lock
+("Unable to create ORIG_HEAD.lock: File exists"); a plain `git fetch`
+still worked, so HEAD was confirmed unchanged relative to origin by
+comparing fetched refs rather than by completing the pull.
+
+WORKLIST (step 5): re-checked - still 42 checked, 8 unchecked, all 8
+[BLOCKED]. 169th consecutive run with no actionable item (counting the
+crashed attempt above as one). No quality pass run either, for the same
+reason runs 359-360 gave: nothing in the data or generators has changed
+since the last pass, so a 14th repeat would be redundant scope, not
+verification.
+
+ANSWER PICKUP (step 3): not attempted - same constraint as every prior
+run, this sandbox has no Chrome / Cloudflare Access session for Rishi's
+portal.
+
+PUSH: one attempt, 60-second timeout, exit code 124 (no error output,
+just hung). Not retried, per runs 359-360's reasoning that a repeated
+same-shape timeout is the repo-size problem (1.8GB .git) rather than
+anything transient. Confirmed via fetch that the push did not complete
+in the background: still 3 commits ahead of origin/agents/audit-backlog,
+0 behind. Nothing new added to that stack this run - this entry is itself
+commit 4 of that stack once pushed.
+
+STATUS PAGE (step 10): not attempted this run - `gh` is still absent from
+PATH (confirmed with `which gh`), the same gap as every run since Q124,
+and running it again would only reconfirm a known-permanent fact.
+
+SECURITY NOTE, not new: `git remote -v` still shows a live GitHub PAT in
+cleartext in `.git/config` (`origin`, both fetch and push URLs). This is
+already tracked as Q127 and is not repeated here. Flagging again in this
+summary only because it is the kind of thing that should not wait on a
+queue of 52 open questions to get looked at.
+
+NOTHING NEW ATTEMPTED on the Q119/Q128 git-bloat and lock-debris finding -
+that remediation needs git history surgery and stays correctly flagged as
+supervised-session-only work, not something to start unattended.
+
+ESCALATION (repeating runs 359-360, not re-deriving it): this is now 169
+consecutive no-op runs. 52 of 130 logged questions are still open, most
+blocking nothing but a handful blocking all 8 remaining worklist items; a
+working tree with hundreds of leftover probe/debris files; a 1.8GB .git
+that cannot be pushed from this sandbox; a persistent inability to delete
+any git lock file on this mount (not just clean up after it); and no
+working path to pick up Rishi's answers unattended. None of this is
+patient-facing or urgent, but the schedule is producing no further value
+while it stands, and each no-op run adds more undeletable debris rather
+than less. Recommend Rishi pause this schedule and deal with Q96 (push
+access), Q119/Q120/Q128 (repo bloat and the unlink bug), Q123/Q124
+(status-page publish), and Q127 (the exposed PAT) in one supervised
+session before the next fire - and rotate that PAT regardless of what
+else gets decided, since it has now been sitting in cleartext for several
+days of runs.
+
 ## Run 360 - 2026-10-20
 
 LOCK: `.agent-lock` absent at pickup (created fresh, UTC timestamp). Found
