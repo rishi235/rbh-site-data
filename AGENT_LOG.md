@@ -1,3 +1,29 @@
+## Run 359 amend - 2026-10-20
+
+AMEND (post-push attempts): unlike runs 357-358, `git push origin
+agents/audit-backlog` did NOT succeed this run. Four separate attempts,
+each capped at this session's tool-call timeout (under three minutes),
+timed out without completing (`git ls-remote` confirmed the remote tip
+stayed at `3c8cd50` throughout, never advancing to this run's local commit
+`762b712`). `git count-objects` on this 1.8GB/4,021-loose-object `.git`
+(Q119's bloat) was itself slow enough to blow past a command timeout on its
+own, which is circumstantial evidence the push is stalling on the same
+bloat rather than on network access generally (fetch, ls-remote and the
+earlier pull all completed quickly). Not retried a fifth time - four
+same-shape timeouts in a row is a pattern, not bad luck, and repacking or
+pruning `.git` to fix it is exactly the kind of bulk remediation run 356/357
+already flagged as needing a supervised session, not this one.
+Commit `762b712` (this run's log entry plus the lock-quarantine move) is
+real and sitting locally on `agents/audit-backlog`; it is NOT yet on
+`origin`. Whoever picks up the next run should try the push again before
+assuming today's entry is on GitHub - `git log` will show it locally
+either way.
+Status page publish (step 10) attempted regardless, per standing
+instruction: failed as expected, `gh: not found`, same as every run since
+Q124 was raised. No further action taken.
+
+---
+
 ## Run 359 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only. Same environment and
