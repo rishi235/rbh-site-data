@@ -1,3 +1,66 @@
+## Run 350 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 349 released it cleanly). Created a
+fresh one.
+
+GIT SYNC (step 2): `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` - "Already up to date" at HEAD `57f4efe` (run 349's own
+commit).
+
+ANSWER PICKUP (step 3): Claude in Chrome loaded this run and navigated to
+`https://data.rbhealth.co.uk/api/feedback`. Returned a Cloudflare Access sign-in
+page (Azure AD / email code form), not the JSON feed - this extension's Chrome
+profile is not signed into the Cloudflare Access session, unlike Rishi's own
+Chrome. Per the task's own instruction, logged as unavailable and no other
+route attempted; nothing typed, clicked or submitted on the login form. Tab
+closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of
+this file. Does not apply.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 37 `tools/check-*.js` scripts fresh against the
+current working tree (HEAD `57f4efe`), excluding the two network-dependent
+ones (`check-cdn-pins.js`, `check-live-hours.js`). Result: 35/35 exit 0, no new
+defect. Did not run a deeper per-item injection-test pass on top of that: runs
+302, 347, 348 and 349 have each independently reconfirmed this same pool clean
+with zero new defects, and run 349 explicitly named repeating it again as
+diminishing-value work against this run's time budget.
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 349. Q127 (live GitHub
+Personal Access Token in cleartext in this working copy's `.git/config`, used
+successfully by every push/pull this run and the last several) is still open
+and still unrotated. Not actioned - rotating a live credential is outside an
+unattended run's authority per the task's own hard rule, and this is already
+logged rather than needing a fresh entry.
+
+RECOMMENDATION (restated for at least the fourth time, by runs 302, 348, 349
+and now this one): all 8 unchecked worklist items are blocked on supervised
+human actions no unattended run can perform, and the quality-pass rotation
+pool has been independently re-verified clean 20+ times running with no new
+defects for several weeks. Firing this schedule further adds little beyond
+confirming the status quo, while Q127's live credential exposure sits open
+and unrotated across at least four runs now. Recommend Rishi either (a) pause
+this schedule until the 8 blocked items or Q127 are actioned, or (b) rotate
+the PAT and/or explicitly confirm continuing is still wanted, so this does not
+keep repeating the identical finding.
+
+GIT COMMIT/PUSH (step 9): only this log entry and `.agent-lock` lifecycle
+committed; no worklist line changed, no generator, page, pack, checker or
+branches.json content changed.
+
+PUBLISH (step 10): attempted `node tools/build-audit-status.js` regardless,
+per the task's instruction to run it even on a no-op item. Failed: `gh` CLI
+still not present in this sandbox's shell, same gap as runs 348 and 349. Not
+treated as a hard failure of the run.
+
+Files changed: AGENT_LOG.md, `.agent-lock` only.
+
 ## Run 349 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only (no native-host step used
