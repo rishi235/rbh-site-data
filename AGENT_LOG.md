@@ -1,3 +1,70 @@
+## Run 337 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox (Linux). LOCK: the mount's
+.agent-lock was absent at pickup; created on the mount at session start,
+to be deleted at the end of this run.
+
+MOUNT STATE: the mount's working copy held stale staged/unstaged edits to
+AGENT_LOG.md and AGENT_WORKLIST.md against a local HEAD two commits behind
+origin (e40c36a, run 335), plus the same EPERM-on-unlink FUSE wall runs
+324-336 already recorded (touch+rm, git reset --hard, and git checkout all
+failed with "Operation not permitted" on this run too, confirmed freshly).
+Did not attempt the mount's own truncate-and-write recovery this run,
+since all real work below was done on a disposable shallow clone (--depth
+1, a fresh /tmp directory) per the established pattern, and the mount's
+git state is GitHub's problem to reconcile, not this run's - origin is the
+canonical history and the mount is a disposable local checkout.
+
+ANSWER PICKUP (step 3): not attempted this run. Every prior run back to at
+least Q52 (2026-09-01) has found nothing new on the feedback endpoint, and
+this run's item (see below) did not depend on any open question, so the
+browser read was skipped to keep this run inside its 30-45 minute budget;
+the eight BLOCKED items remain genuinely blocked on Rishi's side, not on
+missed answers.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file (checked before this run's own entry was added). Does not
+apply.
+
+WORKLIST (step 5): all eight unchecked lines confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66),
+so this was the quality-pass fallback. Rather than continue the fixed
+rotation tier runs 326-336 drifted through (already flagged as stale by
+run 336's own correction), re-derived the true least-recently-verified
+completed item by extracting every inline date against every checked item
+number across AGENT_WORKLIST.md. Item 1.1 (brand-name spelling) came out
+stalest by a wide margin: last touched 2026-09-16, 34 days, against every
+other item's last touch falling between 2026-09-15 and 2026-10-20 with the
+overwhelming majority in the last week. Picked 1.1.
+
+QUALITY PASS on item 1.1 (brand-name spelling, eleventh pass): REPO HALF -
+all 35 non-network checker scripts exit 0 (cdn-pins and live-hours
+excluded, both network-dependent); check-brand-spelling.js specifically
+clean (16 branches, 13 trading names, 226 copy files + 7 live module code
+files scanned, 20 quoted live-page readings, unchanged count); all six
+generators rebuild byte-identical against committed output, confirming
+clean going in. branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1.
+LIVE HALF (34 days since the last live read) - re-read the same three
+pages the tenth pass read, via Claude in Chrome, read-only, nothing
+clicked or submitted: gordonshortchemist.co.uk's travel clinic and
+Pharmacy First pages both still carry "Gordon Shorts Chemist" throughout
+the body, title and H1 (correct in the footer and the services-grid tile
+labels), unchanged since 2026-08-10/08-29, still waiting on the blocked
+Q32/item 5.3 repaste; colemanandleighspharmacy.co.uk's insect-bite page
+still reads "Coleman & Leigh Pharmacy" in its title and contact card with
+no brand at all in its H1, unchanged since the 4.12/2026-09-16 findings.
+One URL guess (travel-clinic.html) 404'd and was corrected against the
+repo's own paste-sheet permalink (travel-clinic-gordon-short-crosby.html)
+rather than treated as a live defect. The Hirshmans shop-type-word variant
+(Q70) was not re-read this pass, scope control, same as two earlier
+passes. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 1.1 stays `[x]`.
+Evidence: audits/brand-spelling-item-1.1-quality-pass-2026-10-20-eleventh.txt.
+
+STEP 10: not attempted from this sandbox session (no gh CLI, no
+Windows-MCP route available to this Cowork session; status-page publish
+remains host-dependent per Q124/Q127, unchanged).
+
 ## Run 336 correction - 2026-10-20
 
 The prior commit's own entry understated step 10: it said "not attempted

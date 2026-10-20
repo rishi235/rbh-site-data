@@ -34693,6 +34693,39 @@ appended to the line. Do not move them; the status page reads them in place.
       current after 18 days rather than assumed. Blocks nothing. No repo
       file changed this pass other than this worklist entry and the log.
       Done 2026-09-16.
+      Quality pass 2026-10-20 (eleventh, unattended scheduled run): stalest
+      completed item in the whole worklist at pickup, last touched
+      2026-09-16, 34 days, well past every other rotation-pool item (all
+      touched within the last week). Picked by deriving the true
+      least-recently-verified item from inline pass dates, same method
+      run 336 used for item 4.9, rather than any fixed rotation tier.
+      REPO HALF: all 35 non-network checker scripts exit 0 (check-cdn-
+      pins.js and check-live-hours.js excluded, network-dependent);
+      check-brand-spelling.js specifically clean, 16 branches/13 trading
+      names pinned, 226 copy files plus 7 live module code files scanned,
+      20 quoted live-page readings (unchanged count); all six generators
+      rebuild byte-identical, confirming the repo was clean going in.
+      branches.json sha256
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1.
+      LIVE HALF, the point of this pass (last live read 34 days prior):
+      re-read the same three pages the 2026-09-16 pass read, correcting
+      one URL guess against the repo's own paste-sheet permalink rather
+      than assuming it. (1) gordonshortchemist.co.uk travel clinic page:
+      title, H1 and contact card still "Gordon Shorts Chemist"/"...in
+      Crosby", unchanged, still waiting on the Q32/item 5.3 repaste. (2)
+      Same site's Pharmacy First page: same pattern, unchanged since
+      2026-08-10. (3) colemanandleighspharmacy.co.uk insect-bite page:
+      still "Coleman & Leigh Pharmacy" in title/contact card, H1 still
+      carries no brand at all (the repo's own generated H1 for this file
+      does carry the brand per Q44), footer still correctly "Coleman and
+      Leighs Pharmacy" - unchanged since the 4.12/2026-09-16 findings. Not
+      re-read this pass (scope control, same as the 2026-08-31/09-06
+      passes): the Hirshmans Pharmacy shop-type-word variant (Q70),
+      already open, non-blocking, no reason to expect movement. NET
+      RESULT: zero new defects, zero drift in the rule or on any of the
+      three re-read pages, zero new question. Blocks nothing. Evidence:
+      audits/brand-spelling-item-1.1-quality-pass-2026-10-20-eleventh.txt.
+      Done 2026-10-20.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi

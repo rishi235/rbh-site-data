@@ -1,0 +1,74 @@
+item 1.1 quality pass (eleventh), unattended scheduled run, 2026-10-20
+======================================================================
+Stalest completed item in the whole worklist at pickup: last touched
+2026-09-16 (tenth pass), 34 days, well past every other rotation-pool item
+(all last touched 2026-09-15 to 2026-10-20, most within the last week).
+Picked by deriving the true least-recently-verified item from inline pass
+dates across all checked items in AGENT_WORKLIST.md, same method run 336
+used, rather than any fixed rotation tier.
+
+REPO HALF
+branches.json sha256:
+  7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+All 35 non-network checker scripts run (check-cdn-pins.js and
+check-live-hours.js excluded, both network-dependent): 35/35 exit 0.
+tools/check-brand-spelling.js specifically: clean - 16 trading branches,
+13 distinct trading names pinned, 226 files of public copy plus 7 live
+module code files scanned, 0 hardcoded brand strings in build-switch-
+pages.js CONFIG, 1 FALLBACK record checked against canonical names, 20
+quoted readings of a live page read as evidence (unchanged count from the
+tenth pass). All six generators (build-branch-landing-pages,
+build-contraception-pages, build-service-pages, build-switch-pages,
+build-travel-clinic-pages, build-weight-loss-pages) rebuilt to a
+byte-identical diff against the committed output - `git status
+--porcelain` on modules/, core/, branches.json, gbp-packs/, tools/ was
+empty both before and after regeneration.
+
+LIVE HALF (the actual point of this pass - last live read was 2026-09-16,
+34 days)
+Read two pages on gordonshortchemist.co.uk and one on
+colemanandleighspharmacy.co.uk via Claude in Chrome, read-only
+(get_page_text), nothing clicked or submitted. Correct URLs resolved from
+the repo's own paste-sheet permalinks rather than guessed (an initial
+guess at /travel-clinic.html 404'd; the real file is
+travel-clinic-gordon-short-crosby.html).
+
+(1) https://www.gordonshortchemist.co.uk/travel-clinic-gordon-short-crosby.html
+    Title and H1 both still "Travel Clinic at Gordon Shorts Chemist,
+    Crosby" / "...in Crosby"; the contact card heading and body copy
+    agree ("Gordon Shorts Chemist" x4). The services-grid tile labels
+    ("Travel Clinic Gordon Short Crosby", "WEIGHT LOSS CLINIC GORDON
+    SHORT CROSBY") and the site-wide footer ("Gordon Short Chemist · 159
+    College Road...") both carry the correct post-1.1 name. Unchanged
+    from the 2026-08-29/2026-09-16 findings - same pre-1.1 paste, still
+    waiting on the Q32/item 5.3 repaste (itself [BLOCKED]).
+
+(2) https://www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
+    Same pattern: title "Pharmacy First at Gordon Shorts Chemist,
+    Crosby", H1 "...in Crosby", contact card x4 "Gordon Shorts Chemist".
+    Footer correct. Unchanged from the original 2026-08-10 finding.
+
+(3) https://www.colemanandleighspharmacy.co.uk/insect-bite-treatment-coleman-leigh-walton.html
+    Title "Infected insect bite treatment in Walton - Coleman & Leigh
+    Pharmacy" (ampersand, singular Leigh, trailing "Pharmacy" the repo's
+    composed title does not carry); H1 carries no brand at all ("Infected
+    insect bite treatment in Walton"), matching the repo's own generated
+    H1 at this exact page (modules/service/pages/insect-bite-treatment-
+    coleman-leigh-walton.html) which does carry the brand per Q44.
+    Contact card and nav banner both read "Coleman & Leigh Pharmacy"; the
+    footer correctly reads "Coleman and Leighs Pharmacy". Unchanged from
+    the 4.12/2026-09-16 findings.
+
+Not re-read this pass (scope control, consistent with the 2026-08-31 and
+2026-09-06 passes' own scope notes): the Hirshmans Pharmacy
+shop-type-word variant (Q70, hirshmanspharmacy.co.uk) - last confirmed
+unchanged 2026-09-16, no reason to expect movement absent a repaste, and
+re-reading it would not change this pass's verdict since it is already an
+open, [BLOCKED]-adjacent, non-blocking question.
+
+NET RESULT: zero new defects, zero drift in either the repo rule or the
+three re-read live pages since the last check, zero new question. Every
+live finding is the exact same paste-lag this item has recorded since
+2026-08-10/08-29, now reconfirmed current after 34 days rather than
+assumed. Blocks nothing. No repo file changed this pass other than the
+worklist entry, AGENT_LOG.md and this evidence file.
