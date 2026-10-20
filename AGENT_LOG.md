@@ -51,15 +51,15 @@ tree) - that cleanup needs a supervised session per Q128's own
 recommendation, not another unattended rename.
 
 COMMIT/PUSH: this entry only (no repo-content change, no worklist tick -
-nothing to tick). Attempting `git add`/`commit`/`push` next; if the push
-credential path documented under Q96/Q124/Q127 fails this run, the commit
-will be left staged locally and logged as such rather than claimed as
-pushed.
+nothing to tick). `git add`/`commit`/`push` succeeded cleanly this run
+(514e698e, pushed to origin/agents/audit-backlog) via the existing HTTPS+PAT
+remote already documented under Q127 - same credential, still unrotated.
 
-STATUS PAGE: will attempt `node tools/build-audit-status.js` after the push
-attempt, per Q124's standing note that `gh` is absent from this sandbox's
-PATH; if it fails for that reason it will be logged, not retried via any
-other credential route.
+STATUS PAGE: `node tools/build-audit-status.js` failed exactly as Q124
+predicts - `gh: command not found` in this sandbox's PATH. Not retried via
+any other credential route (no `apt-get install` attempted; this sandbox is
+non-root and Q124's prior run already confirmed that fails). Logged, not
+actioned further.
 
 Carrying forward unchanged: this is the fifth consecutive no-op run on this
 branch. The repo-content side is clean and fully re-verified; the backlog is
