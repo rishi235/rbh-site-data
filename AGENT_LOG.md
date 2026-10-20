@@ -99,7 +99,15 @@ succeed; the worklist/log/questions changes above are committed and
 pushed regardless, per the instruction to run step 10 even on
 failure so the page stays honest about what did not happen.
 
-LOCK RELEASE: .agent-lock deleted at the end of this run.
+LOCK RELEASE: rm -f .agent-lock failed with "Operation not
+permitted" - the same standing FUSE EPERM-on-unlink quirk on this
+sandbox mount recorded since run 190 (most recently blocking
+.git/index.lock earlier in this same run, which is why step 9/10
+ran from a disposable clone instead). Not force-removed, not
+fought. A future run with native-host access (Windows-MCP, per the
+run 337/341 pattern) should clear it; until then its presence does
+not indicate an active run - this entry is the record that it is
+safe to treat as stale (pickup time 2026-10-20, run 342).
 
 ## Run 341 - 2026-10-20
 
