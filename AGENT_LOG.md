@@ -5064,3 +5064,27 @@ filesystem - a run (or the part of a run) that operates directly against
 the real host via Windows-MCP/PowerShell does not hit it, same as runs 245
 and 249 already found for `gh`/publish access. Lock released; this run is
 complete.
+
+## Run 339 addendum - 2026-10-20
+
+STEP 10 (status page publish): `node tools/build-audit-status.js` failed
+outright, `gh: not found` - gh CLI absent from this sandbox's PATH (the
+same gap Q124 already raised, and the same first failure run 338 hit
+earlier today before installing gh temporarily). Not re-installed or
+re-authenticated this run: run 338's same-day fuller diagnosis already
+established the deeper cause once gh is installed - the mount's existing
+fine-grained PAT is scoped only to rishi235/rbh-site-data and returns
+HTTP 404 on rishi235/rbh-data-portal, a genuine credential-scope gap
+(Q124/Q127), not a missing tool. Re-running that same install/auth/404
+sequence a second time today would reproduce an already-fresh finding at
+the cost of handling the PAT again for no new information, so it was
+skipped. STATUS PAGE PUBLISH DID NOT SUCCEED THIS RUN. Same recommended
+fix stands: grant the existing fine-grained PAT contents:write on
+rbh-data-portal for the reports/digital/ path, or issue a second PAT
+scoped to that repo for this one script.
+
+LOCK: this run's own `.agent-lock` (created 2026-10-20T01:42:26Z on the
+mount) deleted at end of run. The pre-existing mount `.git/index.lock`
+from the still-wedged FUSE quirk was left in place untouched, as it was
+not yet past the 1-hour staleness threshold at any point this run and no
+git command was run directly on the mount.
