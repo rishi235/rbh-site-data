@@ -1,3 +1,81 @@
+## Run 352 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 351 released it cleanly). Created a
+fresh one.
+
+GIT SYNC (step 2): `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` - "Already up to date" at HEAD `f95edc8` (run 351's own
+commit).
+
+ANSWER PICKUP (step 3): Claude in Chrome navigated to
+`https://data.rbhealth.co.uk/api/feedback` - returned the Cloudflare Access
+sign-in page again (Azure AD / email code form), same as every run since this
+was first logged. Per the task's own instruction, logged as unavailable, no
+other route attempted, nothing typed or submitted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present.
+Does not apply.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 37 `tools/check-*.js` scripts fresh against the
+current working tree (HEAD `f95edc8`), excluding the two network-dependent
+ones (`check-cdn-pins.js`, `check-live-hours.js`). Result: 35/35 exit 0, no new
+defect. This is the sixth consecutive run (302, 347-351) to independently
+reconfirm this same pool clean. Not repeating a deeper per-item injection pass
+this run, same reasoning runs 349-351 gave: diminishing-value work against an
+unchanged, already-clean pool.
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 351. Q127 (live GitHub
+Personal Access Token in cleartext in this working copy's `.git/config`) is
+still open and still unrotated - sixth consecutive run flagging it. Not
+actioned; rotating a live credential is outside an unattended run's authority
+per the task's own hard rule. Q115 (standing recommendation to pause or reduce
+this schedule's cadence, since all 8 remaining items are blocked on Rishi's
+decisions and the rotation-pool checker suite has now been independently clean
+18-24+ times per item) also unchanged and unactioned, for the same reason: a
+cadence change is Rishi's call, not this run's.
+
+LOCK DEBRIS: hit the same sandbox FUSE EPERM-on-unlink quirk documented under
+Q128 - a stray `.git/index.lock` (0 bytes) was present at pickup despite no
+git process running and reappeared after a plain `git status`. Cleared by
+moving it aside into `.git-lock-debris-quarantine/` (rename, not delete, the
+established workaround), not by any destructive git operation. Did not touch
+the wider debris pile Q128 already covers (1000+ stray lock-family files,
+several large stray audit/probe files in the working tree) - that cleanup
+needs a supervised session per Q128's own recommendation, not another
+unattended rename.
+
+COMMIT/PUSH: this entry only (no repo-content change, no worklist tick -
+nothing to tick). Pushed via the existing HTTPS+PAT remote already documented
+under Q127 - same unrotated credential.
+
+STATUS PAGE: `node tools/build-audit-status.js` expected to fail exactly as
+Q124 predicts (`gh: command not found`); not retried via any other credential
+route, consistent with runs 347-351.
+
+Carrying forward unchanged: this is the sixth consecutive no-op run on this
+branch. The repo-content side is clean and fully re-verified; the backlog is
+blocked entirely on open decisions (Q127 security exposure chief among them)
+and on hands-on sessions (Weebly paste edits, GBP profile writes) no
+unattended run can perform. Restating plainly, because six runs of the same
+log line is itself a signal worth acting on directly rather than filing a
+seventh: this schedule is now producing no work product per run and should
+either be paused or have its cadence reduced until Rishi has (a) rotated the
+PAT behind Q127 and decided whether the current one needs to be treated as
+compromised, (b) actually answered the open worklist-blocking questions
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4-6.6/Q60/Q66), since none of
+them can be picked up through the portal feedback route while this Chrome
+profile has no Cloudflare Access session, and (c) decided on Q115's cadence
+recommendation. Continuing to fire this schedule as-is produces an unrotated
+credential sitting in cleartext for one more day at a time, and nothing else.
+
+---
+
 ## Run 351 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
