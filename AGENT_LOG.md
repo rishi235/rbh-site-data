@@ -1,3 +1,71 @@
+## Run 353 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 352 released it cleanly). Created a
+fresh one.
+
+GIT SYNC (step 2): `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` - "Already up to date" at HEAD `0a54ff5` (run 352's own
+commit). Hit the same sandbox FUSE EPERM-on-unlink quirk documented under
+Q128 on `.git/index.lock`, then `.git/HEAD.lock` and `.git/ORIG_HEAD.lock` -
+cleared all three by moving them aside into `.git-lock-debris-quarantine/`
+(rename, not delete, the established workaround), not by any destructive git
+operation. Confirmed via `ps aux` that no git process was actually running
+before touching any of them.
+
+ANSWER PICKUP (step 3): Claude in Chrome navigated to
+`https://data.rbhealth.co.uk/api/feedback` - returned the Cloudflare Access
+sign-in page again (same `rbhealth.cloudflareaccess.com` redirect as every
+run since this was first logged). Per the task's own instruction, logged as
+unavailable, no other route attempted, nothing typed or submitted. Tab
+closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present.
+Does not apply.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 37 `tools/check-*.js` scripts fresh against
+the current working tree (HEAD `0a54ff5`), excluding the two
+network-dependent ones (`check-cdn-pins.js`, `check-live-hours.js`). Result:
+35/35 exit 0, no new defect. Seventh consecutive run (302, 347-352) to
+independently reconfirm this same pool clean. Not repeating a deeper
+per-item injection pass this run, same diminishing-value reasoning runs
+349-352 gave.
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 352. Q127 (live
+GitHub Personal Access Token in cleartext in this working copy's
+`.git/config`) checked directly this run - still present, still open, still
+unrotated: seventh consecutive run flagging it. Not actioned; rotating a
+live credential is outside an unattended run's authority per the task's own
+hard rule (credentials are never an autonomous decision - stop, log, move
+on). Q115 (standing recommendation to pause or reduce this schedule's
+cadence) also unchanged and unactioned, same reason: a cadence change is
+Rishi's call, not this run's.
+
+COMMIT/PUSH: this entry only (no repo-content change, no worklist tick -
+nothing to tick). Pushed via the existing HTTPS+PAT remote already
+documented under Q127 - same unrotated credential.
+
+STATUS PAGE: `node tools/build-audit-status.js` expected to fail exactly as
+Q124 predicts (`gh: command not found`); not retried via any other
+credential route, consistent with runs 347-352.
+
+Carrying forward unchanged, briefly: seventh consecutive no-op run. Repo
+content fully re-verified clean; backlog blocked entirely on open decisions
+(Q127 chief among them) and hands-on sessions no unattended run can perform.
+Not repeating the full restated case made in runs 347-352's log entries -
+it stands unchanged - beyond noting that a seventh identical outcome is
+itself the signal: this schedule should be paused or its cadence reduced
+until Rishi has rotated the Q127 credential and answered the blocking
+questions, or confirmed deliberately that the schedule should keep running
+as-is despite producing no work product.
+
+---
+
 ## Run 352 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
