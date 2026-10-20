@@ -1,3 +1,44 @@
+## Run 359 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only. Same environment and
+findings as run 358, three-ish hours later.
+
+LOCK: `.agent-lock` absent at pickup. Created fresh (UTC timestamp).
+
+GIT SYNC (step 2): fetch clean, HEAD unchanged from run 358 (`24710fd`).
+Checkout initially blocked by three fresh stale locks (`.git/HEAD.lock`,
+`.git/next-index-3.lock`, `.git/next-index-5.lock`; `ps aux` confirmed no
+git process running). Same Q120/Q128 mechanism as every recent run; moved
+all three into `.git-lock-debris-quarantine/` rather than adding new
+differently-named root debris. Checkout and pull then succeeded cleanly.
+
+ANSWER PICKUP (step 3): attempted via Claude in Chrome, navigated to
+`https://data.rbhealth.co.uk/api/feedback`. Same Cloudflare Access sign-in
+wall as every run - this Chrome instance has no RBH Access session. No text
+read, nothing typed, no login attempted. Tab closed. Nothing picked up.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Does not apply.
+
+WORKLIST (step 5): re-checked - all 8 unchecked lines still carry
+[BLOCKED] (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items. 166th consecutive run
+with nothing unblocked to do.
+
+FALLBACK QUALITY PASS: not run, same diminishing-returns reasoning as runs
+302, 347-358 (twelve-plus consecutive clean re-confirmations of the same
+checker pool with no code or data change since run 358's own check).
+
+QUESTIONS.json: 130 total, 52 open, unchanged. No new question filed.
+
+ESCALATION: restating run 358's point rather than re-arguing it - this is
+now the 166th consecutive run logging the same blockers, with Q119, Q120,
+Q122, Q123, Q127 (unrotated live PAT in `.git/config`, now unrotated for at
+least a ninth consecutive run) and Q128 still open and unactioned. No repo
+change needed or made beyond this run's lock quarantine and this entry.
+
+---
+
 ## Run 358 amend - 2026-10-20
 
 AMEND (post-push): push succeeded (3df2a90..24710fd). Status page publish
