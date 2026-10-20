@@ -1,3 +1,11 @@
+## Run 358 amend - 2026-10-20
+
+AMEND (post-push): push succeeded (3df2a90..24710fd). Status page publish
+(step 10) failed as expected in this sandbox context - `gh` CLI not
+installed, same as runs 351, 354-357 and per Q124. No further action taken.
+
+---
+
 ## Run 358 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only (not the ProDeskAi host
