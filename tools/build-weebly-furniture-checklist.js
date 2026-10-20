@@ -58,6 +58,15 @@ var KNOWN_FINDINGS = {
         "rather than correcting it (those two pages now show only " +
         "Cherry@rbhealth.co.uk, no NHS mailbox at all) - make every page " +
         "consistent by publishing the correct NHS mailbox, not by removing it.",
+      "Site-wide footer strip reads \"Open Mon-Fri 9am-6:30pm, Sat " +
+        "9am-5pm, Sun closed\" with en dashes joining the day range and " +
+        "each time range - should be plain hyphens, matching the Q7 fix " +
+        "already applied to the generated pages and paste sheets. Confirmed " +
+        "live 2026-10-20 (item 5.1, full-estate sweep). The homepage's own " +
+        '"Blood Testing" services bullet, by contrast, has already been ' +
+        're-pasted correctly on this site ("Obtain fast results for your ' +
+        'blood tests. When was the last time you had yours checked?", split ' +
+        "at a full stop, no dash) - do not re-introduce the en dash there.",
     ],
   },
   fishlocks_ainsdale: {
@@ -76,6 +85,14 @@ var KNOWN_FINDINGS = {
         'in Ainsdale & Eccleston" with the Ainsdale street given correctly ' +
         'in full - do not "fix" that block, it is already right. Check ' +
         "which block wins once the wrong contact block above is corrected.",
+      "Homepage \"Our Services Include\" list, Blood Testing bullet, reads " +
+        '"Get fast results for your blood tests - when was the last ' +
+        'time you had yours checked?" with an en dash before "when" - ' +
+        "should be a full stop, matching the Q7 fix (split at a full stop, " +
+        "no dash). This homepage has no site-wide footer hours clause " +
+        "(the shared trust-bar footer above is the only footer block, and " +
+        "it carries no en dash). Confirmed live 2026-10-20 (item 5.1, " +
+        "full-estate sweep).",
     ],
   },
   fishlocks_eccleston: {
@@ -87,6 +104,9 @@ var KNOWN_FINDINGS = {
         'Pharmacy"), matching the Ainsdale column\'s own correction.',
       'The shared legal line "Fishlock Chemist (GPhC no. 1121085 and ' +
         '1034673)" covers both branches - fix once, fixes both.',
+      "Shares the one homepage with Ainsdale, so the Blood Testing bullet's " +
+        "en dash noted under fishlocks_ainsdale above covers both branches - " +
+        "fix once, fixes both.",
     ],
   },
   mccanns_aigburth: {
@@ -102,6 +122,13 @@ var KNOWN_FINDINGS = {
         'Aigburth Rd" - should be "112 Aigburth Road" in full (this is ' +
         "Aigburth's own address, so getting it right matters for this " +
         "branch's own page too).",
+      "The Aigburth \"Opening Hours\" contact-page block uses spaced en " +
+        "dashes throughout each day's time ranges (e.g. \"Monday 9am " +
+        "- 1pm, 2pm - 6pm\") rather than hyphens - six lines, " +
+        "twelve dashes. Different location from the Q7/5.1 fix (that " +
+        "covered the switch pages and the generated-page footer, not this " +
+        "Weebly-native contact block), so not yet corrected. Confirmed " +
+        "live 2026-10-20 (item 5.1, full-estate sweep).",
     ],
   },
   mccanns_sandringham: {
@@ -113,6 +140,11 @@ var KNOWN_FINDINGS = {
         'Pharmacy - Sandringham Medical Centre" in the footer.',
       'The medical centre name is misspelled "Sandrigham" - should be ' +
         '"Sandringham".',
+      "The Sandringham \"Opening Hours\" contact-page block uses the same " +
+        "spaced en dashes as Aigburth's (e.g. \"Monday 9am - 1pm, 2pm " +
+        "- 6:00pm\") - same fault, same fix, separate block on the " +
+        "same shared page. Confirmed live 2026-10-20 (item 5.1, " +
+        "full-estate sweep).",
     ],
   },
   skchemists_bootle: {
@@ -124,6 +156,13 @@ var KNOWN_FINDINGS = {
         'manager." - insert the branch phone, 0151 944 1013, before "and ' +
         'speak". Confirmed by screenshot and accessibility tree, not a ' +
         "text-extraction artefact - genuinely absent from the page.",
+      "Homepage Blood Testing bullet (\"Get fast results for your blood " +
+        "tests - when was the last time you had yours checked?\") and " +
+        "the site-wide footer's opening-hours clause (\"Open Mon-Fri " +
+        "9am-6pm, Sat & Sun closed\") both still carry the pre-Q7 en " +
+        "dash - should be a full stop and plain hyphens respectively, " +
+        "matching the Q7 fix. Confirmed live 2026-10-20 (item 5.1, " +
+        "full-estate sweep), same pattern as Riddings and Tiffenbergs.",
     ],
   },
   hirshmans_ainsdale: {
@@ -166,6 +205,12 @@ var KNOWN_FINDINGS = {
         "Pharmacy First page, switch page, travel page and weight loss " +
         "page alike - fixing the footer element once should clear all of " +
         "them, but check each page after the fix rather than assuming.",
+      "Homepage Blood Testing bullet and the site-wide footer's opening-" +
+        "hours clause (\"Open Mon-Fri 8:30am-1pm, 2pm-6pm, " +
+        "Sat 9am-1pm, 2pm-5:30pm, Sun closed\") both still carry " +
+        "the pre-Q7 en dash - this is the finding this item's twentieth " +
+        "quality pass (2026-10-14) first identified on this site, " +
+        "reconfirmed live 2026-10-20 (item 5.1, full-estate sweep).",
     ],
   },
   scorah_bramhall: {
@@ -188,6 +233,13 @@ var KNOWN_FINDINGS = {
         'associate as such... need advise as cheshire travel clinic works ' +
         'well for bramhall"), so Q43 is still open. Fix the house number, ' +
         "leave the county word exactly as it reads until Q43 is answered.",
+      "Site-wide footer strip reads \"Bramhall opening hours: Mon-Fri " +
+        "9am-6pm, Sat 9am-1pm, Sun closed\" with en dashes - " +
+        "should be plain hyphens, matching the Q7 fix. This homepage has " +
+        "no \"Our Services Include\" bullet list (older page template), " +
+        "so the Blood Testing en-dash pattern found on most other sites " +
+        "does not apply here. Confirmed live 2026-10-20 (item 5.1, " +
+        "full-estate sweep).",
     ],
   },
   scorah_hazel: {
@@ -202,6 +254,11 @@ var KNOWN_FINDINGS = {
       "Same county question as Bramhall applies here if this branch's own " +
         "furniture states a county - branches.json holds Greater " +
         "Manchester; check Q43 before changing any county wording.",
+      "Shares the one homepage and footer with Bramhall, so the footer " +
+        "en-dash finding noted under scorah_bramhall above (\"Hazel Grove " +
+        "opening hours: Mon-Fri 9am-6pm, Sat & Sun closed\") " +
+        "covers both branches - fix once, fixes both. Confirmed live " +
+        "2026-10-20 (item 5.1, full-estate sweep).",
     ],
   },
   riddings_timperley: {
@@ -221,6 +278,67 @@ var KNOWN_FINDINGS = {
         "en dashes instead of the corrected copy. This is a stale-paste " +
         "issue rather than a hand-typed value error, but it sits on the " +
         "same page and is worth clearing in the same visit.",
+      "The homepage's own Blood Testing bullet carries the same pre-Q7 " +
+        "en dash (\"Get fast results for your blood tests - when was " +
+        "the last time you had yours checked?\") - the specific line, not " +
+        "named in this entry before. Confirmed live 2026-10-20 (item 5.1, " +
+        "full-estate sweep).",
+    ],
+  },
+  smartts_bootle: {
+    site: "smarttschemist.co.uk",
+    source: "item 5.1, twenty-second pass (full-estate sweep)",
+    items: [
+      "Homepage Blood Testing bullet (\"Blood Testing: Fast results for " +
+        "your blood tests - when was the last time you had yours " +
+        "checked?\") and the site-wide footer's opening-hours clause " +
+        "(\"Open Mon-Fri 9am-6pm, Sat & Sun closed\") both carry " +
+        "the pre-Q7 en dash - should be a full stop and plain hyphens " +
+        "respectively, matching the Q7 fix. Confirmed live 2026-10-20.",
+    ],
+  },
+  colemanleigh_liverpool: {
+    site: "colemanandleighspharmacy.co.uk",
+    source: "item 5.1, twenty-second pass (full-estate sweep)",
+    items: [
+      "Homepage Blood Testing bullet (\"Blood Testing: Fast results for " +
+        "your blood tests - when was the last time you had yours " +
+        "checked?\") and the site-wide footer's opening-hours clause " +
+        "(\"Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun " +
+        "closed\") both carry the pre-Q7 en dash - should be a full stop " +
+        "and plain hyphens respectively, matching the Q7 fix. The same " +
+        "footer line also still reads \"Coleman & Leigh Pharmacy\" (the " +
+        "pre-Q1 trading name, ampersand and singular \"Leigh\") rather " +
+        "than \"Coleman and Leighs Pharmacy\" - a separate, already-known " +
+        "brand-spelling issue, flagged here only for visibility, not " +
+        "actioned by this entry. Confirmed live 2026-10-20.",
+    ],
+  },
+  gordonshorts_crosby: {
+    site: "gordonshortchemist.co.uk",
+    source: "item 5.1, twenty-second pass (full-estate sweep)",
+    items: [
+      "Homepage Blood Testing bullet (\"Blood Testing: Fast results for " +
+        "your blood tests - when was the last time you had yours " +
+        "checked?\") and the site-wide footer's opening-hours clause " +
+        "(\"Open Mon-Fri 9am-6pm (closed 1-2pm), Sat " +
+        "9am-5pm (closed 1-2pm), Sun closed\") both carry the " +
+        "pre-Q7 en dash - should be a full stop and plain hyphens " +
+        "respectively, matching the Q7 fix. Confirmed live 2026-10-20.",
+    ],
+  },
+  tiffenbergs_longmoor: {
+    site: "tiffenbergschemist.co.uk",
+    source: "item 5.1, twenty-second pass (full-estate sweep)",
+    items: [
+      "Homepage Blood Testing bullet (\"Blood Testing: Fast results for " +
+        "your blood tests - when was the last time you had yours " +
+        "checked?\") and the site-wide footer's opening-hours clause " +
+        "(\"Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun " +
+        "closed\") both carry the pre-Q7 en dash - this is the finding " +
+        "this item's twentieth quality pass (2026-10-14) first identified " +
+        "on this site but never added to this checklist. Confirmed live " +
+        "2026-10-20 (item 5.1, full-estate sweep).",
     ],
   },
 };

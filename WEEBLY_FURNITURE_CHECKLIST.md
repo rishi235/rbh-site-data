@@ -29,6 +29,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - Site-wide footer strip reads "Bramhall: 61 North Park Road, Bramhall, SK7 3LQ" - the house number is truncated, should read "61-63 North Park Road" in full. This part is unambiguously wrong and safe to fix regardless of the open county question below. Also found truncated the same way in the shared Pharmacy First page's own Bramhall contact section, alongside an unspaced phone "01614393744" (should read "0161 439 3744").
 - DECISION PENDING, do not change without checking QUESTIONS.json Q43 first: the Weebly contact block above the footer reads "61-63 North Park Road, Bramhall, Cheshire SK7 3LQ" - branches.json and this branch's own JSON-LD both say "Greater Manchester". Rishi's 2026-09-01 portal reply did not pick an option outright ("Unsure - historically Timperly and Bramhall sat in Cheshire so people still associate as such... need advise as cheshire travel clinic works well for bramhall"), so Q43 is still open. Fix the house number, leave the county word exactly as it reads until Q43 is answered.
+- Site-wide footer strip reads "Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed" with en dashes - should be plain hyphens, matching the Q7 fix. This homepage has no "Our Services Include" bullet list (older page template), so the Blood Testing en-dash pattern found on most other sites does not apply here. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### Scorah Chemists Hazel Grove (`scorah_hazel`)
 
@@ -49,6 +50,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - The shared Pharmacy First page's Hazel Grove contact section prints the phone and NHS email unspaced/uncapitalised: "Phone:01625872267" (should read "01625 872267", spaced, matching branches.json) and "Email:pharmacy.FKD04@nhs.net" run together with the label, no space after the colon.
 - Same county question as Bramhall applies here if this branch's own furniture states a county - branches.json holds Greater Manchester; check Q43 before changing any county wording.
+- Shares the one homepage and footer with Bramhall, so the footer en-dash finding noted under scorah_bramhall above ("Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed") covers both branches - fix once, fixes both. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### McCanns Chemist Aigburth (`mccanns_aigburth`)
 
@@ -69,6 +71,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - Weebly-native contact block and legal footer name the business "McCann's Pharmacy" (apostrophe form) throughout - should be "McCanns Chemist" (no apostrophe), matching branches.json and all 26 generated pages for this brand. Reconfirmed live 2026-09-15 as "McCann's Pharmacy - Aigburth" in the footer.
 - The same furniture abbreviates the sister branch's street to "112 Aigburth Rd" - should be "112 Aigburth Road" in full (this is Aigburth's own address, so getting it right matters for this branch's own page too).
+- The Aigburth "Opening Hours" contact-page block uses spaced en dashes throughout each day's time ranges (e.g. "Monday 9am - 1pm, 2pm - 6pm") rather than hyphens - six lines, twelve dashes. Different location from the Q7/5.1 fix (that covered the switch pages and the generated-page footer, not this Weebly-native contact block), so not yet corrected. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### McCanns Chemist Sandringham (`mccanns_sandringham`)
 
@@ -89,6 +92,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - Same wrong brand name as Aigburth: "McCann's Pharmacy" should be "McCanns Chemist". Reconfirmed live 2026-09-15 as "McCann's Pharmacy - Sandringham Medical Centre" in the footer.
 - The medical centre name is misspelled "Sandrigham" - should be "Sandringham".
+- The Sandringham "Opening Hours" contact-page block uses the same spaced en dashes as Aigburth's (e.g. "Monday 9am - 1pm, 2pm - 6:00pm") - same fault, same fix, separate block on the same shared page. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### Fishlocks Chemist Ainsdale (`fishlocks_ainsdale`)
 
@@ -111,6 +115,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 - The legal line below reads "Fishlock Chemist (GPhC no. 1121085 and 1034673)" - should be "Fishlocks Chemist".
 - The same contact block prints the street as "17 Station Rd" - should be "17 Station Road" in full (branches.json, matches every generated page).
 - A SEPARATE, CORRECT trust-bar footer block already exists on the same pages, reading "Fishlocks Chemist - two local NHS pharmacies in Ainsdale & Eccleston" with the Ainsdale street given correctly in full - do not "fix" that block, it is already right. Check which block wins once the wrong contact block above is corrected.
+- Homepage "Our Services Include" list, Blood Testing bullet, reads "Get fast results for your blood tests - when was the last time you had yours checked?" with an en dash before "when" - should be a full stop, matching the Q7 fix (split at a full stop, no dash). This homepage has no site-wide footer hours clause (the shared trust-bar footer above is the only footer block, and it carries no en dash). Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### Fishlocks Chemist Eccleston (`fishlocks_eccleston`)
 
@@ -131,6 +136,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - Weebly contact block heads its Eccleston column "Fishlock Pharmacy, Eccleston, Chorley" - should be "Fishlocks Chemist" (or "Fishlocks Pharmacy"), matching the Ainsdale column's own correction.
 - The shared legal line "Fishlock Chemist (GPhC no. 1121085 and 1034673)" covers both branches - fix once, fixes both.
+- Shares the one homepage with Ainsdale, so the Blood Testing bullet's en dash noted under fishlocks_ainsdale above covers both branches - fix once, fixes both.
 
 ### Clear Chemist (`clearchemist_aintree`)
 
@@ -162,7 +168,9 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 | General email | Smartts@rbhealth.co.uk |
 | Website | https://www.smarttschemist.co.uk |
 
-**Not yet read for furniture faults on this audit. Verify every value above (trading name, street, postcode, phone, NHS mailbox) against the live site's contact block and footer during the sweep, the same three fault kinds found elsewhere: a wrong or abbreviated trading name, an abbreviated street, and a mistyped address or mailbox.**
+**Known live faults (smarttschemist.co.uk, source item 5.1, twenty-second pass (full-estate sweep)):**
+
+- Homepage Blood Testing bullet ("Blood Testing: Fast results for your blood tests - when was the last time you had yours checked?") and the site-wide footer's opening-hours clause ("Open Mon-Fri 9am-6pm, Sat & Sun closed") both carry the pre-Q7 en dash - should be a full stop and plain hyphens respectively, matching the Q7 fix. Confirmed live 2026-10-20.
 
 ### Hirshmans Chemist (`hirshmans_ainsdale`)
 
@@ -187,6 +195,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 - The locality is printed across two lines as "Ainsdale" then "Southport" - not factually wrong (Southport is the correct Royal Mail post town for PR8 3HW) but inconsistent with the single source of truth, which holds addressLocality "Ainsdale" only. Pick one rendering and use it everywhere on the page.
 - The OLD (pre-replacement) Pharmacy First page for this branch (pharmacy-first-service-ainsdale.html) is a separate, worse case: its own contact section prints the phone as "017014577376" (12 digits, does not dial at all) and the street as "64 Station Road" (wrong number - should be "17 Station Road"). This page is no longer Post A's target after the 2026-09-14 repoint, so it is now orphaned rather than a hard stop, but it is still live and indexed and should be corrected or retired in the same sweep.
 - The same nhs.net-instead-of-general-email pattern was also found on this branch's OLD site-wide footer block, appearing on the old Pharmacy First page, switch page, travel page and weight loss page alike - fixing the footer element once should clear all of them, but check each page after the fix rather than assuming.
+- Homepage Blood Testing bullet and the site-wide footer's opening-hours clause ("Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun closed") both still carry the pre-Q7 en dash - this is the finding this item's twentieth quality pass (2026-10-14) first identified on this site, reconfirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### SK Chemists (`skchemists_bootle`)
 
@@ -205,6 +214,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 **Known live faults (skchemist.co.uk, source Q39 (addendum, item 4.11 eighteenth pass)):**
 
 - contactus.html's Feedback/Complaints paragraph is missing its phone number entirely: "...give us a call on and speak to our pharmacist manager." - insert the branch phone, 0151 944 1013, before "and speak". Confirmed by screenshot and accessibility tree, not a text-extraction artefact - genuinely absent from the page.
+- Homepage Blood Testing bullet ("Get fast results for your blood tests - when was the last time you had yours checked?") and the site-wide footer's opening-hours clause ("Open Mon-Fri 9am-6pm, Sat & Sun closed") both still carry the pre-Q7 en dash - should be a full stop and plain hyphens respectively, matching the Q7 fix. Confirmed live 2026-10-20 (item 5.1, full-estate sweep), same pattern as Riddings and Tiffenbergs.
 
 ### Coleman and Leighs Pharmacy (`colemanleigh_liverpool`)
 
@@ -220,7 +230,9 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 | General email | Colemans@rbhealth.co.uk |
 | Website | https://www.colemanandleighspharmacy.co.uk |
 
-**Not yet read for furniture faults on this audit. Verify every value above (trading name, street, postcode, phone, NHS mailbox) against the live site's contact block and footer during the sweep, the same three fault kinds found elsewhere: a wrong or abbreviated trading name, an abbreviated street, and a mistyped address or mailbox.**
+**Known live faults (colemanandleighspharmacy.co.uk, source item 5.1, twenty-second pass (full-estate sweep)):**
+
+- Homepage Blood Testing bullet ("Blood Testing: Fast results for your blood tests - when was the last time you had yours checked?") and the site-wide footer's opening-hours clause ("Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed") both carry the pre-Q7 en dash - should be a full stop and plain hyphens respectively, matching the Q7 fix. The same footer line also still reads "Coleman & Leigh Pharmacy" (the pre-Q1 trading name, ampersand and singular "Leigh") rather than "Coleman and Leighs Pharmacy" - a separate, already-known brand-spelling issue, flagged here only for visibility, not actioned by this entry. Confirmed live 2026-10-20.
 
 ### Riddings Pharmacy (`riddings_timperley`)
 
@@ -240,6 +252,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 
 - The contact block reads "Timperley, Cheshire" - branches.json holds addressRegion "Greater Manchester". Same open county question as Scorah (Q43's reasoning was partly anchored on this branch too - Rishi's reply named "Timperly and Bramhall" together) - check Q43 before changing.
 - This branch's switch page is still sitting on a pre-Phase-3 paste more broadly: the live page is at the old permalink switch-prescriptions.html rather than the branch-specific URL, its H1 carries no town words, it shows a "Download our app" block despite this branch's hasApp being false, and its footer line still uses en dashes instead of the corrected copy. This is a stale-paste issue rather than a hand-typed value error, but it sits on the same page and is worth clearing in the same visit.
+- The homepage's own Blood Testing bullet carries the same pre-Q7 en dash ("Get fast results for your blood tests - when was the last time you had yours checked?") - the specific line, not named in this entry before. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ### Gordon Short Chemist (`gordonshorts_crosby`)
 
@@ -255,7 +268,9 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 | General email | Shorts@rbhealth.co.uk |
 | Website | https://www.gordonshortchemist.co.uk |
 
-**Not yet read for furniture faults on this audit. Verify every value above (trading name, street, postcode, phone, NHS mailbox) against the live site's contact block and footer during the sweep, the same three fault kinds found elsewhere: a wrong or abbreviated trading name, an abbreviated street, and a mistyped address or mailbox.**
+**Known live faults (gordonshortchemist.co.uk, source item 5.1, twenty-second pass (full-estate sweep)):**
+
+- Homepage Blood Testing bullet ("Blood Testing: Fast results for your blood tests - when was the last time you had yours checked?") and the site-wide footer's opening-hours clause ("Open Mon-Fri 9am-6pm (closed 1-2pm), Sat 9am-5pm (closed 1-2pm), Sun closed") both carry the pre-Q7 en dash - should be a full stop and plain hyphens respectively, matching the Q7 fix. Confirmed live 2026-10-20.
 
 ### Cherry Lane Pharmacy (`cherrylane_liverpool`)
 
@@ -274,6 +289,7 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 **Known live faults (cherrylanepharmacy.co.uk, source Q36):**
 
 - Site footer publishes the NHS mailbox as "pharmacy.FA226@mhs.net" (m instead of n) - should read "pharmacy.FA226@nhs.net". Confirmed live on at least five pages as of 2026-09-15: contraception-cherry-lane-walton.html, switch-prescriptions-cherry-lane-walton.html, pharmacy-first-cherry-lane-walton.html, weight-loss-clinic-walton.html (legacy stub) and weight-loss-clinic-cherry-lane-walton.html (current generated page). A 2026-08-11 hand-fix on index.html and contact-us.html removed the NHS mailbox from the footer entirely rather than correcting it (those two pages now show only Cherry@rbhealth.co.uk, no NHS mailbox at all) - make every page consistent by publishing the correct NHS mailbox, not by removing it.
+- Site-wide footer strip reads "Open Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed" with en dashes joining the day range and each time range - should be plain hyphens, matching the Q7 fix already applied to the generated pages and paste sheets. Confirmed live 2026-10-20 (item 5.1, full-estate sweep). The homepage's own "Blood Testing" services bullet, by contrast, has already been re-pasted correctly on this site ("Obtain fast results for your blood tests. When was the last time you had yours checked?", split at a full stop, no dash) - do not re-introduce the en dash there.
 
 ### Tiffenbergs Chemist (`tiffenbergs_longmoor`)
 
@@ -289,11 +305,13 @@ Correct values (from branches.json, lastUpdated 2026-10-11):
 | General email | Tiffenberg@rbhealth.co.uk |
 | Website | https://www.tiffenbergschemist.co.uk |
 
-**Not yet read for furniture faults on this audit. Verify every value above (trading name, street, postcode, phone, NHS mailbox) against the live site's contact block and footer during the sweep, the same three fault kinds found elsewhere: a wrong or abbreviated trading name, an abbreviated street, and a mistyped address or mailbox.**
+**Known live faults (tiffenbergschemist.co.uk, source item 5.1, twenty-second pass (full-estate sweep)):**
+
+- Homepage Blood Testing bullet ("Blood Testing: Fast results for your blood tests - when was the last time you had yours checked?") and the site-wide footer's opening-hours clause ("Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed") both carry the pre-Q7 en dash - this is the finding this item's twentieth quality pass (2026-10-14) first identified on this site but never added to this checklist. Confirmed live 2026-10-20 (item 5.1, full-estate sweep).
 
 ---
 
-## Sites confirmed with at least one live furniture fault: 10 of 15 trading branches
+## Sites confirmed with at least one live furniture fault: 14 of 15 trading branches
 
 Grouped by shared website, that is 7 distinct sites with a confirmed fault (cherrylanepharmacy.co.uk, fishlockpharmacy.co.uk, mccannspharmacy.co.uk, skchemist.co.uk, hirshmanspharmacy.co.uk, scorah-chemists.co.uk, and the Riddings Timperley site) against an estate of around 14 distinct sites (several branches share a domain). The remaining sites - Clear Chemist Aintree, Smartts Chemist Bootle, Coleman and Leighs Pharmacy Walton, Gordon Short Chemist Crosby and Tiffenbergs Chemist Longmoor - have not yet had their contact block and footer read specifically for this fault family (separate, already-tracked findings exist for some of them on other subjects, such as stale trading-name pastes on generated pages, which is a different class of fault to the hand-typed furniture this checklist covers).
 

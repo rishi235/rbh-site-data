@@ -36753,6 +36753,134 @@ answered-question backlog found this pass. No generator, page, pack,
 checker or branches.json content changed. Full detail in
 audits/item-5.1-live-endash-sweep-2026-10-14-twentieth.txt.
 
+Quality pass 2026-10-20 (twenty-second, run 348). UNATTENDED SCHEDULED RUN.
+Rotation pool re-derived by the established method (maximum YYYY-MM-DD date
+mentioned inside each completed item's own block, seven standing one-offs
+- 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - and all [BLOCKED] items excluded): with
+run 347 moving 3.13 to 2026-10-20, the pool narrowed to 3.10 and 5.1, both
+last-dated 2026-10-14. 3.10 had 36 of 37 checkers already proven by
+injection against its branch (only check-cdn-pins.js, network-dependent,
+left), while 5.1's own twentieth pass (2026-10-14) had named a concrete
+unfinished angle - extending the live en-dash sweep from 3 of 14 trading
+Weebly sites to the rest of the estate. Picked 5.1 for the richer, named
+next step rather than 3.10's exhausted checker list.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, navigated
+to https://data.rbhealth.co.uk/api/feedback and read the full feed fresh -
+newest entry still the Q52 answer, 2026-09-01T22:44:51Z, unchanged for
+seven-plus weeks; cross-checked against the 52 currently open question ids
+(Q77-Q130, matching run 347's own list) - no overlap, nothing new to apply.
+No "Standing authorisation - autonomous window" section at the top of
+AGENT_LOG.md, so step 4 did not apply.
+
+LIVE SWEEP: read all 8 of the remaining 11 trading-branch Weebly domains
+not yet checked by the twentieth pass (Scorah, both branches, one domain;
+McCanns, both branches, one domain; Fishlocks, both branches, one domain;
+Smartts; SK Chemists; Coleman and Leighs; Gordon Short; Cherry Lane) via
+Claude in Chrome, read-only, homepage only, nothing clicked, typed or
+submitted. Also re-read Tiffenbergs, Riddings and Hirshmans (the three the
+twentieth pass already covered) to get exact, current quotes for the
+checklist rather than relying on six-day-old paraphrase. Full finding, by
+site:
+- The "Blood Testing" services bullet's en dash (the twentieth pass's
+  first-found location) is confirmed LIVE on 8 of the 14 trading sites:
+  the original three (Riddings, Tiffenbergs, Hirshmans) plus Fishlocks
+  (shared homepage, both branches), Smartts, SK Chemists, Coleman and
+  Leighs, and Gordon Short. It does NOT apply to Scorah or McCanns, whose
+  homepages run an older template with no "Our Services Include" bullet
+  list at all. It has ALREADY BEEN FIXED on Cherry Lane - its Blood
+  Testing line now reads "Obtain fast results for your blood tests. When
+  was the last time you had yours checked?", split at a full stop exactly
+  as Q7 prescribed, confirmed live this pass - so Cherry Lane is not a
+  defect here and must not be "corrected" back toward a dash.
+- The site-wide footer's "Open Mon-Fri 9am-6pm..." opening-hours clause
+  (the twentieth pass's second-found location) is confirmed LIVE on 6 of
+  the 14 sites with that footer variant: Scorah (shared), Smartts, SK
+  Chemists, Coleman and Leighs, Gordon Short, Cherry Lane, plus the
+  original three - 9 of 14 total. McCanns and Fishlocks run a DIFFERENT
+  footer variant with no hours clause at all, so this specific string
+  does not apply to them.
+- NEW third location, not identified by the twentieth pass because neither
+  of the three sites it read carries this page element: McCanns' own
+  "Opening Hours" contact-page block, on BOTH branches (Aigburth and
+  Sandringham, one shared page), uses spaced en dashes throughout every
+  day's time range - twelve dashes across the two branches' blocks. This
+  is a different Weebly element from either of the two already-tracked
+  locations (not the switch-page copy or the generated-page footer that
+  Q7/5.1's original fix covered, and not the homepage bullet or trust-bar
+  footer the twentieth pass found), so it had never been read for this
+  fault before.
+- Fishlocks' own main "Opening Hours" block, by contrast, already uses
+  plain hyphens ("9:00am - 6:00pm") - checked as a negative control, not a
+  defect.
+
+In-repo action taken, consistent with Q39's already-answered decision (one
+supervised Weebly session, working from a per-site checklist this repo
+generates) and this item's own established practice of recording a live
+finding without attempting a live edit (browser read-only; this worker
+cannot paste into Weebly): tools/build-weebly-furniture-checklist.js's
+KNOWN_FINDINGS extended with a sourced entry for every branch above -
+appended to the nine existing entries that already covered other faults
+(cherrylane_liverpool, fishlocks_ainsdale, fishlocks_eccleston,
+mccanns_aigburth, mccanns_sandringham, skchemists_bootle,
+hirshmans_ainsdale, scorah_bramhall, scorah_hazel, riddings_timperley) and
+four brand-new entries added for branches this checklist had never
+mentioned at all (smartts_bootle, colemanleigh_liverpool,
+gordonshorts_crosby, tiffenbergs_longmoor), each dated and sourced to this
+pass. WEEBLY_FURNITURE_CHECKLIST.md regenerated from the updated generator:
+"15 branches, 14 with confirmed findings" (up from 10 with confirmed
+findings before this pass; only Clear Chemist Aintree, which runs no
+Weebly site, remains without one).
+
+CORRECTION MADE MID-PASS: the first draft of these checklist entries
+quoted each live sentence verbatim, including the actual en dash
+character, to show exactly what a paster should search for. That tripped
+check-em-dashes.js, which holds this checklist file to the same
+ASCII-only rule as every paste sheet and GBP pack, with 13 failures - the
+checker cannot distinguish "quoting a live fault as evidence" from
+"introducing one", and this repo's own established convention (the
+quoted-as-evidence exemption in check-brand-spelling.js, the
+parenthetical-as-history exemption in check-gbp-packs.js) is to describe a
+live fault in words rather than reproduce the character, which is exactly
+how this item's own pre-existing riddings_timperley entry was already
+written ("its footer line still uses en dashes instead of the corrected
+copy"). Rewrote every new and extended entry to the same convention -
+every live quote now uses a plain hyphen with the sentence stating in
+words that the live site shows an en dash instead - then regenerated and
+re-ran the full suite: 35/35 clean (excl. check-cdn-pins.js and
+check-live-hours.js, both network-dependent). No widening of the checker;
+the checklist's wording changed, not the rule.
+
+VERIFICATION: branches.json confirmed byte-unchanged throughout (sha256
+7ba2569b...25ffef1, matching run 347's own recorded value); git status
+--porcelain on branches.json/tools/modules/core/gbp-packs showed only
+WEEBLY_FURNITURE_CHECKLIST.md and tools/build-weebly-furniture-checklist.js
+touched, the long-standing pre-existing untracked sandbox debris aside. No
+generator other than the checklist's own, no page, no pack and no
+branches.json content changed - this is a documentation-only, in-repo
+change recording live findings for the not-yet-performed Q39 session.
+
+RESULT: no new in-repo defect in a checker or a generated page. The
+previously latent gap was that this checklist - the artefact the Weebly
+sweep is meant to be worked from - was silent on the Q7/5.1 en-dash fault
+for 11 of the 14 trading sites and silent entirely on four of them. It is
+now sourced and dated for all 14. No new QUESTIONS.json entry: Q39 already
+settled the decision (do one supervised sweep from this checklist); this
+pass only makes the checklist match what a live reading actually shows,
+the same category of correction the twentieth pass itself made with no
+new question. WORKLIST (step 7): item 5.1 stays `[x]` (quality pass, not a
+state change). Full detail in
+audits/item-5.1-live-endash-sweep-2026-10-20-twentysecond.txt (to be
+written alongside this entry).
+
+FORWARD NOTE: the live Blood Testing and footer en-dash sweep is now
+complete across all 14 trading Weebly sites (9 with the footer clause, 8
+with the bullet, one new McCanns Opening Hours location, one already
+fixed at Cherry Lane). Any future pass on this item that wants a fresh
+angle should look elsewhere - e.g. the Services subpages (not yet read for
+this fault on any site) or the Prescriptions/Reviews/Contact Us subpages,
+none of which this pass or the twentieth pass opened.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

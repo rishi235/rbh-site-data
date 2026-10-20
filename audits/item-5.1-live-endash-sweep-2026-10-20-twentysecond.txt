@@ -1,0 +1,109 @@
+Item 5.1, twenty-second quality pass, 2026-10-20 (run 348)
+Full-estate extension of the twentieth pass's live en-dash sweep
+
+CONTEXT
+The twentieth pass (2026-10-14) read three of the fourteen trading Weebly
+sites live (riddingspharmacy.co.uk, tiffenbergschemist.co.uk,
+hirshmanspharmacy.co.uk) and found a live en dash in two places on all
+three: the homepage "Blood Testing" services bullet, and the site-wide
+footer's opening-hours clause. It explicitly left the other eleven sites
+unconfirmed. This pass reads all of them.
+
+METHOD
+Claude in Chrome, read-only, one tab reused sequentially, homepage only
+per site, nothing clicked, typed or submitted. Each site's get_page_text
+output captured below in summary; full raw text available in this run's
+tool-call transcript (not duplicated here to keep this file short).
+
+SITES READ THIS PASS (11, covering all 8 remaining Weebly domains)
+1. scorah-chemists.co.uk (Scorah Bramhall + Hazel Grove, shared domain)
+2. mccannspharmacy.co.uk (McCanns Aigburth + Sandringham, shared domain)
+3. fishlockpharmacy.co.uk (Fishlocks Ainsdale + Eccleston, shared domain)
+4. smarttschemist.co.uk
+5. skchemist.co.uk
+6. colemanandleighspharmacy.co.uk
+7. gordonshortchemist.co.uk
+8. cherrylanepharmacy.co.uk
+9. tiffenbergschemist.co.uk (re-read for a current exact quote)
+10. riddingspharmacy.co.uk (re-read for a current exact quote)
+11. hirshmanspharmacy.co.uk (re-read for a current exact quote)
+
+FINDINGS
+
+A) "Blood Testing" bullet en dash (homepage "Our Services Include" list)
+   Present (live en dash before "when"): Riddings, Tiffenbergs, Hirshmans,
+     Fishlocks (shared page, both branches), Smartts, SK Chemists,
+     Coleman and Leighs, Gordon Short. = 8 of 14 trading branches' pages
+     (counting Fishlocks' two branches and McCanns'/Scorah's lack of the
+     bullet correctly).
+   Not applicable: Scorah (Bramhall/Hazel Grove) and McCanns
+     (Aigburth/Sandringham) homepages run an older template with no
+     "Our Services Include" bullet list at all.
+   Already fixed, not a defect: Cherry Lane. Its Blood Testing line now
+     reads "Obtain fast results for your blood tests. When was the last
+     time you had yours checked?" - split at a full stop, exactly the Q7
+     remedy, confirmed live this pass. Do not re-touch this site.
+
+B) Site-wide footer "Open Mon-Fri 9am-6pm..." opening-hours clause
+   Present (live en dashes joining the day range and each time range):
+     Riddings, Tiffenbergs, Hirshmans, Scorah (shared footer, both
+     branches), Smartts, SK Chemists, Coleman and Leighs, Gordon Short,
+     Cherry Lane. = 9 of 14.
+   Not applicable: McCanns and Fishlocks run a different footer variant
+     (address + phone + "Switch your prescriptions" only, no hours
+     clause), so this specific string does not appear on either.
+
+C) NEW location, not read by the twentieth pass: McCanns' own
+   "Opening Hours" contact-page block (both Aigburth and Sandringham,
+   same shared page) uses spaced en dashes throughout every day's time
+   range, e.g. "Monday 9am [en dash] 1pm, 2pm [en dash] 6pm" - twelve
+   dashes total across the two branches' blocks. Different Weebly
+   element from either A or B above.
+
+NEGATIVE CONTROL
+Fishlocks' own main "Opening Hours" block already uses plain hyphens
+("9:00am - 6:00pm") throughout - checked and confirmed clean, not a
+defect, included here so the next pass does not re-check it.
+
+IN-REPO ACTION
+tools/build-weebly-furniture-checklist.js KNOWN_FINDINGS extended: nine
+existing branch entries got an appended item for A/B/C as applicable;
+four branches with no prior entry (smartts_bootle, colemanleigh_liverpool,
+gordonshorts_crosby, tiffenbergs_longmoor) got a brand-new entry.
+WEEBLY_FURNITURE_CHECKLIST.md regenerated: 15 branches, 14 with confirmed
+findings (up from 10).
+
+CORRECTION MID-PASS
+First draft of the new entries quoted the live sentences with the actual
+en dash character. check-em-dashes.js correctly failed on this (13
+failures, the checklist file is in its scanned set and held to the same
+ASCII-only rule as every paste sheet and GBP pack). Rewrote every new/
+extended entry to describe the live en dash in words while quoting the
+sentence with a plain hyphen, matching the convention this item's own
+pre-existing riddings_timperley entry already used. Re-ran the full
+35-checker suite (excl. check-cdn-pins.js, check-live-hours.js, both
+network-dependent): 35/35 clean.
+
+VERIFICATION
+branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+unchanged before and after (matches run 347's recorded value). git status
+--porcelain on branches.json/tools/modules/core/gbp-packs showed only
+WEEBLY_FURNITURE_CHECKLIST.md and tools/build-weebly-furniture-checklist.js
+touched, pre-existing untracked sandbox debris aside.
+
+RESULT
+No new in-repo defect in any checker, generator or generated page. The
+checklist itself - the artefact Q39's answered decision says the eventual
+Weebly sweep will be worked from - was silent on this fault for 11 of 14
+sites and entirely silent on 4 of them; it now carries a sourced, dated
+entry for all 14. No new QUESTIONS.json entry: Q39 already settled what to
+do about this class of finding (one supervised sweep from this checklist);
+this pass only brings the checklist's content up to date with what a live
+reading shows, the same category of correction the twentieth pass itself
+made without raising a new question.
+
+FORWARD NOTE
+The Blood Testing / footer / McCanns Opening Hours sweep is now complete
+across all 14 trading Weebly sites. A future pass on this item wanting a
+fresh angle should look at the Services, Prescriptions, Reviews or Contact
+Us subpages, none of which this pass or the twentieth pass opened.

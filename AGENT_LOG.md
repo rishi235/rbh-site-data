@@ -1,3 +1,113 @@
+## Run 348 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount for reads/edits/node checker
+runs; Windows-MCP PowerShell on the native host for the git-plumbing steps
+that needed it.
+
+LOCK: .agent-lock absent at pickup (run 347 released it cleanly). Created a
+fresh one. HEAD at pickup matched origin exactly (fee26b1, run 347's own
+commit) - `git fetch`/`git pull --ff-only` from the sandbox confirmed
+"Already up to date".
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, navigated
+to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest
+entry still Q52 (2026-09-01T22:44:51.524Z), unchanged for seven-plus weeks,
+matching run 347 exactly. Checked against all 52 currently open question
+ids (Q77-Q130) - no overlap. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66),
+matching run 347. Quality pass taken. Rotation pool re-derived (maximum
+date mentioned inside each completed item's own AGENT_WORKLIST.md block,
+seven standing one-offs - 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - excluded):
+with 3.13 now dated 2026-10-20 by run 347, the pool narrowed to 3.10 and
+5.1, both last-dated 2026-10-14. Checked each candidate's state before
+picking: 3.10 had 36 of 37 checkers already proven by injection against
+its branch (only check-cdn-pins.js, network-dependent, left); 5.1's own
+twentieth pass (2026-10-14) had named a concrete unfinished next step -
+its live en-dash sweep had covered only 3 of 14 trading Weebly sites.
+Picked 5.1 for the richer, already-named angle over 3.10's exhausted
+checker list.
+
+ITEM 5.1 QUALITY PASS (twenty-second): extended the twentieth pass's live
+en-dash sweep to the remaining 11 trading Weebly sites (8 domains: Scorah,
+McCanns, Fishlocks shared domains plus Smartts, SK Chemists, Coleman and
+Leighs, Gordon Short, Cherry Lane), via Claude in Chrome, read-only,
+homepage only, nothing clicked, typed or submitted. Also re-read the
+original three (Riddings, Tiffenbergs, Hirshmans) for current exact
+quotes.
+
+FINDINGS: the "Blood Testing" bullet en dash is live on 8 of 14 trading
+sites (the original three plus Fishlocks, Smartts, SK Chemists, Coleman
+and Leighs, Gordon Short) - not applicable to Scorah/McCanns (older
+template, no bullet list), and ALREADY FIXED on Cherry Lane (now reads
+"Obtain fast results for your blood tests. When was the last time you had
+yours checked?", split at a full stop per Q7 - not a defect, do not
+re-touch). The footer "Open Mon-Fri..." hours clause en dash is live on 9
+of 14 (the original three plus Scorah, Smartts, SK Chemists, Coleman and
+Leighs, Gordon Short, Cherry Lane) - not applicable to McCanns/Fishlocks
+(different footer variant, no hours clause). NEW third location the
+twentieth pass never saw: McCanns' own "Opening Hours" contact-page block
+(both branches) uses spaced en dashes throughout every time range, twelve
+dashes total - a different Weebly element from the other two. Negative
+control: Fishlocks' main Opening Hours block already uses plain hyphens,
+confirmed clean.
+
+IN-REPO ACTION: extended tools/build-weebly-furniture-checklist.js's
+KNOWN_FINDINGS - appended a sourced item to the nine existing branch
+entries where applicable, and added four brand-new entries
+(smartts_bootle, colemanleigh_liverpool, gordonshorts_crosby,
+tiffenbergs_longmoor) that this checklist had never covered at all.
+Regenerated WEEBLY_FURNITURE_CHECKLIST.md: 15 branches, 14 with confirmed
+findings (up from 10).
+
+CORRECTION MID-PASS: first draft quoted the live sentences with the
+actual en dash character, which check-em-dashes.js correctly failed (13
+failures) - this checklist file is in its scanned set and held to the
+same ASCII-only rule as every paste sheet and GBP pack, and cannot
+distinguish quoting a fault as evidence from introducing one. Rewrote
+every new/extended entry to describe the en dash in words while quoting
+the sentence with a plain hyphen, matching this item's own pre-existing
+riddings_timperley entry's established convention. Regenerated and re-ran
+the full 35-checker suite (excl. check-cdn-pins.js/check-live-hours.js,
+both network-dependent): 35/35 clean. No widening of the checker - the
+checklist's wording changed, not the rule.
+
+VERIFICATION: branches.json sha256 unchanged throughout
+(7ba2569b...25ffef1, matches run 347's recorded value). git status
+--porcelain on branches.json/tools/modules/core/gbp-packs showed only
+WEEBLY_FURNITURE_CHECKLIST.md and tools/build-weebly-furniture-checklist.js
+touched, pre-existing untracked sandbox debris aside. No generator other
+than the checklist's own, no page, no pack and no branches.json content
+changed. No new QUESTIONS.json entry: Q39 already settled the decision
+(one supervised sweep from this checklist); this pass brings the
+checklist up to date with what a live reading shows, the same category of
+correction the twentieth pass itself made with no new question. Full
+detail in audits/item-5.1-live-endash-sweep-2026-10-20-twentysecond.txt.
+
+WORKLIST (step 7): item 5.1 stays [x] (quality pass, not a state change) -
+addendum appended in place in AGENT_WORKLIST.md, same convention as every
+prior quality pass on this item.
+
+GIT PLUMBING NOTE: the sandbox mount's standing FUSE EPERM-on-unlink quirk
+(seen in runs 342-348's logs) recurred on every `git status`/`git add`
+call from the sandbox side after regenerating the checklist - each left a
+fresh `.git/index.lock` the sandbox could not remove. Cleared twice via
+Windows-MCP `Remove-Item -Force` on the native host (no git process
+running either time, confirmed via Get-Process first); `git add`,
+`git commit` and `git push` for this run's two changed files were run
+directly via Windows-MCP PowerShell on the native host to avoid the
+pattern recurring mid-commit.
+
+NEXT: with 5.1 touched again today, re-derive the rotation pool fresh next
+run. This item's own forward note: the Blood Testing/footer/McCanns-hours
+sweep is now complete across all 14 trading sites; a future fresh angle on
+this item would be the Services, Prescriptions, Reviews or Contact Us
+subpages, not yet opened by this or the twentieth pass.
+
 ## Run 347 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount for reads/edits/node checker
