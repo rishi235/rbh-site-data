@@ -1,3 +1,91 @@
+## Run 345 - 2026-10-20
+
+Unattended scheduled run. Cowork sandbox mount (C:\Dev\rbh-site-data) for
+reads and text edits; Windows-MCP PowerShell on the native host for all git
+plumbing and lock clearing, per run 344's convention - the sandbox mount's
+standing FUSE EPERM-on-unlink quirk was hit again this run (an ORIG_HEAD.lock
+left from an earlier interrupted pull, and later the sandbox's own transient
+index.lock from a `git status` call, neither deletable from that side) and
+both cleared cleanly from the native host instead, confirming the quirk is
+sandbox-mount-specific, not a real git problem.
+
+LOCK: .agent-lock present at pickup, stamped 2026-10-20T06:42:38Z (same
+timestamp on both the sandbox path and the native host path, confirming the
+two are the same underlying files, not separate copies), under a minute old
+at the time - not stale, written by this run's own pickup check; proceeded.
+Local HEAD at e8303a3 (run 344's commit), matching origin exactly, confirmed
+both via the sandbox and via PowerShell.
+
+ANSWER PICKUP (step 3): via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+Access session held. Newest entry still Q52 (2026-09-01T22:44:51.524Z),
+unchanged for seven-plus weeks. Checked every open question id (Q77-Q130, 52
+open) against the feed - no overlap. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed [BLOCKED] by direct grep
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66),
+matching runs 343 and 344. Quality pass taken. Rotation pool re-derived from
+scratch by parsing every "Quality pass YYYY-MM-DD" / "Done YYYY-MM-DD" /
+bare-date mention in each item's own block (not just the first pattern, which
+undercounted 3.9 and 4.11 by missing prose-only date mentions like "run 254,
+2026-10-17" - corrected by taking the max of ALL YYYY-MM-DD substrings per
+block instead) and excluding the seven standing one-offs (1.1, 1.4, 2.2, 5.6,
+5.7, 6.7, 6.8) and all [BLOCKED] items. Confirmed the same tied-oldest pool
+runs 343/344 found, now narrowed by their own and run 340's picks (4.2, 4.13
+and 3.6 all now dated 2026-10-20): 3.2, 3.7, 3.10, 3.13 and 5.1 remain tied at
+2026-10-14. Picked 3.7 (Smartts Chemist Bootle).
+
+ITEM 3.7 QUALITY PASS: fresh angle, tools/check-weebly-furniture-freshness.js,
+confirmed never named or run against this item in any prior pass by grepping
+the item's own block for check-*.js filenames (36 of 37 already mentioned,
+this one wasn't). Note for whoever picks this item next: the twenty-third
+pass's own "natural next candidate", check-pharmacy-first-eligibility.js, is
+named in that pass's prose but was not actually run by injection there -
+still a genuinely open angle, not closed by this run.
+
+Isolated scratch copy via `git archive HEAD --format=tar`, extracted outside
+the tracked repo (sandbox path, since the native host's git plumbing was
+needed only for the final commit/push). Tracked repo's branches.json
+confirmed byte-identical to baseline (sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1) before,
+during and after, and `git status` on the tracked repo stayed clean
+throughout - the tracked repo was never opened for writing during the
+injection.
+
+Control run on the clean scratch copy: clean, WEEBLY_FURNITURE_CHECKLIST.md
+byte-identical to what a fresh build would produce. Injection: smartts_bootle's
+phone changed in the scratch branches.json from "0151 922 4984" to
+"0151 922 9999", WEEBLY_FURNITURE_CHECKLIST.md left deliberately untouched -
+CAUGHT on the first and only finding, naming Smartts Chemist (smartts_bootle)
+specifically and quoting both the stale checked-in value and the fresh-build
+value. Restored by direct overwrite from the pristine git-archive extraction;
+sha256 reconfirmed identical to baseline on both the scratch copy and the
+tracked repo throughout.
+
+RESULT: no in-repo defect found. check-weebly-furniture-freshness.js already
+protects this branch's row in the furniture checklist correctly; this proves
+it directly by injection for Smartts specifically, rather than relying only on
+the estate-wide proof already recorded under item 5.1 (Scorah Bramhall).
+
+FULL SUITE: all 35 non-network check-*.js checkers (excluding
+check-cdn-pins.js, which fails on any .git-less archive extraction, and
+check-live-hours.js, network-dependent) run read-only against the tracked
+repo at HEAD. All clean.
+
+Evidence:
+audits/smartts-item-3.7-weebly-furniture-freshness-injection-2026-10-20.txt.
+
+QUESTIONS: none raised this run.
+
+NEXT: 3.2, 3.10, 3.13 and 5.1 remain tied stalest in the rotation pool - any
+is a reasonable next pick. The sandbox working tree still carries the
+untracked probe/test/quarantine debris noted in run 344 as a future
+housekeeping candidate; left untouched again this run, out of scope for a
+single-item pass.
+
 ## Run 344 - 2026-10-20
 
 Unattended scheduled run, real host checkout (C:\Dev\rbh-site-data) via

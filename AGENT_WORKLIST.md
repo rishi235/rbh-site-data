@@ -10730,6 +10730,41 @@ holds a pharmacyFirst widget and this checker has never been proven against
 Smartts by injection in any prior pass. Full detail in
 audits/smartts-item-3.7-quality-pass-2026-10-14-twentythird.txt.
 Done 2026-10-14 (twenty-third pass).
+      Quality pass 2026-10-20 (twenty-fourth, unattended scheduled run): fresh
+      angle, tools/check-weebly-furniture-freshness.js, never named or run
+      against this item in any prior pass (confirmed by grepping this item's
+      own block for check-*.js filenames: 36 of 37 checkers had been
+      mentioned, this one had not). Note that the twenty-third pass's own
+      "natural next candidate", check-pharmacy-first-eligibility.js, was
+      named in that pass's text but not actually run by injection there -
+      still open for a future pass.
+      Isolated scratch copy via git archive HEAD, extracted outside the
+      tracked repo; tracked repo's branches.json confirmed byte-identical to
+      baseline (sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c
+      39b325ffef1) before, during and after, and git status on the tracked
+      repo stayed clean throughout. Control run on the clean scratch copy:
+      clean, WEEBLY_FURNITURE_CHECKLIST.md byte-identical to a fresh build.
+      Injection: smartts_bootle's phone changed in the scratch branches.json
+      from "0151 922 4984" to "0151 922 9999", WEEBLY_FURNITURE_CHECKLIST.md
+      left untouched - CAUGHT, naming Smartts Chemist (smartts_bootle)
+      specifically, quoting the stale checked-in value and the fresh-build
+      value. Restored by direct overwrite; sha256 reconfirmed identical to
+      baseline. No in-repo defect found - the checker already protects this
+      branch's row in the furniture checklist correctly, now proven directly
+      by injection rather than only by the estate-wide proof recorded under
+      item 5.1. Full 35-checker read-only suite (excluding check-cdn-pins.js,
+      git-less on any archive extraction, and check-live-hours.js,
+      network-dependent) also run clean against the tracked repo at HEAD.
+      ANSWER PICKUP: checked via Claude in Chrome against
+      https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+      Access session held - newest entry still Q52 (2026-09-01T22:44:51.524Z),
+      unchanged for seven-plus weeks. All 52 currently open questions
+      (Q77-Q130) checked against the feed, no overlap. Nothing new to apply.
+      No "Standing authorisation - autonomous window" section present at the
+      top of this file; step 4 does not apply. No new question raised.
+      Evidence:
+      audits/smartts-item-3.7-weebly-furniture-freshness-injection-2026-10-20.txt.
+      Done 2026-10-20 (twenty-fourth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

@@ -1,0 +1,34 @@
+item 3.7 (Smartts Chemist Bootle) quality pass, 2026-10-20 (unattended run)
+check-weebly-furniture-freshness.js proven for the first time against this item
+
+Baseline branches.json sha256 (tracked repo, unchanged throughout):
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+
+Scratch copy via git archive HEAD, extracted outside the tracked repo.
+Control run (clean) below, then injection run after.
+
+Injection: smartts_bootle's phone changed in the scratch branches.json
+from "0151 922 4984" to "0151 922 9999", WEEBLY_FURNITURE_CHECKLIST.md
+left untouched (the exact "branches.json moved on, checklist did not"
+scenario this checker exists for).
+
+=== CONTROL (before injection) ===
+check-weebly-furniture-freshness
+  16 branch(es) in branches.json (lastUpdated 2026-10-11)
+  WEEBLY_FURNITURE_CHECKLIST.md: 301 line(s) checked-in, 301 line(s) a fresh regeneration would produce
+
+check-weebly-furniture-freshness: clean, WEEBLY_FURNITURE_CHECKLIST.md is byte-identical to what tools/build-weebly-furniture-checklist.js would produce from the current branches.json.
+=== INJECTION (caught) ===
+check-weebly-furniture-freshness
+  16 branch(es) in branches.json (lastUpdated 2026-10-11)
+  WEEBLY_FURNITURE_CHECKLIST.md: 301 line(s) checked-in, 301 line(s) a fresh regeneration would produce
+
+FAILURES (1):
+  FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current branches.json (in Smartts Chemist (smartts_bootle)'s table):
+        first differs at line 160 (checked-in has 301 total lines, a fresh build would produce 301)
+        checked-in : | Phone | 0151 922 4984 |
+        fresh build: | Phone | 0151 922 9999 |
+
+Run node tools/build-weebly-furniture-checklist.js and commit the result. Do not
+hand-edit WEEBLY_FURNITURE_CHECKLIST.md - the whole point of this checker is that
+the paster's "Correct values" table has to actually be current, not merely present.
