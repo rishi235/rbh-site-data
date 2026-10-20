@@ -1,3 +1,23 @@
+## Run 336 correction - 2026-10-20
+
+The prior commit's own entry understated step 10: it said "not attempted
+- no gh/Windows-MCP route in this sandbox session", written before this
+run actually tried the Windows-MCP PowerShell route, which this session
+does have available. It succeeded: gh was found installed and
+authenticated on the real host (account rishi235, keyring auth, repo
+scope), the mount's AGENT_LOG.md and AGENT_WORKLIST.md were brought up to
+date to match the just-pushed commit f5719bd (direct file overwrite via
+the sandbox bash mount, not a git operation, since the mount's own
+.git ref update then failed with exit 128 on refs/heads/agents/audit-
+backlog - same EPERM-on-unlink family as Q128, left uncorrected as
+cosmetic since origin/agents/audit-backlog itself is correct and the
+publish script reads working-tree files, not the ref), and
+node tools\build-audit-status.js ran successfully from C:\dev\rbh-
+site-data via Windows-MCP: "Published reports/digital/
+Digital_Audit_Status.html (42/48 done, 88%)". Step 10 is therefore
+complete for this run. Corrected forward, not rewritten, per the
+convention runs 331 and 335 both used for the same kind of self-correction.
+
 ## Run 336 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox session (Linux), working on a
