@@ -1,3 +1,69 @@
+## Run 355 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 354 released it cleanly). Created a
+fresh one with a UTC timestamp.
+
+GIT SYNC (step 2): hit the same documented sandbox lock-debris pattern before
+sync would complete. `git fetch`/`checkout` initially failed two ways: a
+stale `.git/HEAD.lock` and `.git/index.lock` left from a prior aborted
+process (no git process running, confirmed via `ps aux`), and a corrupt
+remote-tracking ref `refs/remotes/origin/agents/audit-backlog.lock.aside-run354-1792494982`
+(a rename-aside artefact from run 354 that itself got left under
+`refs/remotes/origin/` instead of being moved out of the refs tree, so it
+resolved to a bad/missing object and `git fetch` failed with "did not send
+all necessary objects" until it was cleared). Cleared all four by rename-aside
+into `.git-lock-debris-quarantine/` (not deleted, same convention as prior
+runs), confirmed via `ps aux` that no legitimate git process was holding any
+of them first. `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` succeeded cleanly after that - "Already up to date" at
+HEAD `6e6b738` (run 354's own last commit).
+
+Note for whoever next looks at Q119-123/Q127-129: the rename-aside convention
+itself is now the thing generating fresh debris run over run (run 354's own
+cleanup left a ref-shaped lock file sitting inside `refs/remotes/origin/`
+rather than purely under the quarantine folder, which is what broke this
+run's fetch). Not raising a new question for this alone since Q119-121 already
+cover the general shape (aside-debris accumulating session over session) and
+widening that finding further would be repeating it rather than adding to it.
+
+ANSWER PICKUP (step 3): navigated to `https://data.rbhealth.co.uk/api/feedback`
+via Claude in Chrome - resolved to the Cloudflare Access sign-in page (RB
+Data Portal), same as every run since this was first logged. No text content
+returned, nothing typed or submitted, tab closed. Logged as unavailable per
+the task's own instruction not to try any other route.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at
+the top of this file. Does not apply this run.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 35 applicable `tools/check-*.js` scripts fresh
+against the current working tree (HEAD `6e6b738`), excluding the two
+network-dependent ones (`check-cdn-pins.js`, `check-live-hours.js`). Result:
+35/35 exit 0, no new defect. Ninth consecutive run (302, 347-354) to
+independently reconfirm this same pool clean. Not repeating a deeper
+per-item injection pass this run, same diminishing-value reasoning runs
+349-354 gave.
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 354. Q127 (live
+GitHub Personal Access Token in cleartext in this working copy's
+`.git/config` / `origin` remote URL) checked again this run via `git remote
+-v` with the credential redacted before it was ever printed to any log or
+terminal output - still present, still unrotated. Not touching it, not
+quoting it, not committing anything from `.git/config`. Standing
+recommendation unchanged: rotate the token and move to a credential helper
+or short-lived token, and have Rishi confirm whether this schedule should
+keep running unattended while the worklist has been fully blocked since run
+193 and the token exposure since run (Q127's origin). No new work item was
+available to action this run.
+
+RESULT: no-op. Worklist unchanged (8/8 blocked). Checkers clean (35/35).
+Q127 still open and unrotated.
+
 ## Run 354 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
