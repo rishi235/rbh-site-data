@@ -4852,6 +4852,32 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       already "answered". No in-repo or live defect, no new question.
       Evidence in audits/scorah-item-3.2-quality-pass-2026-10-14-
       twentythird.txt.
+      Item 3.2 quality pass (twenty-fourth, run 346, 2026-10-20): stalest
+      item in the rotation pool (tied with 3.10, 3.13, 5.1 at 2026-10-14;
+      3.7 picked by run 345 is now 2026-10-20 and dropped out). Fresh
+      angle: check-address-region.js, never named against this item before.
+      Three injection rounds on an isolated git-archive scratch copy, each
+      restored and sha256-reconfirmed before the next: (1) scorah_bramhall
+      seoTown changed to "Hazel Grove" - CAUGHT three ways (not in own
+      serviceAreaList, townSlug mismatch, same-domain seoTown collision
+      with scorah_hazel); (2) scorah_hazel addressRegion changed to the
+      borough "Stockport" - CAUGHT (must be a county); (3) CONTROL, benign
+      touch on fields this checker does not read - ran clean, no false
+      positive. Tracked repo confirmed untouched throughout (branches.json
+      sha256 identical before/during/after). check-seo-pattern.js re-run as
+      a sanity cross-check: 177 pages, 0 failures. Full 35-checker suite
+      clean. Finding, not a defect: CLAUDE.md's note that Scorah carries
+      the serviceAreaList cross-town excuse "both ways" is now stale -
+      scorah_bramhall's and scorah_hazel's serviceAreaList no longer
+      contain each other's seoTown, and the generated pages no longer name
+      the sister town in title/H1/description (Hazel Grove page names
+      Bramhall only in a "see also" link, outside the rule's scope).
+      Logged for Rishi's awareness; no CLAUDE.md edit made. Step 3 answer
+      pickup performed first: newest portal entry still Q52, unchanged
+      since 2026-09-01; no overlap with the 52 open questions (Q77-Q130).
+      No in-repo or live defect, no new question. Guard coverage for item
+      3.2 now 24 of 36 checkers proven by direct injection. Evidence in
+      audits/scorah-item-3.2-quality-pass-2026-10-20-twentyfourth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

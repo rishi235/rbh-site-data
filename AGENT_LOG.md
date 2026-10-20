@@ -1,3 +1,93 @@
+## Run 346 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount throughout (bash tool against
+/sessions/.../mnt/rbh-site-data); no FUSE EPERM-on-unlink quirk hit this run,
+lock file and all git operations (fetch/checkout/pull/add/commit/push)
+completed cleanly from the sandbox side without needing the native-host
+PowerShell fallback runs 344/345 used.
+
+LOCK: no .agent-lock present at pickup. Created one stamped
+2026-10-20T07:12:58Z. Local HEAD matched origin exactly at e8303a3/0b81f2e
+(run 345's commit) before any work started.
+
+ANSWER PICKUP (step 3): via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+Access session held. Newest entry still Q52 (2026-09-01T22:44:51.524Z),
+unchanged for seven-plus weeks. Checked against all 52 open question ids
+(Q77-Q130) - no overlap. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines re-confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66),
+matching run 345. Quality pass taken. Rotation pool re-derived from scratch
+by the same max-date-per-block method run 345 used (excluding the seven
+standing one-offs and all [BLOCKED] items): run 345's pick, 3.7, is now
+dated 2026-10-20 and dropped out, leaving 3.2, 3.10, 3.13 and 5.1 tied at
+2026-10-14. Picked 3.2 (Scorah Chemists, Bramhall and Hazel Grove), the
+lowest-numbered of the four.
+
+ITEM 3.2 QUALITY PASS: fresh angle, tools/check-address-region.js, confirmed
+never named against this item in any of its 23 prior passes by grepping the
+item's own block for check-*.js filenames.
+
+Isolated scratch copy via `git archive HEAD --format=tar`, extracted outside
+the tracked repo. Tracked repo's branches.json confirmed byte-identical to
+baseline (sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1) before,
+during and after; `git status` on the tracked repo showed no modification to
+any tracked file throughout - the tracked repo was never opened for writing
+during the injection.
+
+Control run on the clean scratch copy: clean, byte-identical warning set to
+the live run (2 standing warnings, neither touching Scorah).
+
+Three injection rounds, each restored and sha256-reconfirmed before the
+next: (1) scorah_bramhall.seoTown changed to "Hazel Grove" (not in its own
+serviceAreaList, collides with its sister's seoTown) - CAUGHT three ways in
+one run: not in own serviceAreaList, townSlug/seoTown slug mismatch, and a
+same-domain seoTown collision with scorah_hazel; (2) scorah_hazel.
+addressRegion changed to the borough "Stockport" - CAUGHT: addressRegion
+must be one of the four permitted counties, not a borough; (3) CONTROL, a
+benign no-op touch on scorah_hazel.phone/branchNumber, fields this checker
+does not read - ran clean, identical to the pre-injection control output,
+no false positive.
+
+RESULT: no in-repo defect. Cross-checked check-seo-pattern.js (already
+proven against this item) on the live tracked repo: 177 pages, 0 failures.
+Full 35-checker sweep run against the live tracked repo (excluding
+cdn-pins and live-hours, which need no fresh run today): 0 failures estate-
+wide, consistent with run 345.
+
+FINDING logged for Rishi's awareness, not a defect: CLAUDE.md's "The town
+rules are a pair" section states Scorah carries the serviceAreaList
+cross-town excuse "both ways". branches.json has since moved on -
+scorah_bramhall.serviceAreaList is now [Bramhall, Cheadle Hulme, Handforth,
+Poynton] and scorah_hazel.serviceAreaList is now [Hazel Grove, Offerton,
+Great Moor, Poynton], neither containing the other's seoTown any more.
+Checked the live generated pages directly: pharmacy-scorah-bramhall.html no
+longer mentions Hazel Grove anywhere; pharmacy-scorah-hazel-grove.html
+mentions Bramhall exactly once, in a "see also" link to the sister branch's
+own page, not in its title, H1 or meta description, so it is correctly
+outside check-seo-pattern.js's cross-town rule and is not a violation. The
+CLAUDE.md wording is simply stale against today's data; no CLAUDE.md edit
+made, since that file is project governance this run should log against,
+not rewrite on its own initiative.
+
+Guard coverage for item 3.2: 24 of 36 checkers now proven by direct
+injection (23 prior passes + check-address-region.js this run). No new
+question raised. Evidence in
+audits/scorah-item-3.2-quality-pass-2026-10-20-twentyfourth.txt.
+
+Ticked in place in AGENT_WORKLIST.md (quality-pass paragraph appended to the
+existing 3.2 block; item was already [x], no checkbox change needed).
+
+Committing this run's changes (AGENT_WORKLIST.md, AGENT_LOG.md, the new
+audit evidence file) and pushing to origin/agents/audit-backlog, then
+publishing the status page via tools/build-audit-status.js, then releasing
+the lock.
+
 ## Run 345 - 2026-10-20
 
 Unattended scheduled run. Cowork sandbox mount (C:\Dev\rbh-site-data) for
