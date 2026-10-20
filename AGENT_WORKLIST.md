@@ -34465,6 +34465,34 @@ appended to the line. Do not move them; the status page reads them in place.
       Evidence: audits/hirshmans-item-1.2-map-embeds-injection-2026-10-14-
       twentyfifth.txt. No generator, page, pack, checker or branches.json
       content changed. Done 2026-10-14
+      Twenty-sixth quality pass 2026-10-20 (unattended scheduled run):
+      check-weebly-furniture-freshness.js had never been proven by injection
+      against this specific branch across the prior 25 passes (confirmed
+      absent from this section's own named-checker list) and Hirshmans
+      Ainsdale has its own table in WEEBLY_FURNITURE_CHECKLIST.md, so it
+      applied. Isolated git-archive scratch extraction (/tmp/scratch12,
+      tracked clone never opened for writing); branches.json sha256
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+      before and unchanged after. Baseline clean on the scratch copy
+      (301 checked-in lines, 301 a fresh regeneration would produce, exit
+      0). Injection: hirshmans_ainsdale's phone changed from "01704 577376"
+      to "01704 999999" without touching WEEBLY_FURNITURE_CHECKLIST.md -
+      CAUGHT first attempt, naming the branch, the line (176) and both
+      values. Restored by a byte copy from the pre-injection backup, sha256
+      reconfirmed identical. Negative control (shortCode changed to
+      "ZZZCTRL", a field this checker's buildMarkdown() does not emit) ran
+      clean, confirming the catch was genuine and selective. Full
+      35-checker suite (excl. check-cdn-pins.js/check-live-hours.js,
+      network-dependent) re-run clean on the restored scratch copy
+      afterwards. Tracked clone confirmed untouched throughout:
+      `git status --porcelain -- branches.json tools modules core
+      gbp-packs WEEBLY_FURNITURE_CHECKLIST.md` empty before and after. No
+      in-repo defect - Hirshmans Ainsdale's checklist table is currently
+      accurate. Guard coverage for item 1.2 now 25 of 37 checkers proven by
+      injection against this specific branch (up from 24). No generator,
+      page, pack, checker or branches.json content changed. Full detail:
+      audits/hirshmans-item-1.2-weebly-furniture-freshness-injection-
+      2026-10-20.txt.
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

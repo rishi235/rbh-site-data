@@ -1,0 +1,49 @@
+Item 1.2 (Hirshmans Chemist, Ainsdale) - twenty-sixth quality pass
+Run: unattended scheduled run, 2026-10-20
+Fresh angle: check-weebly-furniture-freshness.js, not previously proven by
+injection against this specific branch across the prior 25 passes (confirmed
+by grepping the item's own AGENT_WORKLIST.md section for checker names before
+starting; it names 24 of 37 checkers, this one absent). Hirshmans Ainsdale has
+its own table in WEEBLY_FURNITURE_CHECKLIST.md (confirmed: `### Hirshmans
+Chemist (hirshmans_ainsdale)` at line 167), so the checker applies to it.
+
+Method, mirroring the precedent set for item 3.6's twenty-fourth pass
+(2026-10-14, run 206) against the same checker:
+
+1. Isolated scratch extraction: `git archive HEAD | tar -x -C /tmp/scratch12`.
+   Tracked clone (/tmp/push_work, itself a disposable clone of
+   origin/agents/audit-backlog, HEAD 8eb1211) never opened for writing.
+2. Baseline: branches.json sha256
+   7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1 (matches
+   every prior pass's recorded value, no drift since). Ran
+   check-weebly-furniture-freshness.js on the scratch copy: clean, exit 0,
+   "301 line(s) checked-in, 301 line(s) a fresh regeneration would produce".
+3. Injection: changed hirshmans_ainsdale's phone in the scratch branches.json
+   from "01704 577376" to "01704 999999", left WEEBLY_FURNITURE_CHECKLIST.md
+   untouched. Re-ran the checker: FAILED, exit 1, naming the branch
+   ("Hirshmans Chemist (hirshmans_ainsdale)"), the exact line (176), and both
+   values ("checked-in: | Phone | 01704 577376 |" vs "fresh build: | Phone |
+   01704 999999 |"). Caught first attempt.
+4. Restore: copied branches.json back from the pre-injection backup (byte
+   copy, not git checkout, matching this item's own established convention).
+   sha256 reconfirmed identical to the baseline value above.
+5. Negative control: changed hirshmans_ainsdale's shortCode (a field this
+   checker's own buildMarkdown() does not emit) from "HIR" to "ZZZCTRL" on a
+   fresh copy of the restored branches.json. Checker ran clean, exit 0,
+   confirming the catch in step 3 was a genuine, selective rule hit and not
+   the checker firing on any edit to the branch's record.
+6. Restored branches.json again; sha256 reconfirmed identical.
+7. Full suite: all 35 checkers in tools/ except check-cdn-pins.js and
+   check-live-hours.js (both network-dependent, out of injection scope) run
+   clean on the restored scratch copy: 35/35 pass, exit 0 each.
+8. Tracked clone confirmed untouched throughout:
+   `git status --porcelain -- branches.json tools modules core gbp-packs
+   WEEBLY_FURNITURE_CHECKLIST.md` empty before, during and after; tracked
+   branches.json sha256 unchanged (7ba2569b...25ffef1).
+
+Result: no in-repo defect. Hirshmans Ainsdale's WEEBLY_FURNITURE_CHECKLIST.md
+table is currently accurate and current against branches.json. Guard coverage
+for item 1.2 now extends to 25 of 37 checkers proven by direct injection
+against this specific branch (up from 24).
+
+No generator, page, pack, checker or branches.json content changed.

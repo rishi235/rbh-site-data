@@ -1,3 +1,103 @@
+## Run 339 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox (Linux mount at
+/sessions/trusting-clever-dirac/mnt/rbh-site-data). LOCK: .agent-lock absent
+at pickup on the mount; created with a fresh UTC timestamp
+(2026-10-20T01:42:26Z) at session start.
+
+MOUNT STATE: found the mount's own git index wedged with the same standing
+EPERM-on-unlink FUSE quirk prior runs (190 onward, most recently 338) have
+recorded - a `.git/index.lock` from an earlier run (21 minutes old at
+pickup, under the 1-hour staleness threshold so not force-removed per the
+brief) could not be `rm -f`'d ("Operation not permitted"), and the mount's
+working tree carried staged and unstaged changes plus ~180 untracked
+debris/probe files matching run 338's own description exactly. Investigated
+before touching anything: the staged/unstaged content on the mount was
+byte-identical to origin/agents/audit-backlog's then-tip (verified by
+`git diff origin/agents/audit-backlog -- <the three changed files>`,
+empty), confirming it was run 338's own work, already fully committed
+(c3cf9d5, then 8eb1211 recording the step 9/10 outcome) and pushed via that
+run's disposable-clone workaround - the mount was simply never fast-
+forwarded afterwards because the same lock wall blocks `git reset --hard`
+too. Nothing on the mount was modified, added, or deleted; the debris and
+stray branches were left exactly as found, per the standing instruction.
+Confirmed via a fresh `git clone` of origin/agents/audit-backlog to
+/tmp/push_work (this sandbox has outbound GitHub access for clone/fetch/
+push) that origin's real tip is 8eb1211, one commit ahead of what the
+mount's own stale `origin/agents/audit-backlog` tracking ref showed - all
+real git work this run is done against that disposable clone, never the
+mount, following the exact pattern runs 332-338 already established for
+this mount's FUSE quirk.
+
+ANSWER PICKUP (step 3): QUESTIONS.json holds 129 questions, 51 open
+(Q77-Q129, Q89 absent from the sequence, matching run 338). Claude in
+Chrome available; one read-only tab navigated to
+https://data.rbhealth.co.uk/api/feedback, full JSON feed read, tab closed.
+Newest entry still the Q52 answer (2026-09-01T22:44:51.524Z) - nothing
+newer, no answer for any open question. No question's status changed.
+
+AUTONOMOUS WINDOW (step 4): head of AGENT_LOG.md at pickup showed no
+"Standing authorisation - autonomous window" section; does not apply.
+
+WORKLIST (step 5): every unchecked line in AGENT_WORKLIST.md is already
+[BLOCKED] (the standing eight: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52,
+6.4/Q60, 6.5/Q60, 6.6/Q66) - fell to the quality-pass fallback. ROTATION
+POOL: re-derived the least-recently-verified completed item from the
+maximum 2026-MM-DD date mentioned inside each item's own AGENT_WORKLIST.md
+section (excluding the seven standing one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8, and the known 6.3 in-copy noise dates). Nine items tied stalest at
+2026-10-14 once item 3.8 (updated by run 338 earlier today) dropped out:
+1.2, 3.2, 3.6, 3.7, 3.10, 3.13, 4.2, 4.13, 5.1. Tiebreak by counting
+"quality pass" occurrences within each item's own section (fewest = least
+revisited): 1.2 and 3.6 tied lowest by the literal-phrase count; reading
+both sections directly showed 1.2 at 24 of 37 checkers proven by injection
+against its branch versus 3.6's 26 of 37, so 1.2 (Hirshmans Chemist,
+Ainsdale) had more untested ground and was picked, its twenty-sixth pass.
+
+FRESH ANGLE AND FINDING: grepped item 1.2's own section for every
+tools/check-*.js name it already names (24 distinct) against the current
+35-file tools/ directory (excl. check-cdn-pins.js/check-live-hours.js,
+network-dependent) and found check-weebly-furniture-freshness.js absent -
+genuinely untested against this branch, and Hirshmans Ainsdale has its own
+table in WEEBLY_FURNITURE_CHECKLIST.md so the checker applies. Method and
+full output in
+audits/hirshmans-item-1.2-weebly-furniture-freshness-injection-2026-10-20.txt,
+mirroring item 3.6's twenty-fourth-pass precedent against the same checker.
+Isolated git-archive scratch extraction (/tmp/scratch12, the tracked clone
+never opened for writing). Baseline clean (branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1, matching
+every prior pass, 301/301 lines, exit 0). Injection: hirshmans_ainsdale's
+phone changed from "01704 577376" to "01704 999999" without touching
+WEEBLY_FURNITURE_CHECKLIST.md - CAUGHT first attempt, naming the branch,
+the exact line (176) and both values. Restored by a byte copy from the
+pre-injection backup (not `git checkout`), sha256 reconfirmed identical.
+Negative control (shortCode changed to "ZZZCTRL", a field this checker's
+buildMarkdown() does not emit) ran clean, confirming the catch was genuine
+and selective rather than a harness artefact. Full 35-checker suite
+re-run clean on the restored scratch copy afterwards, 35/35. Tracked clone
+confirmed untouched throughout: `git status --porcelain -- branches.json
+tools modules core gbp-packs WEEBLY_FURNITURE_CHECKLIST.md` empty before,
+during and after. No in-repo defect - Hirshmans Ainsdale's checklist table
+is currently accurate. Guard coverage for item 1.2 now 25 of 37 checkers
+proven by injection against this specific branch (up from 24). No
+generator, page, pack, checker or branches.json content changed.
+
+REPO DEBRIS, FLAGGED NOT ACTIONED: the mount continues to carry the same
+accumulated lock/log/branch debris runs 245/246/250/253/338 already
+flagged (untracked probe/release/test files at the repo root, oversized
+log artefacts, stray local/remote-tracking branches). Still needs a
+dedicated, supervised cleanup pass of its own; left untouched again this
+run, per the same reasoning run 338 gave.
+
+Files changed: AGENT_WORKLIST.md (item 1.2 gained a twenty-sixth
+quality-pass paragraph),
+audits/hirshmans-item-1.2-weebly-furniture-freshness-injection-2026-10-20.txt
+(new evidence file), AGENT_LOG.md (this entry). No new question raised;
+QUESTIONS.json unchanged, 129 total, 51 open (cross-checked against the
+portal feedback feed this run, nothing new since the Q52 answer on
+2026-09-01). No generator, page, pack, checker logic or branches.json
+content changed in the tracked repo.
+
 ## Run 338 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox (Linux mount at
