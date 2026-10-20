@@ -1,3 +1,49 @@
+## Run 354 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 353 released it cleanly). Created a
+fresh one with a UTC timestamp.
+
+GIT SYNC (step 2): `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` - "Already up to date" at HEAD `1b805ac` (run 353's own
+commit). No `.git/*.lock` debris encountered this run, so no quarantine
+needed.
+
+ANSWER PICKUP (step 3): navigated to `https://data.rbhealth.co.uk/api/feedback`
+via Claude in Chrome - page returned no readable text (consistent with the
+Cloudflare Access sign-in redirect seen on every run since this was first
+logged). Logged as unavailable, no other route attempted, nothing typed or
+submitted, tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at
+the top of this file. Does not apply.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 35 applicable `tools/check-*.js` scripts fresh
+against the current working tree (HEAD `1b805ac`), excluding the two
+network-dependent ones (`check-cdn-pins.js`, `check-live-hours.js`). Result:
+35/35 exit 0, no new defect. Eighth consecutive run (302, 347-353) to
+independently reconfirm this same pool clean. Not repeating a deeper
+per-item injection pass this run, same diminishing-value reasoning runs
+349-353 gave.
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 353. Q127 (live
+GitHub Personal Access Token in cleartext in this working copy's
+`.git/config`) checked again this run via `git remote -v` output - still
+present, still unrotated. Not touching it, not quoting it, not committing
+anything from `.git/config`. Standing recommendation unchanged: rotate the
+token and move to a credential helper or short-lived token, and have Rishi
+confirm whether this schedule should keep running unattended while the
+worklist has been fully blocked since run 193 and the token exposure since
+run (Q127's origin). No new work item was available to action this run.
+
+RESULT: no-op. Worklist unchanged (8/8 blocked). Checkers clean (35/35).
+Q127 still open and unrotated. Status page republished per step 10.
+
 ## Run 353 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
