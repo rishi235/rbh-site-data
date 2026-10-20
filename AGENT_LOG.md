@@ -5083,8 +5083,15 @@ fix stands: grant the existing fine-grained PAT contents:write on
 rbh-data-portal for the reports/digital/ path, or issue a second PAT
 scoped to that repo for this one script.
 
-LOCK: this run's own `.agent-lock` (created 2026-10-20T01:42:26Z on the
-mount) deleted at end of run. The pre-existing mount `.git/index.lock`
-from the still-wedged FUSE quirk was left in place untouched, as it was
-not yet past the 1-hour staleness threshold at any point this run and no
-git command was run directly on the mount.
+LOCK: attempted to delete this run's own `.agent-lock` (created
+2026-10-20T01:42:26Z on the mount) at end of run; `rm -f .agent-lock`
+failed "Operation not permitted" - the same standing FUSE EPERM-on-unlink
+quirk that blocks `.git/index.lock` removal applies to ordinary files on
+this mount too, not only git's own lock. Left in place, untouched beyond
+the failed removal attempt; it is 0 minutes old as logged above, well
+under the 1-hour staleness threshold, so the next run should not treat it
+as stale on time alone - whoever next gets a working `rm` on this mount
+(or runs from a fresh mount/clone) should clear it by hand. The
+pre-existing mount `.git/index.lock` from the same quirk was left in
+place untouched throughout, as it was not past the 1-hour threshold at
+any point this run and no git command was run directly on the mount.
