@@ -1,3 +1,79 @@
+## Run 351 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount only.
+
+LOCK: `.agent-lock` absent at pickup (run 350 released it cleanly). Created a
+fresh one.
+
+GIT SYNC (step 2): `git fetch origin` then `git pull --ff-only origin
+agents/audit-backlog` - "Already up to date" at HEAD `4e4e16e` (run 350's own
+commit).
+
+ANSWER PICKUP (step 3): Claude in Chrome navigated to
+`https://data.rbhealth.co.uk/api/feedback` - returned the Cloudflare Access
+sign-in page again (Azure AD / email code form), same as every run since this
+was first logged. Per the task's own instruction, logged as unavailable, no
+other route attempted, nothing typed or submitted. Tab closed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present.
+Does not apply.
+
+WORKLIST (step 5): re-grepped directly - all 8 unchecked lines still carry
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines at
+6.4/6.5, 6.6/Q66), zero unblocked unchecked items, unchanged since run 193.
+
+FALLBACK QUALITY PASS: ran all 37 `tools/check-*.js` scripts fresh against the
+current working tree (HEAD `4e4e16e`), excluding the two network-dependent
+ones (`check-cdn-pins.js`, `check-live-hours.js`). Result: 35/35 exit 0, no new
+defect. Runs 302, 347, 348, 349 and 350 have each already independently
+reconfirmed this same pool clean; not repeating a deeper per-item injection
+pass this run for the same reason run 349/350 gave (diminishing-value work).
+
+QUESTIONS.json: 130 total, 52 open, unchanged from run 350. Q127 (live GitHub
+Personal Access Token in cleartext in this working copy's `.git/config`) is
+still open and still unrotated - fifth consecutive run flagging it. Not
+actioned; rotating a live credential is outside an unattended run's authority
+per the task's own hard rule (credentials are never an autonomous decision).
+Q115 (standing recommendation to pause or reduce this schedule's cadence,
+since all 8 remaining items are blocked on Rishi's decisions and the
+rotation-pool checker suite has now been independently clean 18-23+ times per
+item) also unchanged and unactioned, for the same reason: a cadence change is
+Rishi's call, not this run's.
+
+LOCK DEBRIS: hit the same sandbox FUSE EPERM-on-unlink quirk already
+documented under Q128 - `.git/index.lock` could not be deleted (`Operation not
+permitted`) and reappeared after a plain `git status`. Cleared twice this run
+by moving it aside into `.git-lock-debris-quarantine/` (rename, not delete,
+same established workaround) rather than attempting any destructive git
+operation. Did not touch the wider debris pile Q128 already covers (1000+
+stray lock-family files, several large stray audit/probe files in the working
+tree) - that cleanup needs a supervised session per Q128's own
+recommendation, not another unattended rename.
+
+COMMIT/PUSH: this entry only (no repo-content change, no worklist tick -
+nothing to tick). Attempting `git add`/`commit`/`push` next; if the push
+credential path documented under Q96/Q124/Q127 fails this run, the commit
+will be left staged locally and logged as such rather than claimed as
+pushed.
+
+STATUS PAGE: will attempt `node tools/build-audit-status.js` after the push
+attempt, per Q124's standing note that `gh` is absent from this sandbox's
+PATH; if it fails for that reason it will be logged, not retried via any
+other credential route.
+
+Carrying forward unchanged: this is the fifth consecutive no-op run on this
+branch. The repo-content side is clean and fully re-verified; the backlog is
+blocked entirely on open decisions (Q127 security exposure chief among them)
+and on hands-on sessions (Weebly paste edits, GBP profile writes) no
+unattended run can perform. Restating, as runs 347-350 did, that this is
+worth Rishi's attention directly rather than another log line: Q127 in
+particular (a live, working push credential sitting in cleartext in
+`.git/config`, confirmed displayed in full at least once) is a security
+exposure with an unknown blast radius for as long as it sits open, and is not
+something that should wait on a quiet AGENT_LOG entry to get noticed.
+
+---
+
 ## Run 350 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount only.
