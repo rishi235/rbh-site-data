@@ -18973,6 +18973,25 @@ Done 2026-10-14 (twenty-third pass).
       above; the two numbering sequences have drifted apart over the
       item's history and this pass did not attempt to reconcile them,
       consistent with how prior passes have left the same drift alone).
+      Quality pass 2026-10-20 (run 347): rotation pool tied-oldest at
+      {3.10, 3.13, 5.1}; picked 3.13 as the richer target (3.10 already had
+      36 of 37 checkers proven by injection). FRESH ANGLE:
+      check-page-coverage.js, never before run by injection against this
+      branch. Isolated git-archive scratch copy; tracked repo untouched
+      throughout (sha256-confirmed on branches.json and
+      build-travel-clinic-pages.js, git status empty before/after).
+      Baseline 35/35 clean. Injection: removed clearchemist_aintree from
+      build-travel-clinic-pages.js's BUILD list, branches.json's
+      widgets.travelClinic left in place - CAUGHT first attempt, naming the
+      branch and the generator file exactly (NOT_BUILT). Control: a
+      branchNumber edit on the same branch (a field no checker reads) left
+      it clean, confirming the catch was selective. Restored and
+      sha256-reconfirmed both files. Full 35-checker suite re-run clean
+      after. Guard coverage for item 3.13 now 21 of 37 checkers proven by
+      injection (up from 20). No in-repo defect, no new question raised.
+      Evidence in
+      audits/clear-aintree-item-3.13-quality-pass-2026-10-20-nineteenth.txt.
+      Done 2026-10-20
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

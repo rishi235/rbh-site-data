@@ -1,3 +1,85 @@
+## Run 347 - 2026-10-20
+
+Unattended scheduled run, Cowork sandbox mount for reads/edits/node checker
+runs; Windows-MCP PowerShell on the native host for the one git-plumbing
+step that needed it.
+
+LOCK: .agent-lock absent at pickup, meaning run 346 released it cleanly.
+Created a fresh one. HEAD at pickup already matched origin exactly at
+dd19b55 (run 346's own commit) - `git fetch`/`git pull --ff-only` from the
+sandbox confirmed "Already up to date", no work lost or re-done.
+
+A `.git/index.lock` appeared moments later under the sandbox mount's
+standing FUSE EPERM-on-unlink quirk (seen in runs 342-345's logs): present,
+under an hour old, no git process running (confirmed via Get-Process on the
+native host) - not the step-1 stale case, so not force-removed from the
+sandbox side; cleared instead via Windows-MCP `Remove-Item -Force` on the
+native host, which has no such restriction. Git state reconfirmed clean
+afterwards (HEAD dd19b55, branch agents/audit-backlog, no uncommitted
+tracked changes).
+
+ANSWER PICKUP (step 3): via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+Access session held. Newest entry still Q52 (2026-09-01T22:44:51.524Z),
+unchanged for seven-plus weeks, matching runs 345/346 exactly. Checked
+against all 52 open question ids (Q77-Q130) - no overlap. Nothing new to
+apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines reconfirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66),
+matching runs 345/346. Quality pass taken. Rotation pool re-derived by the
+same max-date-per-block method runs 345/346 used (excluding the seven
+standing one-offs and all [BLOCKED] items), now narrowed by run 346's pick
+(3.2 moved to 2026-10-20): 3.10, 3.13 and 5.1 remained tied at 2026-10-14.
+Checked each candidate's own checker-coverage count before picking: 3.10
+already had 36 of 37 checkers proven by injection (only the
+network-dependent check-cdn-pins.js left, out of scope); 3.13 (Clear
+Chemist Aintree) had only 20 of 37, with a named remaining list from its
+own last pass. Picked 3.13 as the richer target and check-page-coverage.js
+from that named list - never run by injection against this branch before.
+
+ITEM 3.13 QUALITY PASS: isolated git-archive scratch copy, extracted
+outside the tracked repo. Tracked repo's branches.json and
+tools/build-travel-clinic-pages.js confirmed byte-identical (sha256) before,
+during and after; `git status --porcelain -- branches.json tools modules
+core gbp-packs` empty throughout bar the pre-existing untracked debris.
+
+Baseline: full 35-checker suite (excludes check-live-hours.js and
+check-cdn-pins.js, both network-dependent) clean, 35/35, including
+check-page-coverage.js itself.
+
+Injection: removed the single BUILD-list line for clearchemist_aintree from
+tools/build-travel-clinic-pages.js, leaving branches.json's own
+widgets.travelClinic entry in place - CAUGHT first attempt: "NOT_BUILT:
+Travel clinic: branch clearchemist_aintree earns pages (widgets.travelClinic
+is set) but is not in the BUILD list of tools/build-travel-clinic-pages.js.
+No page will ever be generated for it and no other checker will notice."
+Restored and sha256-reconfirmed identical to the tracked repo's own copy.
+
+Control: branches.json branchNumber edit on the same branch (a field no
+checker reads, per CLAUDE.md) - checker stayed clean, confirming the catch
+above was selective, not a harness artefact. Restored and
+sha256-reconfirmed.
+
+Full 35-checker suite re-run clean (35/35) on the tracked repo after.
+Scratch directory and backup files deleted.
+
+RESULT: no in-repo defect. Guard coverage for item 3.13 now 21 of 37
+checkers proven by direct injection (up from 20). No new question raised.
+Evidence in
+audits/clear-aintree-item-3.13-quality-pass-2026-10-20-nineteenth.txt.
+
+Ticked in place in AGENT_WORKLIST.md (quality-pass paragraph appended to
+the existing 3.13 block; item was already [x], no checkbox change needed).
+
+Committing this run's changes (AGENT_WORKLIST.md, AGENT_LOG.md, the new
+audit evidence file) and pushing to origin/agents/audit-backlog, then
+publishing the status page via tools/build-audit-status.js, then releasing
+the lock.
+
 ## Run 346 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox mount throughout (bash tool against

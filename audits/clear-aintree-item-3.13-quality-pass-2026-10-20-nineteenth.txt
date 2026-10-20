@@ -1,0 +1,128 @@
+Item 3.13 quality pass - Clear Chemist Aintree - run 347, 2026-10-20
+=====================================================================
+
+Rotation pick: tied-oldest pool at pickup was {3.10, 3.13, 5.1}, all last
+touched 2026-10-14 (run 346 had already advanced 3.2 to 2026-10-20). Of the
+three, 3.10 had 36 of 37 checkers already proven by injection against it
+(only the network-dependent check-cdn-pins.js remained, out of this
+convention's scope) per its own 2026-10-14 pass. Item 3.13 (Clear Chemist
+Aintree) was the richer target: only 20 of 37 proven at its last pass, with
+a named remaining list of {check-address-region.js, check-editor-
+snapshot.js, check-gbp-packs.js, check-page-coverage.js, check-seo-sheets.js,
+check-uk-spelling.js, check-url-scheme.js}. Picked 3.13 and
+check-page-coverage.js from that list: it is the checker whose entire job is
+catching a branch that earns a page in branches.json but never makes it into
+a generator's own BUILD list - a defect class no other checker can see - and
+it had never been run against this branch by injection before.
+
+LOCK AND GIT STATE
+.git/index.lock present at pickup, created minutes earlier by this run's own
+`git pull`/`git status` call under the sandbox mount's standing FUSE
+EPERM-on-unlink quirk (documented in prior runs' logs); confirmed no git
+process running (Get-Process git, native host) and the lock under an hour
+old, so not treated as the step-1 stale case - cleared instead via
+Windows-MCP PowerShell on the native host (Remove-Item -Force), which has no
+such permission restriction. HEAD confirmed at dd19b55 (run 346's commit),
+matching origin exactly, no pull needed.
+
+ANSWER PICKUP (step 3)
+Claude in Chrome, single tab, read-only GET against
+https://data.rbhealth.co.uk/api/feedback. Session held (Rishi's Cloudflare
+Access cookie present). Newest entry on the feed is still the Q52 answer,
+2026-09-01T22:44:51.524Z - unchanged for seven-plus weeks, matching runs 345
+and 346's own finding exactly. Checked the newest entry's timestamp against
+all 52 currently open question ids (Q77-Q130) - no overlap, nothing to
+apply. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" section at the top of
+AGENT_LOG.md. Does not apply; proceeded under normal step-7/8 rules.
+
+WORKLIST STATE (step 5)
+AGENT_WORKLIST.md: 42 items [x] complete, 8 lines [BLOCKED]
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines under 6.4/6.5,
+6.6/Q66), confirmed by direct grep, matching runs 345/346. All items
+complete and none newly unblockable (no answer pickup), so this is a
+quality pass per step 5's fallback instruction.
+
+METHOD
+Isolated scratch copy made with `git archive HEAD --format=tar`, extracted
+to a new directory outside the tracked repo
+(/sessions/gracious-blissful-cannon/scratch313), never inside it. Tracked
+repo's branches.json confirmed byte-identical throughout by sha256
+(7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1) before,
+during (mid-injection) and after all testing, and `git status --porcelain --
+branches.json tools modules core gbp-packs` on the tracked repo was empty
+before and after (it showed only the pre-existing, long-standing untracked
+debris files unrelated to this pass, and the transient sandbox index.lock
+noted above).
+
+BASELINE
+Full 35-checker suite (excludes check-live-hours.js, network-dependent, and
+check-cdn-pins.js, network-dependent) run clean on the tracked repo before
+any scratch work began: 35/35 exit 0, including check-page-coverage.js
+itself ("clean, 177 pages accounted for"). check-page-coverage.js confirmed
+Clear Chemist Aintree (id clearchemist_aintree, brandSlug "clear", townSlug
+"aintree") earns Travel clinic and Weight loss pages only (no
+Pharmacy First or Contraception widget, no Branch landing page - matching
+branches.json: widgets = {weightLoss, travelClinic} only), and is present
+in all three relevant generators' BUILD lists (build-travel-clinic-pages.js,
+build-weight-loss-pages.js, build-switch-pages.js's CONFIG table).
+
+INJECTION 1 (target: tools/build-travel-clinic-pages.js, scratch copy only)
+Removed the single line `"clearchemist_aintree",` from the BUILD array,
+leaving branches.json's widgets.travelClinic entry for this branch
+untouched - the exact desync class this checker exists to catch: a branch
+that still earns a page by the data but has silently dropped out of a
+generator's own driving list.
+
+RESULT: CAUGHT, first attempt, naming the branch and the generator file
+exactly:
+  "NOT_BUILT: Travel clinic: branch clearchemist_aintree earns pages
+  (widgets.travelClinic is set) but is not in the BUILD list of
+  tools/build-travel-clinic-pages.js. No page will ever be generated for it
+  and no other checker will notice."
+Exit code 1. All other coverage lines (Pharmacy First, Contraception,
+Weight loss, Switch, Branch landing) stayed correct, confirming the failure
+was scoped to the injected family only, not a blanket breakage.
+
+Restored tools/build-travel-clinic-pages.js from the pre-injection backup;
+sha256-confirmed identical to the tracked repo's own copy
+(90f55f8bd39333f1da16e1fceb19b9d89a2493987d91a2ded53e47106edc1b8f) after
+restoration. check-page-coverage.js re-run clean ("177 pages accounted
+for") on the restored scratch copy.
+
+INJECTION 2 - CONTROL (target: branches.json, scratch copy only)
+Changed clearchemist_aintree.branchNumber from its real value to 999 - a
+field CLAUDE.md itself records as read by no checker (no generator consumes
+it, so nothing public depends on it) and unrelated to page coverage.
+
+RESULT: check-page-coverage.js stayed clean, "177 pages accounted for",
+exit 0 - confirming injection 1's catch was genuinely selective (fired on
+the BUILD-list desync specifically) rather than a harness artefact that
+would flag any branches.json edit at all.
+
+Restored branches.json from the pre-injection backup; sha256-confirmed
+identical to the tracked repo's own copy
+(7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1).
+
+FINAL STATE
+Full 35-checker suite re-run on the tracked repo after all scratch work:
+35/35 exit 0, no failures. Scratch directory and backup files deleted.
+Tracked repo git status unchanged from before this pass (same pre-existing
+untracked debris only).
+
+GUARD COVERAGE
+Item 3.13 (Clear Chemist Aintree) now has 21 of 37 checkers proven by direct
+injection against this branch specifically (up from 20; check-page-
+coverage.js newly proven this pass). Remaining untested-and-applicable for
+a future pass: check-address-region.js, check-editor-snapshot.js,
+check-gbp-packs.js, check-seo-sheets.js, check-uk-spelling.js,
+check-url-scheme.js (check-live-hours.js and check-cdn-pins.js remain
+network-dependent and out of this convention's injection scope). As noted
+by the item's own eighteenth pass, the five Pharmacy-First-specific
+checkers have nothing live to exercise on this branch (no pharmacyFirst
+widget) and are not candidates here.
+
+RESULT: no in-repo defect found. No new question raised. QUESTIONS.json
+unchanged (130 total, 52 open). No worklist item unblocked.
