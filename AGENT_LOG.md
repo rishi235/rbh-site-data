@@ -1,3 +1,80 @@
+## Run 343 - 2026-10-20
+
+Unattended scheduled run, real host checkout (C:\Dev\rbh-site-data) via
+Windows-MCP, not the Cowork sandbox mount.
+
+LOCK: .agent-lock present, stamped 2026-10-20T05:42:32 local, and
+.git\index.lock present, stamped close behind it - both about 61
+minutes old at pickup, past the 45-minute staleness threshold. No git
+process running. Both deleted cleanly on the native host (no FUSE
+issue encountered here). Local HEAD was at dbaee71 (run 341's commit)
+with run 342's own stale uncommitted edit to AGENT_LOG.md still sitting
+in the working tree (1 insertion/9 deletions) - the same shape run 341
+itself diagnosed in run 338's leftovers. Diffed against origin first:
+the local diff was already superseded in substance by run 342's own
+correction commit 00bf685 (pushed from its sandbox, recording that its
+own .agent-lock could not be deleted there). git fetch showed origin at
+00bf685; git reset --hard origin/agents/audit-backlog left a clean
+tree there. Wrote a fresh .agent-lock immediately after.
+
+ANSWER PICKUP (step 3): via Claude in Chrome against
+https://data.rbhealth.co.uk/api/feedback, reachable, Rishi's Cloudflare
+Access session held. Newest entry still Q52 (2026-09-01T22:44:51.524Z),
+unchanged for seven-plus weeks; 52 open questions, all either flagged
+"does not block" or about this task's own infrastructure per prior
+runs' notes. Nothing new to apply.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the
+top of this file; does not apply.
+
+WORKLIST (step 5): all 8 unchecked lines confirmed [BLOCKED] by direct
+grep (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines,
+6.6/Q66). Quality pass taken. Rotation pool re-derived by the
+established method (latest inline date per item's own block, seven
+standing one-offs - 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - excluded): six
+items tied at 2026-10-14 (3.2, 3.7, 3.10, 3.13, 4.13, 4.2). Picked 4.2
+(Cherry Lane Pharmacy GBP pack).
+
+ITEM 4.2 QUALITY PASS: fresh angle this item had never been proven
+against - tools/check-branch-links.js, confirmed absent from this
+item's own 25 prior passes by grepping its block for check-*.js
+filenames (20 of 37 checkers now proven for this item, up from 19).
+Isolated scratch copy via git archive HEAD --format=zip, extracted
+outside the tracked repo; tracked repo never opened for writing during
+any injection, confirmed by sha256 and git status before, during and
+after. Baseline scratch branches.json sha256
+7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1,
+matching the twenty-fifth pass's own recorded baseline, no drift.
+Injection (Gordon Short Crosby shape): Cherry Lane's nhsReviewUrl
+truncated to drop "/leave-a-review" - CAUGHT immediately and only,
+naming the branch, quoting the value, stating the patient-facing
+consequence. Control (harmless case-only email edit) - passed clean,
+no cross-firing. Restored by direct copy from the tracked file; sha256
+reconfirmed identical to baseline both on the scratch copy and on the
+tracked repo's own branches.json throughout. No in-repo defect -
+check-branch-links.js already protects Cherry Lane's link fields
+correctly, now proven directly rather than assumed from the Gordon
+Short precedent that originally motivated the rule. Evidence:
+audits/cherry-lane-item-4.2-branch-links-injection-2026-10-20
+-twentysixth.txt.
+
+FULL SUITE: all 35 non-network check-*.js checkers run against the
+tracked repo. 34 clean, 1 transient failure in check-postcodes.js -
+caused by this run's own two scratch text files left at the repo root
+during item selection (_scratch_42.txt, _scratch_57.txt, holding
+postcode-shaped text copied from AGENT_WORKLIST.md for reading), not a
+repo defect since check-postcodes.js reads the whole tree. Deleted on
+discovery; suite re-run clean, 35/35. Process note for future runs:
+any scratch file left at the repo root during investigation is live
+input to that one checker.
+
+No checker logic, generator, page, pack or branches.json content
+changed. No new question raised; QUESTIONS.json unchanged at 52 open.
+
+STEP 9/10: committed and pushed from the native host checkout. Status
+page publish: ran tools/build-audit-status.js.
+
+LOCK RELEASE: .agent-lock deleted at the end of this run.
 ## Run 342 - 2026-10-20
 
 Unattended scheduled run, Cowork sandbox Linux mount

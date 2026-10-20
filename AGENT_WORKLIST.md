@@ -20690,7 +20690,64 @@ Pharmacy First wording to the NHS service description.
       rather than as a new question since it fixes rather than finds a fault.
       Evidence: audits/cherry-lane-item-4.2-booking-routes-injection-2026-10-
       14-twentyfifth.txt.
-- [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
+      Quality pass 2026-10-20 (unattended scheduled run 343): all 8 unchecked
+      AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct grep (5.3/Q8,
+      5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines, 6.6/Q66); answer
+      pickup (step 3) via Claude in Chrome read the portal feedback feed
+      fresh - newest entry still the Q52 answer, 2026-09-01T22:44:51.524Z,
+      unchanged for seven-plus weeks, nothing new for the 52 open questions;
+      no standing autonomous-window section found at the top of
+      AGENT_LOG.md, so step 4 did not apply. LOCK/SYNC NOTE: picked up on
+      the real host checkout (C:\Dev\rbh-site-data) via Windows-MCP rather
+      than the Cowork sandbox mount, because .agent-lock and
+      .git/index.lock were both present and over an hour old (61 and 60.7
+      minutes), past the 45-minute staleness threshold; deleted cleanly on
+      the native host. Local HEAD carried run 342's own stale uncommitted
+      AGENT_LOG.md edit, already superseded in substance by run 342's own
+      correction commit 00bf685 pushed from its sandbox; reset to a clean
+      tree at 00bf685 rather than re-committing stale leftovers. Rotation
+      pool re-derived by the established method (inline dates per item,
+      seven standing one-offs excluded): six items tied at 2026-10-14 (3.2,
+      3.7, 3.10, 3.13, 4.13, 4.2); 4.2 chosen.
+      FRESH ANGLE: tools/check-branch-links.js had never been proved by
+      injection against Cherry Lane across the prior 25 passes (confirmed
+      by grepping this item's own block for check-*.js filenames: 20 of 37
+      checkers now proven, up from 19). Isolated scratch copy via git
+      archive HEAD --format=zip, extracted outside the tracked repo; every
+      injection, catch and restore ran there only. BASELINE: scratch
+      branches.json sha256
+      7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1,
+      matching the twenty-fifth pass's own recorded baseline, no drift;
+      check-branch-links.js clean (1 known WARN, Clear Chemist Aintree, no
+      nhsReviewUrl, already an accepted exception). INJECTION (Gordon-Short
+      shape, the fault item 3.8's own history found and fixed on that
+      branch): cherrylane_liverpool's nhsReviewUrl shortened from
+      .../XFA226/leave-a-review to .../XFA226 - CAUGHT immediately and
+      only, naming cherrylane_liverpool, quoting the truncated value, and
+      stating the patient-facing consequence (lands on the profile page
+      instead of the review form). CONTROL: a harmless case-only edit to
+      the branch's email field - passed clean, confirming no cross-firing.
+      Restored by direct copy from the tracked file; scratch sha256
+      reconfirmed identical to baseline; tracked repo's own branches.json
+      confirmed sha256-unchanged throughout (git status showed no diff to
+      it at any point). No in-repo defect - check-branch-links.js already
+      protects this branch's link fields correctly, now proven by direct
+      injection rather than assumed from elsewhere in the estate.
+      FULL SUITE: all 35 non-network check-*.js checkers (excl.
+      check-cdn-pins.js, check-live-hours.js) run against the tracked
+      repo: 34 clean, 1 transient failure in check-postcodes.js caused by
+      this run's own two scratch text files left at the repo root during
+      item selection (_scratch_42.txt, _scratch_57.txt, postcode-shaped
+      strings copied from AGENT_WORKLIST.md for reading) - not a repo
+      defect; deleted immediately on discovery and the suite re-run clean,
+      35/35. Process note: this checker reads the whole repo tree, so a
+      scratch file left at the root during investigation is live input to
+      it, not inert.
+      No checker logic, generator, page, pack or branches.json content
+      changed. No new question raised; QUESTIONS.json unchanged at 52
+      open. Evidence:
+      audits/cherry-lane-item-4.2-branch-links-injection-2026-10-20
+      -twentysixth.txt.- [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
       Quality pass 2026-08-11: the pack verified fact by fact against

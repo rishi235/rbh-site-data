@@ -1,0 +1,54 @@
+Item 4.2 (Cherry Lane Pharmacy GBP pack) - quality pass, run 343
+2026-10-20, unattended scheduled run, native host checkout.
+
+FRESH ANGLE: tools/check-branch-links.js, not yet proved by injection
+against Cherry Lane across the prior 25 passes on this item.
+
+METHOD: isolated scratch copy via git archive HEAD --format=zip,
+extracted outside the tracked repo. Tracked repo never opened for
+writing during any injection; confirmed by sha256 and git status
+before, during and after.
+
+BASELINE
+  scratch branches.json sha256:
+  7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+  (matches the twenty-fifth pass's own recorded baseline, no drift)
+  check-branch-links.js: clean, 1 known WARN (clearchemist_aintree, no
+  nhsReviewUrl - accepted exception), 0 failures.
+
+INJECTION (Gordon-Short shape)
+  cherrylane_liverpool.nhsReviewUrl changed from
+    https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226/leave-a-review
+  to
+    https://www.nhs.uk/services/pharmacy/cherry-lane-pharmacy/XFA226
+  Result: FAIL cherrylane_liverpool.nhsReviewUrl, quoting the truncated
+  value and stating the patient-facing consequence (lands on the
+  profile page instead of the review form). Caught immediately and
+  only; no other branch or rule co-fired.
+
+CONTROL
+  cherrylane_liverpool.email changed Cherry@rbhealth.co.uk to
+  cherry@rbhealth.co.uk (harmless case-only edit).
+  Result: clean, 1 known WARN only, same as baseline. No cross-firing.
+
+RESTORE
+  branches.json restored by direct copy from the tracked file.
+  Scratch sha256 after restore: matches baseline exactly.
+  check-branch-links.js after restore: clean, 1 known WARN, 0 failures.
+  Tracked repo's own branches.json: sha256-unchanged throughout
+  (git status showed no diff to it at any point in this run).
+
+CONCLUSION
+  No in-repo defect. check-branch-links.js already protects Cherry
+  Lane's link fields correctly; now proved by direct injection rather
+  than assumed from elsewhere in the estate (the Gordon Short Crosby
+  nhsReviewUrl truncation this checker was originally written against,
+  item 3.8 / CLAUDE.md).
+
+FULL SUITE (tracked repo, 35 non-network check-*.js checkers, excl.
+check-cdn-pins.js and check-live-hours.js): 34 clean on first run,
+1 transient failure in check-postcodes.js caused by this run's own two
+scratch text files left at the repo root during item selection
+(_scratch_42.txt, _scratch_57.txt - postcode-shaped strings copied from
+AGENT_WORKLIST.md for reading). Not a repo defect. Deleted on
+discovery; suite re-run clean, 35/35.
