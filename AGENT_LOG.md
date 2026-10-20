@@ -1,3 +1,53 @@
+## Run 362 - 2026-10-20
+
+LOCK: `.agent-lock` found at pickup, dated 2026-10-20T16:44:30Z - about
+64 minutes old, stale under the 45-minute rule. Could not delete it (same
+FUSE EPERM unlink behaviour as Q120/every run since); overwrote in place
+with a fresh UTC timestamp, which is sufficient for the lock's purpose.
+`.git/index.lock` (also stale, no git process running per `ps aux`) was
+present and equally undeletable; left in place rather than quarantining,
+since quarantining is what turned into the Q119/Q128 repo-bloat problem
+and `git status` works fine with it present. No new debris files created
+this run.
+
+WORKLIST (step 5): re-confirmed - still 42 checked, 8 unchecked, all 8
+[BLOCKED] (Q8, Q9, Q13, Q16, Q52, Q60 x2, Q66). 170th consecutive run
+with no actionable item. No quality pass run either, same reasoning as
+runs 359-361: nothing in the data or generators has changed since the
+last pass, so another repeat is redundant scope, not verification.
+
+ANSWER PICKUP (step 3): not attempted. This sandbox has no Chrome /
+Cloudflare Access session for Rishi's portal, the same constraint every
+run has hit since this was first logged.
+
+PUSH: one attempt, 60-second timeout, no completion (consistent with
+every push attempt since run 357). Confirmed still 4 commits ahead of
+origin/agents/audit-backlog, 0 behind, nothing new added this run.
+
+STATUS PAGE (step 10): attempted as required even though no work was
+done. `node tools/build-audit-status.js` failed with `gh: not found`
+(exit 127) - same permanent gap as every run since Q124. Page not
+republished.
+
+ESCALATION (repeating, not re-deriving, runs 359-361's finding): this is
+now 170 consecutive no-op runs. The blockers are unchanged: 52 of 130
+questions open (a handful blocking all 8 remaining worklist items), a
+1.8GB .git that cannot be pushed from this sandbox within any reasonable
+timeout, a FUSE mount on this working copy that refuses unlink/rename on
+any file regardless of ownership or permission bits, no `gh` on PATH so
+the status page cannot be republished, no browser session so Rishi's
+answers cannot be picked up, and a live GitHub PAT still sitting in
+cleartext in `.git/config` (Q127, not rotated as of this run). Nothing
+here is patient-facing or urgent, but the schedule continues to produce
+zero further value while these stand, and every run that tries harder to
+work around the unlink bug (quarantining, renaming, probing) is how the
+repo got to 2.1GB of working tree and 1.8GB of .git in the first place.
+Recommend, again, that Rishi pause this schedule and handle Q96 (push
+access), Q119/Q120/Q128 (repo bloat and the unlink bug), Q123/Q124
+(status-page publish path), and Q127 (the exposed PAT, which should be
+rotated regardless of what else gets decided) in one supervised session
+before the schedule fires again.
+
 ## Run 361 - 2026-10-20
 
 LOCK: `.agent-lock` found at pickup, dated 2026-10-20T15:13:53Z - roughly
