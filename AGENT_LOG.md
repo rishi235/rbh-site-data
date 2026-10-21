@@ -1,7 +1,12 @@
 ## Run 363 - 2026-10-20
 
 LOCK: no `.agent-lock` present at pickup (clean handoff from run 362, which
-deleted or released its own). Created fresh.
+deleted or released its own). Created fresh. Could not delete it at exit -
+`rm` returned "Operation not permitted", and the same push attempt also hit
+unlink-EPERM on three `.git/objects/tmp_obj_*` files and `.git/HEAD.lock`
+(the FUSE unlink bug behind Q120, still present). Left `.agent-lock` in
+place; the next run's 45-minute staleness check will treat it as crashed
+and overwrite it, same as recent runs have had to.
 
 WORKLIST (step 5): re-confirmed - still 42 checked, 8 unchecked, all 8
 [BLOCKED]. 171st consecutive run with no actionable item. No quality pass
