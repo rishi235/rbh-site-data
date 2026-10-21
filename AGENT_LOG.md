@@ -1,3 +1,53 @@
+## Run 380 - 2026-10-22
+
+LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. State re-verified
+unchanged from run 379: HEAD on `agents/audit-backlog` at `b674c6c`, still
+16-17 commits ahead of `origin/agents/audit-backlog` (`f4bd84e`, confirmed an
+ancestor, no divergence). `.git` still 1.8GB. The live GitHub PAT is still
+present in cleartext in `.git/config`'s origin URL (Q127) - confirmed present,
+not reproduced here, and not touched.
+
+WORKLIST: all 8 items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) still
+`[BLOCKED]`, unchanged. This is the 24th consecutive run finding the
+identical state.
+
+ANSWER PICKUP (step 3): not attempted. Same reason runs 364-379 gave - no
+live Chrome Access session available in this execution context, so the
+portal fetch cannot succeed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at
+the top of this file. Not in an autonomous window.
+
+QUALITY PASS: skipped. The checkers have been re-verified clean well over a
+dozen times across runs 353-377 with no defect found and no new information
+to act on; a 25th repeat of the same pass is not a good use of this run,
+per "better one item done well than three done loosely."
+
+PUSH: not attempted. Every attempt since run 358 (roughly 20 consecutive
+tries) has timed out identically against the same 1.8GB `.git`. Repeating a
+known-failing operation adds nothing; the fix needs a supervised session to
+repack or re-clone, as runs 358-379 have all said.
+
+STATUS PAGE: not run. `gh` is not installed in this execution context and
+the publish needs a credential this sandbox does not hold (Q124) - same
+blocker runs have hit repeatedly since 358.
+
+ESCALATION (restated, not reopened - adding to Q131/Q132 rather than
+duplicating them): this is run 380. The worklist has been fully blocked for
+over 220 consecutive runs, local work has been unpushable for 22 runs, and a
+live GitHub PAT has sat exposed in cleartext in `.git/config` since before
+Q127 was raised with no rotation. Running this schedule further produces no
+audit progress and leaves a growing credential-exposure window open for no
+benefit. This run is doing nothing further to compound that, rather than
+inventing busywork to look productive. Restating plainly for Rishi: the
+schedule should be paused until (1) the 43 open questions in QUESTIONS.json
+are answered via the portal, (2) a supervised session repacks or re-clones
+`.git` so pushes succeed again, and (3) the GitHub PAT in `.git/config` is
+rotated. None of those three are something an unattended run can do itself -
+(1) needs Rishi's judgment, (2) and (3) are exactly the kind of destructive
+or credential-touching action this task's hard rules keep out of autonomous
+hands.
+
 ## Run 379 - 2026-10-21
 
 LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. `git fetch origin`
