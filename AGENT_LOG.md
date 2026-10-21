@@ -1,3 +1,70 @@
+## Run 378 - 2026-10-21
+
+LOCK/GIT: `.agent-lock` absent at pickup (run 377 released it via its own
+rename-aside workaround). Created fresh. `git fetch origin` clean, showing
+`origin/agents/audit-backlog` at `f4bd84e`, unchanged from run 377's
+observation.
+
+RECONCILING RUN 377'S Q132: re-checked the divergence run 377 reported
+(origin allegedly containing history not present locally). `git merge-base
+--is-ancestor origin/agents/audit-backlog HEAD` returned true this run -
+origin's tip (`f4bd84e`) IS an ancestor of local HEAD, via run 374's own
+merge commit `88d0cd5`. Local is now a clean 14-commit fast-forward ahead
+of origin, not diverged. Origin has not moved since run 377 looked (same
+tip, `f4bd84e`), so the mismatch was in run 377's own clone-based check,
+not a real second divergence - most likely the throwaway
+`/tmp/rbh-clone-377` fetched from a stale or differently-scoped source
+before this sandbox's local merge had been counted. Not reopening Q132 as
+wrong; leaving it open and adding this finding as a note, since a future
+run should still watch for genuine divergence and the clone-based
+cross-check run 377 used is worth keeping as a technique even though this
+particular instance of it was a false positive.
+
+PUSH: with divergence resolved, attempted `git push origin
+agents/audit-backlog`. Failed the same way runs 358-377 have recorded:
+`.git` is 1.8GB on disk and the push times out (tested at 90s, exit 124,
+`POST git-receive-pack (chunked)` with no further progress). This is
+Q119/Q123's hard-push-limit problem, unchanged and not something this run
+attempted to fix (bulk-editing or rewriting `.git` history is reserved for
+a supervised session per CLAUDE.md and the standing hard rule against
+destructive git operations). 15 commits (runs 358-378) remain unpushed
+locally.
+
+COMMIT: run 377 had left three files (AGENT_LOG.md, AGENT_WORKLIST.md,
+QUESTIONS.json) with its own completed work uncommitted, because
+`.git/index.lock` blocked a commit in the real working copy at the time.
+That lock was still present at this run's pickup, 2h22m old with no git
+process running - genuinely stale under the procedure's 1-hour rule.
+`rm -f` on it failed with the same EPERM-on-unlink fault Q120/Q128/Q377
+already document; used the established workaround instead (truncate the
+file in place, which works, then rename it aside, which also works even
+though delete does not) and the commit then went through cleanly
+(`6afad5c`), preserving run 377's 6.8 eighth quality pass and its
+Q123/124/125/127/128/129/130/131 "Decision needed:" retrofit without
+redoing or re-describing that work. The commit itself orphaned a fresh
+`index.lock` and `HEAD.lock` on exit (same bug, hit on write rather than
+read this time); both cleared with the same truncate-then-rename method
+before this entry was written, so neither blocks the next run's pickup.
+
+WORKLIST: re-confirmed all 8 unchecked lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4,
+6.5, 6.6) still carry `[BLOCKED]`, unchanged. Did not run a fresh
+quality-pass fallback this run, since run 377 already completed the
+current cycle's pass (6.8) a few hours earlier and this run's time went to
+reconciling and preserving that work rather than starting a new one -
+consistent with "better one item done well than three done loosely."
+
+ANSWER PICKUP: not attempted. No live browser context available to this
+sandbox session, same conclusion runs 364-377 have logged.
+
+STATUS PAGE (step 10): not run. Publishing requires a credential scoped to
+`rbh-data-portal` that this sandbox does not have (Q124), and the branch
+still cannot push to its own repo, so running it would only repeat an
+already-open finding.
+
+LOCK: released via the same truncate-then-rename workaround as `.git`'s
+locks (`.agent-lock` itself does not hit the same mount in this sandbox
+session, so a plain delete worked this time). No new question raised.
+
 ## Run 377 - 2026-10-21
 
 LOCK/GIT: `.agent-lock` absent at pickup; created at 2026-10-21 19:42 UTC.
