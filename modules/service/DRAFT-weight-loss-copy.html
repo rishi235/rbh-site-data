@@ -72,6 +72,17 @@
                  A weightLoss widget id will need adding to branches.json (widgets.weightLoss)
                  the same way pharmacyFirst/bloodPressure/contraception widget ids are stored. -->
           </div>
+          <!-- With an online diary (widgets.weightLossOnline) the generator moves the
+               calendars out of this card: the card keeps the fee sentence above plus
+               two buttons, "Book in store at {{BRAND}}" (#book) and "Book an online
+               consultation" (#book-online), and the line "Online consultations are with
+               one of our prescribers, from home. If treatment is right for you, collect
+               it from {{BRAND}} or choose delivery." The two calendars then sit side by
+               side below the hero: "In store at {{BRAND}}" (Face to face with a
+               pharmacist in {{TOWN}}.) and "Online consultation" (With one of our
+               prescribers, from home. If treatment is right for you, collect it from
+               {{BRAND}} or choose delivery.). Live calendars render 3,000px+ tall, so
+               stacking them in this card is not an option (checked 2026-10-21). -->
         </div>
         </div>
       </div>
@@ -113,7 +124,7 @@
     <section class="section">
       <h2 class="h2">How the Weight Loss Clinic works</h2>
       <div class="steps">
-        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book online or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, {{CONSULT_FEE}}.</p></div>
+        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book in store or an online consultation, or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, {{CONSULT_FEE}}.</p></div>
         <div class="step"><div class="step-no">2</div><h3>Full clinical assessment</h3><p>The clinician reviews your health history, weight and any relevant checks, then decides whether prescription-only weight-loss medication is clinically appropriate for you. This is a professional judgement, not a guarantee.</p></div>
         <div class="step"><div class="step-no">3</div><h3>Your ongoing plan</h3><p>If treatment is suitable, it is supplied privately alongside diet and lifestyle advice, with follow-up reviews to monitor how you are getting on. If it is not suitable, the clinician will explain why and advise on the best next step.</p></div>
       </div>
@@ -130,7 +141,8 @@
             <details><summary>Which medication will I be offered?</summary><div class="answer">There are several prescription-only weight-loss medicines available in the UK, and your clinician will discuss which, if any, may be suitable for you at your assessment. We cannot guarantee that any particular product will be available or right for you, this is decided case by case.</div></details>
             <details><summary>Is it safe?</summary><div class="answer">Any prescribing is carried out by a qualified pharmacist or clinician, following a full assessment, with monitoring and follow-up built into your plan. As with any medicine, there can be side effects, and it is not suitable for everyone, your clinician will talk you through this before you decide.</div></details>
             <details><summary>Do I need a GP referral?</summary><div class="answer">No. You can book directly with {{BRAND}}. This service does not replace your GP, and the clinician will refer you back to your GP if that is the more appropriate route.</div></details>
-            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book online for a set time, or call in, so you can be seen privately without waiting.</div></details>
+            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book a set time in store, book an online consultation, or call in, so you can be seen privately without waiting.</div></details>
+            <details><summary>Can I collect or have it delivered?</summary><div class="answer">If treatment is prescribed, you can collect it from {{BRAND}} or choose delivery. Your prescriber will confirm the options at your consultation.</div></details>
           </div>
           <div class="faq-card pad" style="margin-top:18px;background:#f7fbfd;">
             <p style="margin:0;font-size:13px;line-height:1.6;color:#4b5563;">This page is general information, not medical advice, and does not guarantee eligibility, treatment or results. Suitability, any prescription, and expected outcomes are decided individually by a qualified pharmacist or clinician following a full assessment. Prices shown are indicative and may change; your clinician will confirm current pricing at consultation. Individual results vary depending on factors including starting weight, diet and lifestyle.</p>

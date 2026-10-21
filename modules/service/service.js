@@ -354,33 +354,69 @@
   // book-an-appointment content instead of a wrong diary.
   var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true, "contraception": true };
 
+  // The SDK is loaded once and shared, because a weight loss page carries two
+  // diaries (in store and online) and both ask for it at the same moment.
+  var sdkWaiters = null;
+  function withAppointedd(fn) {
+    if (window.Appointedd && window.Appointedd.renderWidget) { fn(); return; }
+    if (sdkWaiters) { sdkWaiters.push(fn); return; }
+    sdkWaiters = [fn];
+    var s = document.createElement("script");
+    s.src = APPOINTEDD_SDK;
+    s.onload = function () {
+      var w = sdkWaiters; sdkWaiters = null;
+      w.forEach(function (f) { try { f(); } catch (e) { /* next */ } });
+    };
+    document.head.appendChild(s);
+  }
+
   function renderBookingWidget(mount, widgetId) {
-    function doRender() {
+    withAppointedd(function () {
       try {
         mount.innerHTML = "";
-        window.Appointedd.renderWidget("rbhsv-booking", {
+        window.Appointedd.renderWidget(mount.id, {
           widgetId: widgetId,
           enableLanguageSelector: false
         });
       } catch (e) { /* leave whatever the page rendered */ }
-    }
-    if (window.Appointedd && window.Appointedd.renderWidget) { doRender(); return; }
-    var s = document.createElement("script");
-    s.src = APPOINTEDD_SDK;
-    s.onload = doRender;
-    document.head.appendChild(s);
+    });
   }
+
+  function renderIfNeeded(mount, wanted) {
+    if (!mount || !wanted) return;
+    // Already showing the right widget (page hard-coded it correctly)? Leave it.
+    var iframe = mount.querySelector("iframe");
+    if (iframe && (iframe.src || "").indexOf(wanted) !== -1) return;
+    renderBookingWidget(mount, wanted);
+  }
+
+  // Online weight loss consultations run from one estate-wide diary (an
+  // independent prescriber), held per branch in branches.json as
+  // widgets.weightLossOnline so a page still resolves it through its own
+  // branch record. A page shows it in a second mount, #rbhsv-booking-online.
+  var ONLINE_WIDGET_KEYS = { "weightLoss": "weightLossOnline" };
 
   function injectBookingWidget() {
     var mount = byId("rbhsv-booking");
     if (!mount) return;
 
-    var m = location.pathname.match(
-      /^\/(pharmacy-first|uti-treatment|sore-throat-treatment|sinusitis-treatment|earache-treatment|impetigo-treatment|shingles-treatment|insect-bite-treatment|contraception|weight-loss-clinic|travel-clinic)-([a-z0-9-]+?)(?:\.html?)?\/?$/
-    );
-    if (!m) return;
-    var serviceKey = SERVICE_WIDGET_KEYS[m[1]];
-    var brandTown = m[2];
+    // A named weight loss inner page keeps the legacy URL Google already ranks,
+    // which does not follow the generated [service]-[brand]-[town] pattern, so
+    // it states its branch and service on the mount instead. Generated pages
+    // carry neither attribute and are still resolved from the URL.
+    var explicitBranch = mount.getAttribute("data-branch-id");
+    var explicitKey = mount.getAttribute("data-widget-key");
+    var serviceKey, brandTown;
+    if (explicitBranch && explicitKey) {
+      serviceKey = explicitKey;
+    } else {
+      var m = location.pathname.match(
+        /^\/(pharmacy-first|uti-treatment|sore-throat-treatment|sinusitis-treatment|earache-treatment|impetigo-treatment|shingles-treatment|insect-bite-treatment|contraception|weight-loss-clinic|travel-clinic)-([a-z0-9-]+?)(?:\.html?)?\/?$/
+      );
+      if (!m) return;
+      serviceKey = SERVICE_WIDGET_KEYS[m[1]];
+      brandTown = m[2];
+    }
 
     fetch(BRANCHES_JSON_URL)
       .then(function (r) { return r.ok ? r.json() : null; })
@@ -389,20 +425,18 @@
         var branch = null;
         for (var i = 0; i < data.branches.length; i++) {
           var b = data.branches[i];
-          if (b.brandSlug && b.townSlug && b.brandSlug + "-" + b.townSlug === brandTown) {
-            branch = b;
-            break;
-          }
+          var hit = explicitBranch
+            ? b.id === explicitBranch
+            : (b.brandSlug && b.townSlug && b.brandSlug + "-" + b.townSlug === brandTown);
+          if (hit) { branch = b; break; }
         }
         if (!branch || !branch.widgets) return;
         var wanted = branch.widgets[serviceKey];
         if (!wanted && !NO_FALLBACK_SERVICE_KEYS[serviceKey]) wanted = branch.widgets.pharmacyFirst;
-        if (!wanted) return;
+        renderIfNeeded(mount, wanted);
 
-        // Already showing the right widget (page hard-coded it correctly)? Leave it.
-        var iframe = mount.querySelector("iframe");
-        if (iframe && (iframe.src || "").indexOf(wanted) !== -1) return;
-        renderBookingWidget(mount, wanted);
+        var onlineKey = ONLINE_WIDGET_KEYS[serviceKey];
+        if (onlineKey) renderIfNeeded(byId("rbhsv-booking-online"), branch.widgets[onlineKey]);
       })
       .catch(function () { /* network failure: keep the page's own widget */ });
   }

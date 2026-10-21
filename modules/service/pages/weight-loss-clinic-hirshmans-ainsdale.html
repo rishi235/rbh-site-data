@@ -30,19 +30,42 @@
           </ul>
           <div class="hero-actions-stack">
             <a href="#book" class="btn-pill btn-primary"><span>Book a consultation</span></a>
+            <a href="#book-online" class="btn-pill btn-white"><span>Book online consultation</span></a>
             <a href="tel:01704577376" class="btn-pill btn-white"><span>Call 01704 577376</span></a>
           </div>
         </div>
         <div>
-          <div class="booking-card pad" id="book">
+          <div class="booking-card pad" id="book-start">
           <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>
           <p class="booking-sub">Private consultation at Hirshmans Chemist, from £39.99, subject to a clinical assessment. Choose a time that suits you.</p>
+          <div class="hero-actions-stack">
+            <a href="#book" class="btn-pill btn-primary"><span>Book in store at Hirshmans Chemist</span></a>
+            <a href="#book-online" class="btn-pill btn-white" style="border:2px solid #d7e3ec;"><span>Book an online consultation</span></a>
+          </div>
+          <p class="booking-sub" style="margin-top:14px;">Online consultations are with one of our prescribers, from home. If treatment is right for you, collect it from Hirshmans Chemist or choose delivery.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="main-grid">
+        <div class="booking-card pad" id="book">
+          <h2 class="booking-head">In store at Hirshmans Chemist</h2>
+          <p class="booking-sub">Face to face with a pharmacist in Ainsdale.</p>
           <div class="booking-widget">
             <script src="https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js"></script>
             <div id="rbhsv-booking" style="background-color:#ffffff;"></div>
             <!-- widget rendered by service.js from branches.json - do not hard-code a widgetId -->
           </div>
         </div>
+        <div class="booking-card pad" id="book-online">
+          <h2 class="booking-head">Online consultation</h2>
+          <p class="booking-sub">With one of our prescribers, from home. If treatment is right for you, collect it from Hirshmans Chemist or choose delivery.</p>
+          <div class="booking-widget">
+            <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
+            <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->
+          </div>
         </div>
       </div>
     </section>
@@ -83,7 +106,7 @@
     <section class="section">
       <h2 class="h2">How the Weight Loss Clinic works</h2>
       <div class="steps">
-        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book online or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, from £39.99.</p></div>
+        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book in store or an online consultation, or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, from £39.99.</p></div>
         <div class="step"><div class="step-no">2</div><h3>Full clinical assessment</h3><p>The clinician reviews your health history, weight and any relevant checks, then decides whether prescription-only weight-loss medication is clinically appropriate for you. This is a professional judgement, not a guarantee.</p></div>
         <div class="step"><div class="step-no">3</div><h3>Your ongoing plan</h3><p>If treatment is suitable, it is supplied privately alongside diet and lifestyle advice, with follow-up reviews to monitor how you are getting on. If it is not suitable, the clinician will explain why and advise on the best next step.</p></div>
       </div>
@@ -100,7 +123,8 @@
             <details><summary>Which medication will I be offered?</summary><div class="answer">There are several prescription-only weight-loss medicines available in the UK, and your clinician will discuss which, if any, may be suitable for you at your assessment. We cannot guarantee that any particular product will be available or right for you, this is decided case by case.</div></details>
             <details><summary>Is it safe?</summary><div class="answer">Any prescribing is carried out by a qualified pharmacist or clinician, following a full assessment, with monitoring and follow-up built into your plan. As with any medicine, there can be side effects, and it is not suitable for everyone, your clinician will talk you through this before you decide.</div></details>
             <details><summary>Do I need a GP referral?</summary><div class="answer">No. You can book directly with Hirshmans Chemist. This service does not replace your GP, and the clinician will refer you back to your GP if that is the more appropriate route.</div></details>
-            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book online for a set time, or call in, so you can be seen privately without waiting.</div></details>
+            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book a set time in store, book an online consultation, or call in, so you can be seen privately without waiting.</div></details>
+            <details><summary>Can I collect or have it delivered?</summary><div class="answer">If treatment is prescribed, you can collect it from Hirshmans Chemist or choose delivery. Your prescriber will confirm the options at your consultation.</div></details>
           </div>
           <div class="faq-card pad" style="margin-top:18px;background:#f7fbfd;">
             <p style="margin:0;font-size:13px;line-height:1.6;color:#4b5563;">This page is general information, not medical advice, and does not guarantee eligibility, treatment or results. Suitability, any prescription, and expected outcomes are decided individually by a qualified pharmacist or clinician following a full assessment. Prices shown are indicative and may change; your clinician will confirm current pricing at consultation. Individual results vary depending on factors including starting weight, diet and lifestyle.</p>

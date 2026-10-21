@@ -911,7 +911,7 @@ first which files are allowed to count as an answer.
 
 The house reference for anything weight loss is
 
-    AI\RBH_WeightLoss_Advertising_Standards.md   (compiled 19 July 2026)
+    AI\RBH_WeightLoss_Advertising_Standards.md   (v2, 21 October 2026)
 
 It is not in this repo and must not be copied into it. Read it before writing,
 editing or judging any weight loss copy, live or generated.
@@ -940,6 +940,48 @@ because they name no medicine at all, which is the safe side of a line they do
 not need to walk. `tools\check-service-links.js` enforces the no-claims half in
 public copy. Nothing in this repo can see a live-only Weebly page, which is why
 the five pages in Q16 and Q22 sat unseen for the whole audit.
+
+### Standards v2 (21 Oct 2026) and the two-page structure
+
+The house reference was reissued as v2 on 2026-10-21, after Rishi found the
+audit reading it more strictly than the sources. Every rule in v2 is tagged to
+the CAP advice or a Blue Guide section. Four readings this repo had been
+applying are WRONG and must not be raised again:
+
+- A link from the homepage or main menu does NOT make a page Regime 1. The
+  Blue Guide (Appendix 6 s4) permits homepage links to condition pages. Only
+  the link LABEL is Regime 1: "Weight Loss Clinic" is fine, "Mounjaro" is not.
+  "Proactively linked landing page" means the page an AD points to. v1 never
+  said "any page a button proactively links to"; that phrase was a misquote.
+- A page reached from a search result or a bookmark is NOT therefore Regime 1.
+  Every page is reached that way. Rule 12's header still argues otherwise for
+  the two paste blocks; that argument is superseded, though both blocks are
+  page-moved notices and stay clean either way.
+- A consultation fee is NOT a breach anywhere, including above the fold. The
+  Blue Guide allows an indicative consultation price even on the homepage.
+  Q83 and Q88 are closed on this basis.
+- Meta descriptions and keywords are low priority, never urgent. MHRA's stated
+  focus is page content (Appendix 6, Competitive Tools). Q90 is closed on this.
+
+Rishi's standing structure (Q60, 2026-09-29, confirmed 2026-10-21): every
+branch site has TWO weight loss pages.
+
+- Generic landing page, `modules\service\pages\weight-loss-clinic-*.html`,
+  from `build-weight-loss-pages.js`. Names no medicine. In the menu, and the
+  only page ads, Google posts, social and email may link to. Carries both the
+  in-store diary and the online consultation diary.
+- Named inner page, `modules\service\inner\<legacy-url>.html`, from
+  `build-weight-loss-inner-pages.js`, pasted over the branch's legacy weight
+  loss URL. Names medicines in a fair overview. Held by RULE 13 of
+  `check-weight-loss-copy.js`. Do NOT strip names from it.
+
+Online consultations: one estate-wide diary run by an independent prescriber,
+`widgets.weightLossOnline` in branches.json, the same id at every branch by
+design (`check-widget-diaries.js` ESTATE_WIDE_KEYS, rule 5). The patient then
+collects from their branch or has it posted. service.js renders it into
+`#rbhsv-booking-online`. An inner page keeps a legacy URL service.js cannot
+parse, so its mount names the branch with `data-branch-id` and
+`data-widget-key`.
 
 
 ## A right answer in the wrong unit: hours are times, a profile is days

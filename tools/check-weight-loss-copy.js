@@ -1063,6 +1063,123 @@ pasteFiles.forEach(function (f) {
   }
 });
 
+// ---------------------------------------------------------------------------
+// RULE 13, the named weight loss INNER pages, which are Regime 2.
+//
+// Rishi's Q60 answer (2026-09-29, confirmed 2026-10-21): every branch site has
+// a generic landing page (rules 1 to 10, no medicine named) AND a named inner
+// page, pasted over the branch's legacy weight loss URL. The inner page is a
+// page the visitor chooses to open, so under AI\RBH_WeightLoss_Advertising_
+// Standards.md v2 section 3 (MHRA Blue Guide Appendix 6) it MAY name
+// medicines, in a fair overview, with a clear offer of a consultation that
+// may or may not lead to a prescription. Naming is therefore NOT a failure
+// here. What fails is everything the legacy template did wrong: superlatives,
+// results headings, sliders, a treatment picker, "no GP visit needed",
+// purchase wording, offers, colloquial slang (Q77), and a page that names a
+// medicine without the overview and consultation framing around it.
+//
+// A menu link to these pages is permitted (Blue Guide Appendix 6 s4). An ad,
+// Google post, social post or email linking straight to one is not, and no
+// file in this repo can see that; the paste comment carries the instruction
+// and this rule holds that the instruction is still there.
+// ---------------------------------------------------------------------------
+const INNER_DIR = path.join(REPO, "modules", "service", "inner");
+const INNER_GENERATOR = path.join(REPO, "tools", "build-weight-loss-inner-pages.js");
+
+const INNER_BANNED = [
+  [/\b(?:the\s+)?(?:best|fastest|strongest|most\s+effective|leading|number\s+one)\s+(?:weight|treatment|medicine|medication|option|injection|results?|clinic|way)\b|\bone\s+of\s+the\s+(?:best|most\s+effective)\b/i,
+    "a superlative about a treatment or outcome"],
+  [/\b(?:could\s+you\s+lose|you\s+could\s+lose|drag\s+the\s+slider|results\s+with)\b/i, "a results or outcome tool"],
+  [/(?<!\bcannot\s)(?<!\bnot\s)\b(?:choose|select|pick)\s+(?:a|your)\s+(?:treatment|medicine|medication)\b|\bexplore\s+treatments\b/i,
+    "a treatment picker (the prescriber decides with the patient)"],
+  [/\bno\s+(?:need\s+to\s+see|GP\s+(?:visit|appointment)\s+needed)\b|\bno\s+GP\s+visit\b/i,
+    "wording implying a consultation is unnecessary (Blue Guide 5.3)"],
+  [/\b(?:skinny|fat)\s*jabs?\b|\bobesity\s+(?:treatment\s+)?jabs?\b|\bweight\s*loss\s+jabs?\b/i,
+    "promotional slang rather than factual information (Q77)"]
+];
+
+const innerFiles = fs.existsSync(INNER_DIR)
+  ? fs.readdirSync(INNER_DIR).filter(function (f) { return /\.html$/.test(f); })
+  : [];
+
+if (fs.existsSync(INNER_GENERATOR) && !innerFiles.length) {
+  failures.push(rel(INNER_GENERATOR) + " exists but " + rel(INNER_DIR) + " holds no page, so " +
+    "rule 13 would pass by reading nothing. Run the generator, or remove it if inner pages are retired.");
+}
+
+const liveBranches = JSON.parse(fs.readFileSync(BRANCHES, "utf8")).branches
+  .filter(function (b) { return !b.disposed; });
+
+innerFiles.forEach(function (f) {
+  const file = path.join(INNER_DIR, f);
+  const raw = fs.readFileSync(file, "utf8");
+  const name = rel(file);
+  const text = visible(raw);
+
+  if (!/NEVER link to this page from an ad/.test(raw)) {
+    fail("inner", name + "::no-ad-warning",
+      name + " has lost the paste comment telling the paster never to link it from an ad, " +
+      "a Google post, social media or an email. That instruction is the only thing keeping a " +
+      "named page out of Regime 1.");
+  }
+
+  const named = pom.WEIGHT_LOSS.filter(function (m) { return pom.findMedicine(text, [m]); });
+  if (named.length) {
+    if (named.length < 2 || !/\bdiet\b/i.test(text) || !/\bactivity\b/i.test(text)) {
+      fail("inner", name + "::overview",
+        name + " names " + named.join(", ") + " without a fair overview around it (at least two " +
+        "medicines plus diet and activity support). A single-medicine page is promotion, not an overview.");
+    }
+    if (!/may or may not lead to a prescription/i.test(text) || !/will not be prescribed/i.test(text)) {
+      fail("inner", name + "::consultation",
+        name + " names medicines but does not say plainly that the consultation may or may not lead " +
+        "to a prescription and that an unsuitable medicine will not be prescribed (Blue Guide Appendix 6).");
+    }
+  }
+
+  INNER_BANNED.concat(PURCHASE).concat(OFFERS).concat(RATE_CLAIMS).forEach(function (pair) {
+    const m = text.match(pair[0]);
+    if (m) {
+      fail("inner", name + "::banned::" + m[0].toLowerCase(),
+        name + " carries " + pair[1] + ' ("' + m[0] + '"), which the inner-page exemption does not cover.');
+    }
+  });
+
+  const hit = claims.findClaim(text);
+  if (hit) {
+    const m = text.match(hit[0]);
+    fail("inner", name + "::claim::" + (m ? m[0].toLowerCase() : String(hit[0])),
+      name + " makes " + hit[1] + ': "' + (m ? m[0] : String(hit[0])) + '".');
+  }
+
+  if (/[–—]|&[mn]dash;/.test(text)) {
+    fail("inner", name + "::dash", name + " carries an em or en dash in its visible copy.");
+  }
+
+  // Booking: the legacy URL cannot be resolved by service.js, so the mount
+  // must name its branch and service, and that branch must hold the diary.
+  const mount = raw.match(/<div id="rbhsv-booking"([^>]*)>/);
+  const branchId = mount && (mount[1].match(/data-branch-id="([^"]+)"/) || [])[1];
+  const key = mount && (mount[1].match(/data-widget-key="([^"]+)"/) || [])[1];
+  const b = branchId && liveBranches.filter(function (x) { return x.id === branchId; })[0];
+  if (!mount || !b || key !== "weightLoss" || !(b.widgets || {}).weightLoss) {
+    fail("inner", name + "::booking",
+      name + " has no #rbhsv-booking mount naming a live branch with a weight loss diary " +
+      '(data-branch-id + data-widget-key="weightLoss"), so it would show an empty booking box.');
+    return;
+  }
+  if ((b.widgets || {}).weightLossOnline && !/id="rbhsv-booking-online"/.test(raw)) {
+    fail("inner", name + "::online",
+      name + " belongs to " + b.id + ", which has an online diary, but carries no " +
+      "#rbhsv-booking-online mount, so the online consultation route is missing (Q60).");
+  }
+  if (text.indexOf(b.phone) === -1 || text.indexOf(b.postalCode) === -1) {
+    fail("inner", name + "::nap",
+      name + " does not show " + b.id + "'s own phone (" + b.phone + ") and postcode (" +
+      b.postalCode + ").");
+  }
+});
+
 // --- report ------------------------------------------------------------------
 
 const staleKnown = Object.keys(KNOWN).filter(function (k) {
@@ -1089,6 +1206,9 @@ console.log("  " + landings.length + " branch landing page(s) read as Regime 1, 
 console.log("  " + pasteFiles.length + " Weebly paste block(s) read as Regime 1, " +
   pasteWithWeightLoss + " of them weight loss copy and held to the same " +
   "prohibitions plus a live route into the weight loss page");
+console.log("  " + innerFiles.length + " named weight loss inner page(s) read as Regime 2: names " +
+  "allowed in a fair overview with consultation framing, no superlative, results tool, picker, " +
+  "slang, purchase or offer wording");
 
 const acceptedKeys = Object.keys(knownUsed);
 if (acceptedKeys.length) {
