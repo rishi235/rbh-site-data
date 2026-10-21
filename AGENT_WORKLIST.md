@@ -38833,6 +38833,30 @@ sourced from modules/service/pages/SEO.md and the regenerated page. No new
 question: still the same Q14 repaste, just confirmed wider in scope; Q44's
 own "APPLIED" note already covers why the H1 changed. No repo defect found,
 no page, generator or data field changed this run.
+Quality pass 2026-10-21 (tenth pass, unattended, audit-backlog-worker run
+376; re-derived as the least recently verified completed item by scanning
+every completed item's own most recent dated mention rather than trusting
+item 5.2's stale forward-note, which named a tied group at 2026-10-13 that
+item 1.3 had already moved past with its own 2026-10-19 pass by the time
+this run started - the forward-note mechanism itself was one pass behind).
+REPO HALF: clean for the tenth pass running. check-seo-lengths.js (177
+paste-sheet entries, titles 36-65 chars, descriptions 129-164, 0 shared H1s)
+and check-seo-pattern.js (177 pages, 0 untyped, 0 failures) both exit clean,
+KNOWN empty on both. All six generators rebuilt; sha256 of every file under
+modules/ and core/ identical before and after, git status on
+modules/core/branches.json/tools empty throughout (one pre-existing
+untracked debris file, tools/testfile_del_tools, unrelated to this item and
+not touched). LIVE HALF: Claude in Chrome reachable this run, read_page on
+the same URL. Tab title still "Infected insect bite treatment in Walton -
+Coleman & Leigh Pharmacy" (wrong length, ampersand, singular "Leigh"),
+unchanged since 2026-08-10/11. On-page H1 still "Infected insect bite
+treatment in Walton" with no brand, unchanged since the ninth pass's
+finding that the repo's own H1 (post-Q44) now reads "...in Walton - Coleman
+and Leighs Pharmacy". No narrowing of the gap: the single outstanding
+Weebly repaste (title, description, H1, all sourced from
+modules/service/pages/SEO.md and the regenerated page) remains exactly as
+wide as the ninth pass left it. No repo defect found, no page, generator or
+data field changed this run. No new question.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
