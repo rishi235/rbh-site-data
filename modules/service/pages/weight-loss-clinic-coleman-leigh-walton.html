@@ -35,23 +35,37 @@
           </div>
         </div>
         <div>
-          <div class="booking-card pad" id="book">
+          <div class="booking-card pad" id="book-start">
           <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>
           <p class="booking-sub">Private consultation at Coleman and Leighs Pharmacy, from £39.99, subject to a clinical assessment. Choose a time that suits you.</p>
+          <div class="hero-actions-stack">
+            <a href="#book" class="btn-pill btn-primary"><span>Book in store at Coleman and Leighs Pharmacy</span></a>
+            <a href="#book-online" class="btn-pill btn-white" style="border:2px solid #d7e3ec;"><span>Book an online consultation</span></a>
+          </div>
+          <p class="booking-sub" style="margin-top:14px;">Online consultations are with one of our prescribers, from home. If treatment is right for you, collect it from Coleman and Leighs Pharmacy or choose delivery.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="main-grid">
+        <div class="booking-card pad" id="book">
+          <h2 class="booking-head">In store at Coleman and Leighs Pharmacy</h2>
+          <p class="booking-sub">Face to face with a pharmacist in Walton.</p>
           <div class="booking-widget">
             <script src="https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js"></script>
             <div id="rbhsv-booking" style="background-color:#ffffff;"></div>
             <!-- widget rendered by service.js from branches.json - do not hard-code a widgetId -->
           </div>
-          <div class="booking-online" id="book-online" style="margin-top:18px;">
-            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>
-            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is right for you, collect it from Coleman and Leighs Pharmacy or choose delivery.</p>
-            <div class="booking-widget">
-              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
-              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->
-            </div>
-          </div>
         </div>
+        <div class="booking-card pad" id="book-online">
+          <h2 class="booking-head">Online consultation</h2>
+          <p class="booking-sub">With one of our prescribers, from home. If treatment is right for you, collect it from Coleman and Leighs Pharmacy or choose delivery.</p>
+          <div class="booking-widget">
+            <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
+            <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->
+          </div>
         </div>
       </div>
     </section>

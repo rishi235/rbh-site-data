@@ -25,29 +25,42 @@
           <p class="hero-proof">Private, pharmacist-led weight loss consultations, in store or online.</p>
           <p class="hero-sub">This page explains the treatment options a prescriber may discuss with you at a private consultation. A consultation may or may not lead to a prescription: the prescriber decides with you whether any treatment is suitable, based on your health history. This is a paid private service, not an NHS treatment, and it is not right for everyone.</p>
           <div class="hero-actions-stack">
-            <a href="#book" class="btn-pill btn-primary"><span>Book in store</span></a>
-            <a href="#book-online" class="btn-pill btn-white"><span>Book online consultation</span></a>
-            <a href="#options" class="btn-pill btn-white"><span>Read about the options</span></a>
+            <a href="#options" class="btn-pill btn-primary"><span>Read about the options</span></a>
+            <a href="tel:01519224984" class="btn-pill btn-white"><span>Call 0151 922 4984</span></a>
           </div>
         </div>
         <div>
-          <div class="booking-card pad" id="book">
+          <div class="booking-card pad" id="book-start">
           <h2 class="booking-head">Book your weight loss consultation</h2>
           <p class="booking-sub">Private consultation at Smartts Chemist, from £39.99, subject to a clinical assessment. Choose a time that suits you.</p>
+          <div class="hero-actions-stack">
+            <a href="#book" class="btn-pill btn-primary"><span>Book in store at Smartts Chemist</span></a>
+            <a href="#book-online" class="btn-pill btn-white" style="border:2px solid #d7e3ec;"><span>Book an online consultation</span></a>
+          </div>
+          <p class="booking-sub" style="margin-top:14px;">Online consultations are with one of our prescribers, from home. If treatment is prescribed, collect it from Smartts Chemist or have it posted to you.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="main-grid">
+        <div class="booking-card pad" id="book">
+          <h2 class="booking-head">In store at Smartts Chemist</h2>
+          <p class="booking-sub">Face to face with a pharmacist in Bootle.</p>
           <div class="booking-widget">
             <script src="https://booking-tools-sdk.appointedd.com/appointedd-booking-tools-sdk-v1.js"></script>
             <div id="rbhsv-booking" data-branch-id="smartts_bootle" data-widget-key="weightLoss" style="background-color:#ffffff;"></div>
             <!-- in-store widget rendered by service.js from branches.json - do not hard-code a widgetId -->
           </div>
-          <div class="booking-online" id="book-online" style="margin-top:18px;">
-            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>
-            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is prescribed, collect it from Smartts Chemist or have it posted to you.</p>
-            <div class="booking-widget">
-              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
-              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline -->
-            </div>
-          </div>
         </div>
+        <div class="booking-card pad" id="book-online">
+          <h2 class="booking-head">Online consultation</h2>
+          <p class="booking-sub">With one of our prescribers, from home. If treatment is prescribed, collect it from Smartts Chemist or have it posted to you.</p>
+          <div class="booking-widget">
+            <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
+            <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline -->
+          </div>
         </div>
       </div>
     </section>
@@ -55,30 +68,30 @@
     <section class="section" id="options">
       <h2 class="h2">Treatment options your prescriber may discuss</h2>
       <p class="lead">This is an overview, not a recommendation. You cannot choose a medicine in advance. At your consultation the prescriber decides with you whether any treatment is suitable, and a medicine that is not suitable for you will not be prescribed. Every option sits alongside diet and activity changes.</p>
-      <div class="condition-grid">
-        <div class="condition-card pad">
+      <div class="eligibility" style="margin-top:18px;">
+        <div class="elig-box">
           <h3>Diet, activity and support</h3>
-          <p><strong>Every plan</strong></p>
-          <p>Advice on eating, activity and habits, with follow-up reviews. For some people this is the right place to start without any medicine.</p>
-          <p>Your GP can also tell you about NHS weight management services.</p>
+          <p style="margin:0 0 10px;font-weight:700;color:var(--blue);">Every plan</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Advice on eating, activity and habits, with follow-up reviews. For some people this is the right place to start without any medicine.</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Your GP can also tell you about NHS weight management services.</p>
         </div>
-        <div class="condition-card pad">
+        <div class="elig-box">
           <h3>Orlistat</h3>
-          <p><strong>Capsules, taken with meals</strong></p>
-          <p>Orlistat is used alongside a reduced-calorie diet in adults with a BMI of 30 or more, or 28 or more with weight-related health risks. It works in the gut, reducing how much of the fat in food is absorbed.</p>
-          <p>Common side effects include oily or loose stools and wind, particularly after fatty meals. A lower-strength version is available from the pharmacist without a prescription.</p>
+          <p style="margin:0 0 10px;font-weight:700;color:var(--blue);">Capsules, taken with meals</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Orlistat is used alongside a reduced-calorie diet in adults with a BMI of 30 or more, or 28 or more with weight-related health risks. It works in the gut, reducing how much of the fat in food is absorbed.</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Common side effects include oily or loose stools and wind, particularly after fatty meals. A lower-strength version is available from the pharmacist without a prescription.</p>
         </div>
-        <div class="condition-card pad">
+        <div class="elig-box">
           <h3>Mounjaro (tirzepatide)</h3>
-          <p><strong>Weekly injection</strong></p>
-          <p>Mounjaro is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts on two hormone receptors (GIP and GLP-1) involved in appetite.</p>
-          <p>The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and indigestion. It can make the contraceptive pill less effective, and your prescriber will advise you on this.</p>
+          <p style="margin:0 0 10px;font-weight:700;color:var(--blue);">Weekly injection</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Mounjaro is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts on two hormone receptors (GIP and GLP-1) involved in appetite.</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and indigestion. It can make the contraceptive pill less effective, and your prescriber will advise you on this.</p>
         </div>
-        <div class="condition-card pad">
+        <div class="elig-box">
           <h3>Wegovy (semaglutide)</h3>
-          <p><strong>Weekly injection</strong></p>
-          <p>Wegovy is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts like a natural hormone (GLP-1) involved in appetite.</p>
-          <p>The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and stomach pain.</p>
+          <p style="margin:0 0 10px;font-weight:700;color:var(--blue);">Weekly injection</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">Wegovy is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts like a natural hormone (GLP-1) involved in appetite.</p>
+          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and stomach pain.</p>
         </div>
       </div>
       <p class="lead" style="margin-top:14px;">Side effects listed here are not a full list. Your prescriber will go through the patient information leaflet with you before you start any medicine.</p>

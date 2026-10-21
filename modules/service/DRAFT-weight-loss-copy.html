@@ -72,14 +72,17 @@
                  A weightLoss widget id will need adding to branches.json (widgets.weightLoss)
                  the same way pharmacyFirst/bloodPressure/contraception widget ids are stored. -->
           </div>
-          <div class="booking-online" id="book-online" style="margin-top:18px;">
-            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>
-            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is right for you, collect it from {{BRAND}} or choose delivery.</p>
-            <div class="booking-widget">
-              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>
-              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->
-            </div>
-          </div>
+          <!-- With an online diary (widgets.weightLossOnline) the generator moves the
+               calendars out of this card: the card keeps the fee sentence above plus
+               two buttons, "Book in store at {{BRAND}}" (#book) and "Book an online
+               consultation" (#book-online), and the line "Online consultations are with
+               one of our prescribers, from home. If treatment is right for you, collect
+               it from {{BRAND}} or choose delivery." The two calendars then sit side by
+               side below the hero: "In store at {{BRAND}}" (Face to face with a
+               pharmacist in {{TOWN}}.) and "Online consultation" (With one of our
+               prescribers, from home. If treatment is right for you, collect it from
+               {{BRAND}} or choose delivery.). Live calendars render 3,000px+ tall, so
+               stacking them in this card is not an option (checked 2026-10-21). -->
         </div>
         </div>
       </div>

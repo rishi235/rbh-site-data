@@ -113,23 +113,62 @@ function bookingCard(store, b) {
   // one estate-wide online diary run by an independent prescriber, held as
   // widgets.weightLossOnline. If prescribed, the patient collects in store or
   // chooses delivery. Regime 1 wording only: consultation, not product.
+  //
+  // Layout (checked live 2026-10-21): an Appointedd calendar renders about
+  // 3,000 to 3,600px tall, so two stacked in the hero card would put the
+  // online one roughly 3,600px down the page. With an online diary the hero
+  // card therefore carries the fee and two buttons, and the two calendars sit
+  // side by side in their own section below the hero (bookingSection), the
+  // same arrangement the legacy pages used.
   var hasOnline = store.widgets && store.widgets.weightLossOnline;
-  var online = hasOnline
-    ? '\n          <div class="booking-online" id="book-online" style="margin-top:18px;">\n' +
-      '            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>\n' +
-      '            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is right for you, collect it from ' + esc(store.brand) + ' or choose delivery.</p>\n' +
-      '            <div class="booking-widget">\n' +
-      '              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>\n' +
-      '              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->\n' +
-      '            </div>\n' +
-      '          </div>'
-    : "";
+  var feeSentence = '<p class="booking-sub">Private consultation at ' + esc(store.brand) + ', ' + CONSULT_FEE + ', subject to a clinical assessment. Choose a time that suits you.</p>\n';
+  if (hasWidget && hasOnline) {
+    return '' +
+      '<div class="booking-card pad" id="book-start">\n' +
+      '          <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>\n' +
+      '          ' + feeSentence +
+      '          <div class="hero-actions-stack">\n' +
+      '            <a href="#book" class="btn-pill btn-primary"><span>Book in store at ' + esc(store.brand) + '</span></a>\n' +
+      '            <a href="#book-online" class="btn-pill btn-white" style="border:2px solid #d7e3ec;"><span>Book an online consultation</span></a>\n' +
+      '          </div>\n' +
+      '          <p class="booking-sub" style="margin-top:14px;">Online consultations are with one of our prescribers, from home. If treatment is right for you, collect it from ' + esc(store.brand) + ' or choose delivery.</p>\n' +
+      '        </div>';
+  }
   return '' +
     '<div class="booking-card pad" id="book">\n' +
     '          <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>\n' +
-    '          <p class="booking-sub">Private consultation at ' + esc(store.brand) + ', ' + CONSULT_FEE + ', subject to a clinical assessment. Choose a time that suits you.</p>\n' +
-    '          ' + inner + online + '\n' +
+    '          ' + feeSentence +
+    '          ' + inner + '\n' +
     '        </div>';
+}
+
+// The two calendars side by side, below the hero. Only when the branch has
+// both diaries; otherwise the in-store calendar stays in the hero card.
+function bookingSection(store, b) {
+  var w = store.widgets || {};
+  if (!(w.weightLoss && w.weightLossOnline)) return "";
+  return '' +
+    '    <section class="section" id="booking">\n' +
+    '      <div class="main-grid">\n' +
+    '        <div class="booking-card pad" id="book">\n' +
+    '          <h2 class="booking-head">In store at ' + esc(store.brand) + '</h2>\n' +
+    '          <p class="booking-sub">Face to face with a pharmacist in ' + esc(store.town) + '.</p>\n' +
+    '          <div class="booking-widget">\n' +
+    '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
+    '            <div id="rbhsv-booking" style="background-color:#ffffff;"></div>\n' +
+    '            <!-- widget rendered by service.js from branches.json - do not hard-code a widgetId -->\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '        <div class="booking-card pad" id="book-online">\n' +
+    '          <h2 class="booking-head">Online consultation</h2>\n' +
+    '          <p class="booking-sub">With one of our prescribers, from home. If treatment is right for you, collect it from ' + esc(store.brand) + ' or choose delivery.</p>\n' +
+    '          <div class="booking-widget">\n' +
+    '            <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>\n' +
+    '            <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </section>\n\n';
 }
 
 function enquiryForm(store) {
@@ -252,13 +291,13 @@ function weightLossPage(storeId) {
     '          </ul>\n' +
     '          <div class="hero-actions-stack">\n' +
     '            <a href="#book" class="btn-pill btn-primary"><span>Book a consultation</span></a>\n' +
-    (store.widgets && store.widgets.weightLossOnline ? '            <a href="#book-online" class="btn-pill btn-white"><span>Book online consultation</span></a>\n' : '') +
     '            <a href="tel:' + tel(b) + '" class="btn-pill btn-white"><span>Call ' + esc(b.phone) + '</span></a>\n' +
     '          </div>\n' +
     '        </div>\n' +
     '        <div>\n          ' + bookingCard(store, b) + '\n        </div>\n' +
     '      </div>\n' +
     '    </section>\n\n' +
+    bookingSection(store, b) +
     '    ' + trustBar(store) + '\n\n' +
     '    <section class="section">\n' +
     '      <h2 class="h2">Is this service right for you?</h2>\n' +

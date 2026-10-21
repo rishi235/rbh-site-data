@@ -64,36 +64,58 @@ function seoStrings(b) {
   };
 }
 
+// Layout checked live 2026-10-21: an Appointedd calendar renders 3,000px+
+// tall, so the hero card carries the fee and two buttons, and the two
+// calendars sit side by side in their own section below the hero.
 function bookingCard(b) {
-  const w = b.widgets || {};
   return '' +
-    '<div class="booking-card pad" id="book">\n' +
+    '<div class="booking-card pad" id="book-start">\n' +
     '          <h2 class="booking-head">Book your weight loss consultation</h2>\n' +
     '          <p class="booking-sub">Private consultation at ' + esc(b.branchName) + ', ' + CONSULT_FEE + ', subject to a clinical assessment. Choose a time that suits you.</p>\n' +
+    '          <div class="hero-actions-stack">\n' +
+    '            <a href="#book" class="btn-pill btn-primary"><span>Book in store at ' + esc(b.branchName) + '</span></a>\n' +
+    ((b.widgets || {}).weightLossOnline
+      ? '            <a href="#book-online" class="btn-pill btn-white" style="border:2px solid #d7e3ec;"><span>Book an online consultation</span></a>\n'
+      : '') +
+    '          </div>\n' +
+    '          <p class="booking-sub" style="margin-top:14px;">Online consultations are with one of our prescribers, from home. If treatment is prescribed, collect it from ' + esc(b.branchName) + ' or have it posted to you.</p>\n' +
+    '        </div>';
+}
+
+function bookingSection(b) {
+  const w = b.widgets || {};
+  return '' +
+    '    <section class="section" id="booking">\n' +
+    '      <div class="main-grid">\n' +
+    '        <div class="booking-card pad" id="book">\n' +
+    '          <h2 class="booking-head">In store at ' + esc(b.branchName) + '</h2>\n' +
+    '          <p class="booking-sub">Face to face with a pharmacist in ' + esc(b.seoTown) + '.</p>\n' +
     '          <div class="booking-widget">\n' +
     '            <script src="' + APPOINTEDD_SDK + '"></script>\n' +
     '            <div id="rbhsv-booking" data-branch-id="' + b.id + '" data-widget-key="weightLoss" style="background-color:#ffffff;"></div>\n' +
     '            <!-- in-store widget rendered by service.js from branches.json - do not hard-code a widgetId -->\n' +
     '          </div>\n' +
+    '        </div>\n' +
     (w.weightLossOnline
-      ? '          <div class="booking-online" id="book-online" style="margin-top:18px;">\n' +
-        '            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>\n' +
-        '            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is prescribed, collect it from ' + esc(b.branchName) + ' or have it posted to you.</p>\n' +
-        '            <div class="booking-widget">\n' +
-        '              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>\n' +
-        '              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline -->\n' +
-        '            </div>\n' +
-        '          </div>\n'
+      ? '        <div class="booking-card pad" id="book-online">\n' +
+        '          <h2 class="booking-head">Online consultation</h2>\n' +
+        '          <p class="booking-sub">With one of our prescribers, from home. If treatment is prescribed, collect it from ' + esc(b.branchName) + ' or have it posted to you.</p>\n' +
+        '          <div class="booking-widget">\n' +
+        '            <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>\n' +
+        '            <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline -->\n' +
+        '          </div>\n' +
+        '        </div>\n'
       : '') +
-    '        </div>';
+    '      </div>\n' +
+    '    </section>';
 }
 
 function option(title, form, body) {
   return '' +
-    '        <div class="condition-card pad">\n' +
+    '        <div class="elig-box">\n' +
     '          <h3>' + title + '</h3>\n' +
-    '          <p><strong>' + form + '</strong></p>\n' +
-    body.map(function (p) { return '          <p>' + p + '</p>\n'; }).join("") +
+    '          <p style="margin:0 0 10px;font-weight:700;color:var(--blue);">' + form + '</p>\n' +
+    body.map(function (p) { return '          <p style="margin:0 0 10px;line-height:1.65;color:#374151;">' + p + '</p>\n'; }).join("") +
     '        </div>\n';
 }
 
@@ -102,7 +124,7 @@ function treatmentOptions() {
     '    <section class="section" id="options">\n' +
     '      <h2 class="h2">Treatment options your prescriber may discuss</h2>\n' +
     '      <p class="lead">This is an overview, not a recommendation. You cannot choose a medicine in advance. At your consultation the prescriber decides with you whether any treatment is suitable, and a medicine that is not suitable for you will not be prescribed. Every option sits alongside diet and activity changes.</p>\n' +
-    '      <div class="condition-grid">\n' +
+    '      <div class="eligibility" style="margin-top:18px;">\n' +
     option("Diet, activity and support", "Every plan",
       ["Advice on eating, activity and habits, with follow-up reviews. For some people this is the right place to start without any medicine.",
        "Your GP can also tell you about NHS weight management services."]) +
@@ -307,14 +329,14 @@ function innerPage(id, legacyFile) {
     '          <p class="hero-proof">Private, pharmacist-led weight loss consultations, in store or online.</p>\n' +
     '          <p class="hero-sub">This page explains the treatment options a prescriber may discuss with you at a private consultation. A consultation may or may not lead to a prescription: the prescriber decides with you whether any treatment is suitable, based on your health history. This is a paid private service, not an NHS treatment, and it is not right for everyone.</p>\n' +
     '          <div class="hero-actions-stack">\n' +
-    '            <a href="#book" class="btn-pill btn-primary"><span>Book in store</span></a>\n' +
-    ((b.widgets || {}).weightLossOnline ? '            <a href="#book-online" class="btn-pill btn-white"><span>Book online consultation</span></a>\n' : '') +
-    '            <a href="#options" class="btn-pill btn-white"><span>Read about the options</span></a>\n' +
+    '            <a href="#options" class="btn-pill btn-primary"><span>Read about the options</span></a>\n' +
+    '            <a href="tel:' + tel(b) + '" class="btn-pill btn-white"><span>Call ' + esc(b.phone) + '</span></a>\n' +
     '          </div>\n' +
     '        </div>\n' +
     '        <div>\n          ' + bookingCard(b) + '\n        </div>\n' +
     '      </div>\n' +
     '    </section>\n\n' +
+    bookingSection(b) + '\n\n' +
     treatmentOptions() + '\n\n' +
     eligibility() + '\n\n' +
     inStoreOrOnline(b) + '\n\n' +
