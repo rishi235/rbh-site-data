@@ -113,7 +113,7 @@ function treatmentOptions() {
       ["Mounjaro is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts on two hormone receptors (GIP and GLP-1) involved in appetite.",
        "The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and indigestion. It can make the contraceptive pill less effective, and your prescriber will advise you on this."]) +
     option("Wegovy (semaglutide)", "Weekly injection",
-      ["Wegovy is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 or more with at least one weight-related health condition. It acts like a natural hormone (GLP-1) involved in appetite.",
+      ["Wegovy is used for weight management alongside a reduced-calorie diet and more physical activity in adults with a BMI of 30 or more, or 27 to under 30 with at least one weight-related health condition. It acts like a natural hormone (GLP-1) involved in appetite.",
        "The dose starts low and is increased over several weeks. Common side effects include nausea, diarrhoea, vomiting, constipation and stomach pain."]) +
     '      </div>\n' +
     '      <p class="lead" style="margin-top:14px;">Side effects listed here are not a full list. Your prescriber will go through the patient information leaflet with you before you start any medicine.</p>\n' +
