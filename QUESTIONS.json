@@ -2057,5 +2057,19 @@
     "status": "open",
     "answer": null,
     "note": "Does not block any worklist item - item 2.3 was already [x] complete; this is a reporting-accuracy fix only. The recommended option (2) is cheap (a grep sweep) and directly guards against the same silent-gap shape CLAUDE.md's own history keeps finding elsewhere in this repo. Swept this run (regex cross-check of every \"item N.N\" prose mention against every \"- [x]/[ ] N.N\" header in the file, after this item's own header was restored): 49 headers, 47 distinct items mentioned in prose, zero mentioned-but-headerless items remain. So 2.3 was the only one of this shape; option 2's sweep is already done as of this run and need not be repeated unless the file structure changes again."
+  },
+  {
+    "id": "Q131",
+    "date": "2026-10-20",
+    "item": "process/infrastructure - audit-backlog-worker schedule should be paused",
+    "question": "Run 364 is the 172nd consecutive run with all 8 worklist items blocked on open questions, and tried to pause the audit-backlog-worker schedule directly via the scheduler tool (update_scheduled_task, enabled: false) rather than log another prose recommendation. The call was auto-declined because no one was available to approve it unattended, so the schedule is still firing every 30 minutes. Nothing further can be done from inside an unattended run to stop it.",
+    "options": [
+      "Rishi disables the audit-backlog-worker schedule himself (scheduled tasks list, or ask Claude to pause it live so the approval prompt can be answered), then resolves Q96, Q119/Q120/Q128, Q123/Q124 and Q127 in one supervised session before re-enabling it",
+      "Leave the schedule running - not recommended: it will keep repeating this exact no-op finding every 30 minutes with no new information, while .git continues to grow (roughly 300-400MB per 3 runs) and the exposed PAT in Q127 stays unrotated"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "This is a meta/process question about the schedule itself, not about any worklist item. Q127 (live PAT in .git/config, cleartext, unrotated) is the single highest-priority item inside the batch and should not wait on the others."
   }
 ]
