@@ -109,11 +109,26 @@ function bookingCard(store, b) {
       '            <strong>Book your private consultation</strong>\n' +
       '            <p>Call <a href="tel:' + tel(b) + '">' + esc(b.phone) + '</a> to book, or request a callback below and we will arrange a time.</p>\n' +
       '          </div>';
+  // Online consultations (Rishi, Q60 answer 2026-09-29, confirmed 2026-10-21):
+  // one estate-wide online diary run by an independent prescriber, held as
+  // widgets.weightLossOnline. If prescribed, the patient collects in store or
+  // chooses delivery. Regime 1 wording only: consultation, not product.
+  var hasOnline = store.widgets && store.widgets.weightLossOnline;
+  var online = hasOnline
+    ? '\n          <div class="booking-online" id="book-online" style="margin-top:18px;">\n' +
+      '            <h3 class="booking-head" style="font-size:18px;">Prefer an online consultation?</h3>\n' +
+      '            <p class="booking-sub">Speak to one of our prescribers from home. If treatment is right for you, collect it from ' + esc(store.brand) + ' or choose delivery.</p>\n' +
+      '            <div class="booking-widget">\n' +
+      '              <div id="rbhsv-booking-online" style="background-color:#ffffff;"></div>\n' +
+      '              <!-- online widget rendered by service.js from branches.json widgets.weightLossOnline - do not hard-code a widgetId -->\n' +
+      '            </div>\n' +
+      '          </div>'
+    : "";
   return '' +
     '<div class="booking-card pad" id="book">\n' +
     '          <h2 class="booking-head">Book your Weight Loss Clinic consultation</h2>\n' +
     '          <p class="booking-sub">Private consultation at ' + esc(store.brand) + ', ' + CONSULT_FEE + ', subject to a clinical assessment. Choose a time that suits you.</p>\n' +
-    '          ' + inner + '\n' +
+    '          ' + inner + online + '\n' +
     '        </div>';
 }
 
@@ -237,6 +252,7 @@ function weightLossPage(storeId) {
     '          </ul>\n' +
     '          <div class="hero-actions-stack">\n' +
     '            <a href="#book" class="btn-pill btn-primary"><span>Book a consultation</span></a>\n' +
+    (store.widgets && store.widgets.weightLossOnline ? '            <a href="#book-online" class="btn-pill btn-white"><span>Book online consultation</span></a>\n' : '') +
     '            <a href="tel:' + tel(b) + '" class="btn-pill btn-white"><span>Call ' + esc(b.phone) + '</span></a>\n' +
     '          </div>\n' +
     '        </div>\n' +
@@ -272,7 +288,7 @@ function weightLossPage(storeId) {
     '    <section class="section">\n' +
     '      <h2 class="h2">How the Weight Loss Clinic works</h2>\n' +
     '      <div class="steps">\n' +
-    '        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book online or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, ' + CONSULT_FEE + '.</p></div>\n' +
+    '        <div class="step"><div class="step-no">1</div><h3>Book your consultation</h3><p>Book in store or an online consultation, or call us. Your first appointment is a private, paid consultation with a pharmacist or clinician, ' + CONSULT_FEE + '.</p></div>\n' +
     '        <div class="step"><div class="step-no">2</div><h3>Full clinical assessment</h3><p>The clinician reviews your health history, weight and any relevant checks, then decides whether prescription-only weight-loss medication is clinically appropriate for you. This is a professional judgement, not a guarantee.</p></div>\n' +
     '        <div class="step"><div class="step-no">3</div><h3>Your ongoing plan</h3><p>If treatment is suitable, it is supplied privately alongside diet and lifestyle advice, with follow-up reviews to monitor how you are getting on. If it is not suitable, the clinician will explain why and advise on the best next step.</p></div>\n' +
     '      </div>\n' +
@@ -288,7 +304,8 @@ function weightLossPage(storeId) {
     '            <details><summary>Which medication will I be offered?</summary><div class="answer">There are several prescription-only weight-loss medicines available in the UK, and your clinician will discuss which, if any, may be suitable for you at your assessment. We cannot guarantee that any particular product will be available or right for you, this is decided case by case.</div></details>\n' +
     '            <details><summary>Is it safe?</summary><div class="answer">Any prescribing is carried out by a qualified pharmacist or clinician, following a full assessment, with monitoring and follow-up built into your plan. As with any medicine, there can be side effects, and it is not suitable for everyone, your clinician will talk you through this before you decide.</div></details>\n' +
     '            <details><summary>Do I need a GP referral?</summary><div class="answer">No. You can book directly with ' + esc(store.brand) + '. This service does not replace your GP, and the clinician will refer you back to your GP if that is the more appropriate route.</div></details>\n' +
-    '            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book online for a set time, or call in, so you can be seen privately without waiting.</div></details>\n' +
+    '            <details><summary>Do I need an appointment?</summary><div class="answer">Yes, this service is by appointment. Book a set time in store, book an online consultation, or call in, so you can be seen privately without waiting.</div></details>\n' +
+    '            <details><summary>Can I collect or have it delivered?</summary><div class="answer">If treatment is prescribed, you can collect it from ' + esc(store.brand) + ' or choose delivery. Your prescriber will confirm the options at your consultation.</div></details>\n' +
     '          </div>\n' +
     '          <div class="faq-card pad" style="margin-top:18px;background:#f7fbfd;">\n' +
     '            <p style="margin:0;font-size:13px;line-height:1.6;color:#4b5563;">This page is general information, not medical advice, and does not guarantee eligibility, treatment or results. Suitability, any prescription, and expected outcomes are decided individually by a qualified pharmacist or clinician following a full assessment. Prices shown are indicative and may change; your clinician will confirm current pricing at consultation. Individual results vary depending on factors including starting weight, diet and lifestyle.</p>\n' +

@@ -608,7 +608,11 @@ var KNOWN_NON_PAGE_BUILDER = {
   "build-audit-status.js": "publishes the audit status page to the data portal. Generates no branch page.",
   "build-weebly-furniture-checklist.js": "generates WEEBLY_FURNITURE_CHECKLIST.md, a single repo-root reference " +
     "document for the Q39 Weebly furniture sweep. Not a branch page, has no title or H1, composes nothing " +
-    "through tools/seo-pattern.js."
+    "through tools/seo-pattern.js.",
+  "build-weight-loss-inner-pages.js": "writes the named weight loss INNER pages (Regime 2) into " +
+    "modules/service/inner, each pasted over a legacy URL that keeps its existing search rank, so it " +
+    "deliberately does not compose the generated title/H1 pattern. Its copy is held by RULE 13 of " +
+    "tools/check-weight-loss-copy.js (Q60, 2026-10-21)."
 };
 // build-status-page.js and status/index.html, the repo-local progress board
 // it generated, were retired 2026-09-01 per Q42's answer: the portal page

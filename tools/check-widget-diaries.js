@@ -127,9 +127,28 @@ Object.keys(holders).forEach(function (id) {
 });
 
 // ---------------------------------------------------------------------------
+// Estate-wide diaries. A service key listed here is ONE diary for the whole
+// estate by design, not per brand, so it is exempt from rule 2 and held to the
+// opposite rule instead (rule 5): every branch that carries the key must carry
+// the same id. Online weight loss consultations are run by one independent
+// prescriber for every branch (Rishi, 2026-10-21, Q60 follow-up), and the
+// patient then collects from their own branch or chooses delivery.
+// ---------------------------------------------------------------------------
+const ESTATE_WIDE_KEYS = {
+  weightLossOnline: "one online weight loss diary for the whole estate (Q60, 2026-10-21)"
+};
+
+function estateWideOnly(id) {
+  return holders[id].every(function (h) {
+    return Object.prototype.hasOwnProperty.call(ESTATE_WIDE_KEYS, h.key);
+  });
+}
+
+// ---------------------------------------------------------------------------
 // RULE 2 - crossbrand.
 // ---------------------------------------------------------------------------
 Object.keys(holders).forEach(function (id) {
+  if (estateWideOnly(id)) return;
   const brands = holders[id]
     .map(function (h) { return h.brandKey; })
     .filter(function (v, i, a) { return a.indexOf(v) === i; });
@@ -187,6 +206,22 @@ Object.keys(holders).forEach(function (id) {
     "widget id \"" + id + "\" is held under " + serviceKeys.length + " different service keys (" + who + "). " +
     "Two different services are pointing at one diary across two branches, so a booking " +
     "for one service arrives filed as the other.");
+});
+
+// ---------------------------------------------------------------------------
+// RULE 5 - estatewide. An estate-wide key holds exactly one id everywhere.
+// ---------------------------------------------------------------------------
+Object.keys(ESTATE_WIDE_KEYS).forEach(function (k) {
+  const ids = live
+    .map(function (b) { return (b.widgets || {})[k]; })
+    .filter(Boolean)
+    .filter(function (v, i, a) { return a.indexOf(v) === i; });
+  if (ids.length > 1) {
+    record(k, "estatewide",
+      "service \"" + k + "\" is declared estate-wide (" + ESTATE_WIDE_KEYS[k] + ") but " +
+      "branches hold " + ids.length + " different ids (" + ids.join(", ") + "). One diary " +
+      "split across several ids sends some online bookings somewhere nobody is watching.");
+  }
 });
 
 // ---------------------------------------------------------------------------
