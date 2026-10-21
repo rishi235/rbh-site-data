@@ -1,3 +1,106 @@
+## Run 372 - 2026-10-21
+
+LOCK CLEARING: `.agent-lock` at pickup was `2026-10-21T13:45:43Z`, ~57
+minutes old, stale under the 45-minute threshold. `rm` failed with the
+same FUSE unlink-EPERM fault documented since run 258 (Q120) and
+reconfirmed by many runs since; `mv` (the known workaround - Q120 already
+established this in 2026-09-23, and run 362 separately found Windows-MCP
+FileSystem delete works too) succeeded cleanly, as it always has. Runs
+365-371's log entries describing this as unfixable and "overwrite in
+place is the only write this filesystem permits" overstate the fault -
+that conclusion was already superseded by Q120 before run 365 and should
+not be repeated. Cleared the stale `.agent-lock`, a 6-hour-old orphaned
+`.git/index.lock` and `.git/HEAD.lock` the same way (one `mv` per stale
+lock, re-checked before each subsequent git command since git recreates
+these after almost every write when its own internal cleanup unlink
+fails). Under that discipline, fetch/checkout/pull/add/commit all ran
+cleanly this run.
+
+GIT BLOAT ROOT CAUSE - CORRECTING THE RECORD: run 360 already found the
+actual cause and said so in its own commit message ("traced Q119
+git-bloat root cause to tracked .git-lock-debris-quarantine/, 1189 files,
+594MB") but nothing then fixed it in the twelve-plus runs since. The
+directory is not loose unlink-EPERM garbage sitting harmlessly outside
+the repo - an earlier run moved stale lock/tmp_obj debris INTO a folder
+that then got `git add`ed and committed, so it has been fully tracked,
+versioned history ever since, growing on every run that added to it.
+`.gitignore` already had a rule for `.git-junk-quarantine/` (a different,
+similarly-named folder) but not for `.git-lock-debris-quarantine/`, which
+is exactly why this slipped past whatever checked `git status` before
+committing.
+
+FIXED THIS RUN: `git rm -r --cached .git-lock-debris-quarantine` (1189
+deletions) plus two new `.gitignore` entries (`.git-lock-debris-quarantine/`
+and `.git-lock-debris-quarantine-local-only/`, the latter seen untracked
+in status this run and pre-empted before it gets added by accident too).
+Files kept on disk, now ignored. This stops the tracked copy from growing
+further but does NOT shrink the ~594MB already baked into the eight-plus
+local commits ahead of origin - those blobs are reachable from
+already-made commits and must still be transmitted to bring origin up to
+date, deletion-from-a-later-commit does not remove them from history.
+Confirmed by object enumeration during a push attempt this run: packing
+started transferring real, reachable objects (not loose debris) and had
+written 480+ MiB after ~170s of local pack preparation alone, before
+network transfer even began - matching this tool's effective per-call
+ceiling (observed hard stop near 120-180s regardless of requested
+timeout; backgrounding with `nohup ... &` does not survive between tool
+calls in this environment either, so there is no way to drive a
+multi-minute push from here).
+
+PUSH STILL DID NOT COMPLETE. `origin/agents/audit-backlog` remains at
+`056ddf9` (run 363); local is now several commits further ahead,
+including two commits of log housekeeping (full run 364-371 entries and
+Q131, which had been sitting uncommitted in the working tree since run
+364) and this run's quarantine-untrack commit.
+
+RECOMMENDED REAL FIX, for a supervised session: since origin has never
+received any of the commits that introduced the quarantine blobs, a local
+history rewrite (interactive rebase to drop the offending commit, or
+`git filter-repo`/BFG to strip `.git-lock-debris-quarantine` from the
+unpushed commits) can be followed by an ORDINARY push, not a force-push -
+force is only needed when overwriting history the remote already has, and
+origin's tip is untouched by this. This should happen on the real
+ProDeskAi checkout (C:\Dev\rbh-site-data), not this sandboxed mount, both
+because the unlink-EPERM fault does not apply there and because history
+rewrites deserve a human watching. Do this before the next scheduled run
+adds another cycle of commits on top.
+
+WORKLIST (step 5): re-walked properly, not assumed from run 363's count.
+All 8 unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) remain
+[BLOCKED], each re-checked individually against its full entry and
+against QUESTIONS.json, not just its one-line heading. Several (5.3 Q8,
+5.4 Q9, 5.5 Q13, part of 5.8 Q16) have an answered question behind them
+already but are blocked for a second, independent, genuine reason - a
+Weebly paste or a push to a branch other than agents/audit-backlog, both
+outside this run's authorisation. 6.1 (Q52) is waiting on Rishi himself to
+post specific Ahrefs sitemap URLs to the portal, which has not happened.
+No item was unblocked or completed this run.
+
+ANSWER PICKUP (step 3): browser read of
+https://data.rbhealth.co.uk/api/feedback succeeded (signed-in session, no
+Access login page). Full historical answer set returned, nothing dated
+after 2026-09-01, nothing for Q119, Q120, Q123, Q124, Q127, Q128 or Q131 -
+the questions actually blocking current progress. No new answers to
+apply.
+
+SECURITY (Q127): `.git/config` still carries a live GitHub PAT in
+cleartext in the origin remote URL. Unchanged, not committed, not
+reproduced here beyond this confirmation. Needs Rishi to rotate it and
+move to a credential-helper, ideally in the same supervised session as
+the history rewrite above.
+
+STATUS PAGE (step 10): skipped, `gh` CLI not on PATH in this session,
+same as every run since Q124.
+
+SCHEDULE: not re-attempted (`update_scheduled_task` has been auto-declined
+every time since run 364 for lack of a live approver). Q131 stands.
+
+NEXT RUN: skip re-deriving any of the above, it is now written down
+accurately. Clear `.agent-lock`/`.git/*.lock` via `mv`, sync, re-check
+whether Q119/Q120/Q123/Q124/Q127/Q128/Q131 have been answered, and if a
+history rewrite has not happened yet, keep accumulating commits locally
+rather than leaving them uncommitted in the working tree.
+
 ## Run 370 - 2026-10-21
 
 No change from run 369, confirmed rather than assumed. Lock: `.agent-lock`
