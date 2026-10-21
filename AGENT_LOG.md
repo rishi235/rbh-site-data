@@ -1,3 +1,46 @@
+## Run 379 - 2026-10-21
+
+LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. `git fetch origin`
+clean, `origin/agents/audit-backlog` unchanged at `f4bd84e`, an ancestor of
+local HEAD (`c5d9fef`, 16 commits ahead). No divergence.
+
+ANSWER PICKUP (step 3): skipped the portal fetch this run. This Cowork
+sandbox is not Rishi's ProDeskAi with his signed-in Chrome holding the
+Cloudflare Access session, so the fetch cannot succeed here and would only
+burn a tool call to confirm what runs 377-378 already recorded. All 43 open
+questions remain open; none answered.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top
+of this file. Not in an autonomous window.
+
+WORKLIST: all 8 remaining unchecked items (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+6.6) are still [BLOCKED], unchanged since run 358. This is the ~22nd
+consecutive run finding the identical state. Per the pattern established in
+runs 358+, skipped a further redundant quality pass rather than re-verifying
+an item already confirmed clean on a prior pass with no new information to
+act on.
+
+PUSH: not attempted this run. `.git` is still 1.8GB (Q119/Q123); every
+attempt since run 358 has timed out identically, and repeating a known-failing
+90-180s push adds nothing. 16 commits (runs 358-379) remain unpushed locally.
+Fixing this needs a supervised session to prune/repack `.git` or start a fresh
+clone, which is outside this task's standing authority.
+
+ESCALATION: this run is adding its voice to Q131 and Q132 rather than
+reopening either. The worker has now completed roughly 380 runs with every
+remaining worklist item blocked and no new question answered, the .git
+repository un-pushable since run 358 (22 runs), and a live GitHub PAT sitting
+in cleartext in `.git/config` since before Q127 was raised. Continuing to run
+this schedule unattended produces no further audit progress and keeps a
+credential exposed with nobody positioned to rotate it. Recommendation,
+restated plainly: pause the audit-backlog-worker schedule until Rishi has (1)
+answered the backlog of 43 open questions in QUESTIONS.json via the portal,
+(2) authorised a supervised session to repack or re-clone `.git` so pushes
+succeed again, and (3) rotated the GitHub PAT currently embedded in
+`.git/config` (Q127). Resuming the schedule before those three are done will
+only produce more of the same log entry.
+
+STATUS PAGE: ran `tools/build-audit-status.js` regardless, per step 10.
 ## Run 378 - 2026-10-21
 
 LOCK/GIT: `.agent-lock` absent at pickup (run 377 released it via its own
