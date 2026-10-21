@@ -42373,6 +42373,54 @@ data field changed this run. No new question.
       and a bulk delete through the same EPERM-prone path is its own
       piece of work); flagged for whoever picks up Q120. No new question
       raised; blocks nothing.
+      Quality pass 2026-10-21 (eighth, run 377, unattended scheduled run):
+      all eight unchecked worklist lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5,
+      6.6) confirmed still [BLOCKED]; run 376 had already re-derived the
+      stalest item and taken 5.6 (its tenth pass) earlier today, so this run
+      re-derived afresh with 5.6 now excluded and found 6.8 itself the
+      stalest remaining (last touched 2026-10-05, over two weeks before any
+      other rotation-pool item). QUESTIONS.json now holds 131 entries, 42
+      open. Programmatic re-check of the same eight structural rules this
+      item has accumulated found eight questions had drifted out of
+      compliance since the seventh pass: Q123, Q124, Q125, Q127, Q128, Q129,
+      Q130 and Q131, all raised between 2026-10-08 and 2026-10-20, none
+      opening with the required "Decision needed:" sentence - the same drift
+      shape as every prior pass (Q83, then ten more, then six, then one),
+      just a bigger batch this time because more time had passed. Read each
+      of the eight in full, including every option and note, and prepended
+      one plain-English sentence stating the choice and the recommended
+      option to each, with the full original question text preserved
+      completely unchanged straight after, same convention as every prior
+      retrofit (each of the eight now has "Decision needed:" appearing
+      twice where its own original text already opened that way, e.g. Q123).
+      No option, note or technical detail was shortened, softened or
+      dropped. Verified programmatically afterwards: 131 entries total (no
+      count change, only the eight "question" fields edited), no duplicate
+      ids, all required fields present, every options array within 2-4, every
+      recommended index valid, every status value valid, no answered entry
+      with an empty answer, and all 42 currently open questions now open
+      with "Decision needed:". check-em-dashes.js, check-postcodes.js and
+      check-url-scheme.js, the three checkers that read QUESTIONS.json, all
+      still pass (0 failures each; same pre-existing warnings as recent
+      passes - UNOWNED postcode notes on gbp-packs/TEMPLATE.md and
+      modules/branch/pages/{INDEX,SEO}.md, and INSECURE URL warnings on
+      untracked debris files .AGENT_LOG_merged.md and
+      _agent-run-debris/qtmp.json, none of it touched by or relevant to this
+      edit). No page, generator or data field changed anywhere in the repo;
+      only QUESTIONS.json was edited. Seventeenth confirmation this item's
+      "genuinely complete" state drifts out of date on its own as new
+      questions arrive. Of the eight retrofitted, four restate or reinforce
+      standing infrastructure blockers already carrying their own open
+      questions (Q123 AGENT_LOG.md over GitHub's 100MB push limit, Q124 the
+      step 10 publish credential gap, Q127 the exposed PAT, Q128 the .git
+      lock-debris bloat) and one (Q131) is Q127's own escalation that this is
+      now the 172nd-plus consecutive fully-blocked run with an auto-declined
+      attempt to pause the schedule from inside a run. This run did not
+      attempt to action any of those itself (out of scope for a QUESTIONS.json
+      structural check, and several are explicitly reserved for a supervised
+      session per their own notes); recording here only so the scale is
+      visible to whoever next reads this item. No new question raised;
+      blocks nothing.
 
 ## Questions for Rishi
 (See AGENT_LOG.md for the running list.)

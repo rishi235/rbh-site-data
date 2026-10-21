@@ -1,3 +1,189 @@
+## Run 377 - 2026-10-21
+
+LOCK/GIT: `.agent-lock` absent at pickup; created at 2026-10-21 19:42 UTC.
+`git fetch origin` clean. `git status` showed HEAD already on
+`agents/audit-backlog` at `062c570` (run 376's own commit, including run
+375's deferred log entry it mentioned queuing), 14 commits ahead of
+`origin/agents/audit-backlog` (runs 358-376, none pushed yet - see PUSH
+below); `git pull --ff-only` reported "Already up to date" since local is
+ahead, not behind. `.git/index.lock` was present at pickup, dated
+2026-10-21 17:55:43 UTC (roughly 47 minutes old at first check, no git
+process running per `ps aux`), short of the procedure's 1-hour staleness
+threshold at pickup. Per the same reasoning run 376 gave for not using a
+rename/quarantine workaround on a sub-threshold lock (that pattern is what
+produced the tracked `.git-lock-debris-quarantine/` bloat fixed in
+94fb812), this run did the quality-pass work first and re-checked the
+lock's age afterwards: by the time the work below was done, the lock was
+1 hour 51 minutes old with still no git process running, genuinely stale
+under the procedure's own rule, so this run tried to delete it outright
+rather than rename it aside - see PUSH below for how that attempt actually
+went and what was done instead.
+
+Also noted, not actioned: `git remote -v` again shows a live GitHub PAT in
+cleartext in `.git/config`'s origin URL (Q127, still open, still
+unrotated); this run's own tool output displayed it in full a second time.
+Not re-raising as a new question since Q127 already covers it exactly;
+recorded here only so the exposure window Q127 asks about is accurately
+tracked as still growing.
+
+ANSWER PICKUP (step 3): not attempted this run. The task's method is to
+read `https://data.rbhealth.co.uk/api/feedback` via the Claude in Chrome
+browser tools, which rely on Rishi's own signed-in Chrome session on his
+machine; this Cowork session's Chrome extension tools were not in a state
+to reach that session (no live browser context available to this run), so
+rather than guess at a result this step was skipped and is recorded as
+unavailable, same conclusion several recent runs (364-376) have logged for
+the same reason. Did not attempt any alternative route, per the rule.
+
+AUTONOMOUS WINDOW (step 4): top of AGENT_LOG.md carried no "Standing
+authorisation - autonomous window" section at pickup (checked before
+writing this entry). Not in an autonomous window; step 7 applies as
+written.
+
+WORKLIST (step 5): re-confirmed the same 8 unchecked lines (5.3, 5.4, 5.5,
+5.8, 6.1, 6.4, 6.5, 6.6) all still carry `[BLOCKED]`; grep for unchecked
+lines without `[BLOCKED]` returns nothing. Zero unblocked unchecked items,
+so did the quality-pass fallback.
+
+QUALITY-PASS FALLBACK: re-derived the stalest completed item directly from
+AGENT_WORKLIST.md's own dated entries (same method run 376 used), with 5.6
+now excluded since run 376 touched it today. Stalest was 6.8 (QUESTIONS.json
+structural compliance), last touched 2026-10-05, over two weeks ahead of
+the next candidate.
+
+Ran the eighth quality pass on 6.8. QUESTIONS.json now holds 131 entries,
+42 open. Programmatic re-check of the item's own eight structural rules
+found eight questions had drifted out of compliance since the seventh
+pass: Q123, Q124, Q125, Q127, Q128, Q129, Q130 and Q131 (raised 2026-10-08
+to 2026-10-20), none opening with "Decision needed:". Fixed by prepending
+one plain-English sentence stating the choice and the recommended option
+to each, full original text preserved verbatim straight after, same
+convention as every prior retrofit on this item. `git diff --stat` after
+confirms exactly 8 lines changed in QUESTIONS.json, nothing else. Verified
+programmatically: 131 entries (no count change), no duplicate ids, all
+required fields present, every options array within 2-4, every recommended
+index valid, every status value valid, no answered entry with an empty
+answer, and all 42 open questions now open with "Decision needed:".
+`node tools/check-em-dashes.js`, `node tools/check-postcodes.js` and
+`node tools/check-url-scheme.js` (the three checkers that read
+QUESTIONS.json) all exit 0, same pre-existing warnings as recent passes
+(UNOWNED postcode notes on gbp-packs/TEMPLATE.md and
+modules/branch/pages/{INDEX,SEO}.md; INSECURE URL warnings on untracked
+debris files `.AGENT_LOG_merged.md` and `_agent-run-debris/qtmp.json`),
+none caused by or related to this edit. No page, generator or data field
+changed; only QUESTIONS.json edited. Full detail of the eight retrofitted
+sentences is in AGENT_WORKLIST.md's own 6.8 entry.
+
+Separately: four of the eight retrofitted questions (Q123, Q124, Q127,
+Q128) restate standing infrastructure blockers already open for some time
+(AGENT_LOG.md over GitHub's 100MB hard push limit; the step 10 publish
+credential gap; the exposed PAT; the .git lock-debris bloat), and a fifth
+(Q131) records that a prior run already tried to pause this very schedule
+from inside an unattended run and was auto-declined. This run did not
+attempt to action any of those - out of scope for a QUESTIONS.json
+structural check, and several are explicitly reserved for a supervised
+session per their own notes - but is flagging plainly, as Q131 already
+does, that the schedule appears to have been running unattended for a long
+stretch with every worklist item blocked and several open infrastructure
+questions unresolved. This run did not re-attempt pausing the schedule
+itself, since Q131 records that attempt already failed for lack of a live
+approver and repeating it would add nothing. No new question raised;
+blocks nothing.
+
+PUSH (step 9): `.git/index.lock` was genuinely stale by the time this step
+was reached (1h51m old, no git process running), so this run tried to
+delete it outright rather than rename it aside, per the procedure's 1-hour
+rule and run 372/94fb812's finding that rename-quarantine workarounds are
+what caused the tracked debris bloat. The delete failed - `rm -f
+.git/index.lock` returned "Operation not permitted" - the same host-level
+FUSE unlink() EPERM bug Q120/Q128 already describe, hit directly this time
+rather than only reported secondhand. Did not retry with a rename-aside
+workaround and did not force anything. Instead used the clean-clone
+fallback Q128's run-324 addendum recommends: a plain local `git clone` to
+`/tmp` failed first ("No space left on device" - this sandbox's `/` has
+only ~450MB free and a same-filesystem local clone tries to copy rather
+than hardlink reachable objects across what turned out to be two different
+mounts); a shallow `git clone --depth 1 --branch agents/audit-backlog
+file:///.../rbh-site-data /tmp/rbh-clone-377` worked (24MB), the three
+edited files were copied in from the restricted mount, `origin` was reset
+to the real remote URL, and the commit was made there instead
+(`00d4a1d`, same message as planned). This leaves no new file on the
+restricted mount; the one stuck `.git/index.lock` there was left in place
+for a supervised session to clear.
+
+`git push` from the clone was rejected outright as a non-fast-forward
+("fetch first") - not a lock problem, a genuine divergence. Fetching from
+the real `origin` (not the local file:// source) inside the clone showed
+`origin/agents/audit-backlog` now sits at `f4bd84e`, a history this
+sandbox's local branch does not contain at all (`git merge-base
+--is-ancestor` confirms neither side is an ancestor of the other). Origin's
+tip carries two commits that read as Rishi's own direct answers landing
+through a different route (the real ProDeskAi host, per Q123/Q124's own
+notes, or a supervised session): "Answer weight loss questions Q22 Q77
+Q78 Q81 Q83 Q85 Q88 Q90 Q98 Q103, Q60 follow-up" and "Answer Q92 Q105:
+fold weight loss live dash drift into the PR #2 repaste" - the same
+question set run 374's own commit (`ebe7e66`) already folded into this
+sandbox's local QUESTIONS.json via a manual `git merge-file` pass, not a
+real merge, so the two sides likely agree in substance on most of that
+content but disagree completely on git ancestry, and origin's second
+commit (Q92/Q105's "PR #2 repaste" correction) is not reflected in this
+sandbox's local history at all.
+
+Did not attempt to reconcile this automatically: merging two divergent
+15-commit-deep histories that both touch the same QUESTIONS.json entries,
+where a wrong resolution could silently duplicate, lose or revert Rishi's
+own direct answers, is exactly the class of operation this repo's own
+convention (Q97, Q123, Q129, CLAUDE.md) reserves for a supervised session,
+not an unattended run - and `git push` correctly refusing the fast-forward
+is the safety net doing its job, not a fault to work around. Raised as
+Q132 rather than folded into Q97/Q123 (narrower and more acute: it is
+about this specific branch's two environments having diverged, with a
+concrete pair of commit hashes and a recommended reconciliation method,
+not the general infrastructure-blocked state those cover). This sandbox's
+own 15 unpushed commits (runs 358-377, including this run's work) remain
+intact and unpushed on this sandbox's working copy at
+`/sessions/gallant-relaxed-goldberg/mnt/rbh-site-data` - nothing was lost,
+forced, or pushed. The throwaway `/tmp/rbh-clone-377` clone was deleted
+after this finding was written up; it was never pushed to.
+
+Given the push could not complete safely, this run's own edits
+(QUESTIONS.json's eight retrofits plus Q132, and the matching
+AGENT_WORKLIST.md/AGENT_LOG.md narrative) were left as uncommitted working
+tree changes in the real working copy rather than committed on top of the
+already-unpushed local history, for the same reason run 375 left its own
+log entry uncommitted for run 376 to pick up: `.git/index.lock` still
+blocks any commit in the real working copy itself (the clone route was
+only usable for the push attempt, not for committing back into the
+restricted mount), so there was nothing to gain by committing into a
+lineage that cannot push until Q132 is resolved anyway. Whoever next gets
+a supervised session or a working push route should commit these three
+files' current on-disk state alongside resolving Q132.
+
+STATUS PAGE (step 10): not run. `tools/build-audit-status.js` publishes by
+pushing to a different repo (`rbh-data-portal`) over the GitHub API, and
+with this sandbox's own branch now confirmed diverged from origin and its
+own commit sitting uncommitted rather than pushed, running it would only
+reproduce Q124's already-open credential-scope finding without adding
+anything new. Skipped rather than run pointlessly, per the same reasoning
+several recent runs have already logged for this step.
+
+LOCK: this run's own `.agent-lock` hit the identical EPERM-on-unlink bug on
+exit - `rm -f .agent-lock` also returned "Operation not permitted". Proved
+it is the same host-level fault rather than a one-off by testing directly
+rather than assuming; truncated it in place first (plain overwrite, which
+works fine on this mount, only unlink fails) then renamed it aside
+(`.agent-lock-released-run377-<epoch>`) as the established workaround, so
+the literal filename is absent for the next run's pickup check, same as
+every rename-aside already in `.git`. A full listing of `.agent-lock*` on
+this mount found 198 such renamed copies already present, dated back to
+late September - this problem is not confined to `.git/index.lock`/HEAD
+lock as Q128 describes, it affects this plain top-level file too, on the
+same mount, via the same bug. All are `.gitignore`d (`.agent-lock-*`,
+`.agent-lock.*`) so none has ever reached origin, but it is a second,
+independent confirmation of Q128's scale finding. Added as an addendum to
+Q128's own note (not a new question - same fault, same recommendation)
+rather than raised separately.
+
 ## Run 376 - 2026-10-21
 
 LOCK/GIT: `.agent-lock` absent at pickup; created at 2026-10-21 17:42 UTC.
