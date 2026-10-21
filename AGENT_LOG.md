@@ -1,3 +1,54 @@
+## Run 373 - 2026-10-21
+
+LOCK/GIT: no stale lock at pickup (none present). fetch/pull both ran
+cleanly and fast this time (no FUSE EPERM hit), branch already up to
+date with origin/agents/audit-backlog after run 372's quarantine-untrack
+commit.
+
+ANSWER PICKUP: Chrome session was available and
+https://data.rbhealth.co.uk/api/feedback was read successfully (no
+Access login page). Newest entry returned is Q52
+(2026-09-01T22:44:51Z); everything in this feed is already recorded in
+QUESTIONS.json as "answered" (confirmed by spot check: Q8, Q9, Q13,
+Q16, Q52, Q60, Q66 all status "answered"). No new answers to pick up.
+
+WORKLIST: all 8 remaining unchecked items are [BLOCKED]. Re-read 5.3 in
+full: 8 of its 11 branches were already moved free of the Weebly paste
+requirement by runs on 2026-09-01 and 2026-09-14; the remaining three
+(Coleman and Leighs, Gordon Short Crosby, Smartts Bootle) each need a
+repaste or a live-hours/email fix done in the Weebly editor before their
+repoint, which is explicitly out of reach for an unattended run (browser
+tools here are read-only; no typing, clicking or submitting on any
+site). Did not find any further unattended progress available on 5.3 or
+the other seven blocked items; their blocking reasons (supervised Weebly
+sessions, or in 5.5/Q13's case a CDN-pin decision flagged as needing
+supervised review) are unchanged.
+
+PUSH: `git push origin agents/audit-backlog` timed out again at 90s
+with no output, same as the 170+ runs before it. Local branch remains
+10 commits ahead of origin (now 10, unchanged by this run since nothing
+was committed - no new work to commit). Run 372's fix (untracking the
+594MB `.git-lock-debris-quarantine/` directory) addressed the root
+cause of new bloat but, as that run's own commit message said, does not
+shrink the history already sitting in these 10 unpushed local commits.
+That needs a supervised `git filter-repo`/BFG pass or equivalent,
+non-force pushed, since origin has never received these commits.
+
+STATUS PAGE: skipped, `gh` still not on PATH in this environment.
+
+NO-OP this run: nothing to commit, nothing to push, status page
+publish step has no input to run. Lock deleted on exit.
+
+RECOMMENDATION, restated plainly: this scheduled task has now produced
+roughly 180 consecutive runs with no unattended work available. The
+backlog is not actually empty - 5.3, 5.4, 5.8 and others have clear,
+already-answered decisions sitting behind them - but every remaining
+item needs either a human in the Weebly editor or a supervised git
+history rewrite, neither of which this run can do. Recommend pausing
+`audit-backlog-worker` until one supervised session clears the Weebly
+paste queue and the git history, at which point the backlog should move
+again. Repeating this run on the current schedule only adds identical
+log entries.
 ## Run 372 - 2026-10-21
 
 LOCK CLEARING: `.agent-lock` at pickup was `2026-10-21T13:45:43Z`, ~57
