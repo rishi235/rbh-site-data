@@ -30,6 +30,8 @@ archive/
 /.scratch-probe-test.tmp
 /.scratch_audit/
 /.git-junk-quarantine/
+/.git-lock-debris-quarantine/
+/.git-lock-debris-quarantine-local-only/
 /.probe*
 /._probe*
 /.canary-test*
