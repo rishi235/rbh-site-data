@@ -1,3 +1,101 @@
+## Run 374 - 2026-10-21
+
+LOCK/GIT: `.agent-lock` absent at pickup (no stale lock). `git fetch
+origin` ran clean. `git checkout agents/audit-backlog` / status then
+showed local 11 commits and origin/agents/audit-backlog 2 commits
+diverged from a shared base (3c8cd50) - origin had moved for the first
+time in many runs, not just stayed still while local grew. The two new
+origin commits (e7b7e85, f4bd84e) were real: Rishi, working in a
+separate Claude session against PR #2 (claude/weight-loss-online-and-
+inner), answered fourteen open weight-loss questions directly into
+QUESTIONS.json on origin (Q22, Q60 follow-up, Q77, Q78, Q79, Q81, Q83,
+Q85, Q88, Q90, Q92, Q98, Q103, Q105) and pushed. This did not come
+through the portal feedback API step 3 describes; picking it up meant a
+plain git merge instead.
+
+MERGE: `git merge origin/agents/audit-backlog` hit the documented FUSE
+unlink-EPERM fault immediately ("error: Unable to write index") and left
+stale `.git/index.lock` / `.git/HEAD.lock` behind, exactly the Q120
+pattern. Ccleared them with `mv` into a same-filesystem quarantine
+directory (`.lock-quarantine-run374/`, same technique Q120 already
+established - rm/unlink fails, rename does not) and re-ran; `git commit
+--no-edit` then reported success. IMPORTANT FINDING, worth flagging
+clearly for whoever reviews this branch next: that first "successful"
+merge commit was NOT trustworthy. Its tree matched the OLD pre-merge
+QUESTIONS.json byte for byte (md5 07f87a26...) - none of origin's
+fourteen answers were actually in it, despite git reporting a clean
+commit. The index-write failure during the initial merge attempt had
+corrupted the in-progress merge state; `git commit` then committed
+whatever was sitting in the index rather than genuinely merged content,
+silently discarding Rishi's answers had this been pushed as is. Caught
+by diffing `git show HEAD:QUESTIONS.json` against both parents before
+trusting the result - worth making a habit of after any merge on this
+repo until the environment is fixed.
+
+Fixed it without trusting `git merge` again: extracted the base
+(3c8cd50), local (840c814) and origin (f4bd84e) blobs of
+QUESTIONS.json, ran `git merge-file` directly on the three texts (a
+pure text 3-way merge that doesn't touch the index/lock machinery at
+all), got a clean merge with zero conflict markers, verified by node
+that all fourteen new answers plus this branch's own untouched Q119/
+Q120/Q131 content were present, copied the result over the working-tree
+file, `git add` + `git commit --amend --no-edit` (clearing the same
+stale-lock pattern twice more along the way, plus a leftover
+MERGE_HEAD/MERGE_MSG/MERGE_MODE the first botched commit never cleaned
+up, which blocked the first amend attempt with "in the middle of a
+merge"). Final commit 88d0cd53 verified: both parents (840c814,
+f4bd84e) are real ancestors, `git show HEAD:QUESTIONS.json` md5-matches
+a from-scratch `git merge-file` merge, all fourteen answered-question
+IDs read back "answered", Q131 (local-only, untouched upstream) still
+present and still "open", zero conflict markers, valid JSON, working
+tree clean.
+
+WORKLIST: applied the substance of the new answers as notes under 5.8
+(Q22's sequencing decision: reword inner pages, don't strip names; drop
+the homepage tagline first; fold in Q77/Q78/Q79/Q81/Q83/Q85/Q88/Q90/
+Q92/Q98/Q103/Q105) and under 6.5 (Q60's follow-up: named pages were not
+deleted, a second estate-wide online-prescriber diary was the real gap
+and is now widgets.weightLossOnline, and the "any page a button links
+to is Regime 1" premise this item's own text relied on was wrong per
+Rishi's correction). Did NOT tick any worklist checkbox and did NOT
+reword any live-copy generator myself: every one of the fourteen
+answers states "Repo work is on PR #2 (claude/weight-loss-online-and-
+inner)", a different branch already doing this exact rewording, so
+implementing it again here would risk building the same pages twice
+on two branches and should wait for that PR to land. Did not touch any
+of the eight [BLOCKED] worklist items' checkbox state; all eight remain
+blocked on either a Weebly session or the still-unresolved git-history-
+size problem below, unchanged from run 373.
+
+ANSWER PICKUP (portal, step 3): not attempted this run - the real
+pickup this run needed was the git-side one above, not the portal feed,
+and 30-45 minutes was already spent on it.
+
+PUSH: `git push origin agents/audit-backlog` timed out again at 100s,
+same as the 180+ runs before it. `.git` is still 1.8GB. This remains
+exactly the state runs 358-373 described: the bloat is baked into local
+commits origin has never received, and shrinking it needs a supervised
+`git filter-repo`/BFG rewrite (non-force push is possible precisely
+because origin never got these commits) - not something this run
+attempted, per the standing recommendation that this needs a human
+session, not another unattended retry. What changed this run: the local
+branch now also carries the correctly-merged Q22/Q60/etc. answers on
+top of that same unpushed history, so whoever runs the supervised
+history rewrite needs to preserve commit 88d0cd53 (or its content) and
+should diff QUESTIONS.json against origin's f4bd84e afterwards to
+confirm nothing was lost in the rewrite, the same check this run had to
+do by hand to catch its own merge going wrong.
+
+STATUS PAGE: skipped, `gh` still not on PATH in this environment.
+
+RECOMMENDATION, updated: the supervised session that was already needed
+for the git-history-size problem is now also the only way these
+fourteen answered compliance questions reach origin/main. Until it
+happens, both this branch's own unpushed work and Rishi's new answers
+sit only on this one local checkout - a single point of failure. Given
+that, the supervised session is now higher priority than "whenever
+convenient."
+
 ## Run 373 - 2026-10-21
 
 LOCK/GIT: no stale lock at pickup (none present). fetch/pull both ran

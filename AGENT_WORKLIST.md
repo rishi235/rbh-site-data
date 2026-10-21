@@ -39329,6 +39329,47 @@ no page, generator or data field changed this run.
       [BLOCKED] (fix choice for all confirmed instances still pending
       Q16/Q22/Q85/Q98/Q103/Q104).
 
+      Q22 ANSWERED 2026-10-21 (Rishi, in a Claude session, "clear any audit
+      questions", measured against AI\RBH_WeightLoss_Advertising_Standards.md
+      v2, 21 Oct 2026): the sequencing question is settled. Reword, do not
+      strip names. Order: (1) the estate-wide homepage line ("Innovative
+      solutions that deliver results. Tried the rest? Now try the best.")
+      comes off every site first, replaced with consultation-only wording,
+      since the homepage is Regime 1. (2) each legacy named page becomes
+      that branch's own Regime 2 inner page, pasted over its own URL:
+      medicine names, "weekly injection", a factual price list, in-store
+      and online booking and collect-or-post all stay; the superlative, the
+      "Real Results" heading, the outcome slider, the treatment picker and
+      "No GP visit needed" go. A template was built for Smartts in
+      modules/service/inner. This run's merge also picked up related
+      answers landing in the same batch: Q77 (bar "skinny jab"/"fat
+      jab"/"weight loss jab" on every surface including named inner pages;
+      GLP-1 as a factual class term stays permitted there), Q78 (extend the
+      body-image pattern family to the weight loss and branch landing
+      pages as a WARN), Q79 (add the comparative-outcome claim family to
+      claim-patterns.js), Q81 (fold Hirshmans into Q22: reword as its named
+      inner page over the same URL, correct the wrong address in the same
+      paste, keep the homepage/nav link), Q83 and Q90 (leave the
+      consultation-fee wording as is, no generator change; Q51's "subject
+      to a clinical assessment" qualifier already covers it), Q85 (same
+      McCanns Sandringham sequencing as Q22), Q88 (same as Q83), Q92/Q105
+      (fold the live en-dash drift into the PR #2 repaste), Q98/Q103 (same
+      Q22 sequencing, extended to Scorah/Coleman and Leighs/Riddings/Gordon
+      Short), and Q60's follow-up (the generic landing pages were missing a
+      second, estate-wide independent-prescriber online diary, not the
+      in-store Appointedd widget as first read; now captured as
+      widgets.weightLossOnline and live on all 15 generated landing pages).
+      IMPORTANT: every one of these answers states "Repo work is on PR #2
+      (claude/weight-loss-online-and-inner)" - a different branch doing the
+      actual page rewording. This run (agents/audit-backlog) therefore does
+      NOT attempt the rewording itself, to avoid building the same pages
+      twice on two branches. Item 5.8 stays [BLOCKED] here pending PR #2
+      landing; once it does, this item's remaining repo-side work is to
+      confirm the merged pages match the sequencing above and to drop the
+      Smartts switch-page tile wording flagged under Q16's own note
+      ("Support that delivers results" -> "Pharmacist-led consultations and
+      ongoing support").
+
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
 - [ ] [BLOCKED] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
@@ -41790,6 +41831,24 @@ no page, generator or data field changed this run.
       this run: doing so ahead of Q22's guidance would risk building the
       wrong shape twice. Remains blocked on Q22 and on the Weebly nav
       session, not on Q60 any further.
+
+      Q60 FOLLOW-UP 2026-10-21 (Rishi, in a Claude session, "clear any audit
+      questions"): confirmed live that the named inner pages were NOT
+      deleted (still live at Smartts, Scorah and Hirshmans). The "online
+      appointment missing" belief was partly right for a different reason:
+      the legacy pages run a second, estate-wide online diary with an
+      independent prescriber (id 68710670f341060bc6a09451) that had never
+      been captured in branches.json; it is now widgets.weightLossOnline
+      and renders on all 15 generated landing pages. Also corrected: this
+      answer, and Q22's answer above, both state the premise behind this
+      item's own "Regime 1 covers any page a button proactively links to"
+      reasoning was wrong - RBH_WeightLoss_Advertising_Standards.md v2 does
+      not say that; a menu or homepage link to a condition page is
+      permitted provided the link label names no medicine. The nav
+      architecture question (keep the landing page out of primary nav)
+      should be re-read against that correction before acting on it. Repo
+      work tied to this answer is on PR #2 (claude/weight-loss-online-and-
+      inner), not this branch. Remains [BLOCKED] on the Weebly nav session.
 - [ ] [BLOCKED] 6.6 Q66 (downgraded to low urgency, see the correction below)
       HTTP/HTTPS duplicate
       indexing: checked live in real Google Search Console (not Ahrefs) on
