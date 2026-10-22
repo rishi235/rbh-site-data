@@ -2086,5 +2086,21 @@
     "status": "open",
     "answer": null,
     "note": "This sandbox's local working copy (not the real ProDeskAi host at C:\\Dev\\rbh-site-data, which Q123/Q124 suggest already has a working push route) still carries all 15 unpushed commits intact on disk; nothing was lost or force-pushed by this run. The throwaway /tmp clone used to attempt the push (see AGENT_LOG.md) was not pushed and can be discarded; the real source of truth remains this sandbox's own working copy at /sessions/gallant-relaxed-goldberg/mnt/rbh-site-data and, separately, origin."
+  },
+  {
+    "id": "Q133",
+    "date": "2026-10-22",
+    "item": "push blocker root cause (follow-on from Q119/Q120/Q123/Q131/Q132)",
+    "question": "Run 381 traced exactly why every push of agents/audit-backlog has failed since run 359, rather than only observing that it fails. Commit 762b712 (run 359) added 1189 files of lock/tmp_obj debris (594MB); commit 94fb812 later untracked that directory going forward but did not remove it from history, so it still sits in the unpushed range origin/agents/audit-backlog..HEAD. One of its blobs, object 0049e655c891b622370f64e37fe6247325ff7be8 (path .git-lock-debris-quarantine/tmp_obj_zHH1CZ.run357-1792500311598974410), is now a zero-byte file on this sandbox mount - confirmed corrupt via git fsck, not merely large or unreachable. This sits alongside Q123s separate, already-confirmed finding that the same unpushed range also carries a historical AGENT_LOG.md blob over GitHubs 100MB limit. Either fault alone blocks the push; fixing only one leaves the other. The fix is a rebase/filter-repo rewrite of the local-only commits after f4bd84e (safe without force-push, since f4bd84e is untouched and still origins tip), but every attempt at that kind of git surgery on this sandbox mount hits the same unlink/rename EPERM recorded in Q120, so it needs a supervised session rather than another unattended run.",
+    "options": [
+      "Supervised session: interactive rebase dropping/editing commit 762b712 out of the agents/audit-backlog range on the real host (not this sandbox mount), re-check for any other oversized or corrupt blob in the same range (the AGENT_LOG.md one from Q123 included), then push once clean - directly fixes the traced cause.",
+      "Supervised session: run git filter-repo (or BFG) over the full local clone to strip the .git-lock-debris-quarantine path and any oversized AGENT_LOG.md blobs from history entirely, then push - more thorough, touches more of the commit graph, still non-force since origin has not seen any of it.",
+      "Abandon the branch: cut a fresh branch from origin/agents/audit-backlog (f4bd84e) on the real host, hand-replay only the worklist-relevant changes from runs 358-381 (ticks, log entries, question answers), and retire agents/audit-backlog as-is - avoids git surgery entirely but loses the commit-level history of 23 runs and needs someone to manually decide what from that run of log entries is worth replaying.",
+      "Do nothing further and keep running the schedule unattended - not recommended: 25 consecutive runs have now confirmed this cannot self-resolve, and it leaves Q127s exposed PAT sitting live for another cycle each time."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Pair this with Q127 (rotate the PAT) in the same supervised session - a reclone or rebase will need the remote re-authenticated anyway, so it is the natural point to also replace the exposed token."
   }
 ]

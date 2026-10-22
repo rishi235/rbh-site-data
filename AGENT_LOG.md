@@ -1,3 +1,76 @@
+## Run 381 - 2026-10-22
+
+LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. HEAD unchanged from
+run 380 at `ba97b33` on `agents/audit-backlog`, 18 commits ahead of
+`origin/agents/audit-backlog` (`f4bd84e`, still an ancestor, no divergence).
+
+WORKLIST: all 8 items still `[BLOCKED]`. 25th consecutive run finding this.
+No quality pass taken - already re-verified clean well over a dozen times
+with nothing to act on; repeating it again is not a good use of this run.
+
+ANSWER PICKUP: not attempted, same reason as runs 364-380 - no live Chrome
+Access session available in this sandbox.
+
+PUSH - new finding, not a repeat of Q119/Q123's generic "too big, times out":
+this run did not skip the push attempt (run 380 had, reasonably, on the
+grounds that repeating a known-failing operation adds nothing). Ran it once
+with a 60s bound anyway, since nobody had actually looked AT the failure in
+several runs, only at its outcome. It is not a bare timeout. `git push`
+immediately printed `error: object file
+.git/objects/00/0049e655c891b622370f64e37fe6247325ff7be8 is empty`, then ran
+on to the 60s cutoff rather than exiting. `git fsck --full --no-dangling`
+confirms it: that object is a zero-byte file on disk, reported as `missing
+blob 0049e655c891b622370f64e37fe6247325ff7be8`, i.e. genuinely corrupt, not
+merely unreachable garbage.
+
+Traced it: `git log --all --source -- <path>` shows the blob belongs to
+`.git-lock-debris-quarantine/tmp_obj_zHH1CZ.run357-1792500311598974410`,
+added in commit `762b712` (run 359, "lock debris quarantined" - the 1189
+files / 594MB commit that `94fb812` later untracked from the working tree
+without removing from history). That commit is still in the unpushed range
+(`origin/agents/audit-backlog..HEAD`), so every push since has had to
+transfer it, and this run is the first to find that one of its blobs is now
+physically corrupt on this sandbox's mount, not just large. This sits
+alongside, not in place of, Q123's separate and already-confirmed finding
+that an oversized historical version of AGENT_LOG.md in the same unpushed
+range exceeds GitHub's 100MB per-file push limit outright - either fault
+alone would block this push.
+
+Did not attempt a fix. Removing the corrupt object or the debris commit from
+history needs a rebase/filter-repo rewrite of the local-only commits after
+`f4bd84e` (safe to do without force-push, since `f4bd84e` itself is
+untouched and still origin's tip), but that is real git surgery on a mount
+that has already shown (Q120) it returns EPERM on unlink/rename mid-operation
+- exactly the kind of job runs 358-380 have consistently and correctly
+deferred to a supervised session rather than attempting unattended. Confirmed
+with a direct test this run: `rm`, `mv` and even `chmod` followed by `mv` all
+still fail with "Operation not permitted" on a sample `tmp_obj_*` file in
+this sandbox, same as Q120 describes. Logged as Q133 rather than reopening
+Q119/Q123/Q127, because it names the exact commit and object to drop, which
+those did not.
+
+Checked current `AGENT_LOG.md`/`AGENT_WORKLIST.md` sizes directly rather than
+assuming Q123's old numbers still hold: `AGENT_LOG.md` is 992KB and
+`AGENT_WORKLIST.md` is 2.9MB in the working tree today, both well under
+GitHub's limit. That does not close Q123 - the oversized blob Q123 found is
+further back in the same unpushed commit range and would still be
+transferred on any push of that range regardless of the current file's size.
+
+PAT (Q127): re-confirmed still present in cleartext in `.git/config`'s origin
+remote URL on this run's own inspection. Not reproduced in this entry, not
+rotated, not touched.
+
+STATUS PAGE: not run, `gh` still absent from this sandbox (Q124).
+
+ESCALATION: restating Q131/Q132's recommendation once more, now with a
+concrete target attached via Q133 rather than only the general git-bloat
+complaint: the fix is a supervised interactive rebase dropping or editing
+commit `762b712` out of the local `agents/audit-backlog..HEAD` range (and
+checking for any other commit carrying oversized/corrupt debris in the same
+range), followed by rotating the exposed PAT (Q127) before the branch is
+pushed again. This is run 381 with the worklist still fully blocked; every
+run since has added confirmation, not progress.
+
 ## Run 380 - 2026-10-22
 
 LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. State re-verified
