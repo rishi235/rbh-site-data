@@ -1,3 +1,46 @@
+## Run 387 - 2026-10-22
+
+LOCK/GIT: no `.agent-lock` present at pickup; wrote a fresh one, deleted at
+exit per protocol. `git fetch` + `git pull --ff-only` both clean, nothing
+new from origin (local HEAD already contains origin tip as ancestor). HEAD
+on `agents/audit-backlog` is 22 commits ahead of `origin/agents/audit-backlog`
+(this entry's commit is the only addition - unchanged in substance from run
+386's 21).
+
+WORKLIST: all 8 items still `[BLOCKED]`. 31st consecutive run finding this.
+No quality pass taken, same reasoning as the last several dozen runs: the
+block is a real infrastructure fault, not a stale note.
+
+ANSWER PICKUP: Chrome reached `https://data.rbhealth.co.uk/api/feedback`
+directly, no Access login page, read the full feed. Newest "Audit answer"
+is still Q52 (1 Sept 2026). Nothing answers Q80 onward, specifically
+nothing on Q119-Q133, the three infrastructure blockers below.
+
+PUSH: re-tested, bounded to 25s. Identical failure, same blob:
+`error: object file .git/objects/00/49e655c891b622370f64e37fe6247325ff7be8
+is empty` (Q133's corrupt zero-byte blob, inside the unpushed range). Not
+touched - history repair is reserved for a supervised session, and this
+schedule may never force-push.
+
+PAT (Q127): `remote.origin.url` still carries a live, unrotated GitHub PAT.
+Unchanged, not reproduced here, left alone per the credentials rule.
+
+STATUS PAGE: `gh` still absent (`which gh` exit 1), so
+`tools/build-audit-status.js` was not run this run either - unchanged
+reasoning from runs 376 onward.
+
+ESCALATION - unchanged from run 386, restated: 31st consecutive run with
+the worklist fully and identically blocked on the same three infrastructure
+faults (Q127 PAT, Q133 corrupt object, Q124 gh absence), with no answer
+traffic on any of them for seven weeks. The unrotated PAT has now sat in
+cleartext in `.git/config` for at least 31 runs. Recommend Rishi pause this
+scheduled task until a supervised session: (1) rotates the PAT (Q127),
+(2) repairs or re-clones past the corrupt blob (Q133) so the 22 queued
+commits can be pushed or abandoned, (3) installs `gh` or an alternative so
+the status page can publish (Q124). No further unattended run can make
+progress until these three are addressed; continuing to fire this schedule
+only adds no-op commits and re-exposes the same credential.
+
 ## Run 386 - 2026-10-22
 
 LOCK/GIT: no `.agent-lock` present at pickup; wrote a fresh one, timestamped
