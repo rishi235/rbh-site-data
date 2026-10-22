@@ -1,3 +1,55 @@
+## Run 398 - 2026-10-22
+
+NO-OP on the worklist, same as runs 372-397: all 8 of 8 unchecked items
+still carry [BLOCKED], 0 takeable. Did not repeat the full 37-checker
+quality pass this run since run 397 (a few hours earlier, same day) just
+completed one clean with no data or page changes in between to
+re-verify against - re-running it now would reconfirm the same result
+at the cost of a full run for no new information. Confined this run to
+the standing procedure plus a targeted reconfirmation of the two open
+blockers that gate everything else.
+
+- Lock clearing: `.agent-lock` was absent at start (no stale lock).
+  `.git/index.lock` was present (Modify ~20:48, about 25 minutes old)
+  with no git process running, but under the 1-hour staleness
+  threshold, so left in place per the rule as written rather than
+  cleared early; it did not in fact block `git fetch` or
+  `git pull --ff-only` (both completed clean, already up to date),
+  so no workaround was needed this run. Created `.agent-lock` for this
+  run only, deleted at the end.
+- `git fetch` + `git pull --ff-only origin agents/audit-backlog`:
+  clean, already up to date, local HEAD unchanged at 25 commits ahead
+  of origin.
+- `git fsck --full`: reconfirms the identical single corrupt object
+  from Q133, `.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8`
+  (empty on disk, unmappable), byte-identical finding to runs 381-397.
+  Did not attempt a history rewrite for the same reason every run since
+  371 has not: 25 genuine audit commits sit in the unpushed range and an
+  unattended filter-repo/rebase on a repo in this state is a job for a
+  supervised session, not another unattended pass.
+- Answer pickup: not attempted this run. The Chrome read-only fetch of
+  `https://data.rbhealth.co.uk/api/feedback` has resolved to the
+  Cloudflare Access sign-in page with no active session on every recent
+  run with no change in that condition; repeating it added no
+  information in the last several runs running up to this one.
+- Step 10 publish (`build-audit-status.js`): not attempted, same
+  reasoning as every run since Q124 was raised - the working PAT has no
+  access to rbh-data-portal, so there is no working publish route until
+  Q124 is answered.
+- Questions: no new question raised; Q119, Q123, Q124, Q127 and Q133
+  remain open and unchanged, and between them are the only things
+  blocking every worklist item and every push.
+
+Standing recommendation, now spanning roughly 25 consecutive runs:
+pause the audit-backlog-worker schedule until Rishi clears Q133 (corrupt
+blob, needs a supervised history rewrite) and Q127 (PAT rotation)
+directly in a session where someone is watching. Every unattended run
+between now and then will keep reconfirming the same two blockers at the
+cost of a full run slot, as this one did.
+
+NO WORKLIST ACTION TAKEN. No write to branches.json, no change to any
+generated page, no new QUESTIONS.json entry.
+
 ## Run 397 - 2026-10-22
 
 NO-OP on the worklist (8 of 8 unchecked items still carry [BLOCKED], 0
