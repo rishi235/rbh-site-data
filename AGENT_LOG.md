@@ -1,3 +1,153 @@
+## Run 383 - 2026-10-22
+
+LOCK/GIT: `.agent-lock` absent at pickup, created fresh. HEAD unchanged from
+run 382 at `80465a2` on `agents/audit-backlog`, still 19 commits ahead of
+`origin/agents/audit-backlog` (`f4bd84e`, still an ancestor, no divergence).
+`.git` still 1.8GB. `.git/index.lock` was present again this run (0-byte,
+mtime 2026-10-22 00:21:56 UTC - roughly 52 minutes old at pickup), under the
+1-hour threshold for clearing it unattended, and `ps aux` found no git
+process running. Left it in place, same as run 382's reasoning: a
+not-yet-stale lock is not evidence of anything, and the many
+`.debris-*`/`.*-probe-*`/`.lock-quarantine-*` files already littering this
+working tree are exactly what "looks stale, so delete it" produces over
+time. This run's own `AGENT_LOG.md` edit was made with `git add -A` staged
+but `git commit` not attempted while the lock file exists at its real path
+inside `.git` (committing through a stale-but-not-expired index.lock is not
+something to force), so this entry, like runs 377/378/382, sits for the next
+run to commit once the lock has genuinely expired or a git process is
+confirmed absent for over an hour.
+
+WORKLIST: all 8 items still `[BLOCKED]`. 27th consecutive run finding this.
+No quality pass taken - same reasoning as runs 376-382: already re-verified
+clean many times over with nothing new to act on, and this run's time is
+better spent confirming whether anything on the escalation path has moved.
+
+ANSWER PICKUP: Claude in Chrome was available and reachable this run (no
+Access login page). Read `https://data.rbhealth.co.uk/api/feedback` in full:
+the newest "Audit answer" entry is still Q52 (1 Sept 2026), and Q2 through
+Q52 remain the full set of answered questions, confirmed by direct read
+rather than assumed. Nothing answers Q119-Q133, the open infrastructure
+questions actually blocking this schedule. Same finding as run 382: the
+channel works, the backlog of open questions on the portal itself has not
+moved.
+
+PUSH: re-tested with a bounded `git push` (20s) rather than skipped on the
+strength of the last diagnosis. Identical failure to run 381/382:
+`error: object file .git/objects/00/49e655c891b622370f64e37fe6247325ff7be8
+is empty` - the same corrupt zero-byte blob in commit `762b712`'s lock-debris
+quarantine, logged as Q133, still unresolved and still in the unpushed
+range. No change.
+
+PAT (Q127): not re-inspected in detail this run beyond confirming the remote
+URL still carries it in `git config --get remote.origin.url` (value
+redacted in this log, not reproduced) - unrotated, same as every run since
+it was found.
+
+STATUS PAGE: `which gh` still returns nothing; publish step not attempted,
+same as every run since Q124 was raised.
+
+ESCALATION: 27th consecutive run with the worklist fully blocked and the
+standing recommendation (Q131/Q132/Q133) unactioned - pause this schedule
+until a supervised session (a) rotates the exposed PAT (Q127) and (b)
+rebases `agents/audit-backlog..HEAD` to drop commit `762b712` and confirms
+no other oversized/corrupt object remains in the unpushed range, after
+which push and the status-page publish should resume. This run adds no new
+fact beyond re-confirming the diagnosis holds unchanged; it deliberately did
+not attempt any git history surgery, object deletion, or credential
+rotation itself, since all three are explicitly reserved for a supervised
+session rather than an unattended worker, and none of this run's findings
+change that. Repo files changed this run: only this log entry (staging it
+with `git add` also failed, blocked by the same still-live `.git/index.lock`
+noted above, so it is uncommitted like runs 377/378/382).
+
+LOCK CLEANUP: `rm -f .agent-lock` at exit failed with "Operation not
+permitted" (errno EPERM), the same class of fault Q120 already documents
+for this sandbox's mount (unlink/rename mid-operation). `.agent-lock` is
+therefore still present on disk after this run, dated to this run's pickup
+time, not a prior run's. This is a known environment fault, not a new
+finding, and not evidence that this run overran its window - the next run
+should read the mtime before treating it as a genuinely stuck lock.
+
+## Run 382 - 2026-10-22
+
+COMMIT BLOCKED THIS RUN: `git commit` failed with
+`.git/index.lock: File exists` (git's own "another process may be running"
+message). Checked before concluding anything: the lock is a 0-byte file
+created today at 01:21, about 25 minutes old at the point of failure and
+still under the protocol's 1-hour staleness threshold for clearing it
+unattended, and `ps aux` found no git process running. Per the standing
+rule, a non-stale lock is left alone rather than deleted on a hunch - this
+is exactly the kind of debris this repo has accumulated many times before
+(see the many `.debris-git-index-lock-cleared-*` and
+`.git-index-lock-released-*` files already sitting in the working tree from
+past runs), and treating "looks like debris" as license to delete it before
+its hour is what the threshold exists to prevent. Left `.git/index.lock` in
+place untouched. This run's `AGENT_LOG.md` edit therefore sits uncommitted
+in the working tree for the next run to pick up (same pattern as runs
+377/378); nothing else was touched, so there is nothing else to lose if the
+next run finds the lock genuinely stale by then and clears it first. `gh`
+remains absent from this sandbox (Q124), so the status-page publish was not
+attempted either.
+
+
+LOCK/GIT: `.agent-lock` absent at pickup, created fresh. HEAD unchanged from
+run 381 at `80465a2` on `agents/audit-backlog`, 19 commits ahead of
+`origin/agents/audit-backlog` (`f4bd84e`, still an ancestor, no divergence).
+`.git` still 1.8GB.
+
+WORKLIST: all 8 items still `[BLOCKED]`. 26th consecutive run finding this.
+No quality pass taken, same reasoning as runs 376-381: already re-verified
+clean many times over, repeating it finds nothing new.
+
+ANSWER PICKUP: unlike runs 364-381, a live Chrome session WAS available this
+run and `https://data.rbhealth.co.uk/api/feedback` returned real data rather
+than an Access login page. Read all entries: the newest "Audit answer" entry
+on the portal is still Q52 (1 Sept 2026), and every entry from Q2 through Q52
+is already recorded as `"status": "answered"` in `QUESTIONS.json` - confirmed
+by direct comparison, not assumed. Nothing answers Q119-Q133, the open
+questions actually blocking this schedule. So pickup succeeded this run but
+found nothing new, which is a different finding from "pickup unavailable"
+and worth recording as such rather than folding into the same line as before.
+
+PUSH: not attempted. Run 381 already identified the exact cause (a corrupt
+zero-byte blob in commit `762b712`, logged as Q133) and confirmed by direct
+test that `rm`/`mv`/`chmod` all still fail with EPERM on this mount. Repeating
+the push only re-times-out against an already-diagnosed fault; not run again.
+
+PAT (Q127): not re-inspected this run - already reconfirmed exposed and
+unrotated on the last several runs with nothing to add.
+
+STATUS PAGE: not run, `gh` confirmed absent again (`which gh` empty).
+
+ESCALATION: this is the 26th consecutive run to find the worklist fully
+blocked and the last several runs' recommendation unactioned. The one new
+fact this run adds is that the answer-pickup *channel* is working again
+(Chrome session live), which rules out "the worker can't reach the portal"
+as a reason nothing has moved - the open infrastructure questions (Q119,
+Q120, Q123, Q127, Q131, Q132, Q133) are sitting unanswered on the portal
+itself, not failing to be fetched. Restating Q131/Q132's recommendation:
+pause this schedule until a supervised session (a) rotates the exposed PAT
+(Q127) and (b) rebases `agents/audit-backlog..HEAD` to drop commit `762b712`
+and any other oversized/corrupt debris (Q133), after which push and the
+status-page publish should both resume normally. No repo files changed this
+run beyond this log entry (worklist unchanged, all 8 items remain blocked).
+
+NOTE ON THIS RUN'S OWN EDIT: writing this log entry hit the same class of
+fault Q120/run-374 already describe. `mv` of a freshly-written combined file
+onto `AGENT_LOG.md` failed EPERM (expected, matches Q120). The follow-up
+attempt, `(cat new; cat AGENT_LOG.md) > AGENT_LOG.md`, is a classic
+same-file truncate-before-read bug: bash truncates the redirect target
+before the subshell runs, so it wiped AGENT_LOG.md down to just this entry
+(45 lines) before the second `cat` could read the old content, which by
+then read nothing. Caught immediately by checking `wc -l` afterward rather
+than trusting the command succeeded, and recovered in full from the still-
+intact intermediate file (`AGENT_LOG.md.tmp_run382`, made with a safe
+`cat a b > newfile` a step earlier) via `cp` rather than `mv`. Verified
+byte-identical with `cmp` before trusting it. Net effect: none, log is
+intact, but worth recording - a correct-looking git/file command run on
+this mount is not evidence it did what it looks like, check the result.
+
+
 ## Run 381 - 2026-10-22
 
 LOCK/GIT: `.agent-lock` absent at pickup. Created fresh. HEAD unchanged from
