@@ -1,3 +1,52 @@
+## Run 386 - 2026-10-22
+
+LOCK/GIT: no `.agent-lock` present at pickup; wrote a fresh one, timestamped
+and deleted at exit per protocol. `git fetch` + `git pull --ff-only` both
+clean, nothing new from origin. HEAD on `agents/audit-backlog` is 21 commits
+ahead of `origin/agents/audit-backlog` (no divergence) - unchanged in
+substance from run 385's 20 (this entry is the only addition).
+
+WORKLIST: all 8 items still `[BLOCKED]`. 30th consecutive run finding this.
+No quality pass taken, same reasoning as the last several dozen runs.
+
+ANSWER PICKUP: Chrome reached `https://data.rbhealth.co.uk/api/feedback`
+directly, no Access login page, read the full feed. Newest "Audit answer"
+is still Q52 (1 Sept 2026). Nothing answers Q80 onward, specifically
+nothing on Q119-Q133, the three infrastructure blockers below.
+
+PUSH: re-tested, bounded to 25s. Identical failure: `error: object file
+.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8 is empty` (Q133's
+corrupt zero-byte blob, inside the unpushed range). Not touched - history
+repair is reserved for a supervised session, and this schedule may never
+force-push.
+
+PAT (Q127): `remote.origin.url` still carries a live, unrotated GitHub PAT.
+Unchanged, not reproduced here, left alone per the credentials rule.
+
+STATUS PAGE: `gh` still absent (`which gh` exit 1), so
+`tools/build-audit-status.js` was not run this run either - unchanged
+reasoning from runs 376 onward.
+
+ESCALATION - RAISING THE SEVERITY OF THIS RECOMMENDATION: this is the 30th
+consecutive run to find the worklist fully and identically blocked on the
+same three infrastructure faults (Q127 PAT, Q133 corrupt object, Q124 gh
+absence), with no answer traffic on any of them for seven weeks. Continuing
+to run this schedule unattended is no longer just unproductive, it carries
+a growing cost: (1) a live, unrotated GitHub PAT has now sat in cleartext
+in `.git/config` for at least 30 runs with every run re-reading it; (2) the
+FUSE EPERM unlink fault (Q120/Q128) keeps leaving `.debris-*`/`*-probe-*`/
+`*.cleared-*` litter in the working tree every run, now several hundred
+files; (3) `.git` is 1.8GB and growing nothing-but-log-entry commits on top
+of a tree that cannot push anyway. Recommend Rishi pause this scheduled
+task (`audit-backlog-worker`) until a supervised session has: rotated the
+PAT and re-added the remote with a fresh token (not committed anywhere);
+repaired or discarded the corrupt blob (likely cleanest via a fresh clone
+of `origin/agents/audit-backlog` plus manual re-application of the 21
+locally-ahead commits, since none of them have reached origin and nothing
+is lost by discarding this local clone); and either installed `gh` in this
+sandbox or changed `build-audit-status.js` to publish without it. Until
+then, further scheduled runs will keep reproducing this exact entry.
+
 ## Run 385 - 2026-10-22
 
 LOCK/GIT: no `.agent-lock` present at pickup; wrote a fresh one. `git fetch
