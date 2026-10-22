@@ -1,3 +1,116 @@
+## Run 385 - 2026-10-22
+
+LOCK/GIT: no `.agent-lock` present at pickup; wrote a fresh one. `git fetch
+origin` returned nothing new. HEAD on `agents/audit-backlog` is 20 commits
+ahead of `origin/agents/audit-backlog`, no divergence (`git rev-list
+--left-right --count` gave `0  20`). `.git` unchanged at 1.8GB.
+
+WORKLIST: all 8 items still `[BLOCKED]`. 29th consecutive run finding this.
+No quality pass taken: the previously-completed items have been re-verified
+repeatedly over the last month with nothing new to check, and spending this
+run's time re-running the same checkers again would not move anything while
+the three infrastructure blockers below are open.
+
+ANSWER PICKUP: Claude in Chrome reached
+`https://data.rbhealth.co.uk/api/feedback` directly (no Cloudflare Access
+login page) and read the full feed. Newest "Audit answer" entry is still
+Q52 (1 Sept 2026). Nothing answers Q80 onward, and specifically nothing
+answers Q119 through Q133, which are the open questions actually blocking
+this schedule. Same finding as runs 382-384.
+
+PUSH: re-tested with a bounded (25s) `git push origin agents/audit-backlog`.
+Identical failure to the last several runs: `error: object file
+.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8 is empty`. This is
+Q133's corrupt zero-byte blob, sitting in commit `762b712`, which is in the
+unpushed range (now 20 commits, after this run's own log entry). Did not
+attempt to delete the object, rewrite history, or otherwise repair it -
+that is reserved for a supervised session per the standing rule, not this
+worker, and the hard rules for this schedule forbid force-pushing in any
+case.
+
+PAT (Q127): `git config --get remote.origin.url` still carries a live,
+unrotated GitHub PAT embedded in the URL (not reproduced here). Unchanged
+since it was first found. This is a credential sitting in a file this
+worker has to touch to do its job, so per the standing rule on credentials
+it is logged and left alone rather than acted on.
+
+STATUS PAGE: `gh` is still absent from this sandbox (Q124, confirmed again
+with `which gh`), so `node tools/build-audit-status.js`, which publishes via
+the GitHub API, was not attempted this run - the same reasoning as the last
+several runs, since the script's own publish step depends on the same
+GitHub access that `gh`'s absence signals is missing here.
+
+ESCALATION: unchanged from run 384. 29th consecutive run with the worklist
+fully blocked on the same three infrastructure faults: the unrotated PAT
+(Q127), the corrupt object blocking every push (Q133, inside the 20
+unpushed commits), and the sandbox's FUSE EPERM unlink behaviour (Q120/
+Q128) that keeps generating `.debris-*` / `*-probe-*` / `*.cleared-*` litter
+in the working tree run after run. The recommendation stands: pause this
+schedule until a supervised session clears all three, rather than keep
+generating daily no-op log entries against blockers this worker is
+correctly not authorised to fix itself.
+
+LOCK CLEANUP: `.agent-lock` written at this run's pickup time; deleted at
+exit. If deletion fails with the same EPERM fault noted in prior runs, the
+file left behind is dated to this run and the next run should read its
+mtime (45-minute threshold) before treating it as stuck.
+
+## Run 384 - 2026-10-22
+
+LOCK/GIT: `.agent-lock` found at pickup dated `2026-10-22T01:12:50Z`, 90
+minutes old at pickup - past the 45-minute threshold, so treated as genuinely
+stale and cleared (via `mv` to `.agent-lock.cleared-<epoch>`, `rm` still
+refusing with EPERM, same known fault as Q120/Q128). `.git/index.lock` was
+also present, 142 minutes old (created 01:21:56, over an hour) with no git
+process running (`ps aux` confirmed clean) - cleared the same way. This
+unblocked run 383's uncommitted `AGENT_LOG.md` edit, which had been waiting
+three runs (377/378/382/383) for a lock to genuinely expire; committed it
+this run as `cec7cb77` (`git add` again logged the familiar
+`unable to unlink tmp_obj_*` warnings but succeeded). `git fetch origin`
+returned nothing new; HEAD still 19 commits ahead of
+`origin/agents/audit-backlog` (`f4bd84e`, still an ancestor, no divergence).
+
+WORKLIST: all 8 items remain `[BLOCKED]`. 28th consecutive run finding this.
+No new quality pass taken, same reasoning as runs 376-383: already
+re-verified clean repeatedly, nothing new to act on while the infrastructure
+blockers are open.
+
+ANSWER PICKUP: Chrome reached `https://data.rbhealth.co.uk/api/feedback`
+directly, no Access login page. Read the full feed: newest "Audit answer" is
+still Q52 (1 Sept 2026). Nothing answers Q119 through Q133, the open
+infrastructure questions actually blocking this schedule. Same finding as
+runs 382/383.
+
+PUSH: re-tested with a bounded (25s) `git push`. Identical failure to runs
+381-383: `error: object file .git/objects/00/49e655c891b622370f64e37fe6247325ff7be8
+is empty` - Q133's corrupt zero-byte blob in commit `762b712`, still present,
+still in the unpushed range. Did not attempt any object deletion or history
+rewrite - reserved for a supervised session per the standing rule, not this
+worker.
+
+PAT (Q127): remote URL still carries the live, unrotated GitHub PAT in
+`git config --get remote.origin.url` (not reproduced here). Unchanged.
+
+STATUS PAGE: `gh` still absent from this sandbox (Q124); publish step not
+attempted.
+
+ESCALATION: 28th consecutive run with the worklist fully blocked. The
+standing recommendation is unchanged and getting more urgent with every
+run: pause this schedule until a supervised session (a) rotates the exposed
+PAT (Q127), (b) clears the corrupt object and rebases `agents/audit-backlog`
+past commit `762b712` so the 19 unpushed commits (now including this run's)
+can actually reach origin, and (c) addresses the sandbox's FUSE EPERM
+unlink behaviour (Q120/Q128) that is generating a steady trickle of
+`.debris-*`/`tmp_obj_*`/`*.cleared-*` litter in the working tree on every
+run. None of this is new, but four weeks of daily no-op runs against the
+same three blockers is no longer a quality-pass finding, it is an argument
+for stopping the schedule until a human session clears the backlog.
+
+LOCK CLEANUP: fresh `.agent-lock` written at this run's pickup time; `rm -f`
+at exit is expected to fail with the same EPERM fault noted in prior runs
+(Q120) - if so, the file left behind is dated to this run and the next run
+should read its mtime before treating it as stuck.
+
 ## Run 383 - 2026-10-22
 
 LOCK/GIT: `.agent-lock` absent at pickup, created fresh. HEAD unchanged from
