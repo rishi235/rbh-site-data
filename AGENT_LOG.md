@@ -1,3 +1,59 @@
+## Run 399 - 2026-10-22
+
+NO-OP on the worklist, same as runs 372-398: all 8 of 8 unchecked items
+still carry [BLOCKED], 0 takeable. Did not repeat the full 37-checker
+quality pass this run - run 397 completed one clean earlier the same
+day with no data or page changes since, so this run was confined to
+the standing procedure plus a targeted reconfirmation of the open
+blockers, same discretion run 398 applied.
+
+- Lock clearing: `.agent-lock` was absent at start (no stale lock);
+  `.git/index.lock` was also absent. Created `.agent-lock` for this
+  run's duration.
+- `git fetch` + `git pull --ff-only origin agents/audit-backlog`: both
+  clean, already up to date. Local HEAD unchanged in content, 26
+  commits ahead of origin (was 25 at the start of run 398; that run's
+  own log commit accounts for the +1).
+- `git fsck --full`: reconfirms the identical single corrupt object
+  from Q133, `.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8`
+  (empty on disk, unmappable) - byte-identical finding to every run
+  since 381. Did not attempt a history rewrite, same reasoning as every
+  run since 371: 26 genuine audit commits sit in the unpushed range and
+  an unattended filter-repo/rebase on a repo in this state is a job for
+  a supervised session, not another unattended pass.
+- Answer pickup: attempted via Chrome, read-only, per step 3.
+  `https://data.rbhealth.co.uk/api/feedback` resolved to the same
+  Cloudflare Access sign-in page (no active session) as every recent
+  run. Did not attempt sign-in; tab closed without further interaction.
+- `which gh`: still exit 1 (Q124). Step 10 publish
+  (`build-audit-status.js`) not attempted, same reasoning as every run
+  since Q124 was raised - no working publish route until it is
+  answered.
+- Origin remote PAT (Q127): reconfirmed still embedded in
+  `.git/config` and still unrotated (value not re-stated here).
+- No "Standing authorisation - autonomous window" section present at
+  the top of this file at the time this run checked, so no autonomous
+  decisions taken.
+- Questions: no new question raised. Q119, Q123, Q124, Q127 and Q133
+  remain open and unchanged, and between them are the only things
+  blocking every worklist item and every push, exactly as runs 372-398
+  found.
+
+Standing recommendation, now spanning roughly 26 consecutive runs
+(since run ~372): pause the `audit-backlog-worker` schedule until
+Rishi clears Q133 (corrupt blob, needs a supervised history rewrite of
+the unpushed range) and Q127 (PAT rotation) directly, in a session
+where someone is watching. Every unattended run between now and then
+will keep reconfirming the same two blockers at the cost of a full run
+slot, exactly as this one did. Flagging this plainly for Rishi: this
+is not a worklist problem, it is a stuck pipeline - 26 runs of green
+reconfirmation have produced zero forward progress on the actual audit
+backlog, and the schedule should be paused rather than left firing
+until this is fixed by hand.
+
+NO WORKLIST ACTION TAKEN. No write to branches.json, no change to any
+generated page, no new QUESTIONS.json entry.
+
 ## Run 398 - 2026-10-22
 
 NO-OP on the worklist, same as runs 372-397: all 8 of 8 unchecked items
