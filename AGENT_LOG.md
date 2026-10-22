@@ -1,3 +1,65 @@
+## Run 397 - 2026-10-22
+
+NO-OP on the worklist (8 of 8 unchecked items still carry [BLOCKED], 0
+takeable), fallback quality pass this run: re-ran the full checker suite
+(all 37 `tools/check-*.js` scripts) against the current branches.json and
+generated pages rather than hand-verifying one item, since the blocked set
+has not changed in over 30 consecutive runs and a clean sweep is the more
+useful use of the run. Result: every checker passes clean, same warnings
+and KNOWN exceptions as before (Q15, Q45, Q61, Q64, Q111 and the others
+already on file), no new defect, no regression since run 396's last full
+look. No generator, data or page change made.
+
+- Lock clearing: `.agent-lock` was absent at start of run (no stale lock
+  to clear). `.git/index.lock` (Modify 20:19 local) and
+  `.git/ORIG_HEAD.lock` (Modify 20:17 local) were both present with no
+  git process running (`ps aux` clean); cleared via the established `mv`
+  workaround, same as every prior run - `rm` was not attempted again
+  since the FUSE unlink-EPERM behaviour is already well established.
+  Created `.agent-lock` for this run's duration, deleted at the end.
+- `git fetch` + `git pull --ff-only origin agents/audit-backlog`: both
+  completed clean once the stale locks were cleared, "Already up to
+  date" - local HEAD is unchanged at 24 commits ahead of origin (same
+  range runs 372-396 have been carrying).
+- `git fsck`: reconfirms the same single corrupt object from Q133,
+  `.git/objects/00/49e655c...`, empty on disk, unchanged from run 396.
+  One new data point: `git push --dry-run` completes without error and
+  reports a clean fast-forward (`f4bd84e..8ae3406`), but a REAL
+  `git push origin agents/audit-backlog` (bounded, 30s) fails
+  identically to every run since 359, erroring on the same empty object
+  file before it gets as far as transferring anything. Dry-run is not a
+  reliable signal for this fault - it does not read blob content, so it
+  cannot see the corruption. Did not attempt the history rewrite, same
+  reasoning as runs 371/372/396: 24 commits of genuine audit history sit
+  in the unpushed range and an unattended filter-repo/rebase risks
+  losing entries if the removal scope is wrong. This needs a supervised
+  session, not another unattended pass.
+- Answer pickup: attempted via Chrome, read-only, per step 3.
+  `https://data.rbhealth.co.uk/api/feedback` resolved to the same
+  Cloudflare Access sign-in page (no active session) as every recent
+  run. Did not attempt sign-in. Tab closed without interacting further.
+- Origin remote PAT exposure (Q127): reconfirmed present (redacted check
+  only, value not re-stated here); still unrotated.
+- `which gh`: still exit 1 (Q124); `build-audit-status.js` not
+  attempted, same reasoning as prior runs - no working publish route
+  exists until Q124 is answered.
+- No "Standing authorisation - autonomous window" section present at the
+  top of this file at the time this run checked, so no autonomous
+  decisions taken.
+- Questions: no new question raised. Nothing found in this run's
+  findings that is not already covered by Q119/Q123/Q124/Q127/Q133.
+  Open question count unchanged from run 396 (44).
+
+Recommendation unchanged: pause the `audit-backlog-worker` schedule
+until Q133 (corrupt blob, needs a supervised history rewrite of the
+unpushed range) and Q127 (PAT rotation) are cleared by Rishi directly.
+Every run between now and then will keep reconfirming the same two
+blockers, plus whatever bounded verification work it can still do
+safely (this run: full checker re-run, clean) at the cost of a full run.
+
+NO WORKLIST ACTION TAKEN. No write to branches.json, no change to any
+generated page, no new QUESTIONS.json entry.
+
 ## Run 396 - 2026-10-22
 
 NO-OP, worklist still fully blocked (8 of 8 unchecked items carry
