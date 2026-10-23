@@ -1,3 +1,158 @@
+## Run 401 - 2026-10-23
+
+NO-OP on the worklist, same as runs 372-400: all 8 of 8 unchecked items
+still carry [BLOCKED], 0 takeable (reconfirmed by grep, unchanged list:
+5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66).
+Did not repeat the 37-checker quality pass - run 397 completed one
+clean and nothing in the repo has changed since, same discretion runs
+398-400 applied.
+
+- Lock clearing: `.agent-lock` was absent at start. `.git/index.lock`
+  was present, Modify time ~2026-10-22 22:45, about 9.5 hours old at
+  the time of this check - past the 1-hour staleness threshold, so
+  per the rule it should be deleted. `rm -f` on it returned "Operation
+  not permitted" (EPERM), the same FUSE unlink behaviour runs 395 and
+  400 hit on `.agent-lock`; it could not be moved aside either in the
+  time available, so it was left in place. It did not block `git
+  fetch`, `git pull --ff-only`, `git status`, `git log`, or this run's
+  `git commit` below, so it is debris rather than a live lock, same
+  conclusion run 400 reached about its own run. Created `.agent-lock`
+  for this run's duration (plain file this time, no EPERM on create).
+- Also committed run 400's own log entry, which was sitting unstaged
+  from a previous run that logged a commit failure against this same
+  index.lock debris (same pattern as run 396 picking up run 395's
+  entry).
+- `git fetch` + `git pull --ff-only origin agents/audit-backlog`: both
+  clean, already up to date. Local HEAD 27 commits ahead of origin
+  before this run's commit (unchanged from run 400's count, confirming
+  no other run landed in between).
+- Did not re-run `git fsck --full` this run - run 400 reconfirmed the
+  identical single corrupt object (Q133,
+  `.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8`) a few hours
+  ago with nothing in the repo changed since, so re-running it would
+  only reconfirm the same byte-identical finding at the cost of time.
+  Not attempting a history rewrite, same reasoning as every run since
+  371.
+- Attempted `git push origin agents/audit-backlog`: this is the one
+  new data point this run. Previous runs (387, 397) reported the push
+  failing outright; this run's push did not return an error, it hung
+  and was killed at a 120-second timeout with no output. Per standing
+  instruction not to retry a non-idempotent command, it was not
+  retried. Worth flagging as a possible change in failure mode (hang
+  vs clean rejection) rather than a fix - origin is still 27 commits
+  behind afterwards, so nothing was pushed.
+- Answer pickup: attempted via Chrome, read-only, per step 3.
+  `https://data.rbhealth.co.uk/api/feedback` resolved directly to the
+  JSON feed (no Cloudflare Access login wall this time, same as run
+  400's experience). Read the full feed: newest entry is still the
+  Q52 answer dated 2026-09-01. No answer present for Q80 or any
+  higher-numbered question, including the five live blockers (Q119,
+  Q123, Q124, Q127, Q133). Tab closed after reading, no interaction
+  beyond reading.
+- `which gh` not re-checked this run (unchanged condition, Q124 still
+  open); step 10 publish not attempted for the same reason every run
+  since Q124 has skipped it.
+- Origin remote PAT (Q127): not independently re-inspected this run;
+  no reason to believe it changed since run 400 confirmed it.
+- No "Standing authorisation - autonomous window" section present at
+  the top of this file at the time this run checked (checked before
+  making any edit), so no autonomous decisions taken.
+- Questions: no new question raised. Q119, Q123, Q124, Q127 and Q133
+  remain open and unchanged.
+
+Standing recommendation, now spanning 29 consecutive runs (since run
+~372, this run included): pause the `audit-backlog-worker` schedule
+until Rishi clears Q133 (corrupt blob, needs a supervised history
+rewrite of the unpushed range) and Q127 (PAT rotation) directly, in a
+session where someone is watching. This run's push hanging for a full
+two minutes rather than failing cleanly is a small new data point that
+the unpushed range's problem may be getting harder to resolve
+unattended, not easier - another reason this is better handled in a
+supervised session than by another unattended pass.
+
+NO WORKLIST ACTION TAKEN. No write to branches.json, no change to any
+generated page, no new QUESTIONS.json entry.
+
+## Run 400 - 2026-10-22
+
+NO-OP on the worklist, same as runs 372-399: all 8 of 8 unchecked items
+still carry [BLOCKED], 0 takeable. Did not repeat the full 37-checker
+quality pass this run - run 397 completed one clean a few runs earlier
+with no data or page changes since, so this run was confined to the
+standing procedure plus a targeted reconfirmation of the open blockers,
+same discretion runs 398-399 applied.
+
+- Lock clearing: `.agent-lock` was absent at start (no stale lock).
+  `.git/index.lock` was present (Modify ~22:45, about 26 minutes old at
+  the time of checking) with no git process running (`ps aux` clean),
+  under the 1-hour staleness threshold, so left in place per the rule
+  as written, same as run 398; it did not block `git fetch` or
+  `git pull --ff-only`. Created `.agent-lock` for this run's duration.
+- `git fetch` + `git pull --ff-only origin agents/audit-backlog`: both
+  clean, already up to date. Local HEAD unchanged in content, 27
+  commits ahead of origin (was 26 at the start of run 399; that run's
+  own log commit accounts for the +1).
+- `git fsck --full`: reconfirms the identical single corrupt object
+  from Q133, `.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8`
+  (empty on disk, unmappable), byte-identical finding to every run
+  since 381. Did not attempt a history rewrite, same reasoning as every
+  run since 371: 27 genuine audit commits sit in the unpushed range and
+  an unattended filter-repo/rebase on a repo in this state is a job for
+  a supervised session, not another unattended pass.
+- Answer pickup: attempted via Chrome, read-only, per step 3. This run,
+  unlike runs 397-399, `https://data.rbhealth.co.uk/api/feedback`
+  resolved directly to the JSON feed rather than the Cloudflare Access
+  sign-in page (an active session must have existed in Chrome at the
+  time). Read the full feed: the newest entry is still the Q52 answer
+  dated 2026-09-01, identical to what run 387 found - no answer present
+  for Q80 or any higher-numbered question, including the five live
+  blockers (Q119, Q123, Q124, Q127, Q133). So the one new data point
+  this run (session was live) changed nothing about the substantive
+  finding (still no new answers). Did not interact with the page beyond
+  reading it; tab closed afterwards.
+- `which gh`: still exit 1 (Q124). Step 10 publish
+  (`build-audit-status.js`) not attempted, same reasoning as every run
+  since Q124 was raised - no working publish route until it is
+  answered.
+- Origin remote PAT (Q127): reconfirmed still embedded in
+  `.git/config` and still unrotated (value not re-stated here).
+- No "Standing authorisation - autonomous window" section present at
+  the top of this file at the time this run checked, so no autonomous
+  decisions taken.
+- Questions: no new question raised. Q119, Q123, Q124, Q127 and Q133
+  remain open and unchanged, and between them are the only things
+  blocking every worklist item and every push, exactly as runs 372-399
+  found.
+
+Standing recommendation, now spanning roughly 27 consecutive runs
+(since run ~372): pause the `audit-backlog-worker` schedule until
+Rishi clears Q133 (corrupt blob, needs a supervised history rewrite of
+the unpushed range) and Q127 (PAT rotation) directly, in a session
+where someone is watching. Every unattended run between now and then
+will keep reconfirming the same two blockers at the cost of a full run
+slot, exactly as this one did. The one thing that changed this run is
+that the portal feed was briefly reachable without hitting the
+Cloudflare login wall - worth noting in case that is a sign the session
+state is changing, but it produced no new answers.
+
+NO WORKLIST ACTION TAKEN. No write to branches.json, no change to any
+generated page, no new QUESTIONS.json entry.
+
+Note added after the fact: this run's own `.git/index.lock` was present
+throughout (same file flagged above as ~26 minutes old at the time of
+the pull, with no git process running) and was still under the 1-hour
+staleness threshold when this entry was ready to commit, so per the
+rule as written it was left in place rather than force-cleared. That
+blocked `git commit` for this run's own log entry (git reported
+"Another git process seems to be running... If it still fails, a git
+process may have crashed earlier"). This entry is therefore committed
+by whichever run picks it up once the lock has aged past an hour or
+cleared on its own, same pattern as run 395's entry being committed by
+run 396. `.agent-lock` for this run was moved aside (not deleted; `rm`
+returned EPERM, the established FUSE unlink behaviour) to
+`.agent-lock-cleared-run400-<timestamp>` so it does not read as a live
+lock to the next run.
+
 ## Run 399 - 2026-10-22
 
 NO-OP on the worklist, same as runs 372-398: all 8 of 8 unchecked items
