@@ -1,3 +1,74 @@
+## Run 402 - 2026-10-23
+
+NO-OP on the worklist, same as runs 372-401: all 8 of 8 unchecked items
+still carry [BLOCKED] (reconfirmed by grep, unchanged list: 5.3/Q8,
+5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66; 220
+[BLOCKED] markers estate-wide, unchanged). Did not repeat the 37-checker
+quality pass - nothing in the repo has changed since run 397's clean
+pass, same discretion runs 398-401 applied.
+
+- Lock clearing: `.agent-lock` was absent at start (run 401 must have
+  cleared its own). `.git/index.lock` was present, 0 bytes, mtime
+  2026-10-23 08:17, about 44 minutes old at the time of the check -
+  under the 1-hour staleness threshold, so per the rule it was left in
+  place rather than deleted. It did not block `git fetch`, `git
+  branch -a`, `git status`, `git log`, or this run's edits, so it is
+  debris rather than a live lock, consistent with every prior run's
+  finding about this same file. Created `.agent-lock` for this run's
+  duration.
+- `git fetch origin` and the branch/status check: clean. Local HEAD on
+  `agents/audit-backlog` is 28 commits ahead of
+  `origin/agents/audit-backlog` (one more than run 401's 27, from run
+  401's own committed log entry never reaching origin).
+- Answer pickup (step 3): open questions exist (44 of 133), but no
+  Chrome browser tool is available in this session to read
+  https://data.rbhealth.co.uk/api/feedback, so pickup could not be
+  attempted this run (narrower failure mode than prior runs' Cloudflare
+  Access rejections, same net effect: unavailable). Left all open
+  questions as-is.
+- Did not re-run `git fsck --full` - the corrupt object (Q133,
+  `.git/objects/00/49e655c891b622370f64e37fe6247325ff7be8`) was
+  reconfirmed directly instead, see below. Not attempting a history
+  rewrite - still outside what this unattended worker is authorised to
+  do (needs a supervised non-force push after history surgery, or
+  `git filter-repo`/BFG, per Q133).
+- Attempted `git push origin agents/audit-backlog` with a 60-second
+  timeout: it did not hang this time, it failed immediately and cleanly
+  with `error: object file
+  .git/objects/00/49e655c891b622370f64e37fe6247325ff7be8 is empty`,
+  the exact object Q133 names. This is a clearer signal than runs
+  400-401's two different failure shapes (outright failure vs. a
+  120-second silent hang) - same root cause, different symptom, which
+  is itself worth recording since prior runs treated the hang as a
+  "new data point" without being able to tie it to Q133 directly.
+  Confirms the push blocker is unchanged and is a real corrupt git
+  object, not a transient network or timeout issue.
+- `gh` CLI: confirmed still absent (`which gh` returns nothing),
+  consistent with Q124.
+- Step 10 (status page publish): ran
+  `node tools/build-audit-status.js` anyway per the instruction to run
+  it even on a failed work item. It failed as expected, throwing on
+  `gh api -X PUT ... : /bin/sh: 1: gh: not found`. Same cause as every
+  run since Q124 was raised. No write reached rbh-data-portal.
+- PAT exposure (Q127): not re-investigated this run - no new
+  information to add beyond what Q127 already records, and poking at
+  credential material is explicitly carved out from autonomous
+  decision-making regardless of any authorisation window.
+- Committed this log entry only (no worklist change, since no item
+  moved and no new scope was invented). Commit: see git log. Push
+  attempted per step 9, result above (failed - unpushed commit count
+  will tick up by one to 29, local history intact, nothing lost since
+  origin is never force-pushed).
+- Standing recommendation, restated for the thirtieth-plus time: pause
+  this schedule until a supervised session can (a) resolve the Q133
+  corrupt blob via history surgery or a fresh clone/filter-repo pass,
+  (b) rotate the PAT per Q127, and (c) install `gh` or switch
+  build-audit-status.js to a token-based REST call per Q124. Continuing
+  to run this task unattended produces identical no-op log entries at
+  real but small cost, and risks the 28+ unpushed commits growing
+  further on local disk with no way to reconcile until the blob is
+  fixed.
+
 ## Run 401 - 2026-10-23
 
 NO-OP on the worklist, same as runs 372-400: all 8 of 8 unchecked items
