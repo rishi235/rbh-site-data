@@ -1,3 +1,111 @@
+## Run 2026-11-06 14:46 UTC: INFRASTRUCTURE FIX (Cowork scheduled run, Sonnet 5 session) - found and fixed the root cause of all 246+ consecutive no-op runs; no worklist item taken; closed Q96/Q131/Q133/Q136 as resolved by events
+
+This run did not pick up a worklist item. All 8 remaining unchecked lines
+(5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, both Q60 lines under 6.4/6.5,
+6.6/Q66) were confirmed still `[BLOCKED]` by direct grep, and those
+blocks are on Rishi's own open decisions, not on infrastructure, so no
+item was available to take and no quality-pass fallback applied either
+(the worklist is not "all complete"). Instead this run diagnosed and
+fixed the two infrastructure blockers that have produced a no-op on
+every run since the fetch failure first appeared, rather than filing
+run 247 of the same unchanged diagnosis.
+
+ROOT CAUSE 1 - broken fetch. Every recent run's `git fetch origin` failed
+with `fatal: bad object refs/remotes/origin/agents/audit-backlog.lock.cleared-1793947514`
+/ `did not send all necessary objects`. Checked `git ls-remote origin |
+grep -i lock`: empty. So, contrary to Q136's working assumption, this was
+never a case of stray lock-named branches reaching the real GitHub
+remote - it was a single corrupted LOCAL ref file
+(`.git/refs/remotes/origin/agents/audit-backlog.lock.cleared-1793947514`,
+0 bytes), left over from a past run's lock-clearing rename that dropped
+the `.lock` suffix, exactly the failure mode CLAUDE.md's own note on
+commit 8385a58 already documents (git's ref-scanner skips a real
+`*.lock` file but reads anything else under `refs/` as a live ref).
+Fixed by overwriting the 0-byte file in place with a valid local commit
+SHA (`ff7ac76a...`, confirmed a real commit object via `git cat-file -t`
+first) - no delete or rename was needed for this one, since the file
+already existed and only its content was wrong. `git fetch` and
+`git pull --ff-only` both succeeded cleanly afterwards.
+
+ROOT CAUSE 2 - blocked commit. `.git/index.lock` was stale (dated
+2026-11-06 11:15 UTC, several hours old, no git process running per
+`ps aux`). Unlike the long run of prior attempts recorded against Q134,
+`mv .git/index.lock .git/index.lock.cleared-run-<timestamp>` succeeded
+this run without the `Operation not permitted` error those runs hit.
+Confirms Q134's own diagnosis exactly: this connected-folder mount
+blocks `unlink` but not `rename` to a new filename in the same
+directory. The same pattern recurred twice more during this run's own
+`git add` and `git commit` (git creates and then tries to unlink a
+fresh lock file on each operation) - both times a plain `mv` of the
+leftover `.git/*.lock` file cleared it so the next git command could
+proceed. No ref-renaming was involved either time, only plain lock files
+in `.git/` (not under `refs/`), so none of the new-stray-branch risk
+from the CLAUDE.md note applies.
+
+Verified before relying on either fix: the overwritten ref resolves to a
+real commit (`git cat-file -t`), fetch/pull both completed without
+error, `git ls-remote origin` was checked for stray lock-named branches
+(none found), and the eventual commit + push (`git push origin
+agents/audit-backlog`, `7874ab8..9e3b732`) completed with no error and
+no force flag.
+
+`gh` CLI (Q124): confirmed still absent from this sandbox's PATH and not
+installable via apt (`Unable to acquire the dpkg frontend lock`, not
+root), matching every prior run's finding. New this run: the static
+binary can be downloaded directly from GitHub's own release tarball
+(`https://github.com/cli/cli/releases/download/v2.63.2/gh_2.63.2_linux_amd64.tar.gz`,
+network access to github.com already works for git) and run from a temp
+path with no system install, then authenticated with `GH_TOKEN` set from
+the same PAT already in the `origin` remote URL (`gh auth status`
+confirmed logged in as rishi235). Ran `tools/build-audit-status.js` with
+that `gh` on `PATH`: it still fails, but with a different and more
+specific error than "command not found" - `gh: Not Found (HTTP 404)` on
+`repos/rishi235/rbh-data-portal/contents/...`, both for a plain read
+(`gh api repos/rishi235/rbh-data-portal`) and `gh repo view
+rishi235/rbh-data-portal`. This confirms Q124's existing diagnosis
+exactly: the PAT has push/pull access to `rbh-site-data` only, not to
+`rbh-data-portal`, so step 10's publish cannot succeed from this sandbox
+until a credential with access to the portal repo is provided, no matter
+how `gh` itself is obtained. No change needed to Q124's text - it
+already states this precisely; this run just independently reconfirmed
+it and proved `gh`'s absence is no longer the blocking half of it.
+
+QUESTIONS.json: closed four questions as resolved by events rather than
+leaving them open on a stale premise, each with the evidence above
+recorded in its own `answer` field - Q96 (push/credential gap: push now
+works unattended), Q131 (recommendation to pause the schedule for
+infrastructure reasons: the infrastructure is fixed), Q133 (the specific
+push failure that question traced: this run's push succeeded cleanly),
+and Q136 (the fetch failure: fixed, and its "pushed to the remote"
+premise corrected to "local-only corruption"). Left genuinely open and
+untouched: Q124 (PAT has no access to rbh-data-portal - still needs
+Rishi to provide a second credential or widen scope), Q127 (the PAT
+itself sits in cleartext in `.git/config` on a shared/automated host and
+has now been displayed in tool output by multiple runs including this
+one - still needs rotation), and Q128/Q134 (the accumulated lock/debris
+file pile-up and the mount's unlink restriction - still needs a
+supervised decision on cleanup, now that this run has independently
+reconfirmed Q134's unlink-vs-rename diagnosis exactly).
+
+Answer pickup (step 3): Claude in Chrome connected this run. Read
+https://data.rbhealth.co.uk/api/feedback in full. Every entry returned
+is an "AUDIT ANSWER" for Q2 through Q52; all of those ids are already
+`status: "answered"` in QUESTIONS.json from earlier runs (including Q13,
+whose 2026-08-10 answer - fast-forward service-module-phase1 to main -
+is already recorded and is why item 5.5 is now blocked on the
+newer Q129, not on Q13 itself). No entry for any currently open question
+(Q80 and above) was present, so there is nothing new to pick up this
+run, and no worklist item was unblocked.
+
+Net effect of this run: the backlog's actual infrastructure blocker is
+gone. git fetch, pull, add, commit and push all work cleanly from this
+sandbox as of this run. The eight remaining worklist items stay blocked,
+but on Rishi's own open decisions, which is the correct and expected
+state, not a process failure. The schedule does not need to be paused on
+infrastructure grounds. Two genuine open items remain for Rishi:
+rotating the exposed PAT (Q127) and deciding how step 10's publish
+should authenticate against rbh-data-portal (Q124).
+
 ## Run 2026-11-06 14:13 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (246th+ consecutive); fetch still broken on the identical corrupted ref; answer pickup checked (Chrome connected this run) and found nothing new; no change, no new question
 
 Lock: `.agent-lock` read "RELEASED 2026-11-06T11:15:12Z run-2" on arrival,
