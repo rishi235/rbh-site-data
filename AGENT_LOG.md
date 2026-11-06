@@ -1,3 +1,64 @@
+## Run 2026-11-06 06:43 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (237th+ consecutive); cleared the now-stale index.lock and committed two runs' worth of pending entries; recommending the schedule be paused
+
+Lock check: no `.agent-lock` on arrival. `.git/index.lock` was present, dated
+05:15 UTC - by this run's start (06:43 UTC) that is 1h28m old, past the
+procedure's 1-hour staleness threshold for this specific lock file, and
+`ps aux` confirmed no git process running. Plain `rm -f` failed with
+"Operation not permitted" (Q134 mount restriction, reconfirmed). Used the
+rename workaround (`mv` to a name that keeps the `.lock` substring, per the
+04:13 run's correction), which succeeded. Created `.agent-lock`.
+
+Fetch/branch/pull: `git fetch origin`, confirmed on `agents/audit-backlog`,
+`git pull --ff-only` - already up to date at `8385a58`. The pull and the
+subsequent `git status`/`git add` calls each spawned their own fresh
+`index.lock` (and once an `ORIG_HEAD.lock`) that git's own cleanup then
+failed to unlink, reconfirming that Q134 is the mount itself refusing
+unlink on every git operation, not a one-off from a previous run. Cleared
+each with the same rename workaround as it appeared, rather than letting it
+accumulate for the next run to deal with.
+
+Step 3 (answer pickup): called `tabs_context_mcp` directly - Claude in
+Chrome reports not connected, same as every recent run. Logged, not
+retried, per procedure.
+
+Step 4 (autonomous window): checked the top of this file before writing -
+no "Standing authorisation - autonomous window" section present. Did not
+apply.
+
+Step 5: re-checked AGENT_WORKLIST.md directly - all 8 remaining lines still
+`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60,
+6.6/Q66). QUESTIONS.json: 135 total, 46 still open, unchanged. Nothing to
+take as this run's item; worklist not fully complete, so the quality-pass
+fallback does not apply.
+
+Step 9 (commit/push): with the lock cleared, `git add AGENT_LOG.md` and
+`git commit` succeeded this time (commit `59b935b`), carrying forward the
+05:43 and 06:13 runs' entries that had been stuck uncommitted behind the
+lock, plus this run's own entry below it once added. Pushed non-force to
+`origin/agents/audit-backlog` (`8385a58..59b935b`) - succeeded.
+
+Step 10: ran `tools/build-audit-status.js` as required. Fails identically to
+every prior run: `gh` not on PATH, exit 127 (Q124, unchanged).
+
+Not acted on autonomously, repeating as a report rather than a decision:
+worklist progress remains at zero for 237+ consecutive scheduled runs, with
+every remaining item sitting on a question outside the autonomous-decision
+carve-out (money, legal risk, or patient-facing regulatory claims). Standing
+infrastructure issues, unchanged: `gh` missing from PATH (Q124); the live
+GitHub PAT still in `.git/config` under the origin remote URL (Q127),
+encountered again this run while inspecting git state, not actioned; and the
+mount's inability to unlink files (Q134), which this run worked around by
+rename each time it appeared rather than letting debris accumulate, but
+which will keep generating a new lock-shaped file on every single git
+command until it is fixed at the host level. Recommendation unchanged: pause
+this scheduled task, or at minimum its git-touching steps, until the 46 open
+questions have had a pass and someone with ProDesk shell access has rotated
+the exposed PAT and fixed the PATH and mount-unlink issues.
+
+Exit housekeeping: this run's own `.agent-lock` will be renamed rather than
+deleted at the end of this run, for the same Q134 reason, keeping the
+checked filename clear for the next run.
+
 ## Run 2026-11-06 06:13 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (236th+ consecutive); could not commit this run (index.lock under the staleness threshold again); recommending the schedule be paused
 
 Lock check: no `.agent-lock` on arrival (previous run's exit housekeeping had
