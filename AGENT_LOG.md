@@ -31,6 +31,14 @@ spending this run's budget on a further rotation-pool re-verification that has
 already been repeated 18-25+ times with zero new defects across 249+ preceding
 runs. No item taken, no quality pass run, no files changed, nothing to commit.
 
+STATUS PAGE (step 10): `node tools/build-audit-status.js` failed - the `gh`
+CLI is not installed and no GITHUB_TOKEN is set in this Cowork sandbox, so the
+script's `gh api -X PUT ... repos/rishi235/rbh-data-portal/...` call could not
+run. This is the exact condition Q87 already asks about (whether this task
+should run on Rishi's own Windows host instead of here). The portal status
+page was NOT updated this run. No commit or push was attempted against
+rbh-data-portal, and nothing else was touched outside rbh-site-data.
+
 RECOMMENDATION TO RISHI (repeated, not a new question): this scheduled task
 has now run 250+ consecutive times doing nothing but confirming the same 8
 blocked lines and the same stale Q52 cutoff on the answer feed. The answer
