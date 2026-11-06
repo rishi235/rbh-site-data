@@ -68,12 +68,21 @@ a real branch. None of those existing stray branches were touched or deleted
 this run (out of scope for a single unattended run and this run was already
 over its time budget by the time this was found), but it is worth a
 supervised session: `git branch -a` on `rishi235/rbh-site-data` almost
-certainly needs a cleanup pass deleting every `*.lock.*`-named branch, and
-the standing instruction for clearing a stuck lock inside any `refs/`
-directory should change from "rename in place" to "rename in place, then
-immediately overwrite the new file's content with a valid SHA (or truly
-remove it if a future session finds `rm`/`mv`-across-directories works) -
-never leave a zero-byte file sitting inside `refs/`."
+certainly needs a cleanup pass deleting every `*.lock.*`-named branch.
+
+CORRECTION found later in the same run: git's own ref-scanner skips any
+filename ending in `.lock` when it enumerates a `refs/` directory - that is
+the normal, expected lock-file convention, not a bug. The actual mistake in
+every prior run's rename (including this run's first attempt above) was
+dropping that suffix, e.g. `audit-backlog.lock` -> `audit-backlog.lock.cleared-<ts>`,
+which no longer ends in `.lock` and so gets read back as a real ref. The
+safe fix needs no content rewrite and no cross-directory move: rename to
+something that still ends in `.lock`, e.g.
+`audit-backlog.lock.cleared-<ts>.lock`. Confirmed working later this same
+run on the equivalent `refs/remotes/origin/agents/audit-backlog.lock` -
+`git fetch` stayed clean afterwards. The standing instruction for clearing a
+stuck lock anywhere under `refs/` should be: rename in place, always keeping
+the `.lock` suffix at the end of the new name.
 
 RECOMMENDATION TO RISHI (233rd time): this schedule is not producing
 useful work and has not for well over 200 consecutive runs. The worklist
