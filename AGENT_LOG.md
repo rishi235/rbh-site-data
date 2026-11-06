@@ -39,6 +39,42 @@ Reconfirmed, no change from the 232nd run:
   shrinking it, which is the one thing this run made very slightly worse
   rather than better.
 
+ADDENDUM, same run, found while pushing: the push itself (`git push origin
+agents/audit-backlog`) succeeded on the remote first try (confirmed by
+`git log` on origin afterwards), but the LOCAL ref-update step failed with
+"cannot lock ref 'refs/remotes/origin/agents/audit-backlog': Unable to
+create ... .lock: File exists" - a leftover `.lock` file at that exact
+path from a previous run. Clearing it with the usual in-place rename (adding
+a `.cleared-<timestamp>` suffix, same directory) produced a zero-byte file
+still sitting inside `.git/refs/remotes/origin/agents/`, and because every
+file in a `refs/` directory is read by git as a ref, this broke `git fetch`
+outright with `fatal: bad object refs/remotes/origin/agents/audit-backlog.lock.cleared-1793938536`.
+Moving that file out of `refs/` entirely (to get it out of git's ref
+namespace) failed the same "Operation not permitted" way `rm` does on this
+mount, because moving across directories needs the same unlink the
+mount blocks; only an in-place rename (no unlink, same directory) succeeds
+here. The only fix that worked was overwriting the file's CONTENT in place
+with a valid commit SHA (truncate+write, not unlink+recreate), turning it
+from a corrupt ref into a harmless duplicate one; `git fetch` then worked
+again immediately.
+
+This is very likely the root cause of the stray branches seen in `git
+branch -a` with names like `agents/audit-backlog.lock.cleared-302-...` and
+`agents/audit-backlog.lock.aside-...` - not deliberate branches, but exactly
+this same lock-clearing mistake made inside `refs/heads/` or pushed up with
+`--all`/`--mirror` at some point in the last 230+ runs, each one leaving a
+same-shaped zero-byte or stub file that git and GitHub both happily treat as
+a real branch. None of those existing stray branches were touched or deleted
+this run (out of scope for a single unattended run and this run was already
+over its time budget by the time this was found), but it is worth a
+supervised session: `git branch -a` on `rishi235/rbh-site-data` almost
+certainly needs a cleanup pass deleting every `*.lock.*`-named branch, and
+the standing instruction for clearing a stuck lock inside any `refs/`
+directory should change from "rename in place" to "rename in place, then
+immediately overwrite the new file's content with a valid SHA (or truly
+remove it if a future session finds `rm`/`mv`-across-directories works) -
+never leave a zero-byte file sitting inside `refs/`."
+
 RECOMMENDATION TO RISHI (233rd time): this schedule is not producing
 useful work and has not for well over 200 consecutive runs. The worklist
 is blocked purely on your own content decisions (the 8 open items above),
