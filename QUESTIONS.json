@@ -2134,5 +2134,20 @@
     "status": "open",
     "answer": null,
     "note": "This is new and distinct from Q119/Q120/Q123 (file-size growth) and Q134 (unlink EPERM) - it is a correctness fault in how an unattended run writes, not a known filesystem restriction being worked around. It fired on the very run that is adding this question, so it has not yet been independently re-observed on a second run; treat as a live, not yet fully characterised risk."
+  },
+  {
+    "id": "Q136",
+    "date": "2026-11-06",
+    "item": "process/infrastructure - git fetch on agents/audit-backlog now fails outright; recommend pausing the schedule immediately",
+    "question": "Decision needed, more urgent than Q131's repeated recommendation: this run's git fetch failed completely with \"fatal: bad object refs/remotes/origin/agents/audit-backlog.lock.cleared-1793947514\" and \"did not send all necessary objects\", whereas every recent prior run's fetch/pull succeeded and reported up to date. The cause is the accumulation of dozens of stray lock-named branches pushed to the real GitHub origin by earlier runs' lock-clearing rename workarounds (visible under refs/remotes/origin/agents/audit-backlog.lock.* locally, and confirmed present on origin itself) - one of them is now unreadable as a ref and breaks the whole fetch. This run did not attempt any ref or branch surgery to fix it, in keeping with the hard rule against unsupervised git repair after the Q133/Q134 history. Local HEAD (7874ab8) still matches the last known-good origin/agents/audit-backlog, so nothing is stranded unpushed, but this sandbox can no longer verify that against origin because fetch itself is broken.",
+    "options": [
+      "Rishi (or someone with GitHub web/gh access) deletes the stray agents/audit-backlog.lock.* branches directly on github.com/rishi235/rbh-site-data, then a supervised session re-fetches to confirm the repo is readable again before the schedule resumes - fixes the immediate breakage with the least risk.",
+      "Pause the audit-backlog-worker schedule now (it has been recommended since Q131 at the 172nd run and is now at the 238th-plus) and fold this into the same supervised session already needed for Q127 (exposed PAT) and Q133 (push blocker) - addresses the whole cluster at once rather than this symptom alone.",
+      "Leave the schedule running - not recommended: every further run will hit the same fetch failure, cannot make worklist progress, cannot verify sync with origin, and the exposed PAT (Q127) keeps sitting live in the meantime."
+    ],
+    "recommended": 1,
+    "status": "open",
+    "answer": null,
+    "note": "This is the clearest evidence yet that the schedule should stop firing unattended: it is not just making zero progress (238th-plus consecutive no-op), it has now lost the ability to even check whether it is in sync with origin. Pair with Q127 and Q133 in one supervised session."
   }
 ]
