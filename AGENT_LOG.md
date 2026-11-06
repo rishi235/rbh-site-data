@@ -1,3 +1,189 @@
+## Run 2026-11-06 06:13 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (236th+ consecutive); could not commit this run (index.lock under the staleness threshold again); recommending the schedule be paused
+
+Lock check: no `.agent-lock` on arrival (previous run's exit housekeeping had
+renamed its own lock to `.agent-lock.released` rather than deleting it, per
+the Q134 mount restriction, so the checked filename was clear). Created a
+fresh `.agent-lock`. Found `.git/index.lock` still present, dated 05:15 UTC -
+58 minutes old at the time of checking, confirmed with `date -r` against the
+current clock rather than assumed carried over from the last entry. Still
+under the 1 hour staleness threshold, so left in place rather than cleared,
+even though `ps aux` again showed no git process running (same situation the
+05:43 run recorded 28 minutes in). This is the second consecutive run this
+lock has blocked a commit while remaining technically non-stale by the
+procedure's own number; the next run, close to two hours after the 05:15
+write, should find it past the threshold and may clear it.
+
+Fetch/branch check: `git fetch origin` then `git checkout agents/audit-backlog`
+(already on it) then `git pull --ff-only` - no new commits, still level with
+`origin/agents/audit-backlog` at `8385a58`, same as the 05:43 run reported.
+
+Step 3 (answer pickup): tried `tabs_context_mcp` directly again rather than
+trusting the last two runs' reports - same result, Claude in Chrome reports
+not connected. Logged, not retried further, per procedure.
+
+Step 4 (autonomous window): checked the top of this file before writing to
+it - no "Standing authorisation - autonomous window" section present. Did not
+apply.
+
+Step 5: re-checked AGENT_WORKLIST.md directly - all 8 remaining lines are
+still `[ ]`/`[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+6.5/Q60, 6.6/Q66), unchanged from the last two runs. QUESTIONS.json: still 46
+entries `status: "open"` of a larger total. Nothing unblocked to take as this
+run's one item; worklist not fully complete, so the quality-pass fallback
+does not apply either.
+
+Step 9 (commit/push): attempted. `git add` would have staged the edit to this
+file; `git commit` was not attempted given `.git/index.lock` is confirmed
+present and not yet stale by the procedure's own threshold - forcing a
+commit past a lock the procedure says to leave alone would be worse than
+skipping it. This entry therefore lands as a further unstaged edit on top of
+the 05:43 run's own uncommitted entry, for whoever runs next (or whoever
+clears the lock) to commit together. Not pushed.
+
+Step 10: ran `tools/build-audit-status.js` regardless, per procedure, so the
+portal page build attempt is still logged even though this run produced no
+substantive change. Confirmed again that `gh` is not on PATH (Q124) -
+unchanged standing issue. Also re-confirmed, without pasting it further than
+necessary, that `.git/config` still carries the live GitHub PAT in cleartext
+under the `url =` line for the `origin` remote (Q127) - a credential
+encountered while reading a file this run needed to inspect for the lock/PAT
+checks, not something to action unilaterally; already flagged, not rotated,
+not touched.
+
+Not acted on autonomously, repeating as a report rather than a decision:
+this backlog has now gone 236+ consecutive scheduled runs with no worklist
+progress. Every remaining item sits on a question Rishi has not yet answered,
+and nothing in the autonomous-decision carve-out (step 4, which in any case
+did not apply this run - no active window) would reach most of what is
+open, since it is money, legal risk or patient-facing regulatory claims.
+Standing infrastructure issues, unchanged for several runs running: `gh`
+missing from PATH blocking step 10 every time (Q124); the live PAT in
+`.git/config` (Q127); and the mount's inability to unlink or cross-directory-
+move files (Q134), which is why lock releases keep happening by rename rather
+than deletion and why the repo accumulates `.agent-lock.released`-style
+artefacts run over run. Recommendation unchanged: pause this scheduled task,
+or at minimum its git-touching steps, until the 46 open questions have had a
+pass and someone with ProDesk shell access has rotated the exposed PAT and
+fixed the PATH issue. Firing the schedule as-is continues to produce no audit
+progress and no value, only log growth.
+
+Exit housekeeping: this run's own `.agent-lock` could not be deleted either
+(same Q134 mount restriction, confirmed again), so it was renamed in place to
+`.agent-lock.released` as the previous two runs did, keeping the checked
+filename clear for the next run without adding a new debris pattern.
+
+## Run 2026-11-06 05:43 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (235th+ consecutive); could not commit this run (index.lock under the staleness threshold); recommending the schedule be paused
+
+Lock check: no `.agent-lock` on arrival. Created one. Found `.git/index.lock`
+dated 05:15 UTC, 28 minutes old at the time of checking - under the 1 hour
+staleness threshold this procedure sets, so left in place rather than
+cleared, even though `ps aux` showed no git process running. (The 45 minute
+`.agent-lock` threshold and the 1 hour `.git/index.lock` threshold are
+different numbers in the procedure; both were checked on their own terms.)
+As a direct result, `git commit` failed this run ("Unable to create
+.git/index.lock: File exists") after the previous run's pending entry and
+this run's own entry were written to the file. Both are sitting in the
+working tree/index uncommitted, for whoever runs next: the 05:13 entry is
+staged, this entry is a further unstaged edit on top. Not pushed.
+
+Fetch/branch check (read-only, no write needed): `agents/audit-backlog` was
+already level with `origin/agents/audit-backlog` at `8385a58` before this
+run touched anything, consistent with the previous run's report.
+
+Step 3 (answer pickup): tried the Claude in Chrome browser tool directly
+(`tabs_context_mcp`) rather than taking the prior "not connected" report on
+faith - result was the same: extension not connected. Logged, not retried
+further, per procedure.
+
+Step 4 (autonomous window): no "Standing authorisation - autonomous window"
+section at the top of this file. Did not apply.
+
+Step 5: re-checked directly rather than trusting the log history - all 8
+remaining AGENT_WORKLIST.md lines are still `[BLOCKED]` (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). QUESTIONS.json: 135
+entries total, 46 still `status: "open"`, unchanged from the last run's
+count. Nothing unblocked to take as this run's one item, and the worklist is
+not fully complete, so the quality-pass fallback does not apply either.
+
+Step 10: ran `tools/build-audit-status.js` regardless, per procedure. Same
+outcome as every recent run - fails because `gh` is not on PATH (Q124).
+
+Not acted on autonomously, repeating as a report rather than a decision:
+this backlog has now gone 235+ consecutive scheduled runs with no worklist
+progress, because every remaining item sits on a question Rishi has not yet
+answered, and nothing in the autonomous-decision carve-out (step 4) applies
+to money, legal risk or patient-facing regulatory claims, which is most of
+what is still open. The three standing infrastructure issues already
+flagged are unchanged: `gh` missing from PATH (Q124, blocks step 10 every
+run), a live GitHub PAT sitting in cleartext in `.git/config` (Q127, not
+rotated), and this mount's inability to unlink or cross-directory-move files
+(Q134), which is why the repo root and `.git` still carry a very large
+accumulated pile of untracked debris and lock-rename artefacts from past
+runs trying to work around exactly this. Recommendation unchanged: pause
+this scheduled task, or at least its git-touching steps, until the 46 open
+questions have been worked through and someone with shell access to the
+ProDesk has fixed the PAT exposure and the PATH issue. Firing the schedule
+as-is continues to produce no audit progress.
+
+Exit housekeeping: `rm .agent-lock` failed with "Operation not permitted",
+the same mount restriction as Q134. A plain same-directory `mv` to
+`.agent-lock.released` succeeded, so the lock no longer exists under its
+checked name (a future run's `ls .agent-lock` finds nothing) even though the
+underlying inode could not be unlinked. This adds exactly one artefact file,
+not the probe/debris pattern seen in many earlier runs' lock-clearing
+attempts - no other files were created or renamed this run, and nothing
+already in the repo's debris pile was touched or cleaned up (out of scope
+for a single worklist-item run; flagged above for a supervised cleanup
+instead).
+
+## Run 2026-11-06 05:13 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - worklist still fully blocked (234th+ consecutive), recommending the schedule be paused
+
+Lock check: no `.agent-lock` on arrival, none of the usual stale `.git/*.lock`
+files either - git state was clean (`git status --porcelain` showed only the
+long-standing untracked debris pile, no pending changes). Created
+`.agent-lock`, fetched and confirmed `agents/audit-backlog` already level
+with origin. No stale locks to clear this run, so unlike recent runs this one
+added no new debris.
+
+Step 3 (answer pickup): Claude in Chrome reported not connected (same as
+every recent run). Logged, not retried, per procedure.
+
+Step 4 (autonomous window): no "Standing authorisation" section at the top
+of this file. Did not apply.
+
+Step 5: all remaining worklist items are still `[BLOCKED]` (5.3/Q8, 5.4/Q9,
+5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) and the worklist is not
+fully complete, so neither the normal path nor the quality-pass fallback had
+anything to act on. QUESTIONS.json: 135 total, 46 still open, unchanged.
+
+Step 10: ran `tools/build-audit-status.js` as required even with no work
+done. Fails identically to every prior run: `gh` not on PATH, exit 127
+(Q124, unchanged).
+
+FLAGGING FOR RISHI, not acted on autonomously (this is a report, not a
+decision): this backlog has now produced no progress for 230+ consecutive
+scheduled runs because every remaining item is blocked on an open question
+and nothing answers them unattended. Three infrastructure issues compound
+this and are worth fixing before the schedule keeps running:
+1. `gh` is not on PATH in this environment, so step 10's status publish has
+   failed every run for a long time (Q124) - the portal status page has been
+   stale throughout.
+2. The remote URL in `.git/config` carries a live GitHub PAT in cleartext
+   (Q127) - still not rotated.
+3. This mount cannot unlink files (`rm`/cross-directory `mv` both fail with
+   "Operation not permitted"), so every stale-lock clearance over many runs
+   has left a rename-artefact behind rather than removing it; `.git` alone
+   now holds roughly 2,000 lock-named debris files, and the repo root carries
+   155 untracked probe/test files from past runs' troubleshooting of this
+   same mount issue.
+
+Recommendation: pause this scheduled task (or at least the parts that touch
+git) until Rishi has worked through the 46 open questions in QUESTIONS.json
+- that is what actually unblocks the 8 remaining worklist items - and until
+someone with shell access to the ProDesk can fix the PAT exposure and the
+`gh` PATH issue. Continuing to fire this schedule as-is produces no audit
+progress and only adds debris each time a lock happens to be stuck.
+
 ## Run 2026-11-06 04:13 UTC: NO-OP (Cowork scheduled run, Sonnet 5 session) - cleared the git locks from the previous run, worklist still fully blocked (233rd+ consecutive)
 
 Lock check: no `.agent-lock` on arrival. `.git/HEAD.lock` and `.git/index.lock`
