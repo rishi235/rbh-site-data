@@ -1,3 +1,80 @@
+## Run 2026-11-06 23:42 UTC (Sonnet 5 session, Cowork sandbox): no-op, worklist still fully blocked (256th+ consecutive)
+
+LOCK (step 1): `.agent-lock` present at pickup, content `1794005101-run-sonnet5-released`,
+mtime 22:45 UTC - about 57 minutes old, over the 45-minute threshold and
+already marked released by its own prior run. `rm` failed with "Operation
+not permitted" (same FUSE/Cowork-folder unlink restriction, Q134); the
+subsequent overwrite via `>` succeeded (same workaround class as `mv`).
+No new debris filename invented.
+
+GIT LOCKS (step 1 continued): `.git/index.lock` appeared transiently during
+a `git status` call and could not be unlinked (same Q134 mechanism); moved
+aside with `mv`, which succeeded, and git commands then completed cleanly.
+
+GIT (step 2): `git fetch origin`, `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` all completed cleanly.
+Already up to date with origin at 62b5794, HEAD matches - nothing queued
+locally from the 255th run.
+
+ANSWER PICKUP (step 3): navigated read-only (Claude in Chrome) to
+`https://data.rbhealth.co.uk/api/feedback` and read the full JSON feed.
+Newest entry is still Q52, dated 2026-09-01T22:44:51Z - unchanged, now
+over two months stale. No new answer for any of the open questions behind
+the 8 blocked top-level worklist lines (Q8, Q9, Q13/Q129, Q16, Q52, Q60 x2,
+Q66). Nothing unblocked this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at
+the top of this file. Does not apply.
+
+WORKLIST (step 5): re-confirmed by direct grep - 8 unchecked top-level
+lines, all still `[BLOCKED]`, unchanged from the 255th run. All items
+blocked, not complete, so the step-5 quality-pass fallback does not apply.
+
+DEBRIS (observed, not actioned beyond step 1/11's single lock overwrite):
+the working copy still carries on the order of 170+ untracked `.__*`,
+`.test*`, `.probe*` and `.agent-lock*`/`.git-*lock*` files plus two
+abnormally large untracked log-merge artefacts (`.AGENT_LOG_fix_2.md` at
+roughly 246MB and `.AGENT_LOG_tmp_prepend.md.cleared-*` at roughly 56MB)
+left over from prior runs' workaround attempts. None of these are tracked
+by git and none were added to by this run. Not cleaning these up
+unprompted, consistent with step 5's "no invented scope beyond
+verification and fixes" and the proven unreliability of deletion in this
+environment (see Q134). Flagging it again as a single decision for Rishi
+rather than inventing a cleanup worklist line.
+
+SECURITY FLAG (reconfirmed, not new, still open, now three weeks since
+raised): Q127 - a live GitHub Personal Access Token still sits in
+cleartext in this repo's local git config (`.git/config`, visible via
+`git remote -v`). This run's own `git remote -v` call displayed it in full
+plaintext in tool output again (the same exposure class Q127 already
+describes), because the inspection was run without redaction before the
+risk was front of mind - noted here rather than hidden. The token still
+appears scoped to this one repo and push/pull continue to work through it,
+but it remains unrotated three weeks after being raised. Not something an
+unattended run can safely fix - needs Rishi in GitHub settings - remains
+open at Q127.
+
+RECOMMENDATION TO RISHI (repeated, unchanged in substance, now at run
+256+): 8 worklist lines and the Q52-dated answer feed cutoff have now held
+for over 70 consecutive runs and more than two months of feed inactivity.
+The live exposed PAT (Q127) remains unrotated three weeks on. This
+schedule is producing no further value run over run, keeps a live
+credential-handling risk open, and keeps displaying that credential in
+plaintext on every run that inspects the remote. Recommend: (1) rotate the
+Q127 PAT now, (2) pause this schedule until a short supervised session
+clears Q127 and works through the open questions (starting with Q8, Q9,
+Q13/Q129, Q16, Q52, Q60 x2, Q66), since no further unattended run can add
+value until one of those 8 items gets a usable answer.
+
+STATUS PAGE (step 10): `node tools/build-audit-status.js` failed outright -
+`gh: not found`. This Cowork sandbox has no `gh` CLI on PATH, consistent
+with the historical Q87/gh-availability gap. Run anyway per step 10's own
+instruction, so the attempt and its failure are recorded honestly rather
+than skipped.
+
+STEP 7/9: no worklist item ticked (none actionable). This log entry
+committed and pushed to `agents/audit-backlog` as the only change.
+
 ## Run 2026-11-06 22:42 UTC (Sonnet 5 session): no-op, worklist still fully blocked (255th+ consecutive)
 
 LOCK (step 1): `.agent-lock` present at pickup, content
