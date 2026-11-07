@@ -1,0 +1,149 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack), twenty-third quality pass
+2026-11-07, Cowork scheduled run (audit-backlog-worker)
+
+Baseline
+--------
+gbp-packs/tiffenbergs-aintree.md sha256:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+branches.json sha256:
+  7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+Both match every prior run's recorded value - no drift.
+
+Full tools/check-*.js suite (37 checkers) run directly against the tracked
+repo before any scratch work: 36 clean. The one failure, check-postcodes.js,
+traces entirely to the pre-existing untracked debris files
+.__combined_run214.md and .__pending_entry_for_log.md (postcodes CH49 1SX,
+ZZ11 1ZZ, L9 8CD matching no branch) that every recent run has already
+logged against Q126/Q134. Not a defect in any tracked page, pack, generator
+or branches.json. These files cannot be deleted on this mount (EPERM on
+unlink, the standing Cowork-mount restriction, Q134) so they remain.
+
+Fresh angle chosen
+------------------
+Of the ten checkers that genuinely read gbp-packs/*.md (confirmed by
+grepping for PACK_DIR/readdirSync rather than trusting a text mention):
+check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js - nine had already been proven by direct injection
+against THIS pack's own copy across the prior twenty-two passes.
+check-pharmacy-first-cost.js had not: its creation on the fourth pass
+(2026-08-13) was proved by injection against the GENERATED PAGE
+(modules/service/pages/pharmacy-first-tiffenbergs-aintree.html), never
+against this pack's own file specifically, for any of its three pack-facing
+rules (4, 5, 6).
+
+Method
+------
+git archive HEAD | tar -x to a scratch directory outside the tracked tree
+(/tmp/scratch415). All edits and checker runs against the scratch copy
+only. The tracked repo was never opened for writing during the injection
+round. Scratch re-extracted fresh before each round; sha256 of the pack
+reconfirmed identical to baseline immediately after extraction each time.
+
+Round 1 - RULE 6 (pack coverage: a pack whose branch runs Pharmacy First
+must call it free somewhere). Stripped "free" from all three sentences that
+NAME Pharmacy First in this pack (the lede paragraph, the Services-section
+bullet, and Post A's opening line), leaving the unrelated "free NHS blood
+pressure check" sentence untouched, matching the checker's own documented
+distinction between a free claim about Pharmacy First and a free claim about
+a different NHS service.
+  Result: CAUGHT, first attempt.
+  FAIL [free] gbp-packs/tiffenbergs-aintree.md: advertises NHS Pharmacy
+  First but never calls it free (rule 6).
+
+Round 2 - RULE 4 (no cost qualifier). Post A's "Pharmacy First is a free NHS
+service" changed to "Pharmacy First is an affordable, free NHS service".
+  Result: CAUGHT, first attempt.
+  FAIL [qualifier] ... describes NHS Pharmacy First as "affordable", which
+  prices a service that is free at the point of use (rule 4).
+
+Round 3 - RULE 5 (no price). Post A's "No GP appointment or referral needed
+- book or just walk in." changed to "No GP appointment or referral needed,
+from £5 - book or just walk in."
+  Result: CAUGHT, first attempt.
+  FAIL [price] ... states "£5" on NHS Pharmacy First copy (rule 5).
+
+Control - a genuine private-service price. Post C's (Weight loss clinic)
+"This is a private, paid service and it is not right for everyone" changed
+to "This is a private, paid service from £99 and it is not right for
+everyone", to confirm PRIVATE_SERVICE correctly exempts a real paid-service
+price and that the checker is not simply reacting to any currency symbol in
+the file.
+  Result: PASSED correctly, exit 0, "clean, every page and pack states the
+  free NHS claim, keeps the prescription-charge caveat, and prices nothing."
+
+All four rounds fired, or correctly passed, on the first attempt, each on
+its intended rule and no other. No checker gap found; no in-repo defect.
+
+Restoration and verification
+-----------------------------
+Each scratch directory was discarded (re-extracted fresh for the next
+round rather than edited back) and finally removed. Tracked repo confirmed
+untouched throughout:
+  sha256sum gbp-packs/tiffenbergs-aintree.md branches.json
+    -> both match baseline, unchanged
+  git status --porcelain -- gbp-packs tools branches.json modules core
+    -> only the standing pre-existing untracked stray tools/testfile_del_tools,
+       not created or touched this run
+
+Full tools/check-*.js suite (37 checkers) re-run directly against the
+tracked repo after the injection round: same result as the baseline sweep,
+36 clean, check-postcodes.js failing only on the same pre-existing debris.
+
+All three pack-facing rules of check-pharmacy-first-cost.js (4, 5, 6) are
+now proven by direct injection against gbp-packs/tiffenbergs-aintree.md
+specifically. Guard coverage for item 4.15 is now 10 of 10 genuinely
+GBP-pack-reading checkers proven by injection against this specific pack,
+matching item 4.6's position reached earlier the same day.
+
+No worklist top-level item unblocked; item 4.15 (rotation pool) advanced
+with real new coverage, no new defect, no new question.
+
+Answer pickup (step 3): Claude in Chrome, one tab, read-only GET to
+https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed after
+use. Newest entry remains the Q52 answer, 2026-09-01T22:44:51Z, now 67+
+days stale. Cross-checked against QUESTIONS.json: 136 total, 43 open
+(Q80-Q135 with gaps), consistent with every recent run's own count.
+Nothing new to pick up.
+
+Autonomous window (step 4): no "Standing authorisation" section present at
+the top of AGENT_LOG.md. Does not apply.
+
+Worklist (step 5): all 8 unchecked top-level lines confirmed [BLOCKED] by
+direct grep (5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60,
+6.5/Q60, 6.6/Q66), unchanged. Fell through to the fallback quality pass.
+Rotation pool re-derived: excluding the seven standing one-off exclusions
+(1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and item 4.6, which the same scheduled
+run cycle quality-passed earlier the same UTC day, the remaining items tied
+stalest at 2026-10-15 were 4.4, 4.5, 4.15 and 6.2. Tiebreak by the standing
+method - fewest historical pass mentions recorded in each item's own
+section: 4.15 came out lowest, so it was picked.
+
+Lock (step 1): .agent-lock at pickup read "RELEASED-sonnet5-20261107T164905Z-
+run271", mtime 16:49 UTC, about 83 minutes old at pickup - well over the
+45-minute threshold, treated as stale. `rm -f .agent-lock` failed with
+"Operation not permitted" (the standing Cowork-mount EPERM-on-unlink
+restriction documented by Q134 and every recent run); overwriting the
+file's content directly with a redirect succeeded without needing a delete,
+so a fresh active timestamp was written in place using that workaround. No
+stray .git/*.lock files were present this run.
+
+Git (step 2): clean `git fetch origin`; already on `agents/audit-backlog`;
+`git pull --ff-only origin agents/audit-backlog` - already up to date.
+
+Security re-check (Q127): not re-inspected by value this run, per
+established practice. Standing position unchanged: still understood to be
+unrotated. Rishi's direct action, not something an unattended run can or
+should do.
+
+Recommendation (unchanged, restated plainly, consistent with the rest of
+this run cycle): the 8 remaining worklist items all still need a decision
+or a supervised session, not another automated pass, and the status-page
+publish remains blocked on Q124's credential-scope gap. This run landed
+real, if narrow, value within that constraint: the tenth genuinely
+pack-reading checker is now fully proven by injection against this specific
+pack (all three of its pack-facing rules), with no defect found. Priorities
+unchanged: (1) rotate the exposed PAT (Q127); (2) grant the publish
+credential access to rbh-data-portal (Q124); (3) work through Q8, Q9, Q13,
+Q16, Q52, Q60 (x2) and Q66 in a supervised session.

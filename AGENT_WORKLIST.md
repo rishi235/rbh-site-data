@@ -33132,6 +33132,51 @@ directly rather than re-deriving the same facts by hand.
       tracked content - raised as Q126 rather than acted on, since it is a
       checker-tooling question, not a worklist item. Evidence in this entry
       and in QUESTIONS.json Q126.
+      Quality pass 2026-11-07 (twenty-third re-verification, repo half only,
+      Cowork scheduled run): pack re-confirmed byte-identical to baseline
+      (sha256 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b)
+      and all 37 checkers re-run clean (36 of 37; check-postcodes.js fails
+      only on the same pre-existing debris every recent run has logged,
+      Q126/Q134, not a defect). Fresh angle: of the ten checkers that
+      genuinely read gbp-packs/*.md (confirmed by PACK_DIR/readdirSync, not
+      by text mention), nine were already proven by injection against this
+      pack's own copy; check-pharmacy-first-cost.js was not - its creation
+      on the fourth pass (2026-08-13) was proved against the generated page,
+      never against this pack's own file. Full repo byte-copied via git
+      archive to a scratch directory outside the tracked tree; all
+      injections and checker runs against the scratch copy only, tracked
+      repo never opened for writing. Four rounds, each on a fresh extraction
+      with the pack's sha256 reconfirmed identical before editing: (1) rule
+      6, pack coverage - stripped "free" from all three sentences naming
+      Pharmacy First (the lede, the Services bullet, Post A), leaving the
+      unrelated "free NHS blood pressure check" sentence untouched - CAUGHT,
+      "advertises NHS Pharmacy First but never calls it free"; (2) rule 4, no
+      cost qualifier - Post A's "Pharmacy First is a free NHS service"
+      changed to "...is an affordable, free NHS service" - CAUGHT, naming
+      "affordable"; (3) rule 5, no price - Post A's "book or just walk in"
+      sentence given "from £5" - CAUGHT, naming "£5"; (4) CONTROL - Post C's
+      (Weight loss clinic, a genuine private service) paid-service sentence
+      given "from £99" - correctly PASSED, exit 0, confirming the
+      PRIVATE_SERVICE exemption holds on this pack's own copy and that the
+      checker is not simply reacting to any currency symbol in the file. All
+      four rounds fired, or correctly passed, on the first attempt, each on
+      its intended rule only. No checker gap found; no in-repo defect. Full
+      37-checker suite re-run clean after the final round; branches.json and
+      the pack both sha256-reconfirmed identical to baseline; tracked repo
+      confirmed untouched throughout (`git status --porcelain` on gbp-packs,
+      tools, modules, core, branches.json showing only the standing
+      pre-existing untracked stray tools/testfile_del_tools). All three
+      pack-facing rules of check-pharmacy-first-cost.js (4, 5, 6) are now
+      proven by direct injection against this pack specifically; guard
+      coverage for item 4.15 is now 10 of 10 genuinely GBP-pack-reading
+      checkers proven by injection against this specific pack, matching
+      item 4.6's position reached earlier the same day. Answer pickup
+      (step 3): Claude in Chrome, one tab, read-only GET to
+      https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed
+      after use; newest entry still the Q52 answer (2026-09-01), unchanged;
+      no answer arrived for any of the 43 currently-open questions. No new
+      question raised. Evidence in
+      audits/tiffenbergs-aintree-pharmacy-first-cost-4.15-twentythird-2026-11-07.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
