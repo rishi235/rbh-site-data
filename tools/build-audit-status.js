@@ -2,7 +2,7 @@
 // build-audit-status.js
 // Renders AGENT_WORKLIST.md + AGENT_LOG.md + branch history into a
 // self-contained HTML status page and publishes it to the data portal
-// (rishi235/rbh-data-portal) via the GitHub API using the gh CLI.
+// (rishi235/rbh-data-portal) via the GitHub REST API over plain HTTPS.
 // Run: node C:\Dev\rbh-site-data\tools\build-audit-status.js
 // REPO is derived from this file's own location (tools/..), not hardcoded,
 // so the script works from any checkout path - the ProDeskAi host's
@@ -10,8 +10,22 @@
 // as /sessions/.../mnt/rbh-site-data. A hardcoded 'C:/Dev/rbh-site-data' used
 // to make every run outside that exact path fail before reaching the GitHub
 // API publish step (see Q96/Q102/Q87 in QUESTIONS.json for the run history).
+//
+// Q87/Q124 history: the Cowork sandbox never has the `gh` CLI installed
+// (no root, apt-get refused), so every sandboxed run failed on
+// "gh: command not found" before the publish step ever ran, and that
+// failure masked the separate, real question underneath it - whether the
+// credential already in the `origin` remote URL (used for git push/pull to
+// rbh-site-data) can also write to rbh-data-portal. Rewritten 2026-11-07 to
+// call the GitHub REST API directly over HTTPS (Node's own https module),
+// so there is no CLI dependency and the credential-scope question (Q124,
+// still open, still Rishi's to decide) is the only thing left that can make
+// this fail. The token is read from `git remote get-url origin` - the exact
+// credential already used for push/pull - never written to a new file or a
+// shell command line, and never logged.
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 const { execSync } = require('child_process');
 
 const REPO = path.join(__dirname, '..');
@@ -364,23 +378,71 @@ const html = '<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8">' +
   'Full detail in AGENT_LOG.md on that branch.</p></section>' +
   '</div>' + answerScript + '</body></html>';
 
-// ---------- publish to the portal via GitHub API ----------
-const b64 = Buffer.from(html, 'utf8').toString('base64');
-let sha = '';
-try {
-  sha = sh('gh api repos/' + PORTAL + '/contents/' + DEST + ' --jq .sha');
-} catch (e) { /* first publish: file does not exist yet */ }
-const payload = { message: 'Digital audit status page update', content: b64 };
-if (sha) payload.sha = sha;
-const tmp = path.join(REPO, 'tools', '.status-payload.json');
-fs.writeFileSync(tmp, JSON.stringify(payload));
-try {
-  sh('gh api -X PUT repos/' + PORTAL + '/contents/' + DEST + ' --input "' + tmp + '"');
-  console.log('Published ' + DEST + ' (' + doneCount + '/' + total + ' done, ' + pct + '%)');
-} finally {
-  // Best-effort cleanup only. Some sandboxed mounts (see Q120 in
-  // QUESTIONS.json) throw EPERM on unlink even though the write above
-  // succeeded; a failure here must never replace or hide a real error from
-  // the gh call above it, so it is swallowed rather than left to propagate.
-  try { fs.unlinkSync(tmp); } catch (e) { /* stale tmp file, harmless */ }
+// ---------- publish to the portal via the GitHub REST API (plain HTTPS) ----------
+// No `gh` CLI dependency: reads the same token git push/pull already use,
+// straight from the origin remote URL, and calls api.github.com directly.
+// This removes "gh missing" as a failure mode entirely; the only remaining
+// way this can fail is the credential-scope question in Q124 (open).
+function getToken() {
+  let url = '';
+  try { url = sh('git remote get-url origin'); } catch (e) { return null; }
+  const m = url.match(/:\/\/[^:]+:([^@]+)@/);
+  return m ? m[1] : null;
 }
+function ghApi(method, repoPath, token, body) {
+  return new Promise((resolve, reject) => {
+    const data = body ? JSON.stringify(body) : null;
+    const req = https.request({
+      hostname: 'api.github.com',
+      path: '/repos/' + repoPath,
+      method,
+      headers: Object.assign(
+        {
+          'User-Agent': 'rbh-site-data-build-audit-status',
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github+json',
+        },
+        data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {}
+      ),
+    }, (res) => {
+      let out = '';
+      res.on('data', (d) => { out += d; });
+      res.on('end', () => resolve({ status: res.statusCode, body: out }));
+    });
+    req.on('error', reject);
+    if (data) req.write(data);
+    req.end();
+  });
+}
+async function publish() {
+  const token = getToken();
+  if (!token) {
+    console.error('Publish skipped: no credential found in the origin remote URL.');
+    return;
+  }
+  const b64 = Buffer.from(html, 'utf8').toString('base64');
+  let sha;
+  const getRes = await ghApi('GET', PORTAL + '/contents/' + DEST, token);
+  if (getRes.status === 200) {
+    try { sha = JSON.parse(getRes.body).sha; } catch (e) { /* unexpected body shape, proceed without sha */ }
+  } else if (getRes.status !== 404) {
+    console.error('Publish GET against ' + PORTAL + ' returned ' + getRes.status +
+      ' - treating as "cannot read", not "file is new". Body: ' + getRes.body.slice(0, 300));
+  }
+  const payload = { message: 'Digital audit status page update', content: b64 };
+  if (sha) payload.sha = sha;
+  const putRes = await ghApi('PUT', PORTAL + '/contents/' + DEST, token, payload);
+  if (putRes.status === 200 || putRes.status === 201) {
+    console.log('Published ' + DEST + ' (' + doneCount + '/' + total + ' done, ' + pct + '%)');
+  } else if (putRes.status === 404) {
+    console.error('Publish failed: 404 Not Found writing to ' + PORTAL + '. This is the credential-' +
+      'scope gap tracked as Q124 in QUESTIONS.json, not a code or network fault - the token that can ' +
+      'push to rbh-site-data has no access to rbh-data-portal. Needs Rishi to add or widen a credential; ' +
+      'not something this script or an unattended run can fix.');
+  } else {
+    console.error('Publish failed: PUT returned ' + putRes.status + '. Body: ' + putRes.body.slice(0, 300));
+  }
+}
+publish().catch((e) => {
+  console.error('Publish failed with a network/transport error (not a credential-scope 404): ' + e.message);
+});
