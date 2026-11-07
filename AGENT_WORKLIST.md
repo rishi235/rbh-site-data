@@ -13634,6 +13634,68 @@ Done 2026-10-14 (twenty-third pass).
       run to guarantee a safe byte-for-byte restore); branches.json sha256
       confirmed unchanged throughout (7ba2569b...5ffef1), git status clean.
       No defect found, no question raised.
+      Twenty-sixth pass, run 269 (unattended scheduled run, 2026-11-07,
+      audit-backlog-worker). Re-derived the stalest genuine rotation-pool item
+      first: 1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 are one-offs excluded from the
+      pool (per 5.7's own 2026-08-30 correction note); of the remainder, 3.9
+      was last substantively touched 2026-10-17 (twenty-fifth pass, read-only,
+      no injection that run), the stalest with a real injection test being
+      2026-10-02 - 36 days without one. Checker under fresh test, taken from
+      the twenty-third pass's own thirteen-item candidate list:
+      check-app-membership.js, never before proven by direct injection
+      against Coleman and Leighs specifically.
+
+      Full 35-checker suite clean on the tracked repo first (35/35;
+      check-cdn-pins.js and check-live-hours.js excluded as network-dependent,
+      same convention as every prior pass on this item). branches.json sha256
+      confirmed at the standing anchor 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b
+      56ef9d970452c39b325ffef1, unchanged since the twenty-fifth pass. Scratch
+      copy via `git archive HEAD | tar -x` into /tmp, tracked repo never
+      opened for writing during the injection round.
+
+      Branch confirmed hasApp: false (colemanleigh_liverpool is not one of the
+      four app members: Fishlocks Ainsdale, Fishlocks Eccleston, Clear Chemist
+      Aintree, Smartts Bootle). Injected a full "Download our app" card plus
+      both store buttons into switch-prescriptions-coleman-leigh-walton.html,
+      copied verbatim in shape from Smartts Bootle's own genuine app card -
+      CAUGHT cleanly: "carries the app card but branches.json says this branch
+      is not an app member", naming the exact file and the exact reason.
+      Restored by byte copy from the pre-injection original, sha256-confirmed
+      identical. CONTROL: an unrelated FAQ wording change on the same page's
+      "What if I am not ready yet?" answer (phone number and WhatsApp mention
+      both left untouched in position, only the surrounding phrasing reworded)
+      - stayed clean, no cross-firing. Restored and sha256-reconfirmed
+      identical to the original a second time.
+
+      Full 35-checker suite re-run on the scratch copy after all injections
+      and restores: 35/35 exit 0 (check-postcodes.js also passes clean there,
+      since `git archive` carries only tracked files and excludes the
+      gitignored scratch debris that makes it fail against the live working
+      tree). Tracked repo reconfirmed untouched throughout: branches.json
+      sha256 unchanged, the target page byte-identical to its pre-injection
+      hash, `git status --porcelain -- modules core branches.json gbp-packs
+      tools` showing only one pre-existing untracked stray
+      (tools/testfile_del_tools, not touched this run). No generator, page,
+      checker or branches.json content changed; no in-repo defect found.
+
+      STEP 3 answer pickup: portal feed read in full this run via Claude in
+      Chrome - newest entry still Q52, 2026-09-01T22:44:51.524Z, now 67+ days
+      stale, unchanged. No new answer for any currently open question (Q80
+      through Q136). QUESTIONS.json: 136 total, 43 open.
+
+      Guard coverage for item 3.9 now extends to 8 of the 20
+      previously-untested checkers proven by direct injection against Coleman
+      and Leighs specifically: check-nap.js, check-opening-hours.js,
+      check-seo-keywords.js, check-whatsapp-route.js,
+      check-booking-routes.js, check-pharmacy-first-safety-net.js (rules 5 and
+      7), and check-app-membership.js (this pass). Twelve remain:
+      check-address-region.js, check-editor-snapshot.js, check-em-dashes.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-page-coverage.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-symptoms.js, check-seo-sheets.js,
+      check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js - a
+      candidate list for a twenty-seventh pass. No question raised.
+      Done 2026-11-07.
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
