@@ -1,3 +1,25 @@
+## Run 2026-11-07 19:14 UTC (Sonnet 5, Cowork scheduled run): no work item taken - escalation only (Q127 exposed credential now 23+ days unrotated; schedule still producing no net progress)
+
+LOCK (step 1): `.agent-lock` at pickup read "RELEASED-sonnet5-20261107T181500Z-run272", mtime 18:20 UTC, ~52 minutes old - over the 45-minute threshold, treated as stale. `rm -f .agent-lock` failed with "Operation not permitted" (standing Cowork EPERM-on-unlink, Q134, still open). Overwrote content in place instead - succeeded. A plain `git status --short` run this cycle also left a stray `.git/index.lock` behind with the same EPERM-on-unlink message. Did not touch it further - git fetch/pull/status all worked fine around it, consistent with Q133/Q134's history that this mount's lock files are cosmetic litter rather than functional blockers for this harness's git plumbing.
+
+GIT (step 2): `git fetch origin` clean, already on `agents/audit-backlog`, `git pull --ff-only` already up to date.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only GET to `https://data.rbhealth.co.uk/api/feedback`. Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z - 67+ days stale, unchanged. Nothing new for any open question.
+
+AUTONOMOUS WINDOW (step 4): no such section present. Does not apply.
+
+WORKLIST (step 5): re-confirmed by direct grep - all 8 unchecked top-level items still `[BLOCKED]`, unchanged: 5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66.
+
+DECISION TAKEN THIS RUN: did not fall through to another rotation-pool quality pass. Checked QUESTIONS.json directly rather than only trusting the worklist text: Q127 (live GitHub PAT sitting in cleartext in this repo's local `.git/config`, already echoed into tool output at least twice before this run) was raised 2026-10-15 and is still `"status": "open"` - 23 days with no answer and no rotation, through dozens of intervening runs that each re-verified GBP packs and checker logic instead. Q134 (the EPERM-on-unlink restriction itself) is also still open since 2026-10-27. Separately, Q131, Q133 and Q136 each independently concluded the same thing on their own facts (172nd, 238th, 246th+ consecutive no-op run) and each recommended pausing this schedule for a supervised session; Q131 and Q133 were later marked "resolved by events" when a git fetch/push bug was fixed, but that fix did not touch Q127, and the worklist is exactly as blocked today as it was at run 364.
+
+Producing a 239th-plus "quality pass" commit that re-proves an already-proven checker rule against an already-clean page adds no commercial value and was skipped this run on that basis. The only action with real value left for this automation to take unsupervised is what it already did: confirm nothing has changed, and escalate again, louder, because the live credential exposure (Q127) is the one item on this list with a real-world cost for every additional day it sits open (anyone with read access to this repo's local git config, or to a future copy of this log, has had a working push-capable token to github.com/rishi235/rbh-site-data since 15 Oct 2026).
+
+RECOMMENDATION TO RISHI (not a new QUESTIONS.json entry - Q127, Q131/Q133/Q136 and Q134 already cover this; repeating the same question under a new id would just be another thing nobody needs to re-answer):
+1. Rotate the GitHub PAT embedded in `C:\Dev\rbh-site-data\.git\config` now, in GitHub settings, and update the remote with the new value in a supervised session. This is the one item on this list with a cost that compounds daily.
+2. Pause the `audit-backlog-worker` schedule until that supervised session also clears the 8 blocked worklist items (each needs a real decision, a Weebly session, or GitHub web access this automation does not have) - continuing to fire it unattended is producing checker-proof commits with zero commercial effect.
+
+No commit made to AGENT_WORKLIST.md this run (no item ticked, nothing newly blocked or unblocked). This log entry is committed on its own so the escalation is visible without implying work was done that wasn't.
+
 ## Run 2026-11-07 18:12 UTC (Sonnet 5, Cowork scheduled run): item 4.15 (Tiffenbergs Chemist Aintree GBP pack) quality pass (twenty-third) - check-pharmacy-first-cost.js's three pack-facing rules proven by injection against this specific pack for the first time, no in-repo defect
 
 LOCK (step 1): `.agent-lock` at pickup read "RELEASED-sonnet5-20261107T164905Z-run271", mtime 16:49 UTC, about 83 minutes old at pickup - over the 45-minute threshold, treated as stale. `rm -f .agent-lock` failed with "Operation not permitted" (the standing Cowork-mount EPERM-on-unlink restriction, Q134); overwrote the file's content directly with a redirect instead, which succeeded without needing a delete, writing a fresh active timestamp in place. No stray `.git/*.lock` files were present this run.
