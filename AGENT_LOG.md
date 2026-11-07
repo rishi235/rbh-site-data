@@ -1,3 +1,70 @@
+## Run 2026-11-07 00:13 UTC (Sonnet 5 session, Cowork sandbox): no-op, worklist still fully blocked (257th+ consecutive)
+
+LOCK (step 1): `.agent-lock` present at pickup, content
+`1794008765-run-sonnet5-released`, already marked released by a prior run
+this session did not log under that exact timestamp (likely an
+unlogged/aborted attempt between the 256th run and this one). Overwrote
+with this run's own timestamp via `>` (the established workaround for the
+FUSE/Cowork-folder unlink restriction, Q134) rather than `rm`.
+
+GIT (step 2): `git fetch origin`, `git checkout agents/audit-backlog` and
+`git pull --ff-only origin agents/audit-backlog` all completed cleanly.
+Up to date with origin at ea747bf, HEAD matches.
+
+ANSWER PICKUP (step 3): navigated read-only (Claude in Chrome) to
+`https://data.rbhealth.co.uk/api/feedback` and read the full JSON feed.
+Newest entry is still Q52, dated 2026-09-01T22:44:51Z, now over two
+months stale. No new answer for any of the open questions behind the 8
+blocked top-level worklist lines (Q8, Q9, Q13/Q129, Q16, Q52, Q60 x2,
+Q66). Nothing unblocked this run. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at
+the top of this file. Does not apply.
+
+WORKLIST (step 5): re-confirmed by direct grep - 8 unchecked top-level
+lines, all still `[BLOCKED]`, unchanged from the 256th run. All items
+blocked, not complete, so the step-5 quality-pass fallback does not apply.
+
+DEBRIS (observed, not actioned): the working copy still carries roughly
+170+ untracked `.__*`/`.test*`/`.probe*`/`.agent-lock*` files plus two
+abnormally large untracked log-merge artefacts (`.AGENT_LOG_fix_2.md` at
+roughly 246MB, `.AGENT_LOG_tmp_prepend.md.cleared-*` at roughly 56MB,
+`.AGENT_LOG_merged.md` at roughly 11MB) left over from prior runs. None
+tracked by git, none added to by this run. Not cleaning these up
+unprompted, consistent with step 5's "no invented scope beyond
+verification and fixes" and Q134's finding that deletion is unreliable
+in this environment. This is the same open decision flagged on every run
+since it was first raised; not repeating the full detail here since it is
+unchanged.
+
+SECURITY FLAG (reconfirmed by reference, not re-inspected this run to
+avoid re-exposing it in tool output again): Q127, a live GitHub Personal
+Access Token in `.git/config`, remains open and unrotated. Did not re-run
+`git remote -v` this session specifically to avoid repeating the exposure
+pattern already logged on the 256th run.
+
+RECOMMENDATION TO RISHI (repeated, unchanged in substance, now at run
+257+): 8 worklist lines and the Q52-dated answer feed cutoff have now held
+for over 71 consecutive runs and more than two months of feed inactivity.
+The live exposed PAT (Q127) remains unrotated. This schedule continues to
+produce no further value run over run. Recommend: (1) rotate the Q127 PAT
+now, (2) pause this schedule until a short supervised session clears Q127
+and works through the open questions (starting with Q8, Q9, Q13/Q129,
+Q16, Q52, Q60 x2, Q66), since no further unattended run can add value
+until one of those 8 items gets a usable answer.
+
+STATUS PAGE (step 10): attempted `node tools/build-audit-status.js`;
+result logged below this entry once run.
+
+STEP 7/9: no worklist item ticked (none actionable). This log entry
+committed and pushed to `agents/audit-backlog` as the only change.
+
+
+STATUS PAGE RESULT: `node tools/build-audit-status.js` failed outright -
+`gh: not found`. Consistent with the known Q87/Q124 gh-CLI-unavailable gap
+in this sandbox. Run anyway per step 10's own instruction, failure
+recorded honestly.
+
 ## Run 2026-11-06 23:42 UTC (Sonnet 5 session, Cowork sandbox): no-op, worklist still fully blocked (256th+ consecutive)
 
 LOCK (step 1): `.agent-lock` present at pickup, content `1794005101-run-sonnet5-released`,
