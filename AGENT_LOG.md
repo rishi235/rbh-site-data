@@ -18,6 +18,8 @@ RECOMMENDATION (unchanged, restated plainly): the 8 remaining worklist items all
 
 No worklist top-level item unblocked; item 3.10 (rotation pool) re-verified with fresh live evidence, no regression, no new defect.
 
+PUSH/PUBLISH OUTCOME (amendment): commit `83b3815` pushed cleanly to `origin/agents/audit-backlog` (`a0ae4d7..83b3815`), after clearing three stale `.git/*.lock` files left by the sandbox's own FUSE unlink restriction (`index.lock` twice, `HEAD.lock` once) via rename-aside, same low-risk pattern as recent runs. `node tools/build-audit-status.js` ran and failed only at the final publish step with the same clear message as every run since Q124 was raised: "404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." No regression, no change in status. Also attempted (and had auto-declined) `allow_cowork_file_delete` for `.agent-lock` at pickup - noting for Rishi: granting that permission for the `rbh-site-data` folder would let future runs delete the lock file outright instead of overwriting its contents, which is cosmetic only and has not blocked any run so far.
+
 
 
 ## Run 2026-11-07 12:42 UTC (Sonnet 5, Cowork sandbox): item 3.9 (Coleman and Leighs) twenty-sixth quality pass, check-app-membership.js proven by direct injection - first real fallback-pass finding-of-coverage since the backlog froze on [BLOCKED] items
