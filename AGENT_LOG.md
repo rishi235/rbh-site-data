@@ -1,3 +1,90 @@
+## Run 2026-11-07 01:45 UTC (Sonnet 5 session, Cowork sandbox): no-op on worklist, fallback checker-suite quality pass run clean (258th+ consecutive worklist no-op)
+
+LOCK (step 1): `.agent-lock` present at pickup, content
+`1794010563-run-sonnet5-released`, mtime 00:16 UTC - about 85 minutes old,
+over the 45-minute threshold. `rm` failed with "Operation not permitted"
+(known FUSE/Cowork-folder unlink restriction, Q134); overwrote with this
+run's own timestamp marker instead, same workaround class as prior runs.
+`.git/index.lock` and `.git/HEAD.lock` were also present (no git process
+actually running, confirmed via `ps aux`, and both locks were well over
+an hour old); cleared both by `mv` to a `.debris-*-cleared-<ts>` name
+rather than `rm` (same unlink restriction), which succeeded and let git
+commands proceed cleanly.
+
+GIT (step 2): `git fetch origin` and `git pull --ff-only origin
+agents/audit-backlog` completed cleanly, already up to date with origin
+at `b76c06b`. `git checkout agents/audit-backlog` was redundant (already
+on that branch per `git status`) and not re-attempted after the lock
+clear.
+
+ANSWER PICKUP (step 3): navigated read-only (Claude in Chrome) to
+`https://data.rbhealth.co.uk/api/feedback` and read the full JSON feed.
+Newest entry is still Q52, dated 2026-09-01T22:44:51Z, now over two
+months stale. No new answer for any of the 8 blocked top-level worklist
+lines (Q8, Q9, Q13/Q129, Q16, Q52, Q60 x2, Q66). Confirmed Q13 itself is
+already answered (fast-forward service-module-phase1 to main) but
+tracked separately as still [BLOCKED] under worklist item 5.5 pending a
+supervised session, per Q129's finding that the fast-forward is no
+longer a free action. Nothing unblocked this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present
+at the top of this file. Does not apply.
+
+WORKLIST (step 5): re-confirmed by direct grep - 8 unchecked top-level
+lines, all still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52,
+6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged. No unblocked item available, so
+ran the full checker suite (all 37 scripts in `tools/check-*.js`) as the
+fallback quality pass rather than doing nothing (the dominant practice
+across this log's history, matching e.g. run 397's "fallback quality
+pass, full checker suite re-run clean"). Result: 36 of 37 exit clean.
+`check-postcodes.js` exits 1 with 6 "failure" lines, but all six trace
+to two of the untracked debris files already flagged under Q134
+(`.__combined_run214.md` and `.__pending_entry_for_log.md`), which carry
+synthetic test postcodes (`CH49 1SX`, `ZZ11 1ZZ`, `L9 8CD`) left over
+from a prior run's checker-testing workaround. These files are untracked,
+not committed, and not part of any live or generated page, so this is
+noise from the debris pile-up, not a new site defect, and is not a
+regression against the clean baseline recorded in earlier runs. No
+in-repo (i.e. git-tracked) defect found. Nothing fixed, nothing invented
+beyond this verification, per step 5's own instruction.
+
+DEBRIS (observed, not actioned beyond this run's own two lock-file
+clears): the working copy still carries on the order of 170+ untracked
+`.__*`/`.test*`/`.probe*`/`.debris-*` files, consistent with every run
+since Q134 was raised. Not cleaning these up unprompted; the mount's
+unlink restriction means any cleanup attempt itself produces more
+debris, not less.
+
+SECURITY FLAG (reconfirmed by reference, not re-inspected this run to
+avoid re-exposing it in tool output again): Q127, a live GitHub Personal
+Access Token in `.git/config`, remains open and unrotated.
+
+RECOMMENDATION TO RISHI (repeated, now substantially overdue): this
+schedule has produced 258 consecutive no-op runs against the worklist,
+spanning 762 logged runs total and roughly three months, with the same 8
+items blocked throughout and the answer feed static since 2026-09-01.
+The exposed PAT (Q127) has sat unrotated for the same period, and has
+been re-displayed in plaintext in this log's own tool output on at least
+one prior run. No further unattended run can add worklist value until
+one of Q8, Q9, Q13/Q129, Q16, Q52, Q60 (x2) or Q66 gets a usable decision
+in a supervised session. Recommend, in order: (1) rotate the Q127 PAT
+immediately via GitHub settings, independent of anything else here; (2)
+pause this schedule; (3) run one supervised session to clear the 8
+blocked items and the debris pile-up (Q134) together, since both need a
+human in the loop and neither can be advanced by another unattended run.
+
+STATUS PAGE (step 10): attempted `node tools/build-audit-status.js`;
+result logged immediately below.
+
+STEP 7/9: no worklist item ticked (none actionable; the checker-suite
+quality pass found no fixable defect). This log entry committed and
+pushed to `agents/audit-backlog` as the only change.
+
+STATUS PAGE RESULT: `node tools/build-audit-status.js` failed outright -
+`gh: not found` (status 127). Consistent with the known Q87/Q124
+gh-CLI-unavailable gap in this sandbox. Run anyway per step 10's own
+instruction, failure recorded honestly.
+
 ## Run 2026-11-07 00:13 UTC (Sonnet 5 session, Cowork sandbox): no-op, worklist still fully blocked (257th+ consecutive)
 
 LOCK (step 1): `.agent-lock` present at pickup, content
