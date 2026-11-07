@@ -24296,6 +24296,55 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       checkers reading gbp-packs/*.md proven by injection against this
       specific pack (up from 8). No generator, page, pack, checker or
       branches.json content changed. No new question raised.
+      Quality pass 2026-11-07 (twenty-third): fallback rotation pool pick,
+      all 8 top-level worklist items still [BLOCKED] (5.3/Q8, 5.4/Q9,
+      5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged.
+      Re-derived least-recently-verified item per standing method: max
+      YYYY-MM-DD date inside each rotation-pool item's own section
+      (excluding the seven standing one-offs 1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+      6.8, and the two items quality-passed earlier the same day, 3.9 and
+      3.10). Five items tied stalest at 2026-10-15 (4.4, 4.5, 4.6, 4.15,
+      6.2); tiebreak by fewest "quality pass" mentions in each item's own
+      section (the standing tiebreak rule): 4.6 had the fewest (22, versus
+      23-28 on the other four). Picked 4.6 (McCanns Chemist Aigburth).
+      FRESH ANGLE: check-pharmacy-first-cost.js, which reads gbp-packs/*.md
+      directly (PACK_DIR constant) and had never been proven by injection
+      against this specific pack - the nine checkers already recorded above
+      did not include it. Baseline: ran directly against the tracked repo
+      first, clean (112 Pharmacy First pages, 16 packs, 6 branch landing
+      pages, all stating the free NHS claim with no cost qualifier or
+      price). branches.json sha256 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+      and gbp-packs/mccanns-aigburth.md sha256
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693 both
+      matched every prior run's recorded value, no drift. Isolated
+      git-archive scratch extraction (tracked repo never opened for writing
+      throughout). Injection: changed "Pharmacy First is a free NHS service"
+      to "Pharmacy First is an affordable, low-cost NHS service" in Post A -
+      CAUGHT first attempt, two failures naming the file and both offending
+      words ("low-cost" and "affordable" each price a service that is free
+      at the point of use, rule 4). Negative control: a fresh scratch
+      extraction changing "not a waiting list" to "not a long wait" in the
+      same sentence, leaving the free claim itself untouched - ran clean,
+      confirming the checker discriminates on the cost-qualifier wording
+      specifically rather than any change to that sentence. Both scratch
+      directories deleted after use; tracked repo confirmed untouched
+      throughout and afterwards (git status --porcelain -- gbp-packs tools
+      branches.json modules core showing only the standing pre-existing
+      untracked tools/testfile_del_tools stray; both sha256 values
+      reconfirmed unchanged). Full 35-checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js, network-dependent) re-run
+      against the tracked repo afterwards: 34/35 clean; the one failure,
+      check-postcodes.js, traces entirely to the same pre-existing untracked
+      debris files (.__combined_run214.md, .__pending_entry_for_log.md)
+      every recent run has already documented - not a defect in any tracked
+      page, pack, generator or branches.json. No in-repo defect - McCanns
+      Chemist Aigburth's pack correctly states the free NHS Pharmacy First
+      claim with no cost qualifier or price, and this is now proven by
+      injection against check-pharmacy-first-cost.js for the first time.
+      Guard coverage for item 4.6 now 10 of the checkers reading
+      gbp-packs/*.md proven by injection against this specific pack (up
+      from 9). No generator, page, pack, checker or branches.json content
+      changed. No new question raised.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
