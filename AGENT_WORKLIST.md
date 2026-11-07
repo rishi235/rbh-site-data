@@ -15527,6 +15527,57 @@ Done 2026-10-14 (twenty-third pass).
       exception). No generator, page, pack, checker or branches.json
       content changed. No new question raised; QUESTIONS.json unchanged
       at 125 total, 47 open. Done 2026-10-14
+
+      Quality pass 2026-11-07 (unattended scheduled run). Rotation pool
+      re-derived fresh (same method as the 2026-10-14 pass, excluding the
+      seven standing one-offs and reconfirming all 8 worklist top-level
+      lines still [BLOCKED]: 5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16,
+      6.1/Q52, both Q60 lines under 6.4/6.5, 6.6/Q66); item 3.10 came out
+      stalest again at 2026-10-14, 24 days old, ahead of the next
+      candidates (4.4/4.5/4.6/4.15/6.2 at 2026-10-15). ANSWER PICKUP
+      (step 3): Claude in Chrome, single tab, read-only, full feed read
+      fresh from https://data.rbhealth.co.uk/api/feedback - newest entry
+      still the Q52 answer, 2026-09-01T22:44:51Z, now 67+ days stale;
+      cross-checked against QUESTIONS.json, nothing new for any of the
+      currently open questions. No "Standing authorisation - autonomous
+      window" section at the top of AGENT_LOG.md, so step 4 did not
+      apply. REPO HALF: full 37-checker suite run directly against the
+      tracked tree, 36/37 clean; the sole failure is
+      check-postcodes.js on pre-existing untracked debris files
+      (.__pending_entry_for_log.md and others carrying placeholder
+      postcodes CH49 1SX / ZZ11 1ZZ / L9 8CD matching no branch), the
+      same long-standing finding every recent run has logged, not a
+      defect in this item. check-cdn-pins.js remains the sole checker
+      not proved by injection against riddings_timperley (network-
+      dependent, out of scope by the standing convention; 36 of 37
+      already proved as of 2026-10-14), so no further injection work was
+      attempted this run and the FRESH ANGLE taken instead was a live
+      re-read, not repeated since 2026-08-12/13. LIVE HALF: two read-only
+      GETs via Claude in Chrome, riddingspharmacy.co.uk homepage and the
+      pfLink Pharmacy First page. Pharmacy First page unchanged and
+      clean: all seven NHS Pharmacy First conditions present with the
+      correct NHS age ranges, phone, address and hours all correct, no
+      medicine named, no efficacy claim. Homepage NAP, phone and hours
+      still correct against branches.json. Two already-known live states
+      reconfirmed, neither new: the Q31-era "Cheshire" county string in
+      the live contact block and homepage body (branches.json holds
+      Greater Manchester) persists unchanged; and the Q22 homepage
+      weight-loss tagline - "Weight Loss Clinic: Innovative solutions
+      that deliver results. Tried the rest? Now try the best." - is
+      still live at Riddings specifically, confirming (with a named
+      branch and today's date) that Q22's answer (21 Oct 2026: homepage
+      line comes off all sites first, repo work on PR #2
+      claude/weight-loss-online-and-inner) has not yet been pasted live
+      here. That PR branch has three commits ahead of main
+      (c8e5aee8, afd4af10, 7736a32e) and is not merged into
+      agents/audit-backlog or main; this run made no change to it, since
+      merging a different branch's PR and pasting live copy are both
+      outside this item's scope and outside what an unattended, browser-
+      read-only run may do. No new question raised - Q22 already covers
+      this exact finding and decision; this is corroborating evidence,
+      not a new fact pattern. No in-repo defect, no generator, page,
+      pack, checker or branches.json content changed, no worklist item
+      unblocked. Done 2026-11-07
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
