@@ -1,3 +1,25 @@
+## Run 2026-11-07 10:42 UTC (Sonnet 5, Cowork sandbox): no-op on worklist, fallback checker-suite quality pass clean (266th+ consecutive worklist no-op) - nothing changed since the 09:42 UTC run
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261107T094629Z-run265`, mtime 09:46 UTC, about 56 minutes old at pickup - over the 45-minute threshold, treated as stale. `rm` failed with "Operation not permitted" (same Cowork-mount unlink restriction as every recent run, Q134); overwrote the file's content in place instead of renaming, which succeeded. Also found `.git/index.lock`, `.git/ORIG_HEAD.lock` and `.git/HEAD.lock` (all same 09:46 timestamp, same incident) blocking git operations with no git process running (`ps aux` clean). `rm` failed on all three; `mv` rename-aside succeeded on each, moved to plain working-tree debris files rather than anywhere under `refs/` (learning from the Q136 near-miss two runs ago), clearing the way for `git pull --ff-only`.
+
+GIT (step 2): `git fetch origin` and `git pull --ff-only origin agents/audit-backlog` both clean once the locks were cleared; already up to date with `origin/agents/audit-backlog` at `3fe5321` (the 09:42 UTC run's publish-mechanism fix).
+
+ANSWER PICKUP (step 3): Claude in Chrome available this run. Navigated to `https://data.rbhealth.co.uk/api/feedback` and read it directly - no Cloudflare Access login page. Newest entry remains Q52, dated 2026-09-01T22:44:51Z, now 66 days stale. Nothing new for Q80 through Q135.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at the top of this file. Does not apply.
+
+WORKLIST (step 5): confirmed by direct grep - all 8 unchecked top-level lines still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged. Fell through to the fallback quality pass.
+
+QUALITY PASS: ran all 37 `tools/check-*.js` checkers directly. 36 clean. `check-postcodes.js` fails on the same pre-existing debris (`.__combined_run214.md`, `.__pending_entry_for_log.md` carrying stray postcodes CH49 1SX, ZZ11 1ZZ, L9 8CD matching no branch) every recent run has logged, plus the same two pre-existing `UNOWNED` warnings on `gbp-packs/TEMPLATE.md` and `modules/branch/pages/`. No new defect, no tracked-file fix needed.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` directly (the 09:42 UTC run's rewritten, gh-free version). It built the page correctly and failed only at the final PUT with a clear "404 Not Found ... Q124 credential-scope gap" message, confirming Q124 is still open and the publish path is still blocked on a credentials decision only Rishi can make - no code regression from the 09:42 UTC fix.
+
+SECURITY RE-CHECK (Q127): not re-inspected by value this run, per the established practice of not re-printing it; confirmed only that it is still 23 days unrotated (first flagged 2026-10-15). Standing position unchanged: this is Rishi's direct action (regenerate the GitHub PAT, update the remote), not something an unattended run can or should do.
+
+RECOMMENDATION (unchanged, restated plainly): this schedule has now produced 266+ consecutive runs with zero worklist progress, because the 8 remaining items all need a decision or a supervised session, not another automated pass, and the one channel that would deliver 43 pending questions to Rishi with answer forms (the status-page publish) is blocked on a credentials gap (Q124) that only he can close. In order of urgency: (1) rotate the exposed PAT (Q127) today, independent of everything else; (2) grant the existing credential - or a new scoped one - access to rbh-data-portal so the publish step can succeed (Q124); (3) once the status page is actually reaching him, work through Q8, Q9, Q13, Q16, Q52, Q60 (x2) and Q66 in a supervised session. Recommend seriously considering pausing this scheduled task until (1) and (2) are done, since every run between now and then can only repeat this same finding.
+
+No worklist item advanced; no generator or data file touched beyond this log entry. New harmless debris from this run's lock-clearing: moved `.git/index.lock`, `.git/ORIG_HEAD.lock` and `.git/HEAD.lock` aside to plain working-tree files (not under `refs/`), same low-risk pattern as recent runs.
+
 ## Run 2026-11-07 09:42 UTC (Sonnet 5, Cowork sandbox): fixed step 10 publish mechanism (removed gh CLI dependency), confirmed Q124's credential-scope gap directly (265th+ run, first to land a real infrastructure fix since the backlog froze)
 
 LOCK (step 1): `.agent-lock` content `RELEASED-sonnet5-20261107T084300Z-run264`, mtime 08:47 UTC, well under 45 minutes at pickup. Not stale, left as found at pickup; overwritten with this run's own marker at the end.
