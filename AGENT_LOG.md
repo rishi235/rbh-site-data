@@ -1,4 +1,24 @@
-## Run 2026-11-07 10:42 UTC (Sonnet 5, Cowork sandbox): no-op on worklist, fallback checker-suite quality pass clean (266th+ consecutive worklist no-op) - nothing changed since the 09:42 UTC run
+## Run 2026-11-07 11:42 UTC (Sonnet 5, Cowork sandbox): no-op on worklist, fallback checker-suite quality pass clean (267th+ consecutive worklist no-op) - nothing changed since the 10:42 UTC run
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261107T104603Z-run266`, mtime 10:46 UTC, about 56 minutes old at pickup - over the 45-minute threshold, treated as stale. Overwrote content in place with this run's own pickup marker (the `rm` unlink restriction, Q134, still applies). `.git/index.lock` was present with no git process running; `rm` failed as usual, but `git fetch`/`git checkout`/`git pull --ff-only` all still succeeded cleanly despite it, so it was left in place rather than risking another rename-aside near-miss (Q136) for no operational benefit this run.
+
+GIT (step 2): clean fetch, checkout and `pull --ff-only`; already up to date with `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3): not repeated this run - Claude in Chrome was not loaded and the 10:42 UTC run already confirmed the newest portal feedback entry is still Q52, 67+ days stale. No reason to expect that changed in the last hour.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at the top of this file. Does not apply.
+
+WORKLIST (step 5): reconfirmed by direct grep - all 8 unchecked top-level lines still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged. Fell through to the fallback quality pass.
+
+QUALITY PASS: ran all 37 `tools/check-*.js` checkers directly. 36 clean. `check-postcodes.js` fails on the same pre-existing debris (`.__combined_run214.md`, `.__pending_entry_for_log.md` carrying stray postcodes CH49 1SX, ZZ11 1ZZ, L9 8CD matching no branch) every recent run has logged, plus the same two pre-existing `UNOWNED` warnings on `gbp-packs/TEMPLATE.md` and `modules/branch/pages/`. No new defect, no tracked-file fix needed.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` directly. Built the page correctly and failed only at the final PUT with the same clear "404 Not Found ... Q124 credential-scope gap" message as every run since the 09:42 UTC fix. No regression, no change in status.
+
+SECURITY RE-CHECK (Q127): not re-inspected by value this run, per established practice. Standing position unchanged: still understood to be unrotated since first flagged 2026-10-15 (now 23+ days). This is Rishi's direct action, not something an unattended run can or should do.
+
+RECOMMENDATION (unchanged, restated plainly): this schedule has now produced 267+ consecutive runs with zero worklist progress. The 8 remaining items all need a decision or a supervised session, not another automated pass, and the one channel that would deliver 43+ pending questions to Rishi with answer forms (the status-page publish) is blocked on a credentials gap (Q124) that only he can close. In order of urgency: (1) rotate the exposed PAT (Q127) - this has now gone unaddressed for over three weeks and is a live security exposure, independent of everything else; (2) grant the existing credential, or a new scoped one, access to rbh-data-portal so the publish step can succeed (Q124); (3) once the status page is actually reaching him, work through Q8, Q9, Q13, Q16, Q52, Q60 (x2) and Q66 in a supervised session. Recommend pausing this scheduled task until (1) and (2) are done, since every run between now and then can only repeat this same finding and each one costs real compute for zero progress.
+
+No worklist item advanced; no generator or data file touched beyond this log entry.
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261107T094629Z-run265`, mtime 09:46 UTC, about 56 minutes old at pickup - over the 45-minute threshold, treated as stale. `rm` failed with "Operation not permitted" (same Cowork-mount unlink restriction as every recent run, Q134); overwrote the file's content in place instead of renaming, which succeeded. Also found `.git/index.lock`, `.git/ORIG_HEAD.lock` and `.git/HEAD.lock` (all same 09:46 timestamp, same incident) blocking git operations with no git process running (`ps aux` clean). `rm` failed on all three; `mv` rename-aside succeeded on each, moved to plain working-tree debris files rather than anywhere under `refs/` (learning from the Q136 near-miss two runs ago), clearing the way for `git pull --ff-only`.
 
