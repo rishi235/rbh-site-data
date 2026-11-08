@@ -79,3 +79,20 @@ archive/
 # prior run's log-concatenation attempt, not real content.
 /AGENT_LOG_NEW_267.md
 /AGENT_LOG_combined_scratch.md
+
+# The ".__" double-underscore prefix is the dominant shape of debris this
+# EPERM-on-unlink bug (Q134) has produced since run214: probe files, cleared
+# locks, scratch log entries, diagnostic markers. Two of them
+# (.__combined_run214.md, .__pending_entry_for_log.md) carry the same
+# fabricated placeholder postcodes as AGENT_LOG_combined_scratch.md above and
+# have been failing check-postcodes.js on every quality pass since at least
+# run283 (2026-11-08 04:42 UTC) purely because nothing told git, or the
+# checker's gitignore-driven debris filter, to stop caring about this shape
+# of filename - the same gap the rest of this file already closed for every
+# other debris shape. Root-anchored so it cannot catch a deliberately placed
+# file of this name inside tools/, modules/ etc. Added on the 2026-11-08
+# 07:43 UTC quality pass (run286) specifically to retire this one recurring
+# false failure; 38 pre-existing untracked ".__*" files in the repo root
+# were never trackable in the first place (EPERM blocks `git rm` too) so this
+# only stops git and the checkers minding them, it does not remove them.
+/.__*
