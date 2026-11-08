@@ -8341,6 +8341,40 @@ RAISED. Item 3.5 stays `[x]` (quality pass, not a state change). Full
 detail in audits/hirshmans-ainsdale-item-3.5-quality-pass-2026-10-19-
 twentyfifth.txt. Done 2026-10-19.
 
+Quality pass 2026-11-08 (twenty-sixth, run300): new angle, tools/check-
+address-region.js, never named once across the prior twenty-five passes on
+this item. Baseline sha256(branches.json) = 7ba2569b...325ffef1, unchanged
+since the twenty-fourth pass. Full 35-checker suite (excluding check-cdn-
+pins.js and check-live-hours.js, network-dependent) 35/35 clean on a git-
+archive scratch copy of HEAD under /tmp; all eight generators regenerated
+to a byte-stable result (diff -rq against the live repo's modules/ and
+core/ reported no differences). Two injections on the scratch copy's
+branches.json, each restored by byte copy and sha256-reconfirmed before
+the next: (A) hirshmans_ainsdale.addressRegion changed from "Merseyside" to
+"Sefton" (a district, not a county) - CAUGHT first attempt, rule 1
+(COUNTIES membership), exact branch and reason quoted back; (B)
+hirshmans_ainsdale.seoTown changed from "Ainsdale" to "Formby" (not in the
+branch's own serviceAreaList) - CAUGHT first attempt, three rules fired on
+the one change: seoTown-not-in-serviceAreaList, the lead entry now reading
+as fishlocks_ainsdale's seoTown rather than this branch's own, and
+townSlug no longer matching the new seoTown. Both injections restored;
+file sha256 matched baseline after each restore; the live repo's own
+branches.json was never opened for writing and its sha256 was reconfirmed
+unchanged. No in-repo defect: check-address-region.js already correctly
+protects this branch's addressRegion-county rule, seoTown-in-
+serviceAreaList rule and serviceAreaList lead-entry rule. LIVE HALF
+(Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted): read https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-
+hirshmans-ainsdale.html by page text - address, phone, hours and the
+nhs.net footer email all match branches.json's hirshmans_ainsdale record
+exactly, no medicine named anywhere on the page. The standing Q51/Q83/Q88
+lead-price/qualifier finding ("from £39.99" stated unconditionally) is
+present and unchanged on this branch, already recorded on the twenty-third
+pass and answered as Q51 ("leave it as it is") - not a new question. NO
+NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.5 stays `[x]` (quality
+pass, not a state change). Full detail in audits/hirshmans-ainsdale-
+item-3.5-quality-pass-2026-11-08-twentysixth.txt. Done 2026-11-08.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
