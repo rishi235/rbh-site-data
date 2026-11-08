@@ -30273,6 +30273,55 @@ directly rather than re-deriving the same facts by hand.
       filed as a separate audits/ artifact this run (infrastructure note
       only); full command transcript is in this run's own session log.
       Done 2026-10-19.
+      Twenty-third quality pass 2026-11-08 (Cowork scheduled run,
+      audit-backlog-worker, claude-sonnet-5; all 8 remaining AGENT_WORKLIST.md
+      unchecked lines reconfirmed [BLOCKED], unchanged; 4.12 confirmed
+      stalest in the rotation pool - last verified 2026-10-19, over three
+      weeks before the next-oldest candidate, by a direct Python pass over
+      every checked item's own section text excluding the standing
+      exclusions). REPO HALF: full 32-checker suite (check-cdn-pins.js and
+      check-live-hours.js excluded, network-dependent) run directly on a
+      `git archive HEAD` scratch copy under /tmp, 32/32 exit 0. branches.json
+      `colemanleigh_liverpool` sha256 7ba2569b...ffef1 and
+      `gbp-packs/coleman-leigh-walton.md` sha256 6c8b9cac...24d88 both
+      unchanged from the twenty-second pass's baseline. FRESH ANGLE: two
+      checkers tried against this item for the first time. (1)
+      check-nap.js: a one-digit phone injection into the pack's "- Phone:"
+      line was NOT caught - confirmed by reading the tool that check-nap.js
+      sweeps only generated pages and paste blocks, not gbp-packs/*.md, so
+      the pack's phone line is outside its scope by design, not a gap newly
+      found. (2) check-gbp-packs.js: the same injection on the pack WAS
+      caught ("phone-like number ... is not Coleman and Leighs Pharmacy's
+      number in branches.json"), but only as a WARN, not a FAIL - consistent
+      with the pre-existing hirshmans-ainsdale.md phone warning already in
+      the clean run's own output, so this is the checker's established
+      behaviour, not a new defect. Restored and sha256-reconfirmed
+      byte-identical to baseline. (3) check-jsonld.js: a telephone-field
+      injection into
+      modules/service/pages/uti-treatment-coleman-leigh-walton.html
+      ("0151 525 3522" to "0151 525 9999") was CAUGHT cleanly (exit 1,
+      named the exact file and field); restored and sha256-reconfirmed
+      byte-identical to the live tracked working copy
+      (b7992df8...21ca86). check-jsonld.js is now proven by injection
+      against this branch for the first time. No pack, generator, page or
+      branches.json content changed - checker-only, on an isolated scratch
+      copy, tracked repo never opened for writing during the proof. LIVE
+      HALF (Claude in Chrome, read-only, two tabs, both closed after use,
+      nothing clicked, typed or submitted): re-read the homepage and the
+      pfLink target directly. All four standing live findings reconfirmed
+      unchanged - the "Change to Coleman & Leigh Pharmacy" banner and the
+      footer "Coleman & Leigh Pharmacy" still carry the missing-s spelling;
+      the footer contact block's phone still renders "0151 5253522" with no
+      internal space against the correctly spaced "0151 525 3522" elsewhere
+      on the same page; Post A's pfLink (pharmacy-first-service-walton.html)
+      is still a live 404, now 90+ days; and the homepage's "Weight Loss
+      Clinic: Innovative solutions that deliver results. Tried the rest?
+      Now try the best." tagline is still live, corroborating the open Q22
+      finding (estate-wide, Rishi's answer 2026-08-30 was "unsure, need to
+      loop back", still pending; a repo-side fix reportedly exists on an
+      unmerged PR per other items' notes, not touched by this run). No
+      state change on any front since the twenty-second pass. No new
+      in-repo defect, no new question. Done 2026-11-08.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
