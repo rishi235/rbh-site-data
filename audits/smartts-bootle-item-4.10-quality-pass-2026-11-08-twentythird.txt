@@ -1,0 +1,44 @@
+Item 4.10 - Smartts Chemist Bootle GBP pack - twenty-third quality pass
+Run: unattended scheduled run (Sonnet 5), 2026-11-08
+
+Selection: 4.10 was the stalest item in the standing rotation pool (max inline
+date 2026-10-18, 23 "quality pass" mentions), computed the same way as prior
+runs (excluding standing exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8).
+
+REPO-SIDE
+- branches.json smartts_bootle record re-read field by field: address 42
+  Fernhill Road, Bootle L20 9HH; phone 0151 922 4984; email
+  Smartts@rbhealth.co.uk; googleReviewUrl; whatsapp 447521775631; hasApp true;
+  serviceAreaList Bootle/Sefton/Liverpool; odsCode FQN70; nhsEmail
+  pharmacy.FQN70@nhs.net; openingHours two Mon-Fri sessions 09:00-13:00 and
+  14:00-18:00, Sat/Sun closed; widgets (bloodPressure, contraception,
+  pharmacyFirst, weightLoss, travelClinic) all present. All match
+  gbp-packs/smartts-bootle.md's own "Profile basics" block exactly, unchanged
+  from every prior pass.
+- Ran the full tools/check-*.js suite (37 checkers): 0 failures. Entries
+  mentioning Smartts across checker output are all pre-existing KNOWN/WARN/
+  NOTE items already on record (Q64 address-locality divergence on a
+  different branch, Q16 live-only page link targets and the switch-page
+  "Support that delivers results" claim, Q8/Q16 Pharmacy First link target,
+  app membership, split-day lunch closure note) - none new, none stale.
+
+LIVE (Claude in Chrome, read-only, no login/click/submit)
+- https://www.smarttschemist.co.uk/ read via get_page_text. Two findings,
+  both unchanged from the twenty-second pass (2026-10-18) and both already on
+  record:
+  1. Website-hours contradiction (standing): homepage footer and opening
+     hours panel both print "Monday-Friday 9:00am-6:00pm" with no lunch
+     closure shown, against the pack's own paster warning and
+     branches.json's confirmed 1pm-2pm closure. No rule in this repo can fix
+     a live-only Weebly page; needs a Weebly session.
+  2. Weight loss claim (Q22/item 5.8, blocked): "Weight Loss Clinic:
+     Innovative solutions that deliver results. Tried the rest? Now try the
+     best." still live, unchanged, estate-wide finding already tracked.
+- Did not re-check the live Google Business Profile name this pass (covered
+  on the twenty-second pass, 2026-10-18, addendum to Q125; no reason to
+  expect it has changed and no Rishi/Dane GBP edit has occurred since).
+
+RESULT: no new defect, no new question. Item 4.10 remains correctly verified.
+Appended "Twenty-third quality pass" paragraph to AGENT_WORKLIST.md's own
+item 4.10 section. No files in modules/, core/, tools/, gbp-packs/ or
+branches.json changed.

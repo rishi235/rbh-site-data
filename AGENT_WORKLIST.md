@@ -27910,6 +27910,25 @@ directly rather than re-deriving the same facts by hand.
       additional confirmed branches. No in-repo defect found; no file in
       modules/, core/, tools/, gbp-packs/ or branches.json touched this pass
       beyond this log entry. Done 2026-10-18.
+      Twenty-third quality pass 2026-11-08 (unattended scheduled run, Sonnet
+      5). Stalest item in the rotation pool (last touched 2026-10-18).
+      Repo-side: branches.json smartts_bootle record re-matched field by
+      field against gbp-packs/smartts-bootle.md's own "Profile basics" block
+      - address, phone, email, whatsapp, hasApp, serviceAreaList, odsCode,
+      nhsEmail, both opening-hours sessions, all five widgets - unchanged
+      from every prior pass. Ran the full 37-checker suite: 0 failures, all
+      Smartts-related output pre-existing KNOWN/WARN/NOTE entries, none new,
+      none stale. LIVE (Claude in Chrome, read-only): smarttschemist.co.uk
+      homepage re-read - the standing website-hours contradiction (prints
+      9:00am-6:00pm Mon-Fri with no lunch closure shown, against the
+      NHS-confirmed 1pm-2pm closure) and the Q22/item 5.8 weight loss claim
+      ("Innovative solutions that deliver results. Tried the rest? Now try
+      the best.") are both still live, unchanged. Did not re-check the live
+      Google Business Profile name (Q125 addendum, 2026-10-18) this pass; no
+      GBP edit has occurred since. No in-repo defect, no new question.
+      Evidence in
+      audits/smartts-bootle-item-4.10-quality-pass-2026-11-08-twentythird.txt.
+      Done 2026-11-08.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
