@@ -23548,6 +23548,22 @@ No generator, page, pack, checker or branches.json content changed. No new
 question; QUESTIONS.json unchanged, 125 total, 47 open. Evidence:
 audits/scorah-hazel-grove-item-4.5-gbp-pharmacy-first-injection-2026-10-15.txt.
 Done 2026-10-15.
+Quality pass 2026-11-08 (twenty-fifth, unattended run): re-verified clean,
+no in-repo defect. Every profile-basics fact in gbp-packs/scorah-hazel-
+grove.md (name, address, phone, hours including the 24 June 2026 Saturday
+closure, website, review link) checked field by field against the
+scorah_hazel record in branches.json - all match. node tools/check-gbp-
+packs.js: 0 failures (this pack's only warning is the standing Q64
+address-post-town note, unchanged). Full 37-checker suite re-run: 0
+failures across the board. Noting a process gap found while picking this
+item: the 2026-11-08 07:xx run (twenty-fourth pass, logged in AGENT_LOG.md)
+verified this same pack clean but never appended its finding here, so the
+file's own "quality pass" count still read 23 and the max-date-in-section
+staleness heuristic kept ranking 4.5 as tied-stalest even though it had
+just been checked. This append is written specifically to close that gap
+so the next run's selection reflects today's date rather than re-selecting
+an item that was just verified. No generator, page, pack, checker or
+branches.json content changed. No new question.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
