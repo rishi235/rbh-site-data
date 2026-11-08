@@ -1,4 +1,21 @@
-## Run 2026-11-08 (Sonnet 5, Cowork scheduled run, run288): escalation-only entry - no change since run287, worklist still 8/8 blocked, no new portal answers, Q124/Q127/Q129/Q134/Q136 unchanged.
+## Run 2026-11-08 09:44 UTC (Sonnet 5, Cowork scheduled run, run289): escalation-only entry - no change since run288, worklist still 8/8 blocked, no new portal answers, full 37-checker suite re-run clean (0 failures), Q124/Q127/Q129/Q134/Q136 unchanged.
+
+LOCK (step 1): `.agent-lock` at pickup read "RELEASED-sonnet5-20261108T084741Z-run288", ~55 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with the standing Cowork EPERM-on-unlink (Q134, still open); overwrote the file's content in place with this run's own timestamp, same workaround as every recent run. No stray `.git/index.lock` found at pickup.
+
+SYNC (step 2): `git fetch origin` and `git pull --ff-only origin agents/audit-backlog` both clean on first try, already up to date, HEAD matching run288's commit `84be600`. No ref-debris this run.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, single tab, closed after use). Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z - now over two months stale. Nothing new for any of the 43 currently open question ids, including Q124, Q127, Q129 or Q134. No worklist item unblocked.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file (checked directly). Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 unchecked `AGENT_WORKLIST.md` lines (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6) reconfirmed `[BLOCKED]` by direct grep, unchanged from run288. Ran the full 37-checker fallback quality pass (`tools/check-*.js`) against the current tracked working tree as this run's concrete action: 0 failures across the board, confirming the clean state run286 first reached is holding. No defect found, no tracked file changed, no worklist item unblocked by this.
+
+REPO STATE (unchanged from run288, not acted on beyond this note): `git status` still shows several hundred untracked debris entries at the repo root and a working tree in the gigabytes, the direct result of this Cowork mount's standing EPERM-on-unlink (Q134) meaning past runs' lock/probe-file cleanup attempts rename or overwrite rather than delete. Not cleaned up this run for the same reasons run288 gave: outside "do one worklist item" scope, the files cannot actually be deleted here, and bulk-committing them was not asked for.
+
+ESCALATION (unchanged in substance, repeating only because none of it has been actioned): Q127, a live push-capable GitHub PAT embedded in this repo's local `.git/config` remote URL, reconfirmed present again this run (value not printed), was raised 2026-10-15 and is now 24+ days unrotated across hundreds of scheduled runs - the one fact on this list with daily commercial/security cost and nothing this worker can do closes it; it needs Rishi to revoke and reissue the token himself, ideally before this schedule runs again. Q124 (status-page publish credential lacks `rbh-data-portal` access) and Q134 (this Cowork-connected folder's EPERM-on-unlink) are both also still open. This run did not re-attempt pausing the `audit-backlog-worker` schedule - a prior run already tried and was declined for lack of an unattended approver. Restated plainly in this run's chat reply to Rishi rather than left only here.
+
+RESULT: no worklist item changed, no new question raised, no commit beyond this log entry and the status-page publish.
+
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261108T074819Z-run286`, mtime ~53 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with the standing Cowork EPERM-on-unlink (Q134, still open, unresolved); `mv` to a sibling filename succeeded immediately, matching the pattern every recent run has logged. Restored the original file byte-for-byte rather than adding another `.debris-*`/`.cleared-*` file to the pile, since this run makes no repo change that needs a fresh lock record - the existing `RELEASED-...-run286` marker is still accurate (no run is active).
 
