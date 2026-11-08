@@ -20036,6 +20036,25 @@ Pharmacy First wording to the NHS service description.
       twenty-third pass has not yet been decided, so nothing to apply. No
       new question. Nothing changed in-repo this pass; no in-repo defect
       found. Item stays `[x]` (quality pass, not a state change).
+
+  Quality pass 2026-11-08 (Cowork scheduled run, run297): re-selected as
+  stalest rotation-pool item (max inline date 2026-10-18, tied with 3.4, won
+  tiebreak on fewer "quality pass" mentions, 25 vs 27). REPO HALF: sha256
+  of branches.json unchanged (7ba2569b...5ffef1); fishlocks_ainsdale record
+  re-matched field by field against gbp-packs/fishlocks-ainsdale.md (name,
+  address, phone, hours including the 2026-06-24 NHS-confirmed source,
+  review link) - all consistent, sha256 of the pack unchanged
+  (7592bad3...2de30). Full tools/check-*.js suite run individually (37
+  checkers): 0 failures. LIVE HALF: re-fetched
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html via
+  Claude in Chrome (read-only) - still 404, matching the filename the
+  generator actually emits (modules/branch/pages/pharmacy-fishlocks-ainsdale.html),
+  confirming this is the same standing Q35 paste gap (answered 2026-08-10:
+  paste the six landing pages as their own Weebly job), not a new or
+  repo-side defect. Checked QUESTIONS.json: Q91 and Q125 (GBP name
+  divergence) both still "open", unchanged; no new fact to add this pass.
+  No in-repo defect found, no fix needed, no new question raised. Item
+  stays `[x]` (quality pass, not a state change).
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
