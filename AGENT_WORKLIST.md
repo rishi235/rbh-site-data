@@ -29028,6 +29028,42 @@ directly rather than re-deriving the same facts by hand.
       every recent run has hit, confirming no live Rishi session in this
       session's Chrome context; no login attempted, tab closed. No new
       question raised; blocks nothing.
+      Twenty-fifth quality pass, 2026-11-08 (unattended scheduled run).
+      Picked as the rotation-pool item last touched longest ago (2026-10-17,
+      26 "quality pass" mentions). Baseline unchanged:
+      sha256(gbp-packs/sk-chemists-bootle.md) =
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da.
+      branches.json's skchemists_bootle record re-matched field by field,
+      full 37-checker suite re-run clean (0 failures). This run had a
+      working, authenticated Claude in Chrome session (unlike several
+      recent passes blocked by a Cloudflare Access login wall), so the live
+      half ran properly for the first time since the twenty-second pass.
+      Step 3 answer pickup: newest portal entry still Q52, 2026-09-01,
+      already recorded; nothing new for any of the 43 open questions.
+      LIVE HALF: read earache-treatment-sk-chemists-bootle.html and
+      pharmacy-first-sk-chemists-bootle.html on skchemist.co.uk. Visible
+      contact card, opening hours, data-branch ("SK Chemists"), data-wa
+      (447521775631) and data-service all match branches.json exactly on
+      both pages, and each page's own (Block A) application/ld+json
+      Pharmacy schema is correct and matches branches.json field for field
+      including addressRegion. FINDING (not a repo defect): both pages also
+      carry a SECOND, byte-identical-across-both-pages application/ld+json
+      block (Block B) that no generator in this repo has ever produced -
+      url set to the bare domain root rather than the page's own address,
+      no addressRegion, and an email field (SK@rbhealth.co.uk, correct
+      value, wrong provenance) this page family's generator never emits -
+      the same shape already on record for Hirshmans Ainsdale and McCanns
+      Sandringham/Aigburth under Q109. This is now the THIRD live site
+      confirmed to carry this class of stray sitewide block, strengthening
+      Q109's working theory that it is a Weebly-level template/app feature
+      populated per-branch outside this repo's pipeline rather than a
+      one-off on a single site. Addendum added to Q109 recording this
+      third case; not actioned, as fixing it needs a Weebly site-wide-embed
+      edit outside this run's read-only browser access. No generator,
+      checker, page, pack or branches.json field changed; this branch's own
+      repo-generated page output remains correct throughout. Evidence in
+      audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-08-twentyfifth.txt.
+      Done 2026-11-08
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

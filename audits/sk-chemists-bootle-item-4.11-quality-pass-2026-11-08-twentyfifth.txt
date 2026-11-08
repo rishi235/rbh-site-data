@@ -1,0 +1,95 @@
+Item 4.11 (SK Chemists Bootle GBP pack) - twenty-fifth quality pass, 2026-11-08
+(unattended scheduled run, run~293)
+
+SELECTION: all 8 remaining AGENT_WORKLIST.md unchecked lines confirmed [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines at 6.4/6.5/6.6), unchanged
+from recent runs. Fell through to the quality-pass rotation. Computed least
+recently verified completed item programmatically (excluding standing
+exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8): item 4.11 was stalest
+at 2026-10-17 (26 "quality pass" mentions), ahead of the next cluster at
+2026-10-18/10-19.
+
+ANSWER PICKUP (step 3): fetched https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome (read-only, single tab, closed after use) - this run had a
+live authenticated session (unlike several recent runs that hit a Cloudflare
+Access sign-in wall). Newest entry is still the Q52 answer, 2026-09-01,
+already recorded as answered. Nothing for any of the 43 open question ids.
+
+BASELINE: sha256(gbp-packs/sk-chemists-bootle.md) =
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da - unchanged
+from the twenty-fourth pass. branches.json's skchemists_bootle record
+re-read field by field: address 516 Stanley Road, Bootle L20 5DW, phone
+0151 944 1013, email SK@rbhealth.co.uk, whatsapp 447521775631, ODS FH575,
+nhsEmail pharmacy.FH575@nhs.net, website https://www.skchemist.co.uk,
+hasApp false, hours Mon-Fri 09:00-18:00 / Sat+Sun closed, catchment
+Bootle/Sefton/Liverpool - all consistent with every prior pass.
+
+REPO CHECKS: ran the full tools/check-*.js suite (37 checkers) directly
+against the tracked tree: 0 failures, matching every run since run286.
+
+LIVE HALF (this run had working Chrome access, unlike several recent passes
+that were repo-half-only or blocked by a login wall): read two live pages on
+skchemist.co.uk.
+
+  earache-treatment-sk-chemists-bootle.html:
+  - visible contact card: 516 Stanley Road, Bootle, L20 5DW; phone
+    0151 944 1013; website www.skchemist.co.uk; email sk@rbhealth.co.uk
+    (footer) / SK@rbhealth.co.uk (contact box) - matches branches.json
+    case-insensitively.
+  - visible opening hours: Mon-Fri 9:00am-6:00pm, Sat/Sun Closed - matches
+    branches.json exactly.
+  - data-branch = "SK Chemists" (matches brandLabel/branchName, identical
+    for this branch); data-wa = "447521775631" (matches whatsapp field);
+    data-service = "Earache treatment".
+  - Google review link resolves to https://www.skchemist.co.uk/reviews.html
+    on this page (an in-site reviews page, not branches.json's own
+    googleReviewUrl g.page link directly in the body copy - the g.page
+    link is used elsewhere on the site per prior passes' findings, not a
+    new issue here).
+  - TWO application/ld+json blocks present, not one:
+    Block A (per-page, this repo's own generator output): @type Pharmacy,
+    name "SK Chemists", url set to the page's own address, telephone
+    0151 944 1013, PostalAddress complete including addressRegion
+    "Merseyside" - matches branches.json and this repo's check-jsonld.js
+    rules exactly.
+    Block B (NOT from this repo's generator pipeline): @type Pharmacy,
+    name "SK Chemists", url "https://www.skchemist.co.uk/" (bare domain
+    root, not the page's own address), telephone 0151 944 1013, email
+    "SK@rbhealth.co.uk" (a field this page family's generator never
+    emits), PostalAddress with NO addressRegion field, plus an
+    openingHoursSpecification block (Mon-Fri 09:00-18:00, matching
+    branches.json).
+
+  pharmacy-first-sk-chemists-bootle.html:
+  - same two-block pattern. Block A is page-specific (url ends
+    .../pharmacy-first-sk-chemists-bootle.html, addressRegion present).
+    Block B is BYTE-IDENTICAL to Block B on the earache page (same
+    minified JSON, same url=domain root, same email field, same missing
+    addressRegion), confirming it is a single sitewide script repeating
+    unchanged across pages, the same shape already on record for
+    Hirshmans Ainsdale (Q109) and McCanns Sandringham/Aigburth (Q109's
+    2026-09-16 addendum).
+
+FINDING: this is a THIRD confirmed live Weebly site (skchemist.co.uk,
+alongside Hirshmans' and McCanns') carrying this exact class of stray,
+sitewide, generator-external JSON-LD block: url pointing at the bare
+domain root rather than the page's own address, no addressRegion, and an
+email field no generator emits. This partially answers Q109's own option 3
+(investigate whether the sitewide block exists on other branches' sites
+before deciding what to do about it) with a third positive case, and is
+consistent with Q109's working theory that this is a Weebly-level
+template/app feature populated from per-branch business details entered
+outside this repo's pipeline, rather than something unique to one site.
+No checker in this repo can see this class of drift (every checker,
+including check-jsonld.js, reads modules/*/pages/*.html on disk, never a
+live page's rendered DOM) - same standing limitation Q109 already records.
+
+NOT ACTIONED: fixing this needs a Weebly site-wide-embed edit on
+skchemist.co.uk, which is outside this run's read-only browser access (hard
+rule). No generator, checker, page, pack or branches.json field changed
+this pass - SK Chemists Bootle's own repo-generated page output (Block A on
+both pages checked) remains correct in every respect checked.
+
+RESULT: no in-repo defect found. Addendum added to Q109 in QUESTIONS.json
+recording the third site. Dated entry appended to item 4.11's own
+AGENT_WORKLIST.md section.
