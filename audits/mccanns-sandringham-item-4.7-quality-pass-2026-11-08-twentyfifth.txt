@@ -1,0 +1,68 @@
+Item 4.7 - McCanns Chemist Sandringham GBP pack - quality pass (twenty-fifth)
+Run date: 2026-11-08 (Cowork scheduled run, run296, claude-sonnet-5)
+
+SELECTION: all 8 remaining AGENT_WORKLIST.md unchecked lines reconfirmed [BLOCKED]
+(5.3, 5.4, 5.5, 5.8, 6.1, and the three Q60/Q66 lines at 6.4/6.5/6.6), unchanged.
+No "Standing authorisation - autonomous window" section present at the top of
+AGENT_LOG.md. Rotation pick computed programmatically over all completed
+AGENT_WORKLIST.md items (excluding standing exclusions 1.1/1.2/1.3/1.4/2.2/4.2/
+4.4/5.6/5.7/6.7/6.8): max inline date per section, tiebroken by fewest "quality
+pass" mentions. 4.7 was stalest (2026-10-18, 24 mentions), ahead of the next
+cluster (4.1/3.4 etc). Twenty-fourth pass (2026-10-18) was repo-half only; this
+pass ran both halves.
+
+BASELINE: sha256(branches.json) = 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+(matches every prior pass back to the twenty-third). sha256(gbp-packs/mccanns-
+sandringham.md) = 4851c4ff2752ed24760e8a11de0b4d9838920c789784fcafbf4d6b01a9c0d13f,
+unchanged since the pack was last touched (commit fde100ce and earlier).
+
+REPO HALF: mccanns_sandringham record in branches.json re-matched field by field
+against gbp-packs/mccanns-sandringham.md's "Profile basics" block and section 1
+description: address 1b Aigburth Road, Liverpool L17 4JP; phone 0151 727 3076;
+both weekday sessions (09:00-13:00, 14:00-18:00, Sat/Sun closed); catchment
+"St Michael's, Lark Lane and Dingle" leading with seoTown; review link
+https://g.page/r/CbMDr1qOLqnrEAE/review; hasApp false, no app mention. All match,
+no drift.
+
+Full 37-checker suite run directly against the tracked tree (check-cdn-pins.js
+and check-live-hours.js excluded as network-dependent, per standing convention):
+35/35 run, 0 failures across the board. No new warnings, no known-exception
+entries gone stale. (Previous passes have occasionally hit a check-postcodes.js
+false-positive from untracked sandbox debris files; none of that debris was
+present or triggered this run.)
+
+LIVE HALF (Claude in Chrome, read-only, single tab per site, closed after use):
+1. Navigated to the pack's own googleReviewUrl (g.page/r/CbMDr1qOLqnrEAE/review),
+   which resolves to the Google Maps listing. Address (1B Aigburth Rd, Aigburth,
+   Liverpool L17 4JP) and phone (0151 727 3076) match branches.json. Opening
+   status line read "Closed - Opens 9 am Mon" at the time checked, consistent
+   with weekday-only hours (no locked-door fault). Review count is now 39 at 4.8
+   stars (up from 37 at the twenty-third pass, 2026-10-13; 35 at the
+   twenty-second pass, 2026-09-18) - healthy, no action needed.
+   Q113 FINDING RECONFIRMED, UNCHANGED: the listing's own page title / business
+   NAME field still reads "McCanns Pharmacy - Sandringham - Travel Vaccination
+   and Simple Weight Loss Clinic" - same brand-word divergence (Pharmacy vs
+   branchName's Chemist) and same keyword-stuffed service suffix carrying the
+   group's separately-parked Simple Weight Loss brand into a live public
+   listing, exactly as recorded in Q113 on 2026-09-18 and reconfirmed (weakly,
+   via a third-party aggregator only) on 2026-09-27. This is the first DIRECT
+   panel reconfirmation since the twenty-third pass (2026-10-13), closing a
+   ~3.5 week gap during which the twenty-fourth pass only read the repo half.
+   No change in substance; Q113 remains open, still needs Rishi's or Dane's GBP
+   access to action.
+2. Navigated to https://www.mccannspharmacy.co.uk/pharmacy-mccanns-
+   sandringham.html (the branch landing page the pack's own "Website for the
+   profile" line names). Still returns a 404 Page Not Found. Matches Q35's
+   standing finding, now reconfirmed at the twenty-fifth pass (originally
+   raised circa the fifth/sixth pass, over twenty passes ago). No change.
+
+FIX MADE: none needed in-repo. McCanns Sandringham's own pack, branches.json
+record and generated output remain correct in every respect checked. No
+generator, checker, page or data content required changing.
+
+QUESTIONS.json: no new question raised. Appended a dated addendum to Q113
+recording this direct reconfirmation and the updated review count (39 at 4.8
+stars), and noting the twenty-fourth pass's live-half gap is now closed.
+
+RESULT: item 4.7 remains correctly verified, stays [x]. No worklist item's
+checked/blocked status changed.

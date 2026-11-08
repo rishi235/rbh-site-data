@@ -25403,6 +25403,24 @@ directly rather than re-deriving the same facts by hand.
       profile not re-read this pass (no Chrome navigation run); Q113 (the
       profile NAME field divergence) remains open and unchanged. No defect,
       no new question. See AGENT_LOG.md Run 289.
+      Quality pass 2026-11-08 (twenty-fifth, unattended scheduled run, Cowork
+      sandbox, claude-sonnet-5). Picked as the stalest rotation-pool item
+      (2026-10-18, 24 mentions). REPO HALF: branches.json
+      (sha256 7ba2569b...) and the pack re-matched field by field, no drift.
+      Full 37-checker suite re-run (cdn-pins and live-hours excluded as
+      network-dependent): 35/35, 0 failures, no regression. LIVE HALF (Chrome,
+      read-only, working session this run - closes the gap the twenty-fourth
+      pass left open): the Google Maps listing via the pack's own
+      googleReviewUrl shows address and phone matching branches.json, hours
+      consistent (no locked-door fault), review count now 39 at 4.8 stars (up
+      from 37 at the twenty-third pass). Q113's finding reconfirmed unchanged:
+      the live profile NAME still reads "McCanns Pharmacy - Sandringham -
+      Travel Vaccination and Simple Weight Loss Clinic" (brand-word and
+      keyword-stuffed-suffix divergence, including the parked Simple Weight
+      Loss brand on a live public listing). pharmacy-mccanns-sandringham.html
+      still 404s (Q35, unchanged, now 25+ passes). No defect, no new question
+      - addendum added to Q113 only. Evidence: audits/mccanns-sandringham-
+      item-4.7-quality-pass-2026-11-08-twentyfifth.txt.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
