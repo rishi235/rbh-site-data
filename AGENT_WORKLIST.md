@@ -17734,6 +17734,46 @@ Done 2026-10-14 (twenty-third pass).
       decision from Rishi. No new in-repo defect found; no new question
       raised. Evidence: audits/tiffenbergs-item-3.12-quality-pass-
       2026-10-18-twentysecond.txt. Done 2026-10-18 (twenty-second pass)
+      Quality pass 2026-11-08, TWENTY-THIRD PASS, FRESH ANGLE: tools/check-
+      uk-spelling.js proven by injection against Tiffenbergs for the first
+      time (named in the twenty-second pass's own remaining-checker list of
+      thirteen). Two injections, each restored by byte copy from a
+      pre-injection backup and sha256-reconfirmed identical before the next:
+      (1) gbp-packs/tiffenbergs-aintree.md business description, "looking
+      after patients" -> "organizing care for patients" - CAUGHT ("reads
+      \"organizing\". UK English is \"organising\""), the first proof of the
+      checker's markdown reader against this branch's own pack; (2)
+      modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html,
+      a hidden paragraph inserted after the H1, "We prioritize your health
+      and offer flavorful advice." - CAUGHT on "prioritize" only, with
+      "flavorful" (not a listed US/UK pair) correctly passing clean,
+      confirming the list's narrow-by-design scope rather than a miss. Both
+      fired on the first attempt. BASELINE/RE-VERIFICATION: branches.json
+      sha256 unchanged (7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1);
+      gbp-packs/tiffenbergs-aintree.md sha256 unchanged since the seventh
+      pass (59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b);
+      the sore throat page's sha256 restored to
+      93fedca73f7804d4a52d83e88a3410bae1b539ac735bb5833a01f8953246fc8f; full
+      37-checker suite 0 failures before and after, run individually; all
+      eight generators rebuilt, modules/ and core/ (189 files) byte-
+      identical before and after; git status --porcelain on modules, core,
+      branches.json, gbp-packs and tools empty (one unrelated pre-existing
+      debris file, tools/testfile_del_tools, not created this run, left
+      alone). STEP 3 answer pickup: Claude in Chrome reached
+      data.rbhealth.co.uk/api/feedback cleanly this run (read-only); newest
+      entry is still the Q52 answer, 2026-09-01, over nine weeks stale; no
+      open question answered, no worklist item unblocked. No "Standing
+      authorisation" section at the top of AGENT_LOG.md, so no autonomous
+      window this run. Guard coverage for item 3.12 now extends to 23 of 35
+      checkers proven by direct injection against this branch (twelve
+      remain: check-address-region, check-editor-snapshot, check-fragment-
+      targets, check-gbp-pharmacy-first, check-page-coverage, check-
+      pharmacy-first-cost, check-pharmacy-first-safety-net, check-pharmacy-
+      first-symptoms, check-service-links, check-url-scheme, check-weebly-
+      furniture-freshness, check-widget-diaries). No new in-repo defect
+      found; no new question raised. Evidence: audits/tiffenbergs-item-3.12-
+      quality-pass-2026-11-08-twentythird.txt. Done 2026-11-08 (twenty-third
+      pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this

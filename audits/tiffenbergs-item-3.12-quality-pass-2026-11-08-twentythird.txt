@@ -1,0 +1,89 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - quality pass, twenty-third, 2026-11-08
+Run: Sonnet 5, Cowork scheduled run (run295)
+
+SELECTION
+Programmatic re-rank of the full completed-item pool (excluding standing
+exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8): max inline date per
+item's own AGENT_WORKLIST.md block. Stalest cluster at 2026-10-18 was
+4.10/3.12/4.7/4.1/3.4 (4.10 already re-verified this run-cycle by run294).
+Of the remaining three at 2026-10-18 (3.12, 4.7 tied lowest at 24 "quality
+pass" mentions; 4.1 at 25, 3.4 at 27), 3.12 selected by numeric tiebreak.
+
+FRESH ANGLE
+tools/check-uk-spelling.js had never been proven by direct injection against
+Tiffenbergs (named in the twenty-second pass's own remaining-checker list of
+13). Proved it this pass.
+
+BASELINE (before any injection)
+  branches.json sha256: 7ba2569b52bc017bc6909e3f3f161d3bd7b40e4b56ef9d970452c39b325ffef1
+    (unchanged since at least the twenty-second pass, 2026-10-18)
+  gbp-packs/tiffenbergs-aintree.md sha256: 59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+    (unchanged since the seventh pass, 2026-09-03)
+  modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html sha256:
+    93fedca73f7804d4a52d83e88a3410bae1b539ac735bb5833a01f8953246fc8f
+  Full tools/check-*.js suite (37 checkers): 0 failures, all run individually.
+  All eight tools/build-*.js generators re-run: modules/ and core/ (189 files
+  hashed) byte-identical before and after; git status --porcelain on
+  modules/core/gbp-packs/branches.json/tools empty throughout (one unrelated
+  pre-existing debris file, tools/testfile_del_tools, noted and left alone,
+  not created by this run).
+
+INJECTIONS (two, each restored by byte copy from a pre-injection backup and
+sha256-reconfirmed identical to the baseline before the next; backups made
+with cp before mutation, matched the pre-injection sha256 before use)
+  1. gbp-packs/tiffenbergs-aintree.md, business description: "looking after
+     patients" -> "organizing care for patients" (first ever UK-spelling
+     injection into this branch's own pack). CAUGHT:
+     "gbp-packs/tiffenbergs-aintree.md:18: reads \"organizing\". UK English
+     is \"organising\"". Restored; sha256 back to 59d288c1...811b, confirmed.
+  2. modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html,
+     hidden paragraph inserted after the H1 (first ever UK-spelling injection
+     into a Tiffenbergs HTML page): "We prioritize your health and offer
+     flavorful advice." CAUGHT on "prioritize" only - "flavorful" is not a
+     listed US/UK pair and correctly passed clean, confirming the list's
+     narrow-by-design scope rather than a miss. Restored; sha256 back to
+     93fedca7...46f8f, confirmed.
+
+Both injections fired on the first attempt. No false negative, no unexpected
+false positive (CSS-style "color:", attribute words, etc. not present in
+either injected string, so the exclusion rules named in the checker's own
+header were not separately re-proved this pass).
+
+RE-VERIFICATION AFTER RESTORE
+  Both files' sha256 reconfirmed identical to baseline.
+  tools/check-uk-spelling.js alone: clean, 0 failures.
+  Full 37-checker suite re-run: 0 failures.
+  All eight generators re-run again: byte-identical, git status empty.
+
+ANSWER PICKUP (step 3, done once for this run cycle before item selection)
+Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome
+(read-only, single tab, closed after use). Newest entry is still the Q52
+answer, 2026-09-01T22:44:51Z, now over nine weeks stale. Nothing for any open
+question id. No worklist item unblocked.
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" section present at the top
+of AGENT_LOG.md. Proceeded under normal rules; no autonomous decisions taken.
+
+GUARD COVERAGE
+Guard coverage for item 3.12 now extends to 23 of 35 checkers proven by
+direct injection against this branch (twelve remain: check-address-region,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-page-coverage, check-pharmacy-first-cost, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-service-links, check-url-scheme,
+check-weebly-furniture-freshness, check-widget-diaries).
+
+RESULT
+No in-repo defect found. No new question raised. branches.json, the pack
+and the generated page all remain correct and unchanged.
+
+REPO STATE (flagged again, not actioned - outside single-item scope and the
+standing EPERM-on-unlink issue, Q134, still open)
+git status still shows a large, long-standing pile of untracked debris at
+the repo root and inside .git/, the structural consequence of this Cowork
+mount rejecting unlink (rm) while permitting write/truncate and rename (mv).
+This run's own lock recovery (see AGENT_LOG.md) added to that pile the same
+way every recent run has. .git/index.lock and .git/ORIG_HEAD.lock were both
+present at pickup and were cleared by mv (rename), not rm, into
+.git-debris-quarantine/, which unblocked git normally this run (no
+GIT_INDEX_FILE workaround was needed this time).
