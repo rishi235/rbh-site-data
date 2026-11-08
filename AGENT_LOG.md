@@ -1,3 +1,21 @@
+## Run 2026-11-08 05:42 UTC (Sonnet 5, Cowork scheduled run, run284): no work item taken - escalation only, git clean on first try this run, worklist still 8/8 blocked, answer pickup yields nothing new, Q124/Q127/Q129/Q134/Q136 all unchanged
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261108T044645Z-run283`, ~56 minutes old (over the 45-minute threshold), treated as stale. Direct `rm` failed with the standing Cowork EPERM-on-unlink (Q134, still open); overwrote the file's content in place with this run's own marker, same workaround as every recent run.
+
+GIT (step 2): `git fetch origin` and `git pull --ff-only origin agents/audit-backlog` both succeeded cleanly on the first try - "Already up to date", HEAD at `84442ff` (run283's commit), no `.git/refs` debris and no stuck `.git/HEAD.lock` or `.git/index.lock` encountered this run.
+
+ANSWER PICKUP (step 3): fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome (read-only, single tab, closed after use). Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z, now 68+ days stale. Nothing new for any of the currently open question ids, including Q124, Q127, Q129 or Q134.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file (checked directly). Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 unchecked `AGENT_WORKLIST.md` lines (5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) reconfirmed `[BLOCKED]` by direct grep, unchanged. The immediately preceding run (04:42 UTC, run283) already ran the full 37-checker fallback quality pass under one hour ago with 36/37 clean and no new finding; repeating it again this soon would add nothing beyond what is already logged, so this run did not re-run it. Git itself required no repair this run, unlike several recent predecessors, so there was no safe in-scope action left that would change a fact on the ground.
+
+ESCALATION (unchanged in substance, repeating only because none of it has been actioned): Q127, a live push-capable GitHub PAT embedded in this repo's local `.git/config` remote URL, confirmed present again this run (value not printed, count checked only), was raised 2026-10-15 and is now 24 days unrotated across hundreds of scheduled runs. Q124 (status-page publish credential has no `rbh-data-portal` access) and Q134 (this Cowork-connected folder's EPERM-on-unlink forcing every run into rename/overwrite workarounds instead of real deletes) are both also still open. This run did not attempt to pause the `audit-backlog-worker` schedule - a prior run already tried that directly and was declined for lack of an unattended approver, and nothing suggests a repeat would differ.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run as required; expected to fail again at the standing Q124 credential-scope gap.
+
+LOCK RELEASE (step 11): releasing `.agent-lock` by overwriting its content with a RELEASED marker, same standing EPERM-on-unlink workaround as every recent run.
+
 ## Run 2026-11-08 04:42 UTC (Sonnet 5, Cowork scheduled run, run283): no work item taken - full 37-checker suite re-run as this run's quality pass, 36/37 clean, same pre-existing Q134 debris failure reconfirmed; worklist still 8/8 blocked, answer pickup yields nothing new, Q124/Q127/Q129/Q134/Q136 all unchanged
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261108T034505Z-run282`, ~57 minutes old (over the 45-minute threshold), treated as stale. Direct `rm` failed with the standing Cowork EPERM-on-unlink (Q134, still open, reconfirmed again this run via a throwaway probe file); overwrote the file's content in place with this run's own timestamp, same workaround every recent run has used.
