@@ -40875,6 +40875,29 @@ data field changed this run. No new question.
       stale-record correction made in this file (Q53/Q54 status). This was
       a re-verification, not a new injection round; no new untested angle
       of check-service-links.js was identified this run.
+      Quality pass 2026-11-08 (unattended scheduled run, Cowork sandbox,
+      claude-sonnet-5): picked as the least recently verified rotation-pool
+      item by this file's own inline dates (last paragraph above dated
+      2026-10-15; 1.1, 1.2, 1.3, 1.4, 2.2, 4.2, 4.4, 5.6, 5.7, 6.7 and 6.8
+      remain excluded from the rotation pool). No browser tool was available
+      this run, so this was REPO HALF ONLY - no live URL was re-read and
+      nothing live is re-claimed; the live findings recorded above stand
+      unverified since 2026-10-15/2026-09-28. Ran tools/check-service-links.js
+      as-is against the tracked repo: clean, 177 generated pages, 6
+      non-generated public-copy files, 2 JS copy sources, 1000 links, 423 to
+      the estate's 13 branch domains, exit 0, same 6 KNOWN issues as every
+      prior pass (5 link targets + 1 claim), none stale. Re-read Q53 and Q54
+      directly in QUESTIONS.json rather than trusting this file's own prior
+      wording: both remain status "answered" (Q53 via Asana task gid
+      1219146122533537, not reopened by this run; Q54 answered outright),
+      consistent with what this file already says. Ran the full
+      tools/check-*.js suite (37 checkers) as a wider sweep: 0 failures
+      across the board, no new defect found anywhere in the repo. No
+      generator, checker, page or branches.json content needed changing.
+      RESULT: zero in-repo defect, no new question, no stale record found
+      in this file this time (Q53/Q54 note above already correct). This
+      was a re-verification, not a new injection round; no new untested
+      angle of check-service-links.js was identified this run.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
