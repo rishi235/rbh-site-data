@@ -7351,6 +7351,75 @@ Next stalest by this run's own computation, unchanged from the twenty-fourth
 pass since nothing landed in between: 4.4 (2026-09-18T15:43:42+01:00), then
 5.2, 4.7, 4.1, 4.10, 4.3, 1.3, 4.8, 3.3, 3.5, 3.1 - re-derive rather than
 assume, since other runs may land in between.
+Quality pass 2026-11-08 (twenty-sixth; unattended scheduled run, run298):
+REPO HALF CLEAN, ZERO IN-REPO DEFECTS. All 8 remaining worklist lines
+(5.3-5.5, 5.8, 6.1, 6.4-6.6) reconfirmed [BLOCKED] by direct grep, so the
+quality-pass fallback applied again. Rotation re-derived fresh by a Python
+pass over AGENT_WORKLIST.md's own section headers (max YYYY-MM-DD mentioned
+per section, tiebreak fewest "quality pass" mentions, excluding the standing
+exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8): 3.4 remained stalest
+at 2026-10-18 (27 mentions), unchanged from run297's own computation, since
+4.1 (its former tie-partner, also 2026-10-18) was cleared by run297 earlier
+in this run-cycle and nothing else landed in between.
+FRESH ANGLE: check-brand-spelling.js, check-contraception-copy.js and
+check-travel-clinic-copy.js, none ever named once against this item across
+its twenty-five prior passes (confirmed by grep of the item's own section for
+each string before selecting them). Cherry Lane carries pages for both the
+latter two services, so all three apply.
+METHOD: a `git archive HEAD | tar -x` scratch copy was built under the
+sandbox's own /tmp (not the connected workspace folder), per the standing
+Q87/Q119 workaround for this mount's unlink() rejection. Scratch copy's
+branches.json (sha256 7ba2569b...ffef1, unchanged) and gbp-packs/
+cherry-lane-walton.md (sha256 831e72c1...052ec2, unchanged) reconfirmed
+identical to the tracked repo before any mutation. Full 34-script suite
+(excluding check-cdn-pins.js and check-live-hours.js, network-dependent) ran
+clean on the scratch copy, no FAIL lines on any checker.
+ONE INJECTION PLUS TWO CLEAN RUNS, restored by byte copy from a pristine
+backup and sha256-reconfirmed identical before continuing: (1) on
+modules/service/pages/uti-treatment-cherry-lane-walton.html, "Cherry Lane
+Pharmacy" changed to "Cherry Lanes Pharmacy" throughout - CAUGHT by
+check-brand-spelling.js on all 12 affected lines ("reads \"Cherry Lanes
+Pharmacy\". The trading name is \"Cherry Lane Pharmacy\""), fired on the
+first attempt. Restored; sha256 matched the pre-injection baseline
+(8de627d9...fd74bf) exactly. (2) check-contraception-copy.js and
+check-travel-clinic-copy.js both ran clean against Cherry Lane's own
+contraception and travel-clinic pages with no injection needed to prove
+scope, since both checkers' own KNOWN lists already carry Cherry Lane's
+entries from estate-wide passes (safeguarding::no under-16 step, and
+yellowfever::no branch declares yellowFeverCentre) and neither flagged
+anything new or stale for this branch.
+NO IN-REPO DEFECT FOUND. Guard coverage for item 3.4 now extends to 23 of 34
+applicable checkers proven by direct injection against this specific item
+(up from 22; check-cdn-pins.js and check-live-hours.js remain untested here
+as both are network-dependent and out of this pass's scope).
+LIVE HALF: read directly this pass (Claude in Chrome available, single tab,
+closed after use). https://www.cherrylanepharmacy.co.uk/uti-treatment-
+cherry-lane-walton.html returned 200 with title "UTI treatment in Walton -
+Cherry Lane Pharmacy", the correct "Women aged 16 to 64" Pharmacy First
+cohort line, address "202 Cherry Lane, Liverpool, L4 8SG", phone 0151 226
+2051 in both the visible contact card and the footer, and the single
+already-documented Q36 footer mailbox typo ("pharmacy.FA226@mhs.net"
+instead of nhs.net) - no new live defect.
+ANSWER PICKUP (step 3): working this run. Navigated to
+https://data.rbhealth.co.uk/api/feedback via Claude in Chrome (read-only,
+single tab, closed after use). Newest entry is still the Q52 answer,
+2026-09-01T22:44:51Z, now over nine weeks stale. Nothing for any of the 43
+open question ids. No worklist item unblocked.
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+header present at the top of AGENT_LOG.md; does not apply.
+QUESTIONS.json re-read (136 total, 43 open, unchanged); no new question
+raised.
+ENVIRONMENT NOTE: this sandbox's connected workspace folder still rejects
+unlink() on every file tested (`.agent-lock`, `.git/index.lock`,
+`.git/HEAD.lock`, `.git/ORIG_HEAD.lock`, a freshly-created `testfile.tmp`),
+same standing Q87/Q119/Q134 finding, confirmed again this run. `mv` (rename)
+succeeded on all of them where `rm` (unlink) did not, which is how this
+run's own lock clearance at pickup was done (see AGENT_LOG.md LOCK section).
+No code or data change this pass; FILES CHANGED: AGENT_WORKLIST.md and
+AGENT_LOG.md only (this entry).
+Next stalest by this run's own computation: 4.12 (2026-10-19, 25 mentions),
+then 3.5, 3.3/4.8 (tied), 3.1/3.11 (tied), 2.1, 5.2 - re-derive rather than
+assume, since other runs may land in between.
 
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
