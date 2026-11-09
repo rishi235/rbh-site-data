@@ -1313,9 +1313,10 @@
       "Leave the rules file as it is and rely on the audit task's own line naming C:\\Dev as canonical. No edit, but every future agent reading the repo rules first is pointed at a file that does not exist."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Found on the 2026-08-29 item 2.3 quality pass. The OneDrive folder was read only and not touched, and no unattended run will touch it. Nothing is blocked on this. The Fishlocks 2.2 pass the same session found no defects at all.\n\nUPDATE 2026-09-27 (run 431): re-read CLAUDE.md at the repo root - it still names 'Weebly\\seo\\rbh-site-data\\branches.json' as the single valid branches.json (lines 5-7), unchanged since this question was raised on 2026-08-29. The only branches.json this session can see is C:\\Dev\\rbh-site-data\\branches.json (confirmed: every generator and checker still reads it, and no OneDrive path is reachable from this sandbox, so the OneDrive clone's status could not be re-verified this run). No edit made - this is a documentation correction requiring Rishi's confirmation of which path is authoritative before changing repo rules. Gap confirmed still open exactly as described."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:37:33 (UK time): \"Update the rules file to name C:\\Dev\\rbh-site-data\\branches.json (the working clone of rishi235/rbh-site-data) as the single valid copy, keeping the flag-and-stop rule for any other copy found. One documentation change on the audit branch, no page or data change.\"",
+    "note": "Found on the 2026-08-29 item 2.3 quality pass. The OneDrive folder was read only and not touched, and no unattended run will touch it. Nothing is blocked on this. The Fishlocks 2.2 pass the same session found no defects at all.\n\nUPDATE 2026-09-27 (run 431): re-read CLAUDE.md at the repo root - it still names 'Weebly\\seo\\rbh-site-data\\branches.json' as the single valid branches.json (lines 5-7), unchanged since this question was raised on 2026-08-29. The only branches.json this session can see is C:\\Dev\\rbh-site-data\\branches.json (confirmed: every generator and checker still reads it, and no OneDrive path is reachable from this sandbox, so the OneDrive clone's status could not be re-verified this run). No edit made - this is a documentation correction requiring Rishi's confirmation of which path is authoritative before changing repo rules. Gap confirmed still open exactly as described.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q83",
