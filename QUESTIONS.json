@@ -1962,9 +1962,10 @@
       "Restore AGENT_LOG.md from a git commit that predates the corruption (git log -p / git blame on the relevant lines would date it) and re-apply only the genuinely new entries made since, discarding the corrupted copies. More thorough but more work, and risks losing any real content from the affected entries if it was never duplicated elsewhere."
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Found this run while reading AGENT_LOG.md for the standard pickup/worklist checks (step 1-5). No attempt was made to edit, re-encode or otherwise touch the corrupted lines - they were only measured (wc -c / awk length) and viewed a few hundred characters at a time via sed. This finding should not be treated as blocking any of the eight open worklist items or the six existing meta-questions (Q87/Q96/Q102/Q115/Q119/Q120/Q121); it is additive to them."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:57 (UK time): \"Have a supervised session (not an unattended scheduled run) locate the exact start and end of each corrupted span, confirm the readable text immediately before and after each one is intact, and replace each span with a short bracketed note (e.g. '[a corrupted price-string encoding cascade, originally one £ character, was removed from this line on <date> - see Q122]') rather than deleting the whole surrounding entry.\"",
+    "note": "Found this run while reading AGENT_LOG.md for the standard pickup/worklist checks (step 1-5). No attempt was made to edit, re-encode or otherwise touch the corrupted lines - they were only measured (wc -c / awk length) and viewed a few hundred characters at a time via sed. This finding should not be treated as blocking any of the eight open worklist items or the six existing meta-questions (Q87/Q96/Q102/Q115/Q119/Q120/Q121); it is additive to them.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q123",
