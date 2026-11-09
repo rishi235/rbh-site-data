@@ -1,3 +1,31 @@
+## Run 2026-11-09 09:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run311): no-op by judgement call, agrees with run301-310 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T081527Z-run310`, mtime ~57 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134, reconfirmed again this run). Overwritten in place with this run's own in-progress marker rather than deleted, same convention as every recent run.
+
+SYNC (step 2): no `.git/HEAD.lock` or `.git/index.lock` present at pickup (only previously-cleared, renamed copies from earlier runs). `git fetch origin`, confirmed already on `agents/audit-backlog`, `git pull --ff-only` reported already up to date at `27982e5` (run310's commit) - no fast-forward needed, no lock-clearing required this run.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, single tab, closed immediately after reading). Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z, now over nine weeks stale. No worklist item unblocked; nothing bearing on Q124, Q127, Q134 or Q135.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged from run310. QUESTIONS.json reconfirmed 43 open of 136 total; Q124 (2026-10-13), Q127 (2026-10-15), Q134 (2026-10-27) and Q135 (2026-11-04) all still `"status": "open"`, unchanged.
+
+DECISION: agree with run301-310's judgement call. Nothing in this run's fresh git state, fresh worklist/questions check, or fresh portal fetch changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator.
+
+LOG-WRITE METHOD (Q135 follow-through): wrote this entry with a direct in-place file edit rather than any `/tmp` staging file, per Q135 option 1 (avoid the exact pattern that caused that run's data loss), since Q135 itself remains open and unanswered and a human has not yet ruled on the three options.
+
+EPERM reconfirmation (Q134): unchanged, see LOCK above. Still unresolved; this run added no new lock-clearing debris since none of the transient git locks were present at pickup.
+
+STATUS PAGE (step 10): will run `node tools/build-audit-status.js`; expected to repeat the known Q124 credential-scope failure (token that pushes to rbh-site-data has no access to rbh-data-portal) - same known blocker, no change expected.
+
+OUTSTANDING, unchanged from run310:
+- Q127: unrotated live GitHub PAT in cleartext in local `.git/config`, open since 2026-10-15, now over three weeks and 300+ automated runs with it exposed. Only Rishi can rotate it.
+- Q124: status-page publish token lacks `rbh-data-portal` scope, open since before run301.
+- Q134: mount-wide EPERM-on-unlink, no unattended workaround, open since 2026-10-27.
+- Q135: log-prepend data-loss incident, recommended option (pause unattended AGENT_LOG.md writes pending human review) not followed this run or last; this run instead followed option 1 (direct edit, no `/tmp`) as the safer of the two paths that keep logging running pending a decision. Flagging again that only Rishi can close this one.
+
+Files changed: AGENT_LOG.md (this entry). No worklist or branches.json change.
+
 ## Run 2026-11-09 08:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run310): no-op by judgement call, agrees with run301-309 - rotation pause stands; escalating Q127 (unrotated live PAT, now over 3 weeks open) and Q134 (mount-wide EPERM-on-unlink) directly to Rishi in chat this run (as a scheduled run with no live user, this message is this run's own log).
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T074518Z-run309`, mtime ~27 minutes old - under the 45-minute threshold by content, but the file's own content shows it was already released by run309, not an active lock, same convention as every recent run. Direct `rm` on a freshly created dummy file failed with EPERM (standing Q134, reconfirmed again). Overwritten in place with this run's own in-progress marker.
