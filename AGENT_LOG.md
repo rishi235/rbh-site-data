@@ -1,3 +1,33 @@
+## Run 2026-11-09 15:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run317): no-op by judgement call, agrees with run301-316 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T144538Z-run316`, mtime ~57 minutes old, over the 45-minute threshold, treated as stale. Direct `rm` via the Linux sandbox mount failed with EPERM (standing Q134, reproduced again this run). Overwritten in place via a direct write (echo redirect, not delete/rename) with this run's own start timestamp, same convention as recent runs. `.git/index.lock` present at pickup (0 bytes, no git process running); same EPERM on direct `rm`, left in place rather than adding another `.cleared-*` debris file to the pile Q134 already tracks, since git operations below did not need it removed and in fact `git fetch`/`pull` succeeded regardless.
+
+SYNC (step 2): `git fetch origin`, confirmed already on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` reported already up to date at run316's commit (1afcb25b). No fast-forward needed.
+
+ANSWER PICKUP (step 3): re-fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only) this run. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, now over nine weeks stale. No answers found for Q124, Q127, Q134 or Q135.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged from run316. QUESTIONS.json reconfirmed 43 open of 136 total via direct parse; Q124 (2026-10-13), Q127 (2026-10-15), Q134 (2026-10-27) and Q135 (2026-11-04) all still `"status": "open"`, unchanged.
+
+DECISION: agree with run301-316's judgement call. Nothing in this run's fresh checks changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator, did not attempt to resolve Q124/Q127/Q134/Q135 myself.
+
+LOG-WRITE METHOD (Q135 follow-through): wrote this entry by generating it in a new file outside the repo working tree (session scratch area, not the repo's own `/tmp`-equivalent), then concatenating it onto the existing AGENT_LOG.md content and overwriting AGENT_LOG.md in place (read-full, write-combined) - no delete, no rename of AGENT_LOG.md, no reliance on any stale cross-run staging file. Q135 remains open and unanswered.
+
+EPERM reconfirmation (Q134): reproduced again this run via the Linux sandbox mount path on both `.agent-lock` and `.git/index.lock`. Still open, no unattended workaround beyond overwrite-in-place (for files this run needs to update) or leaving undeletable files in place (for ones it does not need to remove).
+
+STATUS PAGE (step 10): running `node tools/build-audit-status.js` next; expecting to repeat the known Q124 credential-scope failure unless that has changed.
+
+ESCALATION, carried forward and raised directly to Rishi via this run's own chat output since no live user is present to read the log otherwise: Q127, a live push-capable GitHub PAT sitting unrotated in cleartext in this repo's local `.git/config`, has now been open since 2026-10-15 and over 315 automated runs, exposed in every git-touching tool output across that period. This remains the single highest-priority outstanding item, unaffected by and more urgent than the worklist rotation pause itself. Separately flagging that this makes roughly sixteen consecutive no-op runs (run301-317) confirming the same four open questions with no new information - the automated rotation cannot progress further without a human decision on at least one of Q124/Q127/Q134/Q135, and continuing to run it on schedule is now mostly re-confirming the same stale state rather than doing useful work.
+
+OUTSTANDING, unchanged from run316:
+- Q127: unrotated live GitHub PAT in cleartext in local `.git/config`, open since 2026-10-15. Only Rishi can rotate it. HIGHEST PRIORITY.
+- Q124: status-page publish token lacks `rbh-data-portal` scope, open since before run301.
+- Q134: mount-wide EPERM-on-unlink, reproduced again this run. No unattended workaround beyond overwrite-in-place or leaving undeletable debris in place.
+- Q135: log-prepend data-loss incident, open; this run again used a direct, precise concatenate-then-overwrite rather than any delete/rename of AGENT_LOG.md or reliance on cross-run staging files.
+
+Files changed: AGENT_LOG.md (this entry), .agent-lock (overwritten, not deleted). No worklist or branches.json change.
+
 ## Run 2026-11-09 14:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run316): no-op by judgement call, agrees with run301-315 - rotation pause stands unchanged.
 
 LOCK (step 1): `.agent-lock` absent at pickup (not stale, simply not present). Created fresh with this run's start timestamp. `.git/index.lock` was present at pickup (0 bytes, dated this run's own earlier `git status` call in-session, no separate git process running) - direct `rm` failed with EPERM, same standing Q134 family reproduced via the Linux sandbox mount path. Cleared with the established `mv` workaround to a `.cleared-*-run316.lock` name; this adds one more undeletable debris file to the pile Q134 already tracks.
