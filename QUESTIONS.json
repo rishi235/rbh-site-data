@@ -1777,9 +1777,10 @@
       "Add a second, shared address as a CC or a fallback rather than replacing rishi@rbhealth.co.uk outright, keeping the personal reply Rishi's own copy promises while adding resilience"
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Proved by injection: the checker's new shared-template email sweep on this file correctly names rishi@rbhealth.co.uk as an unrecognised inbox, and separately correctly catches an injected foreign phone, postcode, branch name and street on the same file (all reverted, file confirmed byte-identical to before the pass). Pinned in tools/check-nap.js's KNOWN_EMAIL list, keyed modules/emar/weebly::rishi@rbhealth.co.uk, so the checker reports it as a WARN rather than a hard failure while this is open, and fails the run the moment the key no longer matches (tested: renaming the key to a non-matching address correctly turns the finding into a MISMATCH). Does not block item 1.4 or any other worklist item; not actioned this run because changing a live form's submission destination is exactly the kind of decision QUESTIONS.json exists to route to Rishi rather than an unattended run taking it autonomously."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:28 (UK time): \"Change the destination field to a monitored shared inbox (for example helpdesk@rbhealth.co.uk, the address Q13 already established as the correct destination for the switch page), so an enquiry is not silently lost if Rishi is unreachable, while keeping the visible copy's personal tone unchanged\"",
+    "note": "Proved by injection: the checker's new shared-template email sweep on this file correctly names rishi@rbhealth.co.uk as an unrecognised inbox, and separately correctly catches an injected foreign phone, postcode, branch name and street on the same file (all reverted, file confirmed byte-identical to before the pass). Pinned in tools/check-nap.js's KNOWN_EMAIL list, keyed modules/emar/weebly::rishi@rbhealth.co.uk, so the checker reports it as a WARN rather than a hard failure while this is open, and fails the run the moment the key no longer matches (tested: renaming the key to a non-matching address correctly turns the finding into a MISMATCH). Does not block item 1.4 or any other worklist item; not actioned this run because changing a live form's submission destination is exactly the kind of decision QUESTIONS.json exists to route to Rishi rather than an unattended run taking it autonomously.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q112",
