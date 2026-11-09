@@ -1,3 +1,19 @@
+## Run 2026-11-09 18:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run320): no-op by judgement call, agrees with run172-319 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T171300Z-run319`, a release marker from run319's own clean exit, not an active-run marker (~58 minutes old, over the 45-minute threshold anyway). Direct `rm` via the Linux sandbox mount failed with EPERM (standing Q134, reproduced again). Overwritten in place via the file-edit tool (not delete/rename) with this run's own start marker `RUNNING-sonnet5-20261109T181300Z-run320`, same convention as run317-319. `.git/index.lock` present at pickup (0 bytes, no git process running, confirmed via `ps aux`); same EPERM on direct `rm` via the Linux mount, left in place since it did not block `git fetch` below.
+
+SYNC (step 2): `git fetch origin` succeeded cleanly, no ref corruption this run. Already on `agents/audit-backlog`, HEAD (`ff7a4cb`, run319's commit) matches `origin/agents/audit-backlog` exactly - already up to date, no pull needed.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, tab closed after reading). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, now over ten weeks stale. No answers found for Q124, Q127, Q134 or Q135, or any question raised since run319.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]`, unchanged from run319. QUESTIONS.json reconfirmed 43 open of 136 total via direct parse; Q124 (2026-10-13), Q127 (2026-10-15), Q134 (2026-10-27) and Q135 (2026-11-04) all still `"status": "open"`, unchanged.
+
+DECISION: agree with run172-319's judgement call. Nothing in this run's fresh checks changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator, did not attempt to resolve any open question myself, did not touch main, did not force-push, did not touch the untracked debris pile beyond the single in-place lock overwrite above.
+
+ESCALATION, repeated because no live user reads this log between runs: Q127 (a live push-capable GitHub PAT sitting unrotated in cleartext in this repo's local `.git/config`, open since 2026-10-15, already shown in plaintext in tool output at least once) is now open 25+ days and well over 300 automated runs. This is a live credential-exposure risk, not a tidiness item, and only Rishi can rotate it - no run can decide this autonomously (per the task's own money/legal/credential carve-out) and none should. Flagging again at the top of this entry so it is the first thing a human sees on next read, not buried at run172's original depth.
+
 ## Run 2026-11-09 17:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run319): no-op by judgement call, agrees with run172-318 - rotation pause stands unchanged.
 
 LOCK (step 1): `.agent-lock` read `RELEASED-sonnet5-20261109T160000Z-run318`, mtime ~26 minutes old. Content is a release marker from run318's own clean exit, not an active-run marker, so (consistent with the established convention in this log since the Q134-era EPERM workaround) treated as not blocking rather than as "another run active" under a literal mtime-only reading. Overwritten with this run's own start marker `RUNNING-sonnet5-20261109T171300Z-run319`. No stray `.git/index.lock` present this time.
