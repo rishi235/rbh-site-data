@@ -1344,9 +1344,10 @@
       "Leave it: the drift is cosmetic since a careful run can still recover the true state from AGENT_LOG.md (as this run did), and every item does eventually get re-verified regardless of which one is nominally oldest."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Rechecked 2026-09-27 (run 430): since 2026-09-19 every run has been a zero-worklist-output verification run against QUESTIONS.json entries only; none has ticked or added a dated pass note to any AGENT_WORKLIST.md item, so no fresh instance of the original drift (a quality-pass note logged in AGENT_LOG.md but missing from the item line in AGENT_WORKLIST.md) has occurred since this question was raised. The underlying process gap in steps 5/7 (item selection trusts AGENT_WORKLIST.md dates, which can lag AGENT_LOG.md) remains unaddressed and the question remains open; nothing to backfill today since no worklist item has been touched since 2026-09-19."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:37:36 (UK time): \"Run a dedicated pass (not tied to any one worklist item) that greps AGENT_LOG.md for every 2026-08-30 and 2026-08-29 quality-pass header, checks whether AGENT_WORKLIST.md's matching item carries a note with that date, and appends the missing ones verbatim from the log. Restores AGENT_WORKLIST.md as an accurate single source for step 5's own selection logic; one-off cost, no ongoing process change.\"",
+    "note": "Rechecked 2026-09-27 (run 430): since 2026-09-19 every run has been a zero-worklist-output verification run against QUESTIONS.json entries only; none has ticked or added a dated pass note to any AGENT_WORKLIST.md item, so no fresh instance of the original drift (a quality-pass note logged in AGENT_LOG.md but missing from the item line in AGENT_WORKLIST.md) has occurred since this question was raised. The underlying process gap in steps 5/7 (item selection trusts AGENT_WORKLIST.md dates, which can lag AGENT_LOG.md) remains unaddressed and the question remains open; nothing to backfill today since no worklist item has been touched since 2026-09-19.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q85",
