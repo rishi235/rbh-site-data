@@ -2029,9 +2029,10 @@
       "Delete .tmp_log_combined.md properly once this mount's delete/rename-across-device limitation is resolved (Q120), removing the root cause rather than teaching the checker to tolerate it indefinitely."
     ],
     "recommended": 2,
-    "status": "open",
-    "answer": null,
-    "note": "Found while this run used 'run every checker once' as a sanity habit before logging item 4.15's own twenty-second pass; not itself part of that item's verification. The file was renamed aside and back during diagnosis only, never deleted; its sha256 and the rest of the working tree were confirmed unchanged before and after."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:39:07 (UK time): \"Do both: add the gitignore-respecting skip now (low-risk, single function change, provably reduces failures to zero against today's working tree) and still write down the git-archive convention, since a future debris file given a brand-new gitignore pattern would otherwise repeat exactly this finding.\"",
+    "note": "Found while this run used 'run every checker once' as a sanity habit before logging item 4.15's own twenty-second pass; not itself part of that item's verification. The file was renamed aside and back during diagnosis only, never deleted; its sha256 and the rest of the working tree were confirmed unchanged before and after.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q127",
