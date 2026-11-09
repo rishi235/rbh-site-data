@@ -2094,9 +2094,10 @@
       "Ask a future run to check the rest of AGENT_WORKLIST.md for any other item whose header may have been lost the same way, since this one went unnoticed for at least ten quality passes"
     ],
     "recommended": 2,
-    "status": "open",
-    "answer": null,
-    "note": "Does not block any worklist item - item 2.3 was already [x] complete; this is a reporting-accuracy fix only. The recommended option (2) is cheap (a grep sweep) and directly guards against the same silent-gap shape CLAUDE.md's own history keeps finding elsewhere in this repo. Swept this run (regex cross-check of every \"item N.N\" prose mention against every \"- [x]/[ ] N.N\" header in the file, after this item's own header was restored): 49 headers, 47 distinct items mentioned in prose, zero mentioned-but-headerless items remain. So 2.3 was the only one of this shape; option 2's sweep is already done as of this run and need not be repeated unless the file structure changes again."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:39:15 (UK time): \"Ask a future run to check the rest of AGENT_WORKLIST.md for any other item whose header may have been lost the same way, since this one went unnoticed for at least ten quality passes\"",
+    "note": "Does not block any worklist item - item 2.3 was already [x] complete; this is a reporting-accuracy fix only. The recommended option (2) is cheap (a grep sweep) and directly guards against the same silent-gap shape CLAUDE.md's own history keeps finding elsewhere in this repo. Swept this run (regex cross-check of every \"item N.N\" prose mention against every \"- [x]/[ ] N.N\" header in the file, after this item's own header was restored): 49 headers, 47 distinct items mentioned in prose, zero mentioned-but-headerless items remain. So 2.3 was the only one of this shape; option 2's sweep is already done as of this run and need not be repeated unless the file structure changes again.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q131",
