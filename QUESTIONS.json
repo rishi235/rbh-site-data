@@ -1979,9 +1979,10 @@
       "Leave as is and accept that no run (sandbox or real host) can push to agents/audit-backlog until this is resolved by hand - every future scheduled run will keep committing locally (as this one did) and the branch will keep diverging further from origin with no way to land it."
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Confirmed this run via the real push error text: 'remote: error: File AGENT_LOG.md is 114.78 MB; this exceeds GitHub's file size limit of 100.00 MB' and 'pre-receive hook declined'. This is a harder blocker than Q119/Q122 described (those were a read-speed and a data-integrity concern; this is a complete, unconditional push failure) and should be treated as the priority item the next time a supervised session touches this repo, ahead of any worklist item, since nothing this task does from here on can land in origin until it is fixed. Local commit 3575ef4 (this run's log entry) and any commits already queued ahead of it are sitting on C:\\Dev\\rbh-site-data unpushed and should push cleanly on the first attempt once the file is back under the limit - nothing needs to be redone."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:59 (UK time): \"In the same supervised session, also apply Q122's recommended fix (option 2: locate and excise the three multi-million-character corrupted mojibake lines) before re-measuring the file size, since those three lines alone account for over 21 million characters and may materially reduce how much needs to be archived to get back under 100MB.\"",
+    "note": "Confirmed this run via the real push error text: 'remote: error: File AGENT_LOG.md is 114.78 MB; this exceeds GitHub's file size limit of 100.00 MB' and 'pre-receive hook declined'. This is a harder blocker than Q119/Q122 described (those were a read-speed and a data-integrity concern; this is a complete, unconditional push failure) and should be treated as the priority item the next time a supervised session touches this repo, ahead of any worklist item, since nothing this task does from here on can land in origin until it is fixed. Local commit 3575ef4 (this run's log entry) and any commits already queued ahead of it are sitting on C:\\Dev\\rbh-site-data unpushed and should push cleanly on the first attempt once the file is back under the limit - nothing needs to be redone.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q124",
