@@ -1711,9 +1711,10 @@
       "Do nothing further for now; revisit this once the earache repaste has actually happened and there is a live before/after to judge the change against."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Not decided autonomously: Q46 itself asked for this scope decision and the answer did not give it, so extending the fix to six more conditions on an assumption would be making the call rather than following it. All six remaining conditions' ages are already pinned correct in tools/check-pharmacy-first-eligibility.js (Q46 quality pass, 2026-08-11), so whichever way this goes needs no new fact-finding, only a decision on scope and the wording pattern (this run used a shorter base sentence for earache so the cohort would fit within 165 characters; the same shortening would very likely be needed for UTI and shingles too, since their brand+town strings run about as long)."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:18 (UK time): \"Extend to all six remaining conditions in the same style, so every Pharmacy First snippet on Google tells the searcher who the service is for before they click. Same generator change, no new clinical wording (the ages are already pinned and correct), costs the same Weebly repaste queue.\"",
+    "note": "Not decided autonomously: Q46 itself asked for this scope decision and the answer did not give it, so extending the fix to six more conditions on an assumption would be making the call rather than following it. All six remaining conditions' ages are already pinned correct in tools/check-pharmacy-first-eligibility.js (Q46 quality pass, 2026-08-11), so whichever way this goes needs no new fact-finding, only a decision on scope and the wording pattern (this run used a shorter base sentence for earache so the cohort would fit within 165 characters; the same shortening would very likely be needed for UTI and shingles too, since their brand+town strings run about as long).",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q108",
