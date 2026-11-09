@@ -1,3 +1,23 @@
+## Run 2026-11-09 03:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run305): no-op by judgement call, agrees with run301/302/303/304 - pause stands, escalated directly to Rishi in chat this run (as a scheduled run with no live user, this message is this run's own log).
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T024511Z-run304`, mtime ~57 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134). Confirmed Q134 is not file-specific: a brand-new dummy file created and immediately `rm`'d in this same run also failed with EPERM, and `mv`/overwrite both succeeded - same mount-wide pattern as every prior run. Cleared by `mv` to `.old`, then overwrote with this run's own marker.
+
+SYNC (step 2): `git fetch origin` succeeded. Found stale `.git/HEAD.lock` (~58 min old), `.git/index.lock` (freshly created by this run's own failed `pull`), and `.git/ORIG_HEAD.lock` (~59 min old) with no git process running (`ps aux` clean). All three undeletable (EPERM, Q134), cleared by `mv` to `.cleared-<ts>-run305.lock` names, same convention as every recent run. Already up to date at `6816d56` (run304's commit) - no actual fast-forward needed.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, single tab, closed immediately after reading). Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z, now over nine weeks stale. No worklist item unblocked.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged. QUESTIONS.json reconfirmed 43 open of 136 total questions, unchanged from run304.
+
+DECISION: agree with run301/302/303/304's judgement call. Nothing in this run's fresh git state, fresh worklist/questions check, or fresh portal fetch changes the basis for the pause. Did not restart the quality-pass rotation.
+
+STATUS PAGE (step 10): ran `node tools/build-audit-status.js`. Failed as expected with the Q124 credential-scope message (token that pushes to rbh-site-data has no access to rbh-data-portal) - same known blocker, no change.
+
+OUTSTANDING (unchanged, not re-escalated in full here - see run301's entry for the complete writeup): Q127 (live push-capable GitHub PAT sitting unrotated in this repo's local `.git/config` remote URL, now 300+ runs and growing - the single highest-priority, lowest-effort item), Q124 (status-page publish token lacks rbh-data-portal scope), Q134 (EPERM-on-unlink in this sandbox, reconfirmed again this run on a freshly created file, no workaround available unattended).
+
+Files changed: AGENT_LOG.md (this entry). No worklist or branches.json change.
+
 ## Run 2026-11-09 02:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run304): no-op by judgement call, agrees with run301/run302/run303 - pause stands, escalating directly to Rishi in chat again rather than adding a repeat log entry.
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T014442Z-run303`, mtime ~58 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134, still unresolved). Overwritten in place with this run's own marker instead, same convention as every recent run.
