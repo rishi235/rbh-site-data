@@ -2045,9 +2045,10 @@
       "Something else - Rishi specifies."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Also corrects Q87 (dated 2026-08-31): that question's premise, that this sandbox has no working route to GitHub, is no longer true. This run confirmed git fetch/pull/push all succeed via the HTTPS+PAT remote shown above, HEAD exactly matches origin/agents/audit-backlog, and the publish script ran cleanly (see AGENT_LOG.md this run). Q87 should be treated as answered/superseded by events rather than still blocking anything."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:39:08 (UK time): \"Rotate the PAT now via GitHub settings and reconfigure the remote with the new token (or a credential helper), since the current one has been displayed in plaintext at least once and the exposure window is unknown. Costs a few minutes and one re-auth.\"",
+    "note": "Also corrects Q87 (dated 2026-08-31): that question's premise, that this sandbox has no working route to GitHub, is no longer true. This run confirmed git fetch/pull/push all succeed via the HTTPS+PAT remote shown above, HEAD exactly matches origin/agents/audit-backlog, and the publish script ran cleanly (see AGENT_LOG.md this run). Q87 should be treated as answered/superseded by events rather than still blocking anything.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q128",
