@@ -1487,9 +1487,10 @@
       "Repaste all five branches' pfLink pages to point at this repo's own generated page (the one that already uses the dynamic, self-correcting service.js lookup), removing the hardcoded embed entirely: fixes the root cause estate-wide rather than one branch at a time, but is a live Weebly repaste on five separate sites and needs a paste session, not something this run can do"
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Not raised as blocking anything: the widget id read live today is correct, verified byte-for-byte against branches.json's own pharmacyFirst id for Gordon Short. This is a coverage gap (nothing guards it going forward), not a live defect found today. Evidence: audits/verify-3.11-2026-09-02-booking-chain.js and this pass's own AGENT_WORKLIST.md entry under item 3.11."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:37:51 (UK time): \"Build a periodic live-verification script (outside the generator/checker pattern, since it needs a live fetch rather than repo content) that reads each of these five branches' hardcoded pfLink widget ids and compares them to branches.json's own pharmacyFirst id, run it as part of future quality passes on these five items so a silent drift would be caught the next time this rotation reaches them (recommended: closes the actual risk - a diary change nobody notices - at the cost of a new small script and it only runs as often as its item comes up in rotation)\"",
+    "note": "Not raised as blocking anything: the widget id read live today is correct, verified byte-for-byte against branches.json's own pharmacyFirst id for Gordon Short. This is a coverage gap (nothing guards it going forward), not a live defect found today. Evidence: audits/verify-3.11-2026-09-02-booking-chain.js and this pass's own AGENT_WORKLIST.md entry under item 3.11.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q94",
