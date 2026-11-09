@@ -1,3 +1,33 @@
+## Run 2026-11-09 14:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run316): no-op by judgement call, agrees with run301-315 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` absent at pickup (not stale, simply not present). Created fresh with this run's start timestamp. `.git/index.lock` was present at pickup (0 bytes, dated this run's own earlier `git status` call in-session, no separate git process running) - direct `rm` failed with EPERM, same standing Q134 family reproduced via the Linux sandbox mount path. Cleared with the established `mv` workaround to a `.cleared-*-run316.lock` name; this adds one more undeletable debris file to the pile Q134 already tracks.
+
+SYNC (step 2): `git fetch origin`, `git checkout agents/audit-backlog` (already on it), `git pull --ff-only origin agents/audit-backlog` all succeeded cleanly after the lock was cleared. Already up to date with origin at run315's commit (4c55289) - no fast-forward needed.
+
+ANSWER PICKUP (step 3): skipped the Claude in Chrome re-fetch this run, continuing the established fetch/skip alternation - run315 fetched `https://data.rbhealth.co.uk/api/feedback` under an hour before this run and confirmed the newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, now over nine weeks stale, with no bearing on Q124, Q127, Q134 or Q135. No information would be gained by repeating it immediately.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged from run315. QUESTIONS.json reconfirmed 43 open of 136 total via a direct JSON parse; Q124 (2026-10-13), Q127 (2026-10-15), Q134 (2026-10-27) and Q135 (2026-11-04) all still `"status": "open"`, unchanged.
+
+DECISION: agree with run301-315's judgement call. Nothing in this run's fresh git state or fresh worklist/questions check changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator, did not attempt to resolve Q124/Q127/Q134/Q135 myself since each requires a decision or credential action only Rishi can make (Q127 and the index-lock EPERM pattern specifically fall under the hard rule against handling credentials unilaterally, and this run also did not attempt to rotate or otherwise act on the exposed PAT beyond the read-only checks the standard sync steps already require).
+
+LOG-WRITE METHOD (Q135 follow-through): wrote this entry via a direct in-place overwrite of AGENT_LOG.md (read full content, prepend, truncate+write same path) - no delete, no rename of AGENT_LOG.md itself, no reliance on a persistent `/tmp` staging file across runs. Q135 remains open and unanswered.
+
+EPERM reconfirmation (Q134): reproduced again this run via the Linux sandbox mount path (see LOCK above). Still open, no unattended workaround beyond the `mv`-to-debris-name pattern.
+
+STATUS PAGE (step 10): running `node tools/build-audit-status.js` next; expecting to repeat the known Q124 credential-scope failure (token that pushes to rbh-site-data has no access to rbh-data-portal) unless that has changed.
+
+ESCALATION, carried forward unchanged and surfaced directly to Rishi via this run's own output (no live user present to read the log otherwise): Q127, a live push-capable GitHub PAT sitting unrotated in cleartext in this repo's local `.git/config`, has now been open since 2026-10-15 and over 315 automated runs, exposed in every git-touching tool output across that period including this run's own `git remote -v` check. This remains the single highest-priority outstanding item, unaffected by and more urgent than the worklist rotation pause itself.
+
+OUTSTANDING, unchanged from run315:
+- Q127: unrotated live GitHub PAT in cleartext in local `.git/config`, open since 2026-10-15. Only Rishi can rotate it.
+- Q124: status-page publish token lacks `rbh-data-portal` scope, open since before run301.
+- Q134: mount-wide EPERM-on-unlink, reproduced again this run via the Linux sandbox path. No unattended workaround beyond the `mv`-to-debris-name pattern.
+- Q135: log-prepend data-loss incident, open; this run again used a direct, precise in-place overwrite (read-full, truncate, write) rather than any delete/rename of AGENT_LOG.md or reliance on cross-run `/tmp` staging.
+
+Files changed: AGENT_LOG.md (this entry), .agent-lock (created then released). No worklist or branches.json change.
+
 ## Run 2026-11-09 14:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run315): no-op by judgement call, agrees with run301-314 - rotation pause stands unchanged.
 
 LOCK (step 1): `.agent-lock` at pickup read a timestamp ~57 minutes old (over the 45-minute threshold), treated as stale. Deleted and recreated cleanly via the Windows filesystem (this run operated through Windows-MCP/PowerShell against the real `C:\Dev\rbh-site-data` checkout, not the Linux sandbox mount used by recent prior runs, so the EPERM-on-unlink family (Q134) did not reproduce here - delete succeeded normally). `.git\index.lock`, dated ~57 minutes old with no `git` process running, was also removed cleanly the same way (no `.cleared-*` debris produced this run).
