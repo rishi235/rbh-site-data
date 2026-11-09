@@ -1946,9 +1946,10 @@
       "Leave as is and treat every no-op run's local-only commit as acceptable until Rishi notices - simplest, but risks local commits piling up unpushed and divergence between what AGENT_LOG.md on disk says and what origin/agents/audit-backlog actually holds."
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Confirmed this run: `git push` fails with no credential prompt path available and no stored credentials; `gh auth status` reports gh is not installed; env has no GITHUB_TOKEN; no ~/.netrc or ~/.gitconfig with a credential section. The local commit 0d7bd1a0 (this run's AGENT_LOG.md entry) is sitting ahead of origin in the mounted working copy and should push cleanly the next time a context with credentials runs git push on this branch - nothing needs to be redone, just pushed."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:54 (UK time): \"Provision this execution context with the same push access: a git credential helper (or a scoped PAT in a safely-stored env var, never written to a file in the repo) and an installed gh CLI, so step 9 and step 10 work the same way regardless of which context fires the schedule.\"",
+    "note": "Confirmed this run: `git push` fails with no credential prompt path available and no stored credentials; `gh auth status` reports gh is not installed; env has no GITHUB_TOKEN; no ~/.netrc or ~/.gitconfig with a credential section. The local commit 0d7bd1a0 (this run's AGENT_LOG.md entry) is sitting ahead of origin in the mounted working copy and should push cleanly the next time a context with credentials runs git push on this branch - nothing needs to be redone, just pushed.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q122",
