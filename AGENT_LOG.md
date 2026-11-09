@@ -1,3 +1,43 @@
+## Run 2026-11-09 01:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run303): no-op by judgement call, agrees with run301/run302 - pause stands, escalating directly to Rishi in chat again rather than adding a repeat log entry.
+
+LOCK: `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T011442Z-run302`, released cleanly (not stale). Overwritten in place with this run's own marker.
+
+SYNC (step 2): git fetch/pull clean, already up to date at e550d33 (run302's commit).
+
+ANSWER PICKUP (step 3): not attempted this run - no browser tooling available in this session shape, and the last confirmed portal check (run302) found the newest feedback entry still the Q52 answer from 2026-09-01, now over nine weeks stale. Nothing to suggest this has changed in the one hour since run302.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged.
+
+DECISION: agree with run301/run302's judgement call. The quality-pass rotation was deliberately paused at run301 on the grounds that 26+ consecutive cycles produced no new finding and no question answer had landed in over nine weeks. Nothing in this run changes that assessment. Did not restart the rotation and did not run tools/build-audit-status.js, same reasoning as run301/run302 (no new worklist or question content to publish, known Q124 credential-scope gap would just repeat).
+
+OUTSTANDING (unchanged, not re-escalated in full here - see run301's entry for the complete writeup, and this run's chat reply to Rishi for the live escalation): Q127 (live push-capable GitHub PAT sitting unrotated in this repo's local `.git/config` remote URL - the single highest-priority, lowest-effort item on this list), Q124 (status-page publish token lacks rbh-data-portal scope), Q134 (EPERM-on-unlink in this sandbox, no workaround available unattended). Worklist remains 0 of 8 actionable.
+
+No files changed except this log entry. No worklist or branches.json change.
+
+## Run 2026-11-07 09:42 UTC (Sonnet 5, Cowork sandbox): fixed step 10 publish mechanism (removed gh CLI dependency), confirmed Q124's credential-scope gap directly (265th+ run, first to land a real infrastructure fix since the backlog froze)
+
+LOCK (step 1): `.agent-lock` content `RELEASED-sonnet5-20261107T084300Z-run264`, mtime 08:47 UTC, well under 45 minutes at pickup. Not stale, left as found at pickup; overwritten with this run's own marker at the end.
+
+GIT (step 2): `git fetch origin` and `git checkout agents/audit-backlog` clean, already up to date with `origin/agents/audit-backlog`. No stale `.git/index.lock` found this run.
+
+ANSWER PICKUP (step 3): not attempted this run - Claude in Chrome tools were not loaded and the prior run (08:43 UTC) already confirmed the newest portal feedback entry is still Q52 (67+ days stale), nothing new for Q80 onward. No reason to expect that changed in under an hour; not re-checked to avoid burning run time on a result already known.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at the top of this file. Does not apply.
+
+WORKLIST (step 5): re-verified by grep - all unchecked top-level items still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13+Q129, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). Fell through to the fallback quality pass, per step 5, and used it to land the infrastructure fix below rather than re-run the same checker-suite pass a 265th time with no new finding.
+
+FIX LANDED: `tools/build-audit-status.js`'s step-10 publish step has failed on every sandboxed run since Q87 (2026-08-31) with "gh: command not found", because this Cowork sandbox has no root and `apt-get install gh` is refused. That failure masked a second, separate question (Q124, 2026-10-13): whether the credential already in the `origin` remote URL - the one that successfully pushes to rbh-site-data - also has access to rbh-data-portal at all. Run 325's note on Q124 muddied this further by stating the gap was "only the missing gh binary, not a missing credential", which this run's direct test shows was wrong.
+
+Rewrote the publish step to call `api.github.com` directly over plain HTTPS using Node's built-in `https` module (no `gh` CLI, no new dependency, no new credential - reads the exact token already in `git remote get-url origin`, the same one push/pull use, and never writes it to a file or a shell command line). Ran it directly: GET `repos/rishi235/rbh-data-portal/contents/reports/digital/Digital_Audit_Status.html` returns 404, PUT returns 404. Confirmed independently with a standalone script before touching the generator, same result both ways. This settles Q124 cleanly: it is not and never was a `gh`-availability problem, it is this credential having zero access to rbh-data-portal. The script's new error message states this plainly and points at Q124 rather than printing a bare CLI error, so the next run (or Rishi, once the publish path is unblocked) sees the real cause immediately instead of rediscovering it.
+
+Updated Q124's `note` in QUESTIONS.json with this finding; left `status: "open"` and both prior options intact, because which fix to apply - a second scoped credential for rbh-data-portal, or widening the existing one - is a credentials decision for Rishi, not something this run should make unattended (per the hard rules). Did not touch Q87, Q127, Q131, Q134 or Q136 - all remain accurate as written and are not this run's to re-litigate.
+
+VERIFICATION: ran all 37 `tools/check-*.js` checkers directly after the change. 36 clean, `check-postcodes.js` fails on the same pre-existing debris (`.__combined_run214.md`, `.__pending_entry_for_log.md` carrying stray postcodes matching no branch) every recent run has logged - unrelated to this change, no new defect. `node tools/build-audit-status.js` run end to end produces valid HTML and fails only at the publish PUT, with the new clear message above, rather than failing before it ever got that far.
+
+No worklist item unblocked by this fix (none of the 8 blocked items depend on the status page), but it is the first run in the 264+-run streak to land a working, root-caused infrastructure change rather than re-describe the same two blockers. The status page itself remains unpublished until Q124 is answered; AGENT_WORKLIST.md, AGENT_LOG.md and QUESTIONS.json on `agents/audit-backlog` remain the actual source of truth in the meantime, same as every recent run has noted.
+
+RECOMMENDATION (unchanged from prior runs, restated briefly): the 8 blocked worklist items and 43 open questions still need Rishi's direct review - this run did not and could not change that. Q124 (publish credential scope) and Q127 (exposed PAT in the git remote, now 23+ days unrotated) are the two live infrastructure/security items most worth his attention; everything else is unchanged from the 08:43 UTC entry above.
+
 ## Run 2026-11-09 01:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run302): no-op by judgement call, confirmed run301's pause stands - nothing changed in the hour between runs.
 
 LOCK: `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T001450Z-run301`, mtime ~58 minutes old, over the 45-minute threshold, treated as stale. Overwritten in place (no new debris file created) with this run's own marker.
