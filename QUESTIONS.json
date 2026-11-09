@@ -1615,9 +1615,10 @@
       "As well as the live fix, bring the footer under repo coverage: add a reference file recording the expected footer text and markup per branch, so a future rule can catch a regression here too, the same 'declare it so a checker can read it' treatment already given to the switch and eMAR paste blocks. More work now, but this is the second time an out-of-repo public copy surface has gone unwatched for weeks."
     ],
     "recommended": 1,
-    "status": "open",
-    "answer": null,
-    "note": "Cross-references Q41 (a different live footer element on this same Hirshmans page - the duplicate email address - already answered, does not mention dashes or this markup gap) and Q39 (the already-answered 'one supervised Weebly furniture sweep across all 14 sites' this finding should logically ride alongside rather than triggering its own separate visit). Full domain-by-domain sweep and verbatim quotes in audits/hirshmans-address-check-2026-09-09-sixteenth.txt."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:07 (UK time): \"Fix the live copy directly in the next Weebly session: replace the en dashes with standard hyphens in the footer code-injection block on all 9 affected sites, and restore the missing <div class=\"rbh-seo-footer\"> wrapper on Tiffenbergs. One supervised session, no repo change, since nothing here writes this footer - fold it into the same sweep Q39 already approved.\"",
+    "note": "Cross-references Q41 (a different live footer element on this same Hirshmans page - the duplicate email address - already answered, does not mention dashes or this markup gap) and Q39 (the already-answered 'one supervised Weebly furniture sweep across all 14 sites' this finding should logically ride alongside rather than triggering its own separate visit). Full domain-by-domain sweep and verbatim quotes in audits/hirshmans-address-check-2026-09-09-sixteenth.txt.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q102",
