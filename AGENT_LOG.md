@@ -1,3 +1,23 @@
+## Run 2026-11-09 19:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run322): no-op by judgement call, agrees with run172-321 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T191249Z-run321`, run321's own clean release marker, ~28 minutes old. Overwritten in place via PowerShell (not the Linux sandbox mount, per run321's own recommendation) with this run's start marker `RUNNING-sonnet5-<ts>-run322`.
+
+SYNC (step 2): `git fetch origin` clean. HEAD (`45bbfa3`, run321's commit) matches `origin/agents/audit-backlog` exactly via direct comparison. No pull needed.
+
+ANSWER PICKUP (step 3): fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome (read-only, tab closed after reading). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z - now over 9.5 weeks stale. No answers for Q124, Q125, Q126, Q127, Q128, Q129, Q130, Q132, Q134, Q135 or anything raised since run320/321.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 AGENT_WORKLIST.md lines reconfirmed [BLOCKED] (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged. QUESTIONS.json reconfirmed 43 open of 136 total via direct parse. Q127 (live GitHub PAT in cleartext in local .git/config, open since 2026-10-15) independently re-verified this run: the PAT is still present in .git/config, status is still "open", answer is still null. This is now 25+ days and 300+ runs open on a live credential-exposure finding with no human decision.
+
+DECISION: agree with run172-321's judgement call. Did not launch a fresh quality-pass re-verification (near-zero marginal value given the hundreds already logged identically). Did not touch branches.json, any generator, or any open question. Did not touch main. Did not force-push. Did not add to or clear the untracked debris pile (hundreds of .debris-*/.git-*-lock-cleared-*/.__probe/.__test files from the Linux-mount permission issue documented in run318-321) beyond this log entry and the lock overwrite.
+
+ESCALATION, repeated and now surfaced directly to Rishi in this run's own chat output rather than only in this file: Q127 (live push-capable GitHub PAT sitting unrotated in cleartext in this repo's local .git/config) is open 25+ days, 300+ automated runs, with zero human read confirmed on the feedback channel in that window. This is a live credential-exposure risk, not a tidiness item, and this run did not and should not attempt to rotate it (money/legal/credential carve-out). Separately, the repo working copy carries several hundred megabytes of accumulated debris files (multi-hundred-MB stray AGENT_LOG copies, hundreds of .debris-*/.git-*-lock-cleared-* files) from a structural Linux-sandbox-mount permission limitation that prevents clean file deletion/rename on this host - documented across run229-321, unresolved, and not fixable by an unattended run.
+
+STATUS PAGE (step 10): `node tools\build-audit-status.js` run via PowerShell against the real checkout. Failed with the same standing Q124 error - "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal" (credential-scope gap, not a code or Linux-mount artefact). Portal page not refreshed this run.
+
+LOCK RELEASE (step 11): overwriting `.agent-lock` with `RELEASED-sonnet5-<ts>-run322` via PowerShell before exit.
+
 ## Run 2026-11-09 19:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run321): no-op by judgement call, agrees with run172-320 - rotation pause stands unchanged.
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T181300Z-run320`, a release marker from run320's own clean exit (~57 minutes old, over the 45-minute threshold anyway). Confirmed again this run that direct `rm` via the Linux sandbox mount fails EPERM on every file in the connected folder, including a brand-new zero-content file created and immediately rm'd in the same run (`zz_test_deleteme.txt`, now itself one more piece of harmless untracked debris - apologies for adding to the pile, but it was the cleanest available proof that this is a mount-wide restriction and not file-specific). Overwritten `.agent-lock` in place via the file-edit tool (not delete/rename) with this run's own start marker `RUNNING-sonnet5-20261109T191249Z-run321`, same convention as run317-320.
