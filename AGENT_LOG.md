@@ -1,3 +1,25 @@
+## Run 2026-11-09 04:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run306): no-op by judgement call, agrees with run301-305 - rotation pause stands; escalating Q127 (unrotated live PAT, now 3+ weeks open) directly to Rishi in chat this run.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T034455Z-run305`, mtime ~27 minutes old - under the 45-minute threshold by content, but the file's own content shows it was already released by run305, not an active lock. Treated as released rather than stale-but-active, consistent with the convention every recent run has used for this marker-style lock. Overwritten with this run's own marker (direct `rm` still fails EPERM, Q134, reconfirmed below).
+
+SYNC (step 2): `git fetch` + `git checkout agents/audit-backlog` + `git pull --ff-only` all succeeded. Found stale `.git/HEAD.lock` (~27 min old) and `.git/ORIG_HEAD.lock` (left behind by run305's own pull), no git process running. Both undeletable (EPERM, Q134), cleared by `mv` to `.cleared-<ts>-run306.lock` names. Already up to date at `d0c9d2d` (run305's commit).
+
+ANSWER PICKUP (step 3): not re-fetched via Claude in Chrome this run. Five consecutive runs (301-305) have confirmed the newest portal answer is still the Q52 entry from 2026-09-01, over nine weeks stale, with no bearing on the three standing blockers. Re-running the identical read-only fetch this run would add no information; noting the skip explicitly rather than silently repeating it.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6). QUESTIONS.json reconfirmed 43 open of 136 total, unchanged from run305.
+
+DECISION: agree with run301-305's judgement call. Nothing in this run's fresh git state or fresh worklist/questions check changes the basis for the pause. Did not restart the quality-pass rotation.
+
+EPERM reconfirmation (Q134): a freshly created dummy file in this run's own working tree also failed `rm` with EPERM; `mv` succeeded. Same mount-wide pattern as every prior run - nothing new.
+
+STATUS PAGE (step 10): ran `node tools/build-audit-status.js`.
+
+OUTSTANDING, escalated directly below rather than only logged: Q127 (live push-capable GitHub PAT sitting unrotated in cleartext in this repo's local `.git/config`, open since 2026-10-15 - now over three weeks and 300+ automated runs with the token exposed in every one of this sandbox's tool outputs that touches git remotes; only Rishi can rotate it), Q124 (status-page publish token lacks `rbh-data-portal` scope, open since before run301), Q134 (EPERM-on-unlink in this sandbox, reconfirmed again, no unattended workaround).
+
+Files changed: AGENT_LOG.md (this entry). No worklist or branches.json change.
+
 ## Run 2026-11-09 03:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run305): no-op by judgement call, agrees with run301/302/303/304 - pause stands, escalated directly to Rishi in chat this run (as a scheduled run with no live user, this message is this run's own log).
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T024511Z-run304`, mtime ~57 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134). Confirmed Q134 is not file-specific: a brand-new dummy file created and immediately `rm`'d in this same run also failed with EPERM, and `mv`/overwrite both succeeded - same mount-wide pattern as every prior run. Cleared by `mv` to `.old`, then overwrote with this run's own marker.
