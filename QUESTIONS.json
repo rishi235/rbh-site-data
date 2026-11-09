@@ -1455,9 +1455,10 @@
       "Verify first whether the same shared-footer template is used on any other branch domain (in case the \"Fishlock\" spelling is a copy-paste footer shared estate-wide rather than unique to the two Fishlocks branches), before deciding whether the fix is one footer edit or several"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Full evidence in audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt. This is separate from the already-tracked Q45 em dash finding on the same domain (also reconfirmed unchanged this pass). No repo defect found; the pack and all six generators remain byte-identical and clean, eighth consecutive clean pass on item 4.1 itself."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:37:46 (UK time): \"Treat it as urgent and add it to the front of the next Weebly session's task list on its own, since it is a live, publicly-visible misspelling of the trading name on every page of both Fishlocks branches at once, including the legal/GPhC line\"",
+    "note": "Full evidence in audits/fishlocks-ainsdale-4.1-pass-2026-09-01.txt. This is separate from the already-tracked Q45 em dash finding on the same domain (also reconfirmed unchanged this pass). No repo defect found; the pack and all six generators remain byte-identical and clean, eighth consecutive clean pass on item 4.1 itself.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q92",
