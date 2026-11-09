@@ -1,3 +1,19 @@
+## Run 2026-11-09 17:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run319): no-op by judgement call, agrees with run172-318 - rotation pause stands unchanged.
+
+LOCK (step 1): `.agent-lock` read `RELEASED-sonnet5-20261109T160000Z-run318`, mtime ~26 minutes old. Content is a release marker from run318's own clean exit, not an active-run marker, so (consistent with the established convention in this log since the Q134-era EPERM workaround) treated as not blocking rather than as "another run active" under a literal mtime-only reading. Overwritten with this run's own start marker `RUNNING-sonnet5-20261109T171300Z-run319`. No stray `.git/index.lock` present this time.
+
+SYNC (step 2): `git fetch origin` and `git pull --ff-only origin agents/audit-backlog` both succeeded cleanly this run - no ref corruption, no bad-object error, already up to date. The Q134/Q135-class fetch breakage run318 hit and fixed via Windows-MCP did not recur.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, tab closed after reading). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, now over nine and a half weeks stale. No answers found for Q124, Q127, Q134 or Q135, or any question raised since.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged from run318. QUESTIONS.json reconfirmed 43 open via direct grep, unchanged.
+
+NEW OBSERVATION, not acted on: the working tree outside git tracking currently shows roughly 580 untracked files and several hundred megabytes of stray `.AGENT_LOG_*` artefacts (e.g. a 246MB `.AGENT_LOG_fix_2.md`), plus a long run of `.debris-*` and `.__*` marker/probe files left behind by past runs' lock- and ref-clearing workarounds. None of this is tracked by git (confirmed via `git status`), so it is not blocking commits or sync, and this run did not touch any of it - a bulk cleanup is outside a single-item run's scope and risks destroying evidence relevant to the still-open Q127 (exposed PAT), Q133 (push blocker) and Q134/Q135 (ref corruption) cluster. Flagging it here rather than in a new QUESTIONS.json entry, since it changes no decision already pending and a supervised session will see it directly.
+
+DECISION: agree with run172-318's judgement call. Nothing in this run's fresh checks changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator, did not attempt to resolve any open question myself, did not touch main, did not force-push. Released `.agent-lock` back to a release marker before exiting.
+
 ## Run 2026-11-09 16:0x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run318): no-op by judgement call, agrees with run301-317 - rotation pause stands unchanged. NEW FINDING: Windows-MCP bypasses the mount-wide EPERM (Q134) cleanly.
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T154521Z-run317`, mtime ~57 minutes old, over the 45-minute threshold, treated as stale. Direct `rm` via the Linux sandbox mount failed with EPERM again (standing Q134). Overwritten in place via the file-edit tool (not delete/rename) with this run's own start marker `RUNNING-sonnet5-20261109T160000Z-run318`, same convention as recent runs. `.git/index.lock` present at pickup (0 bytes, no git process running); same EPERM reproduced on direct `rm`, left in place since it did not block the git operations below.
