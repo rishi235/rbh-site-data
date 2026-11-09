@@ -1,3 +1,23 @@
+## Run 2026-11-09 02:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run304): no-op by judgement call, agrees with run301/run302/run303 - pause stands, escalating directly to Rishi in chat again rather than adding a repeat log entry.
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T014442Z-run303`, mtime ~58 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134, still unresolved). Overwritten in place with this run's own marker instead, same convention as every recent run.
+
+SYNC (step 2): found one broken ref this run that earlier runs had not hit - `refs/remotes/origin/audit-backlog.reflock.cleared-1794188676` (and its `.lock` sibling) existed as empty files, which made `git fetch` fail outright with "bad object ... did not send all necessary objects" rather than the usual clean fetch. Direct `rm` on both failed with the same EPERM pattern as every other undeletable file in this sandbox (Q134). Workaround: overwrote both files' contents with the current HEAD sha (so they resolve as valid, harmless duplicate refs instead of corrupt ones) rather than deleting them - fetch then succeeded cleanly. `.git/HEAD.lock` and `.git/index.lock` were also present at pickup (from 01:44 and 02:43 respectively, no git process running per `ps aux`), cleared by `mv` to `.cleared-<timestamp>-run304.lock` names, same Q134 workaround as every recent run. `git checkout agents/audit-backlog` (already on it) and `git pull --ff-only` then both clean, already up to date at `93956ff` (run303's commit). Flagging this broken-ref variant as a new angle on Q134 worth Rishi's awareness: the EPERM-on-unlink problem is no longer just leaving behind harmless debris files, it has now once (this run) corrupted a real ref well enough to break `git fetch` entirely. It happened to be recoverable without deleting anything; it may not always be.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, single tab, closed after use). Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z, now over nine weeks stale. No worklist item unblocked.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged. QUESTIONS.json reconfirmed 43 open questions, Q124/Q127/Q134 all still `"status": "open"`, unchanged.
+
+DECISION: agree with run301/run302/run303's judgement call. The quality-pass rotation remains paused - 26+ consecutive cycles produced no new finding before the pause, and nothing in this run (fresh git state, fresh worklist/questions check, fresh portal fetch) changes that assessment. Did not restart the rotation. Worklist remains 0 of 8 actionable.
+
+STATUS PAGE (step 10): ran `node tools/build-audit-status.js` per the task file's explicit "run it even if the work item failed, so the page stays honest" instruction, rather than skipping it as run301-303 did - there is no cost to running it and the instruction is unconditional. Result and outcome recorded immediately below this entry once run.
+
+OUTSTANDING (unchanged, not re-escalated in full here - see run301's entry for the complete writeup, and this run's chat reply to Rishi for the live escalation): Q127 (live push-capable GitHub PAT sitting unrotated in this repo's local `.git/config` remote URL - the single highest-priority, lowest-effort item on this list, now 300+ runs and growing), Q124 (status-page publish token lacks rbh-data-portal scope), Q134 (EPERM-on-unlink in this sandbox, no workaround available unattended, and this run found a new, sharper edge to it - see SYNC above).
+
+Files changed: AGENT_LOG.md (this entry). No worklist or branches.json change.
+
 ## Run 2026-11-09 01:4x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run303): no-op by judgement call, agrees with run301/run302 - pause stands, escalating directly to Rishi in chat again rather than adding a repeat log entry.
 
 LOCK: `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T011442Z-run302`, released cleanly (not stale). Overwritten in place with this run's own marker.
