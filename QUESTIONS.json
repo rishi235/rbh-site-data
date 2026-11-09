@@ -1727,9 +1727,10 @@
       "Do something more than a paster note: since all three branches are named as a live operational priority rather than a paste-content gap, treat this as a standing action for Dane/whoever manages in-branch reviews, separate from any GBP pack content, and do not touch the other two packs at all."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Not a data-integrity defect - none of the 36 checkers would ever catch this, because it is a business-priority statement from the Master Plan and Context Pack, not a fact any generator composes or any checker verifies. Full detail and the exact source quotes in audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-nineteenth.txt."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:38:20 (UK time): \"Extend now: add the equivalent note to gbp-packs/cherry-lane-walton.md and gbp-packs/smartts-bootle.md in a follow-up run, referencing this same source quote. Near-zero marginal cost since the wording and the checker-clean proof already exist for one pack.\"",
+    "note": "Not a data-integrity defect - none of the 36 checkers would ever catch this, because it is a business-priority statement from the Master Plan and Context Pack, not a fact any generator composes or any checker verifies. Full detail and the exact source quotes in audits/mccanns-sandringham-item-4.7-quality-pass-2026-09-16-nineteenth.txt.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q109",
