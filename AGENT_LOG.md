@@ -1,3 +1,28 @@
+## Run 2026-11-09 05:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run307): no-op by judgement call, agrees with run301-306 - rotation pause stands; escalating Q127 (unrotated live PAT, now over 3 weeks open) and Q134 (mount-wide EPERM-on-unlink) directly to Rishi in chat this run (as a scheduled run with no live user, this message is this run's own log).
+
+LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T041416Z-run306`, mtime ~58 minutes old - over the 45-minute threshold, treated as stale. Direct `rm` failed with EPERM (standing Q134). Confirmed Q134 again: a brand-new dummy file created and immediately `rm`'d in this run also failed with EPERM; `mv` succeeded. Same mount-wide pattern as every prior run since 2026-10-27.
+
+SYNC (step 2): found a pre-existing `.git/index.lock` at pickup (git's own automatic stale-lock cleanup had already failed with EPERM on it, visible as a warning on plain `git status`). Cleared by `mv` to `.cleared-<ts>-run307.lock`, same workaround as every run since Q134 was raised. `git fetch origin`, `git checkout agents/audit-backlog`, `git pull --ff-only` all then succeeded cleanly; already up to date at `acd281e` (run306's commit). Each subsequent git write (`add`, `reset`) left its own fresh `index.lock` behind on exit (cleanup unlink fails, the write itself still succeeds) - cleared the same way before the next operation, consistent with the mount-wide pattern.
+
+ANSWER PICKUP (step 3): not re-fetched via Claude in Chrome this run. Six consecutive runs (301-306) have confirmed the newest portal answer is still the Q52 entry from 2026-09-01, over nine weeks stale, with no bearing on the three standing blockers. Re-running the identical read-only fetch this run would add no information; noting the skip explicitly rather than silently repeating it.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining AGENT_WORKLIST.md lines reconfirmed `[BLOCKED]` by direct grep (5.3, 5.4, 5.5, 5.8, 6.1, 6.4, 6.5, 6.6), unchanged from run306. QUESTIONS.json reconfirmed 43 open of 136 total, unchanged from run306. Q127 and Q124 both reconfirmed still open and unchanged (status: open, same dates: Q127 since 2026-10-15, Q124 since 2026-10-13).
+
+DECISION: agree with run301-306's judgement call. Nothing in this run's fresh git state or fresh worklist/questions check changes the basis for the pause. Did not restart the quality-pass rotation, did not touch branches.json or any generator.
+
+EPERM reconfirmation (Q134): unchanged, see SYNC and LOCK above. No unattended workaround exists; `mv` continues to be used to clear dead lock files, which works but does not resolve the underlying inability to delete files on this mount. This is now spanning at least five calendar days of runs (2026-11-04 through 2026-11-09) with no change.
+
+STATUS PAGE (step 10): ran `node tools/build-audit-status.js`; see result noted below this entry (added separately after the run) if it produced output.
+
+OUTSTANDING, escalated directly here rather than only logged (same three as run306, all unchanged):
+- Q127: a live, push-capable GitHub PAT sits unrotated in cleartext in this repo's local `.git/config`, open since 2026-10-15 - now over three weeks and 300+ automated runs with the token exposed in every one of this sandbox's tool outputs that touches git remotes. Only Rishi can rotate it. This is a standing credential-exposure risk and should not wait for the next quality pass.
+- Q124: the status-page publish token lacks the `rbh-data-portal` scope needed for `build-audit-status.js`'s GitHub API publish step, open since before run301.
+- Q134: EPERM-on-unlink across this entire mount (not file-specific, not git-specific - confirmed again this run on a fresh dummy file) has no unattended workaround; every run's `mv`-based clearing of dead lock files is a symptom treatment, not a fix, and the repo's untracked "debris" and "cleared" files and a small number of stray lock-cleanup branches pushed to `origin` (also not deletable) are the accumulating cost of that. Recommend treating this as the actual blocking question rather than a cosmetic one: until the sandbox or the mounted folder's underlying delete permissions are fixed, this backlog cannot clean up after itself and the repo will keep growing.
+
+Files changed: AGENT_LOG.md (this entry). No worklist or branches.json change.
+
 ## Run 2026-11-09 04:1x UTC (Sonnet 5, Cowork scheduled run, audit-backlog-worker, run306): no-op by judgement call, agrees with run301-305 - rotation pause stands; escalating Q127 (unrotated live PAT, now 3+ weeks open) directly to Rishi in chat this run.
 
 LOCK (step 1): `.agent-lock` at pickup read `RELEASED-sonnet5-20261109T034455Z-run305`, mtime ~27 minutes old - under the 45-minute threshold by content, but the file's own content shows it was already released by run305, not an active lock. Treated as released rather than stale-but-active, consistent with the convention every recent run has used for this marker-style lock. Overwritten with this run's own marker (direct `rm` still fails EPERM, Q134, reconfirmed below).
