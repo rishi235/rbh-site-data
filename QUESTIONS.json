@@ -2078,9 +2078,10 @@
       "Leave service-module-phase1 pinned where it is for now and accept the three live em dashes and the contraception fallback gap a while longer, prioritising a single supervised session that clears Q13/Q97/Q129 together rather than three partial fixes."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Does not block any item beyond 5.5's existing block (Q13). Found during the 42nd quality pass (run 318) while re-verifying item 5.5's own claims rather than taking it at face value - the 'byte-identical' sentence had not been re-checked since 2026-08-11."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 09/11/2026, 22:39:13 (UK time): \"Merge agents/audit-backlog's modules/service/ changes onto main in a supervised session (cherry-pick or merge, Rishi's call on which), fast-forward service-module-phase1 to the updated main, then re-pin and repaste the 15 switch pages in the same sitting - clears Q13 and this finding together in one supervised session.\"",
+    "note": "Does not block any item beyond 5.5's existing block (Q13). Found during the 42nd quality pass (run 318) while re-verifying item 5.5's own claims rather than taking it at face value - the 'byte-identical' sentence had not been re-checked since 2026-08-11.",
+    "answeredDate": "2026-11-09"
   },
   {
     "id": "Q130",
