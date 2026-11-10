@@ -1,3 +1,7 @@
+## run345 addendum: step 10 publish result (logged after the fact)
+
+`node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap (same message as every prior run: token that can push to rbh-site-data has no access to rbh-data-portal). No new finding. Lock released below.
+
 ## run345 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~17:13 UTC, new sandbox session): no-op judgement call, same reasoning as run325-344 - nothing to pick up, nothing newly unblocked.
 
 LOCK/REPO: `.agent-lock` at pickup read `RELEASED-sonnet5-20261110T164532Z-run344`. Overwritten in place (truncate+write, not delete). `.git/HEAD.lock`, `.git/ORIG_HEAD.lock` and `.git/index.lock` were all present at pickup, blocked git commands, and were cleared the same way as every run since Q134 - `rm` failed with the standard EPERM on this mount, `mv` to a timestamped debris filename succeeded. `git fetch`/`checkout`/`pull --ff-only` then ran clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` returned `0 0` - no divergence, Q132 still not reproducible in this sandbox.
