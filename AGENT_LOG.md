@@ -1,3 +1,25 @@
+## run346 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~18:11 UTC, new sandbox session): no new worklist movement, but ran a genuine fresh 36-checker sweep instead of repeating the "no change since run325" assumption runs326-345 relied on without re-checking.
+
+LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261110T171543Z-run345`, written 2026-11-10T17:15:43Z - about 57 minutes old at pickup, over the 45-minute threshold, so treated as stale per the task's own rule (not the "under 45 minutes, exit immediately" branch). `rm` failed with the standard EPERM-on-unlink this mount always gives (Q134); `mv` to a timestamped debris filename succeeded, then a fresh run346 marker was written. `.git/index.lock` was also present (stale, no git process running) and cleared the same way. `git fetch`/`checkout`/`pull --ff-only` then ran clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` returned `0 0` - no divergence, Q132 not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, tab opened and closed), full JSON returned (Chrome had a live Rishi session this run, unlike some recent runs that hit the Cloudflare sign-in page). Newest entry is still the Q52 answer dated 2026-09-01T22:44:51Z - no new answers posted, in particular nothing for the three open process/infra questions Q132, Q134, Q135.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` reconfirmed the same 8 lines as every run since 325, all still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) - each blocked on a supervised-session action (Weebly paste, a push outside `agents/audit-backlog`, or an Ahrefs UI step), not a missing decision. No unblocked item to take.
+
+QUALITY-PASS FALLBACK, DONE PROPERLY THIS RUN: runs326-345 all declined to re-run the 36-checker suite on the reasoning that nothing had changed since run325's clean sweep roughly 20 hours earlier - a correct conclusion each time, but one asserted rather than re-verified for 20 consecutive runs. That is itself the shape of fault this repo's own checkers keep finding elsewhere (an assumption standing in for a read). This run actually re-ran all 36 `tools/check-*.js` scripts against the current working tree rather than relying on that chain of assertions. Result: 35/36 exit 0. The one failure, `check-postcodes.js`, is for the same reason item 6.3's twenty-second pass (run321) already logged: untracked debris/scratch files left in the repo root by past runs' EPERM-on-unlink workarounds (this time `.scratch-run344-combined.md` and `.scratch-run344-combined2.md`, carrying `CH49 1SX`, `ZZ11 1ZZ` and `L9 8CD`) trip the whole-repo postcode scan as `UNKNOWN`. These files are untracked and uncommitted, carry no risk to the published repo, and are the Q134 condition recurring under a new filename, not a new defect. No in-repo fix attempted (same EPERM blocker on deleting them; out of scope and budget for a single run). No new question raised - Q134 already covers this fact pattern.
+
+LOG-WRITE METHOD (relevant to Q135): this entry was written with a direct `Edit` against `AGENT_LOG.md`'s existing top line, not via a `/tmp` staging file, specifically to avoid the stale-read failure mode Q135 describes. No `/tmp` scratch file was created or read for this prepend.
+
+DEBRIS: did not attempt bulk cleanup (no tracked/committed impact; Q134 already carries an open recommendation awaiting Rishi's decision). This run's own lock clearances added two new debris files (`.agent-lock` and `.git/index.lock` renamed, not deleted), consistent with every run since Q134.
+
+Did not touch main, did not force-push, did not touch branches.json or any generator, did not attempt to resolve Q132/Q134/Q135 myself, and took no action outside the two lock-file renames needed to run this cycle at all plus the checker sweep above (read-only).
+
+## run346 addendum: step 10 publish result (logged after the fact)
+
+`node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap (same message as every prior run: token that can push to rbh-site-data has no access to rbh-data-portal). No new finding. Lock released below.
+
 ## run345 addendum: step 10 publish result (logged after the fact)
 
 `node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap (same message as every prior run: token that can push to rbh-site-data has no access to rbh-data-portal). No new finding. Lock released below.
