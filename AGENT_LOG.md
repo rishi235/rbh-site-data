@@ -18,7 +18,9 @@ Did not touch main, did not force-push, did not touch branches.json or any gener
 
 ## run346 addendum: step 10 publish result (logged after the fact)
 
-`node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap (same message as every prior run: token that can push to rbh-site-data has no access to rbh-data-portal). No new finding. Lock released below.
+`node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap (same message as every prior run: token that can push to rbh-site-data has no access to rbh-data-portal). No new finding.
+
+Also for the record: the main run346 commit needed three separate index.lock/HEAD.lock EPERM clearances (after `git add`, before `git commit`, and before `git push`) rather than one clearance covering the whole cycle - each git subcommand that touches the index left its own un-unlinkable lock behind. Matches the pattern Q134 already describes; logging the detail since it was sharper this run than most. Lock released below.
 
 ## run345 addendum: step 10 publish result (logged after the fact)
 
