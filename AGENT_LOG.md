@@ -10,7 +10,7 @@ ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` returned the sa
 
 ESCALATION: unchanged from run325-351. Recommend Rishi pause or lengthen this schedule's interval until Q132/Q134/Q135 are answered, or answer Q8/Q9/Q13/Q16/Q52/Q60/Q66 via the portal to unblock the worklist; not pausing it myself, that remains his call.
 
-STEP 10: not run - no commit pending beyond this log entry, publishing status page alongside the commit below.
+STEP 10: ran `node tools/build-audit-status.js` after pushing the log commit, as the task requires even on a no-op. Failed with the known Q124 credential-scope gap (404 writing to rbh-data-portal, PAT scoped to rbh-site-data only) - pre-existing since 2026-10-13, not a new fault this run.
 
 STEP 11: `.agent-lock` to be overwritten in place with a RELEASED marker before exiting.
 
