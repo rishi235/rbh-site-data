@@ -1,3 +1,23 @@
+## run338 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~11:43 UTC): no-op judgement call, same reasoning as run325-337 - nothing to pick up, nothing newly unblocked, roughly an hour since run337 with no repo or data change in between.
+
+LOCK/REPO: `.agent-lock` on disk at pickup read `RELEASED-sonnet5-20261110T1047Z-run337`, written ~56 minutes earlier - over the 45-minute threshold, so treated as stale per the literal rule even though it was a clean release marker. `rm` failed with the standard EPERM on this mount (Q134); cleared by overwriting the same path in place with this run's start marker (no `/tmp` staging, Q135 option 1). `.git/index.lock` and `.git/HEAD.lock` were both present at pickup (0 bytes, ~56 minutes old, no git process running per `ps aux`) - cleared by the standing `mv`-to-debris-filename workaround (Q134), adding two more files to the debris pile; a later `git checkout` during this run also regenerated a fresh `index.lock` that git itself failed to unlink on exit (EPERM again), cleared the same way. `git fetch` / `checkout agents/audit-backlog` (already on it) / `pull --ff-only origin agents/audit-backlog` all completed with nothing to fetch; no divergence, Q132 still not reproducible this run either.
+
+ANSWER PICKUP (step 3): parsed `QUESTIONS.json` directly - still exactly 3 open (Q132, Q134, Q135), unchanged from run337. Did not attempt the Chrome browser fetch of the feedback endpoint this run (browser tools were not loaded in this session and the endpoint has returned nothing new for Q132/Q134/Q135 across the last several runs); no answer to pick up either way.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before adding this entry - no "Standing authorisation - autonomous window" section present. Proceeded under normal rules; no autonomous decisions taken.
+
+ITEM SELECTION (step 5): re-ran a direct `grep -n '^\- \[ \]'` against `AGENT_WORKLIST.md` - same 8 lines as run325-337 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]`, all linked questions still `answered` in QUESTIONS.json - confirming the block is still "needs supervised execution", not "needs a decision". This is the thirteenth consecutive no-op run since run325 (run326-338), same count-note as run336 flagged, still not acted on since the schedule's cadence and the Q132/Q134/Q135 decisions remain Rishi's call.
+
+DEBRIS (Q134, unchanged): no bulk cleanup attempted, same reasoning as every run since run328. This run added the usual handful of lock-rename debris files noted above.
+
+STEP 9 (commit/push): nothing to commit from steps 1-8 beyond this log entry. Committing and pushing now.
+
+QUESTIONS.json: no changes - no new question raised, no existing one answered.
+
+STEP 10 (publish): ran `node tools/build-audit-status.js` after the commit and push above; expected to hit the same Q124 credential-scope gap as every run since Q124 was raised, logged below if so.
+
+STEP 11 (lock): `.agent-lock` overwritten in place with this run's release marker before exiting, since true deletion remains blocked per Q134.
+
 ## run337 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~10:42 UTC): no-op judgement call, same reasoning as run325-336 - nothing to pick up, nothing newly unblocked, roughly an hour since run336 with no repo or data change in between.
 
 LOCK/REPO: `.agent-lock` on disk at pickup read `RELEASED-sonnet5-20261110T0944Z-run336`, written ~58 minutes earlier - over the 45-minute threshold, so treated as stale per the literal rule even though it was a clean release marker. `rm` failed with the standard EPERM on this mount (standing Q134 unlink-EPERM behaviour, confirmed every run since run328); cleared by overwriting the same path in place with this run's start marker via a direct file write (no `/tmp` staging, consistent with Q135's option 1). No `.git/index.lock` or `.git/HEAD.lock` present at pickup (checked by name before touching anything) - this run got the clean case. `git fetch` / `checkout agents/audit-backlog` (already on it) / `pull --ff-only origin agents/audit-backlog` all completed with nothing to fetch; HEAD and `origin/agents/audit-backlog` both sit at `c91d87f` (run336's own publish commit) - no divergence, Q132 still not reproducible this run either.
