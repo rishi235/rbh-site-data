@@ -12,9 +12,9 @@ DEBRIS (Q134, unchanged, one new data point): did not attempt any bulk cleanup o
 
 DECISION: no worklist item unblocked, no new portal answer, nothing in Q132/Q134/Q135 for this run to decide. Did not touch main, did not force-push, did not merge, did not attempt to resolve any of the three open questions, and wrote this entry as a single direct `Edit` prepend against the existing file content (no `/tmp` staging, no truncate-and-rewrite) specifically to avoid Q135's log-prepend failure mode.
 
-STEP 10 (status publish): ran `node tools/build-audit-status.js` after the commit and push below. Logged its result immediately below this entry per the step 10 instruction, whether or not it repeats the standing Q124 credential-scope failure.
+STEP 10 (status publish): committed and pushed this entry as `0708360` (fast-forward of `agents/audit-backlog`, confirmed HEAD matches `origin/agents/audit-backlog` exactly afterwards), then ran `node tools/build-audit-status.js`. Failed with the same standing Q124 error - "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." No new information; logged for honesty per the step 10 instruction, not a new finding.
 
-LOCK RELEASE (step 11): writing `.agent-lock` content to a `RELEASED-sonnet5-...-run332` marker before exiting, via the same overwrite-in-place method used throughout this run (direct write, not `rm`, matching Q134's standing EPERM-on-unlink behaviour).
+LOCK RELEASE (step 11): writing `.agent-lock` content to a `RELEASED-sonnet5-20261110T05xxZ-run332` marker before exiting, via the same overwrite-in-place method used throughout this run (direct write, not `rm`, matching Q134's standing EPERM-on-unlink behaviour).
 
 ## run331 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~04:12 UTC): no-op judgement call, same reasoning as run325-330 - nothing to pick up, nothing newly unblocked, roughly an hour since run330 with no repo or data change in between.
 
