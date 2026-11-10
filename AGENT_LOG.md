@@ -1,3 +1,17 @@
+## run345 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~17:13 UTC, new sandbox session): no-op judgement call, same reasoning as run325-344 - nothing to pick up, nothing newly unblocked.
+
+LOCK/REPO: `.agent-lock` at pickup read `RELEASED-sonnet5-20261110T164532Z-run344`. Overwritten in place (truncate+write, not delete). `.git/HEAD.lock`, `.git/ORIG_HEAD.lock` and `.git/index.lock` were all present at pickup, blocked git commands, and were cleared the same way as every run since Q134 - `rm` failed with the standard EPERM on this mount, `mv` to a timestamped debris filename succeeded. `git fetch`/`checkout`/`pull --ff-only` then ran clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` returned `0 0` - no divergence, Q132 still not reproducible in this sandbox.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only, tab opened and closed). Newest entry is still the Q52 answer dated 2026-09-01T22:44:51Z. Nothing posted for Q132, Q134 or Q135. Parsed `QUESTIONS.json` directly: still exactly 3 open (Q132, Q134, Q135), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Proceeded under normal rules.
+
+ITEM SELECTION (step 5): all 8 remaining worklist lines are still `[BLOCKED]` pending supervised execution or a decision on Q132/Q134/Q135. Zero unchecked, non-blocked items. No scope invented.
+
+RUN-COUNT FLAG FOR RISHI, escalated this run rather than repeated as a footnote: this is the twentieth-plus consecutive no-op since run325, spanning roughly a day of hourly runs, with zero repo or data change bar each run's own lock-clearance debris and log/publish commit. The debris pile (Q134, Cowork's connected-folder unlink restriction) is now past 2,100 untracked files and two multi-hundred-megabyte stray log files sitting in the working tree. Recommend pausing this schedule - or switching it to a much longer interval, e.g. daily - until Q132, Q134 and Q135 are answered and at least one of the 8 blocked items can genuinely move; continuing hourly buys nothing and keeps adding debris to an already 1.3G+ repo.
+
+DEBRIS: did not attempt bulk cleanup (no tracked/committed impact; Q134 already carries a recommendation awaiting decision). This run's own lock clearances added three new debris files, consistent with every run since Q134.
+
 ## run344 addendum: step 10 publish result (logged after the fact)
 
 `node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Q124 is already open and answered-with-a-recommendation, so no new question raised. Ran it anyway per the standing rule to try even on a run expected to fail.
