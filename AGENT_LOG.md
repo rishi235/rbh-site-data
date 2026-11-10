@@ -1,3 +1,19 @@
+## run352 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~23:13 UTC, new sandbox session): no-op, 28th consecutive since run325. Not repeating the run325-351 essay.
+
+LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261110T224312Z-run351`, ~30 minutes old (under the 45-minute threshold, already a release marker, treated as released not stale). Overwrote in place with a fresh LOCKED marker, no new debris file. `git fetch origin agents/audit-backlog` ran clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` = `0 0`, no divergence, HEAD at `72f6f74` (run351's commit) - Q132 still not reproducible.
+
+ANSWER PICKUP (step 3): done live via Claude in Chrome (navigate + get_page_text on the feedback endpoint, read-only, tab closed after). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. Nothing posted for Q132, Q134 or Q135.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file at pickup. Normal rules applied.
+
+ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` returned the same 8 lines as every run since 325 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]`. Zero unblocked items. Not re-running the 36-checker quality-pass fallback this run - no commit or data change has landed since run346's full sweep and nothing here would surface a different result.
+
+ESCALATION: unchanged from run325-351. Recommend Rishi pause or lengthen this schedule's interval until Q132/Q134/Q135 are answered, or answer Q8/Q9/Q13/Q16/Q52/Q60/Q66 via the portal to unblock the worklist; not pausing it myself, that remains his call.
+
+STEP 10: not run - no commit pending beyond this log entry, publishing status page alongside the commit below.
+
+STEP 11: `.agent-lock` to be overwritten in place with a RELEASED marker before exiting.
+
 ## run351 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~22:40 UTC, new sandbox session): no-op, 27th consecutive since run325. Same conclusion as run325-350, not repeated at length.
 
 LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261110T214438Z-run350`, ~56 minutes old (over the 45-minute threshold, already a release marker). `.git/index.lock` was present (fresh, created by this run's own `git status`/`git branch` calls, not a leftover) - `rm` and Python `os.remove` both failed with the standing EPERM-on-unlink this mount gives (Q134 reconfirmed fresh again); left in place since git's own commands worked around it fine (`fetch`, `status`, `pull --ff-only` all ran clean, "already up to date"; only a direct `git checkout agents/audit-backlog` hit the EEXIST message, harmless since the repo was already on that branch). `git rev-list`-equivalent check (pull --ff-only, already up to date) confirms no divergence - Q132 still not reproducible.
