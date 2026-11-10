@@ -12,7 +12,9 @@ DEBRIS (Q134, unchanged, one new data point): did not attempt any bulk cleanup o
 
 DECISION: no worklist item unblocked, no new portal answer, nothing in Q132/Q134/Q135 for this run to decide. Did not touch main, did not force-push, did not merge, did not attempt to resolve any of the three open questions, and wrote this entry as a single direct `Edit` prepend against the existing file content (no `/tmp` staging, no truncate-and-rewrite) specifically to avoid Q135's log-prepend failure mode.
 
-STEP 10 (status publish): will run `node tools/build-audit-status.js` next and log its result, including if it repeats the Q124 token-permissions failure.
+STEP 10 (status publish): ran `node tools/build-audit-status.js` after the commit and push above. It failed with the same Q124 credential-scope gap every run since Q124 was raised has hit: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Checked `QUESTIONS.json`: Q124 is marked `answered`, but the fix needs Rishi to add or widen a credential outside this run's authority, and that has evidently not yet been actioned, so the publish keeps failing on the same cause. Not a new finding, logged per the step 10 instruction to log the result even on failure.
+
+LOCK RELEASE (step 11): writing `.agent-lock` content to `RELEASED-sonnet5-20261110T0412Z-run331` before exiting, via the same overwrite-in-place method used throughout this run (direct write, not `rm`, matching Q134's standing EPERM-on-unlink behaviour).
 
 ## run330 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~03:11 UTC): no-op judgement call, same reasoning as run325-329 - nothing to pick up, nothing newly unblocked, roughly an hour since run329 with no repo or data change in between.
 
