@@ -14,6 +14,10 @@ STEP 9 (commit/push): nothing to commit from steps 1-8 (no tracked file changed 
 
 QUESTIONS.json: no changes - no new question raised, no existing one answered.
 
+STEP 10 (publish): `node tools/build-audit-status.js` failed with the same `Q124` credential-scope gap run333 logged - 404 writing to `rishi235/rbh-data-portal`, the push-capable token for `rbh-site-data` has no access to that repo. Q124 is already open and answered-with-a-recommendation (add a second scoped credential rather than widen the existing one), so no new question raised. Ran it anyway per the standing rule to try even on a failing run.
+
+STEP 11 (lock): `.agent-lock` deleted (via `mv` to a debris filename, the only operation that works on this mount) before exiting.
+
 ---
 
 ## run333 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~06:12 UTC): no-op judgement call, same reasoning as run325-332 - nothing to pick up, nothing newly unblocked, roughly an hour since run332 with no repo or data change in between.
