@@ -16,9 +16,9 @@ STEP 9 (commit/push): nothing to commit from steps 1-8 beyond this log entry. Co
 
 QUESTIONS.json: no changes - no new question raised, no existing one answered.
 
-STEP 10 (publish): running `node tools/build-audit-status.js` after the commit and push above; expected to hit the same Q124 credential-scope gap as every run since Q124 was raised, logged below if so.
+STEP 10 (publish): ran `node tools/build-audit-status.js` after the commit (`ff5cda8`) and push above. Failed with the same Q124 credential-scope gap every run since Q124 was raised has hit: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Q124 is already open and answered-with-a-recommendation, so no new question raised. Ran it anyway per the standing rule to try even on a failing run.
 
-STEP 11 (lock): `.agent-lock` will be overwritten in place with this run's release marker before exiting, since true deletion remains blocked per Q134.
+STEP 11 (lock): `.agent-lock` overwritten in place with this run's release marker before exiting, since true deletion remains blocked per Q134.
 
 LOCK/REPO: `.agent-lock` on disk at pickup read `RELEASED-sonnet5-20261110T1047Z-run337`, written ~56 minutes earlier - over the 45-minute threshold, so treated as stale per the literal rule even though it was a clean release marker. `rm` failed with the standard EPERM on this mount (Q134); cleared by overwriting the same path in place with this run's start marker (no `/tmp` staging, Q135 option 1). `.git/index.lock` and `.git/HEAD.lock` were both present at pickup (0 bytes, ~56 minutes old, no git process running per `ps aux`) - cleared by the standing `mv`-to-debris-filename workaround (Q134), adding two more files to the debris pile; a later `git checkout` during this run also regenerated a fresh `index.lock` that git itself failed to unlink on exit (EPERM again), cleared the same way. `git fetch` / `checkout agents/audit-backlog` (already on it) / `pull --ff-only origin agents/audit-backlog` all completed with nothing to fetch; no divergence, Q132 still not reproducible this run either.
 
