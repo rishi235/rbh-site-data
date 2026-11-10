@@ -16,9 +16,9 @@ STEP 9 (commit/push): nothing to commit from steps 1-8 beyond this log entry. Co
 
 QUESTIONS.json: no changes - no new question raised, no existing one answered.
 
-STEP 10 (publish): will run `node tools/build-audit-status.js` next; expected to fail with the same Q124 credential-scope gap run333/run334 logged (404 writing to `rishi235/rbh-data-portal`). Running it anyway per the standing rule to try even on a failing run; result recorded separately if it differs from that expectation.
+STEP 10 (publish): ran `node tools/build-audit-status.js` - failed as expected with the same Q124 credential-scope gap run333/run334 logged: "404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Q124 is already open and answered-with-a-recommendation, so no new question raised. Ran it anyway per the standing rule to try even on a failing run.
 
-STEP 11 (lock): `.agent-lock` will be cleared the same overwrite-in-place way used at pickup, since true deletion remains blocked per Q134.
+STEP 11 (lock): `.agent-lock` cleared the same overwrite-in-place/mv-to-debris way used at pickup, since true deletion remains blocked per Q134.
 
 ## run334 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~07:11 UTC): no-op judgement call, same reasoning as run325-333 - nothing to pick up, nothing newly unblocked, roughly an hour since run333 with no repo or data change in between.
 
