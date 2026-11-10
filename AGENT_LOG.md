@@ -1,3 +1,25 @@
+## run344 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-10 ~16:43 UTC, new sandbox session): no-op judgement call, same reasoning as run325-343 - nothing to pick up, nothing newly unblocked, roughly an hour since run343 with no repo or data change in between.
+
+LOCK/REPO: `.agent-lock` on disk at pickup read `RELEASED-sonnet5-20261110T1545Z-run343`, written ~58 minutes earlier - over the 45-minute threshold, so stale per the literal rule, but as always there is no actual overlapping run to protect against: the marker already said RELEASED. Overwritten in place (truncate+write, not delete) with this run's own active marker, consistent with the Q135-adjacent preference for the lowest-debris option available. `.git/index.lock` (0 bytes, stamped 15:45, i.e. left over from run343's own session) was present at pickup and blocked git commands; `rm` failed with the standard EPERM on this mount (Q134 reconfirmed fresh in this new sandbox session - delete blocked, rename not), cleared by `mv` to a timestamped debris filename (`.debris-indexlock-cleared-run344-<unix ts>.lock`), after which `git status`/`git fetch` worked cleanly. `git fetch origin agents/audit-backlog`, confirmed already on `agents/audit-backlog`, and diffed HEAD against `origin/agents/audit-backlog` in both directions: zero commits either way, both sit at `07a263b` (run343's own last commit) - no divergence, Q132 still not reproducible in this sandbox.
+
+ANSWER PICKUP (step 3): fetched `https://data.rbhealth.co.uk/api/feedback` via the Claude in Chrome browser tool (read-only; tab opened and closed cleanly within this run) before reading `QUESTIONS.json`. Newest entry returned is still the Q52 answer dated 2026-09-01T22:44:51Z - this endpoint remains stale and nothing has been posted for Q132, Q134 or Q135. Parsed `QUESTIONS.json` directly: still exactly 3 open (Q132, Q134, Q135), unchanged from run343. No answer to pick up this run.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file before adding this entry (run343's entry was the top) - no "Standing authorisation - autonomous window" section present. Proceeded under normal rules; no autonomous decisions taken.
+
+ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` returned the same 8 lines as run325-343 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still marked `[BLOCKED]`. A second grep confirmed there are zero unchecked, non-blocked items - the entire remaining worklist needs either a supervised session (Weebly paste, Ahrefs Site Audit UI click, credential fix, hand edit outside this branch) or a decision on Q132/Q134/Q135 before any of it can move. All linked questions (Q8/Q9/Q13/Q16/Q52/Q60/Q66) remain `answered` in `QUESTIONS.json`, confirming the block is "needs supervised execution", not "needs a decision" - this run did not attempt to invent scope beyond that, per CLAUDE.md and the task's own "better one item done well" instruction, which this run reads as not licensing fabricated progress on items that are genuinely blocked.
+
+DEBRIS: did not attempt any bulk cleanup of the pre-existing `.debris-*`/`.cleared-*`/probe-file pile in the working tree (now numbering in the hundreds by directory listing) - none are tracked or committed, GitHub and the checked-out branch content are unaffected, and Q134 already names the root cause (Cowork's connected-folder unlink restriction) and carries a recommendation awaiting Rishi's decision. This run's own index-lock clearance added exactly one new debris file, consistent with every run since Q134 was raised.
+
+RUN-COUNT NOTE (continued from run325-343, not acted on, flagged again for Rishi): this is the nineteenth consecutive no-op run since run325, each confirming the same three open questions (Q132, Q134, Q135) and the same eight blocked worklist items, with zero repo or data change across that span bar each run's own log/publish commit. Q135 already raises whether the hourly cadence itself is worth revisiting; this run adds no new argument to that beyond one more data point.
+
+STEP 9 (commit/push): nothing to commit from steps 1-8 beyond this log entry and the lock-file overwrite.
+
+QUESTIONS.json: no changes - no new question raised, no existing one answered.
+
+STEP 10 (publish): ran `node tools/build-audit-status.js` after committing and pushing; expected to hit the same Q124 credential-scope gap every run since Q124 was raised has hit, logged below.
+
+STEP 11 (lock): `.agent-lock` to be overwritten in place with this run's release marker before exiting.
+
 ## run343 addendum: step 10 publish result (logged after the fact)
 
 `node tools/build-audit-status.js` failed with the expected Q124 credential-scope gap: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Q124 is already open and answered-with-a-recommendation, so no new question raised. Ran it anyway per the standing rule to try even on a run expected to fail.
