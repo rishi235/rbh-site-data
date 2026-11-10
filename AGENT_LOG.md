@@ -16,7 +16,9 @@ STEP 9 (commit/push): nothing to commit from steps 1-8 beyond this log entry. Co
 
 QUESTIONS.json: no changes - no new question raised, no existing one answered.
 
-STEP 10 (publish): will run `node tools/build-audit-status.js` after the commit and push above. Expected to fail with the same Q124 credential-scope gap every run since Q124 was raised has hit (the token that can push to rbh-site-data has no access to rbh-data-portal). Q124 is already open and answered-with-a-recommendation, so no new question raised regardless of outcome. Running it anyway per the standing rule to try even on a failing run.
+STEP 10 (publish): ran `node tools/build-audit-status.js` after the commit (`4fb1018`) and push above. Failed with the same Q124 credential-scope gap every run since Q124 was raised has hit: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal." Q124 is already open and answered-with-a-recommendation, so no new question raised. Ran it anyway per the standing rule to try even on a failing run.
+
+GIT LOCK NOTE (new detail this run, Q134): during this run's own `git add`/`git commit` sequence, `.git/index.lock` and `.git/HEAD.lock` reappeared mid-sequence (not just stale from a prior run) - git's own cleanup-on-exit `unlink` calls failed with the same EPERM this mount gives every unlink, so git's normal end-of-command lock removal is itself broken here, not only cross-run handoff. Cleared both the same way (`mv` to a debris filename) and the commit then completed with warnings but no data loss (`git log` confirmed the commit landed before retrying). This sharpens Q134: the root cause blocks git's own internal lock cleanup, not only this script's between-run lock file.
 
 STEP 11 (lock): `.agent-lock` will be overwritten in place with this run's release marker before exiting, same method used at pickup, since true deletion remains blocked per Q134.
 
