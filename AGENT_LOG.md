@@ -16,6 +16,10 @@ QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the curren
 
 No worklist item ticked (none eligible), no new question raised (nothing new found beyond the Q134 shape already covered above).
 
+## run363 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged. Commit `0167685` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run362 addendum: step 10 publish result (logged after the fact)
 
 Failed with the same Q124 credential-scope gap every run since run358 has hit: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `97cd796` pushed clean to `agents/audit-backlog` beforehand. Also note for the record: both `git commit` and `git push` this run left behind their own `.git/index.lock` / `HEAD.lock` / loose-object tmp files on exit (unlink EPERM, same Q134 shape applying inside `.git` itself, not just to `.agent-lock`), cleared each time by renaming rather than deleting; no new question raised since Q134 already covers this.
