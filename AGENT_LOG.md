@@ -24,9 +24,9 @@ ITEM SELECTION (step 5): worklist's 8 `[ ]` lines are the same as every run sinc
 
 COMMIT/PUSH: this log entry, the QUESTIONS.json note update for Q134, and the .git/*.lock cleanup (no tracked-file change from the lock removal itself). Debris deletion touched only untracked/gitignored files so produces no diff to commit beyond this log entry.
 
-STEP 10: `node tools/build-audit-status.js` run after push.
+STEP 10: `node tools/build-audit-status.js` run after push. Hit the same pre-existing Q124 credential-scope gap every prior run has hit: "Publish failed: 404 Not Found writing to rishi235/rbh-data-portal... the token that can push to rbh-site-data has no access to rbh-data-portal. Needs Rishi to add or widen a credential." Unchanged from run358 and earlier; not something this run can fix.
 
-STEP 11: `.agent-lock` overwritten in place with a RELEASED marker before exiting (still cannot be deleted even via native tools from within this run's own bash session for the live `.agent-lock` file specifically - not retested natively since the file is needed live until the run ends).
+STEP 11: `.agent-lock` overwritten in place with a RELEASED marker before exiting.
 
 ## run358 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~14:43 UTC, new sandbox session): no-op, 34th consecutive since run325. Not repeating the run325-357 essay.
 
