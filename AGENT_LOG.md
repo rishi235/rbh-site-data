@@ -1,3 +1,7 @@
+## run361 addendum: step 10 publish result (logged after the fact)
+
+Failed with the same Q124 credential-scope gap every run since run358 has hit: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `02911a4` pushed clean to `agents/audit-backlog` beforehand.
+
 ## run361 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~17:12 UTC, new sandbox session): no-op, 36th consecutive since run325. Full 34-checker sweep run as this run's quality-pass fallback, clean.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T16:15:00Z-run360`, ~58 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink documented in Q134 (reconfirmed, not assumed); overwrote in place instead, same rename-not-delete convention every run since has used. No `.git/*.lock` files present.
