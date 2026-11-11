@@ -1,3 +1,7 @@
+## run362 addendum: step 10 publish result (logged after the fact)
+
+Failed with the same Q124 credential-scope gap every run since run358 has hit: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `97cd796` pushed clean to `agents/audit-backlog` beforehand. Also note for the record: both `git commit` and `git push` this run left behind their own `.git/index.lock` / `HEAD.lock` / loose-object tmp files on exit (unlink EPERM, same Q134 shape applying inside `.git` itself, not just to `.agent-lock`), cleared each time by renaming rather than deleting; no new question raised since Q134 already covers this.
+
 ## run362 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~18:12 UTC, new sandbox session): no-op, 37th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T17:17:34Z-run361`, ~55 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink documented in Q134 (reconfirmed, not assumed); overwrote in place instead, same rename-not-delete convention every run since has used. No `.git/*.lock` files present.
