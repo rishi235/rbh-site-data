@@ -18,7 +18,9 @@ QUESTIONS.json: not adding a new question for the fix above, since nothing is le
 
 ESCALATION (unchanged from run325-356, repeating briefly): all 8 worklist items remain blocked on a supervised session (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) or on Rishi answering Q132/Q134/Q135 directly. This is the 33rd consecutive run with no worklist item actioned, though this is the first of those 33 to find and fix a concrete git-level fault rather than reconfirm an unchanged state. Recommend Rishi either pause/lengthen this hourly schedule until a supervised session actions the blocked items, or explicitly authorise a cleanup of the untracked debris pile (none of it is git-tracked, so bulk deletion is safe and reversible in principle, EPERM permitting) and a decision on Q132/Q134/Q135. Not doing either myself.
 
-STEP 10: `node tools/build-audit-status.js` run after pushing; expected to hit the pre-existing Q124 credential-scope gap (PAT scoped to rbh-site-data only, portal publish needs rbh-data-portal) unless that has separately been resolved - recorded below with the actual result.
+COMMIT/PUSH: committed as `1c38b32` (on top of `d0fe797`), pushed clean to `origin/agents/audit-backlog` with no ref-lock warning this time, confirming the fix holds for a real push, not just a read-only fetch.
+
+STEP 10: ran `node tools/build-audit-status.js` after pushing. Failed with the same pre-existing Q124 credential-scope gap (404 writing to rbh-data-portal, PAT scoped to rbh-site-data only) every prior run has hit - not a new fault, unrelated to this run's ref fix.
 
 STEP 11: `.agent-lock` to be overwritten in place with a RELEASED marker before exiting.
 
