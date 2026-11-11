@@ -1,4 +1,22 @@
-## run367 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~22:13 UTC, new sandbox session): no-op, 42nd consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+## run368 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~23:12 UTC, new sandbox session): no-op, 43rd consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T22:15:37Z-run367`, ~57 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. Overwrite-in-place succeeded; direct delete still blocked (`rm -f .agent-lock` gave `Operation not permitted`), same Q134 unlink-EPERM shape every run since 360 has hit.
+
+GIT LOCK DEBRIS (same Q134 root cause): `.git/HEAD.lock` was present, ~58 minutes old, zero git processes running (`ps aux` confirmed empty), so treated as a crashed-process lock. Delete blocked the same way; `mv` to `.git/HEAD.lock.old` worked and unblocked `git checkout` immediately. A further `.git/ORIG_HEAD.lock` warned "unable to unlink ... Operation not permitted" during `git pull` but did not block the pull completing. Debris left where it landed rather than chased further this run.
+
+REPO: `git fetch origin` then `git checkout agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - already on `agents/audit-backlog`, "Already up to date". HEAD at `6046405` ("run367 addendum: record step 10 publish failure (Q124, unchanged)"), matching origin - no divergence, Q132 still not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree (output kept in this run's scratch space, not committed). Result: all 37 exited 0 / clean. Spot-checked every WARN/NOTE line printed (gbp-packs, cdn-pins, postcodes, url-scheme, pharmacy-first-safety-net, address-region, branch-identity, branch-links, brand-spelling, em-dashes, nap, whatsapp-route) and all match the set already recorded as KNOWN exceptions or open questions (Q15, Q45, Q61, Q64, Q71, Q72, Q111, Q20, the postcode/address-region ordering notes, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift warning). No new finding.
+
+LOG-WRITE METHOD NOTE (re Q135): this entry was written by a direct in-place `Edit` at the file's exact current top line, with no `/tmp` staging file, consistent with the safer convention adopted since Q135.
+
+No worklist item ticked (none eligible), no new question raised. This is the 43rd consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T21:45:59Z-run366`, ~27 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content is already a release marker (same convention run360 onward has used: a `RELEASED-*` content is treated as not-locked regardless of age, since it means the prior run already finished). Overwrote in place with an `ACTIVE-sonnet5-...-run367` marker to claim it; delete still not attempted given the established Q134 unlink-EPERM shape.
 
