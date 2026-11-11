@@ -52,6 +52,10 @@ QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the curren
 
 No worklist item ticked (none eligible), no new question raised (nothing new found beyond the Q134 shape already covered above).
 
+## run365 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged. Commit `3693eff9` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run364 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged. Commit `6745c71e` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
