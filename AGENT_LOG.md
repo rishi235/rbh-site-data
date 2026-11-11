@@ -1,3 +1,15 @@
+## run356 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~03:12 UTC, new sandbox session): no-op, 32nd consecutive since run325. Not repeating the run325-355 essay.
+
+LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261111T021540Z-run355`, ~57 minutes old (over the 45-minute threshold, already a release marker, treated as stale/released either way). Overwrote in place with a fresh LOCKED marker, no new debris file. `.git/index.lock`, `.git/HEAD.lock` and the usual pile of `.cleared-*` leftovers are present as before; git itself ran clean regardless (`fetch`, `pull --ff-only`, `rev-list --left-right --count` = `0 0`), HEAD at `c6f7929` (run355's commit) matching origin exactly. Q132 still not reproducible.
+
+ANSWER PICKUP (step 3): done live via Claude in Chrome (navigate + get_page_text on the feedback endpoint, read-only, tab closed after). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. Nothing posted for Q132, Q134 or Q135, or anything newer.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file at pickup. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 unchecked lines (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) are still `[BLOCKED]`, each needing a supervised-session action (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. Zero unblocked items. Not re-running the quality-pass fallback - nothing has changed since run346's sweep.
+
+ESCALATION: unchanged from run325-355. 2197 untracked debris files remain, none touched this run. Recommend Rishi pause/lengthen this schedule or run the supervised session that would action Q8/Q9/Q13/Q16/Q52/Q60/Q66 and/or answer Q132/Q134/Q135; not doing either myself.
+
 ## run355 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~02:12 UTC, new sandbox session): no-op, 31st consecutive since run325. Not repeating the run325-354 essay.
 
 LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261111T011449Z-run354`, about 58 minutes old at pickup (over the 45-minute threshold, already a release marker, treated as stale/released either way). Overwrote in place with a fresh LOCKED marker, no new debris file (the 2196-file debris pile from run325-354's workaround is unchanged this run; not adding to it and not attempting to clean it up myself, see ESCALATION). `.git/index.lock` and `.git/HEAD.lock` were present (0 bytes, ~58 minutes old); `rm` failed EPERM on both, consistent with Q134. Left both as-is rather than renaming to new `.debris-*` files: `git fetch`, `git pull --ff-only` and `git rev-parse --abbrev-ref HEAD` all ran clean despite the locks (`git checkout` alone complained about "another git process", but we were already on the correct branch so it was not needed). `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` returned `0 0` - no divergence this run, HEAD at `b7ee46a` (run354's commit), matching origin exactly. Q132 (the October divergence) still not reproducible.
