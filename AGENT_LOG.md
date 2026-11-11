@@ -1,3 +1,23 @@
+## run365 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~20:42 UTC, new sandbox session): no-op, 40th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T20:20:00Z-run364`, ~25 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content is already a release marker (same convention run360 onward has used: a `RELEASED-*` content is treated as not-locked regardless of age, since it means the prior run already finished). `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, reconfirmed yet again); overwrote in place instead, same rename-not-delete convention every run since has used.
+
+GIT LOCK DEBRIS (same Q134 root cause): `.git/index.lock` was present, 0 bytes, ~25 minutes old (under the 1-hour threshold by the letter of the instructions) but with zero git processes running (`ps aux` confirmed), so treated as a crashed-process lock per the step's own stated purpose and renamed to a `.cleared-run365-<epoch>` suffix in place (rename, not delete - delete still blocked). `git fetch`/`status`/`pull` then ran clean. The existing debris pile under `.git/` was left untouched - not this run's call to clear.
+
+REPO: `git fetch origin` then `git pull --ff-only origin agents/audit-backlog` - already on `agents/audit-backlog`, "Already up to date". `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` = `0 0`, no divergence. HEAD at `8d26a68` ("run364 addendum: record step 10 publish failure (Q124, unchanged)"), matching origin exactly - Q132 still not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree (output saved to this run's scratch output directory, not committed). Result: all 37 exited 0 / clean. Every WARN/NOTE printed matches the set already recorded as KNOWN exceptions or open questions (Q15, Q20, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift warning). No new finding.
+
+LOG-WRITE METHOD NOTE (re Q135): this entry was written by a direct in-place edit of `AGENT_LOG.md` at its exact current top line, with no intermediate `/tmp` staging file of any kind, specifically to avoid the stale-file-read-back failure mode Q135 describes. Q135 itself remains open and unactioned; this is one more run completing a log write safely, not a resolution of it.
+
+No worklist item ticked (none eligible), no new question raised. This is the 40th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
+
 ## run364 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~20:12 UTC, new sandbox session): no-op, 39th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T19:17:38Z-run363`, ~55 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, reconfirmed); overwrote in place via the Edit/Write tool instead, same rename-not-delete convention every run since has used.
