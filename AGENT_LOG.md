@@ -1,3 +1,17 @@
+## run360 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~16:12 UTC, new sandbox session): no-op, 35th consecutive since run325.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T15:50:10Z-run359`, ~22 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content shows run359 already released it (consistent with the established rename-not-delete convention from Q134), so treated as not-locked rather than as an active run. No `.git/*.lock` files present this time.
+
+ANSWER PICKUP (step 3): checked https://data.rbhealth.co.uk/api/feedback read-only via Chrome. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350 - nothing new, and no portal entries exist for the three open process questions (Q132/Q134/Q135), which is expected since those are flagged for a supervised session rather than portal pickup.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 `[ ]` lines as every run since 325 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) are all still `[BLOCKED]` on supervised-session actions this unattended run cannot perform. QUESTIONS.json is unchanged: Q132 (git history divergence), Q134 (Cowork-mount EPERM-on-unlink, partially characterised) and Q135 (log-prepend data-loss incident, recommending unattended AGENT_LOG.md writes be paused pending human review) are all still open and unanswered.
+
+JUDGEMENT CALL: given Q135's standing, unactioned recommendation to pause unattended writes to this file pending investigation, and given the backlog is now 35 runs deep into the same three infrastructure questions with no new information this run, this run deliberately did NOT attempt any further git reconciliation, mass file deletion, or other infrastructure remediation beyond this single direct in-place edit (no `/tmp` staging, per Q135). The right next step is a supervised session with Rishi to resolve Q132/Q134/Q135 together - continuing to fire this schedule hourly against the same three open questions is producing log growth without progress. Flagging this plainly rather than writing a 36th near-identical entry.
+
+COMMIT/PUSH: this log entry only. No worklist or QUESTIONS.json change.
+
 ## run359 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~15:42 UTC, new sandbox session): debris pile actually cleared for the first time, using native Windows tools this sandbox has not had before. Not a worklist item; infrastructure remediation squarely in scope given 34 consecutive blocked runs.
 
 LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T14:45:38Z-run358`, ~56 minutes old (over the 45-minute staleness threshold). Attempted the usual bash `rm`/overwrite and hit the same blanket `Operation not permitted` on unlink that Q134 documents (confirmed yet again: write succeeds, delete does not, even on a file this session just created). `.git/index.lock`, `.git/HEAD.lock` and `.git/ORIG_HEAD.lock` were also present as live (non-`.cleared`) files and `git checkout`/`git pull` both complained or warned around them.
