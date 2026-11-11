@@ -1,3 +1,21 @@
+## run367 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~22:13 UTC, new sandbox session): no-op, 42nd consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T21:45:59Z-run366`, ~27 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content is already a release marker (same convention run360 onward has used: a `RELEASED-*` content is treated as not-locked regardless of age, since it means the prior run already finished). Overwrote in place with an `ACTIVE-sonnet5-...-run367` marker to claim it; delete still not attempted given the established Q134 unlink-EPERM shape.
+
+GIT LOCK DEBRIS (same Q134 root cause): `.git/HEAD.lock`, `.git/ORIG_HEAD.lock` and `.git/index.lock` were all present, ~27-30 minutes old, with zero git processes running (`ps aux` confirmed empty), so treated as crashed-process locks per the step's own stated purpose. Moved all three into `.git-lock-debris-quarantine-local/` with `cleared-run367-<epoch>` suffixes (rename, not delete - delete still blocked); `git checkout`/`pull` then ran clean. The existing debris pile under `.git/` top level (hundreds of old cleared-* lock files from runs 304-365) was left untouched - not this run's call to clear.
+
+REPO: `git fetch origin` then `git checkout agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - already on `agents/audit-backlog`, "Already up to date". `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` = `0 0`, no divergence. HEAD at `c84e0a4` ("run366 addendum: record step 10 publish failure (Q124, unchanged)"), matching origin exactly - Q132 still not reproducible this sandbox. `git status --short` clean aside from the usual genuine `audits/*` untracked snapshots and the quarantine folder.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree (output kept in this run's scratch space, not committed). Result: all 37 exited 0 / clean. Every WARN/NOTE printed matches the set already recorded as KNOWN exceptions or open questions (Q15, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift warning). No new finding.
+
+No worklist item ticked (none eligible), no new question raised. This is the 42nd consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
+
 ## run366 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged. Commit `dcf97da` was already pushed clean to `agents/audit-backlog` beforehand (confirmed `0 0` divergence against origin after push), so the publish failure does not affect the commit.
