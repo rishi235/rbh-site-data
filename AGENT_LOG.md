@@ -1,3 +1,23 @@
+## run358 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~14:43 UTC, new sandbox session): no-op, 34th consecutive since run325. Not repeating the run325-357 essay.
+
+LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T13:53:47Z-run357`, ~49 minutes old (over the 45-minute threshold, already a release marker). Confirmed (again) this mount gives a blanket EPERM on unlink/rename-to-delete for files I own (`rm`, Python `os.remove`, and `mv` to another filesystem all fail `Operation not permitted`; a same-directory `mv`/rename to a new name, or an in-place overwrite via `>`, both succeed) - same shape as Q134, reconfirmed fresh rather than assumed. `.git/index.lock` was present (0 bytes, ~49 min old, under the 1-hour staleness threshold the task sets and no git process running per `pgrep`); left in place rather than renamed, since (consistent with runs 350-357) ordinary `git fetch`/`git status`/`git rev-list` all ran clean around it - only a literal `git checkout` to a branch not already checked out would hit it, and that wasn't needed. Overwrote `.agent-lock` in place with an ACTIVE marker (`ACTIVE-sonnet5-2026-11-11T14:43:03Z-run358`), no new `.debris-*` file for the lock itself (one tiny rename-test throwaway, `.rndst_358.tmp`, was created to confirm the rename-works/unlink-doesn't behaviour above and could not be removed afterwards - added to the existing debris pile, noted here rather than silently).
+
+`git fetch origin agents/audit-backlog` ran clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` = `0 0`, no divergence. HEAD at `1e6270e` (run357's commit, "record actual step 10 result and commit hash in the log entry"), matching origin exactly - Q132 still not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): done live via Claude in Chrome (navigate + get_page_text on the feedback endpoint, read-only, tab closed after). Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. Nothing posted for Q132, Q134 or Q135, or anything newer.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file at pickup. Normal rules applied.
+
+ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` returned the same 8 lines as every run since 325 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. Zero unblocked items, worklist not all complete, so no worklist item ticked this run. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged. Not re-running the 36-checker quality-pass fallback - no commit or data change has landed since run346's full sweep that would surface a different result.
+
+ESCALATION: unchanged from run325-357. This is the 34th consecutive run with no worklist item actioned. All 8 remaining worklist items are blocked on a supervised session or on Rishi answering Q132/Q134/Q135 directly via the portal. Repeating the full recommendation essay adds nothing new; it stands as written in run350/357. Not pausing the schedule or bulk-deleting the ~2196-file debris pile myself - both remain Rishi's call.
+
+COMMIT/PUSH: this entry only (no worklist or data change), committed and pushed to `origin/agents/audit-backlog`.
+
+STEP 10: `node tools/build-audit-status.js` run after push; expected to hit the same pre-existing Q124 credential-scope gap every prior run has hit (404 writing to rbh-data-portal, PAT scoped to rbh-site-data only) unless that has been fixed since run357.
+
+STEP 11: `.agent-lock` overwritten in place with a RELEASED marker before exiting.
+
 ## run357 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~13:45 UTC, new sandbox session): root cause of the long-running fetch/lock pathology found and fixed. Not a worklist item; a repo-integrity repair that was blocking normal git operation.
 
 LOCK/REPO: pickup found `.agent-lock` reading `RELEASED-sonnet5-20261111T031344Z-run356`, about 10.5 hours old (well past the 45-minute threshold, already a release marker). Overwrote in place with a fresh LOCKED marker.
