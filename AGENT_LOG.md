@@ -1,4 +1,20 @@
-## run363 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~19:12 UTC, new sandbox session): no-op, 38th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+## run364 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~20:12 UTC, new sandbox session): no-op, 39th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T19:17:38Z-run363`, ~55 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, reconfirmed); overwrote in place via the Edit/Write tool instead, same rename-not-delete convention every run since has used.
+
+GIT LOCK DEBRIS (same Q134 root cause, same shape as run363): `.git/index.lock` and `.git/HEAD.lock` were both present, 0 bytes, ~55 minutes old, with zero git processes running (`ps aux` confirmed), so treated as crashed-process locks per the step's own stated purpose. Renamed both to `.cleared-run364-<epoch>` suffixes in place (rename, not delete - delete still blocked); `git fetch`/`status`/`pull` then ran clean. The existing `.git` top-level debris pile (~2230 old lock/debris filenames, catalogued in earlier runs and already flagged under Q134) was left untouched - not this run's call to clear. One leftover probe file this run created while confirming the delete/rename behaviour (`zzz_probe.txt`) was moved into `.git-lock-debris-quarantine-local/` rather than left loose, consistent with the established convention.
+
+REPO: `git fetch origin agents/audit-backlog` clean; `git rev-list --left-right --count HEAD...origin/agents/audit-backlog` = `0 0`, HEAD at `47ca96a` matching origin exactly - no divergence, Q132 still not reproducible this sandbox. `git status --short` clean aside from the usual genuine `audits/*` untracked snapshots and the quarantine folder.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree. Result: all 37 exited 0 / clean. No new finding beyond the already-recorded KNOWN exceptions and open questions.
+
+No worklist item ticked (none eligible), no new question raised. This is the 39th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T18:15:53Z-run362`, ~57 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, reconfirmed); overwrote in place instead, same rename-not-delete convention every run since has used.
 
