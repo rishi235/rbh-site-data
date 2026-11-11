@@ -1,3 +1,21 @@
+## run361 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~17:12 UTC, new sandbox session): no-op, 36th consecutive since run325. Full 34-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T16:15:00Z-run360`, ~58 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink documented in Q134 (reconfirmed, not assumed); overwrote in place instead, same rename-not-delete convention every run since has used. No `.git/*.lock` files present.
+
+REPO: `git fetch origin` then `git branch -a` / `git status` - already on `agents/audit-backlog`, up to date with `origin/agents/audit-backlog`, no divergence. Only untracked files are the 31 genuine `audits/*` snapshots run359 deliberately kept; nothing else to reconcile. Q132 still not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): `grep -n '^\- \[ \]' AGENT_WORKLIST.md` returned the same 8 lines as every run since 325 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: since no unblocked worklist item exists and not every item is ticked (so the letter of step 5's "ALL items complete" branch does not strictly apply), ran every `tools/check-*.js` checker (34 scripts) against the current working tree as a bounded, non-destructive verification pass, consistent with what run346's last full sweep did. Result: all 34 exited 0 / "clean". Every WARN/NOTE printed is an already-recorded KNOWN exception or open question (Q45/Q61/Q111/Q16/Q20, the postcode/address-region ordering notes, the CDN `@main` data-hop warning, etc.) - nothing new. No regression since run346's sweep, no in-repo defect found to fix, so no code or data change this run beyond this log entry.
+
+JUDGEMENT CALL: this is the 36th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135), none of which an unattended run can resolve (two need a supervised Weebly/Ahrefs session, one needs Rishi's git-history/mount investigation, one needs Rishi's log-prepend-safety decision). Confirming a clean checker sweep is real verification work, not padding, but it is also the second such sweep logged in this stretch with an identical "nothing new" result. Flagging again, plainly, rather than writing a 37th near-identical essay: the backlog needs a supervised session, not more hourly unattended runs against the same three questions.
+
+COMMIT/PUSH: this log entry only. No worklist or QUESTIONS.json change.
+
 ## run360 addendum: step 10 publish result (logged after the fact)
 
 Failed with the same Q124 credential-scope gap run359 hit: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently.
