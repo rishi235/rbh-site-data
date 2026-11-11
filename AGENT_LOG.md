@@ -1,3 +1,7 @@
+## run360 addendum: step 10 publish result (logged after the fact)
+
+Failed with the same Q124 credential-scope gap run359 hit: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently.
+
 ## run360 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-11 ~16:12 UTC, new sandbox session): no-op, 35th consecutive since run325.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T15:50:10Z-run359`, ~22 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content shows run359 already released it (consistent with the established rename-not-delete convention from Q134), so treated as not-locked rather than as an active run. No `.git/*.lock` files present this time.
