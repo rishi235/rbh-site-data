@@ -1,3 +1,21 @@
+## run390 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~19:12 UTC): no-op on the worklist (65th consecutive since run325); 37-checker quality pass clean including `check-live-hours.js`, no new findings; Q132/Q134/Q135 unchanged, no new portal answers.
+
+LOCK (step 1): Cowork bash-mounted path only. `.agent-lock` content was `RELEASED-sonnet5-20261112T181705Z-run389`, mtime 18:17:05Z, 55 minutes old at the pre-check (19:12:38Z) - over the 45-minute threshold, so treated as stale per the rule regardless of the RELEASED marker, same shape as every run since 360. `rm -f .agent-lock` failed `Operation not permitted` (Q134, still open, reconfirmed again). Overwrote its content in place via plain shell redirect (`>`) with the current run marker; no attempt made to delete or rename it, consistent with Q134's diagnosis that this mount cannot unlink anything written into it.
+
+REPO (step 2): `.git/index.lock` present, 56 minutes old at the check - under the 1-hour threshold, so left alone per the rule (no git process running, but age not yet over 60 minutes). It did not block anything: `git fetch origin`, confirmed already on `agents/audit-backlog`, and `git pull --ff-only origin agents/audit-backlog` all completed cleanly, "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json has 136 questions total, 3 open (Q132, Q134, Q135), unchanged from run389. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome (read-only navigate + get_page_text, no click/type/login attempted), closed the tab afterwards. Newest entry is still the Q52 answer, 2026-09-01T22:44:51Z. No entry for Q132, Q134 or Q135. No status changes made.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file. Proceeded without autonomous decisions.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 remain unchecked in AGENT_WORKLIST.md (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. Confirmed by direct grep (8 `- [ ]` lines, all 8 `[BLOCKED]`, 42 `- [x]` lines). 0 unblocked unchecked items exist, so this run did the quality-pass fallback instead.
+
+QUALITY PASS: ran all 37 `tools/check-*.js` scripts. The 36 non-live checkers: 36/36 exit 0, identical warning/known-issue shape to run389 (address-region 2 warnings, branch-links 1 warning, cdn-pins 3 warnings/7 known, nap 1 warning, opening-hours 1 note, pharmacy-first-safety-net 1 warning, postcodes 3 warnings, gbp-packs 15 warnings, service-links 6 known, whatsapp-route 1 known, url-scheme clean, plus the standing per-pack WARNs already tracked against Q64/Q71/Q72/Q45/Q61/Q111/Q15/Q16). `check-live-hours.js`: fetched 14 branches' live homepages and contact/hours pages (28 live pages total), wrote `audits/live-hours-check-2026-11-12.json` - byte-identical to the version already committed at HEAD from run389's fetch (`git diff --stat` showed no change), so no new live-site drift since the last check. exit 0 (survey tool, no gate).
+
+RESULT: no repo changes to commit this run. No worklist item ticked (none unblockable), no new QUESTIONS.json entries, no AGENT_WORKLIST.md edit. Status page republished per step 10 to keep it honest even on a no-op run.
+
+COMMIT: none (no file changes to stage).
+
 ## run389 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~18:12 UTC): no-op on the worklist (64th consecutive since run325); 37-checker quality pass clean including `check-live-hours.js`, no new findings; Q132/Q134/Q135 unchanged, no new portal answers.
 
 LOCK (step 1): Cowork bash-mounted path only. `.agent-lock` content was `RELEASED-sonnet5-20261112T171822Z-run388`, mtime 17:18:22Z, 54 minutes old at the pre-check (18:12:45Z) - over the 45-minute threshold, so treated as stale per the rule regardless of the RELEASED marker, same shape as every run since 360. `rm -f .agent-lock` failed `Operation not permitted` (Q134, still open, reconfirmed again). Overwrote its content in place via plain shell redirect (`>`) with the current run marker; no attempt made to delete or rename it, consistent with Q134's diagnosis that this mount cannot unlink anything written into it.
