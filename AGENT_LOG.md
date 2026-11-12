@@ -1,3 +1,21 @@
+## run375 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~04:42 UTC): no-op on the worklist (50th consecutive since run325), clean quality-pass fallback, no new findings.
+
+LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T04:16:45Z-run374`, ~26 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place (no unlink attempted, per the standing Q134 EPERM finding) with a fresh `sonnet5-2026-11-12T04:42:40Z-run375-active` marker. `.git/index.lock` was present, 0 bytes, stamped ~04:16 (run374's own debris), ~26 minutes old at the time of this run's check - under the 1-hour threshold, and harmless in the event: the subsequent `git fetch`/`pull` ran clean with no lock error, so no removal was attempted.
+
+REPO: `git fetch origin` / already on `agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - "Already up to date". HEAD at `fd313bf` (run374's addendum commit), matching origin exactly, no divergence (Q132 not reproduced this run).
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text - succeeded without any Cloudflare Access login prompt. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. No entry for Q132, Q134 or Q135. Nothing new to pick up. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, Ahrefs/GSC UI click-through, or GBP manual edit) this unattended run cannot perform. No item ticked.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree. Result: 37/37 exit 0, clean. Every WARN/NOTE line printed was spot-checked against the standing set of KNOWN exceptions or open questions (Q15, Q20, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes on gbp-packs/TEMPLATE.md and modules/branch/pages/{INDEX,SEO}.md, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift, still 64 commits behind main) - no new finding on the content side.
+
+Q135 note: this run's log-prepend used a direct in-place file edit rather than the `/tmp` staging pattern that caused the Q135 data loss, per that question's own option 1 - a precaution only, not an autonomous answer to the still-open Q135 (option 2, pausing all unattended AGENT_LOG.md writes, was not applied, since an open question is not a decision this run can take).
+
+No worklist item ticked (none eligible on substance, not tooling), no new question raised on the backlog itself. This is the 50th consecutive run with no worklist progress; the backlog still needs a supervised session with Rishi for the same reasons the last 49 entries gave (Weebly paste queue, Ahrefs/GSC UI actions, GBP manual edits, and the Q132 history reconciliation).
+
 ## run374 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `4793a8a5` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
