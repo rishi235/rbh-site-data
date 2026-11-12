@@ -16,6 +16,10 @@ QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the curren
 
 No worklist item ticked (none eligible), no new question raised. This is the 46th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
 
+## run371 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `c145ca14` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run370 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~00:42 UTC, new sandbox session): no-op, 45th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean. New Q134 escalation: a stray ref-shaped lock file inside `.git/refs/remotes/origin/agents/` blocked `git fetch` outright this run, not just produced a warning like prior runs' index/HEAD locks.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-12T00:20:24Z-run369`, ~22 minutes old - under the 45-minute staleness threshold by the letter of step 1, but the content is already a release marker (same convention run360 onward has used: a `RELEASED-*` content is treated as not-locked regardless of age, since it means the prior run already finished). Direct `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, same as every run since run360); overwrote in place via the Write tool with a fresh `ACTIVE-sonnet5-...-run370` marker instead, same convention.
