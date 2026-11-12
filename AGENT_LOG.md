@@ -14,7 +14,13 @@ QUALITY PASS: ran all 37 `tools/check-*.js` scripts against the current tracked 
 
 FIX MADE: none needed in-repo this run.
 
+PUBLISH (step 10): `node tools/build-audit-status.js` failed with the same 404 writing to `rishi235/rbh-data-portal` as run383 and predecessors - the Q124 credential-scope gap, unchanged. No new information; not re-logged as a new addendum since run383's addendum already covers this exact failure mode.
 
+COMMIT/PUSH (step 9): committed `AGENT_LOG.md` alone as `a96c331c` and pushed to `origin/agents/audit-backlog` cleanly (`58a47d4..a96c331c`). Hit the same standing EPERM-on-unlink cosmetic lock warnings as recent runs (`.git/index.lock`, `.git/HEAD.lock`, stray `tmp_obj_*`) - cleared by renaming aside per the Q134 workaround; commit and push both completed successfully regardless.
+
+LOCK RELEASED (step 11): could not delete `.agent-lock` (EPERM, Q134). Will overwrite its content with `RELEASED-sonnet5-20261112T131500Z-run384` instead, same as every run since 360.
+
+## run383 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~12:12 UTC): no-op on the worklist (58th consecutive since run325); 36-checker + live-hours quality-pass clean, no new findings; fixed a git-fetch-blocking debris regression this run rather than deferring it (new Q134 addendum).
 
 LOCK (step 1): Cowork bash-mounted path only. `.agent-lock` was present, content `RELEASED-sonnet5-20261112T111834Z-run382`, mtime 2026-11-12 11:18:34Z, about 54 minutes old at the pre-check (12:12:38Z) - over the 45-minute threshold, so treated as stale per the rule. `rm -f .agent-lock` failed EPERM as expected (Q134). Overwrote its content in place via the file-edit tool (not bash) with the current run marker, same workaround as every run since 360.
 
