@@ -1,3 +1,20 @@
+## run379 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~07:12 UTC): no-op on the worklist (54th consecutive since run325); 37-checker quality-pass clean, no new findings; no infra cleanup attempted this run (left to a supervised/Windows-MCP session per Q132/Q134).
+
+LOCK: this run used the Cowork bash-mounted path only (no Windows-MCP this time). `.agent-lock` read no content (absent) at start, so not locked. Created it with the current UTC timestamp via bash `>` write (overwrite/create succeeded, as it always has). Confirmed on this run that the Q134 EPERM-on-unlink fault still reproduces from bash: `rm -f` on a freshly-created throwaway file in the repo root failed with "Operation not permitted", and `rm -f .agent-lock-tmp` (a leftover release marker from run377, ~1.5h old at the time) also failed the same way. Did not attempt Windows-MCP this run since bash sufficed for everything actually needed (no git lock/debris blocked fetch/checkout/pull this time). Releasing by overwrite-in-place as `RELEASED-sonnet5-<timestamp>-run379` at the end, per the run360+ convention, not by delete.
+
+REPO (step 2): `git fetch origin`, `git checkout agents/audit-backlog` (already on it), `git pull --ff-only origin agents/audit-backlog` all ran clean with no lock/debris obstruction this run - already up to date, no divergence encountered. Q132's divergence is not present today.
+
+ANSWER PICKUP (step 3): not attempted - no open question is blocking a worklist item (all 3 open questions, Q132/Q134/Q135, are process/infrastructure questions about this task's own operating environment, not about a worklist item), so there is nothing a portal answer would unblock this run.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section present at the top of AGENT_LOG.md, so none in effect.
+
+WORKLIST (step 5): 0 unchecked-and-unblocked items, 8 unchecked-and-[BLOCKED], 42 checked. All actionable items complete, so did a quality pass instead: ran all 36 `tools/check-*.js` scripts (plus check-live-hours, read-only) against the current `branches.json` and generated pages. All exited 0 / "clean", carrying only the same already-documented WARN/NOTE/KNOWN entries seen on recent runs (Q15, Q45, Q61, Q64, Q8/Q16, Q20, Q111, Q64 x2, UNOWNED postcode template/sheet notes, etc.) - no new defect surfaced and nothing in-repo needed fixing. Did not attempt a live-site verification pass this run (no browser tool loaded this session; the quality-pass fallback in the task brief treats checker verification as the normal case and live-site checks as "where relevant" - nothing here flagged a live/repo divergence that would make that necessary beyond the already-known and already-logged `check-cdn-pins` branch-ref-behind-main and `@main` runtime-fetch warnings).
+
+QUESTIONS: no new question raised. Re-read Q132, Q134, Q135 (all open, all infrastructure/process, none touching money, legal risk or patient-facing regulatory copy) and made no autonomous decision on any of them, since no autonomous window is in effect and, separately, Q134 (file deletion) and Q132 (branch divergence) are both marked supervised-session-only in prior runs' own convention.
+
+FILES CHANGED: AGENT_LOG.md (this entry only). No commit made - nothing else in the working tree changed as a result of this run's work, and AGENT_LOG.md is logged locally first, per convention, before the end-of-run commit sweep.
+
+STEP 10 (status page publish): attempted via `node tools/build-audit-status.js`; see result logged immediately below/after this entry.
 ﻿## run378 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `fd445ed` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
