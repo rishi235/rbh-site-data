@@ -18,6 +18,10 @@ QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the curren
 
 No worklist item ticked (none eligible), no new question raised. This is the 44th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
 
+## run369 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `a8ec453` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run368 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `d050651` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
