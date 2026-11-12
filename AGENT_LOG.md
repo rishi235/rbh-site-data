@@ -1,3 +1,35 @@
+## run374 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~04:12 UTC): no-op on the worklist (49th consecutive since run325), clean quality-pass fallback, no new findings.
+
+LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T03:16:06Z-run373`, ~56 minutes old - both stale by the 45-minute rule and a release marker either way. `rm -f` hit the same `Operation not permitted` on unlink this mount has shown every run (Q134, unchanged); overwrote in place with a fresh `2026-11-12T04:12:48Z-sonnet5-run` marker instead, same workaround as recent runs. `.git/index.lock` was present, stamped ~03:16 (run373's own), ~56 minutes old at the time of this run's check - under the 1-hour threshold for this run's own lock-check step, and harmless in the event: the subsequent `git fetch`/`pull` ran clean with no lock error, so no removal was attempted.
+
+REPO: `git fetch origin` / already on `agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - "Already up to date". HEAD at `f534b27` ("run373: quality-pass fallback clean (37/37), no worklist progress (48th consecutive no-op)"), matching origin exactly, no divergence (Q132 not reproduced this run).
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text - succeeded without any Cloudflare Access login prompt. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. No entry for Q132, Q134 or Q135. Nothing new to pick up. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, Ahrefs/GSC UI click-through, or GBP manual edit) this unattended run cannot perform. No item ticked.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree. Result: 37/37 exit 0, clean. Every WARN/NOTE line printed was spot-checked against the standing set of KNOWN exceptions or open questions (Q15, Q20, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes on gbp-packs/TEMPLATE.md and modules/branch/pages/{INDEX,SEO}.md, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift, still 64 commits behind main) - no new finding on the content side.
+
+No worklist item ticked (none eligible on substance, not tooling), no new question raised on the backlog itself. This is the 49th consecutive run with no worklist progress; the backlog still needs a supervised session with Rishi for the same reasons the last 48 entries gave (Weebly paste queue, Ahrefs/GSC UI actions, GBP manual edits, and the Q132 history reconciliation).
+
+## run373 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~03:12 UTC): no-op on the worklist (48th consecutive since run325), clean quality-pass fallback, no new findings.
+
+LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T02:20:31Z-run372`, ~52 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place with a fresh `sonnet5-...-run373-active` marker via the bash tool; no unlink was attempted (per run372's finding that this mount blocks unlink() with EPERM, an overwrite-in-place sidesteps that without needing the Windows-MCP tools, which were not available this session). No `.git/index.lock` or other git lock debris found this run.
+
+REPO: `git fetch origin` / `git checkout agents/audit-backlog` (already on it) / `git pull --ff-only origin agents/audit-backlog` - "Already up to date". HEAD at `ce598e0` matching origin exactly, no divergence (Q132 not reproduced this run).
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text - succeeded without any Cloudflare Access login prompt. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. No entry for Q132, Q134 or Q135. Nothing new to pick up. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, Ahrefs/GSC UI click-through, or GBP manual edit) this unattended run cannot perform. No item ticked.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree. Result: 37/37 exit 0, clean. Every WARN/NOTE line printed was spot-checked against the standing set of KNOWN exceptions or open questions (Q15, Q20, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes on gbp-packs/TEMPLATE.md and modules/branch/pages/{INDEX,SEO}.md, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift, still 64 commits behind main) - no new finding on the content side.
+
+No worklist item ticked (none eligible on substance, not tooling), no new question raised on the backlog itself. This is the 48th consecutive run with no worklist progress; the backlog still needs a supervised session with Rishi for the same reasons the last 47 entries gave (Weebly paste queue, Ahrefs/GSC UI actions, GBP manual edits, and the Q132 history reconciliation).
+
 ## run373 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~03:12 UTC): no-op on the worklist (48th consecutive since run325), clean quality-pass fallback, no new findings.
 
 LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T02:20:31Z-run372`, ~52 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place with a fresh `sonnet5-...-run373-active` marker via the bash tool; no unlink was attempted (per run372's finding that this mount blocks unlink() with EPERM, an overwrite-in-place sidesteps that without needing the Windows-MCP tools, which were not available this session). No `.git/index.lock` or other git lock debris found this run.
