@@ -16,6 +16,10 @@ QUESTIONS: no new question raised. Re-read Q132, Q134, Q135 (all open, all infra
 
 FILES CHANGED this run: AGENT_LOG.md (this entry), plus the untracked `audits/live-hours-check-2026-11-12.json` scratch report (not committed, same convention as prior dated reports). No worklist item ticked, no other repo file touched.
 
+## run381 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `8fc7f5a1` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run380 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~08:15 UTC): no-op on the worklist (55th consecutive since run325); 37-checker quality-pass clean, no new findings; no infra cleanup attempted (left to a supervised/Windows-MCP session per Q132/Q134).
 
 LOCK (step 1): this run used the Cowork bash-mounted path only. `.agent-lock` existed and read `RELEASED-sonnet5-2026-11-12T07:17:54Z-run379` with an mtime ~55 minutes old at the time of the check (over the 45-minute threshold), so treated as stale per the rule and replaced. The same Q134 EPERM-on-unlink shape reproduced immediately: `rm -f .agent-lock` failed "Operation not permitted" even though owned rwx by the session user; worked around by `mv`-ing it to a debris name (which succeeds on this mount) and writing a fresh `.agent-lock` with the current UTC timestamp. A stale 0-byte `.git/index.lock` from a prior run's own cleanup attempt was found the same way (git fetch/pull completed "up to date" but then warned "unable to unlink .git/index.lock" on exit, leaving a fresh one every time); confirmed this does not actually block subsequent git commands - each git invocation creates its own index.lock, completes its operation, and only the post-operation unlink fails, so git stays usable provided the leftover lock is `mv`'d out of the way (not deleted) before the next git call. No stuck process (no index.lock older than 1 hour blocking anything irrecoverably this run).
