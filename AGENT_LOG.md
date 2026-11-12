@@ -16,6 +16,10 @@ QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the curren
 
 No worklist item ticked (none eligible), no new question raised. This is the 45th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions. The one new thing this run surfaced is operational rather than content: Q134's debris is now capable of blocking `git fetch` outright when it lands in `.git/refs/`, which is worse than the cosmetic warnings recorded in prior entries and worth a line in Q134 itself if a future supervised session reopens it.
 
+## run370 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `e68e638` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run369 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~00:12 UTC, new sandbox session): no-op, 44th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
 
 LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T23:17:04Z-run368`, ~55 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. Direct `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, same as every run since run360); overwrote in place with a fresh timestamp instead, same rename/overwrite-not-delete convention.
