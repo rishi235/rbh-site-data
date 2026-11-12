@@ -1,3 +1,23 @@
+## run369 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~00:12 UTC, new sandbox session): no-op, 44th consecutive since run325. Full 37-checker sweep run as this run's quality-pass fallback, clean.
+
+LOCK: pickup found `.agent-lock` reading `RELEASED-sonnet5-2026-11-11T23:17:04Z-run368`, ~55 minutes old - over the 45-minute staleness threshold, so treated as stale per step 1. Direct `rm -f .agent-lock` hit the same blanket `Operation not permitted` on unlink (Q134 shape, same as every run since run360); overwrote in place with a fresh timestamp instead, same rename/overwrite-not-delete convention.
+
+GIT LOCK DEBRIS (same Q134 root cause, worse this run): `.git/index.lock` was present, 0 bytes, created the same second as `.agent-lock` (23:17:05Z), with zero git processes running (`ps aux` confirmed empty). At pickup it was only ~55 minutes old - under the step's own 1-hour threshold for this specific file - so rather than clearing it immediately this run waited (two short `sleep` calls) until it passed the 1-hour mark before touching it, to follow the letter of the rule rather than reuse the `.agent-lock` 45-minute threshold for a different file. Once past 1 hour, direct `rm -f` again hit `Operation not permitted`; `mv` to a timestamped sibling name worked, same as the `.agent-lock` behaviour, and `git fetch`/`checkout`/`pull` then ran clean with no further lock errors this run.
+
+GIT DEBRIS SCALE NOTE: listing `.git/index.lock*` and `.git/HEAD.lock*` turned up several hundred renamed-aside debris files spanning runs as far back as the 100s through run368 (e.g. `index.lock.stale-*`, `HEAD.lock.stale-*`, `.git-lock-debris-quarantine-local/`), confirming this is the same long-running Q134 unlink-EPERM problem, not a one-off. Not cleared this run - that is new scope beyond the single worklist/quality-pass action this procedure allows, and Q134 already exists to track the root cause. Flagging the growing pile size here as it may eventually be worth its own supervised cleanup pass.
+
+REPO: `git fetch origin` then `git checkout agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - already on `agents/audit-backlog`, "Already up to date". HEAD at `2e801ce` ("run368 addendum: record step 10 publish failure (Q124, unchanged)"), matching origin - no divergence, Q132 still not reproducible this sandbox.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z, same as every run back to at least run350. Nothing posted for Q132, Q134 or Q135. Tab closed after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, or Ahrefs UI click-through) this unattended run cannot perform. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree (output kept in this run's scratch space, not committed). Result: all 37 exited 0 / clean. Spot-checked every WARN/NOTE line printed and all match the set already recorded as KNOWN exceptions or open questions (Q15, Q45, Q61, Q64, Q71, Q72, Q111, Q20, the postcode/address-region ordering notes, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift warning, now 64 commits behind main). No new finding.
+
+No worklist item ticked (none eligible), no new question raised. This is the 44th consecutive run blocked on the same 3 worklist items and the same 3 infrastructure questions (Q132/Q134/Q135); repeating the standing flag rather than a fresh essay: the backlog needs a supervised session with Rishi, not more hourly unattended runs against the same three open questions.
+
 ## run368 addendum: step 10 publish result (logged after the fact)
 
 Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `d050651` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
