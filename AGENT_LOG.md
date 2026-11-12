@@ -1,3 +1,19 @@
+## run377 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~05:42 UTC): no-op on the worklist (52nd consecutive since run325), clean quality-pass fallback, no new findings.
+
+LOCK: `.agent-lock` read `RELEASED-sonnet5-2026-11-12T05:16:08Z-run376`, ~26 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place with a fresh `LOCKED-sonnet5-2026-11-12T05:42:38Z-run377` marker. No stray `.git/index.lock` present at the pre-check.
+
+REPO (step 2): `git fetch origin` / already on `agents/audit-backlog` / `git pull --ff-only origin agents/audit-backlog` - "Already up to date". No ref-tree debris encountered this run (the class run376 cleared did not recur). HEAD matches origin exactly, no divergence.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only) to `https://data.rbhealth.co.uk/api/feedback` and read it as text - succeeded without any Cloudflare Access login prompt. Newest entry is still the Q52 answer from 2026-09-01T22:44:51Z. No entry for Q132, Q134 or Q135. Nothing new to pick up. QUESTIONS.json confirmed: exactly 3 open (Q132, Q134, Q135), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file. Normal rules applied.
+
+ITEM SELECTION (step 5): the same 8 lines as every run since 325 are still unchecked in `AGENT_WORKLIST.md` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), all still `[BLOCKED]` on supervised-session actions (Weebly repaste, CDN-pin fast-forward, Ahrefs/GSC UI click-through, or GBP manual edit) this unattended run cannot perform. No item ticked.
+
+QUALITY-PASS FALLBACK: ran all 37 `tools/check-*.js` checkers against the current working tree. Result: 37/37 exit 0, clean. Every WARN/NOTE line printed was spot-checked against the standing set of KNOWN exceptions or open questions (Q15, Q45, Q61, Q64, Q71, Q72, Q111, the postcode/address-region ordering notes on `gbp-packs/TEMPLATE.md` and `modules/branch/pages/{INDEX,SEO}.md`, the CDN `@main` data-hop warning on `service.js` and `core/site-data.js`, and the `service-module-phase1` branch-ref drift, still 64 commits behind main) - no new finding.
+
+STEP 9: committed this log entry only (`git add AGENT_LOG.md`) and pushed to `agents/audit-backlog`.
+
 ## run376 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~05:12 UTC): no-op on the worklist (51st consecutive since run325), clean quality-pass fallback, no new findings. New this run: cleared a fetch-blocking debris item left in the ref tree by run375's own cleanup.
 
 LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T04:47:16Z-run375`, ~25 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place with a fresh `sonnet5-2026-11-12T05:12:39Z-run376-active` marker.
