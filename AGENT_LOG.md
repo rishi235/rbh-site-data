@@ -18,6 +18,11 @@ STATUS PAGE (step 10): ran `node tools/build-audit-status.js` to republish the p
 
 Questions for Rishi: none new. Q132, Q134 and Q135 remain open and unanswered on the portal; all three need action outside this unattended loop (Q132/Q134: a supervised or Windows-MCP session to resolve the branch divergence and the file-delete permission gap; Q135: acknowledgement of the data-loss incident and a decision on whether the log-prepend method needs changing). The 8 blocked worklist items also remain exactly as before and still need a supervised Weebly/Ahrefs session to move.
 
+## run382 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap as every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `6f5fa7b2` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
+
 ## run381 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~08:42 UTC): no-op on the worklist (56th consecutive since run325); 37-checker quality-pass clean, no new findings; no infra cleanup attempted (left to a supervised/Windows-MCP session per Q132/Q134).
 
 LOCK (step 1): Cowork bash-mounted path only. `.agent-lock` was absent at the pre-check (prior run released it by overwrite, and that marker itself is not visible from this mount path at the moment this run started), so treated as not-locked without needing the 45-minute staleness test. Created it with the current UTC timestamp (`2026-11-12T08:42:30Z`) via a plain bash `>` write. Did not separately re-test the Q134 EPERM-on-unlink shape with a throwaway file this run, since step 9's commit later in the run (see below) reproduced it directly on `.git/index.lock` in the normal course of work, confirmed harmless per the standing finding (each git invocation creates its own lock, completes, and only the post-operation unlink fails) and worked around the same way as every run since 360: left in place rather than force-deleted.
