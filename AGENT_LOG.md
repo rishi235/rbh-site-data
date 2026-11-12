@@ -18,7 +18,7 @@ PUBLISH (step 10): `node tools/build-audit-status.js` failed with the same 404 w
 
 COMMIT/PUSH (step 9): committing `AGENT_LOG.md` and `QUESTIONS.json` as a single commit to `origin/agents/audit-backlog`, renaming aside any fresh `.git/index.lock` immediately beforehand per the step 2 finding above.
 
-LOCK RELEASED (step 11): cannot delete `.agent-lock` (EPERM, Q134). Overwriting its content with `RELEASED-sonnet5-20261112T1417xxZ-run385` instead, same as every run since 360.
+LOCK RELEASED (step 11): cannot delete `.agent-lock` (EPERM, Q134). Overwrote its content with `RELEASED-sonnet5-20261112T141834Z-run385` instead, same as every run since 360.
 
 ## run384 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~13:12 UTC): no-op on the worklist (59th consecutive since run325); full 37-checker suite re-run clean, no new findings; Q132/Q134/Q135 unchanged, no new portal answers.
 
