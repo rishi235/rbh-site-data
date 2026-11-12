@@ -1,3 +1,7 @@
+## run377 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `aa23a2d1` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+
 ## run377 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~05:42 UTC): no-op on the worklist (52nd consecutive since run325), clean quality-pass fallback, no new findings.
 
 LOCK: `.agent-lock` read `RELEASED-sonnet5-2026-11-12T05:16:08Z-run376`, ~26 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Overwrote in place with a fresh `LOCKED-sonnet5-2026-11-12T05:42:38Z-run377` marker. No stray `.git/index.lock` present at the pre-check.
