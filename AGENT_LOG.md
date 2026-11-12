@@ -14,6 +14,8 @@ QUALITY PASS: ran all 37 `tools/check-*.js` scripts via `node`, output captured 
 
 QUESTIONS Q132/Q134/Q135: all three remain open, unchanged. Q134 (debris/unlink-EPERM) reconfirmed again this run via the lock and git-lock handling above. No Windows-MCP tool access this run, so the accumulated untracked `audits/*.json` debris pile was left as-is, same as every recent run.
 
+PUBLISH (step 10): `node tools/build-audit-status.js` ran and hit the same Q124 credential-scope 404 against rbh-data-portal as every run since 2026-11-07 (the PAT that pushes to rbh-site-data has no access to rbh-data-portal). Q124 is already logged and answered (option 0 recommended, answered 2026-11-09) - the second scoped credential it calls for has not yet been provisioned, so the page stays stale. Not a new finding and not something this run can action; AGENT_WORKLIST.md/AGENT_LOG.md/QUESTIONS.json remain the source of truth and were pushed successfully (commit `81aa81c`).
+
 Files changed this run: `AGENT_LOG.md` (this entry) only. No worklist or data-file changes.
 
 LOCK (step 1): `.agent-lock` content was `RELEASED-sonnet5-20261112T204705Z-run392`, mtime 20:47:05Z, ~26 minutes old at the pre-check (21:13:04Z) - under the 45-minute threshold, but a RELEASED marker, not a bare timestamp, so run392 had already exited cleanly and there was no concurrent run (same judgement run391's entry already recorded as a gap in the step-1 wording). `rm -f .agent-lock` was not attempted directly this run; overwrote its content in place via redirect with the current run marker, per the established workaround (`rm` on this file is Q134's known EPERM).
