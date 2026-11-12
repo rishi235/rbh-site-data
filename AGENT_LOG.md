@@ -1,4 +1,7 @@
-﻿## run378 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~06:42 UTC): no-op on the worklist (53rd consecutive since run325); cleared a full day's re-accumulated git-lock debris via Windows-MCP (native host tools, not the Cowork bash/FUSE path); 37-checker quality-pass clean, no new findings.
+﻿## run378 addendum: step 10 publish result (logged after the fact)
+
+Same Q124 credential-scope gap every run since run358: 404 writing to rishi235/rbh-data-portal, the rbh-site-data token has no access there. Unchanged, not re-attempted differently. Commit `fd445ed` was already pushed clean to `agents/audit-backlog` beforehand, so the publish failure does not affect the commit.
+## run378 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-12 ~06:42 UTC): no-op on the worklist (53rd consecutive since run325); cleared a full day's re-accumulated git-lock debris via Windows-MCP (native host tools, not the Cowork bash/FUSE path); 37-checker quality-pass clean, no new findings.
 
 LOCK: `.agent-lock` (bash-mounted path) read `RELEASED-sonnet5-2026-11-12T05:42:38Z-run377`, ~56 minutes old - a release marker, so treated as not-locked per the run360+ convention regardless of age. Attempted the standard delete-then-recreate from bash first; `rm -f .agent-lock` failed with the standing EPERM-on-unlink (Q134), so overwrote in place instead, as every run since 360 has had to.
 
