@@ -1,0 +1,179 @@
+=== tools/check-address-region.js ===
+  WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
+
+check-address-region: clean, every addressRegion is a county (2 warning(s)).
+exit: 0
+=== tools/check-app-membership.js ===
+  15 GBP pack(s) read for app claims in the copy pasted to the public profile
+
+check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+exit: 0
+=== tools/check-booking-routes.js ===
+  6 widget id(s) shared between sister branches (one diary per pair, expected)
+
+check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+exit: 0
+=== tools/check-branch-identity.js ===
+
+  NOTE  3 brand(s) carried by more than one trading branch, where brandLabel alone cannot identify a shop: Scorah Chemists, McCanns Chemist, Fishlocks Chemist
+check-branch-identity: clean, every page names the branch it belongs to.
+exit: 0
+=== tools/check-branch-links.js ===
+  16 branch record(s) read from branches.json
+  WARN  clearchemist_aintree.nhsReviewUrl: trading branch with an ODS code but no NHS review link, so nothing can point patients at its NHS reviews.
+check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 0 known issue(s) awaiting a decision).
+exit: 0
+=== tools/check-brand-spelling.js ===
+  NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
+  NOTE  203 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 12 shortenable trading name(s): Scorah, McCanns, Fishlocks, Clear, Smartts, Hirshmans, SK, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane, Tiffenbergs
+check-brand-spelling: clean, every trading name is spelled the one way, 21 quoted reading(s) of a live page read as evidence.
+exit: 0
+=== tools/check-cdn-pins.js ===
+  WARN  core/site-data.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
+
+check-cdn-pins: clean, 3 warning(s), 7 known issue(s) awaiting a decision.
+exit: 0
+=== tools/check-contraception-copy.js ===
+  1 accepted breach(es), each with a reason in KNOWN:
+    safeguarding::no under-16 step on any page
+  OK - no failures
+exit: 0
+=== tools/check-editor-snapshot.js ===
+  branches.json:     16 branches, lastUpdated 2026-10-11
+
+check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+exit: 0
+=== tools/check-em-dashes.js ===
+  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure
+
+check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.
+exit: 0
+=== tools/check-fragment-targets.js ===
+  0 held under KNOWN
+
+check-fragment-targets: clean, every fragment link lands on an element that exists.
+exit: 0
+=== tools/check-gbp-packs.js ===
+  WARN  smartts-bootle.md: link target "pharmacy-first-service-bootle.html" is not a page this repo generates, so it is a live-only page no checker here can keep correct
+
+0 failures.
+exit: 0
+=== tools/check-gbp-pharmacy-first.js ===
+check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14 packs, all clean.
+exit: 0
+=== tools/check-jsonld.js ===
+  name checked per family: branch:branchName x6, service:branchName x156, switch:branchName x15
+
+check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+exit: 0
+=== tools/check-live-hours.js ===
+  gordonshorts_crosby: 2 page(s), 5 snippet group(s)
+  cherrylane_liverpool: 2 page(s), 3 snippet group(s)
+  tiffenbergs_longmoor: 2 page(s), 5 snippet group(s)
+exit: 0
+=== tools/check-map-embeds.js ===
+  6 generator(s) checked for how the query is composed
+
+check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+exit: 0
+=== tools/check-nap.js ===
+WARN modules/emar/weebly: KNOWN email "rishi@rbhealth.co.uk". Q111: The eMAR enquiry form's hidden Google Apps Script "destination" field posts every submission straight to Rishi's personal inbox rather than a monitored one. Found on the item 1.4 quality pass, 2026-09-18, when modules/emar/weebly was added to the shared-template sweep for the first time. Possibly deliberate: the same block's own copy reads "We respond personally. No sales targets, no chasing", so a named personal inbox may be the intended design for this low-volume B2B care-home form, unlike the patient-facing switch page Q13 already flagged for the same shape. Left as a KNOWN exception rather than changed, pending Rishi's decision.
+Checked 177 pages and 4 paste block(s) against 16 branches.json entries: 0 mismatch(es), 1 warning(s).
+exit: 0
+=== tools/check-opening-hours.js ===
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+check-opening-hours: clean, every visible and structured opening time matches branches.json.
+exit: 0
+=== tools/check-page-coverage.js ===
+  expected page set: 177 pages across 3 folders
+
+check-page-coverage: clean, 177 pages accounted for
+exit: 0
+=== tools/check-pharmacy-first-cost.js ===
+  6 branch landing page(s) checked, 6 of them advertising Pharmacy First and held to the free claim, cost qualifiers and prices
+
+check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+exit: 0
+=== tools/check-pharmacy-first-eligibility.js ===
+  6 branch landing pages checked against the pinned cohorts (rule 9)
+
+check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
+exit: 0
+=== tools/check-pharmacy-first-safety-net.js ===
+  WARN impetigo: safety net names no urgent route. The impetigo safety net names a GP twice but no urgent route. Whether NHS impetigo copy should carry a red flag is a clinical call on live patient-facing copy, so it is raised, not decided. (Q61)
+
+check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+exit: 0
+=== tools/check-pharmacy-first-symptoms.js ===
+  82 medicine names read from tools/pom-names.js for rule 8
+
+check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.
+exit: 0
+=== tools/check-postcodes.js ===
+WARN  UNOWNED modules/branch/pages/SEO.md carries PR8 3HN, PR7 5SZ, L17 7BP, L17 4JP, SK7 3LQ, SK7 6BG but no branch could be matched to the filename
+
+1235 text files scanned, 52 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+exit: 0
+=== tools/check-seo-keywords.js ===
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+exit: 0
+=== tools/check-seo-lengths.js ===
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.
+exit: 0
+=== tools/check-seo-pattern.js ===
+       and the region leg against seoRegion/addressRegion, 8 with addressLocality differing from seoTown, 1 with seoRegion differing from addressRegion.
+cross-town rule: 177 pages read against 11 live seoTowns (Bramhall, Hazel Grove, Aigburth, St Michael's, Ainsdale, Eccleston, Aintree, Bootle, Walton, Timperley, Crosby), serviceAreaList excusing the branch's own catchment.
+177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+exit: 0
+=== tools/check-seo-sheets.js ===
+  163 pages also compared against an INDEX sheet, 14 with no INDEX row (the contraception family has no INDEX sheet)
+
+check-seo-sheets: clean, every page and its paste sheet agree.
+exit: 0
+=== tools/check-service-links.js ===
+  KNOWN CLAIM Support that delivers results. in modules/switch/pages/switch-prescriptions-smartts-bootle.html: Q16: the Weight Loss Clinic tile on the Smartts switch page promises an outcome, which the house rule on weight loss copy does not allow. It is hardcoded in the CONFIG block of tools/build-switch-pages.js and is the only claim of its kind in the estate. Not rewritten autonomously because it is patient-facing regulatory copy, which is Rishi's call; the replacement wording is offered in Q16.
+
+check-service-links: clean, 6 known issue(s) awaiting a decision.
+exit: 0
+=== tools/check-switch-copy.js ===
+check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where they send people, 11 rules, 3 accepted breach(es) pinned to a question.
+exit: 0
+=== tools/check-travel-clinic-copy.js ===
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+  OK - no failures
+exit: 0
+=== tools/check-uk-spelling.js ===
+  copy read: markup 559450 chars, markdown 260400, script strings 5999, stylesheet content 2, data strings 8896
+
+check-uk-spelling: clean, the public copy is written in UK English.
+exit: 0
+=== tools/check-url-scheme.js ===
+
+222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 130 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+exit: 0
+=== tools/check-weebly-furniture-freshness.js ===
+  WEEBLY_FURNITURE_CHECKLIST.md: 319 line(s) checked-in, 319 line(s) a fresh regeneration would produce
+
+check-weebly-furniture-freshness: clean, WEEBLY_FURNITURE_CHECKLIST.md is byte-identical to what tools/build-weebly-furniture-checklist.js would produce from the current branches.json.
+exit: 0
+=== tools/check-weight-loss-copy.js ===
+  6 branch landing page(s) read as Regime 1, 6 of them advertising the clinic and held to no medicine name, no POM class reference, no purchase wording, no results, rate-of-loss or body-part claim, no offer, and the consultation floor
+  2 Weebly paste block(s) read as Regime 1, 1 of them weight loss copy and held to the same prohibitions plus a live route into the weight loss page
+  OK - no failures
+exit: 0
+=== tools/check-whatsapp-route.js ===
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+exit: 0
+=== tools/check-widget-diaries.js ===
+  6 id(s) shared between sister sites, 0 permitted across brands
+
+check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.
+exit: 0
