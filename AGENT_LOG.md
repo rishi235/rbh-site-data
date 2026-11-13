@@ -14,7 +14,7 @@ QUALITY PASS: ran all 37 `tools/check-*.js` scripts via `node`. Every one exited
 
 LOG WRITE (this entry): wrote directly via an in-place edit to the top of this file (Edit tool, no `/tmp` staging, no truncate+write), per Q135's option 1 spirit - avoids the exact failure mode Q135 recorded (a stale `/tmp` read silently overwriting this file) by never routing the new entry through `/tmp` at all.
 
-STEP 10 (status page): will run `node tools/build-audit-status.js` after this commit is pushed, as the procedure requires, to publish this run's state even though it is a no-op.
+STEP 10 (status page): ran `node tools/build-audit-status.js` after push. Failed with "404 Not Found writing to rishi235/rbh-data-portal" - the script itself identifies this as the Q124 credential-scope gap (the token that can push to rbh-site-data has no access to rbh-data-portal), not a code or network fault. Q124 is already answered/tracked in QUESTIONS.json as this exact infrastructure limitation, so this is not a new finding; no new question raised.
 
 Q132/Q134/Q135 all remain open and unchanged - all three are explicitly scoped to a supervised session (git history reconciliation, lock/debris mechanism redesign, and a pause-and-investigate recommendation respectively) and this run did not attempt to resolve any of them unattended, consistent with 78+ prior runs' treatment of the same three questions.
 
