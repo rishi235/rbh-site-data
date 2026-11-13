@@ -1,3 +1,25 @@
+## run408 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-13 ~23:42 UTC): no-op on the worklist (82nd consecutive since run325); 37-checker quality pass clean, output matching run407's narrative (same warnings/notes, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
+
+LOCK (step 1): no `.agent-lock` present at start of this run (only two stale `.agent-lock.RELEASED-*` marker files from prior runs, left alone). Created a fresh `.agent-lock` with the current UTC timestamp via the Cowork bash mount. No `.git/index.lock` present.
+
+REPO (step 2): `git fetch origin` then checked branch/status - already on `agents/audit-backlog`, up to date with `origin/agents/audit-backlog`, 0 ahead/0 behind. Q132 (git divergence) not currently live. Untracked debris noted but not touched this run (stray audit JSON files from 2026-08/09/10/11, `AGENT_LOG.md.tmp.cleared_run407`, `.scratch_unused/`) - these are pre-existing clutter from prior runs' workarounds, not created by this run, and this run's scope is the single worklist item/quality-pass, not a debris sweep.
+
+ANSWER PICKUP (step 3): QUESTIONS.json has 3 open questions (Q132, Q134, Q135), all infrastructure/process questions about this automated task itself. Navigated Claude in Chrome to https://data.rbhealth.co.uk/api/feedback and read the JSON feed: newest entries are AUDIT ANSWER Q52 (2026-09-01) and earlier; no entries for Q132/Q134/Q135. No new portal answers to pull in.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md for a "Standing authorisation - autonomous window" section - none present. Proceeded normally, no autonomous decisions taken.
+
+WORKLIST (step 5): 8 unchecked items, all 8 confirmed `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged from run407. Each is blocked on a supervised-session action (Weebly paste, a push outside `agents/audit-backlog`, or an Ahrefs UI step only Rishi can do), not a missing answer, so none could be actioned unattended. Ran the full 37-checker fallback (`tools/check-*.js`, read-only) against the current tracked working tree: all 37 exited 0/clean, carrying only the same already-documented WARN/NOTE/KNOWN entries seen on run407 (address-region ordering note, clearchemist_aintree review-link warning, cdn-pins @main runtime-fetch warning/Q45, gbp-packs post-town-vs-addressLocality Q64 warnings, service-module-phase1 behind-main warning/Q13, pharmacy-first-safety-net impetigo Q61 note, postcodes UNOWNED template notes, service-links known claims, whatsapp-route Q111 note, hirshmans-ainsdale Q72 and phone-number findings, mccanns-sandringham Q15/Q71 notes). No new defect, no tracked file changed as a result. Evidence saved to `audits/quality-pass-run408-2026-11-13.txt`.
+
+QUESTIONS: no new questions raised this run. No answer applied (none received this run).
+
+COMMIT/PUSH (step 9): tracked-file change this run is the new evidence file only (checker sweep clean, nothing to fix) plus this log entry and the worklist is unchanged (still 8 blocked, nothing ticked). Will run build-audit-status.js (step 10) to keep the portal page's "last run" timestamp honest.
+
+NOTE on Q135: this run avoided the specific /tmp-staging pattern that caused Q135's data loss. The log entry above was composed directly to a named scratch file outside `/tmp` (under this sandbox's own session directory), read back and verified before being prepended to AGENT_LOG.md via a single `cat newfile oldfile > combined && mv combined AGENT_LOG.md` sequence (rename, not unlink, consistent with Q134's finding that rename succeeds on this mount even when unlink does not). No large in-place edit of the 4.7MB file was attempted via the Edit tool for the same reason run407 and predecessors used this pattern safely for months before run341's incident.
+
+NEXT RUN: Q132/Q134/Q135 remain open and are process/infrastructure questions awaiting a supervised session, not something an unattended run can resolve. Worklist remains 8/8 blocked pending Weebly/Ahrefs sessions or a branch-merge decision. Recommend Rishi review Q132/Q134/Q135 and the 8 blocked items together in one supervised sitting, since several blocked items and the infrastructure questions both resolve to "needs a human at a keyboard", not further unattended passes.
+
+---
+
 ## run407 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-13 ~23:25 UTC): no-op on the worklist (81st consecutive since run325); 37-checker quality pass clean, output matching run406's narrative (same warnings/notes, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
 
 LOCK (step 1): no `.agent-lock` present at start of this run (run406 deleted it for real via Windows-MCP PowerShell rather than renaming it - first genuine delete on record per Q134). Created a fresh `.agent-lock` with the current UTC timestamp via the Cowork bash mount. No `.git/index.lock` present either. This run had no Windows-MCP grant, only the usual Cowork bash mount.
