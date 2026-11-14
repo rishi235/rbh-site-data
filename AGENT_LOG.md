@@ -1,4 +1,24 @@
-﻿## run422 (step 10, 2026-11-14T15:16Z): `node tools/build-audit-status.js` failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07. Not a new finding. Also note for step 9: `git push` succeeded cleanly on the first attempt after clearing the pre-existing `.git/index.lock` and the `.git/HEAD.lock` that appeared mid-commit (same EPERM-unlink pattern Q134 tracks; cleared by rename, not delete, each time); `git fetch` afterwards confirmed local and `origin/agents/audit-backlog` both at `78af512`, 0 ahead/0 behind. A further `index.lock`/`HEAD.lock` pair appeared after that fetch and was renamed aside before finishing, same fault shape, no data at risk since fetch had already confirmed sync.
+﻿## run423 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T15:42Z): no-op on the worklist (97th consecutive since run325); 37-checker quality pass clean, output byte-identical to run422's saved evidence file (no postcode-count tick, no content drift at all this time - only difference is this run's own harness appending a `TOTAL_FAILURES=0` summary line run422's harness did not print). Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
+
+LOCK (step 1): no `.agent-lock` present at start of this run. Created a fresh one with UTC timestamp 2026-11-14T15:42:06Z. A `.git/ORIG_HEAD.lock` left over from an earlier run (last modified 13:12Z, over 2 hours old, no git process running) blocked the initial `git pull --ff-only`; `rm -f` failed with the usual EPERM-on-unlink fault Q134 tracks, so it was cleared by rename instead (`.git/ORIG_HEAD.lock.old`, then a second stray with the same name renamed to `.ORIG_HEAD.lock.pre_<ts>` by the pull itself), after which the pull succeeded.
+
+REPO (step 2): `git fetch origin` succeeded. After clearing the stale `ORIG_HEAD.lock`, `git pull --ff-only origin agents/audit-backlog` reported "Already up to date" - this sandbox was already level with `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3): read https://data.rbhealth.co.uk/api/feedback via Claude in Chrome (read-only). Newest entry is still AUDIT ANSWER Q52 (2026-09-01); no entries for Q132, Q134 or Q135. Nothing to apply.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md (run422's entry) for a "Standing authorisation - autonomous window" section - none present. Proceeded normally.
+
+WORKLIST (step 5): confirmed by grep of `^- \[ \]` that all 8 unchecked items are still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged from run422, each still blocked on a supervised-session action. Ran the full 37-checker fallback (`tools/check-*.js`, read-only) against the current tracked working tree: all 37 exited 0/clean. Diffed this run's output against run422's saved evidence file after normalising line endings: byte-identical content, the only line added is this run's own harness summary (`TOTAL_FAILURES=0`), which run422's script did not emit. No new defect, no new finding. Evidence saved to `audits/quality-pass-run423-2026-11-14.txt`.
+
+QUESTIONS (step 8): no new worklist question raised this run. Q132/Q134/Q135 all remain open; this run did not attempt to resolve any of them, consistent with their recommended "supervised session" guidance.
+
+COMMIT/PUSH (step 9): next.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` to run after the push.
+
+NOTE on scope: 97th consecutive no-op since run325. None of Q132/Q134/Q135 is something an unattended run should resolve; all three remain correctly queued for a supervised session.
+
+## run422 (step 10, 2026-11-14T15:16Z): `node tools/build-audit-status.js` failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07. Not a new finding. Also note for step 9: `git push` succeeded cleanly on the first attempt after clearing the pre-existing `.git/index.lock` and the `.git/HEAD.lock` that appeared mid-commit (same EPERM-unlink pattern Q134 tracks; cleared by rename, not delete, each time); `git fetch` afterwards confirmed local and `origin/agents/audit-backlog` both at `78af512`, 0 ahead/0 behind. A further `index.lock`/`HEAD.lock` pair appeared after that fetch and was renamed aside before finishing, same fault shape, no data at risk since fetch had already confirmed sync.
 
 ## run422 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T15:12Z): no-op on the worklist (96th consecutive since run325); 37-checker quality pass clean, output matching run421's narrative aside from the postcode checker's scanned-file count ticking up by one (1253 -> 1254, run421's own evidence file now sitting in audits/ and being counted) and cosmetic header/log-line formatting differences from this run's own harness script (not a content change). Q132/Q134/Q135 still open, no new portal answers relevant to them, no autonomous window.
 
