@@ -12,7 +12,9 @@ WORKLIST (step 5): confirmed all 8 unchecked items are still `[BLOCKED]` (5.3/Q8
 
 QUESTIONS: no new questions raised this run. No answer applied (none received this run).
 
-COMMIT/PUSH (step 9): tracked-file change this run is the new evidence file plus this log entry; the worklist is unchanged (still 8 blocked, nothing ticked).
+COMMIT/PUSH (step 9): tracked-file change this run is the new evidence file plus this log entry; the worklist is unchanged (still 8 blocked, nothing ticked). Committed as `40b44be2` and pushed to `origin/agents/audit-backlog`.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` after the push. Failed with "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal). Q124 is already logged and answered (option 0, 2026-11-09); the second scoped credential it needs has still not been provisioned, so the portal status page stays stale. Not a new finding, no new question raised.
 
 NOTE on scope: 84th consecutive no-op since run325. The untracked-debris pile keeps growing by a small, structural amount each run (one more renamed `.git/index.lock.*` marker this run, plus the stray audit JSON files and `.scratch_unused/` already there) as a direct consequence of the Q134 unlink-EPERM constraint - this run's own index.lock incident is a fresh, concrete illustration of exactly the mechanism Q134 already describes, not a new fault. None of Q132/Q134/Q135 is something an unattended run should resolve; all three remain correctly queued for a supervised session.
 
