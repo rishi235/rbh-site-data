@@ -1,4 +1,26 @@
-﻿## run420 (step 10 addendum, 2026-11-14T13:45:11Z): node tools/build-audit-status.js failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07. Not a new finding.
+﻿## run421 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T14:42Z): no-op on the worklist (95th consecutive since run325); 37-checker quality pass clean, output matching run420's narrative aside from the postcode checker's scanned-file count ticking up by two (1251 -> 1253, run419/run420's own evidence files now sitting in audits/ and being counted) and a cosmetic path-separator difference in check-live-hours's own log line (this run's harness writes forward slashes, run420's wrote backslashes - same file, same content); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
+
+LOCK (step 1): no `.agent-lock` present at start of this run. Created a fresh one with the current UTC timestamp (2026-11-14T14:42:02Z). No `.git/index.lock` present either.
+
+REPO (step 2): `git fetch origin` succeeded cleanly. Confirmed on `agents/audit-backlog`, already up to date with `origin/agents/audit-backlog` at `5aad619` (run420's commit). No checkout or pull needed beyond confirming this. Left the same pile of pre-existing untracked debris in the working tree untouched (`.new_log_entry_run411.md`, `AGENT_LOG.md.tmp.cleared_run407`, `.scratch_unused/`, the dated `audits/live-hours-check-*.json` files, `audits/broken-links-sweep-2026-08-31.json`, `audits/mccanns-build-check-2026-08-31.txt`, `audits/verify-3.6-2026-08-31.js`) - this is evidence underpinning the still-open Q134, so this run did not clear it unilaterally ahead of Rishi's decision.
+
+ANSWER PICKUP (step 3): QUESTIONS.json still has exactly 3 open questions (Q132, Q134, Q135), unchanged. Navigated Claude in Chrome to https://data.rbhealth.co.uk/api/feedback and read the full JSON feed: newest entry is still AUDIT ANSWER Q52 (2026-09-01); no entries for Q132, Q134 or Q135. No new portal answers to pull in.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md (run420's entry) for a "Standing authorisation - autonomous window" section - none present. Proceeded normally, no autonomous decisions taken.
+
+WORKLIST (step 5): confirmed by direct grep of `^- \[ \]` lines that all 8 unchecked items are still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged from run420, each still blocked on a supervised-session action (a Weebly paste, a push outside `agents/audit-backlog` to `main`, or an Ahrefs Site Audit UI step only Rishi can do). Ran the full 37-checker fallback (`tools/check-*.js`, read-only) against the current tracked working tree: all 37 exited 0/clean. Diffed this run's output against run420's saved evidence file after normalising line endings: the only differences are the postcode checker's scanned-file count (1251 -> 1253, two more evidence files now counted) and the forward-slash/backslash path cosmetic noted above. Same WARN/NOTE entries as every recent run (known Q13/Q15/Q45/Q61/Q64/Q71/Q72/Q111 items, the two UNOWNED postcode files, the eMAR Q111 inbox note, the cherrylane_liverpool seoTown ordering note). No new defect, no new finding. Evidence saved to `audits/quality-pass-run421-2026-11-14.txt`.
+
+QUESTIONS: no new worklist question raised this run; nothing found that Q132/Q134/Q135 do not already cover.
+
+COMMIT/PUSH (step 9): `git add` and `git commit` next, bundling this log entry and its evidence file.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run after the push.
+
+NOTE on scope: 95th consecutive no-op since run325. None of Q132/Q134/Q135 is something an unattended run should resolve; all three remain correctly queued for a supervised session.
+
+NEXT RUN: Q132/Q134/Q135 remain open and are process/infrastructure questions awaiting a supervised session. No pending uncommitted changes expected at the start of the next run.
+
+## run420 (step 10 addendum, 2026-11-14T13:45:11Z): node tools/build-audit-status.js failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07. Not a new finding.
 
 ## run420 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T13:44:07Z): no-op on the worklist (94th consecutive since run325); 37-checker quality pass clean, output matching run419's narrative aside from the postcode checker's scanned-file count ticking up by one (1250 -> 1251, run419's own evidence file now sitting in audits/ and being counted); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
 
