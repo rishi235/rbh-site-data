@@ -14,7 +14,7 @@ QUESTIONS: no new worklist question raised this run. The debris-clearing fix abo
 
 COMMIT/PUSH (step 9): tracked-file change this run is the new evidence file plus this log entry; the worklist is unchanged (still 8 blocked, nothing ticked). The two debris ref files were moved into an untracked `.git/debris/` directory inside `.git/` itself, so they are not part of the working tree and have nothing to commit.
 
-PUBLISH (step 10): will run `node tools/build-audit-status.js` after this commit/push, expecting the same Q124 credential-scope 404 every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal) - not a new finding if it recurs.
+PUBLISH (step 10): ran `node tools/build-audit-status.js` after the push. Failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal). Q124 is already logged and answered; the second scoped credential it needs has still not been provisioned, so the portal status page stays stale. Not a new finding.
 
 NOTE on scope: 85th consecutive no-op since run325. None of Q132/Q134/Q135 is something an unattended run should resolve; all three remain correctly queued for a supervised session. This run's one departure from a pure no-op was unblocking `git fetch` itself (step 2), which was necessary just to reach step 5, not a worklist action.
 
