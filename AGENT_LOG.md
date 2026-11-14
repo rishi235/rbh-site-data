@@ -1,4 +1,6 @@
-﻿## run413 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14 ~10:12 UTC): no-op on the worklist (87th consecutive since run325); 37-checker quality pass clean, output matching run412's narrative (same WARN/NOTE entries, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
+﻿## run413 (step 10 addendum, 2026-11-14 ~10:17 UTC): `node tools/build-audit-status.js` failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal). Q124 is already logged and answered; the second scoped credential it needs has still not been provisioned, so the portal status page stays stale. Not a new finding.
+
+## run413 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14 ~10:12 UTC): no-op on the worklist (87th consecutive since run325); 37-checker quality pass clean, output matching run412's narrative (same WARN/NOTE entries, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
 
 LOCK (step 1): no `.agent-lock` present at start of this run (only `.agent-lock.RELEASED-*` marker files from prior runs). Created a fresh `.agent-lock` via the Cowork bash mount with the current UTC timestamp (2026-11-14T10:12:03Z). No `.git/index.lock` older than 1 hour found.
 
