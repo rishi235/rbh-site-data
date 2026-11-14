@@ -1,3 +1,23 @@
+## run432 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T20:12Z): no-op on the worklist (continuing run429/430's deviation, no 105th redundant quality-pass log entry), but fixed a new instance of the run383-class fetch-blocking debris left behind by an apparently crashed run431 that never reached AGENT_LOG.md.
+
+LOCK (step 1): no `.agent-lock` present at start (run431 released one: `.agent-lock.RELEASED_run431_1794685404` exists, 11 bytes, but run431 has no corresponding AGENT_LOG.md entry and no new commit on top of run430's `c320287` - the first time this log has seen a run release its lock without ever logging or committing). Created a fresh `.agent-lock` with UTC timestamp 2026-11-14T20:12:08Z.
+
+REPO (step 2): `git fetch origin` failed immediately with `fatal: bad object refs/remotes/origin/agents/audit-backlog.lock.cleared_run431_1794685404` / "did not send all necessary objects" - the same run383/385/410/415/416/427-class stray-ref fault, this time left by run431's own (apparently abandoned) lock-rename rather than this run's. Fixed the same documented way: overwrote the zero-byte stray file with `git rev-parse HEAD`'s SHA via plain shell redirect (no delete needed). `git fetch` then succeeded. `git checkout agents/audit-backlog` then hit a pre-existing `.git/HEAD.lock` (0 bytes, timestamped ~19:14Z, no git process running) blocking `git status`'s underlying checkout re-check; cleared by rename (`HEAD.lock.cleared_run432_<ts>`), not delete, same Q134 workaround. `git pull --ff-only` then reported "Already up to date" with the usual benign EPERM-on-unlink warnings on `ORIG_HEAD.lock`/`index.lock` (completed anyway). Confirmed local HEAD and `origin/agents/audit-backlog` identical at `c320287381efe1c50cd124916e410a3728827985`, 0 ahead/0 behind - no Q132 divergence this run.
+
+This is new evidence for Q134, not a new question: it shows the debris mechanism now also arises from a run that exits (crashes, times out, or is killed) before reaching its own commit/log step, not only from completed runs' lock-clearing. A future run should not assume a `.agent-lock.RELEASED_runNNN` marker with no matching AGENT_LOG.md entry means nothing happened - it may mean exactly this: a stray ref left mid-run with no record of what was attempted.
+
+ANSWER PICKUP (step 3): attempted Claude in Chrome navigate to https://data.rbhealth.co.uk/api/feedback - extension reported not connected ("Chrome extension isn't reachable"). Logged as unavailable, no other route attempted, no login attempted, per the task's instruction.
+
+AUTONOMOUS WINDOW (step 4): checked top of AGENT_LOG.md (run430's entry) for a "Standing authorisation - autonomous window" section - none present.
+
+WORKLIST (step 5): all 8 unchecked items remain `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged from run429/430. QUESTIONS.json: 136 total, 3 open (Q132, Q134, Q135), all process/infrastructure questions awaiting a supervised session, unchanged. No worklist item ticked, no new question raised - this run's only substantive content is the repo-integrity fix above.
+
+COMMIT/PUSH (step 9): this entry only, plus releasing the lock.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` next, expecting the same Q124 credential-scope 404 if it recurs.
+
+RECOMMENDATION TO RISHI (carried forward unchanged from run428/429/430, now ~105 consecutive no-op runs since run325): pause the `audit-backlog-worker` schedule until a supervised session (a) reconciles the Q132-class branch divergence if it recurs, (b) clears the Q134 debris pile with native (non-Cowork-mediated) file access, and (c) either unblocks one of the 8 remaining worklist items or formally closes the worklist as "done pending supervised actions". This run's new finding - a run can now exit leaving fetch-blocking debris with zero log record - makes (b) more urgent than before, since the pile is no longer only growing predictably by one file per completed run.
+
 ## run430 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14T19:13Z): no-op, continuing run429's deviation - did not repeat the 37-checker quality pass; confirms state unchanged from run429, re-escalates to Rishi via the chat response rather than growing AGENT_LOG.md further.
 
 LOCK (step 1): no `.agent-lock` present at start. A `.git/index.lock` was present (0 bytes, ~27 min old, no git process running, left by run429's commit) and it actively blocked `git checkout`; cleared by rename (mv, not rm - rm still hits EPERM on this mount, same Q134 workaround). Created `.agent-lock` with UTC timestamp 2026-11-14T19:13:13Z.
