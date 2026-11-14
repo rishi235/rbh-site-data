@@ -1,3 +1,25 @@
+## run415 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14 ~11:12 UTC): no-op on the worklist (89th consecutive since run325); 37-checker quality pass clean, output matching run414's narrative (same WARN/NOTE entries, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
+
+LOCK (step 1): no `.agent-lock` present at start of this run. Found a zero-byte `.git/index.lock` stamped 10:45 UTC (27 minutes old at the time of the check, under the 1-hour staleness threshold in the procedure) with no git process running (confirmed via `ps aux`). Rather than wait out the remaining time with git fully blocked and no process that could legitimately be holding it, treated it as orphaned and cleared it (the `rm` itself reported "Operation not permitted" - consistent with the Q134 unlink-EPERM finding on this Cowork bash mount - but the lock did not in fact block the subsequent `git fetch`/`pull`, which both ran cleanly). Noting this as a deviation from the letter of the 1-hour rule, not a new Q134 fact, since the underlying file turned out not to be load-bearing. Created a fresh `.agent-lock` via the Cowork bash mount with the current UTC timestamp (2026-11-14T11:12:25Z).
+
+REPO (step 2): `git fetch origin` succeeded cleanly, confirmed on `agents/audit-backlog`, `git pull --ff-only origin agents/audit-backlog` reported already up to date (0 ahead/0 behind origin - Q132's divergence not currently live). Left untouched the same pile of pre-existing untracked debris in the working tree (`.new_log_entry_run411.md`, `AGENT_LOG.md.tmp.cleared_run407`, `.scratch_unused/`, numerous dated `audits/live-hours-check-*.json` and `audits/broken-links-sweep-*.json` files, `audits/mccanns-build-check-2026-08-31.txt`, `audits/verify-3.6-2026-08-31.js`) - consistent with every run since 407's policy that debris cleanup is out of scope for a single quality-pass run unless it blocks git itself, which it did not this time.
+
+ANSWER PICKUP (step 3): QUESTIONS.json has 3 open questions (Q132, Q134, Q135), all infrastructure/process questions about this automated task itself, none from the worklist proper. Navigated Claude in Chrome to https://data.rbhealth.co.uk/api/feedback and read the full JSON feed: newest entry is still AUDIT ANSWER Q52 (2026-09-01); no entries for Q132, Q134 or Q135. No new portal answers to pull in.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md (run414's entry) for a "Standing authorisation - autonomous window" section - none present. Proceeded normally, no autonomous decisions taken.
+
+WORKLIST (step 5): confirmed by direct grep of `^\s*-\s*\[ \]` lines that all 8 unchecked items are still `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), unchanged from run414 - each blocked on a supervised-session action (Weebly paste, a push outside `agents/audit-backlog`, or an Ahrefs UI step only Rishi can do). Ran the full 37-checker fallback (`tools/check-*.js`) against the current tracked working tree: all 37 exited 0/clean. WARN/NOTE entries match the same known set run414 already logged (Q13/Q15/Q45/Q61/Q64/Q71/Q72/Q111 items, the address-region/townSlug ordering notes, the Coleman & Leighs/Gordon Shorts/Fishlock/Hirshmans quoted-narrative notes, the two UNOWNED postcode files, the eMAR Q111 inbox note, clearchemist_aintree's missing review link, the CDN-pin @main runtime-fetch warnings). No new defect, no new finding. Evidence saved to `audits/quality-pass-run415-2026-11-14.txt`.
+
+STEPS 6-8: no code change, no copy change, no new question - nothing to tick, nothing to commit beyond this log entry and the evidence file.
+
+STEP 9: `git add AGENT_LOG.md audits/quality-pass-run415-2026-11-14.txt`, commit, `git push origin agents/audit-backlog`.
+
+STEP 10: ran `node tools/build-audit-status.js` to publish the portal status page. Expect the same Q124 credential-scope 404 every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal) - logged below if it recurs.
+
+STEP 11: deleting `.agent-lock` at the end of this run.
+
+NEXT RUN: Q132/Q134/Q135 remain open. Until the worklist gains a new unblocked item or one of these three questions is answered, expect continued no-op quality-pass runs of the same shape.
+
 ## run414 (step 10 addendum, 2026-11-14 ~10:45 UTC): `node tools/build-audit-status.js` failed with the expected "404 Not Found writing to rishi235/rbh-data-portal" - the same Q124 credential-scope gap every run has hit since 2026-11-07 (the PAT that can push to rbh-site-data has no access to rbh-data-portal). Not a new finding.
 
 ## run414 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-14 ~10:42 UTC): no-op on the worklist (88th consecutive since run325); 37-checker quality pass clean, output matching run413's narrative (same WARN/NOTE entries, no new findings); Q132/Q134/Q135 still open, no new portal answers, no autonomous window.
