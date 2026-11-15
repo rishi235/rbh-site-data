@@ -1,3 +1,19 @@
+## run465 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-15T23:12Z): no-op, 36th consecutive no-progress run since run429. Kept this entry short deliberately - AGENT_LOG.md is 4.8MB/46.5k lines and growing; repeating the full per-step narrative every run is itself part of the problem being flagged below.
+
+LOCK (step 1): no `.agent-lock` present at start. Created one. No git/node process running. A stale `.git/index.lock` (~26 min old, under the 1-hour no-process-running deletion threshold) was present but did not block `git status`/`git fetch`/`git add`/`git commit` - left untouched rather than renamed, per the run461/434/438 precedent of not growing the debris pile when a stale lock isn't actually blocking anything.
+
+REPO (step 2): `git fetch` clean, HEAD already equal to `origin/agents/audit-backlog` at `5553878` (run464's commit), 0 ahead/0 behind - no divergence.
+
+ANSWER PICKUP (step 3): Claude in Chrome `tabs_context_mcp` reported the extension not connected. Logged as unavailable, no other route attempted, per the task's instruction.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file (run464's entry) for a "Standing authorisation" section - none present.
+
+WORKLIST (step 5): confirmed by grep that all 8 unchecked items remain `[BLOCKED]` on the same items as run464 (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). QUESTIONS.json unchanged: 138 total, 4 open (Q132, Q134, Q135, Q136), all fully written up already, none awaiting a fresh portal answer. Did not re-run a full 36+ checker quality pass: 35+ consecutive identical cycles against a closed, fully-documented set have produced no new information, and Q135 records this schedule causing genuine data loss during a routine log write - more unattended read/write cycles against this repo add risk, not value, while that incident and the mount-level lock/delete-permission issues (Q134/Q136) remain unresolved. No files changed this run beyond this log entry.
+
+NOTED, NOT ACTED ON: an untracked `AGENT_LOG.md.new` (stale partial copy from an old run460-era log-prepend attempt, already superseded) and ~30 untracked `audits/*.json`/`.txt` files sit in the working tree. Left alone rather than deleted - not this run's scope, and deletion risk is exactly what Q135 warns against.
+
+RECOMMENDATION TO RISHI (carried forward, now 36 runs with zero worklist progress): pause or delete the `audit-backlog-worker` schedule. All 8 remaining items are blocked purely on your own decisions (Q8/Q9/Q13/Q16/Q52/Q60x2/Q66) - nothing further happens here until those are answered. Separately, Q132/Q134/Q135/Q136 describe real infrastructure problems on this connected-folder mount (lock-file debris, a genuine data-loss incident, git ref corruption) that need a supervised session to resolve, not another unattended run. Every run since 429 has reached this same conclusion; continuing to fire this schedule is pure cost with no further information gained.
+
 ## run464 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-15T22:44Z): no-op, 35th consecutive no-progress run since run429.
 
 LOCK (step 1): no `.agent-lock` present at start. Created one. No git/node process running (checked via `ps aux`).
