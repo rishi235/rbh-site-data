@@ -2193,5 +2193,20 @@
     "answer": "Resolved by events, this run (14:46 UTC), and the root-cause premise corrected: the stray lock-named ref (refs/remotes/origin/agents/audit-backlog.lock.cleared-1793947514, 0 bytes) was confirmed to be LOCAL ONLY, not pushed to GitHub - `git ls-remote origin | grep -i lock` returned nothing. So this was never a case of \"dozens of stray lock-named branches pushed to the remote\"; it was a single corrupted local ref file left over from a past run's lock-clearing rename, exactly the failure mode CLAUDE.md's own note on commit 8385a58 already describes (a rename that dropped the .lock suffix gets read by git's ref-scanner as a real ref). Fixed by overwriting the 0-byte file in place with a valid local commit SHA (no delete/rename needed for this particular fix). git fetch and git pull now succeed cleanly. No pause needed on this account.",
     "note": "This is the clearest evidence yet that the schedule should stop firing unattended: it is not just making zero progress (238th-plus consecutive no-op), it has now lost the ability to even check whether it is in sync with origin. Pair with Q127 and Q133 in one supervised session.",
     "answer_date": "2026-11-06"
+  },
+  {
+    "id": "Q136",
+    "date": "2026-11-15",
+    "item": "N/A - infrastructure incident during run450, local git clone only",
+    "question": "During run450, after genuinely pushing its log entry to GitHub (verified via git ls-remote, which still shows the correct commit), this run accidentally created three 0-byte files directly inside .git/refs/remotes/origin/ (named audit-backlog.lock.stale-run450-<epoch>, ...c-<epoch> and ...f-<epoch>) while renaming aside lock files per the established Q134 workaround. Git treats anything under refs/remotes/origin/ as a ref name, not inert debris, so it now tries to resolve these three as refs, fails with \"fatal: bad object\", and git fetch/git pull of agents/audit-backlog fails outright on this local Cowork sandbox clone. The same EPERM-on-unlink fault that created Q134 blocks every attempted fix (plain mv, and git update-ref -d, which left additional .lock siblings behind). GitHub itself is unaffected; only this local clone cannot currently fetch or pull that branch. How should this be fixed, given no unattended run can delete these files?",
+    "options": [
+      "Fix it in a supervised session with native file access (e.g. Windows-MCP or a session with real delete permission on this mount): delete the three named files directly from .git/refs/remotes/origin/, then confirm git fetch origin agents/audit-backlog succeeds again.",
+      "Abandon this local clone entirely and have the next supervised session re-clone the repository fresh into the same path (after moving the current corrupted .git aside, not deleting it, to avoid an EPERM mid-operation), re-establishing a clean local tracking state.",
+      "Leave it as-is and have every future unattended run treat git fetch/pull failure on this specific branch as expected, working instead directly against git ls-remote / the GitHub API for anything that needs to know the true remote state - not recommended long-term, since it masks the fault rather than fixing it, but keeps runs unblocked in the meantime."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Self-contained local-clone fault, not a Q132-class genuine history divergence and not a repeat of Q134 or Q135, though it stems directly from applying the Q134 workaround in the wrong location (inside a refs/ directory instead of outside it). GitHub origin confirmed correct and unaffected throughout."
   }
 ]
