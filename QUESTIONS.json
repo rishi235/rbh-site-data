@@ -2207,6 +2207,6 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "Self-contained local-clone fault, not a Q132-class genuine history divergence and not a repeat of Q134 or Q135, though it stems directly from applying the Q134 workaround in the wrong location (inside a refs/ directory instead of outside it). GitHub origin confirmed correct and unaffected throughout."
+    "note": "Self-contained local-clone fault, not a Q132-class genuine history divergence and not a repeat of Q134 or Q135, though it stems directly from applying the Q134 workaround in the wrong location (inside a refs/ directory instead of outside it). GitHub origin confirmed correct and unaffected throughout. ADDENDUM run451 (2026-11-15): independently hit the same fault seconds later, before finding this question already on file - attempted rm and git update-ref -d on the three stale-run450 refs; both failed EPERM-on-unlink, and the update-ref attempt left a further .lock sibling next to each of the three (six undeletable files total now). Worked around it this run by cloning a fresh copy of the repo into disposable scratch space outside the Cowork-connected folder and doing all real work (this note, the log entry, the worklist check) from there, confirming origin remains unaffected. This is a workable per-run pattern for future no-op runs hitting the same wall, not a fix; recommended option is unchanged."
   }
 ]
