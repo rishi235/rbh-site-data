@@ -1,0 +1,44 @@
+=== Quality pass run491, item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) ===
+Date: 2026-11-16T17:12Z
+
+=== 36 static checkers (excl. check-live-hours.js) ===
+[check-address-region.js] check-address-region: clean, every addressRegion is a county (2 warning(s)).
+[check-app-membership.js] check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).
+[check-booking-routes.js] check-booking-routes: clean, every booking mount routes to the right branch and the right diary.
+[check-branch-identity.js] check-branch-identity: clean, every page names the branch it belongs to.
+[check-branch-links.js] check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 0 known issue(s) awaiting a decision).
+[check-brand-spelling.js] check-brand-spelling: clean, every trading name is spelled the one way, 21 quoted reading(s) of a live page read as evidence.
+[check-cdn-pins.js] check-cdn-pins: clean, 3 warning(s), 7 known issue(s) awaiting a decision.
+[check-contraception-copy.js]   OK - no failures
+[check-editor-snapshot.js] check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+[check-em-dashes.js] check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.
+[check-fragment-targets.js] check-fragment-targets: clean, every fragment link lands on an element that exists.
+[check-gbp-packs.js] 0 failures.
+[check-gbp-pharmacy-first.js] check-gbp-pharmacy-first: OK - 7 pathways read from the generator, 28 Pharmacy First blocks across 14 packs, all clean.
+[check-jsonld.js] check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+[check-map-embeds.js] check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+[check-nap.js] Checked 177 pages and 4 paste block(s) against 16 branches.json entries: 0 mismatch(es), 1 warning(s).
+[check-opening-hours.js] check-opening-hours: clean, every visible and structured opening time matches branches.json.
+[check-page-coverage.js] check-page-coverage: clean, 177 pages accounted for
+[check-pharmacy-first-cost.js] check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+[check-pharmacy-first-eligibility.js] check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
+[check-pharmacy-first-safety-net.js] check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+[check-pharmacy-first-symptoms.js] check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.
+[check-postcodes.js] 1268 text files scanned, 52 distinct postcode(s), 16 live branches: 0 failure(s), 3 warning(s).
+[check-seo-keywords.js] check-seo-keywords: clean, every Meta Keywords line matches its own branch.
+[check-seo-lengths.js] check-seo-lengths: clean, every title and description fits and is unique.
+[check-seo-pattern.js] 177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+[check-seo-sheets.js] check-seo-sheets: clean, every page and its paste sheet agree.
+[check-service-links.js] check-service-links: clean, 6 known issue(s) awaiting a decision.
+[check-switch-copy.js] check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15 banner(s) read for where they send people, 11 rules, 3 accepted breach(es) pinned to a question.
+[check-travel-clinic-copy.js]   OK - no failures
+[check-uk-spelling.js] check-uk-spelling: clean, the public copy is written in UK English.
+[check-url-scheme.js] 222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table row(s), 0 insecure URL(s) outside narrative surfaces, 139 quoted in narrative surfaces, 9 held under KNOWN: 0 failure(s), 0 warning(s).
+[check-weebly-furniture-freshness.js] check-weebly-furniture-freshness: clean, WEEBLY_FURNITURE_CHECKLIST.md is byte-identical to what tools/build-weebly-furniture-checklist.js would produce from the current branches.json.
+[check-weight-loss-copy.js]   OK - no failures
+[check-whatsapp-route.js] check-whatsapp-route: clean, every WhatsApp route reaches the agreed number, 1 known exception(s).
+[check-widget-diaries.js] check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.
+
+=== Independent Fishlocks extraction (26 pages) ===
+files found: 26
+ISSUES: 0

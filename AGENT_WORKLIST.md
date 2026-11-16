@@ -5849,6 +5849,31 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       2026-09-01T22:44:51.524Z, seven weeks unchanged - answer pickup
       re-checked this run via Claude in Chrome, nothing new). Done
       2026-10-19.
+      Quality pass 2026-11-16 (twenty-sixth, run491): picked as stalest in
+      the rotation pool by a fresh date-extraction pass over every
+      completed item's own section (max real YYYY-MM-DD mentioned,
+      excluding the standing exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/
+      6.7/6.8). Tied stalest at 2026-10-19 with 3.1, 4.8 and 3.11; 3.3 and
+      4.8 tied lowest on the "quality pass" mention-count tiebreak (28
+      each), 3.3 selected ahead of 4.8 on the standing lower-item-number
+      tiebreak. REPO HALF: all 36 static checkers (excl.
+      check-live-hours.js) run clean, 0 nonzero exits. All 26 Fishlocks
+      pages (12 Ainsdale, 12 Eccleston, the two landing pages) re-read by a
+      fresh independent extraction written for this run, importing nothing
+      from tools/: exactly one `<title>`, one meta description and one H1
+      per page; own seoTown present; no sister town present outside each
+      branch's own serviceAreaList excuse; own phone present and the
+      sister branch's phone absent; title lengths and description lengths
+      within the standing bounds. Zero issues found. LIVE HALF: not
+      attempted. This run had no browser tool available (Claude in Chrome
+      not connected in this session), and `mcp__workspace__web_fetch`
+      refused both Fishlocks live URLs as outside its provenance set
+      (unattended scheduled runs cannot pre-seed that allowlist), so
+      nothing live was read or claimed this pass - repo half only, same
+      documented limitation as the third and fourth passes (2026-08-13,
+      2026-08-14). NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3
+      stays `[x]` (quality pass, not a state change). QUESTIONS.json
+      unchanged at 139 total, 0 open. Done 2026-11-16.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
