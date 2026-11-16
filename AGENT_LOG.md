@@ -1,4 +1,22 @@
-﻿## run489 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T15:42Z): no worklist item ticked, one real defect caught and reverted, no new question.
+﻿## 2026-11-16 supervised session (Claude Code, Rishi present): Weebly clear-down attempted, no live change made
+
+Asked to run Q22 step 1, Q22 step 2, Q8 and Q9 on Weebly, then stop before Q13. Nothing was changed on any live site. Both Playwright browser profiles were found signed out. Rishi signed one back in, but profile playwright-weebly-b came back signed in as rishi@rbhealth.co.uk (the sticky Google login), and that Weebly login holds a single site, Cheshire Travel Clinic. None of the pharmacy sites are in it, so no editor could be opened. Profile playwright-weebly-a is still on the login page.
+
+BEFORE VALUES, read from the live public sites today, ready for the next session (Weebly has no undo):
+- Q22 step 1. The homepage services line "Weight Loss Clinic: Innovative solutions that deliver results. Tried the rest? Now try the best." is live on 9 homepages: fishlockpharmacy, smarttschemist, hirshmanspharmacy, skchemist, colemanandleighspharmacy, riddingspharmacy, gordonshortchemist, cherrylanepharmacy, tiffenbergschemist (all .co.uk). It is NOT present on scorah-chemists.co.uk or mccannspharmacy.co.uk. Replacement agreed by Rishi today: "Weight Loss Clinic: Pharmacist-led consultations and ongoing support."
+- Q8. All 11 generated Pharmacy First pages already exist live and serve the generated layout, but they are older pastes: the live data-branch value is the brand label on every one (for example "Scorah Chemists", not "Scorah Chemists Bramhall"), Gordon Short still says "Gordon Shorts Chemist", and Coleman still says "Coleman & Leigh Pharmacy". So the repaste is still needed. 8 of the 11 Post A links already point at the new pages. The 3 that do not are Smartts (pharmacy-first-service-bootle.html, live), Coleman and Leighs (pharmacy-first-service-walton.html, a live 404, so that Post A cannot go out as written) and Gordon Short (pharmacy-first-service-crosby.html, live). This session edited those 3 links and pfLinks before the repaste, and run489, running in the same clone at the same time, reverted them. That revert is right: repoint only after each page is repasted, then clear the Gordon Short PF_TARGET_HOLD entry in tools/check-gbp-packs.js in the same session.
+- Q9. Not reached. Signpost wording to use, taken from the retired bridge block: a short paragraph and a button "See the full Pharmacy First page and walk-in details" linking to /pharmacy-first-cherry-lane-walton.html, placed above the existing video and booking widget on pharmacy-first-service-walton.html.
+
+Q22 STEP 2: deliberately skipped, Rishi's decision today. The reworded inner page exists only for Smartts, sits on the unmerged PR #2 branch (conflicts in tools/build-audit-status.js and tools/check-seo-pattern.js), its booking mounts rely on a service.js change that is not on the live CDN pin, and its own header says the medicine wording needs superintendent sign-off before publishing.
+
+Q13: not touched, as instructed.
+
+Needs a supervised session, added:
+7. Sign both Playwright profiles back in to the right accounts. Profile b must be rishi@rishibhatia.co.uk. It now holds rishi@rbhealth.co.uk, and that Weebly login shows only Cheshire Travel Clinic, so find which Weebly login now holds the seven rbhealth.co.uk pharmacy sites before the next Weebly session.
+8. Scheduled runs and supervised sessions share this clone with nothing stopping them colliding. Run489 committed while this session had edits open. Pause the schedule during supervised Weebly work.
+9. Commit d598d55 (run488) re-encoded old lines of this log as mojibake, a fresh layer on headings that were already damaged. Repair the encoding from a known-good copy. Do not edit this log with PowerShell Get-Content/Set-Content.
+
+## run489 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T15:42Z): no worklist item ticked, one real defect caught and reverted, no new question.
 
 LOCK/REPO: no `.agent-lock` present at start; created one. `git fetch`/`checkout`/`pull --ff-only` all clean on the first try, HEAD confirmed at run488's commit, 0 ahead/0 behind `origin/agents/audit-backlog`. But `git status` showed four tracked files already modified in the working tree before this run touched anything: `branches.json` plus `gbp-packs/coleman-leigh-walton.md`, `gbp-packs/gordon-short-crosby.md` and `gbp-packs/smartts-bootle.md` - left dirty by some earlier, uncommitted session (not visible in AGENT_LOG, so either never logged or lost to a crash before the commit step).
 
