@@ -39035,12 +39035,15 @@ none of which this pass or the twentieth pass opened.
       separate live hours/email defects for Smartts). Item stays [BLOCKED]
       overall pending those three.
       Done 2026-09-14 (partial, eighth of eleven)
-- [ ] [BLOCKED] 5.4 Q9 add a signpost paragraph and a button to the new
+- [x] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.
       Blocked because it is a hand edit in the Weebly editor. The bridge
       block at modules/service/weebly-paste/cherry-lane-old-pharmacy-first-
       replacement.html must not be pasted as it stands.
+      Done 2026-11-16 in a supervised session: new Embed Code block at the
+      top of the old page, paragraph plus button to the new page, video and
+      booking widget untouched, published and verified live. See AGENT_LOG.md.
 - [ ] [BLOCKED] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
       live page references stop serving code this repo no longer says, and
       re-pin the 15 switch pages to a current commit at the next Weebly paste
