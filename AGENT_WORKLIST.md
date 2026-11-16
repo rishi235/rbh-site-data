@@ -23,6 +23,36 @@ Source: RBH_DIGITAL_MASTER_PLAN_v2.md and RBH_DIGITAL_BUILD_PACK_v2.md
   AGENT_LOG.md narrative the same opening sentence when one is written for
   the same finding.
 
+## Rule set by Rishi 2026-11-16 - what goes to Rishi, and how it is worded
+This overrides anything above or in older log entries that conflicts with it.
+Rishi has asked for this three times. Follow it on every run.
+
+1. Sort every finding BEFORE writing anything to QUESTIONS.json:
+   - HOUSEKEEPING (this robot's own files, logs, locks, git, worklist
+     dates, scratch files, checkers, sandbox or mount faults): never a
+     question. If there is an obvious good-practice fix, do it and log it.
+     If it needs someone at the ProDesk, add it to the "Needs a supervised
+     session" list in AGENT_LOG.md. Do not put it on the portal.
+   - GOOD PRACTICE (standard SEO, accessibility, web, data hygiene, any
+     choice a competent person would make without asking): do the
+     recommended option, log what was done in one plain sentence. Not a
+     question.
+   - SECTOR OR BUSINESS CALL (NHS service rules, GPhC, CQC, ASA or
+     prescription-only medicine wording, prices, branch names or branding,
+     which branches offer what, anything that changes what a patient is
+     promised, anything that costs money): this is the ONLY kind of
+     finding that becomes a question for Rishi.
+2. A question for Rishi is written for someone with no technical
+   knowledge. The "question" field is at most three short sentences:
+   what is wrong in everyday words, what it means for patients or the
+   business, and what the recommendation is. No file names, script
+   names, item numbers, run numbers, git words or code. Put any
+   technical detail in "note", never in "question".
+3. Each option is one short plain sentence, at most 20 words, saying what
+   will happen if Rishi picks it.
+4. Never ask a question whose recommended answer is "do the obvious
+   thing". Do the obvious thing.
+
 ## Phase 1 - Data accuracy (quick wins)
 - [x] 1.4 Check every branch page's NAP (name, address, phone) against
       branches.json; fix mismatches at source and regenerate. Done 2026-08-04.

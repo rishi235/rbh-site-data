@@ -158,13 +158,10 @@ function questionCard(q) {
     '<button data-submit="' + esc(q.id) + '" class="bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gray-700">Send answer</button>' +
     '<span class="text-xs text-gray-500" data-status-for="' + esc(q.id) + '"></span></div></div>';
 }
-const answeredHtml = answeredQs.length
-  ? '<details class="mt-2"><summary class="text-xs text-gray-500 cursor-pointer">Answered questions (' +
-    answeredQs.length + ')</summary>' + answeredQs.map(q =>
-      '<p class="text-xs text-gray-500 mt-2"><span class="font-semibold">' + esc(q.id) + '</span> ' +
-      esc(q.question.slice(0, 120)) + ' <span class="text-green-700 font-semibold">Answered:</span> ' +
-      esc(q.answer || '') + '</p>').join('') + '</details>'
-  : '';
+// Rishi 2026-11-16: answered questions are not shown on the portal at all.
+// They stay in QUESTIONS.json as the record; the page only shows what still
+// needs him.
+const answeredHtml = '';
 const questionsHtml = openQs.length
   ? '<section class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 border-red-400">' +
     '<div class="flex items-center justify-between gap-3 mb-1">' +
@@ -232,6 +229,8 @@ function markJustSent(card, saved) {
     card.appendChild(note);
   }
   note.textContent = 'Saved (' + saved.at + '): ' + saved.val + '. The agents pick it up on their next run.';
+  // Hide the answered card after a short pause so the page only shows what is still open.
+  setTimeout(function () { card.style.display = 'none'; }, 2500);
 }
 function markPriorAnswer(card, saved) {
   var note = card.querySelector('[data-prior-note]');

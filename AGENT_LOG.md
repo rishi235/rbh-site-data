@@ -1,3 +1,17 @@
+## 2026-11-16 supervised session (Claude, with Rishi): new question rule, housekeeping questions closed, answered questions hidden
+
+Rishi asked, for the third time, that questions reach him in plain English and that good-practice decisions are simply made. New standing rule added to the top of AGENT_WORKLIST.md ("Rule set by Rishi 2026-11-16"): only sector or business calls go to him; housekeeping and good practice are done and logged, never asked.
+
+Closed under that rule: Q132, Q134, Q135, Q136, Q138 (decisions recorded in each answer). Q84 closed: the backfill is not worth doing because no item has had real work since 2026-09-19; from now on every pass is written to both the log and the worklist in the same commit.
+
+Portal: tools/build-audit-status.js no longer lists answered questions, and a card hides itself once its answer is sent.
+
+### Needs a supervised session (at the ProDesk)
+1. Check for any sandbox commits GitHub lacks and push them (Q132).
+2. Move the old C:\Dev\rbh-site-data aside and re-clone fresh from GitHub (Q138, fixes Q136 and the debris in Q134).
+3. Point the lock and scratch files at a path outside the connected folder (Q134).
+4. Install or reconnect the GitHub CLI so the status page publishes again (Q96/Q124). Until this is done the portal page stays stale.
+
 ## run487 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T14:43Z): no-op, 58th consecutive no-worklist-progress run since run429. Brief, per run486's instruction.
 
 LOCK/REPO: no .agent-lock or .git/index.lock present at start this run (clean this time). git fetch/checkout/pull --ff-only all completed cleanly on the first try, no ref-debris fault. HEAD confirmed at run486's commit 9fdc1a2, 0/0 against origin/agents/audit-backlog.
