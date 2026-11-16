@@ -1,4 +1,20 @@
-﻿## 2026-11-16 supervised session, part 2 progress: Q22 step 1 DONE on the 7 rbhealth.co.uk sites, published and verified live
+﻿## run490 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T16:42Z): no-op on the worklist; 36-checker quality pass clean; no new question.
+
+LOCK/REPO: no `.agent-lock` at start; created one. `git fetch`/`pull --ff-only` clean, already up to date with `origin/agents/audit-backlog`, no Q132-class divergence. A `.git/index.lock` (and several `tmp_obj_*` / `HEAD.lock` files) appeared mid-run from this run's own git calls and could not be unlinked (the documented EPERM-on-unlink class); cleared by rename rather than delete, per the standing workaround.
+
+ANSWER PICKUP: not attempted. QUESTIONS.json already confirmed 0 open entries (housekeeping rule closed Q132/Q134/Q135/Q136/Q138 earlier today, in the supervised sessions logged immediately above), so there is nothing a portal fetch could change this run.
+
+AUTONOMOUS WINDOW: none present at the top of the log. Normal rules applied.
+
+WORKLIST: all 8 unchecked items remain `[BLOCKED]` (5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66), each on a supervised-session or live action, not a missing decision - unchanged by today's Weebly/GBP work logged above (Q22 step 1 is Weebly-only and outside this worklist; Q66's nine Google listing edits are still "pending" Google review, not yet confirmed, so 6.6 is not yet tickable). Ran the 36 static `tools/check-*.js` checkers (excluding `check-live-hours.js`, which needs a live fetch this run did not attempt): all 36 exited 0, TOTAL_FAILURES=0, no drift from run488's last clean sweep. Evidence: `audits/quality-pass-run490-2026-11-16.txt`. No worklist item ticked (none unblocked), no in-repo defect found, no new question raised.
+
+COMMIT/PUSH: this entry plus the evidence file.
+
+PUBLISH: `node tools/build-audit-status.js` to run after push.
+
+RECOMMENDATION: no change to the standing recommendation - the eight remaining items need the supervised actions already queued above (Weebly repastes/confirmations, the service-module-phase1 merge-then-fast-forward, the Ahrefs UI step, and now also re-reading the nine GBP listings once Google's pending review clears). Today's housekeeping and Weebly sessions are real progress but do not change what this unattended worker can do next.
+
+## 2026-11-16 supervised session, part 2 progress: Q22 step 1 DONE on the 7 rbhealth.co.uk sites, published and verified live
 
 Riddings, Fishlocks, SK, Hirshmans and Cherry Lane: the homepage services-list line was changed to "Weight Loss Clinic: Pharmacist-led consultations and ongoing support." (Fishlocks, SK and Cherry Lane worded it "Discover innovative solutions that deliver results. Tried the rest? Now try the best.", and the whole sentence was replaced). On all 7, including Scorah and McCanns, both tile pictures were replaced with weight-loss-clinic-2026-11-16_orig.png and pharmacy-first-2026-11-16_orig.png. Tile links were unchanged. All 7 published. A live re-fetch of each homepage shows no "try the best" anywhere, the two new tiles present and the old tiles gone.
 
