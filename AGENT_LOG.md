@@ -1,3 +1,27 @@
+## run475 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T07:42Z): no-op, 46th consecutive no-worklist-progress run since run429.
+
+LOCK (step 1): no `.agent-lock` present at start (run474 deleted its own cleanly). `.git/index.lock` (0 bytes, timestamped 07:17Z, about 25 minutes old) was found left behind - consistent with run473/474's finding that this mount blocks git's own lock cleanup on every index-touching operation; bash `rm` was not tried given that established history, cleared directly with `mcp__Windows-MCP__FileSystem` (`mode: "delete"`) on the real `C:\Dev\rbh-site-data\.git\index.lock` path - succeeded immediately, confirming the fix remains repeatable a third time. Created `.agent-lock` with UTC timestamp 2026-11-16T07:42:56Z to claim the run. Also noted `AGENT_LOG.md.new` (4.96M, dated 2026-11-15T18:20, matching run460's entry) still sitting untracked in the working tree - this is pre-existing debris from a prior run's workaround (per run474's log, that run worked from a scratch clone rather than this mount and never touched this file), not something created or added to this run; left alone per the standing Q134/Q138 decision that debris cleanup needs a supervised session.
+
+REPO (step 2): `git fetch origin`, confirmed already on `agents/audit-backlog`, `git status` showed up to date with `origin/agents/audit-backlog`, 0 ahead/0 behind, HEAD at run474's commit `de14d8b`. No stray-ref or divergence fault this run.
+
+ANSWER PICKUP (step 3): `mcp__claude-in-chrome__tabs_context_mcp` reports the extension not connected (same result as every run in this streak). No answers retrievable; no other route attempted, per the task's instruction.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md (run474's entry) for a "Standing authorisation - autonomous window" section - none present. Normal rules apply, no autonomous decisions taken.
+
+WORKLIST (step 5): confirmed by direct grep of `^- \[ \]` that all 8 unchecked items remain `[BLOCKED]`, unchanged from run474: 5.3/Q8, 5.4/Q9, 5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66. 42 checked. No unblocked item exists to take, and the worklist is not fully complete, so neither step 5 branch (take an item, or run a quality pass) applies - consistent with the convention every run since 429 has used. QUESTIONS.json: 139 total, 5 open (Q132, Q134, Q135, Q136, Q138), all process/infrastructure, none awaiting a portal answer - all already fully written up by prior runs and genuinely needing a supervised session rather than another unattended attempt.
+
+DEBRIS CHECK: untracked pile unchanged from run474 - `AGENT_LOG.md.new` plus the stray `audits/*.json`/`*.txt` files already flagged by prior runs. This run neither added to nor reduced that pile.
+
+DECISION: no worklist item ticked, no new question raised - nothing found this run falls outside what Q132/Q134/Q135/Q136/Q138 already cover.
+
+COMMIT/PUSH (step 9): this entry only, via `git add`/`git commit`/`git push` to `origin/agents/audit-backlog`.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run regardless, per the standing instruction.
+
+LOCK RELEASE (step 11): `.agent-lock` deleted via `mcp__Windows-MCP__FileSystem` before finishing.
+
+RECOMMENDATION TO RISHI (carried forward, now 46 runs with zero worklist progress): pause the `audit-backlog-worker` schedule, or action the 8 blocked worklist items and the 5 open infrastructure questions (Q132, Q134, Q135, Q136, Q138) in a supervised session with native file and git access. This unattended worker cannot paste or edit Weebly, push to `service-module-phase1`, read the Ahrefs console, edit the GBP console, or merge a PR on another branch - and the underlying lock/debris problem (Q134/Q138), while now reliably worked around with `mcp__Windows-MCP__FileSystem` deletes, still has 2.3G of accumulated history and one corrupt object sitting unresolved underneath it.
+
 ## run474 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-16T07:12Z): no-op, 45th consecutive no-worklist-progress run since run429.
 
 LOCK (step 1): no `.agent-lock` present at start. Created one with UTC timestamp 2026-11-16T07:12:23Z. Separately, `.git/index.lock` (0 bytes) was found left behind twice during this run by routine git operations, consistent with run473's finding that this mount blocks git's own lock cleanup on every index-touching operation. Cleared it both times with `mcp__Windows-MCP__FileSystem` (`mode: "delete"`) on the real `C:\Dev\rbh-site-data\.git\index.lock` path - succeeded immediately both times, no rename-aside workaround needed, confirming run473's fix is repeatable from a fresh session rather than a one-off.
