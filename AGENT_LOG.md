@@ -18,7 +18,7 @@ No in-repo defect found, no new question raised. Item 3.3 kept `[x]` (quality pa
 
 COMMIT/PUSH: AGENT_WORKLIST.md, AGENT_LOG.md, `audits/quality-pass-run491-fishlocks-2026-11-16.txt`, `.agent-lock` (deleted before exit, per the standing rule).
 
-PUBLISH: `node tools/build-audit-status.js` run after push.
+PUBLISH: `node tools/build-audit-status.js` run after push. Failed with the standing Q124 credential-scope gap ("404 Not Found writing to rishi235/rbh-data-portal... token that can push to rbh-site-data has no access to rbh-data-portal") - pre-existing, not new, not fixable by this run.
 
 RECOMMENDATION: unchanged from run490 - the seven remaining worklist items all need the supervised actions already queued (Weebly repastes/confirmations for the final four Pharmacy First sites plus the three Post A/pfLink repoints, the service-module-phase1 merge-then-fast-forward, the Ahrefs sitemap-duplication UI step, and the nine GBP listing edits once Google's pending review clears). This run's rotation-pool pass found nothing new to change that.
 
