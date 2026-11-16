@@ -14,7 +14,9 @@ DECISION: no worklist item ticked, no new question raised - nothing found this r
 
 COMMIT/PUSH (step 9): this entry only, via `git add`/`git commit`/`git push` to `origin/agents/audit-backlog`.
 
-PUBLISH (step 10): `node tools/build-audit-status.js` run regardless, per the standing instruction.
+PUBLISH (step 10): `node tools/build-audit-status.js` run regardless, per the standing instruction. Failed with the same known Q124 credential-scope gap every recent run has hit ("404 Not Found writing to rishi235/rbh-data-portal... token that can push to rbh-site-data has no access to rbh-data-portal") - not a new fault.
+
+ADDENDUM on the commit/push (step 9): after the first `git commit`/`git push`, hit a fresh round of the same lock-debris class mid-operation - `.git/HEAD.lock`, `.git/refs/remotes/origin/agents/audit-backlog.lock`, and three `.git/objects/*/tmp_obj_*` files. The push itself had already landed on origin by the time these appeared (confirmed via `git ls-remote`, commit `aa4fb007` present on `origin/agents/audit-backlog`), so no data was lost. `HEAD.lock` and the `refs/remotes` lock cleared via `mcp__Windows-MCP__FileSystem` delete as before; a subsequent `git fetch` then resynced the local tracking ref cleanly. The three `tmp_obj_*` files under `.git/objects/` did NOT clear - Windows-MCP returned "Permission denied" rather than succeeding, a new variant not seen in the Q134/Q138 write-up (those cover index/ref/HEAD locks, not objects/tmp_obj permission denials). Left them in place rather than forcing it further; worth folding into Q138's corruption follow-up since a permission-denied (not just a stale lock) on a git internal object is a step beyond the lock-file debris already logged there.
 
 LOCK RELEASE (step 11): `.agent-lock` deleted before finishing.
 
