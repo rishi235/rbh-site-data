@@ -1,4 +1,21 @@
-﻿## 2026-11-16 supervised session (Claude Code, Rishi present): Weebly clear-down attempted, no live change made
+﻿## 2026-11-16 supervised session, part 2 (Claude Code, Rishi present): BEFORE VALUES for Q22 step 1, logged before any change
+
+Correction to part 1: the rbhealth.co.uk Weebly login does hold the seven pharmacy sites, plus Cheshire Travel Clinic and RB Healthcare Ltd. They are in the left-hand "Switch Sites" dropdown on the dashboard, not the top-right account menu.
+
+Bigger finding: the claim is not only in the text. Every one of the 11 pharmacy homepages (Scorah, McCanns, Fishlocks, SK, Cherry Lane, Hirshmans, Riddings, Smartts, Coleman and Leighs, Gordon Short, Tiffenbergs) shows two picture tiles with the words baked in:
+- clear-chemist-thumb-weight-loss-clinic_orig.png (782x528, green): "Weight Loss Clinic / Innovative solutions that deliver results. Tried the rest? Now try the best. / Find out more"
+- clear-chemist-thumb-pharmacy-first_orig.png (782x528, blue): "Pharmacy First / Innovative solutions that deliver results. Tried the rest? Now try the best. / Find out more" (the same claim, pasted onto the NHS Pharmacy First tile by mistake)
+Both under /uploads/1/5/2/8/15284818/. Scorah and McCanns were wrongly marked clear in part 1 because only the text was checked.
+
+Replacements, identical except for the middle line (same colours, icon, Lato font, button):
+- Weight loss tile: "Pharmacist-led consultations and ongoing support."
+- Pharmacy First tile: "Free NHS treatment for seven common conditions."
+
+Text before value, services list on the homepage at the 9 sites that carry it: "Weight Loss Clinic: Innovative solutions that deliver results. Tried the rest? Now try the best." After: "Weight Loss Clinic: Pharmacist-led consultations and ongoing support." (Rishi's choice today).
+
+The per-site result follows in the part 2 closing entry.
+
+## 2026-11-16 supervised session (Claude Code, Rishi present): Weebly clear-down attempted, no live change made
 
 Asked to run Q22 step 1, Q22 step 2, Q8 and Q9 on Weebly, then stop before Q13. Nothing was changed on any live site. Both Playwright browser profiles were found signed out. Rishi signed one back in, but profile playwright-weebly-b came back signed in as rishi@rbhealth.co.uk (the sticky Google login), and that Weebly login holds a single site, Cheshire Travel Clinic. None of the pharmacy sites are in it, so no editor could be opened. Profile playwright-weebly-a is still on the login page.
 
