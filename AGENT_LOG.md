@@ -1,3 +1,21 @@
+## 2026-11-16 supervised session (Claude in Chrome, Rishi present): Q66 done - nine Google listings moved to the secure web address
+
+All nine edited in the Business Profile Manager, Contact tab, Website field, saved. Each shows "Your edit is pending. It usually takes up to 10 minutes to be reviewed". Before value read at the point of editing, after value is the branches.json website:
+
+| Profile | Before | After (pending) |
+|---|---|---|
+| Clear Chemist | http://www.clearchemist.co.uk/ | https://www.clearchemist.co.uk |
+| Fishlocks Eccleston | http://www.fishlockpharmacy.co.uk/ | https://www.fishlockpharmacy.co.uk |
+| Fishlocks Ainsdale | http://www.fishlockpharmacy.co.uk/ | https://www.fishlockpharmacy.co.uk |
+| McCanns Aigburth | http://www.mccannspharmacy.co.uk/ (Google had already replaced the old /contact-us.html value itself) | https://www.mccannspharmacy.co.uk |
+| RB Healthcare head office | http://www.rbhealth.co.uk/ | https://www.rbhealth.co.uk |
+| Riddings | http://www.riddingspharmacy.co.uk/ | https://www.riddingspharmacy.co.uk |
+| Scorah Bramhall | http://www.scorah-chemists.co.uk/ | https://www.scorah-chemists.co.uk |
+| Scorah Hazel Grove | http://www.scorah-chemists.co.uk/ | https://www.scorah-chemists.co.uk |
+| SK Chemists | http://www.skchemist.co.uk/ | https://www.skchemist.co.uk |
+
+No Google notice was accepted ("OK"/"Confirm" not clicked). Next run: re-read all nine once Google has approved, then update the GBP_MANUAL.md section 5 table and drop the nine KNOWN entries in tools/check-url-scheme.js in the same commit. The Weebly canonical-tag half of item 6.6 is still open.
+
 ## 2026-11-16 supervised session (Claude, with Rishi): new question rule, housekeeping questions closed, answered questions hidden
 
 Rishi asked, for the third time, that questions reach him in plain English and that good-practice decisions are simply made. New standing rule added to the top of AGENT_WORKLIST.md ("Rule set by Rishi 2026-11-16"): only sector or business calls go to him; housekeeping and good practice are done and logged, never asked.
