@@ -1,4 +1,12 @@
-﻿## 2026-11-16 supervised session, part 2 (Claude Code, Rishi present): BEFORE VALUES for Q22 step 1, logged before any change
+﻿## 2026-11-16 supervised session, part 2 progress: Q22 step 1 DONE on the 7 rbhealth.co.uk sites, published and verified live
+
+Riddings, Fishlocks, SK, Hirshmans and Cherry Lane: the homepage services-list line was changed to "Weight Loss Clinic: Pharmacist-led consultations and ongoing support." (Fishlocks, SK and Cherry Lane worded it "Discover innovative solutions that deliver results. Tried the rest? Now try the best.", and the whole sentence was replaced). On all 7, including Scorah and McCanns, both tile pictures were replaced with weight-loss-clinic-2026-11-16_orig.png and pharmacy-first-2026-11-16_orig.png. Tile links were unchanged. All 7 published. A live re-fetch of each homepage shows no "try the best" anywhere, the two new tiles present and the old tiles gone.
+
+Editor note for next time: a text edit only saves if the paragraph is focused by a real mouse click, then typed into, then committed by a real click elsewhere on the canvas. Changing the text by script alone shows in the editor but is not saved (it happened on the first Riddings publish and was redone).
+
+Still to do on the rishibhatia.co.uk account (Smartts, Coleman and Leighs, Gordon Short, Tiffenbergs): text line and both tiles.
+
+## 2026-11-16 supervised session, part 2 (Claude Code, Rishi present): BEFORE VALUES for Q22 step 1, logged before any change
 
 Correction to part 1: the rbhealth.co.uk Weebly login does hold the seven pharmacy sites, plus Cheshire Travel Clinic and RB Healthcare Ltd. They are in the left-hand "Switch Sites" dropdown on the dashboard, not the top-right account menu.
 
