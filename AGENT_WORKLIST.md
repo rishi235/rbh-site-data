@@ -9810,6 +9810,34 @@ Access session; skipped for budget, no dependency on this item). No
 question raised. Evidence in
 audits/mccanns-item-3.6-travel-clinic-copy-injection-2026-10-20.txt and
 audits/live-hours-check-2026-10-20.json.
+
+Quality pass 2026-11-17 (twenty-sixth, run500, unattended scheduled run).
+Rotation-pool pick: stalest date 2026-10-20 (tied with 3.2/3.7/4.14/4.13/5.1/
+3.13), 3.6 won the mention-count tiebreak (25, lowest), 2.3/3.8/6.1 excluded
+as done in the three most recent runs. FRESH ANGLE: tools/check-contraception-
+copy.js, never named in this item's prior 25 passes, applies because both
+McCanns branches hold a contraception widget. Isolated git-archive scratch
+copy, baseline sha256 confirmed (branches.json 0385b7c2...27da, unchanged
+throughout), checker ran clean first. Injected "Yasmin" into McCanns
+Aigburth's contraception trust-bullet - CAUGHT on first attempt, RULE 8 (no
+medicine named). Restored, sha256 reconfirmed. A word-reorder on McCanns
+Sandringham's matching line was tried as a presumed-benign control but was
+correctly caught by RULE 3 (verbatim), not a defect; a markup-only
+data-attribute control on the same page ran clear, confirming selectivity.
+Restored, sha256 reconfirmed against baseline both times. Guard coverage for
+item 3.6 now 28 of 37 checkers proven by direct injection (up from 27). Full
+35-checker suite (excluding check-cdn-pins.js and check-live-hours.js) run
+clean against the scratch copy; check-cdn-pins.js run clean against the
+tracked clone (2 pre-existing WARN, 6 pre-existing KNOWN, none new). Tracked
+repo confirmed untouched throughout (git status clean, branches.json sha256
+unchanged). LIVE HALF: check-live-hours.js run live against
+mccannspharmacy.co.uk; both pages still show "McCann's Pharmacy" branding,
+corroborating the already-open Q39 finding, not a new one; no new hours
+mismatch found. ANSWER PICKUP: QUESTIONS.json checked directly, 0 open
+questions, browser call skipped per standing practice. No in-repo defect
+found. No new question raised. Evidence in
+audits/mccanns-item-3.6-contraception-copy-injection-2026-11-17.txt and
+audits/live-hours-check-2026-11-17.json.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

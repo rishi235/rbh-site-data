@@ -1,0 +1,74 @@
+Item 3.6 quality pass (twenty-sixth), 2026-11-17 (run500, unattended scheduled run).
+
+Rotation-pool pick: computed stalest item per standing method (max calendar
+date mentioned in each item's own AGENT_WORKLIST.md section, excluding
+1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus 2.3/3.8/6.1 excluded as just-done in
+the three most recent runs). Stalest date 2026-10-20, shared by 3.6 (25
+mentions), 3.2 (26), 3.7 (26), 4.14 (26), 4.13 (27), 5.1 (29), 3.13 (36). 3.6
+won the mention-count tiebreak (25, lowest).
+
+FRESH ANGLE: item 3.6's own worklist section had 27 of 37 tools/check-*.js
+files proven against it by direct injection. comm against the full checker
+list gave 10 never-named: check-contraception-copy.js,
+check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-uk-spelling.js, check-url-scheme.js.
+check-contraception-copy.js chosen: both McCanns branches (mccanns_aigburth,
+mccanns_sandringham) hold a contraception widget per branches.json, so the
+checker applies, and it had never been run against this item despite McCanns
+being one of only two shared-domain pairs offering the NHS Pharmacy
+Contraception Service.
+
+METHOD: isolated git-archive scratch copy (tracked repo never opened for
+writing). Baseline: HEAD dd3e6d1d5b755e60ee9ce30a5655762eb2411c0d, branches.json
+sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(matches every prior pass's recorded anchor). check-contraception-copy.js ran
+clean on the scratch copy first (14 pages, 1 accepted KNOWN breach -
+safeguarding::no under-16 step on any page, Q47, unrelated to this test).
+
+INJECTION 1 (rule 8, no medicine named): McCanns Aigburth's contraception page
+(modules/service/pages/contraception-mccanns-aigburth.html) edited to append
+", including Yasmin where suitable" to a trust-bullet line. CAUGHT on first
+attempt: "[medicine] ... names "yasmin", a prescription-only medicine, in
+public advertising copy." Restored from backup, sha256 reconfirmed identical
+to baseline (39d21a71...4b5b), checker re-run clean.
+
+NEGATIVE CONTROL ATTEMPT 1: reordering the words of McCanns Sandringham's
+trust-bullet line ("Free NHS service, confidential consultation" to
+"Confidential consultation, free NHS service") was tried as a presumed-benign
+edit but was correctly caught by RULE 3 (verbatim) - not a checker defect,
+since rule 3 pins the generator's exact line. Restored, sha256 reconfirmed.
+
+NEGATIVE CONTROL 2 (clean): added a non-visible-text attribute
+(data-qa="probe") to a trust-item div on McCanns Sandringham's page, touching
+markup only, no copy. Ran clear with no false positive, confirming rule 8 (and
+the suite generally) fires on content, not on any edit. Restored, sha256
+reconfirmed identical to baseline (ade9e19c...0951da).
+
+RESULT: zero in-repo defect found. tools/check-contraception-copy.js, never
+named in this item's prior 25 passes, is now proven by direct injection
+(rule 8) plus two negative controls against McCanns's own two contraception
+pages. Guard coverage for item 3.6 now 28 of 37 checkers proven by injection
+(up from 27).
+
+FULL SUITE: all 35 non-network tools/check-*.js files run clean against the
+scratch copy (0 failures). check-cdn-pins.js run against the tracked clone
+(has .git): clean, 2 pre-existing WARN (service.js/core/site-data.js runtime
+branches.json fetch from @main, Q45, unrelated to McCanns) and 6 pre-existing
+KNOWN entries, none new. Tracked repo confirmed untouched throughout: `git
+status --porcelain -- modules core branches.json gbp-packs tools` empty,
+branches.json sha256 unchanged.
+
+LIVE HALF: check-live-hours.js run live against mccannspharmacy.co.uk (network
+reachable this run). Both McCanns pages still show "McCann's Pharmacy"
+branding (apostrophe + "Pharmacy" rather than "Chemist"), corroborating the
+already-open Q39 finding, not a new one. Hours snippets consistent with
+branches.json's expected values for both branches as far as the captured
+snippet text shows; no new mismatch found. Report: audits/live-hours-check-
+2026-11-17.json.
+
+ANSWER PICKUP: QUESTIONS.json checked directly, 0 open questions, so the
+browser answer-pickup call was skipped per standing practice.
+
+No new question raised.
