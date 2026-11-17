@@ -383,6 +383,15 @@ const html = '<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8">' +
 // This removes "gh missing" as a failure mode entirely; the only remaining
 // way this can fail is the credential-scope question in Q124 (open).
 function getToken() {
+  // 2026-11-17: prefer a credential that can actually reach rbh-data-portal.
+  // The origin-remote PAT is scoped to rbh-site-data only (Q124), so it is the
+  // last resort. Order: RBH_PORTAL_TOKEN env var, then the logged-in gh CLI
+  // (present on the ProDesk), then the origin remote URL. Never logged.
+  if (process.env.RBH_PORTAL_TOKEN) return process.env.RBH_PORTAL_TOKEN.trim();
+  try {
+    const t = execSync('gh auth token', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    if (t) return t;
+  } catch (e) { /* gh not installed or not logged in - fall through */ }
   let url = '';
   try { url = sh('git remote get-url origin'); } catch (e) { return null; }
   const m = url.match(/:\/\/[^:]+:([^@]+)@/);
