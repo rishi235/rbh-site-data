@@ -18188,6 +18188,7 @@ Done 2026-10-14 (twenty-third pass).
       quality-pass-2026-11-08-twentythird.txt. Done 2026-11-08 (twenty-third
       pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
+      Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       3 pages (switch, weight loss, travel), 0 mismatches.
       Quality pass 2026-08-13, REPO HALF ONLY: no browser was available this
       run, so nothing live was read and nothing live is claimed. The three

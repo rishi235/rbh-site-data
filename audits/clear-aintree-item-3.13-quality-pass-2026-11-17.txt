@@ -1,0 +1,50 @@
+Item 3.13 (Clear Chemist, Aintree/Liverpool) - quality pass, run506, 2026-11-17
+
+Picked as least-recently-verified rotation-pool item: stalest max-date (2026-10-20)
+of any non-excluded item, by the same Python-over-AGENT_WORKLIST.md method as
+recent runs (standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus
+4.14/4.13/5.1 excluded as done in the three most recent runs 503/504/505).
+3.13 won outright on date alone (no other item shared 2026-10-20).
+
+REPO HALF: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (matches every
+prior pass's recorded anchor). Full 35-checker suite (all tools/check-*.js except
+check-cdn-pins.js and check-live-hours.js, both network-dependent) run clean
+before any mutation: 35/35 exit 0, no FAIL line.
+
+FRESH ANGLE: a grep of every tools/check-*.js name against item 3.13's own
+worklist body found check-weebly-furniture-freshness.js never named there
+across all prior passes (every other of the 35 non-network checkers already
+appears in the item's history). This checker compares WEEBLY_FURNITURE_CHECKLIST.md
+against what tools/build-weebly-furniture-checklist.js would regenerate right
+now from branches.json, and had never been run specifically against Clear
+Chemist Aintree's own row in that table.
+
+Injection: backed up branches.json (sha256 above) and
+WEEBLY_FURNITURE_CHECKLIST.md. Changed clearchemist_aintree.phone in
+branches.json only, from "0151 203 6535" to "0151 203 9999", leaving the
+checklist file untouched (the exact "branches.json moved on, checklist did
+not" scenario this checker exists for). Ran check-weebly-furniture-freshness.js:
+CAUGHT on first attempt - FAIL naming Clear Chemist (clearchemist_aintree)'s
+table, line 150, checked-in value "0151 203 6535" vs fresh-build value
+"0151 203 9999".
+
+Restored branches.json from backup; sha256 reconfirmed identical to baseline.
+Negative control: changed clearchemist_aintree.shortCode from "CLE" to
+"ZZZTEST" (a field this checker does not read) - ran clean, confirming the
+earlier catch was selective and not a harness artefact. Restored again;
+sha256 reconfirmed identical to baseline both times.
+
+Full 35-checker suite re-run clean (35/35) on the restored repo. Tracked
+repo confirmed untouched throughout (git status --porcelain empty before
+and after this pass, aside from this audit file and the worklist/log
+entries this pass adds).
+
+RESULT: zero in-repo defect found. Guard coverage for item 3.13: all 35
+non-network checkers in the current suite now proven by direct injection
+against this item (check-weebly-furniture-freshness.js was the only one
+missing).
+
+No live half this pass (network/browser not used this run; repo half only,
+consistent with several prior passes on this item when no browser was
+available). No new question raised.
