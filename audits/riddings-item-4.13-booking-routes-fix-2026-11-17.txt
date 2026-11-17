@@ -1,0 +1,72 @@
+Item 4.13 (Riddings Pharmacy Timperley pack) - twenty-sixth quality pass, 2026-11-17 (run504)
+
+FRESH ANGLE: tools/check-booking-routes.js, never previously named against this
+item across 25 prior passes (confirmed by grep of the item's own AGENT_WORKLIST.md
+section for every check-*.js filename: 14 of 37 checkers already proven, booking-
+routes not among them).
+
+BASELINE: full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+network-dependent) run clean on the tracked clone before any change.
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+matching every prior pass's recorded anchor.
+
+INJECTION 1 (in a disposable /tmp copy, no .git, tracked repo never touched):
+riddings_timperley.widgets.weightLoss changed from its own id
+(66b9c43c99512e8591be4a3d) to gordonshorts_crosby's weightLoss id
+(66c86a43ec8717372992a30f) - an unrelated branch, different brandLabel, no sister
+relationship, chosen deliberately to simulate a copy-paste data error rather than
+a legitimate shared sister diary.
+
+RESULT (unpatched checker): check-booking-routes.js did NOT catch this. It only
+counted the collision into "7 widget id(s) shared between sister branches (one
+diary per pair, expected)" and reported "clean". Read the checker's own source
+(rule 7, lines ~211-227 before the fix): idOwners collects every branch id that
+declares a given widget id, and whenever more than one distinct branch id shares
+one, the checker increments sharedAcrossBranches and reports it as an EXPECTED
+sister-pair share - with no check anywhere that the two branches sharing the id
+actually ARE a sister pair (matching brandLabel). The three genuine sister pairs
+in the estate (Scorah Bramhall/Hazel Grove, McCanns Aigburth/Sandringham,
+Fishlocks Ainsdale/Eccleston) all happen to share brandLabel, which is exactly
+the fact the checker never tested for. So a real misconfiguration - any two
+unrelated branches' Appointedd ids colliding, which sends one branch's booking
+into another branch's diary silently, with every visible line on the page still
+reading correctly - would pass this checker's own "estate-wide" rule and be
+reported as if it were a known, deliberate arrangement. Same silent-fault class
+as the WhatsApp routing, data-branch, and map-embed findings already recorded
+elsewhere in CLAUDE.md: a checker that passed, but had never been asked what it
+would do with a genuine negative case.
+
+FIX (tools/check-booking-routes.js, rule 7 block): when more than one branch id
+shares a widget id, now also compares the owning branches' brandLabel. If all
+owners share one brandLabel (the existing sister-pair cases), behaviour is
+unchanged - counted into sharedAcrossBranches and reported as before. If the
+owners' brandLabels differ, the checker now FAILS with a named message
+identifying both branch ids, the shared Appointedd id, and the two differing
+brandLabels, stating plainly that this is not a known sister pair and that a
+booking would land in the wrong diary.
+
+VERIFICATION AFTER FIX:
+1. Baseline (no injection): check-booking-routes.js still reports "clean", still
+   counts exactly 6 widget ids shared between sister branches (Scorah x2 services,
+   McCanns, Fishlocks - same count as before the fix), no new failure. No false
+   positive introduced.
+2. Re-applied injection 1 (riddings_timperley weightLoss -> gordonshorts_crosby's
+   id) in a fresh disposable copy: now FAILS, exit 1, naming both branch ids, the
+   shared id, and the differing brandLabels ("Riddings Pharmacy" / "Gordon Short
+   Chemist").
+3. Full 35-checker suite (excluding the two network checkers) re-run clean on the
+   tracked clone after the fix, branches.json sha256 unchanged
+   (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da) - the fix
+   touched only tools/check-booking-routes.js, no generator, page, pack or data
+   file.
+4. Negative control: the three existing genuine sister-pair shares (all same-
+   brandLabel) continue to pass silently as "expected", confirming the fix is
+   selective and does not flag legitimate arrangements.
+
+RESULT: real in-repo defect found and fixed in the checker itself (not a copy
+or page defect - no branch currently has a cross-brand widget-id collision, so
+this was a latent gap, not a live breach). No branches.json, generator, page or
+pack content changed. Guard coverage for item 4.13 now 15 of 37 checkers proven
+by direct injection (up from 14), and check-booking-routes.js's own estate-wide
+rule 7 is now materially stronger than before this pass, for every item in the
+backlog, not just 4.13.

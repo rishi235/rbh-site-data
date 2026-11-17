@@ -222,9 +222,22 @@ branches.forEach(function (b) {
     }
   });
 });
+var brandLabelById = {};
+branches.forEach(function (b) { brandLabelById[b.id] = b.brandLabel; });
 Object.keys(idOwners).forEach(function (id) {
   var owners = idOwners[id].filter(function (v, i, a) { return a.indexOf(v) === i; });
-  if (owners.length > 1) sharedAcrossBranches++;
+  if (owners.length > 1) {
+    var labels = owners.map(function (o) { return brandLabelById[o]; })
+      .filter(function (v, i, a) { return a.indexOf(v) === i; });
+    if (labels.length > 1) {
+      fail(owners.join(" and "), "sisterdiary", owners.join(" and ") +
+        " share one Appointedd id (" + id + ") but do not share a brandLabel " +
+        "(" + labels.join(" / ") + "), so this is not a known sister pair - " +
+        "a booking at one branch would land in the other's diary");
+    } else {
+      sharedAcrossBranches++;
+    }
+  }
 });
 
 // ---------------------------------------------------------------------------

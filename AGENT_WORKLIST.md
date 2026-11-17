@@ -31996,6 +31996,34 @@ directly rather than re-deriving the same facts by hand.
       correctly. Evidence:
       audits/riddings-item-4.13-branch-links-injection-2026-10-20.txt.
       Done 2026-10-20.
+      Twenty-sixth quality pass 2026-11-17 (run504): fresh angle
+      tools/check-booking-routes.js, never previously named against this
+      item (14 of 37 checkers already proven). Full 35-checker suite
+      (excluding the two network checkers) clean beforehand, branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      matching every prior anchor. Injected riddings_timperley's weightLoss
+      widget id to collide with gordonshorts_crosby's (an unrelated branch,
+      different brandLabel, no sister relationship) in a disposable /tmp
+      copy - the UNPATCHED checker did not catch this: it counted the
+      collision as an "expected" sister-pair share with no check that the
+      two branches sharing an id actually share a brandLabel. REAL IN-REPO
+      DEFECT, found and fixed in tools/check-booking-routes.js's rule 7:
+      a cross-branch widget-id share now also compares the owning
+      branches' brandLabel, and FAILS naming both branch ids and the
+      differing brandLabels when they do not match, while the three
+      genuine same-brandLabel sister pairs (Scorah, McCanns, Fishlocks)
+      continue to pass exactly as before. Re-ran the injection against the
+      patched checker - now FAILS correctly. Full 35-checker suite re-run
+      clean after the fix, branches.json unchanged (only
+      tools/check-booking-routes.js was edited - no generator, page, pack
+      or branch data changed). Negative control (the existing genuine
+      sister shares) confirmed still passing silently. Guard coverage for
+      item 4.13 now 15 of 37 checkers proven by direct injection (up from
+      14), and the fix strengthens check-booking-routes.js's rule 7
+      estate-wide, not just for this item. No new question raised.
+      Evidence:
+      audits/riddings-item-4.13-booking-routes-fix-2026-11-17.txt.
+      Done 2026-11-17.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
