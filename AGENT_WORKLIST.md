@@ -3050,6 +3050,36 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Evidence:
       audits/cherry-lane-item-2.3-quality-pass-2026-10-13-twentythird.txt.
       Done 2026-10-13.
+      Quality pass 2026-11-17 (run499, Cowork scheduled run): all 3
+      unchecked worklist items confirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+      6.5/Q60), 0 open questions in QUESTIONS.json, no autonomous window
+      declared at the top of AGENT_LOG.md - fallback quality pass taken
+      per step 5, same rotation logic as prior runs (standing exclusions
+      1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, tiebreak by oldest Done date then
+      fewest "quality pass" mentions): item 2.3 was stalest at 2026-10-20.
+      Repo half only, no live check this pass. Full suite of
+      tools/check-*.js run clean against the tracked working copy (0
+      failures across all checkers that ran; check-cdn-pins.js's two WARNs
+      and six KNOWN entries are the same standing Q45 items as every prior
+      pass, not new). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every prior pass's recorded anchor, unchanged. Cherry
+      Lane's 14-page set (12 service-family pages plus the switch page
+      and head-office-style absence of a branch landing page) confirmed
+      structurally unchanged from the 2026-10-13 pass. No fresh injection
+      test run this pass: every checker named in this item's own log body
+      already has a recorded injection proof against this specific branch
+      from an earlier pass, so none was repeated solely to tick a box. No
+      in-repo or live defect found, no new question raised. Environment
+      note, not a new finding: this run worked from a fresh clone at a
+      scratch path rather than the host's canonical mounted working copy,
+      because that mount's .git still shows the same FUSE unlink-EPERM
+      symptom recorded against Q128 (an unremovable ORIG_HEAD.lock and an
+      unremovable just-created .agent-lock, despite matching ownership and
+      permissions) - consistent with Q128's answer that this needs a
+      supervised re-clone on the host rather than an unattended workaround,
+      so none was attempted on that mount; this run made no writes to it
+      and pushed only from the clean clone. Done 2026-11-17.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
