@@ -11101,6 +11101,39 @@ Done 2026-10-14 (twenty-third pass).
       Evidence:
       audits/smartts-item-3.7-weebly-furniture-freshness-injection-2026-10-20.txt.
       Done 2026-10-20 (twenty-fourth pass).
+      Quality pass 2026-11-17 (twenty-fifth, run 502, unattended scheduled
+      run via Cowork): stalest item in the rotation pool (2026-10-20, 26
+      "quality pass" mentions, tied with 4.14, won on lower item number;
+      2.3/3.6/3.2 excluded as done in runs 499/500/501). FRESH ANGLE:
+      tools/check-pharmacy-first-eligibility.js, the candidate named by
+      the twenty-third and twenty-fourth passes' own forward notes,
+      proven by injection for the first time against Smartts. Isolated
+      scratch copy (git archive HEAD). Injection: the UTI tile's "Women
+      aged 16 to 64" changed to "Women aged 16 to 70" - CAUGHT, 2
+      failures (rule 12, verbatim and age-outside-criteria). A first
+      control attempt (a style-attribute tweak on the same span) was
+      itself caught by the regex's own span-matching, discarded as the
+      wrong choice of "benign" edit rather than a defect; a true
+      negative control (a data-test-probe attribute on #rbhsv-root, no
+      copy touched) ran clean. All restored and sha256-reconfirmed
+      identical to baseline. Rule 9 (branch landing pages) remains
+      structurally inapplicable to Smartts (no branch-landing-family
+      page). Guard coverage for item 3.7 now 14 of 37 checkers proven by
+      direct injection (up from 13). Full 37-checker suite clean on both
+      the scratch copy (1 git-less cdn-pins artefact only) and the
+      tracked clone (37/37). LIVE HALF: live curl fetch of
+      smarttschemist.co.uk reconfirmed the already-documented Mon-Fri
+      9-6 vs lunch-closure hours discrepancy (CLAUDE.md, Q99) - not
+      re-raised. New finding: a live-only AEO page,
+      /hey-ai-read-this.html, not previously logged against this item,
+      actively links www.simpleweightloss.co.uk as Smartts's weight
+      management clinic, which may be stale against the current SWL
+      parked/90-day-decision status; its own wording carries no
+      advertising-standards breach. Raised as Q139 (new) rather than
+      decided autonomously. No in-repo defect found, no copy changed in
+      the tracked repo. Evidence in
+      audits/smartts-item-3.7-quality-pass-2026-11-17-twentyfifth.txt.
+      Done 2026-11-17 (twenty-fifth pass).
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

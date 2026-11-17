@@ -1,0 +1,109 @@
+Item 3.7 (Smartts Chemist, Bootle) - quality pass, twenty-fifth, 2026-11-17
+Run: audit-backlog-worker, unattended scheduled Cowork run (run502)
+
+PICK RATIONALE
+Rotation pool re-derived from AGENT_WORKLIST.md's own "- [x] N.N" section
+bodies (max calendar date mentioned in each item's own body), standing
+exclusions (1.1-1.4, 2.2, 4.2, 4.4, 5.6, 5.7, 6.7, 6.8) plus the three most
+recently touched items (2.3/run499, 3.6/run500, 3.2/run501) excluded.
+Stalest date 2026-10-20, shared by 3.7 (26 "quality pass" mentions) and
+4.14 (26). 3.7 won the tiebreak on lower item number.
+
+FRESH ANGLE
+tools/check-pharmacy-first-eligibility.js, named as the "natural next
+candidate" at the end of both the twenty-third (2026-10-14) and
+re-confirmed open at the twenty-fourth (2026-10-20) passes, but never
+actually run against Smartts by direct injection until this pass.
+
+METHOD
+Isolated scratch copy via `git archive HEAD | tar -x` into a disposable
+/tmp directory, outside the tracked clone. Baseline: full 37-checker suite
+run; all clean except the already-documented check-cdn-pins.js git-less
+artefact (no .git in a git-archive extraction - confirmed by exit code 2
+naming exactly the 6 standing ref-resolution/runtime-fetch failures, same
+signature recorded on every prior pass that used this extraction method).
+
+Backed up modules/service/pages/pharmacy-first-smartts-bootle.html by
+direct copy; sha256 before:
+ab76c6185f4a8d0021d10a637108d1b26dc828acebda336366df3d508096ea76
+
+INJECTION 1 (rule 12, verbatim + age-outside-criteria):
+"Women aged 16 to 64" -> "Women aged 16 to 70" on the UTI tile.
+CAUGHT, 2 failures:
+  - overview tile for "UTI" states "Women aged 16 to 70", but the pinned
+    ageNote is "Women aged 16 to 64" (rule 12)
+  - overview tile for "UTI" states age 70 which is not in the NHS criteria
+    for uti (16 to 64) (rule 12)
+Restored from backup; sha256 reconfirmed identical to baseline.
+
+FIRST CONTROL ATTEMPT (discarded, not a defect): added
+"letter-spacing:0.1px;" inside the same <span style="..."> that carries the
+age text. This broke rule 12's own span-matching regex ("tile 'UTI' has no
+age span for rule 12 to read") rather than proving selectivity - the wrong
+choice of "benign" edit, matching the class of mistake the twenty-third
+pass's own first control attempt made (a pinned-wording tweak caught by a
+different rule). Restored; sha256 reconfirmed identical.
+
+TRUE NEGATIVE CONTROL: added data-test-probe="1" to the existing
+#rbhsv-root module-root div (data-branch/data-service/data-wa unchanged,
+no copy touched). Ran clean - OK, no failures - confirming the rule 12
+catches above were genuine and selective, not the checker firing on
+anything. Restored; sha256 reconfirmed identical to baseline, diff empty.
+
+Full 37-checker suite re-run clean after final restore (same single
+git-less cdn-pins artefact only). Tracked repo (the real clone this run
+works from) never opened for writing during any injection; its own
+pharmacy-first-smartts-bootle.html and branches.json were separately
+confirmed unchanged by the full suite run against the tracked clone
+earlier in this run (37/37 clean there too, with cdn-pins passing since
+.git is present).
+
+RULE 9 (branch landing pages) remains structurally inapplicable to
+Smartts: it has no branch-landing-family page (only 6 branches do), same
+scope limit already recorded for other checkers against this item
+(check-jsonld rule 7, check-seo-keywords rule 8).
+
+Guard coverage for item 3.7 now 14 of 37 checkers proven by direct
+injection (up from 13 after the twenty-fourth pass's
+check-weebly-furniture-freshness.js).
+
+LIVE HALF
+Live fetch (curl, read-only GET, no browser session used/declined since
+this is an unattended run) of https://www.smarttschemist.co.uk/ and a
+linked page discovered on the homepage, /hey-ai-read-this.html (an
+AEO/AI-assistant information page, not previously logged against this
+item). Findings:
+
+1. Reconfirmation, not new: the homepage's visible "Opening hours" block
+   and its JSON-LD both state Monday-Friday 9:00am-6:00pm with no lunch
+   split, while branches.json's confirmed hours for smartts_bootle are
+   09:00-13:00 and 14:00-18:00 (closed 13:00-14:00). This is the exact,
+   already-documented fault recorded in CLAUDE.md's "A right answer in
+   the wrong unit" section ("every live page on smarttschemist.co.uk...
+   already print 9:00am to 6:00pm for a branch whose NHS-confirmed hours
+   close 1:00pm to 2:00pm... found on the item 3.7 pass") and in the
+   Block B pattern from the twentieth pass's note (folded into Q99).
+   Not re-raised as a new question.
+
+2. New finding, not previously logged: /hey-ai-read-this.html (live-only,
+   no generator in this repo writes it) actively names and links
+   www.simpleweightloss.co.uk twice (Quick Facts block and a FAQ answer)
+   as Smartts's active weight management clinic. The page's own wording
+   is otherwise careful - no results, superlative, guarantee or purchase
+   claims; "This is a clinical service, not an over-the-counter product"
+   - so this is not a new advertising-standards breach of the kind Q16
+   already tracks. It is a currency question: whether a formally parked
+   brand (Simple Weight Loss, per Rishi's own company context, paused
+   pending a 90-day decision) should be live-linked from a patient-facing
+   page. Raised as Q139 (new), recommending a check of whether the same
+   AEO template exists on other branches' sites before any decision,
+   since this may be a copy-pasted sitewide element rather than
+   Smartts-specific. No repo file changed (live-only Weebly content, out
+   of this repo's reach regardless).
+
+RESULT
+No in-repo defect found. No worklist item ticked (all three unchecked
+lines remain [BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60, unchanged). One new
+question raised (Q139). AGENT_WORKLIST.md and AGENT_LOG.md updated with
+this pass; commit and push done from a fresh scratch clone (see AGENT_LOG
+entry for this run's lock/repo-sync notes).

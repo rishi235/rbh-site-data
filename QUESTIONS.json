@@ -2245,5 +2245,20 @@
     "answer": "Closed 2026-11-16 under Rishi's rule of the same day (housekeeping is never a question; do the good-practice option). Decision: re-clone the repo fresh from GitHub into C:\\Dev\\rbh-site-data in one supervised session (move the old folder aside first, do not delete mid-operation). GitHub holds every real commit. This also fixes Q132 and Q136.",
     "note": "Does not block any of the 8 open worklist items or Q132/Q135, which are separate process decisions. The lock-handling half of this problem (why debris kept accumulating) is now fixed and does not need a decision - see run473 log entry. | Needs a supervised session at the ProDesk; listed there, not on the portal.",
     "answeredDate": "2026-11-16"
+  },
+  {
+    "id": "Q139",
+    "date": "2026-11-17",
+    "item": "3.7 (quality pass, Smartts Chemist, Bootle)",
+    "question": "Smartts Chemist's live Weebly site carries a standalone AEO/AI-assistant information page (www.smarttschemist.co.uk/hey-ai-read-this.html, discovered on this pass, not previously logged) that actively names and links to www.simpleweightloss.co.uk as the branch's weight management clinic, both in its Quick Facts block and its FAQ answer on \"What weight management services does Smartts Chemist offer?\". This is live-only content this repo does not generate, so no generator or checker here can touch it, but it directly conflicts with the current business position that the Simple Weight Loss brand is formally parked pending a 90-day decision. The page's own wording is otherwise careful (no results, superlative or purchase claims; it reads as a clinical-eligibility-only description), so this is a currency/accuracy question about whether SWL is being actively promoted live, not a new advertising-standards breach.",
+    "options": [
+      "Leave the page as is until the SWL 90-day decision lands, since the wording itself is compliant and the page may simply be ahead of a decision that has not yet been made - treat this as informational only",
+      "Pull or edit the simpleweightloss.co.uk references on this page now, on the view that a formally paused brand should not be actively linked from a live patient-facing page regardless of wording quality - needs a Weebly session, out of this repo's reach",
+      "Check whether the same AEO page exists on other branches' Weebly sites (same template, likely copy-pasted) before deciding anything, since the scope of the live exposure may be larger than this one branch"
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Found by direct live fetch (curl, read-only) of smarttschemist.co.uk during item 3.7's twenty-seventh quality pass. No repo file changed. The page is otherwise GPhC-registration and NHS-service copy that reads as accurate and carefully worded; the only issue is the live link to a paused brand."
   }
 ]
