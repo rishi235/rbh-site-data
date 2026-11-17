@@ -38835,6 +38835,29 @@ none of which this pass or the twentieth pass opened.
       2026-10-19. Other runs may land in between before the next pass.
       Evidence: audits/verify-5.2-2026-10-19-twentysecond.js and
       audits/verify-5.2-2026-10-19-twentysecond-output.txt.
+      Quality pass 2026-11-17 (run492, rotation-pool pick, no unblocked
+      item existed): ran the full 37-checker static suite (excluding
+      check-live-hours.js, no live fetch available this run) - 37/37
+      exit 0, TOTAL_FAILURES=0. Evidence:
+      audits/quality-pass-run492-5.2-landing-pages-2026-11-17.txt. On
+      top of that, a fresh independent re-extraction (no code shared
+      with tools/) re-checked all six branch landing pages (this item's
+      four plus item 2.2's original Fishlocks pair, since they share one
+      generator and one paste sheet): Page Title and Page Description in
+      modules/branch/pages/SEO.md read against the SERP length rule (65
+      and 80-165 characters) and against each branch's own seoTown; each
+      branch's own phone number present on its page; the McCanns pair's
+      six-day lunch-split opening hours (two sessions per weekday) fully
+      rendered rather than collapsed to one slot, the exact defect class
+      item 2.2 itself was fixed for; JSON-LD @type is Pharmacy and
+      addressRegion/postalCode/telephone match branches.json; a
+      map/directions URL is present. Zero issues found across all six
+      pages. Evidence:
+      audits/quality-pass-run492-5.2-landing-pages-independent-2026-11-17.txt.
+      LIVE HALF: not attempted - no browser tool connected in this
+      session. Q35 (the four pages never pasted to Weebly) not
+      re-checked this pass; last confirmed still 404 on 2026-10-19 per
+      the note above. No in-repo defect found, no new question raised.
 - [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,

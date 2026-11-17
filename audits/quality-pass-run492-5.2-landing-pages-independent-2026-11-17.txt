@@ -1,0 +1,16 @@
+Fresh independent re-verification of item 5.2 (plus sibling item 2.2's two pages), 6 branch landing pages, 
+Checked: mccanns_aigburth, mccanns_sandringham, scorah_bramhall, scorah_hazel, fishlocks_ainsdale, fishlocks_eccleston
+
+OK: mccanns_aigburth: Monday correctly shows 2 sessions (lunch split)
+OK: mccanns_aigburth: Tuesday correctly shows 2 sessions (lunch split)
+OK: mccanns_aigburth: Wednesday correctly shows 2 sessions (lunch split)
+OK: mccanns_aigburth: Thursday correctly shows 2 sessions (lunch split)
+OK: mccanns_aigburth: Friday correctly shows 2 sessions (lunch split)
+OK: mccanns_aigburth: Saturday correctly shows 2 sessions (lunch split)
+OK: mccanns_sandringham: Monday correctly shows 2 sessions (lunch split)
+OK: mccanns_sandringham: Tuesday correctly shows 2 sessions (lunch split)
+OK: mccanns_sandringham: Wednesday correctly shows 2 sessions (lunch split)
+OK: mccanns_sandringham: Thursday correctly shows 2 sessions (lunch split)
+OK: mccanns_sandringham: Friday correctly shows 2 sessions (lunch split)
+
+No issues found.
