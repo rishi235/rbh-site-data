@@ -3942,6 +3942,33 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       QUESTIONS.json unchanged (newest feed entry still Q52,
       2026-09-01T22:44:51.524Z, seven weeks unchanged). Evidence in
       audits/seo-pattern-3.1-twentyfourth-2026-10-19.txt. Done 2026-10-19
+      Quality pass (twenty-fifth), 2026-11-17 (unattended scheduled run,
+      audit-backlog-worker, run494, Cowork sandbox). Picked as the stalest
+      rotation-pool item: a fresh re-derivation of the max-date-mentioned
+      rule over every `- [x]` section (excluding the standing exclusions
+      1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8) found 2026-10-19 shared
+      by 3.1, 3.11 and 2.1 (4.8, the twenty-fourth pass's winner, had moved
+      on to 2026-11-17 from run493's own entry and dropped out); 3.1 and
+      3.11 tied on quality-pass-mention count (29 each), and 3.1 won the
+      lower-item-number tiebreak. check-seo-pattern.js re-run directly:
+      177 pages checked, 0 untyped, 0 failures, unchanged from the
+      twenty-fourth pass's baseline. All 36 tools/check-*.js re-run clean
+      (0 failures across every checker; check-postcodes.js's own warning
+      count unchanged at 3, all pre-existing and unrelated to this item).
+      All 6 page generators (build-service-pages.js, build-switch-pages.js,
+      build-weight-loss-pages.js, build-travel-clinic-pages.js,
+      build-contraception-pages.js, build-branch-landing-pages.js) re-run;
+      `git status --porcelain modules/` empty before and after, confirming
+      byte-stable regeneration with no drift in the pattern or its output.
+      branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da.
+      No live-browser hop this pass (none was available in this run's
+      environment; the repo-side verification above is the full scope of
+      what this pass could check). NO NEW DEFECT FOUND, NO NEW QUESTION
+      RAISED. Item 3.1 stays `[x]` (quality pass, not a state change).
+      QUESTIONS.json: 139 total, 0 open (confirmed directly; no portal
+      read needed). Evidence in
+      audits/seo-pattern-3.1-twentyfifth-2026-11-17.txt. Done 2026-11-17
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
