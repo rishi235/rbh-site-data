@@ -33123,6 +33123,35 @@ directly rather than re-deriving the same facts by hand.
       state change). Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-10-20-twentyfourth.txt.
       Done 2026-10-20.
+      Quality pass 2026-11-17 (twenty-fifth, unattended scheduled run 503):
+      rotation pool re-derived fresh (standing exclusions plus 3.6/3.2/3.7
+      excluded as done in runs 500/501/502); 4.14 won on stalest date
+      (2026-10-20) and lowest "quality pass" mention count (26) in that
+      cohort. Full 35-checker suite (excluding check-cdn-pins.js and
+      check-live-hours.js, network-dependent) re-run against a fresh
+      git-archive scratch extraction: 35/35 clean. Pack re-verified field by
+      field against branches.json, unchanged. FRESH ANGLE: a full-text
+      search of this item's own 24-pass history found the hours PAIRING rule
+      tested against this exact pack (2026-08-12) but never the day-SET half
+      of the hours rules (check-gbp-packs.js's hoursDays/KNOWN_HOURS_DAYS
+      logic) - despite this branch being named among the six exposed to
+      hours-shaped faults by that same 2026-08-12 finding. Injected a
+      dropped Saturday (removed the Saturday day-name and its times entirely
+      from the hours line, leaving Monday-Friday and Sunday closed only) -
+      CAUGHT cleanly, exit 1, first attempt: the clock-time rule (17:00
+      missing) and the day-set rule itself ("branches.json opens this
+      branch on Saturday, but the hours line does not state Saturday as an
+      open day"). Restored from baseline, sha256
+      36b001619c22641c077ae241b4947f72c48240f391b38e69995344d634b53ffa
+      reconfirmed identical before and after. Negative control (whitespace-
+      only rewrap of the same line, no day or time changed) ran clean,
+      confirming no false positive. No in-repo defect found; no tracked
+      file in the real clone or the mounted working copy touched (all
+      injection/restoration done in a disposable /tmp git-archive
+      extraction). NO NEW QUESTION RAISED. Item 4.14 stays `[x]` (quality
+      pass, not a state change). Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-11-17-twentyfifth.txt.
+      Done 2026-11-17.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

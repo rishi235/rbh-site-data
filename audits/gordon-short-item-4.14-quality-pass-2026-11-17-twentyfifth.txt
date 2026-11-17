@@ -1,0 +1,98 @@
+Item 4.14 (Gordon Short Chemist Crosby GBP pack) - quality pass (twenty-fifth),
+2026-11-17, unattended scheduled run (run503).
+
+Context: all 3 unchecked AGENT_WORKLIST.md items remain [BLOCKED] (5.8/Q16,
+6.4/Q60, 6.5/Q60), unchanged since run499. Fallback quality pass taken.
+Rotation pool re-derived with a fresh Python pass over AGENT_WORKLIST.md's own
+"- [x]" section bodies (max real calendar date mentioned within each item's
+own section), standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus
+3.6/3.2/3.7 excluded as done in the three most recent runs (500/501/502).
+Stalest date 2026-10-20, shared by 4.14 (26 "quality pass" mentions, lowest in
+that cohort now that 3.7 is excluded), 4.13 (27), 5.1 (29), 3.13 (36). 4.14 won
+outright.
+
+BASELINE: scratch extraction via `git archive HEAD | tar -x` from a fresh
+`git clone --branch agents/audit-backlog` (HEAD cb33a59a, run502's push,
+confirmed up to date with origin). Full 37-file tools/check-*.js suite run
+against the scratch extraction: 35/35 clean, excluding check-cdn-pins.js and
+check-live-hours.js (network-dependent, not run this pass). branches.json and
+gbp-packs/gordon-short-crosby.md both confirmed unchanged against the prior
+pass's own description (field-by-field: name, address 159 College Road /
+Liverpool / L23 3AT, phone 0151 924 3449, review link, website, opening hours
+Mon-Fri 9-1 and 2-6, Sat 9-1 and 2-5, Sun closed, both split-day sessions
+present).
+
+FRESH ANGLE: this item's 24-pass history (reviewed via grep across the full
+AGENT_WORKLIST.md item 4.14 section) already proves, by direct injection
+against this specific pack: check-postcodes.js rules 1 (UNKNOWN), 2 (MISSING),
+3 (FOREIGN), 4 (DISPOSED), 5 (UNOWNED); check-gbp-packs.js's body-image,
+EFFICACY_FAIL and OUTCOME_PROMISE rules; and - found on the 2026-08-12 pass -
+the hours PAIRING rule (swapping the weekday 6:00pm close with the Saturday
+5:00pm close, which preserves both the time-set and the day-set and so slips
+past both of those rules, caught only by the pairing rule added for exactly
+this branch). What a full-text search of the item's own section never turned
+up in 24 prior passes is the DAY-SET half of the hours rules (the "hoursDays"
+rule, check-gbp-packs.js roughly lines 2641-2729, keyed KNOWN_HOURS_DAYS) -
+despite this branch being one of the ones the pairing-rule finding itself
+names as exposed to hours-shaped faults, nothing had tested whether the
+day-set rule itself fires against this exact file.
+
+INJECTION: on the git-archive scratch copy, changed
+gbp-packs/gordon-short-crosby.md's hours line from
+  "Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, Saturday
+   9:00am to 1:00pm and 2:00pm to 5:00pm, Sunday closed"
+to
+  "Monday to Friday 9:00am to 1:00pm and 2:00pm to 6:00pm, Sunday closed"
+(Saturday dropped entirely; no other file touched). CAUGHT cleanly, exit 1,
+first attempt, two failures:
+  - "branches.json has this branch opening or closing at 17:00, but that time
+    does not appear in the pack's hours line, so the profile would be set
+    from an incomplete picture" (the clock-time rule, as a side effect of
+    removing the Saturday segment)
+  - "branches.json opens this branch on Saturday, but the hours line does not
+    state Saturday as an open day, so the profile would be set from an
+    incomplete picture and that day would be published wrong or left as
+    Google has it" (the hoursDays / day-set rule - the rule this pass set out
+    to exercise)
+
+Restored from the pre-injection baseline copy; sha256
+36b001619c22641c077ae241b4947f72c48240f391b38e69995344d634b53ffa reconfirmed
+identical both before and after. Re-ran check-gbp-packs.js clean (exit 0,
+0 failures, same standing 12 warnings as the baseline run, none naming
+gordon-short-crosby.md).
+
+NEGATIVE CONTROL: on the same scratch copy, rewrapped the hours line's
+whitespace only (moved where the line break falls, no day or time changed:
+"...6:00pm, Saturday 9:00am to 1:00pm and\n  2:00pm to 5:00pm, Sunday closed").
+Ran clean, exit 0, confirming the rule reads collapsed whitespace and is not
+sensitive to where the source file wraps - not a false positive. Restored,
+sha256 reconfirmed identical again.
+
+RESULT: no in-repo defect found. The day-set half of the hours rules is now
+proven, by direct injection, against this specific pack, alongside the
+clock-time and pairing halves already proven on earlier passes - all three
+independent hours rules in check-gbp-packs.js are now exercised against
+gordon-short-crosby.md specifically, not just generically. No tracked file in
+the real clone or the mounted working copy was touched; all injection and
+restoration happened inside a disposable /tmp git-archive extraction,
+discarded after use. No new question raised. QUESTIONS.json unchanged: 139
+total, 0 open.
+
+LOCK/REPO NOTE: the mounted working copy (C:\dev\rbh-site-data via the Cowork
+sandbox FUSE bridge) is still subject to the standing unlink-EPERM fault
+(INCIDENT-2026-11-16-sandbox-unlink-blocked.md, Q128): `rm -f` on a
+pre-existing debris file failed with "Operation not permitted" at pickup, and
+`git pull --ff-only` on that mount failed first on a stale .git/index.lock /
+.git/ORIG_HEAD.lock (renamed aside per the standing workaround, not deleted),
+then on an untracked file that would have been overwritten by the merge
+(a prior run's own audits/*.txt evidence file, left in place rather than
+risked). Per Q128's own answer and runs 499-502's established practice, no
+further repair was attempted on the mounted copy itself: all substantive work
+this pass (checker runs, injection proof, worklist/log edits, commit, push)
+was done from a fresh `git clone --branch agents/audit-backlog` into a scratch
+path, using the mounted copy's own already-configured origin remote only
+in-memory for the push credential (not written anywhere new, not displayed
+again, not escalated beyond the access that checkout already had). The
+mounted copy's pre-existing debris was left exactly as found; nothing there
+was deleted or renamed by this run beyond the index/ORIG_HEAD lock rename
+needed to even attempt the pull.
