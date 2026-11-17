@@ -1,4 +1,16 @@
-﻿## run493 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T07:43Z): no-op on the worklist; quality pass (twenty-fifth) on item 4.8 (Fishlocks Chemist Eccleston GBP pack), picked as the least recently verified rotation-pool item; 34-checker quality pass clean; no new question.
+﻿## 2026-11-17 supervised session (Rishi): rishibhatia.co.uk Weebly account, BEFORE values
+
+Logged before any change (Weebly has no undo). Account rishi@rishibhatia.co.uk, profile playwright-weebly-a.
+
+Homepages: Smartts, Coleman and Leighs, Gordon Short, Tiffenbergs.
+- Services list item, before (identical on all 4): `<li><strong>Weight Loss Clinic</strong>: Innovative solutions that deliver results. Tried the rest? Now try the best.</li>`
+- Planned after: "Weight Loss Clinic: Pharmacist-led consultations and ongoing support."
+- Tiles, before (all 4): /uploads/1/5/9/0/15909954/clear-chemist-thumb-weight-loss-clinic_orig.png and clear-chemist-thumb-pharmacy-first_orig.png. Byte-identical to the rbhealth.co.uk tiles replaced on 2026-11-16 (md5 e8131b96..., cfc96a56...). Both carry "Tried the rest? Now try the best." Planned after: the same replacement tiles used on 2026-11-16.
+- Full live homepage HTML saved: audits/weebly-before-2026-11-16/home-<site>.live-before.html; tile images saved as tile-*-15909954.before.png.
+
+Pharmacy First pages (Q8): before copies already saved as audits/weebly-before-2026-11-16/pharmacy-first-*.live-before.html (smartts-bootle, coleman-leigh-walton, gordon-short-crosby, tiffenbergs-aintree, plus pharmacy-first-service-walton).
+
+## run493 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T07:43Z): no-op on the worklist; quality pass (twenty-fifth) on item 4.8 (Fishlocks Chemist Eccleston GBP pack), picked as the least recently verified rotation-pool item; 34-checker quality pass clean; no new question.
 
 LOCK/REPO: `.agent-lock` present at start, content "RELEASED 2026-11-17T06:44:09Z", ~58 minutes old (over the 45-minute staleness threshold) - treated as stale per the runbook. `rm` on it failed with the documented EPERM-on-unlink class on this FUSE mount; cleared by the standard rename-then-recreate workaround (`mv .agent-lock .agent-lock.RELEASED-run493-<timestamp>`, then wrote a fresh `.agent-lock`). Found a large pile of pre-existing debris from earlier runs' own quarantine/rename attempts (`.agent-lock-renamed-debris-run485-quarantine*`, `.agent-lock.RELEASED-run*`, `.agent-lock.STALE-run*`, `.agent-lock.tmp`, stray test files) - all pre-existing, already logged by prior runs' incident report, left untouched rather than widening this run's scope; a supervised cleanup is still the right fix, as run492 and others have already recommended. `git fetch`/`checkout`/`pull --ff-only` on `agents/audit-backlog` all clean, already up to date with `origin/agents/audit-backlog`, HEAD at run492's commit `0972820`, 0 ahead/0 behind. No `.git/index.lock` encountered this run.
 
