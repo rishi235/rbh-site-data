@@ -14076,6 +14076,24 @@ Done 2026-10-14 (twenty-third pass).
       check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js - a
       candidate list for a twenty-seventh pass. No question raised.
       Done 2026-11-07.
+Quality pass 2026-11-17 (run507), repo half only: full 35-checker suite
+      clean, branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. Fresh angle: check-weebly-furniture-freshness.js, never
+      previously named against this item, proven by direct injection into
+      colemanleigh_liverpool's phone field in branches.json (caught on
+      first attempt, naming the branch's table row and both the stale and
+      fresh values; restored, sha256 reconfirmed; negative control on
+      shortCode ran clean, confirming selectivity). LIVE HALF: check-live-
+      hours.js run live against colemanandleighspharmacy.co.uk - homepage
+      and contact page both match branches.json's expected weekday hours
+      (9am to 1pm, 2pm to 6pm, weekends closed); the already-recorded
+      stale-paste "Coleman & Leigh Pharmacy" ampersand banner and footer
+      persists, confirmation only, not a new finding. Guard coverage for
+      3.9 now covers all 35 non-network checkers by direct injection. No
+      in-repo defect, no new question raised. Evidence in audits/coleman-
+      leighs-item-3.9-quality-pass-2026-11-17.txt. Done 2026-11-17.
+
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era

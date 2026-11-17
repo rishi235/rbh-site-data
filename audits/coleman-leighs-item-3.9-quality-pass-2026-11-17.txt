@@ -1,0 +1,93 @@
+Item 3.9 quality pass - Coleman and Leighs Pharmacy (colemanleigh_liverpool, Walton/Liverpool)
+Run: run507 (Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-17
+
+PICKUP
+- .agent-lock and AGENT_WORKLIST.md both confirmed: all 3 unchecked worklist
+  items ([ ] 5.8/Q16, [ ] 6.4/Q60, [ ] 6.5/Q60) still [BLOCKED]. Fallback
+  quality pass taken per step 5.
+- QUESTIONS.json: 139 total, 0 open. Browser answer-pickup step skipped per
+  standing practice.
+- No "Standing authorisation - autonomous window" section at the top of
+  AGENT_LOG.md. Normal rules applied (no autonomous decisions taken).
+
+ROTATION PICK
+- Re-derived least-recently-verified rotation-pool item with the same
+  Python pass over AGENT_WORKLIST.md's `- [x]` section bodies used by
+  recent runs: max calendar date mentioned per item's own body, standing
+  exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus the three most
+  recent picks (4.13, 5.1, 3.13) excluded.
+- Stalest date found: 2026-11-07, shared by 3.9 (23 "quality pass"
+  mentions), 4.6 (24) and 4.15 (26). 3.9 won on the mention-count
+  tiebreak. Picked 3.9 (Coleman and Leighs Pharmacy, Walton/Liverpool).
+
+LOCK/REPO NOTE
+- Same long-documented FUSE unlink-EPERM fault tracked against Q128: the
+  mounted working copy's .git/index.lock and .git/ORIG_HEAD.lock (both
+  pre-existing, ~19 minutes old on arrival, no git process running) could
+  not be removed, and this run's own freshly-written .agent-lock on that
+  mount also could not be removed (rm: Operation not permitted). Per
+  Q128's own answer (a supervised re-clone, not an unattended workaround,
+  is the fix) and the precedent set by run499/500/506, the mounted copy
+  was not forced past this. All real work (checker runs, worklist/log
+  edits, commit, push) was done from a fresh
+  `git clone --branch agents/audit-backlog` into a scratch path, which
+  cloned, fetched, committed and pushed cleanly with no lock issues of
+  its own. The mounted copy's debris was left exactly as found; nothing
+  there was deleted or renamed (no unlink permission to do so safely).
+
+REPO HALF
+- Full 35-checker suite (all tools/check-*.js except check-cdn-pins.js and
+  check-live-hours.js) run against the fresh clone before any mutation:
+  35/35 exit 0, no FAIL line.
+- branches.json sha256
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+  matching every prior pass's recorded anchor.
+
+FRESH ANGLE
+- Every tools/check-*.js filename was grepped against item 3.9's own
+  worklist body. 36 of 37 already named; check-weebly-furniture-
+  freshness.js was never named against this item (same checker already
+  proven for item 3.13 by run506, but not yet proven against Coleman and
+  Leighs specifically).
+- Backed up branches.json. Injection: changed colemanleigh_liverpool's
+  phone from "0151 525 3522" to "0151 525 9999" only, leaving
+  WEEBLY_FURNITURE_CHECKLIST.md unregenerated.
+- Result: CAUGHT on first attempt.
+    FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+          branches.json (in Coleman and Leighs Pharmacy
+          (colemanleigh_liverpool)'s table):
+          checked-in : | Phone | 0151 525 3522 |
+          fresh build: | Phone | 0151 525 9999 |
+- Restored branches.json from backup; sha256 reconfirmed identical
+  (0385b7c2...fdd527da). Re-ran checker clean.
+- Negative control: changed colemanleigh_liverpool.shortCode ("COL" ->
+  "ZZZ"), a field this checker does not read. Ran clean (exit 0),
+  confirming selectivity. Restored again; sha256 reconfirmed identical.
+- Full 35-checker suite re-run clean (35/35) on the restored repo.
+  Tracked repo confirmed untouched throughout (git status --porcelain
+  empty before and after).
+- Guard coverage for item 3.9 now covers all 35 non-network checkers by
+  direct injection (previously 34; this pass adds
+  check-weebly-furniture-freshness.js).
+
+LIVE HALF
+- check-live-hours.js (read-only GET, same conduct as the broken-links
+  sweep) run live against colemanandleighspharmacy.co.uk.
+- Homepage and contact-us page both read "Monday 9:00am - 6:00pm (closed
+  1-2pm)" through Friday, "Saturday Closed", "Sunday Closed" - matches
+  branches.json's expected hours (9am-1pm, 2pm-6pm weekdays, closed
+  weekends) exactly.
+- The already-recorded stale-paste ampersand issue persists unchanged:
+  the footer and nav read "Coleman & Leigh Pharmacy" (ampersand, no
+  trailing "s") rather than the correct trading name "Coleman and Leighs
+  Pharmacy". This is the same finding already logged in this item's own
+  history ("stale-paste ampersand banner and footer... previously
+  recorded, confirmation only") - not a new defect and not raised as a
+  new question.
+- Report: audits/live-hours-check-2026-11-17.json.
+
+RESULT
+- No in-repo defect found. No new question raised. AGENT_WORKLIST.md
+  item 3.9 updated in place with this pass's note (still `[x]`, no
+  state change). Commit and push completed from the scratch clone.
+  Step 10 (build-audit-status.js) run from the scratch clone.
