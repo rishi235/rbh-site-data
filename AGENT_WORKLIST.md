@@ -38885,8 +38885,16 @@ none of which this pass or the twentieth pass opened.
       session. Q35 (the four pages never pasted to Weebly) not
       re-checked this pass; last confirmed still 404 on 2026-10-19 per
       the note above. No in-repo defect found, no new question raised.
-- [ ] [BLOCKED] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
-      packs, and paste those pages to Weebly in the same run. Blocked because
+- [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
+      packs, and paste those pages to Weebly in the same run.
+      Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy
+      First pages repasted from the repo (7 on the rbhealth.co.uk account on
+      2026-11-16; Coleman and Leighs and Gordon Short on 2026-11-17, Smartts
+      and Tiffenbergs already matched), live branch name checked on each.
+      The 8 packs already pointing at the new pages were left as they were;
+      Smartts, Coleman and Leighs and Gordon Short Post A and pfLink
+      repointed 2026-11-17 and the gordonshorts_crosby PF_TARGET_HOLD
+      cleared. See AGENT_LOG.md 2026-11-17. Blocked because
       Rishi's answer deliberately ties the repo change to the Weebly paste,
       which an unattended run cannot do. Needs a supervised session. New
       evidence 2026-08-10, from the 4.12 quality pass: Q8 described the old

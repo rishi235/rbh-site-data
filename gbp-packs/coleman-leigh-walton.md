@@ -107,7 +107,7 @@ earache in children, impetigo, shingles, infected insect bites and
 uncomplicated water infections in women aged 16 to 64. No GP appointment or
 referral needed - book or just walk in. Age ranges set by the NHS apply to
 each condition.
-Button: Learn more -> https://www.colemanandleighspharmacy.co.uk/pharmacy-first-service-walton.html
+Button: Learn more -> https://www.colemanandleighspharmacy.co.uk/pharmacy-first-coleman-leigh-walton.html
 
 ### Post B - Switch your prescriptions
 Switching your prescriptions to Coleman and Leighs Pharmacy in Walton takes

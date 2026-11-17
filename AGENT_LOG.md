@@ -1,4 +1,26 @@
-﻿## 2026-11-17 supervised session (Rishi): rishibhatia.co.uk Weebly account, BEFORE values
+﻿## 2026-11-17 supervised session (Rishi): rishibhatia.co.uk Weebly account, DONE
+
+Profile playwright-weebly-a, signed in as rishi@rishibhatia.co.uk. Before values logged and pushed first (0a9c628). Every change below published and checked on the live site.
+
+Q22 step 1, homepages (Smartts, Coleman and Leighs, Gordon Short, Tiffenbergs):
+- Services list item now reads "Weight Loss Clinic: Pharmacist-led consultations and ongoing support." on all 4. Live check: claim count 0, new text 1.
+- Both tiles replaced with weight-loss-clinic-2026-11-16.png and pharmacy-first-2026-11-16.png (same images as the rbhealth.co.uk sites on 2026-11-16). Tile links unchanged. Old tile files remain in the Weebly uploads folder (/uploads/1/5/9/0/15909954/clear-chemist-thumb-*_orig.png).
+- Note: the tile-*-15909954.before.png copies committed in 0a9c628 were altered by the repo's .gitattributes (png treated as text, eol=lf), so the repo copies are not byte-exact. The originals are byte-identical to the rbhealth.co.uk tiles (md5 e8131b96 weight loss, cfc96a56 Pharmacy First) and are still hosted on Weebly.
+
+Q8, Pharmacy First pages:
+- Smartts and Tiffenbergs already matched the repo; not touched.
+- Gordon Short (pharmacy-first-gordon-short-crosby.html): embed repasted from rbh-site-data@0a9c628. Before: 9607 chars, data-branch "Gordon Shorts Chemist". After: data-branch "Gordon Short Chemist".
+- Coleman and Leighs (pharmacy-first-coleman-leigh-walton.html): embed repasted. Before: 9798 chars, data-branch "Coleman &amp; Leigh Pharmacy". After: "Coleman and Leighs Pharmacy".
+- Page SEO settings on both pages set to the values in each generated file's header comment, plus keywords with the corrected name. Before: title "Pharmacy First at Gordon Shorts Chemist, Crosby" / "Pharmacy First at Coleman & Leigh Pharmacy, Walton"; description and keywords used the same wrong names (full values in audits/weebly-before-2026-11-16/*.live-before.html).
+- Repo: Post A button and branches.json pfLink repointed for smartts_bootle, colemanleigh_liverpool and gordonshorts_crosby to the generated pages; branches.json lastUpdated 2026-11-17; gordonshorts_crosby removed from PF_TARGET_HOLD; tools/branches-editor.html DATA and WEEBLY_FURNITURE_CHECKLIST.md refreshed; gordon-short-crosby.md paster note updated; worklist 5.3 ticked. All 37 tools/check-*.js pass.
+
+Left for Rishi, not done:
+- Coleman and Leighs site-wide footer still says "Coleman & Leigh Pharmacy" (site-level footer code, all pages).
+- McCanns Sandringham PF page SEO title and description say "Sandringham"; the repo file says "St Michael's". Riddings PF page has no SEO description. Naming call, not changed.
+- Old pages still live: pharmacy-first-service-bootle.html and pharmacy-first-service-crosby.html. tools/build-switch-pages.js still links Smartts to the old bootle page.
+- Q13 (CDN branch push) not done, as instructed. Q22 step 2 skipped, as decided.
+
+## 2026-11-17 supervised session (Rishi): rishibhatia.co.uk Weebly account, BEFORE values
 
 Logged before any change (Weebly has no undo). Account rishi@rishibhatia.co.uk, profile playwright-weebly-a.
 

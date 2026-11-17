@@ -640,14 +640,9 @@ const seenClinicQualifierKnown = {};
 // the same session as the repaste, after checking the live page's heading
 // reads the branchName in branches.json.
 const PF_TARGET_HOLD = {
-  gordonshorts_crosby: {
-    reason:
-      "the live pharmacy-first-gordon-short-crosby.html is a pre-item-1.1 paste " +
-      "and calls the pharmacy \"Gordon Shorts Chemist\" in its heading, title and " +
-      "body. Confirmed live 2026-08-10 and rechecked 2026-08-11; the branch " +
-      "sitemap has published nothing since 2026-07-19",
-    question: "Q32",
-  },
+  // gordonshorts_crosby cleared 2026-11-17: page repasted from the repo in a
+  // supervised session and the live heading, title and description checked
+  // against branchName (Gordon Short Chemist). Post A repointed the same day.
 };
 
 const fails = [];
