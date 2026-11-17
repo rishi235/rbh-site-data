@@ -27424,6 +27424,70 @@ directly rather than re-deriving the same facts by hand.
       every prior pass's audits/ evidence file where the finding itself
       is written up here in full). No new question raised.
       Done 2026-10-20
+      Twenty-third quality pass, 2026-11-17 (unattended scheduled run,
+      audit-backlog-worker): all 3 unchecked worklist lines reconfirmed
+      [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), none pickable, so this run fell
+      to the quality-pass fallback. Rotation pool re-derived from
+      AGENT_WORKLIST.md's own inline "Done <date>"/"quality pass" tallies
+      per section (standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8),
+      stalest-then-fewest-passes: 4.9 came out stalest (2026-10-20, 22
+      "quality pass" mentions), ahead of 3.8 (2026-10-20, 23). Picked 4.9,
+      twenty-third pass.
+      ANSWER PICKUP (step 3): QUESTIONS.json checked directly: 0 open -
+      browser pickup skipped per standing practice.
+      REPO HALF: full checker suite (all 34 tools/check-*.js except
+      check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+      individually on the tracked repo before any mutation: 34/34 exit 0.
+      branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every prior pass's anchor, unchanged throughout.
+      FRESH ANGLE: check-branch-identity.js, never named once across this
+      item's 22 prior passes (grep-confirmed: 0 hits). Clear Chemist Aintree
+      is a single-site brand with three of its own generated pages
+      (switch-prescriptions-clear-aintree.html,
+      weight-loss-clinic-clear-aintree.html,
+      travel-clinic-clear-aintree.html), none of which any prior pass on
+      this item had used to test data-branch/JSON-LD identity. Made a
+      tar --exclude=.git scratch copy outside the tracked tree; baseline
+      34/34 and the branches.json hash reconfirmed there first. Single
+      injection: switch-prescriptions-clear-aintree.html's `data-branch`
+      changed from "Clear Chemist" to "Smartts Chemist" - CAUGHT, two
+      failures: the page itself named as carrying smartts_bootle's name
+      with the wrong-pharmacy-filing risk spelled out, and
+      clearchemist_aintree flagged estate-wide as declaring two different
+      data-branch values across its own pages. Restored by file copy;
+      sha256(branches.json) reconfirmed identical; full 34-checker suite
+      re-run clean (34/34) in the scratch copy. Tracked repo reconfirmed
+      untouched: sha256(branches.json) unchanged and
+      `git status --porcelain modules/ branches.json tools/` empty. Scratch
+      copy deleted after use. NO IN-REPO DEFECT FOUND.
+      LIVE HALF (Claude in Chrome, read-only, one tab, closed after):
+      clearchemist.co.uk/contact-us re-read in full. Phone now reads 0151
+      203 6535 throughout the live page, matching branches.json exactly -
+      Q28 is implemented and closed, not merely answered (branches.json's
+      phone field itself now holds 6535, where earlier passes recorded it
+      as 8365 against a live 6535). WhatsApp still 07512 330 076, distinct
+      from the estate-wide default (Q21's concrete case, unchanged).
+      Non-NHS hours still "Monday - Friday 8am-4.30pm", NHS hours still
+      "Monday - Thursday 8am - 6pm", matching the pack's Q112 note.
+      weight-loss-clinic-clear-aintree.html re-read: still 404 (Q29
+      unchanged, answered as "no action needed", homepage-button workaround
+      in the pack still correct).
+      Q112 (live GBP profile hours, answered 2026-11-09 via portal,
+      recommended option 0: confirm true hours with the branch, add to
+      branches.json, correct the live profile in the same session) is
+      recorded as "answered" but not yet actioned: branches.json still
+      carries no openingHours for clearchemist_aintree (confirmed again
+      this run), because the first step - confirming the branch's true NHS
+      and non-NHS hours by contacting the branch - needs a person, and the
+      second - editing the live Google Business Profile - is a write action
+      no unattended, read-only browser run may perform. Not treated as a
+      new question (Q112 already exists and is answered); flagged here so
+      the gap between "answered" and "done" stays visible rather than
+      quietly closing on this log entry alone.
+      No in-repo defect, no new live-only defect, no new question raised.
+      Item 4.9 kept [x] (quality pass, not a state change). QUESTIONS.json
+      unchanged (0 open). Done 2026-11-17
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
