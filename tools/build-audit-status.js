@@ -397,7 +397,7 @@ function getToken() {
   const m = url.match(/:\/\/[^:]+:([^@]+)@/);
   return m ? m[1] : null;
 }
-function ghApi(method, repoPath, token, body) {
+function ghApi(method, repoPath, token, body, accept) {
   return new Promise((resolve, reject) => {
     const data = body ? JSON.stringify(body) : null;
     const req = https.request({
@@ -408,7 +408,7 @@ function ghApi(method, repoPath, token, body) {
         {
           'User-Agent': 'rbh-site-data-build-audit-status',
           'Authorization': 'token ' + token,
-          'Accept': 'application/vnd.github+json',
+          'Accept': accept || 'application/vnd.github+json',
         },
         data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {}
       ),
@@ -432,7 +432,24 @@ async function publish() {
   let sha;
   const getRes = await ghApi('GET', PORTAL + '/contents/' + DEST, token);
   if (getRes.status === 200) {
-    try { sha = JSON.parse(getRes.body).sha; } catch (e) { /* unexpected body shape, proceed without sha */ }
+    let live = null;
+    try {
+      const j = JSON.parse(getRes.body);
+      sha = j.sha;
+      if (j.content) live = Buffer.from(j.content, 'base64').toString('utf8');
+    } catch (e) { /* unexpected body shape, proceed without sha */ }
+    if (live === null) {
+      // Files over 1MB come back with no content field; fetch the raw body.
+      const rawRes = await ghApi('GET', PORTAL + '/contents/' + DEST, token, null, 'application/vnd.github.raw');
+      if (rawRes.status === 200) live = rawRes.body;
+    }
+    // 2026-11-17: an hourly Windows task now runs this. Skip the commit when
+    // only the "Updated ..." timestamp differs, so portal main is not spammed.
+    const norm = (s) => s.replace(/Updated [^<]*/g, '');
+    if (live !== null && norm(live) === norm(html)) {
+      console.log('No change since last publish (' + doneCount + '/' + total + ' done) - skipped.');
+      return;
+    }
   } else if (getRes.status !== 404) {
     console.error('Publish GET against ' + PORTAL + ' returned ' + getRes.status +
       ' - treating as "cannot read", not "file is new". Body: ' + getRes.body.slice(0, 300));
