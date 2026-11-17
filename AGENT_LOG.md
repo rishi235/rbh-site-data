@@ -16,7 +16,7 @@ LIVE HALF: check-live-hours.js run live against colemanandleighspharmacy.co.uk (
 
 QUESTIONS Q127/Q128 STATUS CHECK: both read as "answered" with Rishi's decisions dated 09/11/2026. Q127 (rotate the exposed PAT) - this run's `git remote -v` on the mounted copy still showed a PAT embedded in the origin URL in cleartext; already-logged and already-answered, no further action taken. Q128 (FUSE lock debris / supervised re-clone) - addressed procedurally this run exactly as run499/500/506 did: worked from a fresh scratch clone rather than forcing past an unremovable lock, beyond the one sync needed (none needed this run, since the scratch clone fetched the mounted copy's debris-free remote state directly). No new question raised on either.
 
-RESULT: zero in-repo defect found. No worklist item ticked (none unblocked); item 3.9 updated in place with this pass's note. Commit and push completed cleanly from the scratch clone. Step 10 (build-audit-status.js) run from the scratch clone.
+RESULT: zero in-repo defect found. No worklist item ticked (none unblocked); item 3.9 updated in place with this pass's note. Commit and push completed cleanly from the scratch clone (55b97b6..4d77338). Step 10 (build-audit-status.js) run from the scratch clone: publish failed with the already-documented Q124 credential-scope gap ("the token that can push to rbh-site-data has no access to rbh-data-portal"), same cause recorded against every recent run - not a new fault, not actioned further (publishing of the Digital Audit Status page is reported to have moved to an hourly Windows task on the ProDesk host, so this sandbox 404 is expected and harmless).
 
 No new question raised this run.
 
