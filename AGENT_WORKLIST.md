@@ -12251,6 +12251,43 @@ Done 2026-10-14 (twenty-third pass).
       specific branch (up from 22). No generator, page, pack, checker or
       branches.json content changed. Full detail:
       audits/sk-chemists-item-3.8-address-region-injection-2026-10-20.txt.
+      Quality pass 2026-11-17 (twenty-seventh, run498, unattended scheduled
+      run). REPO HALF ONLY, no live check this pass. check-em-dashes.js
+      proven by injection against SK Chemists Bootle for the first time -
+      genuinely untested against this branch across the prior 26 passes.
+      Isolated git-archive scratch extraction throughout (/tmp/scratch38,
+      tracked repo never opened for writing), branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      before and unchanged after. Baseline: check-em-dashes.js clean, full
+      35-checker suite (excl. check-cdn-pins.js/check-live-hours.js,
+      network-dependent) 35/35 on the scratch copy. Injected a mid-sentence
+      em dash into the hero-sub paragraph (visible copy, not the build
+      comment) of sore-throat-treatment-sk-chemists-bootle.html - CAUGHT
+      first attempt, naming the file and line and quoting the surrounding
+      text. Restored by a fresh `git show HEAD:<path>` byte copy, confirmed
+      identical by diff. Negative control (shortCode changed to "ZZZ" on
+      this branch, a field check-em-dashes.js does not read) ran clean
+      after the page was restored, confirming the catch was genuine and
+      selective rather than a harness artefact. shortCode reverted;
+      branches.json sha256 reconfirmed identical to baseline. Full
+      35-checker suite re-run clean on the restored scratch copy
+      afterwards, 35/35. Tracked repo confirmed untouched throughout:
+      `git status --porcelain -- branches.json tools modules core` empty
+      before and after, HEAD unchanged. No in-repo defect - SK Chemists
+      Bootle's pages carry no em or en dash in public copy. tools/ now
+      holds 37 check-*.js scripts (one more than the "36" quoted in
+      earlier passes on this item; not investigated further this run,
+      noted as housekeeping only). Guard coverage for item 3.8 now 25 of 37
+      checkers proven by injection against this specific branch (up from
+      23, correcting for the twenty-sixth pass's check-address-region.js
+      proof, which a plain filename grep under-reported because the name
+      line-wraps in the source text). HOUSEKEEPING (not a question):
+      .git/HEAD.lock and .git/index.lock were stuck at the start of this
+      run, the same FUSE unlink-permission fault already tracked in
+      INCIDENT-2026-11-16-sandbox-unlink-blocked.md; cleared with the
+      documented rename-not-delete workaround before any git command, no
+      further action needed. No question raised. Full detail:
+      audits/sk-chemists-item-3.8-em-dashes-injection-2026-11-17.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

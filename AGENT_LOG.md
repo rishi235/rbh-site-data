@@ -1,4 +1,84 @@
-﻿## run497 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T14:12Z): no-op on the worklist; quality pass (twenty-third) on item 4.9 (Clear Chemist Aintree GBP pack), picked as the least recently verified rotation-pool item; 34-checker quality pass clean; fresh angle (check-branch-identity.js, never previously named on this item) proven by direct cross-branch injection, caught, restored; live half confirmed Q28 (phone) is now fully implemented in branches.json, reconfirmed Q29/Q21/Q112 unchanged, and flagged that Q112's answered remediation (confirm hours with the branch, update branches.json, correct the live GBP profile) has not yet been actioned - no new question raised.
+﻿## run498 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T14:17Z): no-op on the worklist (all 3 unchecked items remain [BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60); quality pass (twenty-seventh) on item 3.8 (SK Chemists Bootle), picked as the least recently verified rotation-pool item (max date 2026-10-20, fewest "quality pass" mentions among that date's cohort, tied with no other item once 4.9 was excluded); fresh angle (check-em-dashes.js, never previously proven against this specific branch across 26 prior passes) proven by direct injection into SK Chemists Bootle's own sore-throat page, caught, restored, negative control clean; repo half only, no live check this pass; no new question raised.
+
+LOCK/REPO: this run found `.git/HEAD.lock` (about 26 minutes old) and a
+freshly self-created `.git/index.lock` stuck at the pre-flight `git
+checkout`, which failed with "unable to update HEAD". No standalone
+`.agent-lock` was present at start. This is the same FUSE
+unlink-permission fault already tracked in
+`INCIDENT-2026-11-16-sandbox-unlink-blocked.md`: a direct probe confirmed
+`rm` is blocked for this session, so both lock files were renamed (not
+deleted) to `*.cleared_run498_<timestamp>`, per the documented workaround,
+before retrying. `git checkout`/`git pull --ff-only` on `agents/audit-
+backlog` then ran clean, already up to date with origin. A later `git
+status` call threw the same recurring unlink warning on
+`.git/ORIG_HEAD.lock` but did not block the command. `.agent-lock` was
+created with the current timestamp before any repo work and will be
+deleted at the end of this run.
+
+ANSWER PICKUP (step 3): `QUESTIONS.json` checked directly: 0 open
+questions out of 139 total - nothing a portal read could change, so the
+browser call was skipped per standing practice once 0-open is confirmed
+directly.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous
+window" section at the top of this file. Not in an autonomous window;
+normal rules applied.
+
+WORKLIST (step 5): all 3 unchecked `[ ]` lines confirmed `[BLOCKED]` by
+direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60). None pickable. Fallback quality
+pass taken: re-derived the least-recently-verified rotation-pool item with
+a Python pass over AGENT_WORKLIST.md's own `- [x]` blocks (max calendar
+date mentioned per item, standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/
+6.7/6.8 excluded, tiebreak by fewest "quality pass" mentions, then lower
+item number). Stalest was 3.8 (2026-10-20, 23 mentions before this run) -
+item 4.9, which held that position last run, had been bumped to today's
+date by run497 and so dropped out of contention. Picked 3.8 (SK Chemists
+Bootle), twenty-seventh pass on this item.
+
+REPO HALF: full suite of `tools/check-*.js` run individually on an
+isolated `git archive HEAD` scratch extraction at `/tmp/scratch38`
+(tracked repo never opened for writing): 35/35 exit 0 excluding
+`check-cdn-pins.js` and `check-live-hours.js` (both network-dependent).
+`branches.json` sha256
+`0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da`,
+matching every prior pass's recorded anchor, unchanged throughout.
+
+FRESH ANGLE: a word-wrap-aware grep of every `check-*.js` filename against
+this item's own 26-pass worklist block found `check-em-dashes.js` never
+named (12 other checkers were also untried; em-dashes was picked as the
+simplest to test cleanly). Injected a mid-sentence em dash into the
+visible hero-sub paragraph of
+`modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html`
+(not the build comment, which the checker deliberately excludes) in the
+scratch copy - caught first attempt, the checker naming the exact file,
+line and surrounding text. Restored via a fresh `git show HEAD:<path>`
+byte copy, confirmed identical by diff. Negative control: with the page
+restored, changed only this branch's `shortCode` in `branches.json` from
+"SKC" to "ZZZ" (a field this checker does not read) - ran clean, proving
+the earlier catch was selective and not a harness artefact. `shortCode`
+reverted; sha256 reconfirmed identical to baseline. Full 35-checker suite
+re-run clean on the restored scratch copy. Tracked repo confirmed
+untouched throughout: `git status --porcelain -- branches.json tools
+modules core` empty before and after, HEAD unchanged at
+`cd46374e2f089103cfe73b11510377fe5c80165d`. No in-repo defect - SK
+Chemists Bootle's pages carry no em or en dash in public copy.
+
+HOUSEKEEPING NOTE: `tools/` holds 37 `check-*.js` scripts today, one more
+than the "36" figure quoted in several earlier passes on this item. Not
+investigated further this run (not a question per Rishi's 2026-11-16
+sorting rule; a checker was evidently added to the suite at some point
+after that figure was last accurate, which is expected growth, not a
+defect). Guard coverage for item 3.8 is now 25 of 37 checkers proven by
+injection against this specific branch, up from the 23 recorded after the
+twenty-sixth pass (the correction accounts for the twenty-sixth pass's own
+`check-address-region.js` proof, which a plain single-token filename grep
+under-reports because the name line-wraps across two lines in the source
+text; it was present on manual read and is counted here).
+
+No question raised this run. Full evidence:
+`audits/sk-chemists-item-3.8-em-dashes-injection-2026-11-17.txt`.
+
+## run497 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T14:12Z): no-op on the worklist; quality pass (twenty-third) on item 4.9 (Clear Chemist Aintree GBP pack), picked as the least recently verified rotation-pool item; 34-checker quality pass clean; fresh angle (check-branch-identity.js, never previously named on this item) proven by direct cross-branch injection, caught, restored; live half confirmed Q28 (phone) is now fully implemented in branches.json, reconfirmed Q29/Q21/Q112 unchanged, and flagged that Q112's answered remediation (confirm hours with the branch, update branches.json, correct the live GBP profile) has not yet been actioned - no new question raised.
 
 LOCK/REPO: no `.agent-lock` present at start. Created with the current timestamp (2026-11-17T14:12:53Z). `git fetch`/`checkout`/`pull --ff-only` on `agents/audit-backlog` all clean, already up to date with origin. No stale `.git/index.lock` found at the pre-flight check; the familiar unlink-permission warning on this FUSE mount resurfaced once during a later `git status` call but did not block it or any subsequent operation.
 

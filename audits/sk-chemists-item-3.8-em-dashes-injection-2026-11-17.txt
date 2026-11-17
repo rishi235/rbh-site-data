@@ -1,0 +1,74 @@
+Item 3.8 quality pass (twenty-seventh), 2026-11-17, run498 (Cowork scheduled run)
+Fresh angle: check-em-dashes.js proven by direct injection against SK Chemists
+Bootle for the first time - untested against this branch across the prior 26
+passes (checked by grepping every check-*.js filename mentioned in the item's
+own worklist block; only check-em-dashes.js among the 35 testable checkers,
+plus 12 others, had never been named - this run closes one of them).
+
+Method: isolated scratch extraction via `git archive HEAD | tar -x` to
+/tmp/scratch38, outside the tracked working tree throughout. Tracked repo
+never opened for writing.
+
+1. Baseline: check-em-dashes.js clean on scratch copy (177 generated pages,
+   234 files scanned, 0 failures). Full 35-checker suite (excludes
+   check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+   individually on the scratch copy: 35/35 exit 0.
+   branches.json sha256 (scratch and tracked, matching):
+   0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+
+2. Injection: replaced the comma in SK Chemists Bootle's own sore throat
+   page (modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html,
+   the hero-sub paragraph, visible copy not inside the build comment) with
+   an em dash mid-sentence. CAUGHT first attempt:
+   "FAIL modules/service/pages/sore-throat-treatment-sk-chemists-bootle.html
+   line 23 (em dash): <p class=\"hero-sub\">SK Chemists offers the NHS
+   Pharmacy First service for acute sore throat in Bootle. A pharmacist can
+   assess your symptoms"
+
+3. Negative control: restored the page to baseline first (fresh
+   `git show HEAD:<path>` byte copy, confirmed byte-identical by diff), then
+   changed only branches.json's shortCode field for this branch from "SKC"
+   to "ZZZ" (a field check-em-dashes.js does not read). Checker stayed
+   clean, proving the earlier catch was selective (the dash) and not a
+   blanket failure mode or harness artefact.
+
+4. Restore: shortCode reverted to "SKC". branches.json sha256 reconfirmed
+   identical to baseline:
+   0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+   Page file reconfirmed byte-identical to `git show HEAD:<path>` by diff.
+
+5. Final full 35-checker suite re-run clean on the restored scratch copy:
+   35/35.
+
+6. Tracked repo confirmed untouched throughout:
+   `git status --porcelain -- branches.json tools modules core` empty
+   before and after. HEAD unchanged: cd46374e2f089103cfe73b11510377fe5c80165d.
+
+No in-repo defect. SK Chemists Bootle's 12 generated pages carry no em or
+en dash in public copy.
+
+Guard coverage for item 3.8: 25 of 37 check-*.js scripts now proven by
+direct injection against this specific branch (up from 24; the twenty-sixth
+pass's check-address-region.js proof was present in the block but line-wrapped
+across "check-address-" / "region.js" in the source text, so a plain grep for
+"check-address-region.js" as one token under-reports it - confirmed present
+on manual read and counted here). 37 is the current total check-*.js file
+count in tools/ (one more than the "36" figure quoted in earlier passes; a
+checker has evidently been added to the suite since that figure was last
+true). Two of the 37 (check-cdn-pins.js, check-live-hours.js) are
+network-dependent and are run for cleanliness but not proven by injection
+in these passes, consistent with every prior pass on this item.
+
+Remaining untried against this specific branch (for a future pass):
+check-editor-snapshot.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-symptoms.js, check-seo-sheets.js, check-service-links.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js.
+
+No question raised. HOUSEKEEPING note (not a question per Rishi's 2026-11-16
+rule): this run found .git/HEAD.lock and .git/index.lock stuck at the start
+(the known FUSE unlink-permission fault, already tracked in
+INCIDENT-2026-11-16-sandbox-unlink-blocked.md). Resolved using the
+documented rename-not-delete workaround (mv to a timestamped
+.cleared_run498 name) before any git command; no further action needed.
