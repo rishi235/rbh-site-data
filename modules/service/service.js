@@ -189,7 +189,7 @@
       banner.innerHTML =
         "<div style='background:#009639;color:#fff;text-align:center;font-weight:600;" +
         "font-size:16px;line-height:1.45;padding:12px 18px;border-radius:12px;'>" +
-        "&#10003; You can refer yourself &mdash; just book below or walk in. " +
+        "&#10003; You can refer yourself. Just book below or walk in. " +
         "No GP appointment or referral needed.</div>";
       wrap.insertBefore(banner, wrap.firstChild);
     }
@@ -230,7 +230,7 @@
         "<h2 style='font-size:22px;font-weight:800;color:#0b2a4a;margin:0 0 6px;'>" +
         "New to Pharmacy First?</h2>" +
         "<p style='font-size:15px;color:#4b5563;margin:0 auto 18px;max-width:520px;'>" +
-        "See how the free NHS service works &mdash; no GP appointment or referral needed.</p>" +
+        "See how the free NHS service works. No GP appointment or referral needed.</p>" +
         "<div style='max-width:600px;margin:0 auto;'>" +
         "<div style='position:relative;padding-bottom:56.25%;height:0;border-radius:14px;" +
         "overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);'>" +
@@ -269,7 +269,7 @@
           "<path d='M16 21l-2 -4l-3 -3l1 -6'/><path d='M6 12l2 -3l4 -1l3 3l3 1'/></svg>" +
           "<span style='font-size:17px;font-weight:700;color:#fff;'>Prefer to walk in?</span></div>" +
           "<p style='font-size:14px;line-height:1.55;margin:0 0 10px;color:#dbe8ff;'>" +
-          "Just pop in and ask about Pharmacy First &mdash; no appointment or GP referral needed.</p>" +
+          "Just pop in and ask about Pharmacy First. No appointment or GP referral needed.</p>" +
           "<p style='font-size:14px;line-height:1.55;margin:0;color:#dbe8ff;'>" +
           "Not sure which of the conditions fits? " + phoneCall +
           " and we&rsquo;ll help you book the right one.</p>";
@@ -347,8 +347,12 @@
   // Weight Loss and Travel Clinic are distinct paid services with their own Appointedd
   // diaries — falling back to the branch's Pharmacy First widget here would book a
   // customer into the wrong clinic/service, so (unlike the NHS condition pages) these
-  // two never fall back.
-  var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true };
+  // two never fall back. The NHS Pharmacy Contraception Service is in the
+  // same position: it has its own diary at every branch that offers it and is
+  // never the Pharmacy First diary, so it must not fall back either (Q17,
+  // answered 2026-08-28). With no widget id the page keeps its own generic
+  // book-an-appointment content instead of a wrong diary.
+  var NO_FALLBACK_SERVICE_KEYS = { "weightLoss": true, "travelClinic": true, "contraception": true };
 
   function renderBookingWidget(mount, widgetId) {
     function doRender() {
