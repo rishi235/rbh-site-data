@@ -16863,6 +16863,39 @@ Done 2026-10-14 (twenty-third pass).
       3.11 stays `[x]` (quality pass, not a state change). Evidence:
       audits/gordon-short-crosby-item-3.11-quality-pass-2026-10-19-
       twentyseventh.txt. Done 2026-10-19.
+      Twenty-eighth quality pass 2026-11-17 (unattended run, audit-backlog-
+      worker). All 6 worklist items confirmed [BLOCKED]; 3.11 was the
+      stalest rotation-pool item (2026-10-19, 29 mentions), just ahead of
+      2.1 (2026-10-19, 34 mentions). REPO HALF: full 35-checker suite clean
+      (excl. cdn-pins and live-hours, both network-dependent); all 6
+      generators byte-stable. FRESH ANGLE: tools/check-widget-diaries.js,
+      never named once across 27 prior passes. Injected
+      gordonshorts_crosby.widgets.pharmacyFirst = scorah_bramhall's own
+      pharmacyFirst id (cross-brand collision) - CAUGHT by rule 2
+      (crossbrand), naming both brands; check-booking-routes.js re-run on
+      the same injected state stayed clean, confirming in practice the gap
+      the new checker exists to cover (booking-routes only tests sharing
+      WITHIN one branch). Restored immediately, sha256(branches.json)
+      reconfirmed identical to baseline (0385b7c2b2bca...), full
+      35-checker suite re-run clean. NO IN-REPO DEFECT FOUND. LIVE HALF
+      (Claude in Chrome, read-only): weight-loss-clinic-gordon-short-
+      crosby.html read in full, a page not previously used as evidence for
+      this item. No medicine named, no superlative or results claim, NAP
+      and opening hours match branches.json exactly. Standing Q32 finding
+      (live "Gordon Shorts Chemist" plural vs tracked "Gordon Short
+      Chemist" singular) reconfirmed, not new. NEW-TO-THIS-BRANCH
+      confirmation of the standing, already-answered Q51/Q83/Q88 finding:
+      live booking-sub carries no "subject to a clinical assessment"
+      qualifier, confirmed absent via find(), while the tracked source has
+      carried it since the 2026-09-15 fix - repo-only pending a Weebly
+      repaste of all 15 weight loss pages. Gordon Short Chemist Crosby is
+      now the fourth branch on which this pending-repaste gap has been
+      directly reconfirmed live, alongside McCanns Aigburth (Q83),
+      Fishlocks Eccleston (Q88) and Hirshmans Ainsdale (item 3.5's own
+      twenty-third pass, 2026-09-18), cited here as cross-branch
+      precedent only. No new question; QUESTIONS.json
+      unchanged at 139 total, 0 open. Evidence: audits/gordon-short-crosby-
+      item-3.11-quality-pass-2026-11-17-twentyeighth.txt. Done 2026-11-17.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.

@@ -1,0 +1,108 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - twenty-eighth quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-11-17T13:12Z
+
+SELECTION
+All 6 AGENT_WORKLIST.md unchecked lines confirmed [BLOCKED] by direct grep
+(5.5/Q13, 5.8/Q16, 6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66). None pickable.
+Re-derived the least-recently-verified rotation-pool item: max calendar date
+mentioned within each item's own AGENT_WORKLIST.md section (standing
+exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8 excluded), tiebreak by fewest
+"quality pass" mentions, then lower item number. Stalest was 3.11 (date
+2026-10-19, 29 mentions) just ahead of 2.1 (2026-10-19, 34 mentions); 3.11
+had been displaced from the prior tier by run494 taking 3.1 an hour earlier.
+Picked 3.11, twenty-eighth pass.
+
+REPO HALF
+Lock: .agent-lock present at start, content "RELEASED 2026-11-17T12:17:41Z"
+(already-released state left by a prior run that could not unlink it on
+exit), ~55 minutes old by its own timestamp, over the 45-minute staleness
+threshold either way. `rm -f .agent-lock` failed with the documented
+Operation-not-permitted-on-unlink fault on this FUSE mount; cleared via the
+standard `mv .agent-lock .agent-lock.RELEASED-run494-<timestamp>` workaround,
+then a fresh .agent-lock written. git fetch/checkout/pull --ff-only on
+agents/audit-backlog all clean, already up to date with origin.
+
+QUESTIONS.json: 139 total, 0 open - browser answer-pickup skipped per
+standing practice once 0-open confirmed directly.
+
+AUTONOMOUS WINDOW: no "Standing authorisation" header present at the top of
+AGENT_LOG.md. Normal rules applied throughout.
+
+Full 35-checker suite (all tools/check-*.js except check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually: 35/35 exit 0,
+no FAIL line in any output. All 6 page generators (build-service-pages.js,
+build-switch-pages.js, build-weight-loss-pages.js, build-travel-clinic-
+pages.js, build-contraception-pages.js, build-branch-landing-pages.js)
+re-run; `git status --porcelain modules/` empty both before and after,
+confirming byte-stable regeneration with zero drift. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, unchanged
+throughout.
+
+FRESH ANGLE: tools/check-widget-diaries.js, never named once across this
+item's 27 prior passes. Gordon Short Chemist is a single-site brand
+(gordonshorts), so all five of its widget ids must be unique estate-wide;
+check-booking-routes.js's own rule 7 only tests sharing WITHIN one branch,
+so a cross-brand collision on this branch's diary is a gap only
+check-widget-diaries.js covers.
+
+Backed up branches.json (sha256 above) before any edit. Single injection on
+the tracked repo, restored and sha256-reconfirmed before moving on:
+gordonshorts_crosby.widgets.pharmacyFirst overwritten with
+scorah_bramhall's own pharmacyFirst id (6a439fa31916ef7a9401cc92, brandKey
+scorahs, a different brand). CAUGHT by check-widget-diaries.js rule 2
+(crossbrand): "widget id ... is held by 2 different brands
+(scorahs/scorah_bramhall.pharmacyFirst, gordonshorts/
+gordonshorts_crosby.pharmacyFirst). A booking made on one brand's page would
+land in another brand's diary." check-booking-routes.js re-run on the same
+injected state stayed clean (exit 0), confirming in practice the gap the
+new checker exists to cover: a cross-branch collision is invisible to
+booking-routes' own within-branch sharing rule. Restored immediately;
+sha256(branches.json) back to the baseline value above; full 35-checker
+suite re-run clean (35/35); `git status --porcelain .` shows only
+pre-existing untracked debris from earlier runs (AGENT_LOG.md.new,
+__agent_test_delete_me.txt, __unlink_probe_*, various audits/live-hours-
+check-*.json, etc.), none created or touched by this pass, no tracked-file
+diff.
+
+NO IN-REPO DEFECT FOUND on the fresh angle.
+
+LIVE HALF (Claude in Chrome, read-only, no sign-in)
+Read weight-loss-clinic-gordon-short-crosby.html in full - a page not
+previously used as evidence for this item across 27 prior passes.
+
+- No medicine named anywhere (Mounjaro/Wegovy/Orlistat or otherwise); all
+  references to prescription-only weight-loss medication are generic.
+  Consistent with the repo's safe-side policy of naming no medicine at all
+  on generated pages.
+- No superlative, no results claim, no outcome slider; hedged throughout
+  ("may suit", "nothing below is a guarantee", "individual results vary").
+- NAP matches branches.json exactly: 159 College Road, Liverpool, L23 3AT;
+  phone 0151 924 3449; Google review link https://g.page/r/
+  CZcVDM6emi6OEAE/review.
+- Opening hours match branches.json's gordonshorts_crosby specification
+  exactly, both sessions each weekday and Saturday, Sunday closed.
+- Standing Q32 finding reconfirmed, not new: every live occurrence of the
+  trading name on this page reads "Gordon Shorts Chemist" (plural) -
+  title, H1, hero-sub, booking heading, contact card - while the tracked
+  source (modules/service/pages/weight-loss-clinic-gordon-short-
+  crosby.html) consistently reads "Gordon Short Chemist" (singular). Same
+  live-Weebly-paste-drift already quoted as evidence in gbp-packs/gordon-
+  short-crosby.md; not a new defect.
+- NEW-TO-THIS-BRANCH confirmation of a standing, already-answered finding
+  (Q51, answered by Rishi 2026-09-01, implemented in tools/build-weight-
+  loss-pages.js 2026-09-15, repo-only pending a Weebly repaste of all 15
+  weight loss pages): live booking-sub reads "Private consultation at
+  Gordon Shorts Chemist, from £39.99. Choose a time that suits you." -
+  confirmed via find() to carry no instance of "subject to a clinical
+  assessment" anywhere on the page - while the tracked source's
+  booking-sub line reads "Private consultation at Gordon Short Chemist,
+  from £39.99, subject to a clinical assessment. Choose a time that suits
+  you." This is the same Q51/Q83/Q88 lead-price/qualifier gap already
+  confirmed live on McCanns Chemist Aigburth (Q83), Fishlocks Chemist
+  Eccleston (Q88) and Hirshmans Ainsdale (this item's own twenty-third
+  pass, 2026-09-18); Gordon Short Chemist Crosby is now the fourth branch
+  on which the pending-repaste gap has been directly reconfirmed live.
+  Not a new question - QUESTIONS.json unchanged at 139 total, 0 open.
+
+No new in-repo defect, no new live-only defect, no new question raised.
+Item 3.11 kept [x] (quality pass, not a state change).
