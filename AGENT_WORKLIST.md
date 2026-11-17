@@ -37846,6 +37846,22 @@ angle should look elsewhere - e.g. the Services subpages (not yet read for
 this fault on any site) or the Prescriptions/Reviews/Contact Us subpages,
 none of which this pass or the twentieth pass opened.
 
+Quality pass 2026-11-17 (twenty-seventh). check-switch-copy.js's RULE 7
+(no medicines, no clinical claim) had never been run against this item by
+name despite 26 prior passes. Proved by injection: swapped the switch
+page bullet "No interruption to your medication wherever possible" for
+"...your Mounjaro wherever possible" in tools/build-switch-pages.js,
+regenerated the 15 switch pages, and the checker caught it on the first
+attempt (15 failures, one per page). A negative control swapping in
+"...your routine wherever possible" instead passed clean, confirming the
+rule is selective rather than tripping on any edit. Restored and
+regenerated; sha256 of the generator and branches.json both unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da for
+branches.json, matching every prior pass). Full suite re-run: 37 of 37
+checkers and all 7 generators clean, git status empty. No new defect; no
+generator, page, pack or branches.json content changed. Evidence:
+audits/item-5.1-switch-copy-injection-2026-11-17-twentyseventh.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

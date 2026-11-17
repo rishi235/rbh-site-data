@@ -1,0 +1,89 @@
+Item 5.1 quality pass (twenty-seventh), run505, 2026-11-17.
+
+Rotation pick: stalest-date cohort (2026-10-20) was 5.1 (29 "quality pass"
+mentions) and 3.13 (36). Lowest mention count wins the tiebreak, so 5.1 was
+picked. Excluded as done in the three most recent runs: 3.7 (run502), 4.14
+(run503), 4.13 (run504). Standing exclusions (1.1-1.4, 2.2, 4.2, 4.4, 5.6,
+5.7, 6.7, 6.8) applied as usual.
+
+Fresh angle: of the 37 tools/check-*.js files, 25 had never been named
+against item 5.1's own section text. check-switch-copy.js was chosen: its
+RULE 7 (no medicines, no clinical claim) is squarely in this item's own
+domain (public copy on the 15 switch pages), and nothing in the item's long
+quality-pass history had ever run this specific checker against it by name.
+
+Baseline hashes recorded before any change:
+  tools/build-switch-pages.js  sha256 2f3393ae92f45b9c17f5e9662cb75a0f6fe5e0c26906c8d66d08b567cb50b277
+  branches.json                sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(branches.json hash matches every prior pass's recorded anchor, unchanged.)
+
+Test 1 - injection, positive control:
+  Changed the static switch-page bullet "No interruption to your medication
+  wherever possible" to "No interruption to your Mounjaro wherever
+  possible" in tools/build-switch-pages.js, regenerated all 15 switch pages,
+  ran node tools/check-switch-copy.js.
+  RESULT: caught on first attempt. 15 failures, one per switch page, rule
+  [no-medicines], "the switch page names mounjaro".
+
+Test 2 - injection, negative control (selectivity):
+  Changed the same bullet instead to "No interruption to your routine
+  wherever possible" (no POM name, no clinical-claim pattern), regenerated,
+  ran the checker again.
+  RESULT: check-switch-copy: OK - no failures. Confirms RULE 7 does not
+  fire on an unrelated wording change; it is reading for the medicine list
+  and clinical-claim patterns specifically, not flagging every edit.
+
+Restore: tools/build-switch-pages.js restored from the pre-test backup,
+regenerated again. sha256 of the restored file: identical to baseline
+(2f3393ae92f45b9c17f5e9662cb75a0f6fe5e0c26906c8d66d08b567cb50b277).
+git status --porcelain on the whole tree: empty both after the restore and
+after the final regeneration. No generated page, generator, pack or
+branches.json content differs from the committed baseline.
+
+Full suite: all 37 tools/check-*.js re-run individually against the
+restored tree: 37 of 37 exit 0. All 7 tools/build-*.js generators re-run:
+no errors, no diff against the committed tree (git status --porcelain
+empty). check-switch-copy.js itself, run clean on the restored tree:
+"check-switch-copy: OK - 15 switch page(s), 33 line(s) of body copy, 15
+banner(s) read for where they send people, 11 rules, 3 accepted breach(es)
+pinned to a question." (the 3 accepted breaches are the pre-existing
+Q49/Q50 pins, unchanged).
+
+RESULT: no new defect found. check-switch-copy.js's RULE 7 is proven, by
+direct injection, to guard item 5.1's own switch pages against a
+prescription-only medicine name appearing in the public copy this item is
+about. Guard coverage for item 5.1 now includes this checker by name for
+the first time. No generator, page, pack, checker or branches.json content
+changed by this pass.
+
+HOUSEKEEPING finding this run (not a question - see the 2026-11-16 rule in
+AGENT_WORKLIST.md): the mounted working copy at C:\Dev\rbh-site-data is in
+the same broken state documented in Q128 (files cannot be unlinked, only
+renamed, under this Cowork mount's FUSE-like layer). This run found it one
+step worse than run500's Q128 note: `git pull --ff-only` on the mounted
+copy failed outright (not just the self-recreating .lock warnings) because
+git could not unlink four tracked files mid-merge (AGENT_LOG.md,
+AGENT_WORKLIST.md, QUESTIONS.json, tools/check-booking-routes.js), and
+after renaming the stale .agent-lock, .git/index.lock and
+.git/ORIG_HEAD.lock aside and clearing one untracked-file collision, the
+retry still failed on those four tracked files, and git regenerated a
+fresh ORIG_HEAD.lock/index.lock on every attempt (cannot be deleted
+either, same symptom). No further workaround was attempted on the mounted
+copy itself, per run500's precedent and Q128's own answer (a supervised
+re-clone is the real fix, not another unattended workaround): all of this
+run's actual work (checker runs, generator runs, the injection test, the
+worklist and log edits, the commit and push) was done from a fresh
+`git clone --branch agents/audit-backlog` into a scratch path in the
+Cowork shell sandbox, which cloned, fetched, ran every checker and
+generator, committed and pushed cleanly with no lock issues of its own.
+The mounted copy's own debris (dozens of `.agent-lock.RELEASED-*`,
+`.lock.cleared*` and similar rename-siblings going back to run448, plus
+.quarantine/, AGENT_LOG.md.new, and assorted __*test*__ probe files) was
+left as found; nothing there was deleted, since deletion is not available
+in that mount and `allow_cowork_file_delete` auto-declines with nobody
+present to approve it on an unattended run. This is now the second run in
+a row (run500, run505) to hit a "stuck, needs a supervised session" wall
+on the SAME standing issue (Q128); it has not worsened since run500 but
+has also not been fixed, and it is costing real time on every run to
+rediscover and work around. Recommend the supervised re-clone Q128 already
+asked for, next time Rishi is at the ProDesk.
