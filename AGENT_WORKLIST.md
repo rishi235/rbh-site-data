@@ -26440,6 +26440,33 @@ directly rather than re-deriving the same facts by hand.
       shingles, infected insect bite) with the correct NHS age ranges. NO
       NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 4.8 stays `[x]`
       (quality pass, not a state change). Done 2026-10-19.
+      Quality pass 2026-11-17 (run493, twenty-fifth pass, unattended run):
+      stalest item in the rotation pool, re-derived independently (fresh
+      Python scan of every [x] section's own max calendar date, excluding
+      the standing exclusions; 4.8 tied stalest at 2026-10-19 with 3.1,
+      3.11 and 2.1, won outright on the fewest-mentions tiebreak, 28
+      against 29/29/34). Baseline: pack sha256 unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa),
+      full 34-checker suite (excl. check-cdn-pins.js and
+      check-live-hours.js, both network-dependent) 34/34 exit 0. Every
+      fact in the pack (name, address, phone, hours, review link, profile
+      website, catchment order, hasApp, pfLink) re-verified field by field
+      against branches.json fishlocks_eccleston, independently of tools/;
+      all match. Character counts recomputed independently
+      (730/463/348/521/433); unchanged. Post C re-checked against the
+      house weight loss standard: no medicine named, no efficacy or
+      superlative claim, no lead price, paid-service qualifier present.
+      LIVE HALF (Claude in Chrome connected, read-only, two page reads):
+      pharmacy-fishlocks-eccleston.html still 404 (known queued-paste
+      state, 5.3/5.4). pharmacy-first-fishlocks-eccleston.html 200, all
+      seven conditions and NHS age ranges correct, free wording intact, no
+      price; Eccleston's own contact card (Mon-Fri 9-6, Sat 9-12, Sun
+      closed, PR7 5SZ) correctly distinct from the Ainsdale sister card on
+      the same page, no cross-branch leak. ANSWER PICKUP: QUESTIONS.json
+      read directly, 139 total, 0 open, nothing for a portal read to
+      change. No in-repo defect found, no new question raised. Item 4.8
+      stays `[x]` (quality pass, not a state change).
+      See audits/quality-pass-run493-4.8-fishlocks-eccleston-2026-11-17.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

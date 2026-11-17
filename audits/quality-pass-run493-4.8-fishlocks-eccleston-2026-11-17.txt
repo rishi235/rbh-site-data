@@ -1,0 +1,89 @@
+Quality pass run493 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T07:43Z)
+Item 4.8 Fishlocks Chemist Eccleston GBP pack - twenty-fifth dedicated quality pass.
+
+SELECTION
+All 7 unchecked AGENT_WORKLIST.md lines remain [BLOCKED] (5.3/Q8, 5.5/Q13, 5.8/Q16,
+6.1/Q52, 6.4/Q60, 6.5/Q60, 6.6/Q66) - none pickable. Fallback quality pass taken per
+step 5. Rotation pool re-derived with a fresh Python pass over AGENT_WORKLIST.md's
+own [x] section bodies (max calendar YYYY-MM-DD mentioned within each item's own
+section, excluding the standing exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8,
+tiebreak by fewest "quality pass" mentions, then lower item number).
+
+Stalest date found: 2026-10-19, a four-way tie (4.8, 3.1, 3.11, 2.1) with mention
+counts 28/29/29/34 respectively. 4.8 won outright on the mention-count tiebreak (28,
+lowest) before any item-number tiebreak was needed. Picked 4.8.
+
+BASELINE
+git status clean on tracked content; pack sha256 unchanged against every prior pass's
+recorded hash:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+Full 34-checker suite run directly (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent): 34/34 exit 0, no failures.
+
+FACT RE-VERIFICATION (fresh extraction, independent of tools/)
+gbp-packs/fishlocks-eccleston.md read in full and checked field by field against
+branches.json's fishlocks_eccleston record:
+  - Name on GBP: "Fishlocks Chemist Eccleston" = branchName. Match.
+  - Address: "Unit 3 The Carrington Centre, New Mill Street, Eccleston, Chorley
+    PR7 5SZ" = streetAddress + addressLocality + postalCode. Match.
+  - Phone: 01257 451251 = phone. Match.
+  - Hours: Monday to Friday 9:00am-6:00pm, Saturday 9:00am-12:00pm, Sunday closed
+    = openingHours.specification (Mon-Fri 09:00-18:00, Sat 09:00-12:00, no Sunday
+    session). Match.
+  - Review link: https://g.page/r/CYyjtWbSXqEkEAE/review = googleReviewUrl. Match.
+  - Profile website: pharmacy-fishlocks-eccleston.html (branch landing page, not
+    the shared fishlockpharmacy.co.uk homepage, not the bare pfLink). Correct per
+    the shared-domain rule - matches item 2.2/4.8's standing finding.
+  - Catchment: "Eccleston, Charnock Richard and Coppull" in that order in the
+    business description, the services bullet and Post B = serviceAreaList
+    (['Eccleston', 'Charnock Richard', 'Coppull']), leading with its own seoTown.
+    Match.
+  - hasApp true; app mentions present in business description, services bullet
+    and Post B, paster note explains why. Consistent.
+  - pfLink = https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html,
+    used verbatim as Post A's button target. Match.
+  - No other branch's phone, postcode, street address or seoTown appears anywhere
+    in the pack (checked by reading the whole file, not only grepping).
+
+CHARACTER COUNTS (recomputed independently in Node/Python, not trusted from the
+pack's own claims)
+  Business description: 730 (pack claims 730; limit 750) - match.
+  Post A: 463. Post B: 348. Post C: 521. Post D: 433.
+  All four match the figures every prior pass has recorded since the pack's
+  second quality pass (2026-08-10); unchanged.
+
+COMPLIANCE SPOT-CHECK
+Post C (weight loss clinic): no medicine named, no efficacy or superlative claim,
+no lead price, "this is a private, paid service and it is not right for everyone"
+qualifier present, book-a-consultation framing only. Consistent with every prior
+pass's verdict and with compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md's Regime 2
+inner-page standard (not directly applicable here since this is a GBP post, Regime
+1, which this pack already treats as the stricter case).
+Post A (Pharmacy First): all seven NHS conditions and age ranges match the
+generator's own canon; free/no-charge language present; no price.
+
+LIVE HALF (Claude in Chrome connected this run, read-only, two page reads, nothing
+clicked, typed or submitted)
+1. https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-eccleston.html (profile
+   website / branch landing page): still a live 404. Known queued-paste state
+   (Q35, 5.3/5.4 scope), unchanged across at least nine prior live checks on this
+   item since 2026-09-01.
+2. https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html
+   (Post A's button target): 200. Full text read. All seven Pharmacy First
+   conditions present with the correct NHS age ranges (UTI women 16-64, sore
+   throat 5+, sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected
+   insect bite 1+); free NHS wording throughout, no price. Contact card and
+   footer both carry Eccleston's own address, phone and hours (Mon-Fri 9-6, Sat
+   9-12, Sun closed) correctly distinct from the Ainsdale sister branch's own
+   card lower on the same page (8:45am starts, Saturday closed, PR8 3HN) - no
+   cross-branch leak, consistent with the twenty-second pass's own finding.
+
+No in-repo defect found. No new question raised. Open question count: 139 total,
+0 open (confirmed by direct read of QUESTIONS.json; no portal fetch needed since
+there is nothing open for a portal answer to change - step 3 answer pickup was a
+no-op on that basis, consistent with the last several runs).
+
+Item 4.8 kept [x] (quality pass, not a state change) with a dated entry appended
+to its own AGENT_WORKLIST.md section.
+
+No checker, generator, pack, page or branches.json content changed this pass.
