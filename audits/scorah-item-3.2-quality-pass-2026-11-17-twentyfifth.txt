@@ -1,0 +1,139 @@
+item 3.2 quality pass (twenty-fifth, run 501, 2026-11-17) - Scorah Chemists
+(Bramhall and Hazel Grove)
+
+ROTATION: all 3 unchecked worklist lines reconfirmed [BLOCKED] (5.8/Q16,
+6.4/Q60, 6.5/Q60), unchanged. Fallback quality pass taken. Rotation pool
+re-derived by a fresh Python pass over AGENT_WORKLIST.md's own "- [x]"
+section bodies (max real calendar date mentioned within each item's own
+section), standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus
+3.6/2.3/3.8 excluded as done in the three most recent runs (500/499/498).
+Stalest date 2026-10-20, shared by 3.2 (26 "quality pass" mentions), 3.7
+(26), 4.14 (26), 4.13 (27), 5.1 (29), 3.13 (36). 3.2 won the mention-count
+tiebreak (26, tied with 3.7/4.14) on lower item number.
+
+REPO HALF: full suite of tools/check-*.js (37 files) run from a fresh
+`git clone --branch agents/audit-backlog` scratch clone (the mounted
+working copy at C:\dev\rbh-site-data could not complete `git pull
+--ff-only` on its own because a leftover untracked file,
+audits\live-hours-check-2026-11-17.json, collided with an incoming
+tracked file of the same name; moved aside into .quarantine\pre-pull-
+2026-11-17\ rather than deleted, then the pull fast-forwarded cleanly
+dd3e6d1..ad7134a - no FUSE/EPERM symptom hit this run, this was an
+ordinary untracked-file collision). All work below (checker runs,
+injections, worklist/log edits, commit, push, publish) done from the
+scratch clone.
+
+36/37 checkers exit 0. The one failure, tools/check-weebly-furniture-
+freshness.js, is the already-documented Windows-host CRLF false failure
+(see tools/check-weebly-furniture-freshness.js's own in-repo history,
+entry dated 2026-10-20 against item 3.3: core.autocrlf=true writes the
+checked-in file to the working tree with CRLF while the generator's
+in-memory comparison string uses bare LF, so every line differs only by
+a trailing \r that does not print). Reproduced here on a completely
+pristine, untouched clone (git status --porcelain clean before and after
+running the checker), confirming it is not caused by this run and is not
+a real staleness gap - running tools/build-weebly-furniture-checklist.js
+makes the checker pass again and `git diff --exit-code` against the
+regenerated file is empty, i.e. content-identical once line endings
+match. Not fixed this run (a tooling fix to the checker's own comparison
+logic is out of this run's single-item scope); no new question raised,
+since this is a mechanical bug already diagnosed in full elsewhere, not
+a judgement call for Rishi.
+
+branches.json sha256 confirmed unchanged by the scratch clone's own
+checkout (no edits made to it or to any tracked file this run).
+
+FRESH ANGLE: comm against item 3.2's own 24-pass history (after correctly
+dehyphenating line-wrapped checker filenames such as "check-contraception-
+\ncopy.js", which a naive regex had first mis-split, wrongly suggesting
+check-contraception-copy.js was untested - it was proven on the 23rd pass,
+2026-10-14) gave 12 genuinely never-named checkers: check-brand-spelling,
+check-em-dashes, check-gbp-pharmacy-first, check-pharmacy-first-cost,
+check-pharmacy-first-eligibility, check-pharmacy-first-symptoms,
+check-service-links, check-travel-clinic-copy, check-uk-spelling,
+check-url-scheme, check-weebly-furniture-freshness, check-whatsapp-route.
+
+tools/check-travel-clinic-copy.js chosen: both Scorah branches hold a
+travel clinic widget per branches.json (shared diary across the pair,
+widget id 66b9d4565781154cd1315e0b), and this is the first time this
+checker has been run against Scorah by direct injection (it was proven
+against item 3.6/McCanns and item 3.10/Riddings in earlier runs, but
+never against this item).
+
+INJECTION 1 (medicine name + verbatim): modules/service/pages/travel-
+clinic-scorah-bramhall.html, the "lead" paragraph's generator line "This
+is a private service covering a wide range of travel-related vaccines
+and advice, subject to availability and clinical suitability. ..."
+changed to insert "including Malarone" before "and advice". CAUGHT on
+first attempt, 2 failures: [verbatim] (page no longer carries the exact
+generator line) and [medicine] (names "malarone", a prescription-only
+antimalarial, in public advertising copy). Restored from backup,
+sha256-reconfirmed identical to the pre-injection baseline
+(4A35D8503375E23D674DC5A22360428A279F7A9E83E83F583499A0272247200E).
+
+INJECTION 2 (book-ahead window): same page, every "6 to 8 weeks" instance
+changed to "4 to 6 weeks" (4 lines touched: the hero bullet, the booking-
+window FAQ answer, and two others). CAUGHT, 5 failures: 4x [verbatim]
+(the four generator lines no longer match) plus 1x [leadtime] - "the
+estate gives 2 different book-ahead windows: 6 to 8 weeks on 14 page(s),
+4 to 6 weeks on 1 page(s). The same private service must not tell a
+traveller to book further ahead at one branch than at another." This is
+the cross-page consistency rule firing correctly, isolated from the
+per-line verbatim rule. Restored from backup, sha256-reconfirmed
+identical to baseline again.
+
+NEGATIVE CONTROL: same page, a benign data-test-probe="1" attribute added
+to the existing data-wa attribute on #rbhsv-root, touching no copy, no
+medicine name, no booking window. Ran clean (OK - no failures). Restored,
+sha256-reconfirmed identical to baseline a third time.
+
+All three results fired on (or passed) their intended rule only, first
+attempt. Tracked repo confirmed untouched throughout: `git status
+--porcelain` empty before, during (between restores) and after; the only
+transient changes were to the untracked .bak/.bak2 copies, both removed.
+Guard coverage for item 3.2 now 26 of 37 checkers proven by direct
+injection (up from 24 after the 24th pass, +1 for check-contraception-copy
+already counted on the 23rd pass that the dehyphenation error had
+obscured, +1 for this pass's check-travel-clinic-copy).
+
+LIVE HALF: tools/check-live-hours.js run live (real network GETs,
+read-only) against both Scorah pages (homepage + contactus.html).
+Homepage snippet gives both branches' hours unambiguously by name:
+"Bramhall opening hours: Mon-Fri 9am-6pm, Sat 9am-1pm, Sun closed" and
+"Hazel Grove opening hours: Mon-Fri 9am-6pm, Sat & Sun closed" - both
+match branches.json's expected rows exactly (Bramhall Sat 9am to 1pm,
+Hazel Grove Sat Closed). The contactus.html page's two raw snippet groups
+match the same two branches correctly ON ADDRESS, PHONE AND HOURS (Hazel
+Grove's SK7 6BG/01625 872267 block shows Sat Closed; Bramhall's SK7
+3LQ/0161 439 3744 block shows Sat 9am-1:00pm), but each group's trailing
+"Scorah | Bramhall" / "Scorah | Hazel Grove" tag is swapped relative to
+its own block's address. This is NOT treated as a new live defect: it
+matches, symptom-for-symptom, the exact windowing artefact the checker's
+own source comment documents at tools/check-live-hours.js lines ~110-122
+(the -6/+2 line window around each day-mention can pick up the START of
+the NEXT branch's card near a boundary, exactly on this page, previously
+diagnosed on 2026-08-30 and the root cause of why the window was widened
+from -1/+2 to -6/+2). Content (address/phone/hours) is the reliable
+signal and it is correct for both branches; the trailing tag is page-
+layout-adjacent extraction noise. Attempted to confirm directly on the
+live DOM via the built-in browser pane as a further check, since this is
+exactly the page the existing comment flags as historically tricky;
+access to scorah-chemists.co.uk was declined (automated/unattended
+session, no one to grant it), so this pass relies on the reasoned
+content-match analysis above rather than a fresh DOM read. Not raised as
+a new question: no new evidence of an actual live mismatch was found, and
+the existing code comment already explains the symptom.
+
+QUESTIONS Q127/Q128 STATUS CHECK: both still "answered" (Rishi, 09/11/
+2026). Q127 (rotate the exposed PAT) - the scratch clone's origin URL
+still carries a PAT in cleartext (`git remote -v`); already logged,
+already answered, no further action (rotating a live credential is
+Rishi's own action). Q128 (FUSE lock debris on the mounted copy) - this
+run's mounted-copy pull failure was a different, ordinary cause (an
+untracked file collision, moved aside, resolved in under a minute via
+real PowerShell access to the host - not the FUSE/EPERM symptom at all),
+so nothing new to add to Q128; recorded for completeness since the
+mounted copy was touched this run (just not blocked by the usual fault).
+
+RESULT: no in-repo defect found. No worklist item ticked (none
+unblocked). Guard coverage for item 3.2 extended. No new question raised.

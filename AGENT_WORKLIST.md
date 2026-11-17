@@ -4992,6 +4992,46 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       No in-repo or live defect, no new question. Guard coverage for item
       3.2 now 24 of 36 checkers proven by direct injection. Evidence in
       audits/scorah-item-3.2-quality-pass-2026-10-20-twentyfourth.txt.
+      Quality pass 2026-11-17 (twenty-fifth, run 501, unattended scheduled
+      run via Cowork): stalest item in the rotation pool (2026-10-20,
+      26 "quality pass" mentions, tied with 3.7/4.14, won on lower item
+      number; 3.6/2.3/3.8 excluded as done in runs 500/499/498). Fresh
+      angle: check-travel-clinic-copy.js, never proven against Scorah
+      before (both branches hold a travel clinic widget, shared diary).
+      Two injection rounds on travel-clinic-scorah-bramhall.html, each
+      restored and sha256-reconfirmed before the next: (1) the lead
+      paragraph's generator line given "including Malarone" - CAUGHT two
+      ways (verbatim, medicine); (2) every "6 to 8 weeks" on the page
+      changed to "4 to 6 weeks" - CAUGHT (4x verbatim plus the leadtime
+      cross-page consistency rule, "the estate gives 2 different book-
+      ahead windows"). A true negative control (a data-test-probe
+      attribute added to the existing data-wa attribute, no copy touched)
+      ran clean. Tracked repo confirmed untouched throughout. Guard
+      coverage for item 3.2 now 26 of 37 checkers proven by direct
+      injection (the 24th-pass note of "24 of 36" already included
+      check-contraception-copy from the 23rd pass; a line-wrap in this
+      file had made that checker look untested when re-deriving the
+      never-named list this pass, corrected here). Full 36/37 checker
+      suite clean; the one failure, check-weebly-furniture-freshness.js,
+      reproduced on a completely pristine clone and is the already-
+      documented Windows core.autocrlf CRLF-vs-LF false failure (see item
+      3.3's 2026-10-20 note on this same checker) - not a new defect, not
+      actioned (out of this run's single-item scope). LIVE HALF: check-
+      live-hours.js run live against both Scorah pages; the homepage
+      names each branch's hours explicitly and both match branches.json
+      exactly (Bramhall Sat 9am-1pm, Hazel Grove Sat closed); the
+      contactus.html page's two raw snippet groups also match correctly
+      on address/phone/hours, but each group's trailing branch-name tag
+      is swapped relative to its own block - matching, not a new instance
+      of, the windowing artefact the checker's own source comment already
+      documents for this exact page (lines ~110-122, root-caused
+      2026-08-30). Browser access to scorah-chemists.co.uk was requested
+      to confirm directly on the live DOM and declined (unattended
+      session, nobody to grant it), so this finding rests on the content-
+      match reasoning above rather than a fresh read; not raised as a new
+      question since no new mismatch was found. No in-repo or live
+      defect, no new question. Evidence in audits/scorah-item-3.2-
+      quality-pass-2026-11-17-twentyfifth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
