@@ -78,6 +78,18 @@ text; it was present on manual read and is counted here).
 No question raised this run. Full evidence:
 `audits/sk-chemists-item-3.8-em-dashes-injection-2026-11-17.txt`.
 
+PUBLISH (step 10): `git commit` and `git push origin agents/audit-backlog`
+both succeeded cleanly this run (cd46374..0305470), using the same
+rename-the-stuck-lock-file workaround as the pre-flight check, applied
+fresh before each of `git add`, `git commit` and `git push` individually
+since the lock reappeared after each one. `node tools/build-audit-
+status.js` was then run as instructed, even though the status page publish
+still fails: 404 Not Found writing to rishi235/rbh-data-portal, the same
+credential-scope gap already tracked and answered as Q124 - its
+remediation (a second credential scoped to rbh-data-portal) does not
+appear to have been actioned yet. Not a new question; reconfirming what
+Q124 already records.
+
 ## run497 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-17T14:12Z): no-op on the worklist; quality pass (twenty-third) on item 4.9 (Clear Chemist Aintree GBP pack), picked as the least recently verified rotation-pool item; 34-checker quality pass clean; fresh angle (check-branch-identity.js, never previously named on this item) proven by direct cross-branch injection, caught, restored; live half confirmed Q28 (phone) is now fully implemented in branches.json, reconfirmed Q29/Q21/Q112 unchanged, and flagged that Q112's answered remediation (confirm hours with the branch, update branches.json, correct the live GBP profile) has not yet been actioned - no new question raised.
 
 LOCK/REPO: no `.agent-lock` present at start. Created with the current timestamp (2026-11-17T14:12:53Z). `git fetch`/`checkout`/`pull --ff-only` on `agents/audit-backlog` all clean, already up to date with origin. No stale `.git/index.lock` found at the pre-flight check; the familiar unlink-permission warning on this FUSE mount resurfaced once during a later `git status` call but did not block it or any subsequent operation.
