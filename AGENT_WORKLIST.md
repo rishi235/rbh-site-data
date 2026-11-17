@@ -39187,7 +39187,7 @@ none of which this pass or the twentieth pass opened.
       Done 2026-11-16 in a supervised session: new Embed Code block at the
       top of the old page, paragraph plus button to the new page, video and
       booking widget untouched, published and verified live. See AGENT_LOG.md.
-- [ ] [BLOCKED] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
+- [x] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
       live page references stop serving code this repo no longer says, and
       re-pin the 15 switch pages to a current commit at the next Weebly paste
       run, which is what stops live switch requests landing in Rishi's own
@@ -39233,6 +39233,18 @@ none of which this pass or the twentieth pass opened.
       All other repo-side facts in this item's note re-confirmed unchanged
       this pass: 37/37 checkers clean, all 8 generators byte-identical
       against branches.json, zero tracked diff.
+      DONE 2026-11-17 (supervised session, Rishi said "Yes, all of them"). Per Q129:
+      (1) modules/service/service.js from this branch committed onto main as
+      5c7fa63 (em dashes out, contraception in NO_FALLBACK_SERVICE_KEYS); service.css
+      already identical. (2) service-module-phase1 fast-forwarded db4d187 -> 5c7fa63
+      and jsDelivr purged for service.js/service.css; live CDN copy verified. (3)
+      Switch generator PIN 6a275e1 -> 5c7fa63 (DESTINATION helpdesk@, was rishi@),
+      15 pages regenerated (7dc7c29), and the 13 live switch pages re-pasted and
+      published on both Weebly accounts; all 13 verified live on @5c7fa63. Before
+      copies in audits/weebly-before-2026-11-17-switch/. Clear (404) and Riddings
+      (older native "Switch Prescriptions" page with no generated embed) have no
+      pinned page to change. Remaining CDN WARN (branches.json @main differs from
+      this branch at run time, Q45) is separate and not part of this item.
 - [x] 5.6 Q14 shorten the one over-length page title in the estate: the
       Coleman and Leighs infected insect bite title ran to 70 characters
       against Google's 65, so the brand was the part being truncated away.
@@ -40079,7 +40091,7 @@ data field changed this run. No new question.
 
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
-- [ ] [BLOCKED] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
+- [x] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
       sitemaps" as a new issue on at least 8 of the 16 projects, all newly
       appearing since the estate-wide page regeneration. Find the shared
       root cause in the sitemap generator (likely tools/build-sitemap.js or
@@ -40088,6 +40100,14 @@ data field changed this run. No new question.
       spot-check 2 to 3 of the affected sites' live sitemap.xml. Not a
       ranking risk on its own but worth clearing before it masks a real
       issue in a future audit.
+      DONE 2026-11-17 (supervised session). Ahrefs Site Audit is not on the API plan
+      ("Insufficient plan"), so checked the live sitemaps directly instead: all 13
+      estate domains serve one Weebly-generated sitemap.xml, no sitemap index, zero
+      duplicate <loc> entries, robots.txt names one sitemap each, and the http and
+      non-www sitemap URLs all 301 to the https www copy. The repo has no sitemap
+      generator (Weebly owns sitemap.xml). Nothing on the estate side duplicates a
+      page. If Ahrefs still flags it, check the project crawl settings for a second
+      sitemap URL added by hand; that is Ahrefs config, not the sites.
 - [x] 6.2 Broken internal links: "Page has links to broken page" is the Done 2026-08-11
       single most common top issue across nearly every branch site in Site
       Audit. Run a full estate-wide broken-internal-link sweep (Site Audit
@@ -42579,7 +42599,7 @@ data field changed this run. No new question.
       should be re-read against that correction before acting on it. Repo
       work tied to this answer is on PR #2 (claude/weight-loss-online-and-
       inner), not this branch. Remains [BLOCKED] on the Weebly nav session.
-- [ ] [BLOCKED] 6.6 Q66 (downgraded to low urgency, see the correction below)
+- [x] 6.6 Q66 (downgraded to low urgency, see the correction below)
       HTTP/HTTPS duplicate
       indexing: checked live in real Google Search Console (not Ahrefs) on
       2026-08-13 for Cherry Lane, Riddings and McCanns. All three have BOTH
@@ -42691,6 +42711,12 @@ data field changed this run. No new question.
       whenever taken; record each branch's before-value in GBP_MANUAL.md
       section 4 as the answer specifies.
 
+      DONE 2026-11-17 (supervised session, Rishi). All nine Q66 profiles re-read
+      live in the GBP edit screen: every website field already shows the https
+      branches.json value (McCanns Aigburth now the https root, not contact-us.html).
+      Someone fixed them between the 2026-08-09 sweep and today, so no GBP write was
+      needed. GBP_MANUAL.md section 5 rows updated, check-url-scheme.js KNOWN emptied
+      (0 held). Canonical tag (part a) stays a Weebly head setting, optional, not Q66.
 - [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
