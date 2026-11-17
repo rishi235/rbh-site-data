@@ -8,7 +8,7 @@ const path = require("path");
 const pat = require("./seo-pattern"); // single source of title/H1 pattern (item 3.1)
 
 // Commit hash the pages pin switch.css / switch.js to (immutable = no jsDelivr lag).
-const PIN = "6a275e1";
+const PIN = "5c7fa63";
 const CDN = "https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@" + PIN + "/modules/switch";
 
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "branches.json"), "utf8"));

@@ -156,24 +156,8 @@ var PROFILE_TO_BRANCH = {
 // Divergences accepted for now, keyed "<profile name>". Every one of these is
 // a live Google Business Profile edit, which is a write to a public listing
 // and therefore Rishi's call, not an unattended run's.
-var KNOWN = {
-  "Clear Chemist":
-    "Q66: GBP publishes http where branches.json says https. Nine profiles are in this state, "
-    + "recorded in GBP_MANUAL.md section 6 item 2 since the 2026-08-09 sweep. Fixing it is a live "
-    + "edit to a verified Google listing, so it is held for Rishi.",
-  "Fishlocks Eccleston": "Q66: as Clear Chemist. Also shares a root URL with Fishlocks Ainsdale, which is GBP_MANUAL section 6 item 3.",
-  "Fishlocks Ainsdale": "Q66: as Clear Chemist. Also shares a root URL with Fishlocks Eccleston, which is GBP_MANUAL section 6 item 3.",
-  "McCanns Aigburth":
-    "Q66: the only row that diverges on PATH as well as scheme. GBP points at "
-    + "http://www.mccannspharmacy.co.uk/contact-us.html where branches.json says "
-    + "https://www.mccannspharmacy.co.uk. Sister branch McCanns Sandringham points at the https root, "
-    + "so the two halves of one shared domain disagree.",
-  "RB Healthcare head office": "Q66: as Clear Chemist. Head office is also miscategorised as a Pharmacy, which is GBP_MANUAL section 6 item 5.",
-  "Riddings": "Q66: as Clear Chemist. One of the three branches whose http/https click split was measured in GSC for item 6.6.",
-  "Scorah Bramhall": "Q66: as Clear Chemist. Also shares a root URL with Scorah Hazel Grove, which is GBP_MANUAL section 6 item 3.",
-  "Scorah Hazel Grove": "Q66: as Clear Chemist. Also shares a root URL with Scorah Bramhall, which is GBP_MANUAL section 6 item 3.",
-  "SK Chemists": "Q66: as Clear Chemist."
-};
+// Emptied 2026-11-17: all nine Q66 profiles read https live in GBP (supervised session).
+var KNOWN = {};
 
 var failures = [];
 var warnings = [];

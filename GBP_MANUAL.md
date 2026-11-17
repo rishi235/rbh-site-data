@@ -88,19 +88,19 @@ Website field, checked one by one.
 | Profile | Website in GBP | Verdict |
 |---|---|---|
 | Cherry Lane | https://www.cherrylanepharmacy.co.uk/ | correct |
-| Clear Chemist | http://www.clearchemist.co.uk/ | WRONG SCHEME, Q66 |
+| Clear Chemist | https://www.clearchemist.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
 | Coleman and Leighs | https://www.colemanandleighspharmacy.co.uk/ | correct |
-| Fishlocks Eccleston | http://www.fishlockpharmacy.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
-| Fishlocks Ainsdale | http://www.fishlockpharmacy.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
+| Fishlocks Eccleston | https://www.fishlockpharmacy.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
+| Fishlocks Ainsdale | https://www.fishlockpharmacy.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
 | Gordon Short | https://www.gordonshortchemist.co.uk/ | correct |
 | Hirshmans | https://www.hirshmanspharmacy.co.uk/ | correct |
-| McCanns Aigburth | http://www.mccannspharmacy.co.uk/contact-us.html | WRONG SCHEME AND PATH, Q66; sister branch points at the https root |
+| McCanns Aigburth | https://www.mccannspharmacy.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
 | McCanns Sandringham | https://www.mccannspharmacy.co.uk | FIXED 2026-08-09, was nhs.uk |
-| RB Healthcare head office | http://www.rbhealth.co.uk/ | WRONG SCHEME, Q66; also miscategorised, item 5 below |
-| Riddings | http://www.riddingspharmacy.co.uk/ | WRONG SCHEME, Q66 |
-| Scorah Bramhall | http://www.scorah-chemists.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
-| Scorah Hazel Grove | http://www.scorah-chemists.co.uk/ | WRONG SCHEME, Q66; shared root, item 3 below |
-| SK Chemists | http://www.skchemist.co.uk/ | WRONG SCHEME, Q66 |
+| RB Healthcare head office | https://www.rbhealth.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
+| Riddings | https://www.riddingspharmacy.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
+| Scorah Bramhall | https://www.scorah-chemists.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
+| Scorah Hazel Grove | https://www.scorah-chemists.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
+| SK Chemists | https://www.skchemist.co.uk/ | correct, re-checked live 2026-11-17 (Q66 closed) |
 | Smartts | https://www.smarttschemist.co.uk/ | correct |
 | Tiffenbergs | https://www.tiffenbergschemist.co.uk/ | correct |
 
@@ -138,7 +138,10 @@ Decisions for Rishi, none actioned:
    for 90 days. Clear Chemist is the only clean one, named just
    "Clear Chemist". Coleman and Leighs is additionally still shown as
    "Coleman & Leighs", not the confirmed trading name.
-2. HTTP VERSUS HTTPS. Nine profiles point at http, six at https, one at the
+2. HTTP VERSUS HTTPS. CLOSED 2026-11-17: all nine re-read live in the GBP
+   edit screen and every one already shows the https branches.json value (McCanns
+   Aigburth now the https root, not contact-us.html). No edit was needed. Original
+   note follows. Nine profiles point at http, six at https, one at the
    https root after the 2026-08-09 fix. All should be https. Raised as Q66 on
    2026-08-13 and linked to worklist item 6.6, which is the same subject read
    from the other end: item 6.6 came from Google Search Console showing http
