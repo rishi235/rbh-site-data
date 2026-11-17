@@ -1754,6 +1754,33 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       `[x]` (quality pass, not a state change). Evidence: audits/fishlocks-
       ainsdale-item-2.1-quality-pass-2026-10-19-twentyfifth.txt. Done
       2026-10-19.
+      Quality pass 2026-11-17 (twenty-sixth, run 496): picked as the rotation
+      pool's stalest in-scope item (last touched 2026-10-19, ahead of
+      4.9/3.8/2.3/3.6/3.2/3.7/4.14 at 2026-10-20 and everything touched since;
+      3.11, the prior stalest, was re-verified earlier the same day by run
+      495). FRESH ANGLE: of the 13 checkers a prior pass found never named
+      once against this item, check-seo-keywords.js (the fourth Weebly SEO
+      field, Meta Keywords, 8 rules) was picked. REPO HALF: full 35-checker
+      suite clean before and after on both the tracked repo and a `tar
+      --exclude=.git` scratch copy. Nine injections against the scratch copy
+      (one per rule 1-8, plus a no-cross-fire phone-number control), each
+      targeting Fishlocks Ainsdale's own Pharmacy First Overview sheet block
+      (and, for rule 8, branches.json's fishlocks_ainsdale seoTown and
+      serviceAreaList): all nine CAUGHT correctly, rule 8 instructively
+      double-caught alongside rule 4 because Ainsdale already has a second
+      live seoTown owner (Hirshmans). All restores sha256-confirmed; tracked
+      repo untouched throughout (anchor hashes unchanged, `git status
+      --porcelain` clean on modules/branches.json/tools). LIVE HALF (Claude
+      in Chrome, read-only): read the live `<meta name="keywords">` tag -
+      never done before for this item - on the Pharmacy First and switch
+      pages; both byte-identical to the tracked sheets, including on the
+      switch page that the standing Q49 finding already flags as carrying
+      stale BODY copy. Sharpens Q49 rather than reopening it: the paste lag
+      on this branch is specific to the three body-copy sentences, not the
+      page's Weebly SEO fields as a whole. NO NEW DEFECT FOUND, NO NEW
+      QUESTION RAISED. Item 2.1 stays `[x]` (quality pass, not a state
+      change). Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-
+      2026-11-17-twentysixth.txt. Done 2026-11-17.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

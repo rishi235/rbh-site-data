@@ -1,0 +1,137 @@
+Item 2.1 (Fishlocks Chemist Ainsdale) - quality pass, twenty-sixth, 2026-11-17
+Run: Cowork scheduled run, audit-backlog-worker (run 496)
+
+PICKED AS: stalest in-scope rotation-pool item. Python pass over AGENT_WORKLIST.md's
+own "- [x]" section bodies (standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8,
+tiebreak by fewest "quality pass" mentions then lower item number) gave 2.1 as
+stalest, last touched 2026-10-19, ahead of 4.9/3.8/2.3/3.6/3.2/3.7/4.14 (all
+2026-10-20) and everything touched since. Item 3.11, the prior stalest, was
+re-verified by run 495 earlier the same day (2026-11-17) and dropped out of the
+stalest tier.
+
+LOCK/REPO: no .agent-lock present at start. Created with current timestamp.
+git fetch/checkout/pull --ff-only on agents/audit-backlog all clean, already
+up to date with origin. No stale .git/index.lock older than 1 hour found (none
+present at the pre-flight check; one reappeared mid-run from a git status call
+and could not be unlinked - the documented FUSE-mount "create succeeds, unlink
+does not" behaviour - but every git operation that followed still completed).
+
+ANSWER PICKUP (step 3): QUESTIONS.json checked directly: 139 total, 0 open.
+Nothing a portal read could change, so the browser call was skipped, consistent
+with recent runs' standing practice once 0-open is confirmed directly.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+section at the top of AGENT_LOG.md. Not in an autonomous window; normal rules
+applied.
+
+WORKLIST (step 5): all 3 unchecked "[ ]" lines confirmed [BLOCKED] by direct
+grep (5.8/Q16, 6.4/Q60, 6.5/Q60). None pickable. Fallback quality pass taken
+per the rotation-pool derivation above.
+
+FRESH ANGLE: a grep of every tools/check-*.js name against this item's own
+~1385-line block (lines 371-1756 of AGENT_WORKLIST.md) found 13 checkers still
+never proven by direct injection against this specific branch as of the
+twenty-fifth pass: check-address-region, check-brand-spelling,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+check-seo-keywords, check-seo-sheets, check-service-links, check-uk-spelling,
+check-url-scheme, check-widget-diaries (check-booking-routes and check-switch-
+copy, named in the same original 2026-10-?? finding, were each given dedicated
+injection passes afterward and are now proven). Picked check-seo-keywords.js:
+the fourth Weebly SEO field (Meta Keywords), eight rules, composed six
+different ways by six generators, never once tested against Fishlocks
+Ainsdale's own eleven sheet entries across 25 prior passes on this item.
+
+BASELINE: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing
+anchor, unchanged), modules/service/pages/SEO.md sha256
+2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5. Full
+35-checker suite (excl. check-cdn-pins.js and check-live-hours.js, both
+network-dependent) clean on the tracked repo before any mutation. Scratch copy
+made by `tar --exclude=.git` under /tmp, outside the tracked tree; same
+baseline hashes and same 35/35 clean result reconfirmed there before any
+injection.
+
+NINE INJECTIONS AGAINST THE SCRATCH COPY, each restored by byte copy and
+sha256-reconfirmed before the next, all against Fishlocks Chemist Ainsdale's
+own "Pharmacy First - Overview" block in modules/service/pages/SEO.md (and,
+for the eighth, branches.json's fishlocks_ainsdale entry too):
+
+ 1. RULE 1 (pairing) - Meta Keywords line blanked, Page Permalink left in
+    place. CAUGHT: "has a Page Permalink but no Meta Keywords value."
+ 2. RULE 2 (resolution) - Page Permalink mangled to
+    "pharmacy-first-fishlocks-ainsdayle". CAUGHT: "does not end in any live
+    branch's <brandSlug>-<townSlug>".
+ 3. RULE 3 (presence) - "Ainsdale" removed from the keywords. CAUGHT: "do not
+    carry this branch's own seoTown 'Ainsdale'".
+ 4. RULE 4 (absence) - "Bootle" (Smartts/SK Chemists' seoTown, not in this
+    branch's serviceAreaList) appended. CAUGHT: named both Bootle branches by
+    id, named the serviceAreaList gap.
+ 5. RULE 5 (brand) - "Scorah Chemists" (another brand) appended. CAUGHT: named
+    both Scorah branches by id.
+ 6. RULE 6 (postcode) - a foreign outward code "L4" appended. CAUGHT: named
+    this branch's own outward code 'PR8' for contrast.
+ 7. RULE 7 (claim) - "proven results" appended. CAUGHT via the shared
+    tools/claim-patterns.js list, same list check-service-links.js applies to
+    the generated pages.
+ 8. RULE 8 (retired town word) - branches.json's fishlocks_ainsdale seoTown
+    changed to "Formby" (keeping townSlug "ainsdale") AND "Ainsdale" removed
+    from serviceAreaList (replicating the exact real-world shape of McCanns
+    Sandringham's own seoTown/serviceAreaList split, confirmed by reading that
+    branch's record first), with the Overview block's keywords updated to
+    carry the new seoTown "Formby" (so rule 3 would pass) while still carrying
+    the retired word "Ainsdale". CAUGHT, and instructively double-caught: rule
+    8 itself ("townSlug still spells but which is no longer its seoTown...and
+    is not in its serviceAreaList") and rule 4 ("the seoTown of
+    hirshmans_ainsdale") fired together, because Ainsdale already has a
+    second live branch (Hirshmans) with that town as its own seoTown - the
+    same "one fact, several rules" shape already on record elsewhere in this
+    item. A first attempt at this injection (seoTown changed alone, without
+    also removing "Ainsdale" from serviceAreaList and without updating the
+    sheet) only tripped rule 3, which revealed that rule 8 can never fire on a
+    branch's own still-current serviceAreaList entry for its own home town -
+    confirmed by checking that McCanns Sandringham's live serviceAreaList
+    (St Michael's, Lark Lane, Dingle) genuinely omits "Sandringham", i.e. the
+    real Q57-adjacent case this rule guards already has that shape in
+    branches.json today, not something that would need to be added.
+ 9. CONTROL (no cross-fire) - branches.json's fishlocks_ainsdale phone changed
+    to "01704 000000". check-seo-keywords.js stayed clean (exit 0, correctly -
+    it does not read phone numbers); check-nap.js caught it independently
+    (131 mismatches across all pages/paste blocks referencing this branch's
+    old number). Confirms the checker is neither over- nor under-firing.
+
+All nine restores confirmed byte-identical by sha256 before the next
+injection. Full 35-checker suite re-run on the scratch copy after the final
+restore: 35/35 clean. Tracked repo reconfirmed untouched throughout (both
+anchor hashes unchanged after the run; `git status --porcelain modules/
+branches.json tools/` empty). Scratch directory deleted after use.
+
+RESULT: zero in-repo defect. All eight rules of check-seo-keywords.js, plus
+one no-cross-fire control, now proven by direct injection against Fishlocks
+Chemist Ainsdale's own sheet entries specifically.
+
+LIVE HALF (Claude in Chrome, read-only, nothing clicked, typed or submitted):
+read the live <meta name="keywords"> tag via a same-origin JavaScript
+evaluation (not previously done for this item - all 25 prior live-half checks
+read visible body copy, NAP, hours or the sitemap, never the Weebly SEO
+Settings fields themselves, which render only in <head> and are invisible to
+get_page_text/read_page). Two pages checked:
+  - pharmacy-first-fishlocks-ainsdale.html: live meta keywords "Pharmacy First
+    Ainsdale, NHS Pharmacy First, Fishlocks Chemist, pharmacy Ainsdale, PR8" -
+    byte-identical to the tracked sheet's Overview block value used as the
+    injection target above.
+  - switch-prescriptions-fishlocks-ainsdale.html: live meta keywords
+    "Fishlocks Chemist, Fishlocks Chemist Ainsdale, switch prescriptions
+    Ainsdale, switch pharmacy, prescription transfer, repeat prescriptions,
+    pharmacy Ainsdale, NHS pharmacy Ainsdale, chemist Ainsdale, PR8" -
+    byte-identical to modules/switch/pages/SEO.md's corresponding block.
+This is a new and useful negative result: the standing Q49 paste-lag finding
+on this branch's switch page is specifically about the three visible body-copy
+sentences (hero/trust-bar/FAQ), not about the page's Weebly SEO Settings
+fields as a whole - the Meta Keywords field on the very same stale page is
+current and correctly pasted. Not a contradiction of Q49, a sharpening of it:
+"stale" on this branch means one specific pasted block, not the whole page.
+No new question raised.
+
+QUESTIONS.json unchanged: 139 total, 0 open. Item 2.1 stays [x] (quality pass,
+not a state change).
