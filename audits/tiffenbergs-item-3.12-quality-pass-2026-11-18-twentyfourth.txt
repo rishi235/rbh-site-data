@@ -1,0 +1,102 @@
+item 3.12 quality pass, twenty-fourth, 2026-11-18 (run512, scheduled Cowork run,
+audit-backlog-worker)
+
+SELECTION
+All 3 unchecked worklist lines ([ ] 5.8/Q16, [ ] Q60 6.4, [ ] Q60 6.5) confirmed
+[BLOCKED] by direct grep against the fetched origin/agents/audit-backlog tip
+(7e548a7, run511). Fallback quality pass taken per step 5. Re-derived the
+least-recently-verified rotation-pool item with a fresh Python pass over
+AGENT_WORKLIST.md's own "- [x] <n.n>" section bodies: for each item, collected
+every YYYY-MM-DD date mentioned anywhere in its own section and took the max;
+excluded the standing items (1.1-1.4, 2.2, 4.2, 4.4, 5.6, 5.7, 6.7, 6.8) and the
+three items done in the three most recent runs (4.10 run511, 3.10 run510, 4.15
+run509). Stalest date was 2026-11-08, shared by 3.12 (25 "quality pass"
+mentions), 4.5 (25) and 4.7 (25). Tiebreak by item number: 3.12 (Tiffenbergs
+Chemist, Longmoor Lane, Liverpool/Aintree) won.
+
+LOCK / REPO ACCESS
+The mounted working copy at the host path showed the same standing FUSE
+EPERM symptom tracked against Q128: its own .agent-lock (content
+"RELEASED-run511-1794968371", 23 minutes old at pickup - a release marker
+left behind by run511's own inability to unlink it, not an active lock) could
+not be removed ("rm" returned Operation not permitted), and a subsequent
+"git pull --ff-only" on that mount failed outright on an unremovable
+.git/ORIG_HEAD.lock and a set of untracked audit evidence files from runs
+505-511 that were never cleaned up. Per Q128's own answer (a supervised
+re-clone, not an unattended workaround) and the run499/500/511 precedent, the
+mounted copy was left exactly as found - nothing renamed, nothing deleted -
+and all actual work this run (checker suite, injection test, worklist/log
+edits, commit, push, status publish) was done from a fresh
+"git clone --branch agents/audit-backlog" into a scratch path, which fetched,
+pulled, committed and pushed cleanly with no lock issues of its own.
+
+ANSWER PICKUP (step 3)
+QUESTIONS.json read directly: 0 open questions of 139 total, so the browser
+answer-pickup call was skipped per standing practice (nothing to fetch).
+
+AUTONOMOUS WINDOW (step 4)
+No "Standing authorisation - autonomous window" section at the top of
+AGENT_LOG.md. Not in an autonomous window; normal rules applied throughout.
+
+REPO HALF
+Full suite of tools/check-*.js (37 files) run individually against the fresh
+clone's tracked working copy: 0 failures across all 37. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior pass's recorded anchor, confirmed unchanged before and after this
+run's own injection test (see below). Tracked repo confirmed clean
+(git status --porcelain empty except the one new live-hours report and this
+evidence file, both untracked additions from this run).
+
+FRESH ANGLE
+Comparison of item 3.12's own 23-pass history (grep of check-*.js names
+mentioned anywhere in its section) against the full 37-file tools/check-*.js
+listing gave 14 checkers never named against this item, including
+check-weebly-furniture-freshness.js (added 2026-09-18, item 5.1 twenty-second
+pass) - a checker that has proven itself against several other single-branch
+items in the three most recent runs (3.10, 3.9, 3.13) but had never been run
+specifically against Tiffenbergs. Injected a stale phone number: changed
+tiffenbergs_longmoor's phone in branches.json from "0151 525 3462" to
+"0151 525 9999", left WEEBLY_FURNITURE_CHECKLIST.md untouched (the exact
+"branches.json moved on, checklist did not" fault class this checker exists
+for). CAUGHT on first attempt:
+
+  FAIL  WEEBLY_FURNITURE_CHECKLIST.md is stale relative to the current
+        branches.json (in Tiffenbergs Chemist (tiffenbergs_longmoor)'s
+        table): checked-in | Phone | 0151 525 3462 |, fresh build
+        | Phone | 0151 525 9999 |
+
+Restored branches.json from a pre-injection backup; sha256 reconfirmed
+identical to the baseline above. Re-ran the checker clean (byte-identical to
+a fresh regeneration, 319/319 lines). No generator, page, pack, checker or
+branches.json content changed by this run.
+
+Guard coverage for item 3.12 now 24 of 37 checkers proven by direct injection
+against this specific branch (13 remain: check-address-region,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-page-coverage, check-pharmacy-first-cost, check-pharmacy-first-safety-
+net, check-pharmacy-first-symptoms, check-service-links, check-uk-spelling,
+check-url-scheme, check-widget-diaries, check-brand-spelling - note: the
+2026-11-08 pass recorded 12 remaining against a 35-checker baseline; two
+checkers, check-uk-spelling.js and check-brand-spelling.js, were already
+untested there too and are carried forward, so the true remaining count is 13
+against today's 37-checker suite, not 12).
+
+LIVE HALF
+check-live-hours.js run live (network reachable this run) against
+tiffenbergschemist.co.uk as part of its estate-wide sweep
+(audits/live-hours-check-2026-11-18.json). Tiffenbergs' homepage and
+contact-us page both show "Monday 9:00am - 6:00pm (closed 1-2pm)" through
+Friday, "Saturday Closed", "Sunday Closed", and phone "0151 525 3462" -
+consistent with branches.json's expected hours (9am-1pm, 2pm-6pm weekdays,
+closed Sat/Sun) and the live phone, with no mismatch. No new live defect
+found; Q56 (tiffenbergs@ plural footer mailbox, raised in the 2026-08-31
+third pass) was not re-checked this run (out of scope for this pass's fresh
+angle) and is not re-raised here.
+
+RESULT
+Zero in-repo defect found. No worklist item ticked (all three unblocked
+candidates remain [BLOCKED]; this was the fallback quality pass). Commit and
+push completed from the scratch clone. Step 10 (tools/build-audit-status.js)
+run from the scratch clone.
+
+No new question raised this run.

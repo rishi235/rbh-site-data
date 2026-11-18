@@ -18259,6 +18259,22 @@ Quality pass 2026-11-17 (run507), repo half only: full 35-checker suite
       found; no new question raised. Evidence: audits/tiffenbergs-item-3.12-
       quality-pass-2026-11-08-twentythird.txt. Done 2026-11-08 (twenty-third
       pass)
+      Quality pass 2026-11-18, TWENTY-FOURTH PASS (run512). Fresh angle:
+      check-weebly-furniture-freshness.js, never previously run against this
+      item, injected with a stale phone number (0151 525 3462 ->
+      0151 525 9999) in branches.json while WEEBLY_FURNITURE_CHECKLIST.md was
+      left untouched - CAUGHT on first attempt, naming Tiffenbergs Chemist's
+      Phone row and both values. Restored, sha256 reconfirmed identical to
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da. Full
+      37-checker suite (grown from 35) run individually: 0 failures. Guard
+      coverage for item 3.12 now 24 of 37 checkers proven by direct
+      injection against this branch. Live half: check-live-hours.js read
+      tiffenbergschemist.co.uk live (homepage and contact-us page); hours
+      and phone both match branches.json exactly, no mismatch. Q56 not
+      re-checked this pass, not re-raised. No new in-repo defect found; no
+      new question raised. Evidence: audits/tiffenbergs-item-3.12-quality-
+      pass-2026-11-18-twentyfourth.txt. Done 2026-11-18 (twenty-fourth
+      pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       3 pages (switch, weight loss, travel), 0 mismatches.
