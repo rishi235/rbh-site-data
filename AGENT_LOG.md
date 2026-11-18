@@ -1,3 +1,7 @@
+## run515: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap (the PAT that can push to rbh-site-data has no access to rbh-data-portal) that run498, run502, run507, run511, run512, run513 and run514 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run515 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T05:42Z): item 4.15 quality pass (24th, Tiffenbergs Chemist Aintree GBP pack) - zero in-repo defect found; live half performed for the first time since 2026-08-30 (three known live-only defects reconfirmed unchanged despite an intervening republish).
 
 LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run514-1794977823" content and about 45 minutes 43 seconds old (just over the 45-minute staleness threshold). Direct `rm` on the mounted copy failed with "Operation not permitted" (the same standing FUSE unlink symptom tracked against Q128/Q134); overwritten in place instead, via the Windows-side file tool rather than the Linux shell, with this run's own marker. A stale `.git/index.lock` (also from the same earlier session, about 46 minutes old at first check, under the task's own 1-hour removal threshold and with no git process running) was left untouched rather than force-removed, consistent with the instruction only authorising removal past 1 hour.
