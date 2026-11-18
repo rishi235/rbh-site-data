@@ -15976,6 +15976,60 @@ Quality pass 2026-11-17 (run507), repo half only: full 35-checker suite
       not a new fact pattern. No in-repo defect, no generator, page,
       pack, checker or branches.json content changed, no worklist item
       unblocked. Done 2026-11-07
+      Quality pass (thirty-third) 2026-11-18 (Cowork scheduled run,
+      audit-backlog-worker, run510): picked as the least recently
+      verified rotation-pool item (stalest max date 2026-11-07, no
+      other item sharing that date once 3.9/4.6/4.15 were excluded as
+      done in the three most recent runs 507/508/509). Full 35-checker
+      suite (all tools/check-*.js except check-cdn-pins.js and
+      check-live-hours.js, run separately) run clean against a fresh
+      git clone --branch agents/audit-backlog in a scratch path
+      (precedent set by runs 499-509, since the mounted working copy
+      still carries the long-documented FUSE unlink-EPERM fault tracked
+      against Q128). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every prior pass's recorded anchor, unchanged throughout.
+      One real finding en route, not a repo defect: this clone's own
+      git config (core.autocrlf=true, the Windows git default) checked
+      WEEBLY_FURNITURE_CHECKLIST.md out with CRLF line endings while
+      tools/build-weebly-furniture-checklist.js generates LF-only
+      output, so check-weebly-furniture-freshness.js failed on first
+      run with every line differing only by a trailing \r - confirmed
+      by direct byte-level diff (JS-level split comparison), not a
+      content difference. Fixed for this run by setting
+      core.autocrlf=false on the scratch clone and reloading the index
+      (git rm --cached -r . && git reset --hard HEAD), after which the
+      checker passed clean on five consecutive runs. This is local to
+      this Windows checkout's git config, not a repo file, so logged
+      here as housekeeping rather than acted on in the repo.
+      Fresh angle: check-weebly-furniture-freshness.js (added recently,
+      already proven against items 3.9 and 3.13 by runs 507/506, but
+      never proven against Riddings specifically) proven by direct
+      injection: changed riddings_timperley.phone only (0161 973 2951
+      -> 0161 973 9999), leaving WEEBLY_FURNITURE_CHECKLIST.md stale -
+      CAUGHT on first attempt, naming Riddings Pharmacy
+      (riddings_timperley)'s table row, the checked-in value and the
+      fresh-build value, with the exact line number. Restored from
+      backup; sha256 reconfirmed identical to baseline. Negative
+      control: changed riddings_timperley.shortCode (a field this
+      checker does not read) from RID to ZZZ - ran clean, confirming
+      selectivity. Restored again; sha256 reconfirmed identical both
+      times. Full 35-checker suite re-run clean on the restored repo.
+      Tracked repo confirmed untouched throughout (git status
+      --porcelain on branches.json/tools/modules/core/gbp-packs empty
+      before and after).
+      Live half: check-live-hours.js run live against
+      riddingspharmacy.co.uk (homepage and contactus.html). Hours
+      (Mon-Fri 9am-6pm, Sat/Sun closed), phone (0161 973 2951) and
+      address (38 Riddings Road, Timperley, Altrincham, WA15 6BP) all
+      match branches.json exactly, no mismatch found. The site's own
+      footer still says "Timperley | Cheshire" against
+      branches.json's addressRegion of Greater Manchester -
+      corroborating the already-open Q43 finding (Rishi's answer:
+      "Unsure... need advise") rather than raising a new one.
+      NO IN-REPO DEFECT FOUND. No worklist item unblocked. No new
+      question raised. Done 2026-11-18
+
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
