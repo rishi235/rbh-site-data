@@ -1,3 +1,7 @@
+## run514: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap (the PAT that can push to rbh-site-data has no access to rbh-data-portal) that run498, run502, run507, run511, run512 and run513 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run514 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T04:42Z): item 4.7 quality pass (26th, McCanns Chemist Sandringham GBP pack) - check-postcodes.js reconfirmed by injection, repo half clean, live hours match, Q39 furniture faults unchanged, no defect; mounted working copy's own stale/crashed-session git locks and uncommitted debris resolved in place (no clone-to-scratch available - see INFRASTRUCTURE below).
 
 LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run513-..." content and ~52 minutes old (over the 45-minute staleness threshold either way). Removed (renamed over, since unlink failed - see INFRASTRUCTURE) and replaced with this run's own lock.
