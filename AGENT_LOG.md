@@ -1,3 +1,7 @@
+## run517: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap (the PAT that can push to rbh-site-data has no access to rbh-data-portal) that run498, run502, run507, run511, run512, run513, run514 and run515 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run517 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T07:12Z): item 4.1 quality pass (Fishlocks Chemist Ainsdale GBP pack) - zero in-repo defect found; Q35/Q45/Q91/Q113/Q125 all now "answered" but every answer requires a live Weebly/GBP edit outside this worker's scope, so nothing applied in-repo.
 
 LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run516-1794984696" content and about 21 minutes old (under the 45-minute staleness threshold). Content showed the prior run had already released it, not that another run was active; overwritten with this run's own marker.
