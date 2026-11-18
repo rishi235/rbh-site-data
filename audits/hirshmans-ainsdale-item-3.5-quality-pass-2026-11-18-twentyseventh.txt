@@ -1,0 +1,103 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - quality pass 2026-11-18 (twenty-seventh, run518)
+Automated run, audit-backlog-worker scheduled task.
+
+PICK LOGIC: all three remaining unchecked AGENT_WORKLIST.md items confirmed
+[BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60) - none pickable. Fallback quality pass.
+Re-derived the least-recently-verified rotation-pool item by a fresh pass over
+AGENT_WORKLIST.md's own checked-item bodies (max inline calendar date per
+item, standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus 4.1/4.7/
+4.11/4.15 excluded as done in runs 514/515/516/517). Stalest date was
+2026-11-08, tied across 3.5/6.2/4.12/3.4; broken on fewest inline date-token
+mentions within each item's own section (3.5 had 93, lowest of the tied
+group). Picked 3.5, Hirshmans Chemist Ainsdale.
+
+NEW ANGLE: tools/check-app-membership.js, never named once across the prior
+twenty-six passes on this item (confirmed against the twenty-fourth pass's
+own list of fifteen untested checkers, two of which - check-address-region
+and check-branch-identity - were closed on the twenty-fifth and twenty-sixth
+passes, leaving thirteen; check-app-membership is one of them).
+
+BASELINE: branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+unchanged from the pass-26 figure quoted by run517 on the same date. Full
+35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+network-dependent) run individually on the live repo: 34/35 clean. The one
+failure, check-postcodes.js, is the standing CH1 2AB narrative-debris
+baseline (now 6 failures/3 warnings, up from run517's 5/3, because each run's
+own new audit evidence file quotes the historical postcode in its own text) -
+not a new or repo-side defect, nothing in this item touches it.
+
+SCRATCH COPY: git archive HEAD extracted to /tmp/scratch-3.5 (plain tarball,
+not a git working copy, so git itself could not be used to prove identity;
+instead the full 35-checker suite was run on the scratch copy FIRST, before
+any injection, and matched the live repo's own baseline exactly: 34/35,
+same single check-postcodes.js failure). branches.json sha256 on the scratch
+copy matched the live repo's byte for byte before any injection.
+
+INJECTION A (branches.json): hirshmans_ainsdale.hasApp flipped from false to
+true on the scratch copy only. CAUGHT FIRST ATTEMPT, four rules fired on the
+one change:
+  - [switch pages] switch-prescriptions-hirshmans-ainsdale.html: "is an app
+    member in branches.json but the page carries no app card"
+  - [paste markers] modules/switch/pages/INDEX.md and SEO.md: "marks 4
+    page(s) as app members but branches.json has 5"
+  - [gbp packs] gbp-packs/hirshmans-ainsdale.md: "branches.json has hasApp
+    true ... but the copy pasted into the public Google profile carries no
+    app mention" (Rule 8e, the missing-positive direction)
+Restored by byte copy from the live repo's own branches.json; sha256
+reconfirmed identical (0385b7c2...27da); check-app-membership.js re-run
+clean.
+
+INJECTION B (gbp pack copy): "You can order repeat prescriptions through our
+app." appended to the end of gbp-packs/hirshmans-ainsdale.md's Business
+description (Section 1), on the scratch copy only, with branches.json left
+untouched (hasApp still false for this branch). CAUGHT FIRST ATTEMPT, Rule 8a
+(the false-claim direction): "the copy pasted into the public Google profile
+claims an app, but branches.json has hasApp false for hirshmans_ainsdale. A
+profile advertising an app the branch does not run sends a patient to a
+store for nothing." Restored by byte copy from the backed-up original; diff
+confirmed byte-identical; check-app-membership.js re-run clean.
+
+POST-RESTORE CONTROL: full 35-checker suite re-run on the scratch copy after
+both injections were restored: 34/35, the same single check-postcodes.js
+failure as the pre-injection baseline, confirming nothing else drifted during
+the test. branches.json sha256 on the scratch copy reconfirmed identical to
+the live repo's own file throughout.
+
+GENERATOR REBUILD: all six generators (build-service-pages.js,
+build-switch-pages.js, build-weight-loss-pages.js,
+build-travel-clinic-pages.js, build-contraception-pages.js,
+build-branch-landing-pages.js) run on the scratch copy after the restores.
+`diff -rq` of the scratch copy's modules/ and core/ against the live repo's
+own modules/ and core/ reported zero differences; the live repo's own
+branches.json and gbp-packs/hirshmans-ainsdale.md were never opened for
+writing throughout the test and their sha256/byte content were reconfirmed
+unchanged at the end.
+
+NO IN-REPO DEFECT: check-app-membership.js already correctly protects this
+branch's non-member status across the generated switch page, the paste
+markers and the GBP pack, in both directions (false-claim and missing-
+positive).
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted): read https://www.hirshmanspharmacy.co.uk/switch-prescriptions-
+hirshmans-ainsdale.html by page text. No "RB Healthcare Pharmacy app"
+mention and no app-store URL anywhere on the rendered page, consistent with
+hasApp false for this branch. Address (56-62 Sherwood House, Station Road,
+Ainsdale, PR8 3HW), phone (01704 577376), both emails
+(Hirshmans@rbhealth.co.uk and pharmacy.FW378@nhs.net) and both weekday/
+Saturday opening sessions match branches.json's hirshmans_ainsdale record
+exactly. Noted in passing, not a new finding: the hero copy now reads the
+Q49-qualified wording ("We contact your GP where it is needed. We handle
+what we can. We will tell you if anything else is needed."), consistent with
+Q49 having moved to "answered" - a live confirmation that this particular
+repaste has already happened on this branch, not a claim about the estate.
+
+RESULT: no in-repo defect found, no fix needed, no new question. Item 3.5
+stays `[x]` (quality pass, not a state change). QUESTIONS.json unchanged at
+pickup (1 open, Q139, checked at step 3 of this run and left open - no
+portal answer found for it; see AGENT_LOG.md this run's ANSWER PICKUP
+section).
+
+FILES CHANGED this run: AGENT_WORKLIST.md (item 3.5 addendum), AGENT_LOG.md
+(this run's entry), this evidence file. No generated page, branches.json or
+gbp-pack content changed.

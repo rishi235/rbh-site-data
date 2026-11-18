@@ -8554,6 +8554,37 @@ NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.5 stays `[x]` (quality
 pass, not a state change). Full detail in audits/hirshmans-ainsdale-
 item-3.5-quality-pass-2026-11-08-twentysixth.txt. Done 2026-11-08.
 
+Quality pass 2026-11-18 (twenty-seventh, run518): new angle, tools/check-
+app-membership.js, never named once across the prior twenty-six passes on
+this item. Baseline sha256(branches.json) = 0385b7c2...27da, unchanged since
+the twenty-sixth pass. Full 35-checker suite (excluding check-cdn-pins.js
+and check-live-hours.js, network-dependent) 35/35 minus the standing
+check-postcodes.js CH1 2AB narrative-debris baseline (34/35) on the live
+repo; a scratch copy extracted by git archive matched that baseline exactly
+before any injection. Two injections on the scratch copy, each restored by
+byte copy and sha256/diff-reconfirmed before the next: (A)
+hirshmans_ainsdale.hasApp flipped false to true in branches.json - CAUGHT
+first attempt, four rules fired at once (switch page missing its app card,
+both switch paste-sheet markers under-counting app members, and Rule 8e's
+missing-positive on the branch's own GBP pack); (B) an app-ordering sentence
+appended to gbp-packs/hirshmans-ainsdale.md's business description with
+hasApp left false - CAUGHT first attempt, Rule 8a's false-claim direction.
+Both restored; a post-restore full-suite re-run matched the pre-injection
+baseline exactly. All six generators rebuilt on the scratch copy after the
+restores; `diff -rq` against the live repo's own modules/ and core/ reported
+zero differences, and the live repo's own branches.json and GBP pack were
+confirmed byte-unchanged throughout. NO IN-REPO DEFECT FOUND: check-app-
+membership.js already correctly protects this branch's non-member status in
+both directions. LIVE HALF (Claude in Chrome, read-only, one tab, nothing
+clicked, typed or submitted): read https://www.hirshmanspharmacy.co.uk/
+switch-prescriptions-hirshmans-ainsdale.html - no app mention or store URL
+anywhere, consistent with hasApp false; address, phone, both emails and both
+weekday/Saturday opening sessions all match branches.json exactly. NO NEW
+QUESTION RAISED (QUESTIONS.json checked at pickup: 1 open, Q139, no portal
+answer found, left unchanged). Item 3.5 stays `[x]` (quality pass, not a
+state change). Full detail in audits/hirshmans-ainsdale-item-3.5-quality-
+pass-2026-11-18-twentyseventh.txt. Done 2026-11-18.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
