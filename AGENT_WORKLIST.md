@@ -27023,6 +27023,58 @@ directly rather than re-deriving the same facts by hand.
       change. No in-repo defect found, no new question raised. Item 4.8
       stays `[x]` (quality pass, not a state change).
       See audits/quality-pass-run493-4.8-fishlocks-eccleston-2026-11-17.txt.
+      Quality pass 2026-11-18 (run525, twenty-sixth pass, unattended run):
+      stalest item in the rotation pool, re-derived by cross-checking two
+      methods - a fresh max-inline-date scan of every [x] section
+      (excluding the standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8)
+      left twenty items tied at 2026-11-17, then the actual run number that
+      last touched each tied item (by locating each item's most recent
+      AGENT_LOG.md mention nearest the top of the file) put 4.8 stalest at
+      run493, ahead of 3.1/run494, 3.11/run495, 2.1/run496, 4.9/run497,
+      3.8/run498, 2.3/run499, 3.6/run500, 3.2/run501, 3.7/run502,
+      4.14/run503, 4.13/run504, 5.1/run505, 3.13/run506 and 3.9/run507.
+      Baseline: pack sha256 unchanged
+      (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa).
+      Full 35-checker suite (excl. check-cdn-pins.js and check-live-hours.js,
+      both network-dependent) run individually: 34/35 exit 0, the one
+      failure the standing CH1 2AB narrative-postcode baseline in
+      check-postcodes.js (unchanged, not new, not this item's scope). All
+      six generators re-run; git status/diff on modules/, gbp-packs/,
+      branches.json and core/ confirmed zero bytes changed.
+      NEW ANGLE: every prior pass on this item verified the GBP pack, the
+      branch landing page and the Pharmacy First page, but no pass had ever
+      live-read Eccleston's other four generated pages (weight loss
+      clinic, travel clinic, contraception, switch). Read all four live on
+      fishlockpharmacy.co.uk this pass (Claude in Chrome, read-only, single
+      tab, closed after use, nothing clicked/typed/submitted):
+      weight-loss-clinic-fishlocks-eccleston.html (200) matches the
+      generator's SEO title/H1 exactly, names no medicine, carries no
+      superlative or results claim, states the paid-service qualifier and
+      the eligibility/exclusion cohorts, and the only price mention sits
+      mid-page ("from £39.99"), not headlined above the fold;
+      travel-clinic-fishlocks-eccleston.html (200) matches the generator,
+      states private/paid in the hero, hedges NHS funding to "some
+      individual vaccines may be available on the NHS", carries the
+      availability hedge and the 1-2-week lead-time exception correctly,
+      and still advertises yellow fever - the standing, already-logged
+      Q48 gap (no yellowFeverCentre field in branches.json), not a new
+      finding; contraception-fishlocks-eccleston.html (200) matches the
+      generator and states free/NHS/no-GP-needed correctly;
+      switch-prescriptions-fishlocks-eccleston.html (200) matches the
+      generator exactly, including Q49's answered-and-applied hedge
+      ("We contact your GP where it is needed. We handle what we can. We
+      will tell you if anything else is needed." and "No interruption to
+      your medication wherever possible") - confirms Q49's fix is live on
+      this branch, not just in the repo. Contact cards on all four pages
+      correctly carry Eccleston's own address/phone/hours distinct from
+      the Ainsdale sister card, no cross-branch leak on any of them.
+      pharmacy-fishlocks-eccleston.html re-confirmed still 404 (known
+      queued-paste state, 5.3/5.4, unchanged). ANSWER PICKUP: QUESTIONS.json
+      read directly, 140 total, 1 open (Q139, unrelated to this item,
+      unchanged since run502; portal feed re-read fresh this run, see
+      AGENT_LOG.md, no answer posted). NO NEW DEFECT FOUND, NO NEW
+      QUESTION RAISED. Item 4.8 stays `[x]` (quality pass, not a state
+      change).
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
