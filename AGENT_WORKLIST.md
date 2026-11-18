@@ -1781,6 +1781,31 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       QUESTION RAISED. Item 2.1 stays `[x]` (quality pass, not a state
       change). Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-
       2026-11-17-twentysixth.txt. Done 2026-11-17.
+      Quality pass 2026-11-18 (twenty-seventh pass): repo half clean, all
+      37 checkers minus the two network-dependent ones pass 34/35 (the one
+      failure the standing CH1 2AB narrative-postcode baseline, pre-
+      existing, not this item's scope), all eight generators rebuild to a
+      byte-identical zero diff. Live half: NEW FINDING, non-defect - the
+      site's sitemap lastmod moved to 2026-11-17T13:16:30+00:00 on all 40
+      URLs, the first republish seen since a roughly fourteen-week freeze
+      (last recorded frozen lastmod 2026-08-14T17:32:10 at the seventh
+      pass). Re-read Q35, Q37 and Q57 fresh given the republish, since a
+      publish is exactly the kind of event that could have closed any of
+      them: all three UNCHANGED - the branch landing page still 404s and
+      is still absent from the sitemap (Q35); contact.html's native contact
+      block still names "Fishlock Pharmacy"/"Fishlock Chemist" and still
+      abbreviates "17 Station Rd", alongside the already-correct second
+      footer block first logged at the seventh pass (Q37); the weight-loss
+      page still carries the "Real Results with Mounjaro" heading, outcome
+      slider and three-medicine picker (Q57). The republish is worth
+      recording because it means this site's Weebly session is active
+      again (relevant to Q35/Q37/Q57/Q139 all needing a paste), but it did
+      not touch any of the three findings, which remain accurate
+      descriptions of today's live content rather than stale ones. NO NEW
+      DEFECT FOUND, NO NEW QUESTION RAISED (sharpens Q35/Q37/Q57 rather
+      than reopening them). Item 2.1 stays `[x]` (quality pass, not a
+      state change). Evidence: audits/fishlocks-ainsdale-item-2.1-quality-
+      pass-2026-11-18-twentyseventh.txt. Done 2026-11-18.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

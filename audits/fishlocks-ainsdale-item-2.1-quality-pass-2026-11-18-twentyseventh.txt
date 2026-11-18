@@ -1,0 +1,82 @@
+Item 2.1 quality pass (twenty-seventh), 2026-11-18, Cowork scheduled run
+(audit-backlog-worker, run "friendly-youthful-mccarthy").
+
+PICKUP: all three unchecked worklist lines (5.8/Q16, 6.4/Q60, 6.5/Q60)
+reconfirmed still [BLOCKED] by direct grep. Fallback quality pass. Rotation
+pool: item 2.1's newest mention (run496, 2026-11-17T13:42Z) was the oldest
+of the pool (ahead of 4.9/497, 3.8/498, 2.3/499, 3.6/500, 3.2/501, 3.7/502,
+4.14/503, 4.13/504, 5.1/505, 3.13/506, 3.9/507; 4.8/493-pass redone at run525,
+3.1 redone run526, 3.11 redone run527). Picked 2.1, Fishlocks Chemist
+Ainsdale.
+
+REPO HALF:
+- branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac
+  2ffdd527da, unchanged from run494/525/526/527's own anchor.
+- Full tools/check-*.js suite (37 checkers, excluding the two network-
+  dependent ones check-cdn-pins.js and check-live-hours.js) run individually:
+  34/35 exit 0. The one failure is the standing CH1 2AB narrative-postcode
+  baseline in check-postcodes.js (quoted in several tracked audit/log files
+  as a worked example, not yet registered in NARRATIVE_POSTCODES) - pre-
+  existing across many runs, not new, not this item's scope.
+- All eight tools/build-*.js generators re-run (branch landing, service,
+  switch, weight loss, travel clinic, contraception, plus the furniture
+  checklist and the audit-status publisher, which correctly reported
+  "Publish skipped: no credential found" from this sandbox shell, as
+  expected - publishing is step 10's job, not this item's). A full sha256
+  sweep of every tracked .html/.md/.css/.js file under modules/ and core/,
+  taken before and after regeneration, came back byte-for-byte identical
+  (ZERO DIFF). git status --porcelain on modules/, core/, branches.json and
+  gbp-packs/ empty both before and after.
+
+LIVE HALF (Claude in Chrome, read-only, three tabs, nothing clicked or
+typed beyond navigation, each closed after use):
+
+1. fishlockpharmacy.co.uk/sitemap.xml - NEW FINDING, non-defect: every one
+   of the 40 live URLs now carries lastmod 2026-11-17T13:16:30+00:00. This
+   is the first time since run494's frozen-at-2026-07-18 baseline (and
+   every pass since, most recently run496's 2026-08-31 reading of
+   2026-08-14T17:32:10) that this site's lastmod has moved at all - the
+   site has genuinely been republished in Weebly within the last 24 hours,
+   after roughly fourteen weeks frozen.
+2. Given a live publish just happened, re-read the three outstanding
+   findings this item carries (Q35, Q37, Q57) fresh rather than assuming
+   they still apply, since a publish is exactly the kind of event that
+   could have closed any of them:
+   - Q35 (branch landing page 404 / not in sitemap): pharmacy-fishlocks-
+     ainsdale.html still returns a 404 "Page Not Found", and it is still
+     absent from the 40-URL sitemap. UNCHANGED by the republish.
+   - Q37 (Weebly-native contact block naming): contact.html's own contact
+     columns still head "Fishlock Pharmacy - Eccleston" and "Fishlock
+     Pharmacy, Ainsdale, Southport"; the legal footer line still reads
+     "Fishlock Chemist (GPHC no. 1121085 and 1034673)"; the Ainsdale
+     address still abbreviates to "17 Station Rd". The correct second
+     footer block ("Fishlocks Chemist - two local NHS pharmacies in
+     Ainsdale & Eccleston", "17 Station Road" spelled out in full) is
+     still present underneath, as first logged at the seventh pass
+     (2026-08-31). Both blocks, both wordings, UNCHANGED by the republish.
+   - Q57 (weight-loss-services-eccleston-ainsdale.html, homepage-linked,
+     outside the inner-page exemption): "Real Results with Mounjaro"
+     heading, the drag-slider body-weight-loss-percentage calculator, and
+     the three-medicine treatment picker (Wegovy, Mounjaro, Orlistat) are
+     all still live, word for word as previously logged. UNCHANGED by the
+     republish.
+
+CONCLUSION: the republish event is new and worth recording (it ends a
+fourteen-week freeze and means this site's Weebly session is active again,
+which matters for Q35/Q37/Q57/Q139 all being pasteable now), but it did not
+touch any of the three open live findings on this branch. Their descriptions
+in AGENT_WORKLIST.md and QUESTIONS.json remain accurate as of today's
+content, not stale leftovers from a frozen site. No new defect found. No
+new question raised - this sharpens the existing Q35/Q37/Q57 rather than
+reopening or replacing them; the recommended next action for all three is
+unchanged (a Weebly paste session), and that session is now unblocked by
+the "site is frozen" excuse that applied for fourteen weeks.
+
+Also checked: Q139 (Smartts Chemist Bootle, out of this item's scope, open
+since run502) remains open per the step-3 answer pickup this run performed
+before picking this item (see AGENT_LOG.md, no new "AUDIT ANSWER Q139" entry
+on the portal feed, newest entry still the Q52 answer from 2026-09-01).
+
+FILES CHANGED THIS ITEM: this evidence file, AGENT_WORKLIST.md (item 2.1
+addendum), AGENT_LOG.md (run entry). No generated page, generator, checker,
+branches.json or gbp-pack content changed.
