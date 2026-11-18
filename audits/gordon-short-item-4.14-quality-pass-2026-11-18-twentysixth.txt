@@ -1,0 +1,89 @@
+Item 4.14 quality pass, twenty-sixth, Gordon Short Chemist (Crosby), run535
+(Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-18T23:42Z.
+
+SELECTION
+All 3 unchecked AGENT_WORKLIST.md lines (5.8/Q16, 6.4/Q60, 6.5/Q60) reconfirmed
+[BLOCKED] by direct grep. Fallback quality pass. Last-touched dates for the
+standing rotation pool: 4.14 (run503, 2026-11-17T19:11Z) was stalest among
+items not excluded by the three-most-recent-runs rule (runs 532/533/534 just
+retook 3.6/3.2/3.7-adjacent). Picked 4.14, Gordon Short Chemist (Crosby),
+twenty-sixth pass.
+
+FRESH ANGLE
+Grepped this item's own 25-pass section body (AGENT_WORKLIST.md lines
+32881-34037) for every tools/check-*.js filename: all 37 checkers in tools/
+had already been named at least once EXCEPT check-branch-links.js, which
+checks the link fields in branches.json (odsCode uniqueness, nhsEmail
+pattern, nhsReviewUrl pattern, googleReviewUrl pattern and uniqueness,
+website bare-host format, pfLink own-host .html format) and had never been
+proven against this branch's own record.
+
+METHOD
+All work done against a disposable git-archive extraction
+(/sessions/lucid-festive-turing/scratch/repo), never the tracked mounted
+repo. branches.json sha256 baseline:
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (matches
+every prior pass's anchor).
+
+Baseline run of check-branch-links.js on the clean scratch copy: "16 branch
+record(s) read from branches.json ... clean, every link field in
+branches.json resolves to the branch that owns it (1 warning(s) [the
+standing Clear Chemist Aintree no-review-link note], 0 known issue(s))."
+
+INJECTION 1 (caught, first attempt): appended a trailing slash to
+gordonshorts_crosby.website only ("https://www.gordonshortchemist.co.uk/").
+Result: FAIL gordonshorts_crosby.website (trailing slash) AND FAIL
+gordonshorts_crosby.pfLink (no longer resolves as "on this branch's own
+site" once the website field carries the slash, since the checker compares
+pfLink's host against the exact website string). Two failures from one
+field change, both naming this branch. Restored branches.json from the
+tracked repo's own copy; sha256 reconfirmed identical to baseline.
+
+NEGATIVE CONTROL (ran clean, confirming selectivity): changed
+gordonshorts_crosby.shortCode (a field this checker does not read) from
+"GOR" to "XXX". check-branch-links.js re-run: clean, same single standing
+warning, no new failure. Restored; sha256 reconfirmed identical again.
+
+Guard coverage for item 4.14 now covers all 37 checkers in tools/ by direct
+injection (up from 36).
+
+FULL SUITE
+Every tools/check-*.js run individually against the scratch copy. All clean
+except two standing, pre-existing, out-of-scope results already documented
+across many prior runs:
+  - check-cdn-pins.js: fails to resolve git refs in the network-isolated
+    scratch extraction (no network access in this sandbox) - expected,
+    not a real defect, excluded from the "non-network" suite count by
+    every prior pass.
+  - check-postcodes.js: the standing CH1 2AB narrative-postcode baseline
+    (unrelated to this item; pre-existing across many prior passes).
+No other checker flagged anything. Tracked repo confirmed untouched
+throughout (sha256 of branches.json on the mounted copy unchanged at
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da; git status
+on the tracked repo showed no modification to any tracked file from this
+pass's work).
+
+LIVE HALF
+Claude in Chrome, read-only, single tab, nothing clicked/typed/submitted,
+closed after use. Fetched https://www.gordonshortchemist.co.uk/ in full.
+Address, phone (0151 924 3449), email (shorts@rbhealth.co.uk), and opening
+hours (Mon-Fri 9-6 with 1-2pm lunch closure, Sat 9-5 with 1-2pm lunch
+closure, Sun closed) all match branches.json exactly. The sidebar address
+block carries an extra "Great Crosby" line between the street and the post
+town/postcode ("159 College Road / Great Crosby / Liverpool L23 3AT") -
+this is the SAME standing, previously-logged, live-only cosmetic finding
+first recorded on the 2026-08-12 (hundred-and-eleventh run) pass: "the
+live-only 'Great Crosby' line in the sidebar address block (footer matches
+branches.json exactly; cosmetic, not a county defect)". Reconfirmed
+unchanged, not new. The footer line beneath it (used for NAP/citation
+purposes) reads "159 College Road, Liverpool, L23 3AT" with no extra word,
+matching branches.json exactly.
+
+gbp-packs/gordon-short-crosby.md re-read in full: phone, website, review
+link and hours lines all match branches.json exactly, consistent with
+every prior pass's finding for this pack.
+
+RESULT
+No in-repo defect found. No new question raised. QUESTIONS.json unchanged
+at 140 total, 1 open (Q139, unrelated to this item). Item 4.14 stays [x]
+(quality pass, not a state change).

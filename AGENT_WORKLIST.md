@@ -34034,6 +34034,35 @@ directly rather than re-deriving the same facts by hand.
       pass, not a state change). Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-11-17-twentyfifth.txt.
       Done 2026-11-17.
+      Quality pass 2026-11-18 (twenty-sixth, unattended scheduled run 535):
+      rotation pool re-derived fresh (standing exclusions plus 3.6/3.2/3.7
+      excluded as just retaken by runs 532/533/534); 4.14 won on stalest
+      last-touched date (run503, 2026-11-17T19:11Z). FRESH ANGLE:
+      check-branch-links.js, never previously named against this item's
+      25-pass history, proven by direct injection in a disposable
+      git-archive scratch extraction - appended a trailing slash to
+      gordonshorts_crosby.website only, caught cleanly first attempt (two
+      failures, website format and the pfLink own-host check both breaking
+      from one field change). Negative control (shortCode, a field this
+      checker does not read) ran clean, confirming selectivity. Restored
+      from the tracked repo's own branches.json both times; sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      reconfirmed identical throughout. Guard coverage for item 4.14 now
+      covers all 37 checkers in tools/ by direct injection (up from 36).
+      Full suite re-run clean except the two standing, pre-existing,
+      out-of-scope results (check-cdn-pins.js network resolution,
+      check-postcodes.js CH1 2AB narrative baseline), neither new nor
+      related to this item. Live half (Claude in Chrome, read-only, one
+      tab, closed after use): https://www.gordonshortchemist.co.uk/
+      re-read in full, address/phone/email/hours all match branches.json;
+      the standing live-only "Great Crosby" sidebar-address cosmetic line
+      (first logged 2026-08-12) reconfirmed unchanged, not new. Pack
+      re-read, still matches branches.json exactly. NO IN-REPO DEFECT
+      FOUND, NO NEW QUESTION RAISED. Item 4.14 stays `[x]` (quality pass,
+      not a state change). Tracked repo confirmed untouched throughout.
+      Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-11-18-twentysixth.txt.
+      Done 2026-11-18.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
