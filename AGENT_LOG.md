@@ -1,3 +1,7 @@
+## run518: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap that run498, run502, run507, run511-517 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run518 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T08:12Z): item 3.5 quality pass (27th, Hirshmans Chemist Ainsdale, new angle tools/check-app-membership.js) - zero in-repo defect found; Q139 remains open, no portal answer found.
 
 LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run517-1794986281" content and about 54 minutes old (over the 45-minute staleness threshold). Content showed the prior run had already released it, not that another run was active. Direct unlink failed with "Operation not permitted" (standing FUSE symptom, Q128/Q134); overwritten in place with this run's own timestamp marker instead (content-overwrite, not delete, consistent with every recent run). `.git/index.lock` found present and 54 minutes old (under the 1-hour threshold) with no git process running; left alone per the instruction, and it did not block any git operation this run.
