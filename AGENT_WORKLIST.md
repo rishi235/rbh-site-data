@@ -5134,6 +5134,51 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       question since no new mismatch was found. No in-repo or live
       defect, no new question. Evidence in audits/scorah-item-3.2-
       quality-pass-2026-11-17-twentyfifth.txt.
+      Quality pass 2026-11-18 (twenty-sixth, run 533, unattended
+      scheduled run via Cowork): stalest item in the rotation pool
+      (last touched run501, ahead of 3.7/502, 4.14/503, 4.13/504,
+      5.1/505, 3.13/506, 3.9/507; 2.3 and 3.6 excluded as just retaken
+      by runs 531/532). Fresh angle: check-pharmacy-first-eligibility.js,
+      never proven against Scorah before despite both branches holding
+      their own GBP packs with the UTI and blood-pressure cohort lines
+      stated twice each. Isolated scratch copy via `git archive HEAD`,
+      tracked repo never opened for writing; branches.json sha256
+      unchanged from every prior pass's anchor
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      Baseline: clean, 15 GBP packs checked against the 7 pinned
+      pathways and the two pinned cohorts (women aged 16 to 64; adults
+      aged 40 and over). Two injection rounds, each restored and
+      sha256-reconfirmed identical to baseline immediately after: (1)
+      gbp-packs/scorah-bramhall.md's UTI line changed from "women aged
+      16 to 64" to "women aged 18 to 64" - CAUGHT, 2 failures (age 18
+      and age 64 both flagged as outside any pinned cohort, quoting the
+      two pinned cohorts back); (2) gbp-packs/scorah-hazel-grove.md's
+      blood-pressure line changed from "aged 40 and over" to "aged 45
+      and over" - CAUGHT, 1 failure, same pattern. A true negative
+      control (scorah-hazel-grove.md's "no appointment needed" reworded
+      to "no appointment required", no cohort touched) ran clean,
+      confirming selectivity. Guard coverage for item 3.2 now 27 of 37
+      checkers proven by direct injection (up from 26). Full 35-checker
+      non-network suite (excl. check-cdn-pins.js/check-live-hours.js)
+      run individually on the scratch copy: 34/35, the one failure the
+      standing CH1 2AB narrative-postcode baseline (pre-existing, not
+      this item's scope, not new). Tracked repo confirmed untouched
+      throughout (`git status --porcelain modules core branches.json
+      tools gbp-packs` empty before, between restores and after; sha256
+      of branches.json and both Scorah packs unchanged against the
+      tracked clone). LIVE HALF (Claude in Chrome, one tab, read-only,
+      nothing clicked/typed/submitted, tab closed after use): re-read
+      uti-treatment-scorah-bramhall.html live in full - "Women aged 16
+      to 64" cohort line present verbatim in both the trust-bar snippet
+      and the eligibility block, matching the generator and the pack
+      exactly; address, phone, odsCode and nhsEmail for both branches
+      match branches.json. Weebly-native footer still prints "Cheshire
+      SK7 3LQ" for Bramhall against branches.json's Greater Manchester
+      addressRegion - the standing Q43 finding, reconfirmed unchanged,
+      not new, not relitigated. No in-repo or live defect, no new
+      question. QUESTIONS.json unchanged at 140 total, 1 open (Q139).
+      Evidence in audits/scorah-item-3.2-quality-pass-2026-11-18-
+      twentysixth.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
