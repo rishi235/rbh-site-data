@@ -33977,6 +33977,17 @@ directly rather than re-deriving the same facts by hand.
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
 appended to the line. Do not move them; the status page reads them in place.
+      Quality pass 2026-11-18 (run509, repo half only): full 33-checker
+      suite clean (0 failures), branches.json sha256 matching every prior
+      pass's recorded anchor. Fresh angle: check-map-embeds.js, never
+      previously named against this item across 26 prior passes. Injected
+      a postalCode mismatch into tiffenbergs_longmoor without regenerating
+      pages - caught on first attempt, 12 failures (11 service-family pages
+      plus the switch page), each naming the file and the mismatched
+      address. Negative control (shortCode, a field this checker does not
+      read) ran clean. Both restored via git checkout, sha256 reconfirmed
+      identical throughout. No in-repo defect found. Evidence in
+      audits/tiffenbergs-aintree-item-4.15-map-embeds-injection-2026-11-18.txt.
 - [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
       (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
       Repo, repo history and live site all clean; correct L17 4JP throughout.

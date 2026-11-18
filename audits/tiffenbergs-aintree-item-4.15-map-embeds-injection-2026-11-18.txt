@@ -1,0 +1,61 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) - quality pass, run509, 2026-11-18
+
+Rotation pick: least-recently-verified item in the rotation pool. Re-derived with
+the same Python pass over AGENT_WORKLIST.md's own "- [x]" section bodies used by
+recent runs (max calendar date mentioned per item, standing exclusions
+1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, tiebreak by fewest "quality pass" mentions,
+then lower item number). Stalest date was 2026-11-07, shared by 4.15 (26
+mentions) and 3.10 (32 mentions); 4.15 won the mention-count tiebreak. 3.13/3.9/
+4.6 (the three most recent runs' picks) excluded from contention.
+
+BASELINE: full 33-checker suite (all tools/check-*.js except check-cdn-pins.js
+and check-live-hours.js, both network-dependent) run against a fresh
+git clone --branch agents/audit-backlog scratch clone (clone HEAD
+e2e349e, run508's own commit): 33/33 exit 0, no FAIL line in any output.
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+matching every prior pass's recorded anchor.
+
+FRESH ANGLE: grep of every tools/check-*.js filename against item 4.15's own
+worklist body found check-map-embeds.js never named there. The item's own
+history repeatedly re-verifies the pack's address field against branches.json
+by eye, but the map embed on this branch's 12 generated pages (11 service-
+family pages + 1 switch page; Tiffenbergs Aintree is single-brand, no landing
+page) had never been put under injection test specifically for this branch.
+
+Backed up branches.json via git (working tree, not a separate file - restore
+performed via git checkout -- branches.json, confirmed by sha256 before and
+after each step).
+
+INJECTION 1 (positive): branches.json's tiffenbergs_longmoor.postalCode
+changed from "L9 9DB" to "L9 9ZZ" (streetAddress and addressLocality left
+alone), pages NOT regenerated, simulating the data/page drift this checker
+exists to catch. CAUGHT: 12 FAILURES, one per generated page carrying this
+branch's contact card and map (11 service-family pages under
+modules/service/pages/*-tiffenbergs-aintree.html plus
+modules/switch/pages/switch-prescriptions-tiffenbergs-aintree.html), each
+naming the exact file, the map's decoded address and the branches.json
+address, correctly diagnosing the mismatch as RULE 3 (the address).
+Restored via git checkout -- branches.json; sha256 reconfirmed identical
+to baseline.
+
+INJECTION 2 (negative control): branches.json's tiffenbergs_longmoor.shortCode
+changed from "TIF" to "ZZZ" (a field check-map-embeds.js does not read).
+check-map-embeds.js ran clean (0 failures), confirming the catch above was
+selective to the address fields and not a harness artefact. Restored via
+git checkout -- branches.json; sha256 reconfirmed identical to baseline.
+
+Full 33-checker suite re-run after both restores: 33/33 exit 0. git status
+--porcelain on branches.json/modules/core/tools/gbp-packs empty throughout
+(scratch clone, no other debris to report). Scratch clone used throughout,
+mounted working copy at the host path left untouched (same FUSE unlink-EPERM
+precedent as runs 497-508; see AGENT_LOG.md entry for lock handling detail).
+
+RESULT: zero in-repo defect found. check-map-embeds.js now proven by direct
+injection against Tiffenbergs Chemist Aintree specifically, both directions.
+
+LIVE HALF: not run this pass (repo half only), consistent with several
+earlier passes on this item. The item's own prior live verdicts (address,
+phone, hours, four post-button links all live-confirmed, as recorded in its
+own AGENT_WORKLIST.md section) stand unrevised.
+
+No new question raised this run.
