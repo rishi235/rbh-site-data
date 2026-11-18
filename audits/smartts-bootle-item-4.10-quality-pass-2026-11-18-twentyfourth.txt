@@ -1,0 +1,69 @@
+Item 4.10 (Smartts Chemist Bootle GBP pack) - twenty-fourth quality pass
+Run: audit-backlog-worker, unattended scheduled run, 2026-11-18T01:12Z firing (run511)
+
+ROTATION PICK
+- All 3 unchecked worklist items confirmed [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60).
+- Stalest rotation-pool item by last-touched date: 4.10 (2026-11-08), after
+  excluding standing-excluded items and the three items closed in the
+  immediately preceding three runs (4.6 run508, 4.15 run509, 3.10 run510).
+- Tiebreak not needed in isolation, but 4.10 also had the fewest "quality
+  pass" mentions (24) among the 2026-11-08 cohort (3.12/4.5/4.7 at 25,
+  4.12 at 26, 3.5/4.1/4.11 at 28, 3.4/6.2 at 29).
+
+REPO-SIDE FACT CHECK (vs branches.json smartts_bootle record)
+- Address: 42 Fernhill Road, Bootle L20 9HH - match
+- Phone: 0151 922 4984 - match
+- Hours: Mon-Fri 09:00-13:00 and 14:00-18:00, Sat/Sun closed - match
+- Website: https://www.smarttschemist.co.uk - match
+- Review link: https://g.page/r/CVzJUbDqQwReEBM/review - match
+- serviceAreaList: Bootle, Sefton, Liverpool - match
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor, unchanged)
+
+CHECKER SUITE
+- Full 35-checker non-network suite run against the working copy before any
+  mutation: 0 failures.
+
+INJECTION ATTEMPT AND CORRECTION
+- Attempted fresh-angle injection: changed "Phone: 0151 922 4984" to
+  "Phone: 0151 922 9999" in gbp-packs/smartts-bootle.md, then ran
+  tools/check-nap.js expecting it to catch the mismatch (its source file
+  contains a comment mentioning "gbp-packs/").
+- Result: check-nap.js exited 0, "Checked 177 pages and 4 paste block(s)
+  against 16 branches.json entries: 0 mismatch(es), 1 warning(s)." - it does
+  NOT scan gbp-packs/*.md at all; the source comment was descriptive text,
+  not a scan path.
+- Correction: restored gbp-packs/smartts-bootle.md from backup immediately;
+  sha256 2f49832118fcbb63b87412b54a49f069b8ace9f953741648f095277027138e63
+  reconfirmed identical to the pre-injection file.
+- Re-derived the actual set of checkers that read gbp-packs/ by grepping for
+  the literal directory path (readdirSync/join/string literal) rather than
+  any comment: check-app-membership.js, check-brand-spelling.js,
+  check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+  check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+  check-postcodes.js, check-uk-spelling.js, check-url-scheme.js - exactly
+  ten, every one of which the twenty-first pass (2026-10-04) already closed
+  out by direct injection against this specific pack. No genuinely untried,
+  applicable checker remains for item 4.10; no further injection attempted
+  this pass.
+
+LIVE HALF (Claude in Chrome, read-only, no login/click/submit)
+- smarttschemist.co.uk homepage: address, phone and the "Switch your
+  prescriptions" strip all match branches.json. Standing website-hours
+  contradiction unchanged: site prints "9:00am-6:00pm" Mon-Fri with no lunch
+  closure shown, against the NHS-confirmed 1pm-2pm closure this pack's own
+  paster guidance warns about (Q55, long-standing, not re-raised).
+- Google Business Profile (via pack's own googleReviewUrl): name still
+  "Smartts Chemist - Travel Vaccination and Simple Weight Loss Clinic", not
+  the plain "Smartts Chemist" the pack and branches.json state - Q125
+  addendum from the twenty-second pass (2026-10-18), reconfirmed unchanged.
+  Reviews: 20, 4.8 stars (unchanged). Hours panel: "Closed - Opens 9 am",
+  consistent, no locked-door fault. "People also search for" again showed
+  "S K Chemist - Travel Vaccination and Simple Weight Loss Clinic" (left for
+  item 4.11's own pass to confirm directly, per the twenty-second pass's
+  convention).
+
+RESULT: no in-repo defect, no new question. Tracked repo confirmed
+untouched throughout (git status --porcelain on branches.json/tools/
+modules/core/gbp-packs empty before and after, aside from the deliberate
+AGENT_WORKLIST.md/AGENT_LOG.md edits for this pass).

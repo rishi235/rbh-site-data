@@ -28602,6 +28602,57 @@ directly rather than re-deriving the same facts by hand.
       Evidence in
       audits/smartts-bootle-item-4.10-quality-pass-2026-11-08-twentythird.txt.
       Done 2026-11-08.
+      Twenty-fourth quality pass 2026-11-18 (unattended scheduled run,
+      audit-backlog-worker, Sonnet 5). Stalest item in the rotation pool by
+      last-touched date (2026-11-08), picked after the three unchecked
+      worklist items (5.8/Q16, 6.4/Q60, 6.5/Q60) were reconfirmed [BLOCKED]
+      and the three items done in the immediately preceding three runs
+      (4.6, 4.15, 3.10) were excluded. Repo-side: branches.json
+      smartts_bootle record re-matched field by field against
+      gbp-packs/smartts-bootle.md's own "Profile basics" block - address 42
+      Fernhill Road, Bootle L20 9HH; phone 0151 922 4984; both opening-hours
+      sessions 09:00-13:00 and 14:00-18:00 Mon-Fri; website; review link;
+      serviceAreaList Bootle/Sefton/Liverpool - unchanged from every prior
+      pass. branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every prior pass's recorded anchor. Ran the full 35-checker
+      non-network suite against the working copy: 0 failures. Attempted one
+      fresh-angle injection (check-nap.js against a fabricated wrong phone
+      in the pack's Profile basics line) before recognising check-nap.js
+      does not actually read gbp-packs/ - its one textual mention of
+      "gbp-packs" in this item's prior passes was a source comment, not a
+      scan path; confirmed by grep for the literal readdir/path pattern
+      across all 35 checkers, which shows only ten checkers
+      (check-app-membership.js, check-brand-spelling.js,
+      check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+      check-postcodes.js, check-uk-spelling.js, check-url-scheme.js)
+      actually open files under gbp-packs/, and every one of those ten was
+      already proven against this specific pack by direct injection in an
+      earlier pass (closed out explicitly at the twenty-first pass,
+      2026-10-04). So there is no genuinely untried, applicable checker left
+      for this item; no injection was attempted this pass beyond the one
+      corrected false start above (restored immediately, pack file
+      unchanged, sha256 reconfirmed identical to the pre-injection state).
+      LIVE (Claude in Chrome, read-only, no login/click/submit):
+      smarttschemist.co.uk homepage re-read - address, phone and the
+      "Switch your prescriptions" strip all match branches.json; the
+      standing website-hours contradiction is unchanged (prints
+      9:00am-6:00pm Mon-Fri with no lunch closure shown, against the
+      NHS-confirmed 1pm-2pm closure this pack's own paster guidance warns
+      about). The live Google Business Profile (via the pack's own
+      googleReviewUrl) still publishes its name as "Smartts Chemist -
+      Travel Vaccination and Simple Weight Loss Clinic", not the plain
+      "Smartts Chemist" the pack and branches.json both state - the Q125
+      addendum from the twenty-second pass (2026-10-18), reconfirmed
+      unchanged, not re-raised. Reviews unchanged at 20, 4.8 stars; opening
+      hours on the Maps panel read "Closed - Opens 9 am", consistent with
+      branches.json, no locked-door fault. "People also search for" again
+      showed "S K Chemist - Travel Vaccination and Simple Weight Loss
+      Clinic", consistent with item 4.11 carrying the same pattern but still
+      left for that item's own pass to confirm directly, per the
+      twenty-second pass's convention. No in-repo defect, no new question.
+      Done 2026-11-18.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
