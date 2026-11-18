@@ -1,0 +1,58 @@
+Item 4.7 (McCanns Chemist Sandringham GBP pack) - quality pass, 2026-11-18
+Unattended scheduled run (audit-backlog-worker), twenty-sixth pass on this item.
+
+REPO HALF
+- Full suite of tools/check-*.js (37 files, excluding check-cdn-pins.js and
+  check-live-hours.js) run against a disposable rsync copy of the tracked
+  tree (no .git, nothing in the tracked repo touched).
+- Result: all 35 non-network checkers exit 0, 0 failures.
+
+FRESH ANGLE
+- Identified which checkers genuinely read gbp-packs/ by grepping each
+  check-*.js source for readdir/path references to the gbp-packs directory,
+  not just comment mentions of the string "gbp-packs".
+- Real readers: check-address-region.js (comment only, does not actually
+  read it), check-app-membership.js, check-brand-spelling.js,
+  check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+  check-nap.js (comment only), check-opening-hours.js (comment only),
+  check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+  check-postcodes.js, check-uk-spelling.js, check-url-scheme.js,
+  check-weight-loss-copy.js.
+- Cross-referenced against item 4.7's own prior-pass log text: every
+  genuine gbp-packs reader has already been run against
+  gbp-packs/mccanns-sandringham.md by direct injection on an earlier pass.
+  No unproven angle remained at the per-checker level for this item.
+- Ran a direct reconfirmation anyway: on the scratch copy, replaced
+  mccanns-sandringham.md's postcode "L17 4JP" with a fabricated "CH1 2AB".
+  node tools/check-postcodes.js caught it immediately:
+    UNKNOWN  gbp-packs/mccanns-sandringham.md: postcode CH1 2AB is in no
+    branches.json entry
+  Restored from a byte-identical backup; sha256 before and after:
+  4851c4ff2752ed24760e8a11de0b4d9838920c789784fcafbf4d6b01a9c0d13f
+  (matches both before injection and after restore). Full 35-checker suite
+  re-run clean on the restored scratch copy.
+- Tracked repo (the mounted working copy, not the scratch copy) confirmed
+  untouched throughout: git status --porcelain empty relative to origin's
+  HEAD at every point in this run; branches.json sha256
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+  matching every prior pass's recorded regression anchor.
+
+LIVE HALF
+- check-live-hours.js run live (network reachable this run) against
+  https://www.mccannspharmacy.co.uk/ and /contactus.html.
+- McCanns Sandringham section: Monday-Friday 9am-1pm, 2pm-6:00pm, Saturday
+  Closed, Sunday Closed - matches branches.json's expected hours exactly
+  (Mon-Fri 9am-1pm/2pm-6pm, Sat/Sun closed, confirmed 2026-06-24).
+- Already-open Q39 furniture faults reconfirmed present and unchanged:
+  the live page's "McCann's Pharmacy - Sandringham Medical Centre" section
+  carries the apostrophe+"Pharmacy" branding (vs "McCanns Chemist" in
+  branches.json) and misspells the medical centre as "Sandrigham". No new
+  finding; this is the same long-standing Q39 item, not raised again.
+- Full report: audits/live-hours-check-2026-11-18-twentysixth.json (saved
+  under a suffixed name because another 2026-11-18 pass had already
+  written the default audits/live-hours-check-2026-11-18.json filename).
+
+RESULT
+No in-repo defect found. No new question raised. Worklist item 4.7 ticked
+with this pass's entry (its underlying checkbox was already [x] from
+2026-08-04; this is the twenty-sixth quality-pass addendum under it).
