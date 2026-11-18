@@ -1,0 +1,59 @@
+Item 4.6 quality pass (seventh), 2026-11-18, run508 (Cowork scheduled
+audit-backlog-worker). Fresh-angle checker: check-widget-diaries.js, never
+previously named against this item (24 of 34 non-network checkers were
+unnamed against it; chosen because McCanns is a genuine multi-site brand and
+Aigburth/Sandringham is one of the three genuine sister pairs this checker
+exists to police).
+
+BASELINE: full sweep of all 33 non-network tools/check-*.js (excludes
+check-cdn-pins.js and check-live-hours.js) against the untouched tracked
+clone: 0 failures. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior pass's recorded anchor.
+
+check-widget-diaries.js baseline output on McCanns Aigburth's own data,
+clean: weightLoss and travelClinic correctly shared with Sandringham (one
+private clinic diary per brand), bloodPressure/contraception/pharmacyFirst
+correctly per-site (different ids at each branch) - matches the branch's own
+undeclared-but-unanimous policy exactly as documented in the checker's own
+header.
+
+INJECTION: copied branches.json aside, then set mccanns_aigburth's
+widgets.contraception to mccanns_sandringham's widgets.contraception value
+(6a4790dae25e32949a70c14b -> 6a4791ca51c51dd528f210fd), simulating a
+copy-paste error that would book NHS Pharmacy Contraception Service patients
+from Aigburth into Sandringham's diary (or vice versa) - a real patient
+safety / wrong-diary fault of exactly the kind this repo's audit exists to
+catch, and one that check-booking-routes.js (which only looks within a single
+branch) and check-app-membership.js etc. cannot see.
+
+RESULT: CAUGHT on first attempt. check-widget-diaries.js RULE 3
+(consistency) failed with exit 1: "service 'contraception' is a shared brand
+diary at mccanns and a per-site diary at scorahs, fishlocks. One of the two
+is wrong and the data cannot say which, so it needs a decision rather than a
+guess." Named the exact service and explained the patient-safety consequence
+of either direction being wrong.
+
+RESTORE: branches.json restored from the pre-injection copy; sha256
+reconfirmed identical (0385b7c2...27da) to the baseline above.
+
+NEGATIVE CONTROL: changed mccanns_aigburth.shortCode (AIG -> AIGTEST, a field
+this checker does not read) with the real widget ids left untouched.
+check-widget-diaries.js ran clean (exit 0, "clean, every diary id belongs to
+exactly the branch and service that should hold it"), confirming the rule is
+selective to diary-id data rather than tripping on any change to the
+branch's record. Restored again; sha256 reconfirmed identical a second time.
+
+FINAL SWEEP: full 33-checker suite re-run clean (0 failures) on the restored,
+tracked repo. git status --porcelain empty throughout except during the two
+deliberate, immediately-restored test windows above. No branches.json,
+generator, page, pack or checker content changed by this pass.
+
+LIVE HALF: not run this pass (repo half only, consistent with several
+earlier passes on this item when the browser check was skipped). The
+2026-08-12/2026-08-14 live verdicts recorded earlier in this item's own
+AGENT_WORKLIST.md section stand as written and are not re-claimed here.
+
+Guard coverage for item 4.6 now includes check-widget-diaries.js by direct
+injection, alongside the 11 checkers already proven against it in earlier
+passes. No new defect, no new question.

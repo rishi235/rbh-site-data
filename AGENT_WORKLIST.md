@@ -24852,6 +24852,25 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       gbp-packs/*.md proven by injection against this specific pack (up
       from 9). No generator, page, pack, checker or branches.json content
       changed. No new question raised.
+      Quality pass 2026-11-18 (seventh pass, run508, unattended): fresh-angle
+      checker check-widget-diaries.js (never previously named against this
+      item) run against the branch's own widget ids. Baseline clean:
+      weightLoss and travelClinic correctly shared with sister branch
+      Sandringham, bloodPressure/contraception/pharmacyFirst correctly
+      per-site. Injection proof: set Aigburth's contraception widget id to
+      Sandringham's value, simulating a copy-paste wrong-diary fault -
+      CAUGHT on first attempt by rule 3 (consistency), naming the service
+      and the patient-safety consequence. Restored from backup, sha256
+      reconfirmed identical (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      Negative control (shortCode changed, a field the checker does not
+      read) ran clean, confirming selectivity; restored again, sha256
+      reconfirmed. Full 33-checker non-network suite clean before and after,
+      git status empty throughout except during the two deliberate restored
+      test windows. No branches.json, generator, page, pack or checker
+      content changed. Live half not run this pass (repo half only); the
+      2026-08-12/2026-08-14 live verdicts above stand unrevised. No new
+      defect, no new question. Evidence:
+      audits/mccanns-aigburth-item-4.6-widget-diaries-2026-11-18.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
