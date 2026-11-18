@@ -11408,6 +11408,35 @@ Done 2026-10-14 (twenty-third pass).
       the tracked repo. Evidence in
       audits/smartts-item-3.7-quality-pass-2026-11-17-twentyfifth.txt.
       Done 2026-11-17 (twenty-fifth pass).
+      Follow-up 2026-11-18 (run 534, unattended scheduled run via
+      Cowork): all 3 unchecked worklist items remain [BLOCKED]
+      (5.8/Q16, 6.4/Q60, 6.5/Q60); the only open question, Q139, has an
+      own recommended next step (option 3: check whether the same AEO
+      page exists on other branches before deciding anything) that is
+      read-only research rather than a decision needing Rishi, so it
+      was carried out directly instead of leaving Q139 to sit unworked.
+      All 11 distinct live website hosts in branches.json checked
+      read-only (Claude in Chrome, nothing clicked/typed/submitted):
+      direct fetch of /hey-ai-read-this.html on each host (404 on all
+      10 others, 200 on Smartts, reconfirmed) plus a full read of each
+      host's own sitemap.xml (or sitemap index for Clear Chemist) to
+      catch the same page under a different filename. No equivalent
+      page found on any other host. Clear Chemist is a Magento
+      e-commerce platform, not Weebly, so the page template does not
+      apply there regardless. CONCLUSION: the AEO page and its
+      simpleweightloss.co.uk reference are confined to Smartts Chemist,
+      Bootle - not a copy-pasted estate-wide exposure like the switch-
+      page or eMAR paste templates. Q139 updated: option 3 removed as
+      answered, note extended with this finding, recommended option
+      reset to option 1 (leave as is pending the SWL decision); status
+      stays "open" because the remaining choice (leave vs pull/edit) is
+      still Rishi's. Answer pickup (step 3) also run this pass: feedback
+      portal read in full, newest entry still the Q52 answer
+      (2026-09-01T22:44:51.524Z), no "AUDIT ANSWER Q139" present. No
+      autonomous window active (AGENT_LOG.md top checked, no "Standing
+      authorisation" section). No branches.json, generator, page, pack
+      or checker content changed. Evidence in
+      audits/smartts-item-3.7-q139-scope-check-2026-11-18.txt.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

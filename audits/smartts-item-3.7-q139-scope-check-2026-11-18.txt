@@ -1,0 +1,74 @@
+Item 3.7 (Smartts Chemist, Bootle) - Q139 follow-up, scope check
+Run 534 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18)
+
+PURPOSE
+Q139 (raised run502, 2026-11-17, still open) found that Smartts Chemist's
+live Weebly site carries a standalone AEO/AI-assistant page,
+/hey-ai-read-this.html, that names and links www.simpleweightloss.co.uk as
+the branch's weight management clinic - a live reference to a brand that is
+formally parked pending a 90-day decision. Q139's own recommended option
+(option 3 of 3) was to check whether the same page exists on other branches'
+Weebly sites before deciding anything, since the scope of the live exposure
+could be larger than one branch. That check is read-only research, not a
+decision requiring Rishi, so it was carried out this run rather than left
+for the open question to sit on.
+
+METHOD (read-only, Claude in Chrome, nothing clicked/typed/submitted)
+All 11 distinct live website hosts in branches.json were checked (15 trading
+branches share some hosts: Scorah pair, McCanns pair, Fishlocks pair).
+Two independent checks per host:
+  1. Direct fetch of https://<host>/hey-ai-read-this.html (the exact filename
+     Smartts uses).
+  2. Fetch of https://<host>/sitemap.xml (or, for Clear Chemist, its sitemap
+     index) and a full read of every listed URL, in case another branch
+     published the same page under a different filename.
+
+RESULTS
+- www.smarttschemist.co.uk: /hey-ai-read-this.html returns 200 (reconfirmed)
+  and is listed in the site's own sitemap.xml alongside its 28 other pages.
+  This is the only host where the page exists.
+- www.scorah-chemists.co.uk (Scorah Bramhall/Hazel Grove): 404 on the direct
+  URL; 42-URL sitemap read in full, no AI/assistant-named page present.
+- www.mccannspharmacy.co.uk (McCanns Aigburth/Sandringham): 404; 42-URL
+  sitemap read in full, no AI/assistant-named page present.
+- www.fishlockpharmacy.co.uk (Fishlocks Ainsdale/Eccleston): 404; 38-URL
+  sitemap read in full, no AI/assistant-named page present.
+- www.rbhealth.co.uk (Head Office): 404; 6-URL sitemap read in full
+  (clinic-appointments, contact-us, principles, weight-loss, flu-vaccination,
+  jobs), no AI/assistant-named page present.
+- www.clearchemist.co.uk (Clear Chemist): 404 on the direct URL (Magento
+  404 template, confirming this is not a Weebly site at all - it is the
+  group's e-commerce platform). Its sitemap is a multi-thousand-product
+  Magento catalog index (sitemap-1-1.xml / sitemap-1-2.xml), structurally
+  incapable of carrying a Weebly content page of this kind; not read in
+  full given its size (10MB+), but the platform mismatch alone makes this
+  page template inapplicable here.
+- www.hirshmanspharmacy.co.uk: 404; 28-URL sitemap read in full, no
+  AI/assistant-named page present.
+- www.skchemist.co.uk: 404; 29-URL sitemap read in full, no AI/assistant-
+  named page present.
+- www.colemanandleighspharmacy.co.uk: 404; 28-URL sitemap read in full, no
+  AI/assistant-named page present.
+- www.riddingspharmacy.co.uk: 404; 29-URL sitemap read in full, no
+  AI/assistant-named page present.
+- www.gordonshortchemist.co.uk: 404; 28-URL sitemap read in full, no
+  AI/assistant-named page present.
+- www.cherrylanepharmacy.co.uk: 404; 28-URL sitemap read in full, no
+  AI/assistant-named page present.
+- www.tiffenbergschemist.co.uk: 404; 28-URL sitemap read in full, no
+  AI/assistant-named page present.
+
+CONCLUSION
+The /hey-ai-read-this.html page, and the live simpleweightloss.co.uk
+reference inside it, is confined to Smartts Chemist, Bootle. It was not
+copy-pasted across the Weebly estate the way the switch-page and eMAR
+paste templates were (CLAUDE.md's "public-copy" sections). This narrows
+Q139 from a possible estate-wide exposure to a single-branch one. Q139's
+own option 3 is now answered; the choice between Q139's remaining two
+options (leave as-is pending the SWL decision, or pull/edit the page now)
+is still Rishi's to make and Q139 stays open for that.
+
+No repo file changed as a result of this check (it is live-only content
+this repo does not generate, per CLAUDE.md's "live-only Weebly page"
+limitation already noted against Q16/Q22). QUESTIONS.json's Q139 note and
+option ordering updated to reflect this finding; status stays "open".
