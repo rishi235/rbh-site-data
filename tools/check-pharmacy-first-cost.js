@@ -92,6 +92,20 @@
       the free claim and to rules 4 and 5, not to rule 3: see the long note
       above the rule for why the caveat stops at the service page.
 
+    RULE 8, the free NHS blood pressure check claim: the same six landing
+      pages and fifteen of the sixteen GBP packs also advertise a free NHS
+      blood pressure check for adults aged 40 and over, a second and
+      DIFFERENT free NHS service from Pharmacy First. Rule 6's own comment
+      already treats a blood-pressure free claim as unable to stand in for a
+      Pharmacy First one, which is correct, but that separation left the
+      blood-pressure claim itself unguarded: nothing checked whether it still
+      said free or still priced nothing. Found on item 5.2's twenty-fifth
+      quality pass, 2026-11-18, proved by injection against McCanns Aigburth's
+      landing page (one of that item's own pages). Held to the free claim
+      (not TEMPLATE.md, which names the service in a heading list rather than
+      a claim) and to rules 4 and 5 (TEMPLATE.md included, same reason as
+      rule 6).
+
   Run:  node tools/check-pharmacy-first-cost.js
   Exits 1 on any failure.
 */
@@ -506,6 +520,139 @@ landings.forEach(function (file) {
       "about the service, and a patient who assumes it is private does not " +
       "book and never says why.");
   }
+});
+
+// ---------------------------------------------------------------------------
+// RULE 8, the free NHS blood pressure check claim, on packs and landing pages.
+// ---------------------------------------------------------------------------
+// The NHS blood pressure check for adults aged 40 and over is a second free
+// NHS service the estate advertises, on all six branch landing pages and on
+// fifteen of the sixteen GBP packs (every trading branch's own pack), and it
+// is free at the point of use in exactly the same way Pharmacy First is. The
+// rule 6 comment above already names it as a DIFFERENT free claim from the
+// one rule 6 holds, precisely so that a free claim about blood pressure two
+// sentences away cannot cover for a stripped Pharmacy First claim. That
+// deliberate separation left the blood pressure claim itself with no rule of
+// its own: nothing in this file, and nothing in any of the other 36
+// checkers, reads whether THIS claim still says free or still prices nothing.
+//
+// Found on this item's twenty-fifth quality pass. Proved by injection against
+// modules/branch/pages/pharmacy-mccanns-aigburth.html (one of item 5.2's own
+// four pages, not the Fishlocks page rule 7 was proved against): changing
+// "Free NHS blood pressure checks for adults aged 40 and over" to "Affordable
+// NHS blood pressure checks for adults aged 40 and over" walked past all 35
+// non-network checkers clean, including check-pharmacy-first-eligibility.js's
+// own rule 9, which pins the age cohort on this exact sentence but was never
+// asked whether the sentence still calls the service free.
+//
+// Sentence-scoped like rule 7, and using the same scan() (rules 4/5's
+// qualifier and price patterns) so a second list cannot drift from the first.
+// TEMPLATE.md is excluded from the free-claim half of this rule, the same
+// convention check-pharmacy-first-eligibility.js's own rule 9 pack list
+// uses, because its one blood-pressure mention is a heading list of service
+// names ("Pharmacy First, blood pressure, contraception, weight loss, travel
+// clinic") rather than a patient-facing sentence; it is still scanned for a
+// qualifier or a price, the same as every other pack, since a qualifier
+// written into the template would propagate into every pack drafted after it.
+var BP_CLAIM = /\bblood pressure\b/i;
+// A sentence that mentions blood pressure is not necessarily the claim: the
+// packs also carry a photo caption ("Blood pressure check in progress ...")
+// and, on branches where the service was added after the pack was first
+// drafted, an editorial note about when the line was added. Neither states
+// anything to a patient. Second negative test for this rule proved the gap:
+// filtering on BP_CLAIM alone failed thirteen packs on exactly those two
+// non-claim sentence shapes. Every genuine claim sentence restates the NHS
+// cohort ("aged 40 and over"), the same cohort check-pharmacy-first-
+// eligibility.js's own rule 9 pins on this exact sentence, so BP_COHORT is
+// the free-claim test's extra gate; scan() (qualifier/price) still runs
+// against every blood-pressure-mentioning sentence, captions and notes
+// included, since neither of those two could ever legitimately carry a
+// price or a qualifier either.
+var BP_COHORT = /\baged\s*40\b|\b40\s+and\s+over\b/i;
+// KNOWN LIMITATION, recorded rather than chased further on this pass: the
+// free-claim half of rule 8 tests whether the SENTENCE containing the blood
+// pressure cohort also contains the word "free" anywhere in it, not whether
+// "free" sits next to "blood pressure" specifically. A tighter adjacency
+// test ("free" immediately before "blood pressure") was tried and rejected
+// by its own negative tests: two packs (cherry-lane-walton.md,
+// scorah-hazel-grove.md) genuinely state the claim as "we offer three free
+// NHS services: Pharmacy First, ..., blood pressure checks ..., and the
+// contraception service", where "free" qualifies a LIST and sits nowhere
+// near "blood pressure" despite the claim being entirely correct; the
+// tighter test failed both on real, unedited copy. The residual gap this
+// leaves is narrow and named rather than silently accepted: a pack or page
+// that writes the blood pressure and Pharmacy First claims as one run-on
+// sentence (mccanns-aigburth.md does, in prose: "...the team provides free
+// NHS blood pressure checks for adults aged 40 and over, ... and NHS
+// Pharmacy First, a free NHS service...") could have "free" dropped from the
+// blood-pressure clause specifically and still pass rule 8, because the
+// word survives elsewhere in the sentence attached to Pharmacy First. A
+// QUALIFIER added in the same edit (rather than a bare drop) is still caught,
+// by rule 4, because rule 4 scans the whole sentence for qualifier words
+// regardless of which service they describe. Closing the narrow remainder
+// needs correctly parsing which clause of a listed or run-on sentence a
+// given "free" belongs to, which is a bigger piece of work than this pass's
+// scope; raise as a question before attempting it rather than widening this
+// regex again and finding a fourth live false positive.
+
+landings.forEach(function (file) {
+  var name = rel(file);
+  var text = visibleText(fs.readFileSync(file, "utf8"));
+  var bpSentences = sentences(text).filter(function (seg) { return BP_CLAIM.test(seg); });
+  if (!bpSentences.length) return;
+  scan(name, bpSentences.join(". "));
+  // Tested sentence by sentence, not on the sentences joined, for the same
+  // reason rule 6's own comment gives: joining would let a free claim in one
+  // sentence cover for a stripped claim in another. First negative test for
+  // this half proved it is not hypothetical here either: this same join
+  // bug let a stripped claim in the patient-facing paragraph pass clean
+  // because a second, separate blood-pressure line (the GBP post's own bullet
+  // summary) still said free.
+  bpSentences.filter(function (seg) { return BP_COHORT.test(seg); }).forEach(function (seg) {
+    if (!/\bfree\b/i.test(seg)) {
+      fail("free", name + ": advertises the NHS blood pressure check but " +
+        "nowhere in that sentence calls it free (rule 8): \"" + seg + "\". " +
+        "Rule 7 already treats a free claim about blood pressure as a claim " +
+        "about a DIFFERENT service from Pharmacy First; this rule is what " +
+        "holds that other claim to the same standard.");
+    }
+  });
+});
+
+packs.forEach(function (file) {
+  var name = rel(file);
+  var raw = fs.readFileSync(file, "utf8");
+  var bpSentences = sentences(raw).filter(function (seg) { return BP_CLAIM.test(seg); });
+  if (!bpSentences.length) return;
+  scan(name, bpSentences.join(". "));
+  if (path.basename(file) === "TEMPLATE.md") return;
+
+  // Gated the same way rule 6 gates the Pharmacy First free claim: a branch
+  // that does not run the service makes no claim and is not held to one.
+  // First negative test for this rule proved why the gate is needed:
+  // gbp-packs/clear-aintree.md names "blood pressure" only in a paster note
+  // ("branches.json shows no Pharmacy First, blood pressure or contraception
+  // service for this branch ... Do not add them to GBP"), which is correctly
+  // not a free claim, because Clear Chemist Aintree runs neither service
+  // (confirmed in branches.json: pfBooking false, no pfLink, no widget).
+  // Ungated, rule 8 failed that note on its first run.
+  var stem = path.basename(file).replace(/\.md$/, "");
+  var b = packBranches.filter(function (x) {
+    return (x.brandSlug + "-" + x.townSlug) === stem;
+  })[0];
+  var runsPf = !!b && (!!b.pfLink || !!((b.widgets || {}).pharmacyFirst));
+  if (!runsPf) return;
+
+  // Sentence by sentence, not joined: see the matching comment on the
+  // landing-page half of this rule above.
+  bpSentences.filter(function (seg) { return BP_COHORT.test(seg); }).forEach(function (seg) {
+    if (!/\bfree\b/i.test(seg)) {
+      fail("free", name + ": advertises the NHS blood pressure check but " +
+        "nowhere in that sentence calls it free (rule 8): \"" + seg + "\". " +
+        "This pack is pasted into a Google Business Profile, often the " +
+        "first and only page a patient reads about the pharmacy.");
+    }
+  });
 });
 
 // The two paste sheets beside the pages carry the SEO description that goes

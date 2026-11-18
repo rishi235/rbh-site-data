@@ -39728,6 +39728,95 @@ audits/item-5.1-switch-copy-injection-2026-11-17-twentyseventh.txt.
       session. Q35 (the four pages never pasted to Weebly) not
       re-checked this pass; last confirmed still 404 on 2026-10-19 per
       the note above. No in-repo defect found, no new question raised.
+      Quality pass 2026-11-18 (run524, twenty-fifth, rotation-pool pick,
+      no unblocked worklist item existed): full 35-checker static suite
+      (excluding check-live-hours.js and check-cdn-pins.js, both
+      network-dependent) run individually before any change, 34/35 clean,
+      the one failure the standing CH1 2AB narrative-postcode baseline in
+      check-postcodes.js (unchanged, not this item's scope). All six page
+      generators rebuilt from branches.json; sha256 of every file under
+      modules/branch, modules/service and modules/switch taken before and
+      after: byte-identical, zero diff.
+      ONE REAL GUARD GAP FOUND AND FIXED, in tools/check-pharmacy-first-
+      cost.js. That checker's rule 7 (added item 2.2, 2026-08-13) already
+      guards the free NHS Pharmacy First claim on these six landing pages,
+      and its own rule 6 comment already notes that a free claim about the
+      NHS blood pressure check (a second, different free NHS service all
+      six landing pages and 15 of the 16 GBP packs also advertise) must
+      not be read as covering for Pharmacy First's own claim. That
+      deliberate separation left the blood-pressure claim itself with no
+      rule: nothing in any of the 36 checkers tested whether it still said
+      free or still priced nothing. Proved by injection against
+      modules/branch/pages/pharmacy-mccanns-aigburth.html, one of this
+      item's own four pages (not the Fishlocks page rule 7 was proved
+      against on 2026-08-13): stripping "Free" from the blood-pressure
+      sentence, and separately adding "from 10 pounds" to it, both walked
+      past all 35 non-network checkers clean, including check-pharmacy-
+      first-eligibility.js's own rule 9, which pins the age cohort on this
+      exact sentence but never asked whether it still called the service
+      free.
+      Added RULE 8 to check-pharmacy-first-cost.js: the blood-pressure
+      claim on the six landing pages and on every GBP pack whose branch
+      runs the service (gated the same way rule 6 gates Pharmacy First,
+      by pfLink/widgets.pharmacyFirst) must state "free" and is held to
+      the existing qualifier/price scan(), reusing rule 6's own patterns
+      rather than a second copy. Two false positives surfaced and were
+      fixed before landing: an unfiltered sentence match failed
+      gbp-packs/clear-aintree.md on a paster note explaining the branch
+      runs neither service (fixed by the same runsPf gate rule 6 uses);
+      and testing the free claim on sentences joined together let a
+      stripped claim in one sentence hide behind a surviving "free" in an
+      unrelated sentence elsewhere in the same pack or page, so the test
+      was moved to per-sentence, gated to only the sentence(s) also
+      stating the NHS cohort ("aged 40 and over"), which is what the
+      caption and editorial-note sentences that also mention "blood
+      pressure" do not carry. A tighter version requiring "free" to sit
+      immediately next to "blood pressure" was tried and rejected by its
+      own negative test: two packs state the claim as "we offer three
+      free NHS services: Pharmacy First, ..., blood pressure checks, ...,
+      and the contraception service", correct copy where "free" qualifies
+      a list and sits nowhere near "blood pressure". Four injection
+      rounds re-run against the final version, each restored immediately
+      after and sha256-reconfirmed against the committed file: strip-free
+      and add-price on McCanns Aigburth's landing page (rule 8 catches
+      both, this item's own page), a qualifier on the McCanns Aigburth
+      pack's run-on sentence (caught by the pre-existing rule 4, since
+      that sentence also names Pharmacy First), and strip-free on the
+      Scorah Bramhall landing page (caught by rule 8 and, because that
+      page's blood-pressure line sits right after Pharmacy First's own,
+      also by rule 4). All four restored; git status and sha256 on the
+      touched files confirmed clean before and after. check-pharmacy-
+      first-cost.js now exits clean on the real, unedited repo (112 pages,
+      16 packs, 6 landing pages).
+      KNOWN RESIDUAL LIMITATION, recorded in the checker's own comment
+      rather than chased further on this pass: a pack or page that writes
+      the blood-pressure and Pharmacy First claims as one run-on sentence
+      (mccanns-aigburth.md's business description does) could have "free"
+      dropped from the blood-pressure clause specifically, with nothing
+      added in its place, and still pass rule 8, because the word "free"
+      survives elsewhere in the same sentence attached to Pharmacy First.
+      A qualifier added in the same edit is still caught, by rule 4, which
+      scans the whole sentence regardless of which service a qualifier
+      word describes; only a bare, unqualified drop of "free" on that one
+      clause, in that one sentence shape, slips through. Closing it needs
+      clause-level parsing of a listed or run-on sentence, which is a
+      bigger piece of work than this pass's scope. Not raised as a
+      question: no live copy or data changed, and the gap is a residual
+      guard-coverage limitation rather than a decision for Rishi, so it is
+      left as a comment in the checker for the next pass or a future
+      quality pass on this item to pick up, rather than a QUESTIONS.json
+      entry.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after use): re-read
+      pharmacy-mccanns-aigburth.html on www.mccannspharmacy.co.uk; still
+      returns a 404 "Page Not Found" Weebly error page, unchanged since
+      first observed 2026-08-10 and reconfirmed on every live-reachable
+      pass since (now over fifteen weeks running). Q35 stands exactly as
+      before; nothing new to add to it.
+      No live copy, generator output, branches.json or data field changed
+      anywhere in the repo; only tools/check-pharmacy-first-cost.js
+      (a checker) was edited. QUESTIONS.json unchanged (140 total, 1 open,
+      Q139).
 - [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run.
       Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy
