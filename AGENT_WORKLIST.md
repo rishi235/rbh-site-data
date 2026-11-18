@@ -31085,6 +31085,38 @@ directly rather than re-deriving the same facts by hand.
       unmerged PR per other items' notes, not touched by this run). No
       state change on any front since the twenty-second pass. No new
       in-repo defect, no new question. Done 2026-11-08.
+      Twenty-fourth quality pass 2026-11-18 (Cowork scheduled run,
+      audit-backlog-worker, run520, claude-sonnet-5; all three unchecked
+      AGENT_WORKLIST.md lines reconfirmed [BLOCKED]; 4.12 confirmed stalest in
+      the rotation pool, tied with 3.4 at 2026-11-08, won the tie-break on
+      fewer inline date mentions). REPO HALF: full checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js) run on a `git archive HEAD`
+      scratch copy, 36/37 clean; the one failure is the standing
+      check-postcodes.js CH1 2AB narrative-debris baseline (now 8
+      failures/3 warnings, up one from run519's own new evidence filename),
+      not new, not this item's scope. FRESH ANGLE: tools/check-branch-links.js,
+      never previously tried against this branch - passed clean on the
+      unmodified scratch copy, then proven by injection on the isolated
+      scratch copy (tracked repo never touched): a truncated
+      colemanleigh_liverpool.nhsReviewUrl (missing "/leave-a-review") FAILED
+      cleanly naming the exact branch and the expected shape; a
+      googleReviewUrl collision with scorah_bramhall FAILED cleanly naming
+      both branches. Both injections restored and sha256-reconfirmed
+      byte-identical to baseline (0385b7c2...27da) before and after. LIVE
+      HALF (Claude in Chrome, read-only, one tab, closed after use, nothing
+      clicked/typed/submitted): the "Change to Coleman & Leigh Pharmacy"
+      banner, the footer "Coleman & Leigh Pharmacy" spelling, the footer's
+      unspaced "0151 5253522" phone, and Post A's pfLink 404 all reconfirmed
+      still live and unchanged. One observation NOT logged as a state
+      change: this pass's homepage read showed the Weight Loss Clinic
+      services-list line as "Pharmacist-led consultations and ongoing
+      support" rather than the superlative/results tagline the twenty-third
+      pass quoted for the standing Q22 finding - flagged for the next pass
+      to re-check against the same visible element before treating Q22 as
+      resolved on one reading. No pack, generator, page or branches.json
+      content changed. No new in-repo defect, no new question. Full detail
+      in audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-18-run520.txt.
+      Done 2026-11-18.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

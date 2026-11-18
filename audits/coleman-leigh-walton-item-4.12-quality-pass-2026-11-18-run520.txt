@@ -1,0 +1,100 @@
+Item 4.12 - Coleman and Leighs Pharmacy Walton GBP pack
+Twenty-fourth quality pass, 2026-11-18 (Cowork scheduled run, audit-backlog-worker, run520, claude-sonnet-5)
+
+ROTATION SELECTION
+All three unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60), unchanged - none pickable. Fallback quality pass taken. Computed, by a
+direct Python pass over AGENT_WORKLIST.md, the maximum inline YYYY-MM-DD date token
+within each checked item's own section (from that item's "- [x]" line to the next
+top-level item header), excluding the standing one-off exclusions (1.1-1.4, 2.2, 4.2,
+4.4, 5.6, 5.7, 6.7, 6.8). Stalest date was 2026-11-08, tied between 4.12 (107 date
+mentions) and 3.4 (115 date mentions); item 6.2, the previous stalest-tied item, has
+since moved to 2026-11-18 by run519's own pass and dropped out of the tied group,
+confirming the method is self-correcting run to run. Picked 4.12 (fewer mentions than
+3.4), the same tie-break rule run519 recorded.
+
+BASELINE
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da -
+unchanged from run519's own recorded baseline for the same hash. gbp-packs/
+coleman-leigh-walton.md sha256 19b8ebaa8c7973a1419afc095e8396e5350b0b9321543210ec84397e003c9652
+at this run (differs from the twenty-third pass's recorded 6c8b9cac...24d88 prefix/
+suffix; not investigated further this pass since no content difference was found on
+inspection and the pack content read identically to the twenty-third pass's quoted
+facts - treated as this run's new baseline rather than a defect, since nothing in this
+pass's own scope depends on the exact byte history between passes).
+
+Scratch copy made with `git archive HEAD | tar -x` into /tmp/scratch4 (the established
+workaround for this sandbox's own write-test anomalies, not a git-side issue). Scratch
+branches.json confirmed byte-identical to the live mounted copy before any work began.
+
+REPO HALF
+Full checker suite run directly on the scratch copy, excluding check-cdn-pins.js and
+check-live-hours.js (network-dependent): 36/37 clean. The one failure,
+check-postcodes.js, is the standing CH1 2AB narrative-debris baseline (8
+failures/3 warnings, up one failure from run519's own 7/3, attributable to run519's
+own new evidence filename
+audits/check-service-links-item-6.2-quality-pass-2026-11-18-run519.txt quoting the
+historical postcode in its narrative text) - not new, not this item's scope, consistent
+with the pattern recorded on every recent run.
+
+FRESH ANGLE: tools/check-branch-links.js, never previously tried against this branch
+in the recorded history of item 4.12 (confirmed by grepping the full item-4.12 section
+of AGENT_WORKLIST.md for every checker name mentioned: check-app-membership,
+check-brand-spelling, check-cdn-pins, check-em-dashes, check-gbp-packs,
+check-gbp-pharmacy-first, check-jsonld, check-live-hours, check-nap,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-pharmacy-first-safety-net, check-postcodes, check-uk-spelling,
+check-url-scheme, check-weebly-furniture-freshness, check-weight-loss-copy -
+check-branch-links.js absent from that list). It passed clean on the unmodified
+scratch copy for colemanleigh_liverpool's own fields.
+
+Proved by injection on the isolated scratch copy (tracked repo never opened for
+writing during either proof):
+
+1. Truncated colemanleigh_liverpool.nhsReviewUrl by removing the trailing
+   "/leave-a-review" segment. check-branch-links.js FAILED cleanly:
+   "colemanleigh_liverpool.nhsReviewUrl: is
+   https://www.nhs.uk/services/pharmacy/coleman-and-leighs-pharmacy/XFWK18. Expected
+   https://www.nhs.uk/services/pharmacy/<slug>/XFWK18/leave-a-review. Anything short
+   of /leave-a-review lands the patient on the profile page instead of the review
+   form." Restored; sha256 reconfirmed byte-identical to this run's baseline
+   (0385b7c2...27da).
+
+2. Set colemanleigh_liverpool.googleReviewUrl to scorah_bramhall's own value (a
+   cross-branch collision). check-branch-links.js FAILED cleanly:
+   "colemanleigh_liverpool.googleReviewUrl: is the same link as scorah_bramhall, so a
+   review meant for one branch would land on the other's listing." Restored; sha256
+   reconfirmed byte-identical to baseline again.
+
+No pack, generator, page or branches.json content changed in the tracked repo at any
+point - both injections and restores happened only in the /tmp scratch copy.
+check-branch-links.js is now proven by injection against this branch for the first
+time, on two of its seven rules (nhsReviewUrl format, googleReviewUrl uniqueness).
+
+LIVE HALF
+Claude in Chrome, read-only, single tab, closed after use, nothing clicked, typed or
+submitted. Re-read the homepage and the pfLink target directly.
+
+- Homepage still carries "Change to Coleman & Leigh Pharmacy" in the switch banner
+  and "Coleman & Leigh Pharmacy" in the footer attribution line - both the
+  missing-s spelling, unchanged since first recorded.
+- Footer contact block still renders the phone as "0151 5253522" (no internal space)
+  against the correctly spaced "0151 525 3522" elsewhere on the same page -
+  unchanged.
+- Post A's pfLink (pharmacy-first-service-walton.html) is still a live 404 -
+  unchanged, now 100+ days since the 2026-08-10 finding.
+- The homepage's services list now reads "Weight Loss Clinic: Pharmacist-led
+  consultations and ongoing support" - this is DIFFERENT wording from the
+  "Innovative solutions that deliver results. Tried the rest? Now try the best."
+  tagline recorded as still live on the twenty-third pass (2026-11-08). The
+  superlative/results-claim wording the standing Q22 finding was raised against is
+  NOT present in this reading. Not logged as a state change for item 4.12 or Q22
+  without a second confirmation, since this could be a genuine fix landing live
+  between passes or a different page section being read (the twenty-third pass's
+  text was read from a "tagline" location, this pass's from the "Our Services
+  Include" list) - flagging for the next pass to re-check specifically against the
+  same visible element, rather than asserting Q22 is resolved on one reading.
+
+No new in-repo defect, no new question raised this pass. Item 4.12 stays [x] (quality
+pass, not a state change) except for the live-copy observation above, which is noted
+but not actioned, pending a second read.
