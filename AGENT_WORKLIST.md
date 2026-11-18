@@ -28105,6 +28105,107 @@ directly rather than re-deriving the same facts by hand.
       No in-repo defect, no new live-only defect, no new question raised.
       Item 4.9 kept [x] (quality pass, not a state change). QUESTIONS.json
       unchanged (0 open). Done 2026-11-17
+      Twenty-fourth quality pass, 2026-11-18 (unattended scheduled run,
+      audit-backlog-worker): all 3 unchecked worklist lines reconfirmed
+      [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), none pickable, fell to the
+      rotation-pool fallback. 4.9 was stalest (run497, 2026-11-17), ahead of
+      3.8/498, 2.3/499, 3.6/500, 3.2/501, 3.7/502, 4.14/503, 4.13/504,
+      5.1/505, 3.13/506, 3.9/507. Picked 4.9, twenty-fourth pass.
+      REPO HALF: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      unchanged from every prior pass's anchor. Full 34-checker non-network
+      suite run individually: 34/35 (the one failure the standing CH1 2AB
+      narrative-postcode baseline, pre-existing, not this item's scope).
+      All six generators re-run; git status on modules/, core/, gbp-packs/
+      and branches.json empty before and after - byte-identical.
+      FRESH ANGLE, and a REAL IN-REPO DEFECT FOUND (not just a proof, a
+      genuine fix - the first on this item since the twenty-second pass):
+      tools/check-whatsapp-route.js had never been named once across the
+      prior 23 passes on this item, despite being the one checker that
+      guards exactly this pack's own two standing live findings (Q21's
+      concrete case and this branch's own real WhatsApp number, confirmed
+      unchanged again this pass - see LIVE HALF below). Read the checker's
+      own RULE 1 and RULE 4 before injecting anything, because this item's
+      branch is the one case Q21 was answered to cover: Clear Chemist
+      Aintree has published its OWN WhatsApp number, 07512 330 076, on its
+      live site for months, while branches.json still holds the shared
+      estate default (447521775631) for it, because nobody has yet decided
+      to action Q21's second half for this specific branch. Tested what
+      would happen if that correct fix landed: injected
+      clearchemist_aintree.whatsapp = 447512330076 (07512 330 076 in E.164)
+      into branches.json - RESULT: the checker failed ALL 16 branches at
+      once, naming every single one as a "source agreement" violation,
+      including the 15 that had not changed at all. RULE 1 required
+      estate-wide unanimous agreement on one number, which is the exact
+      shape Q21 was answered to move away from, so the checker itself was
+      silently blocking the one fix this item's own pack has been waiting on
+      for 23 passes. Worse, once branches disagreed, RULE 4's single
+      estate-wide "AGREED" comparison went null, so no page anywhere was
+      checked against anything at that point either - a second, independent
+      failure mode layered under the first. Restored immediately; sha256
+      reconfirmed identical to the pre-injection baseline (backup kept
+      outside the tracked repo, in the sandbox outputs folder, not
+      committed).
+      FIX: tools/check-whatsapp-route.js RULE 1 no longer fails on a branch
+      declaring a different (but well-formed) number from the rest - only a
+      missing field or a hardcoded generator constant still fails there.
+      RULE 4 now resolves each generated page to its OWN branch (the same
+      brandSlug-townSlug filename-suffix match check-nap.js and
+      check-booking-routes.js already use) and compares its data-wa against
+      that branch's own declared value, not one global number. RULE 2
+      (runtime default agreement) still hard-fails when branches.json is
+      unanimous and a module default disagrees (unchanged behaviour); when
+      it is not unanimous, a disagreement is reported rather than failed,
+      since there is then no single number left to be unconditionally wrong
+      against. The KNOWN-staleness check for emar.js was re-gated on the
+      same "unanimous" condition for the same reason.
+      VERIFICATION (four rounds, each restored and sha256/git-status
+      reconfirmed clean before the next): (1) re-ran the Clear Aintree
+      injection above against the FIXED checker - now reports the estate as
+      non-unanimous (correctly) and fails only the 3 real pages still
+      carrying the stale estate number (switch, weight-loss-clinic,
+      travel-clinic for clearchemist_aintree), which is exactly the
+      regeneration-needed signal the checker should give once a branches.json
+      value changes but pages have not been rebuilt - not a false failure
+      on the other 15 branches. (2) negative control: injected a classic
+      copy-paste error directly into a page (Smartts Bootle's switch page
+      data-wa changed to a wrong number, branches.json left unanimous) -
+      still caught cleanly by RULE 4, naming the page and its own branch's
+      correct value. (3) injected a wrong runtime default into
+      modules/service/service.js (DEFAULT_WHATSAPP changed) with
+      branches.json left unanimous - still hard-fails under RULE 2,
+      unchanged behaviour. (4) removed emar.js's deliberate divergence
+      (set its WHATSAPP_E164 to the shared value) - the KNOWN-staleness
+      rule still fires ("stale KNOWN key: modules/emar/emar.js"), confirming
+      that guard still works. All four files restored by content copy from
+      a pre-edit backup after each test; sha256/git-status confirmed clean
+      each time. Full 35-checker suite re-run clean after the fix: still
+      34/35, same standing CH1 2AB postcode failure, no regression. All six
+      generators re-run again: byte-identical.
+      This is a checker-correctness fix, not a content or business change -
+      no branches.json field, generated page or gbp-pack was left different
+      from before this pass started. Per Rishi's 2026-11-16 rule set this is
+      GOOD PRACTICE (standard data-hygiene/checker-logic correction a
+      competent person would make without asking), not a question for
+      Rishi, so none was raised. The underlying business decision this fix
+      unblocks - whether to actually set Clear Chemist Aintree's real
+      WhatsApp number in branches.json, which Q21 left open for this branch
+      specifically - is unchanged and still open; this pass only removes the
+      checker-side obstacle that would have fought that decision the moment
+      someone made it.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after use): clearchemist.co.uk/contact-us
+      re-read in full. Phone still 0151 203 6535 (Q28 unchanged, 8365 appears
+      nowhere live). WhatsApp still published live as 07512 330 076,
+      distinct from the estate default (Q21's concrete case for this
+      branch, unchanged). Non-NHS hours "Monday - Friday 8am-4.30pm", NHS
+      hours "Monday - Thursday 8am - 6pm", both matching the pack's Q112
+      note exactly. Address unchanged.
+      No branches.json field, generated page or gbp-pack content changed;
+      only tools/check-whatsapp-route.js (a checker). No new question
+      raised. Item 4.9 kept [x] (quality pass, not a state change).
+      QUESTIONS.json unchanged (1 open, Q139, unrelated to this item). Done
+      2026-11-18
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
