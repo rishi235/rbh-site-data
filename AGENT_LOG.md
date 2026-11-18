@@ -1,3 +1,7 @@
+## run523: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap that run498, run502, run507, run511-522 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run523 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T12:43Z): item 3.3 quality pass (Fishlocks Chemist, Ainsdale and Eccleston) - twenty-seventh pass, repo and live halves both clean, no new defect, no new question.
 
 LOCK (step 1): `.agent-lock` at pickup carried "RELEASED-run522-1795002619" and was 52 minutes old (over the 45-minute threshold). Direct `rm` failed with "Operation not permitted" (standing FUSE-EPERM symptom, Q128/Q134); worked around with `mv` to `.agent-lock.RELEASED-run523-<ts>`, then a fresh `.agent-lock` written with this run's own timestamp.
