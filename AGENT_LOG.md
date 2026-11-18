@@ -1,3 +1,7 @@
+## run521: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap that run498, run502, run507, run511-520 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run521 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T11:12Z): item 3.4 quality pass (Cherry Lane Pharmacy, Walton) - full checker suite reconfirmed clean, no new in-repo defect, no new question; mounted working copy's own git fetch found broken by a stray debris ref (new Q134-class housekeeping finding, not actioned beyond logging; needs a supervised session).
 
 LOCK (step 1): mounted working copy's .agent-lock at pickup carried content "RELEASED-run520-1794997193" (full numeric unix-time marker, not the usual ISO/compact form, but still clearly a release marker, not a live lock) and a LastWriteTime about 53 minutes old (over the 45-minute staleness threshold). Direct unlink attempted and failed with "Operation not permitted" - the standing FUSE-EPERM symptom (Q128/Q134) - so, consistent with every recent run, no attempt was made to delete or overwrite the mounted copy's lock file beyond noting its state here; it was left as found rather than adding another marker on top of it.
