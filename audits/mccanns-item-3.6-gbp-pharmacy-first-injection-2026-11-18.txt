@@ -1,0 +1,83 @@
+Item 3.6 quality pass (twenty-seventh), 2026-11-18, unattended scheduled run (audit-backlog-worker).
+Branch: McCanns Chemist (Aigburth and Sandringham).
+Fresh-angle checker: tools/check-gbp-pharmacy-first.js (never named across this item's prior 26 passes).
+
+SETUP
+- Isolated copy via `git archive HEAD | tar -x` into a scratch directory outside
+  the tracked repo. Tracked repo (C:\dev\rbh-site-data, mounted) never opened for
+  writing this run; only read for baseline hashes and the final confirmation.
+- branches.json sha256 before: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's own anchor). Unchanged after (confirmed against the
+  tracked repo, not just the scratch copy).
+- gbp-packs/mccanns-aigburth.md sha256 before/after: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+- gbp-packs/mccanns-sandringham.md sha256 before/after: 4851c4ff2752ed24760e8a11de0b4d9838920c789784fcafbf4d6b01a9c0d13f
+- Baseline run of tools/check-gbp-pharmacy-first.js on the clean scratch copy:
+  "OK - 7 pathways read from the generator, 28 Pharmacy First blocks across
+  14 packs, all clean."
+
+INJECTION ROUND 1 (McCanns Aigburth, Post A)
+Removed "impetigo" from the seven-condition list in Post A
+(gbp-packs/mccanns-aigburth.md), leaving six conditions stated.
+RESULT: caught on first attempt.
+  "gbp-packs/mccanns-aigburth.md: Post A names 6 of the 7 Pharmacy First
+  conditions and omits impetigo. This block is pasted verbatim into the
+  public Google profile, so an omitted condition is a service the branch
+  runs and the profile denies"
+Restored from the pre-edit copy of the file; sha256 reconfirmed identical to
+baseline (fdb1429d...). Checker re-run: clean.
+
+NEGATIVE CONTROL (McCanns Aigburth, photo shot list)
+Reordered two bullet points in the Photo shot list section (no clinical fact,
+no Pharmacy First text touched). Checker ran clean, confirming the checker is
+not firing on any edit to the file, only on the clinical blocks it targets.
+Restored; sha256 reconfirmed identical to baseline.
+
+INJECTION ROUND 2 (McCanns Sandringham, Post A)
+Changed the UTI age range in Post A from "women aged 16 to 64" to "women
+aged 18 to 64" (gbp-packs/mccanns-sandringham.md).
+RESULT: caught on first attempt.
+  "gbp-packs/mccanns-sandringham.md: Post A publishes the urinary tract
+  infection service for "women aged 18 to 64", but the canon holds "Women
+  aged 16 to 64" (tools/build-service-pages.js). The profile and the
+  branch's own condition page would state different NHS eligibility"
+Restored; sha256 reconfirmed identical to baseline (4851c4ff...).
+
+FULL SUITE (scratch copy, excluding check-cdn-pins.js and check-live-hours.js,
+both network/.git-dependent and not meaningful on a git-archive extraction):
+34 checkers clean. check-postcodes.js fails with the single standing,
+pre-existing CH1 2AB narrative-postcode baseline failure (already recorded in
+NARRATIVE_POSTCODES history, not new, not this item's scope).
+
+GENERATOR REBUILD: all six content generators (build-service-pages.js,
+build-switch-pages.js, build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js) and
+build-weebly-furniture-checklist.js re-run against the scratch copy. Full
+sha256 sweep of every file under modules/ and core/ before and after: byte-
+identical.
+
+NOTE: tools/build-audit-status.js was initially included in a generic
+build-*.js sweep by mistake; it was NOT run against the tracked repo and its
+publish step requires `.git` (absent in a git-archive extraction) plus a
+credential, neither present in the scratch copy, so it printed "Publish
+skipped: no credential found in the origin remote URL." and made no network
+write. Confirmed no external write occurred. Excluded from future generic
+sweeps; the only legitimate call to build-audit-status.js is the real step 10
+publish against the tracked repo at the end of the run.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked/typed,
+closed after use): read https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html
+in full. All seven Pharmacy First conditions and their age ranges match the
+GBP pack exactly: UTI (women 16-64), sore throat (5+), sinusitis (12+),
+earache (1-17), impetigo (1+), shingles (18+), infected insect bite (1+).
+Address, phone and both branches' contact details in the footer match
+branches.json. No drift found live.
+
+ANSWER PICKUP: Claude in Chrome, read-only GET on
+https://data.rbhealth.co.uk/api/feedback. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z); no "AUDIT ANSWER Q139" entry present. Left Q139
+open, unchanged.
+
+RESULT: zero in-repo defect found. Guard coverage for item 3.6 now 29 of 37
+checkers proven by direct injection (up from 28). No branches.json field,
+generated page, pack or checker content changed - the checker was proven
+correct, not fixed. No new question raised.

@@ -10063,6 +10063,50 @@ questions, browser call skipped per standing practice. No in-repo defect
 found. No new question raised. Evidence in
 audits/mccanns-item-3.6-contraception-copy-injection-2026-11-17.txt and
 audits/live-hours-check-2026-11-17.json.
+
+Quality pass 2026-11-18 (twenty-seventh, run532, unattended scheduled run).
+Rotation-pool pick: stalest date among the genuine candidates after run531
+took 2.3, this item's own block last mentioned 2026-11-17 (run500) tied with
+3.2/501, 3.7/502, 4.14/503, 4.13/504, 5.1/505, 3.13/506, 3.9/507, but item 3.6
+won the tiebreak on fewest checkers proven against it relative to the pool
+(28 of 37). FRESH ANGLE: tools/check-gbp-pharmacy-first.js, never named in
+this item's prior 26 passes, applies directly because both McCanns branches
+publish Pharmacy First copy in their own GBP packs (gbp-packs/mccanns-
+aigburth.md and gbp-packs/mccanns-sandringham.md). Isolated git-archive
+scratch copy (tracked repo never opened for writing); branches.json sha256
+confirmed 0385b7c2...27da, unchanged throughout; checker ran clean first.
+Two injection rounds: (1) dropped "impetigo" from McCanns Aigburth's Post A
+seven-condition list - CAUGHT on first attempt, naming the branch, the
+missing condition and the public-profile exposure; (2) changed McCanns
+Sandringham's Post A UTI age range from "16 to 64" to "18 to 64" - CAUGHT on
+first attempt, quoting both the published and canonical age ranges. A
+negative control (reordering two Photo shot list bullets on Aigburth's pack,
+no clinical text touched) ran clean, confirming selectivity. Both packs
+restored from their pre-edit copies; sha256 reconfirmed identical to baseline
+(fdb1429d... and 4851c4ff...) after each round. Full 35-checker suite
+(excluding check-cdn-pins.js and check-live-hours.js, network/.git-dependent)
+run clean on the scratch copy: 34/35, the one failure the standing CH1 2AB
+narrative-postcode baseline (pre-existing, not this item's scope). All six
+content generators plus build-weebly-furniture-checklist.js re-run; full
+sha256 sweep of modules/ and core/ before and after came back byte-identical.
+Tracked repo confirmed untouched throughout (git status clean, branches.json
+and both gbp-packs sha256 unchanged). RESULT: zero in-repo defect found -
+both McCanns packs' Pharmacy First copy agrees with the generator's canon and
+with each other exactly. Guard coverage for item 3.6 now 29 of 37 checkers
+proven by direct injection (up from 28).
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked or typed,
+closed after use): read https://www.mccannspharmacy.co.uk/pharmacy-first-
+mccanns-aigburth.html in full. All seven Pharmacy First conditions and their
+age ranges match the GBP pack exactly (UTI women 16-64, sore throat 5+,
+sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected insect bite
+1+); address, phone and both branches' footer contact details match
+branches.json. No drift found live. ANSWER PICKUP: Claude in Chrome,
+read-only GET on https://data.rbhealth.co.uk/api/feedback; newest entry still
+the Q52 answer (2026-09-01); no answer present for Q139. Left Q139 open,
+unchanged. No "Standing authorisation - autonomous window" section present at
+the top of AGENT_LOG.md, so step 4 did not apply. No new question raised.
+Evidence in audits/mccanns-item-3.6-gbp-pharmacy-first-injection-2026-11-18.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
