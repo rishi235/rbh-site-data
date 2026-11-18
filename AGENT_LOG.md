@@ -1,3 +1,7 @@
+## run522: note step 10 publish failure (known Q124 credential gap, not new)
+
+`node tools/build-audit-status.js` failed with "404 Not Found writing to rishi235/rbh-data-portal", the standing Q124 credential-scope gap that run498, run502, run507, run511-521 have each already logged. Not a new fault; no action taken beyond this note.
+
 ## run522 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T11:43Z): item 5.4 quality pass (Cherry Lane old Pharmacy First signpost) - live fix reconfirmed intact, standing Q36 footer typo reconfirmed; also resolved this run's own mounted-copy git-fetch block that a separate concurrent "run521" firing had logged as needing a supervised session.
 
 LOCK (step 1): .agent-lock at pickup carried "RELEASED-run520-1794997193" and was about 83 minutes old (over the 45-minute threshold). Direct `rm` failed with "Operation not permitted" (standing FUSE-EPERM symptom, Q128/Q134); overwritten in place with "RUNNING-run521-..." then, once it became clear a separate session had already claimed run-number 521 in AGENT_LOG.md, relabelled this entry run522 to avoid two differently-scoped entries sharing one number. Lock content left as the overwritten marker; released at the end of this run per step 11.
