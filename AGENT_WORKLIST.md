@@ -12558,6 +12558,35 @@ Done 2026-10-14 (twenty-third pass).
       documented rename-not-delete workaround before any git command, no
       further action needed. No question raised. Full detail:
       audits/sk-chemists-item-3.8-em-dashes-injection-2026-11-17.txt.
+      Quality pass 2026-11-18 (twenty-eighth run, scheduled worker run530):
+      rotation-pool pick (next-stalest after 4.9/run529), fresh angle
+      tools/check-seo-sheets.js, never previously named across the prior 27
+      passes on this item. All work on an isolated git-archive scratch
+      copy; tracked repo only read throughout. Baseline: branches.json
+      sha256 unchanged from the standing anchor
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da);
+      34/35 non-network checkers clean (the one failure the standing CH1
+      2AB narrative-postcode baseline, pre-existing); all eight generators
+      re-run, modules/core/gbp-packs byte-identical before and after.
+      Two injection rounds against SK Chemists Bootle's own sore-throat
+      page: (1) Page Title drift in modules/service/pages/SEO.md - caught
+      cleanly, naming the page and both strings; negative control
+      (unrelated branches.json field edit) stayed clean, confirming the
+      catch was genuine and selective; (2) SEO description drift in the
+      second sheet dialect, modules/service/pages/INDEX.md - caught
+      cleanly after a first mis-targeted edit (replacing the wrong line)
+      was itself correctly flagged by the checker as a malformed block,
+      corrected and re-run. Both injections restored and sha256-confirmed
+      byte-identical to baseline; full checker suite re-confirmed clean
+      afterwards. LIVE HALF: Claude in Chrome, read-only, one tab, closed
+      after use - re-read the targeted live page
+      (skchemist.co.uk/sore-throat-treatment-sk-chemists-bootle.html);
+      title, address, phone, email and opening hours all match
+      branches.json, no drift found live. No in-repo defect, no live
+      defect, no new question raised. Guard coverage for item 3.8 now 26
+      of 37 checkers proven by injection against this specific branch (up
+      from 25). Full detail:
+      audits/sk-chemists-item-3.8-seo-sheets-injection-2026-11-18.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

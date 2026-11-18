@@ -1,0 +1,131 @@
+SK Chemists (Bootle) - item 3.8 - quality pass (28th) - 2026-11-18 (run530)
+Fresh angle: tools/check-seo-sheets.js
+============================================================================
+
+CONTEXT
+-------
+Run528/529's rotation pool ordering named item 3.8 (SK Chemists, Bootle) as
+the next-stalest rotation-pool item after 4.9 (last touched run498, prior
+touches: run497 and earlier). A filename grep across the item's full section
+in AGENT_WORKLIST.md (lines 11276-12560) against every check-*.js in tools/
+confirmed tools/check-seo-sheets.js had never been named once across the 27
+prior passes on this item, despite being a standing, estate-wide checker.
+Picked as this pass's fresh angle.
+
+METHOD
+------
+All work done on an isolated scratch copy, never on the tracked working
+copy. Tracked repo (C:\Dev\rbh-site-data, mounted) was only ever read
+(git archive, sha256 checks) during this run, never written to for the
+injection itself.
+
+  1. git archive HEAD | tar -x into /tmp/scratch3_8 (and a second clean
+     reference copy /tmp/scratch3_8b for restores).
+  2. branches.json sha256 confirmed identical to the standing baseline
+     anchor used by every run since 494:
+       0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  3. Full non-network checker suite (35 of 37 check-*.js, excluding
+     check-cdn-pins.js and check-live-hours.js) run individually against
+     the unmodified scratch copy: 34/35 clean. The one failure,
+     check-postcodes.js, is the standing CH1 2AB narrative-postcode
+     baseline carried by every recent run - pre-existing, not new, not
+     this item's scope.
+  4. All eight tools/build-*.js generators re-run against the scratch
+     copy. sha256 of every file under modules/, core/ and gbp-packs/
+     taken before and after: byte-identical, zero diff. (audit-status
+     builder correctly skipped publishing - no git repo, no credential,
+     in a bare scratch extraction - this is expected and not a fault.)
+  5. node tools/check-seo-sheets.js run clean on the unmodified scratch
+     copy: 177 SEO-sheet entries / 163 INDEX-sheet entries across 11
+     discovered sheets, 177 generated pages compared, clean.
+
+INJECTION ROUND 1 - SEO.md sheet, Page Title
+---------------------------------------------
+Target: SK Chemists Bootle's own "Sore throat" block in
+modules/service/pages/SEO.md (the sheet pasted into Weebly's SEO
+Settings for this page).
+
+Changed line 547 from:
+  - **Page Title:** Sore throat treatment in Bootle - SK Chemists
+to:
+  - **Page Title:** Sore throat treatment in Aintree - SK Chemists
+
+Re-ran check-seo-sheets.js: FAILED cleanly, 1 failure, naming the exact
+page and both strings:
+  FAIL sore-throat-treatment-sk-chemists-bootle: title drift
+         page  : Sore throat treatment in Bootle - SK Chemists
+         sheet : Sore throat treatment in Aintree - SK Chemists  (modules/service/pages/SEO.md)
+
+Restored modules/service/pages/SEO.md from the clean reference copy;
+diff confirmed byte-identical; sha256 of the restored file matched the
+reference exactly (2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+on both sides). Re-ran checker: clean again.
+
+NEGATIVE CONTROL
+-----------------
+Edited skchemists_bootle.shortCode in branches.json (a field
+check-seo-sheets.js does not read at all - it reads generated pages and
+the *-SEO.md/*-INDEX.md sheets, not branches.json). Re-ran checker:
+still clean, confirming the Round 1 catch was genuine and selective, not
+a harness artefact that fails on any edit anywhere. branches.json
+reverted; sha256 reconfirmed identical to the pre-edit baseline.
+
+INJECTION ROUND 2 - INDEX.md sheet, SEO description
+-----------------------------------------------------
+Target: the same page's row in the second sheet dialect this checker
+reads, modules/service/pages/INDEX.md (163 of 177 pages carry a row
+here too, under "SEO title"/"SEO description" labels keyed to a
+backticked slug rather than a permalink).
+
+First attempt mistakenly targeted a blank separator line rather than
+the actual "SEO description" line, which inserted a second line instead
+of replacing the first - the checker correctly flagged this as its own
+finding ("2 'SEO description' labels in one block - the checker
+compares the last, a paster takes the first, so the two can disagree
+with no failure"), which is accurate diagnostic behaviour on a malformed
+block, not a checker bug. Restored INDEX.md from the clean reference
+copy (diff/sha256 confirmed byte-identical:
+54f6036728286e8f9bd3280cb2e05f88dd71efa5c1ef42200f2cd94435ba08b0) and
+redone correctly against the actual description line:
+
+Changed (line 460, the real SEO description line) from:
+  - **SEO description:** Sore throat treatment at SK Chemists in Bootle. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+to:
+  - **SEO description:** Sore throat treatment at Fishlocks Chemist in Ainsdale. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+
+Re-ran check-seo-sheets.js: FAILED cleanly, 1 failure only, naming the
+exact page, both strings and the file:
+  FAIL sore-throat-treatment-sk-chemists-bootle: description drift against the INDEX sheet
+         page  : Sore throat treatment at SK Chemists in Bootle. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.
+         index : Sore throat treatment at Fishlocks Chemist in Ainsdale. Free NHS Pharmacy First service, be assessed by a pharmacist with no GP appointment needed.  (modules/service/pages/INDEX.md)
+
+RESTORE AND FINAL VERIFICATION
+-------------------------------
+INDEX.md restored from the clean reference copy; diff and sha256
+confirmed byte-identical. Full sha256 sweep of every file under
+modules/, core/ and gbp-packs/ re-taken and diffed against the
+pre-injection baseline sweep: zero differences, byte-stable throughout.
+branches.json sha256 reconfirmed identical to the standing baseline.
+Final clean re-run of check-seo-sheets.js: clean.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use. Read
+https://www.skchemist.co.uk/sore-throat-treatment-sk-chemists-bootle.html
+(the specific page targeted by the injection above) in full. Live title
+"Sore throat treatment in Bootle - SK Chemists" matches the generator's
+and the sheet's intended string exactly. Address (516 Stanley Road,
+Bootle, L20 5DW), phone (0151 944 1013), email (SK@rbhealth.co.uk) and
+opening hours (Mon-Fri 9:00am-6:00pm, Sat/Sun closed) all match
+branches.json. No drift found live.
+
+RESULT
+------
+NO IN-REPO DEFECT. NO LIVE DEFECT. NO QUESTION RAISED. Tracked repo
+(branches.json, modules/, core/, gbp-packs/, tools/) confirmed untouched
+throughout - `git status --porcelain` on the mounted working copy was
+checked before and after this run's own work and showed no changes
+attributable to this item. Guard coverage for item 3.8 (SK Chemists,
+Bootle) is now 26 of 37 checkers proven by injection against this
+specific branch (up from 25).
