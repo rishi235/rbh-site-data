@@ -17277,6 +17277,46 @@ Quality pass 2026-11-17 (run507), repo half only: full 35-checker suite
       precedent only. No new question; QUESTIONS.json
       unchanged at 139 total, 0 open. Evidence: audits/gordon-short-crosby-
       item-3.11-quality-pass-2026-11-17-twentyeighth.txt. Done 2026-11-17.
+      Twenty-ninth quality pass 2026-11-18 (unattended run, audit-backlog-
+      worker). All 3 worklist items (5.8/Q16, 6.4/Q60, 6.5/Q60) reconfirmed
+      [BLOCKED] by direct grep. Rotation pool re-derived: run526's own
+      ordering (3.1 done run526, then 3.11, 2.1, 4.9, 3.8, 2.3, 3.6, 3.2, 3.7,
+      4.14, 4.13, 5.1, 3.13, 3.9) and an independent check of this file's own
+      "item 3.11" mentions nearest the top of AGENT_LOG.md (run495, 2026-11-17)
+      both agreed 3.11 was stalest. REPO HALF: full 35-checker suite (excl.
+      cdn-pins and live-hours, both network-dependent) run individually:
+      34/35 clean, the one failure the standing CH1 2AB narrative-postcode
+      baseline in check-postcodes.js already flagged by run524-526 - not new,
+      not this item's scope. All 6 generators re-run; git status on modules/,
+      core/, branches.json and gbp-packs/ confirmed byte-stable before and
+      after. FRESH ANGLE: tools/check-address-region.js, never named once
+      across 28 prior passes on this item. Two injection rounds against
+      gordonshorts_crosby's own branches.json record, each restored
+      immediately and sha256-reconfirmed against the pre-injection baseline
+      (0385b7c2b2bca...) before the next: (1) addressRegion changed to
+      "Sefton" (a district, not a permitted county) - CAUGHT, correct message
+      naming the four permitted counties; (2) seoTown changed to "Formby"
+      (not in the branch's own serviceAreaList [Crosby, Waterloo, Sefton]) -
+      CAUGHT twice, once for the serviceAreaList mismatch and once for the
+      resulting townSlug/seoTown slug mismatch. Baseline itself clean (2
+      pre-existing unrelated warnings only: the standing McCanns Sandringham
+      Q15 townSlug exception and the Cherry Lane Walton seoTown-ordering
+      warning, neither new). NO IN-REPO DEFECT FOUND. LIVE HALF (Claude in
+      Chrome, read-only, single tab, nothing clicked/typed/submitted, closed
+      after use): pharmacy-first-gordon-short-crosby.html read in full. Title
+      "Pharmacy First at Gordon Short Chemist, Crosby" and every other brand
+      mention on this specific page (hero, contact card, footer, contact
+      strip) read "Gordon Short Chemist" singular throughout, matching the
+      tracked source exactly - the standing Q32 plural-drift finding does
+      NOT reproduce on this page (it is confined to the sinusitis and weight
+      loss pages per run332/run495's own evidence); noted as a point of
+      precision, not a new finding or a contradiction. NAP, phone, email,
+      both opening-hours sessions (Mon-Fri 9-1/2-6, Sat 9-1/2-5, Sun closed)
+      and all seven Pharmacy First conditions match branches.json exactly. No
+      new question; QUESTIONS.json unchanged at 140 total, 1 open (Q139,
+      checked via the portal feedback feed - no new answer since
+      2026-09-01). Evidence: audits/gordon-short-crosby-item-3.11-quality-
+      pass-2026-11-18-twentyninth.txt. Done 2026-11-18.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.

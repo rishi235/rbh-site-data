@@ -1,0 +1,104 @@
+Item 3.11 quality pass (twenty-ninth), 2026-11-18, unattended run (audit-backlog-worker)
+==========================================================================================
+
+Branch: Gordon Short Chemist, Crosby (id: gordonshorts_crosby)
+
+REPO HALF
+---------
+Full tools/check-*.js suite run individually, excluding the two network-
+dependent checkers (check-cdn-pins.js, check-live-hours.js): 34/35 exit 0.
+The one failure is the standing CH1 2AB narrative-postcode baseline in
+check-postcodes.js, already flagged by run524/525/526 as pre-existing and
+out of this item's scope (several tracked audit/log files quote CH1 2AB as
+a worked example, not yet registered in NARRATIVE_POSTCODES).
+
+All six page generators re-run (build-service-pages.js, build-switch-
+pages.js, build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js). git status
+--porcelain on modules/, core/, branches.json and gbp-packs/ was empty both
+before and after: byte-stable regeneration, no drift.
+
+branches.json sha256 before this pass's injection testing:
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+
+FRESH ANGLE: tools/check-address-region.js
+-------------------------------------------
+Never named once across the prior 28 passes on this item (confirmed by
+grepping every "check-*.js" mention inside item 3.11's own AGENT_WORKLIST.md
+block). This checker holds addressRegion to one of the four permitted
+counties, holds seoTown to the branch's own serviceAreaList, and holds
+townSlug to seoTown's slug.
+
+Baseline run (unmodified branches.json): clean except two pre-existing,
+unrelated warnings - the standing McCanns Sandringham Q15 townSlug/seoTown
+exception, and the Cherry Lane Walton seoTown-ordering warning ("Walton" in
+serviceAreaList but not first). Neither is new and neither concerns this
+branch.
+
+Injection round 1: gordonshorts_crosby.addressRegion changed from
+"Merseyside" to "Sefton" (a district, not one of the four permitted
+counties). Result: FAIL, "addressRegion is 'Sefton', which is not one of
+the counties this group trades in (Merseyside, Greater Manchester,
+Lancashire, Cheshire)." Caught cleanly. Restored immediately from a saved
+copy; sha256 reconfirmed identical to the pre-injection baseline.
+
+Injection round 2: gordonshorts_crosby.seoTown changed from "Crosby" to
+"Formby" (not a member of this branch's own serviceAreaList
+[Crosby, Waterloo, Sefton]). Result: two FAILs - (a) "seoTown 'Formby' does
+not appear in its own serviceAreaList", and (b) "townSlug 'crosby' is not
+the slug of seoTown 'Formby' (expected 'formby')". Both caught. Restored
+immediately from the same saved copy; sha256 reconfirmed identical to the
+pre-injection baseline a second time.
+
+branches.json sha256 after restoration and final re-run:
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged)
+
+check-address-region.js re-run clean on the real, unmodified repo after
+both restorations.
+
+NO IN-REPO DEFECT FOUND.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed immediately after use.
+
+Page read: https://www.gordonshortchemist.co.uk/pharmacy-first-gordon-short-crosby.html
+
+Observed via get_page_text:
+- Title: "Pharmacy First at Gordon Short Chemist, Crosby" (singular "Short")
+- Hero heading: "Pharmacy First at Gordon Short Chemist in Crosby" (singular)
+- Contact card: "Gordon Short Chemist / 159 College Road, Liverpool, L23 3AT
+  / Phone: 0151 924 3449" (singular, matches branches.json field for field)
+- Address block: "Gordon Short Chemist / 159 College Road / Great Crosby /
+  Liverpool L23 3AT" (singular)
+- Footer: "Gordon Short Chemist - 159 College Road, Liverpool, L23 3AT -
+  0151 924 3449 - shorts@rbhealth.co.uk" and opening hours line (singular)
+- Opening hours as rendered: Mon-Fri 9:00am-6:00pm (closed 1-2pm), Sat
+  9:00am-5:00pm (closed 1-2pm), Sun closed. Matches branches.json's two
+  Mon-Fri sessions (09:00-13:00, 14:00-18:00) and two Saturday sessions
+  (09:00-13:00, 14:00-17:00) exactly, both directions.
+- All seven Pharmacy First conditions listed (UTI, sore throat, sinusitis,
+  earache, impetigo, shingles, infected insect bite) with their NHS age
+  cohorts, matching the standard pattern.
+
+Every brand mention observed on THIS page reads "Gordon Short Chemist"
+singular, with no occurrence of the plural "Gordon Shorts Chemist" found
+anywhere in the extracted text. This is a point of precision worth
+recording rather than a new finding or a contradiction of the standing
+Q32 drift: run332 (2026-10-19, 27th pass) found the plural drift on
+sinusitis-treatment-gordon-short-crosby.html, and run495 (2026-11-17, 28th
+pass) found it on weight-loss-clinic-gordon-short-crosby.html. Both of
+those are different pages from the one read this pass. The drift appears
+to be page-specific (consistent with a Weebly paste-level issue on
+individual embed blocks rather than a site-wide template fault), not
+estate-wide on this branch. Not raised as a new question - Q32 already
+covers it and this pass adds supporting, not contradicting, evidence.
+
+NO NEW DEFECT FOUND, NO NEW QUESTION RAISED.
+
+QUESTIONS.json: 140 total, 1 open (Q139, Smartts Chemist Bootle AEO page,
+open since run502). Portal feedback feed (https://data.rbhealth.co.uk/api/feedback)
+checked fresh this run via Claude in Chrome, read-only: newest entry still
+the Q52 answer, 2026-09-01T22:44:51.524Z. No "AUDIT ANSWER Q139" entry
+present. Left open, unchanged.
