@@ -1,0 +1,89 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - twenty-ninth quality pass
+Run531, Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18
+
+FRESH ANGLE: tools/check-gbp-packs.js, never named once across the prior 28
+passes on this item, despite Cherry Lane holding its own GBP pack
+(gbp-packs/cherry-lane-walton.md).
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+gbp-packs/cherry-lane-walton.md sha256: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2
+
+Full non-network check-*.js suite (35 of 37, excluding check-cdn-pins.js and
+check-live-hours.js) run individually: 34/35 exit 0. The one failure,
+check-postcodes.js, is the standing CH1 2AB narrative-postcode baseline
+already logged by many prior runs - pre-existing, unrelated to Cherry Lane,
+out of this item's scope.
+
+tools/check-gbp-packs.js baseline: 0 failures, 12 warnings estate-wide.
+Cherry Lane's only line in that output is the standing Q72 known-exception
+WARN (6 missing private-clinic qualifiers on Posts C/D, shared with
+Fishlocks Ainsdale and Hirshmans Ainsdale).
+
+INJECTION ROUND 1 - hours day/time rule
+----------------------------------------
+Edited gbp-packs/cherry-lane-walton.md's "- Hours:" line from:
+  "- Hours: Monday to Friday 9:00am to 6:30pm, Saturday 9:00am to 5:00pm,
+    Sunday closed"
+to:
+  "- Hours: Monday to Friday 9:00am to 6:30pm,
+    Sunday closed"
+(Saturday's session dropped entirely.)
+
+Result: 2 FAILs
+  FAIL cherry-lane-walton.md: branches.json has this branch opening or
+    closing at 17:00, but that time does not appear in the pack's hours
+    line, so the profile would be set from an incomplete picture
+  FAIL cherry-lane-walton.md: branches.json opens this branch on Saturday,
+    but the hours line does not state Saturday as an open day, so the
+    profile would be set from an incomplete picture and that day would be
+    published wrong or left as Google has it
+
+Restored from backup. sha256 reconfirmed: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2 (identical to baseline).
+Re-run: 0 failures.
+
+INJECTION ROUND 2 - phone agreement rule
+------------------------------------------
+Edited the "- Phone:" line from "0151 226 2051" to "0151 226 2099" (a
+non-existent number, not Cherry Lane's or any other branch's).
+
+Result:
+  WARN cherry-lane-walton.md: phone-like number 0151 226 2099 is not
+    Cherry Lane Pharmacy's number in branches.json
+  FAIL cherry-lane-walton.md: branch phone 0151 226 2051 does not appear
+    anywhere in the pack
+
+Restored from backup. sha256 reconfirmed: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2.
+Re-run: 0 failures.
+
+NEGATIVE CONTROL
+-----------------
+Edited the free-text line "Ready for Rishi or Dane to paste into GBP." to
+"Ready for Rishi or Dane to paste into the profile." (no fact touched).
+
+Result: 0 failures, same single standing Q72 WARN as baseline. Confirms the
+two catches above are selective, not the checker failing on any edit.
+
+Restored from backup. sha256 reconfirmed: 831e72c18ef9007d7fd760e9afcd1ce60513ac99a42bdf1ff4e014fcef052ec2.
+git status --porcelain on gbp-packs/, modules/, core/, branches.json, tools/
+empty throughout.
+
+LIVE HALF
+---------
+cherrylanepharmacy.co.uk read in full via Claude in Chrome, read-only,
+single tab, nothing clicked or typed, closed after use.
+
+Footer: "pharmacy.FA226@mhs.net" (standing Q36 typo, unchanged), "Open
+Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed" (matches branches.json and the
+pack exactly), phone 0151 226 2051, address 202 Cherry Lane, Liverpool,
+L4 8SG, superintendent pharmacist Dr S K Kochhar (GPhC 2039034) - all match.
+No new finding.
+
+RESULT
+------
+No branches.json field, generated page, pack or checker content changed.
+The checker was proven correct against Cherry Lane, not fixed. Guard
+coverage for item 2.3 now 20 of 36 checkers proven by direct injection (up
+from 19). No new question raised. QUESTIONS.json unchanged, 140 total, 1
+open (Q139).

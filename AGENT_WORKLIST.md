@@ -3106,6 +3106,52 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       so none was attempted on that mount; this run made no writes to it
       and pushed only from the clean clone. Done 2026-11-17.
 
+      [Quality pass, run531, 2026-11-18, twenty-ninth pass: fresh angle
+      tools/check-gbp-packs.js, never named once across 28 prior passes on
+      this item despite Cherry Lane holding its own GBP pack
+      (gbp-packs/cherry-lane-walton.md). Full 35-checker non-network suite
+      run individually first: 34/35 clean, the one failure the standing
+      CH1 2AB narrative-postcode baseline in check-postcodes.js (pre-
+      existing, not new, not this item's scope). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every prior pass's anchor. check-gbp-packs.js baseline: 0
+      failures, Cherry Lane's only line the standing Q72 known-exception
+      WARN (missing private-clinic qualifiers on Posts C/D, shared with
+      Fishlocks Ainsdale and Hirshmans Ainsdale, open and unchanged).
+
+      Two injection rounds against cherry-lane-walton.md's own "Profile
+      basics" block, each restored from a pre-edit backup and sha256-
+      reconfirmed identical to baseline (831e72c18ef9007d7fd760e9afcd1ce6
+      0513ac99a42bdf1ff4e014fcef052ec2) immediately after: (1) dropped
+      "Saturday 9:00am to 5:00pm," from the Hours line, leaving Saturday
+      unstated - caught cleanly, two FAILs (the 17:00 closing time absent
+      from the line; Saturday stated nowhere as an open day), proving both
+      halves of the day/time hours rule from this branch's own single-
+      session, no-lunch-split hours; (2) changed the Phone line to a
+      non-existent number (0151 226 2099) - caught cleanly, a WARN (the
+      wrong number read as phone-shaped but not the branch's own) plus a
+      FAIL (the branch's real 0151 226 2051 absent from the pack
+      entirely). A negative control (rewording "Ready for Rishi or Dane to
+      paste into GBP" to "...into the profile", no fact touched) ran
+      clean, same single standing WARN, confirming the catches above were
+      selective rather than the checker failing on any edit. git status
+      and sha256 reconfirmed clean after each round; six generators
+      re-run, byte-identical throughout.
+
+      Live half: cherrylanepharmacy.co.uk re-read in full (Claude in
+      Chrome, read-only, single tab, nothing clicked or typed, closed
+      after use). Footer still reads "pharmacy.FA226@mhs.net" (the
+      standing Q36 typo, unchanged) and "Open Mon-Fri 9am-6:30pm, Sat
+      9am-5pm, Sun closed", matching branches.json and the pack exactly;
+      phone, address and superintendent pharmacist details all match. No
+      new finding.
+
+      No branches.json field, generated page, pack or checker content
+      changed - the checker was proven correct against this branch, not
+      fixed. Guard coverage for item 2.3 now 20 of 36 checkers proven by
+      direct injection (up from 19). QUESTIONS.json unchanged, still 1
+      open (Q139). Item 2.3 stays done; no new question raised.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta
