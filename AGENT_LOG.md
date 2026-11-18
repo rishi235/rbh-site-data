@@ -16,7 +16,7 @@ LIVE HALF: smarttschemist.co.uk homepage (Claude in Chrome, read-only) re-read -
 
 QUESTIONS Q127/Q128/Q139 STATUS CHECK: Q127 (rotate the exposed GitHub PAT) - this run's `git remote -v` on the fresh clone still showed a PAT embedded in the origin URL in cleartext; already-logged and already-answered, no further action taken (rotating a live credential is Rishi's own action). Q128 (FUSE lock debris / supervised re-clone) - addressed procedurally again this run exactly as runs 499-510 did: worked from a fresh scratch clone rather than forcing a workaround on the mount. Q139 (Smartts live AEO page linking the parked SWL brand) - checked for a portal answer per step 3, none posted, left open and unchanged.
 
-RESULT: zero in-repo defect found. No worklist item ticked (none unblocked). Commit and push completed cleanly from the scratch clone. Step 10 (build-audit-status.js) run from the scratch clone.
+RESULT: zero in-repo defect found. No worklist item ticked (none unblocked). Commit and push completed cleanly from the scratch clone. Step 10 (build-audit-status.js) run from the scratch clone: failed with "404 Not Found writing to rishi235/rbh-data-portal" - the already-known Q124 credential-scope gap (the token that can push to rbh-site-data has no access to rbh-data-portal), not a new fault, consistent with every run since Q124 was raised.
 
 No new question raised this run.
 
