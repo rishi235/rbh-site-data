@@ -32,6 +32,7 @@ archive/
 /.git-junk-quarantine/
 /.git-lock-debris-quarantine/
 /.git-lock-debris-quarantine-local-only/
+/.quarantine/
 /.probe*
 /._probe*
 /.canary-test*

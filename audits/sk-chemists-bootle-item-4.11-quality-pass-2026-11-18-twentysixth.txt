@@ -1,0 +1,84 @@
+Item 4.11 - SK Chemists Bootle GBP pack - twenty-sixth quality pass
+Run: audit-backlog-worker, scheduled run, 2026-11-18T06:42Z (run516)
+
+PICK RATIONALE
+All three unchecked worklist lines (5.8/Q16, 6.4/Q60, 6.5/Q60) confirmed [BLOCKED]
+by direct grep, unchanged. Fallback quality pass taken. Stalest-date rotation-pool
+scan over AGENT_WORKLIST.md's "- [x]" section bodies (max calendar date mentioned
+per item, standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus 4.5/4.7/4.15
+excluded as done in the three most recent runs) found six items tied on the
+stalest date, 2026-11-08: 3.4, 3.5, 4.1, 4.11, 4.12, 6.2. 4.11 had the fewest
+total date-mention tokens in its own section body among the tied group under this
+run's counting method, so it was picked (consistent with the established
+tie-break principle of favouring the least-recently-reinforced item, even though
+the exact mention counts recorded by earlier runs could not be reproduced
+byte-for-byte here - the counting method is not pinned anywhere in the repo).
+
+BASELINE
+sha256(gbp-packs/sk-chemists-bootle.md) =
+637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+- unchanged from the twenty-fifth pass (2026-11-08) and every prior pass.
+
+branches.json record skchemists_bootle re-matched field by field: address
+516 Stanley Road, Bootle, L20 5DW; phone 0151 944 1013; email SK@rbhealth.co.uk;
+whatsapp 447521775631; hasApp false; odsCode FH575; nhsEmail
+pharmacy.FH575@nhs.net; website https://www.skchemist.co.uk; seoTown Bootle;
+serviceAreaList Bootle/Sefton/Liverpool; single Mon-Fri 09:00-18:00 session,
+Sat/Sun closed. All match the pack and the live pages.
+
+REPO HALF
+Full tools/check-*.js suite (37 files) run individually. 36 of 37 exit 0.
+check-postcodes.js's one failure is the standing pre-existing CH1 2AB narrative
+debris in AGENT_LOG.md, AGENT_WORKLIST.md and two evidence filenames (Q126/Q134
+class) - not a new fault, reconfirmed present on run514/515 as well.
+
+INFRASTRUCTURE NOTE (not part of item 4.11, logged for completeness): at pickup,
+.quarantine/ (pre-existing untracked debris from earlier unattended runs,
+including a full nested copy of tools/check-postcodes.js left by a prior run's
+own scratch-verification work) was not covered by .gitignore, so
+check-postcodes.js was reading it as live repo content and inflating its
+failure count to 857 (it was reading its own example/test literals recursively).
+Added "/.quarantine/" to .gitignore - this is debris, not tracked product, and
+no generator or page depends on it. Re-run after the gitignore fix: 1315 files
+scanned, back down to the standing 4-failure/3-warning CH1 2AB baseline that
+every recent pass has recorded. This did not touch gbp-packs/sk-chemists-bootle.md
+or branches.json.
+
+LIVE HALF
+Claude in Chrome, read-only, two tabs opened and closed in turn.
+- pharmacy-first-sk-chemists-bootle.html: visible contact card (address, phone,
+  hours), data-branch ("SK Chemists"), data-wa (447521775631), data-service
+  ("Pharmacy First") all match branches.json exactly. Seven Pharmacy First
+  conditions present with correct NHS age ranges (UTI women 16-64, sore throat
+  5+, sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected insect
+  bite 1+). "Free NHS service"/"no charge to be seen" wording present, no cost
+  qualifier. Block A JSON-LD (application/ld+json #1): Pharmacy, name, url
+  (page's own address), telephone, full PostalAddress including addressRegion
+  Merseyside, openingHoursSpecification - all correct and matching
+  branches.json field for field.
+  FINDING (not new, not a repo defect): page still also carries a second,
+  byte-identical-in-shape stray application/ld+json block (Block B) that no
+  generator in this repo emits - url set to the bare domain root
+  (https://www.skchemist.co.uk/) rather than the page's own address, no
+  addressRegion, and an email field (SK@rbhealth.co.uk, correct value, wrong
+  provenance). This is the same shape already on record under Q109 for
+  Hirshmans Ainsdale, McCanns Sandringham/Aigburth, and SK Chemists itself
+  (first found on the twenty-fifth pass, 2026-11-08). Reconfirmed present and
+  byte-identical in content to the twenty-fifth pass's record. Not actioned -
+  fixing it needs a Weebly site-wide-embed edit outside this run's read-only
+  browser access.
+- earache-treatment-sk-chemists-bootle.html: title "Earache treatment in
+  Bootle - SK Chemists - SK CHEMIST", H1 "Earache treatment for children in
+  Bootle", data-branch "SK Chemists" - all correct, no change from baseline.
+
+STEP 3 (answer pickup, done once for the run, not specific to this item):
+QUESTIONS.json showed 1 open question (Q139, Smartts AEO page). Portal feedback
+endpoint fetched read-only (Claude in Chrome): newest entry still the Q52
+answer (2026-09-01). No "AUDIT ANSWER Q139" entry present. Left open, unchanged.
+
+RESULT: zero in-repo defect found on item 4.11 itself. One infrastructure fix
+made (.gitignore entry for /.quarantine/, unrelated to the pack's own content)
+to stop a debris directory from inflating checker failure counts. No generator,
+checker rule, page, pack, or branches.json field changed. Q109 addendum not
+duplicated this pass (identical finding already on record); worklist addendum
+below notes the reconfirmation only.

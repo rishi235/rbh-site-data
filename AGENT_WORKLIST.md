@@ -29911,6 +29911,34 @@ directly rather than re-deriving the same facts by hand.
       repo-generated page output remains correct throughout. Evidence in
       audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-08-twentyfifth.txt.
       Done 2026-11-08
+      Twenty-sixth quality pass, 2026-11-18 (unattended scheduled run).
+      Picked on the stalest-date rotation (six items tied at 2026-11-08: 3.4,
+      3.5, 4.1, 4.11, 4.12, 6.2; 4.11 chosen on a mention-count tiebreak).
+      Baseline unchanged: sha256(gbp-packs/sk-chemists-bootle.md) =
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da.
+      branches.json's skchemists_bootle record re-matched field by field.
+      Full 37-checker suite re-run: 36 of 37 exit 0, check-postcodes.js's one
+      failure being the standing CH1 2AB narrative debris, not new. Separately,
+      an untracked .quarantine/ debris directory left by an earlier unattended
+      run (containing a nested copy of tools/check-postcodes.js itself) was
+      found inflating that checker's failure count to 857 by having it read
+      its own example literals recursively; added "/.quarantine/" to
+      .gitignore to stop this, which is unrelated to this pack's own content
+      and dropped the count back to the standing 4-failure baseline once
+      applied. LIVE HALF: pharmacy-first-sk-chemists-bootle.html and
+      earache-treatment-sk-chemists-bootle.html read on skchemist.co.uk
+      (Claude in Chrome, read-only). Contact card, hours, data-branch,
+      data-wa, data-service, title and H1 all match branches.json exactly;
+      all seven Pharmacy First conditions and NHS age ranges correct; Block A
+      JSON-LD correct and matching branches.json including addressRegion.
+      The Q109 stray second JSON-LD block (bare-domain url, no addressRegion,
+      email field) reconfirmed present and byte-identical to the twenty-fifth
+      pass's record - not new, not actioned, needs a Weebly site-wide-embed
+      edit outside this run's read-only access. Step 3 answer pickup: newest
+      portal entry still Q52 (2026-09-01); Q139 remains open, unchanged. No
+      new question raised. Evidence in
+      audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-18-twentysixth.txt.
+      Done 2026-11-18
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
