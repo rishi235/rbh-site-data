@@ -39923,6 +39923,17 @@ audits/item-5.1-switch-copy-injection-2026-11-17-twentyseventh.txt.
       Done 2026-11-16 in a supervised session: new Embed Code block at the
       top of the old page, paragraph plus button to the new page, video and
       booking widget untouched, published and verified live. See AGENT_LOG.md.
+      QUALITY PASS 2026-11-18 (run522): fallback rotation pick, stalest
+      checked item by max inline date (2026-11-16, lowest mention count of
+      the tied group). Live re-read of pharmacy-first-service-walton.html
+      confirmed the signpost paragraph, button (linking to
+      /pharmacy-first-cherry-lane-walton.html, live) and the original video
+      and Appointedd booking widget all still present, unchanged since the
+      2026-11-16 fix. No regression. Full 37-checker suite run against the
+      tracked repo: 36/37 clean, the one failure being the standing
+      check-postcodes.js CH1 2AB narrative baseline (not new). Same page read
+      reconfirmed the long-standing Q36 footer typo (pharmacy.FA226@mhs.net,
+      should be @nhs.net) is still live - not new, addendum added to Q36.
 - [x] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
       live page references stop serving code this repo no longer says, and
       re-pin the 15 switch pages to a current commit at the next Weebly paste
