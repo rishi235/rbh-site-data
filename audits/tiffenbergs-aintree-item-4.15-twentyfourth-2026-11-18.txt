@@ -1,0 +1,76 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) - quality pass twenty-fourth
+Run: audit-backlog-worker, Cowork scheduled run, 2026-11-18T05:42Z
+Branch id: tiffenbergs_longmoor (gbp-packs/tiffenbergs-aintree.md)
+
+REPO HALF
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor, unchanged)
+- gbp-packs/tiffenbergs-aintree.md sha256:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+  (byte-identical to the twenty-third pass, 2026-11-07)
+- Pack re-matched field by field against branches.json record
+  tiffenbergs_longmoor: name, address (388 Longmoor Lane, Liverpool L9 9DB),
+  phone (0151 525 3462), split weekday hours (09:00-13:00 and 14:00-18:00,
+  Sat/Sun closed), website, review link, serviceAreaList (Aintree,
+  Fazakerley, Liverpool leading with seoTown), hasApp false. All match.
+- Full 37-checker suite (tools/check-*.js) run individually, excluding
+  check-cdn-pins.js and check-live-hours.js (network-dependent, run
+  separately below): 36 of 37 exit 0. check-postcodes.js fails only on the
+  standing pre-existing CH1 2AB narrative debris in AGENT_LOG.md,
+  AGENT_WORKLIST.md and one evidence filename (Q126/Q134 class, not a new
+  fault, reconfirmed present on every recent run including run514).
+- No injection test performed this pass: all ten GBP-pack-reading checkers
+  (confirmed by PACK_DIR/readdirSync, not by text mention) were already
+  proven by direct injection against this specific pack's own copy on the
+  twenty-third pass (2026-11-07) and earlier passes. No generated-page
+  checker (check-nap, check-jsonld, check-booking-routes, etc.) has ever
+  been injection-tested specifically against this branch's own generated
+  pages in this item's 23-pass history, but those checkers are scoped to
+  Phase 3 page-level items (3.x), not this Phase 4 pack item, so none was
+  forced here as a fresh angle this pass.
+
+LIVE HALF (performed; last performed 2026-08-30, repo-only on the two most
+recent passes)
+- Site republished since the last live check: sitemap.xml lastmod now
+  2026-11-17T13:26:09+00:00 (was 2026-08-15 as last recorded).
+- pharmacy-first-tiffenbergs-aintree.html fetched and read in full
+  (Claude in Chrome, read-only, one tab, closed after use):
+  - NAP matches branches.json exactly (address, phone).
+  - All seven Pharmacy First conditions present with correct NHS age
+    ranges (UTI women 16-64, sore throat 5+, sinusitis 12+, earache 1-17,
+    impetigo 1+, shingles 18+, infected insect bite 1+).
+  - "Free NHS service" / "no charge to be seen" claims present, no cost
+    qualifier or price found - consistent with check-pharmacy-first-cost.js.
+  - Hours panel reads Mon-Fri 9:00am-6:00pm (closed 1-2pm), Sat/Sun closed -
+    matches branches.json, no locked-door fault.
+- Three known live-only defects reconfirmed STILL PRESENT despite the
+  intervening republish (none new, none a repo defect - repo source is
+  already correct in each case):
+  1. Switch banner close button still renders as mojibake on the page
+     (visible in page text as a boxed character sequence), despite the
+     run-44 source fix (&times; entity) having been committed since
+     2026-08-10. The site republish on 2026-11-17 still did not carry
+     this fix to the live paste.
+  2. Footer and contact block still publish "tiffenbergs@rbhealth.co.uk"
+     (plural) against branches.json's "Tiffenberg@rbhealth.co.uk"
+     (singular) - Q56, still open.
+  3. Footer still writes its hour range with an en dash
+     ("Mon-Fri 9am-6pm" rendered with U+2013) - pre-existing live-paste
+     issue, not a repo defect (check-em-dashes.js already reads the
+     repo-side source clean).
+- All four post button targets confirmed live and returning 200:
+  pharmacy-first-tiffenbergs-aintree.html (fetched in full above),
+  switch-prescriptions-tiffenbergs-aintree.html,
+  weight-loss-clinic-tiffenbergs-aintree.html,
+  travel-clinic-tiffenbergs-aintree.html (HTTP status checked by curl,
+  read-only GET).
+
+ANSWER PICKUP (step 3)
+Claude in Chrome, one tab, read-only GET to
+https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed after
+use. Newest entry still the Q52 answer (2026-09-01). No "AUDIT ANSWER Q139"
+entry present (Q139 is the only currently open question, 1 of 140 total).
+Q139 left open, unchanged.
+
+RESULT: zero in-repo defect found. No new question raised. No generator,
+page, pack, checker or branches.json content changed.

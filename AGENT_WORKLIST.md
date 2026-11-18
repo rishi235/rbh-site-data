@@ -34182,6 +34182,34 @@ directly rather than re-deriving the same facts by hand.
       no answer arrived for any of the 43 currently-open questions. No new
       question raised. Evidence in
       audits/tiffenbergs-aintree-pharmacy-first-cost-4.15-twentythird-2026-11-07.txt.
+      Quality pass 2026-11-18 (twenty-fourth re-verification, repo and live
+      both performed, Cowork scheduled run): pack re-confirmed byte-identical
+      to the twenty-third pass (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b), every
+      fact re-matched against branches.json record tiffenbergs_longmoor
+      (address, phone, split weekday hours, website, review link,
+      serviceAreaList, hasApp false). 36 of 37 checkers exit 0; the one
+      failure (check-postcodes.js) is only the standing pre-existing CH1 2AB
+      narrative debris in AGENT_LOG.md and AGENT_WORKLIST.md, not a new
+      fault. No injection test attempted: all ten GBP-pack-reading checkers
+      were already proven by direct injection against this specific pack on
+      the twenty-third pass and earlier. Live half performed for the first
+      time since 2026-08-30: the site has republished since then (sitemap
+      lastmod now 2026-11-17, was 2026-08-15), and
+      pharmacy-first-tiffenbergs-aintree.html was fetched and read in full.
+      NAP, all seven Pharmacy First conditions and their NHS age ranges, and
+      the free-service wording all match. The three known live-only defects
+      (switch banner close button mojibake despite the run-44 source fix,
+      Q56's tiffenbergs@ vs Tiffenberg@ email spelling split, and the
+      footer's en-dash hour range) were all reconfirmed STILL PRESENT despite
+      the intervening republish - none new, none a repo defect. All four post
+      button targets confirmed live and returning 200. Answer pickup (step
+      3): Claude in Chrome, one tab, read-only GET to
+      https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed
+      after use; newest entry still the Q52 answer (2026-09-01); no answer
+      arrived for Q139, the only currently open question. No new question
+      raised. No repo defect found. Evidence in
+      audits/tiffenbergs-aintree-item-4.15-twentyfourth-2026-11-18.txt.
 
 ## Done
 Completed items stay in place above, ticked [x] with the completion date
