@@ -1,3 +1,29 @@
+## run517 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T07:12Z): item 4.1 quality pass (Fishlocks Chemist Ainsdale GBP pack) - zero in-repo defect found; Q35/Q45/Q91/Q113/Q125 all now "answered" but every answer requires a live Weebly/GBP edit outside this worker's scope, so nothing applied in-repo.
+
+LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run516-1794984696" content and about 21 minutes old (under the 45-minute staleness threshold). Content showed the prior run had already released it, not that another run was active; overwritten with this run's own marker.
+
+REPO (step 2): git fetch confirmed the mounted copy already at origin's tip (b2c8f10, run516); no pull needed. `git status` clean on tracked files (the usual untracked debris pile - AGENT_LOG.md.new, __agent_test_delete_me.txt, .quarantine/, old audits/live-hours-check-*.json files - left exactly as found, consistent with prior runs' practice, since none of it blocks git operations on this run).
+
+ANSWER PICKUP (step 3): QUESTIONS.json showed 140 total, 1 open (Q139, Smartts Chemist Bootle, unanswered since run502). Claude in Chrome connected; read-only GET to https://data.rbhealth.co.uk/api/feedback - newest entry still the Q52 answer (2026-09-01T22:44:51.524Z). No "AUDIT ANSWER Q139" entry present. Left open, unchanged. Tab closed after use.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at the top of this file (checked before this entry was added). Not in an autonomous window; normal rules applied.
+
+WORKLIST (step 5): all 3 unchecked `[ ]` lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. None pickable. Fallback quality pass taken: re-derived the least-recently-verified rotation-pool item with a Node pass over AGENT_WORKLIST.md's own checked-item bodies (max inline calendar date per item, standing exclusions 1.1-1.4/2.2/4.2/4.4/5.6/5.7/6.7/6.8, plus 4.7/4.11/4.15 excluded as done in runs 514/515/516): stalest date was 2026-11-08, tied across 4.1/3.5/6.2/4.12/3.4, broken on fewest inline date-token mentions within each item's own section (4.1 had 96, lowest of the tied group). Picked 4.1, Fishlocks Chemist Ainsdale GBP pack.
+
+REPO HALF: branches.json sha256 unchanged (0385b7c2...27da); fishlocks_ainsdale record re-matched field by field against gbp-packs/fishlocks-ainsdale.md (name, address, phone, hours, review link, serviceAreaList, hasApp) - all consistent, pack sha256 unchanged (7592bad3...2de30) since the 2026-11-08 pass. Full tools/check-*.js suite run individually (35 network-independent checkers, excluding check-cdn-pins.js and check-live-hours.js): 34/35 clean. The one failure, check-postcodes.js, is the standing CH1 2AB narrative-debris baseline (now 5 failures/3 warnings, up from the usual 4/3, traced to three new audit evidence files from runs 514-516 each quoting the same historical postcode in their own text) - not a new or repo-side defect, nothing in this item touched.
+
+LIVE HALF: Claude in Chrome, read-only, one tab. pharmacy-fishlocks-ainsdale.html still returns 404 (Q35, answered 2026-08-10 "paste the six landing pages as their own Weebly job", not yet applied - unchanged since every pass since 2026-08-12). Tab closed after use.
+
+QUESTIONS STATUS CHECK: Q35, Q45, Q91, Q113 and Q125 have all moved to "answered" since the 2026-11-08 pass (which recorded Q91 and Q125 as still open). All five read in full: Q91 (fix the Fishlocks shared-footer "Fishlock" misspelling, urgent, front of the next Weebly session) answered 09/11/2026; Q113 (edit McCanns Sandringham's live GBP profile name to the plain trading name, dropping the service suffix and the unauthorised Simple Weight Loss association) answered 09/11/2026; Q125 (apply Q113's answer estate-wide, starting with McCanns Sandringham and Fishlocks Ainsdale) answered 09/11/2026. None of the three yields an in-repo change: all three actions are a Weebly footer edit or a Google Business Profile name edit, which this worker's read-only browser access and repo-only write scope cannot perform. Noted for the next supervised Weebly/GBP session rather than actioned here, consistent with how prior passes have handled Q35/Q45 in the same position.
+
+RESULT: no in-repo defect found, no fix needed, no new question. Worklist item 4.1 given this pass's quality-pass addendum (its own checkbox has read [x] since 2026-08-04). Evidence in audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-11-18-run517.txt.
+
+COMMIT/PUSH (step 9): this entry, the AGENT_WORKLIST.md addendum, and the new evidence file, via `git add`/`git commit`/`git push` to `origin/agents/audit-backlog`.
+
+PUBLISH (step 10): `node tools/build-audit-status.js` run regardless, per the standing instruction.
+
+LOCK RELEASE (step 11): .agent-lock overwritten with a "RELEASED" marker before exiting (direct unlink not available on this mount, consistent with every recent run's handling).
+
 ## run516 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-18T06:42Z): item 4.11 quality pass (26th, SK Chemists Bootle GBP pack) - zero in-repo pack defect found; fixed an untracked debris directory inflating check-postcodes.js's failure count.
 
 LOCK (step 1): .agent-lock found at pickup carrying "RELEASED-run515-1794980566" content and about 53 minutes old (over the 45-minute staleness threshold). Direct unlink failed with "Operation not permitted" (standing FUSE symptom, Q128/Q134); renamed into .quarantine/ instead and replaced with this run's own marker.

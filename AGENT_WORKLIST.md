@@ -20557,6 +20557,28 @@ Pharmacy First wording to the NHS service description.
   divergence) both still "open", unchanged; no new fact to add this pass.
   No in-repo defect found, no fix needed, no new question raised. Item
   stays `[x]` (quality pass, not a state change).
+
+  Quality pass 2026-11-18 (Cowork scheduled run, run517): re-selected as
+  stalest rotation-pool item (max inline date 2026-11-08, tied with
+  3.5/6.2/4.12/3.4, won tiebreak on fewest inline date-token mentions, 96).
+  REPO HALF: branches.json and the pack both sha256-unchanged since the
+  2026-11-08 pass; fishlocks_ainsdale record re-matched field by field
+  against the pack - all consistent. Full tools/check-*.js suite (35
+  network-independent checkers): 34/35 clean, the one failure
+  (check-postcodes.js) being the standing CH1 2AB narrative-debris
+  baseline, now 5 failures/3 warnings because three new audit evidence
+  files from runs 514-516 each quote the same historical postcode in
+  their own text - not a new or repo-side defect, nothing in this item
+  touched. LIVE HALF: pharmacy-fishlocks-ainsdale.html still 404 (Q35,
+  unchanged). QUESTIONS STATUS CHECK: Q35, Q45, Q91, Q113 and Q125 have
+  all moved to "answered" since the 2026-11-08 pass (which recorded Q91
+  and Q125 as still open) - all five read in full; all five answers
+  require a Weebly footer edit or a Google Business Profile name edit,
+  none of which this worker's read-only browser access or repo-only
+  write scope can perform, so nothing applied in-repo. No in-repo defect
+  found, no fix needed, no new question. Item stays `[x]` (quality pass,
+  not a state change). See
+  audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-11-18-run517.txt.
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
