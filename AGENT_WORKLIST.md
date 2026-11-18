@@ -4026,6 +4026,37 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       QUESTIONS.json: 139 total, 0 open (confirmed directly; no portal
       read needed). Evidence in
       audits/seo-pattern-3.1-twentyfifth-2026-11-17.txt. Done 2026-11-17
+      Quality pass (twenty-sixth), 2026-11-18 (unattended scheduled run,
+      audit-backlog-worker, run526, Cowork sandbox). Picked as the stalest
+      rotation-pool item, next after run525 took 4.8 (confirmed by grepping
+      AGENT_LOG.md: the nearest-to-top "item 3.1" mention was run494's
+      twenty-fifth pass, nothing later). check-seo-pattern.js re-run
+      directly: 177 pages checked, 0 untyped, 0 failures, unchanged from the
+      twenty-fifth pass's baseline. Full 35-checker sweep (excluding check-
+      cdn-pins.js and check-live-hours.js) run individually: 34/35 exit 0,
+      the one failure (check-postcodes.js, the standing CH1 2AB narrative-
+      postcode baseline) pre-existing and out of this item's scope. All six
+      page generators re-run; git status --porcelain on modules/, core/,
+      branches.json and gbp-packs/ empty before and after, confirming byte-
+      stable regeneration. branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      unchanged from run494's anchor. LIVE HALF, fresh angle (Claude in
+      Chrome available this run, closing the gap the twenty-fifth pass
+      explicitly left open): read
+      sinusitis-treatment-riddings-timperley.html on riddingspharmacy.co.uk,
+      a branch and page this item had never sampled on any prior pass.
+      Title "Sinusitis treatment in Timperley - Riddings Pharmacy", H1
+      "Sinusitis treatment in Timperley", h1Count 1 - matches the pattern
+      verbatim and matches this repo's own generated source and SEO.md
+      paste sheet exactly. No drift. Noted in passing, out of this item's
+      scope: the page footer carries two different GPhC numbers in two
+      different places (a check-nap/branch-identity question, not a title/
+      H1 pattern question) - flagged for a future pass, not investigated
+      further here. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.1
+      stays `[x]` (quality pass, not a state change). QUESTIONS.json: 140
+      total, 1 open (Q139, unchanged; checked fresh via the portal feedback
+      feed, newest entry still the Q52 answer from 2026-09-01). Evidence in
+      audits/seo-pattern-3.1-twentysixth-2026-11-18.txt. Done 2026-11-18
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

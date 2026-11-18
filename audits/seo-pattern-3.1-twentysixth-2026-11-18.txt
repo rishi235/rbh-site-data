@@ -1,0 +1,72 @@
+Item 3.1 quality pass (twenty-sixth), 2026-11-18 (unattended scheduled run,
+audit-backlog-worker, run526, Cowork sandbox).
+
+Rotation: picked as the least recently verified completed worklist item.
+Re-derivation confirmed 3.1 was next after run525 took item 4.8 (the
+stalest item, last touched run493): the ordered rotation pool recorded in
+run525's own AGENT_LOG.md entry listed 3.1 next (last touched run494,
+2026-11-17). Confirmed independently by grepping AGENT_LOG.md for "item 3.1"
+mentions: the nearest-to-top hit was run494 (twenty-fifth pass), with no
+later commit anywhere in the log referencing item 3.1.
+
+REPO HALF:
+- node tools/check-seo-pattern.js: 177 pages checked, 0 untyped (0 excused
+  by KNOWN_NON_PAGE), 0 failures. Output unchanged from the twenty-fifth
+  pass's baseline (PAGE_TYPES contract 14 legs across 6 generators, 2 non-page
+  builders excused; service-word, one-h1, one-line, data-source and
+  cross-town rules all reporting the same counts as run494: 15 branches
+  checked for pick() vs branches.json, 8 with addressLocality != seoTown, 1
+  with seoRegion != addressRegion; cross-town rule against 11 live seoTowns).
+- Full checker sweep: all 35 tools/check-*.js (excluding check-cdn-pins.js
+  and check-live-hours.js, both network-dependent) run individually. 34/35
+  exit 0. The one failure, check-postcodes.js, is the standing CH1 2AB
+  narrative-postcode baseline already flagged by run525 and earlier runs
+  (AGENT_LOG.md/AGENT_WORKLIST.md/several audits/*.txt quote CH1 2AB as a
+  worked example, not registered in NARRATIVE_POSTCODES) - pre-existing,
+  unrelated to item 3.1's own scope (check-seo-pattern.js), and check-
+  postcodes.js is a different item's checker, not this one's.
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  byte-identical to run494's own anchor.
+- All six page generators re-run (build-service-pages.js,
+  build-switch-pages.js, build-weight-loss-pages.js,
+  build-travel-clinic-pages.js, build-contraception-pages.js,
+  build-branch-landing-pages.js). git status --porcelain on modules/, core/,
+  branches.json and gbp-packs/ was empty both before and after regeneration -
+  byte-stable, no drift in the pattern or its output.
+
+LIVE HALF (fresh angle): the twenty-fifth pass (run494) had no browser
+available and skipped the live hop entirely. This run had Claude in Chrome
+available, so closed that gap on a branch and page this item had never
+sampled before (prior samples across all 26 passes: Fishlocks Ainsdale,
+Scorah Bramhall default-title finding, Gordon Short Crosby, Smartts Bootle
+UTI page). Read live, read-only, single tab, closed after use:
+
+  https://www.riddingspharmacy.co.uk/sinusitis-treatment-riddings-timperley.html
+
+  Title (as rendered): "Sinusitis treatment in Timperley - Riddings Pharmacy"
+  H1: "Sinusitis treatment in Timperley"
+  h1Count: 1
+
+Cross-checked against this repo's own source for the same page:
+  - modules/service/pages/sinusitis-treatment-riddings-timperley.html:
+    <h1>Sinusitis treatment in Timperley</h1> (exactly one h1, matches live)
+  - modules/service/pages/SEO.md, "Riddings Pharmacy — Timperley — Sinusitis"
+    block: Page Title "Sinusitis treatment in Timperley - Riddings Pharmacy"
+    (matches the live rendered title verbatim)
+
+Riddings Timperley is a single-RBH-shop town (no sister branch sharing its
+seoTown), so the family A pattern correctly omits the brand from the H1
+while carrying it in the title suffix, per the established rule. No drift.
+
+Noted in passing, out of scope for this item: the page footer shows two
+different GPhC registration numbers in two different places ("GPHC no.
+1029520" on the pharmacy's own line, "GPhC 2039034" on the superintendent
+pharmacist's own line a few lines below) - this is a check-nap.js/branch-
+identity class of question, not a title/H1 pattern question, so it was not
+investigated further here and no question was raised against it. Flagging
+only so a future pass covering GPhC numbers does not start from zero.
+
+NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.1 stays [x] (quality
+pass, not a state change). QUESTIONS.json: 140 total, 1 open (Q139,
+unchanged - checked fresh this run via the portal feedback feed, newest
+entry still the Q52 answer from 2026-09-01).
