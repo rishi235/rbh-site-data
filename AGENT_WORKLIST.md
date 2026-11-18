@@ -24125,6 +24125,34 @@ just been checked. This append is written specifically to close that gap
 so the next run's selection reflects today's date rather than re-selecting
 an item that was just verified. No generator, page, pack, checker or
 branches.json content changed. No new question.
+Quality pass 2026-11-18 (twenty-sixth, unattended run): FRESH ANGLE,
+tools/check-pharmacy-first-cost.js, never individually proven by injection
+against this specific pack across twenty-five prior passes. On a
+disposable git-archive scratch copy (tracked repo never opened for
+writing): rule 4 (cost qualifier) caught "affordable" substituted for
+"free" in Post A; rule 5 (price) caught a "Consultations from £25." 
+sentence inserted into Post A; rule 6 (pack coverage) first passed
+incorrectly-for-the-wrong-reason when the free claim was removed from
+Post A alone (the Services-section bullet's own free claim still
+satisfied the pack-wide rule, a methodology lesson not a defect), then
+caught correctly once the free claim was removed from all three
+Pharmacy-First-naming blocks at once. Control: a price added to Post D
+(private travel clinic, no Pharmacy First wording) passed cleanly,
+confirming rules 4/5 are scoped to Pharmacy-First blocks only. All
+restored by byte copy, sha256-reconfirmed identical throughout
+(a9f6deb4...e105d84); scratch copy's full 35-checker suite re-run clean;
+tracked repo confirmed untouched (`git status --porcelain` empty,
+branches.json sha256 0385b7c2...27da unchanged). Baseline (before and
+after): node tools/check-pharmacy-first-cost.js clean, full 35-checker
+suite (excl. check-cdn-pins.js/check-live-hours.js) 0 failures. Guard
+coverage for item 4.5 now includes check-pharmacy-first-cost.js rules 4-6
+proven by direct injection, alongside check-gbp-packs.js, check-
+pharmacy-first-eligibility.js (rules 9-11) and check-gbp-pharmacy-
+first.js. LIVE HALF: read-only curl status checks only - landing page
+(pharmacy-scorah-hazel-grove.html) still 404 (Q35 class, unchanged since
+the seventh pass), pharmacy-first-scorah-hazel-grove.html 200. No in-repo
+defect, no new question. Evidence: audits/scorah-hazel-grove-item-4.5-
+pharmacy-first-cost-injection-2026-11-18.txt. Done 2026-11-18.
 (4.6 to 4.15: numbering runs one past the original estimate because ten
 branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept

@@ -1,0 +1,90 @@
+item 4.5 (Scorah Chemists Hazel Grove GBP pack) - twenty-sixth quality pass
+2026-11-18, unattended scheduled run (audit-backlog-worker)
+
+FRESH ANGLE: tools/check-pharmacy-first-cost.js (added item 4.15 pass,
+2026-08-13) had never been individually proven by injection against this
+specific pack across twenty-five prior passes. Confirmed by grep of this
+item's own AGENT_WORKLIST.md section for the checker's name: zero hits
+before this pass.
+
+BASELINE
+  gbp-packs/scorah-hazel-grove.md sha256
+    a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84
+  branches.json sha256
+    0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  tools/check-pharmacy-first-cost.js sha256
+    ab118f7e78ea8de1784404f27a44f52e81de144548035537b10ebc9092260844
+  node tools/check-pharmacy-first-cost.js: clean (112 PF pages, 16 packs,
+    6 landing pages, 0 failures).
+  Full tools/check-*.js suite (35 of 37, excluding check-cdn-pins.js and
+    check-live-hours.js, both network-dependent): 0 failures.
+
+Work done on a disposable `git archive HEAD | tar -x` scratch copy at
+/sessions/clever-bold-clarke/scratch/inject45; the tracked clone at
+/sessions/clever-bold-clarke/scratch/rbh-work was never opened for writing.
+Scratch copy's gbp-packs/scorah-hazel-grove.md sha256 confirmed matching
+the tracked repo's before the first edit.
+
+ROUND 1 (RULE 4, cost qualifier): Post A's "Pharmacy First is a free NHS
+service" changed to "Pharmacy First is an affordable NHS service".
+CAUGHT, exit 1: "[qualifier] ... describes NHS Pharmacy First as
+'affordable', which prices a service that is free at the point of use
+(rule 4)." Restored by byte copy; sha256 reconfirmed identical.
+
+ROUND 2 (RULE 5, price): a "Consultations from £25." sentence inserted
+into Post A, immediately before the age-ranges caveat sentence. CAUGHT,
+exit 1: "[price] ... states '£2' on NHS Pharmacy First copy (rule 5)."
+Restored by byte copy; sha256 reconfirmed identical, diff against the
+pre-mutation backup empty.
+
+ROUND 3a (RULE 6, pack coverage - first attempt, informative near-miss):
+removed the free claim from Post A only ("Pharmacy First is a free NHS
+service" -> "Pharmacy First is available"). PASSED (exit 0) - correctly,
+not a checker defect: rule 6 asks whether the pack calls Pharmacy First
+free SOMEWHERE in the pack, not in every block that names it, and the
+Services-section bullet ("NHS Pharmacy First: free NHS assessment...")
+still carried the claim. Recorded as a methodology lesson before being
+redone properly.
+
+ROUND 3b (RULE 6, pack coverage - genuine test): removed the free claim
+from all three Pharmacy-First-naming blocks at once (the business
+description's "three free NHS services", the Services-section bullet's
+"free NHS assessment", and Post A's "a free NHS service"). CAUGHT, exit 1:
+"[free] ... advertises NHS Pharmacy First but never calls it free
+(rule 6)." Restored by byte copy; sha256 reconfirmed identical, diff
+empty.
+
+CONTROL (selectivity): "Prices from £45." inserted into Post D (the
+private travel clinic post, which names no Pharmacy First condition and
+not the phrase "Pharmacy First"). PASSED (exit 0), confirming rules 4/5
+are scoped to Pharmacy-First-naming blocks only and do not fire on a
+private service's own, legitimate pricing. Restored by byte copy; sha256
+reconfirmed identical, diff empty.
+
+Scratch copy's full 35-checker suite re-run clean after the final restore.
+Tracked repo (`rbh-work`) confirmed untouched throughout and afterwards:
+`git status --porcelain` empty; sha256 of the pack, branches.json and the
+checker all unchanged from the baseline above.
+
+RESULT: zero in-repo defect. Rules 4, 5 and 6 of check-pharmacy-first-
+cost.js all correctly protect this pack's own copy, now proven by
+injection for the first time in twenty-six passes. Guard coverage for
+item 4.5 against checkers that read gbp-packs/: check-gbp-packs.js,
+check-pharmacy-first-eligibility.js (rules 9-11), check-gbp-pharmacy-
+first.js and now check-pharmacy-first-cost.js (rules 4-6) all proven by
+direct injection. check-app-membership.js's hasApp rule was proven
+negatively (hasApp false, so the app-card absence rules apply) on an
+earlier pass rather than by a positive injection, noted for a future
+pass's own scope, not this one's.
+
+LIVE HALF: read-only curl status checks only (Claude in Chrome used only
+for the step-3 answer-pickup fetch this run, per scope).
+  https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html: 404
+    (Q35 class, unchanged since the seventh pass)
+  https://www.scorah-chemists.co.uk/pharmacy-first-scorah-hazel-grove.html:
+    200
+
+No new question. QUESTIONS.json unchanged by this pass; Q139 (raised
+2026-11-17 on item 3.7, Smartts Chemist's live hey-ai-read-this.html page)
+remains open with no portal answer yet (checked via the feedback API,
+newest entry still Q52, 2026-09-01).
