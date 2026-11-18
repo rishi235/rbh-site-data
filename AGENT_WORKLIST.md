@@ -5998,6 +5998,53 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       2026-08-14). NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3
       stays `[x]` (quality pass, not a state change). QUESTIONS.json
       unchanged at 139 total, 0 open. Done 2026-11-16.
+      Quality pass 2026-11-18 (twenty-seventh, run523): picked as stalest in
+      the rotation pool (date-extraction over every completed item's own
+      section, excluding the standing exclusions 1.1/1.2/1.3/1.4/2.2/4.2/4.4/
+      5.6/5.7/6.7/6.8 plus 3.4/4.12/5.4 just taken by runs520-522); 3.3 was
+      the sole item still dated 2026-11-16, every other candidate already
+      2026-11-17. REPO HALF: all 37 `tools/check-*.js` checkers run
+      individually, 36 clean, the one failure the standing CH1 2AB
+      narrative-postcode baseline in `check-postcodes.js` (unchanged from
+      run520-522's own counts, not new, not this item's scope). All six
+      page generators re-run; `git status`/`git diff` on `modules/` showed
+      zero bytes changed, confirming byte-stable output. All 26 Fishlocks
+      pages (12 Ainsdale, 12 Eccleston, the two landing pages) re-read by a
+      fresh independent extraction written for this run, importing nothing
+      from tools/: this run's first version made the same mistake the
+      2026-08-14 (fourth) pass already recorded and fixed once - it read
+      `<title>`/`<meta description>` from head tags these Weebly embed
+      fragments do not have, so every page reported 0 title tags on the
+      first draft. Corrected to read the SEO title/description from the
+      generators' own "Weebly page SEO title:"/"Weebly page SEO
+      description:" build-comment header lines (the string a human actually
+      pastes into Weebly, same source `check-seo-sheets.js` and the paste
+      sheets ultimately carry), keeping H1 extraction from the rendered
+      page body as before. Re-run clean on all 26: own seoTown present in
+      title and H1; sister seoTown absent from title, H1 and description on
+      every page except where `serviceAreaList` carries the excuse (neither
+      Fishlocks branch excuses the other, so none fired); own phone present
+      as an exact-digit match, sister phone absent from every page; titles
+      <=65 characters, descriptions 80-165 characters; `data-branch` on
+      every module root resolves to the branch's own `branchName` (Fishlocks
+      shares one `brandLabel` across both branches, so the shared-brand
+      rule from item 3.12's `check-branch-identity.js` requires branchName,
+      and both branches use it correctly). LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked/typed/submitted, closed after
+      use): read impetigo-treatment-fishlocks-ainsdale.html live on
+      fishlockpharmacy.co.uk, a page not sampled by any of the prior
+      twenty-six passes (which covered UTI, switch, landing, GBP-pack and
+      earache surfaces). Title "Impetigo treatment in Ainsdale - Fishlocks
+      Chemist" and H1 "Impetigo treatment in Ainsdale" both match the
+      generator's header comment and the generated page exactly; the page
+      footer carries both branches' own addresses and phones correctly
+      (Ainsdale 17 Station Road PR8 3HN / 01704 575478, Eccleston Unit 3
+      The Carrington Centre PR7 5SZ / 01257 451251) with no cross-branch
+      mix-up. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3 stays
+      `[x]` (quality pass, not a state change). QUESTIONS.json re-checked
+      against the live portal feed (Claude in Chrome, read-only): still 140
+      total, 1 open (Q139, newest feed entry still the Q52 answer from
+      2026-09-01, no new answer present). Done 2026-11-18.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
