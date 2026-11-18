@@ -1,0 +1,86 @@
+Item 6.2 quality pass (21st), run519, 2026-11-18T09:18Z
+Worker: Sonnet 5, Cowork scheduled run, audit-backlog-worker
+
+SELECTION: all 3 unchecked worklist lines reconfirmed [BLOCKED] (5.8/Q16,
+6.4/Q60, 6.5/Q60) by direct grep. Rotation-pool stalest-date scan over
+AGENT_WORKLIST.md's own inline dates (standing exclusions 1.1-1.4/2.2/4.2/4.4/
+5.6/5.7/6.7/6.8, plus 4.1/3.5/4.7/4.11/4.15 excluded as done in runs 514-518):
+three items tied at 2026-11-08 (6.2, 4.12, 3.4), broken on fewest inline date
+mentions within each item's own section (6.2 had 105, lowest of the tied
+group). Picked 6.2, Broken internal links, twenty-first pass.
+
+REPO BASELINE: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every recent pass's anchor. Scratch copy made with `git archive HEAD | tar -x`
+(the mounted copy's own `cp -r` silently produced zero-byte files on this
+session's filesystem - not attempted against the tracked repo). Scratch
+copy's branches.json confirmed byte-identical to the mounted copy before any
+work began.
+
+node tools/check-service-links.js on the unmodified scratch copy: clean, 177
+generated pages, 6 non-generated public-copy files, 2 JS copy sources, 1000
+links, 423 to the estate's 13 branch domains, same 6 KNOWN issues as every
+prior pass (5 link targets + 1 claim), exit 0.
+
+FRESH ANGLE (not recorded in any of the prior 20 passes' write-ups): RULE 1's
+relative-href handling strips a leading query string and fragment
+(`href.split("?")[0].split("#")[0]`) and then strips leading slashes only
+(`pth.replace(/^\/+/, "")`), but does not strip a leading "./" segment. A
+dot-relative href such as `./pharmacy-first-fishlocks-ainsdale.html` therefore
+still contains a "/" after that strip, so it falls into the "subpath" branch
+and is reported as an unresolvable directory path, even though the same href
+resolves correctly on Weebly (and in any browser) to the sibling page at the
+site root - identical to the un-prefixed form the generators actually emit.
+
+INJECTION: on the scratch copy only, changed one href in
+modules/branch/pages/pharmacy-fishlocks-ainsdale.html from
+`href="pharmacy-first-fishlocks-ainsdale.html"` to
+`href="./pharmacy-first-fishlocks-ainsdale.html"`. Re-ran check-service-links.js:
+FAIL [subpath] ...links to www.fishlockpharmacy.co.uk/./pharmacy-first-
+fishlocks-ainsdale.html, and Weebly publishes at the site root, so a directory
+cannot resolve. Confirmed this is a FALSE POSITIVE, not the false NEGATIVE
+item 6.2 exists to catch: the link target is correct and live; the checker
+would have blocked a correct regeneration, not missed a broken one.
+Restored the file by byte copy from the pre-injection scratch extraction;
+diff confirmed byte-identical; check-service-links.js re-run clean (same 6
+KNOWN issues, exit 0).
+
+WHY NOT FIXED: searched every generated page and the two JS copy sources for
+this href shape - `grep -roE 'href\s*=\s*"\./[^"]*\.html"' modules/*/pages/*.html`
+returns zero matches across the whole estate. No generator emits a "./"
+relative link today, so this is a latent robustness gap in the checker's
+RULE 1 (it would misfire on a hypothetical future shape), not a live or
+repo-side defect this item's scope exists to find. Left unfixed rather than
+widening the regex speculatively, consistent with the standing instruction
+not to widen a rule to make a hypothetical case pass when nothing live is
+affected; noted here so a future pass does not re-discover it as new.
+
+FULL SUITE: 35 network-independent checkers (excluding check-cdn-pins.js and
+check-live-hours.js) run individually against the scratch copy: 34/35 exit 0.
+The one failure, check-postcodes.js, is the standing CH1 2AB narrative-debris
+baseline (7 failures/3 warnings this run, up from 6/3 on run518, because
+run517/518's own new evidence filenames each quote the historical postcode in
+their own text) - not a new or repo-side defect, nothing this item touched.
+Scratch copy confirmed untouched beyond the one injection-and-restore above;
+the mounted repo's own files were never opened for writing during this
+section.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked/typed/
+submitted): re-read the three standing live findings recorded since
+2026-08-11 (Q53, answered 29/09/2026, actioned via Asana task gid
+1219146122533537 but not yet carried out on the live sites):
+  - https://www.riddingspharmacy.co.uk/clinic-prices -> still 404
+  - https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html -> still 404
+  - https://www.tiffenbergschemist.co.uk/book-now.html -> still 404
+All three unchanged since the original 2026-08-11 finding and every
+subsequent live-half check. Q54 (Ahrefs /cdn-cgi/ exclude pattern, answered
+29/09/2026) is an Ahrefs-UI-only action and was not re-checked here (nothing
+in this repo or on the live sites to verify against it). Tab closed after
+use.
+
+RESULT: no new repo defect found and fixed. One non-manifesting checker
+robustness gap identified and recorded (dot-relative hrefs misclassified as
+"subpath") but deliberately not fixed, since no generator produces that
+shape and nothing live is affected. No new question raised. Q53/Q54 remain
+"answered" and still need a live Weebly/Ahrefs session outside this worker's
+scope; the three dead links they describe are reconfirmed unchanged.

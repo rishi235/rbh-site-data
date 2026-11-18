@@ -42077,6 +42077,52 @@ data field changed this run. No new question.
       in this file this time (Q53/Q54 note above already correct). This
       was a re-verification, not a new injection round; no new untested
       angle of check-service-links.js was identified this run.
+      Quality pass 2026-11-18, twenty-first (run519, unattended scheduled
+      run, Cowork sandbox, claude-sonnet-5): picked as the least recently
+      verified rotation-pool item, tied with 4.12 and 3.4 at 2026-11-08,
+      broken on fewest inline date mentions in this file's own section (105,
+      lowest of the three). Browser tool was available this run. REPO HALF:
+      scratch copy made with `git archive HEAD | tar -x` (the mounted
+      copy's own `cp -r` produced zero-byte files on this session's
+      filesystem this run, unrelated to git); branches.json sha256
+      0385b7c2...27da unchanged. check-service-links.js clean on the
+      unmodified scratch copy, same 6 KNOWN issues as every prior pass.
+      FRESH ANGLE, never recorded in the prior 20 passes: RULE 1 strips a
+      leading query string and fragment and leading slashes from a relative
+      href, but not a leading "./" segment, so a dot-relative href such as
+      "./pharmacy-first-fishlocks-ainsdale.html" still contains a "/" and
+      falls into the "subpath" branch, failing as an unresolvable directory
+      even though it resolves correctly to the sibling page at the site
+      root. PROVED BY INJECTION on the scratch copy only: changed one href
+      on pharmacy-fishlocks-ainsdale.html to that dot-relative form - FAILED
+      as [subpath], confirming a FALSE POSITIVE (the opposite of the false
+      negative this item exists to catch: a correct link would be wrongly
+      blocked, not a broken one missed). Restored by byte copy, diff
+      confirmed byte-identical, re-check clean. NOT FIXED: a full-estate
+      grep for this href shape across every generated page and both JS copy
+      sources returns zero matches - no generator emits "./" relative
+      links today, so this is a latent robustness gap with nothing live
+      affected, not a repo-side defect; left unfixed rather than widening
+      the regex speculatively for a shape nothing produces, and recorded
+      here so a future pass does not treat it as new. Full 35-checker suite
+      (excluding check-cdn-pins.js and check-live-hours.js) run individually
+      on the scratch copy: 34/35 clean; the one failure, check-postcodes.js,
+      is the standing CH1 2AB narrative-debris baseline (7 failures/3
+      warnings, up from 6/3 on run518, from run517/518's own new evidence
+      filenames quoting the historical postcode) - not a new or repo-side
+      fault. LIVE HALF (Claude in Chrome, read-only, one tab, nothing
+      clicked/typed/submitted): re-read all three standing live findings
+      (Q53, answered 29/09/2026, actioned via Asana task gid
+      1219146122533537 but not yet carried out live) - riddingspharmacy.co.uk
+      /clinic-prices, riddingspharmacy.co.uk's switch-prescriptions-riddings-
+      timperley.html permalink, and tiffenbergschemist.co.uk/book-now.html -
+      all three still 404, unchanged since 2026-08-11. Q54 (Ahrefs /cdn-cgi/
+      exclude, answered 29/09/2026) is Ahrefs-UI-only and has nothing in
+      this repo or live to verify against. RESULT: no in-repo defect fixed,
+      one non-manifesting checker robustness gap recorded but deliberately
+      left unfixed, no new question. Q53/Q54 remain answered, still need a
+      live Weebly/Ahrefs session outside this worker's scope. Evidence:
+      audits/check-service-links-item-6.2-quality-pass-2026-11-18-run519.txt.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
