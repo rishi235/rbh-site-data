@@ -38821,6 +38821,38 @@ checkers and all 7 generators clean, git status empty. No new defect; no
 generator, page, pack or branches.json content changed. Evidence:
 audits/item-5.1-switch-copy-injection-2026-11-17-twentyseventh.txt.
 
+Quality pass 2026-11-19 (twenty-eighth). Followed the twenty-second
+pass's own forward note and finally opened the Contact Us subpage, live,
+read-only, on five sites (Smartts, Cherry Lane, Gordon Short, SK
+Chemists, Riddings - the last 404'd at the URL tried, not chased
+further). Found a THIRD, previously unread location: Smartts' and
+Gordon Short's own "Let's Chat" Contact Us block states its Hours with
+an en dash between the opening and closing time (one instance on
+Smartts, two - weekday and Saturday - on Gordon Short), distinct from
+the homepage bullet, the site-wide footer and the McCanns "Opening
+Hours" block already tracked. Cherry Lane and SK Chemists run a
+different Contact Us template with no en dash in their own Hours
+content (checked as negative controls). tools/build-weebly-furniture-
+checklist.js's KNOWN_FINDINGS extended for smartts_bootle and
+gordonshorts_crosby with a dated, sourced third item each, worded
+("09:00 to 18:00") rather than quoting the literal character, per this
+item's established convention. WEEBLY_FURNITURE_CHECKLIST.md
+regenerated ("15 branches, 14 with confirmed findings" - unchanged,
+since no branch gained its first finding). check-em-dashes.js re-run
+clean on the new wording. Full suite: 34/35 clean (excl.
+check-cdn-pins.js and check-live-hours.js, both network-dependent); the
+one failure is the pre-existing CH1 2AB narrative-postcode baseline,
+unrelated, not actioned. branches.json sha256 unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). No
+generator other than this checklist's own, no generated page, no pack
+and no branches.json content changed - this is a documentation-only
+update recording a live finding on the checklist the Q39 Weebly sweep
+is meant to be worked from. No new QUESTIONS.json entry (Q39 already
+settled the decision). Remaining 10 trading sites' Contact Us/Services/
+Prescriptions/Reviews subpages still unread for this fault - left as
+the fresh angle for a future pass. Evidence:
+audits/item-5.1-contact-us-hours-endash-2026-11-19-twentyeighth.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

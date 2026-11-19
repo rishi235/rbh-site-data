@@ -295,6 +295,16 @@ var KNOWN_FINDINGS = {
         "(\"Open Mon-Fri 9am-6pm, Sat & Sun closed\") both carry " +
         "the pre-Q7 en dash - should be a full stop and plain hyphens " +
         "respectively, matching the Q7 fix. Confirmed live 2026-10-20.",
+      "The Contact Us page's own \"Let's Chat\" quick-contact block " +
+        "carries a THIRD, previously unread location: its Hours line " +
+        "(\"Weekdays / 09:00 to 18:00\") separates the opening and " +
+        "closing time with an en dash rather than the word \"to\" or a " +
+        "plain hyphen - a different element again from the homepage " +
+        "bullet and the site-wide footer already listed above, and from " +
+        "the \"Opening Hours\" contact-page block the twenty-second " +
+        "pass found on McCanns. Not read by any earlier pass, which had " +
+        "never opened this branch's Contact Us page specifically. " +
+        "Confirmed live 2026-11-19 (item 5.1, twenty-eighth pass).",
     ],
   },
   colemanleigh_liverpool: {
@@ -325,6 +335,16 @@ var KNOWN_FINDINGS = {
         "9am-5pm (closed 1-2pm), Sun closed\") both carry the " +
         "pre-Q7 en dash - should be a full stop and plain hyphens " +
         "respectively, matching the Q7 fix. Confirmed live 2026-10-20.",
+      "The Contact Us page's own \"Let's Chat\" quick-contact block " +
+        "carries a THIRD, previously unread location, and it repeats " +
+        "the fault TWICE on one branch: both the weekday line " +
+        "(\"Weekdays / 09:00 to 18:00\") and the Saturday line " +
+        "(\"Saturday / 09:00 to 17:00\") separate their opening and " +
+        "closing times with an en dash rather than the word \"to\" or a " +
+        "plain hyphen - the same new location found the same day on " +
+        "Smartts Chemist, confirming it is a shared template element " +
+        "rather than a one-off. Not read by any earlier pass. Confirmed " +
+        "live 2026-11-19 (item 5.1, twenty-eighth pass).",
     ],
   },
   tiffenbergs_longmoor: {

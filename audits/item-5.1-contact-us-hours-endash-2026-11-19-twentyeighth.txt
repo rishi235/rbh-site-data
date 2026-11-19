@@ -1,0 +1,94 @@
+Item 5.1 - quality pass (twenty-eighth), 2026-11-19
+Scheduled run: audit-backlog-worker (Cowork sandboxed session, no git push credential
+available in this environment - see AGENT_LOG.md for this run)
+
+SCOPE
+The twenty-second pass's own forward note (2026-10-20) flagged that its live en-dash
+sweep had covered the homepage bullet, the site-wide footer and (on McCanns only) the
+contact-page "Opening Hours" block, but had never opened the Services, Prescriptions,
+Reviews or Contact Us subpages on any site for this fault. This pass follows that note
+directly: Contact Us pages read live, read-only, via Claude in Chrome, one tab, closed
+after use, nothing clicked/typed/submitted.
+
+SITES READ (Contact Us subpage, live)
+- smarttschemist.co.uk/contact-us.html
+- cherrylanepharmacy.co.uk/contact-us.html
+- gordonshortchemist.co.uk/contact-us.html
+- skchemist.co.uk/contactus.html
+- riddingspharmacy.co.uk/contact-us.html (404 - this branch's Contact Us page lives at a
+  different URL under this template; not chased further this pass, noted for a future
+  pass rather than guessed at)
+
+FINDING (new location, not previously read)
+Smartts Chemist (Bootle) and Gordon Short Chemist (Crosby) both run a "Let's Chat"
+quick-contact block on their Contact Us page, distinct from both the homepage bullet and
+the site-wide footer already tracked for this item, and distinct from the "Opening
+Hours" contact-page block the twenty-second pass found on McCanns (a different page
+element on a different pair of branches). This block's Hours line separates the opening
+and closing time with an en dash rather than the word "to" or a plain hyphen:
+
+- Smartts: "Weekdays / 09:00 [en dash] 18:00" (one instance)
+- Gordon Short: "Weekdays / 09:00 [en dash] 18:00 (closed 1pm -2pm Lunch)" and
+  "Saturday / 09:00 [en dash] 17:00 (closed 1pm -2pm Lunch)" (two instances, both lines
+  on this one branch)
+
+Both sites' Contact Us pages were otherwise unremarkable: address, phone and the
+bottom-of-page "Opening Hours" block (a separate element from the "Let's Chat" block)
+all read in plain hyphens and matched branches.json.
+
+NEGATIVE CONTROLS / SCOPE LIMIT
+- Cherry Lane Pharmacy's Contact Us page runs a different template ("Opening Hours"
+  block, "Mon 9am - 6:30pm" etc.) with no "Let's Chat" block and no en dash in its own
+  Hours content. Its footer still carries the already-tracked en dash, unrelated to this
+  finding.
+- SK Chemists' Contact Us page (contactus.html, no hyphen in the URL) also runs the
+  "Opening Hours" template with plain hyphens throughout its own Hours content.
+- So the "Let's Chat" block with the en-dash time range is confirmed on 2 of 5 sites
+  read this pass (Smartts, Gordon Short), not estate-wide. The remaining 10 trading
+  sites' Contact Us pages were not read this pass and are not claimed clean or dirty for
+  this specific element.
+
+ACTION TAKEN
+Per this item's established practice (record a live finding in words, not by quoting the
+literal character, consistent with the quoted-as-evidence convention already used
+elsewhere in this checklist and in check-brand-spelling.js/check-gbp-packs.js) and
+consistent with Q39's already-answered decision (one supervised Weebly session, working
+from a per-site checklist this repo generates): extended tools/build-weebly-furniture-
+checklist.js's KNOWN_FINDINGS for smartts_bootle and gordonshorts_crosby with a dated,
+sourced third item each, describing this new location and quoting the times in words
+("09:00 to 18:00") rather than with the actual en dash character. Regenerated
+WEEBLY_FURNITURE_CHECKLIST.md from the updated generator (still "15 branches, 14 with
+confirmed findings" - no new branch gained its first finding, so the headline count is
+unchanged; two existing entries gained a third bullet each).
+
+VERIFICATION
+- branches.json sha256 unchanged: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor).
+- git status --porcelain shows only tools/build-weebly-furniture-checklist.js and
+  WEEBLY_FURNITURE_CHECKLIST.md touched by this pass (plus this new evidence file and the
+  AGENT_WORKLIST.md/AGENT_LOG.md entries), the long-standing untracked sandbox debris
+  aside. No generator other than this checklist's own, no generated page, no pack and no
+  branches.json content changed.
+- check-em-dashes.js re-run after the edit: clean, "no em or en dashes in public copy,
+  literal or HTML entity" - the new wording passes the same ASCII-only rule this
+  checklist file is held to, same as the correction the twenty-second pass had to make to
+  its own first draft.
+- Full suite re-run: 34 of 35 non-network checkers clean (check-cdn-pins.js and
+  check-live-hours.js excluded, both network-dependent, per standing convention). The one
+  failure is the pre-existing CH1 2AB narrative-postcode baseline already documented
+  across many prior runs' own evidence files - unrelated to this item, not actioned.
+
+RESULT
+No new in-repo defect in a checker or a generated page - this is a documentation-only
+update recording a live finding on the checklist that the Weebly sweep (Q39) is meant to
+be worked from, the same category of correction the twentieth and twenty-second passes
+already made. No new QUESTIONS.json entry: Q39 already settled the decision (one
+supervised sweep from this checklist); this pass only makes the checklist match what a
+live reading actually shows.
+
+FORWARD NOTE
+The remaining 10 trading sites' Contact Us/Services/Prescriptions/Reviews subpages are
+still unread for this fault (Riddings' Contact Us page in particular returned 404 at the
+URL this pass tried and needs its correct slug found first). Any future pass on this item
+wanting a fresh angle should continue that sweep rather than re-reading Smartts, Gordon
+Short, Cherry Lane or SK Chemists' Contact Us pages, which this pass has now covered.
