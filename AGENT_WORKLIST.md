@@ -34314,6 +34314,33 @@ directly rather than re-deriving the same facts by hand.
       Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-11-18-twentysixth.txt.
       Done 2026-11-18.
+      Quality pass 2026-11-19 (twenty-seventh, unattended scheduled run 546):
+      rotation pool re-derived fresh (all three worklist items still [BLOCKED]:
+      5.8/Q16, 6.4/Q60, 6.5/Q60); 4.14 won on stalest last-touched date
+      (run535, 2026-11-18T23:42Z), ahead of every other pool item by roughly
+      nine to ten hours. Baseline unchanged: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, pack
+      sha256 36b001619c22641c077ae241b4947f72c48240f391b38e69995344d634b53ffa.
+      Full 35-checker suite (excluding check-cdn-pins.js and
+      check-live-hours.js) clean except the standing CH1 2AB narrative-
+      postcode baseline. FRESH ANGLE: the twenty-sixth pass had already
+      brought this item's checker-FILE coverage to all 37, so this pass went
+      one level down, into check-gbp-packs.js's own review-link rules (own
+      link must appear in the pack; a review link appearing must belong to
+      this branch), never isolated for this item before. Injected Scorah
+      Bramhall's review link over Gordon Short's own in a disposable
+      /tmp git-archive scratch copy - CAUGHT cleanly, first attempt, both the
+      missing-own-link and wrong-branch-ownership rules fired. Negative
+      control (branches.json shortCode edit, a field this rule ignores) ran
+      clean. Both files restored and sha256-reconfirmed identical to baseline
+      before and after; tracked repo never opened for writing. Full suite
+      re-run clean after, same standing CH1 2AB result, no regression. LIVE
+      HALF NOT PERFORMED (read in full by the twenty-sixth pass less than 24
+      hours earlier with no reason to expect drift). NO IN-REPO DEFECT FOUND,
+      NO NEW QUESTION RAISED. Item 4.14 stays `[x]` (quality pass, not a
+      state change). Evidence:
+      audits/gordon-short-item-4.14-quality-pass-2026-11-19-twentyseventh.txt.
+      Done 2026-11-19.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
