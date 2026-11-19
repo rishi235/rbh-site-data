@@ -1,0 +1,133 @@
+Item 4.13 (Riddings Pharmacy, Timperley pack) - twenty-eighth quality pass
+Run: audit-backlog-worker, scheduled, 2026-11-19T15:21Z (Sonnet 5, Cowork sandbox + Windows-MCP native host for git writes, per Q102)
+
+ROTATION DERIVATION
+All 3 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct grep:
+  5.8 Q16 (weight loss advertising exposure)
+  6.4 Q60 (McCanns nav button styling, cosmetic)
+  6.5 Q60 (weight loss nav architecture)
+None pickable. Fell through to the fallback quality pass per step 5.
+
+Rotation pool re-derived by grepping AGENT_LOG.md for each candidate item's
+nearest-to-top "item N.N" mention (top of file = most recent run, since the
+log is newest-first):
+  2.3  -> first occurrence line 153
+  3.2  -> 103
+  3.6  -> 103
+  3.7  -> 213
+  3.9  -> 227
+  3.13 -> 251
+  4.3  -> 179
+  4.6  -> 207
+  4.13 -> 303   <- largest, i.e. stalest (last picked run537)
+  4.14 -> 77
+  5.1  -> 275
+
+Item 4.13 (Riddings Pharmacy, Timperley) picked: stalest, last touched by
+run537's twenty-seventh pass (check-nap.js, 16 of 37 checkers proven by
+direct injection as of that pass).
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged from every prior pass's anchor).
+tools/check-jsonld.js run clean on the tracked repo before any mutation:
+  "177 generated page(s) checked against 16 trading branches
+   177 map iframe address(es) decoded and compared
+   @type declared: Pharmacy x177
+   name checked per family: branch:branchName x6, service:branchName x156, switch:branchName x15
+   check-jsonld: clean, every JSON-LD block and map address agrees with branches.json."
+
+FRESH ANGLE
+Compiled the full list of check-*.js files already named against item 4.13
+(16 of 37, confirmed by grep across the item's own block, lines 31845-33132
+of AGENT_WORKLIST.md: check-app-membership, check-booking-routes,
+check-branch-links, check-brand-spelling, check-cdn-pins, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-live-hours, check-nap,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility, check-postcodes,
+check-uk-spelling, check-url-scheme, check-weight-loss-copy).
+check-jsonld.js had never once been named against this item across the
+prior twenty-seven passes, despite Riddings publishing JSON-LD on all
+11 of its own generated pages (10 service-family pages plus the switch
+page). Chose it as the fresh angle.
+
+METHOD
+Isolated copy via `git archive HEAD | tar -x` into
+/sessions/.../mnt/outputs/scratch413, outside the tracked repo. Tracked repo
+never opened for writing during the test. Scratch copy's branches.json
+sha256 reconfirmed identical to the tracked anchor before any mutation.
+check-jsonld.js baseline on the scratch copy: clean, identical output to
+the tracked-repo baseline above.
+
+INJECTION 1 (addressRegion, the schema field CLAUDE.md names as the one
+Google reads and the field this branch's own history (Q43) shows is
+genuinely contested for Timperley): backed up
+modules/service/pages/sinusitis-treatment-riddings-timperley.html
+(sha256 8469f29184b0954969588af7b579e0ed4ca3721c6ece2e6755b1b8452dad415f).
+Changed its JSON-LD address.addressRegion from "Greater Manchester" to
+"Cheshire" (line 165) - CAUGHT cleanly first attempt:
+  "FAIL  modules/service/pages/sinusitis-treatment-riddings-timperley.html:
+   address.addressRegion is "Cheshire" but branches.json says
+   "Greater Manchester""
+Restored from the tracked repo's own HEAD copy; sha256 reconfirmed identical
+to the pre-injection value immediately after.
+
+NEGATIVE CONTROL: edited riddings_timperley.shortCode in the scratch copy's
+branches.json (a field check-jsonld.js does not read) - ran clean, confirming
+selectivity rather than the checker firing on any touch to the branch's
+record. branches.json restored from the tracked repo's own HEAD copy;
+sha256 reconfirmed identical to the standing anchor
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+
+FULL SUITE: 35 non-network tools/check-*.js scripts (excluding
+check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+individually on the scratch copy after final restore: 34/35 clean. The one
+failure is the standing, already-flagged CH1 2AB narrative-postcode baseline
+in check-postcodes.js, pre-existing and unrelated to this item - not
+actioned. No generator, page, pack or branches.json content changed this
+pass (the checker was proven correct, not fixed), so no regeneration was
+needed.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain` on
+branches.json/modules/tools/core/gbp-packs showed nothing; branches.json and
+the Riddings sinusitis page both sha256-reconfirmed identical to their
+pre-pass values on the TRACKED copy itself, not just the scratch copy.
+
+Guard coverage for item 4.13 now extends to 17 of 37 checkers proven by
+direct injection against this item specifically (up from 16). No in-repo
+defect - Riddings' JSON-LD schema is consistent with branches.json on
+every generated page.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed
+or submitted, closed after use): read
+https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
+in full. Pharmacy First content, opening hours, phone and the contact-card
+address all match branches.json exactly (same as run537's twenty-seventh
+pass found for the phone/address/hours). One standing, ALREADY-LOGGED
+finding independently reconfirmed rather than newly discovered: the live
+page's site-wide Weebly footer furniture reads "38 Riddings Road / Timperley
+/ Cheshire / WA15 6BP", naming Cheshire, while branches.json's own
+addressRegion is "Greater Manchester" and addressLocality is "Timperley,
+Altrincham". Confirmed this text is NOT present anywhere in this repo's own
+generated output for Riddings (grepped modules/service/pages/pharmacy-first-
+riddings-timperley.html and the sinusitis page used for the injection above:
+both say "Timperley, Altrincham" / "Greater Manchester" only, never
+"Cheshire") - it is Weebly site furniture outside this repo's control, the
+same "Timperley, Cheshire" footer finding run537's own twenty-seventh pass
+already named as a standing, not-this-pass's-angle item. Also directly
+relevant: Q43 (answered 2026-09-01) already asked Rishi about exactly this
+Cheshire/Greater Manchester tension for Timperley and Bramhall, and his
+answer was "Unsure... need advise", so this remains an open editorial
+question, not a new repo defect, and is not re-raised as a new question
+here.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, closed
+after use. Navigated to https://data.rbhealth.co.uk/api/feedback and read
+the full feed directly - no Cloudflare Access gate hit. Newest entries still
+the historical Q2-Q52 batch (2026-08-04 to 2026-09-01); no "AUDIT ANSWER
+Q139" entry present. QUESTIONS.json independently reconfirmed via Node:
+140 total, 1 open (Q139), unchanged.
+
+NO BRANCHES.JSON FIELD, GENERATED PAGE, PACK OR CHECKER CONTENT CHANGED
+(the checker was proven correct, not fixed). Item 4.13 stays [x] (quality
+pass, not a state change). QUESTIONS.json unchanged at 140 total, 1 open
+(Q139).

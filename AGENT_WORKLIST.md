@@ -33129,6 +33129,31 @@ directly rather than re-deriving the same facts by hand.
       proven correct, not fixed. No new question raised. Evidence:
       audits/riddings-item-4.13-quality-pass-2026-11-19-twentyseventh.txt.
       Done 2026-11-19.
+      Twenty-eighth quality pass 2026-11-19 (run551): fresh angle
+      tools/check-jsonld.js, never previously named against this item
+      (17 of 37 checkers now proven, up from 16). Baseline clean (177 pages,
+      0 failures). Injected riddings_timperley's own JSON-LD
+      address.addressRegion ("Greater Manchester" -> "Cheshire") on
+      sinusitis-treatment-riddings-timperley.html in a disposable scratch
+      copy (git archive, outside the tracked repo) - caught cleanly first
+      attempt, naming the exact page and the correct value. Restored and
+      sha256-reconfirmed identical. Negative control (shortCode, a field
+      this checker does not read) ran clean, confirming selectivity. Full
+      35-checker suite re-run clean afterwards (standing CH1 2AB postcode
+      baseline excepted, unrelated). Tracked repo confirmed untouched
+      throughout. Live half (Claude in Chrome, read-only): Pharmacy First
+      page content, phone, hours and contact-card address all match
+      branches.json. Independently reconfirmed the standing, already-logged
+      "Timperley, Cheshire" Weebly footer-furniture finding (run537's own
+      forward note) - verified this text is absent from every generated
+      page this repo produces for Riddings and is Weebly site furniture
+      outside this repo's control, directly tied to Q43 (answered
+      2026-09-01, "Unsure... need advise"), so not re-raised as a new
+      question. No branches.json field, generated page, pack or checker
+      content changed - the checker was proven correct, not fixed. No new
+      question raised. Evidence:
+      audits/riddings-item-4.13-jsonld-injection-2026-11-19.txt.
+      Done 2026-11-19.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
