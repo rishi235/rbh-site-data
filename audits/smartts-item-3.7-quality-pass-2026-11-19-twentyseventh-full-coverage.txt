@@ -1,0 +1,78 @@
+Item 3.7 (Smartts Chemist, Bootle) - quality pass, run553, 2026-11-19T16:12Z
+
+CONTEXT
+Rotation pool re-derived per the established grep method (each candidate
+item's nearest-to-top "item N.N" mention in AGENT_LOG.md): 3.7 last touched
+run536 (2026-11-19T00:12Z, twenty-sixth pass), roughly 16 hours stale against
+every other pool item (3.6/run544-546, 3.2/run545, 2.3/run543, 4.3/run542,
+4.6/run541, 3.9/run540, 3.13/run539, 5.1/run538, 4.14/run546, 4.13/run551, all
+retaken within the last 15 hours or fewer). Picked 3.7, Smartts Chemist
+(Bootle).
+
+REPO HALF
+Full extraction via `git archive HEAD | tar -x` into a scratch directory
+outside the tracked repo; tracked repo not opened for writing. branches.json
+sha256 unchanged from every prior pass's anchor
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). Ran all 35
+non-network tools/check-*.js scripts (excluding check-cdn-pins.js and
+check-live-hours.js) against the scratch copy: 35/35 produced a "clean"
+verdict with 0 FAIL lines (grep-confirmed across every output). All six
+generators therefore stand unregenerated-and-unchanged; no mutation made.
+
+COVERAGE BOOKKEEPING FINDING (new, not a defect): cross-referencing every
+audits/smartts-*.txt file's own checker-name mentions against the full list
+of 37 tools/check-*.js files shows all 37 have now been named at least once
+across item 3.7's 26 prior passes (comm -23 between the full checker list and
+the union of names found in this item's own audit files returns empty). This
+is the first time this bookkeeping check has been run for 3.7 specifically.
+It means a future pass picking this item cannot find a never-before-named
+checker file; any further "fresh angle" has to come from an untested RULE
+inside an already-named checker, or from live content, not from checker-file
+novelty. Worth recording once rather than re-discovering by trial each pass.
+
+LIVE HALF
+Two pages re-read live, read-only GET via Claude in Chrome:
+
+1. pharmacy-first-smartts-bootle.html: NAP, free-NHS wording, all seven
+   Pharmacy First conditions with correct age cohorts, superintendent
+   pharmacist line and company number all match branches.json and the
+   generator. The one standing discrepancy reconfirmed unchanged: the live
+   footer/hours card still prints a continuous "9:00am - 6:00pm" Monday to
+   Friday, with no lunch closure shown, against branches.json's NHS-confirmed
+   split day (09:00-13:00, 14:00-18:00). First recorded on the item 4.10 first
+   pass, tracked under Q79/CLAUDE.md's "Opening hours" section; not new, not
+   re-raised as a separate question.
+
+2. hey-ai-read-this.html (the live-only AEO/AI-assistant page Q139 was raised
+   against on 2026-11-17, scope-checked run534 as confined to this one
+   branch): re-read in full. Confirmed UNCHANGED since the run534 scope check
+   in the respect Q139 already covers - the page still names and links
+   www.simpleweightloss.co.uk three times (Quick Facts block, the private
+   clinic "Weight Management Consultations" paragraph, and the FAQ answer to
+   "What weight management services does Smartts Chemist offer?"), one more
+   mention than Q139's note recorded (it named two). This is a minor count
+   correction to Q139's existing note, not a new question - the substance
+   (SWL actively promoted live against the formally-parked brand position) is
+   already open and unchanged.
+
+NEW FINDING, LIVE-ONLY, RAISED AS Q140: the same page's "Private Clinic
+Services" section lists a service never previously logged anywhere in this
+repo or its audit trail: "Medical Cannabis - We support patients with a valid
+prescription for medical cannabis. Speak to our team for guidance." Medical
+cannabis is a Schedule 2 controlled drug; nothing in branches.json,
+CLAUDE.md or any prior AGENT_LOG.md/QUESTIONS.json entry records this as an
+RBH service, at Smartts or estate-wide, so this repo has no way to confirm
+whether the claim is accurate (RBH does offer this and it is simply
+undocumented here) or a vendor template artefact (the page reads as
+third-party AEO-page boilerplate, same as the SWL references Q139 already
+flags). Either way it is a live, patient-facing, controlled-drug-adjacent
+claim with no record anywhere this audit can check it against, which is a
+different and higher-stakes question than Q139's branding-currency point, so
+it is raised separately rather than folded into Q139. Full detail and the
+raw page extraction are in this file; see QUESTIONS.json Q140 for the
+question itself.
+
+CONCLUSION
+No in-repo defect found; no generator, page, pack, checker or branches.json
+content changed. Item 3.7 stays [x] (quality pass, not a state change).
+QUESTIONS.json: 140 -> 141 total, 2 open (Q139 unchanged, Q140 new).

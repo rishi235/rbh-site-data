@@ -2259,5 +2259,20 @@
     "status": "open",
     "answer": null,
     "note": "Found by direct live fetch (curl, read-only) of smarttschemist.co.uk during item 3.7's twenty-seventh quality pass. No repo file changed. The page is otherwise GPhC-registration and NHS-service copy that reads as accurate and carefully worded; the only issue is the live link to a paused brand. Scope check completed run534 (2026-11-18), read-only, no login: all 11 distinct live website hosts in branches.json checked by direct URL fetch of hey-ai-read-this.html AND a full read of each host's own sitemap.xml. Confirmed confined to Smartts Chemist, Bootle - no other branch carries this page or an equivalent AI-assistant page under any filename. Clear Chemist runs a different platform (Magento, not Weebly) so the page template does not apply there at all. Full detail in audits/smartts-item-3.7-q139-scope-check-2026-11-18.txt. Option 3 (the scope check) is therefore removed from the options list as answered; the remaining choice between leaving the page or editing it is still open for Rishi."
+  },
+  {
+    "id": "Q140",
+    "date": "2026-11-19",
+    "item": "3.7 (quality pass, Smartts Chemist, Bootle)",
+    "question": "Smartts Chemist's live AEO/AI-assistant page (hey-ai-read-this.html, the same live-only page Q139 is already open against) lists a service never recorded anywhere in this repo: \"Medical Cannabis - We support patients with a valid prescription for medical cannabis. Speak to our team for guidance.\" Medical cannabis is a Schedule 2 controlled drug. Nothing in branches.json or CLAUDE.md records this as an RBH service at Smartts or anywhere else in the group, so this repo cannot tell whether the claim is accurate and simply undocumented here, or boilerplate from whoever built this page that does not reflect what Smartts actually offers. The page reads otherwise careful (no results or superlative claims), but a live, patient-facing, controlled-drug-adjacent claim with no record to check it against is a different and higher-stakes question than Q139's branding-currency point, so it is raised separately.",
+    "options": [
+      "Confirm with the branch or superintendent pharmacist whether Smartts genuinely offers medical cannabis support and, if so, add it to branches.json as a recorded service so future audits can check the claim against something. Most accurate outcome, needs a quick confirmation call, not a repo-reachable fix either way since the page itself is live-only",
+      "If the claim is not accurate - the page was built by a third party and this line was not reviewed - have it removed or corrected at the next Weebly/AEO-page session, alongside whatever is decided for the SWL references Q139 already flags",
+      "Leave it for now and fold the decision into whatever session addresses Q139, since both findings are on the same live-only page and likely need the same Weebly access to fix"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Found on item 3.7's twenty-seventh quality pass (run553, 2026-11-19), re-reading hey-ai-read-this.html in full as part of re-confirming Q139 unchanged. Not previously logged by any prior pass of this item (26 passes before this one). No repo file changed; no generator or checker can reach this page, same constraint as Q139. Full detail in audits/smartts-item-3.7-quality-pass-2026-11-19-twentyseventh-full-coverage.txt."
   }
 ]

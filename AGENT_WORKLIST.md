@@ -11550,6 +11550,27 @@ Done 2026-10-14 (twenty-third pass).
       (CLAUDE.md) reconfirmed unchanged, not new. No in-repo or live
       defect found. Evidence in
       audits/smartts-item-3.7-quality-pass-2026-11-19-twentysixth.txt.
+      Quality pass 2026-11-19 (twenty-seventh, run553): REPO HALF, all 35
+      non-network checkers re-run on a fresh git-archive scratch copy, 0 FAIL
+      lines. COVERAGE BOOKKEEPING (new, not a defect): cross-referencing every
+      audits/smartts-*.txt file's checker-name mentions against the full list
+      of 37 tools/check-*.js files shows all 37 have now been named at least
+      once across this item's 26 prior passes - the first time this item has
+      reached full checker-file coverage, meaning a future pass must find a
+      fresh angle inside an already-named checker's rules or in live content,
+      not in an unused checker file. LIVE HALF: pharmacy-first-smartts-
+      bootle.html re-read, matches branches.json throughout; the standing
+      live-only lunch-hours display gap (CLAUDE.md) reconfirmed unchanged,
+      not new. hey-ai-read-this.html (the Q139 page) re-read in full: Q139's
+      substance unchanged (simpleweightloss.co.uk still actively linked),
+      with a minor count correction to Q139's note - three mentions on the
+      page, not two. NEW FINDING, raised as Q140: the same page's "Private
+      Clinic Services" section lists "Medical Cannabis" support, a service
+      never recorded anywhere in this repo (branches.json or CLAUDE.md), so
+      the claim's accuracy cannot be checked from here - flagged separately
+      from Q139 given the controlled-drug angle. No branches.json, generator,
+      page, pack or checker content changed. Evidence in
+      audits/smartts-item-3.7-quality-pass-2026-11-19-twentyseventh-full-coverage.txt.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
