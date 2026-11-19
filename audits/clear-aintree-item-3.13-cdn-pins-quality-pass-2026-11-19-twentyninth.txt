@@ -1,0 +1,92 @@
+Item 3.13 (Clear Chemist, Aintree/Liverpool) - quality pass, run539, 2026-11-19
+
+Picked as least-recently-verified rotation-pool item: a grep of AGENT_LOG.md for
+"item 3.13" and "item 3.9" (the two oldest-lagging items in the standing
+rotation pool, both far behind the 530s-range items) showed 3.13 last
+full-passed at run506 (2026-11-17T23:21Z) against 3.9's run507
+(2026-11-17T23:42Z) - 3.13 is the stalest by 21 minutes. Every other pool item
+(2.3/531, 3.6/532, 3.2/533, 4.14/535, 3.7/536, 4.13/537, 5.1/538) was retaken
+more recently. Picked 3.13, twenty-ninth pass.
+
+REPO HALF: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (matches every
+prior pass's anchor, unchanged). Baseline run of the full 36-checker suite
+(all tools/check-*.js except check-live-hours.js, network-dependent) on the
+tracked repo before any mutation: 35/36 clean, the one failure the standing
+CH1 2AB narrative-postcode baseline (pre-existing, documented across many
+prior runs, unrelated to this item).
+
+FRESH ANGLE: tools/check-cdn-pins.js had never been proven by direct injection
+against Clear Chemist Aintree's own pages across the item's prior 28 passes,
+although it had been run individually and recorded clean against the tracked
+repo several times (e.g. the fourth item-level pass, 2026-09-18). This run's
+environment is a full (non-shallow) clone with git history reachable, unlike
+several recent passes' scratch/tar copies, so the checker's git-ref resolution
+actually works here rather than failing on the documented "no .git" exception
+- confirmed first by running it clean on the tracked repo (see baseline above,
+2 warnings and 6 KNOWN entries, all pre-existing and unrelated to this branch).
+
+Backed up modules/switch/pages/switch-prescriptions-clear-aintree.html
+(sha256 0e5fd83d65fb15d516fd26dfbea776870da6dea2ee3385fc6e30ee881bd3bea6) to a
+location outside the tracked repo before any edit.
+
+INJECTION: changed the page's own pinned ref for modules/switch/switch.js from
+@5c7fa63 (the ref build-switch-pages.js actually declares) to the invented
+@deadbeef1234, leaving switch.css's pin untouched. CAUGHT on first attempt,
+two independent failures:
+  1. "pins 'deadbeef1234' for modules/switch/switch.js, but the modules/switch
+     generator(s) declare '5c7fa63' - regenerate, or the page was hand-edited"
+  2. "ref 'deadbeef1234' does not resolve in git - if it is gone from GitHub,
+     1 live page reference(s) lose modules/switch/switch.js"
+Both rules (pin-matches-generator, and ref-resolves-in-git) fired independently
+and correctly, naming this branch's own page by path.
+
+RESTORE: copied the backup back over the live file; sha256 reconfirmed
+identical to the pre-injection value (0e5fd83d...). git status on the tracked
+repo confirmed the file untouched relative to HEAD after restore.
+
+NEGATIVE CONTROL: edited clearchemist_aintree.shortCode in branches.json only
+("CLE" -> "ZZZTEST"), a field this checker does not read at all. Ran clean -
+2 warnings (the standing @main runtime-fetch warnings, unrelated to this
+branch), 6 KNOWN (all pre-existing), 0 FAIL - confirming the earlier catch was
+selective to the pin-reference content and not a harness artefact. Restored
+branches.json from backup; sha256 reconfirmed identical to the standing anchor
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+
+FULL SUITE RE-RUN after both restores: 35/36 clean (the same standing CH1 2AB
+postcode failure, unchanged). git status --porcelain on the tracked repo
+showed no diff against HEAD for modules/, branches.json, tools/, core/,
+gbp-packs/ - only this run's own new evidence file and the worklist/log
+entries it adds, plus the long-standing untracked sandbox debris already
+present at pickup (unrelated to this pass).
+
+RESULT: no in-repo defect found. check-cdn-pins.js was already correctly
+protecting Clear Chemist Aintree's switch page pin reference on both of its
+independent rules; now proven by direct injection against this branch
+specifically for the first time in 29 passes. Guard coverage for item 3.13
+now extends to all 36 non-network checkers (check-live-hours.js remains the
+one genuinely network-dependent exception, needing a live browser read rather
+than a git-context one).
+
+LIVE HALF: not repeated this pass. Item 4.9 (the Clear Chemist Aintree GBP
+pack, a different worklist item covering the same branch) re-read
+clearchemist.co.uk/contact-us in full only one day earlier (run against
+2026-11-18, logged in AGENT_WORKLIST.md's own item 4.9 block): phone, WhatsApp
+number, hours and address all reconfirmed matching branches.json/the pack
+exactly, with the standing Q21/Q28/Q29/Q112 findings unchanged. Re-reading the
+same live page again today for item 3.13 would add nothing to that one-day-old
+read, so it was not repeated; the three generated pages this item covers
+(switch-prescriptions-clear-aintree.html, weight-loss-clinic-clear-
+aintree.html, travel-clinic-clear-aintree.html) remain generated and
+unpublished per Q29's standing answer (leave as is), unchanged.
+
+ANSWER PICKUP (step 3, this run): https://data.rbhealth.co.uk/api/feedback
+read via a single Claude in Chrome tab, read-only, nothing clicked, typed or
+submitted, closed after use. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z); no "AUDIT ANSWER Q139" entry present. Q139 (the
+only open question, item 3.7's Smartts AEO page) left open, unchanged.
+
+No branches.json field, generated page, pack or branches.json content
+changed - only the checker was proven correct, not fixed. Item 3.13 stays
+[x] (quality pass, not a state change). QUESTIONS.json unchanged at 140
+total, 1 open (Q139).
