@@ -12885,6 +12885,34 @@ Done 2026-10-14 (twenty-third pass).
       of 37 checkers proven by injection against this specific branch (up
       from 25). Full detail:
       audits/sk-chemists-item-3.8-seo-sheets-injection-2026-11-18.txt.
+      Quality pass 2026-11-19 (twenty-ninth run, scheduled worker run558):
+      re-derived the rotation pool from first principles rather than the
+      narrowing "nearest AGENT_LOG mention" shortcut recent runs had drifted
+      into (full method and finding logged at the top of this run's own
+      entry in AGENT_LOG.md and in the evidence file below); came out
+      stalest tied with item 4.10, won the lower-item-number tiebreak.
+      Fresh angle tools/check-pharmacy-first-symptoms.js, never previously
+      named across the prior 28 passes on this item, tested for the first
+      time against a page other than the sore-throat one (uti-treatment-sk-chemists-bootle.html).
+      Isolated git-archive scratch extraction throughout; tracked repo only
+      read. Injected one symptom point copied verbatim from the branch's own
+      sore-throat pathway into the UTI page's symptoms list - CAUGHT cleanly
+      first attempt, rule 5 (list-count mismatch) and rule 6 (cross-pathway
+      contamination), both naming the exact page and the exact string.
+      Restored, sha256-confirmed byte-identical to baseline
+      (03add12e27bccb210aa20619987c8e8caa4c4ae32361653d4ac9828db98a718f).
+      Negative control (harmless reorder of two existing symptom points, no
+      content change) stayed clean, confirming the catch was genuine and
+      selective. Full non-network checker suite re-run clean afterwards
+      (standing check-postcodes.js baseline aside); all generators
+      regenerated and diffed byte-identical against an untouched pristine
+      extraction across modules/, core/ and gbp-packs/. branches.json sha256
+      unchanged throughout (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      No in-repo defect, no live defect checked this pass, no new question
+      raised. Guard coverage for item 3.8 now 27 of the 35 non-network
+      checkers proven by injection against this specific branch (up from
+      26). Full detail:
+      audits/sk-chemists-item-3.8-pharmacy-first-symptoms-injection-2026-11-19.txt.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
