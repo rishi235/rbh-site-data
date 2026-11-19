@@ -1,0 +1,131 @@
+Item 3.9 quality pass (twenty-eighth), Coleman and Leighs Pharmacy (Walton,
+Liverpool) - run (Cowork scheduled, audit-backlog-worker), 2026-11-19.
+
+PICKED AS: stalest rotation-pool item. Run539's own log entry named the
+rotation pool pair 3.13 (run506, 2026-11-17T23:21Z) and 3.9 (run507,
+2026-11-17T23:42Z) as by far the stalest two, 3.13 winning that round by 21
+minutes and being retaken at run539. Every other standing pool item (2.3,
+3.6, 3.2, 4.14, 3.7, 4.13, 5.1) was retaken across runs 531-539. That left
+3.9 as the clear stalest entering this run - confirmed by direct grep of
+AGENT_LOG.md for each candidate's most recent "item N.N" mention.
+
+LOCK/REPO: .agent-lock at pickup held "RELEASED-run539-1795058319" and was
+about 53 minutes old (over the 45-minute threshold). `rm` failed "Operation
+not permitted" (the long-documented FUSE unlink-EPERM symptom on this
+mount), but an in-place overwrite with a fresh UTC timestamp succeeded, the
+established workaround used by every recent run. No .git/index.lock present
+this run. Already on agents/audit-backlog; `git fetch origin` returned
+nothing new; working tree was 6 commits ahead of origin/agents/audit-backlog
+at pickup (run534 through run539's own commits, none pushed - the same
+credential gap run536-539 already logged in full). Left as is to commit
+alongside this run's own work per the rule against rewriting history.
+
+ANSWER PICKUP: QUESTIONS.json showed 140 total, 1 open (Q139). Claude in
+Chrome, read-only, single tab, closed after use: navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest
+entry still the Q52 answer (2026-09-01T22:44:51.524Z); no "AUDIT ANSWER
+Q139" entry present. Left Q139 open, unchanged.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section
+at the top of AGENT_LOG.md. Not in an autonomous window; normal rules
+applied.
+
+WORKLIST: the three unchecked `[ ]` lines reconfirmed [BLOCKED] by direct
+grep (5.8/Q16, 6.4/Q60, 6.5/Q60), none pickable. Fallback quality pass.
+
+REPO HALF: full non-network checker suite run on the tracked repo (git
+status clean against the standing branches.json anchor
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da throughout;
+this session has a full, non-shallow clone, same as run539 found for item
+3.13, so check-cdn-pins.js's git-ref checks run meaningfully here). 35
+check-*.js scripts run (all except check-live-hours.js, the one genuinely
+network-fetch-dependent checker): 34/35 clean, the one failure
+check-postcodes.js's standing CH1 2AB narrative-postcode baseline (residue
+in prior runs' own evidence filenames under audits/, pre-existing, unrelated
+to this item, not actioned). No mutation made to the tracked repo this pass.
+
+FRESH ANGLE - NO REPO RE-INJECTION THIS PASS: run507's own addendum already
+recorded "guard coverage for 3.9 now covers all 35 non-network checkers by
+direct injection" - confirmed by re-reading item 3.9's full worklist body,
+which names every one of check-address-region.js, check-app-membership.js,
+check-booking-routes.js, check-branch-identity.js, check-branch-links.js,
+check-brand-spelling.js, check-cdn-pins.js, check-contraception-copy.js,
+check-editor-snapshot.js, check-em-dashes.js, check-fragment-targets.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-jsonld.js,
+check-map-embeds.js, check-nap.js, check-opening-hours.js,
+check-page-coverage.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-postcodes.js, check-seo-keywords.js,
+check-seo-lengths.js, check-seo-pattern.js, check-seo-sheets.js,
+check-service-links.js, check-switch-copy.js, check-travel-clinic-copy.js,
+check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js, check-weight-loss-copy.js,
+check-whatsapp-route.js and check-widget-diaries.js as already proven by
+direct injection against this specific branch across the prior 27 passes.
+With no un-proven checker left for this item, re-running the same injection
+drill would add nothing - so this pass took the remaining fresh angle
+instead: live pages for this branch that no prior pass had opened.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use): prior passes on this item had only ever read
+the homepage and the pfLink target (pharmacy-first-coleman-leigh-walton.html)
+live. This pass additionally read, in full, three generated-page equivalents
+never previously opened for this item:
+
+  - switch-prescriptions-coleman-leigh-walton.html: phone (0151 525 3522),
+    address (241 Walton Village, Liverpool, L4 6TH), opening hours (both
+    weekday sessions shown correctly, 9-1 and 2-6, Sat/Sun closed) and the
+    hedged switch-copy wording (Q49's answered form: "We contact your GP
+    where it is needed. We handle what we can. We will tell you if anything
+    else is needed.") all match branches.json and the generator's current
+    copy exactly. No new finding.
+
+  - weight-loss-clinic-coleman-leigh-walton.html: reads as the compliant,
+    no-medicine-named, no-superlative generator output exactly as it should
+    - private/paid stated in the hero, NHS funding not claimed, no stock
+    guarantee, cohorts named, "Individual results vary" hedge present. No
+    new finding; this page itself was already clean.
+
+  - travel-clinic-coleman-leigh-walton.html: reads as the compliant
+    generator output - private/paid stated in the hero, NHS hedge present
+    in questions-people-ask rather than as a blanket promise, no stock
+    guarantee, 6-8 week booking window, four safety cohorts named, yellow
+    fever listed (the standing Q48 unresolved field, not new, not actioned
+    here). No new finding.
+
+  - homepage, re-read a second time (also previously read at run506/run520):
+    the "Change to Coleman & Leigh Pharmacy" stale-paste ampersand banner,
+    and the footer's unspaced "0151 5253522" phone against the correctly
+    spaced "0151 525 3522" elsewhere on the same page, both persist
+    unchanged - standing, already-logged findings, reconfirmed not new.
+
+ONE GENUINE STATE-CHANGE FINDING, LIVE ONLY, NOT A REPO DEFECT: the
+homepage's "Our Services Include" list now reads "Weight Loss Clinic:
+Pharmacist-led consultations and ongoing support." Run520 (2026-11-18) had
+flagged this exact wording on a single read as a possible fix to the
+standing Q22 finding (previously quoted live as "Innovative solutions that
+deliver results. Tried the rest? Now try the best.") but explicitly declined
+to log it as resolved on one reading alone, asking the next pass to
+re-check. This pass is that re-check, an independent read on a different
+day: the superlative tagline is confirmed gone, replaced by the hedged
+wording, on two separate reads now (run520 and this run). This looks like
+Q22 has been fixed live (by a Weebly session outside this repo's reach,
+since this repo generates no homepage content for any branch - the homepage
+is entirely live-only, outside every generator here). Recording this in
+QUESTIONS.json as a note against Q22 rather than closing Q22 outright,
+because only one branch's homepage was read and Q22 was raised as a
+same-shape tagline that may exist on other branches' homepages too; closing
+Q22 estate-wide on one branch's confirmation would overreach.
+
+NO BRANCHES.JSON FIELD, GENERATED PAGE, PACK OR CHECKER CONTENT CHANGED.
+Item 3.9 stays [x] (quality pass, not a state change). QUESTIONS.json: Q22
+annotated with this run's live observation (status left "open" since
+Rishi's own 2026-08-30 answer to Q22 was "Unsure - need to loop back,
+will produce guidance" and that guidance has not been given; this finding
+is additional evidence for him, not a decision taken on his behalf).
+
+PUSH/PUBLISH: not repeated in this file at length - see AGENT_LOG.md for
+this run's entry, which notes the same standing credential-gap limitation
+run536-539 already logged and confirmed persisting (git push and the portal
+status-page publish both need a GitHub credential this sandbox does not
+carry).
