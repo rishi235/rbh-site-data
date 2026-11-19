@@ -22973,6 +22973,51 @@ Pharmacy First wording to the NHS service description.
       NEW QUESTION RAISED. Item 4.3 stays `[x]` (quality pass, not a
       state change). Evidence: audits/hirshmans-ainsdale-item-4.3-
       quality-pass-2026-10-19-twentythird.txt. Done 2026-10-19
+      Quality pass 2026-11-19 (twenty-fourth pass, unattended Cowork
+      scheduled run, audit-backlog-worker): rotation pool re-derived by
+      scanning every run header in AGENT_LOG.md for the latest mention
+      of each "item N.N" - 4.3 came out stalest by a full month (last
+      touched 2026-10-19, twenty-third pass) against every other
+      rotation-pool item, all retaken within the preceding few days.
+      BASELINE: full 35-checker suite (excl. check-cdn-pins.js,
+      check-live-hours.js) run directly against the tracked repo: 34/35
+      clean, the one failure the same pre-existing CH1 2AB
+      narrative-postcode debris finding every recent run records,
+      unrelated to this item. branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged from run540/541. FRESH ANGLE: of the checkers that
+      genuinely read gbp-packs/*.md (verified by reading the source,
+      not just grepping the filename), check-pharmacy-first-cost.js was
+      genuinely untested against this pack - it guards the NHS Pharmacy
+      First free-at-point-of-use claim, a different angle from
+      check-pharmacy-first-eligibility.js (who it is for) and
+      check-pharmacy-first-safety-net.js (where an excluded patient
+      goes), neither of which reads cost wording. INJECTION (isolated
+      git-archive scratch extraction, tracked repo never opened for
+      writing): changed "NHS Pharmacy First: free NHS assessment" to
+      "... low-cost NHS assessment" in gbp-packs/hirshmans-ainsdale.md -
+      CAUGHT first attempt, rule 4, "describes NHS Pharmacy First as
+      'low-cost', which prices a service that is free at the point of
+      use." NEGATIVE CONTROL: a harmless edit to the same pack untouched
+      by cost/free/price wording ("step-free access" ->
+      "step-free access to the shop floor") ran clean, confirming
+      genuine discrimination. Both scratch copies deleted after use
+      (ordinary /tmp delete succeeded, confirming the standing
+      EPERM-on-unlink symptom is specific to this session's rbh-site-data
+      mount, not to delete operations generally - a clarifying detail,
+      not actioned further). Tracked repo confirmed untouched throughout
+      (git status --porcelain -- gbp-packs branches.json tools empty;
+      both sha256 values unchanged afterwards). NO IN-REPO DEFECT - the
+      pack's Pharmacy First claim is correctly stated as free, now
+      proven by injection against this checker for the first time. Guard
+      coverage for item 4.3 now 12 of the checkers that genuinely read
+      gbp-packs/*.md proven by injection against this specific pack (up
+      from 11). No generator, page, pack, checker or branches.json
+      content changed. No new question raised; QUESTIONS.json unchanged
+      at pickup (140 total, 1 open - Q139, reconfirmed still open, no
+      portal answer found this pass). Evidence:
+      audits/hirshmans-ainsdale-item-4.3-pharmacy-first-cost-injection-
+      2026-11-19-twentyfourth.txt. Done 2026-11-19
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

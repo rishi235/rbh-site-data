@@ -1,0 +1,90 @@
+Item 4.3 (Hirshmans Chemist Ainsdale GBP pack) - quality pass (twenty-fourth)
+Run: audit-backlog-worker, Cowork scheduled run, 2026-11-19
+
+ROTATION PICK
+All 3 unchecked worklist lines reconfirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60). Fell to the quality-pass fallback. Rotation pool re-derived by
+scanning every "## run###"/"## YYYY-MM-DD ... run NNN" header in
+AGENT_LOG.md and taking, per item, the latest run timestamp that mentions
+"item N.N". Item 4.3 came out stalest by a wide margin: last touched
+2026-10-19 (twenty-third pass, run 333), a full month stale against every
+other rotation-pool item, which had all been retaken within the last few
+days (4.6 and 3.7 both touched by run541 at 2026-11-19T05:13Z). Picked 4.3
+(Hirshmans Chemist, Ainsdale).
+
+BASELINE
+Full checker suite run directly against the tracked repo (36 tools/check-*.js
+files, excluding check-cdn-pins.js and check-live-hours.js, both
+network-dependent): 34/35 exit 0. The one failure, check-postcodes.js, is the
+same pre-existing, unrelated finding every recent run has recorded: untracked
+audit/log debris files in the working tree contain the historical postcode
+CH1 2AB, which is not in branches.json and not in NARRATIVE_POSTCODES. Not a
+defect in any tracked page, pack, generator or branches.json content, and not
+this item's subject matter.
+
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches run540/run541's own recorded value - no drift)
+gbp-packs/hirshmans-ainsdale.md sha256: c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+
+FRESH ANGLE
+Item 4.3's own section already records these checkers proven by injection
+against this specific pack: check-app-membership.js, check-brand-spelling.js,
+check-cdn-pins.js, check-em-dashes.js, check-gbp-packs.js, check-live-hours.js,
+check-nap.js, check-pharmacy-first-eligibility.js, check-postcodes.js,
+check-service-links.js, check-uk-spelling.js.
+
+Of the checkers that genuinely read gbp-packs/*.md (confirmed by grepping
+tools/*.js for the literal string "gbp-packs" and reading the matching source,
+not just the filename), check-pharmacy-first-cost.js was genuinely untested
+against this pack. It guards the NHS Pharmacy First free-at-point-of-use claim
+- the same claim class check-pharmacy-first-eligibility.js (who it is for) and
+check-pharmacy-first-safety-net.js (where an excluded patient goes) already
+cover from different angles, but neither of those reads cost wording.
+
+INJECTION (isolated git-archive scratch extraction; tracked repo never opened
+for writing throughout)
+Extracted HEAD via `git archive HEAD | tar -x` into a scratch directory,
+copied twice (injected + control). In the injected copy, changed
+gbp-packs/hirshmans-ainsdale.md line 46 from:
+  "- NHS Pharmacy First: free NHS assessment and, where appropriate, treatment"
+to:
+  "- NHS Pharmacy First: low-cost NHS assessment and, where appropriate, treatment"
+
+Ran tools/check-pharmacy-first-cost.js against the injected scratch copy -
+CAUGHT first attempt:
+  FAIL [qualifier] gbp-packs/hirshmans-ainsdale.md: describes NHS Pharmacy
+  First as "low-cost", which prices a service that is free at the point of
+  use (rule 4). A patient who reads this and cannot afford a fee does not
+  come, and never says why.
+
+NEGATIVE CONTROL
+In the control scratch copy, made a harmless edit to the same pack that
+touches no free/cost/price wording at all: line 72 "Entrance showing
+step-free access." -> "Entrance showing step-free access to the shop floor."
+Ran the same checker against the control copy: clean, exit 0 ("112 Pharmacy
+First page(s) checked ... 16 GBP pack(s) checked ... clean, every page and
+pack states the free NHS claim, keeps the prescription-charge caveat, and
+prices nothing."). Confirms the catch above was genuine discrimination on the
+cost wording specifically, not an artefact of touching the file at all.
+
+CLEANUP AND VERIFICATION
+Both scratch directories deleted after use (ordinary /tmp delete succeeded
+without the EPERM-on-unlink symptom the mounted repo directory shows -
+confirms that restriction is specific to this session's rbh-site-data mount,
+not to delete operations generally; worth carrying as a clarifying detail,
+not actioned further here).
+`git status --porcelain -- gbp-packs branches.json tools` on the tracked
+repo: empty, before, during and after this pass. Both sha256 values
+reconfirmed unchanged afterwards.
+
+RESULT
+No in-repo defect. Hirshmans Chemist Ainsdale's pack states the NHS Pharmacy
+First claim as free, with no price or cost qualifier, and is now proven by
+injection against check-pharmacy-first-cost.js for the first time. Guard
+coverage for item 4.3 now 12 of the checkers that genuinely read
+gbp-packs/*.md proven by injection against this specific pack (up from 11).
+
+No generator, page, pack, checker logic or branches.json content changed.
+No new question raised. QUESTIONS.json unchanged at pickup (140 total, 1 open
+- Q139 - reconfirmed still open, no portal answer found this pass; see
+AGENT_LOG.md entry for the feedback-feed read).
