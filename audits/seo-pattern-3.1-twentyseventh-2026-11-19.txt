@@ -1,0 +1,58 @@
+Item 3.1 - title/H1 pattern - quality pass (twenty-seventh)
+Run: run561 (Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-19
+
+Picked as the stalest rotation-pool item. Run560 (immediately prior) re-
+derived the rotation pool from AGENT_WORKLIST.md's own per-item max-inline-
+date and took item 2.1 (tied at 2026-11-18 with a wider pool, lower-item-
+number tiebreak). With 2.1 now moved to 2026-11-19 by that pass, the next
+lowest-numbered item still sitting at 2026-11-18 in the same pool is 3.1
+(confirmed directly: the twenty-sixth pass's own "Done 2026-11-18" line is
+still the latest date-stamp inside item 3.1's section). Took 3.1.
+
+REPO-SIDE:
+- node tools/check-seo-pattern.js: 177 pages checked, 0 untyped, 0 failures.
+  Unchanged from the twenty-sixth pass's baseline.
+- Full check-*.js sweep (36 checkers, excluding check-cdn-pins.js and
+  check-live-hours.js which need network/CDN access not exercised this
+  pass): 35/36 exit 0. The one failure, check-postcodes.js, is the standing
+  CH1 2AB narrative-postcode baseline (test postcode quoted inside this
+  item's own historical audit evidence files, not a live defect) - pre-
+  existing, unrelated to this item, consistent with every prior pass's
+  finding on the same checker.
+- branches.json sha256
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da -
+  unchanged from the standing anchor used by every pass since the
+  twenty-fifth.
+- All six page generators (build-service-pages.js, build-switch-pages.js,
+  build-weight-loss-pages.js, build-travel-clinic-pages.js,
+  build-contraception-pages.js, build-branch-landing-pages.js) re-run.
+  git status --porcelain -- modules core branches.json gbp-packs was empty
+  both before and after: byte-stable regeneration, no drift in the pattern
+  or its output.
+
+LIVE HALF (Claude in Chrome, read-only):
+- Followed up the twenty-sixth pass's own flagged loose thread: the two
+  different GPhC numbers on sinusitis-treatment-riddings-timperley.html's
+  footer. Re-read the page directly. The two numbers sit in two different,
+  correctly-labelled blocks: "Riddings Pharmacy (GPHC no. 1029520)" is the
+  PREMISES registration (the shop), and "Superintendent Pharmacist: Dr S K
+  Kochhar (GPhC 2039034)" is Dr Kochhar's own INDIVIDUAL registration as the
+  superintendent. Different registers, different number ranges, both
+  correct facts rather than a contradiction. Not a NAP/branch-identity
+  defect; closing the thread the twenty-sixth pass left open rather than
+  raising a new question. (branches.json carries no GPhC field for either
+  register, so this sits entirely in live Weebly copy, outside any checker
+  in this repo - noted for completeness only.)
+- Fresh angle: read impetigo-treatment-tiffenbergs-aintree.html, a branch
+  and page this item had not sampled on any prior pass (the twenty-fourth,
+  twenty-fifth and twenty-sixth passes sampled Smartts Bootle, no live
+  sample, and Riddings Timperley respectively). Title "Impetigo treatment in
+  Aintree - Tiffenbergs Chemist", H1 "Impetigo treatment in Aintree" -
+  pattern verbatim, no drift, matches this repo's own generated source and
+  SEO.md paste sheet exactly.
+
+NO NEW DEFECT FOUND. NO NEW QUESTION RAISED. Item 3.1 stays [x] (quality
+pass, not a worklist state change). QUESTIONS.json: 141 total, 2 open
+(Q139, Q140) - confirmed via the portal feedback feed (newest entry still
+the historical Q52 answer, 2026-09-01) and independently via Node against
+QUESTIONS.json; unchanged from run560's own count at pickup.

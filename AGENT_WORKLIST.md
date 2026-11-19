@@ -4173,6 +4173,35 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       total, 1 open (Q139, unchanged; checked fresh via the portal feedback
       feed, newest entry still the Q52 answer from 2026-09-01). Evidence in
       audits/seo-pattern-3.1-twentysixth-2026-11-18.txt. Done 2026-11-18
+      Quality pass (twenty-seventh), 2026-11-19 (unattended scheduled run,
+      audit-backlog-worker, run561, Cowork sandbox). Picked as the stalest
+      rotation-pool item, next after run560 took 2.1 (confirmed directly:
+      the twenty-sixth pass's own "Done 2026-11-18" line was still the
+      latest date-stamp inside this item's section). check-seo-pattern.js
+      re-run directly: 177 pages checked, 0 untyped, 0 failures, unchanged.
+      Full check-*.js sweep (36 checkers, excluding check-cdn-pins.js and
+      check-live-hours.js): 35/36 exit 0, the one failure (check-
+      postcodes.js, the standing CH1 2AB narrative-postcode baseline)
+      pre-existing and out of this item's scope. All six page generators
+      re-run; git status --porcelain on modules/, core/, branches.json and
+      gbp-packs/ empty before and after, byte-stable regeneration.
+      branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      unchanged. LIVE HALF (Claude in Chrome): closed the loose thread the
+      twenty-sixth pass left open - re-read
+      sinusitis-treatment-riddings-timperley.html's footer directly; the
+      two GPhC numbers are two correctly-labelled, different registers
+      (premises 1029520 vs Dr Kochhar's own individual registration
+      2039034), not a contradiction, so no new question raised. Fresh
+      angle: read impetigo-treatment-tiffenbergs-aintree.html, not sampled
+      on any prior pass. Title "Impetigo treatment in Aintree - Tiffenbergs
+      Chemist", H1 "Impetigo treatment in Aintree" - pattern verbatim, no
+      drift. NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.1 stays
+      `[x]` (quality pass, not a state change). QUESTIONS.json: 141 total,
+      2 open (Q139, Q140, unchanged; checked fresh via the portal feedback
+      feed, newest entry still the historical Q52 answer from 2026-09-01).
+      Evidence in audits/seo-pattern-3.1-twentyseventh-2026-11-19.txt.
+      Done 2026-11-19
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
