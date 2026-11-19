@@ -1,0 +1,69 @@
+Item 3.6 quality pass (twenty-eighth), McCanns Chemist (Aigburth and Sandringham)
+Run: audit-backlog-worker, scheduled Cowork session, 2026-11-19T07:4x UTC
+Checker under test: tools/check-pharmacy-first-safety-net.js
+(never named once across item 3.6's prior 27 passes)
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged, matches every prior pass's anchor)
+
+Full checker suite run individually before any mutation, all tools/check-*.js
+except check-live-hours.js (network-dependent): 34/35 clean, the one failure
+the standing CH1 2AB narrative-postcode baseline (pre-existing, unrelated to
+this item, not actioned). check-cdn-pins.js included and clean (this session
+has a full non-shallow git clone).
+
+Target file: modules/service/pages/uti-treatment-mccanns-aigburth.html
+sha256 before: 88ca6e5b2556915be3975fe287e124561e0f82fb57a1cdade7853442a8d526eb
+
+INJECTION ROUND 1 (CAUGHT first attempt)
+-----------------------------------------
+Changed the page's own "When to get different help" point from:
+  "If you are pregnant, under 16 or over 64, the pharmacist will guide you to
+  the right care"
+to:
+  "If you are pregnant or under 16, the pharmacist will guide you to the
+  right care"
+(dropping the upper-age-boundary clause, simulating a hand-edit/stale page).
+
+Result: FAIL uti-treatment-mccanns-aigburth.html: a safety-net point is
+missing from the page (rule 6, verbatim-on-page). Caught on first attempt,
+naming the exact page.
+
+Restored from backup. sha256 after restore: identical to before
+(88ca6e5b2556915be3975fe287e124561e0f82fb57a1cdade7853442a8d526eb).
+Checker re-run: clean (only the standing Q61 impetigo "no urgent route"
+WARN, pre-existing and already in KNOWN).
+
+NEGATIVE CONTROL (ran clean, confirming selectivity)
+-----------------------------------------------------
+Edited branches.json: mccanns_aigburth.shortCode changed from "AIG" to "ZZZ"
+(a field this checker does not read). Checker ran clean - no FAIL/WARN
+changed. branches.json restored from backup; sha256 reconfirmed identical to
+the standing baseline (0385b7c2...27da).
+
+POST-TEST VERIFICATION
+-----------------------
+Full checker suite re-run after restoration: 34/35 clean, same standing
+CH1 2AB failure, no regression. git status --porcelain on modules/, core/,
+tools/, branches.json: clean (no tracked changes left behind).
+
+RESULT
+------
+Zero in-repo defect found. check-pharmacy-first-safety-net.js is proven to
+read McCanns Aigburth's own Pharmacy First condition pages correctly and
+selectively (catches a drifted safety-net point on this branch's own page,
+ignores an unrelated branches.json field). Guard coverage for item 3.6 now
+30 of 37 checkers proven by direct injection against this item specifically
+(up from 29). No generator, page, pack, checker or branches.json content
+changed as a result of this pass.
+
+Sandringham's equivalent pages were not separately injection-tested this
+pass (Aigburth's UTI page was sufficient to prove the checker reads McCanns
+pages correctly); a future pass wanting a fresh angle on this item could
+target check-pharmacy-first-safety-net.js against Sandringham specifically,
+or pick from the remaining untested checkers for this item: check-
+contraception-copy.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js, check-
+pharmacy-first-symptoms.js, check-uk-spelling.js, check-url-scheme.js.

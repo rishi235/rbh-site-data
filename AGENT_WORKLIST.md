@@ -10171,6 +10171,45 @@ the Q52 answer (2026-09-01); no answer present for Q139. Left Q139 open,
 unchanged. No "Standing authorisation - autonomous window" section present at
 the top of AGENT_LOG.md, so step 4 did not apply. No new question raised.
 Evidence in audits/mccanns-item-3.6-gbp-pharmacy-first-injection-2026-11-18.txt.
+
+Quality pass 2026-11-19 (twenty-eighth, run544, unattended scheduled run).
+Rotation-pool pick: this item's own block last mentioned 2026-11-18T20:41Z
+(run532), the stalest of the standing pool by roughly ten hours - every other
+pool item (2.3, 3.2, 4.14, 3.7, 4.13, 5.1, 3.13, 3.9, 4.6, 4.3) had been
+retaken by runs 533-543 within the preceding eleven hours. FRESH ANGLE:
+tools/check-pharmacy-first-safety-net.js, never named once across this
+item's prior 27 passes, applies directly because both McCanns branches
+publish all seven Pharmacy First condition pages (including UTI, the
+pathway with both an age floor and ceiling). Full 35-checker suite
+(excluding check-live-hours.js, network-dependent) run individually before
+any mutation: 34/35 clean, the one failure the standing CH1 2AB
+narrative-postcode baseline (pre-existing, unrelated). branches.json sha256
+confirmed 0385b7c2...27da, unchanged.
+
+Injection: on modules/service/pages/uti-treatment-mccanns-aigburth.html,
+dropped the upper-age-boundary clause ("or over 64") from the page's own
+"When to get different help" point - CAUGHT on first attempt, rule 6
+(verbatim-on-page), naming the exact page. Restored from backup, sha256
+reconfirmed identical (88ca6e5b...26eb). Negative control: edited
+branches.json's mccanns_aigburth.shortCode only (a field this checker
+ignores) - ran clean, confirming selectivity. branches.json restored,
+sha256 reconfirmed identical to the standing baseline. Full 35-checker suite
+re-run clean after (34/35, same standing CH1 2AB failure, no regression).
+RESULT: zero in-repo defect found - both McCanns Pharmacy First condition
+pages' safety-net copy matches the generator's canon exactly. Guard
+coverage for item 3.6 now 30 of 37 checkers proven by direct injection (up
+from 29).
+
+ANSWER PICKUP: Claude in Chrome, read-only, single tab, closed after use;
+navigated to https://data.rbhealth.co.uk/api/feedback and read the full
+feed. Newest entry still the Q52 answer (2026-09-01T22:44:51.524Z); no
+"AUDIT ANSWER Q139" entry present. QUESTIONS.json reconfirmed: 140 total,
+1 open (Q139), unchanged. No "Standing authorisation - autonomous window"
+section present at the top of AGENT_LOG.md at pickup, so step 4 did not
+apply. No new question raised; no generator, page, pack, checker or
+branches.json content changed. Item 3.6 stays [x] (quality pass, not a
+state change). Evidence in
+audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
