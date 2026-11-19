@@ -1,0 +1,93 @@
+Item 3.5 quality pass, twenty-eighth, run 2026-11-19 (Cowork scheduled run,
+audit-backlog-worker). Hirshmans Chemist (Ainsdale).
+
+FRESH ANGLE: tools/check-widget-diaries.js. Never named once across the prior
+twenty-seven passes on this item (checked by flattening the item's own
+AGENT_WORKLIST.md section, rejoining hyphen-wrapped filenames split across a
+line break, and counting occurrences of every tools/check-*.js basename -
+confirms the twenty-seventh pass's own count of twenty-six, and that this
+checker had not been run against Hirshmans before now).
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  - matches the twenty-seventh pass's own recorded baseline exactly; no edits
+    to branches.json between that pass and this one.
+Full suite on the live repo, excluding check-cdn-pins.js and check-live-hours.js
+(both network-dependent, excluded by standing convention): 35 checkers run,
+34 pass, 1 fails - check-postcodes.js, which is the standing, already-pinned
+NARRATIVE_POSTCODES baseline exemption (CH1 2AB) and not a live defect.
+check-widget-diaries.js itself, on the live repo:
+
+  check-widget-diaries: 79 widget id(s) across 16 live branches, 73 distinct
+    3 multi-site brand(s): scorahs, mccanns, fishlocks
+    shared brand diaries : travelClinic, weightLoss
+    per-site diaries     : bloodPressure, contraception, pharmacyFirst
+    6 id(s) shared between sister sites, 0 permitted across brands
+  check-widget-diaries: clean, every diary id belongs to exactly the branch
+  and service that should hold it.
+
+Hirshmans Ainsdale is a single-site brand (brandSlug "hirshmans", id
+"hirshmans_ainsdale"), so all five of its widget ids must be unique
+estate-wide with no legitimate sharing - exactly the class check-
+widget-diaries.js exists to protect, and exactly the class item 3.7
+(Smartts/SK Chemists Bootle) first found broken by proximity in
+branches.json rather than by a brand relationship.
+
+INJECTION TESTS (scratch copy via `git archive HEAD`, never the live repo)
+
+Scratch copy confirmed byte-identical to the live repo before any injection
+(sha256 0385b7c2...27da matched) and the checker's clean output reproduced
+on the scratch copy first.
+
+Injection A: hirshmans_ainsdale.widgets.bloodPressure set to
+skchemists_bootle's bloodPressure id (66b9d6088ed9220fea0a206d) - a
+different brand, no sister relationship, same service slot.
+  Result: CAUGHT first attempt.
+    FAIL  widget id "66b9d6088ed9220fea0a206d" is held by 2 different
+    brands (hirshmans/hirshmans_ainsdale.bloodPressure,
+    skchemists/skchemists_bootle.bloodPressure). A booking made on one
+    brand's page would land in another brand's diary.
+  Restored from branches.json.orig; sha256 matched the pre-injection
+  baseline exactly; checker re-run clean.
+
+Injection B: hirshmans_ainsdale.widgets.pharmacyFirst set to
+skchemists_bootle's pharmacyFirst id (66b9d657d71f677c6d5e602b) - proves the
+rule fires on a different service slot, not just the one Injection A used.
+  Result: CAUGHT first attempt.
+    FAIL  widget id "66b9d657d71f677c6d5e602b" is held by 2 different
+    brands (hirshmans/hirshmans_ainsdale.pharmacyFirst,
+    skchemists/skchemists_bootle.pharmacyFirst). A booking made on one
+    brand's page would land in another brand's diary.
+  Restored from branches.json.orig; sha256 matched the pre-injection
+  baseline exactly; checker re-run clean.
+
+Post-restore: `diff -rq` of the scratch copy's modules/ and core/ against the
+live repo's own modules/ and core/ reported zero differences (no generator
+was run against the injected state, so nothing needed rebuilding); the live
+repo's own branches.json was confirmed byte-unchanged throughout
+(sha256 0385b7c2...27da at the end, matching the start).
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted)
+Read https://www.hirshmanspharmacy.co.uk/ (homepage). Nav and hero carry
+Pharmacy First, Contraception, Weight Loss Clinic (Ainsdale), Travel Clinic
+(Ainsdale) and Switch Prescriptions - the same five services branches.json
+holds widget ids for, nothing extra and nothing missing. No app mention or
+store button (consistent with hasApp: false). Address "56-62 Sherwood House,
+Station Road, Ainsdale, Southport, PR8 3HW", phone "01704 577376" and email
+"pharmacy.FW378@nhs.net" all match branches.json field for field. Footer
+hours "Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun closed"
+consistent with the split-day pattern already verified on prior passes.
+
+RESULT: NO IN-REPO DEFECT FOUND. check-widget-diaries.js already correctly
+protects Hirshmans Ainsdale's single-site, no-sharing widget ids in both
+directions (format and estate-wide uniqueness), proven by two independent
+direct injections on two different service slots, both caught first
+attempt, both cleanly restored and reconfirmed.
+
+NO NEW QUESTION RAISED. QUESTIONS.json checked at pickup: 2 open (Q139,
+Q140); portal checked (https://data.rbhealth.co.uk/api/feedback, read-only,
+one tab) and held no answer for either - newest entry on the feed is still
+Q52 (2026-09-01). Both left open, unchanged.
+
+Item 3.5 stays [x] (quality pass, not a state change).

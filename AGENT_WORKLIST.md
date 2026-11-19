@@ -8967,6 +8967,39 @@ answer found, left unchanged). Item 3.5 stays `[x]` (quality pass, not a
 state change). Full detail in audits/hirshmans-ainsdale-item-3.5-quality-
 pass-2026-11-18-twentyseventh.txt. Done 2026-11-18.
 
+Quality pass 2026-11-19 (twenty-eighth): new angle, tools/check-widget-
+diaries.js, never named once across the prior twenty-seven passes on this
+item. Baseline sha256(branches.json) = 0385b7c2...27da, unchanged since the
+twenty-seventh pass. Full 35-checker suite (excluding check-cdn-pins.js and
+check-live-hours.js, network-dependent) 34/35 on the live repo, the one
+failure being the standing check-postcodes.js narrative-debris baseline
+exemption, not a live defect. check-widget-diaries.js itself clean on the
+live repo: 79 ids across 16 branches, 73 distinct, 6 shared between sister
+sites, 0 shared illegitimately across brands. Hirshmans Ainsdale is a
+single-site brand, so all five of its ids must be unique estate-wide with
+no legitimate sharing - exactly the class this checker protects. Two
+injections on a scratch copy (via `git archive HEAD`, confirmed byte-
+identical to the live repo first), each restored by byte copy and sha256-
+reconfirmed before the next: (A) hirshmans_ainsdale.bloodPressure set to
+skchemists_bootle's bloodPressure id - CAUGHT first attempt, cross-brand
+share flagged; (B) hirshmans_ainsdale.pharmacyFirst set to
+skchemists_bootle's pharmacyFirst id, a different service slot - CAUGHT
+first attempt, same rule. Both restored; post-restore full-suite re-run
+matched the pre-injection baseline exactly, and `diff -rq` of the scratch
+copy's modules/ and core/ against the live repo's own reported zero
+differences. The live repo's own branches.json was confirmed byte-unchanged
+throughout. NO IN-REPO DEFECT FOUND: check-widget-diaries.js already
+correctly protects this branch's single-site, no-sharing widget ids in
+both directions. LIVE HALF (Claude in Chrome, read-only, one tab, nothing
+clicked, typed or submitted): read https://www.hirshmanspharmacy.co.uk/ -
+nav and hero carry exactly the five services branches.json holds widget
+ids for, no app mention (consistent with hasApp false), and address, phone
+and email all match branches.json exactly. NO NEW QUESTION RAISED
+(QUESTIONS.json checked at pickup: 2 open, Q139 and Q140; portal checked,
+held no answer for either, left unchanged). Item 3.5 stays `[x]` (quality
+pass, not a state change). Full detail in audits/hirshmans-ainsdale-item-
+3.5-quality-pass-2026-11-19-twentyeighth.txt. Done 2026-11-19.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
