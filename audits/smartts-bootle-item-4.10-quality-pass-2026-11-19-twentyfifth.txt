@@ -1,0 +1,95 @@
+Item 4.10 (Smartts Chemist, Bootle GBP pack) - twenty-fifth quality pass
+Run: audit-backlog-worker, unattended scheduled run, Sonnet 5, 2026-11-19
+
+Picked as stalest rotation-pool item: last dedicated touch 2026-11-18
+(twenty-fourth pass), tied with item 3.8 which run558 completed earlier
+today, per run558's from-first-principles rotation re-derivation (the
+"nearest AGENT_LOG mention" shortcut had narrowed into a tight ~10-item
+loop and missed both).
+
+REPO-SIDE
+- branches.json smartts_bootle record re-matched field by field against
+  gbp-packs/smartts-bootle.md's Profile basics block: address 42 Fernhill
+  Road, Bootle L20 9HH; phone 0151 922 4984; both hours sessions
+  09:00-13:00 and 14:00-18:00 Mon-Fri, Sat/Sun closed; website; review
+  link; serviceAreaList Bootle/Sefton/Liverpool. Unchanged from every
+  prior pass.
+- branches.json sha256:
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor, confirming no drift).
+- Full 37-checker suite run (tools/check-*.js): 36 clean, 1 pre-existing
+  standing failure (tools/check-postcodes.js, the long-documented CH1 2AB
+  injection-residue postcode scattered across dozens of audit evidence
+  files from past injection tests) - unchanged, out of this item's scope,
+  not re-actioned here.
+- The twenty-fourth pass (2026-11-18) already established that all ten
+  checkers which actually read gbp-packs/ had each been separately proven
+  by direct injection against this specific pack, and that no further
+  untried, applicable checker remains. This pass did not attempt another
+  checker injection for that reason, and instead used a genuinely new
+  angle: cross-referencing this pack's own text against a sibling
+  live-only document for the same branch that no prior 4.10 pass had
+  compared it with.
+
+NEW ANGLE: PACK WORDING vs LIVE AEO PAGE WORDING (medical cannabis)
+gbp-packs/smartts-bootle.md's own paster notes are explicit: "Medical
+cannabis wording is deliberately limited to 'book a free consultation to
+discuss eligibility'. Do not add availability or benefit claims anywhere
+on the profile." The pack's business description and services section
+both match that restraint exactly.
+
+The live AEO/AI-assistant page for the same branch
+(www.smarttschemist.co.uk/hey-ai-read-this.html, discovered on the item
+3.7 pass and already the subject of open questions Q139 and Q140) states
+under "Medical Cannabis": "We support patients with a valid prescription
+for medical cannabis. Speak to our team for guidance." This is a
+materially different and more assertive claim than the pack's
+eligibility-consultation-only framing - it reads as describing an active
+ongoing support/dispensing service for patients who already hold a
+prescription, not merely a free consultation to discuss eligibility for
+one. Re-read in full this pass (live, Claude in Chrome, read-only, no
+login/click/submit, tab closed after use).
+
+This does not change Q140's substance (still open, still needs the
+superintendent pharmacist's confirmation of whether medical cannabis
+support is a genuine, accurate Smartts service) but it adds a concrete,
+sourced comparator: wherever this repo HAS drafted medical-cannabis
+wording for this exact branch (the GBP pack), it was deliberately
+conservative and non-claim-making, which is further evidence the AEO
+page's looser wording is third-party boilerplate rather than wording this
+repo or its conventions produced. Appended as an addendum to Q140 in
+QUESTIONS.json rather than a new question, per the established convention
+for additional confirming detail on an open question.
+
+SECONDARY FINDING (Q139 addendum): the AEO page names and links
+www.simpleweightloss.co.uk FOUR times (Quick Facts block, the "What
+weight management services" FAQ answer, the Contact and Booking section,
+and the page's own "Weight management clinic:" line), not the two
+instances Q139 originally logged. No new substance, just a fuller count
+for whoever actions Q139's eventual answer. Appended as an addendum to
+Q139.
+
+LIVE RECONFIRMATION (unchanged from prior passes, no new finding)
+- Homepage (smarttschemist.co.uk): address, phone, "Switch your
+  prescriptions" strip and footer all match branches.json. Opening hours
+  still print 9:00am-6:00pm Mon-Fri, Sat/Sun closed, with no lunch closure
+  shown - the standing website-hours contradiction against the
+  NHS-confirmed 1pm-2pm closure this pack's own paster guidance warns
+  about, unchanged.
+- Google Business Profile (via the pack's own googleReviewUrl,
+  g.page/r/CVzJUbDqQwReEBM/review): name still reads "Smartts Chemist -
+  Travel Vaccination and Simple Weight Loss Clinic", not the plain
+  trading name the pack and branches.json state (Q125 addendum,
+  unchanged). 20 reviews, 4.8 stars, unchanged. Hours panel read "Closed -
+  Opens 9 am Fri" at the time checked, consistent with branches.json, no
+  locked-door fault. "People also search for" again showed "S K Chemist -
+  Travel Vaccination and Simple Weight Loss Clinic" (item 4.11) - a
+  second independent sighting of the same pattern on a second pass, still
+  left at the sighting tier for item 4.11's own pass to confirm directly
+  per the twenty-second pass's established convention, not claimed here.
+
+NO IN-REPO DEFECT FOUND. No generator, page, pack, checker or
+branches.json content changed this pass - only this evidence file,
+AGENT_WORKLIST.md (new paragraph under item 4.10, checkbox unchanged,
+already [x]), QUESTIONS.json (Q139 and Q140 addenda) and AGENT_LOG.md.
+Done 2026-11-19.

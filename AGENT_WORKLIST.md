@@ -29640,6 +29640,39 @@ directly rather than re-deriving the same facts by hand.
       left for that item's own pass to confirm directly, per the
       twenty-second pass's convention. No in-repo defect, no new question.
       Done 2026-11-18.
+      Twenty-fifth quality pass 2026-11-19 (unattended scheduled run,
+      audit-backlog-worker, Sonnet 5). Stalest item in the rotation pool
+      by last-touched date (2026-11-18, tied with item 3.8 which run558
+      completed earlier the same day). Repo-side: branches.json
+      smartts_bootle record re-matched field by field against the pack -
+      unchanged. branches.json sha256 unchanged from every prior pass. Full
+      37-checker suite run: 36 clean, 1 pre-existing standing failure
+      (check-postcodes.js, the long-documented CH1 2AB injection-residue
+      finding scattered across old audit evidence files), out of scope,
+      not re-actioned. The twenty-fourth pass already established no
+      untried, applicable checker remains for this pack, so this pass used
+      a genuinely new angle instead: cross-referencing the pack's own
+      deliberately restrained medical-cannabis wording ("book a free
+      consultation to discuss eligibility", with an explicit paster
+      instruction against availability or benefit claims) directly against
+      the live AEO page for the same branch (hey-ai-read-this.html, the
+      subject of open Q139/Q140), which instead states "We support
+      patients with a valid prescription for medical cannabis. Speak to
+      our team for guidance" - a materially more assertive claim. Appended
+      as an addendum to Q140 (QUESTIONS.json), not a new question. Also
+      appended an addendum to Q139 recording that the AEO page links
+      simpleweightloss.co.uk four times, not two as first logged. LIVE
+      reconfirmation (Claude in Chrome, read-only, no login/click/submit):
+      homepage address/phone/footer match, standing website-hours
+      contradiction unchanged; GBP name still carries the
+      "Travel Vaccination and Simple Weight Loss Clinic" suffix (Q125,
+      unchanged); 20 reviews, 4.8 stars, unchanged; "People also search
+      for" showed the SK Chemists Bootle equivalent name a second time,
+      still left for item 4.11's own pass per established convention. No
+      in-repo defect, no generator/page/pack/checker/branches.json content
+      changed. Evidence in
+      audits/smartts-bootle-item-4.10-quality-pass-2026-11-19-twentyfifth.txt.
+      Done 2026-11-19.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
