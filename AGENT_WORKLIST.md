@@ -20190,6 +20190,30 @@ Quality pass (twenty-eighth), 2026-11-19 (Cowork scheduled run). REPO HALF:
       Evidence in
       audits/clear-aintree-item-3.13-quality-pass-2026-10-20-nineteenth.txt.
       Done 2026-10-20
+      Quality pass 2026-11-19 (run556, thirtieth), rotation-pool pick (stalest
+      by roughly 11 hours against every other pool item, run539's own
+      twenty-ninth pass having been the last touch, 03:12Z). REPO HALF: full
+      36-checker suite re-run individually, clean except the standing CH1 2AB
+      narrative-postcode baseline (unrelated, pre-existing); branches.json
+      sha256 unchanged from the standing anchor. No further injection round
+      run - item 3.13 already reached full 36/36 non-network checker coverage
+      proven by direct injection at run539. FRESH ANGLE, re-measurement not
+      first-proof: re-checked the standing sweep-broken-links.js SKIP_HOSTS
+      exposure for www.clearchemist.co.uk (last measured 2026-08-30, "still
+      nil"), by grepping all three of this branch's generated pages for every
+      href to that host - all three still link only to the bare site root, no
+      deep link added, exposure confirmed still nil. LIVE HALF, read only:
+      switch-prescriptions-clear-aintree.html still returns the store's own
+      404 page, still quoting 0151 203 6535, matching branches.json and Q28's
+      standing resolution; Q29's "leave unpublished" answer still holds. Q65
+      (walk-in wording vs. branches.json's own record for this branch)
+      remains open, deliberately not re-raised: a live patient-facing
+      regulatory-edge claim, carved out of autonomous decisions regardless of
+      window state, and no autonomous window was open this run. Zero in-repo
+      defects, nothing edited under tools/, modules/, core/ or branches.json.
+      Evidence in
+      audits/clear-aintree-item-3.13-skiphosts-remeasure-quality-pass-2026-11-19-thirtieth.txt.
+      Done 2026-11-19
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

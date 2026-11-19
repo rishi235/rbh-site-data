@@ -1,0 +1,84 @@
+Item 3.13 (Clear Chemist, Aintree/Liverpool) - quality pass (thirtieth), 2026-11-19, run556
+(Sonnet 5, Cowork scheduled run, audit-backlog-worker)
+
+PICKUP
+.agent-lock absent at pickup. .git/index.lock present (0 bytes, dated 2026-11-19T17:24Z,
+roughly 18 minutes old at pickup, no git process running per ps aux) - this is the
+long-documented sandbox EPERM-on-unlink symptom (see CLAUDE.md and runs 381 onward), not a
+sign of a genuinely concurrent run. Cleared via the repo's own established mv-aside
+workaround (rename to .git/index.lock.debris-<epoch>, same convention as every prior run's
+".RELEASED-run###-<ts>" naming for .agent-lock), which is the documented remedy for this
+exact symptom, rather than a literal unlink (which this mount cannot do) or an outright wait
+for the 1-hour threshold.
+
+ROTATION POOL (step 5 fallback): worklist's three unchecked lines (5.8/Q16, 6.4/Q60,
+6.5/Q60) reconfirmed [BLOCKED] by direct grep, none pickable. Pool re-derived via the
+established grep method (each candidate item's nearest-to-top "item N.N" mention in
+AGENT_LOG.md), run555's own freshness snapshot taken as the starting point and re-verified:
+3.7 and 5.1 both just refreshed by run555 (17:12Z); 4.13 run551-552 (15:xx Z); 4.14 run546
+(09:41Z); 3.6/3.2 run545 (08:42Z); 2.3 run543 (07:12Z); 4.3 run542 (06:12Z); 4.6 run541
+(05:13Z); 3.9 run540 (04:11Z); 3.13 run539 (03:12Z, twenty-ninth pass) - stalest by roughly
+11 hours against every other pool item. Picked 3.13, Clear Chemist (Aintree/Liverpool).
+
+BASELINE
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da -
+unchanged from every prior pass's anchor, confirmed before any work.
+
+REPO HALF
+Full 37-checker suite (all tools/check-*.js except check-live-hours.js, network-dependent)
+run individually: 36/36 clean, the one failure the standing CH1 2AB narrative-postcode
+baseline (now 29 instances across the growing audits/ corpus, up from 28 at the last count -
+each new instance is a new dated evidence file quoting the same historical narrative value,
+not a new kind of fault; pre-existing, unrelated to this item, not actioned). No injection
+round run this pass - item 3.13 already reached full coverage (36/36 non-network checkers
+proven by direct injection against this branch specifically) at run539's twenty-ninth pass;
+manufacturing a 37th redundant proof against the same checkers was judged lower value than
+the re-measurement below, which is a standing open re-check this item's own history
+explicitly calls for.
+
+FRESH ANGLE: re-measured the sweep-broken-links.js SKIP_HOSTS exposure for
+www.clearchemist.co.uk, last measured 2026-08-30 ("still nil, because all three links to
+www.clearchemist.co.uk remain the site root and no deep link has been added"). This checker
+deliberately excludes this host from its own link-health sweep (tools/sweep-broken-links.js,
+SKIP_HOSTS), so no link to it has ever been status-checked by that instrument; the exposure
+is only ever closed by hand re-measurement, which is why this item's own history treats it as
+a standing thing to periodically re-check rather than a one-off finding. Grepped every href
+on all three of this branch's generated pages
+(modules/service/pages/travel-clinic-clear-aintree.html,
+modules/service/pages/weight-loss-clinic-clear-aintree.html,
+modules/switch/pages/switch-prescriptions-clear-aintree.html) for clearchemist.co.uk: all
+three still carry exactly one link each, all to the bare site root
+(href="https://www.clearchemist.co.uk", no path), unchanged since 2026-08-14. Exposure
+confirmed still nil as of this pass. Becomes real the moment a deep link is added to any of
+these three pages; a future pass should re-grep rather than assume.
+
+LIVE HALF, READ ONLY
+One browser tab, Claude in Chrome, navigated to
+https://www.clearchemist.co.uk/switch-prescriptions-clear-aintree.html, nothing clicked,
+typed or submitted, closed after. Returns the store's own 404 page ("Whoops, our
+mistake..."), giving 0151 203 6535 as the contact number in the 404 page's own text -
+matching branches.json's clearchemist_aintree.phone and Q28's standing resolution, unchanged
+since the 2026-08-31 and 2026-09-01 passes recorded the same read. Confirms Q29's standing
+answer ("leave the three pages generated and unpublished... revisit when the store is next
+worked on") still holds: the three generated slugs have not reached the public since that
+decision. Did not repeat the clearchemist.co.uk/contact-us read, since item 4.9 (a different
+worklist item covering this same branch's GBP pack) read it in full only one day earlier
+(2026-11-18) and reconfirmed phone, WhatsApp, hours and address all matching
+branches.json/the pack exactly, with standing Q21/Q28/Q29/Q112 findings unchanged - re-reading
+the identical page again one day later would add nothing, consistent with run539's own
+reasoning for the same skip.
+
+OPEN QUESTIONS TOUCHED
+Q65 (the three pages promise a walk-in service branches.json's own record for this branch
+contradicts) remains open and was deliberately not re-raised or re-argued; nothing read this
+pass bears on it beyond what prior passes already recorded, and it is a live patient-facing
+regulatory-edge claim that the task's own hard rules carve out of autonomous decision-making
+regardless of window state (no autonomous window was open this run in any case, per the step
+4 check logged in AGENT_LOG.md). Q28, Q29 reconfirmed unchanged as "answered" in
+QUESTIONS.json and consistent with what was read live. Q139/Q140 are Smartts-specific
+(item 3.7), not this branch; not touched by this pass.
+
+OUTCOME
+Zero in-repo defects found. Nothing edited under tools/, modules/, core/ or branches.json.
+Item 3.13 stays [x] (quality pass, not a worklist state change). No new question raised.
+QUESTIONS.json unchanged: 141 total, 2 open (Q139, Q140).
