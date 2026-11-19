@@ -1,0 +1,71 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton/Liverpool) - quality pass (twenty-ninth), 2026-11-19
+Run: audit-backlog-worker scheduled run (Sonnet 5, Cowork), 2026-11-19T18:12Z onward.
+
+CONTEXT
+As of run507's pass (2026-11-17), all 35 non-network checkers (every tools/check-*.js
+except check-cdn-pins.js and check-live-hours.js) had been proven by direct injection
+against this branch specifically. check-cdn-pins.js was the one remaining checker never
+isolated for this item, because it requires comparing committed git content (HEAD vs
+origin/main) rather than working-tree content alone, which the .git-less scratch copies
+(git archive | tar -x) used for every other checker's injection test cannot support.
+
+METHOD
+Used `git worktree add --detach` from the tracked repo at
+/sessions/dazzling-hopeful-gauss/mnt/outputs/scratch39/wt (outside the tracked working
+copy, on the session's own outputs mount rather than /tmp, which this sandbox's root
+filesystem does not have room for - a `git clone` attempt first filled /tmp to "No space
+left on device" and was abandoned; a worktree shares git objects with the tracked repo
+rather than duplicating them, and is far lighter). The worktree resolves origin/main
+(5c7fa63c5c0917d728b47a1c17407e18e72494f8) and is not shallow, so check-cdn-pins.js's own
+git-based comparisons work correctly inside it. The tracked repo itself was never opened
+for writing.
+
+BASELINE
+Full non-network checker suite (36 checkers, check-live-hours.js excluded) run
+individually inside the worktree before any mutation: 36/36 clean except the standing
+CH1 2AB narrative-postcode baseline (check-postcodes.js), pre-existing, unrelated, not
+actioned - the same single known failure every prior pass on this branch has recorded.
+check-cdn-pins.js itself: clean, 2 warnings, 6 KNOWN issues, none new or specific to this
+branch.
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged from every prior pass's anchor).
+modules/switch/pages/switch-prescriptions-coleman-leigh-walton.html sha256:
+1aa1b99705f3bc24d64800969c567897eb1e3d6790aea2acd4b06d7a992610aa
+
+INJECTION (positive case)
+Mutated the branch's own generated switch page, changing its switch.css pin reference
+from the generator's declared PIN (5c7fa63, matching tools/build-switch-pages.js's own
+const PIN) to a bogus ref (deadbee), leaving the switch.js pin on the same page
+untouched. Re-ran check-cdn-pins.js: CAUGHT cleanly, first attempt, two distinct FAILs -
+one naming the Coleman and Leighs page explicitly as pinning 'deadbee' against the
+generator's declared '5c7fa63', and one reporting that 'deadbee' does not resolve in git
+at all (would break the live asset if pushed). File reverted via `git checkout --`
+immediately after; sha256 reconfirmed identical to the pre-mutation baseline above.
+
+NEGATIVE CONTROL
+Changed colemanleigh_liverpool's shortCode field in branches.json (COL -> ZZZ), a field
+check-cdn-pins.js does not read and that reaches no generated page. Re-ran
+check-cdn-pins.js: clean, confirming the checker does not false-positive on an unrelated
+branches.json edit. Reverted via `git checkout --`; branches.json sha256 reconfirmed
+identical to the tracked repo's own anchor (0385b7c2...), proven against both the
+worktree's own checkout and `git show HEAD:branches.json` on the tracked repo directly.
+
+RESULT
+Guard coverage for item 3.9 (Coleman and Leighs) now extends to all 37 checkers proven
+by direct injection (up from 35 non-network ones as of run507; check-live-hours.js is
+network-dependent and tested live rather than by injection, and was already exercised
+live against this branch on 2026-11-17). No in-repo defect found. No generator, page,
+pack, checker or branches.json content changed - every mutation in this pass was made
+and reverted inside a disposable worktree outside the tracked repo, confirmed by sha256
+before and after.
+
+CLEANUP NOTE
+`git worktree remove --force --force` on the finished worktree hit the same sandbox
+EPERM-on-unlink symptom this repo has documented since run381 (CLAUDE.md), this time on
+.git/worktrees/wt itself rather than an index/HEAD lock. Renamed aside to
+.git/worktrees/wt.debris-<epoch> via the same established mv-aside convention as every
+other lock-debris file in this repo; `git worktree list` still shows a stale "wt" entry
+pointing at the now-deleted directory as a result (metadata leftover, not a live
+worktree - the directory itself was removed), but `git status`, `git log` and `git
+commit` all confirmed working normally despite it. Left for a future supervised cleanup
+alongside the other accumulated lock-debris, per run550's standing note on that subject.

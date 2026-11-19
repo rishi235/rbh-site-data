@@ -14595,6 +14595,38 @@ Quality pass (twenty-eighth), 2026-11-19 (Cowork scheduled run). REPO HALF:
       Evidence in audits/
       coleman-leighs-item-3.9-quality-pass-2026-11-19-twentyeighth.txt.
       Done 2026-11-19.
+Quality pass (twenty-ninth), 2026-11-19 (Cowork scheduled run). Fresh angle:
+      check-cdn-pins.js, the one checker never isolated for this item as of
+      run507's pass (it needs committed git content, not just a working-tree
+      copy, so the .git-less scratch copies used for every other checker's
+      injection test could not support it). Used `git worktree add --detach`
+      from the tracked repo into a disposable worktree on the session's own
+      outputs mount (a `git clone` attempt first filled /tmp to "No space
+      left on device" and was abandoned; a worktree shares git objects
+      rather than duplicating them). Baseline: full 36-checker suite clean
+      in the worktree except the standing CH1 2AB narrative-postcode
+      baseline; branches.json sha256 0385b7c2b2bca55d559903f718ad992fec408
+      04a1f3ab1a1db8bac2ffdd527da unchanged from every prior pass's anchor.
+      INJECTION: mutated this branch's own switch-prescriptions-coleman-
+      leigh-walton.html, swapping its switch.css pin from the generator's
+      declared 5c7fa63 to a bogus ref - CAUGHT cleanly first attempt, two
+      FAILs naming the page and the branch directly (wrong pin, and the
+      bogus ref does not resolve in git at all). Reverted, sha256
+      reconfirmed identical. NEGATIVE CONTROL: branches.json shortCode
+      (COL -> ZZZ), a field this checker does not read - ran clean, as
+      expected; reverted, sha256 reconfirmed identical to the tracked
+      repo's own anchor. Guard coverage for item 3.9 now covers all 37
+      checkers proven by direct injection (up from 35 non-network ones).
+      No in-repo defect found; no generator, page, pack, checker or
+      branches.json content changed in the tracked repo. One cleanup
+      wrinkle: removing the finished worktree hit the same sandbox
+      EPERM-on-unlink symptom this repo has documented since run381, this
+      time on .git/worktrees/wt itself; renamed aside via the established
+      mv-aside convention, leaving a harmless stale entry in `git worktree
+      list` (the directory itself is gone) for a future supervised
+      cleanup. `git status`/`git log`/`git commit` all confirmed unaffected.
+      Evidence in audits/coleman-leighs-item-3.9-cdn-pins-quality-pass-
+      2026-11-19-twentyninth.txt. No new question raised. Done 2026-11-19.
 
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
