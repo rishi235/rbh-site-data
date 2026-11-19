@@ -7958,6 +7958,30 @@ HOUSEKEEPING FOUND THIS RUN (not a question, logged per Rishi's 2026-11-16 sorti
 
 Next stalest by the same inline-date method, for whoever runs the next unattended pass: 3.5, then 3.3/4.8 (tied), 3.1/3.11 (tied), 2.1, 5.2, consistent with run493's own forward note above since item 3.4 itself is the one just updated - re-derive rather than assume, since other runs may land in between.
 
+Quality pass 2026-11-19 (run563): REPO HALF CLEAN, ZERO IN-REPO DEFECTS. All 3 remaining worklist lines reconfirmed [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), so the fallback quality pass applied. Rotation pool re-derived by the established max-inline-date method over AGENT_WORKLIST.md's own section text (excluding the standing one-offs and the three blocked items): several items tied at 2026-11-18, item 3.4 lowest-numbered among them, so 3.4 wins the tiebreak.
+
+FRESH ANGLE: of the 37 checkers in tools/, this item's own section history had already named 27 across 27 prior passes; tools/check-pharmacy-first-symptoms.js (added after the eleventh pass and already used for a sibling branch's item 3.3 last run) had never been named against Cherry Lane specifically. branches.json confirms Cherry Lane runs all seven ready Pharmacy First pathways, so a genuine symptoms block exists to test.
+
+METHOD: isolated scratch extraction via `git archive HEAD | tar -x` into a disposable path under this session's own outputs mount (never the connected workspace mount), tracked repo never opened for writing; a second untouched pristine extraction taken alongside as the restore/regeneration baseline. Target page chosen deliberately: insect-bite-treatment-cherry-lane-walton.html, named three times elsewhere in this item's own history (branch-identity and map-embeds injections) but never for a symptoms-list check.
+
+BASELINE: full check-*.js sweep (excluding check-cdn-pins.js and check-live-hours.js, network-dependent) run individually against the scratch copy before any mutation: 36/36 clean. branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged from every prior pass's anchor.
+
+INJECTION 1 (rule 5, wrong count): added one extra symptom line, copied verbatim from the UTI page's own list ("Pain low down in your tummy"), onto the insect-bite page's own 4-item list. Re-ran the checker: CAUGHT cleanly, first attempt, naming the page directly, citing both the count mismatch (rule 5) and the foreign-pathway content (rule 6). Restored from the pristine extraction by byte copy; sha256 reconfirmed identical (2fa14c970cf5342952dca19b91f79230330a9552f6d018a903c1aa39e787d17e).
+
+INJECTION 2 (rule 4/6, wrong pathway, same count): replaced one existing insect-bite symptom ("Pus or fluid coming from the bite") with the same UTI line ("Cloudy wee, or blood in your wee"), keeping the count at 4 so count alone could not trigger a false catch. Re-ran: CAUGHT cleanly, first attempt, correctly naming the missing insect-bite symptom (rule 4) and the foreign-pathway content (rule 6). Restored again; sha256 reconfirmed identical.
+
+NEGATIVE CONTROL: reordered the same four symptom lines, no content change - stayed clean, confirming the checker is a genuine set-membership check rather than order-sensitive. Restored a third time; sha256 reconfirmed identical throughout.
+
+FULL SUITE AND REGENERATION: full suite re-run on the restored scratch copy: 36/36 clean (same as baseline). All generators re-run and modules/core diffed byte-for-byte against the untouched pristine extraction: zero differences. branches.json sha256 unchanged throughout.
+
+RESULT: guard coverage for item 3.4 now extends to 28 of 37 checkers proven by direct injection (up from 27; check-cdn-pins.js and check-live-hours.js remain untested here as both are network-dependent). No in-repo defect found; no generator, page, pack, checker or branches.json content changed - every mutation was made and reverted inside the disposable scratch copy, never in the tracked repo.
+
+LIVE HALF (Claude in Chrome, read-only, two tabs sequentially, nothing clicked/typed/submitted, both closed after use): read insect-bite-treatment-cherry-lane-walton.html live on cherrylanepharmacy.co.uk - title, the four-item symptoms list, address (202 Cherry Lane, Liverpool, L4 8SG) and phone all match the generator exactly; the already-documented Q36 footer mailbox typo (pharmacy.FA226@mhs.net) reconfirmed present and unchanged. Separately read weight-loss-clinic-walton.html (the old bridge page) and its DOM href attributes to reconfirm Q86, which the portal records as answered on 2026-11-09 (fix the Scorah mailto contamination first via a direct Weebly edit; queue the postal-address re-paste as routine) but NOT YET ACTIONED on the live site: the page still reads "...202 Cherry Lane, Walton, Liverpool L4 8SG" with "Walton" inserted into the postal address, and the site-wide contact widget still carries both cross-branch mailto links (mailto:info@scorah-chemists.co.uk and mailto:scorahchemists87@npanet.co.uk) alongside the correct Cherry@rbhealth.co.uk. Both halves of Q86 remain live and unfixed, now ten weeks after Rishi's own answer; this is a direct Weebly edit outside this run's read-only browser access and outside the repo entirely, so nothing was or could be fixed from this session. Recorded as a reconfirmation, not a new question, since Q86 already carries the answer and the recommended action.
+
+DECISION: item 3.4 stays [x] (quality pass, not a worklist state change). No worklist item ticked or unblocked. QUESTIONS.json unchanged: 141 total, 2 open (Q139, Q140); Q86 unchanged (answered, still unactioned live).
+
+Next stalest by the same inline-date method, for whoever runs the next unattended pass: re-derive fresh rather than assume, since this pass has just updated item 3.4's own date and other runs may land in between.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.

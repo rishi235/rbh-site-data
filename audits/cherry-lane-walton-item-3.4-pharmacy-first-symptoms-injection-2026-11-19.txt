@@ -1,0 +1,85 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton/Liverpool) - quality pass (run563), 2026-11-19
+Fresh angle: tools/check-pharmacy-first-symptoms.js, never previously named against this item.
+Target page: modules/service/pages/insect-bite-treatment-cherry-lane-walton.html
+(named before for branch-identity and map-embeds injections, never for a symptoms-list check).
+
+Method: git archive HEAD | tar -x into two disposable scratch copies under this
+session's own outputs mount (never the connected workspace mount) - one as the
+mutation target, one left untouched as the pristine restore/diff baseline.
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+unchanged throughout (standing anchor across every prior pass).
+
+BASELINE (scratch copy, before any mutation):
+  Full check-*.js sweep (excluding check-cdn-pins.js and check-live-hours.js,
+  network-dependent): 36/36 clean.
+  Pre-injection sha256 of target page: 2fa14c970cf5342952dca19b91f79230330a9552f6d018a903c1aa39e787d17e
+
+INJECTION 1 (rule 5, wrong count):
+  Added "<li>Pain low down in your tummy</li>" (copied verbatim from the UTI
+  page's own symptom list) onto the insect-bite page's existing 4-item list.
+  Result: FAIL insect-bite-treatment-cherry-lane-walton.html: the symptoms list
+  holds 5 item(s) and the generator declares 4 (rule 5)
+  FAIL insect-bite-treatment-cherry-lane-walton.html: the symptoms list carries
+  a symptom that belongs to the uti pathway, not this one (rule 6)
+  Caught cleanly, first attempt, both rules fired.
+  Restored from pristine copy; sha256 reconfirmed identical.
+
+INJECTION 2 (rule 4/6, wrong pathway, same count):
+  Replaced "<li>Pus or fluid coming from the bite</li>" with
+  "<li>Cloudy wee, or blood in your wee</li>" (UTI pathway), count unchanged at 4.
+  Result: FAIL ... a symptom point is missing from the symptoms list (rule 4)
+          expected: Pus or fluid coming from the bite
+  FAIL ... the symptoms list carries a symptom that belongs to the uti pathway,
+          not this one (rule 6)
+  Caught cleanly, first attempt, count alone could not have triggered this.
+  Restored from pristine copy; sha256 reconfirmed identical.
+
+NEGATIVE CONTROL:
+  Reordered the same four symptom <li> lines, no content change.
+  Result: clean (checker confirmed as set-membership, not order-sensitive).
+  Restored from pristine copy; sha256 reconfirmed identical throughout.
+
+FULL SUITE AND REGENERATION (post-restore):
+  Full check-*.js sweep re-run: 36/36 clean (same as baseline; check-postcodes.js
+  standing CH1 2AB narrative baseline is the only failure in the full 37, and it
+  does not apply inside this git-archive scratch copy which lacks the narrative
+  debris files).
+  All six generators re-run; modules/ and core/ diffed byte-for-byte against the
+  untouched pristine extraction: zero differences.
+  branches.json sha256 unchanged.
+
+RESULT: guard coverage for item 3.4 now extends to 28 of 37 checkers proven by
+direct injection (up from 27). No in-repo defect found; no generator, page,
+pack, checker or branches.json content changed - every mutation was made and
+reverted inside the disposable scratch copy, never in the tracked repo.
+
+LIVE HALF (Claude in Chrome, read-only, two tabs sequentially, nothing
+clicked/typed/submitted, both closed after use):
+
+1) https://www.cherrylanepharmacy.co.uk/insect-bite-treatment-cherry-lane-walton.html
+   Title, H1, the four symptom lines, address (202 Cherry Lane, Liverpool, L4 8SG)
+   and phone (0151 226 2051) all match the generator exactly. Known Q36 footer
+   mailbox typo (pharmacy.FA226@mhs.net instead of nhs.net) reconfirmed present,
+   unchanged.
+
+2) https://www.cherrylanepharmacy.co.uk/weight-loss-clinic-walton.html (old bridge
+   page) plus its DOM via read_page, to reconfirm Q86.
+   Q86 is recorded in QUESTIONS.json as ANSWERED (Rishi, portal, 2026-11-09):
+   fix the site-wide Scorah mailto contamination first via a direct Weebly edit;
+   queue the weight-loss-clinic-walton.html postal-address re-paste as routine.
+   NEITHER HALF HAS BEEN ACTIONED ON THE LIVE SITE as of this pass:
+     - Page text still reads "...visit us at 202 Cherry Lane, Walton, Liverpool
+       L4 8SG" - "Walton" still inserted into the postal address between the
+       street and the post town (the citation-consistency fault CLAUDE.md
+       documents for this item).
+     - The site-wide contact widget (read via read_page's accessibility tree,
+       not visible to plain text extraction) still carries two mailto links to
+       Scorah Chemists - mailto:info@scorah-chemists.co.uk and
+       mailto:scorahchemists87@npanet.co.uk - alongside the correct
+       mailto:Cherry@rbhealth.co.uk.
+   Both are a direct Weebly edit, outside this run's read-only browser access and
+   outside the repo entirely. Recorded as a reconfirmation (ten weeks after
+   Rishi's own answer, still unactioned), not a new question.
+
+QUESTIONS.json: 141 total, 2 open (Q139, Q140), unchanged. Q86 unchanged
+(answered, still unactioned live).
