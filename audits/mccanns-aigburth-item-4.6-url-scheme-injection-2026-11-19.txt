@@ -1,0 +1,96 @@
+Item 4.6 (McCanns Chemist Aigburth GBP pack) - fresh-angle quality pass
+tools/check-url-scheme.js proven by injection, 2026-11-19 (run ~541)
+
+CONTEXT
+Item 4.6 had 12 checkers already proven against this specific pack by direct
+injection across 24+ prior quality passes (check-app-membership.js,
+check-brand-spelling.js, check-cdn-pins.js, check-editor-snapshot.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-live-hours.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-postcodes.js, check-uk-spelling.js, check-widget-diaries.js - the last
+of these added run508, 2026-11-18T00:13Z).
+
+Of the 17 checkers that mention "gbp-packs" anywhere in source, confirmed by
+grepping each for readdirSync/PACK_DIR/PUBLISHED_DIRS (genuine directory
+reads, not a text mention in a comment) rather than trusting the string
+match: tools/check-nap.js, tools/check-page-coverage.js,
+tools/check-service-links.js, tools/check-url-scheme.js and
+tools/check-weight-loss-copy.js genuinely read the gbp-packs directory.
+tools/check-address-region.js, tools/check-em-dashes.js,
+tools/check-opening-hours.js and tools/check-travel-clinic-copy.js only
+mention "gbp-packs" in a comment/header and do not read the directory
+themselves (check-em-dashes.js's own pack coverage is via its EXTRA_HTML/
+sheet-discovery logic, separately already proven against this item).
+
+check-url-scheme.js had never been run against this specific pack. Picked as
+the fresh angle: it is squarely in-domain (GBP website-field scheme
+correctness, rule 2, is exactly what a GBP pack governs), and its own header
+records a real estate-wide finding (nine of sixteen profiles found pointing
+at http in GBP_MANUAL.md on 2026-08-09) that is the same class of fault this
+item exists to guard against on this specific branch.
+
+BASELINE
+Ran tools/check-url-scheme.js directly against the tracked repo first: clean,
+exit 0 (222 published files scanned, 59 branches.json URL values, 16 GBP
+table rows, 129 pre-existing insecure URLs all correctly confined to
+narrative surfaces - logs, audits/, this checker's own file - 0 failures).
+branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da and the
+pack's own sha256
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693 recorded;
+the pack's hash matches every prior pass's recorded value exactly, confirming
+no drift since the twenty-third pass (2026-11-07).
+
+GBP_MANUAL.md's own row for this branch (line 97): "McCanns Aigburth |
+https://www.mccannspharmacy.co.uk/ | correct, re-checked live 2026-11-17 (Q66
+closed)" - already https, already matches branches.json's website field, and
+already independently re-verified live five days before this pass. Rule 2
+(GBPSITE) therefore already holds for this branch without any further action
+needed from this pass.
+
+INJECTION (isolated scratch extraction, `git archive HEAD | tar -x` to
+/tmp/scratch46b; tracked repo never opened for writing)
+Changed gbp-packs/mccanns-aigburth.md's own "Website for the profile" line
+from:
+  https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html
+to:
+  http://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html
+(scheme only, nothing else touched).
+
+RESULT: CAUGHT on first attempt.
+  FAIL  INSECURE gbp-packs/mccanns-aigburth.md: published surface carries
+  http://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html. An
+  insecure estate URL on a live page is a crawlable duplicate of the https
+  page, which is item 6.6.
+Exit code 1.
+
+NEGATIVE CONTROL (same scratch directory, pack restored first via
+`git show HEAD:gbp-packs/mccanns-aigburth.md`, sha256 reconfirmed
+fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693 - i.e.
+byte-identical to the tracked original - before the control edit)
+Changed an unrelated sentence, no URL or scheme touched:
+  "Ready for Rishi or Dane to paste into GBP."
+  -> "Ready for Rishi or Dane to review before pasting into GBP."
+RESULT: ran clean, exit 0, no FAIL mentioning this pack - confirms the
+checker is discriminating on the scheme specifically, not reacting to any
+edit to the file.
+
+Scratch directory deleted after use.
+
+TRACKED REPO STATE
+Confirmed untouched throughout and after this pass:
+  git status --porcelain -- gbp-packs tools branches.json modules core
+    -> empty
+  sha256sum branches.json gbp-packs/mccanns-aigburth.md
+    -> 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+       fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+    -> both unchanged from the pre-pass baseline above.
+Final re-run of tools/check-url-scheme.js directly against the tracked repo:
+exit 0, clean.
+
+CONCLUSION
+No in-repo defect found. Guard coverage for item 4.6 now 13 of the checkers
+that genuinely read gbp-packs/*.md proven by direct injection against this
+specific pack (up from 12), adding tools/check-url-scheme.js. No generator,
+page, pack, checker or branches.json content changed - this pass is proof of
+existing coverage, not a fix. No new question raised.

@@ -25417,6 +25417,42 @@ centrally: no medicine names, no em dashes, no emojis, descriptions under
       2026-08-12/2026-08-14 live verdicts above stand unrevised. No new
       defect, no new question. Evidence:
       audits/mccanns-aigburth-item-4.6-widget-diaries-2026-11-18.txt.
+
+      Quality pass (twenty-fourth, 2026-11-19, least recently verified
+      rotation-pool item - stalest last-mention date 2026-11-18T00:13Z
+      against every other checked item, computed by taking the maximum
+      timestamp attached to each "item N.N" mention across AGENT_LOG.md's
+      "## run###" headers): fresh angle tools/check-url-scheme.js, genuinely
+      untested against this specific pack (confirmed by grepping all 17
+      checkers mentioning "gbp-packs" for an actual readdirSync/PACK_DIR/
+      PUBLISHED_DIRS directory read rather than trusting a text mention -
+      five genuinely read it, four only mention it in a comment). Baseline
+      clean, exit 0; branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da and
+      the pack's own sha256
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693, the
+      latter matching every prior pass, no drift. GBP_MANUAL.md's own row
+      for this branch (line 97) already records https, matching
+      branches.json, re-checked live 2026-11-17 (Q66 closed) - rule 2
+      (GBPSITE) already held without further action. Isolated
+      `git archive HEAD | tar -x` scratch extraction to /tmp/scratch46b,
+      tracked repo never opened for writing. Injection: changed the pack's
+      "Website for the profile" line from https to http (scheme only) -
+      CAUGHT on first attempt, rule 1 (INSECURE), naming the file and the
+      full URL. Negative control (pack restored by byte copy and
+      sha256-reconfirmed identical first): an unrelated wording tweak to
+      the same line's preceding sentence, no URL/scheme touched - ran
+      clean, exit 0, confirming selective discrimination. Scratch directory
+      deleted after use. Tracked repo confirmed untouched throughout and
+      after: `git status --porcelain -- gbp-packs tools branches.json
+      modules core` empty; both sha256 values reconfirmed unchanged.
+      tools/check-url-scheme.js re-run directly against the tracked repo
+      afterwards: exit 0, clean. No in-repo defect found; no generator,
+      page, pack, checker or branches.json content changed. Guard coverage
+      for item 4.6 now 13 of the checkers that genuinely read
+      gbp-packs/*.md proven by injection against this specific pack (up
+      from 12). No new question. Evidence:
+      audits/mccanns-aigburth-item-4.6-url-scheme-injection-2026-11-19.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
