@@ -322,6 +322,14 @@ var KNOWN_FINDINGS = {
         "than \"Coleman and Leighs Pharmacy\" - a separate, already-known " +
         "brand-spelling issue, flagged here only for visibility, not " +
         "actioned by this entry. Confirmed live 2026-10-20.",
+      "The Contact Us page's own \"Let's Chat\" quick-contact block " +
+        "carries a FOURTH, previously unread location: its Hours line " +
+        "(\"Weekdays / 09:00 to 18:00 (closed 1pm-2pm Lunch)\") " +
+        "separates the opening and closing time with an en dash rather " +
+        "than the word \"to\" or a plain hyphen - the same template " +
+        "element the twenty-eighth pass found on Smartts and Gordon " +
+        "Short. Not read by any earlier pass. Confirmed live 2026-11-19 " +
+        "(item 5.1, twenty-ninth pass).",
     ],
   },
   gordonshorts_crosby: {
@@ -359,6 +367,15 @@ var KNOWN_FINDINGS = {
         "this item's twentieth quality pass (2026-10-14) first identified " +
         "on this site but never added to this checklist. Confirmed live " +
         "2026-10-20 (item 5.1, full-estate sweep).",
+      "The Contact Us page's own \"Let's Chat\" quick-contact block " +
+        "carries a THIRD, previously unread location: its Hours line " +
+        "(\"Weekdays / 09:00 to 18:00 (closed 1pm-2pm Lunch)\") " +
+        "separates the opening and closing time with an en dash rather " +
+        "than the word \"to\" or a plain hyphen - the same template " +
+        "element the twenty-eighth pass found on Smartts and Gordon " +
+        "Short, and the twenty-ninth pass also found on Coleman and " +
+        "Leighs. Not read by any earlier pass. Confirmed live 2026-11-19 " +
+        "(item 5.1, twenty-ninth pass).",
     ],
   },
 };

@@ -39140,6 +39140,45 @@ Prescriptions/Reviews subpages still unread for this fault - left as
 the fresh angle for a future pass. Evidence:
 audits/item-5.1-contact-us-hours-endash-2026-11-19-twentyeighth.txt.
 
+Quality pass 2026-11-19 (twenty-ninth). Followed the twenty-eighth pass's own
+forward note and opened the Contact Us subpage, live, read-only, on the
+remaining 10 trading sites (Scorah Bramhall/Hazel Grove, McCanns Aigburth/
+Sandringham, Fishlocks Ainsdale/Eccleston, Hirshmans, Coleman and Leighs,
+Tiffenbergs, plus a re-read of SK Chemists, Cherry Lane, Smartts, Gordon
+Short and Riddings to check two things the twenty-eighth pass's own evidence
+file had not: whether the bottom-of-page "Open Mon[dash]Fri..." AEO summary
+sentence already tracked in KNOWN_FINDINGS is present on every branch that
+carries it, and whether any further branch runs the "Let's Chat" widget).
+Finding 1: the footer AEO sentence is already correctly recorded in
+KNOWN_FINDINGS for every branch that carries it (nine entries); two branches
+(McCanns, Fishlocks) genuinely lack the sentence rather than merely lacking
+the fix, confirmed by template inspection - not a cleared finding, a template
+difference. No checklist change needed for this part. Finding 2 (NEW):
+Coleman and Leighs (Walton) and Tiffenbergs (Aintree) both run the same
+"Let's Chat" widget the twenty-eighth pass found faulty on Smartts and
+Gordon Short, and both carry the identical en-dash fault on their own Hours
+line ("Weekdays / 09:00 [en dash] 18:00"). This completes the set: all four
+branches running a "Let's Chat" widget estate-wide are now confirmed to have
+the fault; no fifth branch runs the widget. tools/build-weebly-furniture-
+checklist.js's KNOWN_FINDINGS extended for colemanleigh_liverpool and
+tiffenbergs_longmoor with a dated, sourced new item each. WEEBLY_FURNITURE_
+CHECKLIST.md regenerated ("15 branches, 14 with confirmed findings" -
+unchanged, both branches already had at least one confirmed finding).
+check-em-dashes.js re-run clean on the new wording. Full non-network suite
+re-run: no new failures (the pre-existing CH1 2AB narrative-postcode
+baseline in check-postcodes.js is unrelated and unchanged, not actioned).
+branches.json sha256 unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). No
+generator other than this checklist's own, no generated page, no pack and
+no branches.json content changed. No new QUESTIONS.json entry (Q39 already
+settled the decision to work this from a generated checklist). Clear
+Chemist Aintree's live site runs a different, Magento-based platform with
+no Weebly-style Contact Us page in this template at all - not applicable
+this pass, left as a forward note rather than guessed at. Every trading
+branch's Contact Us-equivalent page has now been opened at least once for
+this fault family. Evidence:
+audits/item-5.1-contact-us-letschat-hours-2026-11-19-twentyninth.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

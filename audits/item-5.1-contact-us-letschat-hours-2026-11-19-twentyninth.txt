@@ -1,0 +1,112 @@
+Item 5.1 - quality pass (twenty-ninth), 2026-11-19
+Scheduled run: audit-backlog-worker (Cowork sandboxed session, no git push credential
+available in this environment - see AGENT_LOG.md for this run)
+
+SCOPE
+The twenty-eighth pass's own forward note (2026-11-19, run538) flagged that it had
+read the Contact Us subpage on only 5 of 15 trading sites (Smartts, Cherry Lane,
+Gordon Short, SK Chemists, Riddings - the last 404'd) and left the remaining 10
+trading sites' Contact Us pages unread for this fault family. This pass follows that
+note directly: Contact Us pages (and, where the first-guessed URL 404'd, the
+homepage nav link to the real one) read live, read-only, via Claude in Chrome, one
+tab reused throughout, closed after use, nothing clicked/typed/submitted.
+
+SITES READ (Contact Us subpage, live, this pass)
+- scorah-chemists.co.uk/contactus.html (Bramhall and Hazel Grove, shared page)
+- mccannspharmacy.co.uk/contactus.html (Aigburth and Sandringham, shared page)
+- fishlockpharmacy.co.uk/contact.html (Ainsdale and Eccleston, shared page - note
+  this site's own nav uses "contact.html", not "contactus.html" or "contact-us.html")
+- hirshmanspharmacy.co.uk/contact-us.html
+- colemanandleighspharmacy.co.uk/contact-us.html
+- tiffenbergschemist.co.uk/contact-us.html
+- skchemist.co.uk/contactus.html (re-read, to confirm the footer AEO sentence is
+  present there too, not only on the two sites the twenty-eighth pass opened)
+- cherrylanepharmacy.co.uk/contact-us.html (re-read, same reason)
+- riddingspharmacy.co.uk/contactus.html (re-tried via the homepage nav link, which
+  resolved where guessing "contact-us.html" 404'd on the twenty-eighth pass)
+- smarttschemist.co.uk/contact-us.html and gordonshortchemist.co.uk/contact-us.html
+  (re-read, to check for the SAME footer AEO sentence the twenty-eighth pass's own
+  evidence file did not record for these two branches)
+- clearchemist.co.uk: no equivalent Contact Us page found on this site's nav (it
+  runs a different, Magento-based template entirely - About Us/Delivery/FAQ/Blog,
+  no Services/Prescriptions/Reviews/Contact Us tab bar). Not applicable this pass;
+  not claimed clean or dirty for a page that does not appear to exist in this form.
+
+FINDING 1 (confirms existing KNOWN_FINDINGS, no new entry needed)
+Every one of the ten branches above whose Contact Us page carries a bottom
+"AI Information" / AEO-style summary sentence beginning "Open Mon[dash]Fri..." or,
+on Scorah's two-branch template, "<Branch> opening hours: Mon[dash]Fri..." already
+has that exact sentence, with its en dash, recorded in tools/build-weebly-furniture-
+checklist.js's KNOWN_FINDINGS (cherrylane_liverpool, skchemists_bootle,
+hirshmans_ainsdale, scorah_bramhall, scorah_hazel, smartts_bootle,
+gordonshorts_crosby, colemanleigh_liverpool, tiffenbergs_longmoor). This pass
+independently re-confirmed the sentence live on Smartts and Gordon Short
+specifically (the twenty-eighth pass's own evidence file for those two branches
+only documented the "Let's Chat" Hours line, not this separate footer sentence,
+even though the checklist entry already covered it from an earlier pass) and on SK
+Chemists and Cherry Lane. No checklist change needed for this part - it is already
+right. Riddings' footer carries the same sentence; the existing riddings_timperley
+entry's wording ("its footer line still uses en dashes instead of the corrected
+copy") already covers it, so left as is rather than duplicated.
+
+Two branches read this pass have NO such sentence at all, confirmed as a template
+difference rather than a cleared fault: McCanns (Aigburth/Sandringham) and Fishlocks
+(Ainsdale/Eccleston). Their footers list each branch's address and phone followed
+only by "Switch your prescriptions", with no day/time range, so there is nothing
+for an en dash to attach to in this specific element. (McCanns carries the
+same-class fault elsewhere, in its separate per-branch "Opening Hours" contact-page
+block, already tracked under mccanns_aigburth/mccanns_sandringham.)
+
+FINDING 2 (NEW, not previously recorded)
+Coleman and Leighs Pharmacy (Walton) and Tiffenbergs Chemist (Aintree) both run the
+same "Let's Chat" quick-contact widget the twenty-eighth pass found on Smartts and
+Gordon Short, and both carry the identical fault: the widget's own Hours line reads
+"Weekdays / 09:00 [en dash] 18:00 (closed 1pm-2pm Lunch)" (Saturday and Sunday both
+"Closed" on both branches, so no second line at risk). Neither branch's Contact Us
+page had been opened for this specific element before this pass. This completes the
+set: all four trading branches that run a "Let's Chat" widget at all (Smartts,
+Gordon Short, Coleman and Leighs, Tiffenbergs) now have the fault confirmed on that
+widget; no fifth branch was found running it.
+
+NEGATIVE CONTROLS
+- Fishlocks' contact.html: plain hyphens throughout both its "Opening Hours" blocks
+  and its footer (which has no hours sentence at all, see Finding 1) - genuinely
+  clean, not merely absent of the element checked.
+- Scorah, McCanns, Hirshmans, SK Chemists, Cherry Lane, Riddings: none of these six
+  run a "Let's Chat" widget, so Finding 2's fault class does not apply to them
+  (confirmed by template inspection, not assumed).
+
+ACTION TAKEN
+Extended tools/build-weebly-furniture-checklist.js's KNOWN_FINDINGS for
+colemanleigh_liverpool and tiffenbergs_longmoor with a dated, sourced new item each,
+describing the "Let's Chat" Hours finding and quoting the times in words ("09:00 to
+18:00") rather than the literal en dash character, matching this item's established
+convention. Regenerated WEEBLY_FURNITURE_CHECKLIST.md from the updated generator
+("15 branches, 14 with confirmed findings" - unchanged, since both branches already
+had at least one confirmed finding before this pass; two existing entries gained a
+further bullet each). No change made for Finding 1, since the checklist already
+covers it correctly.
+
+VERIFICATION
+- branches.json sha256 unchanged: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor).
+- check-em-dashes.js re-run after the edit: clean, "no em or en dashes in public
+  copy, literal or HTML entity" - the new wording passes the same ASCII-only rule
+  this checklist file is held to.
+- Full non-network checker suite re-run (all tools/check-*.js except
+  check-cdn-pins.js and check-live-hours.js): no new failures. check-postcodes.js's
+  28 pre-existing CH1 2AB narrative-postcode failures are the long-documented
+  baseline unrelated to this item, confirmed unchanged, not actioned.
+- git status --porcelain shows only tools/build-weebly-furniture-checklist.js and
+  WEEBLY_FURNITURE_CHECKLIST.md touched by this pass (plus this new evidence file
+  and the AGENT_WORKLIST.md/AGENT_LOG.md entries), the long-standing untracked
+  sandbox debris aside. No generator other than this checklist's own, no generated
+  page, no pack and no branches.json content changed.
+
+FORWARD NOTE FOR A FUTURE PASS
+Clear Chemist Aintree's live site runs a different platform (Magento-based shop)
+with no Weebly-style Contact Us/Services/Prescriptions/Reviews tab bar, so this
+item's established sweep pattern does not transfer directly. A future pass wanting
+to check Clear Chemist for the Q7/5.1 fault class should look at whatever page on
+that platform actually carries store hours or contact copy (footer, About Us,
+or similar), not assume a "contact-us.html"-shaped URL will resolve.
