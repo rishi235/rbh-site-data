@@ -6304,6 +6304,53 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       against the live portal feed (Claude in Chrome, read-only): still 140
       total, 1 open (Q139, newest feed entry still the Q52 answer from
       2026-09-01, no new answer present). Done 2026-11-18.
+
+      QUALITY PASS (28th), run562, 2026-11-19: fresh angle
+      tools/check-pharmacy-first-symptoms.js, the one checker never named
+      against this branch pair across the prior 27 passes (31 others
+      already proven). Full detail in
+      audits/fishlocks-ainsdale-eccleston-item-3.3-pharmacy-first-symptoms-injection-2026-11-19.txt.
+      Baseline: full 37-checker sweep against the tracked repo, 36 clean,
+      the one failure the standing check-postcodes.js CH1 2AB baseline;
+      branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged from every prior anchor. Isolated scratch copy (`git
+      archive HEAD | tar -x`, never the tracked repo), target page
+      deliberately outside every surface this item's prior passes had
+      sampled (UTI, switch, landing, GBP pack, earache, impetigo):
+      shingles-treatment-fishlocks-ainsdale.html. INJECTION 1 (rule 5):
+      added a UTI symptom line onto the shingles page's own 4-item list -
+      CAUGHT first attempt, wrong count. Restored, sha256 reconfirmed.
+      INJECTION 2 (rule 4): swapped one shingles symptom for the UTI line,
+      keeping the count at 4 so count alone could not catch it - CAUGHT
+      first attempt, wrong pathway, correctly named the missing shingles
+      symptom. Restored, sha256 reconfirmed. NEGATIVE CONTROL: reordered
+      the same four symptom lines, no content change - stayed clean,
+      confirming the catch is genuine set-membership, not order-sensitive
+      and not a false-positive risk on legitimate copy reshuffling.
+      Restored a third time, sha256 reconfirmed throughout. Full suite
+      re-run on the restored scratch copy: same two results as baseline
+      (check-cdn-pins.js fails only for lack of git history in a plain
+      archive extraction, the same documented limitation runs 557-558
+      already recorded for other items). All six generators regenerated
+      and diffed byte-for-byte against an untouched pristine extraction:
+      zero differences. branches.json sha256 unchanged throughout. LIVE
+      HALF (Claude in Chrome, read-only, one tab, nothing
+      clicked/typed/submitted, closed after use): read
+      shingles-treatment-fishlocks-ainsdale.html live on
+      fishlockpharmacy.co.uk, a page none of the prior 27 passes had
+      sampled. Title "Shingles treatment in Ainsdale - Fishlocks Chemist"
+      and H1 "Shingles treatment in Ainsdale" match the generator exactly;
+      the four-item symptoms list matches the pre-injection baseline
+      verbatim; footer carries both branches' own addresses and phones
+      correctly with no cross-branch mix-up; the two GPhC numbers are the
+      premises registration and Dr Kochhar's own individual registration,
+      the same premises-vs-individual pattern the 27th pass on item 3.1
+      already resolved, reconfirmed rather than re-opened. NO IN-REPO
+      DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3 stays `[x]` (quality
+      pass, not a state change). Guard coverage for this item now extends
+      to 32 of 37 checkers proven by direct injection. QUESTIONS.json
+      reconfirmed via Node: 141 total, 2 open (Q139, Q140), unchanged.
+      Done 2026-11-19.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

@@ -1,0 +1,80 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - quality pass (28th), 2026-11-19, run562
+Fresh angle: tools/check-pharmacy-first-symptoms.js, proven by direct injection against this branch pair.
+
+CONTEXT
+As of the 27th pass (2026-11-18), the item's own section history listed 31 distinct
+checker names already proven against this branch pair; check-pharmacy-first-symptoms.js
+was not among them. branches.json confirms both Fishlocks branches run the pharmacyFirst
+widget, so a genuine symptoms block exists to test.
+
+BASELINE (tracked repo, read-only)
+Full `tools/check-*.js` sweep run directly against the checked-out repo before any
+mutation: 36/37 clean, the one failure being the standing check-postcodes.js CH1 2AB
+narrative-postcode baseline (pre-existing, out of scope, documented since the item 1.3
+quality pass). branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+matching every prior pass's anchor.
+
+METHOD
+Isolated scratch extraction via `git archive HEAD | tar -x` into a disposable path under
+this session's own outputs mount (never the tracked repo). A second untouched pristine
+extraction taken alongside as the restore/regeneration baseline. Target page chosen
+deliberately outside every surface this item's prior 27 passes had already sampled
+(UTI, switch, landing, GBP pack, earache, impetigo): shingles-treatment-fishlocks-ainsdale.html.
+
+INJECTION 1 (rule 5 - wrong count)
+Added one extra symptom line, copied verbatim from the UTI pathway ("A burning sensation
+when you urinate"), onto the end of the shingles page's own 4-item symptoms list.
+Re-ran check-pharmacy-first-symptoms.js: CAUGHT cleanly, first attempt - FAIL naming the
+page directly: "the symptoms list holds 5 item(s) and the generator declares 4, so the
+page has been edited by hand (rule 5)".
+Restored via copy from the pristine extraction; sha256 reconfirmed identical
+(d412de3a1a3d3be77957c71210ab2207c43487fd5785d631faa95350b1d21ef8).
+
+INJECTION 2 (rule 4 - wrong pathway, same count)
+Replaced one existing symptom ("Feeling generally unwell") with the same UTI line, keeping
+the list at 4 items so the count alone could not trigger a false catch. Re-ran the
+checker: CAUGHT cleanly, first attempt - FAIL: "a symptom point is missing from the
+symptoms list (rule 4)", correctly naming the missing shingles symptom and showing the
+UTI line had displaced it.
+Restored again from the pristine extraction; sha256 reconfirmed identical.
+
+NEGATIVE CONTROL
+Reordered the same four symptom lines (no content change, no addition or removal) to
+confirm the checker is a set-membership check, not sensitive to order, and therefore not
+prone to a false positive on legitimate copy reshuffling. Re-ran: clean. Restored; sha256
+reconfirmed identical a third time.
+
+FULL SUITE AND REGENERATION
+Full `tools/check-*.js` suite re-run on the restored scratch copy: same two results as
+baseline (check-postcodes.js standing failure; check-cdn-pins.js fails here only because
+a plain `git archive` extraction has no git history for it to compare against - the same
+documented limitation prior passes (run557/558) have already recorded for other items,
+not a defect in this item or this checker). All six page generators
+(build-service-pages.js, build-switch-pages.js, build-weight-loss-pages.js,
+build-travel-clinic-pages.js, build-contraception-pages.js, build-branch-landing-pages.js)
+re-run and diffed byte-for-byte against the untouched pristine extraction: zero
+differences (`diff -rq modules <pristine>/modules` empty). branches.json sha256
+unchanged throughout.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked/typed/submitted, closed
+after use)
+Read shingles-treatment-fishlocks-ainsdale.html live on www.fishlockpharmacy.co.uk - a
+page not sampled by any of this item's prior 27 passes. Title "Shingles treatment in
+Ainsdale - Fishlocks Chemist" and H1 "Shingles treatment in Ainsdale" match the generator
+exactly. The four-item symptoms list matches the pre-injection baseline verbatim. Footer
+carries both branches' own addresses and phones correctly (Ainsdale 17 Station Road PR8
+3HN / 01704 575478, Eccleston Unit 3 The Carrington Centre PR7 5SZ / 01257 451251) with no
+cross-branch mix-up. The two GPhC numbers in the footer are the premises registration and
+Dr Kochhar's own individual registration as superintendent pharmacist - the same
+premises-vs-individual pattern the 27th pass on item 3.1 already resolved as not a
+contradiction, reconfirmed here rather than re-opened.
+
+RESULT
+Guard coverage for item 3.3 now extends to check-pharmacy-first-symptoms.js, proven by
+direct injection against this specific branch pair (two independent catches, rules 4 and
+5, plus a clean negative control). No in-repo defect found; no generator, page, pack or
+branches.json content changed - every mutation was made and reverted inside the
+disposable scratch copy, never in the tracked repo, confirmed by sha256 before and after
+throughout and by the tracked repo's own `git status --porcelain -- branches.json tools
+modules core gbp-packs` returning only this run's genuinely new files (this evidence
+file, the worklist/log entries). No new question raised.
