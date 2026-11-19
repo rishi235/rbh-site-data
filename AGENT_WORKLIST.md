@@ -1806,6 +1806,32 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       than reopening them). Item 2.1 stays `[x]` (quality pass, not a
       state change). Evidence: audits/fishlocks-ainsdale-item-2.1-quality-
       pass-2026-11-18-twentyseventh.txt. Done 2026-11-18.
+      Quality pass 2026-11-19 (twenty-eighth pass): with all 35 non-network
+      checkers already named against this item and the republish found by
+      the twenty-seventh pass already investigated, this pass's own
+      contribution is confirmation rather than discovery. REPO HALF: full
+      35-checker suite re-run directly against the tracked repo, all clean
+      (0 failures), no drift since pickup. LIVE HALF (read-only): sitemap
+      lastmod still 2026-11-17T13:16:30+00:00 across all 40 URLs, no second
+      republish in the 24 hours since the twenty-seventh pass; the branch
+      landing page (pharmacy-fishlocks-ainsdale.html) still absent from it
+      (Q35 unchanged). contact.html's native contact block still names
+      "Fishlock Pharmacy"/"Fishlock Chemist" and still abbreviates "17
+      Station Rd" (Q37 unchanged). weight-loss-clinic-fishlocks-ainsdale
+      .html (this repo's own compliant replacement) read as a control and
+      confirmed clean. weight-loss-services-eccleston-ainsdale.html (the
+      live-only legacy page Q57 is actually about) re-read in full: "Real
+      Results with Mounjaro" heading, outcome slider and three-item
+      treatment picker (Wegovy, Mounjaro, Orlistat) all still present (Q57
+      unchanged). Homepage nav re-read via accessibility tree: the
+      top-level "Weight Loss Clinic" item still points at the legacy page
+      while the two branch-specific dropdown entries point at the
+      compliant pages - matches item 5.8's own standing link-context
+      findings, recorded here as independent reconfirmation for this
+      branch, not a new finding. NO NEW DEFECT FOUND, NO NEW QUESTION
+      RAISED. Item 2.1 stays `[x]` (quality pass, not a state change).
+      Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-19-
+      twentyeighth.txt. Done 2026-11-19.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

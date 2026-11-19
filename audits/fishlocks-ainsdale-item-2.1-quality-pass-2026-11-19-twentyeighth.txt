@@ -1,0 +1,85 @@
+Item 2.1 (Fishlocks Ainsdale) - quality pass, twenty-eighth
+Run: audit-backlog-worker, 2026-11-19T20:13Z
+Repo HEAD at pickup: 56885ac (run559's own last commit, agents/audit-backlog)
+branches.json sha256 anchor: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (reconfirmed unchanged)
+
+SCOPE OF THIS PASS
+
+All 35 non-network checkers already named at least once against this item as of
+the twenty-sixth pass (run496); the twenty-seventh pass (2026-11-18) found a
+fresh site republish (sitemap lastmod moved to 2026-11-17T13:16:30+00:00 after
+a ~14-week freeze) and re-read Q35/Q37/Q57 against it, all three unchanged.
+With no unused checker left and the republish already investigated once, this
+pass's own contribution is: (1) a full repo-side re-run of every non-network
+checker to confirm nothing has drifted since run559's own pickup, and (2) a
+second independent live re-read of Q35/Q37/Q57 now that a full day has passed
+since the republish was first found, to confirm the republish did not
+subsequently touch any of the three findings on a delay.
+
+REPO HALF
+
+Ran every tools/check-*.js except check-live-hours.js (network-dependent,
+exercised separately) directly against the tracked repo (agents/audit-backlog,
+HEAD 56885ac): 35/35 report "clean" / "0 failure(s)" in their own summary line.
+No in-repo defect. The only non-zero counts are the long-standing WARN/NOTE-tier
+findings already pinned to open questions or KNOWN exceptions (check-postcodes.js's
+CH1 2AB narrative baseline, check-cdn-pins.js's main-branch data-hop warning,
+check-branch-links.js's Clear Chemist Aintree nhsReviewUrl warning, check-gbp-
+packs.js's Q64 address warning, check-pharmacy-first-safety-net.js's Q61 impetigo
+warning, check-service-links.js's Q16 Smartts switch-tile claim, check-whatsapp-
+route.js's Q20 inert-attribute note) - none of these are specific to Fishlocks
+Ainsdale and none changed.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use)
+
+1. sitemap.xml re-read: all 40 URLs still carry lastmod 2026-11-17T13:16:30+00:00,
+   unchanged from the twenty-seventh pass's own reading one day earlier - no
+   second republish has landed since. pharmacy-fishlocks-ainsdale.html (the
+   generated branch landing page) is still absent from this list, so Q35's
+   finding (branch landing pages unpublished and absent from the sitemap, six
+   Google profiles still unlinked to their own branch page) stands unchanged.
+
+2. contact.html re-read in full: the page's own native contact block still
+   reads "Fishlock Pharmacy - Eccleston" / "Fishlock Pharmacy - Ainsdale" and
+   "17 Station Rd" (abbreviated), i.e. Q37's finding (wrong trading name,
+   abbreviated street name) is unchanged. The second, already-correct footer
+   block ("Fishlocks Chemist - two local NHS pharmacies in Ainsdale & Eccleston
+   ... 17 Station Road ...") is present and correct, as at every prior pass.
+
+3. weight-loss-clinic-fishlocks-ainsdale.html (this repo's own generated,
+   Regime-2-compliant replacement page) re-read in full: confirmed clean, no
+   medicine named, no outcome slider, no treatment picker, no results heading -
+   matches tools/check-weight-loss-copy.js's own clean verdict and Q57's own
+   note that "the two replacement clinic pages for Ainsdale and Eccleston are
+   already live". Read in full this pass as a control, not because anything
+   was expected to have changed.
+
+4. weight-loss-services-eccleston-ainsdale.html (the live-only legacy page Q57
+   is actually about) re-read in full: "Real Results with Mounjaro" heading
+   present, the weight-loss outcome slider present ("How much weight could you
+   lose? ... You could lose up to: 26kg (22.5% of your body weight)"), and the
+   three-item treatment picker present under "Explore treatments" (Wegovy/
+   semaglutide, Mounjaro/tirzepatide, Orlistat). Q57's finding is unchanged by
+   the republish.
+
+5. index.html homepage nav read via accessibility tree (interactive elements
+   only, no click): confirmed the top-level "Weight Loss Clinic" nav item
+   (href="/weight-loss-services-eccleston-ainsdale.html") still points at the
+   legacy page, while the two branch-specific dropdown entries "Weight Loss
+   Clinic (Ainsdale)" and "Weight Loss Clinic (Eccleston)" point at the
+   compliant generated pages. This matches what item 5.8's own sweep has
+   already recorded for this and other branches (top nav / secondary nav /
+   content-tile link-context findings logged repeatedly since the sweep
+   began) - recorded here as independent reconfirmation for this specific
+   branch's own item, not a new finding.
+
+RESULT
+
+No in-repo defect found. No new question raised. Q35, Q37 and Q57 all
+reconfirmed unchanged a second time, a day after the 2026-11-17 republish,
+closing out the question the twenty-seventh pass raised but did not have time
+to re-settle (whether the republish was a one-off event or the start of an
+active session that might touch these pages on a delay - it was the former).
+Item 2.1 stays [x] (quality pass, not a state change). No generator, page,
+pack, checker or branches.json content changed.
