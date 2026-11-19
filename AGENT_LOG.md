@@ -1,3 +1,25 @@
+## run552 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-19T15:42Z): no-op, deliberately short. State unchanged from run551, which fired only ~21 minutes before this run and already completed a full quality pass (28th, item 4.13) at the standard depth. No new quality-pass narrative added this run.
+
+LOCK (step 1): `.agent-lock` absent at pickup (sandbox `ls` returned "No such file or directory" - run551 released it cleanly via the native host, per its own log entry). Created fresh via the sandbox Bash tool with this run's own UTC timestamp. No stale `.git/*.lock` found.
+
+GIT (step 2): `git fetch origin` clean, already on `agents/audit-backlog`, `git pull --ff-only` reported already up to date. Independently reconfirmed via `mcp__Windows-MCP__PowerShell` against the native `C:\Dev\rbh-site-data` path: HEAD at `408a32a` (run551's close-out commit) on both sides, matching origin.
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, navigated to `https://data.rbhealth.co.uk/api/feedback` and read the full feed. No Cloudflare Access gate. No entry for Q139 (still the only open question). QUESTIONS.json independently reconfirmed via Node: 140 total, 1 open (Q139), unchanged from run551.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file (run551's entry, before this one was added) for a "Standing authorisation - autonomous window" section - none present. Not in an autonomous window; normal rules applied.
+
+WORKLIST (step 5): confirmed by direct grep - all 3 unchecked `[ ]` lines still `[BLOCKED]` (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. No unblocked unchecked item exists. Declined to run a 29th rotation-pool quality pass this run: the pool (4.13, 3.6, 3.2, 2.3, 4.3, 4.6, 3.7, 3.9, 3.13, 5.1, 4.14) was just refreshed by run551 21 minutes ago, and every item in it has now been retaken within the last ~15 hours at minimum, most within the last few hours - the same declining-marginal-value point runs 547-549 made about repeating this exercise on a short cadence applies with equal force here. A run that fires this close behind the previous one adds more value by staying short and confirming nothing has moved than by manufacturing a 29th incremental checker-coverage note on an already well-covered pool.
+
+DECISION: no worklist item ticked, no new question raised, no in-repo file changed (generators, pages, packs, checkers, branches.json all untouched this run).
+
+COMMIT/PUSH (step 9): this entry only, via `mcp__Windows-MCP__PowerShell` against `C:\Dev\rbh-site-data` (per Q102/run550's fix; the sandbox shell's `git push --dry-run` was independently re-checked and still fails the standing `could not read Username for 'https://github.com'` credential gap, consistent with every run since it began - not re-diagnosed at length here).
+
+PUBLISH (step 10): `node tools\build-audit-status.js` run from the native host per the standing instruction, regardless of outcome.
+
+LOCK (step 11): released via `mcp__Windows-MCP__PowerShell` (`Remove-Item .agent-lock -Force`), confirmed gone via `Test-Path`.
+
+NOTE CARRIED FORWARD, NOT RE-ARGUED: the three remaining worklist items (5.8/Q16, 6.4/Q60, 6.5/Q60) are blocked on a live Weebly edit and GBP-console/nav-architecture decisions this unattended run cannot make, and the one open question (Q139) is a business/regulatory judgement reserved for Rishi. Both facts are unchanged and already fully written up in prior entries.
+
 ## run551 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-19T15:21Z): no-op on the worklist (all 3 unchecked items remain [BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60); quality pass (twenty-eighth) on item 4.13 (Riddings Pharmacy, Timperley pack) - fresh angle tools/check-jsonld.js, never previously named against this item (17 of 37 checkers now proven, up from 16). Proven by direct injection (addressRegion on the Riddings sinusitis page) against a disposable scratch copy; repo and live halves both clean, no new in-repo defect. Git writes (commit/push) and the status-page publish routed through mcp__Windows-MCP__PowerShell against C:\Dev\rbh-site-data, per Q102 and run550's own fix, rather than the sandbox shell, which still shows the standing EPERM-on-unlink symptom on .git/index.lock and .agent-lock (reconfirmed, not re-diagnosed).
 
 LOCK (step 1): `.agent-lock` absent at pickup (sandbox `ls` returned "No such file or directory"). Created fresh via the sandbox Bash tool with this run's own UTC timestamp (write succeeded; only unlink is restricted on this mount, consistent with run545's FUSE diagnosis). No stale `.git/*.lock` beyond the fresh `index.lock` the sandbox's own `git status`/`git pull` calls left behind (0 bytes, this run's own, not stale).
