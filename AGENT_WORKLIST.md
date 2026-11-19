@@ -11437,6 +11437,23 @@ Done 2026-10-14 (twenty-third pass).
       authorisation" section). No branches.json, generator, page, pack
       or checker content changed. Evidence in
       audits/smartts-item-3.7-q139-scope-check-2026-11-18.txt.
+      Quality pass 2026-11-19 (twenty-sixth, run536): fresh angle
+      tools/check-pharmacy-first-cost.js, never before proven against
+      Smartts by direct injection. Hero pill on
+      pharmacy-first-smartts-bootle.html changed from "Free NHS service at
+      your local Bootle pharmacy" to "Low-cost NHS service at your local
+      Bootle pharmacy" in an isolated scratch copy - CAUGHT first attempt
+      (rule 4, qualifier). Negative control (cosmetic CSS class added to
+      the same span, no wording touched) ran clean. Restored and sha256
+      reconfirmed identical to baseline both times; tracked repo untouched
+      throughout. Full 35-checker non-network suite: 34/35 clean, the one
+      failure the standing CH1 2AB narrative-postcode baseline (unrelated,
+      pre-existing). Live half (Claude in Chrome, read-only): the free-NHS
+      claim reconfirmed six times on the live page, no price or fee
+      wording anywhere; the standing live-only lunch-hours display gap
+      (CLAUDE.md) reconfirmed unchanged, not new. No in-repo or live
+      defect found. Evidence in
+      audits/smartts-item-3.7-quality-pass-2026-11-19-twentysixth.txt.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

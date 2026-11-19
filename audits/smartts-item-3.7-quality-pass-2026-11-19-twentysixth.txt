@@ -1,0 +1,117 @@
+Item 3.7 (Smartts Chemist, Bootle) - quality pass (twenty-sixth), 2026-11-19
+Run 536 (Sonnet 5, Cowork scheduled run, audit-backlog-worker)
+
+SELECTION
+All three unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct
+grep (5.8/Q16, 6.4/Q60, 6.5/Q60), none pickable. Fell to the fallback
+quality pass. Rotation pool: item 3.7's last full end-to-end pass was
+run502 (2026-11-17T19:00Z, twenty-fifth pass); run534 only worked Q139 as a
+follow-up and explicitly did not re-verify the item end to end. Every other
+pool item (2.3/run531, 3.2/run533, 3.6/run532, 3.9/run507, 3.13/run506,
+4.13/run504, 4.14/run535, 5.1/run505) was touched more recently than
+run502. Item 3.7 is stalest. Picked 3.7, its twenty-sixth full pass.
+
+FRESH ANGLE
+tools/check-pharmacy-first-cost.js had never been proven by direct
+injection against Smartts Chemist specifically, despite Smartts publishing
+the free-NHS-service claim six times on its own Pharmacy First page
+(pharmacy-first-smartts-bootle.html) plus once more on its GBP pack. This
+checker guards the one claim on the page that is a straightforward patient
+access issue: Pharmacy First is free at the point of use, and a page that
+wrongly implies a cost deters patients who do not then say why they never
+came.
+
+METHOD
+Isolated copy via `git archive HEAD | tar -x` into a scratch directory
+under the outputs scratchpad, outside the tracked repo; the tracked repo
+was never opened for writing. branches.json sha256
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da) matches
+every prior pass's anchor, confirming no run before this one touched it.
+
+Baseline: `node tools/check-pharmacy-first-cost.js` on the clean scratch
+copy - clean, "112 Pharmacy First page(s) checked ... 16 GBP pack(s)
+checked ... 6 branch landing page(s) checked", 0 failures.
+
+INJECTION
+Backed up pharmacy-first-smartts-bootle.html (sha256
+ab76c6185f4a8d0021d10a637108d1b26dc828acebda336366df3d508096ea76). Changed
+the hero pill from "Free NHS service at your local Bootle pharmacy" to
+"Low-cost NHS service at your local Bootle pharmacy" - the same wording
+shape as the original item 4.15 defect this checker was written against,
+applied here to Smartts for the first time.
+
+CAUGHT, first attempt, 1 failure:
+  FAIL [qualifier] modules/service/pages/pharmacy-first-smartts-bootle.html:
+  describes NHS Pharmacy First as "Low-cost", which prices a service that
+  is free at the point of use (rule 4).
+
+Restored from backup; sha256 reconfirmed identical to baseline
+(ab76c6185f4a8d0021d10a637108d1b26dc828acebda336366df3d508096ea76). Checker
+re-run clean.
+
+NEGATIVE CONTROL
+Added a cosmetic CSS class to the same hero pill span (no wording touched):
+`<span class="pill">` -> `<span class="pill pf-hero-pill">`. Checker ran
+clean - 0 failures, confirming the catch above was selective to the cost
+wording, not an artefact of touching that element at all. Restored from
+backup again; sha256 reconfirmed identical to baseline both times.
+
+Guard coverage for item 3.7 now includes check-pharmacy-first-cost.js
+proven by direct injection, in addition to the checkers already proven
+across this item's prior twenty-five passes (check-nap.js,
+check-postcodes.js, check-em-dashes.js, check-contraception-copy.js,
+check-jsonld.js, check-map-embeds.js, check-fragment-targets.js,
+check-seo-sheets.js, check-widget-diaries.js, check-booking-routes.js,
+check-branch-identity.js, check-whatsapp-route.js, check-branch-links.js,
+check-seo-lengths.js, check-seo-keywords.js, check-weight-loss-copy.js,
+check-travel-clinic-copy.js, check-weebly-furniture-freshness.js,
+check-pharmacy-first-eligibility.js, and partial coverage of
+check-switch-copy.js and check-seo-pattern.js).
+
+FULL SUITE
+All 35 non-network tools/check-*.js scripts run individually on the
+restored scratch copy (check-cdn-pins.js and check-live-hours.js excluded,
+both network-dependent and not meaningful from an isolated scratch
+extraction). 34 of 35 clean. The one failure, check-postcodes.js, is the
+standing CH1 2AB narrative-postcode baseline already documented across many
+prior runs (quoted inside other runs' own audit evidence files, not a
+branches.json or page defect, and unrelated to this item). Not actioned
+this pass, consistent with every prior run's treatment of the same
+baseline.
+
+Tracked repo confirmed untouched throughout: `git status --porcelain
+modules core branches.json tools` empty at every check, branches.json
+sha256 unchanged against the tracked clone.
+
+LIVE HALF
+Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use. Read
+https://www.smarttschemist.co.uk/pharmacy-first-smartts-bootle.html in
+full via get_page_text. The free-NHS claim appears six times on the live
+page exactly as the generator and checker expect ("Free NHS service at
+your local Bootle pharmacy", "Pharmacy First is a free NHS service", "Free
+NHS consultation with a pharmacist", "Free NHS Pharmacy First service at
+Smartts Chemist", the trust-bar "Free NHS service / Pharmacy First, no
+charge to be seen" line, and the FAQ answer "Yes. The Pharmacy First
+consultation is a free NHS service. If you are supplied a medicine, the
+usual NHS prescription charge applies unless you are exempt."). No price,
+fee or cost qualifier anywhere on the live page. Address, phone and all
+seven condition tiles' age cohorts also all match branches.json and the
+generator exactly.
+
+The live page's opening-hours block prints "Monday 9:00am - 6:00pm" etc.
+with no lunch-closure gap shown, against branches.json's two-session
+specification (09:00-13:00, 14:00-18:00). This is the standing, already
+documented live-only finding recorded in CLAUDE.md ("A right answer in the
+wrong unit... every live page on smarttschemist.co.uk, and the site
+footer, already print 9:00am to 6:00pm for a branch whose NHS-confirmed
+hours close 1:00pm to 2:00pm"). Reconfirmed unchanged, not new, not
+relitigated here; check-pharmacy-first-cost.js does not read hours and this
+pass's scope is the cost claim only.
+
+CONCLUSION
+No in-repo or live defect found. check-pharmacy-first-cost.js is proven
+correct against Smartts Chemist Bootle by direct injection. No
+branches.json field, generator, page, pack or checker content changed.
+Item 3.7 stays [x] (quality pass, not a state change). QUESTIONS.json
+unchanged at 140 total, 1 open (Q139).
