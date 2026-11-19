@@ -5198,6 +5198,44 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       question. QUESTIONS.json unchanged at 140 total, 1 open (Q139).
       Evidence in audits/scorah-item-3.2-quality-pass-2026-11-18-
       twentysixth.txt.
+
+Quality pass 2026-11-19 (twenty-seventh, run545, unattended scheduled run).
+Rotation-pool pick: item 3.2's own block last mentioned run533
+(2026-11-18T21:42Z), the stalest of the standing pool - every other pool
+item (2.3/543, 3.6/544-545, 4.14/535, 3.7/536, 4.13/537, 5.1/538, 3.13/539,
+3.9/540, 4.6/541, 4.3/542) had been retaken more recently. FRESH ANGLE:
+tools/check-pharmacy-first-symptoms.js, never named once across this
+item's prior 26 passes, applies directly because both Scorah branches
+publish all seven Pharmacy First condition pages with their own "Common
+signs include:" symptoms block. Isolated scratch copy via `git archive`;
+tracked repo never opened for writing. branches.json sha256 confirmed
+0385b7c2...27da, unchanged.
+
+Injection: on modules/service/pages/uti-treatment-scorah-bramhall.html,
+removed one symptom point ("Pain low down in your tummy") from the page's
+own symptoms list - CAUGHT on first attempt, rules 4 (verbatim-on-page) and
+5 (list length), naming the exact page and the missing line. Restored from
+the tracked repo's HEAD copy, sha256 reconfirmed identical
+(7eee32363bbd...4d6e7). Negative control: reordered two symptom points on
+the same page (no content added or removed) - ran clean, confirming
+selectivity. Page restored again, sha256 reconfirmed identical. Full
+35-checker suite re-run clean after (34/35; the two non-matching results
+were check-cdn-pins.js, an artefact of the scratch-copy method having no
+.git history, and the standing CH1 2AB check-postcodes.js baseline,
+pre-existing and unrelated). RESULT: zero in-repo defect - both Scorah
+branches' Pharmacy First symptoms copy matches the generator's own canon
+exactly. Guard coverage for item 3.2 now 28 of 37 checkers proven by direct
+injection (up from 27).
+
+ANSWER PICKUP: Claude in Chrome, read-only, single tab, closed after use;
+navigated to https://data.rbhealth.co.uk/api/feedback and read the full
+feed. Newest entry still the Q52 answer (2026-09-01T22:44:51.524Z); no
+"AUDIT ANSWER Q139" entry present. QUESTIONS.json reconfirmed: 140 total,
+1 open (Q139), unchanged. No "Standing authorisation - autonomous window"
+section present at the top of AGENT_LOG.md, so step 4 did not apply. No new
+question raised; no generator, page, pack, checker or branches.json content
+changed. Item 3.2 stays [x] (quality pass, not a state change). Evidence in
+audits/scorah-item-3.2-quality-pass-2026-11-19-twentyseventh.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

@@ -1,0 +1,71 @@
+Item 3.2 quality pass, twenty-seventh, run545, 2026-11-19
+
+Scope: Scorah Chemists (Bramhall and Hazel Grove). Fresh angle this pass:
+tools/check-pharmacy-first-symptoms.js, never named once across item 3.2's
+prior 26 passes, despite both Scorah branches publishing all seven Pharmacy
+First condition pages (14 pages total), each carrying its own "Common signs
+include:" symptoms block.
+
+Method: isolated copy via `git archive HEAD | tar -x` into a scratch
+directory outside the tracked repo (/tmp/scratch545/repo). Tracked repo at
+/sessions/busy-keen-darwin/mnt/rbh-site-data never opened for writing during
+this test.
+
+Baseline:
+  branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+    (unchanged from every prior pass's anchor)
+  modules/service/pages/uti-treatment-scorah-bramhall.html sha256:
+    7eee32363bbd56bd1218f04c702980120fa75bbc77c21b72dd07f0fc4324d6e7
+  node tools/check-pharmacy-first-symptoms.js on scratch copy before any
+  mutation: clean - "7 ready pathways read from tools/build-service-pages.js,
+  98 condition pages checked against their own symptoms list, 82 medicine
+  names read from tools/pom-names.js for rule 8."
+
+Injection round 1 (rules 4 and 5): removed the point "<li>Pain low down in
+your tummy</li>" from uti-treatment-scorah-bramhall.html's own symptoms list
+(scratch copy only). Re-ran the checker:
+  FAIL uti-treatment-scorah-bramhall.html: a symptom point is missing from
+  the symptoms list (rule 4) - expected: Pain low down in your tummy
+  FAIL uti-treatment-scorah-bramhall.html: the symptoms list holds 4 item(s)
+  and the generator declares 5, so the page has been edited by hand (rule 5)
+Caught cleanly on first attempt, naming the exact page and the exact missing
+line.
+
+Restore: page restored from `git show HEAD:...` on the tracked repo (read-
+only operation); sha256 reconfirmed identical to baseline
+(7eee32363bbd56bd1218f04c702980120fa75bbc77c21b72dd07f0fc4324d6e7).
+
+Negative control: reordered two symptom points on the same page (no content
+added or removed, order only) - ran clean, confirming the checker reacts to
+content loss/addition, not line order. Page restored again from the tracked
+repo's HEAD copy; sha256 reconfirmed identical.
+
+Full 35-checker suite (all tools/check-*.js except check-live-hours.js,
+network-dependent) run individually on the scratch copy after restore:
+34/35 clean. The two reported failures were check-cdn-pins.js and
+check-postcodes.js. check-cdn-pins.js's failures are an artefact of the
+scratch method itself - `git archive` produces a tree with no .git history,
+so CDN ref resolution against git fails in the scratch copy only; this is
+not a repo defect (the tracked repo, which has full git history, resolves
+these refs fine, as confirmed by prior passes e.g. run532). check-postcodes.js's
+failure is the standing CH1 2AB narrative-postcode baseline, pre-existing,
+unrelated to this item, not actioned here (consistent with every prior
+pass's "34/35, one failure" finding).
+
+Tracked repo confirmed untouched throughout: `git status --short` on the
+tracked repo showed no modification to branches.json, any Scorah page, or
+any Scorah gbp-pack (ignoring the standing index.lock EPERM-on-unlink
+warning, unrelated plumbing noise). Final sha256 reconfirmation on the
+tracked repo:
+  branches.json: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  modules/service/pages/uti-treatment-scorah-bramhall.html:
+    7eee32363bbd56bd1218f04c702980120fa75bbc77c21b72dd07f0fc4324d6e7
+Both identical to baseline.
+
+RESULT: no in-repo defect. Both Scorah branches' Pharmacy First symptoms
+copy matches the generator's own canon exactly. Guard coverage for item 3.2
+now extends to 28 of 37 checkers proven by direct injection against this
+item specifically (up from 27, per run533's own count).
+
+No branches.json field, generated page, pack or checker content changed.
+Item 3.2 stays [x] (quality pass, not a state change).
