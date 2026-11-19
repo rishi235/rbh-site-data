@@ -1,0 +1,92 @@
+Item 4.13 - Riddings Pharmacy Timperley pack - twenty-seventh quality pass
+Run: run537 (Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-19T01:12Z
+
+SCOPE
+Rotation-pool pick, step 5 fallback (all 3 unchecked worklist items remain
+[BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60). Stalest rotation-pool item by
+last-touched run number: 4.13 (run504, 2026-11-17T20:11Z), ahead of
+5.1 (run505), 3.13 (run506), 3.9 (run507); all of 2.3/3.6/3.2/3.7/4.14 had
+been retaken more recently (runs 531-536).
+
+FRESH ANGLE CHOSEN
+tools/check-nap.js, never previously named against item 4.13 across its
+prior 26 passes (15 of 37 checkers proven by direct injection beforehand;
+full list derived by grepping every "check-*.js" filename mentioned in the
+item's own worklist block: check-app-membership, check-booking-routes,
+check-branch-links, check-brand-spelling, check-cdn-pins, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-live-hours,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility, check-postcodes,
+check-uk-spelling, check-url-scheme, check-weight-loss-copy).
+
+METHOD
+Isolated copy via `git archive HEAD | tar -x` into a scratch directory
+outside the tracked repo (/sessions/.../scratch-413); tracked repo never
+opened for writing. branches.json sha256 in the scratch copy:
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+the standing anchor used by every prior pass and matching the tracked
+repo's own branches.json at pickup.
+
+BASELINE: full 35-checker suite (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent) run individually on the clean
+scratch copy. 34 clean; check-postcodes.js failed on the standing CH1 2AB
+narrative-postcode baseline only (18 failures, all against audit evidence
+files not yet added to NARRATIVE_POSTCODES - pre-existing, unrelated to
+this item, not actioned, matches prior runs' own documented finding).
+check-nap.js baseline on its own: clean - "Checked 177 pages and 4 paste
+block(s) against 16 branches.json entries: 0 mismatch(es), 1 warning(s)"
+(the standing Q111 eMAR personal-inbox warning, pre-existing, unrelated).
+
+INJECTION ROUND 1 (restored immediately after, sha256-reconfirmed):
+changed riddings_timperley.phone in the scratch branches.json from
+"0161 973 2951" to "0161 973 9999", leaving every generated page, the GBP
+pack and the switch paste block carrying the old number. check-nap.js
+caught it cleanly on first attempt: 121 mismatches across every one of
+Riddings' generated pages (tel: link, visible phone, JSON-LD telephone,
+and the "phone-like number is not this branch's number" sweep), naming the
+pages and both numbers explicitly. Restored branches.json from a pre-edit
+backup; sha256 reconfirmed identical to the baseline anchor.
+
+NEGATIVE CONTROL: changed riddings_timperley.shortCode from "RID" to
+"RID2" (a field check-nap.js does not read). check-nap.js ran clean with
+the same single standing warning, confirming the checker is selective to
+the phone/address surfaces it actually reads rather than firing on any
+edit to the branch's record. Restored again; sha256 reconfirmed identical.
+
+Guard coverage for item 4.13 now 16 of 37 checkers proven by direct
+injection (up from 15).
+
+FULL SUITE RE-RUN: all 35 non-network checkers re-run individually on the
+restored scratch copy after both injection rounds. Clean except the same
+standing check-postcodes.js baseline (unchanged, not this item's scope).
+No generator, page, pack or branches.json content changed this pass (the
+checker was proven correct, not fixed), so no regeneration was needed.
+
+TRACKED REPO CONFIRMED UNTOUCHED THROUGHOUT: git status clean on
+branches.json in the live working tree at every checkpoint; sha256 of the
+tracked repo's own branches.json re-verified identical to the standing
+anchor before and after all scratch-copy work.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed
+or submitted, closed after use): read https://www.riddingspharmacy.co.uk/
+in full. Phone "0161 973 2951" and address "38 Riddings Road, Timperley,
+Cheshire, WA15 6BP" both appear twice (contact section and footer) and
+match branches.json exactly. Opening hours "Monday-Friday 9:00am-6:00pm,
+Saturday Closed, Sunday Closed" match branches.json's single weekday
+session with no lunch-closure split. Email "riddings@rbhealth.co.uk"
+matches branches.json's "Riddings@rbhealth.co.uk" (case only, not a
+check-nap.js scope item). No new live-side finding; the standing items
+already on record for this branch (Post B 404 at the old switch permalink,
+etc.) were not re-checked this pass since this fresh angle targeted NAP
+only, not the switch page's own content.
+
+RESULT
+No branches.json field, generated page, pack or checker content changed
+this pass (the checker was proven correct, not fixed). Item 4.13 stays
+[x] (quality pass, not a state change). No new question raised.
+QUESTIONS.json unchanged at 140 total, 1 open (Q139).
+
+ANSWER PICKUP (step 3, same run): Claude in Chrome, read-only, single tab,
+closed after use. Navigated to https://data.rbhealth.co.uk/api/feedback
+and read the full feed. Newest entry still the Q52 answer
+(2026-09-01T22:44:51.524Z); no "AUDIT ANSWER Q139" entry present. Q139
+left open, unchanged.

@@ -32895,6 +32895,26 @@ directly rather than re-deriving the same facts by hand.
       Evidence:
       audits/riddings-item-4.13-booking-routes-fix-2026-11-17.txt.
       Done 2026-11-17.
+      Twenty-seventh quality pass 2026-11-19 (run537): fresh angle
+      tools/check-nap.js, never previously named against this item
+      (16 of 37 checkers already proven). Baseline clean (0 mismatches,
+      1 standing warning). Injected riddings_timperley's phone to a wrong
+      number in a disposable scratch copy (git archive, outside the
+      tracked repo) - caught cleanly, 121 mismatches naming every
+      Riddings page's tel link, visible phone, JSON-LD telephone and
+      phone-sweep rule. Restored and sha256-reconfirmed identical to the
+      standing anchor. Negative control (shortCode, a field this checker
+      does not read) ran clean, confirming selectivity. Full 35-checker
+      suite re-run clean afterwards (standing CH1 2AB postcode baseline
+      excepted, unrelated). Tracked repo confirmed untouched throughout.
+      Guard coverage for item 4.13 now 16 of 37 checkers proven by direct
+      injection (up from 15). Live half (Claude in Chrome, read-only):
+      riddingspharmacy.co.uk's phone, address and hours all match
+      branches.json exactly, no new finding. No branches.json field,
+      generated page, pack or checker content changed - the checker was
+      proven correct, not fixed. No new question raised. Evidence:
+      audits/riddings-item-4.13-quality-pass-2026-11-19-twentyseventh.txt.
+      Done 2026-11-19.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
