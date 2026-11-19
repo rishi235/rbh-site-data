@@ -3152,6 +3152,25 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       direct injection (up from 19). QUESTIONS.json unchanged, still 1
       open (Q139). Item 2.3 stays done; no new question raised.]
 
+      [Thirtieth pass, run543, 2026-11-19: fresh angle tools/
+      check-whatsapp-route.js, never named once across the prior 29 passes
+      despite Cherry Lane declaring its own per-branch whatsapp field since
+      Q21's answer was implemented (run529). Injected a wrong whatsapp
+      number into cherrylane_liverpool in branches.json without
+      regenerating pages: caught cleanly, 12 FAILs, one per Cherry Lane
+      generated page, each naming the page and the mismatch. Negative
+      control (shortCode edit) ran clean. branches.json restored both times,
+      sha256 reconfirmed identical to the standing anchor
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da. Full
+      36-checker suite re-run clean except the standing CH1 2AB baseline.
+      Live re-read of cherrylanepharmacy.co.uk: phone, address and hours all
+      match; footer email still the standing Q36 "mhs.net" typo, unchanged,
+      not re-raised. No in-repo defect; no generator, page, pack, checker or
+      branches.json content changed. Guard coverage for item 2.3 now 21 of
+      37 checkers proven by direct injection (up from 20). QUESTIONS.json
+      unchanged, still 1 open (Q139). Full detail in audits/cherry-lane-
+      item-2.3-whatsapp-route-injection-2026-11-19.txt.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta

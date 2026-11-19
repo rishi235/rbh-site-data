@@ -1,0 +1,69 @@
+Item 2.3 quality pass (thirtieth), Cherry Lane Pharmacy (Walton/Liverpool)
+Run: audit-backlog-worker, Cowork scheduled session, 2026-11-19T07:12Z (run543)
+
+FRESH ANGLE: tools/check-whatsapp-route.js had never been named once across item
+2.3's prior 29 passes, despite Cherry Lane being one of the 16 branches now
+declaring a per-branch "whatsapp" field in branches.json (447521775631) since
+Q21's answer was implemented (run529, item 4.9 pass, 2026-11-18).
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(matches the standing anchor used across every prior pass - unchanged)
+Full 37-checker suite (all tools/check-*.js except check-live-hours.js,
+network-dependent) run individually before any change: 36/37 clean, the one
+failure the standing CH1 2AB narrative-postcode baseline (pre-existing,
+unrelated to this item, not actioned).
+check-whatsapp-route.js baseline: clean - "every page's WhatsApp route reaches
+its own branch's number, 1 known exception(s)" (modules/emar/emar.js, the
+Borough Care eMAR number, a standing documented divergence, not a defect).
+
+INJECTION
+Changed cherrylane_liverpool.whatsapp in branches.json from "447521775631" to
+"447999999999", without regenerating any page. Ran check-whatsapp-route.js:
+caught cleanly first attempt, 12 FAILs, one per Cherry Lane generated page
+(the switch page and all 11 service-family pages: contraception, earache,
+impetigo, insect bite, Pharmacy First, shingles, sinusitis, sore throat,
+travel clinic, UTI, weight loss), each one correctly naming the page, the
+page's own data-wa value (447521775631, the real number baked into the
+generated HTML) and the branch's now-mismatched declaration. No other
+branch's pages were touched or reported, confirming the comparison is
+per-branch, not estate-wide.
+
+RESTORE
+branches.json restored from a pre-injection copy. sha256 reconfirmed
+identical to the standing anchor (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+check-whatsapp-route.js re-run: clean, back to baseline exactly.
+
+NEGATIVE CONTROL
+Changed cherrylane_liverpool.shortCode (a field this checker does not read)
+from "CHE" to "ZZZ". check-whatsapp-route.js re-run: clean, same baseline
+output, confirming the checker's catch above was genuinely selective to the
+whatsapp field and not a side effect of touching the branch's record at all.
+branches.json restored again; sha256 reconfirmed identical to the standing
+anchor.
+
+FULL SUITE RE-RUN
+All 36 non-network checkers re-run after restore: 36/36 clean except the same
+standing CH1 2AB baseline, no regression. git status --porcelain on the
+tracked repo showed no residual drift (the two branches.json edits above were
+written and restored in place, confirmed byte-identical by sha256 both times).
+
+GUARD COVERAGE for item 2.3 now 21 of 37 checkers proven by direct injection
+against this specific branch (up from 20 after run531's check-gbp-packs.js
+pass).
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use): re-read https://www.cherrylanepharmacy.co.uk/
+in full. Phone (0151 226 2051), address (202 Cherry Lane, Liverpool, L4 8SG)
+and opening hours ("Open Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed") all
+match branches.json exactly. Footer email still reads
+"pharmacy.FA226@mhs.net" - the standing Q36 typo (should be @nhs.net), live
+and unchanged, consistent with every prior pass; not re-raised as a new
+finding. WhatsApp contact button/number not present as visible page text in
+this read (likely rendered via a widget rather than plain text), so this
+pass could not independently confirm the live WhatsApp number against the
+data-wa value checked above; noted as a gap, not assumed either way.
+
+RESULT: no in-repo defect. No branches.json field, generated page, pack or
+checker content changed (the checker was proven correct against this branch,
+not fixed). Item 2.3 stays [x] (quality pass, not a state change).
