@@ -32486,6 +32486,59 @@ directly rather than re-deriving the same facts by hand.
       content changed. No new in-repo defect, no new question. Full detail
       in audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-18-run520.txt.
       Done 2026-11-18.
+      Twenty-fifth quality pass 2026-11-20 (Cowork scheduled run,
+      audit-backlog-worker, claude-sonnet-5; all three unchecked
+      AGENT_WORKLIST.md lines reconfirmed [BLOCKED] - 5.8/Q16, 6.4/Q60,
+      6.5/Q60, unchanged; 4.12 confirmed stalest in the rotation pool,
+      tied at 2026-11-18 with 4.15, 5.2 and 6.2, winning the tiebreak on
+      lowest item number). REPO HALF: full 35-checker suite (excl.
+      check-cdn-pins.js and check-live-hours.js, both network-dependent)
+      run directly against the tracked working tree, 35/35 exit 0 - the
+      standing check-postcodes.js CH1 2AB narrative-debris failure other
+      items logged recently did not recur here. branches.json sha256
+      (0385b7c2...27da) and gbp-packs/coleman-leigh-walton.md sha256
+      (19b8ebaa...c9652) both unchanged from the twenty-fourth pass's own
+      baseline; colemanleigh_liverpool's full record re-verified field by
+      field (name, 241 Walton Village/Liverpool/L4 6TH, phone
+      0151 525 3522, email, odsCode FWK18, nhsEmail, both review URLs,
+      pfLink, seoTown Walton, serviceAreaList Walton/Liverpool/Sefton,
+      hasApp false, widgets, opening hours) - all match the pack and the
+      generated pages. FRESH ANGLE: tools/check-map-embeds.js, never
+      previously tried against this branch in 24 prior passes, chosen
+      because CLAUDE.md names this exact branch (addressLocality
+      Liverpool, seoTown Walton) as the canonical case for why the map
+      query and the visible town have to be checked against each other.
+      Proved by injection on a disposable `git archive HEAD` scratch copy
+      under /tmp (tracked repo never opened for writing): the map query
+      in modules/service/pages/sore-throat-treatment-coleman-leigh-walton.html
+      was changed from "241 Walton Village" to "999 Fake Street" - FAILED
+      cleanly on both the address-match rule and the contact-card
+      agreement rule, naming the exact file and both addresses. Scratch
+      file restored and sha256-reconfirmed byte-identical
+      (926f673d...dca7e) to the tracked copy before and after; baseline
+      clean run on the unmodified scratch copy also confirmed first.
+      LIVE HALF (Claude in Chrome, read-only, two tabs total, both closed
+      after use, nothing clicked, typed or submitted): re-read the
+      homepage and the Post A pfLink target directly. RESOLVES THE
+      TWENTY-FOURTH PASS'S OPEN OBSERVATION: the Weight Loss Clinic
+      services-list line reads "Pharmacist-led consultations and ongoing
+      support" again on this read, the same wording the twenty-fourth
+      pass saw and different from the superlative "Innovative solutions
+      that deliver results. Tried the rest? Now try the best." tagline
+      the twenty-third pass (2026-11-08) quoted. Two consecutive passes
+      now agree on the compliant wording, so this is logged as a
+      confirmed state change on this specific page (the superlative
+      tagline is gone), not a one-off reading - though this says nothing
+      about the other 15 branches and does not itself resolve the
+      estate-wide Q22 decision, which is still "unsure, need to loop
+      back" per Rishi's 2026-08-30 answer. All other standing live
+      findings reconfirmed unchanged: the "Change to Coleman & Leigh
+      Pharmacy" banner and the footer "Coleman & Leigh Pharmacy" still
+      carry the missing-s spelling; the footer phone still renders
+      "0151 5253522" with no internal space; Post A's pfLink
+      (pharmacy-first-service-walton.html) is still a live 404, now 100+
+      days. No pack, generator, page or branches.json content changed.
+      No new in-repo defect, no new question. Done 2026-11-20.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it
