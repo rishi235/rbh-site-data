@@ -31318,6 +31318,49 @@ directly rather than re-deriving the same facts by hand.
       new question raised. Evidence in
       audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-18-twentysixth.txt.
       Done 2026-11-18
+      Twenty-seventh quality pass, 2026-11-20 (unattended scheduled run).
+      Picked on the stalest-date rotation (five items tied at 2026-11-18:
+      4.11, 4.12, 4.15, 5.2, 6.2; 4.11 chosen on the lowest-item-number
+      tiebreak). Baseline unchanged: sha256(gbp-packs/sk-chemists-bootle.md)
+      = 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      identical to every prior pass's anchor since the pack was last
+      touched. branches.json's skchemists_bootle record re-matched field by
+      field (address, phone, email, both review URLs, pfLink, seoTown,
+      serviceAreaList, hasApp false, widgets, openingHours). Full
+      35-checker suite re-run (excl. check-cdn-pins.js/check-live-hours.js
+      per standing convention): 35/35 clean, 0 failures - notably the
+      standing CH1 2AB check-postcodes.js debris that several late-2026-11
+      runs logged against other items is not present here; this pass's own
+      run found 0 failures outright. Checked which checkers genuinely read
+      gbp-packs/ by source (readdirSync/PACK_DIR, not a comment mention):
+      13 found (check-app-membership, check-brand-spelling, check-em-dashes,
+      check-gbp-packs, check-gbp-pharmacy-first, check-opening-hours,
+      check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+      check-postcodes, check-uk-spelling, check-url-scheme, plus
+      check-address-region and check-page-coverage which mention
+      "gbp-packs" only in comments and do not actually scan the directory).
+      Cross-checked against this item's own prior-pass history: every
+      genuine reader has already been proven by direct injection against
+      this specific pack at least once (confirmed by name-search across all
+      26 prior passes' write-ups), so no untested checker-level angle
+      remains to manufacture this pass without duplicating prior proof.
+      LIVE HALF: pharmacy-first-sk-chemists-bootle.html read on
+      skchemist.co.uk (Claude in Chrome, read-only, single tab, closed
+      after use). Contact card (516 Stanley Road, Bootle, L20 5DW, 0151 944
+      1013, SK@rbhealth.co.uk), opening hours (Mon-Fri 9:00am-6:00pm, Sat/
+      Sun closed), and all seven Pharmacy First conditions with their NHS
+      age ranges (UTI women 16-64, sore throat 5+, sinusitis 12+, earache
+      1-17, impetigo 1+, shingles 18+, infected insect bite 1+) all match
+      branches.json exactly. Step 3 answer pickup: portal feed read in
+      full, newest "Audit answer" entry still Q52 (2026-09-01); no entry
+      for Q139, Q140, Q141 or Q142. All four remain open, unchanged.
+      RESULT: no in-repo defect found; no generator, page, pack, checker or
+      branches.json content changed. This item is now fully exhausted at
+      the checker-injection level across 27 passes with every genuine
+      gbp-packs-reading checker proven against this specific pack; this
+      pass's own contribution is a clean re-verification (byte-stable pack,
+      clean 35-checker baseline, clean live read) rather than a new proof.
+      Done 2026-11-20
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
