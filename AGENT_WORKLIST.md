@@ -25163,6 +25163,25 @@ branches remained, not nine. All ten drafted in parallel by six subagents
 in a supervised Cowork session on 2026-08-04, then compliance-swept
 centrally: no medicine names, no em dashes, no emojis, descriptions under
 750 chars, facts spot-checked against branches.json.)
+Quality pass (twenty-seventh), 2026-11-20 (unattended scheduled run):
+FRESH ANGLE, tools/check-url-scheme.js, never individually proven by
+injection against this specific pack across twenty-six prior passes.
+Baseline clean (222 published files, 0 failures). Disposable git-archive
+scratch copy (tracked repo never opened for writing): swapped the pack's
+own "Website for the profile" line from https to http - CAUGHT cleanly
+first attempt, naming the pack and the item 6.6 crawlable-duplicate
+reasoning. Control (comma removed from the Address line, no URL touched,
+separate scratch copy) ran clean, confirming selectivity. Tracked repo
+sha256 of gbp-packs/scorah-hazel-grove.md reconfirmed unchanged
+(a9f6deb4...e105d84) throughout; git status clean. Full 35-checker suite
+(excl. check-cdn-pins.js/check-live-hours.js) re-run clean. No in-repo
+defect - the pack's website URL is correctly https and matches
+branches.json. Guard coverage for item 4.5 now also includes
+check-url-scheme.js proven by direct injection. No generator, page,
+pack, checker or branches.json content changed. No new question.
+Evidence: audits/scorah-hazel-grove-item-4.5-url-scheme-injection-2026-11-20.txt.
+Done 2026-11-20.
+
 - [x] 4.6 McCanns Chemist Aigburth pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and found correct on address, postcode, phone, hours

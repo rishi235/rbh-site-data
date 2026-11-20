@@ -1,0 +1,55 @@
+Item 4.5 quality pass (twenty-seventh), 2026-11-20
+Branch: Scorah Chemists, Hazel Grove (scorah_hazel)
+Fresh angle: tools/check-url-scheme.js, never individually proven by direct
+injection against this specific pack across twenty-six prior passes.
+
+BASELINE (tracked repo, before any injection):
+  node tools/check-url-scheme.js
+  222 published file(s) scanned, 59 branches.json URL value(s), 16 GBP table
+  row(s), 129 insecure URL(s) outside narrative surfaces, 131 quoted in
+  narrative surfaces, 0 held under KNOWN: 0 failure(s), 129 warning(s).
+  (All warnings trace to pre-existing debris/quarantine/audit-history files;
+  none name gbp-packs/scorah-hazel-grove.md.)
+
+branches.json scorah_hazel.website: https://www.scorah-chemists.co.uk
+Pack's own "Website for the profile" line (gbp-packs/scorah-hazel-grove.md,
+line 14): https://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html
+- scheme matches, host matches branches.json.
+
+sha256 of gbp-packs/scorah-hazel-grove.md before any work:
+  a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84
+
+INJECTION (disposable git-archive scratch copy at /tmp/scratch45; tracked
+repo never opened for writing):
+  Swapped the Website-for-the-profile line's https:// for http://.
+  node tools/check-url-scheme.js against the scratch copy:
+    FAIL  INSECURE gbp-packs/scorah-hazel-grove.md: published surface
+    carries http://www.scorah-chemists.co.uk/pharmacy-scorah-hazel-grove.html.
+    An insecure estate URL on a live page is a crawlable duplicate of the
+    https page, which is item 6.6.
+  CAUGHT cleanly, first attempt.
+
+CONTROL (separate disposable scratch copy at /tmp/scratch45b): removed the
+comma from "Hazel Grove, Stockport" in the Address line - a cosmetic edit
+with no URL/scheme content touched. check-url-scheme.js: no hits naming
+gbp-packs/scorah-hazel-grove.md. Confirms the rule fires on scheme content
+specifically, not on any edit to the file.
+
+RESTORE / VERIFICATION: both scratch directories were separate copies under
+/tmp, never the tracked working tree. sha256 of the tracked
+gbp-packs/scorah-hazel-grove.md reconfirmed identical afterwards
+(a9f6deb4...e105d84, unchanged). `git status --porcelain -- gbp-packs tools
+branches.json` empty throughout and after.
+
+FULL SUITE: all 35 tools/check-*.js scripts (excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent) re-run directly against the
+tracked repo: 0 non-zero exits.
+
+RESULT: zero in-repo defect. Scorah Chemists Hazel Grove's GBP pack carries
+the correct https website URL, now proven by injection against
+check-url-scheme.js for the first time. Guard coverage for item 4.5 now
+includes check-gbp-packs.js, check-pharmacy-first-eligibility.js (rules
+9-11), check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js (rules
+4-6) and check-url-scheme.js, all proven by direct injection against this
+specific pack. No generator, page, pack, checker or branches.json content
+changed. No new question raised.
