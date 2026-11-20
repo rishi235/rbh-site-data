@@ -1,0 +1,85 @@
+Item 3.12 quality pass - Tiffenbergs Chemist (Aintree/Liverpool) - 2026-11-20
+Run: run568 (Sonnet 5, Cowork scheduled run, audit-backlog-worker)
+
+BASELINE
+--------
+Repo on agents/audit-backlog, HEAD 05d2dc8 (run567's commit), clean working
+tree, up to date with origin/agents/audit-backlog. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior pass's anchor since the CH1 2AB fix landed.
+
+Full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+the two live/network checkers, per established convention) run individually
+against the tracked repo, read-only: 35/35 clean. All eight generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weebly-furniture-
+checklist, build-weight-loss-pages, build-audit-status) rebuilt; sha256 of
+every file under modules/ and core/ compared before and after: byte-
+identical, git status empty throughout. build-audit-status.js's own publish
+step correctly skipped itself ("no credential found in the origin remote
+URL") rather than attempting a write - this sandbox session has no GH token,
+consistent with every prior run's documented finding; the real publish for
+this run happens at step 10 via the native-host route, as usual.
+
+FRESH ANGLE
+-----------
+Item 3.12's own history (14+ passes since 2026-08-04) was flattened and
+every check-*.js basename it names was extracted: 23 of 35 current checkers
+had been named at least once against this item. Picked
+tools/check-pharmacy-first-safety-net.js (added 2026-08-13 on a different
+item's quality pass, never previously run against Tiffenbergs) as the fresh
+angle, since Tiffenbergs holds all seven Pharmacy First condition pages and
+the safety-net ("When to get different help") copy on them had never been
+tested specifically for this branch.
+
+METHOD
+------
+Disposable scratch extraction via `git archive HEAD | tar -x` into this
+session's own outputs mount (/outputs/scratch_3.12_check), confirmed byte-
+identical to the live repo (branches.json sha256 matched) before any
+mutation. The tracked repo was never opened for writing. All edits below
+were made only inside the scratch copy, on
+modules/service/pages/shingles-treatment-tiffenbergs-aintree.html (chosen
+because shingles' safety-net block names an eye-involvement red flag, the
+same class of high-consequence miss the checker's own header describes).
+
+Baseline run inside the scratch copy: clean except the pre-existing,
+already-logged WARN for impetigo naming no urgent route (Q61, unchanged,
+not re-raised).
+
+INJECTION 1 (wrong heading): replaced "<h3>When to get different
+help</h3>" with "<h3>Other important information</h3>" on the shingles
+page. Re-ran: CAUGHT - "FAIL shingles-treatment-tiffenbergs-aintree.html:
+the safety-net heading is missing from the page (rule 6)". Restored from a
+pre-edit copy; diff confirmed byte-identical.
+
+INJECTION 2 (dropped onward route): on the same page, changed "A rash near
+or affecting the eye needs urgent help, contact your GP or NHS 111 the same
+day" to "A rash near or affecting the eye needs urgent attention" - removing
+the named route while keeping an urgency word. Re-ran: CAUGHT - "FAIL
+shingles-treatment-tiffenbergs-aintree.html: a safety-net point is missing
+from the page (rule 6)". Restored; diff confirmed byte-identical.
+
+NEGATIVE CONTROL: reordered the same page's three safety-net bullets
+(eye-involvement, pregnancy/immunosuppression, under-18) with no wording
+change. Re-ran: stayed clean, confirming the rule is order-insensitive, not
+merely position-sensitive. Restored a final time; sha256 of the page file
+confirmed identical to the pre-edit copy throughout.
+
+RESULT
+------
+NO IN-REPO DEFECT FOUND. check-pharmacy-first-safety-net.js correctly
+guards Tiffenbergs' Pharmacy First safety-net copy on both failure modes
+tested (missing heading, missing onward route) and does not false-positive
+on harmless reordering. No generator, page, pack or branches.json content
+changed in the tracked repo at any point. Scratch copy deleted after use.
+
+Live half not run this pass (the checker's own subject - the "When to get
+different help" copy as it renders on the live Weebly pages - was last read
+live for Tiffenbergs across the 2026-08-30/08-31 passes and is not re-read
+every pass; noted as a limitation, not a gap this pass tried to close).
+
+QUESTIONS: none raised. QUESTIONS.json unchanged at 141 total, 2 open
+(Q139, Q140); no new portal answer found this run (checked once at step 3
+for the whole run, result shared with item 3.11's own entry below in
+AGENT_LOG.md).

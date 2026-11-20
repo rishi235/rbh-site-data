@@ -1,3 +1,41 @@
+## run568 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-20T11:13Z): quality pass (twenty-fifth) on item 3.12 (Tiffenbergs Chemist, Aintree) - fresh angle tools/check-pharmacy-first-safety-net.js, never previously run against this branch, proven on both a missing-heading and a dropped-onward-route injection on the shingles condition page, with a reorder negative control confirming the rule is order-insensitive. No in-repo defect found; no generator, page, pack or branches.json content changed.
+
+LOCK (step 1): no `.agent-lock` present at pickup. Created fresh with this run's own UTC timestamp (2026-11-20T11:13:48Z).
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`, up to date with `origin/agents/audit-backlog` at HEAD `05d2dc8` (run567's commit). No stale `.git/index.lock` encountered. No divergence.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, navigated to `https://data.rbhealth.co.uk/api/feedback`, read the full feed, closed the tab after. No Cloudflare Access gate hit. Newest entries still the historical Q2-Q52 batch (2026-08-04 to 2026-09-01); no "AUDIT ANSWER Q139" or "AUDIT ANSWER Q140" entry present. QUESTIONS.json independently reconfirmed: 141 total, 2 open (Q139, Q140), unchanged.
+
+AUTONOMOUS WINDOW (step 4): checked the top of this file (run567's entry, before this one was added) for a "Standing authorisation - autonomous window" section - none present. Not in an autonomous window; normal rules applied.
+
+WORKLIST (step 5): confirmed by direct grep - all 3 unchecked `[ ]` lines still `[BLOCKED]` (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the fallback quality pass. ROTATION: run567's own entry had already re-derived the stalest group (tied at 2026-11-18, before run567's own edit moved 3.11 to 2026-11-20): 3.11, 3.12, 4.1, 4.5, 4.7, 4.8, 4.9, 4.11, 4.12, 4.15, 5.2, 6.2. With 3.11 now dated 2026-11-20 by run567, the stalest-and-lowest-number item remaining from that group is 3.12. Took item 3.12.
+
+ITEM 3.12 QUALITY PASS (25th): full detail in `audits/tiffenbergs-item-3.12-quality-pass-2026-11-20.txt`. Baseline: full 35-checker suite (excluding `check-cdn-pins.js` and `check-live-hours.js`) on the tracked repo, read-only: 35/35 clean. All eight generators rebuilt; sha256 of every file under `modules/` and `core/` compared before/after: byte-identical, `git status` empty throughout. `branches.json` sha256 `0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da`, unchanged from every prior pass's anchor. `build-audit-status.js` correctly skipped its own publish step this run ("no credential found in the origin remote URL") - the real publish happens at step 10 below via the native-host route, as usual.
+
+Item 3.12's twenty-fourth pass (2026-11-18, run512) had logged its own explicit "remain" list of checkers never yet run against this branch. Picked `check-pharmacy-first-safety-net.js` from that list (never previously run against Tiffenbergs) as the fresh angle, since Tiffenbergs holds all seven Pharmacy First condition pages.
+
+METHOD: disposable scratch extraction via `git archive HEAD | tar -x` under this session's own outputs mount, confirmed byte-identical to the live repo before any mutation; the tracked repo was never opened for writing. All edits made only on `modules/service/pages/shingles-treatment-tiffenbergs-aintree.html` inside the scratch copy.
+
+INJECTION 1 (wrong heading): replaced the safety-net heading "When to get different help" with "Other important information". Re-ran: CAUGHT cleanly on first attempt, rule 6, naming the missing heading. Restored; diff confirmed byte-identical.
+
+INJECTION 2 (dropped onward route): removed "contact your GP or NHS 111 the same day" from the eye-involvement red-flag bullet, leaving an urgency word but no named route. Re-ran: CAUGHT cleanly, rule 6, naming the missing point. Restored; diff confirmed byte-identical.
+
+NEGATIVE CONTROL: reordered the same page's three safety-net bullets, no content change. Stayed clean, confirming the rule is order-insensitive. Restored a final time; page sha256 confirmed identical throughout. Scratch copy deleted after use.
+
+RESULT: NO IN-REPO DEFECT FOUND. No generator, page, pack or `branches.json` content changed in the tracked repo. Live half not re-run this pass (noted as a limitation, not skipped silently - this checker's subject was last read live for Tiffenbergs across the 2026-08-30/08-31 passes).
+
+QUESTIONS (step 8): none raised. Q139 and Q140 remain open, unchanged; no portal answer found for either.
+
+WORKLIST TICK (step 7): item 3.12 appended with the twenty-fifth quality-pass note in `AGENT_WORKLIST.md`, dated 2026-11-20; line stays `[x]` (quality pass, not a state change - the item was already marked done on 2026-08-04).
+
+COMMIT AND PUSH (step 9): `AGENT_WORKLIST.md`, `AGENT_LOG.md` and the new `audits/tiffenbergs-item-3.12-quality-pass-2026-11-20.txt` staged and committed to `agents/audit-backlog`. This sandbox session has no GH_TOKEN/GITHUB_TOKEN/RBH_PORTAL_TOKEN, no `gh` CLI, no `~/.git-credentials` and no `~/.netrc` (reconfirmed), so per run559/run562/run567's established precedent, used `mcp__Windows-MCP__PowerShell` against the native host checkout at `C:\dev\rbh-site-data` to push.
+
+STATUS PAGE (step 10): `node tools/build-audit-status.js` run via the native host, republishing the portal progress page to `rishi235/rbh-data-portal`.
+
+LOCK RELEASE (step 11): `.agent-lock` cleared before exit.
+
+---
+
 ## run567 (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-20T10:33Z): resolved run566's standing push/publish credential gap first (pushed the two queued commits and republished the status portal via the native-host gh-authenticated git route, mcp__Windows-MCP__PowerShell against C:\dev\rbh-site-data); then quality pass (thirtieth) on item 3.11 (Gordon Short Chemist, Crosby) - fresh angle tools/check-gbp-pharmacy-first.js, never previously named against this branch, proven to catch a dropped Pharmacy First condition on both GBP-pack blocks, and separately confirmed (not fixed) to deliberately not catch an arbitrary un-blocklisted word by the checker's own documented design. No in-repo defect found; no generator, page, pack or branches.json content changed.
 
 LOCK (step 1): no `.agent-lock` present at pickup. Created fresh with this run's own UTC timestamp (2026-11-20T10:33:09Z). No stale `.git/index.lock` encountered this run.
