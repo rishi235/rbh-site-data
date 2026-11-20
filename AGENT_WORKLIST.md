@@ -28053,6 +28053,43 @@ directly rather than re-deriving the same facts by hand.
       AGENT_LOG.md, no answer posted). NO NEW DEFECT FOUND, NO NEW
       QUESTION RAISED. Item 4.8 stays `[x]` (quality pass, not a state
       change).
+      Quality pass 2026-11-20 (Sonnet 5, Cowork scheduled run, twenty-seventh
+      pass): stalest item in the rotation pool, re-derived fresh this run
+      (tied stalest at 2026-11-18 alongside 4.9, 4.11, 4.12, 4.15, 5.2, 6.2;
+      4.8 wins the lowest-item-number tiebreak). Baseline: pack sha256
+      unchanged (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa).
+      Reviewed all 26 prior passes' own coverage first rather than guessing a
+      fresh angle: every checker that genuinely reads gbp-packs/ by source
+      (check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+      check-gbp-packs.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+      check-postcodes.js, check-uk-spelling.js, check-url-scheme.js) has
+      already been proven by direct injection against this exact pack across
+      earlier passes (most recently the eleventh pass's four-injection round
+      against brand-spelling/url-scheme/uk-spelling, and the sixteenth
+      pass's four-injection round against check-app-membership.js Rule 8);
+      check-weight-loss-copy.js does not apply (not a weight loss branch);
+      check-opening-hours.js, check-address-region.js, check-nap.js,
+      check-page-coverage.js and check-service-links.js only mention
+      gbp-packs in comments and do not actually open the directory, so they
+      were correctly excluded by every prior pass and remain excluded here.
+      No untested genuine reader remains, so no new injection was attempted
+      this pass rather than manufacturing a speculative one of negligible
+      value. Full 35-checker suite (excl. check-cdn-pins.js/
+      check-live-hours.js, both network-dependent) re-run individually node
+      by node: 35/35 exit 0. git status --porcelain on gbp-packs, tools,
+      branches.json, modules, core confirmed empty before and after (ignoring
+      the mount's standing EPERM-on-unlink index.lock warning, not a real
+      change). LIVE HALF (Claude in Chrome, read-only, one tab, nothing
+      clicked/typed/submitted, closed after use):
+      pharmacy-fishlocks-eccleston.html re-fetched, still a live 404
+      (known queued-paste state, 5.3/5.4, unchanged, now 27+ passes). NO NEW
+      DEFECT FOUND, NO NEW QUESTION RAISED. Item 4.8 stays `[x]` (quality
+      pass, not a state change). This item's checker coverage is now
+      genuinely exhausted at the source-code level; further passes on 4.8
+      specifically should wait for either a branches.json fact change for
+      fishlocks_eccleston or a new checker being written, rather than
+      continuing to re-run the same proven injections.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so

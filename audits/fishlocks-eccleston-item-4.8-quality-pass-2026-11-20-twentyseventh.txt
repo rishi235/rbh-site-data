@@ -1,0 +1,108 @@
+Item 4.8 (Fishlocks Chemist Eccleston GBP pack) - quality pass, twenty-seventh
+Run: Sonnet 5, Cowork scheduled run (audit-backlog-worker), 2026-11-20 ~15:45 UTC
+
+LOCK: .agent-lock found containing a "-released" marker from a prior run,
+mtime ~52 minutes old at pickup - past the 45-minute threshold. Literal
+`rm`/unlink confirmed to fail with EPERM on this mount, consistent with the
+standing incident (INCIDENT-2026-11-16-sandbox-unlink-blocked.md, ongoing
+since 2026-11-16 ~17:42 UTC, still present four days later on this run's own
+direct unlink probe). Lock cleared by overwriting its content in place with
+this run's own fresh UTC timestamp (truncate-write works; unlink does not).
+Git lock files (.git/HEAD.lock, .git/index.lock) blocking git add/commit were
+cleared the same way the incident log documents: `mv` (rename) each aside to
+a throwaway name immediately before the git operation that needed it, retry,
+repeat per-operation since each git call recreates them and the unlink at the
+end of that call also fails. Verified safe with a disposable probe commit
+(added then git reset --hard back to the known-good SHA
+321a6145d400cd05b860c2c7339179456e83da0a, confirmed via git rev-parse before
+trusting the session with real work), per the incident log's own standing
+recommendation.
+
+REPO: git fetch origin clean; already on agents/audit-backlog; local HEAD
+matched origin/agents/audit-backlog exactly (321a6145...), no divergence.
+
+ANSWER PICKUP: QUESTIONS.json carried 3 open questions (Q139, Q140, Q141).
+Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome,
+read-only, one tab, nothing clicked or typed, closed after use. Newest
+"Audit answer" entries on the feed date to 2026-09-01 (Q52) - no entry exists
+yet for Q139, Q140 or Q141. No answers to pick up; all three remain open.
+
+AUTONOMOUS WINDOW: no "Standing authorisation - autonomous window" section
+present at the top of AGENT_LOG.md. Proceeded under normal rules.
+
+WORKLIST: grep -n "^- \[ \]" AGENT_WORKLIST.md confirmed exactly 3 unchecked
+lines, all three [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60). Fell to the
+quality-pass fallback per the procedure.
+
+ROTATION POOL: computed fresh via a small Node script reading
+AGENT_WORKLIST.md directly - for each top-level checked item (excluding the
+standing one-offs 1.1-1.4, 2.2, 4.2, 4.4, 5.3-5.7, 6.1, 6.6-6.8 and the three
+blocked lines), found every YYYY-MM-DD date mentioned anywhere in that item's
+own section and took the latest. Stalest group, tied at 2026-11-18: 4.8, 4.9,
+4.11, 4.12, 4.15, 5.2, 6.2. Tiebreak by lowest item number: 4.8 wins.
+
+WORK (item 4.8, twenty-seventh quality pass): read the item's own prior-pass
+history in AGENT_WORKLIST.md (26 passes, ~920 lines) before attempting
+anything new, to avoid repeating a proof already made. Baseline: pack sha256
+unchanged (5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa,
+matching every prior pass's own anchor back to the sixteenth pass).
+
+CHECKER COVERAGE AUDIT: identified every tools/check-*.js that genuinely
+reads gbp-packs/ by source (readdirSync/readFileSync/path.join against the
+directory, not a comment mentioning it - the established convention in this
+repo): check-app-membership.js, check-brand-spelling.js, check-em-dashes.js,
+check-gbp-packs.js, check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js,
+check-pharmacy-first-eligibility.js, check-postcodes.js, check-uk-spelling.js,
+check-url-scheme.js. Checked each against this item's own 26-pass history:
+every one of the ten has already been proven by direct injection against
+this specific pack's own copy (not merely passing the general suite) -
+most explicitly the eleventh pass's four-injection round (brand-spelling
+"Fishlock Chemist" typo, url-scheme http:// on Post B's button, uk-spelling
+"traveling", plus a quote-evidence negative control) and the sixteenth
+pass's four-injection round against check-app-membership.js's Rule 8 (all
+four branches: missing-positive, contradiction, saysFalse-and-isMember,
+saysTrue-and-saysFalse). check-weight-loss-copy.js does not apply (Fishlocks
+Eccleston is not a weight loss branch). check-opening-hours.js,
+check-address-region.js, check-nap.js, check-page-coverage.js and
+check-service-links.js mention gbp-packs only in code comments and do not
+actually open the directory - correctly excluded by every prior pass.
+
+CONCLUSION: no untested genuine gbp-packs reader remains for this pack. No
+new injection was attempted this pass, since every remaining candidate would
+either repeat a proof already made or be a checker that does not read this
+file at all - manufacturing a speculative new "angle" against an already
+provably clean pack would add process noise, not real coverage, exactly the
+diminishing-returns pattern several recent runs have flagged for the
+rotation pool generally.
+
+VERIFICATION DONE THIS PASS (confirming no drift, not a new finding):
+- Full 35-checker suite (excl. check-cdn-pins.js/check-live-hours.js, both
+  network-dependent) run individually, node by node: 35/35 exit 0.
+- git status --porcelain on gbp-packs, tools, branches.json, modules, core:
+  empty before and after (the mount's standing EPERM-on-unlink index.lock
+  warning is cosmetic, not a real change - confirmed by diff).
+- LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+  submitted, closed after use): pharmacy-fishlocks-eccleston.html re-fetched,
+  still a live 404 - the known queued-paste state (Q35/5.3/5.4), unchanged,
+  now 27+ consecutive passes confirming the same thing.
+
+DECISION: item 4.8 stays [x] (quality pass, not a state change). No
+generator, page, pack, checker or branches.json content changed. No new
+question raised. QUESTIONS.json unchanged: 142 total, 3 open (Q139, Q140,
+Q141).
+
+RECOMMENDATION, CARRIED FORWARD AGAIN FROM MANY PRIOR RUNS: the worklist has
+had 0 unblocked unchecked items for a long stretch (only 5.8/Q16, 6.4/Q60,
+6.5/Q60 remain, all [BLOCKED]), and the rotation pool's items are now 25-27
+passes deep each with near-zero remaining genuine coverage gaps - this pass's
+own audit found item 4.8 specifically to be fully exhausted at the
+source-code level across every checker that actually reads its file. Worth a
+supervised-session decision on: (a) resolving the three [BLOCKED] items and
+the three open questions (Q139-Q141), since nothing in this unattended
+worker's remit can unblock them; (b) the standing INCIDENT-2026-11-16
+sandbox-unlink-blocked.md fault, now four days old and still reproducing on
+every single unlink syscall tested (confirmed again this run) - the
+rename-before-every-git-operation workaround keeps commits landing but
+produces fresh untracked debris files every run that nothing can clean up
+from this sandbox; and (c) whether to pause, narrow, or re-scope this
+scheduled task's cadence given the diminishing returns documented above.
