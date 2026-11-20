@@ -2289,5 +2289,21 @@
     "status": "open",
     "answer": null,
     "note": "Found during item 4.1's quality pass, run (2026-11-20, Cowork scheduled). Proved by injection on a disposable git-archive scratch copy of gbp-packs/fishlocks-ainsdale.md (never the tracked file): added \"Blood testing service\" to the categories line; check-gbp-packs.js returned 0 failures, confirming the category has no earned/not-earned rule in CATEGORY_RULES even though it is a RECOGNISED_CATEGORIES entry. Scratch copy restored and sha256-confirmed identical to the tracked file (7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30) before deletion; no repo file changed by this investigation. Not fixed this run because the correct branch-by-branch answer (which of the 16 genuinely offer blood testing) is a business fact this repo cannot verify itself, the same reasoning Q48 (yellow fever registration) was left open for rather than guessed."
+  },
+  {
+    "id": "Q142",
+    "date": "2026-11-20",
+    "item": "infrastructure (git push / portal publish credential)",
+    "question": "This run could commit locally but could not push to origin or publish the status page: git push failed with \"could not read Username for https://github.com\" and tools/build-audit-status.js reported \"no credential found in the origin remote URL\". The origin remote URL itself is now clean (no embedded token), which looks like the plaintext GitHub PAT flagged repeatedly in INCIDENT-2026-11-16-sandbox-unlink-blocked.md (Tenth follow-up onward) has been rotated or removed as recommended - but nothing has replaced it as a credential source for this unattended Cowork sandbox (no RBH_PORTAL_TOKEN env var, no gh CLI, no credential helper). This run therefore has a local commit (842cf018) on agents/audit-backlog that is NOT on origin, and the portal status page was not republished. No attempt was made to source or embed a credential, per the standing rule that credentials are never an unattended decision.",
+    "options": [
+      "Set an RBH_PORTAL_TOKEN environment variable (a fine-grained PAT scoped to rishi235/rbh-site-data and rishi235/rbh-data-portal, contents: write only) in the Cowork session/scheduled-task environment, so both git push and build-audit-status.js can authenticate without a token ever living in the remote URL or in any file this repo tracks.",
+      "Configure a git credential helper for this sandbox (e.g. a short-lived credential manager entry) instead of an env var, if that fits Rishi's preferred secret-handling approach better.",
+      "Accept that this unattended worker will only be able to commit locally from now on, and have a supervised session push/pull periodically - slower, but means no long-lived token needs to sit in this environment at all.",
+      "Something else Rishi has in mind for how this session should authenticate to GitHub now that the plaintext URL token is gone."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "This also means every unattended run from now on will land a local-only commit unless this is fixed - worth checking whether run493/run494-era pushes mentioned elsewhere in AGENT_LOG.md actually succeeded via this same now-missing credential, or whether they used a different machine/session."
   }
 ]
