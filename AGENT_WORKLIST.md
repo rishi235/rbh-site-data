@@ -1832,6 +1832,50 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       RAISED. Item 2.1 stays `[x]` (quality pass, not a state change).
       Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-19-
       twentyeighth.txt. Done 2026-11-19.
+      Quality pass 2026-11-20 (twenty-ninth pass, Cowork scheduled run):
+      fresh angle - of 12 checkers never named against this item across 28
+      prior passes, took tools/check-address-region.js. Full repo copied
+      via git archive to a scratch directory; all injections against the
+      scratch copy only, tracked repo never opened for writing. SEVEN
+      INJECTIONS PLUS ONE CONTROL, each restored by byte copy and
+      sha256-reconfirmed before the next: (1) addressRegion changed to
+      "Sefton" (a borough) - CAUGHT, not-a-county rule; (2) addressRegion
+      changed to "Ainsdale" (equals addressLocality but not a real county)
+      - CAUGHT by the same not-a-county rule; (3) rule-specific retest,
+      addressRegion AND addressLocality both set to "Merseyside" (a genuine
+      county) - CAUGHT by the region-equals-locality rule specifically; (4)
+      townSlug changed to "ainsdale-chemist" - CAUGHT, slug mismatch; (5)
+      serviceAreaList[0] changed to "Bootle", owned by smartts_bootle and
+      skchemists_bootle on a DIFFERENT domain - CAUGHT by the lead-entry
+      rule, correctly without the same-domain "worse here" wording; (6)
+      serviceAreaList[0] changed to "Eccleston", its own sister branch's
+      seoTown on the SAME domain (fishlockpharmacy.co.uk) - CAUGHT WITH the
+      same-domain "worse here... spend its strongest local word advertising
+      its own sister shop" branch, never exercised against this item
+      before - the exact fault shape item 5.2's 2026-08-10 pass found on
+      McCanns Sandringham, now proven on the Fishlocks pair; (7)
+      fishlocks_eccleston.seoTown changed to "Ainsdale", colliding with its
+      sister on the shared domain - CAUGHT by the same-domain
+      seoTown-collision rule, firing alongside two correct side-effect
+      failures (seoTown not in Eccleston's own serviceAreaList; townSlug
+      mismatch); (8) CONTROL, shortCode and phone changed (fields this
+      checker ignores) - correctly stayed clean. All eight fired or passed
+      on the first attempt, each on its intended rule only. Full
+      36-checker suite (excl. check-cdn-pins.js, a git-archive artefact)
+      re-run clean after the final restore; branches.json sha256
+      reconfirmed identical to baseline; tracked repo confirmed untouched
+      (`git status --porcelain` on branches.json/tools/modules/core/
+      gbp-packs empty). No in-repo defect found. check-address-region.js
+      now proven by direct injection against Fishlocks Ainsdale and its
+      Eccleston sister pairing; 11 checkers remain on the never-named list
+      for this item, a candidate for a future pass. No live half performed
+      (this checker reads branches.json only). Answer pickup (step 3):
+      Claude in Chrome, one tab, read-only, closed after use; newest portal
+      entry still the Q52 answer (2026-09-01); no answer arrived for Q139,
+      Q140, Q141, Q142 or Q143, all five still open. No new question
+      raised. Item 2.1 stays `[x]` (quality pass, not a state change).
+      Evidence: audits/fishlocks-ainsdale-address-region-2.1-twentyninth-
+      2026-11-20.txt. Done 2026-11-20.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

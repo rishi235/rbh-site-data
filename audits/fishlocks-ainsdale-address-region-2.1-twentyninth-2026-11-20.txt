@@ -1,0 +1,89 @@
+Item 2.1 (Fishlocks Chemist Ainsdale), twenty-ninth quality pass, 2026-11-20
+Cowork scheduled run (audit-backlog-worker).
+
+FRESH ANGLE: of the checkers never named once against this item across 28
+prior passes (14 named at the twenty-first pass, minus check-switch-copy.js
+and check-seo-keywords.js taken off that list by the twenty-first and
+twenty-sixth passes), tools/check-address-region.js was picked: 12 checkers
+remained on the list (check-address-region.js, check-brand-spelling.js,
+check-editor-snapshot.js, check-fragment-targets.js, check-gbp-pharmacy-
+first.js, check-pharmacy-first-safety-net.js, check-pharmacy-first-
+symptoms.js, check-seo-sheets.js, check-service-links.js, check-uk-
+spelling.js, check-url-scheme.js, check-widget-diaries.js); this pass takes
+check-address-region.js off it.
+
+BASELINE: full repo copied via `git archive HEAD` to a scratch directory
+outside the tracked tree. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing
+anchor). 36 of 37 checkers clean on the scratch copy before any mutation;
+the one exception, check-cdn-pins.js, fails only because `git archive`
+strips .git and its live-ref-resolution lookups have nothing to resolve
+against - the standing archive-method artefact several prior passes on
+this item have already recorded, not a repo defect (confirmed separately
+clean against the tracked mount).
+
+SEVEN INJECTIONS PLUS ONE CONTROL against the scratch copy's own
+branches.json, each restored by byte copy and sha256-reconfirmed identical
+to baseline before the next:
+
+1. fishlocks_ainsdale.addressRegion changed to "Sefton" (a borough, not a
+   county) - CAUGHT, "not one of the counties this group trades in".
+2. fishlocks_ainsdale.addressRegion changed to "Ainsdale" (equal to
+   addressLocality but not itself a county) - CAUGHT by the same
+   not-a-county rule, since no real addressLocality value is also a valid
+   county, so the region==locality rule's own branch could not fire this
+   way.
+3. Rule-specific retest: addressRegion AND addressLocality both set to
+   "Merseyside" (a genuine county) - CAUGHT by the region==locality rule
+   specifically, "One of them is wrong; the region must be the wider
+   county", proving that branch of the logic independently of the
+   not-a-county rule above.
+4. fishlocks_ainsdale.townSlug changed to "ainsdale-chemist" - CAUGHT,
+   "townSlug is not the slug of seoTown" naming the expected slug.
+5. fishlocks_ainsdale.serviceAreaList[0] changed to "Bootle", owned by
+   smartts_bootle and skchemists_bootle on a DIFFERENT domain - CAUGHT by
+   the lead-entry rule, correctly naming both owners and NOT invoking the
+   same-domain "worse here" wording, confirming that branch is gated
+   correctly.
+6. fishlocks_ainsdale.serviceAreaList[0] changed to "Eccleston", owned by
+   its own sister branch fishlocks_eccleston on the SAME domain
+   (www.fishlockpharmacy.co.uk) - CAUGHT by the lead-entry rule WITH the
+   "Worse here... shares the domain... spend its strongest local word
+   advertising its own sister shop" branch, never exercised against this
+   item before; this is the exact fault shape item 5.2's 2026-08-10 pass
+   found on McCanns Sandringham, now proven on the Fishlocks pair too.
+7. fishlocks_eccleston.seoTown changed to "Ainsdale" (colliding with its
+   sister's seoTown on the shared domain) - CAUGHT by the same-domain
+   seoTown-collision rule ("fishlocks_ainsdale and fishlocks_eccleston
+   share the domain... both use seoTown Ainsdale"), correctly fired
+   alongside two expected side-effect failures (seoTown not in Eccleston's
+   own serviceAreaList; townSlug no longer matching the new seoTown) - the
+   "one fact, several rules" pattern this file's own comments describe.
+8. CONTROL: fishlocks_ainsdale.shortCode and .phone both changed (fields
+   this checker does not read at all) - correctly stayed clean, exit 0,
+   confirming no cross-fire.
+
+All eight rounds fired, or correctly passed, on the first attempt, each on
+its intended rule only, no side-effect failures elsewhere in the suite.
+Full 36-checker suite (excl. check-cdn-pins.js) re-run clean on the scratch
+copy after the final restore; branches.json sha256 reconfirmed identical to
+baseline. Tracked repo confirmed untouched throughout: `git status
+--porcelain -- branches.json tools modules core gbp-packs` empty (aside
+from the standing, inert .git/index.lock EPERM warning this sandbox mount
+produces on every run), branches.json sha256 unchanged.
+
+RESULT: zero in-repo defect. check-address-region.js now proven by direct
+injection against Fishlocks Chemist Ainsdale (and its sister Eccleston
+pairing) specifically, across all its rules: the county allowlist, the
+region-equals-locality guard, the lead-entry rule in both its cross-domain
+and same-domain forms, the townSlug/seoTown slug match, and the same-domain
+seoTown-collision rule. No live half performed this pass (this checker
+reads branches.json only, not a page a fetch could verify). 11 checkers
+remain on the never-named list for item 2.1, a candidate for a future pass.
+
+Answer pickup (step 3): Claude in Chrome, one tab, read-only GET to
+https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed after
+use; newest entry still the Q52 answer (2026-09-01); no answer arrived for
+Q139, Q140, Q141, Q142 or Q143, all five still open. No new question
+raised. No in-repo defect found. Item 2.1 stays [x] (quality pass, not a
+state change).
