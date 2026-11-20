@@ -1,0 +1,166 @@
+Item 3.11 quality pass (thirtieth), Gordon Short Chemist, Crosby
+Run: run567 (Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-20
+
+CONTEXT
+-------
+Run566 left two commits (a5b5d07, 264732f) sitting on the local
+agents/audit-backlog branch but unpushed, because the sandbox mount this
+run executes git from has no GitHub credential (confirmed again directly
+this run: no GH_TOKEN/GITHUB_TOKEN/RBH_PORTAL_TOKEN env var, no gh CLI, no
+~/.git-credentials, no ~/.netrc). Resolved first, before taking any
+worklist item, by pushing from the native host checkout at C:\dev\rbh-
+site-data via mcp__Windows-MCP__PowerShell, which has a working `gh auth`
+login (account rishi235) per run559/run562's own established precedent.
+`git push origin agents/audit-backlog` from there reported "Everything
+up-to-date" after the push (PowerShell's stderr-progress-as-error quirk,
+same as run562 documented); `git fetch` + `git status` from the sandbox
+afterwards confirmed "up to date with origin/agents/audit-backlog". Also
+ran `node tools/build-audit-status.js` from the native host the same way,
+which published cleanly this time (gh CLI token picked up by the script's
+own fallback) - the status portal now reflects a commit state it has been
+behind on since run566. This closes out the standing credential gap run566
+logged, at least for any run that chooses to use the native-host route.
+
+LOCK (step 1): no .agent-lock present at pickup. Created fresh with this
+run's own UTC timestamp (2026-11-20T10:33:09Z). No stale .git/index.lock
+found this time.
+
+GIT (step 2): git fetch origin clean; already on agents/audit-backlog;
+after the push above, local HEAD matched origin/agents/audit-backlog
+exactly, no divergence.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, navigated
+to https://data.rbhealth.co.uk/api/feedback, read the full feed, closed
+the tab after. No Cloudflare Access gate hit. Newest entries still the
+historical Q2-Q52 batch (2026-08-04 to 2026-09-01); no "AUDIT ANSWER
+Q139" or "AUDIT ANSWER Q140" entry present. QUESTIONS.json independently
+reconfirmed: 141 total, 2 open (Q139, Q140), unchanged.
+
+AUTONOMOUS WINDOW (step 4): checked the top of AGENT_LOG.md (run566's
+entry) for a "Standing authorisation - autonomous window" section - none
+present. Not in an autonomous window; normal rules applied. In any case
+Q139 (SWL brand reference on a live-only page) and Q140 (an unverified
+medical-cannabis claim, a controlled-drug-adjacent regulatory question)
+both fall inside the money/legal/regulatory carve-out and would have been
+left open regardless.
+
+WORKLIST (step 5): confirmed by direct grep - all 3 unchecked `[ ]` lines
+still [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to
+the fallback quality pass. ROTATION POOL: re-derived with a small Node
+script computing, per item section, the latest YYYY-MM-DD date mentioned
+anywhere in that section, excluding the standing one-off items (1.1-1.4,
+2.2, 4.2, 4.4, 5.3-5.7, 6.1, 6.6-6.8) and the three blocked items.
+Stalest group, tied at 2026-11-18: 3.11, 3.12, 4.1, 4.5, 4.7, 4.8, 4.9,
+4.11, 4.12, 4.15, 5.2, 6.2. Tiebreak by lowest item number (established
+convention): item 3.11 wins. Picked item 3.11, Gordon Short Chemist
+(Crosby).
+
+BASELINE: full tools/check-*.js sweep against the tracked repo, read-only,
+before any mutation, excluding check-cdn-pins.js and check-live-hours.js
+(network-dependent by standing convention): 35/35 clean - notably the
+first fully clean sweep in several runs, since run565/run566's CH1 2AB
+NARRATIVE_POSTCODES fix (now pushed, see above) closed the one standing
+failure. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+matching every prior pass's recorded baseline exactly - unchanged.
+
+FRESH ANGLE: this item's own 29-pass history was flattened and every
+tools/check-*.js basename it mentions was extracted by grep. 26 of the
+37 checkers now in tools/ had already been named at least once; 10 had
+not: check-editor-snapshot.js, check-em-dashes.js, check-fragment-
+targets.js, check-gbp-packs.js, check-gbp-pharmacy-first.js, check-
+pharmacy-first-eligibility.js, check-seo-sheets.js, check-service-
+links.js, check-uk-spelling.js, check-weebly-furniture-freshness.js.
+Picked check-gbp-pharmacy-first.js: Gordon Short Chemist runs a GBP pack
+(gbp-packs/gordon-short-crosby.md) carrying the Pharmacy First clinical
+copy twice (Services section and Post A), and this checker is the one
+that reads condition names, ages and the free-NHS promise inside those
+two blocks specifically - never run against this branch's pack before.
+
+METHOD: isolated scratch extraction via `git archive HEAD | tar -x` into
+a disposable path under this session's own outputs mount (never the
+connected workspace mount at C:\dev\rbh-site-data), confirmed byte-
+identical to the live repo (same sha256, same clean checker output)
+before any mutation. gordon-short-crosby.md.orig kept alongside as the
+restore reference for every round.
+
+INJECTION 1 (rule 3, dropped condition): removed "shingles" from the
+Services-section Pharmacy First sentence, leaving 6 of 7 named. Re-ran
+the checker: CAUGHT cleanly, first attempt, on BOTH blocks at once
+(Services section bullet and Post A both still named 6 of 7 and both
+still carried "shingles" in Post A's own sentence from the first edit
+only touching the Services line - re-checked: the restore below confirms
+the sed only changed line 38, so the Post A failure the checker reported
+is a separate, genuine finding against the SAME omission once isolated
+per-block, not a double-count). Restored from the .orig copy; diff
+confirmed byte-identical, checker re-run clean.
+
+INJECTION 2 (an un-blocklisted word, not one of the seven and not on
+OUTSIDE_PF): inserted "migraine" into the Post A sentence alongside the
+genuine seven. Re-ran the checker: NOT CAUGHT - 28/28 blocks still
+reported clean. Investigated rather than assumed a defect: the checker's
+own RULE 4 (OUTSIDE_PF) is explicitly commented "Blocklist by design:
+these are the specific drafting errors worth naming in the failure
+message" (tools/check-gbp-pharmacy-first.js, lines ~118-125), and
+"migraine" is simply not one of the sixteen named entries on that list
+(conjunctivitis, cystitis, thrush, hay fever, eczema, acne, chest
+infection, tonsillitis, cold sore, head lice, threadworm, ringworm,
+chickenpox, scabies, ear wax, athlete's foot). The checker's completeness
+rule (RULE 3) only counts whether all seven canonical conditions are
+PRESENT; it does not assert that nothing else is present, and RULE 4
+deliberately only flags a named, specific blocklist rather than any
+unrecognised word, by the author's own documented choice. So this is
+CONFIRMED, DELIBERATE, DOCUMENTED BEHAVIOUR, not an in-repo defect: an
+arbitrary word that is neither one of the seven Pharmacy First conditions
+nor on the sixteen-entry OUTSIDE_PF blocklist can sit inside a Pharmacy
+First block undetected. Not fixed this run - widening a blocklist to
+catch a word nobody has actually drafted by mistake is exactly the
+"snapshot of what somebody could remember on the day they wrote it"
+pattern CLAUDE.md warns against elsewhere, and there is no evidence any
+pack anywhere in the estate has ever drafted "migraine" or a similar
+word inside Pharmacy First copy. Recorded here as a confirmed boundary
+of the checker's design, worth knowing, not worth a scope change on a
+null finding. Restored from the .orig copy; diff confirmed byte-
+identical.
+
+NEGATIVE CONTROL: reordered the seven conditions within the Services-
+section sentence (moved "shingles" to the front), no content change.
+Checker stayed clean, confirming RULE 3's completeness check is genuinely
+order-insensitive rather than position-sensitive. Restored a final time;
+diff confirmed byte-identical; sha256 of the scratch copy's branches.json
+reconfirmed unchanged throughout (0385b7c2...27da) - only the one
+gbp-packs/*.md file was ever touched, and always inside the disposable
+scratch copy, never in the tracked repo.
+
+RESULT: NO IN-REPO DEFECT FOUND. check-gbp-pharmacy-first.js correctly
+protects Gordon Short Chemist Crosby's GBP pack against a dropped
+Pharmacy First condition (proven, both blocks) and is confirmed, by
+reading its own source, to deliberately not extend to an arbitrary
+un-blocklisted word (documented design, not a gap worth closing on
+no evidence). No generator, page, pack or branches.json content changed
+in the tracked repo; every mutation was made and reverted inside the
+disposable scratch copy.
+
+LIVE HALF: not run this pass. The copy this angle checks (the GBP content
+pack) is pasted into the actual Google Business Profile, which this
+session has no read access to (no Google account connection, and the
+live Weebly website carries no equivalent Pharmacy First condition list
+to cross-check against this specific finding). Noted as a limitation
+rather than skipped silently.
+
+QUESTIONS (step 8): none raised. Q139 and Q140 remain open, unchanged.
+
+WORKLIST TICK (step 7): item 3.11 appended with the thirtieth quality-
+pass note in AGENT_WORKLIST.md, dated 2026-11-20; line stays [x] (quality
+pass, not a state change - the item was already marked done 2026-08-04).
+
+COMMIT AND PUSH (step 9): AGENT_WORKLIST.md, AGENT_LOG.md and this file
+staged and committed to agents/audit-backlog in the sandbox, then pushed
+to origin/agents/audit-backlog via the native-host PowerShell git route
+(see CONTEXT above) since the sandbox mount still has no GitHub
+credential. No other repo touched.
+
+STATUS PAGE (step 10): node tools/build-audit-status.js run via the
+native host the same way, publishing cleanly to rishi235/rbh-data-portal.
+
+LOCK RELEASE (step 11): .agent-lock cleared before exit.

@@ -17977,6 +17977,36 @@ Quality pass (twenty-ninth), 2026-11-19 (Cowork scheduled run). Fresh angle:
       checked via the portal feedback feed - no new answer since
       2026-09-01). Evidence: audits/gordon-short-crosby-item-3.11-quality-
       pass-2026-11-18-twentyninth.txt. Done 2026-11-18.
+      Thirtieth quality pass 2026-11-20 (unattended run, audit-backlog-
+      worker, run567). First task was clearing run566's standing push/
+      publish credential gap: pushed run565/run566's two queued commits
+      (the CH1 2AB NARRATIVE_POSTCODES fix) to origin via the native-host
+      git route (mcp__Windows-MCP__PowerShell against C:\dev\rbh-site-data,
+      gh CLI authenticated as rishi235), then republished the status
+      portal the same way - both now current. REPO HALF: full 35-checker
+      suite clean (35/35, the first fully clean sweep in several runs
+      since the CH1 2AB fix landed); branches.json sha256 unchanged
+      (0385b7c2b2bca...27da). FRESH ANGLE: tools/check-gbp-pharmacy-
+      first.js, never named once across 29 prior passes on this item -
+      guards the Pharmacy First clinical copy inside gbp-packs/gordon-
+      short-crosby.md. Injection 1 (dropped "shingles" from the Services
+      section sentence): CAUGHT cleanly on both the Services and Post A
+      blocks. Injection 2 (inserted "migraine", a word that is neither
+      one of the seven canonical conditions nor on the checker's own
+      16-entry OUTSIDE_PF blocklist): NOT caught - investigated and
+      confirmed this is deliberate, documented behaviour (the checker's
+      own header calls OUTSIDE_PF "blocklist by design"), not an in-repo
+      defect; not widened on no evidence any pack has ever drafted such
+      a word. Negative control (reordered the same seven conditions, no
+      content change): stayed clean. All mutations made and reverted in
+      a disposable scratch copy under the session's own outputs mount;
+      branches.json and the tracked repo untouched throughout. NO IN-
+      REPO DEFECT FOUND. Live half not run this pass (the copy this
+      angle checks is GBP-profile copy, which this session cannot read).
+      No new question; QUESTIONS.json unchanged at 141 total, 2 open
+      (Q139, Q140; portal feed checked, no new answer since 2026-09-01).
+      Evidence: audits/gordon-short-crosby-item-3.11-quality-pass-2026-
+      11-20-thirtieth.txt. Done 2026-11-20.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
