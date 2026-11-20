@@ -1,0 +1,100 @@
+Item 3.10 - Riddings Pharmacy, Timperley - thirty-fourth quality pass
+Run: run565 (Sonnet 5, Cowork scheduled run, audit-backlog-worker), 2026-11-19T23:12Z
+(write-up completed and committed by the following run, 2026-11-20T10:27Z, after
+run565's own commit/push step did not leave a durable commit on disk - see
+AGENT_LOG.md run566 entry for the pickup note; the fix and verification below are
+run565's own work, independently re-verified before committing)
+
+SCOPE
+Rotation-pool pick, step 5 fallback (all 3 unchecked worklist items remain
+[BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60). Rotation pool re-derived by computing,
+per worklist item section, the latest YYYY-MM-DD date mentioned anywhere in
+that section, excluding the standing one-off items (1.1-1.4, 2.2, 4.2, 4.4,
+5.3-5.7, 6.1, 6.6-6.8) and the three blocked items. Stalest tied group at
+2026-11-18: 3.10, 3.11, 3.12, 4.1, 4.5, 4.7, 4.8, 4.9, 4.11, 4.12, 4.15, 5.2,
+6.2 (item 3.5 had already been refreshed earlier the same day). Tiebreak by
+lowest item number, split on "." rather than parseFloat (parseFloat would
+mis-sort "3.10" as 3.1): item 3.10 wins.
+
+FRESH ANGLE / APPROACH
+Read item 3.10's own 33-pass history in AGENT_WORKLIST.md and extracted every
+"check-*.js" basename mentioned anywhere in the section: all 37 checkers
+currently in tools/ had already been named against this branch at least
+once. Rather than force a narrow, low-value 34th injection on a
+checker/field combination already exhaustively covered, ran the standing
+full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent by standing convention) against the live tracked
+repo as the baseline verification step, the same first move every prior
+pass makes.
+
+FINDING (repo-wide, not specific to Riddings)
+The baseline run surfaced a genuine, longstanding IN-REPO DEFECT unrelated
+to Riddings itself: tools/check-postcodes.js failed with 38 UNKNOWN
+failures across more than a dozen tracked audits/*.txt files (including two
+of this item's own, from the 4.13-labelled injection work earlier on
+2026-11-19), all for the same fabricated, postcode-shaped string "CH1 2AB".
+
+Traced with grep -rn "CH1 2AB" across the repo to its origin: the item 4.7
+quality pass (twenty-sixth), 2026-11-18, replaced gbp-packs/mccanns-
+sandringham.md's real postcode L17 4JP with CH1 2AB on a git-archive
+scratch copy, to re-prove RULE 1 (UNKNOWN) catches a postcode-shaped value
+matching no branch. The scratch mutation was restored by byte copy and
+sha256-reconfirmed identical before that pass ended, and the tracked
+gbp-packs/mccanns-sandringham.md file was never touched - all correct and
+exactly the established convention - except that pass's own write-up,
+audits/mccanns-sandringham-item-4.7-quality-pass-2026-11-18-twentysixth.txt,
+quoted the injected value, which is exactly what NARRATIVE_POSTCODES exists
+to register, and the value was never added to that list.
+
+At least 24 subsequent unattended runs across 2026-11-18 and 2026-11-19
+each independently re-ran the full checker suite, hit the resulting UNKNOWN
+failures, correctly judged the finding "not a live defect" in isolation
+(true - CH1 2AB touches no live page, pack or branches.json record), and
+moved on without applying tools/check-postcodes.js's own stated remedy
+("If the audit legitimately quotes it, add it to NARRATIVE_POSTCODES with a
+reason; otherwise correct it"). Each of those runs then wrote its own new
+committed audit file quoting "CH1 2AB" again to record that judgement,
+which is how the failure count grew from 1 to 38 across a dozen-plus files
+without any single run's own diff looking large enough to prompt the fix.
+
+FIX APPLIED
+Added a "CH1 2AB" key to NARRATIVE_POSTCODES in tools/check-postcodes.js,
+in the same style and level of detail as the 28 entries before it, naming
+the originating file (audits/mccanns-sandringham-item-4.7-quality-pass-
+2026-11-18-twentysixth.txt) and explicitly recording that it sat open 24+
+runs longer than any prior entry, with a closing note for future passes:
+logging a failure as "standing, not a defect" is not the same as applying
+the one-line fix the checker's own header already names.
+
+VERIFICATION
+- node tools/check-postcodes.js: 0 failures (down from 38), 3 pre-existing
+  UNOWNED warnings on gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md
+  and modules/branch/pages/SEO.md (unrelated template files that carry no
+  single resolvable branch; unchanged by this fix). Re-confirmed again when
+  this write-up was committed, 2026-11-20: still 0 failures, 3 identical
+  warnings, 1356 text files scanned, 53 distinct postcodes, 16 live
+  branches.
+- Full 35-checker suite re-run clean (35/35) after the fix.
+- branches.json sha256 confirmed unchanged throughout this pass and again
+  at commit time: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da.
+  Only tools/check-postcodes.js was edited; no page, pack, generator output
+  or branches.json content changed.
+
+LIVE HALF
+Claude in Chrome, single tab, read-only, one GET to
+https://www.riddingspharmacy.co.uk/. NAP (38 Riddings Road, Timperley,
+WA15 6BP), phone (0161 973 2951), email (riddings@rbhealth.co.uk) and hours
+(Mon-Fri 9am-6pm, Sat/Sun closed) all still match branches.json exactly.
+The site's own "Timperley | Cheshire" string against branches.json's
+addressRegion of Greater Manchester is still live, corroborating the
+already-open Q43 finding again rather than raising a new one. The
+homepage's Weight Loss Clinic line ("Pharmacist-led consultations and
+ongoing support") remains plainly worded, no medicine name, no superlative
+or results claim.
+
+RESULT
+No new in-repo defect specific to Riddings itself. One real, longstanding,
+repo-wide in-repo defect (the CH1 2AB NARRATIVE_POSTCODES registration gap,
+open 24+ runs) found and fixed via this item's own baseline sweep. No
+worklist item unblocked. No new question raised. Done 2026-11-19 (write-up
+and commit completed 2026-11-20 after a pickup gap - see AGENT_LOG.md).

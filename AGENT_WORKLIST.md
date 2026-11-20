@@ -16750,6 +16750,59 @@ Quality pass (twenty-ninth), 2026-11-19 (Cowork scheduled run). Fresh angle:
       "Unsure... need advise") rather than raising a new one.
       NO IN-REPO DEFECT FOUND. No worklist item unblocked. No new
       question raised. Done 2026-11-18
+      Quality pass (thirty-fourth) 2026-11-19 (Cowork scheduled run,
+      audit-backlog-worker): picked as the stalest rotation-pool item
+      (latest date mentioned 2026-11-18, tied with 3.11, 3.12, 4.1, 4.5,
+      4.7, 4.8, 4.9, 4.11, 4.12, 4.15, 5.2, 6.2; 3.10 wins the tiebreak as
+      the lowest item number). All 37 tools/check-*.js basenames had
+      already been named against this item across the prior 33 passes, so
+      rather than force a 34th narrow injection for marginal return, this
+      pass ran the full 35-checker suite (excluding check-cdn-pins.js and
+      check-live-hours.js, network-dependent by standing convention)
+      against the live tracked repo as its baseline verification step, the
+      same first move every prior pass makes.
+      That baseline run surfaced a genuine, longstanding IN-REPO DEFECT,
+      unrelated to Riddings itself: tools/check-postcodes.js failed with
+      38 UNKNOWN failures across more than a dozen tracked audits/*.txt
+      files (including two of this item's own, from the 4.13-labelled
+      injection work on 2026-11-19), all for the same fabricated postcode
+      "CH1 2AB". Traced to its origin: the item 4.7 quality pass
+      (twenty-sixth), 2026-11-18, injected CH1 2AB into a scratch copy of
+      gbp-packs/mccanns-sandringham.md to re-prove RULE 1 (UNKNOWN),
+      restored the scratch copy correctly, but committed its own write-up
+      (audits/mccanns-sandringham-item-4.7-quality-pass-2026-11-18-twentysixth.txt)
+      quoting the injected value without registering it in
+      NARRATIVE_POSTCODES, the one-line fix this exact file's own header
+      comment calls for ("If the audit legitimately quotes it, add it to
+      NARRATIVE_POSTCODES with a reason; otherwise correct it"). At least
+      24 subsequent unattended runs across 2026-11-18 and 2026-11-19 each
+      independently re-ran the suite, hit the failure, correctly judged it
+      "not a live defect" in isolation, and moved on without applying the
+      fix - each writing a new audit file that itself quoted "CH1 2AB" to
+      record that judgement, which is how the failure count grew from 1 to
+      38 without any single run looking large enough to justify fixing it.
+      Fixed this run: added the "CH1 2AB" entry to NARRATIVE_POSTCODES in
+      tools/check-postcodes.js, naming the originating file and explaining
+      why it sat open 24+ runs longer than any of the 28 prior entries in
+      that list. Re-ran node tools/check-postcodes.js clean (0
+      failures, 3 pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md
+      and modules/branch/pages/INDEX.md and SEO.md, unrelated template
+      files, unchanged). Re-ran the full 35-checker suite clean (35/35).
+      branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      unchanged throughout - only tools/check-postcodes.js was edited.
+      LIVE HALF: Claude in Chrome, single tab, read-only, one GET to
+      https://www.riddingspharmacy.co.uk/. NAP, phone, email and hours
+      (Mon-Fri 9am-6pm, Sat/Sun closed) all still match branches.json
+      exactly. The site's own "Timperley | Cheshire" string against
+      branches.json's addressRegion of Greater Manchester is still live,
+      corroborating the already-open Q43 finding again, not a new one.
+      Weight Loss Clinic line on the homepage ("Pharmacist-led
+      consultations and ongoing support") remains plainly worded, no
+      medicine name, no superlative or results claim.
+      NO NEW IN-REPO DEFECT SPECIFIC TO RIDDINGS. One longstanding,
+      repo-wide in-repo defect (the CH1 2AB NARRATIVE_POSTCODES gap) found
+      and fixed this run, discovered via this item's own baseline sweep.
+      No worklist item unblocked. No new question raised. Done 2026-11-19
 
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
