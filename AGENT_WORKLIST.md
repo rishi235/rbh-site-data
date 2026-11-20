@@ -29125,6 +29125,79 @@ directly rather than re-deriving the same facts by hand.
       raised. Item 4.9 kept [x] (quality pass, not a state change).
       QUESTIONS.json unchanged (1 open, Q139, unrelated to this item). Done
       2026-11-18
+      Twenty-fifth quality pass, 2026-11-20 (unattended scheduled run,
+      audit-backlog-worker): all 3 unchecked worklist lines reconfirmed
+      [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), none pickable. Rotation pool
+      computed fresh from AGENT_WORKLIST.md's own dated entries (excluding
+      the standing one-offs and the three blocked items): stalest group
+      tied at 2026-11-18 (4.9, 4.11, 4.12, 4.15, 5.2, 6.2); tiebreak by
+      lowest item number picked 4.9, twenty-fifth pass.
+      REPO HALF: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      unchanged from every prior pass's anchor. Full 35-checker non-network
+      suite (excl. check-cdn-pins.js, check-live-hours.js) run individually
+      against the tracked repo: 35/35 clean, including check-postcodes.js
+      (the earlier "34/35, standing CH1 2AB" baseline some older entries
+      cite no longer reproduces - that narrative-postcode question appears
+      to have been resolved in a prior pass not re-checked here; not
+      re-opened as a finding since nothing in this pass touched it).
+      FRESH ANGLE: tools/check-branch-links.js, never named once against
+      this item across 24 prior passes despite CLAUDE.md's own "Clear
+      Chemist Aintree is the only branch in that position" note sitting
+      directly inside this checker's documented scope (the deliberate
+      WARN-not-FAIL exception for a trading branch holding an odsCode but
+      no nhsReviewUrl). Baseline against the tracked repo: WARN
+      clearchemist_aintree.nhsReviewUrl (exactly the documented exception,
+      not a failure), 0 failures.
+      METHOD: disposable scratch extraction via `git archive HEAD | tar -x`
+      into this session's own outputs mount (the sandbox's own local disk
+      was found full mid-pass on a first attempt at this extraction target
+      - see NOTE below - so the scratch copy was redirected to the larger
+      mounted volume; the tracked repo was never opened for writing
+      throughout, confirmed by git status --porcelain and sha256 before,
+      during and after).
+      INJECTION 1 (malformed googleReviewUrl): changed
+      clearchemist_aintree.googleReviewUrl from
+      ".../CYTJCk0EpvxFEAE/review" to ".../CYTJCk0EpvxFEAE/reviews-now" in
+      the scratch copy. Re-ran: CAUGHT cleanly, first attempt - "FAIL
+      clearchemist_aintree.googleReviewUrl: is
+      .../CYTJCk0EpvxFEAE/reviews-now, expected https://g.page/r/<id>/review."
+      Restored from the pre-edit copy; sha256 reconfirmed identical.
+      NEGATIVE CONTROL: changed clearchemist_aintree.shortCode to "ZZZ" (a
+      field this checker does not read) in a fresh scratch copy - ran
+      clean, same single WARN as baseline, confirming the catch above was
+      genuine and selective rather than the scratch copy being malformed.
+      Restored; sha256 reconfirmed identical. Scratch directory deleted
+      after use.
+      RESULT: NO IN-REPO DEFECT. Clear Chemist Aintree's branches.json
+      record is correct and the documented WARN-not-FAIL exception for its
+      missing nhsReviewUrl fires exactly as CLAUDE.md describes. Guard
+      coverage for item 4.9 now extends to check-branch-links.js for the
+      first time. No generator, page, pack or branches.json content
+      changed in the tracked repo; only a scratch copy on the outputs
+      mount, deleted after use.
+      NOTE (sandbox infrastructure, not an in-repo finding): this pass's
+      first scratch-extraction attempt, targeted at the sandbox's own local
+      disk rather than the mounted outputs volume, failed outright with
+      "No space left on device" - the sandbox's own root filesystem (not
+      the mounted repo, which has ample free space) was at 100% use,
+      evidently from accumulated prior-run scratch/probe debris on that
+      disk rather than anything in this repo. Redirecting the scratch copy
+      to the mounted outputs volume resolved it for this pass. Flagged for
+      whoever next has shell access to the underlying sandbox host, since
+      it is outside this repo's own remit and the standing
+      INCIDENT-2026-11-16-sandbox-unlink-blocked.md already tracks a
+      related but distinct sandbox-filesystem quirk.
+      LIVE HALF: not repeated this pass (Clear Chemist Aintree's live
+      phone, WhatsApp and hours were all re-read eleven days ago on the
+      twenty-fourth pass, 2026-11-18, with no reason to expect drift in the
+      interim; not duplicated here to avoid re-doing the same specific
+      check inside a short window, consistent with the convention several
+      other items' recent passes have used).
+      No new question raised. Item 4.9 kept [x] (quality pass, not a state
+      change). QUESTIONS.json: 4 open (Q139, Q140, Q141, Q142), none
+      answered on the portal feed this run (checked, newest entry still
+      Q52, 2026-09-01), none specific to this item. Done 2026-11-20
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
