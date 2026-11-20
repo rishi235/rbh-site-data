@@ -43910,6 +43910,59 @@ data field changed this run. No new question.
       left unfixed, no new question. Q53/Q54 remain answered, still need a
       live Weebly/Ahrefs session outside this worker's scope. Evidence:
       audits/check-service-links-item-6.2-quality-pass-2026-11-18-run519.txt.
+      Twenty-second quality pass, 2026-11-20 (unattended scheduled run). ONE
+      REAL DEFECT FOUND AND FIXED, in the checker, not in any page. Every host
+      in branches.json's own `website` field carries a leading "www." (all 13
+      live hosts checked by direct read), and estateHosts/disposedHosts in
+      tools/check-service-links.js are built from that string verbatim, with
+      nothing stripped. RULE 1's absolute-link branch then tested
+      `estateHosts.has(host)` / `disposedHosts.has(host)` against the RAW href
+      host, so a link naming the BARE domain ("cherrylanepharmacy.co.uk/...",
+      no "www.") matched neither set and fell straight into "external, out of
+      scope by design", however broken its path, with no rule anywhere in the
+      checker ever looking at it again - the same false-negative shape the
+      sixteenth pass found for a disposed host, one layer earlier, and found
+      the same way: PROVED BY INJECTION on a scratch copy (git archive HEAD
+      extracted to /tmp, never the tracked repo). An absolute link to
+      "cherrylanepharmacy.co.uk/this-page-does-not-exist.html" added to
+      contraception-riddings-timperley.html passed the pre-fix checker clean
+      (link counted, but not counted as an estate link, no failure); the
+      identical broken target written as "www.cherrylanepharmacy.co.uk/..."
+      correctly FAILED as "stale target". FIX: a bareToCanonicalHost map,
+      built from both estateHosts and disposedHostsRaw, normalises every
+      absolute href's host to branches.json's own "www."-form before any of
+      RULE 1's existing checks run, so a bare-domain link is classified
+      exactly as its "www." form would be (same KNOWN-key shape, same
+      disposed/cross-host/subpath/stale-target rule, same reported host
+      string) and a host with no match anywhere in branches.json still falls
+      through to "external" exactly as before. Re-run after the fix: the
+      bare-domain injection now FAILS as "stale target" with a message
+      identical to the "www." control; a bare-domain link to a real, correctly
+      -targeted own page (cherry-lane-walton's own contraception page) still
+      passes clean, so no false positive was introduced; the full clean-tree
+      baseline (177 pages, 6 EXTRA_FILES, 2 EXTRA_JS_COPY_FILES, 1,000 links,
+      423 estate links, 6 KNOWN issues) is byte-identical before and after on
+      both the scratch copy and the tracked repo. Zero disposed branches exist
+      today, so the disposed-host leg of the fix could not be live-tested
+      against real data (same limitation the sixteenth pass itself noted); the
+      logic is symmetric with the proven live branch, applying the same
+      normaliseHost() before the same disposedHosts.has() check. A full-estate
+      sweep (177 pages, 6 EXTRA_FILES, 2 EXTRA_JS_COPY_FILES) found zero bare-
+      domain estate-host hrefs today, so this was a latent gap, not a live
+      breach - the same shape every 6.2 finding before this one has taken. All
+      35 checkers (excl. check-cdn-pins.js/check-live-hours.js) re-run
+      individually on the tracked repo after the fix: 35/35 exit 0. No
+      generator touched (checker-only change); branches.json sha256
+      (0385b7c2...27da) and `git status --porcelain modules/ core/` (empty)
+      both confirm no page or data content changed. LIVE HALF (Claude in
+      Chrome, read-only, one tab, nothing clicked/typed/submitted, closed
+      after use): re-read all three standing live findings tied to this item
+      - riddingspharmacy.co.uk/clinic-prices, riddingspharmacy.co.uk's
+      switch-prescriptions-riddings-timperley.html permalink, and
+      tiffenbergschemist.co.uk/book-now.html - all three still 404, unchanged
+      since 2026-08-11. Q53/Q54 remain answered (29/09/2026), still awaiting
+      the live Weebly/Ahrefs session outside this worker's scope; nothing new
+      to add to either. No new question raised.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

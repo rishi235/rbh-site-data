@@ -38,6 +38,10 @@
       be one of ours but belongs only to a now-disposed branch. Added by the
       item 6.2 quality pass (sixteenth), 2026-09-16 - see "DISPOSED-BRANCH
       HOSTS" below.
+    - RULE 1 now also catches every one of the above when the href names the
+      BARE domain (no "www.") rather than branches.json's own "www." form,
+      normalised before any check runs. Added by the item 6.2 quality pass
+      (twenty-second), 2026-11-20 - see "BARE-DOMAIN NORMALISATION" below.
     - RULE 2, claim: efficacy or results-claim wording in visible page copy.
     - RULE 2, claim (line wrap): the same, where the phrase is split across two
       adjacent hand-wrapped physical lines rather than sitting on one. Added
@@ -441,6 +445,57 @@ data.branches.forEach(function (b) {
 });
 const disposedHosts = new Set(Array.from(disposedHostsRaw).filter(function (h) { return !estateHosts.has(h); }));
 
+// BARE-DOMAIN NORMALISATION, added on the item 6.2 quality pass (twenty-second),
+// 2026-11-20. Every host in branches.json's own `website` field carries a
+// leading "www." (verified: all 13 live and all disposed-or-removed hosts),
+// and estateHosts/disposedHosts above are built from that string verbatim,
+// lowercased, with nothing stripped. RULE 1's absolute-link branch then asks
+// `estateHosts.has(host)` / `disposedHosts.has(host)` against the RAW href
+// host, so a link that names the bare domain - "https://cherrylanepharmacy.
+// co.uk/..." rather than "https://www.cherrylanepharmacy.co.uk/..." - matches
+// neither set and falls straight into "external, out of scope by design" at
+// the `if (!estateHosts.has(host)) continue;` line below, however broken the
+// path on it is. Proved by injection on a scratch copy: an absolute link to
+// "cherrylanepharmacy.co.uk/this-page-does-not-exist.html" added to a Riddings
+// page passed this checker clean (link counted, but not counted as an estate
+// link, and no failure); the identical broken target written as "www.
+// cherrylanepharmacy.co.uk/..." correctly FAILED as "stale target". Same
+// false-negative shape item 6.2's sixteenth pass found for a disposed host,
+// one layer earlier: a broken or cross-branch link is invisible to every rule
+// below it the moment the href's host string does not exact-match what
+// branches.json happens to carry. A bare-domain href resolves live on the
+// same site as its "www." counterpart (standard DNS/webserver redirect
+// behaviour), so this is a real gap in what gets CHECKED, not a claim that any
+// bare-domain link found so far is itself broken - a full-estate sweep (pages,
+// the six EXTRA_FILES, both EXTRA_JS_COPY_FILES) found zero bare-domain
+// estate-host hrefs today, so the gap was latent, not a live breach, the same
+// shape every 6.2 finding before this one has taken.
+//
+// FIX: every absolute href's host is normalised to branches.json's own
+// "www."-form before any of RULE 1's existing checks run, so a bare-domain
+// link to one of our hosts is treated exactly as its "www." form would be -
+// same KNOWN-key shape, same disposed/cross-host/subpath/stale-target
+// classification, same reported host string. bareToCanonicalHost is built
+// from BOTH estateHosts and disposedHostsRaw (not just the live set), so a
+// bare link to a disposed branch's old domain is caught by the
+// "disposed-branch target" rule rather than slipping through normalisation
+// first and being missed a different way. A host with no "www."-form match
+// anywhere in branches.json (any genuinely external site) is left untouched
+// and falls through to "external, out of scope by design" exactly as before.
+// Verified by injection: the bare-domain injection above, re-run after this
+// fix, now FAILS as "stale target" with an identical message to the "www."
+// control; the full 1,000-link clean-tree baseline (177 pages, 6 EXTRA_FILES,
+// 2 EXTRA_JS_COPY_FILES, 423 estate links, 6 KNOWN issues) is byte-identical
+// before and after, so the fix changes nothing anywhere it was already right.
+const bareToCanonicalHost = new Map();
+Array.from(estateHosts).concat(Array.from(disposedHostsRaw)).forEach(function (h) {
+  const bare = h.replace(/^www\./, "");
+  if (!bareToCanonicalHost.has(bare)) bareToCanonicalHost.set(bare, h);
+});
+function normaliseHost(h) {
+  return bareToCanonicalHost.get(h.replace(/^www\./, "")) || h;
+}
+
 // PAGE_DIRS itself must exist in full before anything is counted from it. Added
 // on the item 6.2 quality pass (fifteenth), 2026-09-15, after the same "stop
 // rather than quietly weaken the rule" convention already applied to
@@ -639,7 +694,7 @@ function scanLinks(file, selfHost, visible) {
       let pth;
 
       if (abs) {
-        host = abs[1].toLowerCase();
+        host = normaliseHost(abs[1].toLowerCase());
         if (disposedHosts.has(host)) {
           // A domain that used to be one of ours. RULE 1's own "cross-host
           // target" and "stale target" rules below cannot see this shape,
