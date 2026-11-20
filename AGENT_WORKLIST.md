@@ -21473,6 +21473,50 @@ Pharmacy First wording to the NHS service description.
   found, no fix needed, no new question. Item stays `[x]` (quality pass,
   not a state change). See
   audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-11-18-run517.txt.
+
+  Quality pass 2026-11-20 (Cowork scheduled run): re-selected as stalest
+  rotation-pool item (max inline date 2026-11-18, tied with 4.5/4.7/4.8/
+  4.9/4.11/4.12/4.15/5.2/6.2, won tiebreak on lowest item number). REPO
+  HALF: branches.json sha256 unchanged (0385b7c2b2bca55d559903f718ad99
+  2fec40804a1f3ab1a1db8bac2ffdd527da); the pack's own sha256 also
+  unchanged (7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2
+  de3e30). Full 35-checker suite (excluding check-cdn-pins.js and
+  check-live-hours.js), run individually: 35/35 clean - the standing
+  CH1 2AB postcode baseline that affected earlier passes is resolved
+  (run565's fix). All 7 generators rebuilt; sha256 of every file under
+  modules/ and core/ compared before/after: byte-identical. LIVE HALF:
+  re-fetched https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-
+  ainsdale.html via Claude in Chrome (read-only, single tab, nothing
+  clicked or typed) - still 404, unchanged standing Q35 state.
+
+  FRESH ANGLE, NEW FINDING: tested check-gbp-packs.js's categories-
+  earned-by-widgets rule (CATEGORY_RULES) by injecting an unearned
+  "Blood testing service" category into a disposable git-archive
+  scratch copy of this pack (tracked file never opened for writing).
+  Unlike Travel clinic/Vaccination centre/Weight loss service, which
+  CATEGORY_RULES gates both ways against branches.json widgets, "Blood
+  testing service" sits in RECOGNISED_CATEGORIES with no gating rule in
+  either direction - the injection was NOT caught (0 failures).
+  branches.json has no field at all recording which branches offer
+  blood testing, so there is nothing to gate against yet. Checked all
+  15 packs: only Smartts Bootle's pack claims the "Blood testing
+  service" GBP category, but THIS branch's own pack (and Cherry Lane
+  Walton's and Hirshmans Ainsdale's) already states "Blood testing" as
+  a private service in its own Services section without claiming the
+  matching category - the same shape of omission CATEGORY_RULES already
+  protects against for the other three services, just with no data to
+  check it against. Scratch copy restored, sha256-reconfirmed identical
+  to the tracked pack, then deleted; no repo file changed by the
+  investigation itself. Raised as Q141 rather than guessed, since the
+  correct branch-by-branch answer needs Rishi/Dane to confirm which
+  branches genuinely offer blood testing (same reasoning Q48 was left
+  open for on yellow fever registration).
+
+  QUESTIONS STATUS CHECK: Q35 remains answered-but-not-yet-applied
+  (needs a Weebly paste session, outside this worker's write scope).
+  No in-repo defect found and no fix applied this pass; one new
+  question raised (Q141). Item stays `[x]` (quality pass, not a state
+  change).
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
