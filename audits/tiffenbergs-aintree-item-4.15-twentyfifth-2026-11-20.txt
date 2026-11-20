@@ -1,0 +1,92 @@
+Item 4.15 (Tiffenbergs Chemist Aintree GBP pack) - quality pass twenty-fifth
+Run: audit-backlog-worker, Cowork scheduled run, 2026-11-20T19:13Z
+Branch id: tiffenbergs_longmoor (gbp-packs/tiffenbergs-aintree.md)
+
+PICKUP (rotation)
+All three unchecked AGENT_WORKLIST.md lines (5.8/Q16, 6.4/Q60, 6.5/Q60) remain
+[BLOCKED], confirmed by direct grep, unchanged. Fell through to the
+quality-pass fallback. Rotation pool computed by reading every checked item's
+own section for the latest YYYY-MM-DD date mentioned, excluding the standing
+one-offs (1.1-1.4, 2.2, 4.2, 4.4, 5.3-5.7, 6.1, 6.6-6.8) and the three blocked
+lines. Stalest group, tied at 2026-11-18: 4.15, 5.2, 6.2 (4.12 had just been
+refreshed to 2026-11-20 by the immediately prior run and dropped out of the
+pool). Tiebreak by lowest item number: 4.15 wins.
+
+REPO HALF
+- branches.json sha256:
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches every prior pass's recorded anchor, unchanged)
+- gbp-packs/tiffenbergs-aintree.md sha256:
+  59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b
+  (byte-identical to the twenty-fourth pass and run509 addendum,
+  2026-11-18)
+- Pack re-matched field by field against branches.json record
+  tiffenbergs_longmoor: name, address (388 Longmoor Lane, Liverpool
+  L9 9DB), phone (0151 525 3462), split weekday hours (09:00-13:00 and
+  14:00-18:00, Sat/Sun closed), website, review link, serviceAreaList
+  (Aintree, Fazakerley, Liverpool leading with seoTown), hasApp false.
+  All match.
+- Full checker suite (every tools/check-*.js, 37 files) run individually
+  this pass, network tools included: 36 of 37 exit 0. check-postcodes.js's
+  one WARN is the standing UNOWNED finding on modules/branch/pages/SEO.md
+  (a file carrying six branches' postcodes that ownerOf() cannot attribute
+  to one filename), already recorded and unchanged - not a new fault and
+  not specific to this item. Every other checker that reads this pack
+  (check-gbp-packs, check-app-membership, check-brand-spelling,
+  check-uk-spelling, check-url-scheme, check-cdn-pins,
+  check-pharmacy-first-cost, check-contraception-copy,
+  check-travel-clinic-copy, check-gbp-pharmacy-first, check-seo-pattern,
+  check-map-embeds) exits 0 with only its own pre-existing, unrelated
+  known warnings (Q64 Scorah Hazel Grove address, Q111 eMAR inbox, Q16
+  Smartts switch tile, the .quarantine insecure-URL debris, and similar).
+  No warning is new, none names this pack.
+
+FRESH ANGLE: tools/check-live-hours.js, run live against this branch's
+own site for the first time as part of a quality pass on item 4.15
+(every prior pass on this item that checked hours did so by a manual
+Chrome fetch and a human read; this is the first time the dedicated
+survey tool's own report has been generated and read for Tiffenbergs).
+Ran the full tool (it has no per-branch filter, so it swept all 16
+trading branches' hosts in one pass); isolated the tiffenbergs_longmoor
+entry from the resulting audits/live-hours-check-2026-11-20.json.
+
+Two live pages were fetched: https://www.tiffenbergschemist.co.uk/ and
+https://www.tiffenbergschemist.co.uk/contact-us.html (found via the
+site's own sitemap.xml). Expected rows composed by the tool from
+branches.json: Monday-Friday "9am to 1pm, 2pm to 6pm", Saturday and
+Sunday "Closed". Every snippet on both pages read:
+  Monday 9:00am - 6:00pm (closed 1-2pm)
+  Tuesday 9:00am - 6:00pm (closed 1-2pm)
+  Wednesday 9:00am - 6:00pm (closed 1-2pm)
+  Thursday 9:00am - 6:00pm (closed 1-2pm)
+  Friday 9:00am - 6:00pm (closed 1-2pm)
+  Saturday Closed
+  Sunday Closed
+and the contact-us page's second block and the sitewide footer sentence
+("Open Mon-Fri 9am-6pm (closed 1-2pm), Sat & Sun closed") agree with the
+same lunch-closure shape. No mismatch against the expected rows on
+either page or in the footer. No bank holiday fell within the tool's
+near-date window (2026-11-20), so the "near a bank holiday" caveat does
+not apply here and none of the Closed snippets needed that reading.
+Live half: CLEAN, zero mismatch, by an automated and reproducible survey
+rather than a one-off manual read.
+
+KNOWN LIVE-ONLY DEFECTS (not repo defects, not re-fixed this pass,
+reconfirmed present only incidentally via the same fetch - not
+independently re-verified in full this pass since the live-hours tool
+does not read them): the switch-page banner mojibake, Q56's
+tiffenbergs@ vs Tiffenberg@ email spelling split, and the footer
+en-dash finding are outside this pass's scope and stand on the
+twenty-fourth pass's 2026-11-18 reading.
+
+VERDICT
+No in-repo defect found. No new question raised. Pack and branches.json
+byte-stable through the twenty-fifth pass. Live hours now independently
+confirmed by the dedicated survey tool rather than relying solely on a
+manual read, closing a verification-method gap (not a data gap) carried
+since the first live-hours check on 2026-08-11.
+
+Evidence: this file, audits/live-hours-check-2026-11-20.json (full
+estate run; tiffenbergs_longmoor entry quoted above), and
+audits/full-checker-suite-4.15-twentyfifth-2026-11-20.log (console
+output of all 37 checkers run individually).

@@ -35861,6 +35861,31 @@ appended to the line. Do not move them; the status page reads them in place.
       read) ran clean. Both restored via git checkout, sha256 reconfirmed
       identical throughout. No in-repo defect found. Evidence in
       audits/tiffenbergs-aintree-item-4.15-map-embeds-injection-2026-11-18.txt.
+      Quality pass 2026-11-20 (twenty-fifth re-verification, Cowork
+      scheduled run): pack and branches.json re-confirmed byte-identical
+      to the twenty-fourth pass and the run509 addendum (sha256
+      59d288c1c32920c05bc9b12479ec2bc8970ffa5639977ccee10ec9be9046811b),
+      every fact re-matched against branches.json record
+      tiffenbergs_longmoor. Full 37-checker suite run individually: 36 of
+      37 exit 0, the one WARN (check-postcodes.js, the standing UNOWNED
+      modules/branch/pages/SEO.md finding) pre-existing and not specific
+      to this item. Fresh angle: tools/check-live-hours.js run live
+      against this branch's own site for the first time as part of a
+      quality pass on this item (every prior hours check here was a
+      manual Chrome read). The tool fetched
+      https://www.tiffenbergschemist.co.uk/ and its contact-us page via
+      the site's own sitemap.xml; every snippet on both pages, and the
+      sitewide footer sentence, matched the expected Monday-Friday 9am to
+      1pm/2pm to 6pm, Saturday and Sunday closed, composed from
+      branches.json, with no mismatch and no bank holiday within the
+      tool's near-date window to explain away. Live hours now confirmed
+      by an automated, reproducible survey rather than a one-off manual
+      read. Answer pickup (step 3): Claude in Chrome, one tab, read-only
+      GET to https://data.rbhealth.co.uk/api/feedback, full feed read, tab
+      closed after use; newest entry still the Q52 answer (2026-09-01); no
+      answer arrived for Q139, Q140, Q141 or Q142, all four still open. No
+      new question raised. No in-repo defect found. Evidence in
+      audits/tiffenbergs-aintree-item-4.15-twentyfifth-2026-11-20.txt.
 - [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
       (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
       Repo, repo history and live site all clean; correct L17 4JP throughout.
