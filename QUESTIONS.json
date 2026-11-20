@@ -2305,5 +2305,20 @@
     "status": "open",
     "answer": null,
     "note": "This also means every unattended run from now on will land a local-only commit unless this is fixed - worth checking whether run493/run494-era pushes mentioned elsewhere in AGENT_LOG.md actually succeeded via this same now-missing credential, or whether they used a different machine/session."
+  },
+  {
+    "id": "Q143",
+    "date": "2026-11-20",
+    "item": "5.2 (quality pass, McCanns Aigburth/Sandringham, Scorah Bramhall/Hazel Grove branch landing pages)",
+    "question": "tools/check-pharmacy-first-cost.js rule 8 (added on the twenty-fifth quality pass, 2026-11-18) guards the free NHS blood pressure check claim on the six branch landing pages and the GBP packs, but its own in-code comment records a known residual gap: on a pack or page that writes the blood-pressure and Pharmacy First claims as one run-on sentence (modules/branch/pages/pharmacy-mccanns-aigburth.html does, in prose naming both services), the word \"free\" could be dropped from the blood-pressure clause specifically and the rule would still pass, because \"free\" survives elsewhere in the same sentence attached to Pharmacy First. A qualifier (e.g. \"affordable\") added in the same edit is still caught by rule 4, which scans the whole sentence; only a bare, unqualified drop of the word \"free\" from that one clause in that one sentence shape slips through. The checker comment itself says to raise this as a question before attempting a fix, rather than widening the regex again (two earlier widening attempts each produced a live false positive against real, unedited pack copy - cherry-lane-walton.md and scorah-hazel-grove.md). Closing it properly needs clause-level parsing of a listed or run-on sentence to tell which service a given \"free\" belongs to. This twenty-sixth quality pass on item 5.2 re-ran the full 35-checker suite (clean, 35/35) and re-confirmed the four landing pages still 404 live (Q35, unchanged); no new live or repo defect was found, and no injection was attempted against this specific gap since it is already proven and documented. No live copy, generator, checker rule or branches.json content was changed this pass.",
+    "options": [
+      "Leave the comment as the standing record of the gap and do not spend further unattended-run time on it: the gap is narrow (one specific run-on sentence shape, one specific clause), rule 4 still catches a qualifier added in its place, and no live page or pack has ever actually dropped \"free\" this way - it is a theoretical residual rather than an observed defect.",
+      "Approve a clause-level rewrite of rule 8 (split a sentence into clauses on \", and\"/\"; \" boundaries before testing which clause contains the blood-pressure cohort and whether \"free\" sits in that same clause) as the next piece of work for an unattended run to attempt, with its own fresh negative tests against the two packs that broke the earlier tighter-regex attempt.",
+      "Sidestep the parsing problem at the copy level instead: ask that any pack or page naming both Pharmacy First and the blood pressure check in one run-on sentence be split into two sentences at the next Weebly/pack edit, so each service states its own free claim on its own sentence and rule 8's existing per-sentence test already covers it without any further checker work."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "This is a guard-coverage gap in a checker, not a live defect: every page and pack passes rule 8 as written today. Raised because the checker's own comment explicitly asks for a decision before any further regex widening is attempted."
   }
 ]

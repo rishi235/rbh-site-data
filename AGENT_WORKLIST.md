@@ -41384,6 +41384,42 @@ audits/item-5.1-contact-us-letschat-hours-2026-11-19-twentyninth.txt.
       anywhere in the repo; only tools/check-pharmacy-first-cost.js
       (a checker) was edited. QUESTIONS.json unchanged (140 total, 1 open,
       Q139).
+      Quality pass 2026-11-20 (twenty-sixth, rotation-pool pick, no
+      unblocked worklist item existed): full 35-checker static suite
+      (excluding check-cdn-pins.js and check-live-hours.js, both
+      network-dependent) re-run individually, 35/35 exit 0 including
+      check-postcodes.js (no recurrence of the standing CH1 2AB
+      narrative-postcode failure other items have hit recently).
+      branches.json sha256 reconfirmed unchanged
+      (0385b7c2...27da) against every prior pass's own baseline.
+      check-pharmacy-first-cost.js itself re-run directly: clean, 112
+      service pages, 16 packs and all 6 landing pages checked.
+      LIVE HALF (Claude in Chrome, read-only, two tabs used in sequence,
+      nothing clicked, typed or submitted, both closed after use):
+      re-read all four of this item's own landing URLs -
+      pharmacy-mccanns-aigburth.html and pharmacy-mccanns-sandringham.html
+      on www.mccannspharmacy.co.uk, pharmacy-scorah-bramhall.html and
+      pharmacy-scorah-hazel-grove.html on www.scorah-chemists.co.uk (note:
+      the correct host is hyphenated scorah-chemists.co.uk per
+      branches.json's own website field, not scorahchemists.co.uk, which
+      this pass tried first and got a non-page error from before
+      correcting it). All four still return a 404 "Page Not Found" Weebly
+      error page, unchanged since first observed 2026-08-10 and
+      reconfirmed on every live-reachable pass since (now over fifteen
+      weeks running). Q35 stands exactly as before.
+      No injection attempted this pass. Read rule 8's own in-code comment
+      (added on the twenty-fifth pass) in full: it records a known
+      residual gap (a run-on sentence naming both the blood-pressure claim
+      and Pharmacy First can have "free" dropped from the blood-pressure
+      clause specifically and still pass, because the word survives
+      elsewhere in the sentence attached to Pharmacy First) and explicitly
+      asks that this be raised as a question before any further regex
+      widening is attempted, since two earlier widening attempts each
+      produced a live false positive against real, unedited pack copy.
+      Raised as Q143 rather than attempted blind, per that instruction.
+      No live copy, generator, checker rule or branches.json content
+      changed this pass. QUESTIONS.json: 144 total, 5 open (Q139, Q140,
+      Q141, Q142, Q143).
 - [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run.
       Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy

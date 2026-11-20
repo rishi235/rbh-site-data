@@ -1,0 +1,39 @@
+run started 2026-11-20T20:15:33Z
+PASS check-address-region.js
+PASS check-app-membership.js
+PASS check-booking-routes.js
+PASS check-branch-identity.js
+PASS check-branch-links.js
+PASS check-brand-spelling.js
+SKIP (network) check-cdn-pins.js
+PASS check-contraception-copy.js
+PASS check-editor-snapshot.js
+PASS check-em-dashes.js
+PASS check-fragment-targets.js
+PASS check-gbp-packs.js
+PASS check-gbp-pharmacy-first.js
+PASS check-jsonld.js
+SKIP (network) check-live-hours.js
+PASS check-map-embeds.js
+PASS check-nap.js
+PASS check-opening-hours.js
+PASS check-page-coverage.js
+PASS check-pharmacy-first-cost.js
+PASS check-pharmacy-first-eligibility.js
+PASS check-pharmacy-first-safety-net.js
+PASS check-pharmacy-first-symptoms.js
+PASS check-postcodes.js
+PASS check-seo-keywords.js
+PASS check-seo-lengths.js
+PASS check-seo-pattern.js
+PASS check-seo-sheets.js
+PASS check-service-links.js
+PASS check-switch-copy.js
+PASS check-travel-clinic-copy.js
+PASS check-uk-spelling.js
+PASS check-url-scheme.js
+PASS check-weebly-furniture-freshness.js
+PASS check-weight-loss-copy.js
+PASS check-whatsapp-route.js
+PASS check-widget-diaries.js
+TOTAL PASS=35 FAIL=0
