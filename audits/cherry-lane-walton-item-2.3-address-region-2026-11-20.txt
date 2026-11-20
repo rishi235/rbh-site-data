@@ -1,0 +1,65 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - quality pass, 2026-11-20T22:43Z
+Fresh angle: tools/check-address-region.js, proven by direct injection against
+cherrylane_liverpool for the first time across this item's pass history
+(22 of 35 checkers had previously been named against this item; this was one
+of the 15 untried).
+
+Method: scratch copy made via `git archive HEAD | tar -x` into /tmp/scratch23,
+confirmed byte-identical to the tracked branches.json (sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da) before any
+write. All six cases below ran against the scratch copy only; the tracked
+repo was never opened for writing. branches.json restored and sha256
+reconfirmed identical to baseline after every case.
+
+Baseline: clean, exit 0. One pre-existing WARN for this branch (lead entry
+"Liverpool" is unowned, a judgement call per the checker's own comment, not a
+fault) and one unrelated pre-existing WARN for mccanns_sandringham (Q15,
+accepted exception). Nothing else.
+
+Injection 1 - addressRegion set to a borough ("Sefton"): FAILED cleanly -
+"addressRegion is \"Sefton\", which is not one of the counties this group
+trades in". Exit 1.
+
+Injection 2 - addressRegion set equal to addressLocality ("Liverpool"):
+FAILED cleanly on the not-a-county rule first (Liverpool is not in the
+COUNTIES allow-list), which is itself informative: a locality that is also
+not a county is caught before the equals-locality branch is ever reached.
+
+Injection 3 - townSlug changed to "aintree" while seoTown stays "Walton":
+FAILED cleanly - "townSlug \"aintree\" is not the slug of seoTown \"Walton\"
+(expected \"walton\")".
+
+Injection 4 - "Walton" removed from serviceAreaList (left as
+["Liverpool","Everton"]): FAILED cleanly - "seoTown \"Walton\" does not
+appear in its own serviceAreaList".
+
+Injection 5 - serviceAreaList[0] changed to "Ainsdale" (fishlocks_ainsdale and
+hirshmans_ainsdale's seoTown, cross-domain from Cherry Lane): FAILED cleanly
+on the lead-entry rule, naming both branches that own Ainsdale and explaining
+why the first entry cannot be trimmed away. This is a cross-domain lead-entry
+collision, a shape not previously proven on this item (Cherry Lane's own
+website host is unique in the estate, so no same-domain variant applies here).
+
+Injection 6 - control (shortCode changed to "ZZZ", a field this checker does
+not read): produced no FAIL, only the same pre-existing lead-entry WARN as
+baseline. Confirms the checker is not failing on unrelated noise.
+
+Exit codes independently reconfirmed for injection 1 and the restore
+(1 then 0) via direct `$?` capture rather than inferred from the printed FAIL
+line alone.
+
+RESULT: check-address-region.js is now proven against cherrylane_liverpool on
+all three of its rule families (county allow-list/equals-locality, townSlug
+slug match, seoTown-in-serviceAreaList) plus the cross-domain lead-entry
+collision. No in-repo defect found. branches.json, tools/, modules/, core/
+and gbp-packs/ confirmed untouched by `git status --porcelain` after the run.
+Full 37-file tools/check-*.js suite re-run directly against the tracked tree:
+37/37 exit 0.
+
+14 checkers remain on this item's never-tried list for a future pass:
+check-app-membership.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-live-hours.js, check-opening-hours.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-seo-keywords.js, check-seo-sheets.js, check-service-links.js,
+check-weebly-furniture-freshness.js, check-weight-loss-copy.js,
+check-widget-diaries.js.

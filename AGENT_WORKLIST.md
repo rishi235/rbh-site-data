@@ -3241,6 +3241,39 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       unchanged, still 1 open (Q139). Full detail in audits/cherry-lane-
       item-2.3-whatsapp-route-injection-2026-11-19.txt.]
 
+      [Quality pass, 2026-11-20: fresh angle tools/check-address-region.js,
+      proven by direct injection against cherrylane_liverpool for the first
+      time (one of the 15 checkers never previously named against this item).
+      Scratch copy via git archive, confirmed byte-identical to tracked
+      branches.json before any write; tracked repo never opened for writing.
+      Six cases run and restored in turn, sha256-reconfirmed after each: a
+      borough in addressRegion, addressRegion equal to addressLocality, a
+      townSlug not matching seoTown's slug, seoTown dropped from the branch's
+      own serviceAreaList, serviceAreaList[0] set to a cross-domain sister
+      branch's seoTown (Ainsdale, owned by fishlocks_ainsdale and
+      hirshmans_ainsdale - a shape not previously proven on this item, since
+      Cherry Lane's own website host is unique in the estate so no
+      same-domain variant applies here), and a control (shortCode) that
+      correctly produced no failure. All six fired or passed as expected on
+      first attempt. Full 37-checker suite re-run directly against the
+      tracked tree afterwards: 37/37 exit 0. branches.json sha256
+      reconfirmed unchanged; `git status --porcelain` on branches.json,
+      tools/, modules/, core/ and gbp-packs/ empty. No in-repo defect found.
+      Guard coverage for item 2.3 now 22 of 35 live checkers (two retired
+      checkers, check-pharmacy-first-symptoms.js's successor and others,
+      counted against the current 35-file tools/check-*.js set) proven by
+      direct injection. 14 remain untried: check-app-membership.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-opening-hours.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-safety-net.js, check-seo-keywords.js,
+      check-seo-sheets.js, check-service-links.js,
+      check-weebly-furniture-freshness.js, check-weight-loss-copy.js,
+      check-widget-diaries.js. No live half performed this pass (the checker
+      reads branches.json only, no page to fetch). No question raised;
+      QUESTIONS.json unchanged. Full detail in audits/cherry-lane-walton-
+      item-2.3-address-region-2026-11-20.txt.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta
