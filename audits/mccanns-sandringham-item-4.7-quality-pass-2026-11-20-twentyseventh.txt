@@ -1,0 +1,78 @@
+Item 4.7 quality pass (twenty-seventh), 2026-11-20
+McCanns Chemist Sandringham GBP pack (gbp-packs/mccanns-sandringham.md)
+Unattended scheduled run, audit-backlog-worker, Cowork sandbox, claude-sonnet-5.
+
+ROTATION PICK
+All 3 unchecked AGENT_WORKLIST.md lines remain [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60), confirmed by direct grep, unchanged from every recent run. Fell
+through to the quality-pass fallback. Rotation pool re-derived from first
+principles (per-section latest YYYY-MM-DD date, excluding the standing
+one-off items and the three blocked items): stalest group tied at
+2026-11-18 was {4.7, 4.8, 4.9, 4.11, 4.12, 4.15, 5.2, 6.2}. Tiebreak by
+lowest item number: 4.7 wins.
+
+REPO HALF
+sha256(branches.json) = 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+sha256(gbp-packs/mccanns-sandringham.md) = 4851c4ff2752ed24760e8a11de0b4d9838920c789784fcafbf4d6b01a9c0d13f
+Both match every prior pass's anchor exactly - no drift since the pack was
+last touched (2026-10-11, Q71 fix).
+
+Full suite of tools/check-*.js (37 files, excluding check-cdn-pins.js and
+check-live-hours.js as network-dependent) run against a disposable,
+non-git scratch copy (git archive HEAD | tar -x into /tmp/scratch47; the
+tracked working copy was never opened for writing): 35/35 clean, 0
+failures.
+
+FRESH ANGLE: the twenty-sixth pass (2026-11-18) had already confirmed, by
+direct comm against this item's own history, that all 14 checkers which
+genuinely read gbp-packs/ (by source, not by comment-mention) had already
+been exercised against this specific pack by injection. This pass instead
+went one level down: inside check-gbp-packs.js, the Q74 rule ("a sentence
+names a lettered Post A-D returning 404, but no sentence ties a
+STOP/DO NOT POST warning to a 404") had never been individually proven by
+injection against mccanns-sandringham.md specifically, because the pack's
+real text does not currently declare any lettered-post 404 at all - its
+only 404 mention (lines 134-136) is the standing Q35 website-field warning
+about the unpasted landing page, which the rule's own design deliberately
+treats as a different hazard with no post button nearby (mccanns-sandringham
+is one of the five packs named in the rule's own comment as correctly NOT
+triggering it). That made it an untested rule for this item, not an
+inapplicable one.
+
+INJECTION 1 (declared breach, no warning): added a bullet to the "Notes
+for the paster:" block - "Post A links to a page that currently 404s on
+the live site." - with no STOP/DO NOT POST wording anywhere in the file.
+Re-ran check-gbp-packs.js: CAUGHT cleanly, first attempt -
+"FAIL mccanns-sandringham.md: a sentence names a lettered Post (A-D)
+returning 404, but no sentence in the pack ties a "STOP"/"DO NOT POST"
+warning to a 404 (Q74)."
+
+INJECTION 2 (negative control): replaced the bullet with "DO NOT POST
+Post A as it stands. Its linked page currently 404s on the live site." -
+same claim, but with the tied warning in the same bullet. Re-ran: Q74 did
+NOT fire, as expected, confirming the rule distinguishes a declared-and-
+unwarned breach from a declared-and-warned one rather than just reacting
+to the word "404".
+
+Restored the pack from its own saved .orig copy; sha256 reconfirmed
+identical (4851c4ff...0d13f) before and after. Full 35-checker suite
+re-run clean after restore. Tracked repo confirmed untouched throughout
+(git status --short showed no modifications to any tracked file; the
+scratch directory was deleted afterwards).
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed
+or submitted, closed after use): re-fetched
+https://www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html -
+still a 404 ("Error - Page Not Found"), unchanged from every prior pass.
+Q35 reconfirmed unchanged, now 27+ passes. The live Google Business
+Profile was not re-read this pass (last read on the twenty-fifth pass,
+2026-11-08, 12 days ago - Q113's NAME-field divergence was reconfirmed
+there and nothing suggests a change since); not re-fetched again this run
+to avoid duplicating that specific check inside the same short window.
+
+RESULT
+No in-repo defect found. No generator, page, pack, checker or
+branches.json content changed. No new question raised. Q35 and Q113
+remain open and unchanged (both already recorded, both outside this
+worker's remit - Q35 needs a Weebly paste session, Q113 needs a decision
+on the live GBP profile NAME field).

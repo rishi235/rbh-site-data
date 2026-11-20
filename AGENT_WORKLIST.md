@@ -27109,6 +27109,29 @@ directly rather than re-deriving the same facts by hand.
       No in-repo defect found, no new question. Evidence:
       audits/mccanns-sandringham-item-4.7-quality-pass-2026-11-18-
       twentysixth.txt. Done 2026-11-18.
+      Quality pass 2026-11-20 (twenty-seventh, unattended scheduled run).
+      REPO HALF: sha256(branches.json) and sha256(gbp-packs/mccanns-
+      sandringham.md) both match every prior pass's anchor exactly; full
+      35-checker suite (excl. check-cdn-pins.js/check-live-hours.js) run
+      against a disposable git-archive scratch copy, 0 failures. FRESH
+      ANGLE: check-gbp-packs.js's own Q74 rule (a declared lettered-Post
+      404 must be tied to a STOP/DO NOT POST warning) had never been
+      individually proven by injection against this pack, since its real
+      text correctly declares no lettered-post 404 at all (its only 404
+      mention is the standing Q35 website-field warning, which the rule's
+      own design deliberately excludes). Proved by two injections on the
+      scratch copy: a bullet declaring "Post A ... 404s" with no warning
+      was CAUGHT cleanly first attempt; the same claim restated as
+      "DO NOT POST Post A ... 404s" (tied warning) correctly did NOT fire,
+      confirming the rule distinguishes the two rather than reacting to
+      the word "404" alone. Restored by byte copy, sha256 reconfirmed
+      identical, full suite re-run clean, tracked repo confirmed untouched
+      throughout. LIVE HALF: pharmacy-mccanns-sandringham.html re-fetched
+      (Chrome, read-only) - still 404 (Q35, unchanged, now 27+ passes).
+      Live GBP profile not re-read this pass (read 12 days ago on the
+      twenty-fifth pass; Q113 unchanged). No in-repo defect found, no new
+      question. Evidence: audits/mccanns-sandringham-item-4.7-quality-
+      pass-2026-11-20-twentyseventh.txt. Done 2026-11-20.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
