@@ -1,0 +1,59 @@
+Item 3.1 quality pass - 2026-11-20 (Cowork scheduled run, Sonnet 5)
+Fresh angle: cross-branch effect of townIsShared() in tools/seo-pattern.js,
+tested from the Hirshmans Chemist Ainsdale side of the Fishlocks/Hirshmans
+pair. Hirshmans had not been named anywhere in item 3.1's own section across
+27 prior passes (grep confirmed: 0 hits for "Hirshmans" or "SK Chemists" in
+that section, versus 19 hits for "Fishlocks").
+
+Method: git archive HEAD extracted to /tmp/scratch31 (tracked repo never
+opened for writing). sha256 of scratch branches.json confirmed identical to
+tracked branches.json before any edit:
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+
+BASELINE (scratch, unmodified):
+  fishlocks_ainsdale townIsShared = true
+  hirshmans_ainsdale townIsShared = true
+  fishlocks H1 (Shingles treatment): "Shingles treatment in Ainsdale - Fishlocks Chemist"
+  hirshmans H1 (Shingles treatment): "Shingles treatment in Ainsdale - Hirshmans Chemist"
+
+INJECTION: hirshmans_ainsdale.seoTown changed from "Ainsdale" to "Hesketh Bank"
+(fishlocks_ainsdale record untouched).
+
+RESULT (scratch, post-injection):
+  fishlocks townIsShared = FALSE  <- changed, even though fishlocks' own
+                                      record was never touched
+  hirshmans townIsShared = false
+  fishlocks H1: "Shingles treatment in Ainsdale"            (brand suffix dropped)
+  hirshmans H1: "Shingles treatment in Hesketh Bank"         (no suffix, as expected, town no longer shared)
+
+This proves townCounts()/townIsShared() is computed at TOWN level across the
+whole branches.json, not per-branch and not cached per the branch being
+tested: removing one side of a shared-town pair correctly strips the brand
+suffix from the OTHER branch's H1 too, which is the behaviour Q44's answer
+specifically asked for ("a future same-town pair or a seoTown move picks the
+rule up on its own with no further decision") and which had not previously
+been proven by injection from the Hirshmans side specifically.
+
+Self-test (node tools/seo-pattern.js) on the modified scratch tree: exit 0,
+"Self-test passed", no hard failure (seoTown and brandLabel both still
+present on every buildable branch; Hesketh Bank is a valid non-empty town
+string so the hard-fail branch is not exercised by this injection - a
+different, already-covered class of fault).
+
+Scratch tree discarded after the test (not committed, not under version
+control). No write made to the tracked branches.json at any point.
+
+VERIFICATION ON THE TRACKED REPO (post-test):
+  sha256sum branches.json: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+    (unchanged from baseline above)
+  git status --porcelain -- branches.json tools/ modules/ core/ gbp-packs/: empty
+  Full 37-file tools/check-*.js suite run directly against the tracked tree:
+    37 pass, 0 fail.
+
+No in-repo defect found. No live half performed (seo-pattern.js is a data/
+generator-level module with no page of its own to fetch).
+
+ANSWER PICKUP: checked https://data.rbhealth.co.uk/api/feedback via Claude in
+Chrome (read-only, single tab, nothing clicked or typed, closed after use).
+Newest "Audit answer" entry is still Q52 (2026-09-01). Q139-Q143 remain open,
+unchanged.

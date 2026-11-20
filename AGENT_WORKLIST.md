@@ -4279,6 +4279,42 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       feed, newest entry still the historical Q52 answer from 2026-09-01).
       Evidence in audits/seo-pattern-3.1-twentyseventh-2026-11-19.txt.
       Done 2026-11-19
+      Quality pass (twenty-eighth), 2026-11-20 (unattended scheduled run,
+      audit-backlog-worker, Cowork sandbox). Picked as the stalest
+      rotation-pool item (tied 2026-11-19 with 3.2-3.9 after the standing
+      one-offs, blocked lines and today's already-refreshed items were
+      excluded; confirmed directly that this item's own section carried no
+      2026-11-20 date-stamp before pickup). Fresh angle: the CROSS-BRANCH
+      effect of townIsShared() in tools/seo-pattern.js, tested from the
+      Hirshmans Chemist Ainsdale side of the Fishlocks/Hirshmans pair -
+      Hirshmans had never been named anywhere in this item's own section
+      across 27 prior passes (grep: 0 hits, versus 19 for Fishlocks). On a
+      git-archive scratch copy (/tmp, tracked repo never opened for
+      writing; scratch branches.json sha256 confirmed identical to tracked
+      before any edit), changed only hirshmans_ainsdale.seoTown away from
+      "Ainsdale" to an unused town, leaving fishlocks_ainsdale's own record
+      untouched. Result: fishlocks_ainsdale's own townIsShared() flipped
+      from true to false and its H1 correctly dropped the brand suffix
+      too, even though its own record was never edited - proving the
+      town-level (not branch-level) computation Q44's answer asked for
+      ("a future same-town pair or a seoTown move picks the rule up on its
+      own with no further decision") from the side of the pair that had
+      not previously been tested. Self-test (node tools/seo-pattern.js) on
+      the modified scratch tree: exit 0, no hard failure. Scratch tree
+      discarded, never committed. Tracked branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      reconfirmed unchanged; git status --porcelain on branches.json,
+      tools/, modules/, core/ and gbp-packs/ empty. Full 37-file
+      tools/check-*.js suite re-run directly against the tracked tree:
+      37/37 exit 0. No in-repo defect found. No live half performed
+      (seo-pattern.js is a data/generator module, no page of its own to
+      fetch). NO NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.1 stays
+      `[x]` (quality pass, not a state change). QUESTIONS.json: 143 total,
+      5 open (Q139-Q143, unchanged; checked fresh via the portal feedback
+      feed, newest entry still the historical Q52 answer from
+      2026-09-01). Evidence in
+      audits/seo-pattern-3.1-townisshared-crossbranch-2026-11-20.txt.
+      Done 2026-11-20
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
