@@ -30592,6 +30592,49 @@ directly rather than re-deriving the same facts by hand.
       changed. Evidence in
       audits/smartts-bootle-item-4.10-quality-pass-2026-11-19-twentyfifth.txt.
       Done 2026-11-19.
+      Twenty-sixth quality pass 2026-11-21 (unattended scheduled run,
+      audit-backlog-worker, Sonnet 5). Stalest genuinely-open item in the
+      rotation pool (4.15's script-flagged 2026-11-18 reading excluded as the
+      known "## Done" overflow false reading, true last date 2026-11-20; real
+      stalest pool at 2026-11-19 was {4.10, 4.13, 4.14, 5.1}, lowest item
+      number wins). branches.json sha256 unchanged from every prior pass.
+      gbp-packs/smartts-bootle.md sha256 is now
+      2f49832118fcbb63b87412b54a49f069b8ace9f953741648f095277027138e63, not
+      the "541239e0...003796b" value quoted unchanged across passes six
+      through twenty-five - traced to commit 7933733 (2026-11-17, already
+      logged), which repointed Post A's button to the generated page per Q8;
+      not a new finding, noted here so a future pass does not mistake the new
+      hash for drift. Full 35-checker non-network suite re-run clean (35/35).
+      Fresh angle: the twenty-fourth pass already proved every checker that
+      reads gbp-packs/*.md against this pack, so this pass extended open Q141
+      (raised against Fishlocks Ainsdale, item 4.1, 2026-11-20) with direct
+      evidence from this item's own pack. INJECTION on a git-archive scratch
+      copy: removed the Services section's "Blood tests" bullet while leaving
+      the "Blood testing service" GBP category claim untouched in the
+      Categories line - 0 failures across the full 35-checker suite,
+      confirming Q141's CATEGORY_RULES gating gap (no earned/not-earned rule
+      for this one recognised category) extends to Smartts Bootle's own pack.
+      CONTROL: a benign reword elsewhere in the same section passed clean,
+      confirming the suite is not generally broken. File restored by byte
+      copy and sha256-reconfirmed identical before and after; tracked repo
+      confirmed untouched throughout (git status --porcelain -- modules core
+      branches.json gbp-packs tools compliance empty; full 35-checker suite
+      re-run clean on the tracked repo itself). Appended as an addendum to
+      Q141 in QUESTIONS.json, not a new question. LIVE (Claude in Chrome,
+      read-only, no login/click/submit): smarttschemist.co.uk homepage
+      re-read - address, phone, email all match branches.json; standing
+      website-hours contradiction unchanged (9:00am-6:00pm Mon-Fri, no lunch
+      closure shown); homepage's own "Blood Testing" services line is
+      consistent with both the pack and the GBP category, so no live
+      over-claim exists today, only an unguarded category name as Q141
+      already found. Did not re-check the live GBP name (Q125) or "People
+      also search for" panel this pass, both reconfirmed as recently as the
+      twenty-fifth pass and left for item 4.11's own pass per established
+      convention. No in-repo defect found and fixed this pass (Q141's gap is
+      pending Rishi's branch-by-branch confirmation, same reasoning Q48 was
+      left open for). Evidence in
+      audits/smartts-bootle-item-4.10-quality-pass-2026-11-21-twentysixth.txt.
+      Done 2026-11-21.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against

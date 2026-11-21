@@ -1,0 +1,104 @@
+Item 4.10 (Smartts Chemist, Bootle, GBP pack) - quality pass twenty-sixth
+Run: 2026-11-21T09:42-10:42Z window, audit-backlog-worker, Sonnet 5, Cowork
+scheduled run.
+
+PICKED AS: stalest genuinely-open item in the rotation pool. .rotation_check.js
+flagged 4.15 as stalest (2026-11-18), the known false reading (its own-section
+scan stops at the "## Done" overflow heading and misses 4.15's later addenda);
+direct read of 4.15's own full section confirmed its true latest date-stamp is
+2026-11-20, so excluded, same as every prior run's finding. Real stalest pool
+at 2026-11-19, confirmed by directly reading each item's own section end-to-end
+for its true last date-stamp: {4.10, 4.13, 4.14, 5.1}. Tiebreak by lowest item
+number: 4.10 wins.
+
+BASELINE: branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1
+db8bac2ffdd527da, matching every prior pass's recorded anchor. gbp-packs/
+smartts-bootle.md sha256 2f49832118fcbb63b87412b54a49f069b8ace9f953741648f0952
+77027138e63 - NOTE: this differs from the "541239e0...003796b" value quoted as
+unchanged across passes six through twenty-five. Traced via `git log` on the
+file: the only change since the sixth pass is commit 7933733 (2026-11-17,
+"Weebly rishibhatia.co.uk: Q22 step 1 and Q8 done, repoint 3 Post A links"),
+which repointed Post A's button from the old live-only target
+(pharmacy-first-service-bootle.html) to the generated page
+(pharmacy-first-smartts-bootle.html) per the Q8 answer and item 5.3's repoint
+work - already logged elsewhere, not a new finding, and not a defect. The
+twenty-fourth and twenty-fifth passes simply stopped re-quoting the old hash
+without remarking on the change; noted here for the record so a future pass
+does not mistake the new hash for drift. Full 35-checker non-network suite
+(excluding check-cdn-pins.js and check-live-hours.js) re-run on the tracked
+repo: 35/35 exit 0.
+
+FRESH ANGLE: the twenty-fourth pass (2026-11-18) established that every
+checker which actually reads gbp-packs/*.md had already been proven against
+this specific pack by direct injection, closing that avenue. This pass instead
+extends open Q141 (raised on item 4.1's pass, 2026-11-20, against Fishlocks
+Ainsdale) with direct evidence from this item's own pack. Q141 found that
+check-gbp-packs.js's CATEGORY_RULES gates the Travel clinic, Vaccination
+centre and Weight loss service GBP categories both ways against branches.json
+widgets, but "Blood testing service" sits in RECOGNISED_CATEGORIES with no
+such gate in either direction - and separately noted that Smartts Bootle's own
+pack is one of only two (with Cherry Lane, Fishlocks Ainsdale and Hirshmans
+Ainsdale) that both states "Blood tests" as a private service AND claims the
+"Blood testing service" GBP category, so on today's wording nothing is
+over-claiming - but nothing would stop it either.
+
+INJECTION (git-archive scratch copy at /tmp/scratch410, tracked file never
+opened for writing): removed the "Blood tests: private blood testing at the
+pharmacy; see the website for the tests currently offered." bullet from the
+Services section of gbp-packs/smartts-bootle.md, leaving "Blood testing
+service" untouched in the Categories line (line 32) and leaving the
+description's own "Blood tests, vaccinations and medical cannabis
+consultations are live" sentence untouched (a different field, not read by
+the category rule). Re-ran the full 35-checker non-network suite: 0 failures.
+CONFIRMS Q141's gap extends to this pack specifically: a pack can drop all
+textual evidence for a private blood-testing service from its own Services
+section while still claiming the matching "Blood testing service" GBP
+category, and nothing here catches it. File restored from the pre-injection
+byte copy; sha256 reconfirmed identical
+(2f49832118fcbb63b87412b54a49f069b8ace9f953741648f095277027138e63) before the
+next step.
+
+CONTROL: an unrelated benign reword in the same Services section ("confidential
+advice on your medicines" -> "confidential advice about your medicines", the
+Private consultation room bullet) - correctly PASSED clean, 0 failures across
+the full 35-checker suite, confirming the suite is not generally broken and the
+blood-testing gap is specific to the CATEGORY_RULES omission Q141 already
+named. File restored and sha256-reconfirmed identical again.
+
+Scratch copy deleted after use. Tracked repo confirmed untouched throughout:
+`git status --porcelain -- modules core branches.json gbp-packs tools
+compliance` empty before and after; gbp-packs/smartts-bootle.md sha256
+unchanged; full 35-checker suite re-run clean on the tracked repo itself
+(35/35, 0 failures).
+
+QUESTIONS.json: appended an addendum to Q141 recording this pack-specific
+proof (see below). No new question raised - this is additional evidence for
+an already-open question, not a new decision for Rishi. Q139, Q140 unchanged
+(no new live finding this pass touches them). Q142-Q144 unchanged.
+
+LIVE (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use): smarttschemist.co.uk homepage re-read in full.
+Address (42 Fernhill Road, Bootle, L20 9HH), phone (0151 922 4984) and email
+(smartts@rbhealth.co.uk) all match branches.json. Standing website-hours
+contradiction unchanged: homepage prints "Monday-Friday 9:00am-6:00pm,
+Saturday/Sunday closed" with no lunch closure shown, against the
+NHS-confirmed 1pm-2pm weekday closure this pack's own paster guidance already
+warns about (open since the first pass, 2026-08-10, not re-raised). Homepage's
+own services list includes "Blood Testing: Fast results for your blood
+tests..." - consistent with both the pack's Services bullet and its GBP
+category claim, so no live over-claim exists today; this pass's finding is
+about the checker having no gate, not about a live inaccuracy. Did not
+re-check the live Google Business Profile name (Q125 addendum) or the
+"People also search for" panel this pass - both reconfirmed as recently as
+the twenty-fifth pass (2026-11-19) and left for item 4.11's own pass per
+established convention.
+
+ANSWER PICKUP (step 3, this run's shared check, logged once in AGENT_LOG.md):
+portal feed read in full; newest entry still Q52 (2026-09-01); no answer for
+any of Q139-Q144.
+
+NO IN-REPO DEFECT FOUND AND FIXED THIS PASS (the CATEGORY_RULES gap is
+Q141's open finding, pending Rishi's branch-by-branch confirmation of which
+branches genuinely offer blood testing - the same reasoning that kept Q48
+open rather than guessing). No generator, page, checker or branches.json
+content changed by this investigation.
