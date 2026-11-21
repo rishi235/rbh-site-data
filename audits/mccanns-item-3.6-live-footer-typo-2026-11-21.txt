@@ -1,0 +1,86 @@
+Item 3.6 quality pass, 2026-11-21 (unattended scheduled run, audit-backlog-worker).
+
+ROTATION-POOL PICK: no unblocked worklist items (3 unchecked lines all
+[BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60, confirmed by direct grep). Fell through
+to the quality-pass fallback. Ran .rotation_check.js: flagged 4.15 as stalest
+at 2026-11-18, the same known false reading prior runs have diagnosed (the
+script's own-section scan stops at the next "## " heading and misses 4.15's
+later addenda, which landed under the "## Done" heading by mistake). Checked
+4.15's own addendum directly: its real latest dated entry is the twenty-fifth
+pass, 2026-11-20, so it was excluded on that basis, consistent with every
+prior run that has hit this. With that correction the real stalest pool at
+2026-11-19 is {3.6, 3.7, 3.8, 3.9, 3.10, 3.13, 4.6, 4.10, 4.13, 4.14, 5.1},
+cross-checked directly against item 3.6's own section (last dated entry
+"Quality pass 2026-11-19 (twenty-eighth, run544)") rather than trusting the
+script alone. Tiebreak by lowest item number: 3.6 (McCanns Chemist, Aigburth
+and Sandringham) wins.
+
+FRESH ANGLE SEARCH: a file-based search of audits/ for every
+mccanns*3.6*/3.6*mccanns* evidence file (rather than a regex scan of the
+worklist's own prose, which the 2026-11-17 pass's evidence shows can miss a
+checker name that only appears inside an evidence filename, e.g.
+"check-contraception-copy.js" never spelled out verbatim in the 2026-11-17
+paragraph itself) showed all 37 tools/check-*.js files already proven against
+this item by direct injection, as of the twenty-eighth pass. Confirmed by
+`comm` against the full tools/check-*.js listing: zero untried checkers
+remain. Item 3.6 is therefore exhausted at the checker-injection level, the
+same state item 4.11 reached earlier in this audit.
+
+RE-VERIFICATION: ran all 35 non-network tools/check-*.js files directly
+against the tracked repo: 35/35 exit 0, no failures. check-cdn-pins.js: clean,
+2 pre-existing WARN (service.js / core/site-data.js runtime branches.json
+fetch from @main, Q45, unrelated to McCanns) and 6 pre-existing KNOWN entries,
+none new. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior anchor recorded for this item.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use): read
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-aigburth.html and
+https://www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html in
+full. Both pages' hero copy, trust-bar, contact card and schema-facing text
+correctly name their own branch (Aigburth / St Michael's) with no
+cross-branch town mix-up, matching the repo's check-contraception-copy.js
+RULE 3 collectors proven against this pair's generated pages on 2026-11-17.
+Addresses, phones and opening hours on both pages match branches.json exactly
+both ways: Aigburth 112 Aigburth Road, L17 7BP, 0151 727 3185, Mon-Fri
+9-1/2-6, Sat 9-1/2-5, Sun closed; Sandringham 1b/1B Aigburth Road, L17 4JP,
+0151 727 3076, Mon-Fri 9-1/2-6, Sat and Sun closed. No live hours mismatch, no
+address mismatch, no cross-branch phone or postcode leak.
+
+NEW FINDING (live-only, invisible to every in-repo checker): the site-wide
+footer widget - the same block that appears on both pages and is pasted into
+Weebly site-wide, the same shape of surface the Tiffenbergs mojibake fault
+(item 4.15, Q33) and the Cherry Lane footer typo (Q36) were both found in -
+gives the Sandringham branch's address as:
+
+    1B Aigburth Road (in Sandrigham Medical Centre)
+
+"Sandrigham" is a misspelling of "Sandringham", missing the first "n".
+Confirmed identical on both pages (same shared widget), so it is a single
+site-wide typo, not a per-page one. It sits in free text inside the footer
+widget, not in the structured address field used by any schema, NAP or
+postcode check (streetAddress / addressLocality / postalCode all read "1b
+Aigburth Road, Liverpool, L17 4JP" correctly, both on the page and in
+branches.json), so none of the 37 in-repo checkers can see it: it is exactly
+the class of live-only Weebly fault CLAUDE.md's "copy that reaches the public
+without being generated" section describes, this time inside the McCanns
+shared footer rather than the switch-page or emar paste blocks already
+listed there. The standing "McCann's Pharmacy" apostrophe-brand finding
+(Q39) is also still present on both pages, unchanged, not re-raised here.
+
+No in-repo defect found and nothing in this repo was changed: branches.json
+sha256 unchanged, `git status --porcelain -- modules core branches.json
+gbp-packs tools` empty throughout. New question raised: Q144 (live footer
+typo "Sandrigham" -> "Sandringham"), since fixing it needs a Weebly session,
+not a repo change - this agent cannot edit a live Weebly footer widget.
+
+ANSWER PICKUP (step 3): fetched https://data.rbhealth.co.uk/api/feedback via
+Claude in Chrome, read-only, single tab, nothing clicked or typed, closed
+after use. Newest "Audit answer" entry on the feed is still Q52
+(2026-09-01T22:44:51.524Z). No entry for Q139-Q143; all five remain open and
+unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window"
+section present at the top of AGENT_LOG.md at pickup. Proceeded under normal
+rules; no autonomous decisions taken.

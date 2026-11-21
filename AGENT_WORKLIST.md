@@ -10653,6 +10653,41 @@ apply. No new question raised; no generator, page, pack, checker or
 branches.json content changed. Item 3.6 stays [x] (quality pass, not a
 state change). Evidence in
 audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.txt.
+      Quality pass 2026-11-21 (twenty-ninth, unattended scheduled run).
+      Rotation-pool pick: 4.15's false "stalest" reading (next-"## "-heading
+      scan bug, same one prior runs have corrected for) excluded; real
+      stalest pool at 2026-11-19 is {3.6, 3.7, 3.8, 3.9, 3.10, 3.13, 4.6,
+      4.10, 4.13, 4.14, 5.1}; 3.6 wins the lowest-item-number tiebreak.
+      File-based search of audits/ (not a worklist-prose regex scan, which
+      the prior pass's own evidence shows can miss a checker name that only
+      appears inside an evidence filename) found all 37 tools/check-*.js
+      files already proven against this item by direct injection - checker
+      coverage exhausted, same state item 4.11 reached earlier. Ran all 35
+      non-network checkers directly against the tracked repo: 35/35 exit 0.
+      check-cdn-pins.js clean, same pre-existing WARN/KNOWN entries, none
+      new. branches.json sha256 0385b7c2...27da unchanged. LIVE HALF (Claude
+      in Chrome, read-only, one tab, nothing clicked or typed, closed after
+      use): read both pharmacy-first-mccanns-aigburth.html and
+      -sandringham.html live on mccannspharmacy.co.uk in full. Hero copy,
+      trust-bar and contact card on both pages correctly name their own
+      branch with no cross-branch town mix-up; addresses, phones and hours
+      match branches.json exactly both ways. NEW FINDING, live-only and
+      invisible to every in-repo checker: the shared site-wide footer
+      widget gives Sandringham's address location note as "1B Aigburth
+      Road (in Sandrigham Medical Centre)" - "Sandrigham" is missing the
+      first "n", should read "Sandringham". Identical on both pages (one
+      shared widget); the structured address fields are correct everywhere,
+      only this free-text parenthetical is wrong. Raised as Q144
+      (recommend bundling into the next footer paste session alongside the
+      standing Q39/Q36 footer items). The standing "McCann's Pharmacy"
+      apostrophe-brand finding (Q39) is still present, unchanged, not
+      re-raised. Answer pickup: newest feed entry still Q52 (2026-09-01);
+      no answer for Q139-Q143, all five remain open. No "Standing
+      authorisation - autonomous window" section present at pickup, step 4
+      did not apply. No in-repo defect found; no generator, page, pack,
+      checker or branches.json content changed. Item 3.6 stays [x] (quality
+      pass, not a state change). Evidence in
+      audits/mccanns-item-3.6-live-footer-typo-2026-11-21.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
