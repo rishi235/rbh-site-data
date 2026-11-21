@@ -1,0 +1,71 @@
+Item 3.7 (Smartts Chemist, Bootle) - quality pass twenty-eighth
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-21T04:42Z
+
+CONTEXT
+All 37 tools/check-*.js files have already been named against this item
+across 27 prior passes (confirmed again this run by comm -23 between the
+full tools/check-*.js listing and the set of check-*.js names appearing in
+item 3.7's own AGENT_WORKLIST.md section: empty diff both directions). This
+pass is therefore a re-verification pass plus a live re-read, not a fresh
+checker-injection pass.
+
+REPO HALF
+Ran all 35 non-network tools/check-*.js files (excluding check-cdn-pins.js
+and check-live-hours.js, the two with a documented reason to be read
+separately) directly against the tracked repo on branch agents/audit-backlog,
+HEAD 7fa0f9f7 (confirmed identical to origin/agents/audit-backlog by direct
+git rev-parse on both refs before starting). 35/35 exit 0. No branches.json,
+generator, page, pack or checker content changed this pass.
+
+LIVE HALF (Claude in Chrome, read-only, one tab per page, nothing clicked,
+typed or submitted, tab closed after use)
+
+1. switch-prescriptions-smartts-bootle.html read in full.
+   - Contact details, address, phone, email all match branches.json
+     (smartts_bootle) exactly.
+   - Opening hours card reads "Monday 9:00am - 6:00pm" through Friday with
+     no lunch closure shown, although branches.json's specification for
+     smartts_bootle carries two Monday-Friday sessions (09:00-13:00 and
+     14:00-18:00). This is the standing live-only lunch-hours display gap
+     already open as Q99 and reconfirmed unchanged by the twenty-sixth and
+     twenty-seventh passes; not new.
+   - The hardcoded services grid's Weight Loss Clinic tile still reads
+     "Support that delivers results", the standing Q16 efficacy-claim
+     finding, hardcoded in tools/build-switch-pages.js CONFIG and accepted
+     in tools/check-service-links.js's KNOWN_CLAIM list pending Q16; item
+     5.8 remains [BLOCKED] on it. Unchanged, not new.
+
+2. hey-ai-read-this.html (the Q139/Q140 page) read in full.
+   - simpleweightloss.co.uk is linked/named FOUR times on this page as read
+     this pass: Quick Facts ("Weight management clinic:
+     www.simpleweightloss.co.uk"), the Private Clinic Services weight
+     management paragraph ("Visit www.simpleweightloss.co.uk for further
+     information."), the FAQ answer ("Visit www.simpleweightloss.co.uk to
+     find out more and book."), and the Contact and Booking section
+     ("Weight management clinic: www.simpleweightloss.co.uk"). The
+     twenty-seventh pass (2026-11-19) recorded three mentions, correcting
+     the original Q139 note's count of two. This pass counts four on a
+     direct re-read. Recorded as a count correction to Q139's running note,
+     not a new question - the substance of Q139 (an actively parked brand
+     still being linked from a live page) is unchanged.
+   - The weight management copy on this page names no prescription
+     medicine, carries no superlative or results claim, states the
+     consultation is subject to clinical assessment and eligibility, and is
+     on a page the visitor chooses to open rather than one linked from the
+     homepage or an ad - consistent with the Regime 2 exemption in
+     AI\RBH_WeightLoss_Advertising_Standards.md and
+     compliance\WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md. No new compliance
+     finding here.
+   - The "Private Clinic Services > Medical Cannabis" line ("We support
+     patients with a valid prescription for medical cannabis. Speak to our
+     team for guidance.") is unchanged from the twenty-seventh pass's Q140
+     finding - still a service never recorded in branches.json or
+     CLAUDE.md, so its accuracy still cannot be checked from this repo. Not
+     re-raised as a separate item; Q140 remains open and covers it.
+   - Opening hours card on this page also reads the same "9:00am - 6:00pm"
+     Monday-Friday shape as the switch page, same standing Q99 gap, not new.
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED (Q139's running note updated
+with the corrected mention count only; Q139 and Q140 remain open, unchanged
+in substance). branches.json untouched; git status --porcelain on
+branches.json, tools/, modules/, core/ and gbp-packs/ empty throughout.

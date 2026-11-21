@@ -12011,6 +12011,28 @@ Done 2026-10-14 (twenty-third pass).
       from Q139 given the controlled-drug angle. No branches.json, generator,
       page, pack or checker content changed. Evidence in
       audits/smartts-item-3.7-quality-pass-2026-11-19-twentyseventh-full-coverage.txt.
+      Quality pass 2026-11-21 (twenty-eighth, Cowork scheduled run): all 37
+      checker files remain named against this item (reconfirmed by comm -23
+      both directions, empty diff), so this pass is a repo re-verification
+      plus a live re-read rather than a fresh checker injection. REPO HALF:
+      35/35 non-network checkers clean against the tracked repo, HEAD 7fa0f9f7
+      confirmed identical to origin/agents/audit-backlog before starting.
+      LIVE HALF (Claude in Chrome, read-only): switch-prescriptions-smartts-
+      bootle.html and hey-ai-read-this.html both re-read in full. Contact
+      details match branches.json throughout. The standing Q99 lunch-hours
+      display gap and the standing Q16 "delivers results" tile claim are both
+      reconfirmed unchanged on the switch page, not new. On hey-ai-read-
+      this.html, simpleweightloss.co.uk is linked four times on this read
+      (Quick Facts, the weight management paragraph, the FAQ answer and the
+      Contact and Booking section) - a count correction to Q139's running
+      note (the twenty-seventh pass counted three), Q139's substance
+      unchanged. The weight management copy on this page names no medicine,
+      no superlative and no results claim, consistent with the Regime 2
+      exemption. The standing Q140 Medical Cannabis finding is reconfirmed
+      unchanged, not re-raised. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+      RAISED. Evidence:
+      audits/smartts-item-3.7-quality-pass-2026-11-21-twentyeighth.txt.
+      Done 2026-11-21.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
