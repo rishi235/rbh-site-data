@@ -19707,6 +19707,42 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       not re-run this pass. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-11-20.txt. Done
       2026-11-20 (twenty-fifth pass)
+
+      Quality pass twenty-sixth, 2026-11-21: fresh angle
+      tools/check-brand-spelling.js, confirmed never previously named against
+      this item across 25 prior passes (24 of 36 live checkers already used).
+      BASELINE: branches.json sha256 unchanged from the standing anchor, full
+      35-checker non-network suite clean on the tracked repo before and after.
+      INJECTION against a git archive HEAD scratch copy (tracked repo never
+      opened for writing): the sore-throat page's visible H2 heading changed
+      from "Tiffenbergs Chemist" to "Tiffenberg Chemist" (dropped trailing
+      "s") - CAUGHT cleanly, naming the file, line and expected trading name.
+      NEGATIVE CONTROL: an unrelated cosmetic HTML comment with no brand text
+      stayed clean. File restored and sha256-reconfirmed identical to baseline.
+      A self-inflicted housekeeping incident (the scratch copy could not be
+      deleted from the bash sandbox side due to the standing EPERM-on-unlink
+      mount quirk, and briefly caused 605 spurious check-postcodes.js failures
+      by sitting inside the scanned tree under a renamed-aside path) was found
+      by this run's own post-work full-suite re-run and resolved within this
+      same pass, before any commit, by deleting the scratch copy via
+      mcp__Windows-MCP__PowerShell against the native host path; full suite
+      reconfirmed clean afterwards (35/35, check-postcodes.js back to 0
+      failures/3 standing warnings) and branches.json sha256 unchanged
+      throughout. NO IN-REPO DEFECT FOUND on the brand-spelling angle. LIVE
+      (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+      submitted, closed after use): read earache-treatment-tiffenbergs-
+      aintree.html, not covered fresh by recent passes - title, H1, address,
+      phone and hours all match branches.json. The page's contact card and
+      footer still publish the branch email as "tiffenbergs@rbhealth.co.uk"
+      (plural), against "Tiffenberg@rbhealth.co.uk" (singular) in
+      branches.json - this reconfirms the standing, already-answered Q56
+      finding (Rishi confirmed the singular mailbox is real on 29/09/2026;
+      the live pages remain unfixed pending a Weebly session) rather than a
+      new defect, and no generated page in this repo prints the email field
+      at all, so there is nothing in-repo to change. Not re-raised as a new
+      question. Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-11-21-twentysixth.txt.
+      Done 2026-11-21 (twenty-sixth pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       Quality pass 2026-11-19 (run539, twenty-ninth), repo half only (live half not repeated - item 4.9 re-read clearchemist.co.uk/contact-us just one day earlier, nothing would be added): full 36-checker suite (excludes only check-live-hours.js, network-dependent) clean except the standing CH1 2AB postcode baseline; branches.json sha256 unchanged. Fresh angle: tools/check-cdn-pins.js, run individually clean against this repo before but never proven by direct injection against Clear Chemist Aintree's own pages across 28 prior passes - this session's full (non-shallow) clone let the checker's git-ref resolution actually run. Injected a mismatched/unresolvable ref (@deadbeef1234) into switch-prescriptions-clear-aintree.html's own switch.js pin - caught on both independent rules (pin-matches-generator, ref-resolves-in-git) first attempt. Restored, sha256-reconfirmed identical. Negative control (clearchemist_aintree.shortCode edited, a field this checker ignores) ran clean. Guard coverage for 3.13 now extends to all 36 non-network checkers. No in-repo defect. Step 3 answer pickup: portal feed read, newest entry still Q52 (2026-09-01), no Q139 answer. See audits/clear-aintree-item-3.13-cdn-pins-quality-pass-2026-11-19-twentyninth.txt.

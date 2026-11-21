@@ -1,0 +1,114 @@
+Item 3.12 (Tiffenbergs Chemist, Liverpool) - quality pass, twenty-sixth
+Run: Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-21T19:42Z
+
+SELECTION
+All 3 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] by direct grep
+(5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass
+fallback. .rotation_check.js flagged 4.15 as stalest at 2026-11-18, the same
+known false reading every prior run has diagnosed (overflow-heading scan
+fault); excluded. Next tier at 2026-11-20 per the script: {3.12, 4.1, 4.5,
+4.7, 4.8, 4.9, 4.11, 4.12, 5.2}. Direct read of item 3.12's own section
+(bounded against the next item's own "- [x] 3.13" heading) confirmed its
+last pass dated 2026-11-20 (twenty-fifth pass). Tiebreak by lowest item
+number among the tied-oldest tier: 3.12 (Tiffenbergs Chemist, Liverpool)
+wins.
+
+FRESH ANGLE
+tools/check-brand-spelling.js. Confirmed never previously named against
+item 3.12 by scanning its own worklist section across 25 prior passes for
+every check-*.js mention (24 of 36 live checkers already used: see list
+below). Not network-dependent.
+
+BASELINE
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+matching the standing anchor used by every prior run. Full 35-checker
+non-network suite (excl. check-cdn-pins.js and check-live-hours.js) run
+directly on the tracked tree before any work: 35/35 exit 0.
+git status --porcelain -- modules core branches.json gbp-packs tools compliance
+empty.
+
+INJECTION (against a git archive HEAD scratch copy under .scratch_tmp/scratch312;
+tracked repo never opened for writing during the injection)
+File: modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html
+Pre-injection sha256: 93fedca73f7804d4a52d83e88a3410bae1b539ac735bb5833a01f8953246fc8f
+Change: line 87 visible H2 heading "How it works at Tiffenbergs Chemist"
+changed to "How it works at Tiffenberg Chemist" (dropped trailing "s").
+Result: CAUGHT cleanly -
+  FAIL  modules/service/pages/sore-throat-treatment-tiffenbergs-aintree.html:87:
+  reads "Tiffenberg Chemist". The trading name is "Tiffenbergs Chemist"
+
+NEGATIVE CONTROL
+Same scratch file: restored the brand text, then inserted an unrelated
+cosmetic HTML comment ("<!-- cosmetic note, no brand text -->") after the
+Google Fonts <link> tag, carrying no brand-name text. check-brand-spelling.js
+stayed clean (0 FAIL lines), confirming the rule is specific to trading-name
+text and does not fire on unrelated markup changes. File then restored by
+sed back to the original line and reconfirmed sha256-identical to the
+pre-injection hash (93fedca7...246fc8f).
+
+HOUSEKEEPING INCIDENT DURING THIS PASS (caused by this run, fixed by this run)
+The git-archive scratch copy at .scratch_tmp/scratch312 could not be removed
+by `rm -rf` from the bash sandbox side - every file inside it hit the
+standing "Operation not permitted" EPERM-on-unlink mount quirk already
+logged by many prior runs, and `mv` (rename-aside) succeeded but left the
+same file content present under a new name, which was then picked up by
+check-postcodes.js (the one checker that scans the whole repo tree) as 605
+spurious failures - the scratch copy's own tools/check-postcodes.js source
+file contains example/test postcodes (AA1 1AA, ZZ99 etc.) that do not exist
+in branches.json, plus every real postcode duplicated a second time from the
+nested copy. This was caught immediately by this run's own post-work full-
+suite re-run (which is why that re-run step exists) rather than reaching a
+commit: fails=1 (check-postcodes.js only) on the first re-run after the
+scratch work. Resolved by deleting the renamed-aside scratch directory via
+mcp__Windows-MCP__PowerShell (Remove-Item -Recurse -Force) against the
+native host path C:\dev\rbh-site-data\.scratch_tmp\scratch312.RELEASED-*,
+which succeeded where the bash-side rm could not. Full 35-checker suite
+re-run clean afterwards (35/35 exit 0, including check-postcodes.js: 0
+failures, 3 standing warnings, matching the pre-work baseline exactly).
+branches.json sha256 reconfirmed unchanged. git status --porcelain on the
+tracked paths empty both before and after. NO IN-REPO DEFECT FOUND; this
+incident was entirely this run's own scratch-copy debris, created and fully
+cleared within this same run, never committed.
+
+Checkers already proven against item 3.12 before this pass (24 of 36):
+check-app-membership, check-booking-routes, check-branch-identity,
+check-branch-links, check-cdn-pins, check-contraception-copy,
+check-em-dashes, check-gbp-packs, check-jsonld, check-live-hours,
+check-map-embeds, check-nap, check-opening-hours,
+check-pharmacy-first-eligibility, check-pharmacy-first-safety-net,
+check-postcodes, check-seo-keywords, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-switch-copy, check-travel-clinic-copy,
+check-weebly-furniture-freshness, check-weight-loss-copy,
+check-whatsapp-route. (check-brand-spelling added this pass: 25 of 36.)
+
+LIVE (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use)
+Read earache-treatment-tiffenbergs-aintree.html on
+www.tiffenbergschemist.co.uk, a page not covered fresh by recent passes on
+this item (prior passes had covered the clinic, contraception, insect-bite,
+shingles, sore-throat, switch, travel-clinic and UTI pages, plus the branch
+landing page). Title, H1, address, phone and opening hours all match
+branches.json exactly (388 Longmoor Lane, Liverpool, L9 9DB; 0151 525 3462;
+Mon-Fri 9-6 closed 1-2, Sat/Sun closed).
+
+One finding, reconfirming a standing tracked item rather than a new one: the
+live contact card and footer publish the branch email as
+"tiffenbergs@rbhealth.co.uk" (plural), while branches.json holds the email
+field as "Tiffenberg@rbhealth.co.uk" (singular). This is the existing Q56
+thread (raised 2026-08-11 on the 4.15 pass, re-checked on the 2026-09-27
+unattended run). Q56 status is "answered" - Rishi confirmed via the portal on
+29/09/2026 that the real mailbox is the singular "tiffenberg@rbhealth.co.uk",
+matching branches.json - but the live Weebly pages still publish the plural
+form, unchanged since the question was raised, because fixing it needs a
+Weebly session (outside this repo/browser-read-only scope). No generated
+page in this repo prints the email field at all (confirmed: the only "email"
+string on the generated earache page is the callback form's own input field
+placeholder, not a contact email), so there is nothing in-repo to fix here;
+the gap is entirely on the live/Weebly side and is already on record. Not
+re-raised as a new question.
+
+RESULT
+NO IN-REPO DEFECT FOUND on the brand-spelling angle. One self-inflicted
+scratch-copy housekeeping incident, caused and fully resolved within this
+pass before any commit. One live finding, which reconfirms the already-
+answered Q56 thread rather than raising anything new.
