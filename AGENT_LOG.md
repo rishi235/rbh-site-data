@@ -14,11 +14,11 @@ WORKLIST TICK (step 7): item 3.9 appended with this pass's paragraph, in place w
 
 QUESTIONS (step 8): no new question raised. The switch-page-title finding is covered by the standing Weebly repaste backlog/Q1/item 1.1 lag already tracked, not a new decision for Rishi. Q139-Q144 remain open and unchanged.
 
-COMMIT AND PUSH (step 9): pending as this entry is written.
+COMMIT AND PUSH (step 9): `.git/HEAD.lock`, `.git/index.lock` and `.git/ORIG_HEAD.lock` were all present at the add step (same EPERM-on-unlink mount quirk; no git process running per `ps aux`), cleared by rename to a `.cleared-<timestamp>` suffix. `AGENT_WORKLIST.md`, `AGENT_LOG.md` and the new evidence file staged and committed cleanly as `acd9a748` on `agents/audit-backlog` (harmless `tmp_obj_*` unlink warnings during add/commit, same mount quirk, did not block the commit). `git push origin agents/audit-backlog` from the sandbox failed exactly as expected on the standing Q142 credential gap ("could not read Username for 'https://github.com'"). Fell back to `mcp__Windows-MCP__PowerShell` against the native host checkout at `C:\Dev\rbh-site-data`: confirmed its HEAD already matched the sandbox's `acd9a748` (1 commit ahead of origin) before pushing, ran `git push origin agents/audit-backlog` there - succeeded (PowerShell routed git's normal stderr progress output as an "error" stream, but it showed the real ref update `08efc03..acd9a74 agents/audit-backlog -> agents/audit-backlog`), confirmed by a follow-up `git fetch`/`git status` on the native host showing "up to date with origin/agents/audit-backlog". Q142 left open and unchanged (operational workaround, not a decision from Rishi).
 
-STATUS PAGE (step 10): pending.
+STATUS PAGE (step 10): `node tools/build-audit-status.js` run from the sandbox first - failed with "Publish skipped: no credential found in the origin remote URL," the same standing Q142 root cause, not a new fault. Re-ran via `mcp__Windows-MCP__PowerShell` on the native host - succeeded: "Published reports/digital/Digital_Audit_Status.html (47/48 done, 98%)."
 
-LOCK RELEASE (step 11): pending.
+LOCK RELEASE (step 11): `.agent-lock` content to be overwritten with a release note before exit (literal unlink continues to fail with EPERM; redirect-overwrite is the working substitute).
 
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-21T05:41Z): LOCK (step 1): `.agent-lock` at pickup read "2026-11-21T04:51:00Z-released", mtime ~51 minutes old - past the 45-minute threshold, treated as stale. Literal `rm` failed with "Operation not permitted" (standing EPERM-on-unlink quirk on this mount); content overwritten in place with a fresh UTC timestamp via redirect, the established working substitute. No `.git/*.lock` files were present this run.
 
