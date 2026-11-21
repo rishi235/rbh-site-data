@@ -1,0 +1,178 @@
+RBH digital audit backlog - item 2.1 "Fishlocks Ainsdale" (branch fishlocks_ainsdale)
+Quality pass 2026-11-21 (thirtieth)
+
+WHAT PRIOR PASSES ALREADY PROVED
+---------------------------------
+29 prior passes (AGENT_WORKLIST.md lines 371-1878) have proven, by direct injection
+against Fishlocks Ainsdale's own branches.json fields and generated pages, the rules
+of 26 of the repo's 37 check-*.js checkers. The 29th pass (2026-11-20) used
+check-address-region.js and reduced the never-named-against-this-branch list to 11:
+check-brand-spelling.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-sheets.js, check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js.
+
+Standing findings on this branch going into this pass: Q35 (branch landing page
+404 live, absent from sitemap), Q37 (native Weebly contact block naming "Fishlock
+Pharmacy"/"Fishlock Chemist", missing the trading "s", and abbreviating the street
+to "17 Station Rd"), Q57 (sixth live legacy weight-loss template at
+weight-loss-services-eccleston-ainsdale.html, carrying "Real Results with Mounjaro",
+an outcome slider and a three-medicine picker). Note: Q139 and Q140, listed in this
+pass's brief as standing findings for item 2.1, were checked against the full
+29-pass block and belong instead to item 3.7 (Smartts Chemist, Bootle) - they concern
+Smartts' own hey-ai-read-this.html AEO page, not anything on fishlockpharmacy.co.uk.
+Nothing in item 2.1's history ever raised an AEO/"hey-ai-read-this" finding for this
+branch. This is noted as a correction, not reopened as a new finding, since nothing
+about it is new.
+
+FRESH ANGLE CHOSEN
+-------------------
+tools/check-seo-sheets.js. Never named once across item 2.1's 29-pass block (confirmed
+by a full grep of lines 371-1878 for "check-seo-sheets"). It is one of the 11 checkers
+still on the never-named list after pass 29. This checker compares the "Weebly page SEO
+title" / "Weebly page SEO description" comment lines baked into each generated page
+against two independent families of paste sheet: the six *-SEO.md sheets (title,
+permalink, description under "Page Title"/"Page Permalink"/"Page Description") and the
+five *INDEX.md manifests (the same two Weebly fields under "SEO title"/"SEO description",
+keyed by a backticked slug instead of a permalink). Fishlocks Ainsdale has rows in both
+dialects across three page families it owns pages in: modules/service/pages/INDEX.md
+and SEO.md (11 service pages, one of them with no INDEX row by design - contraception),
+modules/branch/pages/INDEX.md and SEO.md (the branch landing page), and
+modules/switch/pages/SEO.md (the switch page; switch has no INDEX.md).
+
+The checker's own file header records a prior injection against this exact branch's
+UTI block (a doubled "Page Title" label, item 3.3, 2026-08-30) but that was done during
+the checker's own development, not as an item 2.1 quality pass, and it proved a
+different rule (the one-label-per-block rule) to a different one (the INDEX-sheet
+title/description drift rule, added later on 2026-08-13's item 3.7 pass). Pass 30
+proves the INDEX-sheet drift rule and the SEO.md description-drift rule against this
+branch for the first time under item 2.1.
+
+BASELINE
+--------
+sha256 of branches.json and the Fishlocks Ainsdale-relevant sheets/pages, taken before
+any injection:
+  branches.json                                            0385b7c2b2bca55d559903f71...
+  modules/service/pages/SEO.md                             2d04b0440e976254070085325...
+  modules/service/pages/INDEX.md                           54f6036728286e8f9bd328032...
+  modules/service/pages/uti-treatment-fishlocks-ainsdale.html  706e3a8ef6662d5d6f4931...
+  modules/switch/pages/SEO.md                               0ae6e1443e66a472c3f175f...
+  modules/switch/pages/INDEX.md                             199b029b3227db036ee15b3...
+  modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html  d4f96e88ce19d1d...
+  modules/branch/pages/SEO.md                               80a64c636f73924321c7d18...
+  modules/branch/pages/INDEX.md                             b3722d65f35a6e98e99f990...
+  modules/branch/pages/pharmacy-fishlocks-ainsdale.html     f3afbfbd03dbfbbee24f3b1...
+
+Full checker suite run on the TRACKED repo (all 37 check-*.js minus check-cdn-pins.js
+and check-live-hours.js, both network-dependent, per standing instruction): all 35
+exited 0, clean. No pre-existing failures.
+
+SCRATCH COPY
+------------
+Made with `git archive HEAD | tar -x -C <scratch>` into
+/sessions/awesome-admiring-ptolemy/mnt/outputs/pass30-scratch (outside the repo). sha256
+of branches.json in the scratch copy matched the tracked-repo baseline exactly before
+any injection. The tracked repo was never opened for writing.
+
+INJECTION 1 - INDEX-sheet title drift (never proven against this branch)
+--------------------------------------------------------------------------
+In the scratch copy's modules/service/pages/INDEX.md, the Fishlocks Ainsdale UTI row's
+"SEO title" line was changed from
+  UTI treatment in Ainsdale - Fishlocks Chemist
+to
+  UTI treatment in Bootle - Smartts Chemist
+(another branch, another brand, another town, same shape as the checker's own header
+example). node tools/check-seo-sheets.js on the scratch copy FAILED with exactly one
+failure:
+  FAIL uti-treatment-fishlocks-ainsdale: title drift against the INDEX sheet
+         page  : UTI treatment in Ainsdale - Fishlocks Chemist
+         index : UTI treatment in Bootle - Smartts Chemist  (modules/service/pages/INDEX.md)
+Correctly named the branch's own page and the correct sheet. File restored from the
+pre-injection copy; sha256 of modules/service/pages/INDEX.md after restore matched the
+baseline exactly (54f6036728286e8f9bd3280cb2e05f88dd71efa5c1ef42200f2cd94435ba08b0).
+
+INJECTION 2 - SEO.md description drift on the branch landing sheet (never proven
+against this branch's branch-landing row)
+--------------------------------------------------------------------------
+In the scratch copy's modules/branch/pages/SEO.md, the Fishlocks Ainsdale block's
+"Page Description" line had " and Liverpool city centre" appended after "Southport."
+while the page's own head comment was left untouched. node tools/check-seo-sheets.js
+FAILED with exactly one failure:
+  FAIL pharmacy-fishlocks-ainsdale: description drift
+         page  : ...Serving Ainsdale, Birkdale and Southport.
+         sheet : ...Serving Ainsdale, Birkdale and Southport and Liverpool city centre.
+           (modules/branch/pages/SEO.md)
+Correctly named the branch's own permalink and the correct sheet. File restored;
+sha256 of modules/branch/pages/SEO.md after restore matched baseline exactly
+(80a64c636f73924321c7d18cef366b7527cf3877347e4faa6107668ed8370c9e).
+
+NEGATIVE CONTROL - no cross-fire
+--------------------------------
+In the scratch copy's modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html,
+the FAQ phone number was changed from "01704 575478" to "01704 999999" (a fact
+check-seo-sheets.js never reads - it reads only the Weebly SEO title/description
+comment lines). node tools/check-seo-sheets.js stayed clean ("every page and its paste
+sheet agree"), confirming no cross-fire. node tools/check-nap.js, run on the same
+scratch copy, correctly caught it:
+  MISMATCH modules/switch/pages/switch-prescriptions-fishlocks-ainsdale.html:
+  phone-like number "01704 999999" is not Fishlocks Chemist Ainsdale's number in
+  branches.json
+File restored; sha256 of the switch page after restore matched baseline exactly
+(d4f96e88ce19d1db03ea0ede54827dde4d87c2a6af1b7bc2e0f8029130a9f609).
+
+POST-RESTORE RE-RUN
+--------------------
+All 35 non-network checkers re-run on the scratch copy after every restore: all exited
+0, clean. sha256 of branches.json and all three touched files reconfirmed identical to
+baseline.
+
+TRACKED REPO UNTOUCHED
+-----------------------
+`git status --porcelain -- modules core branches.json gbp-packs tools compliance` on
+the tracked repo was empty before and after the injection work. sha256 of the tracked
+repo's own branches.json reconfirmed identical
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da) throughout. Scratch
+directory deleted on completion.
+
+LIVE CHECK (Claude in Chrome, read-only: navigate and get_page_text only)
+---------------------------------------------------------------------------
+Recent passes (27th-29th) already read the homepage, contact.html, both weight-loss
+pages and sitemap.xml fresh. This pass read three live pages/states not read in the
+last couple of passes:
+
+1. https://www.fishlockpharmacy.co.uk/switch-prescriptions-fishlocks-ainsdale.html -
+   live and renders correctly (hero, form, FAQ, trust bar, app card, contact card all
+   present and matching branches.json's phone/address/hours). The page's own native
+   Weebly footer block (shared across the site, below the generated contact card)
+   again reads "Fishlock Pharmacy, Ainsdale, Southport" / "Fishlock Chemist (GPHC no.
+   1121085 and 1034673)" and the address line "17 Station Rd" (abbreviated) - this is
+   the same Q37 fault, now also visually confirmed present on the switch page, not
+   only on contact.html where it was originally found.
+
+2. https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html - reconfirmed
+   STILL a live 404 ("Error - Page Not Found"). Q35 unchanged.
+
+3. https://www.fishlockpharmacy.co.uk/weight-loss-services-eccleston-ainsdale.html -
+   spot-reconfirmed still live with "Real Results with Mounjaro", the outcome slider
+   ("You could lose up to: 26kg (22.5% of your body weight)") and the three-medicine
+   picker (Wegovy, Mounjaro, Orlistat) all still present. Q57 unchanged.
+
+No new live defect found. All three standing findings (Q35, Q37, Q57) reconfirmed
+present and unchanged; none reopened as new questions. The one new observation (Q37's
+fault also appearing on the switch page's shared footer block, not only on contact.html)
+is additional evidence for the existing Q37 thread, not a new question, since Q37
+already describes this as a site-wide shared Weebly block fault and Rishi's answer
+already covers it.
+
+RESULT
+------
+No new in-repo defect found. check-seo-sheets.js's INDEX-sheet title-drift rule and
+SEO.md description-drift rule are now proven, by direct injection, against Fishlocks
+Ainsdale's own data for the first time under item 2.1, with a clean negative control
+against check-nap.js showing no cross-fire. No new QUESTIONS.json entry raised (nothing
+new to decide; standing Q35/Q37/Q57 reconfirmed unchanged). Checkers remaining on the
+never-named-for-this-item list after this pass (10): check-brand-spelling.js,
+check-editor-snapshot.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js.

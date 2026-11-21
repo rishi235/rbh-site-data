@@ -1876,6 +1876,65 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       raised. Item 2.1 stays `[x]` (quality pass, not a state change).
       Evidence: audits/fishlocks-ainsdale-address-region-2.1-twentyninth-
       2026-11-20.txt. Done 2026-11-20.
+      Quality pass 2026-11-21 (thirtieth). Of the 11 checkers the 29th pass left
+      never-named against this item, took tools/check-seo-sheets.js: it compares the
+      "Weebly page SEO title"/"Weebly page SEO description" lines baked into each
+      generated page against two independent paste-sheet dialects, the six *-SEO.md
+      sheets (Page Title/Page Permalink/Page Description) and the five *INDEX.md
+      manifests (the same two Weebly fields under SEO title/SEO description, keyed by
+      a backticked slug). Fishlocks Ainsdale carries rows in both dialects across three
+      page families: modules/service/pages/INDEX.md and SEO.md (its eleven service
+      pages), modules/branch/pages/INDEX.md and SEO.md (its branch landing page), and
+      modules/switch/pages/SEO.md (its switch page; switch has no INDEX.md). The
+      checker's own file header records a prior injection against this branch's UTI
+      block, done during the checker's own development on the item 3.3 pass
+      (2026-08-30) rather than as an item 2.1 pass, and it proved a different rule (one
+      label per block) to the two proven here for the first time under this item.
+      Baseline: branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1-
+      db8bac2ffdd527da; full 37-checker suite minus check-cdn-pins.js and
+      check-live-hours.js (both network-dependent) run clean on the tracked repo, no
+      pre-existing failures. Scratch copy made with git archive HEAD into a directory
+      outside the repo; its branches.json sha256 matched before any injection. Two
+      injections against the scratch copy only: (1) the Fishlocks Ainsdale UTI row's
+      SEO title in modules/service/pages/INDEX.md changed from "UTI treatment in
+      Ainsdale - Fishlocks Chemist" to "UTI treatment in Bootle - Smartts Chemist" -
+      CAUGHT as a title drift against the INDEX sheet, naming the right page and
+      sheet; (2) the branch landing block's Page Description in
+      modules/branch/pages/SEO.md had "and Liverpool city centre" appended while the
+      page's own head comment was left alone - CAUGHT as a description drift, again
+      naming the right permalink and sheet. CONTROL: the FAQ phone number on
+      switch-prescriptions-fishlocks-ainsdale.html changed from 01704 575478 to 01704
+      999999, a fact this checker never reads - check-seo-sheets.js stayed clean while
+      check-nap.js, run on the same scratch copy, correctly caught the mismatch,
+      confirming no cross-fire. All three files restored by byte copy and reconfirmed
+      sha256-identical to baseline; full suite re-run clean on the scratch copy after
+      restores. Tracked repo confirmed untouched throughout (`git status --porcelain`
+      on branches.json/tools/modules/core/gbp-packs/compliance empty, branches.json
+      sha256 unchanged); scratch directory deleted on completion. No in-repo defect
+      found. Live check (Claude in Chrome, read-only, one tab, closed after use): read
+      three pages not read fresh in the 27th-29th passes.
+      switch-prescriptions-fishlocks-ainsdale.html renders correctly end to end against
+      branches.json, but its shared native Weebly footer block again names "Fishlock
+      Pharmacy"/"Fishlock Chemist" and abbreviates "17 Station Rd" - the same Q37
+      fault, now also seen on the switch page rather than only on contact.html, which
+      is further evidence for the existing Q37 thread rather than a new question since
+      Q37 already covers it as a site-wide shared block fault with Rishi's answer
+      accepted. pharmacy-fishlocks-ainsdale.html reconfirmed STILL a live 404; Q35
+      unchanged. weight-loss-services-eccleston-ainsdale.html spot-reconfirmed STILL
+      carrying "Real Results with Mounjaro", the outcome slider and the three-medicine
+      picker; Q57 unchanged. Separately noted and corrected for the record: Q139 and
+      Q140, named in this pass's brief as standing findings for item 2.1, in fact
+      belong to item 3.7 (Smartts Chemist, Bootle) and its hey-ai-read-this.html AEO
+      page; nothing in item 2.1's 29-pass history ever raised an AEO finding for this
+      branch, so this is a misattribution noted rather than a reopened question. No new
+      question raised. Item 2.1 stays `[x]` (quality pass, not a state change).
+      Checkers remaining never-named against this item (10): check-brand-spelling.js,
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-service-links.js, check-uk-spelling.js,
+      check-url-scheme.js, check-widget-diaries.js, a candidate list for a future pass.
+      Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-21-thirtieth.txt.
+      Done 2026-11-21.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
