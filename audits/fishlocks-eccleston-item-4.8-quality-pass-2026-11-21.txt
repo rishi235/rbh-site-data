@@ -1,0 +1,98 @@
+Item 4.8 quality pass, 2026-11-21 (Cowork scheduled run, audit-backlog-worker)
+
+ROTATION
+Pool tied stalest at 2026-11-20: 4.8, 4.9, 4.11, 4.12, 5.2, 6.2.
+4.15 excluded (standing known-false reading, every prior pass has diagnosed this).
+4.7 and 4.5 excluded: both already completed earlier today by two prior runs in
+this same scheduled session (commits 7bb9337 and 173c519).
+4.8 wins the lowest-item-number tiebreak among the remaining tied set.
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (standing anchor referenced by multiple prior passes - unchanged)
+gbp-packs/fishlocks-eccleston.md sha256:
+  5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa
+  (matches the value recorded by item 4.8's own twenty-seventh pass - unchanged)
+git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty
+
+CHECKER SUITE
+Per the prior (twenty-seventh) pass's own written conclusion, every checker that
+genuinely reads gbp-packs/*.md by source has already been proven against this
+specific pack by direct injection across 27 prior passes, and no untried angle
+remains. No new injection was attempted this pass on that basis. Re-ran the full
+35-checker suite (all of tools/check-*.js excluding check-cdn-pins.js and
+check-live-hours.js, both network-dependent) individually, node by node:
+
+35/35 exit 0.
+
+LIVE HALF
+Claude in Chrome, read-only, single tab, nothing clicked/typed/submitted, closed
+after use. Fetched a page not sampled by any of the prior 27+ passes on this
+item: https://www.fishlockpharmacy.co.uk/pharmacy-first-fishlocks-eccleston.html
+
+Live, not a 404. Contents verified against branches.json (fishlocks_eccleston):
+- Address: Unit 3 The Carrington Centre, New Mill Street, Eccleston, PR7 5SZ - match
+- Phone: 01257 451251 - match (appears correctly throughout)
+- Hours: Mon-Fri 9:00am-6:00pm, Sat 9:00am-12:00pm, Sun closed - match
+- Seven Pharmacy First conditions present with correct NHS age ranges (UTI
+  women 16-64, sore throat 5+, sinusitis 12+, earache 1-17, impetigo 1+,
+  shingles 18+, infected insect bite 1+) - match
+
+Footer on this page carries the same standing Q37 drift, reconfirmed unchanged:
+- Native Weebly contact block still reads "Fishlock Pharmacy, Ainsdale,
+  Southport" / "Fishlock Pharmacy, Eccleston, Chorley" (missing "s" both times)
+- Legal line still reads "Fishlock Chemist (GPHC no. 1121085 and 1034673)"
+  (missing "s")
+- Ainsdale address in that block still abbreviates "17 Station Rd"
+- The separate, correct trust-bar block ("Fishlocks Chemist - two local NHS
+  pharmacies in Ainsdale & Eccleston", full "17 Station Road") is also still
+  present, unchanged, alongside the wrong block - same side-by-side state
+  logged since the 2026-08-31 addendum to Q37.
+
+No new finding here; this is a reconfirmation of the existing Q37 issue on a
+page not previously used to reconfirm it, nothing more.
+
+SIDE FINDING, FIXED: QUESTIONS.json DATA INCONSISTENCY ON Q37
+While reconfirming Q37 against this page, checked the Q37 object in
+QUESTIONS.json directly. Its "status" field read "answered" with
+"answeredDate": "2026-09-29". Its own "note" field, however, explicitly
+concludes (dated 2026-09-01 in the note text, and reconfirmed by four later
+dated entries within the same note - 2026-09-16, 2026-09-24 x2, 2026-09-27,
+2026-09-28) that Rishi's 2026-09-01 portal reply ("i need further explanation
+as i dont understandin plain english waht you are asking") did not select an
+option, and that the question "stays open rather than answered". The status
+field and the note's own stated conclusion directly contradicted each other.
+
+tools/build-audit-status.js line 87 computes the portal's answerable-questions
+list strictly from the status field:
+  const openQs = allQuestions.filter(q => q.status === 'open')
+Because Q37's status field said "answered", Q37 has been silently excluded
+from that published list on every status-page build since 2026-09-29, even
+though every run's own AGENT_LOG.md and AGENT_WORKLIST.md entries in that
+window correctly treated it as open in their own reasoning. The one channel
+built to actually collect Rishi's decision on this question has been quietly
+withholding it for roughly seven weeks of runs.
+
+FIX APPLIED: set Q37.status back to "open", removed the answeredDate field,
+and appended a note explaining the correction and why it was made. No other
+field on Q37 (question text, options, recommended index) was changed. This is
+a correction to the audit trail's own internal consistency, not a new
+decision taken on Rishi's behalf - the underlying question is unchanged and
+still awaits his actual choice.
+
+QUESTIONS.json now carries 7 open questions: Q37 (restored), Q139, Q140, Q141,
+Q142, Q143, Q144.
+
+ANSWER PICKUP (step 3, performed before this item was picked)
+Portal feed (https://data.rbhealth.co.uk/api/feedback) read in full via
+Claude in Chrome, read-only, single tab, closed after use. Newest "Audit
+answer" entry on the feed is still Q52 (2026-09-01). Nothing posted for
+Q139-Q144.
+
+RESULT
+No in-repo defect found on item 4.8 itself (pack, generator, checker and
+branches.json content all confirmed unchanged and clean). One real data
+defect found and fixed: Q37's status/note inconsistency in QUESTIONS.json,
+which was silently hiding an open question from the published portal. Item
+4.8 stays [x] (quality pass, not a worklist state change). No new worklist
+question raised for item 4.8 itself.

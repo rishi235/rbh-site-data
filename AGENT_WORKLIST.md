@@ -28870,6 +28870,47 @@ directly rather than re-deriving the same facts by hand.
       specifically should wait for either a branches.json fact change for
       fishlocks_eccleston or a new checker being written, rather than
       continuing to re-run the same proven injections.
+      Quality pass 2026-11-21 (Cowork scheduled run, item 4.8): rotation
+      pool tied at 2026-11-20 (4.8, 4.9, 4.11, 4.12, 5.2, 6.2), 4.15 excluded
+      as the standing known-false reading, 4.7 and 4.5 excluded as already
+      done earlier today by two prior runs this session; 4.8 won the
+      lowest-item-number tiebreak. BASELINE: branches.json sha256
+      0385b7c2...27da (standing anchor, unchanged), pack sha256
+      5f2206db...001efa (unchanged, matches every prior pass's record),
+      git status --porcelain on modules/core/branches.json/gbp-packs/tools/
+      compliance empty. Per the prior pass's own note, no untried
+      checker-injection angle remains against this pack, so none was
+      attempted; re-ran the full 35-checker suite (excl. check-cdn-pins.js/
+      check-live-hours.js, network-dependent) individually: 35/35 exit 0.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after use): fetched
+      pharmacy-first-fishlocks-eccleston.html instead of the usual
+      pharmacy-fishlocks-eccleston.html, a page not sampled by any of the
+      prior 27+ passes on this item. It is live (not a 404) and every fact
+      on it matches branches.json: address, postcode, phone, both weekday
+      and Saturday hours, the seven Pharmacy First conditions with correct
+      NHS age ranges. Its footer carries the same Weebly-native brand
+      spelling and NAP drift already tracked under Q37 ("Fishlock Pharmacy"
+      x2, "Fishlock Chemist" legal line, "17 Station Rd"), reconfirmed
+      unchanged yet again, alongside the already-correct second trust-bar
+      block. SIDE FINDING, FIXED: while re-reading Q37 to confirm it was
+      still the same standing issue, found that QUESTIONS.json's own Q37
+      object had status "answered" (answeredDate 2026-09-29), directly
+      contradicting its own note, which concludes on 2026-09-01 and
+      reconfirms on four later dates that Rishi's reply did not select an
+      option and the question must stay open. tools/build-audit-status.js
+      filters strictly on the status field, so this mismatch has been
+      silently hiding Q37 from the published portal's answerable-questions
+      list since 2026-09-29, while every run's own log kept privately
+      noting it as open. Corrected: status set back to "open",
+      answeredDate removed, note appended explaining the correction. No
+      other field changed. Answer pickup (step 3, done before this item
+      was picked): portal feed read in full via Claude in Chrome, newest
+      "Audit answer" entry still Q52 (2026-09-01); nothing posted for
+      Q139-Q144. QUESTIONS.json now carries 7 open (Q37 restored, plus
+      Q139-Q144). Item 4.8 stays `[x]` (quality pass, not a state change).
+      Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-21
+      .txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
