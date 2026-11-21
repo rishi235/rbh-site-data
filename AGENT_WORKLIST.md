@@ -20939,6 +20939,29 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       Evidence in
       audits/clear-aintree-item-3.13-skiphosts-remeasure-quality-pass-2026-11-19-thirtieth.txt.
       Done 2026-11-19
+      Quality pass 2026-11-21 (thirty-first): all 37 checker files already
+      proven against this item by direct injection across 30 prior passes
+      (comm -23 both ways, empty diff), so this pass re-verified rather than
+      injecting further. REPO HALF: 35/35 non-network checkers clean;
+      check-cdn-pins.js clean with the same 2 WARN + 6 KNOWN entries, none
+      new; branches.json sha256 0385b7c2...27da unchanged. LIVE HALF (Claude
+      in Chrome, read-only): clearchemist.co.uk homepage trades normally;
+      contact-us re-read in full, address, phone (0151 203 6535) and
+      Customer Services email (admin@clearchemist.co.uk) all match
+      branches.json exactly. The three generated-but-unpublished slugs
+      (switch, weight-loss-clinic, travel-clinic for clear-aintree) all
+      still return the store's own 404, unchanged since 2026-08-30 and
+      consistent with Q29's standing answer - last live-checked 2026-09-14,
+      now reconfirmed two months on with no change. OBSERVATION, not a
+      defect: the store's generic 404 template gives a different contact
+      email ("customerservices@clearchemist.co.uk") than branches.json's
+      admin@ address - platform boilerplate on a page this repo does not
+      generate, nothing for any checker here to read, same class as the
+      Riddings item 3.10 GPhC-numbers observation. NO IN-REPO DEFECT FOUND;
+      git status --porcelain -- modules core branches.json gbp-packs tools
+      empty throughout. Evidence in
+      audits/clear-aintree-item-3.13-quality-pass-2026-11-21-thirtyfirst.txt.
+      Done 2026-11-21
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

@@ -1,0 +1,50 @@
+Item 3.13 (Clear Chemist, Aintree/Liverpool) - quality pass, thirty-first
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-21T08:42Z
+
+REPO HALF
+- All 37 tools/check-*.js already proven against clearchemist_aintree by
+  direct injection across 30 prior passes (comm -23 both ways between the
+  full checker listing and the checker names appearing in item 3.13's own
+  worklist section: empty diff). No further injection work this pass.
+- Ran all 35 non-network checkers directly against the tracked repo
+  (agents/audit-backlog, HEAD 9f6e754 at pickup): 35/35 exit 0.
+- check-cdn-pins.js run separately (network-dependent): clean, 2 WARN + 6
+  KNOWN entries, all pre-existing (Q45 switch/emar paste-template refs,
+  the service.js/site-data.js @main runtime-fetch warning) - none new.
+- branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  unchanged, matching every prior anchor.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use)
+- https://www.clearchemist.co.uk/ (homepage): trades normally as the
+  e-commerce storefront, no adverse content.
+- https://www.clearchemist.co.uk/contact-us: re-read in full. Address
+  "Unit 20, Brookfield Trade Centre, Brookfield Drive, Aintree, Liverpool,
+  L9 7AS" and phone "0151 203 6535" both match branches.json exactly.
+  Customer Services email reads "admin@clearchemist.co.uk", matching
+  branches.json's email field exactly. No drift from the 2026-11-19 read.
+- The three generated-but-unpublished slugs - switch-prescriptions-clear-
+  aintree.html, weight-loss-clinic-clear-aintree.html, travel-clinic-clear-
+  aintree.html - all still return the store's own 404 page, unchanged from
+  every read since 2026-08-30 and consistent with Q29's standing answer
+  (leave generated and unpublished, revisit when the store is next worked
+  on). Last live-checked 2026-09-14 (fifteenth pass); this pass reconfirms
+  the status two months on, with no change.
+
+OBSERVATION, NOT A DEFECT: the store's generic 404 error-page template
+(same page served for all three missing slugs) gives its own contact
+line as "0151 203 6535 or customerservices@clearchemist.co.uk" - the
+phone matches branches.json, but the email ("customerservices@") differs
+from both branches.json's "admin@clearchemist.co.uk" and the contact-us
+page's own "Customer Services - admin@clearchemist.co.uk" line. This is
+platform (Magento/theme) boilerplate on a generic store-wide error page,
+not a generated page this repo produces or a field any checker here
+reads - check-nap.js, check-branch-links.js etc. only read the 177
+generated pages, never the storefront's own 404 template. Logged for
+completeness only; no in-repo defect and nothing to fix here, in the same
+class as the GPhC-numbers observation recorded on the Riddings item 3.10
+pass (2026-11-21).
+
+RESULT: NO IN-REPO DEFECT FOUND. No generator, page, pack, checker or
+branches.json content changed - git status --porcelain -- modules core
+branches.json gbp-packs tools empty throughout this pass.
