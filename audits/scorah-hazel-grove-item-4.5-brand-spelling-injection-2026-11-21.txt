@@ -1,0 +1,73 @@
+Item 4.5 quality pass (twenty-eighth), 2026-11-21 (unattended Cowork scheduled run)
+Scorah Chemists Hazel Grove GBP pack - fresh-angle injection test
+
+FRESH ANGLE
+tools/check-brand-spelling.js had never previously been named against item
+4.5 by grep across its prior 27-pass history. 34 of 36 live checkers
+(excluding the two network-dependent ones, check-cdn-pins.js and
+check-live-hours.js) were already individually proven against this item
+going into this pass; this pass brings that to 35.
+
+BASELINE (confirmed before any work)
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+gbp-packs/scorah-hazel-grove.md sha256: a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84
+Full 34-checker non-network suite: 34/34 exit 0
+git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty
+
+INJECTION (against a git archive HEAD scratch copy; tracked repo never opened for writing)
+Changed line 8 of the scratch copy's gbp-packs/scorah-hazel-grove.md:
+  from: "- Name on GBP: Scorah Chemists Hazel Grove"
+  to:   "- Name on GBP: Scorah Chemist Hazel Grove"
+Ran the scratch copy's own tools/check-brand-spelling.js (ROOT resolves
+relative to __dirname, so this runs entirely inside the scratch tree).
+
+RESULT: CAUGHT
+  FAIL  gbp-packs/scorah-hazel-grove.md:8: reads "Scorah Chemist". The
+        trading name is "Scorah Chemists"
+  check-brand-spelling: 1 failure(s). exit=1
+
+NEGATIVE CONTROL
+Restored the scratch pack to the tracked version (sha256-confirmed), then
+changed the unrelated intro sentence on line 21 from "An independent NHS
+pharmacy" to "An independent, local NHS pharmacy" (no brand-name content).
+Re-ran check-brand-spelling.js: exit 0, no mention of this pack in the
+output. Confirms no cross-fire from the rule.
+
+RESTORE
+Scratch pack file restored again from the tracked copy by byte copy;
+sha256 reconfirmed identical to the pre-injection hash on both copies.
+Scratch directory could not be removed directly (standing EPERM-on-unlink
+mount quirk affecting this sandbox); renamed aside with `mv`, then deleted
+via mcp__Windows-MCP__PowerShell `Remove-Item -Recurse -Force` against the
+native host path C:\dev\rbh-site-data\.scratch_tmp\scratch45_...RELEASED-...,
+which succeeded.
+
+POST-WORK VERIFICATION
+Full 34-checker non-network suite re-run: 34/34 exit 0
+branches.json sha256: unchanged (0385b7c2...27da)
+gbp-packs/scorah-hazel-grove.md sha256: unchanged (a9f6deb4...e105d84)
+git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty
+
+CONCLUSION: NO IN-REPO DEFECT FOUND on the brand-spelling angle.
+
+LIVE CHECK (Claude in Chrome, read-only, single tab, nothing clicked, typed
+or submitted, closed after use)
+Page: https://www.scorah-chemists.co.uk/earache-treatment-scorah-hazel-grove.html
+(not freshly sampled in any of the prior 27 passes on this item)
+
+Title, H1, address (87 Macclesfield Road, Hazel Grove, SK7 6BG), phone
+(01625 872267) and opening hours copy all matched branches.json.
+
+FINDING (live-only, outside repo scope): the page's footer copyright line
+reads "Scorah Chemist which is owned by RB Healthcare Ltd" - singular,
+missing the trailing "s" on the trading name "Scorah Chemists". This is
+exactly the near-miss class this pass's injection proved
+check-brand-spelling.js would catch - but the footer is Weebly furniture
+this repo does not generate, so no checker here can see it. This reconfirms
+the same standing live-only drift class as the already-tracked Q32
+(Gordon Short/Gordon Shorts plural drift) and Q43 (Scorah Bramhall contact
+block drift), rather than being a new defect. Not re-raised as a new
+question; nothing in-repo to change.
+
+No generator, page, pack, checker logic or branches.json content was
+changed by this pass.
