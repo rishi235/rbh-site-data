@@ -13375,6 +13375,32 @@ Done 2026-10-14 (twenty-third pass).
       checkers proven by injection against this specific branch (up from
       26). Full detail:
       audits/sk-chemists-item-3.8-pharmacy-first-symptoms-injection-2026-11-19.txt.
+      Quality pass 2026-11-21 (Cowork scheduled run, audit-backlog-worker):
+      10 previously-untried checkers run directly against this item -
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-page-coverage.js,
+      check-pharmacy-first-cost.js, check-service-links.js,
+      check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+      check-weebly-furniture-freshness.js - all clean, bringing item 3.8 to
+      full checker-file coverage (37 of 37 tools/check-*.js). Full
+      35-checker suite re-run clean; check-cdn-pins.js clean with the same
+      standing KNOWN/WARN entries; branches.json sha256 unchanged
+      (0385b7c2...27da). Live half (Claude in Chrome, read-only, one tab,
+      nothing clicked, typed or submitted, closed after use): read
+      switch-prescriptions-sk-chemists-bootle.html and
+      travel-clinic-sk-chemists-bootle.html live on skchemist.co.uk in
+      full - address, phone, email and opening hours match branches.json
+      exactly; travel clinic copy matches the generator's pinned lines word
+      for word; the standing Q48 yellow-fever gap applies here as on every
+      branch, not a new finding. A "├ù" string returned by the text-
+      extraction tool was traced to the hand-pasted switch banner script's
+      correct "&times;" HTML entity (grep-confirmed in
+      modules/switch/pages/banners/switch-prescriptions-sk-chemists-bootle.txt)
+      - a text-extraction decoding artefact, not a live encoding fault, and
+      not reported as a finding. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+      RAISED. Evidence:
+      audits/sk-chemists-item-3.8-quality-pass-2026-11-21.txt. Done
+      2026-11-21.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

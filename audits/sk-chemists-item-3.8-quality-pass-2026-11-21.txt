@@ -1,0 +1,89 @@
+Item 3.8 (SK Chemists, Bootle) - quality pass, 2026-11-21 (Cowork scheduled run)
+
+CHECKER-FILE COVERAGE
+Full tools/check-*.js listing (37 files) diffed in both directions against every
+checker name already appearing in item 3.8's own AGENT_WORKLIST.md section
+across prior passes (27 named). 10 remained untried for this item:
+check-editor-snapshot.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js, check-service-links.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js.
+
+All 10 run directly against the tracked repo (agents/audit-backlog, HEAD at
+pickup). Results:
+- check-editor-snapshot.js: clean, embedded editor snapshot matches branches.json
+  (16 branches, lastUpdated 2026-11-17).
+- check-fragment-targets.js: clean, 0 broken same-page fragment links across all
+  177 pages.
+- check-gbp-pharmacy-first.js: clean, 28 Pharmacy First blocks across 14 packs.
+- check-page-coverage.js: clean, 177 pages accounted for, SK Chemists Bootle
+  correctly earns Pharmacy First, Contraception, Travel clinic, Weight loss and
+  Switch pages (no Branch landing page - SK is not one of the 6 branches that
+  earn one, consistent with branches.json and the checker's own count).
+- check-pharmacy-first-cost.js: clean, SK's Pharmacy First page states the free
+  NHS claim, keeps the prescription-charge caveat, prices nothing.
+- check-service-links.js: clean for SK specifically. The 6 KNOWN entries the
+  checker reports are all standing Smartts-only issues (Q16), none touch SK
+  Chemists' pages, links or copy.
+- check-travel-clinic-copy.js: clean, SK's travel clinic page carries all pinned
+  copy word for word, no medicine brand named, the standing Q48 yellow-fever
+  gap applies identically to all 15 branches (SK included) and is already
+  pinned in KNOWN.
+- check-uk-spelling.js: clean, no US spellings found anywhere in the 198 public
+  copy files scanned, SK's pages included.
+- check-url-scheme.js: 0 failures. The only warnings are insecure http:// URLs
+  inside .quarantine/ debris files from a past run's lock-contention cleanup -
+  not a published surface, not SK Chemists copy, not touched this pass.
+- check-weebly-furniture-freshness.js: clean, WEEBLY_FURNITURE_CHECKLIST.md
+  byte-identical to a fresh regeneration from the current branches.json.
+
+Item 3.8 now reaches full checker-file coverage (37/37 tools/check-*.js proven
+against it across this and prior passes), the same state items 3.5-3.7, 4.11
+and others have already reached.
+
+REPO-WIDE RE-VERIFICATION
+Ran all 35 non-network checkers (excl. check-cdn-pins.js, check-live-hours.js)
+directly against the tracked repo: 35/35 exit 0.
+check-cdn-pins.js: clean, same standing KNOWN/WARN entries (Q45 switch.js
+destination split, core/site-data.js and service.js @main data-hop warnings),
+none new.
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+- matches every prior anchor for this audit, unchanged.
+git status --porcelain -- modules core branches.json gbp-packs tools: empty
+throughout. No generator, page, pack, checker or data file changed.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use)
+Read switch-prescriptions-sk-chemists-bootle.html and
+travel-clinic-sk-chemists-bootle.html live on skchemist.co.uk in full.
+
+Switch page: address (516 Stanley Road, Bootle, L20 5DW), phone
+(0151 944 1013), email (sk@rbhealth.co.uk, case-insensitive match to
+branches.json's SK@rbhealth.co.uk) and opening hours (Mon-Fri 09:00-18:00,
+Sat/Sun closed, single session, no lunch split) all match branches.json
+skchemists_bootle exactly. Hero copy already carries the hedged Q49 wording
+("We contact your GP where it is needed. We handle what we can. We will tell
+you if anything else is needed.") rather than the unconditional version the
+standing Q49 finding was raised against - this branch's switch page is not
+contributing to that open question's live evidence pool today.
+
+Travel clinic page: copy matches tools/build-travel-clinic-pages.js's pinned
+lines word for word. Private/paid stated plainly in the hero paragraph. No
+vaccine or antimalarial named by brand. Four safety cohorts present. 6-8 week
+booking window stated once, matching the pinned window. No stock guarantee;
+availability hedge present throughout. The standing Q48 yellow fever gap
+applies here exactly as on every other branch, not a new or branch-specific
+fault.
+
+One text-extraction artefact investigated and ruled out, not a finding: the
+page text tool returned "├ù" near the page header on the travel clinic read.
+Traced to modules/switch/pages/banners/switch-prescriptions-sk-chemists-bootle.txt,
+a hand-pasted site-wide banner script that builds its close button from the
+correct HTML entity "&times;" in its own JS source (grep-confirmed). "├ù" is
+the classic mojibake signature of a UTF-8 "×" byte pair (0xC3 0x97) being
+decoded one byte at a time by a text-extraction pass, not a live encoding
+fault: a human viewing the rendered page sees a normal "×" close icon. Not the
+same class as the genuine live mojibake fault recorded under Q33 elsewhere in
+this audit, and not reported as a new question.
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED.
