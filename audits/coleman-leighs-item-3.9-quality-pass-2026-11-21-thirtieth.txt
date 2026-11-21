@@ -1,0 +1,78 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton) - quality pass (thirtieth), 2026-11-21
+Cowork scheduled run (audit-backlog-worker), unattended.
+
+REPO HALF
+All 35 non-network tools/check-*.js checkers run directly against the tracked
+repo: 35/35 exit 0. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, unchanged
+from every prior pass's anchor. All 37 checker files were already proven by
+direct injection against this branch as of the twenty-ninth pass
+(2026-11-19), so no further repo-injection work this pass - fresh angle
+instead was the live half, specifically pages/fields for this branch never
+previously read at this granularity.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use)
+
+1. pharmacy-first-coleman-leigh-walton.html, read in full for the first time
+   this item (prior passes read switch/weight-loss/travel/homepage but not
+   this one). Page <title> "Pharmacy First at Coleman and Leighs Pharmacy,
+   Walton" - correct trading name, no ampersand. Body: hero, trust bar,
+   seven conditions and their age ranges, contact card (address, phone,
+   email) and opening hours (with lunch closure shown correctly) all match
+   branches.json and the repo-generated page exactly. This CONFIRMS LIVE the
+   item 5.3 finding that the pfLink 404 recorded on 2026-08-12 (and in
+   gbp-packs/coleman-leigh-walton.md) is resolved: the generated replacement
+   is now live, correctly named throughout its own body copy, and is the
+   repasted Post A target per item 5.3's 2026-11-16/17 session. Closes the
+   open loop this item's 2026-08-12 pass left on this specific URL.
+
+2. switch-prescriptions-coleman-leigh-walton.html, re-read in full. Body
+   copy (hero, form, contact card, opening hours) correctly reads "Coleman
+   and Leighs Pharmacy" throughout, consistent with prior passes and with
+   the repo. NEW FINDING: the page's own <title> SEO tag (the Weebly SEO
+   Settings "Page Title" field, hand-typed and distinct from the body copy)
+   still reads "Switch Your Prescriptions - Coleman & Leigh Pharmacy Walton"
+   - ampersand, singular "Leigh", no comma - against the paste sheet's
+   specified value "Switch Your Prescriptions to Coleman and Leighs
+   Pharmacy, Walton" (modules/switch/pages/SEO.md line 13). This is the
+   same pre-Q1/item-1.1 brand-spelling lag already tracked on the
+   insect-bite-treatment page's title (item 3.1 history, Q84) and on the
+   shared site footer and header banner (WEEBLY_FURNITURE_CHECKLIST.md,
+   confirmed live 2026-10-20) - but had not previously been confirmed
+   specifically on THIS page's own SEO title field. It shows the 2026-11-16/
+   17 item 5.3 repaste session was scoped to the Post A/pfLink target
+   (the Pharmacy First page) and did not touch the switch page's SEO
+   Settings title, so the lag persists there. The site-wide switch banner
+   widget at the top of both pages read this pass ("Change to Coleman &
+   Leigh Pharmacy in 30 seconds. Switch now") and the shared footer strip
+   ("Coleman & Leigh Pharmacy . 241 Walton Village...") both repeat the
+   same already-tracked ampersand form; neither is new.
+
+   grep across modules/, gbp-packs/ and tools/ for the literal string
+   "Coleman & Leigh" found it ONLY in gbp-packs/coleman-leigh-walton.md
+   (narrating the live fault), tools/build-weebly-furniture-checklist.js
+   (same) and tools/check-brand-spelling.js (the CANONICAL list it checks
+   against) - confirming the string appears in NO repo-generated page or
+   paste sheet. The fault is entirely live-only, in Weebly's own SEO
+   Settings panel and shared site widgets, which no generator or checker
+   here can reach or fix.
+
+   The footer's phone, "T: 0151 5253522" (no space before the last four
+   digits) against branches.json's "0151 525 3522", was also reconfirmed
+   unchanged on both pages read this pass - standing, not new (same
+   unspaced-footer-phone finding recorded on the homepage by the
+   twenty-eighth pass).
+
+CONCLUSION
+No in-repo defect found; no generator, page, pack, checker or branches.json
+content changed - git status --porcelain -- modules core branches.json
+gbp-packs tools empty throughout this pass. One confirmation (pfLink 404
+resolved, 5.3 landed correctly on the PF page) and one extension of an
+already-tracked finding (the ampersand brand lag also sits in this specific
+page's own SEO title field, not only the shared footer/banner/insect-bite
+page previously named) added as a dated addendum. No new question raised:
+the fix - repaste this page's SEO title from SEO.md - is already covered by
+the standing Weebly repaste backlog this repo tracks via
+WEEBLY_FURNITURE_CHECKLIST.md and the brand-spelling items (Q1/item 1.1),
+not a new decision for Rishi.

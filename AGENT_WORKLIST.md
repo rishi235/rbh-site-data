@@ -15143,6 +15143,38 @@ Quality pass (twenty-ninth), 2026-11-19 (Cowork scheduled run). Fresh angle:
       cleanup. `git status`/`git log`/`git commit` all confirmed unaffected.
       Evidence in audits/coleman-leighs-item-3.9-cdn-pins-quality-pass-
       2026-11-19-twentyninth.txt. No new question raised. Done 2026-11-19.
+Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
+      35-checker suite re-run clean, 35/35; branches.json sha256 unchanged;
+      all 37 checker files already proven by direct injection against this
+      branch as of the twenty-ninth pass, so no further injection this time.
+      Fresh angle: live pages for this branch never previously read at this
+      granularity. pharmacy-first-coleman-leigh-walton.html read in full for
+      the first time this item - correct trading name throughout, including
+      its own <title> tag, and CONFIRMS LIVE that the pfLink 404 this item's
+      2026-08-12 pass recorded is resolved (the generated replacement is now
+      the live, correctly-named Post A target per item 5.3's 2026-11-16/17
+      repaste). switch-prescriptions-coleman-leigh-walton.html re-read in
+      full: body copy correct throughout, but its own Weebly SEO Settings
+      "Page Title" field still reads "Switch Your Prescriptions - Coleman &
+      Leigh Pharmacy Walton" (ampersand, singular "Leigh", no comma) against
+      the paste sheet's "Switch Your Prescriptions to Coleman and Leighs
+      Pharmacy, Walton" (modules/switch/pages/SEO.md) - the same pre-Q1/item
+      1.1 brand-spelling lag already tracked on the insect-bite page's title
+      and on the shared footer/header banner (WEEBLY_FURNITURE_CHECKLIST.md,
+      confirmed live 2026-10-20), but not previously confirmed specifically
+      on this page's own SEO title field; shows the November item 5.3
+      repaste was scoped to the Post A/pfLink target and did not touch this
+      page's title. grep across modules/, gbp-packs/ and tools/ for "Coleman
+      & Leigh" found it only in the pack narration, the furniture-checklist
+      generator and check-brand-spelling.js's own canonical list - confirms
+      the fault is entirely live-only. Unspaced footer phone ("0151
+      5253522") reconfirmed unchanged on both pages, standing, not new. NO
+      IN-REPO DEFECT; no generator, page, pack, checker or branches.json
+      content changed - git status --porcelain -- modules core branches.json
+      gbp-packs tools empty throughout. No new question raised (fix is
+      already covered by the standing Weebly repaste backlog/Q1/item 1.1).
+      Evidence in audits/coleman-leighs-item-3.9-quality-pass-2026-11-21-
+      thirtieth.txt. Done 2026-11-21.
 
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
