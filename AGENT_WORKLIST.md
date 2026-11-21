@@ -26450,6 +26450,41 @@ Done 2026-11-20.
       gbp-packs/*.md proven by injection against this specific pack (up
       from 12). No new question. Evidence:
       audits/mccanns-aigburth-item-4.6-url-scheme-injection-2026-11-19.txt.
+      Quality pass (twenty-fifth, 2026-11-21, Cowork scheduled run):
+      fresh angle tools/check-branch-identity.js, never previously named
+      against this item across 24 prior passes. McCanns Chemist is one of
+      only 3 brands carried by more than one trading branch (alongside
+      Scorah and Fishlocks), the exact risk class this checker exists for.
+      Isolated scratch extraction to /tmp/scratch46/repo (git archive HEAD);
+      tracked repo never opened for writing. Baseline: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      matching every prior anchor; full 35-checker suite 35/35 exit 0;
+      check-branch-identity.js clean. INJECTION: on
+      pharmacy-first-mccanns-aigburth.html (backed up first, sha256
+      1ea3ed664da38850e3f55913cff3585f4f3f5a21d035d59e0ce14e9faef21524),
+      changed data-branch="McCanns Chemist Aigburth" to
+      data-branch="McCanns Chemist Sandringham" on the module root, leaving
+      the JSON-LD name untouched - CAUGHT cleanly, 2 failures: the
+      wrong-attribute page named directly, and mccanns_aigburth flagged for
+      declaring two different data-branch values across its own pages.
+      NEGATIVE CONTROL: restored the correct value and added an unrelated
+      cosmetic HTML comment (no identity field touched) - re-run clean, 0
+      failures, confirming selectivity. Restored from backup, sha256
+      reconfirmed identical. Full 35-checker suite re-run on the scratch
+      tree: 35/35 exit 0. Tracked repo confirmed untouched throughout:
+      `git status --porcelain -- modules core branches.json gbp-packs
+      tools` empty; branches.json sha256 unchanged. No live half performed
+      - the fault tested is a generator/checker identity question, not a
+      live-versus-generated one, matching item 3.5's reasoning for the
+      equivalent Fishlocks angle earlier today. Answer pickup (step 3):
+      Claude in Chrome, read-only, full feed read, tab closed after use;
+      newest entry still the Q52 answer (2026-09-01); no answer arrived for
+      Q139, Q140, Q141, Q142, Q143 or Q144, all six still open. NO IN-REPO
+      DEFECT FOUND; no generator, page, pack, checker or branches.json
+      content changed. Guard coverage for item 4.6 now extends to
+      check-branch-identity.js; 23 checkers remain never-tried against this
+      item for a future pass. Evidence:
+      audits/mccanns-aigburth-item-4.6-branch-identity-2026-11-21.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
