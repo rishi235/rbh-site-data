@@ -2639,7 +2639,7 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       inserted into the page hero - caught by rule 8, names the file and the
       medicine; (2) "This is a professional judgement, not a guarantee."
       removed from step 2 - caught by rule 6, quotes the missing sentence; (3)
-      the consultation fee changed from "from £39.99" to "from £29.99" in all
+      the consultation fee changed from "from Â£39.99" to "from Â£29.99" in all
       three places on the page - caught TWICE, rule 7's per-page fee check and
       its estate-wide drift check (29.99 on 3 occurrences, 39.99 on the
       remaining 42); (4) "Mounjaro" inserted into cherry-lane-old-weight-loss-
@@ -2653,7 +2653,7 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       fell back to a read-only curl GET from the Cowork sandbox shell against
       three live pages. The weight loss page is clean: no medicine name found
       (11-name sweep), both private/paid marks present, the fee reads "from
-      £39.99" (matches CONSULT_FEE, no drift), and the no-guarantee sentence
+      Â£39.99" (matches CONSULT_FEE, no drift), and the no-guarantee sentence
       is present verbatim - the live page matches what the checker holds the
       repo copy to. Three previously logged live-only faults reconfirmed
       unchanged, none in copy this repo owns: Q95's fault (5 of 7 Pharmacy
@@ -2799,7 +2799,7 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       the switch page reconfirmed unchanged: the pre-Phase-3 SEO title
       ("Switch Your Prescriptions - Cherry Lane Pharmacy Walton"), and the
       "How switching to Cherry Lane Pharmacy works" paragraph's em dash still
-      rendering as mojibake, read this pass via curl+Python as "ÔÇö", the
+      rendering as mojibake, read this pass via curl+Python as "Ã”Ã‡Ã¶", the
       same corrupted bytes independently confirmed by two earlier passes'
       different read methods. The Q36 footer NHS mailbox typo was NOT
       observed this pass (a full email-address sweep of the switch page
@@ -2853,7 +2853,7 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       reconfirmed unchanged: the pre-Phase-3 SEO title ("Switch Your
       Prescriptions - Cherry Lane Pharmacy Walton"), and the "How switching
       to Cherry Lane Pharmacy works" paragraph's em dash still rendering as
-      mojibake, raw bytes reconfirmed \xc3\x94\xc3\x87\xc3\xb6 ("ÔÇö"),
+      mojibake, raw bytes reconfirmed \xc3\x94\xc3\x87\xc3\xb6 ("Ã”Ã‡Ã¶"),
       matching the fifteenth and sixteenth passes' independent reads. The
       Q36 footer NHS mailbox typo was NOT observed on any of the three pages
       fetched this pass (no "pharmacy.*@" string present at all), consistent
@@ -2956,7 +2956,7 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       oscillation; evidence appended to Q95, status left open, not re-raised. Two
       previously-logged live-only faults on the switch page reconfirmed
       unchanged: the pre-Phase-3 SEO title, and the "How switching to Cherry Lane
-      Pharmacy works" paragraph's em dash still rendering as mojibake ("ÔÇö" in
+      Pharmacy works" paragraph's em dash still rendering as mojibake ("Ã”Ã‡Ã¶" in
       the raw served HTML). The Q36 footer NHS mailbox typo
       (pharmacy.FA226@mhs.net) was observed present on both pages checked this
       pass, consistent with its already-logged instability; not re-raised. No
@@ -5037,7 +5037,7 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       run): both live weight loss pages read in full and matched the current
       compliant generator output verbatim on every visible line - no medicine
       name, no efficacy claim, no discount wording, full eligibility and
-      no-guarantee copy present, one consistent "from £39.99" price - the
+      no-guarantee copy present, one consistent "from Â£39.99" price - the
       cleanest live state found on any Scorah page family so far, with
       neither page carrying the doubled Weebly-default title seen elsewhere
       on this domain. NEW LIVE FINDING (extends two already-tracked issues,
@@ -5228,7 +5228,7 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       both Scorah branches hold a contraception widget. Four injection
       rounds on an isolated archive copy, each restored and sha256-
       reconfirmed before the next: (1) RULE 5 free - Bramhall FAQ answer
-      given a "£9.99 consultation fee" - CAUGHT on three fronts at once
+      given a "Â£9.99 consultation fee" - CAUGHT on three fronts at once
       (verbatim, missing no-charge answer, states a price, says
       "consultation fee"); (2) RULE 6 consent - Bramhall confidentiality
       sentence reversed to "Your GP will always be informed" - CAUGHT
@@ -6292,7 +6292,7 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       &mdash; entity in the real Page Title line for Fishlocks Ainsdale's
       Pharmacy First overview in the shared modules/service/pages/SEO.md -
       CAUGHT, exact file/line, correctly distinguished from that same file's
-      own genuine "## Fishlocks Chemist — Ainsdale — Overview" section heading
+      own genuine "## Fishlocks Chemist â€” Ainsdale â€” Overview" section heading
       two lines above, which stayed in the notes bucket throughout; (C) a
       non-ASCII en dash in the switch-prescriptions-fishlocks-ainsdale.txt
       banner's innerHTML sentence - CAUGHT, exact file/line. CONTROL: the same
@@ -6306,7 +6306,7 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       switch banners, proven directly for this branch pair for the first
       time. LIVE HALF: Claude in Chrome, single tab, read-only - the
       Eccleston UTI page carries no em or en dash anywhere in its text (the
-      footer's "·" separators are a middle dot, not a dash); the standing
+      footer's "Â·" separators are a middle dot, not a dash); the standing
       Q37 footer set reconfirmed present and unchanged, nothing new. No new
       question raised; QUESTIONS.json unchanged at 113 total, 60 open. Full
       detail in
@@ -6325,7 +6325,7 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       into an actual guarantee (RULE 6) on Eccleston - CAUGHT; the footer
       no-guarantee sentence replaced with a quantified "lose up to 20%"
       claim on Ainsdale - CAUGHT both ways (lost pinned sentence, quantified
-      claim); the consultation fee changed from £39.99 to £29.99 on
+      claim); the consultation fee changed from Â£39.99 to Â£29.99 on
       Eccleston (RULE 7) - CAUGHT all three ways (page fee, Q51 booking-card
       sentence, estate-wide same-fee check). One no-op control stayed clean.
       Both files confirmed byte-identical to the original after every
@@ -7465,7 +7465,7 @@ own file header as one of the checks it performs, was dead code, silently -
 the exact "a rule that reads only one spelling of a character is not a
 rule" shape its neighbouring ENTITY_DASH comment already warns about, one
 level further in: the second copy of the rule was not reading the right
-BYTES at all. Fixed to a codepoint-based /[–—―]/, matching
+BYTES at all. Fixed to a codepoint-based /[â€“â€”â€•]/, matching
 the discipline check-em-dashes.js already uses, and re-verified against the
 same injection: now fails with its own dedicated "em dash, house style is
 standard hyphens only" message. Full 36-checker suite (34 check-*.js
@@ -7905,7 +7905,7 @@ false. Two already-tracked live drifts reconfirmed, neither new: the
 pre-Q49 unconditional hero/bullet wording against the repo's own
 already-fixed hedged text (landed 2026-09-15, still not repasted), and the
 pre-Q7/5.1 mojibake em dash in the "How switching...works" paragraph
-("it usually is not ÔÇö we make the first step quick and easy") against the
+("it usually is not Ã”Ã‡Ã¶ we make the first step quick and easy") against the
 repo's own plain-full-stop text; the Q36 footer typo
 (pharmacy.FA226@mhs.net) is also visible live, likewise already on record.
 No new live finding, no new question raised. QUESTIONS.json unchanged: 111
@@ -8395,7 +8395,7 @@ check-whatsapp-route.js on the WhatsApp mismatch, and the independent
 extraction on both), restored via git checkout, sha256-confirmed byte-
 identical to the pre-injection hash
 (a595d8a370af06379c981ae4e075bdca53fe312622938e8e8b5029fe20ee1fe9). Round 2,
-separate: the free-of-charge FAQ answer rewritten to state "a £9.35
+separate: the free-of-charge FAQ answer rewritten to state "a Â£9.35
 prescription charge applies", the first time check-contraception-copy.js has
 been injection-proved on this item - caught by its own RULE 3 (verbatim) and
 RULE 5 (free) and by the independent extraction, restored via git checkout,
@@ -9057,7 +9057,7 @@ qualifier rule and its no-claims rule. LIVE HALF: Claude in Chrome connected,
 read-only. weight-loss-clinic-hirshmans-ainsdale.html read in full and its
 booking-sub paragraph's raw innerHTML read directly - live, genuine, no
 medicine name and no efficacy claim anywhere, but the booking-sub sentence
-reads "Private consultation at Hirshmans Chemist, from £39.99. Choose a time
+reads "Private consultation at Hirshmans Chemist, from Â£39.99. Choose a time
 that suits you." - missing the Q51 ", subject to a clinical assessment"
 qualifier the generator has carried since the 2026-09-15 regeneration. Not a
 new question: this is the standing Q51/Q83/Q88 lead-price/qualifier finding
@@ -9084,7 +9084,7 @@ first attempt. Final control: 34/34 clean, all hashes reconfirmed identical.
 No in-repo defect: check-booking-routes.js already correctly protects this
 branch's widget-fallback and data-branch rules. LIVE HALF: Claude in Chrome,
 read-only, read the live weight-loss-clinic-hirshmans-ainsdale.html page (the
-page targeted by injection 1) - no medicine name, £39.99 fee, address, phone
+page targeted by injection 1) - no medicine name, Â£39.99 fee, address, phone
 and hours all match branches.json exactly, working booking CTA present (not
 an empty box), consistent with the branch's real widget id being correctly
 wired live. Standing Q51/Q83/Q88 booking-sub qualifier finding not re-read
@@ -9150,7 +9150,7 @@ submitted): read https://www.hirshmanspharmacy.co.uk/weight-loss-clinic-
 hirshmans-ainsdale.html by page text - address, phone, hours and the
 nhs.net footer email all match branches.json's hirshmans_ainsdale record
 exactly, no medicine named anywhere on the page. The standing Q51/Q83/Q88
-lead-price/qualifier finding ("from £39.99" stated unconditionally) is
+lead-price/qualifier finding ("from Â£39.99" stated unconditionally) is
 present and unchanged on this branch, already recorded on the twenty-third
 pass and answered as Q51 ("leave it as it is") - not a new question. NO
 NEW DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.5 stays `[x]` (quality
@@ -12655,7 +12655,7 @@ Done 2026-10-14 (twenty-third pass).
       to a direct outbound curl sweep from the sandbox shell (network egress
       confirmed working). Read weight-loss-clinic-sk-chemists-bootle.html
       live (HTTP 200): no medicine name, no claim-pattern phrase, H1 exact
-      match, fee correct ("from £39.99"). ONE RECONFIRMED, ALREADY-KNOWN
+      match, fee correct ("from Â£39.99"). ONE RECONFIRMED, ALREADY-KNOWN
       FINDING: the page's JSON-LD still declares "@type": "MedicalBusiness",
       matching the twelfth pass's 2026-09-05 finding unchanged; still needs a
       repaste, not a repo action.
@@ -13392,7 +13392,7 @@ Done 2026-10-14 (twenty-third pass).
       full - address, phone, email and opening hours match branches.json
       exactly; travel clinic copy matches the generator's pinned lines word
       for word; the standing Q48 yellow-fever gap applies here as on every
-      branch, not a new finding. A "├ù" string returned by the text-
+      branch, not a new finding. A "â”œÃ¹" string returned by the text-
       extraction tool was traced to the hand-pasted switch banner script's
       correct "&times;" HTML entity (grep-confirmed in
       modules/switch/pages/banners/switch-prescriptions-sk-chemists-bootle.txt)
@@ -14127,7 +14127,7 @@ Done 2026-10-14 (twenty-third pass).
       header/footer and GA4/consent comments alongside the correct spelling
       in body copy; og:site_name meta tag still "COLEMANS & LEIGHS
       PHARMACY"; live switch page still carries the mojibake em dash
-      ("ÔÇö") in "it usually is not [mojibake] we make the first step". None
+      ("Ã”Ã‡Ã¶") in "it usually is not [mojibake] we make the first step". None
       fixable from this repo (Weebly-side, outside read-only browsing
       scope); none re-raised.
 
@@ -17417,7 +17417,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       and no prior pass claimed an H1 on this specific URL. switch-
       prescriptions-gordon-short-crosby.html: 200, correct branding
       throughout (26 correct, 0 wrong), still carries the known mojibake
-      "ÔÇö" for the em dash, pre-repaste, unchanged. weight-loss-clinic- and
+      "Ã”Ã‡Ã¶" for the em dash, pre-repaste, unchanged. weight-loss-clinic- and
       travel-clinic-gordon-short-crosby.html: both still read "Gordon
       Shorts Chemist" (wrong, plural) in title, H1 and body - 12 and 11
       wrong hits respectively - unchanged since 2026-08-10; the STOP against
@@ -17645,7 +17645,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       verbatim, zero occurrences of "nhs_number" or "Bootle" anywhere on the
       live page - none of this pass's injected defects have ever reached the
       live site. 26 correct Crosby hits. Known states reconfirmed unchanged:
-      the mojibake em dash ("ÔÇö", pre-repaste), 4 occurrences; sitemap.xml
+      the mojibake em dash ("Ã”Ã‡Ã¶", pre-repaste), 4 occurrences; sitemap.xml
       still a single lastmod value estate-wide, 2026-08-15T07:41:55+00:00, no
       republish since the sixth pass.
       Zero in-repo defects. No new question. Evidence:
@@ -17746,7 +17746,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       scratch copy only, tracked repo never opened for writing.
       Five injections, each caught first attempt on its intended rule only,
       no cross-firing: (1) rule 5, the free FAQ answer's "no prescription
-      charge" changed to "a £9.90 prescription charge" - CAUGHT, 3 failures
+      charge" changed to "a Â£9.90 prescription charge" - CAUGHT, 3 failures
       (verbatim, free-absence, price-detected); (2) rule 6, the consent
       sentence reversed to "We will always tell your GP" - CAUGHT, 3
       failures (verbatim, consent-absence, reversed-phrase); (3) rule 7, "We
@@ -18173,7 +18173,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       (4) RULE 4, the "Is this an NHS service?" FAQ answer rewritten to
       claim NHS funding - CAUGHT; (5) RULE 5, the "Under 18s are not seen"
       exclusion bullet removed - CAUGHT; (6) RULE 7, the booking-card fee
-      changed from £39.99 to £29.99 in one place only, leaving the other 14
+      changed from Â£39.99 to Â£29.99 in one place only, leaving the other 14
       pages and this page's own hero/step-1 copy unchanged - CAUGHT; (7)
       RULE 10, the paste-comment governance note removed from the top of
       the file - CAUGHT. CONTROL: an unrelated trust-bar reword, correctly
@@ -18193,7 +18193,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       weight-loss-clinic page re-read in full: no medicine named, no
       efficacy claim, the no-guarantee sentence present, private/paid/not-
       NHS-funded stated plainly, the under-18 exclusion present, and the
-      £39.99 fee consistent throughout with no internal mismatch - matches
+      Â£39.99 fee consistent throughout with no internal mismatch - matches
       the repo source on every rule tested. The known "Gordon Shorts
       Chemist" wrong-plural spelling persists on this live page (title, H1,
       body, footer), unchanged since the fourth pass, the STOP against
@@ -18532,11 +18532,11 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       re-raised. Two already-known, out-of-repo-scope live-only states
       confirmed present on all six, identical byte count on each, both
       inside non-rendering script/comment text rather than visible copy: the
-      pre-repaste mojibake "ÔÇö" em dash (this time inside a shared Google
+      pre-repaste mojibake "Ã”Ã‡Ã¶" em dash (this time inside a shared Google
       tag/GTM header comment that also names Coleman and Leighs, evidently
       boilerplate copied site-wide from that branch's original setup and
       unchanged since, not something a patient reads) and the mojibake
-      "├ù" (a UTF-8 multiplication-sign close icon rendered as Windows-1252)
+      "â”œÃ¹" (a UTF-8 multiplication-sign close icon rendered as Windows-1252)
       inside the switch banner's close-button template literal, the same
       close-button mojibake already tracked on other branches. Neither is
       new; both sit outside this repo's generated output. No prescription
@@ -19000,7 +19000,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       9f6ce5dde12c5e3a69dd15266de9e4dacdcbcc21f2d7f7f3d54ec85869facfa0.
       Four injections plus one control, each restored by byte copy and
       sha256-reconfirmed identical immediately after: (1) RULE 5 free, a
-      price ("Yes, from £12.") prepended to the no-prescription-charge FAQ
+      price ("Yes, from Â£12.") prepended to the no-prescription-charge FAQ
       answer - CAUGHT; (2) RULE 6 consent, the consent sentence reversed
       to "We will always tell your GP that you have used the service." -
       CAUGHT, both on the verbatim rule and the dedicated reversed-consent
@@ -20542,7 +20542,7 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       but qualify it - had gone unimplemented through two weeks and several
       "answered but unapplied" scans by other runs. Added the qualifier to
       tools/build-weight-loss-pages.js's booking-card sentence, which now
-      reads "Private consultation at <brand>, from £39.99, subject to a
+      reads "Private consultation at <brand>, from Â£39.99, subject to a
       clinical assessment. Choose a time that suits you." on all 15 branches;
       step 1 of "how it works" and the cost FAQ are unchanged, both already
       sitting below the eligibility section that was the substance of Q51's
@@ -21476,7 +21476,7 @@ Pharmacy First wording to the NHS service description.
       audits/verify-4.1-2026-09-14-eighteenth.js: (1) the bank holiday
       special-hours bullet deleted from the "Notes for the paster:" block -
       CAUGHT first attempt, "no bank holiday special-hours instruction". (2)
-      Post C given a lead price, "Weight loss from just £99 a month." - CAUGHT
+      Post C given a lead price, "Weight loss from just Â£99 a month." - CAUGHT
       first attempt, "carries a price in the posted copy". (3) Post C given
       body-image pressure framing, "Don't let your weight hold you back any
       longer." - CAUGHT first attempt, "pressure framing that treats the
@@ -23056,7 +23056,7 @@ Pharmacy First wording to the NHS service description.
       unchanged, exactly as the pack's own note describes, still item
       5.3/Q8/Q34, not a new finding. switch-prescriptions-hirshmans-ainsdale.html
       (Post B) has correct facts throughout but still renders the pre-Q7 em
-      dash as mojibake ("it usually is not ÔÇö we make the
+      dash as mojibake ("it usually is not Ã”Ã‡Ã¶ we make the
       first step quick and easy"), the same live-paste-lag family already
       confirmed at Cherry Lane and Coleman and Leighs and previously found
       here too; unchanged. weight-loss-clinic-hirshmans-ainsdale.html
@@ -23093,7 +23093,7 @@ Pharmacy First wording to the NHS service description.
       017014577376, and "Hirshmans Pharmacy" branding in the body copy -
       unchanged, still item 5.3/Q8/Q34, not a new finding.
       switch-prescriptions-hirshmans-ainsdale.html (Post B) still renders
-      the pre-Q7 em dash as mojibake ("it usually is not ÔÇö
+      the pre-Q7 em dash as mojibake ("it usually is not Ã”Ã‡Ã¶
       we make the first step quick and easy"), the same live-paste-lag
       family as Cherry Lane and Coleman and Leighs, unchanged since the
       seventh pass. weight-loss-clinic-hirshmans-ainsdale.html (Post C) and
@@ -23365,7 +23365,7 @@ Pharmacy First wording to the NHS service description.
       "a transactional call to action on a prescription-only service is the
       'Buy [product]' control the house standards bar... Use 'Book' or
       'Learn more'". (2) Post C's closing sentence had "Treatments start
-      from just £49 a month." appended - CAUGHT, exit 1, exactly one FAIL,
+      from just Â£49 a month." appended - CAUGHT, exit 1, exactly one FAIL,
       "carries a price in the posted copy... the house standards bar lead
       pricing that encourages entry on price". Both caught first attempt
       with the expected rule-specific message, the four standing warnings
@@ -23887,7 +23887,7 @@ Pharmacy First wording to the NHS service description.
       submitted): switch-prescriptions-hirshmans-ainsdale.html's NAP,
       hours summary, GPhC registration and company details all match
       branches.json exactly. The page still carries the pre-Q7 em dash
-      as mojibake ("it usually is not ÔÇö we make the first step quick and
+      as mojibake ("it usually is not Ã”Ã‡Ã¶ we make the first step quick and
       easy"), unchanged since 2026-08-30. NEW THIS PASS: read the
       page's own sitemap.xml entry for the first time on this item -
       lastmod 2026-10-15T14:30:57+00:00, the same date as the
@@ -24082,7 +24082,7 @@ Post D all read correctly; the profile website target still 404s as the
 pack anticipates (Q43, unchanged); the shared PF page's truncated address
 is unchanged (Q43). One finding REFINED rather than new: Post B's switch
 page still carries the pre-Q7 text in its meta description, which the
-sixth pass described as rendering as mojibake ("ÔÇö") - this pass reads
+sixth pass described as rendering as mojibake ("Ã”Ã‡Ã¶") - this pass reads
 it as a correctly-encoded genuine em dash (U+2014), same underlying
 unrepasted-live-page drift, corrected description only. Not a new
 question; the pack's own Post B note already covers it. No in-repo defect.
@@ -24458,7 +24458,7 @@ re-verified since). Posts C and D read in full against
 RBH_WeightLoss_Advertising_Standards.md: neither names a specific medicine,
 vaccine or drug brand, both carry the required "not medical advice / no
 guaranteed outcome" and "not right for everyone" hedges, neither headlines a
-price (the weight loss page states "from £39.99" only inside the booking
+price (the weight loss page states "from Â£39.99" only inside the booking
 card, not the hero), and the weight loss page's eligibility and exclusion
 lists match the pattern already found compliant elsewhere in the estate.
 Compliant under either regime in the house standard since no brand or drug
@@ -24501,8 +24501,8 @@ before the next: (1) transactional CTA rule - Post C's "Button: Book"
 changed to "Button: Buy now" - CAUGHT first attempt, "Post C ... is the
 weight loss post and its button is labelled \"Buy now\" ... Use \"Book\"
 or \"Learn more\""; (2) lead pricing rule - "Weight loss consultations
-from just £99 a month." inserted into Post C's body - CAUGHT first
-attempt, "carries a price in the posted copy (\"£9\")"; (3) POM-class
+from just Â£99 a month." inserted into Post C's body - CAUGHT first
+attempt, "carries a price in the posted copy (\"Â£9\")"; (3) POM-class
 allusion rule - Post C's opening reworded from "The pharmacist-led weight
 loss clinic at Scorah Chemists in Bramhall" to "The skinny jab clinic at
 Scorah Chemists in Bramhall" - CAUGHT first attempt, "alludes to a
@@ -24683,7 +24683,7 @@ the correct NHS age cohorts; Post B (switch-prescriptions-scorah-bramhall.html)
 intro still present and unchanged since 2026-09-02 (live-paste-lag, not a
 repo defect); Posts C and D (weight-loss-clinic and travel-clinic) both 200,
 name no specific medicine, vaccine or drug brand in their visible copy, lead
-with no price in the hero (the £39.99 figure sits only in the booking card),
+with no price in the hero (the Â£39.99 figure sits only in the booking card),
 and carry the required hedges. FRESH SURFACE never read live by any of the
 twenty-two prior passes: both Posts C and D use <details>/<summary> FAQ
 accordions whose answer text is not exposed by a plain visible-text read
@@ -24698,7 +24698,7 @@ will be available or right for you, this is decided case by case" for
 "Which medication will I be offered?", "this is a clinical assessment, not
 an automatic prescription" for "Will I definitely be prescribed weight-loss
 medication?"), no medicine named by brand or drug name anywhere, cost framed
-as "from £39.99" for the consultation only with any medication cost
+as "from Â£39.99" for the consultation only with any medication cost
 "separate" and "explained clearly before you agree to anything". Travel
 clinic page's five FAQ answers read in full: "Will you definitely have the
 vaccine I need in stock?" answers "availability can vary and some vaccines
@@ -25041,7 +25041,7 @@ the "- Address:" line is the standing Q64 exception and was not re-raised.
 Baseline: all 36 checkers 0 failures, 17 pre-existing estate-wide warnings.
 NEW ANGLE: check-gbp-packs.js's PRICE_PATTERNS/OFFER_PATTERNS rule (the "no
 lead pricing or offer wording in the posted copy" rule) had never been
-proven against this pack specifically, and its own mojibake-corrupted £
+proven against this pack specifically, and its own mojibake-corrupted Â£
 literal was fixed only an hour earlier the same run, on item 4.6's twelfth
 pass, against mccanns-aigburth.md - this pass re-proves the fixed rule
 against a second, different pack rather than trusting the first proof
@@ -25049,7 +25049,7 @@ generalises. sha256 of gbp-packs/scorah-hazel-grove.md backed up first
 (64fd2ae6...b7a4038, matching every prior pass). Injection, directly on the
 tracked file: Post C's closing sentence changed from "Confidential and
 judgement-free. Book your consultation today." to "Confidential and
-judgement-free. Plans start from £39.99 a month. Book your consultation
+judgement-free. Plans start from Â£39.99 a month. Book your consultation
 today." - this branch's own live wording, verbatim (see live half below).
 RESULT: exit 1, exactly one new FAIL naming Post C and the ruled breach
 (compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md section 5); all 17
@@ -25063,7 +25063,7 @@ the one pack it was found on. LIVE HALF: Claude in Chrome not connected
 (pharmacy-scorah-hazel-grove.html) still 404s (Q35 class); all four Post
 A-D targets return 200. TWO LIVE FINDINGS, both new: (1) the correct
 generated weight-loss-clinic-scorah-hazel-grove.html page itself carries
-"from £39.99" in its booking block ahead of the eligibility section - the
+"from Â£39.99" in its booking block ahead of the eligibility section - the
 third confirmed instance of the Q88 generator-level lead-price pattern
 (McCanns Aigburth, Fishlocks Eccleston, now this branch), which is what the
 checker-side injection above reproduced word for word; (2) the shared
@@ -25556,7 +25556,7 @@ tools/check-pharmacy-first-cost.js, never individually proven by injection
 against this specific pack across twenty-five prior passes. On a
 disposable git-archive scratch copy (tracked repo never opened for
 writing): rule 4 (cost qualifier) caught "affordable" substituted for
-"free" in Post A; rule 5 (price) caught a "Consultations from £25." 
+"free" in Post A; rule 5 (price) caught a "Consultations from Â£25." 
 sentence inserted into Post A; rule 6 (pack coverage) first passed
 incorrectly-for-the-wrong-reason when the free claim was removed from
 Post A alone (the Services-section bullet's own free claim still
@@ -25734,7 +25734,7 @@ Done 2026-11-20.
       is materially cleaner than the seven branches that file already
       covers (no medicine named, no efficacy claim, no slider, no treatment
       picker, balanced eligibility section), but its booking block leads
-      with a standalone "from Ã‚Â£39.99" price ahead of its eligibility
+      with a standalone "from Ãƒâ€šÃ‚Â£39.99" price ahead of its eligibility
       section, the same pattern the reference rules a breach elsewhere.
       McCanns Sandringham not read this run, presumed same template,
       unverified. Nothing edited (live Weebly copy, and pricing/regulatory
@@ -25765,7 +25765,7 @@ Done 2026-11-20.
       matches this repo's generated output. Post C
       (weight-loss-clinic-mccanns-aigburth.html): 200, no medicine named, no
       efficacy claim, "not right for everyone" stated; Q83's finding
-      reconfirmed unchanged (booking block still states "from £39.99" ahead
+      reconfirmed unchanged (booking block still states "from Â£39.99" ahead
       of the eligibility section) and not re-raised, Q83 already covers this
       exact fact. Post D (travel-clinic-mccanns-aigburth.html): 200, matches
       this repo's generated output, no vaccine named by brand. No new
@@ -25913,24 +25913,24 @@ Done 2026-11-20.
       pricing or offer wording in the posted copy" rule (PRICE_PATTERNS,
       item 4.11 pass 2026-08-14) had never been tested against it, despite
       being the direct checker-side counterpart of this pack's own live
-      Q83 finding (the weight loss booking block states "from £39.99"
+      Q83 finding (the weight loss booking block states "from Â£39.99"
       ahead of its eligibility section). REAL DEFECT FOUND AND FIXED, in
-      the checker. The rule's own literal-£ pattern was
-      "/Ã‚Â£\s?\d/" - hexdump confirmed this is a double-mojibake
-      corruption of a real £ (U+00A3), not the character itself, found
+      the checker. The rule's own literal-Â£ pattern was
+      "/Ãƒâ€šÃ‚Â£\s?\d/" - hexdump confirmed this is a double-mojibake
+      corruption of a real Â£ (U+00A3), not the character itself, found
       nowhere else in tools/. Proved empirically before touching any pack:
       the live PRICE_PATTERNS array matched against "Weight loss from just
-      £39.99 a month." (this branch's own live wording) returned no match
-      at all - the £ pattern is corrupted and the separate "from" lead-
-      price pattern also misses it, because the £ symbol sits between
+      Â£39.99 a month." (this branch's own live wording) returned no match
+      at all - the Â£ pattern is corrupted and the separate "from" lead-
+      price pattern also misses it, because the Â£ symbol sits between
       "from " and the digit and blocks that pattern's own \d match.
-      FIXED: corrected the mojibake to a real £ in both the price and the
+      FIXED: corrected the mojibake to a real Â£ in both the price and the
       saving-claim patterns, and widened the "from" pattern to allow an
-      optional £ before the digit. Regression check before injection:
+      optional Â£ before the digit. Regression check before injection:
       still 0 failures, same 17 WARNs, confirming no pack currently states
       a price so the fix alone changes nothing live. INJECTION: on a
       sha256-backed scratch copy, Post C's closing sentence gained "Plans
-      start from £39.99 a month." (this branch's own live Q83 wording,
+      start from Â£39.99 a month." (this branch's own live Q83 wording,
       verbatim). RESULT: exit 1, exactly one new FAIL naming this pack and
       quoting the price and the compliance section it breaches; all 17
       pre-existing WARNs unchanged. RESTORED by byte copy; sha256
@@ -25938,7 +25938,7 @@ Done 2026-11-20.
       exit 0; git diff on the pack empty; git status on modules/ and
       core/ empty throughout - no generator, page or data file touched.
       Estate-wide, not local: the corrupted regex sat in the shared
-      checker, so all 15 packs were equally unprotected against a plain £
+      checker, so all 15 packs were equally unprotected against a plain Â£
       sign before this fix; none currently states one. LIVE HALF: Claude
       in Chrome not connected (list_connected_browsers empty, Q59); fell
       back to read-only HTTP GET. Profile-website landing page still
@@ -26126,7 +26126,7 @@ Done 2026-11-20.
       birth only against Cherry Lane's pack, never against this one.
       INJECTION: byte-backed up the tracked file, inserted a literal em
       dash into Post B's published copy ("Grassendale." became
-      "Grassendale — just around the corner."). RESULT: exit 1, exactly one
+      "Grassendale â€” just around the corner."). RESULT: exit 1, exactly one
       FAIL, correct line and context, all 14 pre-existing WARNs unchanged.
       RESTORED by byte copy (not git checkout); sha256 reconfirmed
       identical. Full 36-checker suite re-run clean, 36/36 exit 0. git
@@ -26191,7 +26191,7 @@ Done 2026-11-20.
       to "eight common conditions" in the business description, outside both
       PF scopes) - CAUGHT; rule 6 (UTI age "16 to 64" to "16 to 60" in Post
       A) - CAUGHT; rule 7 (dropped the "where appropriate" hedge, kept
-      "treatment") - CAUGHT; rule 8 (added a £10 fee line to the Services
+      "treatment") - CAUGHT; rule 8 (added a Â£10 fee line to the Services
       bullet) - CAUGHT; rule 9 (added "sinusitis" to Post D, outside both PF
       blocks) - CAUGHT. All seven exact single findings, correct file and
       wording. Final scratch re-run clean; tracked repo's own copy never
@@ -26899,7 +26899,7 @@ Done 2026-11-20.
       "where appropriate, " removed from Post A's "can assess and, where
       appropriate, treat seven common conditions" - caught, Services bullet's
       own hedge untouched and correctly silent; (3) rule 8, price direction -
-      ", from £5" inserted into Post A - caught; (4) rule 8, missing-free
+      ", from Â£5" inserted into Post A - caught; (4) rule 8, missing-free
       direction - Post A's "is a free NHS service" changed to "is a convenient
       NHS service", with zero "free"/"no charge" tokens confirmed remaining in
       that scope before running the checker - caught. All four fired first
@@ -27748,7 +27748,7 @@ directly rather than re-deriving the same facts by hand.
       eligibility section balanced - consistent with the sixth pass's "clean"
       verdict on those elements. NEW FINDING, more precise than the sixth
       pass's hero-only check: the booking block below the hero reads "Private
-      consultation at Fishlocks Chemist, from £39.99. Choose a time that
+      consultation at Fishlocks Chemist, from Â£39.99. Choose a time that
       suits you.", ahead of the "Is this service right for you?" eligibility
       section - the identical construction Q83 raised against McCanns
       Aigburth, word for word but for the branch name. Read against
@@ -27916,13 +27916,13 @@ directly rather than re-deriving the same facts by hand.
       founding example of the generator-level lead-price pattern. Seven
       injections on Post C's closing sentence, each restored by byte copy
       and sha256-reconfirmed before the next: this branch's own live "from
-      £39.99" wording (PRICE_PATTERNS re-proof) and all six OFFER_PATTERNS
+      Â£39.99" wording (PRICE_PATTERNS re-proof) and all six OFFER_PATTERNS
       entries (special offer, half-price, discount, 20% off, "this week
-      only", "save £10") - all seven CAUGHT. One observation, not a defect:
-      the "save £10" test is reported via PRICE_PATTERNS' plain price
+      only", "save Â£10") - all seven CAUGHT. One observation, not a defect:
+      the "save Â£10" test is reported via PRICE_PATTERNS' plain price
       pattern rather than the OFFER_PATTERNS saving-claim pattern, because
       the price loop runs first and breaks on its own match whenever a
-      saving is expressed with a literal £ symbol - the copy is still
+      saving is expressed with a literal Â£ symbol - the copy is still
       blocked, citing the same section 5 breach, just under the other
       pattern's name; not raised as a question since nothing is missed.
       Full 36-checker suite re-run clean after the final restore (36/36
@@ -28143,7 +28143,7 @@ directly rather than re-deriving the same facts by hand.
       seventeenth pass) had been proven against four sibling packs but never
       against this pack's own copy. Inserted a literal em dash into Post A's
       published copy ("...needed - book or just walk in." ->
-      "...needed — book or just walk in.") - CAUGHT cleanly, one FAIL naming
+      "...needed â€” book or just walk in.") - CAUGHT cleanly, one FAIL naming
       line 93 and the correct context. Restored by byte copy, sha256
       reconfirmed identical; full 36-checker suite re-run clean; git status
       on gbp-packs/branches.json/modules/core/tools empty bar the two
@@ -28163,7 +28163,7 @@ directly rather than re-deriving the same facts by hand.
       ("...it is not right for everyone. See below." and "...consultation.
       Nothing below is a guarantee...") instead render live with an en dash
       joined to a lower-case continuation ("...it is not right for everyone
-      – see below" and "...consultation – nothing below is a
+      â€“ see below" and "...consultation â€“ nothing below is a
       guarantee..."). This is the identical pattern and character Q92 found
       on Cherry Lane's own weight loss page (tenth pass on item 4.2,
       2026-09-02) - the second branch now confirmed with this exact drift.
@@ -28197,7 +28197,7 @@ directly rather than re-deriving the same facts by hand.
       64" - CAUGHT (Rule 6); (4) removed "where appropriate" from Post A only,
       leaving the Services section's own hedge intact - CAUGHT, correctly scoped to
       Post A alone (Rule 7, proving the rule reads each scope independently rather
-      than the whole pack); (5) added a "£5 admin fee" to Post A - CAUGHT (Rule 8,
+      than the whole pack); (5) added a "Â£5 admin fee" to Post A - CAUGHT (Rule 8,
       free/no price); (6) changed the business description's "seven common
       conditions" to "eight", leaving Post A's own "seven" untouched - CAUGHT (Rule
       5, the count claim deliberately read across all published copy rather than
@@ -28485,7 +28485,7 @@ directly rather than re-deriving the same facts by hand.
       generator's SEO title/H1 exactly, names no medicine, carries no
       superlative or results claim, states the paid-service qualifier and
       the eligibility/exclusion cohorts, and the only price mention sits
-      mid-page ("from £39.99"), not headlined above the fold;
+      mid-page ("from Â£39.99"), not headlined above the fold;
       travel-clinic-fishlocks-eccleston.html (200) matches the generator,
       states private/paid in the hero, hedges NHS funding to "some
       individual vaccines may be available on the NHS", carries the
@@ -29801,7 +29801,7 @@ directly rather than re-deriving the same facts by hand.
       correctly held in check-service-links.js's KNOWN_CLAIM pending
       Rishi's wording decision. weight-loss-clinic-smartts-bootle.html
       reconfirms the Q51/Q83/Q88 lead-price-position finding (booking card
-      states "from £39.99" above the eligibility section, same as the other
+      states "from Â£39.99" above the eligibility section, same as the other
       14 weight loss pages) and a stale paste separate from that: two
       strings on this live page ("not right for everyone" and "at
       consultation") still carry the pre-cleanup en dash the item 3.9 pass
@@ -30147,7 +30147,7 @@ directly rather than re-deriving the same facts by hand.
       pages print "9:00am - 6:00pm" Monday to Friday with no lunch closure,
       contradicting this pack's own split-day paster guidance and the
       branches.json specification); the Q51/Q83/Q88 lead-price-position
-      finding ("Private consultation at Smartts Chemist, from £39.99" above
+      finding ("Private consultation at Smartts Chemist, from Â£39.99" above
       the eligibility section); the stale pre-cleanup en dashes in "not
       right for everyone" and "at consultation" on the weight loss page,
       first flagged on this branch on the sixth pass and still unrepasted;
@@ -30333,7 +30333,7 @@ directly rather than re-deriving the same facts by hand.
       list - CAUGHT, names "thrush", not one of the 7 conditions; (3) RULE 6
       age accuracy - Post A's UTI age changed from "16 to 64" to "18 to 64"
       - CAUGHT, exact mismatch against the canon named; (4) RULE 8 no-price
-      - "A consultation fee of £5 applies" added to Post A - CAUGHT, "£5"
+      - "A consultation fee of Â£5 applies" added to Post A - CAUGHT, "Â£5"
       named; (5) RULE 9 stray condition word - "We can also advise on
       shingles" added to Post C (the weight loss post) - CAUGHT, "shingles"
       named outside the Pharmacy First blocks; (6) RULE 5 count-claim
@@ -30390,7 +30390,7 @@ directly rather than re-deriving the same facts by hand.
       pack-wide rather than checking one block in isolation. TEST 2 (rule
       4) added "We keep it affordable for everyone." to Post A - CAUGHT,
       quoting "affordable" as a price on a free service. TEST 3 (rule 5)
-      added "Consultations from £12." to the same spot - CAUGHT, quoting
+      added "Consultations from Â£12." to the same spot - CAUGHT, quoting
       the stated price. CONTROL: reworded Post B's "takes about 30 seconds"
       to "takes about half a minute" - 0 failures on the targeted checker
       and the full 35-checker suite (excluding check-cdn-pins.js and
@@ -32307,7 +32307,7 @@ directly rather than re-deriving the same facts by hand.
       description (outside both located PF scopes) - CAUGHT, also confirming
       rule 5 deliberately scans all published copy rather than only the two
       PF blocks; (2) rule 7, "where appropriate," removed from Post A's
-      treatment sentence - CAUGHT; (3) rule 8 (price direction), ", from £5"
+      treatment sentence - CAUGHT; (3) rule 8 (price direction), ", from Â£5"
       appended inside Post A's condition list - CAUGHT; (4) rule 8
       (missing-free direction), "free NHS service" changed to "convenient NHS
       service" in Post A, confirmed by the mutation script's own assertion
@@ -33227,7 +33227,7 @@ directly rather than re-deriving the same facts by hand.
       recorded in compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md (Riddings
       Timperley is one of the seven branches listed there) - Mounjaro,
       Wegovy and Orlistat named, an efficacy superlative, an outcome slider
-      claiming up to 22.5% body weight loss, and lead pricing at Ã¯Â¿Â½39.99.
+      claiming up to 22.5% body weight loss, and lead pricing at ÃƒÂ¯Ã‚Â¿Ã‚Â½39.99.
       This is worklist item 5.8's territory and Rishi's Q5 answer already
       sets the fix direction, so no new question is raised; the GBP pack's
       own Post C remains compliant and is not implicated. Answer pickup
@@ -33288,7 +33288,7 @@ directly rather than re-deriving the same facts by hand.
       republished since the pack's own note was written. weight-loss-clinic-
       timperley.html re-checked and unchanged: Mounjaro, Wegovy and Orlistat
       named, the "Real Results with Mounjaro" heading, the outcome slider
-      claiming up to 22.5% body weight loss, and lead pricing "From £39.99"
+      claiming up to 22.5% body weight loss, and lead pricing "From Â£39.99"
       all still live, matching compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md
       exactly. This is worklist item 5.8's territory and Rishi's Q5 answer
       already sets the fix direction, so no new question raised here; the
@@ -33839,7 +33839,7 @@ directly rather than re-deriving the same facts by hand.
       named as not one of the 7 conditions; (3) Rule 6 (UTI age range read
       from the canon), Post A's "women aged 16 to 64" to "18 to 64" -
       CAUGHT, named against the canon's "16 to 64"; (4) Rule 8 (free, no
-      price), added "from £5 per consultation" to Post A - CAUGHT, priced
+      price), added "from Â£5 per consultation" to Post A - CAUGHT, priced
       copy named; (5) Rule 9 (condition words outside the PF blocks), added
       "advice on shingles" to Post C - CAUGHT, named as outside both scopes.
       All five behaved exactly as designed; no checker gap found.
@@ -34350,6 +34350,20 @@ directly rather than re-deriving the same facts by hand.
       question raised. Evidence:
       audits/riddings-item-4.13-jsonld-injection-2026-11-19.txt.
       Done 2026-11-19.
+
+      Quality pass twenty-eighth 2026-11-21: fresh angle check-map-embeds.js,
+      never previously tried against this item across 27 prior passes.
+      Baseline clean on a git-archive scratch copy. Injected a wrong postcode
+      (WA15 to WA14) into the map iframe query on
+      pharmacy-first-riddings-timperley.html - caught cleanly, 2 failures
+      (address rule and contact-card/map agreement rule). Negative control
+      (cosmetic HTML comment, no address field touched) re-ran clean, 0
+      failures. Tracked repo confirmed untouched throughout (git status
+      --porcelain and branches.json sha256 both unchanged). Live
+      riddingspharmacy.co.uk homepage re-read in full: address, phone and
+      hours all match branches.json and the GBP pack, no live defect found.
+      No in-repo defect found this pass. Evidence:
+      audits/riddings-item-4.13-map-embeds-injection-2026-11-21.txt.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
@@ -34559,7 +34573,7 @@ directly rather than re-deriving the same facts by hand.
       pass found; the STOP stands, unchanged. Footer en dashes on all three
       checked pages unchanged. One further live-only observation, not
       previously logged: a stray mojibake glyph near the top of every page
-      checked (rendering as "├ù", most likely a corrupted close-button
+      checked (rendering as "â”œÃ¹", most likely a corrupted close-button
       multiplication sign in a site-wide banner snippet), appears sitewide
       rather than branch-specific, no repo file carries it; noted here for
       whoever next handles the repaste queue, not actioned further. No
@@ -34602,11 +34616,11 @@ directly rather than re-deriving the same facts by hand.
       unchanged: Post A's actual target (pharmacy-first-service-crosby.html)
       correct and safe; the switch page's naming is fixed (24 correct, 0
       wrong) but its mojibake em dash under "How switching...works" is
-      still there ("ÔÇö"); the three branch-specific pages Post A must not
+      still there ("Ã”Ã‡Ã¶"); the three branch-specific pages Post A must not
       be repointed to (Pharmacy First, weight loss, travel clinic) still
       read "Gordon Shorts Chemist" throughout (16, 12 and 11 wrong-name
       occurrences respectively against 5 correct each), so the STOP remains
-      correctly in force; the sitewide mojibake "├ù" close-button glyph is
+      correctly in force; the sitewide mojibake "â”œÃ¹" close-button glyph is
       present on all five pages read; the sitemap is still dated
       2026-08-15T07:41:55+00:00 throughout, no republish since the last
       check.
@@ -34655,11 +34669,11 @@ directly rather than re-deriving the same facts by hand.
       reads Gordon Short Chemist throughout and remains safe as written;
       switch-prescriptions-gordon-short-crosby.html still reads Gordon Short
       Chemist correctly, its mojibake em dash under "How switching...works"
-      unchanged ("ÔÇö"); pharmacy-first-gordon-short-crosby.html, the
+      unchanged ("Ã”Ã‡Ã¶"); pharmacy-first-gordon-short-crosby.html, the
       branch-specific page Post A must not be repointed to, still reads
       "Gordon Shorts Chemist" throughout title, heading and body, with the
       contact card and footer still correctly reading the singular name -
-      the STOP stands; the sitewide mojibake "├ù" glyph is still present
+      the STOP stands; the sitewide mojibake "â”œÃ¹" glyph is still present
       near the top of every page read; the footer hour ranges on all pages
       checked still use en dashes; the sitemap is still dated
       2026-08-15T07:41:55+00:00 throughout, no republish since the last
@@ -34754,7 +34768,7 @@ directly rather than re-deriving the same facts by hand.
       recorded), so the STOP and PF_TARGET_HOLD/Q32 remain correctly in
       force. The switch page's "How switching...works" heading correctly
       reads the singular "Gordon Short Chemist"; its lead paragraph still
-      renders the mojibake em dash ("ÔÇö"), unchanged since the sixth pass.
+      renders the mojibake em dash ("Ã”Ã‡Ã¶"), unchanged since the sixth pass.
       Weight loss and travel clinic pages checked for status only (200)
       this pass, content not re-read.
       No in-repo defect found. No pack copy, page, generator, data field or
@@ -34794,7 +34808,7 @@ directly rather than re-deriving the same facts by hand.
       Chemist 12 times with no wrong-name occurrence, remains safe as
       written; switch-prescriptions-gordon-short-crosby.html's "How
       switching...works" heading correctly reads the singular name, its
-      mojibake em dash ("ÔÇö", 4 occurrences) unchanged since the sixth
+      mojibake em dash ("Ã”Ã‡Ã¶", 4 occurrences) unchanged since the sixth
       pass; pharmacy-first-gordon-short-crosby.html still reads "Gordon
       Shorts Chemist" 16 times against 5 correct, the exact count the
       ninth, tenth and eleventh passes recorded, so the STOP and
@@ -34818,8 +34832,8 @@ directly rather than re-deriving the same facts by hand.
       changed to "eight" - CAUGHT by rule 5, naming the pack, Post A and the
       Services bullet left correctly saying "seven"; (2) Post A's "where
       appropriate" hedge removed - CAUGHT by rule 7, naming Post A, the
-      Services bullet's own hedge untouched; (3) a price ("from £5") inserted
-      into Post A - CAUGHT by rule 8, naming Post A, the £ sign verified
+      Services bullet's own hedge untouched; (3) a price ("from Â£5") inserted
+      into Post A - CAUGHT by rule 8, naming Post A, the Â£ sign verified
       byte-correct (UTF-8 C2 A3) both in the injection and in the checker's
       own failure message; (4) Post A's "free NHS service" changed to
       "convenient NHS service" - CAUGHT by rule 8's missing-free direction,
@@ -35186,8 +35200,8 @@ directly rather than re-deriving the same facts by hand.
       (1) Post C's button "Book" to "Buy now" - CAUGHT by the POM-specific
       message naming Post C; (2) Post D's button "Book" to "Shop" -
       CAUGHT by the same rule naming Post D; (3) a lead price ("from just
-      £29") inserted into Post C's body - CAUGHT by PRICE_PATTERNS,
-      naming Post C (the quoted match text truncates to "£2", a cosmetic
+      Â£29") inserted into Post C's body - CAUGHT by PRICE_PATTERNS,
+      naming Post C (the quoted match text truncates to "Â£2", a cosmetic
       artefact of the regex's own capture width, not a detection miss);
       (4) a percentage discount added to the Services section's weight
       loss bullet - CAUGHT by OFFER_PATTERNS on the Services-section
@@ -35324,7 +35338,7 @@ directly rather than re-deriving the same facts by hand.
       repo first. Full-tree scratch copy via `git archive HEAD | tar -x` to
       a native sandbox path; tracked working tree never opened for writing.
       INJECTION 1: a literal U+2014 em dash inserted into the business
-      description ("serving Crosby — Waterloo and the wider Sefton
+      description ("serving Crosby â€” Waterloo and the wider Sefton
       area") - CAUGHT cleanly, exit 1, first attempt, exact line and
       character code named. Restored by byte copy, sha256-reconfirmed
       identical, re-run clean. INJECTION 2: the named HTML entity &mdash;
@@ -35733,7 +35747,7 @@ directly rather than re-deriving the same facts by hand.
       the sitemap) and confirmed both the top nav "Weight Loss Clinic" item
       and a separate body link point at the old weight-loss-clinic-aintree.
       html template (Mounjaro/Wegovy/Orlistat named, a "Real Results"
-      heading, a weight-loss slider, a lead £39.99 price above the fold),
+      heading, a weight-loss slider, a lead Â£39.99 price above the fold),
       while the compliant generated page is reachable only via a third,
       secondary link. This closes the "link context... unrecorded" gap the
       2026-08-12 addendum left open specifically for Tiffenbergs (one of
@@ -35850,7 +35864,7 @@ directly rather than re-deriving the same facts by hand.
       list - CAUGHT; (3) Rule 6, age ranges read from the canon - Post A's
       UTI age range changed from "16 to 64" to "16 to 60" - CAUGHT against
       tools/build-service-pages.js's own CONDITIONS.uti.ageNote; (4) Rule 8,
-      free and no price - ", from £5" appended to Post A's "no GP
+      free and no price - ", from Â£5" appended to Post A's "no GP
       appointment or referral needed" sentence - CAUGHT. All four caught
       first attempt, each on its intended rule and no other. No checker gap
       found; no in-repo defect. Full 36-checker suite and all six generators
@@ -35862,7 +35876,7 @@ directly rather than re-deriving the same facts by hand.
       page content: all four post targets 200; pharmacy-first-tiffenbergs-
       aintree.html carries 0 "coming soon" occurrences (unlike the Q95 fault
       tracked on Cherry Lane's equivalent page), all seven Pharmacy First
-      conditions and "aged 16" present. Switch banner mojibake ("├ù" close
+      conditions and "aged 16" present. Switch banner mojibake ("â”œÃ¹" close
       button) reconfirmed still live on both the Pharmacy First and Switch
       pages, unchanged since 2026-08-10 - a Weebly repaste-lag issue, not a
       repo defect. Email still publishes tiffenbergs@rbhealth.co.uk
@@ -36034,7 +36048,7 @@ directly rather than re-deriving the same facts by hand.
       seven conditions and their NHS age cohorts, the address, phone and the
       split opening hours all match branches.json exactly. NEW EVIDENCE: the
       site-wide switch banner's close icon was captured by codepoint on this
-      page for the first time - 0x251c ("├"), 0xf9 ("ù") sit as literal text
+      page for the first time - 0x251c ("â”œ"), 0xf9 ("Ã¹") sit as literal text
       in document.body.innerText itself, immediately after "Switch now" and
       before "Home", proving the eighth-pass "literal multiplication sign /
       mangles non-ASCII characters" finding is a genuine live DOM defect and
@@ -36069,7 +36083,7 @@ directly rather than re-deriving the same facts by hand.
       restored by byte copy and sha256-reconfirmed identical before the next:
       (1) Post C's "Book" button changed to "Buy now" - CAUGHT, naming Post C
       as the weight loss post and the near-total advertising-regime
-      prohibition; (2) "Weight loss treatments start from just £99 a month."
+      prohibition; (2) "Weight loss treatments start from just Â£99 a month."
       inserted into Post C's body - CAUGHT by the lead-price rule, quoting the
       matched fragment; (3) "This clinic offers the skinny jab as part of its
       plan." inserted into the paster notes, outside any post body - CAUGHT by
@@ -36294,9 +36308,9 @@ directly rather than re-deriving the same facts by hand.
       cost qualifier - Post A's "Pharmacy First is a free NHS service"
       changed to "...is an affordable, free NHS service" - CAUGHT, naming
       "affordable"; (3) rule 5, no price - Post A's "book or just walk in"
-      sentence given "from £5" - CAUGHT, naming "£5"; (4) CONTROL - Post C's
+      sentence given "from Â£5" - CAUGHT, naming "Â£5"; (4) CONTROL - Post C's
       (Weight loss clinic, a genuine private service) paid-service sentence
-      given "from £99" - correctly PASSED, exit 0, confirming the
+      given "from Â£99" - correctly PASSED, exit 0, confirming the
       PRIVATE_SERVICE exemption holds on this pack's own copy and that the
       checker is not simply reacting to any currency symbol in the file. All
       four rounds fired, or correctly passed, on the first attempt, each on
@@ -38025,7 +38039,7 @@ appended to the line. Do not move them; the status page reads them in place.
       modules/service/pages/contraception-hirshmans-ainsdale.html, each
       restored from a sha256-confirmed backup before the next: (1) consent
       reversal appended to the confidentiality FAQ answer - CAUGHT
-      ([consent]); (2) a price ("from £15") added to the same answer -
+      ([consent]); (2) a price ("from Â£15") added to the same answer -
       CAUGHT twice ([verbatim], [free]); (3) "Yasmin" added to the H1 -
       CAUGHT twice ([verbatim], [medicine]); (4) a long-acting-method offer
       ("We can fit your coil at this branch") inserted after the H1 - CAUGHT
@@ -38675,9 +38689,9 @@ item's fix to make; recorded here as live confirmation of an already-known
 block, not a new finding. Also re-read the Cherry Lane switch page live
 (switch-prescriptions-cherry-lane-walton.html): the "How switching to
 Cherry Lane Pharmacy works" paragraph still renders "it usually is not
-ÔÇö we make the first step quick and easy" - the same pre-Q7 pasted em
+Ã”Ã‡Ã¶ we make the first step quick and easy" - the same pre-Q7 pasted em
 dash as every prior pass, now showing as a different mojibake sequence
-(ÔÇö rather than the "a EUR" form recorded on 2026-08-13) but the same
+(Ã”Ã‡Ã¶ rather than the "a EUR" form recorded on 2026-08-13) but the same
 underlying fault: repo source holds a full stop, Weebly still holds the
 old em dash, unrepasted. The page's own footer also still shows
 pharmacy.FA226@mhs.net, which is Q36's already-logged typo, not this
@@ -38908,7 +38922,7 @@ which sit outside the small legacy list that still resolves without one.
 Verified empirically rather than argued, independent of this repo's own
 regex: installed parse5 (a spec-conformant WHATWG HTML5 tokenizer, the same
 parsing-algorithm class jsdom and real browsers implement) in a scratch
-Node project and confirmed "left&#8212right" decodes to "left—right" and
+Node project and confirmed "left&#8212right" decodes to "leftâ€”right" and
 "left&#x2014right" the same way, while "left&mdashright" (named, no
 semicolon) stays literal text - so the gap is real and specific to the
 numeric form.
@@ -38966,7 +38980,7 @@ than tools/check-em-dashes.js changed, and no page, generator or data field
 changed. LIVE HALF: Claude in Chrome confirmed not connected; fell back to a
 direct read-only curl GET of the Cherry Lane switch page
 (switch-prescriptions-cherry-lane-walton.html, 200): the pre-Q7 mojibake em
-dash in "it usually is not — we make the first step quick and easy" is
+dash in "it usually is not â€” we make the first step quick and easy" is
 still live, unchanged from every prior pass's own reading - an already-fully
 -tracked finding (item 5.5/Q13/Q45), not this pass's own axis, and not
 re-raised. No missing-semicolon numeric entity exists anywhere in the
@@ -39477,14 +39491,14 @@ into three DIFFERENT categories, not one:
     the page: mccanns_aigburth, mccanns_sandringham, fishlocks_ainsdale,
     fishlocks_eccleston, smartts_bootle, tiffenbergs_longmoor, scorah_hazel
     (7 branches).
-  - The CP1252-style mojibake this item's log has repeatedly called "ÔÇö"
+  - The CP1252-style mojibake this item's log has repeatedly called "Ã”Ã‡Ã¶"
     (raw bytes 94 c3 87 c3 b6 following the shared "usually is not "
     prefix): hirshmans_ainsdale, skchemists_bootle, colemanleigh_liverpool,
     gordonshorts_crosby, cherrylane_liverpool (5 branches, Cherry Lane
     included - confirming this pass's own direct browser read of Cherry
     Lane, unchanged from every prior pass).
   - A THIRD, different mangled form, never before recorded on this item
-    (raw bytes a2 e2 82 ac e2 80 9d, rendering as "â‚¬"" rather than "ÔÇö"):
+    (raw bytes a2 e2 82 ac e2 80 9d, rendering as "Ã¢â€šÂ¬"" rather than "Ã”Ã‡Ã¶"):
     scorah_bramhall (1 branch) alone.
   - riddings_timperley (1 branch): NO em dash at all live, but not because
     it carries the generator's current Q7-fixed wording either. The live
@@ -42783,13 +42797,13 @@ data field changed this run. No new question.
       one page per branch, so a fix here clears the exposure for both 4.4
       and 4.5 at once. All six elements present (named Wegovy/Mounjaro/
       Orlistat, superlative Mounjaro claim under a "Real Results" heading,
-      outcome slider, treatment picker, lead price "From £39.99" above the
+      outcome slider, treatment picker, lead price "From Â£39.99" above the
       fold); the shared homepage links to it alongside, not in place of,
       both branches' correct generated pages. Raised as Q98, recommending
       folding into this item's eventual fix alongside the other eight.
       Separately, weight-loss-clinic-scorah-hazel-grove.html (the correct
       generated page) confirmed a THIRD instance of the unrelated Q88
-      lead-price pattern (booking block reads "from £39.99" ahead of its
+      lead-price pattern (booking block reads "from Â£39.99" ahead of its
       eligibility section) - narrower issue, not a new root cause, folded
       into Q98's note rather than raised separately. Full evidence in
       compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md under the 2026-09-05
@@ -42800,7 +42814,7 @@ data field changed this run. No new question.
       page shape as Scorah (Q98). All six legacy-template elements present
       (named Wegovy/Mounjaro/Orlistat, superlative Mounjaro claim under a
       "Real Results with Mounjaro" heading, outcome slider, treatment picker,
-      lead price "From £39.99" above the fold). Link context is the clearest
+      lead price "From Â£39.99" above the fold). Link context is the clearest
       regime-1 case found yet: the homepage's desktop top nav, mobile nav AND
       a promotional content tile all proactively link to the legacy page,
       alongside (not instead of) the two correct branch pages, matching or
@@ -42822,10 +42836,10 @@ data field changed this run. No new question.
       generator in this repo. Its sitemap lists 31+ weight-loss URLs; the
       homepage links directly to weight-loss-clinic.html (anchor text
       "Weight Loss Clinic - Free Consultation") and to
-      services/weight-loss-clinic.html. The first carries a repeated "£35 OFF
+      services/weight-loss-clinic.html. The first carries a repeated "Â£35 OFF
       your first pen" banner and a "Mounjaro 2.5mg Pen Price Comparison"
       table; the second is a live, paginated shop selling named Wegovy and
-      Mounjaro injections at displayed unit prices (£179 to £299) with
+      Mounjaro injections at displayed unit prices (Â£179 to Â£299) with
       add-to-basket checkout copy. The "Learn More" path leads to
       weight-loss-clinic-new.html, which carries every element the 2026-08-10
       assessment tested for (superlative Mounjaro claim, "Real Results"
@@ -42852,7 +42866,7 @@ data field changed this run. No new question.
       second Regime-1-shaped page one click from the homepage's own "Switch
       Now" journey, carrying the same named GPhC-numbered prescriber (Dane,
       GPhC 2072668) plus its own Mounjaro dose/price picker (2.5mg to 15mg,
-      £179 to £299) and the same "£35 off first pen" promotion. A previously
+      Â£179 to Â£299) and the same "Â£35 off first pen" promotion. A previously
       unknown standalone page, /wegovy (no .html), is a stale "COMING SOON IN
       2023" placeholder still live in 2026, naming Wegovy with an efficacy
       claim ("can be a very effective medicine to achieve sustained weight
@@ -42860,7 +42874,7 @@ data field changed this run. No new question.
       sitemap-indexed and untouched for three years.
       online-doctor/weight-loss/prescription-medications.html is a fourth
       live retail listing for a named POM, this time Orlistat/Xenical 120mg
-      capsules at displayed prices (£37.80 to £75.60), extending the
+      capsules at displayed prices (Â£37.80 to Â£75.60), extending the
       retail-sale pattern already found for Mounjaro and Wegovy to a third
       medicine. Four other pages read this pass were low-risk
       (weight-loss-medication.html, weight-loss-enquiry.html,
@@ -42889,7 +42903,7 @@ data field changed this run. No new question.
       known template elements present (named Wegovy/Mounjaro/Orlistat,
       superlative Mounjaro claim, "Real Results with Mounjaro" heading,
       outcome slider tested at 116kg returning "26kg (22.5%)", named
-      treatment picker, lead price "From £39.99" above the fold). The
+      treatment picker, lead price "From Â£39.99" above the fold). The
       correct generated page (weight-loss-clinic-coleman-leigh-walton.html)
       is clean of the six legacy elements but re-confirms the existing Q88
       lead-price pattern in its own booking block. Full write-up in
@@ -42911,7 +42925,7 @@ data field changed this run. No new question.
       Coleman and Leighs. All six known template elements present (named
       Wegovy/Mounjaro/Orlistat, superlative Mounjaro claim, "Real Results
       with Mounjaro" heading, outcome slider tested at 116kg returning "26kg
-      (22.5%)", named treatment picker, lead price "From £39.99" above the
+      (22.5%)", named treatment picker, lead price "From Â£39.99" above the
       fold). The correct generated page
       (weight-loss-clinic-riddings-timperley.html) is clean of the six
       legacy elements but re-confirms the existing Q88 lead-price pattern in
@@ -42935,7 +42949,7 @@ data field changed this run. No new question.
       Wegovy/Mounjaro/Orlistat under an "Explore treatments" picker,
       superlative Mounjaro claim, "Real Results with Mounjaro" heading
       citing "up to 22.5%... over 72 weeks", outcome slider tested at 116kg
-      returning "26kg (22.5%)", lead price "From £39.99 including your
+      returning "26kg (22.5%)", lead price "From Â£39.99 including your
       consultation" above the fold). The correct generated page
       (weight-loss-clinic-gordon-short-crosby.html) is clean of the six
       legacy elements but re-confirms the existing Q88 lead-price pattern in
@@ -44265,7 +44279,7 @@ data field changed this run. No new question.
       carries the "Support that delivers results." weight loss tile. Also
       spot-checked two of the five KNOWN link-target entries directly: Smartts
       Bootle's weight-loss-clinic-bootle.html still live and still names
-      Wegovy, Mounjaro and Orlistat with the 22.5%/72-week claim and a £39.99
+      Wegovy, Mounjaro and Orlistat with the 22.5%/72-week claim and a Â£39.99
       price, and pharmacy-first-service-bootle.html still exists as the old
       live-only page. Both KNOWN entries still accurately describe live
       reality; nothing to update in the checker. Q53 and Q54 stay open,

@@ -1,0 +1,65 @@
+﻿Item 4.13 quality pass (twenty-eighth), Riddings Pharmacy Timperley
+Run: Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-21T11:42Z
+Fresh angle: tools/check-map-embeds.js, confirmed never previously named against
+item 4.13 across 27 prior passes (checker-name diff against the item's own
+worklist section: tried checkers were check-app-membership, check-booking-routes,
+check-branch-links, check-brand-spelling, check-cdn-pins, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-jsonld, check-live-hours,
+check-nap, check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-postcodes, check-uk-spelling, check-url-scheme, check-weight-loss-copy).
+
+BASELINE (git archive HEAD -> zip -> scratch copy at .scratch_tmp/scratch413,
+tracked repo never opened for writing; branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching the
+anchor quoted across prior passes): check-map-embeds.js clean on the scratch
+copy before injection - 16 trading branches, 16 map addresses, 177 generated
+pages, 177 map embeds, 6 directions buttons, 6 generators checked, 0 known
+exceptions.
+
+INJECTION: on modules/service/pages/pharmacy-first-riddings-timperley.html
+(pre-injection hash a7874bf65abce13bac8c5d036de7deb5b1470b8dea1e28617c58865379606724),
+changed the map iframe query's postcode from WA15 6BP to WA14 6BP, leaving the
+contact card's own address line untouched. CAUGHT cleanly, 2 failures: the
+address rule (page's map points at a WA14 6BP address, branches.json gives
+WA15 6BP for this branch) and the agreement rule (contact card reads WA15 6BP
+while the map beneath it points at WA14 6BP).
+
+NEGATIVE CONTROL: restored the original map query string, then made an
+unrelated cosmetic edit (an HTML comment inserted before </head>, no address
+or identity field touched). check-map-embeds.js re-run clean, 0 failures -
+confirms the rule fires on the address mismatch specifically, not on any edit
+to the page. Note for the record: the restore/insert was done with
+PowerShell's default string handling, which mangled one non-ASCII character
+(an en dash in the page's own build-comment title line) into mojibake on the
+scratch copy and caused an unrelated, expected check-brand-spelling.js
+all-caps/mojibake artifact on that one scratch file afterwards. This is a
+by-product of this run's own file handling on the disposable scratch copy,
+not a repo defect, and the scratch copy was deleted immediately after; it has
+no bearing on the map-embeds finding above, which was captured before the
+encoding slip occurred.
+
+TRACKED REPO: confirmed untouched throughout. git status --porcelain -- modules
+core branches.json gbp-packs tools compliance returned empty before, during
+and after this pass. branches.json sha256 on the tracked tree unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). Tracked
+copy of pharmacy-first-riddings-timperley.html confirmed at its original hash
+(a7874bf6...6724) after the scratch directory was deleted.
+
+LIVE (Claude in Chrome, read-only, single tab, nothing clicked/typed/submitted,
+closed after use): riddingspharmacy.co.uk homepage re-read in full. Address
+"38 Riddings Road, Timperley, Cheshire, WA15 6BP", phone "0161 973 2951" and
+hours (Monday-Friday 9:00am-6:00pm, Saturday and Sunday closed) all match
+branches.json and the GBP pack. No map-related live defect found - this
+angle is a generated-page/generator question and the live site has no
+equivalent embedded map to compare.
+
+NO IN-REPO DEFECT FOUND THIS PASS. check-map-embeds.js now proven by direct
+injection against item 4.13. Checkers still never tried against this item:
+check-address-region.js, check-branch-identity.js, check-contraception-copy.js,
+check-editor-snapshot.js, check-fragment-targets.js, check-opening-hours.js,
+check-page-coverage.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-seo-keywords.js, check-seo-lengths.js,
+check-seo-pattern.js, check-seo-sheets.js, check-service-links.js,
+check-switch-copy.js, check-travel-clinic-copy.js,
+check-weebly-furniture-freshness.js, check-whatsapp-route.js,
+check-widget-diaries.js.
