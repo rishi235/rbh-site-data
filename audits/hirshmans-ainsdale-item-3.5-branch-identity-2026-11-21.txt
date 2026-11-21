@@ -1,0 +1,77 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - quality pass, 2026-11-21
+Checker: tools/check-branch-identity.js (never named against item 3.5 across prior passes;
+confirmed by direct grep of the item's own section in AGENT_WORKLIST.md before starting -
+11 checkers had been tried: check-booking-routes, check-gbp-packs, check-jsonld,
+check-map-embeds, check-opening-hours, check-pharmacy-first-eligibility,
+check-pharmacy-first-symptoms, check-seo-keywords, check-seo-lengths, check-switch-copy,
+check-travel-clinic-copy. 12 checkers remained untried; check-branch-identity.js chosen
+as the fresh angle for this pass)
+
+CONTEXT
+Hirshmans Chemist, Ainsdale (hirshmans_ainsdale) is a single-site brand: branchName equals
+brandLabel ("Hirshmans Chemist"), so the shared-brandLabel rule in check-branch-identity.js
+does not apply to it directly. It sits in the same seoTown (Ainsdale) as Fishlocks Chemist
+Ainsdale, a two-site brand on a different host, which is the pairing CLAUDE.md's "heading
+nothing compared" section names explicitly ("Fishlocks Ainsdale against Hirshmans
+Ainsdale ... byte-identical" H1s, found 2026-08-11). That made a Fishlocks/Hirshmans
+cross-branch identity mix-up the most plausible real-world fault for this checker to catch
+on this specific branch, rather than a generic injection.
+
+BASELINE
+sha256(branches.json) = 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+matches every prior anchor in this audit. Scratch copy made via `git archive HEAD` into
+/tmp (tracked repo never opened for writing during the test); scratch branches.json
+confirmed byte-identical to the tracked copy by sha256 before any edit.
+check-branch-identity.js alone: clean on the scratch tree -
+  "177 page(s) matched to a branch, 177 with a module root, 177 with a JSON-LD block
+   16 trading branch(es), 3 website(s) shared by a pair"
+Full 35-file tools/check-*.js suite (excluding check-cdn-pins.js and check-live-hours.js,
+the standing git-archive-scratch exclusions): 35/35 exit 0.
+
+INJECTION
+File: modules/service/pages/pharmacy-first-hirshmans-ainsdale.html (one of Hirshmans
+Ainsdale's 12 generated pages). Backed up before editing; sha256 recorded.
+Changed exactly one attribute: data-branch="Hirshmans Chemist" -> data-branch="Fishlocks
+Chemist" on the #rbhsv-root module mount (line 13). The JSON-LD "name" field three lines
+below (line 146, also "Hirshmans Chemist") was left untouched, so the page carries two
+different business names at once - the same silent-fault shape CLAUDE.md records for this
+checker ("a correct page with a wrong marker", here a wrong data-branch instead).
+
+RESULT: check-branch-identity.js FAILED, 2 problems, both correctly identifying the fault:
+  1. modules/service/pages/pharmacy-first-hirshmans-ainsdale.html: data-branch="Fishlocks
+     Chemist" but the page belongs to hirshmans_ainsdale ("Hirshmans Chemist") - named as
+     fishlocks_ainsdale's name, flagging that an enquiry from this page would file against
+     the wrong pharmacy.
+  2. hirshmans_ainsdale: flagged for declaring 2 different data-branch values across its
+     own pages (11 pages "Hirshmans Chemist", 1 page "Fishlocks Chemist") - the
+     one-branch-two-identities rule, fired correctly even though this branch's brandLabel
+     is not one of the three shared-brand labels the checker otherwise watches.
+
+NEGATIVE CONTROL
+Restored data-branch to "Hirshmans Chemist" and added an unrelated cosmetic HTML comment
+immediately after <!doctype html> on the same file (no identity-bearing content touched).
+Re-ran check-branch-identity.js: clean, 0 failures - confirms the rule is specific to the
+identity fields and does not false-positive on an unrelated structural edit to the same
+file.
+
+RESTORE AND RE-VERIFY
+File restored from the pre-injection backup; sha256 reconfirmed identical to the original
+(fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468). Full 35-checker suite
+re-run on the scratch tree: 35/35 exit 0. sha256(branches.json) on the scratch tree
+reconfirmed unchanged. Tracked repo confirmed untouched throughout this pass: `git status
+--porcelain -- branches.json tools modules core gbp-packs` empty before and after;
+sha256(branches.json) on the tracked tree unchanged at 0385b7c2...27da.
+
+CONCLUSION
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. check-branch-identity.js is now proven by
+direct injection against item 3.5, specifically against the Fishlocks/Hirshmans Ainsdale
+pairing CLAUDE.md flags as the live risk for this branch. 11 checkers remain never-tried
+against item 3.5 for a future pass: check-app-membership.js, check-em-dashes.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js, check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-weebly-furniture-freshness.js.
+
+No live half performed this pass: the fault tested (a wrong data-branch attribute on a
+generated page) is a generator/checker-side identity question, not something distinct to
+confirm live versus generated, and no change was made to live-affecting source in this
+pass.

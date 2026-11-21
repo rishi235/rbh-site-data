@@ -9221,6 +9221,31 @@ held no answer for either, left unchanged). Item 3.5 stays `[x]` (quality
 pass, not a state change). Full detail in audits/hirshmans-ainsdale-item-
 3.5-quality-pass-2026-11-19-twentyeighth.txt. Done 2026-11-19.
 
+Quality pass 2026-11-21: fresh angle tools/check-branch-identity.js, never
+named against item 3.5 across prior passes (11 checkers tried, 12 untried).
+Baseline on a /tmp scratch copy (git archive HEAD; tracked repo never opened
+for writing; branches.json sha256 0385b7c2...27da matching every prior
+anchor): check-branch-identity.js clean; full 35-checker suite (excl.
+check-cdn-pins.js/check-live-hours.js) 35/35 exit 0. INJECTION: changed
+data-branch="Hirshmans Chemist" to data-branch="Fishlocks Chemist" on
+pharmacy-first-hirshmans-ainsdale.html's module root, leaving the JSON-LD
+name untouched - CAUGHT cleanly, 2 failures naming the wrong-attribute page
+and the branch's own two-identities split. NEGATIVE CONTROL: restored the
+correct value, added an unrelated cosmetic HTML comment to the same file -
+re-run clean, confirming specificity. Restored from backup, sha256
+reconfirmed identical; full suite re-run 35/35 clean on the scratch tree;
+tracked repo confirmed untouched throughout (branches.json sha256 unchanged,
+git status --porcelain on branches.json/tools/modules/core/gbp-packs
+empty). NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. check-branch-
+identity.js now proven by injection against item 3.5, against the
+Fishlocks/Hirshmans Ainsdale pairing CLAUDE.md names as the live risk for
+this town. 11 checkers remain never-tried for a future pass. No live half
+performed - the fault tested is a generator/checker identity question, not
+a live-versus-generated question, so there was nothing live to confirm or
+contradict for this angle. Evidence: audits/hirshmans-ainsdale-item-3.5-
+branch-identity-2026-11-21.txt. Item 3.5 stays `[x]` (quality pass, not a
+state change). Done 2026-11-21.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
