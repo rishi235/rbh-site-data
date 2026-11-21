@@ -4403,6 +4403,46 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       2026-09-01). Evidence in
       audits/seo-pattern-3.1-townisshared-crossbranch-2026-11-20.txt.
       Done 2026-11-20
+      [Quality pass, 2026-11-21: fresh angle tools/check-seo-keywords.js,
+      confirmed never previously named against item 3.1 (check-cdn-pins.js,
+      check-live-hours.js, check-postcodes.js, check-seo-lengths.js and
+      check-seo-pattern.js were the five already used). Delegated the
+      read-and-verify work to a general-purpose subagent to keep this
+      item's long prior history out of the orchestrating session's
+      context; its report independently re-verified before committing.
+      BASELINE: branches.json sha256 0385b7c2...27da (standing anchor,
+      unchanged), full 35-checker non-network suite (excl.
+      check-cdn-pins.js and check-live-hours.js) clean on the tracked
+      repo, re-confirmed directly by this orchestrating session after the
+      subagent's work. INJECTION on a `git archive HEAD` scratch copy
+      only (tracked repo never opened for writing): added "Eccleston" to
+      the Fishlocks Ainsdale Meta Keywords line in
+      modules/service/pages/SEO.md - caught cleanly by
+      check-seo-keywords.js, naming the block and the foreign seoTown
+      (Eccleston belongs to Fishlocks Ainsdale's sister branch, not this
+      one's own serviceAreaList). NEGATIVE CONTROL: an unrelated Page
+      Description wording tweak in the same block stayed clean on
+      check-seo-keywords.js while check-seo-sheets.js correctly caught it
+      independently, confirming no cross-fire. File restored by byte copy
+      and sha256-reconfirmed identical; scratch directory deleted. Tracked
+      repo confirmed untouched throughout (`git status --porcelain --
+      modules core branches.json gbp-packs tools compliance` empty before
+      and after, checked directly by this orchestrating session as well
+      as reported by the subagent); full suite re-run clean afterwards. NO
+      IN-REPO DEFECT FOUND. LIVE (Claude in Chrome, read-only, single tab,
+      nothing clicked/typed/submitted, closed after use): re-read
+      sinusitis-treatment-hirshmans-ainsdale.html on
+      hirshmanspharmacy.co.uk, an angle not covered by the 2026-11-20
+      pass (which found no live page to check since seo-pattern.js has no
+      page of its own). Title and H1 both read "Sinusitis treatment in
+      Ainsdale - Hirshmans Chemist" exactly matching tools/seo-pattern.js
+      output, with no cross-contamination from sister branch Fishlocks
+      Ainsdale's own Ainsdale-branded pages. NO NEW DEFECT FOUND, NO NEW
+      QUESTION RAISED. QUESTIONS.json: 145 total, 6 open (Q139-Q144,
+      unchanged; checked fresh via the portal feedback feed, newest entry
+      still the historical Q52 answer from 2026-09-01). Evidence in
+      audits/item-3.1-quality-pass-check-seo-keywords-2026-11-21.txt. Done
+      2026-11-21]
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

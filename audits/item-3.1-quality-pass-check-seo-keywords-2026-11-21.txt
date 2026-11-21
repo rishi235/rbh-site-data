@@ -1,0 +1,130 @@
+ITEM 3.1 QUALITY PASS - FRESH CHECKER ANGLE: tools/check-seo-keywords.js
+Date: 2026-11-21
+Branch: agents/audit-backlog
+
+SCOPE
+-----
+Item 3.1 (AGENT_WORKLIST.md ~line 3369) defines the title/H1 pattern once in
+tools/seo-pattern.js, with per-branch town words sourced from branches.json,
+and consumed by the 6 page generators (build-service-pages.js,
+build-switch-pages.js, build-weight-loss-pages.js, build-travel-clinic-pages.js,
+build-contraception-pages.js, build-branch-landing-pages.js).
+
+Checkers already named against item 3.1 in AGENT_WORKLIST.md's own section
+(confirmed by grep of lines 3369-4405): check-cdn-pins.js, check-live-hours.js,
+check-postcodes.js, check-seo-lengths.js, check-seo-pattern.js.
+
+Grep of the same section for "seo-keywords" and "seo-sheets" returned ZERO
+matches for both, confirming neither has been run against item 3.1 specifically.
+
+CHOSEN CHECKER: tools/check-seo-keywords.js
+Reason: it reads the Meta Keywords Weebly field, composed (per its own header)
+from the SAME three moving values the title/H1 pattern depends on - seoTown,
+brandLabel, and the outward postcode - via RULE 3 (seoTown presence) and
+RULE 4 (other branch's seoTown absence unless in serviceAreaList). This is a
+genuinely fresh angle on item 3.1's subject: the per-branch town word that
+seo-pattern.js composes into the title/H1 is the exact fact RULE 3/4 verify
+in the sibling field, so it is excellent further proof that the per-branch
+town-word sourcing in item 3.1 is sound beyond the title/H1 surface itself.
+
+METHODOLOGY
+-----------
+1. Baseline anchor:
+   branches.json sha256 (tracked repo, before and after, identical):
+     0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+
+2. git status --porcelain -- modules core branches.json gbp-packs tools compliance
+   was EMPTY before any work and EMPTY again after all work completed.
+   (One `rm .git/index.lock` attempt failed with "Operation not permitted" -
+   harmless; git status still ran fine read-only, confirmed no file changes.)
+
+3. Full non-network checker suite run on the TRACKED repo first (BEFORE):
+   37 tools/check-*.js files exist; excluding the 2 network-dependent ones
+   (check-cdn-pins.js, check-live-hours.js) leaves 35 checkers.
+   Result: 35/35 PASS (exit 0), 0 failures.
+
+4. Scratch copy made via `git archive HEAD | tar -x` into /tmp/scratch31
+   (never the tracked tree). branches.json sha256 in the scratch copy matched
+   the baseline exactly before any edit.
+
+   INJECTION (realistic, relevant to check-seo-keywords RULE 4):
+   File: modules/service/pages/SEO.md, block "Fishlocks Chemist — Ainsdale —
+   Overview" (permalink pharmacy-first-fishlocks-ainsdale).
+   Verified first in branches.json that fishlocks_ainsdale's seoTown is
+   "Ainsdale", serviceAreaList is ["Ainsdale","Birkdale","Southport"] (does
+   NOT include Eccleston), and fishlocks_eccleston is a separate live branch
+   with seoTown "Eccleston" sharing the fishlocks brand/domain - i.e. the
+   exact shared-domain pair CLAUDE.md names for this excuse-vs-hole logic.
+
+   Changed:
+     - **Meta Keywords:** Pharmacy First Ainsdale, NHS Pharmacy First, Fishlocks Chemist, pharmacy Ainsdale, PR8
+   to:
+     - **Meta Keywords:** Pharmacy First Ainsdale, NHS Pharmacy First, Fishlocks Chemist, pharmacy Ainsdale Eccleston, PR8
+
+   Ran: node tools/check-seo-keywords.js -> EXIT 1 (caught).
+   Exact failure line:
+     FAIL  modules/service/pages/SEO.md block "Fishlocks Chemist — Ainsdale — Overview":
+     Meta Keywords name 'Eccleston', the seoTown of fishlocks_eccleston, and
+     'Eccleston' is not in this branch's serviceAreaList. Got: Pharmacy First
+     Ainsdale, NHS Pharmacy First, Fishlocks Chemist, pharmacy Ainsdale
+     Eccleston, PR8
+   The checker named the correct page, the correct block, the correct sister
+   branch (fishlocks_eccleston), and quoted the exact offending string. This
+   is a sensible, specific catch.
+
+   Restored modules/service/pages/SEO.md from the pre-injection byte copy
+   (/tmp/SEO.md.orig) and reconfirmed sha256 match, then re-ran
+   check-seo-keywords.js -> EXIT 0, 0 failures (clean again before the
+   control test).
+
+5. NEGATIVE CONTROL (same scratch copy, same file, unrelated field):
+   Changed only the Page Description line in the SAME block from:
+     Pharmacy First at Fishlocks Chemist in Ainsdale. Free NHS treatment...
+   to:
+     Pharmacy First at Fishlocks Chemist, serving Ainsdale. Free NHS treatment...
+   (a wording drift that check-seo-keywords.js never parses - it only reads
+   Permalink and Meta Keywords lines per block).
+
+   Ran: node tools/check-seo-keywords.js -> EXIT 0, 0 failures. Confirmed the
+   checker is NOT simply failing on any edit to the file.
+   Sanity cross-check: node tools/check-seo-sheets.js on the same injected
+   file -> EXIT 1, 1 failure (a different checker, whose job IS to compare
+   title/description/permalink between page and sheet, correctly caught this
+   unrelated drift). This proves the control edit was real and detectable by
+   *something*, just not by check-seo-keywords, as expected.
+
+6. Restored modules/service/pages/SEO.md from /tmp/SEO.md.orig again (byte
+   copy, not git checkout). sha256 of restored file == sha256 of
+   pre-injection original (2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+   on both sides). Re-ran check-seo-keywords.js on the scratch copy -> EXIT 0.
+   branches.json sha256 in scratch copy still matched baseline throughout
+   (never touched). Deleted /tmp/scratch31 and /tmp/baseline_run entirely.
+
+7. Re-ran the full 35-checker non-network suite on the TRACKED repo AFTER all
+   scratch work: 35/35 PASS, 0 failures - identical to the BEFORE run.
+   git status --porcelain -- modules core branches.json gbp-packs tools compliance
+   was empty both before and after. branches.json sha256 on the tracked repo
+   unchanged (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+
+8. LIVE-PAGE CHECK: SKIPPED. No browser/Claude-in-Chrome tools were available
+   in this agent run's toolset, so no live page was fetched. This is stated
+   plainly rather than fabricated.
+
+RESULT
+------
+check-seo-keywords.js is a genuinely fresh, previously-unused checker angle
+against item 3.1's subject. It was proven to:
+  - catch a realistic, item-3.1-relevant injected defect (a sister branch's
+    retired/foreign seoTown word leaking into a Meta Keywords line) with a
+    specific, correctly-attributed failure message, and
+  - correctly ignore an unrelated, out-of-scope edit (a Page Description
+    wording tweak), which a different checker (check-seo-sheets.js) caught
+    instead, proving check-seo-keywords.js is not indiscriminate.
+No actual in-repo defect was found. The tracked repo (modules, core,
+branches.json, gbp-packs, tools, compliance) was never modified at any point
+in this quality pass - all injection/restore work happened exclusively on a
+`git archive HEAD` scratch copy under /tmp, which was deleted at the end.
+
+No fix was needed and none was made. No AGENT_WORKLIST.md / AGENT_LOG.md /
+QUESTIONS.json edits were made by this pass, per instructions - this file is
+the full record for the orchestrating session to act on.
