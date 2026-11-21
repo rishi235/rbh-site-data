@@ -35576,6 +35576,28 @@ directly rather than re-deriving the same facts by hand.
       state change). Evidence:
       audits/gordon-short-item-4.14-quality-pass-2026-11-19-twentyseventh.txt.
       Done 2026-11-19.
+      Quality pass 2026-11-21 (twenty-second): fresh angle
+      tools/check-map-embeds.js, never previously tried against this item.
+      Pre-work baseline found tools/check-postcodes.js failing on an
+      inherited gap (WA14 6BP, quoted in AGENT_LOG.md and an audit file by
+      the immediately preceding item 4.13 run, never registered in
+      NARRATIVE_POSTCODES) - fixed in the same commit before any new work
+      began, unlike the CH1 2AB gap which sat open for 24+ runs. BASELINE on
+      a git-archive scratch copy clean (177 pages, 177 embeds). INJECTION on
+      pharmacy-first-gordon-short-crosby.html (scratch only): changed the
+      map iframe's street number from 159 to 169 College Road, contact card
+      left untouched - CAUGHT cleanly, both the address rule and the
+      map/contact-card agreement rule fired. NEGATIVE CONTROL: restored and
+      added an unrelated cosmetic comment - clean. File restored and
+      sha256-reconfirmed identical throughout; tracked repo untouched except
+      the intentional check-postcodes.js fix. Full 35-checker suite clean
+      after the fix. LIVE (Claude in Chrome, read-only): homepage re-read in
+      full, address/phone/email/hours all match branches.json. NO IN-REPO
+      DEFECT FOUND on the map-embeds angle itself; the inherited
+      NARRATIVE_POSTCODES gap was the only defect, fixed before work began.
+      NO NEW QUESTION RAISED. Item 4.14 stays `[x]`. Evidence:
+      audits/gordon-short-item-4.14-map-embeds-2026-11-21.txt. Done
+      2026-11-21.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

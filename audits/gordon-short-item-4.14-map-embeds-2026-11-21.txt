@@ -1,0 +1,76 @@
+Item 4.14 quality pass (twenty-second), 2026-11-21 - Gordon Short Chemist Crosby pack
+Fresh angle: tools/check-map-embeds.js, confirmed never previously named against
+this item (comparison of the full tools/check-*.js listing against the checker
+names appearing in item 4.14's own worklist section across 21 prior passes).
+
+PRE-WORK BASELINE DEFECT FOUND AND FIXED (before any item 4.14 work began):
+Running the full 35-checker non-network suite on the tracked repo at pickup
+showed tools/check-postcodes.js failing with 2 UNKNOWN failures: WA14 6BP,
+quoted in AGENT_LOG.md's own narrative and in
+audits/riddings-item-4.13-map-embeds-injection-2026-11-21.txt by the
+immediately preceding run (item 4.13, 2026-11-21T11:42Z), was never added to
+NARRATIVE_POSTCODES. This is the same gap this list has now closed on every
+prior pass that left a narrative postcode unregistered (most recently CH1 2AB,
+open 24+ runs). Fixed in the same commit as this pass, before any new
+quality-pass work began: added a NARRATIVE_POSTCODES entry for "WA14 6BP"
+describing the item 4.13 injection it records. tools/check-postcodes.js now
+exits 0 (0 failures, 3 warnings, the standing UNOWNED template/index/seo
+sheet warnings, unchanged).
+
+BASELINE on a git-archive scratch copy (/sessions/.../outputs/scratch414/repo,
+tracked repo never opened for writing; branches.json sha256
+0385b7c2...27da matching every prior anchor): check-map-embeds.js clean - 177
+pages, 177 embeds, 6 directions buttons, 0 known exceptions.
+
+Target: modules/service/pages/pharmacy-first-gordon-short-crosby.html
+(Gordon Short Chemist Crosby, branch id gordonshorts_crosby, real address
+"159 College Road, Liverpool, L23 3AT").
+Pre-injection sha256: e6ca3ba0a715a4834eea8ebc298631f5fcee5d055c17cf205bd9b78b8bd05eca
+
+INJECTION: on the scratch copy only, changed the map iframe's street number
+from 159 to 169 College Road (q=169%20College%20Road%2C%20Liverpool%2C%20L23%203AT),
+contact card left untouched at "159 College Road, Liverpool, L23 3AT".
+
+RESULT: CAUGHT cleanly, 2 failures:
+  FAIL [the address] map points at "169 College Road, Liverpool, L23 3AT" and
+       branches.json gives this branch "159 College Road, Liverpool, L23 3AT"
+  FAIL [agreement] contact card reads "159 College Road..." and the map
+       underneath it points at "169 College Road..."
+
+NEGATIVE CONTROL: restored the original map query (sha256-confirmed identical
+to the pre-injection backup), then added an unrelated cosmetic HTML comment
+before </head> with no address field touched - re-ran clean, 0 failures,
+confirming the rule fires on the address mismatch specifically and not on an
+unrelated structural edit to the same file. Restored again from the backup;
+sha256 reconfirmed identical throughout both rounds.
+
+TRACKED REPO confirmed untouched by the injection work: git status --porcelain
+-- modules core branches.json gbp-packs tools compliance showed only the
+intentional tools/check-postcodes.js fix throughout; the tracked copy of the
+Gordon Short Crosby page's sha256 matched the pre-injection backup before and
+after. Full 35-checker suite re-run on the tracked tree after the
+check-postcodes.js fix: 35/35 exit 0.
+
+LIVE (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use): gordonshortchemist.co.uk homepage re-read in
+full. Address "159 College Road, Great Crosby, Liverpool L23 3AT", phone
+"0151 924 3449" and email "shorts@rbhealth.co.uk" all match branches.json
+exactly. Opening hours match the specification (Mon-Fri 9-6 closed 1-2, Sat
+9-5 closed 1-2, Sun closed). No live defect found; this angle has no live
+equivalent beyond the standard address/hours re-read (a generated-page
+map-composition question, not a page this repo omits from generation).
+
+NO IN-REPO DEFECT FOUND on the map-embeds angle itself. The only defect this
+pass found and fixed was the inherited NARRATIVE_POSTCODES gap above, closed
+before any new work began, per the standing convention.
+
+check-map-embeds.js now proven by direct injection against item 4.14.
+Checkers never previously tried against this item, for a future pass:
+check-address-region.js, check-booking-routes.js, check-branch-identity.js,
+check-contraception-copy.js, check-fragment-targets.js, check-jsonld.js,
+check-nap.js, check-opening-hours.js, check-page-coverage.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-seo-keywords.js, check-seo-lengths.js, check-seo-pattern.js,
+check-seo-sheets.js, check-service-links.js, check-switch-copy.js,
+check-travel-clinic-copy.js, check-weebly-furniture-freshness.js,
+check-weight-loss-copy.js, check-whatsapp-route.js, check-widget-diaries.js.
