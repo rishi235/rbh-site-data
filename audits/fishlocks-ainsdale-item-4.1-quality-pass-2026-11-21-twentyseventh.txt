@@ -1,0 +1,148 @@
+Item 4.1 quality pass, twenty-seventh, 2026-11-21 (Cowork scheduled run)
+========================================================================
+
+Selection
+---------
+Worklist had no unchecked, non-[BLOCKED] items (5.8/Q16, 6.4/Q60, 6.5/Q60
+all confirmed [BLOCKED] by direct grep). Fell through to quality-pass
+fallback. .rotation_check.js flagged 4.15 as stalest (2026-11-18) - the
+known false reading every prior run has diagnosed, excluded on that
+basis. Next tier at 2026-11-20: {4.1, 4.5, 4.7, 4.8, 4.9, 4.11, 4.12,
+5.2, 6.2}. Tiebreak by lowest item number: 4.1 wins.
+
+Baseline
+--------
+branches.json sha256:
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+gbp-packs/fishlocks-ainsdale.md sha256 (before and after this pass):
+  7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+Both match the value recorded on the 2026-11-20 pass - unchanged.
+
+Full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+both network-dependent), run individually: 35/35 exit 0 before any work.
+git status --porcelain -- modules core branches.json gbp-packs tools
+compliance: empty before any work.
+
+Fresh angle
+-----------
+tools/check-pharmacy-first-eligibility.js rules 9 and 10. Grep across this
+item's full prior history (26 quality passes) found only rule 11 named
+against this pack (thirteenth pass, 2026-09-06, which also closed out the
+"ten genuine gbp-packs/ readers at the checker level" set). Rules 9 and 10
+within that same checker had never been proven by direct injection against
+this specific pack.
+
+Rule 9 is the NHS cohort-phrase table (PACK_COHORTS): a GBP pack may state
+"aged 40 and over" only in a sentence that also names the NHS blood
+pressure check service, and any other stated age must belong to a pinned
+cohort.
+
+Rule 10 is the Pharmacy First condition-list rule: a pack sentence naming
+two or more of the seven NHS pathways must name all seven, must not claim
+a condition count other than seven, and must not name a condition that is
+not one of the seven pathways.
+
+Method
+------
+Scratch copy made via `git archive HEAD | tar -x` into
+.scratch_tmp/scratch41 - the tracked repo was never opened for writing.
+sha256 of the scratch copy's own gbp-packs/fishlocks-ainsdale.md confirmed
+identical to the tracked file before any injection. The checker was run
+against the scratch copy by invoking its own copy of the script
+(node .scratch_tmp/scratch41/tools/check-pharmacy-first-eligibility.js),
+since the script's ROOT is __dirname-relative and ignores a CLI path
+argument - confirmed by a first attempt that silently ran against the
+tracked repo instead and had to be redone correctly.
+
+Injection 1 (rule 9, unaccounted age)
+  "adults aged 40 and over" -> "adults aged 45 and over" in the business
+  description (section 1), leaving the service-list bullet (section 3)
+  untouched.
+  Result: FAIL gbp-packs/fishlocks-ainsdale.md: states age 45, which is
+  not part of any NHS cohort this copy may state (rule 9)
+  CAUGHT, first attempt, correct rule.
+  Restored; sha256 reconfirmed identical.
+
+Injection 2 (rule 9, wrong-service context)
+  Removed "blood pressure" from the sentence carrying "aged 40 and over"
+  in the business description, leaving the age phrase standing with no
+  service name in the same sentence.
+  Result:
+  FAIL gbp-packs/fishlocks-ainsdale.md: states "aged 40 and over" in a
+  sentence that never names the NHS blood pressure check service, so a
+  pinned cohort is attached to the wrong service (rule 9)
+  FAIL gbp-packs/fishlocks-ainsdale.md: states age 40, which is not part
+  of any NHS cohort this copy may state (rule 9)
+  CAUGHT, first attempt, both the context rule and its consequent
+  unaccounted-age rule, correct file.
+  Restored; sha256 reconfirmed identical.
+
+Injection 3 (rule 10, list omission)
+  Dropped "shingles" from the Pharmacy First enumeration sentence in
+  section 3 ("...sinusitis, sore throat, earache, impetigo, shingles,
+  infected insect bites and uncomplicated UTIs...").
+  Result: FAIL gbp-packs/fishlocks-ainsdale.md: lists the Pharmacy First
+  conditions but omits shingles, so the profile advertises 6 of the 7 NHS
+  pathways this branch is commissioned for (rule 10)
+  CAUGHT, first attempt, correct rule.
+  Restored; sha256 reconfirmed identical.
+
+Negative control
+  A harmless, genuine prose tweak well outside either rule's scope - the
+  photo shot list intro, "at least 10 photos" -> "at least ten photos".
+  Result: checker exits 0, clean, no failure for this pack.
+  Confirms rules 9 and 10 are not firing on unrelated text, and that the
+  checker's own baseline behaviour on this pack is otherwise unaffected.
+
+All three injections caught on first attempt, on their intended rule,
+correctly naming the file. No in-repo defect found; this pass adds
+coverage, it does not fix anything.
+
+Housekeeping incident (caused and fully resolved within this same pass,
+before any commit)
+----------------------------------------------------------------------
+The git-archive scratch copy at .scratch_tmp/scratch41 could not be
+deleted from the bash sandbox side - every file inside it hit the
+standing "Operation not permitted" EPERM-on-unlink mount quirk already
+logged by many prior runs. A rename-aside (mv) succeeded in renaming the
+directory but left its content in place, where check-postcodes.js (the
+one checker that scans the whole repo tree) picked up the renamed-aside
+copy's own AGENT_LOG.md and AGENT_WORKLIST.md postcode strings as
+spurious UNKNOWN entries - 1 failure where the pre-work baseline had 0.
+This was caught immediately by this run's own mandatory post-work
+full-suite re-run, before any commit. Resolved by deleting the
+renamed-aside directory via mcp__Windows-MCP__PowerShell
+(Remove-Item -Recurse -Force) against the native host path
+C:\dev\rbh-site-data\.scratch_tmp\scratch41.RELEASED-cowork-run-20261121T202009Z,
+which succeeded where the bash-side rm could not. Full 35-checker suite
+re-run clean afterwards (35/35 exit 0, check-postcodes.js back to 0
+failures/3 standing warnings matching the pre-work baseline exactly);
+branches.json and the pack sha256 both reconfirmed unchanged; git status
+on the tracked paths empty before and after.
+
+Live half
+---------
+Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use. Re-fetched
+https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html -
+still a 404 ("Error - Page Not Found"), matching the filename the
+generator actually emits
+(modules/branch/pages/pharmacy-fishlocks-ainsdale.html). This is the same
+standing Q35 state (answered 2026-08-10: paste the six landing pages as
+their own Weebly job, ahead of other paste work; not yet applied), not a
+new or repo-side defect - no repo file change is available to fix a
+paste gap.
+
+Questions status check
+-----------------------
+QUESTIONS.json pickup at the top of this run (see AGENT_LOG.md,
+ANSWER PICKUP) found no new answers for Q139-Q144; all six remain open,
+unchanged. Nothing new for this item.
+
+Outcome
+-------
+No in-repo defect found, no fix applied, no new question raised. Coverage
+for item 4.1 now stands at rules 9, 10 and 11 of
+check-pharmacy-first-eligibility.js all individually proven by direct
+injection against this specific pack (previously only rule 11). Item
+stays [x] (quality pass, not a worklist state change).

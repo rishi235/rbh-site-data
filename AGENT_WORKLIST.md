@@ -22139,6 +22139,74 @@ Pharmacy First wording to the NHS service description.
   No in-repo defect found and no fix applied this pass; one new
   question raised (Q141). Item stays `[x]` (quality pass, not a state
   change).
+  Quality pass 2026-11-21 (Cowork scheduled run, twenty-seventh):
+  re-selected as stalest rotation-pool item (tied-oldest tier at
+  2026-11-20: {4.1, 4.5, 4.7, 4.8, 4.9, 4.11, 4.12, 5.2, 6.2}, 4.15
+  excluded as the known false reading; won tiebreak on lowest item
+  number). REPO HALF: branches.json sha256 unchanged
+  (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da);
+  the pack's own sha256 also unchanged
+  (7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30).
+  Full 35-checker suite (excluding check-cdn-pins.js and
+  check-live-hours.js), run individually: 35/35 clean. git status
+  --porcelain on the tracked paths empty before and after.
+
+  FRESH ANGLE: tools/check-pharmacy-first-eligibility.js rules 9 and
+  10, confirmed never previously tested by injection against this
+  pack specifically (only rule 11 had been, on the thirteenth pass,
+  2026-09-06, the same pass that closed out the ten genuine
+  gbp-packs/ readers at the checker level; later passes moved to
+  granular rules within already-used checkers, as this one does).
+  Three injections against a git-archive-HEAD scratch copy (tracked
+  file never opened for writing), each restored and
+  sha256-reconfirmed identical before the next: (1) rule 9,
+  unaccounted age - "aged 40 and over" in the business description
+  changed to "aged 45 and over" - CAUGHT ("states age 45, which is
+  not part of any NHS cohort"); (2) rule 9, wrong-service context -
+  "blood pressure" dropped from the same sentence, the age left
+  standing - CAUGHT on both the context rule ("attached to the
+  wrong service") and the consequent unaccounted-age rule; (3) rule
+  10, list omission - "shingles" dropped from the Pharmacy First
+  enumeration sentence - CAUGHT ("omits shingles ... advertises 6 of
+  the 7 NHS pathways"). NEGATIVE CONTROL: a harmless, genuine prose
+  tweak in the photo shot list intro ("at least 10 photos" to "at
+  least ten photos") left the checker clean, exit 0, confirming no
+  cross-fire. All three injections caught on first attempt, on their
+  intended rule, naming the file. NO IN-REPO DEFECT FOUND.
+
+  SELF-CAUGHT HOUSEKEEPING INCIDENT (caused and fully resolved
+  within this same pass, before any commit): the git-archive scratch
+  copy at .scratch_tmp/scratch41 could not be deleted from the bash
+  sandbox side - every file inside it hit the standing "Operation
+  not permitted" EPERM-on-unlink mount quirk already logged by many
+  prior runs. A rename-aside (mv) succeeded in renaming the
+  directory but left its content in place, where check-postcodes.js
+  (the one checker that scans the whole repo tree) picked up the
+  renamed-aside copy's own AGENT_LOG.md/AGENT_WORKLIST.md postcode
+  strings as spurious UNKNOWN entries. Caught immediately by this
+  run's own mandatory post-work full-suite re-run, before any
+  commit. Resolved by deleting the renamed-aside directory via
+  mcp__Windows-MCP__PowerShell (Remove-Item -Recurse -Force) against
+  the native host path, which succeeded where bash-side rm could
+  not. Full 35-checker suite re-run clean afterwards (35/35,
+  check-postcodes.js back to 0 failures/3 standing warnings matching
+  the pre-work baseline exactly); branches.json and the pack sha256
+  both reconfirmed unchanged; git status empty before and after.
+
+  LIVE (Claude in Chrome, read-only, single tab, nothing
+  clicked/typed/submitted, closed after use): re-fetched
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+  - still 404, unchanged standing Q35 state (answered 2026-08-10, not
+  yet applied - needs a Weebly paste session outside this worker's
+  write scope).
+
+  QUESTIONS STATUS CHECK: Q139-Q144 unchanged, still open, per this
+  run's own ANSWER PICKUP; nothing new for this item. No in-repo
+  defect found, no fix applied, no new question raised. Item stays
+  `[x]` (quality pass, not a state change). See
+  audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-11-21-
+  twentyseventh.txt.
+  Done 2026-11-21
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
