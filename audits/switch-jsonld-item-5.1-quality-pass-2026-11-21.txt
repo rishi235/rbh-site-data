@@ -1,0 +1,73 @@
+Item 5.1 quality pass, 2026-11-21. Fresh-angle check: tools/check-jsonld.js.
+
+WHY THIS CHECKER. Item 5.1's own section (lines 38557-40417 of AGENT_WORKLIST.md)
+was read in full before choosing an angle. It names thirteen checkers against
+this item already (check-app-membership.js, check-brand-spelling.js,
+check-cdn-pins.js, check-em-dashes.js, check-gbp-packs.js, check-live-hours.js,
+check-nap.js, check-postcodes.js, check-service-links.js, check-switch-copy.js,
+check-uk-spelling.js, check-weebly-furniture-freshness.js,
+check-whatsapp-route.js), confirmed by grepping that line range for
+"check-[a-z-]*\.js". tools/check-jsonld.js is not among them anywhere in the
+item's twelve-plus prior quality passes. It is a genuinely fresh angle and it
+is relevant to item 5.1's own subject (public switch page copy): it reads the
+JSON-LD block on all 15 switch pages under modules/switch/pages/, including
+the "name" field, which is machine-read public copy about the branch exactly
+as much as the visible hero and FAQ text this item has repeatedly audited.
+
+METHOD, per CLAUDE.md's established verification convention (byte-identical
+regeneration checks, restore-and-reverify, never touch the tracked tree):
+
+1. Baseline: `git archive HEAD | tar -x` into a throwaway scratch directory
+   under /tmp (never under the tracked repo). Ran `node tools/check-jsonld.js`
+   from the scratch copy: exit 0, clean - "177 generated page(s) checked
+   against 16 trading branches ... check-jsonld: clean, every JSON-LD block
+   and map address agrees with branches.json."
+
+2. Injection: in the scratch copy only, edited
+   modules/switch/pages/switch-prescriptions-cherry-lane-walton.html line 144,
+   changing the JSON-LD "name" field from "Cherry Lane Pharmacy" to
+   "Cherry Lane Pharmacy Chemist" - a single-field, realistic defect of the
+   same shape as the Q18 branch-identity fault this repo has already found
+   (a JSON-LD name that no longer matches the branch's own branchName in
+   branches.json). Recorded sha256 of the file before the edit:
+   40eedab5b7c043c339c81937d288b440e1d9fe6bfce8764abc84f1995b8bac27
+
+3. Re-ran `node tools/check-jsonld.js` against the injected scratch copy:
+   exit 1, correctly caught -
+   `FAIL  modules/switch/pages/switch-prescriptions-cherry-lane-walton.html:
+   "name" is "Cherry Lane Pharmacy Chemist" but a switch page must declare
+   branchName, which branches.json gives as "Cherry Lane Pharmacy".`
+
+4. Restore: wrote the original "name" string back by direct edit (not git
+   checkout), then re-ran sha256 on the file: identical to the pre-injection
+   hash recorded in step 2. Re-ran the checker a third time against the
+   restored scratch copy: exit 0, clean again, identical output to step 1
+   (negative control passed).
+
+5. Deleted the scratch directory entirely.
+
+6. `git status --porcelain -- modules core branches.json gbp-packs tools
+   compliance` in the TRACKED repo was confirmed empty before step 1 and
+   again after step 5: the tracked working tree was never touched.
+
+7. Full suite: ran every tools/check-*.js individually
+   (`for f in tools/check-*.js; do node "$f"; echo "$f: exit $?"; done`),
+   37 of 37 exit 0, both before this pass's work started and after it
+   finished (the tracked repo was not modified in between, so the two runs
+   are necessarily identical; both are recorded as a positive confirmation
+   that this pass caused no regression). No checker needs network access or
+   a browser argument; none were skipped.
+
+RESULT. No in-repo defect found. The real
+modules/switch/pages/switch-prescriptions-cherry-lane-walton.html, and by
+extension the JSON-LD on all 15 switch pages, is correct and unchanged.
+check-jsonld.js is proven (not merely assumed) to cover switch-page JSON-LD
+"name" drift, closing one more unverified angle on item 5.1 without finding
+anything wrong. No question raised. No generator, page, pack or
+branches.json entry changed.
+
+LIVE SIDE NOT CHECKED. This pass had no live browser/Chrome tooling
+available in this subagent invocation. No live Weebly page was fetched or
+compared; the ninth quality pass's standing live findings (item 5.5/Q13/Q45
+CDN-pin block; Q36 mailbox typo) are unaffected and unclaimed by this pass,
+and no new live claim is made here.

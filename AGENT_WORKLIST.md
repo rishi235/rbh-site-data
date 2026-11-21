@@ -40414,6 +40414,30 @@ this pass, left as a forward note rather than guessed at. Every trading
 branch's Contact Us-equivalent page has now been opened at least once for
 this fault family. Evidence:
 audits/item-5.1-contact-us-letschat-hours-2026-11-19-twentyninth.txt.
+Quality pass 2026-11-21 (thirtieth). Picked a checker never named against
+this item in any of the twenty-nine prior passes: tools/check-jsonld.js,
+confirmed by grepping the item's own section for every check-*.js mention.
+It reads the JSON-LD "name" field on all 15 switch pages, which is
+machine-read public copy exactly as much as the visible switch-page text
+this item has repeatedly audited. Baseline taken on a throwaway /tmp scratch
+copy (git archive HEAD, never the tracked tree): node tools/check-jsonld.js
+clean, 177 pages checked. Injected a single-field defect into the scratch
+copy only, changing switch-prescriptions-cherry-lane-walton.html's JSON-LD
+"name" from "Cherry Lane Pharmacy" to "Cherry Lane Pharmacy Chemist" (sha256
+recorded before the edit); the checker caught it immediately, failing with
+the exact field and the exact expected value. Restored the file by direct
+write-back, confirmed sha256-identical to the pre-injection copy, and
+re-ran the checker clean (negative control). Scratch directory deleted.
+git status --porcelain on modules/core/branches.json/gbp-packs/tools/
+compliance in the tracked repo was empty before and after, so the tracked
+tree was never touched. Full suite re-run: 37 of 37 tools/check-*.js exit 0,
+unchanged before and after since nothing in the tracked repo moved. RESULT:
+no in-repo defect, the real switch pages' JSON-LD name is correct and
+unchanged; no question raised. Live side not checked this pass: no live
+browser/Chrome tooling was available in this invocation, so the ninth
+pass's standing live findings (item 5.5/Q13/Q45 CDN-pin block, Q36 mailbox
+typo) stand unclaimed and unchanged, and no live claim is made here.
+Evidence: audits/switch-jsonld-item-5.1-quality-pass-2026-11-21.txt.
 
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
