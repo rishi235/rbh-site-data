@@ -1,0 +1,73 @@
+Item 3.10 (Riddings Pharmacy, Timperley) - quality pass (thirty-fifth), 2026-11-21
+Cowork scheduled run, audit-backlog-worker.
+
+SELECTION: all 3 unchecked AGENT_WORKLIST.md lines confirmed [BLOCKED] (5.8/Q16,
+6.4/Q60, 6.5/Q60). Fell to quality-pass fallback. .rotation_check.js flagged 4.15
+as stalest (2026-11-18) but direct read of 4.15's own section (through to its
+own "Done" entries, not stopping at the next numbered heading) found a
+2026-11-20 entry (twenty-fifth re-verification), confirming the script's known
+next-heading-stop limitation misread it; excluded on that basis, matching the
+pattern diagnosed on prior runs. Real stalest pool at 2026-11-19: {3.10, 3.13,
+4.6, 4.10, 4.13, 4.14, 5.1}. Direct read of 3.10's own section (15179-17168)
+confirmed its true latest date-stamp is 2026-11-19, matching the script this
+time. Tiebreak by lowest item number: 3.10 (Riddings Pharmacy, Timperley) wins.
+
+REPO HALF: full 35-checker suite (excluding check-cdn-pins.js and
+check-live-hours.js per standing network-dependent convention) run clean,
+35/35 exit 0. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, unchanged,
+matching every prior anchor. All 37 checker basenames already proven against
+this item by direct injection across 34 prior passes, so no further
+injection work this pass; this pass's value is in the live half below.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked/typed/
+submitted, closed after each page, confirmed connected and working this run):
+
+1. https://www.riddingspharmacy.co.uk/pharmacy-first-riddings-timperley.html
+   - read in full for the first time at word level (prior passes only checked
+     HTTP 200 status or recorded it as "pre-repaste legacy copy"). Hero,
+     seven-condition grid (with correct NHS age cohorts), FAQ, hours, NAP,
+     footer all match branches.json and the repo-generated page exactly.
+     THIS IS A CHANGE FROM THE STANDING RECORD: the "pre-repaste legacy copy"
+     finding carried since 2026-09-04 is now STALE. The page has since been
+     correctly repasted (consistent with item 5.3's November repaste work).
+     No in-repo defect; the live page is current.
+
+2. https://www.riddingspharmacy.co.uk/weight-loss-clinic-riddings-timperley.html
+   - read in full for the first time. Matches the standard weight-loss
+     template: no medicine named, no superlative or results claim, no
+     "Buy Now" button, pricing shown as "from £39.99" (not headlined),
+     hedging language and exclusion cohorts present throughout, callback
+     form with WhatsApp option present. Clean against the house advertising
+     standard (Regime 1 safe: no drug names at all, so the inner-page
+     exemption question does not even arise). No defect.
+
+3. https://www.riddingspharmacy.co.uk/travel-clinic-riddings-timperley.html
+   - read in full for the first time. Matches the standard travel-clinic
+     template word for word: private/paid stated in the hero, NHS exceptions
+     hedged, no stock guarantee (availability-hedge language present), no
+     vaccine named by brand, 6-8 week booking window, four safety cohorts
+     named, yellow fever listed (still open per Q48, unchanged). No defect.
+
+4. https://www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html
+   - returns HTTP 404. This is a STANDING, ALREADY-TRACKED finding (see
+     AGENT_WORKLIST.md lines ~32923-33871, the Post B canonical repoint work
+     for the Hirshmans switch banner), not new. Confirmed unchanged: the
+     repo generates this page (modules/switch/pages/switch-prescriptions-
+     riddings-timperley.html, Riddings is in build-switch-pages.js CONFIG)
+     but it has never been pasted live. No new question raised; this is
+     already part of the tracked estate-wide repaste/paste backlog.
+
+Standing, reconfirmed, not new: live footer still reads "Timperley / Cheshire"
+against branches.json's addressRegion of Greater Manchester (Q43, open,
+Rishi's answer "Unsure... need advise"). Live page footer also shows two GPhC
+numbers (premises no. 1029520 vs Superintendent's personal GPhC 2039034) -
+neither field exists in branches.json's schema and no checker covers either,
+so this is an observation, not a defect against any tracked rule.
+
+NO IN-REPO DEFECT FOUND. No generator, page, pack, checker or branches.json
+content changed this pass - git status --porcelain -- modules core
+branches.json gbp-packs tools empty throughout. No worklist item unblocked.
+No new question raised (both findings above are already covered by standing
+tracked items: the repaste-currency finding updates the standing record
+positively; the switch-page 404 is the existing Post B/5.3 backlog item).

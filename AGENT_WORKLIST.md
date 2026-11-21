@@ -17164,6 +17164,43 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       repo-wide in-repo defect (the CH1 2AB NARRATIVE_POSTCODES gap) found
       and fixed this run, discovered via this item's own baseline sweep.
       No worklist item unblocked. No new question raised. Done 2026-11-19
+      Quality pass (thirty-fifth) 2026-11-21 (Cowork scheduled run,
+      audit-backlog-worker): picked as the stalest rotation-pool item once
+      4.15's script-flagged date was confirmed stale by direct read (its
+      own section carries a 2026-11-20 entry past the next-heading stop the
+      script misreads from) and excluded; 3.10 wins the tiebreak among the
+      remaining 2026-11-19 pool as the lowest item number. REPO HALF: full
+      35-checker suite re-run clean, 35/35; branches.json sha256 unchanged
+      (0385b7c2...27da), matching every prior anchor. All 37 checkers
+      already proven against this item by direct injection across 34 prior
+      passes, so this pass's effort went into the live half, not a further
+      injection round.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after each page): read three Riddings
+      leaf pages in full for the first time at word level - pharmacy-
+      first-riddings-timperley.html, weight-loss-clinic-riddings-
+      timperley.html and travel-clinic-riddings-timperley.html. All three
+      match branches.json and their repo-generated pages exactly: correct
+      NAP, hours, seven Pharmacy First cohorts, and (for the two private
+      services) no medicine named, no superlative or results claim, no
+      stock guarantee, correct hedging and exclusion cohorts throughout.
+      UPDATES THE STANDING RECORD: the pfLink page was logged since
+      2026-09-04 as "pre-repaste legacy copy" from HTTP-200-only checks;
+      word-level reading now confirms it has since been correctly
+      repasted and is current, consistent with item 5.3's November
+      repaste work. switch-prescriptions-riddings-timperley.html still
+      returns HTTP 404 live - reconfirmed, not new, already tracked as
+      the Post B/item 5.3 switch-paste backlog (AGENT_WORKLIST.md lines
+      ~32923-33871). Standing "Timperley | Cheshire" footer string
+      against branches.json's Greater Manchester (Q43, open) also
+      reconfirmed, unchanged. NO IN-REPO DEFECT FOUND; no generator,
+      page, pack, checker or branches.json content changed - git status
+      --porcelain -- modules core branches.json gbp-packs tools empty
+      throughout. No worklist item unblocked. No new question raised
+      (the repaste-currency finding updates the standing record
+      positively; the switch 404 is the existing tracked backlog item).
+      Evidence in audits/riddings-item-3.10-quality-pass-2026-11-21-
+      thirtyfifth.txt. Done 2026-11-21
 
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
