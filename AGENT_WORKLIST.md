@@ -18534,6 +18534,43 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       Evidence: audits/gordon-short-crosby-item-3.11-quality-pass-2026-
       11-20-thirtieth.txt. Done 2026-11-20.
 
+      Thirty-first quality pass 2026-11-21 (unattended run, audit-backlog-
+      worker). Delegated the read-and-verify work to a general-purpose
+      subagent (full tool access including Claude in Chrome, no git write
+      access); its report independently re-verified by this orchestrating
+      session before committing. FRESH ANGLE: check-seo-sheets.js, confirmed
+      never previously used against item 3.11 by grep (24 of 35 checkers
+      already proven going in). BASELINE: full 35-checker suite (excl.
+      check-cdn-pins.js and check-live-hours.js, both network-dependent)
+      clean on the tracked repo, confirmed before and after the injection
+      work. TWO INJECTIONS PLUS ONE CONTROL, all against a git archive HEAD
+      scratch copy (tracked repo never opened for writing): (1) SEO title
+      drift in the UTI block of modules/service/pages/SEO.md, swapped to
+      another branch's brand/town - caught cleanly by check-seo-sheets.js,
+      naming uti-treatment-gordon-short-crosby; (2) description drift
+      between INDEX.md and SEO.md on the Sore Throat block - caught
+      cleanly, named as INDEX-sheet drift. NEGATIVE CONTROL: Meta Keywords
+      line changed on the UTI block (outside this checker's scope, that
+      field being check-seo-keywords.js's job) - check-seo-sheets.js stayed
+      clean while check-seo-keywords.js caught it independently, confirming
+      no cross-fire. All files restored by byte copy and SHA256-
+      reconfirmed identical; tracked repo confirmed untouched throughout
+      (git status --porcelain -- modules core branches.json gbp-packs
+      tools compliance empty before and after); scratch directory deleted.
+      NO IN-REPO DEFECT FOUND. LIVE (Claude in Chrome, read-only, single
+      tab, nothing clicked/typed/submitted, closed after use): read
+      contraception-gordon-short-crosby.html, a page not freshly sampled
+      in any of the prior 30 passes on this item. Address, phone and
+      opening hours all match branches.json exactly. The page mixes
+      "Gordon Shorts Chemist" (plural, hero/title/booking) with "Gordon
+      Short Chemist" (singular, footer/address block) in the same page -
+      this is the standing, already-tracked Q32 plural-drift finding
+      reconfirmed on a new page, not a new defect. No new question raised;
+      QUESTIONS.json unchanged at 144 total, 6 open (Q139-Q144; portal feed
+      checked, no new answer since 2026-09-01). Evidence: audits/gordon-
+      short-crosby-item-3.11-quality-pass-2026-11-21-thirtyfirst.txt.
+      Done 2026-11-21.
+
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
