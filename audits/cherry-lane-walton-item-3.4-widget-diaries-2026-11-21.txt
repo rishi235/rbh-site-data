@@ -1,0 +1,93 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - quality pass, 2026-11-21
+Fresh angle: tools/check-widget-diaries.js (never named against this item
+across 29 prior passes; last pass's own tally recorded 28 of 37 checkers
+proven, with check-cdn-pins.js and check-live-hours.js the two
+network-dependent exceptions - check-widget-diaries.js was one of the
+remaining 9 untested, confirmed by a direct grep of item 3.4's own section
+for "check-widget-diaries" before starting, 0 hits).
+
+Scope of this checker: it reads branches.json's widgets{} block only (no
+generated page carries an Appointedd id - service.js resolves it at run time
+from branches.json, so a wrong id is invisible on the page itself). It
+guards four things: widget id FORMAT (24 lowercase hex chars), CROSS-BRAND
+collisions (one id held by two different brandKey values), service-key
+CONSISTENCY across the three multi-site brands (shared vs per-site), and
+SHARED-SERVICE mismatches (a shared id held under different service keys by
+its holders).
+
+Cherry Lane (cherrylane_liverpool, brandKey "cherrylane") is a single-site
+brand, so rules 3 and 4 (which are about multi-site brand policy) do not
+apply to it directly; rules 1 and 2 do, and were the two tested.
+
+METHOD: isolated scratch extraction via `git archive HEAD | tar -x` into
+/tmp/scratch34 (outside the connected mount entirely, the standing Q87/Q119
+workaround - the /sessions mount's own non-git-related free space was fine
+this run, 42% used, but the repo-root home directory under
+/sessions/determined-funny-cannon/ itself returned "No space left on
+device" on a plain mkdir, so /tmp was used as established). Tracked repo at
+/sessions/.../mnt/rbh-site-data never opened for writing throughout.
+
+BASELINE: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior pass's own anchor. check-widget-diaries.js clean: "79 widget
+id(s) across 16 live branches, 73 distinct ... 6 id(s) shared between sister
+sites, 0 permitted across brands". Full 35-checker suite (excl.
+check-cdn-pins.js and check-live-hours.js, network-dependent) run
+individually against the scratch copy: 35/35 exit 0.
+
+INJECTION 1 (rule 1, format): Cherry Lane's own pharmacyFirst id
+("66b20ae6609c16953de3e0cf", 24 lowercase hex chars) truncated by one
+character to "66b20ae6609c16953de3e0c" (23 chars). check-widget-diaries.js
+re-run: FAILED correctly, first attempt, naming the exact branch and field -
+`widget id "66b20ae6609c16953de3e0c" (cherrylane_liverpool.pharmacyFirst) is
+not 24 lowercase hex characters`. Restored from a pre-injection backup
+(branches.json.orig, taken by byte copy before any edit); checker re-run
+clean.
+
+INJECTION 2 (rule 2, crossbrand): Cherry Lane's own bloodPressure id
+replaced with scorah_bramhall's bloodPressure id (66b9d3e9d71f677c6d5e6015),
+a genuine live id belonging to a different brandKey (scorahs, not
+cherrylane). check-widget-diaries.js re-run: FAILED correctly, first
+attempt, naming both holders - `widget id "66b9d3e9d71f677c6d5e6015" is held
+by 2 different brands (scorahs/scorah_bramhall.bloodPressure,
+cherrylane/cherrylane_liverpool.bloodPressure). A booking made on one
+brand's page would land in another brand's diary.`
+
+RESTORE: this run's own script aborted (via `set -e`) immediately after the
+injection-2 assertion printed its deliberate non-zero exit, before reaching
+the restore step inside that same command block - caught by a direct sha256
+check straight afterward (06ad22a8... instead of the expected 0385b7c2...),
+so the restore had NOT actually happened yet. Restored properly in a
+follow-up call from the untouched branches.json.orig backup; sha256
+reconfirmed identical to the pre-injection baseline
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+check-widget-diaries.js re-run clean. Noting this here deliberately: the
+near-miss was a `set -e`/restore-ordering mistake in this run's own shell
+script, not a checker defect, and was caught before anything was trusted or
+reported, per standing practice (verify before claiming).
+
+FULL SUITE, FINAL: 35/35 checkers (excl. check-cdn-pins.js,
+check-live-hours.js) re-run individually against the restored scratch copy:
+all exit 0. Tracked repo (the mounted working copy) confirmed untouched
+throughout - branches.json sha256 unchanged, `git status --porcelain` on
+branches.json/tools/modules/core/gbp-packs empty (aside from the standing
+inert .git/index.lock EPERM warning on this mount, unrelated to this work).
+
+RESULT: no in-repo defect found. check-widget-diaries.js is now proven by
+direct injection against item 3.4 (rules 1 and 2); 8 checkers remain on its
+never-tried list for a future pass (check-editor-snapshot.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-page-coverage.js, check-pharmacy-first-cost.js, check-uk-spelling.js,
+check-url-scheme.js, check-weebly-furniture-freshness.js).
+
+LIVE HALF: none performed. check-widget-diaries.js reads branches.json's
+widgets{} block only; no Appointedd id is ever rendered on a live page
+(service.js resolves it at request time), so there is nothing on
+cherrylanepharmacy.co.uk that this checker's own rules could confirm or
+contradict. The standing Q36 footer mailbox typo on Cherry Lane's live pages
+was last reconfirmed by the twenty-ninth pass (2026-11-19) and is unchanged
+by anything in this pass; not re-checked here to avoid a redundant live
+fetch with nothing new to find.
+
+No generator, page, pack or branches.json content changed. No new question
+raised.
