@@ -27899,6 +27899,19 @@ directly rather than re-deriving the same facts by hand.
       twenty-fifth pass; Q113 unchanged). No in-repo defect found, no new
       question. Evidence: audits/mccanns-sandringham-item-4.7-quality-
       pass-2026-11-20-twentyseventh.txt. Done 2026-11-20.
+      Quality pass (Cowork session, first for this item under Cowork rather
+      than the usual Windows harness): full 36-checker suite re-run clean
+      from a native session (all exit 0). branches.json re-checked field by
+      field against the pack and against this item's own prior-pass record -
+      address, phone, review link, both weekday sessions with Sat/Sun
+      closed, seoTown "St Michael's" and the three-town serviceAreaList all
+      still match, nothing drifted. Of the 17 checkers that genuinely read
+      gbp-packs/*.md (checked by grepping each file's source, not by comment
+      mentions), all have already been proven against this pack by earlier
+      passes, so no untested checker-injection angle remains here. Took the
+      live angle instead: pharmacy-mccanns-sandringham.html still returns
+      404 - Page Not Found, unchanged from the state recorded under Q35 on
+      2026-08-11/12. No in-repo defect found, no new question.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
