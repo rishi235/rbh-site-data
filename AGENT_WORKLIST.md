@@ -5404,6 +5404,68 @@ section present at the top of AGENT_LOG.md, so step 4 did not apply. No new
 question raised; no generator, page, pack, checker or branches.json content
 changed. Item 3.2 stays [x] (quality pass, not a state change). Evidence in
 audits/scorah-item-3.2-quality-pass-2026-11-19-twentyseventh.txt.
+
+Quality pass 2026-11-21 (twenty-eighth, REAL DEFECT FOUND AND FIXED, in the
+checker, not in any page): fresh angle not tried in 27 prior passes -
+check-contraception-copy.js's own RULE 3 against the Bramhall/Hazel Grove
+pair specifically, since both branches hold a live contraception widget and
+their shared brand makes a cross-branch town swap the exact shape item 3.2
+exists to catch. On a /tmp scratch copy of the tracked tree (git archive
+HEAD, confirmed byte-identical to the tracked branches.json and to
+contraception-scorah-bramhall.html by sha256 before any edit; the tracked
+repo was never opened for writing during the test), changed "Bramhall" to
+"Hazel Grove" in exactly two places on contraception-scorah-bramhall.html:
+the hero pill ("Free NHS service in Bramhall") and the hero-sub paragraph
+("Scorah Chemists offers the NHS Pharmacy Contraception Service in
+Bramhall..."). Every other fact on the same page - title, H1, SEO
+description, JSON-LD name/address, the contact card, the map iframe, the
+data-branch attribute, and the one hero bullet that IS an <li> ("Seen
+privately by your local Bramhall team") - was left untouched and still
+correctly read Bramhall. Ran the full 37-file tools/check-*.js suite
+against the injected scratch tree: 36 of 37 passed clean, including
+check-contraception-copy.js itself (the sole non-pass was check-cdn-pins.js,
+the standing git-archive-scratch artefact unrelated to this injection, per
+every prior pass's own convention of excluding it from a scratch-copy
+count). So a Bramhall patient could be told, in the page's own hero section,
+that the service is "in Hazel Grove", while every other checker in the
+estate - including the one whose entire job is this generator's copy -
+stayed green.
+
+ROOT CAUSE: check-contraception-copy.js's RULE 3 builds its set of
+per-branch-resolved lines from four collectors only - every <li>, every
+<div class="answer">, every <summary> and every stepText <h3><p> pair. The
+hero pill (<span class="pill">), the hero-sub paragraph
+(<p class="hero-sub">), the trust-bar "Local <town> team" line
+(<strong>Local...team</strong>) and the callback form's sub-line
+(<p class="form-sub">) all splice store.town exactly the same way a covered
+<li> does, in tools/build-contraception-pages.js, but none of the four is an
+<li>, an answer <div> or a stepText <p>, so none was ever collected. No
+other checker in the 37-file suite reads this generator's hero copy at all
+(check-seo-pattern.js's absence rule covers only title/H1/description, not
+body copy), so the gap was total, not partial - the same "presence rule
+reads the wrong lines" shape CLAUDE.md names for the map iframe, the H1
+collision rule and the meta-keywords sheets.
+
+FIX: added heroPill, heroSub, formSub and trustTeam collectors to
+check-contraception-copy.js (same collect() helper, same SPLICE/resolveFor
+per-branch resolution the four existing collectors already use) and folded
+all four into copyLines alongside bullets/answers/stepText, so RULE 3 now
+checks them exactly as it checks every <li>. Re-ran the injection against
+the updated checker on the same scratch tree: FAILED correctly, naming both
+injected lines and the branch. Restored the scratch page from its
+pre-injection backup, re-confirmed byte-identical by sha256, re-ran clean
+(exit 0). Copied the fixed checker onto the tracked tree (the ONLY file
+changed there - no generator, no generated page and no branches.json
+touched, consistent with CLAUDE.md's rule that pages are generated and this
+is a verification-coverage fix, not a content change): check-contraception-copy.js
+alone now reports 26 lines of service copy pinned (up from 22) and OK, and
+the full 37-checker suite re-run directly against the tracked tree is
+37/37 clean. branches.json sha256 (0385b7c2...27da) reconfirmed unchanged.
+No live half performed (the defect and the fix are both about what the
+generator and the checker agree on, not about a live page). Guard coverage
+for item 3.2: check-contraception-copy.js's RULE 3 now covers all copy
+lines the generator writes for this branch pair, not only the four tag
+shapes it started with. Evidence: audits/scorah-item-3.2-rule3-hero-copy-gap-2026-11-21.txt.
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

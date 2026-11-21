@@ -1,0 +1,56 @@
+Item 3.2 quality pass, 2026-11-21 - check-contraception-copy.js RULE 3 hero-copy gap
+=====================================================================================
+
+SETUP
+- Scratch copy: /tmp/rbh_scratch32_run, created via `git archive HEAD | tar -x`.
+  (The mounted /sessions volume was at 100% disk use this run, which silently
+  truncated an earlier attempt at the same extraction under
+  /sessions/.../tmp - matches the exact failure mode prior runs logged. Used
+  /tmp, outside the mount, instead, as prior runs have also had to.)
+- Confirmed byte-identical to tracked tree before any edit:
+    branches.json sha256:      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (both)
+    contraception-scorah-bramhall.html sha256: db3329e463d5a0a64e7aaf9b3567b3af44d3b68c6f98920066bd997fb81a43b3 (both)
+
+BASELINE (scratch, unmodified, OLD checker)
+  exit 0, "OK - no failures"
+
+INJECTION (scratch only, OLD checker)
+  sed -i 's/Free NHS service in Bramhall/Free NHS service in Hazel Grove/' contraception-scorah-bramhall.html
+  sed -i 's/Scorah Chemists offers the NHS Pharmacy Contraception Service in Bramhall/.../ in Hazel Grove/' (same file)
+  Full 37-file tools/check-*.js suite run against the injected scratch tree:
+    36/37 exit 0. Sole failure: check-cdn-pins.js (known git-archive-scratch
+    artefact, unrelated - excluded by every prior pass's own convention).
+    check-contraception-copy.js: exit 0 (missed it).
+    check-seo-pattern.js, check-nap.js, check-jsonld.js, check-map-embeds.js,
+    check-branch-identity.js: all exit 0 (none of them reads hero body copy).
+
+ROOT CAUSE
+  check-contraception-copy.js RULE 3 collects service copy from four tag
+  shapes only: <li>, <div class="answer">, <summary>, and stepText
+  (<h3>...</h3><p>...</p>). The hero pill (<span class="pill">), the
+  hero-sub paragraph (<p class="hero-sub">), the trust-bar "Local <town>
+  team" line, and the callback form's sub-line all splice store.town via
+  the same `' + esc(store.town) + '` pattern a covered <li> uses, but match
+  none of the four collected shapes, so none was ever read.
+
+FIX
+  Added heroPill/heroSub/formSub/trustTeam collectors using the same
+  collect() + SPLICE/resolveFor machinery already in the file, folded into
+  copyLines so RULE 3 checks them like any other line.
+
+RE-TEST (scratch, NEW checker)
+  Re-ran the same two-line injection: FAILED correctly -
+    [verbatim] ...does not carry the generator line "Free NHS service in Bramhall"...
+    [verbatim] ...does not carry the generator line "Scorah Chemists offers
+      the NHS Pharmacy Contraception Service in Bramhall..."
+  Restored from pre-injection backup, sha256 re-confirmed identical, re-ran:
+  exit 0, clean.
+
+APPLIED TO TRACKED TREE
+  Only tools/check-contraception-copy.js changed (no generator, no generated
+  page, no branches.json). check-contraception-copy.js alone: 26 lines of
+  service copy pinned (was 22), OK, exit 0.
+  Full 37-file suite against tracked tree: 37/37 exit 0.
+  branches.json sha256 reconfirmed unchanged: 0385b7c2...27da.
+  `git status --porcelain branches.json modules/` empty aside from the one
+  checker file.

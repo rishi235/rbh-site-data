@@ -53,12 +53,16 @@
     - RULE 3, verbatim: every static line of service copy in the generator
       appears on every page, word for word. Lines carrying the brand or the
       town are compared after substituting that branch's own values, so a page
-      cannot borrow another branch's town inside a sentence either. Read
-      against the CRAWLABLE text, not the raw source: from the item 3.8
-      quality pass on 2026-08-14, copy that survives only inside a <script> or
-      an HTML comment counts as absent, per Build Pack v2 section 5.1. A guard
-      fails the run if the stripper stops removing anything or starts removing
-      the body.
+      cannot borrow another branch's town inside a sentence either. This now
+      covers the hero pill, the hero-sub paragraph, the trust-bar "local team"
+      line and the callback form's sub-line as well as every <li>, FAQ answer
+      and stepText <p> - found missing on the item 3.2 quality pass, 2026-11-21,
+      when swapping Bramhall for Hazel Grove in the first two of those four
+      passed all 37 checkers including this one. Read against the CRAWLABLE
+      text, not the raw source: from the item 3.8 quality pass on 2026-08-14,
+      copy that survives only inside a <script> or an HTML comment counts as
+      absent, per Build Pack v2 section 5.1. A guard fails the run if the
+      stripper stops removing anything or starts removing the body.
     - RULE 4, service name: every page names the service by its NHS name,
       "NHS Pharmacy Contraception Service". A page naming it anything else
       fails.
@@ -151,6 +155,25 @@ var answers = collect(/<div class="answer">([\s\S]*?)<\/div>/g);
 var summaries = collect(/<summary>([\s\S]*?)<\/summary>/g);
 var stepText = collect(/<h3>[^<]*<\/h3><p>([\s\S]*?)<\/p>/g);
 
+// The hero pill, hero-sub paragraph, trust-bar "local team" line and the
+// callback form's sub-line all splice store.town the same way a bullet does,
+// but none of them is an <li>, an answer <div> or a stepText <p>, so none of
+// the four collectors above ever saw them. Found on the item 3.2 quality pass
+// (run against the Scorah Bramhall / Hazel Grove pair) by injection: swapping
+// "Bramhall" for "Hazel Grove" in the hero pill and hero-sub on
+// contraception-scorah-bramhall.html's crawlable text, with every other field
+// on the page (title, H1, SEO description, JSON-LD, map, contact card,
+// data-branch, and the one hero bullet that IS an <li>) left correctly
+// reading Bramhall, passed all 37 checkers in the repo, this one included -
+// the exact "presence rule reads the wrong lines" shape CLAUDE.md names
+// repeatedly. Added to RULE 3's own resolve-and-compare so a town swapped
+// into any of these four lines fails the same way a swapped bullet already
+// did, rather than opening a new rule.
+var heroPill = collect(/<span class="pill">([\s\S]*?)<\/span>/g);
+var heroSub = collect(/<p class="hero-sub">([\s\S]*?)<\/p>/g);
+var formSub = collect(/<p class="form-sub">([\s\S]*?)<\/p>/g);
+var trustTeam = collect(/<strong>(Local[\s\S]*?team)<\/strong>/g);
+
 // Rule 1: the parser found the copy it exists to guard. These counts are floors,
 // not fingerprints: adding copy is fine, losing the ability to see it is not.
 if (bullets.length < 10) {
@@ -188,7 +211,7 @@ function resolveFor(s, branch) {
   });
 }
 
-var copyLines = bullets.concat(answers, stepText);
+var copyLines = bullets.concat(answers, stepText, heroPill, heroSub, formSub, trustTeam);
 
 // ---------------------------------------------------------------------------
 // Which branches the generator builds, read from its own BUILD list so this
