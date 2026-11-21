@@ -1,0 +1,258 @@
+Item 2.3 quality pass - Cherry Lane Pharmacy (Walton) - checker proven: tools/check-seo-sheets.js
+Date: 2026-11-21
+Branch: agents/audit-backlog
+Branch id under test: cherrylane_liverpool
+
+PURPOSE
+-------
+Item 2.3's running discipline is: one quality pass per run, prove ONE
+previously-untried checker against Cherry Lane by direct fault injection,
+confirm the repo stays clean, and (where useful) re-read a live Cherry Lane
+page read-only. As of the 2026-11-20 pass, 22 of 35 live checkers had been
+proven against this branch; 14 remained untried (excluding check-live-hours.js
+and check-cdn-pins.js, both network-dependent and excluded from the baseline
+suite by standing convention):
+
+  check-app-membership.js, check-editor-snapshot.js, check-fragment-targets.js,
+  check-gbp-pharmacy-first.js, check-live-hours.js, check-opening-hours.js,
+  check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+  check-seo-keywords.js, check-seo-sheets.js, check-service-links.js,
+  check-weebly-furniture-freshness.js, check-weight-loss-copy.js,
+  check-widget-diaries.js
+
+This pass picks tools/check-seo-sheets.js. It is file-based (reads the
+*-SEO.md and *INDEX.md paste sheets plus the generated HTML pages, no network),
+and Cherry Lane owns entries in exactly the sheets it discovers
+(modules/service/pages/SEO.md, modules/service/pages/INDEX.md,
+modules/switch/pages/SEO.md, modules/switch/pages/INDEX.md, and the
+contraception/weight-loss/travel-clinic SEO and INDEX sheets for its other
+pages), so it is a clean, specific fit.
+
+WHAT THE CHECKER DOES (read from tools/check-seo-sheets.js)
+------------------------------------------------------------
+It discovers every *.md file in modules/service/pages, modules/switch/pages
+and modules/branch/pages, parses each into blocks keyed by permalink (the
+"SEO" dialect: Page Title / Page Permalink / Page Description) or by slug
+(the "INDEX" dialect: SEO title / Page slug / URL / SEO description), then
+walks every generated .html page in those three folders and compares:
+  - the page's own "Weebly page SEO title" / "Weebly page SEO description"
+    head-comment lines against the matching *-SEO.md sheet entry (title
+    drift / description drift),
+  - the same two page lines against the matching *INDEX.md sheet entry,
+    where a row exists,
+  - coverage both ways (a page with no sheet entry fails; a sheet entry
+    with no matching page fails).
+It does NOT read the Meta Keywords line (that belongs to check-seo-keywords.js)
+and does NOT read the H1 (that belongs to check-seo-lengths.js rule 3's
+sibling work) - this pass's negative control exploits exactly that boundary.
+
+STEP 1 - BASELINE (tracked repo, full suite)
+---------------------------------------------
+git status --porcelain -- modules core branches.json gbp-packs tools compliance
+  => empty (clean) before any work.
+
+Ran every tools/check-*.js except check-cdn-pins.js and check-live-hours.js
+(35 checkers) directly against the tracked working tree:
+
+  check-address-region.js => exit 0
+  check-app-membership.js => exit 0
+  check-booking-routes.js => exit 0
+  check-branch-identity.js => exit 0
+  check-branch-links.js => exit 0
+  check-brand-spelling.js => exit 0
+  check-contraception-copy.js => exit 0
+  check-editor-snapshot.js => exit 0
+  check-em-dashes.js => exit 0
+  check-fragment-targets.js => exit 0
+  check-gbp-packs.js => exit 0
+  check-gbp-pharmacy-first.js => exit 0
+  check-jsonld.js => exit 0
+  check-map-embeds.js => exit 0
+  check-nap.js => exit 0
+  check-opening-hours.js => exit 0
+  check-page-coverage.js => exit 0
+  check-pharmacy-first-cost.js => exit 0
+  check-pharmacy-first-eligibility.js => exit 0
+  check-pharmacy-first-safety-net.js => exit 0
+  check-pharmacy-first-symptoms.js => exit 0
+  check-postcodes.js => exit 0
+  check-seo-keywords.js => exit 0
+  check-seo-lengths.js => exit 0
+  check-seo-pattern.js => exit 0
+  check-seo-sheets.js => exit 0
+  check-service-links.js => exit 0
+  check-switch-copy.js => exit 0
+  check-travel-clinic-copy.js => exit 0
+  check-uk-spelling.js => exit 0
+  check-url-scheme.js => exit 0
+  check-weebly-furniture-freshness.js => exit 0
+  check-weight-loss-copy.js => exit 0
+  check-whatsapp-route.js => exit 0
+  check-widget-diaries.js => exit 0
+
+35/35 exit 0. (Note: the prior pass's standing CH1 2AB narrative-postcode
+baseline in check-postcodes.js did not recur as a non-zero exit here; it is
+a WARN-class line inside an otherwise clean run, not scope for this pass.)
+
+STEP 2 - SCRATCH COPY
+----------------------
+  SCRATCH=/tmp/cl-scratch-2
+  git archive HEAD | tar -x -C "$SCRATCH"
+
+Confirmed byte-identical to tracked tree before any edit:
+  sha256sum modules/service/pages/SEO.md   (tracked)  = 2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+  sha256sum $SCRATCH/modules/service/pages/SEO.md      = 2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+  sha256sum modules/service/pages/earache-treatment-cherry-lane-walton.html (tracked) = c83afff16a5becd3330d381862b9d2b5ab474efdbe293622fb90e6e4c7cdcd05
+  sha256sum $SCRATCH/.../earache-treatment-cherry-lane-walton.html           = c83afff16a5becd3330d381862b9d2b5ab474efdbe293622fb90e6e4c7cdcd05
+  Match. No edit made to the tracked tree at any point in this pass.
+
+STEP 3 - INJECTION CASE 1: SEO.md description drift
+-----------------------------------------------------
+Target: modules/service/pages/SEO.md, the Cherry Lane Pharmacy - Walton -
+Earache block's Page Description line.
+
+Original:
+  "Earache treatment for children aged 1 to 17 at Cherry Lane Pharmacy in
+   Walton. Free NHS service, assessed by a pharmacist, no GP appointment
+   needed."
+
+Injected (scratch copy only):
+  "Earache treatment for children aged 1 to 17 at Cherry Lane Pharmacy. Free
+   NHS service in Walton, assessed by a pharmacist, no GP appointment
+   needed, book today."
+
+Ran node tools/check-seo-sheets.js against the scratch copy:
+
+  FAIL earache-treatment-cherry-lane-walton: description drift
+         page  : Earache treatment for children aged 1 to 17 at Cherry Lane
+                 Pharmacy in Walton. Free NHS service, assessed by a
+                 pharmacist, no GP appointment needed.
+         sheet : Earache treatment for children aged 1 to 17 at Cherry Lane
+                 Pharmacy. Free NHS service in Walton, assessed by a
+                 pharmacist, no GP appointment needed, book today.
+                 (modules/service/pages/SEO.md)
+  check-seo-sheets: 1 failure(s).
+
+Caught cleanly, naming the exact Cherry Lane slug and quoting both the live
+page string and the sheet string so the drift is self-evident.
+
+RESTORE 1: copied the tracked SEO.md back over the scratch copy. sha256
+reconfirmed identical to the pre-injection hash (2d04b0440e976254...). Re-ran
+check-seo-sheets.js against the scratch copy: clean again ("every page and
+its paste sheet agree").
+
+STEP 4 - INJECTION CASE 2: INDEX.md title drift (the second dialect)
+-----------------------------------------------------------------------
+Target: modules/service/pages/INDEX.md, the Cherry Lane Pharmacy - Walton -
+Earache block's "SEO title" line (the INDEX dialect is a separate parse path
+and a separate comparison rule from the SEO.md dialect exercised in case 1,
+so this proves a second code path, not a repeat of the first).
+
+Original:
+  "Earache treatment in Walton - Cherry Lane Pharmacy"
+
+Injected (scratch copy only):
+  "Earache treatment in Walton - Coleman and Leighs Pharmacy"
+  (another live branch's brand, on Cherry Lane's own slug - the exact shape
+  the checker's own header comment describes as its reason for existing)
+
+Ran node tools/check-seo-sheets.js against the scratch copy:
+
+  FAIL earache-treatment-cherry-lane-walton: title drift against the INDEX
+       sheet
+         page  : Earache treatment in Walton - Cherry Lane Pharmacy
+         index : Earache treatment in Walton - Coleman and Leighs Pharmacy
+                 (modules/service/pages/INDEX.md)
+  check-seo-sheets: 1 failure(s).
+
+Caught cleanly, again naming the exact slug, and surfacing the cross-branch
+brand confusion explicitly.
+
+RESTORE 2: copied the tracked INDEX.md back over the scratch copy. sha256
+reconfirmed identical to the pre-injection hash
+(54f6036728286e8f9bd3280cb2e05f88dd71efa5c1ef42200f2cd94435ba08b0). Re-ran
+check-seo-sheets.js against the scratch copy: clean again.
+
+STEP 5 - NEGATIVE CONTROL
+---------------------------
+Target: the same SEO.md Cherry Lane earache block's Meta Keywords line,
+which check-seo-sheets.js is NOT designed to read (that line belongs to
+check-seo-keywords.js).
+
+Injected (scratch copy only): appended ", Cherry Lane Pharmacy Walton
+earache NHS" to the Meta Keywords value.
+
+Ran node tools/check-seo-sheets.js against the scratch copy: clean
+("every page and its paste sheet agree") - correctly did NOT fire, because
+the checker never reads that line.
+
+For contrast, ran node tools/check-seo-keywords.js (a different checker,
+not under test this pass) against the same scratch copy: also clean,
+confirming the injected keyword addition did not itself break any rule
+there either (it still carries the branch's own seoTown/brand and no
+cross-branch token), so the control isolates exactly the boundary intended
+- check-seo-sheets.js's silence here is "correctly out of scope", not "failed
+to look".
+
+RESTORE 3: copied the tracked SEO.md back over the scratch copy a second
+time (SEO.md had been touched twice this pass - case 1's injection, restored,
+then the negative control's injection). sha256 reconfirmed identical to the
+baseline hash (2d04b0440e976254...). Re-ran check-seo-sheets.js: clean.
+
+STEP 6 - CLEANUP AND FINAL VERIFICATION
+------------------------------------------
+rm -rf "$SCRATCH" - scratch directory deleted.
+
+Re-ran the full 35-checker suite directly against the TRACKED repo tree one
+more time after cleanup: 35/35 exit 0.
+
+git status --porcelain -- modules core branches.json gbp-packs tools compliance
+  => empty, both immediately before this pass's work and immediately after.
+No file in the tracked tree was ever opened for writing during this pass.
+
+STEP 7 - LIVE READ (Claude in Chrome, read-only)
+---------------------------------------------------
+Navigated (single tab, nothing clicked, nothing typed, nothing submitted) to:
+  https://www.cherrylanepharmacy.co.uk/earache-treatment-cherry-lane-walton.html
+  (the same page this pass's injection targeted, and an angle - the earache
+  page specifically, rather than the branch's home/footer repeatedly read in
+  prior passes - not read in the last several quality passes on this item)
+
+get_page_text returned:
+  Title: "Earache treatment in Walton - Cherry Lane Pharmacy"
+    - matches modules/service/pages/SEO.md and INDEX.md exactly, confirming
+      the sheet/page agreement this checker guards is also true live.
+  Phone: 0151 226 2051, Address: 202 Cherry Lane, Liverpool, L4 8SG - match
+    branches.json exactly.
+  Hours line: "Open Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun closed" - matches
+    branches.json's openingHours specification exactly (single session each
+    weekday block and Saturday, Sunday closed).
+  Footer email: "pharmacy.FA226@mhs.net" - still the STANDING Q36 typo
+    (should be @nhs.net), unchanged from every prior pass that has read this
+    branch's footer. Not a new finding; not re-raised as a new question.
+
+Tab closed after the read. No new live or in-repo defect found.
+
+RESULT
+-------
+tools/check-seo-sheets.js proven against cherrylane_liverpool for the first
+time across two independent injection cases (the SEO.md dialect and the
+INDEX.md dialect), both caught cleanly and both restored with byte-for-byte
+sha256 reconfirmation. One negative control confirmed the checker's scope
+boundary (Meta Keywords) is respected rather than coincidentally silent.
+Full 35-checker suite clean before and after. git status on the tracked
+paths empty throughout. No in-repo defect found; no generator, page, sheet,
+branches.json or checker content changed. No new live finding beyond the
+standing, already-tracked Q36 email typo.
+
+Guard coverage for item 2.3: 23 of 35 live checkers now proven by direct
+injection against this branch (up from 22). 13 remain untried:
+check-app-membership.js, check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-opening-hours.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+check-service-links.js, check-weebly-furniture-freshness.js,
+check-weight-loss-copy.js, check-widget-diaries.js (check-live-hours.js and
+check-cdn-pins.js remain excluded by standing convention).
+
+QUESTIONS.json unchanged (still at 145 entries as of this pass's read); no
+new question raised.

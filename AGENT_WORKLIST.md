@@ -3333,6 +3333,35 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       QUESTIONS.json unchanged. Full detail in audits/cherry-lane-walton-
       item-2.3-address-region-2026-11-20.txt.]
 
+      [Quality pass, 2026-11-21: fresh angle tools/check-seo-sheets.js, proven by
+      direct injection against cherrylane_liverpool for the first time (one of the
+      14 checkers never previously named against this item). Baseline: full
+      35-checker suite run directly against the tracked tree, 35/35 exit 0. Scratch
+      copy via git archive, sha256-confirmed byte-identical to the tracked files
+      before any edit; tracked repo never opened for writing. Two injection cases,
+      each restored and sha256-reconfirmed after: (1) a description drift in the
+      Cherry Lane Pharmacy - Walton - Earache block of modules/service/pages/SEO.md
+      - caught cleanly, naming earache-treatment-cherry-lane-walton and quoting
+      both the page and sheet strings; (2) a title drift in the same block's entry
+      in modules/service/pages/INDEX.md, the separate INDEX-dialect code path,
+      swapped to another live branch's brand name ("Coleman and Leighs Pharmacy")
+      - caught cleanly, same slug named. A negative control (appending text to the
+      block's Meta Keywords line, which this checker does not read) ran clean,
+      confirming the checker's silence there is deliberate scope rather than a
+      blind spot. Full 35-checker suite re-run directly against the tracked tree
+      afterwards: 35/35 exit 0. git status --porcelain on modules/, core/,
+      branches.json, gbp-packs/, tools/ and compliance/ empty before and after.
+      Live half: cherrylanepharmacy.co.uk's earache-treatment page re-read
+      read-only (Claude in Chrome, single tab, nothing clicked or typed) - an
+      angle not covered by the last several passes. Title, phone, address and
+      hours all match branches.json and the paste sheets exactly; footer still
+      carries the standing Q36 "mhs.net" typo, unchanged, not re-raised. No
+      in-repo defect found; no generator, page, sheet, branches.json or checker
+      content changed. Guard coverage for item 2.3 now 23 of 35 live checkers
+      proven by direct injection (up from 22). QUESTIONS.json unchanged, still no
+      new question raised. Full detail in audits/cherry-lane-walton-item-2.3-seo-
+      sheets-2026-11-21.txt.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta
