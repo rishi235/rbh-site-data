@@ -1,0 +1,79 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - quality pass twenty-ninth
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-21
+Fresh angle: tools/check-contraception-copy.js RULE 3's hero/trust/form collectors
+(heroPill, heroSub, formSub, trustTeam), added in the immediately prior run (item
+3.2 twenty-eighth pass) to close a gap found on the Scorah Bramhall/Hazel Grove
+pair. That fix has so far only been proven against Scorah. This pass proves it
+generalises to a second shared-domain, two-widget pair (Fishlocks Ainsdale and
+Eccleston both carry their own contraception widget per branches.json), which
+none of the prior 28 passes on item 3.3 had tested, since check-contraception-copy.js
+itself had never been named against this item (0 mentions across the item's own
+section before this run).
+
+BASELINE
+Full tools/check-*.js suite (35 files) run individually against the tracked repo:
+all exit 0, zero failures. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching every
+prior pass's recorded anchor.
+
+SCRATCH SETUP
+git archive HEAD | tar -x into /tmp/scratch33 (tracked repo never opened for
+writing). Confirmed byte-identical to the tracked tree before any edit:
+  branches.json: 0385b7c2...27da (both)
+  modules/service/pages/contraception-fishlocks-ainsdale.html: 4c6133bf...8c64d (both)
+
+INJECTION (hero pill + hero-sub on the Ainsdale page, trust-bar and form-sub left
+untouched)
+  <span class="pill">Free NHS service in Ainsdale</span>
+    -> <span class="pill">Free NHS service in Eccleston</span>
+  "Fishlocks Chemist offers the NHS Pharmacy Contraception Service in Ainsdale."
+    -> "...in Eccleston."
+Re-ran check-contraception-copy.js on the scratch tree: FAIL, 2 problems, both
+correctly naming the exact injected strings and the correct file
+(contraception-fishlocks-ainsdale.html), with the message "does not carry the
+generator line ... Either the page is a stale build or it has been hand-edited."
+Caught on first attempt.
+
+NEGATIVE CONTROL
+Rotated the order of all five FAQ <details> lines on the SISTER page
+(contraception-fishlocks-eccleston.html), same five lines, same content, no
+edit to any hero/trust/form line. Re-ran the checker on the scratch tree (with
+the Ainsdale injection still in place): same two failures, identical message,
+nothing new raised against the Eccleston page. Confirms RULE 3 is genuine
+set-membership on these lines, not order- or branch-sensitive, so a legitimate
+content reshuffle on one branch does not trip a false positive tied to an
+unrelated injection on its sister.
+
+RESTORE
+Both files restored from pre-injection backups. sha256 reconfirmed identical to
+the tracked tree for both:
+  contraception-fishlocks-ainsdale.html: 4c6133bf...8c64d
+  contraception-fishlocks-eccleston.html: e5c4e410...852fa
+Re-ran check-contraception-copy.js on the restored scratch tree: OK, no failures
+(1 accepted KNOWN breach, the standing safeguarding::no-under-16-step entry,
+unchanged from baseline).
+
+TRACKED TREE CONFIRMATION
+`git status --porcelain modules/ tools/ branches.json core/ gbp-packs/` empty.
+branches.json sha256 reconfirmed 0385b7c2...27da. Full 35-file check-*.js suite
+re-run directly against the tracked tree: all exit 0.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked/typed/submitted,
+closed after use)
+Read https://www.fishlockpharmacy.co.uk/contraception-fishlocks-ainsdale.html
+live. All four town-bearing lines match the generator and the restored page
+exactly: hero pill "Free NHS service in Ainsdale", hero-sub naming Ainsdale,
+trust-bar "Local Ainsdale team", callback form-sub "our Ainsdale team will call
+you back". Footer carries both branches' own addresses, phones and opening
+hours correctly with no cross-branch mix-up. No new defect found live.
+
+ANSWER PICKUP (step 3)
+Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome, read-only,
+single tab, closed after use. Newest "Audit answer" entry on the feed is still
+Q52 (2026-09-01). No entry present for Q139-Q143; all five remain open and
+unchanged.
+
+RESULT
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Guard coverage for item 3.3 now
+extends to 33 of 35 checkers proven by direct injection against this branch
+pair (check-contraception-copy.js newly added to that list this pass).

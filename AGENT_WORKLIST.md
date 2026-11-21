@@ -6526,6 +6526,40 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       to 32 of 37 checkers proven by direct injection. QUESTIONS.json
       reconfirmed via Node: 141 total, 2 open (Q139, Q140), unchanged.
       Done 2026-11-19.
+
+      QUALITY PASS (29th), 2026-11-21 (Cowork scheduled run): fresh angle
+      tools/check-contraception-copy.js, never named against this item across
+      the prior 28 passes (0 mentions) although both Fishlocks branches hold
+      their own contraception widget in branches.json. The checker's RULE 3
+      hero/trust/form collectors (heroPill, heroSub, formSub, trustTeam) were
+      added in the immediately prior run (item 3.2's 28th pass) to close a
+      gap found on Scorah; this pass proves the fix generalises to a second
+      shared-domain pair rather than being Scorah-specific. Baseline: full
+      35-file tools/check-*.js suite clean on the tracked repo; branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. Scratch copy (`git archive HEAD`, tracked repo never
+      touched), sha256-confirmed identical before editing. INJECTION: swapped
+      "Ainsdale" for "Eccleston" in the hero pill and hero-sub paragraph only
+      on contraception-fishlocks-ainsdale.html, trust-bar and form-sub left
+      untouched - CAUGHT first attempt, both lines correctly named. NEGATIVE
+      CONTROL: rotated the order of all five FAQ pairs on the sister page
+      (contraception-fishlocks-eccleston.html), no content change - same two
+      failures as the injection, nothing new raised, confirming genuine
+      set-membership rather than order-sensitivity. Restored both files,
+      sha256 reconfirmed identical to tracked; checker re-run clean. Tracked
+      tree reconfirmed unchanged (`git status --porcelain` empty, sha256
+      match); full 35-checker suite re-run clean. LIVE HALF (Claude in
+      Chrome, read-only, one tab, closed after use): read
+      contraception-fishlocks-ainsdale.html live on fishlockpharmacy.co.uk -
+      hero pill, hero-sub, trust-bar and form-sub all name Ainsdale correctly,
+      footer carries both branches' own details with no cross-branch mix-up.
+      Answer pickup (step 3): newest feed entry still Q52 (2026-09-01); no
+      answer for Q139-Q143, all five remain open. NO IN-REPO DEFECT FOUND, NO
+      NEW QUESTION RAISED. Item 3.3 stays `[x]` (quality pass, not a state
+      change). Guard coverage for this item now extends to 33 of 35 checkers
+      proven by direct injection. Evidence in
+      audits/fishlocks-ainsdale-eccleston-item-3.3-contraception-hero-collectors-2026-11-21.txt.
+      Done 2026-11-21.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
