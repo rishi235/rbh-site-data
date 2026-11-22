@@ -14,6 +14,8 @@ WORKLIST TICK (step 7): item 2.3 appended with this pass's paragraph, in place w
 
 QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
 
+HOUSEKEEPING: a fresh `.git/index.lock` blocked `git commit` from the bash sandbox mount with "Operation not permitted" on removal - the standing EPERM-on-unlink quirk many prior runs have logged. Switched to `mcp__Windows-MCP__PowerShell` against the native host path `C:\Dev\rbh-site-data`: removed the lock, committed (`70f1d82`), confirmed push landed on `origin/agents/audit-backlog`, ran `tools/build-audit-status.js` (published, 47/48 done, 98%), and deleted `.agent-lock` cleanly, all from the native session.
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T03:42Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp. No stale `.git/index.lock` found at pickup (one later appeared transiently from this run's own `git status` calls, self-resolving, the standing sandbox quirk prior runs have logged - no git process was running and it never blocked a read or write this run).
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date" (commit matching item 6.2's twenty-third pass from the immediately preceding run).
