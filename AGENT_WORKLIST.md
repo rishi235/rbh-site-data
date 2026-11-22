@@ -1963,6 +1963,37 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       Evidence:
       audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-22-thirtyfirst.txt.
       Done 2026-11-22.
+      Quality pass 2026-11-22 (thirty-second): baseline (branches.json sha256,
+      full 35-checker suite, check-cdn-pins.js specifically) confirmed
+      unchanged and clean. Fresh angle tools/check-service-links.js, never
+      previously named against this item across 31 prior passes. On a scratch
+      copy only (git archive HEAD to /tmp, tracked repo never opened for
+      writing), injected a cross-host link into
+      travel-clinic-fishlocks-ainsdale.html pointing at
+      www.fishlockpharmacy.co.uk/weight-loss-clinic-smartts-bootle.html (a
+      page this repo generates, but for a different branch's domain) - FAILED
+      cleanly, 1 FAIL naming the exact file, the wrong host and the correct
+      generating host. Restored byte-identical (sha256-reconfirmed); negative
+      control (cosmetic HTML comment, no link, no data) stayed clean. Full
+      35-checker suite re-run on the scratch copy: 34/35 clean, with
+      check-cdn-pins.js failing there only because a bare `git archive`
+      extraction has no .git history to resolve its pinned refs against (a
+      test-method artefact, not a defect) - re-run directly against the
+      tracked repo immediately afterwards, clean with the same 2 pre-existing
+      WARNs and 6 KNOWN entries as baseline. Tracked repo confirmed untouched
+      throughout (branches.json and the target page both sha256-unchanged;
+      git status --porcelain shows no tracked changes). No defect found in
+      check-service-links.js or branches.json for this branch. Live check
+      (Claude in Chrome, read-only, one tab, closed after use):
+      pharmacy-fishlocks-ainsdale.html reconfirmed still a live 404; Q35
+      unchanged. No new question raised. Item 2.1 stays [x] (quality pass,
+      not a state change). Checkers remaining never-named against this item
+      (8): check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-uk-spelling.js,
+      check-url-scheme.js, check-widget-diaries.js. Evidence:
+      audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-22-thirtysecond.txt.
+      Done 2026-11-22.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/

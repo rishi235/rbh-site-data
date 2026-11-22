@@ -1,0 +1,73 @@
+Item 2.1 (Fishlocks Chemist, Ainsdale) - quality pass, 32nd, 2026-11-22T16:43Z
+Cowork scheduled run, audit-backlog-worker.
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged
+from all prior passes). Full non-network check-*.js suite (35 files) run
+directly against the tracked repo: 35/35 exit 0. check-cdn-pins.js specifically
+clean (0 failures, 2 pre-existing WARNs under Q45, 6 pre-existing KNOWN entries,
+all unchanged from prior passes).
+
+FRESH ANGLE
+tools/check-service-links.js, never previously named against item 2.1 across
+31 prior passes (confirmed by reading the "checkers remaining never-named"
+list left by the 31st pass: check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-service-links.js, check-uk-spelling.js,
+check-url-scheme.js, check-widget-diaries.js - this pass takes
+check-service-links.js).
+
+METHOD
+Scratch copy only, via `git archive HEAD` into /tmp/scratch_21 (session /tmp,
+not the tracked mount, not the FUSE EPERM-on-unlink repo path). Tracked repo
+never opened for writing at any point.
+
+1. Baseline run of check-service-links.js on the scratch copy: clean, 6 KNOWN
+   issues, all pre-existing and attributed to Q16/Q8, none involving Fishlocks
+   Ainsdale.
+2. INJECTION: added a cross-host link into
+   modules/service/pages/travel-clinic-fishlocks-ainsdale.html - a hrefc
+   pointing at https://www.fishlockpharmacy.co.uk/weight-loss-clinic-smartts-
+   bootle.html (a page this repo DOES generate, but for www.smarttschemist.co.uk,
+   not the Fishlocks Ainsdale/Eccleston host). FAILED cleanly, first attempt,
+   one FAIL naming the exact file, the wrong host and the correct generating
+   host ("links to www.fishlockpharmacy.co.uk/weight-loss-clinic-smartts-
+   bootle.html, but that page is generated for www.smarttschemist.co.uk").
+3. Restored from backup copy, sha256-reconfirmed byte-identical to the
+   pre-injection scratch copy.
+4. NEGATIVE CONTROL: added a cosmetic HTML comment (no link, no data) at the
+   same location. Re-ran: stayed clean, 6 KNOWN only, confirming no
+   false-positive from the file edit mechanism itself.
+5. Restored again, sha256-reconfirmed identical.
+6. Full non-network check-*.js suite re-run on the scratch copy: 34/35 exit 0.
+   The one exception, check-cdn-pins.js, failed there with 6 FAILs, all of the
+   shape "ref '<x>' does not resolve in git" - this is an artefact of the test
+   method, not a defect: `git archive` extraction has no .git directory, so
+   the checker's git-ref resolution for the CDN pins has nothing to resolve
+   against. Re-run directly against the tracked repo (which has full git
+   history) immediately afterwards: clean, 0 failures, same 2 pre-existing
+   WARNs and 6 KNOWN entries as the pre-pass baseline. Noted for any future
+   pass using this scratch method: run check-cdn-pins.js against the tracked
+   repo only, never against a bare `git archive` extraction.
+7. Tracked repo reconfirmed untouched throughout: branches.json sha256 and
+   modules/service/pages/travel-clinic-fishlocks-ainsdale.html sha256 both
+   unchanged; `git status --porcelain` shows no tracked changes (untracked
+   debris only, pre-existing and unrelated).
+
+NO IN-REPO DEFECT FOUND in check-service-links.js or branches.json for this
+branch.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed,
+closed after use): navigated to
+https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html - still a
+live 404 ("Page Not Found"). Q35 unchanged, not re-raised.
+
+NO NEW QUESTION RAISED. Q37 and Q139-Q145 unchanged (confirmed via the
+answer-pickup step at the top of this run, before this item was picked).
+
+Checkers remaining never-named against this item (8):
+check-editor-snapshot.js, check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js.
+
+Item 2.1 stays [x] (quality pass, not a state change).
