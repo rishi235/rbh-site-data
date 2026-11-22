@@ -6852,6 +6852,47 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       proven by direct injection. Evidence in
       audits/fishlocks-ainsdale-eccleston-item-3.3-contraception-hero-collectors-2026-11-21.txt.
       Done 2026-11-21.
+
+      QUALITY PASS (30th), 2026-11-22 (Cowork scheduled run): fresh angle
+      tools/check-travel-clinic-copy.js, never named against this item across
+      the prior 29 passes, although both Fishlocks branches hold their own
+      travelClinic widget in branches.json. Baseline: full 35-file
+      tools/check-*.js suite clean on the tracked repo; branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged; check-travel-clinic-copy.js run directly, OK, 15/15 pages
+      clean. Scratch copy (`git archive HEAD`, tracked repo never touched),
+      sha256-confirmed identical before editing. INJECTION (rule 6): added
+      the named brand "Typhim Vi" into the stock-availability FAQ answer on
+      travel-clinic-fishlocks-eccleston.html - CAUGHT first attempt, 2
+      failures (verbatim line mismatch and the named-medicine breach itself,
+      correctly identifying "typhim"). Restored, sha256 reconfirmed. NEGATIVE
+      CONTROL: swapped the order of the first and last FAQ pairs on the
+      sister page (travel-clinic-fishlocks-ainsdale.html), no content change -
+      stayed clean, confirming genuine content matching rather than
+      order-sensitivity. Restored, sha256 reconfirmed. Full 35-checker suite
+      re-run clean on the scratch copy afterwards; tracked repo reconfirmed
+      unchanged throughout (`git status --porcelain` empty bar the one
+      pre-existing debris file, both page sha256s unchanged). No defect found.
+      Guard coverage for item 3.3 now extends to 34 of 37 checkers proven by
+      direct injection (check-gbp-pharmacy-first.js,
+      check-pharmacy-first-cost.js and check-pharmacy-first-eligibility.js
+      remain untried against this item). LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked/typed/submitted, closed after use):
+      read travel-clinic-fishlocks-ainsdale.html live on
+      fishlockpharmacy.co.uk, the one Fishlocks travel clinic page not
+      previously sampled by any of the 29 prior passes - live 200, private
+      and paid stated plainly, NHS funding correctly hedged, no stock
+      guarantee, one 6-to-8-week book-ahead window stated consistently
+      throughout, all four safety cohorts present, yellow fever named
+      consistent with the standing Q48 gap, every named item a disease or
+      condition name and never a vaccine brand - matches the fix just proved
+      by injection. The standing Q37 live Weebly furniture fault (wrong
+      "Fishlock" singular contact block and "17 Station Rd" abbreviation) is
+      still present unchanged, not re-raised. NO IN-REPO DEFECT FOUND, NO NEW
+      QUESTION RAISED. Item 3.3 stays `[x]` (quality pass, not a state
+      change). Evidence in
+      audits/fishlocks-ainsdale-eccleston-item-3.3-travel-clinic-copy-2026-11-22.txt.
+      Done 2026-11-22.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12

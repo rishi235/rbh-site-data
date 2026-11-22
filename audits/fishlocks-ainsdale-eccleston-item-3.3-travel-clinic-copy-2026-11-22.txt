@@ -1,0 +1,97 @@
+Item 3.3 (Fishlocks Chemist, Ainsdale and Eccleston) - quality pass (30th), 2026-11-22
+Cowork scheduled run (audit-backlog-worker)
+
+FRESH ANGLE: tools/check-travel-clinic-copy.js, never named against this item across
+the prior 29 passes (confirmed by grepping the full item 3.3 worklist section for every
+checker name; 4 of 37 checkers remained unexercised going in: check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-travel-clinic-copy.js). Both fishlocks_ainsdale and fishlocks_eccleston carry their
+own travelClinic widget in branches.json, so this is a genuine gap, not a non-applicable
+checker, and it matches the shape of the fix the immediately prior two passes made for
+Scorah and Fishlocks on check-contraception-copy.js.
+
+BASELINE (tracked repo, before any work):
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (standing anchor, unchanged)
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  empty bar the one pre-existing unrelated untracked debris file
+  (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak)
+- Full 35-file tools/check-*.js suite (excl. check-cdn-pins.js, check-live-hours.js,
+  both network-dependent): 35/35 exit 0
+- tools/check-travel-clinic-copy.js run directly: OK, 15/15 pages clean, 1 accepted
+  KNOWN breach (yellowfever, standing Q48 gap), no failures
+
+SCRATCH COPY: `git archive HEAD | tar -x` into the outputs mount
+(/sessions/.../outputs/scratch33_3). Tracked repo never opened for writing during any
+of the injection work below. Scratch branches.json sha256 confirmed identical to tracked
+before editing; check-travel-clinic-copy.js run clean on the scratch copy first to
+confirm it starts from the same state as the tracked repo.
+
+INJECTION (rule 6, no vaccine/antimalarial named by brand): on
+modules/service/pages/travel-clinic-fishlocks-eccleston.html, in the "Will you
+definitely have the vaccine I need in stock?" FAQ answer, changed
+  "We offer a wide range of travel vaccinations, but availability can vary..."
+to
+  "We offer a wide range of travel vaccinations including Typhim Vi, but availability
+   can vary..."
+(Typhim Vi is a named typhoid vaccine brand.)
+
+RESULT: FAILED cleanly, 2 problems:
+  1. [verbatim] the page no longer carries the generator's own FAQ line
+     word-for-word - correctly flags a stale/hand-edited page
+  2. [medicine] the page names "typhim", a prescription-only medicine, in public
+     advertising copy - correctly flags the brand-name breach itself
+
+Restored the FAQ line to its exact original wording; sha256-reconfirmed identical to
+the pre-injection capture (3d9b143d708c3f54bce9dadf742f8f3693d897c336f33eb35319f0337aa06310).
+
+NEGATIVE CONTROL: on the sister page,
+modules/service/pages/travel-clinic-fishlocks-ainsdale.html, swapped the order of the
+first and last FAQ <details> blocks (file lines 125 and 129), no content change to any
+line. check-travel-clinic-copy.js stayed clean (OK, no failures) - confirms rule 3's
+verbatim-line matching is genuine content matching, not order-sensitive, so this is not
+a false-positive risk on legitimate copy reshuffling. Restored to original order;
+sha256-reconfirmed identical to the pre-edit capture
+(f766effc5e9707d57d1fad02deed15ffdf308ee94dcda7dc0852fe07196094ad).
+
+Full 35-checker suite re-run on the restored scratch copy: 35/35 exit 0.
+Scratch directory deleted afterwards.
+
+TRACKED REPO, reconfirmed untouched throughout:
+- branches.json sha256 unchanged: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+- travel-clinic-fishlocks-eccleston.html sha256 unchanged:
+  3d9b143d708c3f54bce9dadf742f8f3693d897c336f33eb35319f0337aa06310
+- travel-clinic-fishlocks-ainsdale.html sha256 unchanged:
+  f766effc5e9707d57d1fad02deed15ffdf308ee94dcda7dc0852fe07196094ad
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  empty bar the same one pre-existing debris file
+
+No defect found in check-travel-clinic-copy.js or in branches.json for this branch pair.
+Guard coverage for item 3.3 now extends to 34 of 37 checkers proven by direct injection
+(check-gbp-pharmacy-first.js, check-pharmacy-first-cost.js and
+check-pharmacy-first-eligibility.js remain untried against this item for a future pass).
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked/typed/submitted,
+closed after use): read travel-clinic-fishlocks-ainsdale.html live on
+fishlockpharmacy.co.uk - the one Fishlocks travel clinic page not yet sampled by any of
+the 29 prior passes of this item (the Eccleston sister page was read on an earlier pass).
+Live 200. Private, paid service stated plainly in the hero and repeated in the FAQ;
+NHS funding correctly hedged ("some individual vaccines may be available on the NHS
+depending on your circumstances"); no stock guarantee ("subject to availability and
+clinical suitability" / FAQ "availability can vary... suitability is also assessed
+individually"); one 6-to-8-week book-ahead window, stated consistently in the hero bullet,
+the eligibility list, step 1 and the FAQ; all four safety cohorts present (pregnant or
+breastfeeding, medical conditions/immune system/medication, travelling within 1-2 weeks,
+children and infants); yellow fever named as a disease, consistent with the standing Q48
+gap (no branch declares yellowFeverCentre); every named item (Yellow fever, Typhoid,
+Hepatitis A & B, Rabies, Japanese encephalitis, Malaria prevention) is a disease or
+condition name, never a vaccine brand or drug name - matches the fix just proved by
+injection above. Footer carries both branches' own addresses, phones and hours correctly
+with no cross-branch mix-up. The standing Q37 live Weebly furniture fault (native contact
+block reading "Fishlock Pharmacy"/"Fishlock Chemist", missing the trailing s, and "17
+Station Rd" abbreviated) is still present on this page, unchanged, sitting alongside the
+correct trust-bar footer - consistent with every prior reconfirmation of Q37, not
+re-raised as new.
+
+NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.3 stays [x] (quality pass, not a
+state change).
