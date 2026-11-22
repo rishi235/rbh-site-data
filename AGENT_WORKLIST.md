@@ -38914,6 +38914,52 @@ appended to the line. Do not move them; the status page reads them in place.
       since 2026-08-10), not new and not specific to the postcode question.
       No in-repo defect, no new question. Done 2026-10-19. Evidence:
       audits/mccanns-sandringham-postcode-check-2026-10-19-twentyfifth.txt.
+      Quality pass 2026-11-22 (twenty-sixth re-verification, Cowork scheduled
+      run): this item had gone stale against the rest of today's rotation (last
+      touched 2026-10-19, over a month behind every other pool item's same-day
+      refresh), so it was picked as the fallback quality pass. BASELINE:
+      branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8
+      bac2ffdd527da unchanged, matching every prior pass's recorded anchor;
+      full 35-checker non-network suite re-run on the tracked repo, 35/35 exit
+      0, before any work. Direct grep for "CH49 1SX" across the whole tree
+      (ignoring .git): confined to AGENT_LOG.md, AGENT_WORKLIST.md, CLAUDE.md's
+      documented NARRATIVE_POSTCODES rule, check-postcodes.js itself, and
+      historical audits/ write-ups - no occurrence in modules/, core/,
+      gbp-packs/ or branches.json, unchanged from the twenty-fifth pass.
+      branches.json field check (mccanns_sandringham): postalCode "L17 4JP",
+      streetAddress "1b Aigburth Road", addressLocality "Liverpool", phone
+      "0151 727 3076" - correct, unchanged. FRESH ANGLE: twenty-five prior
+      passes have exhaustively proved every numbered rule (0-7), every
+      PC_RE_LOOSE separator form (case, &nbsp; entity, numeric entity, %20,
+      %2B, literal +/-, tab, literal U+00A0, line-wrap), the NARRATIVE_POSTCODES
+      staleness checks both directions, and the DISPOSED/DUPLICATE/MALFORMED
+      rules, each via scratch-copy injection - a further synthetic injection
+      against this checker would be marginal. Rather than invent a twenty-sixth
+      synthetic variant, this pass took the live half further than any prior
+      pass: it opened the actual Google Business Profile listing itself (via
+      branches.json's own googleReviewUrl, https://g.page/r/CbMDr1qOLqnrEAE/
+      review, which every prior pass had treated as a field to check for shape
+      but never actually visited) rather than stopping at the Weebly page or
+      the GBP pack's drafted text. The live Google Maps listing for "McCanns
+      Pharmacy - Sandringham" shows the address as "1B Aigburth Rd, Aigburth,
+      Liverpool L17 4JP" and the phone as "0151 727 3076" - both correct, no
+      trace of CH49 1SX or any other wrong postcode on the one public surface
+      this item's postcode data ultimately has to be right on. LIVE HALF
+      (Claude in Chrome, read-only, one tab, nothing clicked/typed/submitted,
+      closed after use): re-read pharmacy-first-mccanns-sandringham.html -
+      both branch address blocks correct (Aigburth L17 7BP, Sandringham L17
+      4JP), matching branches.json exactly; re-read pharmacy-sandringham.html -
+      still a Weebly 404, the standing Q35 finding (unpasted since 2026-08-10),
+      not new and not specific to the postcode question. STANDING FINDINGS
+      RECONFIRMED, NOT NEW: the GBP listing's business name carries "Pharmacy"
+      rather than "Chemist" and the footer still misspells the medical centre
+      as "Sandrigham" (missing the second "n") - both already held under Q39
+      and item 5.3, not postcode-related and not re-raised here. Answer
+      pickup (step 3): Claude in Chrome, one tab, read-only GET to
+      https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed
+      after use; newest entry still the Q52 answer (2026-09-01); no answer for
+      Q37 or Q139-Q146, all nine remain open. No new question raised. No
+      in-repo defect found. Done 2026-11-22.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
