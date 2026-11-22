@@ -1,0 +1,85 @@
+Item 3.13 (Clear Chemist, Liverpool/Aintree) - quality pass, thirty-second, 2026-11-22
+Run: Cowork scheduled run, audit-backlog-worker, 10:42Z pickup
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged from standing anchor)
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty
+  bar one pre-existing, unrelated debris file:
+  modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak (untouched by this pass)
+
+REPO HALF - full non-network checker suite (36 of 37; check-live-hours.js excluded as network-dependent)
+All 36 ran individually, all exit 0 clean (see run transcript for full per-checker output):
+check-address-region, check-app-membership, check-booking-routes, check-branch-identity,
+check-branch-links, check-brand-spelling, check-cdn-pins, check-contraception-copy,
+check-editor-snapshot, check-em-dashes, check-fragment-targets, check-gbp-packs,
+check-gbp-pharmacy-first, check-jsonld, check-map-embeds, check-nap, check-opening-hours,
+check-page-coverage, check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-pharmacy-first-safety-net, check-pharmacy-first-symptoms, check-postcodes,
+check-seo-keywords, check-seo-lengths, check-seo-pattern, check-seo-sheets,
+check-service-links, check-switch-copy, check-travel-clinic-copy, check-uk-spelling,
+check-url-scheme, check-weebly-furniture-freshness, check-weight-loss-copy,
+check-whatsapp-route, check-widget-diaries.
+
+No injection round run this pass: item 3.13 already reached full 37/37 non-network-checker
+coverage proven by direct injection as of the thirty-first pass (2026-11-21), confirmed by
+comm -23 both ways against the full tools/check-*.js listing (empty diff either direction).
+
+LIVE HALF (Claude in Chrome, read-only, single tab group each navigation, nothing clicked,
+typed or submitted, tabs closed after use)
+
+1. clearchemist.co.uk/about-us - never sampled live by this item before (14 prior live reads
+   of this branch all targeted clearchemist.co.uk/ homepage or /contact-us). Read in full:
+   - Address block: "Unit 20 Brookfield Trade Centre / Brookfield Drive / Aintree / Liverpool
+     / L9 7AS" - matches branches.json clearchemist_aintree exactly field for field
+     (streetAddress: "Unit 20 Brookfield Trade Centre, Brookfield Drive, Aintree",
+     addressLocality: "Liverpool", postalCode: "L9 7AS").
+   - "This pharmacy is owned by: ClearChem Ltd, t/a Clear Chemist, Unit 20 Brookfield,
+     L9 7AS, 01512036535" - phone digits match branches.json's "0151 203 6535" exactly
+     (spacing differs, not a NAP checker surface since this page is outside tools/check-nap.js's
+     scope of generated pages and paste blocks).
+   - Company No. 13371045, Pharmacy Reg No. 1123405, Superintendent Pharmacist Rishi Bhatia
+     BSC (Hons) MRPharmS, Pharmacist Registration No. 2050450 - all present, internally
+     consistent, nothing in branches.json or any checker here holds or verifies these fields,
+     so no mismatch is possible to detect; recorded as a clean read, not a verified field.
+   - GPhC registration bullet list, NPA membership, CPPQ patient survey links, complaints
+     procedure, consultation room, disability access and patient records sections all present
+     and read as standard pharmacy regulatory boilerplate; no claim inconsistent with anything
+     this repo holds.
+   NO DEFECT. First-time live coverage of this page for this item.
+
+2. clearchemist.co.uk/ (homepage) re-read of primary navigation, then followed through to:
+3. clearchemist.co.uk/weight-loss-clinic.html
+4. clearchemist.co.uk/services/weight-loss-clinic.html
+
+   Confirmed STILL LIVE, STILL UNCHANGED from the standing finding already raised and answered
+   as Q104 (2026-09-14, answered 2026-09-11 per portal timestamp) and cross-referenced again at
+   Q65's 2026-09-27 update:
+   - Homepage primary nav: "Weight Loss Clinic - Free Consultation" -> /weight-loss-clinic.html
+   - weight-loss-clinic.html: title "Achieve Your Goals at Clear Chemist Aintree | Expert
+     Weight Loss Clinic | Clear Chemist"; body: "NEW - I am currently not on a weight loss
+     treatment - Discover the latest weight loss treatments now available through Clear
+     Chemist. £35 OFF your first pen (Wegovy tablets not included in discount) - Learn More"
+     and "SWITCH - I am already on a treatment elsewhere ... £35 OFF your first pen (Wegovy
+     tablets not included in discount) - Switch Now"; a "Mounjaro 2.5mg Pen Price Comparison"
+     table showing four prices (£177, £179, £168, £144).
+   - services/weight-loss-clinic.html: live paginated product-category page, "Weight Loss",
+     items 1-8 of 11, listing named POM injections with unit prices: Wegovy 1.7mg Injection
+     £199.00 and £164.00 (two listings), Mounjaro 10mg £289.00, 12.5mg £289.00, 15mg £299.00,
+     2.5mg £179.00, 5mg £199.00, 7.5mg £249.00; instructs "If you DO have a prescription
+     already, then click on the prescribed pen, below, and add it to your basket ... click
+     the box which says you have a Private prescription, then check out"; "If you DO NOT have
+     a prescription ... book an appointment with Dane who will have a quick consultation with
+     you, before prescribing you."
+
+   This is the exact exposure Q104 already describes (named POMs with displayed prices, a
+   recurring discount banner, treatment picker) and that Q104's answer already escalates as
+   the single most urgent item in the whole weight loss backlog, ahead of the ten Weebly
+   branch instances, pending superintendent-pharmacist/external-compliance review. NOT raised
+   again as a new question; reconfirmed here only because this pass's rotation pick happened
+   to land on item 3.13 (Clear Chemist) and the standing finding is still live and unchanged
+   two months after Q104 was first raised and over a month after Q65's 2026-09-27 cross-
+   reference.
+
+NOTHING WAS EDITED. No repo file, generator, checker or branches.json content changed this
+pass. No new question raised; Q37 and Q139-Q144 unchanged; Q104 and Q65 unchanged (both
+already answered/standing, not reopened).

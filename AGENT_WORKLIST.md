@@ -21649,6 +21649,43 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       empty throughout. Evidence in
       audits/clear-aintree-item-3.13-quality-pass-2026-11-21-thirtyfirst.txt.
       Done 2026-11-21
+      Quality pass 2026-11-22 (thirty-second): all 37 checker files already
+      proven against this item by direct injection across 31 prior passes,
+      so this pass re-verified rather than injecting further. REPO HALF:
+      36/36 non-network checkers clean (every tools/check-*.js except
+      check-live-hours.js, run individually); branches.json sha256
+      0385b7c2...27da unchanged; git status --porcelain -- modules core
+      branches.json gbp-packs tools compliance empty bar one pre-existing
+      unrelated debris file (pharmacy-first-mccanns-sandringham.html
+      .goldenbak, untouched). LIVE HALF (Claude in Chrome, read-only, one
+      tab group, nothing clicked/typed/submitted, closed after use): read
+      clearchemist.co.uk/about-us in full, never sampled live by this item
+      before - full address (Unit 20 Brookfield Trade Centre, Brookfield
+      Drive, Aintree, Liverpool, L9 7AS) and phone (01512036535) both match
+      branches.json's clearchemist_aintree record exactly; GPhC/company/
+      pharmacy registration numbers and superintendent pharmacist detail
+      present and internally consistent, nothing for any checker here to
+      verify against. Also re-read the homepage's own primary navigation
+      (clearchemist.co.uk/, "Weight Loss Clinic - Free Consultation") and
+      followed it through to weight-loss-clinic.html and
+      services/weight-loss-clinic.html: both still live, both still name
+      Mounjaro and Wegovy with displayed prices, a "£35 OFF your first pen"
+      discount banner and (on the services page) a direct add-to-basket
+      checkout for named POM injections. STANDING FINDING RECONFIRMED, NOT
+      NEW: this is the same exposure already raised and escalated as Q104
+      (status: answered, Rishi: "treat this as the most urgent single item
+      ... have it reviewed, ideally with the superintendent pharmacist
+      and/or external compliance advice, ahead of the ten Weebly branch
+      instances") and cross-referenced again at Q65's 2026-09-27 update -
+      not raised a third time here, only reconfirmed still live and
+      unchanged two months on. NOTHING WAS EDITED: live-only content on a
+      separate platform (Magento, not Weebly, no generator here writes
+      it), a money/legal/regulatory matter carved out of autonomous
+      decisions regardless of window state, and no autonomous window was
+      open this run in any case. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+      RAISED. Evidence in
+      audits/clear-aintree-item-3.13-quality-pass-2026-11-22-thirtysecond.txt.
+      Done 2026-11-22
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section
