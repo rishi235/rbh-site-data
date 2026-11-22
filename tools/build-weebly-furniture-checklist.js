@@ -240,6 +240,17 @@ var KNOWN_FINDINGS = {
         "so the Blood Testing en-dash pattern found on most other sites " +
         "does not apply here. Confirmed live 2026-10-20 (item 5.1, " +
         "full-estate sweep).",
+      "Site-wide footer's ownership line reads \"Scorah Chemist which is " +
+        "owned by RB Healthcare Ltd\" - singular \"Chemist\", dropping the " +
+        "trailing s. The trading name is \"Scorah Chemists\" (branches.json " +
+        "brandLabel, pinned in tools/check-brand-spelling.js CANONICAL). " +
+        "Exactly the rule 2 near-miss family that checker derives and would " +
+        "catch instantly in any generated page or paste sheet; it is live-" +
+        "only Weebly furniture, outside every checker's reach, which is why " +
+        "this file exists. Found live on the Infected insect bite page " +
+        "(insect-bite-treatment-scorah-bramhall.html), a page not " +
+        "previously sampled by any pass of this item. Confirmed live " +
+        "2026-11-22 (item 3.2, thirty-second-or-so quality pass).",
     ],
   },
   scorah_hazel: {
@@ -259,6 +270,10 @@ var KNOWN_FINDINGS = {
         "opening hours: Mon-Fri 9am-6pm, Sat & Sun closed\") " +
         "covers both branches - fix once, fixes both. Confirmed live " +
         "2026-10-20 (item 5.1, full-estate sweep).",
+      "Shares the same footer ownership line as Bramhall, so the " +
+        "\"Scorah Chemist\" (singular) near-miss noted under scorah_bramhall " +
+        "above covers both branches - fix once, fixes both. Confirmed live " +
+        "2026-11-22 (item 3.2, thirty-second-or-so quality pass).",
     ],
   },
   riddings_timperley: {

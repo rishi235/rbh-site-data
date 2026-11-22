@@ -5713,6 +5713,51 @@ generator and the checker agree on, not about a live page). Guard coverage
 for item 3.2: check-contraception-copy.js's RULE 3 now covers all copy
 lines the generator writes for this branch pair, not only the four tag
 shapes it started with. Evidence: audits/scorah-item-3.2-rule3-hero-copy-gap-2026-11-21.txt.
+Quality pass 2026-11-22 (thirty-second-or-so pass): BASELINE confirmed
+unchanged - branches.json sha256 0385b7c2...27da (standing anchor), full
+35-checker non-network suite 35/35 exit 0, git status --porcelain on
+modules/core/branches.json/gbp-packs/tools/compliance empty bar one
+pre-existing unrelated debris file. FRESH ANGLE: tools/check-brand-spelling.js,
+never previously named against this item across 31 prior passes despite
+Scorah being one of only three sister-branch pairs sharing a brand (the
+exact design case that checker's CANONICAL/rule-2/rule-6 logic targets).
+On a scratch copy only (git archive HEAD to /tmp/scratch32, tracked repo
+never opened for writing): injection 1, Q14-shortened "Scorah" written
+outside a title line into the Hazel Grove UTI page's hero paragraph -
+FAILED cleanly (rule 6), naming the file, line and correct trading name.
+Injection 2, "Scorahs Chemists" (trailing-s near miss) written across the
+Bramhall earache page's build comment, title, description, data-branch,
+hero and contact block - FAILED cleanly (rule 2), six FAILs. Both restored
+byte-identical, sha256-reconfirmed before and after each. Negative control
+(an unrelated wording tweak on the same Bramhall page, no brand content)
+stayed clean. Full 35-checker suite re-run clean on the scratch copy
+afterwards; tracked repo reconfirmed untouched throughout (branches.json
+and both touched pages' sha256 unchanged, git status --porcelain empty
+bar the same pre-existing debris file). No defect found in the checker or
+in branches.json for this branch pair.
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed,
+closed after use): read insect-bite-treatment-scorah-bramhall.html, a page
+not previously sampled by any pass of this item - live 200, correct in
+every other respect, but the site-wide footer's ownership line reads
+"Scorah Chemist which is owned by RB Healthcare Ltd", singular, dropping
+the trailing s from the trading name. This is exactly the rule 2 near-miss
+family check-brand-spelling.js derives and would catch instantly in any
+generated page or paste sheet; it is live-only Weebly furniture, the one
+class of copy no checker in this repo can reach, which is the reason
+WEEBLY_FURNITURE_CHECKLIST.md exists. NEW FINDING, not previously recorded
+in that file's Scorah sections. FIX: added the finding to both
+scorah_bramhall and scorah_hazel (shared footer, cross-referenced the same
+way the existing en-dash finding already is) in
+tools/build-weebly-furniture-checklist.js, regenerated
+WEEBLY_FURNITURE_CHECKLIST.md, reconfirmed with
+check-weebly-furniture-freshness.js (clean, 325/325 lines match a fresh
+regeneration), and re-ran the full 35-checker suite clean afterwards. No
+Weebly edit made - this item's hard rules bar live writes; the finding
+joins the Q39 sweep's existing per-site checklist for the next supervised
+session. No new question raised (Q43's open county question and the other
+standing Scorah findings are unaffected and unchanged). Evidence:
+audits/scorah-item-3.2-brand-spelling-quality-pass-2026-11-22.txt.
+Done 2026-11-22
 - [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,

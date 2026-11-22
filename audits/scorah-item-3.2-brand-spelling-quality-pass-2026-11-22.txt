@@ -1,0 +1,131 @@
+Item 3.2 (Scorah Chemists, Bramhall and Hazel Grove) quality pass, 2026-11-22
+Fresh angle: tools/check-brand-spelling.js (never previously named against this item across 31 prior passes)
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing anchor, unchanged)
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js): 35/35 exit 0
+git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  ?? modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak   (pre-existing, unrelated, untouched this run)
+
+check-brand-spelling.js run directly against the tracked repo: clean.
+  16 trading branches, 16 distinct trading names pinned
+  203 generated pages/paste sheets scanned, 12 shortenable trading names
+  20 quoted readings of a live page read as evidence (not failed)
+
+SCRATCH COPY SETUP
+------------------
+git archive HEAD -> /tmp/scratch32 (tar extract). Tracked repo never opened for writing
+during the injection work.
+
+INJECTION 1 - rule 6 (Q14 shortened-brand leak outside a title)
+-----------------------------------------------------------------
+File: modules/service/pages/uti-treatment-scorah-hazel-grove.html
+Change: hero-sub paragraph "Scorah Chemists offers the NHS Pharmacy First
+service..." -> "Scorah offers the NHS Pharmacy First service..."
+Result: FAILED cleanly.
+  FAIL  modules/service/pages/uti-treatment-scorah-hazel-grove.html:23: reads
+  "Scorah" without its shop-type word, on a line that is not the page SEO
+  title. That is the shortened form the Q14 length rule writes into the
+  title and nowhere else - the trading name here is "Scorah Chemists".
+Restored from backup, diff empty, sha256 reconfirmed identical
+(3d89a1fa652d63c53c6a4641e93da1cd7b36298dde2b2e12533a32d8752f727a) before
+and after. Re-run after restore: clean.
+
+INJECTION 2 - rule 2 (trailing-s near miss)
+--------------------------------------------
+File: modules/service/pages/earache-treatment-scorah-bramhall.html
+Change: every "Scorah Chemists" -> "Scorahs Chemists" (build comment,
+title, description, data-branch, hero, contact block - 6 occurrences)
+Result: FAILED cleanly, 6 FAILs, each naming the file, line, wrong string
+"Scorahs Chemists" and the correct trading name "Scorah Chemists".
+Restored from backup, diff empty, sha256 reconfirmed identical
+(d65f7ad8fc9cc9b47f40e86c4f0196b5087aaa2ff7467aa7c4da0539db74142b) before
+and after. Re-run after restore: clean.
+
+NEGATIVE CONTROL
+-----------------
+Same Bramhall earache page, unrelated wording tweak with no brand content:
+"no GP appointment needed" -> "no GP appointment is needed". Stayed clean
+on check-brand-spelling.js, confirming scope rather than a blind spot.
+Restored, diff empty.
+
+Full 35-checker suite re-run on the scratch copy after all restores: 35/35
+exit 0 (check-cdn-pins.js excluded as before; it cannot resolve git refs
+from a git-archive export with no .git directory - a property of the
+scratch-copy method, not a finding).
+
+Tracked repo reconfirmed untouched throughout:
+  branches.json sha256 unchanged
+  modules/service/pages/uti-treatment-scorah-hazel-grove.html sha256 unchanged
+  modules/service/pages/earache-treatment-scorah-bramhall.html sha256 unchanged
+  git status --porcelain unchanged (same one pre-existing debris file)
+  check-brand-spelling.js re-run directly against tracked repo: clean
+
+NO DEFECT FOUND in check-brand-spelling.js or branches.json for this branch pair.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed, closed after use)
+----------------------------------------------------------------------------------------------
+URL: https://www.scorah-chemists.co.uk/insect-bite-treatment-scorah-bramhall.html
+Not previously sampled by any pass of this item (prior passes read:
+earache-treatment-scorah-bramhall.html, shingles-treatment-scorah-bramhall.html,
+sinusitis-treatment-scorah-bramhall.html, travel-clinic-scorah-bramhall.html,
+uti-treatment-scorah-bramhall.html, contraception-scorah-bramhall.html,
+pharmacy-scorah-bramhall.html, scorah-bramhall.html, switch-prescriptions-
+scorah-bramhall.html, pharmacy-first-scorah-hazel-grove.html, pharmacy-
+scorah-hazel-grove.html, contraception-scorah-hazel-grove.html, switch-
+prescriptions-scorah-hazel-grove.html, bramhall.html, contactus.html).
+
+Live 200. Title, H1, body copy, contact block, all correct and consistent
+with branches.json. House number in the contact block correctly reads
+"61-63 North Park Road" in full on THIS page (the known footer truncation
+to "61" is a site-wide footer-strip fault, separate from this page's own
+contact block, both already tracked under scorah_bramhall's known faults).
+
+NEW FINDING: the site-wide footer's ownership line reads:
+  "Scorah Chemist which is owned by RB Healthcare Ltd."
+- singular "Chemist", dropping the trailing s. branches.json brandLabel
+(pinned in check-brand-spelling.js CANONICAL) is "Scorah Chemists". This
+is exactly the rule 2 near-miss family (trailing s dropped) that checker
+derives and would catch instantly in any generated page or paste sheet -
+confirmed by injection 2 above using the identical near-miss shape in
+reverse (added an s rather than dropped one; the derivation is symmetric,
+both directions are in wordForms()). It is live-only Weebly furniture -
+the one class of copy no generator or checker in this repo can reach,
+which CLAUDE.md and WEEBLY_FURNITURE_CHECKLIST.md's own header both name
+as the reason that checklist exists.
+
+Not previously recorded in WEEBLY_FURNITURE_CHECKLIST.md's Scorah
+Bramhall or Scorah Hazel Grove sections (grepped both sections and the
+whole file for "Scorah Chemist" singular and "Company No 06223421" before
+concluding this was new).
+
+FIX APPLIED
+-----------
+Added the finding to tools/build-weebly-furniture-checklist.js under both
+scorah_bramhall (full finding) and scorah_hazel (cross-reference, same
+convention the existing shared-footer en-dash finding already uses, since
+Hazel Grove shares the identical footer with Bramhall).
+
+Regenerated: node tools/build-weebly-furniture-checklist.js
+  "Generated WEEBLY_FURNITURE_CHECKLIST.md: 15 branches, 14 with confirmed findings."
+
+Verified fresh: node tools/check-weebly-furniture-freshness.js
+  "check-weebly-furniture-freshness: clean, WEEBLY_FURNITURE_CHECKLIST.md is
+  byte-identical to what tools/build-weebly-furniture-checklist.js would
+  produce from the current branches.json." (325/325 lines match)
+
+Full 35-checker suite re-run after the edit: 35/35 exit 0.
+
+No Weebly edit made this run - this item's hard rules bar live writes
+(browser use is read-only). The finding joins the Q39 estate-wide sweep's
+existing per-site checklist for the next supervised session; it does not
+block any worklist item and is not a new QUESTIONS.json entry (it is a
+mechanical correction already covered by the Q39 answer's standing
+approval for a supervised Weebly furniture sweep, not a decision Rishi
+needs to make).
+
+No new question raised. Q43 (open county question for this branch pair)
+and the other standing Scorah findings (house-number truncation, en
+dashes, unspaced phone/email on the shared Pharmacy First page) are
+unaffected and unchanged.
