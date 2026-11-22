@@ -27397,6 +27397,50 @@ Quality pass 2026-11-22 (twenty-ninth, unattended scheduled run): FRESH
       check-branch-identity.js; 23 checkers remain never-tried against this
       item for a future pass. Evidence:
       audits/mccanns-aigburth-item-4.6-branch-identity-2026-11-21.txt.
+      Quality pass (twenty-sixth, 2026-11-22, Cowork scheduled run): fresh
+      angle tools/check-em-dashes.js, never previously named against this
+      item across 25 prior passes, confirmed by grepping every "check-*.js"
+      mention recorded against item 4.6. Genuinely reads the pack (PACK_DIR
+      = gbp-packs, read via readdirSync, held to the full-file rule: no
+      non-ASCII character, no dash written as an HTML entity, no exemption
+      for prose). BASELINE: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      (standing anchor, unchanged), the pack's own sha256
+      fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+      (matching every prior pass, unchanged), full 35-checker non-network
+      suite 35/35 exit 0 on the tracked repo, git status --porcelain on
+      modules core branches.json gbp-packs tools compliance empty bar one
+      pre-existing unrelated debris file. Isolated git-archive HEAD scratch
+      extraction (the usual scratch area was full - "No space left on
+      device" - so this pass extracted to /tmp on the root filesystem
+      instead; tracked repo never opened for writing throughout). INJECTION:
+      a literal em dash inserted mid-sentence into the business
+      description ("weight loss clinic. There is a second branch" became
+      "weight loss clinic - run by the same friendly team. There is a
+      second branch", with a real U+2014 in place of that hyphen) - CAUGHT
+      cleanly, first attempt, exit 1, one failure naming the exact file and
+      line and the character (non-ASCII U+2014); every other rule stayed
+      clean. NEGATIVE CONTROL: pack restored and sha256-reconfirmed first,
+      then an unrelated cosmetic wording change touching no dash
+      ("also" added to the same sentence) ran clean, exit 0, confirming
+      selectivity. Scratch copy restored again by byte copy, sha256
+      reconfirmed identical; full 35-checker suite re-run on the scratch
+      tree clean, no regression; scratch directory deleted. Tracked repo
+      confirmed untouched throughout and afterwards: both sha256 values
+      unchanged, git status --porcelain on the tracked paths unchanged,
+      check-em-dashes.js re-run directly against the tracked repo exit 0
+      clean. NO IN-REPO DEFECT FOUND - the pack carries no em dash, en
+      dash or dash-as-HTML-entity anywhere in its public text. Guard
+      coverage for item 4.6 now 15 of the checkers that genuinely read
+      gbp-packs/*.md proven by injection against this specific pack (up
+      from 14). LIVE HALF not run this pass (repo half only); the
+      2026-08-14 live verdicts stand unrevised. Answer pickup (step 3):
+      Claude in Chrome, read-only, full feed read, tab closed after use;
+      newest entry still the Q52 answer (2026-09-01); no answer arrived for
+      Q139, Q140, Q141, Q142, Q143 or Q144, all six still open. No generator,
+      page, pack, checker or branches.json content changed. No new question
+      raised. Evidence:
+      audits/mccanns-aigburth-item-4.6-em-dashes-2026-11-22.txt.
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.

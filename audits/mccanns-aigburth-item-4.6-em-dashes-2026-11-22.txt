@@ -1,0 +1,103 @@
+Item 4.6 - McCanns Chemist Aigburth GBP pack
+Quality pass (twenty-sixth), 2026-11-22, unattended scheduled run
+Fresh angle: tools/check-em-dashes.js
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (standing anchor, unchanged)
+gbp-packs/mccanns-aigburth.md sha256: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+  (matches every prior pass, unchanged)
+git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  empty (bar the standing pre-existing untracked
+  modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak debris)
+Full 35-checker non-network suite (all of tools/check-*.js excluding
+check-cdn-pins.js and check-live-hours.js) run directly against the tracked
+repo: 35/35 exit 0, including check-em-dashes.js itself (177 generated
+pages, 16 GBP packs held to ASCII-only-plus-no-dash-entities, clean).
+
+WHY THIS ANGLE IS FRESH
+Grepped 25 prior quality-pass paragraphs recorded against item 4.6 in
+AGENT_WORKLIST.md for every "check-*.js" mention: check-gbp-packs.js,
+check-pharmacy-first-eligibility.js, check-brand-spelling.js,
+check-gbp-pharmacy-first.js, check-app-membership.js, check-cdn-pins.js,
+check-live-hours.js, check-editor-snapshot.js, check-uk-spelling.js,
+check-postcodes.js, check-pharmacy-first-cost.js, check-widget-diaries.js,
+check-url-scheme.js, check-branch-identity.js. check-em-dashes.js was never
+named. Confirmed it genuinely reads the pack rather than merely mentioning
+it: PACK_DIR = path.join(REPO, "gbp-packs") at line 662, read via
+readdirSync and held to the full-file rule (no non-ASCII character, no
+dash written as an HTML entity, no exemption for prose) because nothing
+resolves an HTML entity on a plain-text Google profile field.
+
+INJECTION
+Isolated git-archive HEAD scratch extraction to /tmp/scratch46em (the
+usual /sessions scratch area was full - "No space left on device" - so
+the extraction went to /tmp on the root filesystem instead, which had
+headroom; tracked repo at /sessions/.../rbh-site-data was never opened for
+writing at any point). Scratch baseline reconfirmed identical first
+(branches.json and the pack both sha256-matched the tracked repo's
+values; full 35-checker suite 35/35 exit 0 on the scratch tree too).
+
+Edited the pack's business description, section 1, changing:
+  "weight loss clinic. There is a second branch, McCanns Chemist"
+to:
+  "weight loss clinic — run by the same friendly team. There is a second branch, McCanns Chemist"
+(one literal em dash, U+2014, inserted mid-sentence - the natural way this
+class of fault has entered copy elsewhere in the estate, per this
+checker's own header).
+
+Result: CAUGHT cleanly, first attempt. check-em-dashes.js exited 1 with
+exactly one failure:
+  FAIL  gbp-packs/mccanns-aigburth.md line 29 (in GBP pack (non-ASCII U+2014)):
+  weight loss clinic — run by the same friendly team. There is a second branch, McCanns Chemist
+Every other rule (177 pages, other 15 GBP packs, switch banners, furniture
+checklist, paste sheets, live module code, branches.json) stayed clean -
+the failure named the correct file and the correct line only.
+
+NEGATIVE CONTROL
+Restored the pack from the pre-injection backup by byte copy, sha256
+reconfirmed identical (fdb1429d...36693), confirmed clean (exit 0) before
+proceeding. Then made an unrelated cosmetic wording change touching no
+dash character:
+  "weight loss clinic. There is a second branch, McCanns Chemist"
+to:
+  "weight loss clinic. There is also a second branch, McCanns Chemist"
+Result: ran clean, exit 0, identical output to baseline - confirming the
+checker discriminates on the dash character specifically, not on any edit
+to that sentence.
+
+RESTORE AND VERIFICATION
+Scratch copy restored again from the same pre-injection backup, sha256
+reconfirmed identical to the standing anchor. Full 35-checker suite
+re-run on the scratch tree after restore: 35/35 exit 0, no regression.
+Scratch directory (/tmp/scratch46em) deleted cleanly afterwards.
+
+Tracked repo reconfirmed untouched throughout and afterwards:
+branches.json sha256 unchanged (0385b7c2...27da), the pack's own sha256
+unchanged (fdb1429d...36693), git status --porcelain on the tracked paths
+unchanged (same single pre-existing debris file as at pickup),
+tools/check-em-dashes.js re-run directly against the tracked repo: exit 0,
+clean.
+
+CONCLUSION
+NO IN-REPO DEFECT FOUND. McCanns Chemist Aigburth's GBP pack correctly
+carries no em dash, en dash, or dash-as-HTML-entity anywhere in its
+public-facing text, and this is now proven by direct injection against
+check-em-dashes.js for the first time. Guard coverage for item 4.6 is now
+15 of the checkers that genuinely read gbp-packs/*.md proven by injection
+against this specific pack (up from 14). No generator, page, pack,
+checker or branches.json content changed. No new question raised.
+
+LIVE HALF
+Not run this pass (repo half only, per the rotation pattern several
+recent passes on other items have used when the repo-side angle is the
+whole finding). The 2026-08-14 live verdicts recorded earlier in this
+item's history stand unrevised.
+
+ANSWER PICKUP (step 3, same run)
+Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use. Fetched https://data.rbhealth.co.uk/api/feedback.
+Newest "Audit answer" entry remains Q52 (2026-09-01T22:44:51.524Z). No
+entry found for Q139, Q140, Q141, Q142, Q143 or Q144 - all six remain
+open and unchanged, as does Q37 (still the same 2026-09-01 non-decision
+already recorded in its own note history).
