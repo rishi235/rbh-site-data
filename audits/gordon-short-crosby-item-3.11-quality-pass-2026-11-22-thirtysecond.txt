@@ -1,0 +1,105 @@
+Item 3.11, Gordon Short Chemist (Crosby) - thirty-second quality pass, 2026-11-22
+(unattended run, audit-backlog-worker, Cowork scheduled task)
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged throughout this pass)
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js):
+35/35 exit 0, run individually, before and after all scratch work.
+git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+empty before and after, bar one pre-existing unrelated debris file
+(modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak, not
+touched this run).
+
+FRESH ANGLE
+-----------
+tools/check-pharmacy-first-eligibility.js. Confirmed never previously named
+against item 3.11 across 31 prior passes (checked by grepping this item's full
+accumulated log text, with markdown line-wrap normalised first, for every
+checker's own filename stem - this one came back zero; 31 of 37 repo checkers
+had already been proven against this item going in).
+
+INJECTIONS, all against a `git archive HEAD` scratch copy under /tmp
+(tracked repo never opened for writing during the proof):
+
+1. Rule 5/7 (condition page): shingles-treatment-gordon-short-crosby.html,
+   eligibility <li> changed from "Adults aged 18 and over" to "Adults aged
+   16 and over" (16 is not the NHS shingles cohort [18] and not a tolerated
+   boundary). CAUGHT cleanly: 2 FAILs, rule 5 (exact cohort line missing) and
+   rule 7 (stray age 16).
+
+2. Rule 8 (condition page): earache-treatment-gordon-short-crosby.html,
+   safety redirect "<li>Babies under 1 should see a GP</li>" reworded to
+   "<li>Infants under 1 should ask a pharmacist</li>" (same fact, redirect
+   pattern no longer matches). CAUGHT cleanly: 1 FAIL naming the missing
+   redirect and the expected regex.
+
+3. Rule 10 (GBP pack): gbp-packs/gordon-short-crosby.md, Post A's seven-
+   condition enumeration edited to drop "impetigo" while the sentence still
+   says "seven common conditions". CAUGHT cleanly: 1 FAIL naming the
+   omission and the 6-of-7 count.
+
+4. Rule 11 (GBP pack): same file, restored from (3) then had "Age ranges set
+   by the NHS apply to each condition." deleted from the end of Post A
+   while the seven-condition enumeration stayed intact. CAUGHT cleanly: 1
+   FAIL naming the missing qualifying sentence.
+
+NEGATIVE CONTROL: sore-throat-treatment-gordon-short-crosby.html, SEO
+description reworded ("be assessed by a pharmacist" -> "get checked by the
+pharmacy team"), no age content touched. Ran alongside injection 1+2 above;
+check-pharmacy-first-eligibility.js raised no failure for this page, confirming
+no cross-firing.
+
+Each injection was made, proved, and reverted individually; the pack file was
+restored and byte-diffed against its own backup (RESTORED IDENTICAL) before the
+next injection on it. All four mutated files were sha256-reconfirmed identical
+to the tracked repo's own copies after final restore:
+
+  gbp-packs/gordon-short-crosby.md                                    36b00161...3ffa
+  modules/service/pages/shingles-treatment-gordon-short-crosby.html   6030448b...3b67
+  modules/service/pages/earache-treatment-gordon-short-crosby.html    f498cd30...1d33
+  modules/service/pages/sore-throat-treatment-gordon-short-crosby.html 62952f11...5cbd
+
+Full 35-checker suite re-run clean on the scratch copy after final restore
+(no FAIL lines on any checker). Tracked repo reconfirmed untouched throughout
+(branches.json sha256 unchanged, git status --porcelain empty bar the one
+pre-existing debris file). Scratch directory deleted afterwards.
+
+NO IN-REPO DEFECT FOUND. The checker already correctly protects this branch's
+condition pages (rules 5, 7, 8) and its GBP pack (rules 10, 11) in every
+direction tested.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted beyond navigation, tab closed after use)
+--------------------------------------------------------------------------
+Read insect-bite-treatment-gordon-short-crosby.html live on
+gordonshortchemist.co.uk in full - not sampled live by filename in any of the
+prior 31 passes (confirmed by grep against this item's flattened log text).
+
+Matches branches.json and the generator's static copy exactly:
+  - Address: 159 College Road, Liverpool, L23 3AT (branches.json: same)
+  - Phone: 0151 924 3449 (branches.json: same, both spaced forms)
+  - Email: shorts@rbhealth.co.uk (branches.json: Shorts@rbhealth.co.uk,
+    case-insensitive match, standing non-issue)
+  - Opening hours: Mon-Fri 9-6 with 1-2pm lunch closure, Sat 9-5 with 1-2pm
+    lunch closure, Sun closed - matches branches.json's specification exactly
+  - Eligibility: "Age 1 and over" (hero pill) and "Anyone aged 1 and over"
+    (eligibility list) both correct for the insect-bite cohort (ages: [1]);
+    "Babies under 1 should see a GP" redirect present and correctly worded
+  - No medicine named by brand, no superlative or results claim, no stock
+    guarantee
+
+STANDING LIVE-ONLY FINDING RECONFIRMED, NOT NEW: the page mixes "Gordon
+Shorts Chemist" (plural - title tag, hero, booking card, "How it works",
+footer banner) with "Gordon Short Chemist" (singular - the Contact Us sidebar
+heading only) in the same page. This is the standing Q32 plural-drift finding,
+already tracked and reconfirmed on multiple prior passes and prior pages of
+this same branch, not a new defect.
+
+NO NEW QUESTION RAISED. QUESTIONS.json unchanged by this pass (still 145
+total, 7 open: Q37, Q139-Q144; portal feed re-checked via the answer-pickup
+step at run start, no new answer since 2026-09-01T22:44:51.524Z).
+
+Guard coverage for item 3.11 now extends to check-pharmacy-first-eligibility.js
+(32 of 37 repo checkers proven by direct injection against this item).

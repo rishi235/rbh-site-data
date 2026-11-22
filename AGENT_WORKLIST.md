@@ -18974,6 +18974,55 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       short-crosby-item-3.11-quality-pass-2026-11-21-thirtyfirst.txt.
       Done 2026-11-21.
 
+      Thirty-second quality pass 2026-11-22 (unattended run, audit-backlog-
+      worker). BASELINE: branches.json sha256 0385b7c2...27da unchanged; full
+      35-checker non-network suite 35/35 exit 0; git status --porcelain on
+      modules/core/branches.json/gbp-packs/tools/compliance empty bar one
+      pre-existing unrelated debris file. FRESH ANGLE: tools/check-pharmacy-
+      first-eligibility.js, confirmed never previously named against this
+      item across 31 prior passes (checked against the item's full log text
+      with markdown line-wrap normalised first - earlier naive greps had
+      been fooled by exactly this wrapping, which is why the normalisation
+      step was added before trusting the zero count). FOUR INJECTIONS PLUS
+      ONE CONTROL, all against a git archive HEAD scratch copy (tracked repo
+      never opened for writing): (1) shingles-treatment-gordon-short-
+      crosby.html's eligibility line "Adults aged 18 and over" changed to
+      "Adults aged 16 and over" - CAUGHT cleanly, rules 5 and 7; (2) earache-
+      treatment-gordon-short-crosby.html's safety redirect reworded away
+      from the pinned regex - CAUGHT cleanly, rule 8; (3) gbp-packs/gordon-
+      short-crosby.md's Post A seven-condition list had impetigo dropped
+      while still claiming seven - CAUGHT cleanly, rule 10; (4) the same
+      pack, restored then had its NHS age-ranges qualifying sentence deleted
+      with the enumeration left intact - CAUGHT cleanly, rule 11. NEGATIVE
+      CONTROL: an unrelated SEO-description wording tweak on sore-throat-
+      treatment-gordon-short-crosby.html stayed clean throughout, confirming
+      no cross-firing. All four files restored byte-identical and sha256-
+      reconfirmed against the tracked repo's own copies; full 35-checker
+      suite re-run clean on the scratch copy afterwards; tracked repo
+      reconfirmed untouched throughout (branches.json sha256 unchanged, git
+      status --porcelain empty bar the one pre-existing debris file).
+      Scratch directory deleted. NO IN-REPO DEFECT FOUND - the checker
+      already correctly protects this branch's condition pages and its pack
+      in every direction tested. Guard coverage for item 3.11 now extends to
+      32 of 37 repo checkers.
+      LIVE (Claude in Chrome, read-only, single tab, nothing clicked, typed
+      or submitted beyond navigation, closed after use): read insect-bite-
+      treatment-gordon-short-crosby.html, not sampled live by filename in
+      any of the prior 31 passes. Address, phone, email (case-insensitive
+      match, standing non-issue) and the Mon-Fri/Sat lunch-split opening
+      hours all match branches.json exactly; the hero pill, eligibility list
+      and safety redirect for the insect-bite cohort (age 1 and over) are
+      all correct and verbatim; no medicine, superlative or results claim.
+      STANDING LIVE-ONLY FINDING RECONFIRMED, NOT NEW: the page still mixes
+      "Gordon Shorts Chemist" (plural - title, hero, booking, footer banner)
+      with "Gordon Short Chemist" (singular - Contact Us sidebar heading
+      only), the standing Q32 plural-drift finding, now reconfirmed on a
+      further page. NO NEW DEFECT, NO NEW QUESTION RAISED. QUESTIONS.json
+      unchanged at 145 total, 7 open (Q37, Q139-Q144; portal feed checked at
+      run start, no new answer since 2026-09-01). Evidence: audits/gordon-
+      short-crosby-item-3.11-quality-pass-2026-11-22-thirtysecond.txt.
+      Done 2026-11-22.
+
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
       Quality pass 2026-08-30, both halves. Repo half: fresh independent
