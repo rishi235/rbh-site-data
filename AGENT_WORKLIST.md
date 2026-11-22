@@ -28640,6 +28640,50 @@ directly rather than re-deriving the same facts by hand.
       No new question. Evidence: AGENT_LOG.md this run; no separate audit
       file written (injection and restore both logged here in full, same as
       several prior passes with no distinct finding). Done 2026-11-22.
+      QUALITY PASS 2026-11-22 (Cowork scheduled run, 18:12Z): baseline
+      confirmed (branches.json sha256 0385b7c2...27da unchanged, matching
+      every prior anchor; full non-network checker suite run directly
+      against the tracked repo, clean - check-cdn-pins.js's own 6 KNOWN
+      entries and 2 WARNs unchanged from baseline). FRESH ANGLE:
+      check-jsonld.js, never previously named against this item. Scratch
+      copy via `git archive HEAD` to a disposable /tmp directory (tracked
+      repo never opened for writing). INJECTION: changed the "telephone"
+      value in pharmacy-first-mccanns-sandringham.html's JSON-LD block from
+      this branch's own number (0151 727 3076) to its sister branch's
+      (McCanns Aigburth, 0151 727 3185) - caught cleanly, first attempt,
+      one FAIL naming the exact file, the wrong value and the correct one
+      from branches.json. Restored, sha256-reconfirmed identical
+      (e45da2ed...8f4d3db) before the negative control. NEGATIVE CONTROL: a
+      cosmetic HTML comment before </body> stayed clean (exit 0). Full
+      non-network suite re-run on the restored scratch copy:
+      check-cdn-pins.js alone failed there, the known test-method artefact
+      from a bare `git archive` extraction having no `.git` history for its
+      ref-resolution checks (logged by several prior passes on other
+      items) - re-run directly against the tracked repo immediately after:
+      clean, same 6 KNOWN entries and 2 WARNs as baseline. Tracked repo
+      reconfirmed untouched throughout (branches.json, the pack and the
+      injected page all sha256-unchanged; `git status --porcelain` showed
+      only the pre-existing, unrelated untracked
+      `pharmacy-first-mccanns-sandringham.html.goldenbak` debris). NO
+      IN-REPO DEFECT FOUND. LIVE HALF (Claude in Chrome, read-only, one
+      tab, nothing clicked or typed, closed after use): re-fetched
+      pharmacy-first-mccanns-sandringham.html on mccannspharmacy.co.uk -
+      address, phone (0151 727 3076), opening hours and all seven Pharmacy
+      First conditions with correct NHS age ranges match branches.json
+      exactly; the shared footer's "Sandrigham" typo (standing Q144,
+      already open) was reconfirmed present and unchanged, not re-logged
+      as new. Answer pickup (step 3): Claude in Chrome, read-only, full
+      feed read, tab closed after use; newest entry still the Q52 answer
+      (2026-09-01); Q37 and Q139-Q145 all still open and unchanged. Guard
+      coverage for item 4.7 now also extends to check-jsonld.js;
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-editor-snapshot.js and check-weebly-furniture-freshness.js
+      (estate-wide only, not by injection against this specific branch)
+      remain untried against this item for a future pass. No new
+      question. Evidence: AGENT_LOG.md this run; no separate audit file
+      written (injection and restore both logged here in full, same
+      convention as several prior passes with no distinct finding). Done
+      2026-11-22.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
