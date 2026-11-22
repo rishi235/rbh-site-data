@@ -1,0 +1,83 @@
+Item 5.1 - quality pass (thirty-first), 2026-11-22T14:42Z, unattended scheduled run.
+
+ROTATION: .rotation_check.js re-run fresh. Stalest real pool entry (excluding 4.15's
+standing false-"stalest" caveat) was 5.1, last dated 2026-11-21 (thirtieth pass). Cross-
+checked against today's (2026-11-22) already-completed items per AGENT_LOG.md run
+headers: 2.1, 2.3, 3.1-3.13, 4.1, 4.5-4.14, 5.2, 6.2 - none is 5.1, so it was not
+re-done today before this pass. Picked 5.1.
+
+ANSWER PICKUP (step 3): Claude in Chrome, single tab, read-only, navigated to
+https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest "Audit answer"
+entry on the feed is still Q52 (2026-09-01T22:44:51.524Z). QUESTIONS.json held 8 open
+questions at pickup (Q37, Q139-Q145); none has a matching portal answer. All eight
+remained open and unchanged. Tab closed immediately after reading.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section at
+the top of AGENT_LOG.md at pickup. Proceeded under normal rules.
+
+FRESH ANGLE: grepped this item's own section (lines 39880-41764 of AGENT_WORKLIST.md) for
+every "check-*.js" checker name ever mentioned against it across all thirty prior passes:
+check-app-membership, check-brand-spelling, check-cdn-pins, check-em-dashes, check-gbp-
+packs, check-jsonld, check-live-hours, check-nap, check-postcodes, check-service-links,
+check-switch-copy, check-uk-spelling, check-weebly-furniture-freshness, check-whatsapp-
+route. Compared against the full list of 37 tools/check-*.js files. check-seo-keywords.js
+had never been run against this item by name in any of the thirty prior passes, despite
+the switch pages' own paste sheet (modules/switch/pages/SEO.md) carrying a Meta Keywords
+line per branch that this checker is the only rule guarding.
+
+METHOD: baseline taken on a disposable scratch copy under /tmp (git archive HEAD,
+extracted to /tmp/scratch_51_item, never the tracked tree - the earlier attempt to create
+the scratch copy under the session's own root filesystem failed with "No space left on
+device" because that filesystem, mounted separately from the connected folder, was at
+100% capacity; switched to /tmp, which had headroom, with no tracked-repo impact either
+way). node tools/check-seo-keywords.js on the untouched scratch copy: exit 0, "177 Meta
+Keywords line(s) across 11 paste sheet(s) ... clean, every Meta Keywords line matches its
+own branch."
+
+INJECTION: recorded modules/switch/pages/SEO.md's sha256 before editing. Changed the
+Smartts Chemist Bootle switch page's Meta Keywords line from "Smartts Chemist, Smartts
+Chemist Bootle, switch prescriptions Bootle..." to "Smartts Chemist, Fishlocks Chemist,
+switch prescriptions Bootle..." - naming another live branch's brandLabel (Fishlocks
+Ainsdale/Eccleston's), the absence-rule fault this checker's rule 5 exists to catch.
+node tools/check-seo-keywords.js: exit 1, 1 failure, naming the exact block ("Smartts
+Chemist - Bootle *(app member)*"), the exact offending value ("Fishlocks Chemist"), which
+branches it actually belongs to (fishlocks_ainsdale and fishlocks_eccleston), and the full
+line - caught cleanly on the first attempt.
+
+NEGATIVE CONTROL: restored the file by direct string replace back to the original text,
+confirmed sha256-identical to the pre-injection recording, re-ran clean (exit 0). Then
+made a second, deliberately harmless edit (a single trailing blank line appended to the
+same file, no data field touched) and re-ran: exit 0, still clean - confirming the rule is
+selective rather than tripping on any edit to the file. Scratch directory and all /tmp
+working files deleted afterwards.
+
+VERIFICATION: tracked repo's branches.json sha256 confirmed unchanged throughout
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching every prior
+pass). git status --porcelain on modules/, tools/, core/, branches.json, gbp-packs/ and
+compliance/ was empty before and after this pass (one long-standing, unrelated untracked
+debris file - modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak -
+was already present and not touched). Full non-network suite re-run directly against the
+tracked repo after the pass: 35 of 35 checkers exit 0.
+
+RESULT: no in-repo defect. The real switch pages' Meta Keywords lines are correct and
+unchanged. check-seo-keywords.js's coverage of this item's own page family is now proven
+by direct injection for the first time across thirty-one passes. No new QUESTIONS.json
+entry.
+
+LIVE HALF: not attempted this pass - the repo-side fresh angle above was the chosen focus
+and the thirty-first pass's time budget was spent on it. The live Weebly furniture sweep
+(Q39) remains complete as of the twenty-ninth pass's own account; nothing new to add this
+time.
+
+FORWARD NOTE: checkers still never named against this item by number across all thirty-one
+passes: check-address-region, check-booking-routes, check-branch-identity, check-branch-
+links, check-contraception-copy, check-editor-snapshot, check-fragment-targets, check-gbp-
+pharmacy-first, check-map-embeds, check-opening-hours, check-page-coverage, check-
+pharmacy-first-cost, check-pharmacy-first-eligibility, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-seo-lengths, check-seo-pattern, check-seo-sheets,
+check-travel-clinic-copy, check-url-scheme, check-weight-loss-copy, check-widget-diaries.
+Of these, check-seo-pattern, check-seo-sheets and check-seo-lengths are the closest fit
+(they guard the same paste-sheet family as the checker used this pass) and are the
+likeliest next fresh angle; check-booking-routes and check-map-embeds do not apply to the
+switch pages at all (no booking widget, no map embed on this family) and should be
+skipped rather than forced.

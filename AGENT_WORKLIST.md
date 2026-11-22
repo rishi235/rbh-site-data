@@ -41762,6 +41762,44 @@ pass's standing live findings (item 5.5/Q13/Q45 CDN-pin block, Q36 mailbox
 typo) stand unclaimed and unchanged, and no live claim is made here.
 Evidence: audits/switch-jsonld-item-5.1-quality-pass-2026-11-21.txt.
 
+Quality pass 2026-11-22 (thirty-first). Grepped this item's own section for every
+check-*.js name mentioned across all thirty prior passes and compared against the
+full set of 37 checkers in tools/: check-seo-keywords.js had never been named
+against this item. Baseline taken on a disposable /tmp scratch copy (git archive
+HEAD; an earlier attempt under the session's own root filesystem failed with "No
+space left on device" on an unrelated, separately-mounted filesystem at 100%
+capacity, so moved to /tmp, which had headroom): node tools/check-seo-keywords.js
+clean, 177 Meta Keywords lines across 11 paste sheets. Injected a defect into
+modules/switch/pages/SEO.md's Smartts Chemist Bootle block, replacing its own
+"Smartts Chemist Bootle" keyword with "Fishlocks Chemist" (another live branch's
+brandLabel) - caught on the first attempt, naming the exact block, the exact
+offending value, and which two branches it actually belongs to. Restored by direct
+string replace, sha256-reconfirmed identical to the pre-injection recording.
+Negative control (a harmless trailing blank line appended, no data field touched)
+re-ran clean, confirming the rule is selective. Scratch deleted. VERIFICATION:
+tracked repo's branches.json sha256 unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da); git status on
+modules/tools/core/branches.json/gbp-packs/compliance empty throughout bar one
+pre-existing unrelated debris file; full non-network suite re-run directly against
+the tracked repo after the pass: 35/35 exit 0. RESULT: no in-repo defect, the real
+switch pages' Meta Keywords lines are correct and unchanged; check-seo-keywords.js's
+coverage of this item's page family now proven by direct injection for the first
+time. No new QUESTIONS.json entry. LIVE HALF: not attempted this pass; the Q39
+Weebly furniture sweep remains complete as of the twenty-ninth pass. FORWARD NOTE:
+checkers still never named against this item: check-address-region,
+check-booking-routes (does not apply - no booking widget on switch pages),
+check-branch-identity, check-branch-links, check-contraception-copy,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-map-embeds (does not apply - no map embed on switch pages),
+check-opening-hours, check-page-coverage, check-pharmacy-first-cost,
+check-pharmacy-first-eligibility, check-pharmacy-first-safety-net,
+check-pharmacy-first-symptoms, check-seo-lengths, check-seo-pattern,
+check-seo-sheets, check-travel-clinic-copy, check-url-scheme,
+check-weight-loss-copy, check-widget-diaries. check-seo-pattern, check-seo-sheets
+and check-seo-lengths are the closest fit (same paste-sheet family) and the
+likeliest next fresh angle. Evidence:
+audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as
