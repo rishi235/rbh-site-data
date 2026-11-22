@@ -1,0 +1,71 @@
+Item 4.5 - Scorah Chemists Hazel Grove pack (gbp-packs/scorah-hazel-grove.md)
+Quality pass (twenty-ninth), 2026-11-22, unattended scheduled run (audit-backlog-worker)
+
+BASELINE (before any work)
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing anchor, unchanged)
+- gbp-packs/scorah-hazel-grove.md sha256: a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84 (unchanged since the twenty-seventh pass)
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty bar one
+  pre-existing unrelated untracked debris file
+  (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak), confirmed not touched
+  by this run.
+- Full 35-checker non-network suite (excl. check-cdn-pins.js / check-live-hours.js): 35/35 exit 0.
+
+FRESH ANGLE
+tools/check-uk-spelling.js, confirmed never previously named against this item across 28 prior
+passes (grepped the item's full section text, wrap-normalised). This checker reads gbp-packs/*.md
+content directly (confirmed by grep -l "gbp-packs" tools/*.js) and this pack has never been an
+injection target for it, despite 34 of 36 live checkers already being proven against it.
+
+INJECTION (against a disposable git-archive scratch copy at /tmp/scratch45; tracked repo never
+opened for writing)
+- Built via `git archive HEAD | tar -x -C /tmp/scratch45`.
+- Edited the business description's weight-loss sentence from "...our pharmacist-led weight loss
+  clinic provides private consultations with ongoing support" to "...our pharmacist-led weight loss
+  clinic is the center for private..." (US spelling "center" substituted for UK "centre").
+- Ran `node tools/check-uk-spelling.js` from the scratch root: CAUGHT cleanly, exit 1:
+    FAIL  gbp-packs/scorah-hazel-grove.md:28: reads "center". UK English is "centre"
+- Restored the pack file by byte copy (`git show HEAD:gbp-packs/scorah-hazel-grove.md >
+  gbp-packs/scorah-hazel-grove.md`), sha256-reconfirmed identical to the pre-injection hash
+  (a9f6deb4...e105d84).
+
+NEGATIVE CONTROL
+- Edited the description's opening clause from "An independent NHS pharmacy on Macclesfield Road"
+  to "An independent, friendly NHS pharmacy on Macclesfield Road" - a cosmetic wording change
+  carrying no US-spelling word.
+- Ran the checker again: stayed clean, exit 0 - confirms the rule fires on genuine US spelling and
+  not on unrelated wording edits.
+- Restored again by byte copy; sha256-reconfirmed identical.
+
+POST-RESTORE VERIFICATION
+- Full 35-checker non-network suite re-run on the scratch copy: 35/35 exit 0.
+- Scratch directory deleted cleanly (`rm -rf /tmp/scratch45`).
+- Tracked repo reconfirmed throughout and after: branches.json and the pack's own sha256 both
+  unchanged; git status --porcelain on the tracked paths empty bar the one pre-existing debris
+  file; `node tools/check-uk-spelling.js` against the tracked repo: clean, exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 4.5 now also includes check-uk-spelling.js proven
+by direct injection (35 of 36 live checkers now proven against this item, excluding only the two
+network-dependent checkers, check-cdn-pins.js and check-live-hours.js).
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or submitted, closed
+after use)
+Read contraception-scorah-hazel-grove.html in full - not previously sampled live by any of the 28
+prior passes on this item (this branch's own NO_FALLBACK_SERVICE_KEYS contraception page, with its
+own diary). Address (87 Macclesfield Road, Hazel Grove, SK7 6BG), phone (01625 872267), eligibility
+wording (combined/progestogen-only pill, correct GP/coil-implant/emergency-contraception
+signposting), callback form with collection notice and WhatsApp button, and the Superintendent
+Pharmacist line all match branches.json and the generator's static copy exactly. No medicine,
+superlative, efficacy or results claim; no stock guarantee (not applicable to this service).
+
+Two standing live-only findings reconfirmed on this further page, neither new:
+- The shared footer's "Scorah Chemist which is owned by RB Healthcare Ltd" (singular, dropped "s")
+  - the same brand-spelling near-miss this pass's own fresh-angle checker class (check-brand-
+    spelling.js, not this pass's checker) would catch on a repo file, but this string is Weebly
+    footer furniture this repo does not generate, so no checker here can see it. Same class
+    already logged against this branch's earache page on the 2026-11-21 pass (item 4.5,
+    twenty-eighth pass).
+- The shared footer's Scorah Bramhall contact block still reads "Cheshire SK7 3LQ" against
+  branches.json's Greater Manchester - the standing Q43 live-copy gap, reconfirmed here on a
+  further page, not new.
+
+No generator, page, pack, checker or branches.json content changed. No new question raised.

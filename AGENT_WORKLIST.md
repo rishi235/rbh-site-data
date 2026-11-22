@@ -26470,6 +26470,51 @@ Quality pass 2026-11-21 (twenty-eighth, unattended scheduled run): FRESH
       item-4.5-brand-spelling-injection-2026-11-21.txt.
       Done 2026-11-21.
 
+Quality pass 2026-11-22 (twenty-ninth, unattended scheduled run): FRESH
+      ANGLE, tools/check-uk-spelling.js, confirmed never previously named
+      against this item across 28 prior passes despite reading gbp-packs/*.md
+      content directly. BASELINE: branches.json sha256 0385b7c2...27da
+      (standing anchor, unchanged), the pack's own sha256 a9f6deb4...e105d84
+      (unchanged), full 35-checker non-network suite clean on the tracked
+      repo (35/35 exit 0), git status --porcelain on modules core
+      branches.json gbp-packs tools compliance empty bar one pre-existing
+      unrelated debris file, all confirmed directly before any work.
+      INJECTION, against a git-archive HEAD scratch copy (tracked repo never
+      opened for writing): the business description's weight-loss sentence
+      edited to substitute US "center" for UK "centre" - CAUGHT cleanly,
+      exit 1, naming the file, line and the correct UK form. NEGATIVE
+      CONTROL: an unrelated cosmetic wording change to the description's
+      opening clause (no US-spelling word) stayed clean, confirming no
+      cross-fire. Scratch copy restored by byte copy both times, sha256-
+      reconfirmed identical to the pre-injection hash; full 35-checker suite
+      re-run clean on the scratch copy afterwards; scratch directory deleted
+      cleanly. Tracked repo reconfirmed unchanged throughout: branches.json
+      and the pack sha256 both unchanged, git status --porcelain on the
+      tracked paths empty, check-uk-spelling.js clean exit 0. NO IN-REPO
+      DEFECT FOUND. Guard coverage for item 4.5 now extends to
+      check-uk-spelling.js, 35 of 36 live checkers proven by direct
+      injection against this item (excluding only the two network-dependent
+      checkers).
+      LIVE (Claude in Chrome, read-only, single tab, nothing clicked, typed
+      or submitted, closed after use): read contraception-scorah-hazel-
+      grove.html, this branch's own NO_FALLBACK_SERVICE_KEYS contraception
+      page with its own diary, not previously sampled live by any of the 28
+      prior passes on this item. Address, phone, eligibility wording
+      (combined/progestogen-only pill, correct GP/coil-implant/emergency-
+      contraception signposting), callback form with collection notice and
+      WhatsApp button, and the Superintendent Pharmacist line all match
+      branches.json and the generator's static copy exactly; no medicine,
+      superlative or results claim. Two standing live-only findings
+      reconfirmed on this further page, neither new: the shared footer's
+      "Scorah Chemist which is owned by RB Healthcare Ltd" (singular,
+      dropped "s") near-miss already logged on the earache page (2026-11-21
+      pass), and the Scorah Bramhall contact block still reading "Cheshire
+      SK7 3LQ" against branches.json's Greater Manchester (standing Q43).
+      No generator, page, pack, checker or branches.json content changed.
+      No new question raised. Evidence: audits/scorah-hazel-grove-item-4.5-
+      uk-spelling-injection-2026-11-22.txt.
+      Done 2026-11-22.
+
 - [x] 4.6 McCanns Chemist Aigburth pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and found correct on address, postcode, phone, hours
