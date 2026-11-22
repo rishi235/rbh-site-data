@@ -1,0 +1,111 @@
+{
+  "diffConfirmed": {
+    "humanMatches": true,
+    "expectedRowsMatches": true
+  },
+  "humanTests": [
+    {
+      "input": "00:00",
+      "output": "12am",
+      "expectedShape": "12am (midnight)"
+    },
+    {
+      "input": "12:00",
+      "output": "12pm",
+      "expectedShape": "12pm (noon)"
+    },
+    {
+      "input": "09:05",
+      "output": "9.05am",
+      "expectedShape": "9.05am, NOT 9.5am"
+    },
+    {
+      "input": "09:00",
+      "output": "9am",
+      "expectedShape": "9am, no leading .00"
+    },
+    {
+      "input": "13:00",
+      "output": "1pm",
+      "expectedShape": "1pm"
+    },
+    {
+      "input": "23:59",
+      "output": "11.59pm",
+      "expectedShape": "11.59pm"
+    },
+    {
+      "input": "00:30",
+      "output": "12.30am",
+      "expectedShape": "12.30am"
+    },
+    {
+      "input": "14:00",
+      "output": "2pm",
+      "expectedShape": "2pm"
+    }
+  ],
+  "sortTests": [
+    {
+      "branch": "mccanns_aigburth",
+      "day": "Monday",
+      "correctOrder": "9am to 1pm, 2pm to 6pm",
+      "withInjectedReversedComparator": "2pm to 6pm, 9am to 1pm",
+      "divergesAsExpected": true
+    }
+  ],
+  "realDataRows": {
+    "mccanns_aigburth": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm",
+      "Saturday": "9am to 1pm, 2pm to 5pm"
+    },
+    "mccanns_sandringham": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm"
+    },
+    "smartts_bootle": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm"
+    },
+    "hirshmans_ainsdale": {
+      "Monday": "8.30am to 1pm, 2pm to 6pm",
+      "Tuesday": "8.30am to 1pm, 2pm to 6pm",
+      "Wednesday": "8.30am to 1pm, 2pm to 6pm",
+      "Thursday": "8.30am to 1pm, 2pm to 6pm",
+      "Friday": "8.30am to 1pm, 2pm to 6pm",
+      "Saturday": "9am to 1pm, 2pm to 5.30pm"
+    },
+    "colemanleigh_liverpool": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm"
+    },
+    "gordonshorts_crosby": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm",
+      "Saturday": "9am to 1pm, 2pm to 5pm"
+    },
+    "tiffenbergs_longmoor": {
+      "Monday": "9am to 1pm, 2pm to 6pm",
+      "Tuesday": "9am to 1pm, 2pm to 6pm",
+      "Wednesday": "9am to 1pm, 2pm to 6pm",
+      "Thursday": "9am to 1pm, 2pm to 6pm",
+      "Friday": "9am to 1pm, 2pm to 6pm"
+    }
+  }
+}

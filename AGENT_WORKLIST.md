@@ -47088,6 +47088,87 @@ data field changed this run. No new question.
       Evidence:
       audits/verify-6.3-2026-10-14-twentyfirst-gbp-hoursdays-injection.txt,
       audits/live-hours-check-2026-10-14.json. Done 2026-10-14.
+      Quality pass (twenty-second), 2026-11-22 (unattended scheduled run,
+      Cowork, audit-backlog-worker). ROTATION: all three unchecked worklist
+      lines confirmed [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged, so
+      fell through to the quality-pass fallback. The pool's naive
+      stalest-by-date read (.rotation_check.js, which greps every date-shaped
+      string in a section) misranked this item behind a run of items dated
+      2026-11-22, because 6.3's own section carries an unrelated bank-holiday
+      date (2026-12-28) mentioned in the nineteenth pass's NEAR_DAYS-boundary
+      prose; that string is not a verification date. Checked by hand instead:
+      the section's actual "Quality pass (Nth)" / "Done" lines show the last
+      real pass was the twenty-first, 2026-10-14, 39 days stale and far older
+      than every other item in the pool (all dated today). Picked 6.3 on that
+      basis; the standing 4.15 false-stalest-reading caveat from prior runs
+      is a second instance of the same regex limitation and both should be
+      read with this in mind rather than trusted at face value.
+      BASELINE: all 34 non-network, non-cdn-pins checkers clean (34/34 exit
+      0); branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged from the standing hash; git status --porcelain showed only
+      pre-existing untracked debris (unrelated scratch/probe files and one
+      unrelated .goldenbak under modules/service/pages/, none touched this
+      run).
+      FRESH ANGLE (REPO HALF): tools/check-live-hours.js's own composition
+      functions, human() and expectedRows(), grepped by name across all
+      twenty-one prior passes' text first - zero hits for "human(",
+      "expectedRows", "sessions.sort", "AbortController" or "TIMEOUT_MS".
+      These are the functions that render the EXPECTED row a human reader
+      compares live snippets against, so a defect here would misstate the
+      comparison baseline itself while the tool still exits 0 (a survey
+      tool, never a gate) - the same shape as the sitemap URL-selection logic
+      found untested on the twentieth pass. Verified with a read-only script
+      (audits/verify-6.3-2026-11-22-twentysecond.js, verbatim copy of both
+      functions diff-confirmed against the tracked file at run time, no
+      tracked file written, no network call) covering: (1) human() on eight
+      edge cases never exercised before, including midnight (00:00 -> 12am),
+      noon (12:00 -> 12pm) and a non-zero-minute time (09:05 -> 9.05am, not
+      9.5am) - all rendered correctly; (2) expectedRows()'s session sort and
+      join, run against all seven REAL lunch-closure branches in
+      branches.json (mccanns_aigburth, mccanns_sandringham, smartts_bootle,
+      hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby,
+      tiffenbergs_longmoor) rather than synthetic data - every one correctly
+      composes morning-before-afternoon; (3) an injected reversed comparator
+      on a copy of the function, run against mccanns_aigburth's real Monday
+      data, flips the composed string to "2pm to 6pm, 9am to 1pm" - proving
+      the real comparator's ascending direction is load-bearing and not
+      accidentally already in data order. RESULT: zero in-repo defect, all
+      three negative/positive controls behaved as expected. Evidence:
+      audits/verify-6.3-2026-11-22-twentysecond.js,
+      audits/verify-6.3-2026-11-22-twentysecond.json.
+      LIVE HALF: tools/check-live-hours.js re-run fresh over real network
+      egress (curl 301 confirmed for smarttschemist.co.uk first; read-only
+      GETs only), all 14 trading branches read,
+      audits/live-hours-check-2026-11-22.json written. No bank holiday
+      within 14 days of this run (next 2026-12-25, 33 days out). Every
+      snippet read by hand against its branch's expected row, including both
+      shared-domain pairs read by address (Scorah, McCanns, Fishlocks - the
+      Fishlocks pair's shared-page snippets were re-checked card by card
+      after a first-pass automated scan misattributed Eccleston's "Monday
+      9:00am-6:00pm" line to Ainsdale on the same page; reading the full
+      snippet rather than a blind regex match showed Ainsdale's own card
+      correctly says "Monday 8.45am - 6:00pm", matching branches.json
+      exactly - a reminder of the same card-attribution trap this item's
+      sixth pass already names, not a new defect) and all seven
+      lunch-closure branches. Thirteen branches match their expected rows
+      exactly. gordonshorts_crosby (control) still correctly shows its
+      lunch closure on both pages. smartts_bootle remains the sole live
+      mismatch: homepage hours card, footer widget and contact page all
+      still publish straight-through "9:00am - 6:00pm" / "09:00 - 18:00"
+      with no lunch closure, unchanged since first found 2026-08-11, now
+      confirmed on all twenty-two passes. Q55 (answered 2026-09-02, option
+      1, edit the live Smartts pages) stands as answered-but-not-yet-
+      actioned - the live Weebly edit is outside this worker's write scope -
+      not re-raised.
+      ANSWER PICKUP (step 3, this run): Claude in Chrome, single tab,
+      read-only, nothing clicked or typed, closed after use. Newest entry on
+      the feed still the Q52 answer, 2026-09-01T22:44:51.524Z, unchanged for
+      over eleven weeks. 146 questions total, 8 open (Q37, Q139-Q145),
+      unchanged by this pass.
+      No new live defect, no new in-repo defect, no new question raised.
+      Evidence: audits/verify-6.3-2026-11-22-twentysecond.js,
+      audits/verify-6.3-2026-11-22-twentysecond.json,
+      audits/live-hours-check-2026-11-22.json. Done 2026-11-22.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
