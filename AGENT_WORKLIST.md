@@ -37744,6 +37744,46 @@ appended to the line. Do not move them; the status page reads them in place.
       answer arrived for Q139, Q140, Q141 or Q142, all four still open. No
       new question raised. No in-repo defect found. Evidence in
       audits/tiffenbergs-aintree-item-4.15-twentyfifth-2026-11-20.txt.
+      Quality pass 2026-11-22 (twenty-sixth re-verification, Cowork
+      scheduled run): baseline confirmed (branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged). Fresh angle: tools/check-branch-identity.js, never
+      previously named against this item across 25 prior passes. Scratch
+      copy via `git archive HEAD`, baseline clean. Injected a wrong
+      data-branch value ("Gordon Short Chemist") into the scratch copy of
+      earache-treatment-tiffenbergs-aintree.html - caught cleanly, first
+      attempt, naming the exact page and both the wrong and correct branch.
+      Negative control (cosmetic HTML comment, no data field touched)
+      stayed clean. File restored, sha256-reconfirmed identical. The
+      scratch directory itself could not be deleted afterwards (the
+      standing EPERM-on-unlink mount quirk) and this run found it was
+      exposing check-postcodes.js, which walks the filesystem directly, to
+      617 false failures by reading the whole repo snapshot inside the
+      undeletable scratch copy as if it were live copy -
+      .scratch_tmp/ had never been added to .gitignore despite being the
+      working directory every quality pass's scratch copies use. Fixed by
+      adding /.scratch_tmp/ to .gitignore, per that checker's own code
+      comment ("a genuinely new debris shape ... is the correct prompt to
+      add it there rather than to this checker"). Re-ran check-postcodes.js
+      directly against the tracked repo: 0 failures (3 pre-existing
+      UNOWNED warnings only). Full 35-checker non-network suite re-run
+      after the fix: 35/35 exit 0. Only tracked change this pass:
+      .gitignore (+18 lines); branches.json and the injected page both
+      reconfirmed byte-identical throughout. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked/typed/submitted, closed after
+      use): read weight-loss-clinic-tiffenbergs-aintree.html live for the
+      first time across 26 passes - no medicine named, no superlative or
+      results claim, no Buy Now button, consultation framing explicit
+      throughout, matching the compliant pattern already verified estate-
+      wide; address, phone and split hours all match branches.json.
+      STANDING FINDING RECONFIRMED, NOT NEW: the live footer and contact
+      block still publish "tiffenbergs@rbhealth.co.uk" (plural) against
+      branches.json's "Tiffenberg@rbhealth.co.uk" (singular) - the Q56
+      divergence, answered 2026-09-29 (singular is correct), live-side fix
+      still pending a Weebly repaste. Answer pickup: newest feed entry
+      still Q52 (2026-09-01); no answer for Q37 or Q139-Q145, all eight
+      remain open. NO NEW QUESTION RAISED. Evidence:
+      audits/tiffenbergs-aintree-item-4.15-twentysixth-2026-11-22.txt.
 - [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
       (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
       Repo, repo history and live site all clean; correct L17 4JP throughout.

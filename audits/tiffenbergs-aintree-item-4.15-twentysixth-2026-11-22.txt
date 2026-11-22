@@ -1,0 +1,114 @@
+Item 4.15 (Tiffenbergs Chemist Aintree pack), twenty-sixth quality pass
+Run: Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T15:42Z
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged throughout this pass; matches every other 2026-11-22 run's own
+baseline check).
+
+Full checker suite (37 scripts, excluding the two network-dependent ones,
+check-cdn-pins.js and check-live-hours.js) run directly against the tracked
+repo BEFORE any work this pass: 34/35 exit 0. The one failure,
+check-postcodes.js, is the subject of this pass's finding below - it was
+NOT present on the previous run's (15:12Z, item 6.3) clean baseline and was
+caused by this pass's own leftover scratch directory, not a pre-existing
+repo defect; see FINDING.
+
+FRESH ANGLE: tools/check-branch-identity.js, never previously named against
+item 4.15 across 25 prior passes (confirmed by grepping every "check-*.js"
+mention in this item's own AGENT_WORKLIST.md block).
+
+Scratch copy made via `git archive HEAD | tar -x` into
+.scratch_tmp/scratch_415_<timestamp>/, outside the tracked tree. Baseline in
+scratch: clean (177 pages, 0 failures).
+
+INJECTION: changed data-branch="Tiffenbergs Chemist" to
+data-branch="Gordon Short Chemist" on the scratch copy of
+modules/service/pages/earache-treatment-tiffenbergs-aintree.html (a page
+never previously used for injection testing against this item).
+
+RESULT: caught cleanly, first attempt, exit 1:
+  FAIL modules/service/pages/earache-treatment-tiffenbergs-aintree.html:
+    data-branch="Gordon Short Chemist" but the page belongs to
+    tiffenbergs_longmoor ("Tiffenbergs Chemist") - that is
+    gordonshorts_crosby's name, so an enquiry from this page is filed
+    against the wrong pharmacy
+  FAIL tiffenbergs_longmoor: its pages declare 2 different values for
+    data-branch ...
+
+NEGATIVE CONTROL: a cosmetic HTML comment added on the same line, no data
+field touched - stayed clean (exit 0).
+
+Injected file restored by direct string replace; sha256-reconfirmed
+identical to the tracked file afterwards
+(e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030 on both).
+Scratch directory could NOT be deleted afterwards - the standing
+EPERM-on-unlink mount quirk this repo's own .gitignore and
+check-postcodes.js both document at length - so it was left in place rather
+than retried.
+
+FINDING (in-repo, fixed this pass): the undeletable scratch directory,
+sitting inside the tracked tree at .scratch_tmp/, was not covered by any
+.gitignore pattern. check-postcodes.js walks the filesystem directly rather
+than through git (so it is blind to .gitignore only in the sense that it
+derives its OWN skip list from .gitignore's patterns, per its own code
+comment), and with .scratch_tmp/ unlisted it read the entire repo snapshot
+inside the scratch copy - including check-postcodes.js's own source file,
+which quotes dozens of deliberately fabricated test postcodes in its
+NARRATIVE_POSTCODES comment history - as if it were live public copy,
+producing 617 false UNKNOWN/MISATTRIB failures (full list saved to
+/tmp/chk_check-postcodes.js.log during this pass, not committed - a /tmp
+scratch artefact itself).
+
+This is exactly the "genuinely new debris shape is NOT in .gitignore yet
+and still surfaces here as a real failure" case check-postcodes.js's own
+code comment describes as the correct prompt to fix .gitignore rather than
+the checker. Added `/.scratch_tmp/` to .gitignore, dated and reasoned.
+Re-ran check-postcodes.js directly against the tracked repo (the
+undeletable scratch directory still physically present, unchanged):
+0 failures, 3 warnings (the standing UNOWNED gbp-packs/TEMPLATE.md and
+modules/branch/pages/*.md warnings, pre-existing, unrelated to this fix).
+
+Full 35-checker non-network suite re-run after the .gitignore fix: 35/35
+exit 0. Only tracked change this pass: .gitignore (+18 lines). branches.json
+and the target page both reconfirmed byte-identical to their pre-pass
+hashes. git status after the fix shows only .gitignore as a tracked
+modification; the usual long-standing untracked debris list (unrelated to
+this pass, left alone) is unchanged.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use): read
+https://www.tiffenbergschemist.co.uk/weight-loss-clinic-tiffenbergs-aintree
+in full - the one generated page for this branch never read live across 25
+prior passes. Compliance read against the two-regime rule (CLAUDE.md /
+RBH_WeightLoss_Advertising_Standards.md): no prescription-only medicine
+named anywhere on the page; no superlative or results claim ("individual
+results vary", "nothing below is a guarantee of treatment, a specific
+medicine, or a specific outcome" both present); no Buy Now button; pricing
+("from £39.99") appears only inside the booking step copy, not as a
+headline discount; consultation framing explicit throughout. Matches the
+generator's own static copy and the compliant pattern already verified for
+every other weight loss page in the estate. Address (388 Longmoor Lane,
+Liverpool, L9 9DB), phone (0151 525 3462) and the split weekday hours
+(9:00am-1:00pm/2:00pm-6:00pm, Sat/Sun closed) all match branches.json
+exactly in both the page's own contact card and the sitewide footer.
+
+STANDING FINDING RECONFIRMED, NOT NEW: the sitewide footer and the page's
+own contact block both publish the branch email as
+"tiffenbergs@rbhealth.co.uk" (plural), while branches.json holds
+"Tiffenberg@rbhealth.co.uk" (singular) - the exact Q56 divergence, answered
+2026-09-29 (Rishi: the real mailbox is the singular form), with the
+live-side correction still outstanding pending a Weebly repaste per Q56's
+own note history. Reconfirmed on a further page (weight loss clinic,
+not previously checked for this), not a new occurrence. No new question
+raised; Q56 already carries this open action.
+
+ANSWER PICKUP (step 3, recorded here for completeness - also in
+AGENT_LOG.md): Claude in Chrome, one tab, read-only GET to
+https://data.rbhealth.co.uk/api/feedback, full feed read, tab closed after
+use. Newest entry still the Q52 answer (2026-09-01). No answer for Q37 or
+Q139-Q145; all eight remain open, unchanged.
+
+NO NEW QUESTION RAISED (beyond the .gitignore fix already applied in-line,
+which needed no question - it is a repo-hygiene fix, not a content
+decision).

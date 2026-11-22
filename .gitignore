@@ -81,6 +81,24 @@ archive/
 /AGENT_LOG_NEW_267.md
 /AGENT_LOG_combined_scratch.md
 
+# Found on item 4.15's twenty-sixth quality pass, 2026-11-22: a git-archive
+# scratch copy left under .scratch_tmp/ (made to injection-test
+# check-branch-identity.js against this item, same disposable-scratch
+# pattern every pass in this repo uses) could not be removed afterwards -
+# the same EPERM-on-unlink mount fault documented throughout this file - and
+# check-postcodes.js, which walks the filesystem directly rather than
+# through git, read the whole repo tree inside it (including its own copy of
+# this checker's source, which quotes dozens of deliberately fabricated
+# postcodes for its own test history) as if it were public copy, producing
+# 617 false UNKNOWN/MISATTRIB failures. .scratch_tmp/ is the working
+# directory for ALL scratch copies made by quality passes across this
+# repo's history (visible in AGENT_LOG.md and in the untracked-file list
+# every run's git status has reported for days), so this is a genuinely new
+# debris shape per this file's own stated rule, not a one-off filename -
+# the correct fix per check-postcodes.js's comment on its gitignore-derived
+# skip list.
+/.scratch_tmp/
+
 # The ".__" double-underscore prefix is the dominant shape of debris this
 # EPERM-on-unlink bug (Q134) has produced since run214: probe files, cleared
 # locks, scratch log entries, diagnostic markers. Two of them
