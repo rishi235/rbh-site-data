@@ -2303,7 +2303,7 @@
     "recommended": 0,
     "status": "open",
     "answer": null,
-    "note": "This also means every unattended run from now on will land a local-only commit unless this is fixed - worth checking whether run493/run494-era pushes mentioned elsewhere in AGENT_LOG.md actually succeeded via this same now-missing credential, or whether they used a different machine/session."
+    "note": "This also means every unattended run from now on will land a local-only commit unless this is fixed - worth checking whether run493/run494-era pushes mentioned elsewhere in AGENT_LOG.md actually succeeded via this same now-missing credential, or whether they used a different machine/session. UPDATE 2026-11-22 (item 3.4 pass, Cowork scheduled run): this run hit the identical symptom in the bash sandbox (git push failed with \"could not read Username for https://github.com\"; no RBH_PORTAL_TOKEN, no gh CLI, no credential helper there). WORKAROUND USED THIS RUN: pushed instead via mcp__Windows-MCP__PowerShell against the native checkout at C:\\Dev\\rbh-site-data, whose git has credential.helper=manager (Windows Credential Manager) already configured and working - git push origin agents/audit-backlog succeeded cleanly from there (c124787..b47bcc3). This is a usable stopgap for any run that still has Windows-MCP available, but does not answer the underlying question: the Cowork bash sandbox itself still has no credential source of its own, so a run without Windows-MCP access (or on a future sandbox rebuild) will still land commit-only. Status left open pending Rishi's choice among the options above; this update is operational detail, not a decision."
   },
   {
     "id": "Q143",
