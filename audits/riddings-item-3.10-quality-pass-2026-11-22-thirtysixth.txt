@@ -1,0 +1,115 @@
+Item 3.10 (Riddings Pharmacy, Timperley) - quality pass (thirty-sixth), 2026-11-22
+(Cowork scheduled run, audit-backlog-worker).
+
+PICKUP
+Worklist step 5: all 3 unchecked top-level lines (5.8/Q16, 6.4/Q60, 6.5/Q60)
+confirmed still [BLOCKED] by direct grep, unchanged. Fell through to the
+quality-pass fallback. Ran .rotation_check.js: stalest real pool (excluding
+4.15, the file's own standing false-"stalest"-reading caveat) tied at
+2026-11-21: {3.10, 3.11, 3.12, 3.13, 4.1, 4.5, 4.6, 4.8, 4.10}. Cross-checked
+against today's (2026-11-22) already-completed items (2.1, 2.3, 3.6, 3.7,
+3.8, 3.9, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2) - no overlap with the tied pool.
+3.10 wins the lowest-item-number tiebreak.
+
+BASELINE
+branches.json sha256:
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(matches the standing anchor recorded by every prior pass, unchanged).
+git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  empty bar the one pre-existing unrelated untracked debris file
+  (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+  left over from the item 4.7 quality pass and undeletable in this sandbox
+  per the standing EPERM-on-unlink mount quirk; not part of this item).
+Full 35-checker non-network suite (all tools/check-*.js except
+check-cdn-pins.js and check-live-hours.js) run individually against the
+tracked repo: 35/35 exit 0, no failures.
+
+All 37 checker files were already proven by direct injection against this
+item across the 35 prior passes (see the thirty-third/thirty-fourth pass
+notes in AGENT_WORKLIST.md), so no further checker-injection angle was
+attempted this pass. check-cdn-pins.js remains the sole network-dependent
+checker not run this pass, per the standing convention.
+
+FRESH ANGLE
+Of this branch's 12 generated pages, grepped the item's full accumulated
+log text (AGENT_WORKLIST.md lines 15676-17701) for each page's filename
+stem. pharmacy-first, weight-loss-clinic, travel-clinic, switch-prescriptions
+and earache-treatment had all been read live in prior passes (2026-09-27
+onward). The remaining six - contraception, impetigo, insect-bite, shingles,
+sinusitis, sore-throat, uti-treatment - appeared only as scratch-copy
+injection targets (restored and never published), never as a live read.
+Picked contraception-riddings-timperley.html: it is the branch's only
+NO_FALLBACK_SERVICE_KEYS page with its own Appointedd diary, so it carries
+both the booking-route and the eligibility-copy rules at once and had never
+been sampled live.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed immediately after reading)
+Navigated to:
+  https://www.riddingspharmacy.co.uk/contraception-riddings-timperley.html
+Read the full rendered page text. Findings, checked against branches.json's
+riddings_timperley record and modules/service/pages/contraception-
+riddings-timperley.html's own generated copy:
+
+- Address: "38 Riddings Road, Timperley, Altrincham, WA15 6BP" - matches
+  streetAddress/addressLocality/postalCode exactly, both in the contact
+  card and the map-adjacent block.
+- Phone: "0161 973 2951" - matches, consistent in the tel link, the visible
+  "Call 0161 973 2951" button and the footer.
+- Email: "Riddings@rbhealth.co.uk" (footer) / "Riddings@rbhealth.co.uk"
+  (contact card "E:") - matches branches.json's email field exactly
+  (case-insensitive, the standing non-issue already tracked elsewhere in
+  this item).
+- Opening hours: Monday-Friday 9:00am-6:00pm, Saturday/Sunday Closed -
+  matches branches.json's single Mon-Fri 09:00-18:00 session with no lunch
+  split (Riddings is not one of the seven lunch-closure branches), correct
+  on both the contact-card table and the footer summary line.
+- Superintendent Pharmacist: "DR S K Kochhar" in the body text and
+  "Dr S K Kochhar (GPhC 2039034)" in the footer - consistent naming, no
+  mismatch.
+- GPhC registration: "GPHC no. 1029520" in the legal line - not a field
+  this repo tracks in branches.json (no checker reads it), so nothing to
+  compare against; noted only as present and plausible, not verified.
+- Eligibility and service-description copy: "Start, restart or continue the
+  contraceptive pill, with no GP appointment needed"; correctly scoped to
+  the combined and progestogen-only pill only; correctly excludes coils and
+  implants ("For a coil or implant (long-acting contraception), we will
+  advise where to get this locally") and correctly hedges emergency
+  contraception to same-day signposting rather than an on-page promise.
+  No medicine named by brand, no superlative, no efficacy or results claim,
+  no stock guarantee - matches the no-claims convention every other leaf
+  service page in this repo follows.
+- "Free NHS service" stated plainly and repeatedly (hero, trust bar,
+  booking section) - consistent with branches.json carrying no fee for
+  this service and with the generator's own copy.
+- Callback form: first name, last name, mobile, email (optional), free-text
+  field, a collection-notice sentence ("We will only use your details to
+  arrange your appointment"), and a "Send via WhatsApp instead" button -
+  present and worded as the generator emits for a NO_FALLBACK_SERVICE_KEYS
+  page with no booking widget fallback.
+- data-wa / WhatsApp routing: button present and correctly offered as an
+  alternative to the callback form, consistent with check-whatsapp-route.js
+  coverage already proven against this item in an earlier pass.
+
+STANDING LIVE-ONLY FINDING RECONFIRMED, NOT NEW
+The page's left-hand "Contact Us" sidebar block still gives the county as
+"Cheshire" against branches.json's addressRegion of "Greater Manchester" -
+the same Q43 finding already open and already reconfirmed on this branch's
+homepage, Pharmacy First page and footer by the 2026-11-07, 2026-11-18 and
+2026-11-19 passes of this item. Seen here on a further page, not a new
+fact pattern; not re-raised as a new question.
+
+RESULT
+NO IN-REPO DEFECT FOUND. NO NEW LIVE DEFECT FOUND (the one live finding is
+the standing, already-open Q43 county string). No generator, page, pack,
+checker or branches.json content changed - git status --porcelain on
+modules/core/branches.json/gbp-packs/tools/compliance unchanged before and
+after this pass bar the pre-existing debris file noted above. No worklist
+item unblocked. No new question raised.
+
+Guard coverage for item 3.10: all 37 checker files remain proven by direct
+injection (unchanged from the thirty-fourth pass); live-read coverage now
+extends to 6 of this branch's 12 generated pages (pharmacy-first,
+weight-loss-clinic, travel-clinic, switch-prescriptions, earache-treatment,
+contraception), up from 5. Five pages (impetigo, insect-bite, shingles,
+sinusitis, sore-throat, uti-treatment) remain live-unread for a future pass.

@@ -17698,6 +17698,40 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       positively; the switch 404 is the existing tracked backlog item).
       Evidence in audits/riddings-item-3.10-quality-pass-2026-11-21-
       thirtyfifth.txt. Done 2026-11-21
+      Quality pass (thirty-sixth), 2026-11-22 (Cowork scheduled run,
+      audit-backlog-worker). REPO HALF: full 35-checker non-network suite
+      re-run clean (35/35); branches.json sha256 unchanged
+      (0385b7c2...27da); all 37 checker files already proven by direct
+      injection against this branch as of the thirty-fourth pass, so no
+      further injection this time. Fresh angle: of this branch's 12
+      generated pages, 5 had been read live in prior passes (pharmacy-
+      first, weight-loss-clinic, travel-clinic, switch-prescriptions,
+      earache-treatment); the other 6 had only ever been scratch-copy
+      injection targets. Picked contraception-riddings-timperley.html -
+      the branch's only NO_FALLBACK_SERVICE_KEYS page with its own
+      diary, never read live before. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked, typed or submitted, closed
+      after use): read in full - address, phone, email, Mon-Fri 9-6
+      hours (no lunch split, correct for this branch), superintendent
+      pharmacist detail, correct scope (combined/progestogen-only pill
+      only, correctly excludes coils/implants, correctly hedges
+      emergency contraception), callback form with collection notice and
+      WhatsApp button, all matching branches.json and the generator's
+      static copy exactly; no medicine named, no superlative, no
+      efficacy or results claim, no stock guarantee. STANDING LIVE-ONLY
+      FINDING RECONFIRMED, NOT NEW: the page's own "Contact Us" sidebar
+      still gives the county as "Cheshire" against branches.json's
+      Greater Manchester (Q43, open), seen before on this branch's
+      homepage, Pharmacy First page and footer. NO IN-REPO DEFECT FOUND;
+      no generator, page, pack, checker or branches.json content changed
+      - git status --porcelain -- modules core branches.json gbp-packs
+      tools compliance empty throughout bar one pre-existing unrelated
+      debris file. No worklist item unblocked. No new question raised.
+      Live-read coverage now extends to 6 of 12 generated pages (up from
+      5); 5 pages (impetigo, insect-bite, shingles, sinusitis, sore-
+      throat, uti-treatment) remain live-unread for a future pass.
+      Evidence in audits/riddings-item-3.10-quality-pass-2026-11-22-
+      thirtysixth.txt. Done 2026-11-22
 
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
