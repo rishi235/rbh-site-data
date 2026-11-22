@@ -1,0 +1,93 @@
+﻿Item 4.11, SK Chemists Bootle GBP pack - twenty-ninth quality pass, 2026-11-22T17:42Z (unattended scheduled run, Cowork)
+
+PICKUP
+QUESTIONS.json: 8 open (Q37, Q139-Q145). Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome,
+read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry still Q52
+(2026-09-01T22:44:51.524Z); no entry for Q139-Q145; Q37's entry unchanged (the same 2026-09-01 non-answer every
+prior run has read). All eight remain open and unchanged.
+
+AUTONOMOUS WINDOW
+No "Standing authorisation - autonomous window" section at the top of AGENT_LOG.md at pickup. Proceeded under
+normal rules.
+
+ROTATION
+3 unchecked worklist lines confirmed [BLOCKED] by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell
+through to the quality-pass fallback. .rotation_check.js reported 4.15 (2026-11-18) as stalest - the same known
+false reading several prior runs have already flagged (its append-ordering quirk), since 4.15 genuinely received
+its 26th pass on 2026-11-18 itself and has not been touched again today. Reconstructed today's true rotation by
+reading every "## run" header dated 2026-11-22 and its first "WORK (item ...)" line in file order (entries are
+prepended, so lower line numbers are more recent): 4.9(00:12), 4.11(00:43), 4.7(01:43), 4.12(02:12), 5.2(02:42),
+6.2(03:12), 2.1(03:42), 2.3(04:12), 3.1-3.6(07:12), 3.7(07:42), 3.8(08:12), 3.9(08:47), 3.10+3.11(09:42),
+3.12(10:12), 3.13(10:42), 4.1(11:12), 4.5(11:42), 4.6(12:12), 4.8(12:42), 4.10(13:12), 4.13(13:42), 4.14(14:12),
+5.1(14:42), 6.3(15:12), 4.15(15:42), 2.1 again(16:43), 4.9 again(17:12). The 31-item pool cycled fully once
+today by 15:42Z; 2.1 and 4.9 were then each refreshed a second time. Excluding those two refreshes, 4.11 at
+00:43Z is the oldest remaining last-touch in today's rotation. Picked 4.11 on that basis.
+
+BASELINE
+sha256(branches.json) = 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged, matches
+every prior pass's anchor).
+sha256(gbp-packs/sk-chemists-bootle.md) = 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+(unchanged, matches every prior pass's anchor since the pack was last touched 2026-08-10).
+sha256(modules/service/pages/pharmacy-first-sk-chemists-bootle.html) =
+4befe14144fcbfee22b8838999a98a7ecf4c350db6ca741620980786cf0ea5bc (recorded fresh this pass as the injection
+target's own baseline).
+git status --porcelain on modules/, core/, branches.json, gbp-packs/, tools/, compliance/: clean bar the
+pre-existing, unrelated untracked pharmacy-first-mccanns-sandringham.html.goldenbak debris, not touched this
+pass.
+Full 34-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js per standing convention) run
+directly against the tracked repo before any work: 34/34 exit 0, zero failures.
+
+FRESH ANGLE
+Per the twenty-seventh pass's own finding, every checker that genuinely reads gbp-packs/ by source has already
+been proven by direct injection against this specific pack across 26 prior passes. That exhaustion is scoped to
+pack-reading checkers; it says nothing about checkers that read this branch's own GENERATED PAGES. No prior pass
+against item 4.11 records an injection test against SK Chemists Bootle's generated HTML. tools/check-booking-
+routes.js (the booking-chain checker: filename -> branches.json widget lookup -> service.js routing -> data-
+branch/data-service attributes) had never been named against this item.
+
+METHOD
+Built a full-tree scratch copy via `git archive -o <tar> HEAD` then `tar -x` to a native Windows temp directory
+(C:\Users\Admin\AppData\Local\Temp\rbh-scratch-4-11-...), extracted with the Windows System32 tar.exe after an
+initial attempt piping the archive through PowerShell's pipeline to Git's own tar.exe corrupted the binary
+stream and produced an empty extraction (noted for future passes using this method on this host: write the
+archive to a file first, never pipe git archive's stdout through a PowerShell pipeline on this host). Tracked
+working tree never opened for writing during the injection work.
+
+INJECTION 1 (should fire): changed data-branch="SK Chemists" to data-branch="Smartts Chemist" (a real sister
+Bootle branch's name) on pharmacy-first-sk-chemists-bootle.html in the scratch copy - CAUGHT cleanly, first
+attempt, exit 1, naming the exact file and stating the URL resolves to skchemists_bootle while data-branch names
+a different one. RESTORE: reverted, sha256-reconfirmed identical to the pre-injection baseline
+(4befe141...0ea5bc), re-run of check-booking-routes.js alone: clean, exit 0.
+
+INJECTION 2 / NEGATIVE CONTROL ATTEMPT (first attempt was not actually inert): appended a trailing space to
+data-service="Pharmacy First" - this ALSO fired (rule 5, SERVICEATTR: every page of one service slug must carry
+the same data-service wording; 13 pages said "Pharmacy First", 1 said "Pharmacy First "). This is correct
+checker behaviour, not a false negative, and is itself a useful confirmation that the wording-consistency rule
+is whitespace-sensitive - logged rather than discarded. Reverted, sha256-reconfirmed identical, re-run clean.
+
+TRUE NEGATIVE CONTROL: added a cosmetic HTML comment ("<!-- cosmetic test comment -->") immediately before
+</body> - stayed clean, exit 0, confirming the checker is not simply failing on any file touch. Removed,
+sha256-reconfirmed the file is byte-identical to the pre-injection baseline (4befe141...0ea5bc).
+
+Full 34-checker non-network suite re-run against the restored scratch copy: 34/34 exit 0, zero failures.
+Tracked repo reconfirmed untouched throughout this pass: sha256(branches.json), sha256(gbp-packs/sk-chemists-
+bootle.md) and sha256(modules/service/pages/pharmacy-first-sk-chemists-bootle.html) all identical to this pass's
+own opening baseline; git status --porcelain unchanged (same single pre-existing debris file only).
+
+RESULT
+No in-repo defect found. check-booking-routes.js is now proven by direct injection against this specific pack's
+branch and its own generated page, closing a coverage gap the pack-level exhaustion claim in the twenty-seventh
+pass did not actually cover (pack-reading checkers versus page-reading checkers are a different set).
+
+LIVE HALF
+Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use.
+Re-fetched pharmacy-first-sk-chemists-bootle.html on skchemist.co.uk. Address (516 Stanley Road, Bootle, L20
+5DW), phone (0151 944 1013), opening hours (Mon-Fri 9:00am-6:00pm, Sat/Sun closed), NHS email (sk@rbhealth.co.uk)
+and all seven Pharmacy First conditions with their correct NHS age ranges (UTI women 16-64, sore throat 5+,
+sinusitis 12+, earache 1-17, impetigo 1+, shingles 18+, infected insect bite 1+) all match branches.json exactly,
+consistent with every prior pass. No new finding; the standing Q109 stray second JSON-LD block was not
+re-examined this pass (already reconfirmed on the twenty-fifth and twenty-sixth passes and not the focus of this
+pass's fresh angle).
+
+QUESTIONS
+No new question raised. Q37 and Q139-Q145 unchanged.
