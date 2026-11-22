@@ -39961,6 +39961,35 @@ appended to the line. Do not move them; the status page reads them in place.
       page, pack, checker or branches.json content changed. Full detail:
       audits/hirshmans-item-1.2-weebly-furniture-freshness-injection-
       2026-10-20.txt.
+      Twenty-seventh quality pass 2026-11-22 (unattended scheduled run,
+      audit-backlog-worker). tools/check-seo-sheets.js had never been
+      proven by injection against this specific branch across the prior
+      26 passes. Isolated git-archive scratch extraction (/tmp/scratch12,
+      tracked clone never opened for writing); branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      and modules/service/pages/SEO.md sha256
+      2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5
+      both unchanged before and after. Baseline clean (177 SEO-sheet
+      entries, 163 INDEX-sheet entries across 11 sheets, 177 pages
+      compared, exit 0). Injection: the Hirshmans Chemist Ainsdale UTI
+      Pharmacy First entry's Page Title in modules/service/pages/SEO.md
+      changed from "UTI treatment in Ainsdale - Hirshmans Chemist" to
+      "UTI treatment in Aintree - Hirshmans Chemist" - CAUGHT first
+      attempt, naming the page, both strings and the sheet file. Restored
+      by byte copy, sha256 reconfirmed identical. Negative control (the
+      same entry's Meta Keywords line changed instead, a field this
+      checker does not read) ran clean, confirming the catch was genuine
+      and selective. Full 35-checker suite (excl. check-cdn-pins.js /
+      check-live-hours.js, network-dependent) re-run clean on the restored
+      scratch copy afterwards. Tracked clone confirmed untouched
+      throughout: `git status --porcelain -- branches.json tools modules
+      core gbp-packs` empty before and after (aside from a pre-existing,
+      unrelated debris file from an earlier run). No in-repo defect found.
+      Guard coverage for item 1.2 now 26 of 37 checkers proven by
+      injection against this specific branch (up from 25). No generator,
+      page, pack, checker or branches.json content changed. Full detail:
+      audits/hirshmans-item-1.2-check-seo-sheets-injection-2026-11-22.txt.
+      Done 2026-11-22
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to

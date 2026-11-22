@@ -1,0 +1,50 @@
+Item 1.2 - twenty-seventh quality pass - 2026-11-22
+Checker proved by injection this pass: tools/check-seo-sheets.js
+Target: Hirshmans Chemist, Ainsdale (UTI Pharmacy First page)
+
+Method: isolated git-archive scratch extraction at /tmp/scratch12 (tracked
+clone never opened for writing). branches.json sha256 unchanged before and
+after: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da.
+modules/service/pages/SEO.md sha256 unchanged before and after:
+2d04b0440e976254070085325703e1a1928d9f5a0320e379fd332905b4628ee5.
+
+1. Baseline: node tools/check-seo-sheets.js on the clean scratch copy.
+   177 SEO-sheet entries, 163 INDEX-sheet entries across 11 sheets, 177
+   generated pages compared. Clean, exit 0.
+
+2. Injection: modules/service/pages/SEO.md line 253, the Hirshmans Chemist
+   Ainsdale UTI entry's Page Title, changed from
+   "UTI treatment in Ainsdale - Hirshmans Chemist" to
+   "UTI treatment in Aintree - Hirshmans Chemist" (wrong town, sheet only,
+   generated page left untouched).
+
+3. Re-run: CAUGHT first attempt.
+   FAIL uti-treatment-hirshmans-ainsdale: title drift
+        page  : UTI treatment in Ainsdale - Hirshmans Chemist
+        sheet : UTI treatment in Aintree - Hirshmans Chemist  (modules/service/pages/SEO.md)
+   Named the exact page, both strings and the sheet file. Exit 1.
+
+4. Restored by byte copy from the pre-injection backup. sha256 reconfirmed
+   identical to step 0.
+
+5. Negative control: Meta Keywords line for the same entry changed to
+   "ZZZCTRL-NEGATIVE-TEST, ..." (a field check-seo-sheets.js does not read).
+   Ran clean, exit 0, confirming the catch in step 3 was genuine and
+   selective, not a false positive on any edit to that block. Reverted,
+   sha256 reconfirmed identical again.
+
+6. Full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js,
+   both network-dependent) re-run clean on the fully restored scratch copy.
+
+7. Tracked clone confirmed untouched throughout:
+   git status --porcelain -- branches.json tools modules core gbp-packs
+   returned nothing (one pre-existing unrelated untracked debris file from
+   an earlier run, modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+   was already present before this pass started and was not created or
+   touched by it).
+
+Result: no in-repo defect. check-seo-sheets.js proven by injection against
+Hirshmans Chemist, Ainsdale for the first time in this item's 27 passes.
+Guard coverage for item 1.2 now 26 of 37 checkers proven by injection
+against this specific branch (up from 25). No generator, page, pack,
+checker or branches.json content changed.
