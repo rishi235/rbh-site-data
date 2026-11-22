@@ -132,14 +132,26 @@ Notes for the paster:
   confirmed 2026-06-24 and is what this pack states. Set the profile from
   this pack, and get the website corrected too, or Google and the website
   will publish different hours for the same shop.
+- NEW 2026-11-22 (quality pass): the live site also disagrees with itself on
+  the branch email. branches.json holds "Smartts@rbhealth.co.uk" (capital
+  S), and the site-wide footer on every page matches that exactly, but the
+  contact-card address block on pharmacy-first-smartts-bootle.html prints it
+  lowercase as "smartts@rbhealth.co.uk". Neither block is this repo's own
+  generated content (the embed this repo pastes carries no visible email at
+  all), so there is nothing to fix here; flagging for whoever next corrects
+  the hours on this site to fix the address-block email to match the footer
+  and branches.json in the same visit.
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
 - Medical cannabis wording is deliberately limited to "book a free
   consultation to discuss eligibility". Do not add availability or benefit
   claims anywhere on the profile.
-- Post A uses the Pharmacy First link from branches.json (pfLink). A
-  branch-specific page (pharmacy-first-smartts-bootle.html) also exists in
-  the repo; swap the link once that page is confirmed live on Weebly.
+- RESOLVED (item 5.3/Q8), reconfirmed live 2026-11-22 (quality pass): Post A
+  uses the Pharmacy First link from branches.json (pfLink), which has
+  already been swapped to the branch-specific page
+  (pharmacy-first-smartts-bootle.html). Re-fetched live today: the page
+  loads and its own title, H1, hero copy and all seven condition cards read
+  "Smartts Chemist" correctly throughout. Nothing further to swap here.
 - Check the Post B, C and D URLs resolve before posting; the live Weebly
   copy may lag the repo.
 - Blood tests, vaccinations and medical cannabis consultations are live

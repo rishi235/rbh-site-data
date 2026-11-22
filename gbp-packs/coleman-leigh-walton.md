@@ -146,20 +146,24 @@ Notes for the paster:
   Pharmacy" before pasting anything else (see note at the top).
 - Post C deliberately names no medicines and makes no efficacy claims (POM
   advertising rules). Do not add medicine names when posting.
-- DO NOT POST POST A AS IT STANDS. Its button carries the pfLink from
-  branches.json, and that URL was fetched again on 2026-08-12 and still
-  returns a 404 error page, not a Pharmacy First page. Posting it sends a
-  patient looking for Pharmacy First to a dead end at the moment they are
-  trying to get seen. The replacement page is now live at
-  pharmacy-first-coleman-leigh-walton.html, in the site navigation and the
-  sitemap, BUT the live copy is a paste taken before the trading name
-  correction: it reads "Coleman & Leigh" throughout where the repo page at
-  modules/service/pages/pharmacy-first-coleman-leigh-walton.html carries the
-  confirmed "Coleman and Leighs". Repaste that page from the repo first,
-  then point the button at it. Do not point the button at the stale copy:
-  it resolves but reads the wrong name. This is worklist item 5.3 under Q8,
-  which needs a supervised session because the repo change and the Weebly
-  paste have to happen together.
+- RESOLVED 2026-11-17 (supervised session, item 5.3/Q8), reconfirmed live
+  2026-11-22 (quality pass): the STOP below described the position before
+  this fix and no longer applies. The Pharmacy First page was repasted from
+  the repo on 2026-11-17 and branches.json's pfLink now points straight at
+  it. Re-fetched live today: pharmacy-first-coleman-leigh-walton.html loads,
+  and its own title, H1, hero copy, all seven condition cards and the
+  contact-card address block all read "Coleman and Leighs Pharmacy"
+  correctly throughout, matching the repo exactly. Post A is safe to post as
+  written. (Historical note, no longer current: the page used to 404, then
+  the replacement went live but with a stale "Coleman & Leigh" paste - both
+  states are fixed now.)
+- SEPARATE, NOT BLOCKING POST A: the site-wide header banner ("Switch to
+  Coleman & Leigh Pharmacy") and the one-line site footer on this same page
+  still read the old "Coleman & Leigh Pharmacy" today (reconfirmed
+  2026-11-22). That is shared Weebly furniture repeated across every page on
+  the site, not this page's own embed content, so it is outside this repo
+  and outside what Post A's own target page says - tracked under the
+  site-wide furniture sweep (Q39), not a reason to hold Post A.
 - Post B, C and D were fetched on 2026-08-10, again on 2026-08-11 and
   again on 2026-08-12, and all three resolve every time. Check again on
   the day, because they are live pages this repo cannot police.

@@ -44047,6 +44047,61 @@ audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
       separate live hours/email defects for Smartts). Item stays [BLOCKED]
       overall pending those three.
       Done 2026-09-14 (partial, eighth of eleven)
+      QUALITY PASS 2026-11-22 (fallback rotation pick, stalest completed
+      item by last-touch date, tied with 5.5/6.1/6.6 at 2026-11-17, picked
+      because it was also the only one of that tied group with unresolved
+      sub-state): verified the "Done 2026-11-16/17" claim at the top of
+      this item (all eleven repasted/repointed in a supervised session) by
+      re-fetching the three branches this item's own history had left
+      pending - Coleman and Leighs, Gordon Short, Smartts Bootle - live via
+      Claude in Chrome, read-only, nothing clicked or typed. All three
+      pass: pharmacy-first-coleman-leigh-walton.html now reads "Coleman and
+      Leighs Pharmacy" correctly throughout its own title, H1, hero copy,
+      all seven condition cards and contact-card address block (the
+      pre-Nov-17 stale "Coleman & Leigh" paste this item's Q8 STOP
+      described is gone from the page itself);
+      pharmacy-first-gordon-short-crosby.html reads "Gordon Short Chemist"
+      correctly throughout with no stale name anywhere, including the
+      footer; pharmacy-first-smartts-bootle.html reads "Smartts Chemist"
+      correctly throughout and branches.json's pfLink already points
+      straight at it. So all eleven of the eleven Post A links are now
+      both repointed AND confirmed correct on their live target page - this
+      item's substantive work is complete, not partial.
+      TWO STALE GBP PACK NOTES FOUND AND FIXED, both now safely wrong in a
+      way that could cost time or block a legitimate post: (1)
+      gbp-packs/coleman-leigh-walton.md still carried its 2026-08-12 "DO
+      NOT POST POST A AS IT STANDS" hard stop, written before the Nov 17
+      repaste and never updated afterwards (unlike Gordon Short's pack,
+      which already carried its own dated "Repointed 2026-11-17" note) -
+      replaced with a dated resolution note confirming Post A is safe to
+      post, and separated out the one real remaining issue (see below) so
+      it is not mistaken for a reason to hold the post. (2)
+      gbp-packs/smartts-bootle.md still told the paster to "swap the link
+      once that page is confirmed live", when branches.json's pfLink had
+      already been swapped - replaced with a dated confirmation that
+      nothing further needs swapping.
+      ONE NEW FINDING, NOT BLOCKING, ADDED TO THE SMARTTS PACK: the live
+      contact-card address block on pharmacy-first-smartts-bootle.html
+      prints the branch email as "smartts@rbhealth.co.uk" (lowercase),
+      while branches.json holds "Smartts@rbhealth.co.uk" (capital S) and
+      the site-wide footer on every page matches that capitalisation
+      exactly. So the footer is right and the address block is wrong, the
+      opposite of what earlier passes left ambiguous. Neither block is
+      this repo's own generated content (the embed itself carries no
+      visible email), so there is nothing to fix here; flagged on the pack
+      for whoever next corrects the already-known hours mismatch on this
+      site to fix the email in the same visit. The pre-existing hours
+      mismatch itself (live site shows "9:00am - 6:00pm" five days
+      straight with no lunch closure against branches.json's confirmed
+      split hours) was reconfirmed still live and unchanged.
+      Full checker sweep re-run after both pack edits: 0 failures across
+      every tools/check-*.js, check-gbp-packs.js specifically clean at 0
+      failures (12 pre-existing WARNs, all already tracked under Q64/Q71/
+      Q72, none new). Only the two .md pack files changed; branches.json
+      and every generator byte-identical, so no regeneration needed.
+      Files changed: gbp-packs/coleman-leigh-walton.md,
+      gbp-packs/smartts-bootle.md, AGENT_WORKLIST.md (this paragraph),
+      AGENT_LOG.md.
 - [x] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.
