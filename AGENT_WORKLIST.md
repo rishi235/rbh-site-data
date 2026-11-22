@@ -30853,6 +30853,40 @@ directly rather than re-deriving the same facts by hand.
       defect found, no new question raised. Evidence: audits/clear-
       aintree-opening-hours-rule9-4.9-twentyeighth-2026-11-22.txt.
       Done 2026-11-22
+      Twenty-ninth quality pass, 2026-11-22 (unattended scheduled run,
+      audit-backlog-worker, 17:12Z): rotation pool re-derived by reading
+      every "## run" header dated 2026-11-22 and its first "WORK (item
+      ...)" line by hand (.rotation_check.js's naive per-section date scan
+      named 4.15 as stalest, a known false reading already flagged by the
+      immediately prior run) - 4.9 confirmed genuinely stalest, last
+      touched 00:12Z, ~17 hours before every other pool item which had all
+      been refreshed at least once today. FRESH ANGLE: check-seo-
+      keywords.js, never named against this item across 28 prior passes,
+      despite Clear Chemist Aintree owning three generated-but-unpublished
+      pages (weight-loss-clinic-clear-aintree.html, travel-clinic-clear-
+      aintree.html, switch-prescriptions-clear-aintree.html - Q29).
+      BASELINE: branches.json sha256 0385b7c2...27da unchanged; full
+      35-checker non-network suite clean on the tracked repo (35/35 exit
+      0) before any work. Scratch copy via git archive HEAD to /tmp
+      (tracked repo never opened for writing), baseline clean. INJECTION:
+      added ", Eccleston" to Clear Chemist Aintree's Meta Keywords line in
+      modules/service/pages/WEIGHT-LOSS-SEO.md - caught cleanly, first
+      attempt, naming the block, the foreign seoTown (fishlocks_eccleston's)
+      and the missing serviceAreaList excuse. Restored, sha256-reconfirmed
+      identical. NEGATIVE CONTROL: "pharmacy Aintree" to "pharmacy near
+      Aintree" (cosmetic) stayed clean. Full 35-checker suite re-run clean
+      on the tracked repo after cleanup (35/35 exit 0); branches.json and
+      WEIGHT-LOSS-SEO.md both sha256-unchanged throughout; git status
+      --porcelain on modules/core/branches.json/gbp-packs/tools/compliance
+      empty bar the pre-existing unrelated untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris, not
+      touched. NO IN-REPO DEFECT FOUND. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked/typed/submitted, closed after
+      use): re-fetched weight-loss-clinic-clear-aintree.html - still a
+      live 404 on Clear Chemist's own branded template (Q29 unchanged);
+      phone still reads 0151 203 6535 with no 8365 anywhere (Q28 fix still
+      holding). No new question raised. Evidence: audits/clear-aintree-
+      seo-keywords-4.9-twentyninth-2026-11-22.txt. Done 2026-11-22
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and
