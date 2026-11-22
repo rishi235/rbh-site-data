@@ -1,0 +1,80 @@
+Item 2.1 (Fishlocks Chemist, Ainsdale) - quality pass, thirty-first, 2026-11-22
+Cowork scheduled run, audit-backlog-worker.
+
+BASELINE (confirmed before any work)
+  branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+    (standing anchor, unchanged)
+  git status --porcelain -- modules core branches.json tools gbp-packs compliance:
+    empty except pre-existing untracked debris
+    modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+    (left by an earlier run's EPERM-on-unlink mount quirk, unrelated to this item,
+    not touched)
+  Full 35-checker suite (excl. check-cdn-pins.js / check-live-hours.js,
+  network-dependent) run individually on the tracked repo: 35/35 exit 0.
+
+FRESH ANGLE
+  The thirtieth pass (2026-11-21) left a list of ten checkers never named
+  against item 2.1. Picked tools/check-brand-spelling.js from that list -
+  not previously run as an injection target against this specific branch
+  across 30 prior passes, despite Fishlocks being one of the six
+  shared-brand branches item 1.1/Q44 and the checker's own header name as
+  the reason CANONICAL and the near-miss VARIANT rules exist.
+
+INJECTION (scratch copy only, tracked repo never opened for writing)
+  Scratch copy made with `git archive HEAD` extracted to a temp directory
+  outside the repo. branches.json sha256 in the scratch copy confirmed
+  identical to the tracked repo's anchor before any edit.
+
+  1. Edited modules/service/pages/earache-treatment-fishlocks-ainsdale.html
+     in the scratch copy only: changed every "Fishlocks Chemist" to
+     "Fishlock Chemist" (the exact Q37 near-miss already standing against
+     this branch's live site) in the build comment, the paste-sheet SEO
+     title/description lines, the data-branch attribute and the H1.
+     tools/check-brand-spelling.js on the scratch copy: FAILED cleanly,
+     4 FAIL lines, each naming the file, the line number, the wrong string
+     read ("Fishlock Chemist") and the correct trading name ("Fishlocks
+     Chemist"). Caught exactly as designed.
+
+  2. Restored the file from a pre-edit backup copy, sha256-reconfirmed
+     byte-identical to the original scratch extraction
+     (c1ba5cea1ba7d80837646ed17e7fcd9cb8dcccd20b16fec966f45b31c640f25b).
+
+  3. NEGATIVE CONTROL: on the restored scratch file, made an unrelated
+     cosmetic wording change with no brand content ("assessed by a
+     pharmacist" to "seen by a pharmacist" in the SEO description).
+     tools/check-brand-spelling.js on the scratch copy: stayed clean,
+     0 FAILs - confirms the checker reacts to the brand string specifically,
+     not to any edit in the file, so no false positive.
+
+  4. Restored the file again from the same backup, sha256-reconfirmed
+     byte-identical. Full 35-checker suite re-run on the scratch copy
+     after the final restore: 35/35 exit 0.
+
+  Scratch directory and backup file deleted on completion.
+
+TRACKED REPO
+  git status --porcelain -- modules core branches.json tools gbp-packs
+  compliance confirmed empty (same pre-existing debris file only) both
+  before and after the scratch-copy work. branches.json sha256
+  reconfirmed unchanged. No generator, page, pack, checker or
+  branches.json content in the tracked repo was touched by this pass.
+
+NO DEFECT FOUND in check-brand-spelling.js or in branches.json for this
+branch. The checker catches the exact live Q37 near-miss when injected
+into a generated page, stays silent on an unrelated edit, and the repo
+remains byte-stable.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked or
+typed, closed after use)
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+  re-fetched: still a live 404. Q35 unchanged.
+
+No new question raised. Item 2.1 stays [x] (quality pass, not a state
+change).
+
+Checkers remaining never-named against this item after this pass (9):
+check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-service-links.js,
+check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js -
+candidate list for a future pass.

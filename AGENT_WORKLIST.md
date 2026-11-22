@@ -1935,6 +1935,34 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       check-url-scheme.js, check-widget-diaries.js, a candidate list for a future pass.
       Evidence: audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-21-thirtieth.txt.
       Done 2026-11-21.
+      Quality pass 2026-11-22 (thirty-first): baseline (branches.json sha256,
+      full 35-checker suite) confirmed unchanged and clean. Fresh angle
+      tools/check-brand-spelling.js, never previously named against this item
+      across 30 prior passes. On a scratch copy only (git archive HEAD to a
+      temp directory, tracked repo never opened for writing), renamed every
+      "Fishlocks Chemist" to "Fishlock Chemist" (the exact Q37 near-miss
+      standing against this branch's live site) in
+      earache-treatment-fishlocks-ainsdale.html's build comment, paste-sheet
+      lines, data-branch attribute and H1 - FAILED cleanly, 4 FAILs naming
+      the file, line, wrong string and correct trading name. Restored
+      byte-identical (sha256-reconfirmed); negative control (unrelated
+      wording tweak, no brand content) stayed clean, confirming no
+      false positive; restored and reconfirmed again; full 35-checker suite
+      re-run clean on the scratch copy afterwards. Tracked repo confirmed
+      untouched throughout (git status --porcelain empty bar the
+      pre-existing unrelated debris file; branches.json sha256 unchanged).
+      No defect found in check-brand-spelling.js or branches.json for this
+      branch. Live check (Claude in Chrome, read-only, one tab, closed after
+      use): pharmacy-fishlocks-ainsdale.html reconfirmed still a live 404;
+      Q35 unchanged. No new question raised. Item 2.1 stays [x] (quality
+      pass, not a state change). Checkers remaining never-named against
+      this item (9): check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+      check-pharmacy-first-symptoms.js, check-service-links.js,
+      check-uk-spelling.js, check-url-scheme.js, check-widget-diaries.js.
+      Evidence:
+      audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-22-thirtyfirst.txt.
+      Done 2026-11-22.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
