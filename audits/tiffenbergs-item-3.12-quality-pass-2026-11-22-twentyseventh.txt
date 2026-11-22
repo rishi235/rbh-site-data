@@ -1,0 +1,107 @@
+Item 3.12, Tiffenbergs Chemist (Aintree/Longmoor Lane) - twenty-seventh quality pass
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-22
+
+SELECTION
+---------
+No unblocked worklist item unchecked. Quality-pass fallback. .rotation_check.js
+tied pool (excluding 4.15, standing false-stalest caveat) at 2026-11-21:
+{3.12, 3.13, 4.1, 4.5, 4.6, 4.8, 4.10, 4.13, 4.14}. Cross-checked against items
+already completed today (2026-11-22): 2.1, 2.3, 3.1-3.11, 4.7, 4.9, 4.11, 4.12,
+5.2, 6.2 - none overlap the tied pool. 3.12 wins the lowest-item-number
+tiebreak.
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(standing anchor, unchanged). Full 35-checker non-network suite (37 minus
+check-cdn-pins.js and check-live-hours.js) run individually: 35/35 exit 0.
+All six page generators rebuilt first; every file under modules/ and core/
+(217 files) sha256-hashed before and after: byte-identical. git status
+--porcelain on modules/core/branches.json/gbp-packs/tools/compliance: empty
+bar one pre-existing untracked debris file (modules/service/pages/pharmacy-
+first-mccanns-sandringham.html.goldenbak), not touched this run.
+
+FRESH ANGLE
+-----------
+tools/check-pharmacy-first-symptoms.js. Confirmed never previously named
+against item 3.12 across the 26 prior passes (grepped the item's full
+AGENT_WORKLIST.md block for the checker's name - zero hits). Ten checkers
+remained unused per the twenty-sixth pass's own "remain" list after brand-
+spelling was used that pass: check-address-region, check-editor-snapshot,
+check-fragment-targets, check-gbp-pharmacy-first, check-page-coverage,
+check-pharmacy-first-cost, check-pharmacy-first-symptoms, check-service-links,
+check-url-scheme, check-widget-diaries. Picked check-pharmacy-first-symptoms.js
+as it reads the symptoms block on all seven of Tiffenbergs' Pharmacy First
+condition pages, a block no prior pass of this item had tested by injection.
+
+PROOF (scratch copy only, tracked repo never opened for writing)
+------------------------------------------------------------------
+Scratch copy built via `git archive HEAD | tar -x` to /tmp/scratch312 (outside
+the rbh-site-data mount, avoiding the standing EPERM-on-unlink mount quirk).
+Confirmed clean on scratch before any injection (98 condition pages, 7
+pathways, 82 medicine names, 0 failures).
+
+Injection 1 (rule 6, point contamination): added the impetigo symptom point
+"Sores that burst and leave golden-brown crusts" onto
+uti-treatment-tiffenbergs-aintree.html's own symptoms list (list grew from 5
+to 6 items). CAUGHT cleanly: rule 5 (list-length mismatch, page 6 vs generator
+5) and rule 6 (symptom belongs to the impetigo pathway, not UTI), 2 FAILs.
+
+Injection 2 (rule 3 + rule 6, heading contamination): changed
+insect-bite-treatment-tiffenbergs-aintree.html's own symptoms h2 from
+"Infected insect bite symptoms" to "Impetigo symptoms" (another pathway's
+real heading), items left untouched. CAUGHT cleanly: rule 3 (heading mismatch
+against this page's own longName) and rule 6 (heading belongs to a different
+pathway), 2 FAILs.
+
+Negative control: reordered (no content change) the five list items on
+sore-throat-treatment-tiffenbergs-aintree.html's own symptoms block. Re-ran
+the checker: same 4 FAILs as after the two injections, nothing new -
+reordering with no content change produced no new failure, confirming the
+rules compare values, not order or position.
+
+Restore: all three files restored from their pre-injection byte copies
+(uti-treatment and insect-bite-treatment from /tmp backups taken before
+editing; sore-throat-treatment from `git show HEAD:...`, since the git-archive
+export has no .git directory for a checkout). sha256 reconfirmed identical to
+the pre-injection values for all three. Checker re-run on the scratch copy:
+clean (0 failures). Full 35-checker non-network suite re-run on the scratch
+copy: 35/35 exit 0. Scratch directory and its temp backups deleted cleanly
+from /tmp (no mount-quirk issue, since /tmp is not the project mount).
+
+Tracked repo reconfirmed untouched throughout: branches.json sha256 unchanged;
+git status --porcelain on modules/core/branches.json/gbp-packs/tools/compliance
+unchanged from baseline (same single pre-existing debris file, nothing new);
+full 35-checker non-network suite re-run directly against the tracked repo:
+35/35 exit 0.
+
+Guard coverage for item 3.12 now extends to 25 of 37 checkers proven by
+direct injection against this branch (nine remain: check-address-region,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-page-coverage, check-pharmacy-first-cost, check-service-links,
+check-url-scheme, check-widget-diaries).
+
+NO IN-REPO DEFECT FOUND.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, single tab, nothing clicked, typed or submitted,
+closed after use. Read impetigo-treatment-tiffenbergs-aintree.html live on
+tiffenbergschemist.co.uk - zero prior mentions across 26 prior passes of this
+item, confirmed by grep. Live 200. Symptoms block matches branches.json-
+derived generator copy exactly (red sores/blisters, golden-brown crusts, itchy
+skin, spreading sores). Eligibility (age 1 and over, localised non-bullous
+impetigo), safety-net (under-1 to GP, widespread/bullous/recurrent to GP,
+immunocompromised guided), address (388 Longmoor Lane, Liverpool, L9 9DB),
+phone (0151 525 3462), opening hours (Mon-Fri 9-6 with 1-2pm lunch closure,
+Sat/Sun closed) and superintendent pharmacist detail all match branches.json
+exactly. Standing Q56 finding (footer/contact-card email "tiffenbergs@
+rbhealth.co.uk", plural, against branches.json's singular "Tiffenberg@
+rbhealth.co.uk") reconfirmed present, unchanged, not re-raised as new -
+already answered 2026-09-29, fix pending a Weebly session, and this repo
+generates no page that prints the email field at all so there is nothing
+in-repo to change.
+
+No new in-repo defect found. No new live defect found. No new question
+raised. Q37 and Q139-Q144 unchanged (answer pickup this run found no new
+entries on the feedback feed past Q52, 2026-09-01).

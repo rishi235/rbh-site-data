@@ -20195,6 +20195,40 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       question. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-11-21-twentysixth.txt.
       Done 2026-11-21 (twenty-sixth pass)
+
+      Quality pass twenty-seventh, 2026-11-22: fresh angle
+      tools/check-pharmacy-first-symptoms.js, confirmed never previously named
+      against this item across 26 prior passes (ten checkers remained per the
+      twenty-sixth pass's own "remain" list). BASELINE: branches.json sha256
+      unchanged from the standing anchor; full 35-checker non-network suite
+      clean on the tracked repo; all six page generators rebuilt, 217 files
+      under modules/ and core/ byte-identical before and after. Two injections
+      against a git-archive scratch copy (tracked repo never opened for
+      writing), both on Tiffenbergs' own pages: (1) an impetigo symptom point
+      added onto the UTI page's own symptoms list - CAUGHT cleanly, rule 5
+      (list-length mismatch) and rule 6 (cross-condition contamination), 2
+      FAILs; (2) the insect-bite page's own symptoms heading swapped for
+      impetigo's real heading, items untouched - CAUGHT cleanly, rule 3
+      (heading mismatch) and rule 6 (heading contamination), 2 FAILs. Negative
+      control (reordering the sore-throat page's own symptom items, no content
+      change) produced no new failure. All three files restored byte-identical
+      (sha256-reconfirmed); full 35-checker suite re-run clean on the scratch
+      copy afterwards; tracked repo reconfirmed untouched throughout (sha256
+      and git status unchanged). Guard coverage for item 3.12 now extends to
+      25 of 37 checkers (nine remain: check-address-region, check-editor-
+      snapshot, check-fragment-targets, check-gbp-pharmacy-first, check-page-
+      coverage, check-pharmacy-first-cost, check-service-links, check-url-
+      scheme, check-widget-diaries). NO IN-REPO DEFECT FOUND. LIVE (Claude in
+      Chrome, read-only, single tab, nothing clicked/typed/submitted, closed
+      after use): read impetigo-treatment-tiffenbergs-aintree.html, zero prior
+      mentions across 26 prior passes - live 200, symptoms, eligibility,
+      safety-net, address, phone, hours and superintendent pharmacist detail
+      all match branches.json exactly. Standing Q56 footer email mismatch
+      (tiffenbergs@ plural vs Tiffenberg@ singular) reconfirmed present,
+      unchanged, not re-raised. No new in-repo defect found, no new live
+      defect found, no new question raised. Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-11-22-twentyseventh.txt.
+      Done 2026-11-22 (twenty-seventh pass)
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       Quality pass 2026-11-19 (run539, twenty-ninth), repo half only (live half not repeated - item 4.9 re-read clearchemist.co.uk/contact-us just one day earlier, nothing would be added): full 36-checker suite (excludes only check-live-hours.js, network-dependent) clean except the standing CH1 2AB postcode baseline; branches.json sha256 unchanged. Fresh angle: tools/check-cdn-pins.js, run individually clean against this repo before but never proven by direct injection against Clear Chemist Aintree's own pages across 28 prior passes - this session's full (non-shallow) clone let the checker's git-ref resolution actually run. Injected a mismatched/unresolvable ref (@deadbeef1234) into switch-prescriptions-clear-aintree.html's own switch.js pin - caught on both independent rules (pin-matches-generator, ref-resolves-in-git) first attempt. Restored, sha256-reconfirmed identical. Negative control (clearchemist_aintree.shortCode edited, a field this checker ignores) ran clean. Guard coverage for 3.13 now extends to all 36 non-network checkers. No in-repo defect. Step 3 answer pickup: portal feed read, newest entry still Q52 (2026-09-01), no Q139 answer. See audits/clear-aintree-item-3.13-cdn-pins-quality-pass-2026-11-19-twentyninth.txt.
