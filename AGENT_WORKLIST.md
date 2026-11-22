@@ -30019,6 +30019,53 @@ directly rather than re-deriving the same facts by hand.
       change). QUESTIONS.json: 4 open (Q139, Q140, Q141, Q142), none
       answered on the portal feed this run (checked, newest entry still
       Q52, 2026-09-01), none specific to this item. Done 2026-11-20
+      Twenty-eighth quality pass (Cowork session), 2026-11-22: fresh angle,
+      proving tools/check-opening-hours.js rule 9 (the KNOWN_NO_HOURS
+      exception list, the only rule in this file that reads this branch at
+      all) against clear-aintree.md/clearchemist_aintree for the first time
+      in twenty-seven passes, confirmed by grepping this item full history
+      for check-opening-hours and KNOWN_NO_HOURS - neither found.
+      clearchemist_aintree is the one trading branch with an odsCode but
+      no openingHours block, so it is the only branch that ever exercises
+      rule 9 exception path. BASELINE: branches.json sha256
+      0385b7c2...27da (standing anchor, unchanged), the pack own sha256
+      3350d54c...2dd2a7d (unchanged), full 35-checker non-network suite
+      clean on the tracked repo (35/35 exit 0), git status --porcelain on
+      modules/core/branches.json/gbp-packs/tools/compliance empty, all
+      confirmed directly before any work. Scratch copy made via git
+      archive HEAD extracted to .scratch_tmp (tracked repo never opened
+      for writing). Three injections against the scratch copy, each
+      restored and reconfirmed before the next: (1) removed
+      clearchemist_aintree from KNOWN_NO_HOURS entirely - CAUGHT, exact
+      expected FAIL naming the branch and telling the editor to add it
+      back or state real hours; (2) added a fabricated but correctly-
+      shaped openingHours.specification block to clearchemist_aintree in a
+      scratch branches.json while leaving the KNOWN_NO_HOURS entry in
+      place - CAUGHT by the anti-rot sweep at the bottom of the file,
+      exact expected stale-key message (carries clearchemist_aintree but
+      that branch now has an openingHours block...), plus three correct
+      cascading FAILs on the three Clear generated pages now disagreeing
+      with the newly-added data (expected, since the pages were not
+      regenerated); (3) control, a cosmetic wording tweak to the
+      KNOWN_NO_HOURS reason string (real trading to genuinely trading)
+      with the underlying fact unchanged - correctly stayed clean,
+      confirming the rule reads the no-hours FACT, not the prose. All
+      three behaved exactly as designed; no checker gap found on this
+      angle. Scratch copy and its own tar archive deleted cleanly this
+      run (native PowerShell, not the bash sandbox - see LOCK note in
+      this run log entry). Full 35-checker suite re-run clean on the
+      scratch copy after the final restore (35/35 exit 0); branches.json
+      and tools/check-opening-hours.js both sha256-reconfirmed byte-
+      identical to tracked HEAD. LIVE (Claude in Chrome, read-only,
+      single tab, nothing clicked/typed/submitted, closed after use):
+      re-fetched switch-prescriptions-clear-aintree.html - still 404, same
+      branded template as every prior pass (Q29 unchanged, homepage-
+      button workaround in the pack still correct). The 404 template
+      itself still publishes the phone as 0151 203 6535 with no 8365
+      anywhere (Q28 fix still holding, reconfirmed again). No in-repo
+      defect found, no new question raised. Evidence: audits/clear-
+      aintree-opening-hours-rule9-4.9-twentyeighth-2026-11-22.txt.
+      Done 2026-11-22
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

@@ -1,0 +1,79 @@
+﻿Item 4.9 quality pass (twenty-eighth), Cowork session, 2026-11-22
+Fresh angle: tools/check-opening-hours.js rule 9 (KNOWN_NO_HOURS exception list)
+proven by direct injection against gbp-packs/clear-aintree.md / clearchemist_aintree
+for the first time in twenty-seven prior passes on this item.
+
+BASELINE
+- branches.json sha256: 0385B7C2B2BCA55D559903F718AD992FEC40804A1F3AB1A1DB8BAC2FFDD527DA (standing anchor, unchanged)
+- gbp-packs/clear-aintree.md sha256: 3350D54CAA54185ADF677E97F4B6F7CE7B891941223191DA5155DDAE52DD2A7D (unchanged)
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance : empty
+- Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js): 35/35 exit 0
+
+METHOD
+Scratch copy made via `git archive HEAD` extracted to .scratch_tmp\scratch49_<rand>
+(tracked repo never opened for writing). Three injections, each restored and
+sha256-reconfirmed before the next.
+
+INJECTION 1: removed clearchemist_aintree entirely from KNOWN_NO_HOURS in
+tools/check-opening-hours.js.
+RESULT: CAUGHT.
+  FAIL  clearchemist_aintree: carries an odsCode (a real dispensing pharmacy) but
+  has no openingHours block at all. Rules 4 to 6 read openingHours and return
+  immediately when it is absent, so a branch in this state is invisible to every
+  day-level check in this file, not merely checked leniently. State its hours, or
+  if they are genuinely not yet known, add it to KNOWN_NO_HOURS with the reason
+  and where the gap is tracked
+Restored tools/check-opening-hours.js by move-back; re-ran baseline: clean.
+
+INJECTION 2 (stale-key / anti-rot test): added a correctly-shaped
+openingHours.specification block (Mon-Fri 09:00-17:30, Sat 09:00-13:00) to
+clearchemist_aintree in a scratch branches.json, leaving the KNOWN_NO_HOURS
+entry in tools/check-opening-hours.js untouched.
+RESULT: CAUGHT, plus three correct cascading failures:
+  FAIL  KNOWN_NO_HOURS carries "clearchemist_aintree" but that branch now has an
+  openingHours block, is disposed, or no longer exists in branches.json. Remove
+  the entry now the gap is resolved
+  FAIL  clearchemist_aintree: Sunday is in neither closedDays nor specification...
+  FAIL  modules/service/pages/travel-clinic-clear-aintree.html: branches.json
+  carries opening hours for clearchemist_aintree but the page has no
+  openingHoursSpecification
+  FAIL  modules/service/pages/weight-loss-clinic-clear-aintree.html: (same)
+  FAIL  modules/switch/pages/switch-prescriptions-clear-aintree.html: (same)
+All five expected given the injection; no unexpected failures.
+Restored branches.json by copy-back; sha256 reconfirmed 0385B7C2...27DA
+(byte-identical to tracked HEAD); re-ran baseline: clean.
+
+INJECTION 3 (negative control): cosmetic wording tweak to the KNOWN_NO_HOURS
+reason string only ("real trading NHS pharmacy" -> "genuinely trading NHS
+pharmacy"), underlying no-hours fact unchanged.
+RESULT: correctly stayed CLEAN (exit 0), confirming rule 9 reads the no-hours
+fact, not the prose of the exception reason.
+Restored tools/check-opening-hours.js by move-back.
+
+POST-WORK VERIFICATION
+- Full 35-checker suite re-run on the scratch copy after final restore: 35/35 exit 0.
+- branches.json sha256 on scratch copy: 0385B7C2B2BCA55D559903F718AD992FEC40804A1F3AB1A1DB8BAC2FFDD527DA
+- tools/check-opening-hours.js sha256 on scratch copy: CA64E4299C32BF94E81D24B8C88B10DEDC5310CC1A88B8246F19A361F90FAF65
+- Both hashes identical between scratch copy and tracked HEAD.
+- Scratch directory and its tar archive deleted cleanly via native PowerShell
+  (Remove-Item -Recurse -Force), not the bash sandbox, which cannot delete files
+  on this mount (standing EPERM-on-unlink quirk logged by many prior runs).
+- Tracked repo git status --porcelain on the same scope: empty, before and after.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted beyond navigation and text extraction, closed after use)
+- https://www.clearchemist.co.uk/switch-prescriptions-clear-aintree.html :
+  still "404 Not Found" (Q29 unchanged; clearchemist.co.uk is the e-commerce
+  store, not Weebly, so this branch has no paste route - the pack's
+  homepage-button workaround remains correct and necessary).
+- The 404 template itself still publishes the phone as "0151 203 6535" with
+  no "8365" anywhere, and the support email "customerservices@clearchemist.co.uk"
+  (Q28 fix still holding live, reconfirmed again on this pass).
+
+CONCLUSION
+No in-repo defect found on this angle. No new question raised. check-opening-
+hours.js rule 9 (both the primary exception path and its anti-rot stale-key
+sweep) is now individually proven by direct injection against this specific
+pack/branch, closing one more of the genuinely-untested checker angles on
+item 4.9 (check-page-coverage.js, check-service-links.js and
+check-weight-loss-copy.js remain untested against this item for a future pass).
