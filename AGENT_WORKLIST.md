@@ -33538,6 +33538,34 @@ directly rather than re-deriving the same facts by hand.
       (pharmacy-first-service-walton.html) is still a live 404, now 100+
       days. No pack, generator, page or branches.json content changed.
       No new in-repo defect, no new question. Done 2026-11-20.
+      Twenty-sixth quality pass 2026-11-22 (unattended scheduled run): all
+      three open worklist items confirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+      6.5/Q60); rotation pool {4.12, 5.2, 6.2} tied at 2026-11-20 (4.15
+      excluded as the standing known-false reading), none touched earlier
+      the same day by this session's three prior runs (4.7, 4.11, 4.9);
+      4.12 won the lowest-item-number tiebreak. FRESH ANGLE:
+      tools/check-opening-hours.js, never named against this item across
+      25 prior passes despite colemanleigh_liverpool being one of the seven
+      branches CLAUDE.md's own "Opening hours - the copy that sends someone
+      to a locked door" section names as carrying a lunch-closure split day.
+      Baseline clean on the tracked repo, naming this branch explicitly in
+      its split-day note. INJECTION (scratch copy only, git archive HEAD to
+      /tmp, tracked repo never opened for writing): merged the JSON-LD lunch
+      closure on modules/service/pages/pharmacy-first-coleman-leigh-walton.html
+      from 09:00-13:00/14:00-18:00 into a single 09:00-18:00 block - FAILED
+      cleanly, naming the file and printing the page's wrong hours against
+      branches.json's correct ones side by side. Restored by byte copy;
+      sha256 reconfirmed identical before and after
+      (30934174c7c561203ef5c163ff7d32dd96d47f09fb5151478680c3b11f5bec73);
+      re-check clean. Full checker suite (35, excl. check-cdn-pins.js and
+      check-live-hours.js) re-run on the tracked repo: 35/35 exit 0.
+      branches.json sha256 unchanged
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). No
+      pack, generator, page or branches.json content changed; no new
+      in-repo defect, no new question raised. Guard coverage for item 4.12
+      now additionally proven against check-opening-hours.js. Evidence:
+      audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-22-opening-hours.txt.
+      Done 2026-11-22.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

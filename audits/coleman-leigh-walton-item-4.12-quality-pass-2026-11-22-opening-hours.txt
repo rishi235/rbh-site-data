@@ -1,0 +1,79 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton pack) - quality pass, 2026-11-22
+Scheduled run audit-backlog-worker, 02:12Z pickup.
+
+ROTATION: all 3 unchecked worklist lines confirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60) by direct grep, unchanged. Fell through to the quality-pass fallback.
+.rotation_check.js: stalest tier at 2026-11-20 was {4.12, 5.2, 6.2} (4.15
+excluded as the standing known-false reading). All three confirmed NOT
+touched earlier today by grepping AGENT_LOG.md for "WORK (item 4.12",
+"WORK (item 5.2" and "WORK (item 6.2" directly (today's three prior runs
+worked items 4.7, 4.11 and 4.9). 4.12 wins the lowest-item-number tiebreak.
+
+BASELINE: branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+unchanged from every prior pass's own recorded value. git status --porcelain
+on branches.json/modules/tools/core/gbp-packs: empty (one pre-existing
+untracked debris file, modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+left by an earlier run's own EPERM-on-unlink workaround - unrelated to this
+item, not touched).
+
+FRESH ANGLE: tools/check-opening-hours.js. Grepped the item's full section
+(1178 lines, 25 prior passes) for every checker name already tried against
+this item: check-app-membership, check-branch-links, check-brand-spelling,
+check-cdn-pins, check-em-dashes, check-gbp-packs, check-gbp-pharmacy-first,
+check-jsonld, check-live-hours, check-map-embeds, check-nap,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility,
+check-pharmacy-first-safety-net, check-postcodes, check-uk-spelling,
+check-url-scheme, check-weebly-furniture-freshness, check-weight-loss-copy.
+check-opening-hours.js was not among them, despite colemanleigh_liverpool
+being one of the seven branches CLAUDE.md names as carrying a lunch-closure
+split day (the Monday-Friday 09:00-13:00 / 14:00-18:00 shape in branches.json)
+- the exact case the "Opening hours - the copy that sends someone to a locked
+door" section of CLAUDE.md was written against, and a case this item's own
+25 passes had never put under this specific checker.
+
+BASELINE RUN (tracked repo): check-opening-hours.js clean. Output names
+colemanleigh_liverpool explicitly in its "branches with a split day" note,
+confirms 171 switch/service-family pages checked under rule 10, and rule 9/10
+coverage includes this branch. No landing page exists for this branch (6
+landing pages cover other branches only), so rules 7/8 (visible-card sweep)
+do not apply to it; rule 10 (JSON-LD vs branches.json) is the relevant rule
+and is clean.
+
+INJECTION (scratch copy only, via `git archive HEAD | tar -x` to /tmp/scratch412,
+confirmed byte-identical to the tracked repo by branches.json sha256 before
+starting; tracked repo never opened for writing):
+  1. Backed up modules/service/pages/pharmacy-first-coleman-leigh-walton.html.
+  2. Edited its JSON-LD so the morning session's "closes":"13:00" became
+     "18:00", merging the lunch closure into a single 09:00-18:00 block while
+     leaving the second (14:00-18:00) session in place - exactly the locked-door
+     shape CLAUDE.md's opening-hours section describes, reproduced here against
+     the JSON-LD rather than the visible card.
+  3. Re-ran check-opening-hours.js: FAILED cleanly, naming the file and branch,
+     printing both the page's (wrong) resolved hours and branches.json's
+     (correct) hours side by side - "page: ... Monday 09:00-18:00, Monday
+     14:00-18:00 ..." vs "data: ... Monday 09:00-13:00, Monday 14:00-18:00 ...".
+  4. Restored the file from the backup; diff empty; sha256 reconfirmed identical
+     to the tracked repo's own copy of the same file
+     (30934174c7c561203ef5c163ff7d32dd96d47f09fb5151478680c3b11f5bec73) both
+     before and after the injection.
+  5. Re-ran check-opening-hours.js on the restored scratch copy: clean again.
+
+VERIFICATION: full checker suite (all tools/check-*.js except check-cdn-pins.js
+and check-live-hours.js, both network/CDN-dependent) run individually against
+the tracked repo after the scratch-only injection work: every checker exited 0.
+branches.json sha256 unchanged. No generator run, no page regenerated, no
+tracked file touched - this was a fresh-angle verification pass only, no
+in-repo defect found and nothing to fix.
+
+LIVE HALF: not performed this pass. The four standing live findings on this
+branch (Coleman & Leighs homepage banner/footer spelling, the unspaced phone
+number, and Post A's pfLink 404) were already reconfirmed on the 2026-11-18
+twenty-fourth pass and are unrelated to opening hours; re-checking them again
+this run would not have added anything this pass's fresh angle (JSON-LD hours)
+did not already cover, and the 30-45 minute budget was spent on the checker
+coverage work above instead.
+
+OUTCOME: no in-repo defect found, no new question raised. Guard coverage for
+item 4.12 now additionally proven against tools/check-opening-hours.js, the
+exact locked-door case CLAUDE.md's opening-hours section names this branch as
+an example of. Item 4.12 stays [x] (quality pass, not a worklist state change).

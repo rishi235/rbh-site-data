@@ -1,3 +1,19 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T02:12Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01). No entry for Q37 or Q139-Q144; all seven remain open and unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): all 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest tier at 2026-11-20 was {4.12, 5.2, 6.2} (4.15 excluded as the standing known-false reading). Confirmed none of the three had been touched earlier the same day by grepping AGENT_LOG.md directly for "WORK (item 4.12", "WORK (item 5.2" and "WORK (item 6.2" (today's three prior runs worked items 4.7, 4.11 and 4.9 instead). 4.12 wins the lowest-item-number tiebreak.
+
+WORK (item 4.12, Coleman and Leighs Pharmacy Walton pack, twenty-sixth quality pass): see the dated paragraph appended to item 4.12 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256, full 35-checker suite) confirmed unchanged and clean; fresh angle `tools/check-opening-hours.js`, never previously named against this item across 25 prior passes despite colemanleigh_liverpool being one of the seven branches CLAUDE.md's own "Opening hours - the copy that sends someone to a locked door" section names as carrying a lunch-closure split day. On a scratch copy only (`git archive HEAD` to `/tmp`, tracked repo never opened for writing), merged the JSON-LD lunch closure on `pharmacy-first-coleman-leigh-walton.html` into a single 09:00-18:00 block - FAILED cleanly, naming the file and printing the page's wrong hours against branches.json's correct ones. Restored byte-identical (sha256-reconfirmed before and after); re-check clean; full 35-checker suite re-run clean on the tracked repo afterwards. No in-repo defect found, no new question. Guard coverage for item 4.12 now extends to `check-opening-hours.js`.
+
+WORKLIST TICK (step 7): item 4.12 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 4.13` line that follows it, ending "Done 2026-11-22".
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T01:43Z): LOCK (step 1): no `.agent-lock` found at pickup. No `.git/index.lock` or `HEAD.lock` present at pickup either, but `git status` transiently created a `.git/index.lock` during this run's first read and the bash sandbox's `rm -f` on it failed with "Operation not permitted" - the standing EPERM-on-unlink mount quirk many prior runs have logged. Did not block anything this run: `git fetch`, `git pull --ff-only` and all later git reads worked normally despite the orphaned lock, since no operation this run needed to acquire it fresh. `.agent-lock` written with a fresh UTC timestamp via the bash sandbox (plain write, not a delete-then-create, so the quirk did not apply to it).
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date" (commit `4f1cfee`, item 4.11's pass, matching the prior run's record).
