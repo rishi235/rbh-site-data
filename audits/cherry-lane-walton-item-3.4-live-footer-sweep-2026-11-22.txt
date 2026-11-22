@@ -1,0 +1,53 @@
+Item 3.4 (Cherry Lane Pharmacy, Walton) - quality pass, 2026-11-22 (Cowork scheduled run)
+
+FRESH ANGLE: all 37 tools/check-*.js checkers confirmed already proven by
+direct injection against this item across 30 prior passes (comm -23 of the
+full checker list against the item's own section text, 0 untried). No
+checker-injection angle remained, so this pass instead extended the live-read
+coverage: of Cherry Lane's 12 generated service pages (pharmacyFirst overview,
+bloodPressure[no page], contraception, earache, impetigo, insectBite,
+pharmacyFirst, shingles, sinusitis, soreThroat, uti, weightLoss, travelClinic),
+two had never been sampled live by any of the 30 prior passes of this item,
+confirmed by grepping every page filename mentioned in the item's own
+AGENT_WORKLIST.md section: impetigo-treatment-cherry-lane-walton.html and
+travel-clinic-cherry-lane-walton.html.
+
+BASELINE: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing
+anchor, unchanged). Full 35-checker non-network suite (excl.
+check-cdn-pins.js, check-live-hours.js) run individually: 35/35 exit 0.
+git status --porcelain on modules/core/branches.json/tools/gbp-packs/compliance
+empty bar the one pre-existing unrelated debris file
+(modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak).
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use):
+
+1. impetigo-treatment-cherry-lane-walton.html - live 200. NHS Pharmacy First
+   wording correct: age 1 and over, free NHS service, no GP appointment
+   needed, correct symptom list, correct eligible/non-eligible cohort split
+   (under-1s to GP, widespread/bullous/recurrent may need GP, weakened immune
+   system guided by pharmacist). Contact card, hours strip and callback form
+   all correct and matching branches.json.
+
+2. travel-clinic-cherry-lane-walton.html - live 200. Private/paid stated
+   plainly in the hero and the FAQ; NHS funding correctly hedged ("though
+   some individual vaccines may be available on the NHS depending on your
+   circumstances"); no stock guarantee ("subject to availability and clinical
+   suitability"); one consistent 6-to-8-week book-ahead window stated
+   throughout; all four safety cohorts present (pregnant/breastfeeding,
+   underlying medical conditions, travelling within 1-2 weeks, children);
+   every named item is a disease/condition name (yellow fever, typhoid,
+   hepatitis A&B, rabies, Japanese encephalitis, malaria prevention), never a
+   vaccine brand name; yellow fever named, consistent with the standing Q48
+   registration-status gap.
+
+Both pages' site-wide footer still publishes the NHS mailbox as
+pharmacy.FA226@mhs.net (should be pharmacy.FA226@nhs.net per
+branches.json/check-branch-links.js) - the standing Q36 fault, now an eighth
+and ninth confirmed page/occasion. QUESTIONS.json Q36 note updated with this
+finding; no change to Q36's status (already answered, Weebly sweep still not
+run) or options.
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Item 3.4 stays [x] (quality
+pass, not a state change).

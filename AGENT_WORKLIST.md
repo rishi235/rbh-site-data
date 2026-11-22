@@ -8536,6 +8536,32 @@ FULL SUITE, FINAL: 35/35 checkers re-run clean on the restored scratch copy. Tra
 
 LIVE HALF: none performed - this checker reads branches.json only, and no Appointedd id is ever rendered on a live page, so there is nothing live to confirm or contradict for this specific angle. The standing Q36 footer mailbox typo was last reconfirmed by the twenty-ninth pass (2026-11-19) and is unchanged by this pass; not re-fetched here to avoid a redundant live read with nothing new to find. No new question raised. Evidence: audits/cherry-lane-walton-item-3.4-widget-diaries-2026-11-21.txt.
 
+Quality pass 2026-11-22 (Cowork scheduled run, thirty-first): all 37
+tools/check-*.js checkers confirmed already proven by direct injection
+against this item across the 30 prior passes, so no checker-injection angle
+remained. FRESH ANGLE: extended live-read coverage instead. Baseline:
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+unchanged; full 35-checker suite 35/35 exit 0; git status --porcelain empty
+bar the one pre-existing debris file. Of Cherry Lane's 12 widgets, two
+generated pages had never been sampled live by any of the 30 prior passes:
+impetigo-treatment-cherry-lane-walton.html and
+travel-clinic-cherry-lane-walton.html (confirmed by grepping every page
+filename this item's section has ever mentioned). LIVE HALF (Claude in
+Chrome, read-only, single tab, nothing clicked/typed/submitted, closed after
+use): both read live 200. Impetigo page correct throughout (age 1+, free NHS
+service, correct symptom list, correct eligible/non-eligible cohort split).
+Travel clinic page correct throughout (private/paid stated plainly, NHS
+funding hedged, no stock guarantee, one consistent 6-to-8-week book-ahead
+window, all four safety cohorts present, every named item a disease/condition
+name and never a vaccine brand, yellow fever named consistent with the
+standing Q48 gap). Both pages' footer still publishes the NHS mailbox as
+pharmacy.FA226@mhs.net - the standing Q36 fault, now an eighth and ninth
+confirmed page/occasion; QUESTIONS.json Q36 note updated with this finding,
+no change to its status or options. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+RAISED. Item 3.4 stays [x] (quality pass, not a state change). Evidence:
+audits/cherry-lane-walton-item-3.4-live-footer-sweep-2026-11-22.txt.
+Done 2026-11-22.
+
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
