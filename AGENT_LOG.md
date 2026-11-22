@@ -14,6 +14,12 @@ WORKLIST TICK (step 7): item 3.6 appended with this pass's paragraph, in place w
 
 QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
 
+GIT (step 9, commit/push): a fresh `.git/index.lock` (0 bytes, from this run's own earlier `git status`/`git fetch` calls) blocked `git commit` from the bash sandbox mount with "Operation not permitted" on removal, and truncate-in-place this time did not clear it either (same symptom, worse than usual) - the standing EPERM-on-unlink mount quirk many prior runs have logged. Switched to `mcp__Windows-MCP__PowerShell` against the native host path `C:\Dev\rbh-site-data`: removed the lock, committed (`9be2b24`), pushed cleanly (`e756993..9be2b24`), confirmed via `git fetch` + `git log origin/agents/audit-backlog` that the commit landed on origin.
+
+STATUS PAGE (step 10): ran `node tools/build-audit-status.js` via the same native PowerShell session (the native host's working `gh` CLI / git credential manager, per the standing Q142 note) - published cleanly, `reports/digital/Digital_Audit_Status.html` (47/48 done, 98%).
+
+HOUSEKEEPING: large amount of pre-existing untracked debris in the repo root and audits/ (probe/test files, old live-hours-check-*.json snapshots, one .goldenbak file) noted but not touched - outside this run's single-item scope and not blocking anything.
+
 
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date" (matches item 3.4's thirty-first pass from the immediately preceding run).
