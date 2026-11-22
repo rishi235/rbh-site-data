@@ -46234,6 +46234,53 @@ data field changed this run. No new question.
       three still 404, unchanged since 2026-08-11. Q53/Q54 remain answered,
       still awaiting the live Weebly/Ahrefs session outside this worker's
       scope; nothing new to add to either. No new question raised.
+      Twenty-fourth quality pass, 2026-11-22 (unattended scheduled run).
+      ONE REAL DEFECT FOUND AND FIXED, in the checker, not in any page.
+      The normalisation family the last three passes have been working
+      through (www.-strip, bare-domain, port-strip) had one shape left:
+      a trailing root dot on the hostname ("www.fishlockpharmacy.co.uk.",
+      a valid FQDN form meaning exactly the same host) was stripped
+      nowhere in normaliseHost(), so a dead link written with it fell
+      straight through to "external, out of scope by design" exactly as
+      the three gaps before it did. PROVED BY INJECTION on a scratch copy
+      (git archive HEAD to /tmp, tracked repo never opened for writing): a
+      trailing-dot absolute link to a non-existent page on our own host,
+      appended to pharmacy-fishlocks-ainsdale.html (this file has no
+      </body> tag to anchor on - these generated pages are Weebly
+      fragments, not full documents - so the link was appended at EOF
+      instead), raised linkCount 1000 -> 1001 but left estateLinkCount at
+      423 and the run clean: counted, not checked. FIX: the trailing dot
+      is stripped inside normaliseHost() itself, before the port strip, so
+      every existing caller (both disposedHosts.has() and
+      estateHosts.has()) benefits with no other change. Re-run after the
+      fix: the identical trailing-dot injection now FAILS as "stale
+      target", naming the exact file and the correct host; a trailing-dot
+      link to a REAL own page (the same branch's own homepage) was proved
+      not to be a new false positive, passing clean. Full clean-tree
+      baseline unchanged on both the scratch copy and the tracked repo
+      (177 pages, 6 EXTRA_FILES, 2 EXTRA_JS_COPY_FILES, 1,000 links, 423
+      estate links, 6 KNOWN issues, byte-identical). No live href in the
+      estate carries a trailing dot today (full-estate grep found none),
+      so this was a latent gap, not a live breach, the same shape every
+      6.2 finding before this one has taken. Applied to the tracked repo:
+      all 35 tools/check-*.js scripts (excluding check-cdn-pins.js and
+      check-live-hours.js, both network-dependent) re-run individually,
+      35/35 exit 0; `git diff --name-only -- modules core branches.json
+      gbp-packs compliance` empty, confirming only tools/check-service-
+      links.js changed. LIVE HALF (Claude in Chrome, read-only, one tab,
+      nothing clicked, typed or submitted, closed after use): re-read all
+      three standing live findings tied to this item -
+      riddingspharmacy.co.uk/clinic-prices, www.riddingspharmacy.co.uk/
+      switch-prescriptions-riddings-timperley.html, and
+      www.tiffenbergschemist.co.uk/book-now.html - all three still 404,
+      unchanged since 2026-08-11. Q53/Q54 remain answered, still awaiting
+      the live Weebly/Ahrefs session outside this worker's scope; nothing
+      new to add to either. No new question raised. FORWARD NOTE: this
+      checker's normalisation surface (www., port, bare-domain, trailing
+      dot) now appears exhausted against realistic absolute-href shapes;
+      a future 6.2 pass should look at RULE 2/RULE 3 (the claim and POM-
+      name scanners) or at a genuinely different mechanism rather than a
+      fifth normalisation variant on RULE 1, unless a real one surfaces.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

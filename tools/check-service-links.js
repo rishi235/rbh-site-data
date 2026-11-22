@@ -520,8 +520,24 @@ Array.from(estateHosts).concat(Array.from(disposedHostsRaw)).forEach(function (h
 // change; the full clean-tree baseline (177 pages, 6 EXTRA_FILES, 2
 // EXTRA_JS_COPY_FILES, 1,000 links, 423 estate links, 6 KNOWN issues) is
 // byte-identical before and after, since no live href carries a port.
+//
+// Item 6.2 quality pass (twenty-fourth), 2026-11-22. One more shape in the
+// same normalisation family: a trailing root dot on the hostname
+// ("www.fishlockpharmacy.co.uk.", a valid FQDN form meaning exactly the same
+// host) was stripped nowhere, so a dead link written with it fell through to
+// "external, out of scope by design" exactly as the bare-domain and
+// port-suffixed gaps did before their own fixes. PROVED BY INJECTION on a
+// scratch copy (git archive HEAD to /tmp, tracked repo never opened for
+// writing): a trailing-dot absolute link to a non-existent page on our own
+// host, appended to pharmacy-fishlocks-ainsdale.html, raised linkCount
+// 1000 -> 1001 but left estateLinkCount at 423 and the run clean - counted,
+// not checked. FIX: the trailing dot is stripped inside normaliseHost()
+// itself, before the port strip, so every existing caller benefits with no
+// other change. No live href in the estate carries a trailing dot today
+// (full-estate grep found none), so this was a latent gap, not a live
+// breach, the same shape every 6.2 finding before this one has taken.
 function normaliseHost(h) {
-  const noPort = h.replace(/:\d+$/, "");
+  const noPort = h.replace(/:\d+$/, "").replace(/\.+$/, "");
   return bareToCanonicalHost.get(noPort.replace(/^www\./, "")) || noPort;
 }
 

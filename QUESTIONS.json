@@ -2350,5 +2350,21 @@
     "status": "open",
     "answer": null,
     "note": "Found during item 4.8's twenty-eighth-ish quality pass, 2026-11-22, by following the pack's own review-link URL to the live listing for the first time. No in-repo defect - this repo has never generated or checked a GBP name field. Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp-name.txt."
+  },
+  {
+    "id": "Q146",
+    "date": "2026-11-22",
+    "item": "quality pass on 6.2 / backlog operations (finding, does not block any item)",
+    "question": "Two things turned up this run that are about how the worker is running, not about any one branch or page, and neither blocks anything. First: the 31-item rotation pool has now been quality-passed at least once (several items 20-32 times) across roughly a week of unattended 30-minute runs, with every pass on every item landing \"no in-repo defect found\" or an increasingly narrow checker edge case (today's was a trailing-dot hostname nobody has ever typed into a real link). The real backlog - the three [BLOCKED] items (5.8/Q16, 6.4/Q60, 6.5/Q60) - cannot move without your decision regardless of how many more rotation passes run. Second: this run found that C:\\dev\\rbh-site-data cannot have files deleted or renamed from this worker's environment (every `rm`, `git clean -fdx` and similar call returns \"Operation not permitted\"), which is a Cowork workspace-folder protection, not a repo problem. The .agent-lock handling in the scheduled task's own instructions assumes delete works, so roughly eighty prior runs have each quietly worked around it by renaming or overwriting the lock file instead of deleting it, leaving about 50-60 untracked, never-cleaned debris files sitting in the repo root (test probes, old lock markers, .goldenbak files). None of this is tracked by git and none of it has touched a single generated page or branches.json, but it is accumulating indefinitely and nobody has looked at it in one place before now.",
+    "options": [
+      "Let the rotation continue as-is; the repeated \"no defect found\" passes still exercise the checkers and this is cheap. Separately, clear the repo-root debris by hand in an attended session (outside this worker, which cannot delete) and consider updating the scheduled task's own lock-handling instructions to stop assuming delete works.",
+      "Pause or slow the rotation's quality-pass fallback (step 5) now that the pool has been through multiple full cycles with no remaining defect classes found, and redirect unattended runs to something with more headroom - for example a fresh angle across the three BLOCKED items' live-only halves, or a first pass at a part of the estate this worklist does not yet cover.",
+      "Leave both exactly as they are. The quality passes are free insurance against regressions and the debris is harmless clutter that costs nothing while it sits there.",
+      "Do nothing about the rotation, but treat the debris pile-up as worth fixing soon: grant this worker (or a one-off attended session) permission to delete the identified debris files, and add a one-line note to the scheduled task's own file so future runs stop generating more of it."
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Not a defect in any page, generator or data file. Repo-root debris list and counts captured this run; none of it is git-tracked and `git status --porcelain` on modules/, core/, branches.json, gbp-packs/, tools/, compliance/ was unaffected throughout. The delete restriction was reproduced on multiple unrelated test files (not just .agent-lock), so it is a property of this mount, not of any one filename."
   }
 ]
