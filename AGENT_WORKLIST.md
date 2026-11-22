@@ -11084,6 +11084,37 @@ audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.
       checker or branches.json content changed. Item 3.6 stays [x] (quality
       pass, not a state change). Evidence in
       audits/mccanns-item-3.6-live-footer-typo-2026-11-21.txt.
+      Quality pass 2026-11-22 (thirtieth, unattended scheduled run).
+      Rotation-pool pick: stalest pool at 2026-11-21 (4.15 excluded as the
+      file's own standing false-"stalest"-reading caveat) was {3.6, 3.7,
+      3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 4.1, ...}; cross-checked against
+      today's twelve already-completed items (2.1, 2.3, 3.1-3.5, 4.7, 4.9,
+      4.11, 4.12, 5.2, 6.2), none overlapping. 3.6 wins the lowest-item-
+      number tiebreak. Checker coverage already exhausted (all 37
+      tools/check-*.js proven by direct injection as of the 29th pass), so
+      this pass re-verified the baseline (branches.json sha256
+      0385b7c2...27da unchanged; full 35-checker suite 35/35 exit 0;
+      check-cdn-pins.js clean, same 2 WARN/6 KNOWN, none new) and put its
+      effort into fresh live-read coverage. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked or typed, closed after use): read
+      travel-clinic-mccanns-aigburth.html and
+      travel-clinic-mccanns-sandringham.html in full, neither sampled by
+      any of the prior 29 passes. Both match branches.json and the
+      generator's pinned copy exactly: private/paid stated in the hero, NHS
+      funding hedged, no stock guarantee, one consistent 6-to-8-week
+      book-ahead window, all four safety cohorts present, no vaccine named
+      by brand, yellow fever named consistent with the standing Q48 gap
+      (yellowFeverCentre null for both branches, confirmed directly),
+      address/phone/hours matching branches.json exactly on both pages. The
+      shared footer's "Sandrigham" typo (Q144) and the "McCann's Pharmacy"
+      apostrophe branding (Q39) were both reconfirmed unchanged on these two
+      further pages - not new findings. NO IN-REPO DEFECT FOUND; no
+      generator, page, pack, checker or branches.json content changed.
+      Answer pickup: newest feed entry still Q52 (2026-09-01); no answer for
+      Q37 or Q139-Q144, all seven remain open. No "Standing authorisation -
+      autonomous window" section present at pickup, step 4 did not apply.
+      No new question raised. Evidence in
+      audits/mccanns-item-3.6-travel-clinic-live-read-2026-11-22.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.

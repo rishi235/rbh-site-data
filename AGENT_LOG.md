@@ -1,4 +1,20 @@
-## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T10:42Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp. A stale `.git/index.lock` (0 bytes) was present at pickup; `rm` via bash failed with "Operation not permitted" (standing EPERM-on-unlink mount quirk); cleared by truncate-in-place (`: > .git/index.lock`), after which git worked normally.
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T07:12Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp. A stale `.git/index.lock` (0 bytes) was present at pickup; `rm` via the bash sandbox failed with "Operation not permitted" (standing EPERM-on-unlink mount quirk many prior runs have logged); `git status`/`git fetch`/`git checkout`/`git pull` all worked normally regardless, since no operation this run needed to acquire it fresh.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:51.524Z). No entry for Q37 or Q139-Q144; all seven remain open and unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): the 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest real pool (excluding 4.15, the file's own standing false-"stalest"-reading caveat) tied at 2026-11-21: {3.6-3.13, 4.1, ...}. Cross-checked against today's (2026-11-22) twelve already-completed items (2.1, 2.3, 3.1, 3.2, 3.3, 3.4, 3.5, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2, confirmed by splitting AGENT_LOG.md on run headers and reading each run's own first `WORK (item ...)` line) - none of the tied pool overlaps. 3.6 wins the lowest-item-number tiebreak.
+
+WORK (item 3.6, McCanns Chemist, Aigburth and Sandringham, thirtieth quality pass): see the dated paragraph appended to item 3.6 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256 `0385b7c2...27da` unchanged; full 35-checker suite 35/35 exit 0; check-cdn-pins.js clean, same 2 WARN/6 KNOWN, none new) confirmed clean; all 37 checkers already exhausted by direct injection as of the 29th pass, so this pass put its effort entirely into fresh live-read coverage. LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed, closed after use): read `travel-clinic-mccanns-aigburth.html` and `travel-clinic-mccanns-sandringham.html`, neither sampled by any of the prior 29 passes. Both match branches.json and the generator's pinned copy exactly: private/paid stated in the hero, NHS funding hedged, no stock guarantee, one consistent 6-to-8-week book-ahead window, all four safety cohorts present, no vaccine named by brand, yellow fever named consistent with the standing Q48 gap (yellowFeverCentre null for both branches, confirmed directly), address/phone/hours matching branches.json exactly on both pages. The shared footer's "Sandrigham" typo (Q144) and the "McCann's Pharmacy" apostrophe branding (Q39) were both reconfirmed unchanged on these two further pages, not new findings. No in-repo defect found. Evidence: `audits/mccanns-item-3.6-travel-clinic-live-read-2026-11-22.txt`.
+
+WORKLIST TICK (step 7): item 3.6 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 3.7` line that follows it.
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
+
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date" (matches item 3.4's thirty-first pass from the immediately preceding run).
 
