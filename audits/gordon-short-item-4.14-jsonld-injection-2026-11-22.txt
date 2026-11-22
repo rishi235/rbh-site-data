@@ -1,0 +1,79 @@
+Item 4.14 quality pass, 2026-11-22 (Cowork scheduled run, audit-backlog-worker)
+Branch: Gordon Short Chemist, Crosby (id gordonshorts_crosby)
+Fresh angle: tools/check-jsonld.js, never previously tried against this item
+across 28 prior passes (see AGENT_WORKLIST.md item 4.14 for full history).
+
+BASELINE
+- Tracked repo full 35-checker suite run clean before any work began (35/35
+  exit 0).
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+- modules/service/pages/sinusitis-treatment-gordon-short-crosby.html sha256
+  (baseline, tracked repo and scratch copy both): fa98c3906d196d7a88d0057b3f0
+  d374b671b4b30d7d6e8d99973e646e5d99ee9
+- Scratch copy made via `git archive HEAD | tar -x` into a disposable
+  directory outside the tracked repo. check-jsonld.js run against the scratch
+  copy clean: 177 pages checked, 177 map iframe addresses decoded and
+  compared, @type Pharmacy x177, name checked per family, 0 failures.
+
+INJECTION (scratch copy only)
+Changed the JSON-LD "telephone" field on
+modules/service/pages/sinusitis-treatment-gordon-short-crosby.html from
+"0151 924 3449" to "0151 924 9999".
+Result: CAUGHT cleanly, first attempt, exit 1, 1 failure:
+  FAIL modules/service/pages/sinusitis-treatment-gordon-short-crosby.html:
+  "telephone" is "0151 924 9999" but branches.json says "0151 924 3449"
+Names the exact page and the correct branch number.
+
+NEGATIVE CONTROL
+Restored the telephone field (sha256-reconfirmed identical to baseline), then
+added an unrelated cosmetic HTML comment at the top of the same file (no JSON
+field touched). Re-ran check-jsonld.js: clean, 0 failures, confirming the
+checker's selectivity.
+
+CLEANUP AND REGRESSION
+Removed the cosmetic comment, sha256-reconfirmed the file identical to
+baseline. Re-ran the full checker suite against the scratch copy: two
+checkers (check-cdn-pins.js, check-postcodes.js) reported failures. Re-ran
+both directly against the TRACKED repo (not the scratch copy): both clean,
+exit 0, matching the pre-work baseline exactly. Conclusion: the two scratch
+failures are an artefact of the git-archive scratch copy lacking a .git
+directory and the live network/CDN context those two checkers depend on, not
+a defect in the tracked repo. No in-repo defect from this angle.
+Scratch directory deleted. Tracked repo branches.json and the target page's
+sha256 both reconfirmed unchanged after cleanup; git status clean against
+both paths.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use)
+Read www.gordonshortchemist.co.uk homepage and
+pharmacy-first-gordon-short-crosby.html live in full for this pass.
+- Homepage: address (159 College Road, Liverpool, L23 3AT), phone
+  (0151 924 3449), hours (Mon-Fri 9-6 closed 1-2, Sat 9-5 closed 1-2, Sun
+  closed) all match branches.json exactly including both lunch-closure
+  sessions. Trading name reads "Gordon Short Chemist" throughout (not
+  "Gordon Shorts").
+- Pharmacy First page: title "Pharmacy First at Gordon Short Chemist,
+  Crosby" - correct trading name. Content matches the generator's static
+  copy and branches.json exactly: all seven Pharmacy First conditions with
+  their NHS age ranges (UTI women 16-64, sore throat 5+, sinusitis 12+,
+  earache 1-17, impetigo 1+, shingles 18+, infected insect bite 1+), no
+  medicine named, no efficacy or results claim, contact card and hours
+  correct.
+
+SIGNIFICANT FINDING: this page and its trading name were the subject of a
+hard stop recorded in item 4.14 on 2026-08-10/11 (and logged against Q32 and
+item 1.1) - the branch's live pharmacy-first-gordon-short-crosby.html was at
+that time a pre-item-1.1 paste reading "Gordon Shorts Chemist" in its H1,
+title and body, which was why Post A's link to it was held back rather than
+repointed. This pass's live read, the first direct re-check of that specific
+page's name since the hard stop was recorded, finds it now correctly reads
+"Gordon Short Chemist" (singular) throughout. The branch appears to have been
+repasted since 2026-08-11. This is a live-site observation, not an in-repo
+defect, and no repo file needed to change. Recommend Rishi or whoever handles
+the Weebly paste queue confirm the Post A hard stop in item 4.14's paster
+notes can now be lifted; no change made to AGENT_WORKLIST.md's historical
+paragraphs (only this pass's new paragraph is appended).
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED (the live finding above is a
+positive resolution of a standing paste-age issue, not a new problem; logged
+for visibility, not escalated as a Q).

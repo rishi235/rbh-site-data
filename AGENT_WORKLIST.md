@@ -36890,6 +36890,37 @@ directly rather than re-deriving the same facts by hand.
       NO NEW QUESTION RAISED. Item 4.14 stays `[x]`. Evidence:
       audits/gordon-short-item-4.14-map-embeds-2026-11-21.txt. Done
       2026-11-21.
+      Quality pass 2026-11-22 (twenty-third): fresh angle check-jsonld.js,
+      never previously tried against this item across 28 prior passes.
+      Baseline: full 35-checker suite clean (35/35), branches.json sha256
+      unchanged. Scratch copy (git archive HEAD, outside the tracked repo)
+      baseline clean, 177 pages, 0 failures. INJECTION on
+      sinusitis-treatment-gordon-short-crosby.html (scratch only): changed
+      the JSON-LD telephone to a wrong number - CAUGHT cleanly, first
+      attempt, 1 failure, naming the exact page and the correct number.
+      NEGATIVE CONTROL (cosmetic HTML comment, no data field touched): clean.
+      File restored and sha256-reconfirmed identical throughout. Full-suite
+      re-run on the scratch copy showed two checkers (check-cdn-pins.js,
+      check-postcodes.js) failing; re-ran both directly against the tracked
+      repo and both were clean, confirming the scratch failures were an
+      artefact of the git-archive copy lacking .git/network context, not a
+      repo defect. Scratch deleted; tracked repo branches.json and the
+      target page both sha256-reconfirmed unchanged, git status clean.
+      LIVE (Claude in Chrome, read-only, one tab, nothing clicked/typed,
+      closed after use): re-read the homepage and
+      pharmacy-first-gordon-short-crosby.html live in full. Address, phone
+      and both lunch-closure sessions on both the weekday and Saturday rows
+      match branches.json exactly. SIGNIFICANT FINDING: the Pharmacy First
+      page's trading name, which the 2026-08-10/11 hard stop recorded as a
+      stale "Gordon Shorts Chemist" paste (tied to Q32 and item 1.1), now
+      reads "Gordon Short Chemist" correctly throughout the title, H1 and
+      body - the branch appears to have been repasted since. Live-site
+      observation, not an in-repo defect; no file changed. Recommend the
+      Post A hard stop in this item's paster notes be reviewed and lifted
+      once Rishi or whoever handles Weebly confirms the repaste. NO IN-REPO
+      DEFECT FOUND. NO NEW QUESTION RAISED. Evidence:
+      audits/gordon-short-item-4.14-jsonld-injection-2026-11-22.txt. Done
+      2026-11-22.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against
