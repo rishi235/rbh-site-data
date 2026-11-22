@@ -1,0 +1,77 @@
+Item 4.8 quality pass, 2026-11-22 (Cowork scheduled run, audit-backlog-worker)
+Branch: Fishlocks Chemist Eccleston (fishlocks_eccleston)
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing anchor, unchanged)
+gbp-packs/fishlocks-eccleston.md sha256: 5f2206db5434a385a131ae3d36f9570e319cc87adaf5854985e94a3e01001efa (unchanged, matches every prior pass)
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js): 35/35 OK.
+git status --porcelain on modules/core/branches.json/gbp-packs/tools/compliance: clean bar the pre-existing
+pharmacy-first-mccanns-sandringham.html.goldenbak debris (unrelated, logged by a prior run, left in place per
+the standing EPERM-on-unlink convention).
+
+CONTEXT
+Every prior pass on item 4.8 (27+ passes since 2026-08-04) exhausted checker-injection coverage against
+this pack's own text and re-sampled the branch's generated pages live (landing page, Pharmacy First,
+weight loss, travel clinic, contraception, switch). No prior pass had ever opened the actual, live Google
+Business Profile the pack exists to be pasted into - every "live" check to date verified this repo's own
+generated HTML, not the GBP listing itself.
+
+NEW ANGLE TAKEN
+Followed the pack's own googleReviewUrl (https://g.page/r/CYyjtWbSXqEkEAE/review, also branches.json's
+googleReviewUrl for this branch) via Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, tab closed after use. This redirects straight to the live public Google Maps / Google Business
+Profile listing for this branch.
+
+FINDING (new, not previously logged against this item or any other)
+The live GBP listing's business NAME is:
+
+    "Fishlock Pharmacy - Travel Vaccination and Simple Weight Loss Clinic"
+
+Profile basics line 1 of gbp-packs/fishlocks-eccleston.md, and branches.json's own branchName, both say the
+name should be:
+
+    "Fishlocks Chemist Eccleston"
+
+Three distinct problems bundled into one live string, all on the single most exposed public surface this
+branch has (the business name appears on every Google Search result, Maps pin, voice answer and review page,
+not just on a page a customer chooses to click into):
+
+1. Brand spelling: "Fishlock" (singular) against the trading name "Fishlocks" (plural) and "Chemist" dropped
+   for "Pharmacy" - consistent with, but a new live surface for, the standing Q37 brand-spelling finding
+   (previously tracked on page footers and a legal line, never before on the GBP name field itself).
+2. Not this branch's trading name at all - "Fishlock Pharmacy" with no "Eccleston" in it, and the shared-
+   domain sister branch is Fishlocks Ainsdale, so this listing's name alone does not even disambiguate the
+   two shops on the same website.
+3. "Travel Vaccination and Simple Weight Loss Clinic" is appended directly into the literal GBP business
+   name field. This is not a category or a services list entry (the pack's own "Add if not present" category
+   guidance covers that separately) - it is baked into the name itself, which (a) is against Google's own
+   Business Profile naming policy (a name must reflect the real-world/signage name, not a keyword-stuffed
+   description, and Google can suspend a profile for this), and (b) puts "Weight Loss Clinic" wording into
+   the business's single most prominent, unavoidable public-facing string, at a time when Simple Weight Loss
+   is formally parked pending a decision. This is a materially different and more exposed surface than
+   anything check-weight-loss-copy.js or check-gbp-packs.js were written to cover, because those checkers
+   only ever read this repo's own generated pages and markdown packs - nothing in this repo generates or
+   checks a GBP listing's literal name field, so the gap was invisible to every one of the 35 checkers run
+   this pass.
+
+SECONDARY OBSERVATION (same page, not a repo-checkable fact, flagged for awareness only, not actioned)
+A public owner-reply on the listing ("Thank you for sharing such a thoughtful review and for trusting
+Fishlocks Pharmacy Eccleston throughout your weight management journey") sits beneath a customer review that
+names Mounjaro by brand and discusses monthly dosing. The review and reply are both pre-existing, visitor/
+owner-generated content on a Google-hosted surface this repo has no access to edit; raised here only because
+it sits adjacent to finding 3 above on the same public page. Not a new checker gap - no generator or checker
+in this repo touches third-party review content - and not actioned.
+
+OTHER FACTS ON THE LISTING, CHECKED AND CORRECT
+Address "Unit 3, The Carrington Centre, New Mill St, Eccleston, Chorley PR7 5SZ" matches branches.json
+field for field (New Mill St vs. "New Mill Street" is Google's own display abbreviation of the same string,
+not a data entry difference - not the same fault class as Q37's wrong business names). Phone 01257 451251
+matches exactly. Hours strip showed "Closed - Opens 9am Mon" consistent with the Monday 9:00 opening in
+branches.json; full week grid was not expanded in this read (text extraction did not surface it) and is not
+independently confirmed hour-by-hour this pass.
+
+NO IN-REPO DEFECT - nothing in this repo caused this: no generator writes a GBP name, no checker reads the
+live GBP listing, and the pack's own profile-basics line 1 already states the correct name to paste. This is
+a paste-time gap on Google's own platform, not a repo bug.
+
+NEW QUESTION RAISED: Q145 (see QUESTIONS.json). Item 4.8 stays [x] (quality pass, not a state change).

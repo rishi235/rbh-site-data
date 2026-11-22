@@ -2334,5 +2334,21 @@
     "status": "open",
     "answer": null,
     "note": "Found by a live Chrome read during item 3.6's quality pass, after all 37 repo checkers were confirmed already proven against this item (checker-injection coverage exhausted). Cosmetic, not a NAP/schema/compliance risk, but worth bundling into the next footer paste session."
+  },
+  {
+    "id": "Q145",
+    "date": "2026-11-22",
+    "item": "4.8 (quality pass, Fishlocks Chemist, Eccleston GBP pack)",
+    "question": "Following gbp-packs/fishlocks-eccleston.md's own googleReviewUrl to the live Google Business Profile for the first time (no prior pass had ever opened the actual GBP listing, only this repo's generated pages), the listing's business NAME field reads \"Fishlock Pharmacy - Travel Vaccination and Simple Weight Loss Clinic\" instead of the correct \"Fishlocks Chemist Eccleston\" that both branches.json and the pack's own profile-basics line already state. Three things are wrong in one string: the brand spelling (singular \"Fishlock\", \"Pharmacy\" for \"Chemist\" - a new live surface for the standing Q37 brand-spelling finding), the missing \"Eccleston\" (this name alone does not distinguish the branch from its Ainsdale sister on the same website), and \"Travel Vaccination and Simple Weight Loss Clinic\" baked directly into the literal name field rather than listed as a category - which is against Google's own Business Profile naming policy and puts weight-loss wording onto the single most exposed public surface this branch has, while Simple Weight Loss is formally parked pending a decision. Nothing in this repo generates or checks a GBP listing's name field, so no checker could have caught this; fixing it is a Google Business Profile edit, not a repo change.",
+    "options": [
+      "Correct the GBP listing name to \"Fishlocks Chemist Eccleston\" in the next Weebly/GBP session, matching the pack and branches.json exactly, and treat this as one line item on the standing Q39 Weebly-furniture-sweep checklist rather than a one-off.",
+      "Leave the weight-loss wording in the name as-is for now (it may be driving search visibility and has sat there for some time with no apparent Google enforcement action), but still correct the brand spelling and add \"Eccleston\" so the listing at least matches the trading name.",
+      "Treat this as higher priority than a routine furniture fix: given the Simple Weight Loss pause and the risk of Google suspending the listing for a policy-breaching name, ask the superintendent pharmacist / whoever is reviewing the SWL pause to sign off on the exact replacement name before anyone edits the live profile.",
+      "Do nothing yet pending a wider check: since no prior pass has ever looked at any branch's live GBP listing name, first check whether the same \"Simple Weight Loss\" wording is baked into any of the other 15 branches' GBP names before deciding how to fix this one."
+    ],
+    "recommended": 2,
+    "status": "open",
+    "answer": null,
+    "note": "Found during item 4.8's twenty-eighth-ish quality pass, 2026-11-22, by following the pack's own review-link URL to the live listing for the first time. No in-repo defect - this repo has never generated or checked a GBP name field. Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp-name.txt."
   }
 ]

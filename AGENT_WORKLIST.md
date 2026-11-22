@@ -29608,6 +29608,65 @@ directly rather than re-deriving the same facts by hand.
       Q139-Q144). Item 4.8 stays `[x]` (quality pass, not a state change).
       Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-21
       .txt.
+      Quality pass 2026-11-22 (Cowork scheduled run, audit-backlog-worker):
+      stalest real pool (excluding 4.15, the file's own standing false-
+      "stalest"-reading caveat) tied at 2026-11-21: {4.8, 4.10, 4.13, 4.14,
+      5.1}. Cross-checked against today's (2026-11-22) already-completed
+      items: 2.1, 2.3, 3.1-3.13, 4.1, 4.5, 4.6, 4.7, 4.9, 4.11, 4.12, 5.2,
+      6.2 - none overlap the tied pool. 4.8 wins the lowest-item-number
+      tiebreak. BASELINE: branches.json sha256 0385b7c2...27da and the
+      pack's own sha256 5f2206db...001efa both unchanged, matching every
+      prior pass's anchor; full 35-checker non-network suite (excl.
+      check-cdn-pins.js/check-live-hours.js) run individually, 35/35 exit
+      0; git status --porcelain on modules/core/branches.json/gbp-packs/
+      tools/compliance clean bar the pre-existing unrelated
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris. Per the
+      2026-11-20 pass's own note, checker-injection coverage against this
+      pack is genuinely exhausted at the source-code level, so none was
+      attempted. FRESH ANGLE, never tried in 28 prior passes: every
+      earlier "live" check on this item verified this repo's own
+      generated HTML pages, never the actual Google Business Profile
+      listing the pack exists to be pasted into. Followed the pack's own
+      googleReviewUrl (Claude in Chrome, read-only, single tab, nothing
+      clicked/typed/submitted, closed after use) straight to the live
+      public GBP listing. FINDING: the live listing's business NAME reads
+      "Fishlock Pharmacy - Travel Vaccination and Simple Weight Loss
+      Clinic", not the "Fishlocks Chemist Eccleston" that both
+      branches.json and the pack's own profile-basics line 1 state. Three
+      faults bundled into one string on the single most exposed public
+      surface this branch has: brand-spelling drift (singular "Fishlock",
+      "Pharmacy" for "Chemist" - a new live surface for the standing Q37
+      finding, previously only seen on page footers and a legal line);
+      no "Eccleston" at all, so the name does not distinguish this branch
+      from its Ainsdale sister on the same shared domain; and "Travel
+      Vaccination and Simple Weight Loss Clinic" keyword-stuffed directly
+      into the literal name field rather than listed as a category, which
+      is against Google's own Business Profile naming policy and puts
+      weight-loss wording onto the business's single most unavoidable
+      public string while Simple Weight Loss is formally parked pending a
+      decision. Address ("Unit 3, The Carrington Centre, New Mill St,
+      Eccleston, Chorley PR7 5SZ" - Google's own display abbreviation of
+      "Street", not a data fault) and phone (01257 451251) on the same
+      listing both matched branches.json exactly; the hours strip ("Closed
+      - Opens 9am Mon") was consistent but the full week grid did not
+      expand in the text read, so it is not independently confirmed
+      hour-by-hour this pass. SECONDARY OBSERVATION, not actioned: a
+      public owner reply on the same listing thanks a reviewer "for
+      trusting Fishlocks Pharmacy Eccleston throughout your weight
+      management journey" beneath a review naming Mounjaro by brand -
+      pre-existing third-party/owner content on a platform this repo
+      cannot edit or check, flagged only for awareness since it sits on
+      the same page as the finding above. NO IN-REPO DEFECT: no generator
+      in this repo writes a GBP name and no checker reads the live
+      listing, so nothing here could have caught it; the pack itself
+      already states the correct name. NEW QUESTION RAISED: Q145 (see
+      QUESTIONS.json), recommending the superintendent pharmacist / SWL
+      review sign off on the exact replacement wording before the live
+      profile is edited, given the SWL pause and the Google policy-
+      suspension risk of the current name. Item 4.8 stays `[x]` (quality
+      pass, not a state change). Evidence:
+      audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp
+      -name.txt.
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
