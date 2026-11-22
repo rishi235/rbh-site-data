@@ -31803,6 +31803,44 @@ directly rather than re-deriving the same facts by hand.
       left open for). Evidence in
       audits/smartts-bootle-item-4.10-quality-pass-2026-11-21-twentysixth.txt.
       Done 2026-11-21.
+      Twenty-seventh quality pass 2026-11-22 (unattended scheduled run,
+      audit-backlog-worker, Sonnet 5). Stalest genuinely-open pool (4.15
+      excluded as the standing false-"stalest" reading) at 2026-11-21:
+      {4.10, 4.13, 4.14, 5.1}, none overlapping today's already-completed
+      items, 4.10 wins the lowest-item-number tiebreak. Baseline confirmed
+      unchanged: branches.json sha256 0385b7c2...27da; pack sha256
+      2f498321...138e63 (unchanged since the 26th pass's commit-7933733
+      note); git status --porcelain on modules/core/branches.json/gbp-
+      packs/tools/compliance empty bar one pre-existing debris file; full
+      35-checker non-network suite 35/35 exit 0. Per the 24th pass, every
+      checker reading gbp-packs/*.md is already proven by injection against
+      this pack, so no further checker-injection round was attempted.
+      FRESH ANGLE: grepped this item's own 26-pass history for all 12 of
+      this branch's generated page filename stems; sinusitis-treatment had
+      zero prior mentions in any form. LIVE HALF (Claude in Chrome, read-
+      only, single tab, nothing clicked/typed/submitted, closed after use):
+      read sinusitis-treatment-smartts-bootle.html in full - hero, symptoms,
+      eligibility (age 12+), three-step process, FAQ, callback form, contact
+      card, address, phone all match branches.json and the generator's
+      static copy exactly; no medicine, superlative or results claim.
+      STANDING FINDING RECONFIRMED, NOT NEW: the shared "Opening hours"
+      sidebar widget still shows one continuous Mon-Fri 9-6 range with no
+      lunch closure against branches.json's split-hours specification (Q55),
+      now reconfirmed on a further page. NEW OBSERVATION, CHECKED AND NOT
+      ESCALATED: a previously-unexamined "AI Information" sidebar widget
+      (also shared Weebly furniture, outside this repo) adds "Liverpool" as
+      an extra address line below "Bootle", a string not in branches.json
+      for this branch. Checked for scope before raising it: skchemist.co.uk
+      (a second L20-postcode branch) independently uses the same "Bootle,
+      Liverpool" plain-English geography in its own page title and contact
+      block, confirming this is a consistent, estate-wide, live-only copy
+      convention rather than a one-off data error, and it does not
+      contradict this repo's own schema.org output (which correctly states
+      Merseyside/Bootle on every generated page). NOT raised as a new
+      question - logged so a future pass does not rediscover it as new. NO
+      IN-REPO DEFECT FOUND, NO COPY EDITED, NO NEW QUESTION RAISED. Evidence:
+      audits/smartts-bootle-item-4.10-quality-pass-2026-11-22-twentyseventh.txt.
+      Done 2026-11-22.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
