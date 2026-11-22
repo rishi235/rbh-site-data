@@ -15646,6 +15646,32 @@ Quality pass (thirtieth), 2026-11-21 (Cowork scheduled run). REPO HALF:
       already covered by the standing Weebly repaste backlog/Q1/item 1.1).
       Evidence in audits/coleman-leighs-item-3.9-quality-pass-2026-11-21-
       thirtieth.txt. Done 2026-11-21.
+Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
+      35-checker non-network suite re-run clean (35/35); branches.json sha256
+      unchanged; all 37 checker files already proven by direct injection
+      against this branch as of the twenty-ninth pass, so no further
+      injection this time. Fresh angle: of this branch's 12 generated pages,
+      the seven Pharmacy First condition pages and contraception had only
+      ever been scratch-copy injection targets in this item's 30-pass
+      history, never read live. Picked impetigo-treatment-coleman-leigh-
+      walton.html (zero prior mentions in any form). LIVE HALF (Claude in
+      Chrome, read-only, one tab, nothing clicked, typed or submitted,
+      closed after use): read in full - address, phone, email, the Mon-Fri
+      9-6 lunch-closure hours, age 1+ eligibility wording and superintendent
+      pharmacist detail all match branches.json and the generator's static
+      copy exactly; no medicine, superlative or results claim. STANDING
+      LIVE-ONLY FINDING RECONFIRMED, NOT NEW: the page's own <title> tag
+      still reads "Coleman & Leigh Pharmacy" (ampersand, singular "Leigh")
+      against the generator's correct "Coleman and Leighs Pharmacy" - the
+      same pre-Q1/item-1.1 brand-spelling lag already tracked on this
+      branch's switch-page title and shared header/footer banner, now
+      confirmed on a further page's own SEO title field. Unspaced footer
+      phone also reconfirmed, standing. NO IN-REPO DEFECT; no generator,
+      page, pack, checker or branches.json content changed - git status
+      --porcelain -- modules core branches.json gbp-packs tools empty
+      throughout. No new question raised. Evidence in audits/coleman-
+      leighs-item-3.9-quality-pass-2026-11-22-thirtyfirst.txt.
+      Done 2026-11-22.
 
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
