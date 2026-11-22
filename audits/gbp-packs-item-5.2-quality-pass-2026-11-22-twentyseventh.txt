@@ -1,0 +1,63 @@
+Item 5.2 quality pass, twenty-seventh, 2026-11-22
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(standing anchor, unchanged across all prior passes)
+gbp-packs/mccanns-sandringham.md sha256: 4851c4ff2752ed24760e8a11de0b4d9838920c789784fcafbf4d6b01a9c0d13f
+gbp-packs/mccanns-aigburth.md    sha256: fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+gbp-packs/scorah-bramhall.md     sha256: 916a6cee3fe8eefdc8e2db2ab96d949bee5f8c03a34da51ea396abf56b22b2e9
+gbp-packs/scorah-hazel-grove.md  sha256: a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84
+git status --porcelain -- modules core branches.json gbp-packs tools compliance: empty before and after.
+
+FULL SUITE
+35 of 35 non-network tools/check-*.js (excl. check-cdn-pins.js, check-live-hours.js)
+exit 0 on the tracked repo, both before and after this pass's work.
+
+FRESH ANGLE
+Grepped this item's full history (all 26 prior passes) for every tools/check-*.js
+filename. Twelve checkers had never been named against item 5.2 specifically:
+check-booking-routes.js, check-contraception-copy.js, check-gbp-packs.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-switch-copy.js,
+check-travel-clinic-copy.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js, check-widget-diaries.js.
+
+check-gbp-packs.js is the one of those twelve that is actually in scope for this
+item: the four branches item 5.2 built landing pages for (McCanns Aigburth,
+McCanns Sandringham, Scorah Bramhall, Scorah Hazel Grove) each carry a GBP pack,
+and the pack's hours, address, and sister-branch claim lines are public copy
+this item's own branches own, not previously tested by direct injection for
+these four branches under this item's heading.
+
+RUN ON TRACKED REPO (read-only)
+node tools/check-gbp-packs.js: 15 packs, 15 live branches, 0 failures, 12
+warnings - all pre-existing and already tied to open questions (Q64 address
+post-town mismatch on 5 packs including scorah-bramhall and scorah-hazel-grove;
+Q71 mccanns-sandringham's business description naming "Aigburth" as part of its
+own correct street address, already resolved as not-a-defect on 2026-10-11;
+Q72 private-clinic qualifier wording on three unrelated branches; one Clear
+Chemist phone mismatch, unrelated). Nothing new for the four branches in this
+item's scope.
+
+INJECTION (scratch copy only, via git archive HEAD | tar -x, tracked repo never
+opened for writing)
+Edited gbp-packs/scorah-bramhall.md's "- Hours:" line, changing the Monday to
+Friday opening time from 9:00am to 8:00am (Saturday line left untouched).
+node tools/check-gbp-packs.js on the scratch copy: exit 1, 6 FAILs - one
+"hours line states 08:00, which is not an opening or closing time in this
+branch's openingHours" plus five per-day FAILs (Monday to Friday each
+individually flagged as published longer than the branch actually opens).
+Caught cleanly, exact expected shape.
+
+RESTORE
+Reverted the single line by hand in the scratch copy; sha256 of the restored
+file matched the tracked repo's own copy of gbp-packs/scorah-bramhall.md
+exactly (916a6cee3fe8eefdc8e2db2ab96d949bee5f8c03a34da51ea396abf56b22b2e9).
+node tools/check-gbp-packs.js on the tracked repo re-run after: exit 0.
+git status --porcelain on the tracked repo: empty, confirming the tracked tree
+was never touched. Scratch directory deleted afterwards.
+
+RESULT
+No in-repo defect found. check-gbp-packs.js now proven by direct injection
+against this item's own four branches; guard coverage for item 5.2 extends to
+check-gbp-packs.js. No new question raised.

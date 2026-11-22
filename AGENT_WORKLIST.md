@@ -42507,6 +42507,36 @@ Evidence: audits/switch-jsonld-item-5.1-quality-pass-2026-11-21.txt.
       No live copy, generator, checker rule or branches.json content
       changed this pass. QUESTIONS.json: 144 total, 5 open (Q139, Q140,
       Q141, Q142, Q143).
+      Quality pass 2026-11-22 (twenty-seventh, unattended scheduled run,
+      rotation-pool pick, tied with 6.2 at 2026-11-20 and won the
+      lowest-item-number tiebreak): BASELINE confirmed first - branches.json
+      sha256 0385b7c2...27da (standing anchor, unchanged), the four packs'
+      own sha256 all unchanged from every prior pass's own baseline, full
+      35-checker suite (excl. check-cdn-pins.js/check-live-hours.js) 35/35
+      exit 0 on the tracked repo, git status --porcelain on
+      modules/core/branches.json/gbp-packs/tools/compliance empty.
+      FRESH ANGLE: grepped this item's full 26-pass history for every
+      tools/check-*.js filename; twelve checkers had never been named
+      against item 5.2, of which check-gbp-packs.js is the one actually in
+      scope, since all four branches this item built landing pages for carry
+      a GBP pack. Ran it on the tracked repo: 0 failures, 12 warnings, all
+      pre-existing and already tied to open questions (Q64 address post-town
+      mismatch, affecting scorah-bramhall and scorah-hazel-grove among the
+      five; Q71 mccanns-sandringham naming "Aigburth" as its own correct
+      street address, resolved as not-a-defect 2026-10-11; Q72 on three
+      unrelated branches) - nothing new for this item's four branches.
+      INJECTION (scratch copy only, via git archive HEAD | tar -x, tracked
+      repo never opened for writing): changed scorah-bramhall.md's Hours
+      line, Monday-to-Friday opening time 9:00am to 8:00am. check-gbp-packs.js
+      on the scratch copy: exit 1, 6 FAILs (one general mismatch plus one per
+      weekday, each naming the branch's real 09:00 opening against the
+      injected 08:00). Caught cleanly. Restored by hand; sha256 of the
+      restored file matched the tracked repo's own copy exactly
+      (916a6cee...2b2e9); check-gbp-packs.js re-run clean on the tracked repo
+      afterwards; git status --porcelain empty throughout. Scratch directory
+      deleted. NO IN-REPO DEFECT FOUND, no new question raised. Guard
+      coverage for item 5.2 now extends to check-gbp-packs.js. Evidence:
+      audits/gbp-packs-item-5.2-quality-pass-2026-11-22-twentyseventh.txt.
 - [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run.
       Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy

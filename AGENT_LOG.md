@@ -1,3 +1,19 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T02:42Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01). No entry newer than that for Q37 or Q139-Q144; all seven remain open and unchanged. Q37's own standing note (2026-09-01 reply was a request for clarification, not a decision) reconfirmed, no change needed.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): the 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest tier at 2026-11-20 was {5.2, 6.2} (4.15 excluded as the standing known-false reading; 4.12, 4.7, 4.9, 4.11 excluded, already completed earlier today by prior runs in this session). 5.2 wins the lowest-item-number tiebreak over 6.2.
+
+WORK (item 5.2, McCanns Aigburth/Sandringham and Scorah Bramhall/Hazel Grove branch landing pages, twenty-seventh quality pass): see the dated paragraph appended to item 5.2 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256, the four packs' own sha256, full 35-checker suite) confirmed unchanged and clean; fresh angle `tools/check-gbp-packs.js`, never previously named against this item across 26 prior passes despite all four of this item's branches carrying a GBP pack - ran clean on the tracked repo (0 failures, 12 pre-existing warnings, all already tied to Q64/Q71/Q72, nothing new for this item's four branches). On a scratch copy only (`git archive HEAD` to the outputs mount, tracked repo never opened for writing), corrupted scorah-bramhall.md's Hours line (09:00 to 08:00 opening); check-gbp-packs.js FAILED cleanly, 6 FAILs naming the exact day/time mismatch. Restored byte-identical (sha256-reconfirmed before and after); full 35-checker suite re-run clean on the tracked repo afterwards; git status --porcelain empty throughout. No in-repo defect found, no new question. Guard coverage for item 5.2 now extends to `check-gbp-packs.js`.
+
+WORKLIST TICK (step 7): item 5.2 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 5.3` line that follows it, ending "Quality pass 2026-11-22 (twenty-seventh...)".
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T02:12Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp.
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
