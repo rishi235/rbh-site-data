@@ -1,0 +1,94 @@
+Item 4.11 - SK Chemists Bootle GBP pack - twenty-eighth quality pass
+Run: Cowork scheduled run (audit-backlog-worker), 2026-11-22T00:43Z
+
+ROTATION: picked as the stalest genuine candidate. .rotation_check.js's raw
+output tied {4.7, 4.11, 4.12, 5.2, 6.2} at 2026-11-20, but 4.7 had already
+been completed by an earlier run in this same session (2026-11-21T21:42Z,
+commit 7bb9337), its latest pass carrying no "Done YYYY-MM-DD" stamp, the
+same rotation-script lag several prior runs have logged. Excluded by hand.
+4.11 and 4.12 both carry an explicit "Done 2026-11-20" line; 4.11 wins the
+lowest-item-number tiebreak over 4.12/5.2/6.2.
+
+BASELINE (all confirmed before any work):
+- sha256(gbp-packs/sk-chemists-bootle.md) =
+  637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+  - unchanged since the pack's first pass; identical to every prior
+    pass's own recorded anchor.
+- sha256(branches.json) =
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  - matches the standing estate-wide anchor several other items cite.
+- git status --porcelain -- modules core branches.json gbp-packs tools
+  compliance: empty.
+
+CHECKER SUITE: all 35 non-network checkers (excl. check-cdn-pins.js and
+check-live-hours.js per standing convention) run individually: 35/35 exit 0.
+Per the twenty-seventh pass's own conclusion, every one of the 13 checkers
+that genuinely reads gbp-packs/*.md by source (readdirSync/PACK_DIR, not a
+comment mention) has already been proven by direct injection against this
+specific pack across 27 prior passes. No untested checker-injection angle
+remained, so none was attempted again this pass (would duplicate prior
+proof rather than add to it).
+
+FRESH ANGLE, LIVE HALF: branches.json's skchemists_bootle record carries five
+widgets (bloodPressure, contraception, pharmacyFirst, weightLoss,
+travelClinic) and seven Pharmacy First condition pages. Across all 27 prior
+passes, only earache, uti, sinusitis, shingles, pharmacy-first-overview and
+weight-loss-clinic pages had ever been read live for this branch (confirmed
+by grepping every live-page filename mentioned anywhere in this item's own
+history). Read, for the first time on this item, five pages never
+previously fetched live:
+
+1. https://www.skchemist.co.uk/travel-clinic-sk-chemists-bootle.html - live,
+   200. Address/phone/hours match branches.json exactly. "Private, paid
+   service" stated in the hero, not just an FAQ. NHS funding correctly
+   hedged ("some individual vaccines may be available on the NHS... the
+   pharmacist will advise"). No stock guarantee ("subject to availability
+   and clinical suitability"; FAQ asks "Will you definitely have the vaccine
+   I need in stock?"). One book-ahead window (6 to 8 weeks) stated
+   consistently. All four safety cohorts present (pregnant/breastfeeding,
+   medical conditions/immunosuppressed, travelling within 1-2 weeks,
+   children/infants). Yellow fever named, consistent with the standing Q48
+   gap (branches.json carries no yellowFeverCentre field for any branch;
+   not new, not actioned here).
+
+2. https://www.skchemist.co.uk/contraception-sk-chemists-bootle.html -
+   guessed filename nhs-contraception-service-sk-chemists-bootle.html 404'd
+   first; correct filename found from modules/service/pages/ listing
+   (contraception-sk-chemists-bootle.html). Live, 200. Address/phone/hours
+   match. Free NHS service correctly stated, GP-referral and emergency-
+   contraception signposting present, callback form present with the
+   standard collection notice and WhatsApp button, data matches
+   branches.json.
+
+3. https://www.skchemist.co.uk/sore-throat-treatment-sk-chemists-bootle.html
+   - live, 200. "Age 5 and over" matches the NHS cohort pinned in
+   check-pharmacy-first-eligibility.js for sore throat exactly. Address/
+   phone/hours match.
+
+4. https://www.skchemist.co.uk/impetigo-treatment-sk-chemists-bootle.html -
+   live, 200. "Age 1 and over" correct for impetigo. Address/phone/hours
+   match.
+
+5. https://www.skchemist.co.uk/insect-bite-treatment-sk-chemists-bootle.html
+   - live, 200. "Age 1 and over" correct for infected insect bite.
+   Address/phone/hours match.
+
+No standalone page exists for the bloodPressure widget (confirmed: no file
+matching *blood-pressure*bootle* or similarly named under modules/); this is
+not a gap, since no generator in this repo currently builds a standalone
+blood-pressure page for any branch.
+
+All five pages read this pass: contact card (516 Stanley Road, Bootle,
+L20 5DW, 0151 944 1013), opening hours (Mon-Fri 9:00am-6:00pm, Sat/Sun
+closed), and WhatsApp data-wa all match branches.json exactly, matching the
+pattern every prior pass found on the pages it did read. No new in-repo
+defect found.
+
+STEP 3 ANSWER PICKUP: https://data.rbhealth.co.uk/api/feedback fetched via
+Claude in Chrome, read-only, single tab, nothing clicked or typed, closed
+after use. Newest "Audit answer" entry on the feed is still Q52
+(2026-09-01). No entry for Q37 or Q139-Q144; all seven remain open,
+unchanged.
+
+RESULT: no in-repo defect found; no generator, page, pack, checker or
+branches.json content changed. No new question raised.

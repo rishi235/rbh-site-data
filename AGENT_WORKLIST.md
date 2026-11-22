@@ -32272,6 +32272,42 @@ directly rather than re-deriving the same facts by hand.
       pass's own contribution is a clean re-verification (byte-stable pack,
       clean 35-checker baseline, clean live read) rather than a new proof.
       Done 2026-11-20
+      Twenty-eighth quality pass, 2026-11-22 (unattended scheduled run,
+      Cowork). Rotation pool tied {4.7, 4.11, 4.12, 5.2, 6.2} at 2026-11-20;
+      4.7 excluded by hand as already done by an earlier run in this same
+      session (2026-11-21T21:42Z, commit 7bb9337, its pass carrying no
+      "Done" date stamp, the same rotation-script lag noted by several
+      prior runs); 4.11 wins the lowest-item-number tiebreak. BASELINE
+      unchanged: sha256(gbp-packs/sk-chemists-bootle.md) =
+      637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da,
+      sha256(branches.json) =
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      git status clean on modules/core/branches.json/gbp-packs/tools/
+      compliance. Full 35-checker suite re-run (excl. check-cdn-pins.js/
+      check-live-hours.js): 35/35 exit 0. Per the twenty-seventh pass's own
+      conclusion every genuine gbp-packs-reading checker is already proven
+      against this pack, so no new checker injection was attempted. FRESH
+      ANGLE instead: of the branch's five widgets and seven Pharmacy First
+      pages, only earache, uti, sinusitis, shingles, the overview and
+      weight-loss-clinic had ever been read live across 27 prior passes.
+      Read live for the first time this item: travel-clinic-sk-chemists-
+      bootle.html (private/paid stated in the hero, NHS funding correctly
+      hedged, no stock guarantee, one 6-8 week book-ahead window, all four
+      safety cohorts present, yellow fever named per the standing Q48 gap),
+      contraception-sk-chemists-bootle.html (free NHS service, GP/emergency-
+      contraception signposting, callback form with collection notice and
+      WhatsApp button), sore-throat-treatment- (age 5+, correct), impetigo-
+      treatment- (age 1+, correct) and insect-bite-treatment- (age 1+,
+      correct) sk-chemists-bootle.html. All five live, 200, with contact
+      card, hours and data-wa matching branches.json exactly. No standalone
+      page exists for the bloodPressure widget - confirmed not a gap, since
+      no generator in this repo builds one for any branch. Step 3 answer
+      pickup: portal feed read in full, newest "Audit answer" entry still
+      Q52 (2026-09-01); no entry for Q37 or Q139-Q144, all seven remain
+      open, unchanged. No in-repo defect found; no generator, page, pack,
+      checker or branches.json content changed; no new question raised.
+      Evidence: audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-22-
+      twentyeighth.txt. Done 2026-11-22
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the
