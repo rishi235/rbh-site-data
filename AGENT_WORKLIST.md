@@ -13848,6 +13848,30 @@ Done 2026-10-14 (twenty-third pass).
       RAISED. Evidence:
       audits/sk-chemists-item-3.8-quality-pass-2026-11-21.txt. Done
       2026-11-21.
+      Quality pass 2026-11-22 (Cowork scheduled run, audit-backlog-worker).
+      Item reached full checker-file coverage (37 of 37) on the prior pass, so
+      this pass's contribution is fresh live-read coverage instead: grepped
+      this item's own full log text for the filename stems of this branch's
+      12 generated pages and found three never mentioned anywhere in item
+      3.8's history - earache-treatment, impetigo-treatment,
+      insect-bite-treatment (the latter two were read live today under item
+      4.11, a different worklist item for this same branch's GBP pack, which
+      does not count as coverage under 3.8's own independent history).
+      BASELINE: branches.json sha256 unchanged
+      (0385b7c2...27da); git status --porcelain on modules/core/branches.json/
+      gbp-packs/tools/compliance empty bar one pre-existing unrelated debris
+      file; full 35-checker non-network suite 35/35 exit 0. LIVE HALF (Claude
+      in Chrome, read-only, one tab, nothing clicked, typed or submitted,
+      closed after use): read earache-treatment-sk-chemists-bootle.html live
+      on skchemist.co.uk in full - address, phone, email (case-insensitive
+      match, standing non-issue), opening hours (single weekday session,
+      no lunch split for this branch), superintendent pharmacist and
+      eligibility wording (age 1-17, under-1/adult exclusions, red-flag
+      safety-netting) all match branches.json and the generator's static
+      copy; no medicine, superlative or results claim. NO IN-REPO DEFECT
+      FOUND, NO LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
+      audits/sk-chemists-item-3.8-earache-live-read-2026-11-22.txt. Done
+      2026-11-22.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

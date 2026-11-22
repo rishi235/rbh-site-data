@@ -1,0 +1,69 @@
+Item 3.8 (SK Chemists, Bootle) - quality pass, 2026-11-22 (Cowork scheduled run, audit-backlog-worker)
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (standing anchor, unchanged)
+- git status --porcelain -- modules core branches.json gbp-packs tools compliance:
+  empty except one pre-existing, unrelated untracked debris file
+  (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+  left by an earlier run's EPERM-on-unlink mount quirk, not touched this run)
+- Full 37 tools/check-*.js suite, excluding check-cdn-pins.js and check-live-hours.js
+  (network-dependent): 35/35 exit 0.
+
+CONTEXT
+Item 3.8 reached full checker-file coverage (37 of 37 tools/check-*.js proven by
+injection against this specific branch) on the 2026-11-21 pass. No untested
+checker-injection angle remains for this item, so this pass's contribution is
+fresh LIVE-READ coverage, following the pattern items 3.6 and 3.7 used earlier
+today: read a page of this branch that has never been read live under this
+item's own history.
+
+SK Chemists Bootle has 12 generated pages. Grepping this item's full log text
+(all passes, lines 12483-13851 of AGENT_WORKLIST.md) for each page's filename
+stem showed three pages never mentioned anywhere in item 3.8's history:
+earache-treatment, impetigo-treatment, insect-bite-treatment. (Impetigo and
+insect-bite were read live earlier today under item 4.11, a different
+worklist item for the same branch's GBP pack; that does not count as coverage
+under item 3.8's own independent history, per the convention already
+established by other dual-tracked branches in this backlog.) Picked
+earache-treatment, the lowest-numbered of the three by no other criterion
+than being read first.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use)
+
+Read https://www.skchemist.co.uk/earache-treatment-sk-chemists-bootle.html in full.
+
+Checked against branches.json (skchemists_bootle):
+- Address: "516 Stanley Road, Bootle, L20 5DW" - matches streetAddress/
+  addressLocality/postalCode exactly, both in the contact card and the footer.
+- Phone: "0151 944 1013" - matches branches.json phone exactly, in both the
+  tel-shaped contact line and the "Call 0151 944 1013" hero button.
+- Email: page shows "sk@rbhealth.co.uk" (footer) matching branches.json's
+  "SK@rbhealth.co.uk" case-insensitively - same standing non-issue noted on
+  prior passes of this and other branches, not re-raised as a new finding.
+- Opening hours: Monday-Friday 9:00am-6:00pm, Saturday and Sunday closed -
+  matches branches.json's single-session specification exactly; this branch
+  has no lunch-closure split (unlike the seven branches CLAUDE.md names), so
+  there is no second-session row to check.
+- Superintendent Pharmacist: "Dr S K Kochhar (GPhC reg 2039034)" - correct
+  (Billy / Dr Sumit Kochhar).
+- Google review link present, review card correct.
+- Eligibility copy: "Age 1 to 17", babies under 1 to see a GP, adults 18+ not
+  covered, red-flag safety-netting (999/111) present - matches the NHS
+  Pharmacy First acute otitis media pathway and the generator's static
+  condition copy for this slug.
+- No medicine named, no superlative or results claim, no efficacy claim -
+  correct for a Pharmacy First condition page.
+- Callback form present with the standing collection notice and a WhatsApp
+  button; data-wa not separately re-verified this pass (already proven for
+  this branch by check-whatsapp-route.js injection on an earlier pass).
+- JSON-LD not re-read this pass (already proven field-by-field for this
+  branch by check-jsonld.js injection on an earlier pass); this pass was
+  live-read coverage only, not a re-proof of a checker already covered.
+
+NO LIVE DEFECT FOUND. NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED.
+
+Standing open questions (Q37, Q139-Q144) checked via the portal feedback API
+at the start of this run (see AGENT_LOG.md step 3) - none answered, all seven
+remain open and unchanged; none of them concern this branch's earache page.

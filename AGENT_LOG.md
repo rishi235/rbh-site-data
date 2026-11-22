@@ -1,3 +1,21 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T08:12Z): LOCK (step 1): no `.agent-lock` found at pickup (previous run, 07:42Z, had completed item 3.7 and released it cleanly). No stale `.git/index.lock` found at pickup. Written fresh with a UTC timestamp via the bash sandbox.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried the same 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:51.524Z). No entry for Q37 or Q139-Q144; all seven remain open and unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): the 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest real pool (excluding 4.15, the file's own standing false-"stalest"-reading caveat) tied at 2026-11-21: {3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 4.1, 4.5, 4.6}. Cross-checked against today's (2026-11-22) already-completed items (found by splitting AGENT_LOG.md on run headers and reading each run's own first `WORK (item ...)` line: 2.1, 2.3, 3.6, 3.7, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2) - none of the tied pool overlaps. 3.8 wins the lowest-item-number tiebreak.
+
+WORK (item 3.8, SK Chemists, Bootle, thirty-first-or-so quality pass): see the dated paragraph appended to item 3.8 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256 `0385b7c2...27da` unchanged; full 35-checker non-network suite 35/35 exit 0; `git status --porcelain` on modules/core/branches.json/gbp-packs/tools/compliance empty bar one pre-existing unrelated debris file) confirmed clean. Item 3.8 reached full checker-file coverage (37 of 37) on the prior (2026-11-21) pass, so no untested checker-injection angle remained; this pass's contribution is fresh live-read coverage instead, following the pattern items 3.6/3.7 used earlier today. Grepped this item's own full log text for the filename stems of this branch's 12 generated pages: three were never mentioned anywhere in item 3.8's history - earache-treatment, impetigo-treatment, insect-bite-treatment (the latter two were read live today under item 4.11, a separate worklist item for this same branch's GBP pack, which does not count as coverage under 3.8's own independent history). Picked earache-treatment. LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or submitted, closed after use): read `earache-treatment-sk-chemists-bootle.html` live on skchemist.co.uk in full - address, phone, email (case-insensitive match to branches.json, standing non-issue), opening hours (single Mon-Fri 9-6 session, no lunch split for this branch), superintendent pharmacist and eligibility wording (age 1-17, under-1/adult exclusions, red-flag safety-netting) all match branches.json and the generator's static copy; no medicine, superlative or results claim. NO IN-REPO DEFECT FOUND, NO LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Evidence: `audits/sk-chemists-item-3.8-earache-live-read-2026-11-22.txt`.
+
+WORKLIST TICK (step 7): item 3.8 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 3.9` line that follows it.
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
+---
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T07:42Z): LOCK (step 1): no `.agent-lock` found at pickup (previous run, 07:12Z, had completed item 3.6 and released it cleanly). Written fresh with a UTC timestamp via the bash sandbox.
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date"; HEAD `b565342` confirmed equal to `origin/agents/audit-backlog`.
