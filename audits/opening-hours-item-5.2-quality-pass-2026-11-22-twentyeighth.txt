@@ -1,0 +1,29 @@
+Item 5.2 quality pass, 2026-11-22 (twenty-eighth pass, unattended scheduled run, audit-backlog-worker)
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing anchor, unchanged)
+- git status --porcelain on modules/core/branches.json/tools/compliance/gbp-packs: empty (one pre-existing untracked debris file from an earlier run, modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak, left alone and not part of this item)
+- Full 35-checker suite (excluding check-cdn-pins.js and check-live-hours.js, both network-dependent) run on the tracked repo: 35/35 exit 0.
+
+FRESH ANGLE
+check-opening-hours.js had never been credited by name as the fresh-angle checker against item 5.2 across 27 prior passes, despite the topic (hours, bank holidays, lunch closures) being discussed in this item's 2026-08-14 and 2026-08-30 passes under other checkers. In scope: all six branch landing pages this item built carry a visible weekly hours card and a JSON-LD openingHoursSpecification block, both sourced from branches.json.
+
+Baseline run of check-opening-hours.js on a scratch copy (git archive HEAD | tar -x to a disposable directory; tracked repo never opened for writing): exit 0, clean. Three NOTE lines, all pre-existing and tied to other items/questions (item 6.7 bank holidays, Clear Chemist Aintree's documented no-hours exception, and the list of branches with a split lunch-closure day, which includes this item's own McCanns Aigburth and McCanns Sandringham).
+
+INJECTION
+Changed modules/branch/pages/pharmacy-mccanns-aigburth.html line 36, the visible Monday card, from "2pm to 6pm" to "2pm to 7pm" (the afternoon session's close time, on a branch this item's own landing page carries a split lunch-closure day for).
+
+Result: check-opening-hours.js exit 1, one FAIL, naming the exact file, the exact day, the injected string "9am to 1pm, 2pm to 7pm" and the correct value from branches.json "9am to 1pm, 2pm to 6pm". Caught cleanly, first attempt.
+
+CONTROL
+On the same injected (hours-reverted) scratch file, changed the visible Phone line (modules/branch/pages/pharmacy-mccanns-aigburth.html line 114) from "0151 727 3185" to "0151 727 9999" - a fact check-opening-hours.js never reads.
+
+Result: check-opening-hours.js stayed exit 0 (clean) on the phone fault. check-nap.js, run on the same scratch copy, caught it with two MISMATCH lines naming the branch and the correct number. Confirms no cross-fire between the two checkers.
+
+RESTORE
+Restored pharmacy-mccanns-aigburth.html by copying the tracked repo's own file over the scratch copy. sha256 of the restored scratch file (1f797c1fb2446a424500ec95f1c8ff1b07ff1a670d6bbd1138ebb6838329af8d) matched the tracked repo's own file exactly. Both check-opening-hours.js and check-nap.js re-run clean on the restored scratch copy. Tracked repo confirmed untouched throughout (git status --porcelain and branches.json sha256 both unchanged after). Scratch directory deleted on completion.
+
+LIVE CHECK
+Claude in Chrome, read-only, one tab, nothing clicked or typed, closed after use. Re-read https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html: still a Weebly 404 "Page Not Found", unchanged. Q35 stands exactly as before.
+
+NO IN-REPO DEFECT FOUND. No new question raised. Guard coverage for item 5.2 now extends to check-opening-hours.js.

@@ -43615,6 +43615,42 @@ audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
       deleted. NO IN-REPO DEFECT FOUND, no new question raised. Guard
       coverage for item 5.2 now extends to check-gbp-packs.js. Evidence:
       audits/gbp-packs-item-5.2-quality-pass-2026-11-22-twentyseventh.txt.
+      Quality pass 2026-11-22 (twenty-eighth, unattended scheduled run,
+      rotation-pool pick: 4.9, 4.11, 4.7 and 4.12 had each already been
+      refreshed a second time today ahead of this item, so 5.2's first-round
+      touch at 02:42Z was the oldest remaining last-touch in today's pool).
+      BASELINE confirmed first: branches.json sha256 0385b7c2...27da
+      (standing anchor, unchanged), full 35-checker suite (excl.
+      check-cdn-pins.js/check-live-hours.js) 35/35 exit 0 on the tracked
+      repo, git status --porcelain on modules/core/branches.json/tools/
+      compliance/gbp-packs empty (one pre-existing untracked debris file
+      from an earlier run left alone, unrelated to this item).
+      FRESH ANGLE: check-opening-hours.js had never been credited by name
+      against item 5.2 across 27 prior passes, though hours were discussed
+      under other checkers on 2026-08-14 and 2026-08-30. In scope because
+      all six landing pages carry a visible weekly hours card and a JSON-LD
+      openingHoursSpecification block sourced from branches.json. Baseline
+      on a scratch copy (git archive HEAD, tracked repo never opened for
+      writing): clean, three pre-existing NOTEs unrelated to this item's
+      four branches. INJECTION: changed
+      modules/branch/pages/pharmacy-mccanns-aigburth.html's visible Monday
+      card from "2pm to 6pm" to "2pm to 7pm" (McCanns Aigburth is one of
+      this item's own branches with a split lunch-closure day) - caught
+      cleanly, one FAIL naming the file, the day, the injected string and
+      the correct branches.json value. CONTROL: on the same page, changed
+      the visible phone number instead - check-opening-hours.js stayed
+      clean, check-nap.js caught it with two MISMATCH lines, confirming no
+      cross-fire. Restored by copying the tracked file over the scratch
+      copy; sha256 matched exactly (1f797c1f...29af8d); both checkers
+      re-run clean on the restore; tracked repo confirmed untouched
+      throughout; scratch directory deleted. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked or typed, closed after use):
+      re-read pharmacy-mccanns-aigburth.html on www.mccannspharmacy.co.uk -
+      still a Weebly 404, unchanged; Q35 stands exactly as before. NO
+      IN-REPO DEFECT FOUND, no new question raised. Guard coverage for item
+      5.2 now extends to check-opening-hours.js. Evidence:
+      audits/opening-hours-item-5.2-quality-pass-2026-11-22-twentyeighth.txt.
+      Done 2026-11-22 (twenty-eighth pass).
 - [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run.
       Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy
