@@ -4514,7 +4514,54 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       unchanged; checked fresh via the portal feedback feed, newest entry
       still the historical Q52 answer from 2026-09-01). Evidence in
       audits/item-3.1-quality-pass-check-seo-keywords-2026-11-21.txt. Done
-      2026-11-21]
+      2026-11-21
+      Quality pass (thirtieth), 2026-11-22 (unattended scheduled run,
+      audit-backlog-worker, Cowork sandbox). Picked as the stalest
+      rotation-pool item: .rotation_check.js tied {3.1-3.13, 4.1, 4.5, 4.6,
+      4.8, 4.10, 4.13, 4.14, 5.1} at 2026-11-21 (4.15 excluded as the
+      file's own standing false-"stalest" scan-bug caveat); cross-checked
+      against today's eight already-completed items (2.1, 2.3, 4.7, 4.9,
+      4.11, 4.12, 5.2, 6.2) - no overlap - and 3.1 won the lowest-item-
+      number tiebreak. FRESH ANGLE: tools/check-address-region.js, never
+      previously named against this item across 29 prior passes. On a
+      `git archive HEAD` scratch copy only (tracked repo never opened for
+      writing; the sandbox's usual /sessions scratch mount reported 0
+      bytes free this run, a fresh environment condition, so the scratch
+      copy was built under /tmp instead, the same method several prior
+      passes have used): set mccanns_aigburth.addressRegion to "Sefton" (a
+      Merseyside borough, not a county) and regenerated the branch landing
+      pages from the edited data. check-seo-pattern.js passed CLEAN
+      afterwards - it only verifies the composed title matches tools/
+      seo-pattern.js's own pick() output, which just echoes addressRegion
+      verbatim, so an internally-consistent but geographically invalid
+      county is invisible to it. check-address-region.js correctly FAILED,
+      naming the branch and "Sefton" by name. Not a defect in either
+      checker - each does its own job - but confirms item 3.1's own
+      pattern checker has no county-validity check of its own; that lives
+      entirely in a file this item had never exercised. A first injection
+      attempt (addressRegion set to "Chorley" on fishlocks_eccleston)
+      incidentally tripped check-seo-pattern's unrelated vacuity guard
+      rather than demonstrating the angle cleanly, so the proof was redone
+      on mccanns_aigburth, which carries no seoRegion. NEGATIVE CONTROL: an
+      unrelated phone-number edit stayed clean on both checkers. Restored
+      by reading branches.json back out of tracked HEAD and regenerating
+      the landing pages again; sha256-reconfirmed identical; scratch
+      directory deleted. Full 35-checker non-network suite re-run clean on
+      the restored scratch copy (35/35) and directly against the tracked
+      repo both before and after (35/35 each time); `git status
+      --porcelain -- modules core branches.json gbp-packs tools
+      compliance` empty throughout bar one pre-existing unrelated debris
+      file this run did not touch. LIVE HALF (Claude in Chrome, read-only,
+      single tab, nothing clicked or typed, closed after use): fetched
+      pharmacy-mccanns-aigburth.html, not previously sampled by any pass
+      of this item - still a live 404, consistent with the standing Q35
+      paste-outstanding finding. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+      RAISED. Item 3.1 stays `[x]` (quality pass, not a state change).
+      QUESTIONS.json: 145 total, 7 open (Q37, Q139-Q144, unchanged; checked
+      fresh via the portal feedback feed at pickup, newest entry still the
+      historical Q52 answer from 2026-09-01). Evidence in
+      audits/item-3.1-quality-pass-check-address-region-2026-11-22.txt.
+      Done 2026-11-22
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:

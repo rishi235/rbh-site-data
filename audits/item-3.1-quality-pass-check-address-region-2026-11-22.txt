@@ -1,0 +1,87 @@
+Item 3.1 quality pass (thirtieth), 2026-11-22
+Unattended scheduled run, audit-backlog-worker, Cowork sandbox.
+
+FRESH ANGLE: tools/check-address-region.js, confirmed never previously named
+against item 3.1 across 29 prior passes (grepped the item's full section for
+every "check-*.js" mention: check-cdn-pins.js, check-live-hours.js,
+check-postcodes.js, check-seo-keywords.js, check-seo-lengths.js,
+check-seo-pattern.js, check-seo-sheets.js were the seven already used).
+
+BASELINE
+branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(standing anchor, unchanged). Full 35-checker non-network suite (excluding
+check-cdn-pins.js and check-live-hours.js) run individually against the
+tracked repo: 35/35 exit 0. git status --porcelain -- modules core
+branches.json gbp-packs tools compliance empty bar one pre-existing,
+unrelated untracked debris file (modules/service/pages/pharmacy-first-
+mccanns-sandringham.html.goldenbak) this run did not touch.
+
+SCRATCH COPY
+`git archive HEAD` extracted to /tmp/scratch31 (the sandbox's normal
+/sessions mount reported 0 bytes free this run - a fresh environment
+condition, not a repo issue - so the scratch copy was built under /tmp
+instead, consistent with the method several prior passes have used, e.g.
+the item 6.2 twenty-third pass's /tmp/scratch-6_2). branches.json sha256
+confirmed identical to tracked HEAD before any edit. Tracked repo never
+opened for writing during the injection work.
+
+INJECTION 1 (vacuity side-finding, not the main proof): set
+fishlocks_eccleston.addressRegion to "Chorley" (its existing seoRegion
+value). check-address-region.js correctly FAILED, naming the branch and
+the invalid county. check-seo-pattern.js also failed, but via its OWN
+vacuity guard ("no live branch has a seoRegion that differs from its
+addressRegion"), because the edit incidentally made Fishlocks Eccleston's
+seoRegion and addressRegion equal - a different, already-documented
+protection, not the angle this pass was testing. Restored by reading
+branches.json back out of tracked HEAD (`git show HEAD:branches.json`) and
+sha256-reconfirmed identical.
+
+INJECTION 2 (the real proof): set mccanns_aigburth.addressRegion to
+"Sefton" (a Merseyside borough, not a county), a branch with no seoRegion
+set, to avoid the vacuity side effect above.
+  - Before regenerating: check-seo-pattern.js correctly FAILED, but only
+    because the live-committed landing page still read "Merseyside" and
+    now disagreed with the edited data - an ordinary drift catch, not a
+    geography check.
+  - Regenerated the branch landing pages from the edited data
+    (`node tools/build-branch-landing-pages.js`), so the page itself now
+    reads "Pharmacy in Aigburth, Sefton - McCanns Chemist".
+  - Re-ran both checkers: check-seo-pattern.js passed CLEAN, 0 failures -
+    it only verifies the composed title matches tools/seo-pattern.js's own
+    pick() output, and pick() just echoes addressRegion verbatim, so an
+    invalid county value that is internally consistent is invisible to it.
+    check-address-region.js correctly FAILED, naming mccanns_aigburth and
+    "Sefton" by name.
+  This confirms the fresh finding for this item: the title/H1 pattern
+  checker that item 3.1 exists to maintain has no way to tell a real county
+  from a borough in the region qualifier - that validity check lives
+  entirely in check-address-region.js, a file this item had never
+  exercised before. Not a defect in either checker; each is doing its own
+  job correctly. Recorded as the fresh-angle finding for this pass.
+
+NEGATIVE CONTROL: changed mccanns_aigburth.phone to an unrelated dummy
+value (neither checker reads phone). Both check-address-region.js and
+check-seo-pattern.js stayed clean, confirming no cross-fire.
+
+RESTORE: branches.json read back from tracked HEAD a second time and
+sha256-reconfirmed (0385b7c2...27da); branch landing pages regenerated
+again from the restored data to put modules/branch/pages/ back to its
+tracked state. Full 35-checker non-network suite re-run on the restored
+scratch copy: 35/35 exit 0. Scratch directory (/tmp/scratch31) deleted.
+
+TRACKED REPO: confirmed untouched throughout - branches.json sha256
+unchanged, git status --porcelain on modules/, core/, branches.json,
+gbp-packs/, tools/ and compliance/ empty bar the one pre-existing debris
+file noted above.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked or
+typed, closed after use): fetched
+https://www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html, a page
+not previously sampled by any pass of this item - still a live 404,
+consistent with the standing Q35 paste-outstanding finding (branch landing
+pages not yet live). No new question raised.
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. QUESTIONS.json: 145 total,
+7 open (Q37, Q139-Q144, unchanged; checked fresh via the portal feedback
+feed at the top of this run - newest entry still the historical Q52 answer
+from 2026-09-01).
