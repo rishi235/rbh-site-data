@@ -9605,6 +9605,43 @@ contradict for this angle. Evidence: audits/hirshmans-ainsdale-item-3.5-
 branch-identity-2026-11-21.txt. Item 3.5 stays `[x]` (quality pass, not a
 state change). Done 2026-11-21.
 
+Quality pass 2026-11-22 (twenty-ninth): fresh angle tools/check-pharmacy-
+first-safety-net.js, never named against item 3.5 across the prior 28
+passes despite Hirshmans Ainsdale holding a pharmacyFirst widget and all
+seven NHS condition pages this checker protects. Baseline: branches.json
+sha256 0385b7c2...27da unchanged; full 37-checker suite 37/37 exit 0 on the
+live repo; the checker itself clean on the live repo (98 condition pages,
+standing Q61 impetigo WARN only, not re-raised). Scratch copy via `git
+archive HEAD` to /tmp/scratch35, sha256-matched to the live repo before any
+injection; tracked repo never opened for writing. Two injections on
+modules/service/pages/uti-treatment-hirshmans-ainsdale.html, each restored
+by byte copy (`git show HEAD:...`) and sha256-reconfirmed before the next:
+(1) added the insect-bite pathway's own anaphylaxis line into the UTI page's
+eligibleNo list - CAUGHT first attempt, rule 7 (cross-condition
+contamination), exact page and donor pathway named; (2) dropped the
+"under 16" wording from the pregnancy/age exclusion point - CAUGHT first
+attempt, rule 6 (verbatim mismatch), expected text quoted back exactly.
+Both restored; full suite re-run on the scratch copy clean, matching the
+pre-injection baseline; live repo's own branches.json and the UTI page
+confirmed byte-unchanged throughout (sha256 f6956aac...8284f6 before and
+after). NO IN-REPO DEFECT FOUND: check-pharmacy-first-safety-net.js already
+correctly protects this branch's condition pages against contamination and
+drift in both directions tested. LIVE HALF (Claude in Chrome, read-only,
+one tab, nothing clicked, typed or submitted, closed after use): read
+https://www.hirshmanspharmacy.co.uk/sore-throat-treatment-hirshmans-
+ainsdale.html - never sampled by its full filename across the prior 28
+passes. Address, phone, contact email, footer NHS email
+(pharmacy.FW378@nhs.net, no recurrence of the standing Q36 typo fault),
+both weekday sessions and both Saturday sessions, the age-5-and-over
+eligibility line, the three safety-net points and the "Hirshmans Chemist"
+plural footer ownership line all match branches.json and the generated page
+exactly - no live/generated drift found. QUESTIONS.json checked at pickup
+(7 open: Q37, Q139-Q144; portal checked via Claude in Chrome, newest entry
+still Q52, no new answers found, all seven left unchanged). NO NEW DEFECT
+FOUND, NO NEW QUESTION RAISED. Item 3.5 stays `[x]` (quality pass, not a
+state change). Full detail in audits/hirshmans-ainsdale-item-3.5-quality-
+pass-2026-11-22.txt. Done 2026-11-22.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.

@@ -1,0 +1,149 @@
+Item 3.5 (Hirshmans Chemist, Ainsdale) - quality pass, 2026-11-22
+Scheduled run: audit-backlog-worker (Cowork, unattended)
+
+LOCK / GIT
+- .agent-lock absent at pickup; written fresh with a UTC timestamp.
+- git fetch origin clean; already on agents/audit-backlog.
+- git pull --ff-only origin agents/audit-backlog: "Already up to date"
+  (matches the preceding run's commit, item 3.4's thirty-first pass).
+- .git/index.lock (0 bytes) present at pickup; `rm` failed with the standing
+  "Operation not permitted" EPERM-on-unlink mount quirk; cleared by
+  truncate-in-place (`: > .git/index.lock`), after which git worked normally.
+
+ANSWER PICKUP
+- QUESTIONS.json carried 7 open questions at pickup: Q37, Q139, Q140, Q141,
+  Q142, Q143, Q144.
+- Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome,
+  read-only, single tab, nothing clicked or typed, closed after use.
+- Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:
+  51.524Z). No entry for Q37 or Q139-Q144 beyond what is already recorded.
+  All seven remain open and unchanged.
+
+AUTONOMOUS WINDOW
+- No "Standing authorisation - autonomous window" section present at the top
+  of AGENT_LOG.md at pickup. Proceeded under normal rules; no autonomous
+  decisions taken.
+
+WORKLIST SELECTION
+- All 3 unchecked AGENT_WORKLIST.md lines reconfirmed [BLOCKED] by direct
+  grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell to the quality-pass
+  fallback.
+- Ran .rotation_check.js: stalest real pool (excluding 4.15, the file's own
+  standing false-"stalest"-reading caveat) tied at 2026-11-21: {3.5, 3.6,
+  3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13}.
+- Cross-checked against today's (2026-11-22) twelve already-completed items
+  (3.3, 3.2, 3.1, 2.3, 2.1, 6.2, 5.2, 4.12, 4.7, 4.11, 4.9, 3.4 - confirmed by
+  grepping "Done 2026-11-22" across AGENT_WORKLIST.md): none of the tied pool
+  overlaps.
+- 3.5 wins the lowest-item-number tiebreak.
+
+WORK (item 3.5, Hirshmans Chemist, Ainsdale, twenty-ninth quality pass)
+
+Baseline:
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac
+  2ffdd527da - matches every prior anchor back to the 2026-11-18 pass.
+- Full checker suite (37 of 37 tools/check-*.js) run clean on the live repo:
+  0 failures.
+- 11 checkers remained never-tried against this item per the running tally
+  in this item's own section: check-em-dashes, check-fragment-targets,
+  check-gbp-pharmacy-first, check-page-coverage, check-pharmacy-first-cost,
+  check-pharmacy-first-safety-net, check-pharmacy-first-symptoms,
+  check-service-links, check-uk-spelling, check-url-scheme,
+  check-weebly-furniture-freshness.
+
+Fresh angle chosen: tools/check-pharmacy-first-safety-net.js, never named
+against item 3.5 across the prior 28 passes, despite Hirshmans Ainsdale
+holding a pharmacyFirst widget and all seven NHS condition pages this
+checker protects (the "When to get different help" escalation block).
+
+Baseline on the live repo: check-pharmacy-first-safety-net.js clean - 7 ready
+conditions, 98 condition pages checked, one standing WARN (impetigo names no
+urgent route - Q61, already raised and recorded, a clinical call not an
+agent decision, not re-raised here).
+
+Scratch copy: `git archive HEAD | tar -x` into /tmp/scratch35. branches.json
+sha256 in the scratch copy matched the live repo's exactly before any
+injection. The tracked repo was never opened for writing.
+
+Injection 1 (rule 7, cross-condition contamination): on the scratch copy's
+modules/service/pages/uti-treatment-hirshmans-ainsdale.html, added the
+insect-bite pathway's own anaphylaxis line ("Swelling of the face, lips or
+throat, or difficulty breathing, is a serious allergic reaction, call 999
+now") into the UTI page's own eligibleNo list, leaving everything else
+unchanged.
+Result: CAUGHT first attempt -
+  FAIL uti-treatment-hirshmans-ainsdale.html: carries a safety-net point
+  that belongs to the insect-bite pathway, not this one (rule 7)
+File restored from `git show HEAD:...` (byte copy); sha256 reconfirmed
+identical to the pre-injection baseline
+(f6956aac45f8bc4af9030de1b9edb481f6b3f79f42f5c2294d53a249db8284f6).
+
+Injection 2 (rule 6, verbatim mismatch / lower-boundary wording): on the same
+restored page, changed "If you are pregnant, under 16 or over 64, the
+pharmacist will guide you to the right care" to "If you are pregnant, or
+over 64, the pharmacist will guide you to the right care" (dropping the
+under-16 exclusion wording).
+Result: CAUGHT first attempt -
+  FAIL uti-treatment-hirshmans-ainsdale.html: a safety-net point is missing
+  from the page (rule 6)
+  expected: If you are pregnant, under 16 or over 64, the pharmacist will
+  guide you to the right care
+File restored from `git show HEAD:...` (byte copy); sha256 reconfirmed
+identical to baseline.
+
+Both injections caught first attempt, no false negatives, no false positives
+on unrelated pages. Full checker suite re-run on the scratch copy after the
+second restore: clean, matching the pre-injection baseline exactly (standing
+impetigo WARN only). Tracked repo (live /sessions/.../rbh-site-data)
+reconfirmed untouched throughout: branches.json sha256 unchanged, git status
+--porcelain on branches.json/tools/modules/core/gbp-packs showed no tracked
+changes (only the pre-existing untracked debris already noted in prior
+passes).
+
+NO IN-REPO DEFECT FOUND: check-pharmacy-first-safety-net.js already
+correctly protects this branch's seven NHS condition pages against
+cross-contamination and verbatim drift in the escalation copy, in both
+directions tested.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use):
+Read https://www.hirshmanspharmacy.co.uk/sore-throat-treatment-hirshmans-
+ainsdale.html by page text. This exact filename (sore-throat-treatment-
+hirshmans-ainsdale.html) had never been named by its full filename in any
+of the previous 28 passes on this item (confirmed by grepping the item's
+full history for each of the 12 page filenames individually; "sore-throat"
+alone had been mentioned in passing in generic condition lists, but never
+this specific page).
+
+Checked field by field against branches.json's hirshmans_ainsdale record:
+- Address: "56-62 Sherwood House, Station Road, Ainsdale, PR8 3HW" - matches
+  streetAddress/addressLocality/postalCode exactly.
+- Phone: 01704 577376 - matches.
+- Contact email: Hirshmans@rbhealth.co.uk - matches.
+- Footer NHS email: pharmacy.FW378@nhs.net - matches nhsEmail exactly (no
+  recurrence of the standing Q36 "mhs.net" typo fault found on this branch
+  elsewhere).
+- Opening hours: "Open Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm,
+  Sun closed" - matches both weekday sessions and both Saturday sessions in
+  branches.json's specification exactly, correctly rendered as two sessions
+  per day rather than collapsed into one (the item 3.6/4.9 class of fault
+  this checker's sister, check-opening-hours.js, exists to prevent).
+- Eligibility: "Anyone aged 5 and over" matches the sore throat pathway's
+  lower age bound.
+- Safety net ("When to get different help"): "Children under 5 should see
+  a GP" (lower boundary, correct for this condition), "If you have a
+  weakened immune system, the pharmacist will guide you to the right care",
+  "Difficulty breathing, drooling or a muffled voice need urgent help, call
+  999 or go to A&E" (emergency wording present and correctly instructs the
+  reader to call). All three points are this condition's own and were
+  already confirmed byte-correct by the algorithmic check above (sore throat
+  is one of the 98 pages check-pharmacy-first-safety-net.js checked clean).
+- Footer ownership line: "Hirshmans Chemist which is owned by RB Healthcare
+  Ltd" - correct plural trading name, no recurrence of the Scorah-style
+  trailing-s drop found elsewhere in the estate.
+
+No drift found between live and generated. No new defect, no new question.
+
+QUESTIONS: no new question raised; Q37 and Q139-Q144 unchanged.
+
+Item 3.5 stays `[x]` (quality pass, not a state change).
