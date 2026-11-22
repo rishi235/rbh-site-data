@@ -1,3 +1,21 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T11:12Z): LOCK (step 1): no `.agent-lock` found at pickup (previous run, 10:42Z, had completed item 3.13 and released it cleanly). No stale `.git/index.lock` found at pickup. Written fresh with a UTC timestamp via the bash sandbox mount.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried the same 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:51.524Z). No entry for Q139-Q144; the one Q37 entry is the same 2026-09-01 non-decision already fully recorded in Q37's own note history. All seven remain open and unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): the 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest real pool (excluding 4.15, the file's own standing false-"stalest"-reading caveat) tied at 2026-11-21: {4.1, 4.5, 4.6, 4.8, 4.10, 4.13, 4.14, 5.1}. Cross-checked against today's (2026-11-22) already-completed items (found by splitting AGENT_LOG.md on run headers dated 2026-11-22 and reading each run's own first `WORK (item ...)` line): 2.1, 2.3, 3.1-3.13, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2 - none of the tied pool overlaps. 4.1 wins the lowest-item-number tiebreak.
+
+WORK (item 4.1, Fishlocks Chemist, Ainsdale GBP pack, twenty-eighth quality pass): see the dated paragraph appended to item 4.1 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256 0385b7c2...27da and the pack's own sha256 7592bad3...2de3e30 both unchanged; full 36-checker non-network suite clean; git status clean bar one pre-existing debris file) confirmed. FRESH ANGLE: tools/check-address-region.js, never previously tried against this item across 27 prior passes. Two injections against a disposable git-archive scratch copy (tracked file never opened for writing): a serviceAreaList reorder leading with sister branch Fishlocks Eccleston's own seoTown on the shared fishlockpharmacy.co.uk domain, and a townSlug mismatch - both CAUGHT cleanly, first attempt. Negative control (fields restored, with the two non-leading entries merely swapped) ran clean, identical to baseline. Scratch copy restored and sha256-reconfirmed; tracked repo untouched throughout; full suite re-run clean, no regression. NO IN-REPO DEFECT FOUND. LIVE HALF (Claude in Chrome, read-only, nothing clicked/typed/submitted, closed after use): re-fetched pharmacy-fishlocks-ainsdale.html, still 404, unchanged standing Q35 state. NO NEW QUESTION RAISED. Evidence: audits/fishlocks-ainsdale-item-4.1-address-region-2026-11-22.txt.
+
+WORKLIST TICK (step 7): item 4.1 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 4.2` line that follows it.
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
+---
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T10:42Z): LOCK (step 1): no `.agent-lock` found at pickup (previous run, 10:12Z, had completed item 3.12 and released it cleanly). No stale `.git/index.lock` found at pickup. Written fresh with a UTC timestamp via the bash sandbox mount.
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".

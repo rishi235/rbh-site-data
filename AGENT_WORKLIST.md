@@ -22730,6 +22730,39 @@ Pharmacy First wording to the NHS service description.
   audits/fishlocks-ainsdale-item-4.1-quality-pass-2026-11-21-
   twentyseventh.txt.
   Done 2026-11-21
+  Quality pass 2026-11-22 (twenty-eighth, Cowork scheduled run): re-selected
+  as stalest rotation-pool item (tied-oldest tier at 2026-11-21: {4.1, 4.5,
+  4.6, 4.8, 4.10, 4.13, 4.14, 5.1}, 4.15 excluded as the known false reading;
+  none of today's 2026-11-22 already-completed items overlapped; won
+  tiebreak on lowest item number). BASELINE: branches.json sha256
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da and the
+  pack's own sha256 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+  both unchanged. Full 36-checker non-network suite clean before and after.
+  FRESH ANGLE: tools/check-address-region.js, never previously tried against
+  this item across 27 prior passes. It reads branches.json directly rather
+  than the pack text, but its rules bear on facts the pack states (seoTown,
+  catchment order, townSlug). Two injections against a disposable
+  git-archive scratch copy (tracked file never opened for writing): (1)
+  reordered fishlocks_ainsdale's serviceAreaList to lead with "Eccleston",
+  the seoTown of sister branch Fishlocks Eccleston sharing the
+  fishlockpharmacy.co.uk domain - CAUGHT cleanly, first attempt, naming the
+  same-domain sister-shop exposure; (2) townSlug changed to
+  "ainsdale-wrong" - CAUGHT cleanly, second failure alongside the first.
+  NEGATIVE CONTROL: both fields restored, with serviceAreaList's other two
+  entries merely swapped (own town still first) - clean, exit 0, identical
+  to the pre-injection baseline. Scratch copy restored and sha256-reconfirmed
+  identical before and after; tracked repo untouched throughout. Full suite
+  re-run clean, no regression. NO IN-REPO DEFECT FOUND. LIVE (Claude in
+  Chrome, read-only, single tab, nothing clicked/typed/submitted, closed
+  after use): re-fetched
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html - still
+  404, unchanged standing Q35 state. QUESTIONS STATUS CHECK: Q37 and
+  Q139-Q144 confirmed still open and unanswered via this run's own ANSWER
+  PICKUP; nothing new for this item. No in-repo defect found, no fix
+  applied, no new question raised. Item stays `[x]` (quality pass, not a
+  state change). See
+  audits/fishlocks-ainsdale-item-4.1-address-region-2026-11-22.txt.
+  Done 2026-11-22
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.

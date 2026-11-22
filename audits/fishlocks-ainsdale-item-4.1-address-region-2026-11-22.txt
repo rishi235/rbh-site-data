@@ -1,0 +1,90 @@
+Item 4.1 - Fishlocks Chemist, Ainsdale GBP pack
+Quality pass 2026-11-22 (twenty-eighth), Cowork scheduled run (audit-backlog-worker)
+
+ROTATION PICK
+All worklist items unchecked are [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60), confirmed
+unchanged by direct grep. Fell through to the quality-pass fallback.
+.rotation_check.js stalest real pool (excluding 4.15, the file's own standing
+false-"stalest"-reading caveat) tied at 2026-11-21: {4.1, 4.5, 4.6, 4.8, 4.10,
+4.13, 4.14, 5.1}. Cross-checked against today's (2026-11-22) already-completed
+items (2.1, 2.3, 3.1-3.13, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2, found by splitting
+AGENT_LOG.md on today's run headers and reading each run's first WORK line):
+none of the tied pool overlaps. 4.1 wins the lowest-item-number tiebreak.
+
+ANSWER PICKUP (this run's step 3)
+Fetched https://data.rbhealth.co.uk/api/feedback via Claude in Chrome, read-only,
+single tab, nothing clicked or typed, closed after use. Newest "Audit answer"
+entry remains Q52 (2026-09-01). No entry for Q139-Q144 or Q37. All seven open
+questions unchanged.
+
+BASELINE
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+gbp-packs/fishlocks-ainsdale.md sha256: 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+Both unchanged from the twenty-seventh pass (2026-11-21). Full 36-checker
+non-network suite (every tools/check-*.js except check-cdn-pins.js and
+check-live-hours.js) run individually: all clean before and after this pass's
+investigation. git status --porcelain on modules/core/branches.json/gbp-packs/
+tools/compliance empty bar one pre-existing unrelated debris file
+(modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+untouched).
+
+FRESH ANGLE
+tools/check-address-region.js, confirmed never previously tried against this
+item across 27 prior passes (checker-file list for item 4.1 before this pass:
+check-app-membership, check-brand-spelling, check-cdn-pins, check-em-dashes,
+check-gbp-packs, check-gbp-pharmacy-first, check-live-hours,
+check-pharmacy-first-cost, check-pharmacy-first-eligibility, check-postcodes,
+check-uk-spelling, check-url-scheme, check-weight-loss-copy). This checker
+reads branches.json directly rather than gbp-packs/*.md content, but its rules
+bear directly on facts the Fishlocks Ainsdale pack states (seoTown, catchment
+order, townSlug), so it is a legitimate angle for this item.
+
+Three injections, all against a disposable scratch copy at
+.scratch_tmp/scratch_4_1/ (branches.json + tools/check-address-region.js,
+built via `git archive HEAD`), never against the tracked file:
+
+1. serviceAreaList reorder - fishlocks_ainsdale.serviceAreaList changed from
+   [Ainsdale, Birkdale, Southport] to [Eccleston, Ainsdale, Birkdale,
+   Southport], leading with Fishlocks Eccleston's own seoTown, the sister
+   branch sharing the fishlockpharmacy.co.uk domain. CAUGHT cleanly, first
+   attempt: "serviceAreaList leads with 'Eccleston', which is the seoTown of
+   fishlocks_eccleston ... Worse here: fishlocks_eccleston shares the domain
+   www.fishlockpharmacy.co.uk, so this branch would spend its strongest local
+   word advertising its own sister shop."
+
+2. townSlug mismatch - fishlocks_ainsdale.townSlug changed to
+   "ainsdale-wrong" (serviceAreaList injection from (1) left in place).
+   CAUGHT cleanly, second failure reported alongside the first: "townSlug
+   'ainsdale-wrong' is not the slug of seoTown 'Ainsdale' (expected
+   'ainsdale')."
+
+3. NEGATIVE CONTROL - both fields restored to a genuinely harmless state
+   (townSlug back to "ainsdale"; serviceAreaList reordered to [Ainsdale,
+   Southport, Birkdale], i.e. own town still first, order of the other two
+   swapped). Checker ran clean, exit 0, identical output to the pre-injection
+   baseline (same 2 standing warnings: KNOWN mccanns_sandringham townSlug/Q15,
+   cherrylane_liverpool ordering judgement). Confirms no cross-fire from the
+   earlier injections and that the rule is genuinely about the lead entry and
+   the slug, not about reordering per se.
+
+Scratch branches.json restored to the exact tracked-file bytes afterwards
+(sha256-reconfirmed identical, 0385b7c2...27da) and the tracked repo was never
+opened for writing at any point. Full 36-checker suite re-run on the tracked
+repo after: clean, no regression. Scratch directory left under .scratch_tmp
+(cannot be deleted from the bash sandbox - standing EPERM-on-unlink mount
+quirk logged by many prior runs; harmless, untracked debris, consistent with
+the many similar leftovers already in this repo's untracked files).
+
+NO IN-REPO DEFECT FOUND.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use)
+Re-fetched https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html
+- still 404, unchanged standing Q35 state (answered 2026-08-10: paste the six
+branch landing pages as their own Weebly job; not yet applied, needs a Weebly
+paste session outside this worker's write scope).
+
+QUESTIONS
+No new question raised. Q37 and Q139-Q144 unchanged, confirmed still open and
+unanswered via this run's step-3 pickup. Item 4.1 stays [x] (quality pass, not
+a state change).
