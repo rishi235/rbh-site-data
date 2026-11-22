@@ -25625,6 +25625,94 @@ AGENT_LOG.md, 2026-10-02, for the fuller transcript.
       changed. Files changed: AGENT_WORKLIST.md (this paragraph),
       AGENT_LOG.md (this run's entry). No new question raised; QUESTIONS.json
       unchanged, 126 total, 48 open.
+Quality pass 2026-11-22 (twenty-fifth, unattended scheduled run): BASELINE,
+      tracked repo: full 35-checker non-network suite (excl. check-cdn-pins.js
+      and check-live-hours.js) ran clean, 35/35 exit 0, before any work.
+      WORKLIST (step 5): all 3 currently-unchecked lines (5.8/Q16, 6.4/Q60,
+      6.5/Q60) reconfirmed [BLOCKED] by direct grep, so this run fell to the
+      quality-pass fallback. ITEM SELECTION: derived directly from
+      AGENT_WORKLIST.md's own dated section text rather than the "## run"
+      log-header reconstruction a same-day run had already used (that
+      reconstruction only tracks which items a given day's rotation touched,
+      not each item's own latest recorded date, and several items it had not
+      yet re-touched today were still fresher than 4.4). For every non-
+      standing, non-blocked item (standing one-offs 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8 excluded per established practice), the latest ISO date
+      appearing anywhere inside that item's own section was extracted
+      programmatically. Every item in the 2.x, 3.x, 4.1-4.2, 4.5-4.15, 5.x and
+      6.x ranges had already been touched earlier today (2026-11-22, confirmed
+      by today's rotation of unattended runs); item 4.4 (Scorah Chemists
+      Bramhall pack) was the sole exception, last touched on 2026-10-15 (its
+      twenty-fourth pass), over five weeks stale against every other item's
+      same-day touch. Picked 4.4 on that basis - the single clearest "least
+      recently verified completed item" in the pool. FRESH ANGLE: of the 35
+      non-network checkers, 19 had already been proven by direct injection
+      against this item's branch (scorah_bramhall) across its first twenty-
+      four passes (check-address-region, check-app-membership, check-branch-
+      links, check-brand-spelling, check-cdn-pins, check-em-dashes, check-gbp-
+      packs, check-gbp-pharmacy-first, check-map-embeds, check-nap, check-
+      opening-hours, check-page-coverage, check-pharmacy-first-cost, check-
+      pharmacy-first-eligibility, check-postcodes, check-travel-clinic-copy,
+      check-uk-spelling, check-url-scheme, check-weight-loss-copy). Picked
+      tools/check-booking-routes.js - the filename-to-Appointedd-diary chain -
+      as the highest-value unproven angle, since Scorah Bramhall shares a
+      weight loss and a travel clinic diary with its sister branch (Hazel
+      Grove), making the shared-diary and no-fallback rules especially
+      relevant here. Proved by injection on a disposable scratch copy built
+      via `git archive HEAD | tar -x` into the outputs scratchpad (the
+      sandbox's own /sessions mount was at 100% capacity this run, so the
+      scratch copy was built in the outputs mount instead; the tracked repo
+      was never opened for writing either way). Baseline on the scratch copy:
+      35/35 checkers clean, matching the tracked-repo baseline exactly. Four
+      cases, each restored and sha256-reconfirmed byte-identical before the
+      next: (1) WIDGET - deleted scorah_bramhall.widgets.weightLoss from
+      branches.json (weight loss is one of the three no-fallback services) -
+      CAUGHT first attempt, naming the page and the consequence ("this
+      service must not fall back, so the booking box renders empty"); (2)
+      BRANCHATTR - changed travel-clinic-scorah-bramhall.html's data-branch
+      from "Scorah Chemists Bramhall" to the sister branch's name, "Scorah
+      Chemists Hazel Grove" - CAUGHT first attempt, naming both branches and
+      the misfiling risk; (3) ROUTING KEY - renamed the same page's file so
+      its filename no longer parses to a valid brandSlug-townSlug key -
+      CAUGHT first attempt, naming the unresolved key and the empty-widget
+      consequence; (4) CONTROL - a benign body-paragraph whitespace edit
+      touching no data-branch/data-service/widget markup - passed clean on
+      check-booking-routes.js and the full 35-checker suite, confirming the
+      three catches were genuine rule hits and not noise. All four fired or
+      passed on the intended rule, first attempt. Final sha256 of all three
+      target files (branches.json, travel-clinic-scorah-bramhall.html,
+      weight-loss-clinic-scorah-bramhall.html) reconfirmed identical to
+      baseline; full 35-checker suite re-run clean (35/35) on the scratch
+      copy after all four cases. Tracked repo confirmed untouched throughout
+      and after (`git status --porcelain -- branches.json tools modules` in
+      the real repo showed only a pre-existing, unrelated untracked debris
+      file from an earlier run, not anything touched this pass). Scratch
+      directory and its baseline hash file deleted from the outputs mount
+      after use. No checker logic, generator, page, pack or branches.json
+      content changed in the tracked repo. Guard coverage for item 4.4 now 20
+      of 35 checkers proven by injection against this specific branch (up
+      from 19). ANSWER PICKUP cross-check (this run): QUESTIONS.json confirmed
+      147 total, 9 open (Q37, Q139-Q146); portal feedback feed re-read in full
+      via Claude in Chrome, read-only, single tab, closed after use - newest
+      entry still the Q52 answer, 2026-09-01T22:44:51.524Z, unchanged for
+      over eleven weeks; no entries for Q139-Q146. LIVE HALF (Claude in
+      Chrome, read-only, two pages fetched, tab closed after use): the branch
+      landing page pharmacy-scorah-bramhall.html still returns a live 404
+      (same standing gap the 2026-08-11 pass first recorded, not new); the
+      pfLink page (pharmacy-first-scorah-bramhall.html) loaded correctly and
+      its Weebly-native legal footer was read in full. The standing Q43
+      live-copy gap is reconfirmed unchanged: the footer still states "Scorah
+      Bramhall / 61-63 North Park Road / Bramhall / Cheshire SK7 3LQ" against
+      branches.json's addressRegion of Greater Manchester, and the page's top
+      footer band separately truncates the house number to "61 North Park
+      Road" (missing "-63") in a different block from the legal footer. Both
+      exactly match the gap already open under Q43 since 2026-08-10; folded
+      in as a further reconfirmation (no change to Q43's status, options or
+      recommendation) rather than raised as a new question, per this item's
+      own established practice for repeat findings of an already-open
+      pattern. No new in-repo or live defect found, no new question raised;
+      QUESTIONS.json unchanged at 147 total, 9 open. Files changed:
+      AGENT_WORKLIST.md (this paragraph), AGENT_LOG.md (this run's entry).
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
