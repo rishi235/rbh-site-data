@@ -492,8 +492,37 @@ Array.from(estateHosts).concat(Array.from(disposedHostsRaw)).forEach(function (h
   const bare = h.replace(/^www\./, "");
   if (!bareToCanonicalHost.has(bare)) bareToCanonicalHost.set(bare, h);
 });
+// PORT-SUFFIXED HOST NORMALISATION, added on the item 6.2 quality pass
+// (twenty-third), 2026-11-22. normaliseHost() above strips a leading "www."
+// before the bare-domain lookup, but did nothing about a trailing ":<port>"
+// on the href's own host - and `abs[1]` captures everything up to the next
+// "/", '"', "?" or "#", which includes a port if the href carries one. An
+// absolute href naming "www.cherrylanepharmacy.co.uk:443" therefore normalised
+// to itself (bareToCanonicalHost has no key for a port-suffixed string),
+// never matched estateHosts or disposedHosts, and fell straight into
+// "external, out of scope by design", however broken the path on it was -
+// the same false-negative shape as the bare-domain gap immediately above,
+// one layer further down the same normalisation step. PROVED BY INJECTION on
+// a scratch copy (git archive HEAD, never the tracked repo): an absolute link
+// to "https://www.cherrylanepharmacy.co.uk:443/this-page-does-not-exist.html"
+// added to a Fishlocks Ainsdale page passed the pre-fix checker clean (link
+// counted, but not counted as an estate link, no failure, estateLinkCount
+// unchanged at 423); after the fix the identical link correctly FAILS as
+// "stale target". A legitimate port-suffixed link to a page that DOES exist
+// (the same branch's own homepage, "https://www.fishlockpharmacy.co.uk:443/")
+// was proved NOT to be a new false positive: it is counted as an estate link
+// and passes clean, same as its unport-suffixed form. No generator or page in
+// the estate emits a port in any href today (full-estate grep found none), so
+// this was a latent gap, not a live breach, the same shape every 6.2 finding
+// before this one has taken. FIX: the port is stripped before the "www."-bare
+// lookup, inside normaliseHost() itself, so every existing caller (both the
+// disposedHosts.has() and estateHosts.has() checks) benefits with no other
+// change; the full clean-tree baseline (177 pages, 6 EXTRA_FILES, 2
+// EXTRA_JS_COPY_FILES, 1,000 links, 423 estate links, 6 KNOWN issues) is
+// byte-identical before and after, since no live href carries a port.
 function normaliseHost(h) {
-  return bareToCanonicalHost.get(h.replace(/^www\./, "")) || h;
+  const noPort = h.replace(/:\d+$/, "");
+  return bareToCanonicalHost.get(noPort.replace(/^www\./, "")) || noPort;
 }
 
 // PAGE_DIRS itself must exist in full before anything is counted from it. Added

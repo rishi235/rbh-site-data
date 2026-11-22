@@ -1,0 +1,80 @@
+Item 6.2 quality pass, 2026-11-22 (twenty-third), unattended scheduled run.
+
+FRESH ANGLE: port-suffixed absolute host in an href.
+
+normaliseHost() (added item 6.2 twenty-second pass, 2026-11-20, for the
+bare-domain gap) strips a leading "www." before a bare-domain lookup, but did
+nothing about a trailing ":<port>" that the RULE 1 capture group
+`[^\/"?#]+` happily includes as part of the host. An absolute href naming
+"www.cherrylanepharmacy.co.uk:443" therefore normalised to itself (no
+bareToCanonicalHost key carries a port), never matched estateHosts or
+disposedHosts, and fell straight into "external, out of scope by design" -
+the same false-negative shape as the bare-domain gap, one layer further down
+the same normalisation step.
+
+PROOF (scratch copy only, git archive HEAD extracted to /tmp/scratch-6_2,
+tracked repo never opened for writing during proof):
+
+1. Baseline on scratch: clean, 1000 links, 423 estate links, 6 KNOWN issues,
+   byte-identical to the tracked repo (branches.json sha256
+   0385b7c2...27da, tools/check-service-links.js sha256
+   b11640ca...832ad20, both confirmed before any edit).
+
+2. Injected on pharmacy-fishlocks-ainsdale.html (pre-fix checker):
+   <a href="https://www.cherrylanepharmacy.co.uk:443/this-page-does-not-exist.html">test</a>
+   Result: linkCount 1000 -> 1001, estateLinkCount UNCHANGED at 423, exit 0,
+   "clean". The broken cross-branch link was silently treated as external.
+
+3. Patched normaliseHost() to strip a trailing ":<port>" before the
+   "www."-bare lookup (same function, one extra replace, no other code
+   touched).
+
+4. Re-ran with the same injection, fix applied: FAIL "stale target",
+   "links to www.cherrylanepharmacy.co.uk/this-page-does-not-exist.html,
+   which this repo does not generate" - correctly resolved to its canonical
+   host and caught.
+
+5. Replaced the injected broken link with a LEGITIMATE port-suffixed link to
+   a real, correctly-targeted page (that branch's own homepage):
+   <a href="https://www.fishlockpharmacy.co.uk:443/">home with port</a>
+   Result: exit 0, "clean", estateLinkCount 424 (correctly counted as an
+   estate link, no false positive introduced).
+
+No generator or page in the current estate emits a port in any href (checked
+by grep across modules/ for an href carrying ":<digits>" before a slash;
+none found - the only digit-colon matches are tel: numbers, which are
+excluded from RULE 1 before the host regex ever runs). So this was a latent
+checker gap, not a live breach, the same shape every 6.2 finding before this
+one has taken.
+
+FIX APPLIED TO THE TRACKED REPO: tools/check-service-links.js,
+normaliseHost() only. Full documentation block added above the function
+(see "PORT-SUFFIXED HOST NORMALISATION" in the file).
+
+VERIFICATION ON THE TRACKED REPO AFTER THE FIX:
+- node tools/check-service-links.js: clean, 177 pages, 6 EXTRA_FILES, 2
+  EXTRA_JS_COPY_FILES, 1000 links, 423 estate links, same 6 KNOWN issues as
+  every prior pass. Byte-identical counts to before the fix (no live href
+  carries a port, so nothing in the real estate changed classification).
+- branches.json sha256 0385b7c2...27da unchanged.
+- git status --porcelain modules/ core/: empty (checker-only change, no
+  generator, page or data file touched).
+- Full tools/check-*.js suite (all 36 scripts) run individually: every one
+  exits 0, no regression anywhere.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, closed after use): re-read all three standing live findings tied
+to this item.
+  - riddingspharmacy.co.uk/clinic-prices: still 404.
+  - www.riddingspharmacy.co.uk/switch-prescriptions-riddings-timperley.html:
+    still 404.
+  - www.tiffenbergschemist.co.uk/book-now.html: still 404.
+All three unchanged since 2026-08-11. Q53 (actioned via Asana task gid
+1219146122533537, not yet carried out live) and Q54 (Ahrefs-UI-only, no
+in-repo or live surface to check) remain answered and unchanged; nothing new
+to add to either.
+
+RESULT: one real checker defect found and fixed (port-suffixed host
+normalisation), zero live defect fixed or newly found, no new question
+raised. Guard coverage for item 6.2 now extends to port-suffixed absolute
+hrefs on estate hosts.

@@ -45080,6 +45080,46 @@ data field changed this run. No new question.
       since 2026-08-11. Q53/Q54 remain answered (29/09/2026), still awaiting
       the live Weebly/Ahrefs session outside this worker's scope; nothing new
       to add to either. No new question raised.
+      Twenty-third quality pass, 2026-11-22 (unattended scheduled run). ONE
+      REAL DEFECT FOUND AND FIXED, in the checker, not in any page.
+      normaliseHost() (added the twenty-second pass, 2026-11-20, for the
+      bare-domain gap) strips a leading "www." before a bare-domain lookup
+      but did nothing about a trailing ":<port>" the RULE 1 host capture
+      also happily includes, so a port-suffixed absolute href to one of our
+      own hosts ("www.cherrylanepharmacy.co.uk:443/...") never matched
+      estateHosts or disposedHosts and fell straight into "external, out of
+      scope by design" - the same false-negative shape as the bare-domain
+      gap, one layer further down the same normalisation step. PROVED BY
+      INJECTION on a scratch copy (git archive HEAD to /tmp, tracked repo
+      never opened for writing): a port-suffixed absolute link to a
+      non-existent page on www.cherrylanepharmacy.co.uk added to a
+      Fishlocks Ainsdale page passed the pre-fix checker clean
+      (estateLinkCount unchanged at 423); after the fix the identical link
+      correctly FAILS as "stale target". A legitimate port-suffixed link to
+      a real page (Fishlocks' own homepage) was proved not to be a new
+      false positive: counted as an estate link, passes clean. FIX: the
+      port is stripped inside normaliseHost() itself before the "www."-bare
+      lookup, so both existing callers (disposedHosts.has() and
+      estateHosts.has()) benefit from one change. No generator or page in
+      the estate emits a port in any href today (full-estate grep found
+      none, excluding tel: numbers, which RULE 1 excludes before the host
+      regex runs), so this was a latent gap, not a live breach, the same
+      shape every 6.2 finding before this one has taken. Applied to the
+      tracked repo: node tools/check-service-links.js clean after the fix,
+      same counts as before (177 pages, 6 EXTRA_FILES, 2 EXTRA_JS_COPY_FILES,
+      1000 links, 423 estate links, 6 KNOWN issues, byte-identical); all 36
+      tools/check-*.js scripts re-run individually, all exit 0; branches.json
+      sha256 0385b7c2...27da unchanged; git status --porcelain modules/
+      core/ empty. Evidence:
+      audits/check-service-links-item-6.2-quality-pass-2026-11-22-port-host.txt.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after use): re-read all three standing
+      live findings - riddingspharmacy.co.uk/clinic-prices,
+      www.riddingspharmacy.co.uk/switch-prescriptions-riddings-
+      timperley.html, and www.tiffenbergschemist.co.uk/book-now.html - all
+      three still 404, unchanged since 2026-08-11. Q53/Q54 remain answered,
+      still awaiting the live Weebly/Ahrefs session outside this worker's
+      scope; nothing new to add to either. No new question raised.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and
