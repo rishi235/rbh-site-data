@@ -34463,6 +34463,56 @@ directly rather than re-deriving the same facts by hand.
       now additionally proven against check-opening-hours.js. Evidence:
       audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-22-opening-hours.txt.
       Done 2026-11-22.
+      Twenty-seventh quality pass 2026-11-22 (unattended scheduled run):
+      all three open worklist items confirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+      6.5/Q60), unchanged. Fell through to the quality-pass fallback;
+      reconstructed today's rotation from AGENT_LOG.md's own "## run"
+      headers and first "WORK (item ...)" lines in chronological order
+      (`.rotation_check.js` cannot resolve same-day ties by time of day).
+      All 31 pool items had been touched once by 15:42Z; a second round
+      then began, touching 2.1 (16:43Z), 4.9 (17:12Z), 4.11 (17:42Z) and
+      4.7 (18:12Z, the immediately prior run). Of the items not yet
+      touched in that second round, 4.12's own first-round touch at
+      02:12Z was the oldest remaining last-touch in the pool. Picked 4.12
+      on that basis. FRESH ANGLE: tools/check-branch-identity.js, never
+      named against this item across 26 prior passes. Baseline confirmed
+      (branches.json sha256 0385b7c2...27da unchanged; full 37-checker
+      non-network suite 37/37 exit 0 on the tracked repo before any
+      work). Scratch copy via git archive HEAD to /tmp (tracked repo
+      never opened for writing). INJECTION 1: changed
+      data-branch="Coleman and Leighs Pharmacy" to data-branch="Gordon
+      Short Chemist" on
+      modules/service/pages/pharmacy-first-coleman-leigh-walton.html -
+      caught cleanly, first attempt, naming the exact file and stating
+      the page belongs to colemanleigh_liverpool while the declared name
+      is gordonshorts_crosby's, "so an enquiry from this page is filed
+      against the wrong pharmacy"; also flagged the branch-level
+      inconsistency across its 12 pages. Restored, sha256 reconfirmed
+      identical. INJECTION 2: same substitution in the page's JSON-LD
+      "name" field - caught cleanly the same way, worded for Google
+      ("Google is told this address belongs to another pharmacy").
+      Restored, sha256 reconfirmed identical to the tracked repo
+      (30934174c7c561203ef5c163ff7d32dd96d47f09fb5151478680c3b11f5bec73).
+      NEGATIVE CONTROL: a cosmetic HTML comment before </body> stayed
+      clean. Full 37-checker suite re-run on the tracked repo: 37/37 exit
+      0. branches.json, the pack and the page all sha256-unchanged
+      throughout; git status --porcelain on modules/, core/,
+      branches.json, gbp-packs/, tools/, compliance/ showed only the
+      pre-existing, unrelated untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris. NO IN-REPO
+      DEFECT FOUND; check-branch-identity.js is now proven by direct
+      injection against item 4.12's own generated page, a gap the 26
+      prior passes had left open. LIVE HALF (Claude in Chrome, read-only,
+      one tab, nothing clicked or typed, closed after use): re-fetched
+      pharmacy-first-coleman-leigh-walton.html on
+      colemanandleighspharmacy.co.uk - address, phone, hours (including
+      the lunch closure) and all seven Pharmacy First conditions with
+      correct NHS age ranges all match branches.json; the standing
+      missing-s "Coleman & Leigh Pharmacy" banner/footer spelling and the
+      unspaced footer phone "0151 5253522" were reconfirmed present and
+      unchanged, not re-logged as new. NO NEW QUESTION RAISED. Evidence:
+      audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-22-branch-identity.txt.
+      Done 2026-11-22.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

@@ -1,0 +1,55 @@
+Item 4.12 (Coleman and Leighs Pharmacy Walton pack), 27th quality pass, 2026-11-22
+Cowork scheduled run (audit-backlog-worker)
+
+BASELINE
+sha256(branches.json) = 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged)
+sha256(modules/service/pages/pharmacy-first-coleman-leigh-walton.html) = 30934174c7c561203ef5c163ff7d32dd96d47f09fb5151478680c3b11f5bec73 (unchanged)
+sha256(gbp-packs/coleman-leigh-walton.md) = 19b8ebaa8c7973a1419afc095e8396e5350b0b9321543210ec84397e003c9652
+Full 37-checker non-network suite: 37/37 exit 0 on the tracked repo before any work.
+
+FRESH ANGLE
+tools/check-branch-identity.js had never been named against item 4.12 across 26 prior passes,
+despite CLAUDE.md's own "Which pharmacy does a page say it is" section discussing this exact
+checker and this exact repo having previously found cross-branch name faults elsewhere.
+
+SCRATCH COPY
+git archive HEAD | tar -x to /tmp/scratch-412 (tracked repo never opened for writing).
+
+INJECTION 1 (data-branch)
+Changed data-branch="Coleman and Leighs Pharmacy" to data-branch="Gordon Short Chemist" on
+modules/service/pages/pharmacy-first-coleman-leigh-walton.html.
+Result: FAILED cleanly, first attempt. check-branch-identity.js named the exact file, stated
+the page belongs to colemanleigh_liverpool, and that "Gordon Short Chemist" is
+gordonshorts_crosby's name - "so an enquiry from this page is filed against the wrong
+pharmacy." Also flagged the branch-level inconsistency (11 pages say one name, 1 page says
+another).
+Restored. sha256 reconfirmed identical to tracked repo.
+
+INJECTION 2 (JSON-LD name)
+Changed "name": "Coleman and Leighs Pharmacy" to "name": "Gordon Short Chemist" in the same
+file's JSON-LD block.
+Result: FAILED cleanly, first attempt. Same diagnosis, worded for Google: "so Google is told
+this address belongs to another pharmacy."
+Restored. sha256 reconfirmed identical to tracked repo (30934174c7c561203ef5c163ff7d32dd96d47f09fb5151478680c3b11f5bec73).
+
+NEGATIVE CONTROL
+Added a cosmetic HTML comment before </body>. Stayed clean. Removed; sha256 unchanged.
+
+FULL SUITE RE-RUN
+37/37 exit 0 on the tracked repo after cleanup. branches.json, the pack and the page all
+sha256-unchanged throughout. git status --porcelain on modules/, core/, branches.json,
+gbp-packs/, tools/, compliance/ showed only the pre-existing, unrelated untracked
+pharmacy-first-mccanns-sandringham.html.goldenbak debris (not touched this pass).
+
+NO IN-REPO DEFECT FOUND. check-branch-identity.js is now proven by direct injection against
+item 4.12's own generated page, closing a coverage gap the 26 prior passes had left open.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed, closed after use)
+Re-fetched https://www.colemanandleighspharmacy.co.uk/pharmacy-first-coleman-leigh-walton.html.
+Address, phone (0151 525 3522), hours (incl. the 1-2pm lunch closure), all seven Pharmacy
+First conditions and their NHS age ranges all match branches.json. Standing findings
+reconfirmed unchanged, not re-logged as new: the "Change to Coleman & Leigh Pharmacy" banner
+and the footer "Coleman & Leigh Pharmacy" text still carry the missing-s spelling, and the
+footer phone still renders "0151 5253522" with no internal space.
+
+NO NEW QUESTION RAISED.
