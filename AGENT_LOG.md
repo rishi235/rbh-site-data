@@ -1,4 +1,20 @@
-## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T07:12Z): LOCK (step 1): no `.agent-lock` found at pickup. Written fresh with a UTC timestamp. A stale `.git/index.lock` (0 bytes) was present at pickup; `rm` via the bash sandbox failed with "Operation not permitted" (standing EPERM-on-unlink mount quirk many prior runs have logged); `git status`/`git fetch`/`git checkout`/`git pull` all worked normally regardless, since no operation this run needed to acquire it fresh.
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-22T07:42Z): LOCK (step 1): no `.agent-lock` found at pickup (previous run, 07:12Z, had completed item 3.6 and released it cleanly). Written fresh with a UTC timestamp via the bash sandbox.
+
+GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date"; HEAD `b565342` confirmed equal to `origin/agents/audit-backlog`.
+
+ANSWER PICKUP (step 3): QUESTIONS.json carried the same 7 open questions (Q37, Q139-Q144) at pickup. Fetched `https://data.rbhealth.co.uk/api/feedback` via Claude in Chrome, read-only, single tab, nothing clicked or typed, closed after use. Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:51.524Z). No entry for Q37 or Q139-Q144; all seven remain open and unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup. Proceeded under normal rules; no autonomous decisions taken.
+
+WORKLIST (step 5): the 3 unchecked lines confirmed `[BLOCKED]` by direct grep (5.8/Q16, 6.4/Q60, 6.5/Q60), unchanged. Fell through to the quality-pass fallback. Ran `.rotation_check.js`: stalest real pool (excluding 4.15, the file's own standing false-"stalest"-reading caveat) tied at 2026-11-21: {3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 4.1, 4.5}. Cross-checked against today's (2026-11-22) already-completed items (2.1, 2.3, 3.1-3.6, 4.7, 4.9, 4.11, 4.12, 5.2, 6.2) - none of the tied pool overlaps. 3.7 wins the lowest-item-number tiebreak.
+
+WORK (item 3.7, Smartts Chemist, Bootle, twenty-ninth quality pass): see the dated paragraph appended to item 3.7 in AGENT_WORKLIST.md for the full account. Summary: baseline (branches.json sha256 `0385b7c2...27da` unchanged; full 37-checker sweep 0 FAIL) confirmed clean. All 37 checker files were already named against this item as of the 27th pass, so this pass looked for an unread live page instead: grepped the item's accumulated log text for each of this branch's eleven generated page-filename stems and found "shingles" at zero mentions across all 28 prior passes. LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed beyond navigation, closed after use): read `shingles-treatment-smartts-bootle.html` in full. Address, phone, email, superintendent pharmacist detail and eligibility wording all match branches.json and the generator's static copy; no medicine, superlative or results claim. The displayed contact-card hours show one continuous Monday-Friday range, while branches.json's own specification for this branch carries a lunch split - this is the standing live-only lunch-hours display gap already logged against this branch (Q99, answered) on earlier passes of items 3.7 and 3.8, reconfirmed unchanged on this further page, not a new finding. No in-repo defect found, no new live defect found, no new question raised. Evidence: `audits/smartts-item-3.7-quality-pass-2026-11-22-twentyninth.txt`.
+
+WORKLIST TICK (step 7): item 3.7 appended with this pass's paragraph, in place within its existing section, immediately before the `- [x] 3.8` line that follows it.
+
+QUESTIONS (step 8): no new question raised; Q37 and Q139-Q144 unchanged.
+
+
 
 GIT (step 2): `git fetch origin` clean; already on `agents/audit-backlog`; `git pull --ff-only origin agents/audit-backlog` reported "Already up to date".
 

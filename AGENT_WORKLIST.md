@@ -12460,6 +12460,26 @@ Done 2026-10-14 (twenty-third pass).
       RAISED. Evidence:
       audits/smartts-item-3.7-quality-pass-2026-11-21-twentyeighth.txt.
       Done 2026-11-21.
+      Quality pass 2026-11-22 (twenty-ninth, Cowork scheduled run): REPO
+      HALF, branches.json sha256 unchanged (0385b7c2...27da), HEAD
+      b565342 confirmed equal to origin/agents/audit-backlog, full sweep
+      of all 37 checkers 0 FAIL. Fresh angle: cross-checked which of this
+      branch's eleven generated pages had been named across the item's 28
+      prior passes - shingles-treatment-smartts-bootle.html had never been
+      sampled live. LIVE HALF (Claude in Chrome, read-only): read it in
+      full. Address, phone, email, superintendent pharmacist detail and
+      eligibility wording (18 and over, free NHS service) all match
+      branches.json and the generator's static copy; no medicine, no
+      superlative, no results claim. The contact card's displayed hours
+      ("Monday-Friday 9:00am - 6:00pm") show one continuous range although
+      branches.json's own specification for this branch carries a lunch
+      split (09:00-13:00, 14:00-18:00) - this is the standing live-only
+      lunch-hours display gap already logged against this branch (Q99,
+      answered) on earlier passes of items 3.7 and 3.8, reconfirmed
+      unchanged on this further page, not a new finding. NO IN-REPO OR NEW
+      LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
+      audits/smartts-item-3.7-quality-pass-2026-11-22-twentyninth.txt.
+      Done 2026-11-22.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

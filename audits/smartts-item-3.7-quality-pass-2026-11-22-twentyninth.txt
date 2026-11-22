@@ -1,0 +1,47 @@
+Item 3.7 (Smartts Chemist, Bootle) - twenty-ninth quality pass
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-22T07:42Z
+
+REPO HALF
+- branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (unchanged, matches baseline recorded by prior passes today).
+- HEAD b5653421982868c49655369a51679f3e869d450a, confirmed equal to
+  origin/agents/audit-backlog before starting (git log -1 both).
+- Full sweep of all 37 tools/check-*.js run against the tracked repo: 0 FAIL,
+  all exit 0.
+- Cross-check of which Smartts Bootle page files have been named in this
+  item's 28 prior quality-pass log entries (grep of each generated filename
+  stem against the item's accumulated AGENT_WORKLIST.md text) showed
+  "shingles" at 0 mentions, against double digits for most of this branch's
+  other ten generated pages (contraception, pharmacy-first, travel-clinic,
+  weight-loss, switch-prescriptions, hey-ai-read-this). shingles-treatment-
+  smartts-bootle.html had never been sampled live by any pass of this item.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked or
+typed beyond navigation, closed after use)
+- Read https://www.smarttschemist.co.uk/shingles-treatment-smartts-bootle.html
+  in full.
+- Address (42 Fernhill Road, Bootle, L20 9HH), phone (0151 922 4984), email
+  (Smartts@rbhealth.co.uk), superintendent pharmacist name and GPhC number,
+  and company number all match branches.json / the generator's static copy.
+- Eligibility stated as "Age 18 and over", "Free NHS service in Bootle",
+  consistent with the pinned Pharmacy First cohort and the no-charge wording
+  required elsewhere on this estate. No medicine named, no superlative or
+  results claim, no stock guarantee - clean against check-service-links.js's
+  claim patterns.
+- Contact card's displayed hours: "Monday-Friday 9:00am - 6:00pm, Saturday
+  Closed, Sunday Closed" - a single continuous range. branches.json's own
+  openingHours.specification for smartts_bootle carries TWO weekday sessions
+  (09:00-13:00 and 14:00-18:00), i.e. this branch closes for lunch. This is
+  the standing live-only lunch-hours display gap already logged against this
+  branch on earlier passes of items 3.7 and 3.8 (and referenced generally in
+  CLAUDE.md's "Opening hours" section; raised previously as Q99 against item
+  3.8, SK Chemists Bootle, now answered/standing) - reconfirmed present and
+  unchanged on this further page, not a new finding. check-opening-hours.js
+  only reads the repo-generated pages, which render the two sessions
+  correctly; it cannot see this live Weebly-only contact card.
+
+CONCLUSION
+No in-repo defect found. No new live defect found - the lunch-hours display
+point is a reconfirmation of a standing, already-logged gap, not a new one.
+No question raised. No branches.json, generator, page, pack or checker
+content changed.
