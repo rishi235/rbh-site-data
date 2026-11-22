@@ -27912,6 +27912,58 @@ directly rather than re-deriving the same facts by hand.
       live angle instead: pharmacy-mccanns-sandringham.html still returns
       404 - Page Not Found, unchanged from the state recorded under Q35 on
       2026-08-11/12. No in-repo defect found, no new question.
+      Quality pass 2026-11-22 (Cowork scheduled run, audit-backlog-worker):
+      stalest tier at 2026-11-20 was {4.7, 4.12, 5.2, 6.2} (4.15 excluded as
+      the standing known-false reading); 4.9 and 4.11 had already been taken
+      by two earlier runs today, confirmed by reading AGENT_LOG.md directly
+      rather than trusting .rotation_check.js's date field, so they were
+      excluded by hand; 4.7 wins the lowest-item-number tiebreak. BASELINE:
+      branches.json sha256 0385b7c2...27da and gbp-packs/mccanns-
+      sandringham.md sha256 4851c4ff...0d13f both match every prior pass's
+      anchor, unchanged; git status --porcelain on modules/core/branches.json
+      /gbp-packs/tools/compliance empty; full 35-checker non-network suite
+      run individually against the tracked repo, 35/35 exit 0. FRESH ANGLE:
+      tools/check-fragment-targets.js, never named against this item across
+      28 prior passes (confirmed by grepping this item's whole history for
+      "fragment-targets", "safety-net" and "symptoms.js" - none found; those
+      three are the only checkers added since this item's last pass that it
+      had not yet been tested against). check-pharmacy-first-safety-net.js
+      and check-pharmacy-first-symptoms.js guard generator-level template
+      copy shared by every branch rather than anything specific to this
+      branch's own pages or pack, so check-fragment-targets.js was the
+      genuinely branch-relevant untested angle and was taken. INJECTION,
+      against the tracked page itself (backed up first to
+      pharmacy-first-mccanns-sandringham.html.goldenbak, sha256
+      e45da2ed...f4d3db, which could not then be deleted - the standing
+      EPERM-on-unlink mount quirk many prior runs have logged - and is left
+      as harmless untracked debris, consistent with the existing pile):
+      changed the hero's "#book" fragment link on
+      modules/service/pages/pharmacy-first-mccanns-sandringham.html to
+      "#booking" while leaving id="book" on the booking card untouched -
+      CAUGHT cleanly, two failures: rule 1 (TARGET), naming the page and the
+      dead fragment; and rule 2 (CTA), correctly also firing because the
+      page was left with no resolving fragment link at all once the one
+      link it had was broken. NEGATIVE CONTROL: restored byte-identical from
+      the backup (sha256 reconfirmed e45da2ed...f4d3db before the control),
+      then changed only the booking card's sub-heading prose with no
+      fragment or id touched - ran clean, exit 0, confirming the checker
+      reads structure, not wording. Restored again from the backup, sha256
+      reconfirmed e45da2ed...f4d3db a second time, git status --porcelain on
+      the page empty. Full 35-checker suite re-run after final restore:
+      35/35 exit 0. branches.json and the pack both sha256-reconfirmed
+      unchanged throughout. Answer pickup (step 3): Claude in Chrome,
+      read-only, full feed read, tab closed after use; newest entry still
+      the Q52 answer (2026-09-01); Q37 and Q139-Q144 all still open and
+      unchanged. NO IN-REPO DEFECT FOUND; no generator, page, pack, checker
+      or branches.json content changed. Guard coverage for item 4.7 now
+      extends to check-fragment-targets.js; check-pharmacy-first-safety-
+      net.js, check-pharmacy-first-symptoms.js, check-editor-snapshot.js and
+      check-weebly-furniture-freshness.js (the last already exercised
+      estate-wide on the twenty-third pass, not by injection against this
+      specific branch) remain untried against this item for a future pass.
+      No new question. Evidence: AGENT_LOG.md this run; no separate audit
+      file written (injection and restore both logged here in full, same as
+      several prior passes with no distinct finding). Done 2026-11-22.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
