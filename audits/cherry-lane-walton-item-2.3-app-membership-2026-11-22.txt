@@ -1,0 +1,93 @@
+Item 2.3 (Cherry Lane Pharmacy, Walton) - quality pass 2026-11-22
+Fresh angle: tools/check-app-membership.js, proven by direct injection against
+cherrylane_liverpool for the first time.
+
+BASELINE
+- Full 37-checker suite run directly against the tracked tree before any
+  change: 37/37 exit 0 (tools/check-app-membership.js exit 0, logging 4 app
+  members of 16, 6 of 21 app-family pages carrying the card).
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+- modules/switch/pages/switch-prescriptions-cherry-lane-walton.html sha256:
+  40eedab5b7c043c339c81937d288b440e1d9fe6bfce8764abc84f1995b8bac27
+- modules/switch/pages/INDEX.md sha256:
+  199b029b3227db036ee15b303dbfaa00ceab415c3fcf07ca7a1df619fec8084b
+- modules/switch/pages/SEO.md sha256:
+  0ae6e1443e66a472c3f175f0eb58e2f343dcc108656c5d81900fed89f6f3e68a
+- cherrylane_liverpool: hasApp = false. No branch landing page exists for
+  this branch (confirmed by earlier passes and by directory listing), so
+  check-app-membership's rule 3 (landing page sentence) does not apply here;
+  rules 2, 4, 5, 6 and 7 do, via the switch page and the switch paste sheets.
+
+SCRATCH SETUP
+- Scratch copy made with `git archive HEAD | tar -x` into a working-folder
+  outputs path. Tracked repo never opened for writing during any injection.
+- Confirmed byte-identical to tracked files before any edit (sha256 match on
+  branches.json, the switch page, INDEX.md).
+
+INJECTION 1 - app card on a non-member's switch page (rule 2)
+Pasted the exact app-card markup (head, copy line, two store-button anchors)
+used on Smartts Bootle's live switch page into Cherry Lane's scratch switch
+page, immediately after its WhatsApp fallback link.
+Result: FAIL.
+  FAIL [switch pages] modules/switch/pages/switch-prescriptions-cherry-lane-walton.html:
+  carries the app card but branches.json says this branch is not an app member
+Restored by byte copy from the tracked file; sha256 reconfirmed equal to the
+pre-injection value; re-run of check-app-membership.js on the scratch copy
+clean again (exit 0).
+
+INJECTION 2 - paste marker on a non-member's heading (rule 7)
+Added "  *(app member)*" to the "## Cherry Lane Pharmacy — Walton" heading
+in the scratch copy's modules/switch/pages/INDEX.md, with branches.json
+(hasApp: false) untouched.
+Result: FAIL, two lines:
+  FAIL [paste markers] modules/switch/pages/INDEX.md: marks 5 page(s) as app
+  members but branches.json has 4 (...)
+  FAIL [paste markers] modules/switch/pages/INDEX.md: "Cherry Lane Pharmacy —
+  Walton" is marked as an app member and branches.json does not agree
+Restored by byte copy; sha256 reconfirmed equal to the pre-injection value.
+
+NEGATIVE CONTROL - unrelated wording change (not an app-rule subject)
+Changed the trailing clause of Cherry Lane's SEO.md Page Description from
+"...do what we can." to "...keep you updated throughout." (a wording change
+with no app content).
+Result: check-app-membership.js stayed clean (exit 0), confirming the
+checker's silence on this field is deliberate scope - it does not read Page
+Description at all - not a blind spot in the rule under test.
+Restored by byte copy; sha256 reconfirmed equal to the pre-injection value.
+
+POST-RESTORE VERIFICATION
+- Full 37-checker suite re-run on the scratch copy: 36 clean, 1 expected
+  environmental failure - tools/check-cdn-pins.js fails because the scratch
+  copy (a `git archive` export) has no .git directory, so its git-ref
+  resolution for the pinned CDN refs cannot run at all ("not a git
+  repository"). This is a property of the scratch-copy method for THIS one
+  checker, not a finding about item 2.3 or about the repo: the same checker
+  passed clean on the tracked tree both before and after (see below), and
+  earlier passes using the same scratch-copy method have hit the same
+  environmental limitation for this specific checker. Recorded for anyone
+  reusing this method against check-cdn-pins.js; no action needed.
+- Full 37-checker suite re-run directly against the TRACKED repo after all
+  scratch work: 37/37 exit 0, including check-cdn-pins.js.
+- sha256 of branches.json, the switch page, INDEX.md and SEO.md in the
+  tracked repo: all four unchanged from the baseline values above.
+- git status --porcelain on modules/, core/, branches.json, gbp-packs/,
+  compliance/ and tools/: empty, bar one pre-existing unrelated untracked
+  debris file (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak)
+  that predates this run and was not touched by it.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked or typed,
+closed after use)
+Re-read cherrylanepharmacy.co.uk/switch-prescriptions-cherry-lane-walton.html
+in full. No "Download our app" card, no app sentence, no app-store link
+anywhere on the page - correct for hasApp: false, and it directly confirms
+rule 2's live-side claim rather than only the generated-page copy. The
+standing Q36 footer typo (pharmacy.FA226@mhs.net) is still present,
+unchanged; not re-raised, already logged.
+
+CONCLUSION
+No in-repo defect found. No generator, page, paste sheet, branches.json or
+checker content changed. Guard coverage for item 2.3 now includes
+check-app-membership.js proven by direct injection (two of its rules, 2 and
+7) plus a confirmed negative control. No new question raised; QUESTIONS.json
+unchanged (Q37, Q139-Q144 all still open, unchanged - see AGENT_LOG.md step 3
+for this run's answer-pickup check).

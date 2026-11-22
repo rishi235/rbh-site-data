@@ -3390,6 +3390,50 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       new question raised. Full detail in audits/cherry-lane-walton-item-2.3-seo-
       sheets-2026-11-21.txt.]
 
+      [Quality pass, 2026-11-22: fresh angle tools/check-app-membership.js, proven
+      by direct injection against cherrylane_liverpool for the first time (one of
+      the 13 checkers never previously named against this item). Baseline: full
+      37-checker suite run directly against the tracked tree, 37/37 exit 0.
+      cherrylane_liverpool's hasApp is false and it has no branch landing page, so
+      rules 2, 4, 5, 6 and 7 apply via the switch page and switch paste sheets;
+      rule 3 (landing-page sentence) does not apply to this branch. Scratch copy
+      via git archive, sha256-confirmed byte-identical to the tracked files
+      before any edit; tracked repo never opened for writing. Two injection cases,
+      each restored and sha256-reconfirmed after: (1) pasted the exact app-card
+      markup from Smartts Bootle's live switch page into Cherry Lane's scratch
+      switch page - caught cleanly, naming the file and "not an app member"; (2)
+      added the "*(app member)*" paste marker to Cherry Lane's own heading in the
+      scratch copy's switch INDEX.md with branches.json untouched - caught
+      cleanly, two FAILs naming the heading and the count mismatch. A negative
+      control (an unrelated wording change to the switch SEO.md description, a
+      field this checker does not read) ran clean, confirming deliberate scope
+      rather than a blind spot. Full 37-checker suite re-run on the scratch copy
+      afterwards: 36 clean, 1 expected environmental failure - check-cdn-pins.js
+      cannot resolve git refs because a `git archive` export carries no .git
+      directory, a property of the scratch-copy method for that one checker, not
+      a finding about this item (it passed clean on the tracked repo both before
+      and after). Full 37-checker suite re-run directly against the tracked repo
+      afterwards: 37/37 exit 0, check-cdn-pins.js included. branches.json, the
+      switch page, INDEX.md and SEO.md sha256-reconfirmed unchanged in the
+      tracked repo; git status --porcelain on modules/, core/, branches.json,
+      gbp-packs/, compliance/ and tools/ empty bar one pre-existing unrelated
+      untracked debris file this run did not touch. Live half: Claude in Chrome,
+      read-only, single tab, nothing clicked or typed, closed after use -
+      cherrylanepharmacy.co.uk's switch page re-read in full: no app card, no app
+      sentence, no store link anywhere, correct for hasApp false and confirming
+      rule 2's claim live rather than only in generated copy. Standing Q36 footer
+      typo (pharmacy.FA226@mhs.net) still present, unchanged, not re-raised. No
+      in-repo defect found; no generator, page, sheet, branches.json or checker
+      content changed. 12 checkers remain untried against this item specifically:
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js, check-opening-hours.js,
+      check-pharmacy-first-cost.js, check-pharmacy-first-safety-net.js,
+      check-seo-keywords.js, check-service-links.js,
+      check-weebly-furniture-freshness.js, check-weight-loss-copy.js,
+      check-widget-diaries.js. QUESTIONS.json unchanged, still no new question
+      raised. Full detail in audits/cherry-lane-walton-item-2.3-app-membership-
+      2026-11-22.txt.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta
