@@ -35634,6 +35634,28 @@ directly rather than re-deriving the same facts by hand.
       hours all match branches.json and the GBP pack, no live defect found.
       No in-repo defect found this pass. Evidence:
       audits/riddings-item-4.13-map-embeds-injection-2026-11-21.txt.
+
+      Quality pass twenty-ninth 2026-11-22: fresh angle check-whatsapp-route.js,
+      never previously tried against this item across 28 prior passes (18 of 37
+      checkers now proven by direct injection, up from 17). Baseline: branches.json
+      sha256 unchanged, full 37-checker suite clean (the one transient failure
+      traced to this run's own temp scratch file, not the repo, and cleared on
+      deletion). Injected a wrong WhatsApp number into
+      sore-throat-treatment-riddings-timperley.html's data-wa attribute in a
+      disposable scratch copy (git archive, outside the tracked repo) - caught
+      cleanly, naming the exact page and the correct branch number. Negative
+      control (cosmetic HTML comment, no data field touched) re-ran clean.
+      Tracked repo confirmed untouched throughout. Live half (Claude in Chrome,
+      read-only): read the sore-throat-treatment page live for the first time
+      across 29 passes - phone, address and hours all match branches.json
+      exactly, WhatsApp button present as expected. Re-confirmed, not new: the
+      footer's "Timperley, Cheshire" against branches.json's addressRegion of
+      Greater Manchester, the standing finding tied to Q43 (answered, unsure).
+      No branches.json field, generated page, pack or checker content changed -
+      the checker was proven correct, not fixed. No new question raised.
+      Evidence:
+      audits/riddings-item-4.13-whatsapp-route-injection-2026-11-22.txt.
+      Done 2026-11-22.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

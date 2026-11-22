@@ -1,0 +1,58 @@
+﻿Item 4.13 (Riddings Pharmacy Timperley GBP pack) - quality pass 2026-11-22
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-22T13:42Z
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged,
+  matches the standing anchor used by every prior pass on this item).
+- Full 37-file tools/check-*.js suite run against the tracked repo: 36 pass, 1 fail
+  (check-postcodes.js) on first run. The single failure traced to a disposable
+  temp dump file (.scratch_413.txt) this run's own worklist-reading step had left
+  in the working tree, quoting an earlier log paragraph containing the string
+  "CH1 2AB". Deleted; re-run clean, 0 failures, 3 pre-existing UNOWNED warnings
+  (gbp-packs/TEMPLATE.md and modules/branch/pages/INDEX.md and SEO.md, unrelated
+  to this item). git status otherwise clean bar the long-standing untracked
+  debris files already noted by every prior run.
+
+FRESH ANGLE
+tools/check-whatsapp-route.js had never been named against item 4.13 across 28
+prior quality passes (checker-by-checker cross-reference of the item's own
+history: 17 of 37 checkers proven by direct injection going in, now 18 of 37).
+
+INJECTION TEST (disposable scratch copy, git archive --format=zip of HEAD,
+extracted to %TEMP%\rbh-413-scratch, entirely outside the tracked repo)
+- Changed data-wa="447521775631" to data-wa="447999999999" on
+  modules/service/pages/sore-throat-treatment-riddings-timperley.html.
+- Re-ran check-whatsapp-route.js from the scratch copy: caught cleanly, exit 1,
+  naming the exact page and branch:
+    FAIL [page agreement] modules/service/pages/sore-throat-treatment-riddings-timperley.html:
+    data-wa="447999999999" but riddings_timperley (its own branch) declares 447521775631
+- Restored the value, then applied a negative control (cosmetic HTML comment
+  inserted before every <div, no data field touched): re-ran clean, exit 0,
+  confirming selectivity rather than the checker failing on any edit at all.
+- Scratch copy and archive deleted afterwards. Tracked repo branches.json sha256
+  and git status for the touched page both reconfirmed unchanged throughout -
+  nothing in the tracked repo was ever touched.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked/typed/
+submitted, closed after use)
+Read https://www.riddingspharmacy.co.uk/sore-throat-treatment-riddings-timperley
+in full - the one Riddings page never read live across 28 prior passes (earache,
+impetigo, insect-bite, sore-throat and uti-treatment were all still unread going
+into this pass; sore-throat picked as this pass's fresh page).
+- Phone 0161 973 2951, address 38 Riddings Road / Timperley, Altrincham / WA15 6BP,
+  hours Mon-Fri 9:00am-6:00pm / Sat-Sun closed: all match branches.json exactly.
+- WhatsApp button present ("Send via WhatsApp instead"), consistent with the
+  checker's own finding that this page carries data-wa and a callback form.
+- Re-confirmed, not newly found: the footer reads "Timperley, Cheshire" against
+  branches.json's addressRegion of "Greater Manchester" - this is the same
+  standing finding first logged on run537 (2026-11-19) and tied to Q43
+  (answered 2026-09-01, "Unsure... need advise, cheshire works well for
+  bramhall"). Confirmed present on this further page; not re-raised as a new
+  question.
+- No new live or in-repo defect found this pass.
+
+RESULT
+No in-repo defect found. check-whatsapp-route.js proven correct against this
+item by direct injection (caught the fault, passed the negative control).
+No new question raised. Q37 and Q139-Q145 unchanged (answer pickup this run's
+fetch of https://data.rbhealth.co.uk/api/feedback found no entries past Q52).
