@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "Q1",
     "date": "2026-08-04",
@@ -2366,5 +2366,21 @@
     "status": "open",
     "answer": null,
     "note": "Not a defect in any page, generator or data file. Repo-root debris list and counts captured this run; none of it is git-tracked and `git status --porcelain` on modules/, core/, branches.json, gbp-packs/, tools/, compliance/ was unaffected throughout. The delete restriction was reproduced on multiple unrelated test files (not just .agent-lock), so it is a property of this mount, not of any one filename."
+  },
+  {
+    "id": "Q147",
+    "date": "2026-11-23",
+    "item": "scheduled-task cadence / operational health (finding, does not block any item)",
+    "question": "The worklist has been at 44 of 47 items complete for several days, with the only 3 unchecked lines all [BLOCKED] on your decisions (5.8/Q16 weight loss live-page exposure, 6.4/Q60 McCanns nav styling, 6.5/Q60 weight loss nav architecture). Nine other questions are open and unanswered (Q37, Q139-Q146), the oldest predating this run by multiple days; the portal answer feed's newest entry is still Q52 from 2026-09-01, so none of the recent batch has reached the worker. Every 30-minute run in this state falls through to a quality-pass re-verification of an already-checked item, which has now happened 20-30+ times for several items with no new findings, while every run also re-hits the same two standing infrastructure snags logged against Q142 (git push credential gap in the Cowork bash sandbox) and Q146 (EPERM on file delete/rename in the same sandbox, worked around via Windows-MCP each time) without either being fixed at the root. The debris file count in the repo root keeps growing as a side effect of the Q146 workaround. None of this is a page or data defect; it is the worker running out of useful autonomous work.",
+    "options": [
+      "Pause or reduce the schedule frequency (e.g. to a few times a day) until you answer the open questions, then resume; resolves the diminishing-returns loop with the least effort",
+      "Answer the open questions in a batch (starting with Q16 and Q60, which unblock the only remaining worklist items) via the portal, and separately decide Q142/Q146 as one-off infrastructure fixes; keep the current cadence",
+      "Leave the schedule as is; accept the repeated quality-pass cycles and recurring infra workarounds as low-cost, and let the debris accumulate until a dedicated cleanup session",
+      "Retire the backlog worker once 5.8/6.4/6.5 are unblocked and completed, converting any ongoing need into a lower-frequency pure quality-pass/monitoring schedule"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Raised by the run at 2026-11-23T03:12Z rather than performing another quality-pass cycle, on the judgement that a 31st-or-later re-verification of an unchanged page carries less value than flagging that the backlog is functionally exhausted pending your input. No files under modules/, core/, tools/, compliance/, branches.json or gbp-packs/ were touched this run."
   }
 ]
