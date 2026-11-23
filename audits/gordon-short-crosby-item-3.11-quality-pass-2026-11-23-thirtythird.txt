@@ -1,0 +1,97 @@
+Item 3.11 (Gordon Short Chemist, Crosby) - thirty-third quality pass, 2026-11-23
+
+PURPOSE
+Fresh-angle checker coverage. The thirty-second pass (2026-11-22) left 5 of
+37 repo checker files never proven by direct injection against this branch:
+check-editor-snapshot.js, check-fragment-targets.js, check-service-links.js,
+check-uk-spelling.js, check-weebly-furniture-freshness.js. This pass covers
+check-service-links.js.
+
+BASELINE (before any injection)
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-
+hours.js) run directly against the tracked repo: 35/35 exit 0.
+node tools/check-service-links.js on the tracked repo: clean, exit 0, same 6
+pre-existing KNOWN entries (all Smartts-related, Q16/Q8) as every prior run
+today.
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(unchanged from every run logged today).
+
+METHOD
+Scratch copy made with `git archive HEAD | tar -x` into /tmp/scratch-311
+(not /sessions, which reported 0 bytes free this run - a new condition,
+noted below). sha256 of a sample page (sore-throat-treatment-gordon-short-
+crosby.html) confirmed identical between the scratch copy and the tracked
+repo before any edit. The tracked repo at C:\Dev\rbh-site-data was never
+opened for writing during the injection phase.
+
+check-service-links.js enforces two things: (1) a generated page must not
+link to a page on one of our own branch domains that this repo does not
+generate, and (2) public copy must carry no efficacy/results claims
+(tools/claim-patterns.js). Gordon Short Chemist's own pages carry no
+hand-written cross-link grid (unlike the Smartts switch page, the only page
+in the estate with one), so there was no pre-existing surface to break for
+rule 1 - this in itself confirms rule 1 is structurally near-dormant for
+this branch under current content, the same shape check-branch-identity.js
+found for rules 4/5/9/11 on its own pass against this item. Both rules were
+still proved live by injection:
+
+INJECTION 1 (claim rule): modules/service/pages/weight-loss-clinic-gordon-
+short-crosby.html, line 59. Changed:
+  "This is a clinical service. A pharmacist or clinician..."
+to:
+  "Our programme delivers results. This is a clinical service. A
+  pharmacist or clinician..."
+CAUGHT cleanly, exit 1: "FAIL [claim] ... line 59 (promises results)".
+Restored by direct overwrite from a pre-injection backup; sha256
+reconfirmed identical to the pre-injection file afterwards
+(c960804126eff9dfffbbdf4f2bc93ecd63165af7476f44b3f602766f73fe8270).
+
+INJECTION 2 (link-target rule): modules/service/pages/pharmacy-first-
+gordon-short-crosby.html, line 131. Changed the page's one
+gordonshortchemist.co.uk reference from the bare homepage:
+  href="https://www.gordonshortchemist.co.uk"
+to a fabricated live-only path this repo does not generate:
+  href="https://www.gordonshortchemist.co.uk/blood-testing.html"
+CAUGHT cleanly, exit 1: "FAIL [stale target] ... links to
+www.gordonshortchemist.co.uk/blood-testing.html, which this repo does not
+generate". Restored by direct overwrite from a pre-injection backup; sha256
+reconfirmed identical afterwards
+(e6ca3ba0a715a4834eea8ebc298631f5fcee5d055c17cf205bd9b78b8bd05eca).
+
+Both injections run and restored one at a time, never together. After the
+second restore, the full 35-checker suite was re-run on the scratch copy:
+35/35 clean. branches.json sha256 in the scratch copy unchanged throughout.
+
+TRACKED REPO CONFIRMATION
+git status --porcelain -- modules core branches.json tools gbp-packs
+compliance on the tracked repo (C:\Dev\rbh-site-data via the bash mount)
+showed only the one pre-existing unrelated debris file
+(modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak),
+present before this run and not touched by it. The tracked repo's own
+weight-loss-clinic-gordon-short-crosby.html and pharmacy-first-gordon-
+short-crosby.html were never opened for writing; this was independently
+confirmed by sha256-matching the scratch copy's restored files against the
+tracked repo's own copies (both pairs matched exactly, shown above).
+
+RESULT
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. check-service-links.js now
+proven by direct injection against this item on both of its rules. Guard
+coverage for item 3.11 now extends to 33 of 37 repo checkers. 4 remain for a
+future pass: check-editor-snapshot.js, check-fragment-targets.js,
+check-uk-spelling.js, check-weebly-furniture-freshness.js.
+
+ENVIRONMENT NOTE (not a repo defect, logged for the next run)
+The /sessions mount (which several prior runs used for their scratch
+directories) reported "No space left on device" at the very first mkdir
+attempt this run (0 bytes free on /dev/sdc, 9.8G total, 100% used). This is
+a session-infrastructure condition, unrelated to the repo, and is worth
+flagging because it will block any future run's scratch-copy step the same
+way until the backing host clears old session data. /tmp (on the root
+filesystem, 2.5G free at the time of this run) was used instead and worked
+without issue; future runs hitting the same "No space left on device" error
+on /sessions should fall back to /tmp rather than treating it as a repo
+problem.
+
+No live-site read performed this pass; this pass's whole effort went to
+closing out the check-service-links.js gap left open since the 32nd pass,
+plus diagnosing and working around the new /sessions-full condition.

@@ -19378,6 +19378,40 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       run start, no new answer since 2026-09-01). Evidence: audits/gordon-
       short-crosby-item-3.11-quality-pass-2026-11-22-thirtysecond.txt.
       Done 2026-11-22.
+      Quality pass 2026-11-23 (thirty-third). BASELINE: full 35-checker
+      non-network suite 35/35 clean; check-service-links.js clean on the
+      tracked repo, same 6 pre-existing Smartts-related KNOWN entries;
+      branches.json sha256 unchanged (0385b7c2...27da). FRESH ANGLE:
+      tools/check-service-links.js, never named once across the item's 32
+      prior passes - the link-target and no-claims checker. Scratch copy
+      via git archive HEAD into /tmp/scratch-311 (the /sessions mount
+      reported 0 bytes free this run, a new environment condition noted
+      in the evidence file; /tmp was used instead and worked cleanly),
+      sha256-matched before any edit, tracked repo never opened for
+      writing. TWO INJECTIONS, run and restored one at a time: (1)
+      weight-loss-clinic-gordon-short-crosby.html's lead paragraph given
+      "Our programme delivers results." - CAUGHT cleanly, claim rule,
+      exit 1; (2) pharmacy-first-gordon-short-crosby.html's one
+      gordonshortchemist.co.uk link changed from the bare homepage to a
+      fabricated /blood-testing.html path this repo does not generate -
+      CAUGHT cleanly, stale-target rule, exit 1. This branch carries no
+      hand-written cross-link grid (unlike the Smartts switch page, the
+      only one in the estate with one), so rule 1 had no pre-existing
+      surface to break - the fabricated link was needed to prove the rule
+      fires at all for this branch, the same structurally-dormant shape
+      check-branch-identity.js found for its own ambiguous/siteunique/
+      sisterlink/sisterlabel rules against this item. Both files restored
+      byte-identical and sha256-reconfirmed against the tracked repo's own
+      copies; full 35-checker suite re-run clean on the scratch copy
+      afterwards; tracked repo reconfirmed untouched throughout (git
+      status --porcelain empty bar the one pre-existing debris file).
+      NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Guard coverage for
+      item 3.11 now extends to 33 of 37 repo checkers; 4 remain
+      (check-editor-snapshot.js, check-fragment-targets.js,
+      check-uk-spelling.js, check-weebly-furniture-freshness.js) for a
+      future pass. No live-site read this pass. Evidence: audits/gordon-
+      short-crosby-item-3.11-quality-pass-2026-11-23-thirtythird.txt.
+      Done 2026-11-23.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
