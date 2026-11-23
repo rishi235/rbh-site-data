@@ -14144,6 +14144,38 @@ Done 2026-10-14 (twenty-third pass).
       FOUND, NO LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
       audits/sk-chemists-item-3.8-earache-live-read-2026-11-22.txt. Done
       2026-11-22.
+      Quality pass 2026-11-23 (Cowork scheduled run, audit-backlog-worker,
+      thirty-second pass). BASELINE: branches.json sha256 unchanged
+      (0385b7c2...27da); git status on modules/, core/, tools/, branches.json,
+      gbp-packs/, compliance/ empty; full 35-checker non-network suite 35/35
+      exit 0; check-cdn-pins.js clean, same 2 WARN/6 KNOWN. Item already at
+      full 37/37 checker-file coverage since 2026-11-21, so this pass's
+      contribution is fresh live-read coverage, per the convention the prior
+      two passes established. LIVE HALF (Claude in Chrome, read-only, one tab
+      per navigation, nothing clicked, typed or submitted, closed after use):
+      read weight-loss-clinic-sk-chemists-bootle.html live on skchemist.co.uk
+      in full - private/paid framing throughout, no medicine named, no
+      superlative, outcome slider or lead price, address/phone/hours all
+      match branches.json exactly, eligibility and safety-netting wording
+      matches the generator's static copy word for word. JSON-LD read
+      separately via javascript_tool (not visible in page text): the live
+      page carries TWO ld+json blocks, not one - (1) the pre-3.10-fix
+      "MedicalBusiness" block, page-specific url, unrepasted since
+      2026-08-10, matching every prior pass's standing finding; (2) a second
+      block declaring "Pharmacy" whose url points at the site HOMEPAGE, not
+      this page, carrying an email and full openingHoursSpecification - a
+      sitewide/template block, not evidence the page-specific fix has
+      reached live. This sharpens rather than changes the standing finding:
+      earlier passes recorded live as declaring the wrong @type; it is more
+      precisely two blocks, neither matching what this page's own schema
+      should say. The repo's own generated file carries exactly one correct
+      block (Pharmacy, this page's own url, full hours), matching
+      check-jsonld.js's one-block rule, which is why the repo-side suite
+      stays clean while live diverges. Still a live-only gap needing a
+      repaste, not a decision - no new question raised. NO IN-REPO DEFECT
+      FOUND. Evidence:
+      audits/sk-chemists-item-3.8-weight-loss-jsonld-live-2026-11-23.txt.
+      Done 2026-11-23.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.

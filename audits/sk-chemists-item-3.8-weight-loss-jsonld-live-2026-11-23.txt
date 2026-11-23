@@ -1,0 +1,65 @@
+Item 3.8 (SK Chemists, Bootle) - quality pass, 2026-11-23T20:42Z, Cowork scheduled run, audit-backlog-worker
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged
+  from every prior pass this week).
+- Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js): 35/35 exit 0.
+- check-cdn-pins.js: clean, same 2 WARN / 6 KNOWN entries as every prior pass (Q45 family).
+- git status on modules/, core/, tools/, branches.json, gbp-packs/, compliance/: empty.
+- Item 3.8 reached full checker-file coverage (37 of 37 tools/check-*.js) on the 2026-11-21 pass.
+  This pass's contribution is fresh live-read coverage, per the established convention since then.
+
+ITEM SELECTION
+All three unchecked worklist lines (5.8/Q16, 6.4/Q60, 6.5/Q60) reconfirmed [BLOCKED] by direct grep.
+Quality-pass fallback applied. Last-verified dates re-derived from AGENT_WORKLIST.md's own dated
+notes: the pool {3.8-3.13, 4.1, 4.4-4.15, 5.1-5.3, 6.2} all last verified 2026-11-22 (3.5/3.6/3.7
+already re-verified earlier today by the 19:12Z/19:42Z/20:12Z runs). Lowest-numbered tiebreak: 3.8.
+
+LIVE READ (Claude in Chrome, read-only, one tab per navigation, nothing clicked, typed or
+submitted, closed after use)
+
+Read https://www.skchemist.co.uk/weight-loss-clinic-sk-chemists-bootle.html live in full (this
+page's filename stem had 4 prior mentions in item 3.8's own log history, but all four were
+injection-test or repo-side findings, not a page-text live read logged under this item's own
+history, so treated as fresh live coverage).
+
+Visible copy: private/paid framing in the hero and throughout ("Private service - not funded by
+the NHS"), no medicine named anywhere, no superlative or results claim, no outcome slider, no Buy
+Now button, no lead price above the fold (price appears only after the "Is this service right for
+you?" eligibility section, phrased "from GBP39.99", consistent with
+compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md's description of the generated pages as clean by
+construction). Eligibility section states the consultation-not-guarantee framing, exclusions
+(pregnancy/breastfeeding, under-18, specified conditions) and safety-netting (GP/111/999) word for
+word against the generator's static copy. Address "516 Stanley Road, Bootle, L20 5DW" and phone
+"0151 944 1013" match branches.json exactly. Opening hours "Monday-Friday 9:00am-6:00pm, Saturday
+closed, Sunday closed" match branches.json's specification (single weekday session, no lunch
+split, closedDays Saturday/Sunday) exactly.
+
+JSON-LD (read via javascript_tool, not visible in page text): the live page carries TWO
+application/ld+json blocks, not one:
+  1. "@type": "MedicalBusiness", url = this page's own URL, no email, no
+     openingHoursSpecification - this is the pre-item-3.10-fix shape, unrepasted since 2026-08-10.
+     Already tracked (first confirmed on an earlier pass as "live still declares MedicalBusiness").
+  2. "@type": "Pharmacy", url = the SITE HOMEPAGE (not this page's own URL), carries email and a
+     full openingHoursSpecification block.
+
+This sharpens rather than changes the standing finding. It is not simply "live has the wrong
+@type" - live has TWO schema blocks, neither of which matches what this page's own schema should
+say. Block 1 is the stale per-page block the repo's generator used to emit before the 3.10 fix.
+Block 2 is not page-specific at all (its url points at the homepage, not at the weight-loss page),
+so it reads as a sitewide/template schema block rather than this page's own corrected markup -
+it is NOT evidence that the 3.10-fixed Pharmacy type has reached this specific page; it is a
+different block answering a different question (the site's identity, not this page's). The repo's
+own generated file for this page (modules/service/pages/weight-loss-clinic-sk-chemists-bootle.html)
+carries exactly one correct block: @type Pharmacy, url = this page's own URL, no email field,
+full openingHoursSpecification - matching check-jsonld.js's "exactly one JSON-LD block" rule, which
+is why the repo-side suite stays clean while live diverges.
+
+This remains a live-only gap needing a repaste, not a decision, and not a new question - consistent
+with every prior pass's framing of this finding (first logged circa the ninth-pass era, reconfirmed
+on the twelfth pass 2026-09-05, and again here). No autonomous action taken on it (browser is
+read-only only; no Weebly edit attempted, none permitted).
+
+RESULT
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. One standing live-only finding reconfirmed and
+described more precisely than before (two schema blocks, not one wrong-typed block).
