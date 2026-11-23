@@ -4653,6 +4653,58 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       historical Q52 answer from 2026-09-01). Evidence in
       audits/item-3.1-quality-pass-check-address-region-2026-11-22.txt.
       Done 2026-11-22
+
+      QUALITY PASS (31st, Cowork scheduled run, 2026-11-23): all 40 pool
+      items (standing out-of-rotation set 1.1/1.4/2.2/5.6/5.7/6.7/6.8
+      excluded) tied stalest at 2026-11-22 in AGENT_WORKLIST.md itself;
+      lowest-numbered tiebreak gives 3.1 again. FRESH ANGLE:
+      tools/check-brand-spelling.js, never previously named against item
+      3.1 (it is item 1.1's own checker), chosen because it is the one
+      guard that pins trading names OUTSIDE branches.json and so is the
+      natural complement to the thirtieth pass's finding on
+      check-address-region.js. Baseline: full 35-checker non-network suite
+      clean on the tracked repo (excl. check-cdn-pins.js, check-live-
+      hours.js); branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. /sessions (sandbox local disk) was 100% full again this
+      run, same recurring condition as several prior entries; built the
+      scratch copy under the repo mount's own .scratch_tmp/ instead (git
+      ignored, 279G free there) rather than /sessions or /tmp.
+      INJECTION: on the scratch copy only, changed fishlocks_ainsdale's
+      brandLabel from "Fishlocks Chemist" to "Fishlock Chemist" in
+      branches.json, then regenerated ALL affected page families (service,
+      contraception, travel clinic, weight loss, switch, branch landing -
+      not just build-service-pages.js, which does not own every page
+      naming that branch). check-brand-spelling.js CAUGHT it immediately
+      (CANON rule, exit 1, named the branch and the exact mismatch).
+      check-seo-pattern.js - item 3.1's OWN checker - passed CLEAN on the
+      same mutated, fully-regenerated tree: it only verifies that a page's
+      title/H1 matches tools/seo-pattern.js's own pick() output against
+      whatever branches.json currently says, so an internally-consistent
+      rename is invisible to it, exactly the same shape of gap the
+      thirtieth pass found for county validity. NOT A DEFECT: this
+      confirms, rather than contradicts, the architecture CLAUDE.md already
+      describes - check-seo-pattern.js is a self-consistency check only,
+      and the pinned-truth defence against a brand rename lives entirely
+      in check-brand-spelling.js's CANONICAL list. First attempt at this
+      injection under-tested the point (regenerated only via
+      build-service-pages.js, so contraception-fishlocks-ainsdale.html
+      still carried its pre-mutation title and falsely looked like a
+      checker catch); re-ran all eight build-*.js generators before
+      re-checking, which is the correct and complete test. Restored by
+      discarding the scratch copy (renamed rather than deleted, the
+      established workaround for this mount's unlink restriction -
+      confirmed unrelated to git this run: rm -rf itself failed the same
+      way on a plain scratch directory with no .git/ in it, so it is a
+      general sandbox-mount limitation, not a git lock quirk); tracked
+      repo re-confirmed untouched throughout (branches.json sha256
+      unchanged, `git status --porcelain -- modules core branches.json
+      gbp-packs tools compliance` empty bar the one pre-existing
+      `.goldenbak` debris file this run did not touch). NO IN-REPO DEFECT
+      FOUND, NO NEW QUESTION RAISED. Item 3.1 stays `[x]` (quality pass,
+      not a state change). QUESTIONS.json: 148 total, 0 open (reconfirmed
+      via Node; portal answer-pickup correctly skipped per step 3, since
+      nothing is open to fetch). Done 2026-11-23.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
