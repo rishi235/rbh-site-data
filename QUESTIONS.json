@@ -2371,9 +2371,10 @@
       "Do nothing about the rotation, but treat the debris pile-up as worth fixing soon: grant this worker (or a one-off attended session) permission to delete the identified debris files, and add a one-line note to the scheduled task's own file so future runs stop generating more of it."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Not a defect in any page, generator or data file. Repo-root debris list and counts captured this run; none of it is git-tracked and `git status --porcelain` on modules/, core/, branches.json, gbp-packs/, tools/, compliance/ was unaffected throughout. The delete restriction was reproduced on multiple unrelated test files (not just .agent-lock), so it is a property of this mount, not of any one filename."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 23/11/2026, 11:21:36 (UK time): \"Let the rotation continue as-is; the repeated \"no defect found\" passes still exercise the checkers and this is cheap. Separately, clear the repo-root debris by hand in an attended session (outside this worker, which cannot delete) and consider updating the scheduled task's own lock-handling instructions to stop assuming delete works.\"",
+    "note": "Not a defect in any page, generator or data file. Repo-root debris list and counts captured this run; none of it is git-tracked and `git status --porcelain` on modules/, core/, branches.json, gbp-packs/, tools/, compliance/ was unaffected throughout. The delete restriction was reproduced on multiple unrelated test files (not just .agent-lock), so it is a property of this mount, not of any one filename.",
+    "answeredDate": "2026-11-23"
   },
   {
     "id": "Q147",
