@@ -1,0 +1,62 @@
+Item 4.1 (Fishlocks Ainsdale GBP pack) - quality pass 2026-11-23 (twenty-ninth,
+Cowork scheduled run)
+
+SELECTION: rotation-pool item last verified 2026-11-22 (tied-oldest tier with
+4.4-4.15, 5.1-5.3, 6.2); item 3.13 was already re-verified earlier today by
+the 23:12Z run, so 4.1 was next by lowest item number in the stalest tier.
+
+BASELINE (before any work):
+  branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  gbp-packs/fishlocks-ainsdale.md sha256: 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+  Both unchanged since the 2026-11-22 pass.
+
+FULL CHECKER SUITE: all 36 non-network checkers (tools/check-*.js minus
+check-live-hours.js) run individually: 36/36 clean.
+
+GENERATOR REBUILD: all six page generators (build-branch-landing-pages.js,
+build-contraception-pages.js, build-service-pages.js, build-switch-pages.js,
+build-travel-clinic-pages.js, build-weight-loss-pages.js) re-run from the
+current branches.json against a pre-run snapshot of modules/. diff -rq
+reported zero differences across the whole generated-pages tree (status/
+index.html timestamp aside, which is expected and excluded).
+
+INDEPENDENT VERIFIER: audits/verify-4.1-2026-08-30.js re-run unmodified.
+Output: CHECKS=153 DEFECTS=0 FLAGS=0, identical to every prior run of this
+script since 2026-08-30.
+
+FRESH ANGLE: tools/check-uk-spelling.js, run repo-wide as part of the 36-
+checker baseline above (clean), then proven by direct injection against
+THIS pack specifically, on a disposable git-archive-HEAD scratch copy under
+/tmp (the /sessions mount reported 0 bytes free at pickup, so /tmp on the
+root filesystem, which had 2.5G free, was used instead - the same condition
+and workaround the item 3.11 pass on 2026-11-23 recorded earlier today).
+Tracked repo file never opened for writing.
+
+  Injection: "organise"/"organised" changed to the US spellings
+  "organize"/"organized" (two instances, lines 47 and 95 of the pack).
+  CAUGHT cleanly, both instances, first attempt:
+    FAIL  gbp-packs/fishlocks-ainsdale.md:47: reads "organize". UK English is "organise"
+    FAIL  gbp-packs/fishlocks-ainsdale.md:95: reads "organized". UK English is "organised"
+
+  Negative control: a harmless genuine prose tweak elsewhere in the pack
+  ("at least 10 photos" to "at least ten photos") left the checker clean,
+  exit 0, confirming the rule does not cross-fire on ordinary wording
+  changes.
+
+  Scratch copy restored to the original text and sha256-reconfirmed
+  identical before deletion. Tracked repo confirmed untouched throughout:
+  git status --porcelain shows only the long-standing pre-existing debris
+  files already noted by many earlier runs (none touching gbp-packs/ or
+  branches.json); branches.json and the pack's own sha256 both unchanged
+  from the baseline above.
+
+LIVE HALF: not attempted this pass. No Claude in Chrome browser tab group
+was available at pickup for this unattended run. Live state stands as last
+recorded on the 2026-11-21/2026-11-22 passes: the profile-website target
+(pharmacy-fishlocks-ainsdale.html) still 404 (Q35, answered but not yet
+applied - needs a Weebly paste session outside this worker's write scope);
+switch page em dash still live (Q45, same standing condition, tracked under
+Q13/item 5.5).
+
+RESULT: no in-repo defect found, no fix applied, no new question raised.
+Item stays [x] (quality pass, not a state change).

@@ -23194,6 +23194,39 @@ Pharmacy First wording to the NHS service description.
   state change). See
   audits/fishlocks-ainsdale-item-4.1-address-region-2026-11-22.txt.
   Done 2026-11-22
+  Quality pass 2026-11-23 (twenty-ninth, Cowork scheduled run): re-selected
+  as stalest rotation-pool item (tied-oldest tier at 2026-11-22: {4.1, 4.4-
+  4.15, 5.1-5.3, 6.2}; item 3.13 already re-verified today by an earlier
+  run, so 4.1 won on lowest item number). BASELINE: branches.json sha256
+  0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da and the
+  pack's own sha256 7592bad3e7a4ba0f50b7ef997b927eb65f52ac9e1ae1d6d97e63f6a9c2de3e30
+  both unchanged since the twenty-eighth pass. All 36 non-network checkers
+  clean; all six page generators rebuild byte-identical against a pre-run
+  snapshot of modules/ (diff -rq, status/index.html timestamp aside);
+  independent verifier audits/verify-4.1-2026-08-30.js re-run unmodified,
+  CHECKS=153 DEFECTS=0 FLAGS=0, unchanged since 2026-08-30.
+  FRESH ANGLE: tools/check-uk-spelling.js proven by direct injection against
+  this specific pack for the first time (36 prior passes had only ever run
+  it repo-wide as part of the baseline suite). Scratch copy via git-archive
+  HEAD under /tmp (the /sessions mount reported 0 bytes free at pickup, the
+  same condition the item 3.11 pass recorded earlier today; tracked file
+  never opened for writing). "organise"/"organised" swapped for the US
+  spellings "organize"/"organized" at two points in the pack - caught
+  cleanly on both, first attempt, naming the line and the correct UK
+  spelling. Negative control (a harmless genuine wording tweak elsewhere in
+  the pack) left the checker clean, confirming no cross-fire. Scratch copy
+  restored and sha256-reconfirmed identical; tracked repo untouched
+  throughout (git status --porcelain shows only pre-existing debris files
+  unrelated to this item; branches.json and the pack sha256 both confirmed
+  unchanged after). NO IN-REPO DEFECT FOUND. LIVE HALF NOT PERFORMED: no
+  Claude in Chrome browser tab group available at pickup for this
+  unattended run. Live state stands as last recorded on the 2026-11-21/22
+  passes: profile-website target still 404 (Q35, answered but not yet
+  applied), switch page em dash still live (Q45, same standing condition).
+  No in-repo defect found, no fix applied, no new question raised. Item
+  stays `[x]` (quality pass, not a state change). See
+  audits/fishlocks-ainsdale-item-4.1-uk-spelling-2026-11-23.txt.
+  Done 2026-11-23
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
