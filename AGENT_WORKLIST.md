@@ -44122,6 +44122,40 @@ audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
       check-postcodes.js CH1 2AB narrative baseline (not new). Same page read
       reconfirmed the long-standing Q36 footer typo (pharmacy.FA226@mhs.net,
       should be @nhs.net) is still live - not new, addendum added to Q36.
+      QUALITY PASS 2026-11-23 (Cowork scheduled run): stalest completed item
+      in the rotation pool (last touch 2026-11-18, every other non-standing
+      item at 2026-11-19 or later). FRESH ANGLE: re-fetched both live pages
+      fresh via Claude in Chrome (read-only, one tab, nothing clicked or
+      typed, closed after use) rather than relying on the 2026-11-18 read.
+      https://www.cherrylanepharmacy.co.uk/pharmacy-first-service-walton.html
+      (the old bridge page) still carries the signpost paragraph and the
+      green "See the full Pharmacy First page and walk-in details" button,
+      linking to /pharmacy-first-cherry-lane-walton.html, and the original
+      "You can self refer into Pharmacy First ... book below" wording for the
+      video/booking widget area underneath is still present, matching the
+      2026-11-16 fix description (top block added, nothing underneath
+      replaced). Followed the link through:
+      https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+      resolves live, correctly built (all seven Pharmacy First conditions
+      listed, booking and video sections present, correct address/phone/NAP).
+      No regression on either page. Footer still shows the known Q36 typo
+      (pharmacy.FA226@mhs.net) - not new, unchanged. Repo-side: full
+      37-checker suite re-run clean, 37/37, including check-postcodes.js,
+      which the 2026-11-18 note above recorded as a standing 36/37 failure
+      (CH1 2AB narrative baseline). That failure is NOT reconfirmed here - it
+      was already fixed on 2026-11-19 by run566 (registered the fabricated
+      CH1 2AB postcode, which originated from an unrelated item 4.7 injection
+      test, in NARRATIVE_POSTCODES), so this item's own note was simply stale
+      about a fix landed elsewhere. Recording the corrected baseline here so
+      a future rotation pick does not re-flag it as this item's own standing
+      exception. Confirmed modules/service/weebly-paste/cherry-lane-old-
+      pharmacy-first-replacement.html (the superseded Q6 draft that "replaces
+      the ENTIRE page content") is still present and still explicitly marked
+      in this item's own note as must-not-be-pasted-as-stands - pre-existing,
+      not a new finding, and the live page confirms the actual 2026-11-16
+      fix (top block only) was what was pasted, not this stale draft file.
+      git status confirmed no tracked file changed by this verification. No
+      new question raised.
 - [x] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
       live page references stop serving code this repo no longer says, and
       re-pin the 15 switch pages to a current commit at the next Weebly paste
