@@ -2388,8 +2388,9 @@
       "Retire the backlog worker once 5.8/6.4/6.5 are unblocked and completed, converting any ongoing need into a lower-frequency pure quality-pass/monitoring schedule"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Raised by the run at 2026-11-23T03:12Z rather than performing another quality-pass cycle, on the judgement that a 31st-or-later re-verification of an unchanged page carries less value than flagging that the backlog is functionally exhausted pending your input. No files under modules/, core/, tools/, compliance/, branches.json or gbp-packs/ were touched this run."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 23/11/2026, 11:21:39 (UK time): \"Pause or reduce the schedule frequency (e.g. to a few times a day) until you answer the open questions, then resume; resolves the diminishing-returns loop with the least effort\"",
+    "note": "Raised by the run at 2026-11-23T03:12Z rather than performing another quality-pass cycle, on the judgement that a 31st-or-later re-verification of an unchanged page carries less value than flagging that the backlog is functionally exhausted pending your input. No files under modules/, core/, tools/, compliance/, branches.json or gbp-packs/ were touched this run.",
+    "answeredDate": "2026-11-23"
   }
 ]
