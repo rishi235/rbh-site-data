@@ -5849,7 +5849,27 @@ session. No new question raised (Q43's open county question and the other
 standing Scorah findings are unaffected and unchanged). Evidence:
 audits/scorah-item-3.2-brand-spelling-quality-pass-2026-11-22.txt.
 Done 2026-11-22
-- [x] 3.3 Fishlocks Chemist (Ainsdale and Eccleston): same treatment. Done
+      Quality pass 2026-11-23 (33rd-or-so pass): BASELINE confirmed unchanged
+      - full 35-checker non-network suite 35/35 exit 0 on the tracked repo
+      (native checkout), branches.json untouched. LIVE HALF (Claude in
+      Chrome, read-only, single tab, nothing clicked or typed, closed after
+      use): read sinusitis-treatment-scorah-hazel-grove.html, a page not
+      previously sampled by name under this item. Title, H1, hero copy,
+      NHS Pharmacy First wording, booking card, contact card, phone, NHS
+      email and the per-branch footer blocks for both sisters all match
+      branches.json exactly. The page's site-wide footer strip repeats both
+      standing Q43 findings already on file against this branch pair (not
+      new): the hand-edited Weebly contact block names Bramhall's county as
+      "Cheshire" against branches.json's Greater Manchester, and the
+      separate trust-bar strip truncates Bramhall's house number to "61
+      North Park Road" (missing "-63"). Both are the same live-only Weebly
+      furniture Q43 already tracks across every Scorah page sampled since
+      2026-08-10; this is simply one more page confirming the pattern is
+      genuinely site-wide rather than page-specific, not a new instance to
+      log separately. No in-repo defect, no new question. Rotation pool
+      pick: with 1.2, 1.3 and 3.1 taken off today's rotation already, 3.2
+      was the lowest-numbered item left in the stalest-tied pool (all last
+      verified 2026-11-22).
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
       12 Eccleston, 2 landing) and clean. Every title, description and H1
