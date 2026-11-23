@@ -1,0 +1,94 @@
+Item 3.9 (Coleman and Leighs Pharmacy, Walton) - quality pass (thirty-second), 2026-11-23
+Cowork scheduled run, audit-backlog-worker
+
+SELECTION
+All 37 checker files already proven by direct injection against this branch
+as of the twenty-ninth pass (2026-11-19). No unblocked worklist item exists
+(5.8/Q16, 6.4/Q60, 6.5/Q60 all confirmed [BLOCKED] by direct grep), so the
+quality-pass fallback applied. Re-derived last-verified dates for the stale
+pool from AGENT_WORKLIST.md's own dated notes: 3.5-3.8 had already been
+re-verified earlier today (2026-11-23, runs 19:12Z-20:42Z); 3.9 was the next
+lowest-numbered item in the remaining stale-at-2026-11-22 pool.
+
+BASELINE
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-
+hours.js) run directly against the tracked repo: 35/35 clean.
+check-cdn-pins.js: clean, same 2 WARN / 6 KNOWN as every recent run.
+branches.json sha256: 0385B7C2B2BCA55D559903F718AD992FEC40804A1F3AB1A1DB8BAC2FFDD527DA
+- unchanged from the baseline recorded on every run today.
+git status: only the long-standing untracked debris already on record
+(nothing touched by this pass).
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, tab closed after use)
+Picked a page type for this branch not previously read live: the travel
+clinic page (every prior live sample on this branch across its 31-pass
+history used a Pharmacy First condition page, the switch page, or the
+pharmacy-first overview page - travel-clinic-coleman-leigh-walton.html had
+never been read live before).
+
+Read https://www.colemanandleighspharmacy.co.uk/travel-clinic-coleman-leigh-
+walton.html in full via get_page_text. Address (241 Walton Village,
+Liverpool, L4 6TH), phone (0151 525 3522), email (colemans@rbhealth.co.uk,
+case only), and the Monday-Friday 9-6 with 1-2pm lunch closure all match
+branches.json exactly. No vaccine named by brand, no efficacy or results
+claim, no stock guarantee (hedged throughout: "subject to availability and
+clinical suitability"), NHS funding correctly hedged ("some individual
+vaccines may be available on the NHS depending on your circumstances"), one
+book-ahead window (6 to 8 weeks) stated consistently, four safety-net
+cohorts present (pregnant/breastfeeding, medical conditions/immunosuppressed/
+medication, travelling within 1-2 weeks, children/infants) - all matching
+check-travel-clinic-copy.js's own rules, which the repo's generated page
+already passes.
+
+Checked the page's JSON-LD via javascript_tool (not visible in
+get_page_text, which strips script tags). The live page carries TWO
+application/ld+json blocks:
+
+Block A (this repo's own per-page schema): @type Pharmacy, name "Coleman &
+Leigh Pharmacy", url = this page's own address, telephone and address
+(including addressRegion "Merseyside") match branches.json field for field.
+Only the name differs from what the repo generates.
+
+Block B (Weebly-injected, not written by any generator in this repo): @type
+Pharmacy, name "Coleman & Leigh Pharmacy", url = the site HOMEPAGE (not this
+page), carries an email field, carries a full two-session
+openingHoursSpecification matching branches.json's lunch-closure hours
+exactly, and - consistent with the pattern recorded at every other
+single-branch domain in the Q99 sweep - has no addressRegion field at all.
+
+This is the standing Q99 pattern (the full sixteen-site sweep completed
+2026-09-27, run 417, is already on record under item 3.9's own 2026-09-27
+dated note and in Q99 itself), now confirmed on a second, different page
+template for this branch (travel clinic, a private paid service page,
+rather than the pharmacy-first/condition pages sampled in the original
+sweep). Nothing about the pattern's shape is new: both blocks name the
+branch "Coleman & Leigh Pharmacy" rather than the item 1.1-confirmed
+"Coleman and Leighs Pharmacy", exactly as already recorded for this branch's
+pharmacy-first page on 2026-09-27 (run 416) and explained there as Block A's
+case being a live-paste lag while Block B's case must come from a Weebly
+site-wide business-name setting, since no generator writes Block B at all.
+Hours in Block B are accurate (no hours-misstatement risk, consistent with
+every other branch whose Block B carries hours and matches
+branches.json). Email case (colemans@ vs branches.json's Colemans@) is the
+same case-only divergence already on record.
+
+Repo side: confirmed modules/service/pages/travel-clinic-coleman-leigh-
+walton.html generates exactly ONE application/ld+json block, name "Coleman
+and Leighs Pharmacy" (correct), url set to this page's own address,
+addressRegion "Merseyside" present - matches check-jsonld.js's rules and
+branches.json exactly. data-branch, H1 and hero-sub all also read "Coleman
+and Leighs Pharmacy" correctly throughout the generated file.
+
+CONCLUSION
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED - this reconfirms Q99 (full
+sweep already complete and on record) and the standing item-1.1/5.3/Q8
+trading-name live-paste-lag finding for this branch, now evidenced on a
+further page template rather than adding new information. The repo's own
+generated page is correct in every respect checked. Live gaps remain
+live-only and need a Weebly repaste/site-wide-setting fix that only a
+supervised session can make.
+
+Files touched: none in modules/, core/, tools/ or branches.json. This
+evidence file and the dated note appended under item 3.9 in
+AGENT_WORKLIST.md are the only changes.

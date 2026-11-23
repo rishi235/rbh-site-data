@@ -15977,6 +15977,38 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       leighs-item-3.9-quality-pass-2026-11-22-thirtyfirst.txt.
       Done 2026-11-22.
 
+      Quality pass 2026-11-23 (thirty-second, Cowork scheduled run). All 37
+      checker files already proven by direct injection against this branch
+      as of the twenty-ninth pass; baseline re-run clean (35/35 non-network
+      checkers, check-cdn-pins.js clean with the same 2 WARN/6 KNOWN,
+      branches.json sha256 0385b7c2...27da unchanged). Fresh angle: of this
+      branch's 12 generated pages, the travel clinic page had never been
+      read live on any prior pass (earlier live samples all used Pharmacy
+      First condition pages, the switch page or the overview page). LIVE
+      HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+      submitted, closed after use): read travel-clinic-coleman-leigh-
+      walton.html live in full - address, phone, email (case only),
+      lunch-closure hours, booking window and all four safety-net cohorts
+      match branches.json and the generator's static copy exactly; no
+      medicine, superlative, results claim or stock guarantee. Checked the
+      page's JSON-LD via javascript_tool: live carries the same standing
+      Q99 two-block pattern already fully swept across all sixteen sites on
+      2026-09-27 (run 417) and already recorded for this branch's own
+      pharmacy-first page on 2026-09-27 (run 416) - Block A (this repo's
+      schema, correct fields, stale "Coleman & Leigh Pharmacy" name) and
+      Block B (Weebly-injected, url = homepage, no addressRegion, same
+      stale name, accurate hours). Nothing new about the pattern's shape;
+      this reconfirms it on a second page template for this branch rather
+      than adding information. Repo's own generated file confirmed to
+      carry exactly one correct JSON-LD block (name "Coleman and Leighs
+      Pharmacy", own url, Merseyside) matching check-jsonld.js. NO IN-REPO
+      DEFECT FOUND. NO NEW QUESTION RAISED - reconfirms Q99 (sweep already
+      complete) and the standing item 1.1/5.3/Q8 trading-name live-paste
+      lag. git status --porcelain -- modules core branches.json gbp-packs
+      tools empty throughout. Evidence in audits/coleman-leighs-item-3.9-
+      quality-pass-2026-11-23-thirtysecond.txt.
+      Done 2026-11-23.
+
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-tenth run, second machine-era
