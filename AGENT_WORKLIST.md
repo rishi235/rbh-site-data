@@ -9817,6 +9817,52 @@ FOUND, NO NEW QUESTION RAISED. Item 3.5 stays `[x]` (quality pass, not a
 state change). Full detail in audits/hirshmans-ainsdale-item-3.5-quality-
 pass-2026-11-22.txt. Done 2026-11-22.
 
+Quality pass 2026-11-23 (thirtieth): fresh angle tools/check-pharmacy-first-
+cost.js, never named against item 3.5 across the prior 29 passes despite
+this branch's seven condition pages all carrying the free-NHS-claim and
+prescription-charge-caveat wording this checker protects. Baseline:
+branches.json sha256 0385b7c2...27da unchanged since every prior anchor;
+full 35-checker suite (excl. check-cdn-pins.js, check-live-hours.js) 35/35
+exit 0 on the live repo; check-pharmacy-first-cost.js itself clean on the
+live repo (112 Pharmacy First pages, 16 GBP packs, 6 branch landing pages
+checked). Scratch copy via `git archive HEAD` to .scratch_tmp/, sha256-
+matched to the live repo (branches.json identical) before any injection;
+tracked repo never opened for writing. Two injections on
+modules/service/pages/uti-treatment-hirshmans-ainsdale.html, each restored
+by byte copy and sha256-reconfirmed before the next: (1) replaced the "Is
+it free?" FAQ answer's prescription-charge caveat with an unqualified claim
+that any supplied medicine is also free - CAUGHT first attempt, rule 3
+(missing caveat), exact page named with the reasoning that a free
+consultation and a chargeable medicine without the caveat misleads the
+patient at the counter; (2) restored, then changed the trust-bar "no charge
+to be seen" line to "just £9.90 to be seen" - CAUGHT first attempt, rule 5
+(price on NHS Pharmacy First copy), flagged as either contaminated private-
+service copy or a claim the service has stopped being free. Both restored
+by byte copy from a pre-injection backup and sha256-reconfirmed identical to
+the original (f6956aac...8284f6) before the next step; full 35-checker suite
+re-run on the scratch copy after the final restore: 35/35 exit 0, matching
+the pre-injection baseline exactly. Live repo's own branches.json and the
+UTI page confirmed byte-unchanged throughout (`git status --porcelain` on
+modules/, core/, tools/, branches.json, gbp-packs/ empty bar the pre-
+existing McCanns Sandringham .goldenbak debris file, unrelated to this
+pass). NO IN-REPO DEFECT FOUND: check-pharmacy-first-cost.js already
+correctly protects this branch's condition pages against both an
+unqualified free claim and a smuggled-in price, in both directions tested.
+No live half this pass: the fault tested is a wording-pattern question
+against the generator's own output, not a live-versus-generated drift
+question, and the live page for this exact condition (UTI) was already
+read in full on the 2026-11-22 pass with no drift found; re-reading it again
+a day later with nothing changed in branches.json or the generator would add
+no new information. QUESTIONS.json checked at pickup: 0 open (148 total),
+first time all are clear across this item's full 30-pass history; no portal
+fetch needed per procedure. 8 checkers remain never explicitly injection-
+tested against this item (check-em-dashes.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-service-links.js, check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js) for a future pass. NO NEW QUESTION
+RAISED. Item 3.5 stays `[x]` (quality pass, not a state change). Done
+2026-11-23.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
