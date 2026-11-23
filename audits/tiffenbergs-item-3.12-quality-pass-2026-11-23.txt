@@ -1,0 +1,38 @@
+Item 3.12 quality pass - 2026-11-23T22:42Z scheduled run (audit-backlog-worker)
+Branch: Tiffenbergs Chemist (Liverpool / Aintree)
+
+Scope: repo-half verification only. No live-site read this pass (live-read
+coverage stands at 6 of 12 generated pages, as of the 2026-08-31 pass).
+
+Steps taken:
+1. branches.json sha256 confirmed unchanged against the recorded baseline:
+   0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+2. Ran all 37 checker scripts in tools/ individually (excluding
+   check-live-hours.js's live-network portion). Result: 37/37 report clean,
+   with the same warning and known-issue counts seen on 2026-11-22 and
+   earlier same-day runs. No new finding for any checker, Tiffenbergs or
+   otherwise.
+3. Re-ran all six page generators (build-service-pages.js,
+   build-switch-pages.js, build-weight-loss-pages.js,
+   build-travel-clinic-pages.js, build-contraception-pages.js,
+   build-branch-landing-pages.js) from the current branches.json.
+   `git status --porcelain --untracked-files=no` reported zero diff on
+   tracked output afterwards, confirming Tiffenbergs' 12 generated pages
+   (and the rest of the 177-page estate) still match what the generators
+   produce today - byte-identical, no drift.
+
+Result: NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED.
+
+Standing items not re-checked this pass (unchanged from prior record):
+- Q56 (live footer renders "tiffenbergs@" plural against branches.json's
+  singular mailbox) - live-only, last confirmed present 2026-11-22,
+  not re-read this pass since this was a repo-half-only pass.
+- Six live pages (earache, impetigo, shingles, sinusitis, sore throat,
+  UTI) remain unread live for this branch.
+
+Tooling note: the bash-mounted checkout left a stale .git/index.lock after
+a read-only `git status` call that this mount cannot unlink (0-byte file,
+"Operation not permitted" - the standing Q142/Q146 condition). Verification
+work above was done read-only on the bash mount; the commit for this run
+was made from the native checkout at C:\Dev\rbh-site-data after a fresh
+fetch/pull confirmed it was already up to date with origin.

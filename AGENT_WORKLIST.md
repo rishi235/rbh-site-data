@@ -20619,6 +20619,24 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       defect found, no new question raised. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-11-22-twentyseventh.txt.
       Done 2026-11-22 (twenty-seventh pass)
+
+      Quality pass 2026-11-23 (22:42Z run), REPO-HALF VERIFICATION PASS.
+      Full 37-checker non-network suite re-run individually: 37/37 clean
+      (same warning/known-issue counts as the 2026-11-22 baseline, no new
+      findings). branches.json sha256 unchanged
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      All six generators (build-service-pages, build-switch-pages,
+      build-weight-loss-pages, build-travel-clinic-pages,
+      build-contraception-pages, build-branch-landing-pages) re-run clean
+      from branches.json with git status reporting zero diff on tracked
+      output afterwards, confirming Tiffenbergs' 12 generated pages still
+      match what the generators would produce today. NO IN-REPO DEFECT
+      FOUND. No live-site read this pass (coverage remains 6 of 12 pages
+      live-read as of 2026-08-31; earache, impetigo, shingles, sinusitis,
+      sore throat and UTI remain live-unread for a future pass). NO NEW
+      QUESTION RAISED. Q56 (footer "tiffenbergs@" plural mismatch) was not
+      re-checked this pass since it is live-only and this pass was
+      repo-side only; it stands as previously recorded, not re-raised.
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       Quality pass 2026-11-19 (run539, twenty-ninth), repo half only (live half not repeated - item 4.9 re-read clearchemist.co.uk/contact-us just one day earlier, nothing would be added): full 36-checker suite (excludes only check-live-hours.js, network-dependent) clean except the standing CH1 2AB postcode baseline; branches.json sha256 unchanged. Fresh angle: tools/check-cdn-pins.js, run individually clean against this repo before but never proven by direct injection against Clear Chemist Aintree's own pages across 28 prior passes - this session's full (non-shallow) clone let the checker's git-ref resolution actually run. Injected a mismatched/unresolvable ref (@deadbeef1234) into switch-prescriptions-clear-aintree.html's own switch.js pin - caught on both independent rules (pin-matches-generator, ref-resolves-in-git) first attempt. Restored, sha256-reconfirmed identical. Negative control (clearchemist_aintree.shortCode edited, a field this checker ignores) ran clean. Guard coverage for 3.13 now extends to all 36 non-network checkers. No in-repo defect. Step 3 answer pickup: portal feed read, newest entry still Q52 (2026-09-01), no Q139 answer. See audits/clear-aintree-item-3.13-cdn-pins-quality-pass-2026-11-19-twentyninth.txt.
