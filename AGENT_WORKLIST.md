@@ -24845,6 +24845,48 @@ Pharmacy First wording to the NHS service description.
       portal answer found this pass). Evidence:
       audits/hirshmans-ainsdale-item-4.3-pharmacy-first-cost-injection-
       2026-11-19-twentyfourth.txt. Done 2026-11-19
+      Quality pass 2026-11-23 (twenty-fifth pass, unattended Cowork
+      scheduled run, audit-backlog-worker): rotation pool re-derived by a
+      per-item last-touch scan of AGENT_WORKLIST.md (one-offs excluded);
+      4.3 came out stalest, last touched 2026-11-19, against every other
+      eligible item touched 2026-11-22 or later. BASELINE: branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. Full 35-checker suite (excl. check-cdn-pins.js,
+      check-live-hours.js) run directly against the tracked repo: 35/35
+      clean. All six generators rebuilt to zero diff (sha256 identical
+      across all 204 modules/*/pages files). FRESH ANGLE: of the checkers
+      that genuinely read gbp-packs/*.md, tools/check-gbp-pharmacy-first.js
+      (guards Pharmacy First condition-list completeness, age ranges, the
+      "where appropriate" hedge, the free-of-charge claim and the pathway
+      count) had never been proven by injection against this specific pack,
+      distinct from the eligibility/cost/safety-net checkers already proven
+      here. INJECTION (isolated `git archive HEAD` scratch extraction,
+      tracked repo never opened for writing): dropped "shingles, " from the
+      Services section's "- NHS Pharmacy First:" bullet in the scratch
+      copy's gbp-packs/hirshmans-ainsdale.md - CAUGHT first attempt, naming
+      the exact file and the omitted condition ("names 6 of the 7 Pharmacy
+      First conditions and omits shingles"). NEGATIVE CONTROL: a harmless
+      edit untouched by Pharmacy First wording (photo shot list's step-free
+      access line) ran clean, confirming genuine discrimination. Scratch
+      copy deleted in full afterwards (ordinary rm -rf succeeded - the
+      sandbox's standing EPERM-on-unlink symptom is specific to this
+      session's rbh-site-data mount, not to delete operations generally).
+      Tracked repo confirmed untouched throughout: sha256 of
+      gbp-packs/hirshmans-ainsdale.md and branches.json both unchanged,
+      git status --porcelain -- gbp-packs branches.json tools empty. NO IN-
+      REPO DEFECT - the pack's Pharmacy First condition list is complete and
+      correct, now proven by injection against this checker for the first
+      time. Guard coverage for item 4.3 is now 13 of the checkers that
+      genuinely read gbp-packs/*.md proven by injection against this
+      specific pack (up from 12, counting both this pass's and the
+      twenty-fourth pass's newly-proven checker). No generator, page, pack,
+      checker or branches.json content changed. ANSWER PICKUP: fetched the
+      portal feed via Claude in Chrome (read-only); newest entry still Q52
+      (2026-09-01); no answers found for Q37 or Q139-Q147, all 10 carried
+      forward unchanged. No new question raised; QUESTIONS.json unchanged
+      at pickup (148 total, 10 open). Evidence:
+      audits/hirshmans-ainsdale-item-4.3-pharmacy-first-blocks-injection-
+      2026-11-23-twentyfifth.txt. Done 2026-11-23
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).

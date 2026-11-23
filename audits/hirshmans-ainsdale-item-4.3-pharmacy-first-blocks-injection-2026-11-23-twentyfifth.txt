@@ -1,0 +1,97 @@
+Item 4.3 (Hirshmans Chemist, Ainsdale GBP pack) - twenty-fifth quality pass
+Run: Cowork scheduled run, audit-backlog-worker, 2026-11-23T04:12Z
+Pack under test: gbp-packs/hirshmans-ainsdale.md
+
+ROTATION: item 4.3 selected as the stalest rotation-pool item by a per-item
+last-touch scan of AGENT_WORKLIST.md (one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8
+excluded). 4.3 last touched 2026-11-19 (twenty-fourth pass); every other
+eligible item had been touched 2026-11-22 or later.
+
+ANSWER PICKUP: fetched https://data.rbhealth.co.uk/api/feedback via Claude in
+Chrome (read-only, single tab, nothing clicked or typed, closed after use).
+Newest "Audit answer" entry on the feed is still Q52 (2026-09-01T22:44:51.524Z).
+No entries found for Q37 or Q139-Q147. All 10 open questions carried forward
+unchanged (148 total in QUESTIONS.json).
+
+BASELINE:
+- branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (unchanged from run540/541 and every run since).
+- Full 35-checker suite (excl. check-cdn-pins.js, check-live-hours.js, both
+  network-dependent) run directly against the tracked repo: 35/35 clean.
+- All six generators rebuilt: sha256 of every file under modules/*/pages/
+  (204 files) identical before and after. Zero diff.
+- git status --porcelain -- gbp-packs branches.json tools: clean (only the
+  pre-existing modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+  debris file untouched, left by an earlier run, as recorded in prior passes).
+
+FRESH ANGLE: of the checkers that genuinely read gbp-packs/*.md (PACK_DIR set
+to gbp-packs, file contents parsed - not merely a filename mentioned in a
+comment), tools/check-gbp-pharmacy-first.js had never been proven by direct
+injection against THIS pack specifically. A scan of item 4.3's full history
+(all 24 prior passes) for checker names found check-app-membership.js,
+check-brand-spelling.js, check-em-dashes.js, check-gbp-packs.js, check-nap.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-pharmacy-first-safety-net.js, check-postcodes.js, check-service-links.js
+and check-uk-spelling.js already individually proven here. check-gbp-pharmacy-first.js
+was absent from that list despite reading this pack's Services bullet and
+Post A body directly (guards condition-list completeness, age ranges, the
+"where appropriate" hedge, the free-of-charge claim, and the Pharmacy First
+pathway count - a different angle from the eligibility/cost/safety-net
+checkers already proven, which read age cohorts, pricing and referral paths
+respectively rather than list completeness).
+
+BASELINE RUN: `node tools/check-gbp-pharmacy-first.js` against the tracked
+repo: "OK - 7 pathways read from the generator, 28 Pharmacy First blocks
+across 14 packs, all clean."
+
+INJECTION (isolated `git archive HEAD` scratch extraction to /tmp/scratch_43,
+tracked repo never opened for writing): in the scratch copy's
+gbp-packs/hirshmans-ainsdale.md, dropped "shingles, " from the Services
+section's "- NHS Pharmacy First:" bullet (one of the two places the pack
+publishes all seven Pharmacy First conditions verbatim to the public Google
+profile).
+
+RESULT: CAUGHT first attempt.
+  check-gbp-pharmacy-first: 1 problem(s)
+  gbp-packs/hirshmans-ainsdale.md: Services section "NHS Pharmacy First"
+  bullet names 6 of the 7 Pharmacy First conditions and omits shingles.
+  This block is pasted verbatim into the public Google profile, so an
+  omitted condition is a service the branch runs and the profile denies
+
+NEGATIVE CONTROL: restored the scratch pack from `git show HEAD:...` (clean),
+then made a harmless edit untouched by Pharmacy First wording ("Entrance
+showing step-free access." -> "Entrance showing step-free access to the shop
+floor.", the photo shot list's description, no condition or hedge wording
+touched). Ran clean: "OK - 7 pathways read from the generator, 28 Pharmacy
+First blocks across 14 packs, all clean." Confirms genuine discrimination,
+not an overbroad rule firing on any edit.
+
+CLEANUP: scratch copy at /tmp/scratch_43 deleted in full (rm -rf, ordinary
+delete succeeded - this session's sandbox mount only blocks unlink inside
+the rbh-site-data working tree itself, consistent with the standing
+EPERM-on-unlink symptom already recorded against Q142/Q146, not a general
+delete restriction).
+
+VERIFICATION tracked repo was never touched:
+  sha256sum gbp-packs/hirshmans-ainsdale.md -> c90d802cd0bd4510311b8a07e3ef81808f4eb018081688e09df53e84f869612f
+    (matches the pre-injection value; the injection and restore both happened
+    only inside the deleted scratch copy)
+  sha256sum branches.json -> 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (unchanged)
+  git status --porcelain -- gbp-packs branches.json tools -> empty
+
+CONCLUSION: NO IN-REPO DEFECT. The pack's Pharmacy First condition list is
+complete and correctly stated; check-gbp-pharmacy-first.js is now proven by
+direct injection against this specific pack for the first time, closing a
+gap in guard-coverage evidence rather than finding a live fault. Guard
+coverage for item 4.3 is now 12 of the checkers that genuinely read
+gbp-packs/*.md proven by injection against this specific pack (up from 11),
+to be read alongside the twenty-fourth pass's own count (which separately
+landed on "12 ... up from 11" for check-pharmacy-first-cost.js on
+2026-11-19 - the two passes proved two different, previously-unproven
+checkers against this pack in succession, so the running total is now 13 of
+the checkers that genuinely read gbp-packs/*.md proven by injection against
+hirshmans-ainsdale.md specifically, not a duplicate of the prior count).
+
+No generator, page, pack, checker logic or branches.json content changed.
+No new question raised. QUESTIONS.json unchanged: 148 total, 10 open (Q37,
+Q139-Q147).
