@@ -1,0 +1,89 @@
+Item 3.6 quality pass, 2026-11-23T19:42Z (Cowork scheduled run, thirty-first pass)
+
+PICKUP
+- Lock: no .agent-lock present at pickup; created fresh 19:42:58Z. A pre-existing,
+  same-minute .git/index.lock was found with no git process running (ps aux
+  confirmed); per this repo's long-documented filesystem quirk (dozens of prior
+  .git/index.lock.stale-* debris entries), it could not be deleted (Operation not
+  permitted on this mount) so it was renamed to .git/index.lock.stale-1795463019,
+  the same workaround convention used throughout this repo's history.
+- git fetch/checkout/pull: already on agents/audit-backlog at a4de039, the
+  19:12Z run's commit (18:42Z run before that). Already up to date.
+- QUESTIONS.json: 0 open of 148 total (unchanged from the 19:12Z run's reading).
+  Browser answer-pickup correctly skipped per procedure (step 3 only runs when
+  an open question exists).
+- AGENT_LOG.md top: no "Standing authorisation - autonomous window" section
+  present. Step 4 did not apply; no autonomous decisions taken.
+- Worklist: all 3 unchecked lines (5.8/Q16, 6.4/Q60, 6.5/Q60) reconfirmed
+  [BLOCKED] by direct grep. No unblocked item exists, so the quality-pass
+  fallback applied.
+
+ITEM SELECTION
+Re-derived the last-verified date for every completed item directly from
+AGENT_WORKLIST.md's own dated notes (script: scan for "- [x] N.N" headers,
+take the block up to the next header, extract the max YYYY-MM-DD date in it).
+Excluding the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+6.8), the stalest-tied pool is 2026-11-22: {3.6-3.13, 4.1, 4.4-4.15, 5.1-5.3,
+6.2}. Lowest-item-number tiebreak: 3.6 (McCanns Chemist, Aigburth and
+Sandringham).
+
+CHECKER COVERAGE
+All 37 tools/check-*.js files were already proven against this item by direct
+injection as of the 29th pass (2026-11-19) - checker coverage exhausted, same
+state items 4.11 and 3.5 reached earlier. This pass therefore put its effort
+into (a) a baseline re-run and (b) fresh live-read coverage / drift-tracking
+on pages and findings not re-read since they were first noted.
+
+BASELINE
+All 35 non-network tools/check-*.js re-run individually against the tracked
+repo: 35/35 exit 0 (checklogs saved under outputs/checklogs/, not committed -
+scratch only). check-cdn-pins.js also run: clean, same 2 WARN / 6 KNOWN
+entries as every prior pass, none new. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged.
+Current commit a4de039bd93e1c53763a3a3402e9566d27c451bf.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or typed,
+closed after use)
+Read three live URLs on mccannspharmacy.co.uk, chosen to re-check standing
+findings for drift rather than sample new content (both branch landing pages
+and the Sandringham Pharmacy First page had not been re-read since the finds
+that first flagged them):
+
+1. www.mccannspharmacy.co.uk/pharmacy-mccanns-aigburth.html - still returns
+   404 Page Not Found. Q35 (both McCanns branch landing pages return 404 live,
+   standing queued-paste state) reconfirmed unchanged.
+
+2. www.mccannspharmacy.co.uk/pharmacy-mccanns-sandringham.html - still
+   returns 404 Page Not Found. Q35 reconfirmed unchanged on the sister page
+   too.
+
+3. www.mccannspharmacy.co.uk/pharmacy-first-mccanns-sandringham.html - full
+   page read. NEW: this is a genuine change since the last read of this page.
+   The title ("Pharmacy First at McCanns Chemist, Sandringham"), H1 ("Pharmacy
+   First at McCanns Chemist in St Michael's") and the body copy ("Free NHS
+   service at your local St Michael's pharmacy", "Seen privately by your
+   local St Michael's team") now all read "St Michael's" live. Prior passes
+   (most recently the 2026-08-12 note under this item) recorded the 5.7/Q15
+   retitle as generated but "not yet pasted live (expected, rides the queued
+   repaste)". It has now been pasted: item 5.7/Q15 is resolved on this surface.
+   This is a positive finding, not a defect - logged because a standing
+   "queued" note that has actually landed is itself worth recording, the same
+   way a standing defect that persists is recorded on every pass.
+   Cross-checked against branches.json: mccanns_sandringham.seoTown = "St
+   Michael's", phone = "0151 727 3076" - both match the live page exactly
+   (hero call-to-action, contact card, and the Sandringham sub-card in the
+   shared contact widget all read 0151 727 3076).
+   Two standing findings reconfirmed UNCHANGED on this same page: the shared
+   footer/contact widget still reads "1B Aigburth Road (in Sandrigham Medical
+   Centre)" - the "Sandrigham" typo, Q144, missing the first "n" - and the
+   branding still reads "McCann's Pharmacy" (apostrophe) in the site-wide
+   footer and the two branch sub-cards, the standing Q39 finding. Neither is
+   new; both were already open and are not re-raised as fresh questions.
+
+No in-repo defect found. No generator, page, pack, checker or branches.json
+content changed. Item 3.6 stays [x] (quality pass, not a state change). No
+new question raised (the "St Michael's" paste landing is progress on an
+existing queued item, 5.7/Q15, not a new finding needing a question).
+
+Evidence: this file, plus checklogs under outputs/checklogs/ (scratch, not
+committed).

@@ -11336,6 +11336,39 @@ audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.
       autonomous window" section present at pickup, step 4 did not apply.
       No new question raised. Evidence in
       audits/mccanns-item-3.6-travel-clinic-live-read-2026-11-22.txt.
+      Quality pass 2026-11-23 (thirty-first, unattended scheduled run).
+      Rotation-pool pick: stalest pool at 2026-11-22 was {3.6-3.13, 4.1,
+      4.4-4.15, 5.1-5.3, 6.2} (3.5 excluded, re-verified earlier the same
+      day); 3.6 wins the lowest-item-number tiebreak. Checker coverage
+      already exhausted (all 37 tools/check-*.js proven by direct injection
+      as of the 29th pass), so this pass re-verified the baseline
+      (branches.json sha256 0385b7c2...27da unchanged; 35/35 non-network
+      checkers exit 0; check-cdn-pins.js clean, same 2 WARN/6 KNOWN, none
+      new) and put its effort into re-reading standing live findings for
+      drift rather than sampling new pages. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked or typed, closed after use): both
+      McCanns branch landing pages (pharmacy-mccanns-aigburth.html,
+      pharmacy-mccanns-sandringham.html) still return HTTP 404 live - Q35
+      reconfirmed unchanged on both. pharmacy-first-mccanns-sandringham.html
+      read in full: GENUINE CHANGE since this page was last read (2026-08-12)
+      - the title, H1 and body copy now all read "St Michael's" live (hero,
+      "Free NHS service at your local St Michael's pharmacy", "Seen privately
+      by your local St Michael's team"), where prior notes recorded the 5.7/
+      Q15 retitle as generated but not yet pasted. It has now been pasted
+      live; 5.7/Q15 is resolved on this surface. Matches branches.json
+      exactly (seoTown "St Michael's", phone 0151 727 3076, both confirmed
+      live on the page). Two standing findings reconfirmed UNCHANGED on the
+      same page: the shared footer's "Sandrigham" typo (Q144, missing the
+      first "n") and the "McCann's Pharmacy" apostrophe branding (Q39) -
+      neither new, neither re-raised. NO IN-REPO DEFECT FOUND; no generator,
+      page, pack, checker or branches.json content changed. Answer pickup:
+      QUESTIONS.json held 0 open questions at pickup (148 total), so the
+      portal browser fetch was correctly skipped per procedure rather than
+      run and found nothing. No "Standing authorisation - autonomous window"
+      section present at pickup, step 4 did not apply. No new question
+      raised - a queued item landing live is progress on 5.7/Q15, not a fresh
+      finding. Evidence in
+      audits/mccanns-item-3.6-drift-recheck-2026-11-23.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
