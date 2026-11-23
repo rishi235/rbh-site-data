@@ -2321,9 +2321,10 @@
       "Sidestep the parsing problem at the copy level instead: ask that any pack or page naming both Pharmacy First and the blood pressure check in one run-on sentence be split into two sentences at the next Weebly/pack edit, so each service states its own free claim on its own sentence and rule 8's existing per-sentence test already covers it without any further checker work."
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "This is a guard-coverage gap in a checker, not a live defect: every page and pack passes rule 8 as written today. Raised because the checker's own comment explicitly asks for a decision before any further regex widening is attempted."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 23/11/2026, 11:21:29 (UK time): \"Leave the comment as the standing record of the gap and do not spend further unattended-run time on it: the gap is narrow (one specific run-on sentence shape, one specific clause), rule 4 still catches a qualifier added in its place, and no live page or pack has ever actually dropped \"free\" this way - it is a theoretical residual rather than an observed defect.\"",
+    "note": "This is a guard-coverage gap in a checker, not a live defect: every page and pack passes rule 8 as written today. Raised because the checker's own comment explicitly asks for a decision before any further regex widening is attempted.",
+    "answeredDate": "2026-11-23"
   },
   {
     "id": "Q144",
