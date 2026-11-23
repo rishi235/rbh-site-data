@@ -44180,6 +44180,30 @@ audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
       (older native "Switch Prescriptions" page with no generated embed) have no
       pinned page to change. Remaining CDN WARN (branches.json @main differs from
       this branch at run time, Q45) is separate and not part of this item.
+      QUALITY PASS 2026-11-23 (Cowork scheduled run): stalest completed item,
+      tied with 6.6 at last-touch 2026-11-17, lower item number wins the tiebreak.
+      FRESH ANGLE: every prior pass on this item checked the repo-side refs
+      (git diff, pin values) or the live Weebly pages; none had re-fetched the
+      actual jsDelivr CDN response for service.js since the 2026-11-17 fix day
+      itself. Fetched both pinned copies live via Claude in Chrome (read-only,
+      two tabs, nothing clicked or typed, tabs closed after use):
+      https://cdn.jsdelivr.net/gh/rishi235/rbh-site-data@5c7fa63/modules/service/service.js
+      (the immutable switch-page pin) and the mutable
+      @service-module-phase1 ref. Both serve byte-identical content: DESTINATION
+      is "helpdesk@rbhealth.co.uk" (not rishi@), NO_FALLBACK_SERVICE_KEYS still
+      carries weightLoss/travelClinic/contraception, and no &mdash; entity
+      appears anywhere in the file (the three em dashes present are a literal
+      "—" character inside // comments, same as the tracked source, not
+      HTML-facing copy and not what this item's em-dash fix was about).
+      Repo-side reconfirmation: `git rev-parse origin/service-module-phase1`
+      and `git rev-parse origin/main` both resolve to 5c7fa63; `git diff
+      origin/service-module-phase1 origin/main -- modules/service/service.js
+      modules/service/service.css` is empty; all 15 generated switch pages
+      under modules/switch/pages/ still carry the 5c7fa63 pin; full 37-checker
+      suite (tools/check-*.js) run clean, 37/37. No regression found; the
+      2026-11-17 fix is confirmed live on both the immutable and the mutable
+      CDN refs, not merely matched in git. No generator, page, pack or
+      branches.json content changed, so no regeneration was needed.
 - [x] 5.6 Q14 shorten the one over-length page title in the estate: the
       Coleman and Leighs infected insect bite title ran to 70 characters
       against Google's 65, so the brand was the part being truncated away.
