@@ -23738,7 +23738,45 @@ Pharmacy First wording to the NHS service description.
       changed. No new question raised; QUESTIONS.json unchanged at 52
       open. Evidence:
       audits/cherry-lane-item-4.2-branch-links-injection-2026-10-20
-      -twentysixth.txt.- [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
+      -twentysixth.txt.
+      Quality pass 2026-11-23 (twenty-seventh pass, unattended Cowork
+      scheduled run, audit-backlog-worker): PARSER BUG FOUND AND FIXED: this
+      line in AGENT_WORKLIST.md ran straight into the "- [x] 4.3" bullet with
+      no newline between them, so any section-boundary scan reading
+      `^- \[x\] N\.N` (including this run's own rotation-date method) read
+      4.2 and 4.3 as one merged block and attributed 4.3's much more recent
+      dates (up to 2026-11-19) to 4.2, hiding that 4.2 was actually the
+      stalest item in the pool at 2026-10-20, a full month behind every other
+      item. Newline inserted; no other instance of the same pattern found
+      elsewhere in the file. BASELINE: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged from run540/541; full 35-checker suite (excl.
+      check-cdn-pins.js, check-live-hours.js) run directly against the
+      tracked repo: 35/35 clean. FRESH ANGLE: check-jsonld.js had never been
+      proven by injection against a Cherry Lane page across the prior 26
+      passes. INJECTION (isolated git-archive scratch extraction, tracked
+      repo never opened for writing): changed the JSON-LD
+      address.addressLocality in
+      modules/service/pages/pharmacy-first-cherry-lane-walton.html from
+      "Liverpool" to "Walton" - CAUGHT immediately and only, 1 failure,
+      naming the exact file and the mismatch. NEGATIVE CONTROL: a cosmetic
+      HTML comment touching no JSON-LD field ran clean. Restored
+      byte-for-byte identical to tracked HEAD; tracked repo confirmed
+      untouched throughout (git status --porcelain clean against
+      branches.json, modules/, tools/, gbp-packs/, aside from a pre-existing
+      unrelated debris file left by an earlier run, not touched this pass).
+      Full suite re-run against the tracked repo afterwards: 35/35 clean,
+      unchanged. NO IN-REPO DEFECT in check-jsonld.js or branches.json for
+      this branch - now proven by direct injection for the first time. Guard
+      coverage for item 4.2 now 21 of 37 checkers proven by injection against
+      this specific pack/branch (up from 20). No generator, page, pack,
+      checker logic or branches.json content changed, other than the
+      formatting fix to this file's own prose above. No new question raised;
+      QUESTIONS.json unchanged at pickup (148 total, 10 open: Q37,
+      Q139-Q147). Evidence:
+      audits/cherry-lane-item-4.2-jsonld-injection-2026-11-23.txt. Done
+      2026-11-23
+- [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
       Quality pass 2026-08-11: the pack verified fact by fact against

@@ -1,0 +1,71 @@
+Item 4.2 (Cherry Lane GBP pack) quality pass, 2026-11-23 (unattended Cowork
+scheduled run, audit-backlog-worker).
+
+ROTATION: per-item last-touch date scan over AGENT_WORKLIST.md's own section
+text (standing one-offs 1.1/1.4/2.2/5.6/5.7/6.7/6.8 excluded, blocked items
+5.8/6.4/6.5 excluded). 4.2 came out stalest at 2026-10-20 (twenty-sixth pass),
+a full month behind every other item in the pool, once a pre-existing parser
+bug was fixed (see below).
+
+PARSER BUG FOUND AND FIXED FIRST: AGENT_WORKLIST.md line 23740-23741 ran the
+end of item 4.2's last evidence path straight into the start of item 4.3's
+bullet with no newline between them ("...twentysixth.txt.- [x] 4.3 Hirshmans
+pack. ..."). Any tool reading section boundaries by `^- \[x\] N\.N` (including
+this run's own rotation-date scan) read 4.2 and 4.3 as one merged section, so
+4.3's much more recent dates (up to 2026-11-19) were being attributed to 4.2,
+hiding that 4.2 was actually the stalest item in the pool. A newline was
+inserted so the two items parse as separate sections again. No other instance
+of this pattern found elsewhere in the file (checked by grep for a
+non-whitespace character immediately followed by "- [x] [0-9]").
+
+BASELINE: branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, unchanged
+from run540/541 and from the twenty-sixth pass's own recorded baseline. Full
+35-checker suite (excl. check-cdn-pins.js, check-live-hours.js, both
+network-dependent) run directly against the tracked repo: 35/35 clean.
+
+FRESH ANGLE: of the 37 checkers in tools/, check-jsonld.js had never been
+proven by direct injection against a Cherry Lane page across the prior 26
+passes on this item (confirmed by grepping this item's own AGENT_WORKLIST.md
+block for check-*.js filenames). It guards the one part of a generated page
+written for a machine rather than a person: JSON-LD @type, name, url, postal
+address (field for field against branches.json, including addressRegion and
+addressCountry), telephone, email/areaServed, and the map iframe's
+URL-decoded address query.
+
+INJECTION (isolated git-archive scratch extraction at /tmp/scratch_42,
+tracked repo never opened for writing): in
+modules/service/pages/pharmacy-first-cherry-lane-walton.html, changed the
+JSON-LD address.addressLocality from "Liverpool" (Cherry Lane's correct
+addressLocality, distinct from its seoTown "Walton") to "Walton". CAUGHT
+immediately and only: 1 failure, naming the exact file and stating
+`address.addressLocality is "Walton" but branches.json says "Liverpool"`.
+
+NEGATIVE CONTROL: a cosmetic HTML comment inserted at the top of the same
+file, touching no JSON-LD field, ran clean (exit 0), confirming the checker
+fires on genuine data mismatches only, not on incidental file changes.
+
+RESTORE: file restored from a pre-edit copy; diffed byte-for-byte identical
+against tracked HEAD's own copy of the file. Scratch directory used
+throughout; tracked repo's branches.json and the target page both confirmed
+sha256/diff-unchanged afterwards (`git status --porcelain` showed no tracked
+change to branches.json, modules/, tools/ or gbp-packs/ from this work,
+aside from the pre-existing unrelated debris file
+modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak left
+by an earlier run, not touched this pass).
+
+FULL SUITE RE-CONFIRMATION: re-ran all 35 non-network checkers directly
+against the tracked repo after the scratch work: 35/35 clean, matching the
+pre-work baseline exactly.
+
+RESULT: no in-repo defect found in check-jsonld.js or in branches.json for
+this branch - the checker already protects Cherry Lane's JSON-LD address
+fields correctly, now proven by direct injection for the first time. Guard
+coverage for item 4.2 is now 21 of 37 checkers proven by injection against
+this specific pack/branch (up from 20). The one genuine finding this pass
+produced was the AGENT_WORKLIST.md parser bug above, which is fixed.
+
+No generator, page, pack, checker logic or branches.json content changed
+other than the formatting fix to AGENT_WORKLIST.md's own prose. No new
+question raised. QUESTIONS.json unchanged at pickup (148 total, 10 open:
+Q37, Q139-Q147).
