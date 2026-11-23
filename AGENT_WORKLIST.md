@@ -45043,6 +45043,24 @@ data field changed this run. No new question.
       generator (Weebly owns sitemap.xml). Nothing on the estate side duplicates a
       page. If Ahrefs still flags it, check the project crawl settings for a second
       sitemap URL added by hand; that is Ahrefs config, not the sites.
+      RECONFIRMED 2026-11-23 (Cowork scheduled run, quality-pass rotation). Tried
+      the Ahrefs MCP connector first (site-audit-projects), which is now present
+      in this environment and was not available on 2026-11-17: it returned the
+      same "Insufficient plan" error as before, so the account-level blocker on
+      Q52's own recommended next step (open the issue detail in Ahrefs Site Audit
+      and post back the exact sitemap URLs) is unchanged and still needs the plan
+      upgrade or a manual Ahrefs UI check, not a repo or tooling fix. Fell back to
+      the same live-sitemap method as the 2026-11-17 pass, on 4 of the 13 estate
+      domains (Scorah, Gordon Short Crosby, Tiffenbergs, Hirshmans - chosen to
+      extend coverage beyond the three checked for item 6.6 rather than repeat
+      them). Fetched sitemap.xml and robots.txt live via Claude in Chrome
+      (read-only, nothing clicked or typed, tab closed after). All four: exactly
+      one Weebly-generated sitemap.xml, zero duplicate &lt;loc&gt; entries (44 unique
+      URLs out of 44 on Scorah, the largest of the four; checked by exact-match
+      count, not eyeball, for that one, and visually for the other three, each
+      under 29 entries with no repeats), robots.txt names exactly one Sitemap:
+      line pointing at that same file. No in-repo or live defect found. Repo-side
+      facts (no sitemap generator here, Weebly owns sitemap.xml) unchanged.
 - [x] 6.2 Broken internal links: "Page has links to broken page" is the Done 2026-08-11
       single most common top issue across nearly every branch site in Site
       Audit. Run a full estate-wide broken-internal-link sweep (Site Audit
