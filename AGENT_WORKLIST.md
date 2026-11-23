@@ -47961,6 +47961,49 @@ data field changed this run. No new question.
       Someone fixed them between the 2026-08-09 sweep and today, so no GBP write was
       needed. GBP_MANUAL.md section 5 rows updated, check-url-scheme.js KNOWN emptied
       (0 held). Canonical tag (part a) stays a Weebly head setting, optional, not Q66.
+
+      QUALITY PASS 2026-11-23. Repo-side baseline reconfirmed first: every live
+      branch's branches.json `website` field is still https (16/16, confirmed by
+      direct field read, not by re-running the checker alone). FRESH ANGLE AND
+      IN-REPO DEFECT FOUND AND FIXED: running tools/check-url-scheme.js clean
+      surfaced 263 WARN lines, not 0 - all of them pointing at a single path,
+      `.scratch_tmp/scratch_415_.../...`, a leftover git-archive scratch copy from
+      an earlier quality pass that this mount's standing EPERM-on-unlink fault
+      left behind (the same shape of debris .gitignore's own `/.scratch_tmp/`
+      entry, added 2026-11-22, already exists to describe). This checker walks
+      the filesystem directly rather than through git, exactly the bug
+      check-postcodes.js was fixed for on 2026-10-19 (see that checker's own
+      comment), and was therefore blind to .gitignore: the scratch copy's nested
+      `audits/*.txt` evidence files - legitimate narrative quotes of historic
+      http:// URLs when read at their real repo-root path - did not match the
+      existing `r.indexOf("audits/") === 0` exemption once copied one level
+      deeper under `.scratch_tmp/`, so every one of them was reported as if it
+      were unexplained insecure-URL noise. Not a failure (warnings do not fail
+      the run) but it buried any warning actually worth reading under 263 false
+      ones. FIX: ported check-postcodes.js's gitignore-derived debris skip list
+      (GITIGNORE_LINES/GITIGNORE_RULES/isDebris) into check-url-scheme.js
+      verbatim rather than hand-listing ".scratch_tmp" - the same "a list of
+      names is a snapshot of what somebody remembered" reasoning CLAUDE.md
+      already states, and it means a future debris shape already covered by
+      .gitignore is excluded automatically rather than needing its own entry
+      here. VERIFIED: before the fix, 263 warnings / 0 failures; after,
+      0 warnings / 0 failures, same 222 published files and 136 genuine
+      narrative quotes counted both times, so no real detection was lost.
+      INJECTION TEST on the live tracked repo (not the excluded scratch
+      directory, since testing inside it would prove nothing once it is
+      skipped by design): appended an `http://insecure.example.com/injected`
+      comment to `modules/switch/pages/switch-prescriptions-smartts-bootle.html`,
+      a real published surface - caught first attempt (1 failure, named file
+      and URL) - then restored from a pre-edit copy and reconfirmed
+      sha256-identical to baseline before continuing. Full 37-checker suite
+      re-run after the restore: 37/37 clean. `git status --porcelain` on
+      branches.json/tools/modules/core/gbp-packs showed only
+      tools/check-url-scheme.js changed. No generator, page, pack or
+      branches.json content changed, so no regeneration was needed. Live GBP
+      profile re-read not repeated this pass (requires Rishi's signed-in
+      Google session; the 2026-11-17 supervised read already covers the live
+      half and nothing has changed on the repo side that would call it into
+      question). No new question raised.
 - [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",

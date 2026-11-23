@@ -164,6 +164,71 @@ var warnings = [];
 var usedKnown = {};
 var SKIP_DIRS = { ".git": 1, "node_modules": 1, ".vscode": 1 };
 var TEXT_EXT = /\.(html|md|js|json|txt|css)$/i;
+
+// Gitignore-derived debris skip list, ported from check-postcodes.js (added
+// there on the 2026-10-19 quality pass, run 194's documented fix for the same
+// shape of bug). Found on the item 6.6 quality pass, 2026-11-23: this scanner
+// walks the filesystem directly rather than through git, same as
+// check-postcodes.js did before its fix, and was therefore blind to
+// .gitignore - including the /.scratch_tmp/ entry .gitignore itself added on
+// 2026-11-22 specifically because this repo's own scratch-copy pattern leaves
+// an unremovable debris directory behind on this mount's EPERM-on-unlink
+// fault. A git-archive scratch copy under .scratch_tmp/ carries full copies
+// of every audits/*.txt evidence file ever written against this item and the
+// others, each one legitimately quoting http:// URLs as narrative evidence of
+// what a live page or profile used to say - but the scratch copy's own
+// audits/ subdirectory does not start with "audits/" at the repo root, so the
+// existing narrative-file exemption (r.indexOf("audits/") === 0) never
+// matched it. Result before this fix: 263 insecure-URL warnings, 100% of them
+// pointing at a single gitignored, already-known-debris directory, swamping
+// the one or two warnings (if any) that would actually be worth reading on a
+// given run. Not a failure (warnings don't fail the run) but it defeats the
+// purpose of the warning bucket. Same fix as check-postcodes.js: derive the
+// skip list from .gitignore itself rather than hand-listing ".scratch_tmp" -
+// a list of names is a snapshot of what somebody remembered on the day they
+// wrote it (CLAUDE.md), and .gitignore is the one place these patterns are
+// already declared and actively maintained run over run.
+var GITIGNORE_LINES = (function () {
+  var p = path.join(ROOT, ".gitignore");
+  if (!fs.existsSync(p)) return [];
+  return fs.readFileSync(p, "utf8").split(/\r?\n/)
+    .map(function (l) { return l.trim(); })
+    .filter(function (l) { return l && l.charAt(0) !== "#"; });
+})();
+
+function globToRegExp(body) {
+  var esc = body.replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*/g, "[^/]*")
+    .replace(/\?/g, "[^/]");
+  return new RegExp("^" + esc + "$");
+}
+
+var GITIGNORE_RULES = GITIGNORE_LINES.map(function (pat) {
+  var anchored = pat.charAt(0) === "/";
+  var isDir = pat.charAt(pat.length - 1) === "/";
+  var body = pat;
+  if (anchored) body = body.slice(1);
+  if (isDir) body = body.slice(0, -1);
+  return { re: globToRegExp(body), anchored: anchored, isDir: isDir, body: body };
+});
+
+function isDebris(relPath) {
+  var segments = relPath.split("/");
+  var basename = segments[segments.length - 1];
+  return GITIGNORE_RULES.some(function (rule) {
+    if (rule.anchored) {
+      if (rule.isDir) {
+        return relPath === rule.body || relPath.indexOf(rule.body + "/") === 0;
+      }
+      return rule.re.test(relPath);
+    }
+    if (rule.isDir) return segments.indexOf(rule.body) !== -1;
+    if (rule.body.indexOf("/") !== -1) {
+      return relPath === rule.body || relPath.slice(-(rule.body.length + 1)) === "/" + rule.body;
+    }
+    return rule.re.test(basename);
+  });
+}
 // Case-insensitive: a URL scheme is case-insensitive per RFC 3986, so an
 // insecure link typed or pasted as HTTP:// (or Http://, etc.) is exactly as
 // insecure as http:// and must not evade rule 1 by casing alone. Found by
@@ -197,10 +262,11 @@ function isPublished(r) {
 function scan(dir) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
     var p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (!SKIP_DIRS[e.name]) scan(p); return; }
-    if (!TEXT_EXT.test(e.name)) return;
-
     var r = rel(p);
+    if (e.isDirectory()) { if (!SKIP_DIRS[e.name] && !isDebris(r)) scan(p); return; }
+    if (!TEXT_EXT.test(e.name)) return;
+    if (isDebris(r)) return;
+
     // branches.json is read field by field further down, which names the
     // offending FIELD rather than a line of JSON. Reading it as text as well
     // would report the same value twice, once usefully and once as noise.
