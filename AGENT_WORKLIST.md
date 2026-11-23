@@ -8725,6 +8725,18 @@ RAISED. Item 3.4 stays [x] (quality pass, not a state change). Evidence:
 audits/cherry-lane-walton-item-3.4-live-footer-sweep-2026-11-22.txt.
 Done 2026-11-22.
 
+
+Quality pass 2026-11-23 (this run, 17:42Z): REPO HALF ONLY this run -
+baseline 35-checker suite (excl. check-cdn-pins.js, check-live-hours.js) run
+directly against the tracked repo: 35/35 clean, unchanged from the
+2026-11-22 pass. No live browser sweep attempted this run: yesterday's
+2026-11-22 pass already read all 12 of this branch's generated pages live,
+including the two (impetigo, travel clinic) no prior pass had sampled, and
+found nothing beyond the standing Q36 footer mailbox typo already on file;
+repeating that sweep one day later with no generator, page or
+branches.json change would add no new information, so this run's time was
+kept to the repo-side baseline. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+RAISED. Item 3.4 stays [x] (quality pass, not a state change).
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
