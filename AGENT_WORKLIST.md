@@ -39100,6 +39100,23 @@ appended to the line. Do not move them; the status page reads them in place.
       after use; newest entry still the Q52 answer (2026-09-01); no answer for
       Q37 or Q139-Q146, all nine remain open. No new question raised. No
       in-repo defect found. Done 2026-11-22.
+      Quality pass 2026-11-23 (14:12Z run): data clean, nothing to fix. Full
+      35-checker suite (excl. check-cdn-pins.js, check-live-hours.js, both
+      network-dependent) run directly against the tracked repo: 35/35 clean.
+      Live half via Claude in Chrome (read-only, single tab, nothing clicked
+      or typed, closed after use): read mccannspharmacy.co.uk's homepage
+      contact block. Both branch postcodes correct and unchanged (Aigburth
+      L17 7BP, Sandringham L17 4JP); no CH49 1SX anywhere on the page.
+      STANDING FINDINGS RECONFIRMED, NOT NEW: the Sandringham address block
+      still reads "Sandrigham Medical Centre" (missing the second "n") and
+      the page still brands both shops "McCann's Pharmacy" rather than
+      "Chemist" - both already held under Q39/item 5.3, not re-raised here.
+      QUESTIONS.json now shows 0 open entries (all 148 answered via the
+      portal); re-read Q142/Q146/Q147 in full - none unblocks 5.8/Q16 or
+      6.4-6.5/Q60, both still correctly [BLOCKED] for the reasons already on
+      file (live Weebly session; Rishi's own merge decision on the
+      weight-loss PR). No new question raised. No in-repo defect found.
+      Done 2026-11-23.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
