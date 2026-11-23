@@ -2354,9 +2354,10 @@
       "Do nothing yet pending a wider check: since no prior pass has ever looked at any branch's live GBP listing name, first check whether the same \"Simple Weight Loss\" wording is baked into any of the other 15 branches' GBP names before deciding how to fix this one."
     ],
     "recommended": 2,
-    "status": "open",
-    "answer": null,
-    "note": "Found during item 4.8's twenty-eighth-ish quality pass, 2026-11-22, by following the pack's own review-link URL to the live listing for the first time. No in-repo defect - this repo has never generated or checked a GBP name field. Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp-name.txt."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 23/11/2026, 11:21:34 (UK time): \"Treat this as higher priority than a routine furniture fix: given the Simple Weight Loss pause and the risk of Google suspending the listing for a policy-breaching name, ask the superintendent pharmacist / whoever is reviewing the SWL pause to sign off on the exact replacement name before anyone edits the live profile.\"",
+    "note": "Found during item 4.8's twenty-eighth-ish quality pass, 2026-11-22, by following the pack's own review-link URL to the live listing for the first time. No in-repo defect - this repo has never generated or checked a GBP name field. Evidence: audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp-name.txt.",
+    "answeredDate": "2026-11-23"
   },
   {
     "id": "Q146",
