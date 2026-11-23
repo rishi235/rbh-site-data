@@ -1,0 +1,70 @@
+Item 2.1 (Fishlocks Chemist, Ainsdale) - thirty-third quality pass, 2026-11-23T04:xx Z
+(Cowork scheduled run, quality-pass fallback rotation - no unblocked worklist items)
+
+BASELINE: full tools/check-*.js suite (37 checkers) run against the tracked
+repo before any work: 0 failures across all 37. git status --porcelain shows
+no tracked changes outstanding (only long-standing untracked debris files,
+confirmed none under modules/, branches.json, tools/, core/, compliance/,
+gbp-packs/).
+
+CHECKER COVERAGE: of the 8 checkers the thirty-second pass (2026-11-22)
+recorded as never having been run specifically against this item's own
+pages (check-editor-snapshot.js, check-fragment-targets.js,
+check-gbp-pharmacy-first.js, check-pharmacy-first-safety-net.js,
+check-pharmacy-first-symptoms.js, check-uk-spelling.js, check-url-scheme.js,
+check-widget-diaries.js), this pass closes check-url-scheme.js.
+
+INJECTION (scratch copy only, via `git archive HEAD | tar -x`, tracked repo
+never opened for writing): on
+modules/service/pages/weight-loss-clinic-fishlocks-ainsdale.html, the
+Google review link https://g.page/r/Cfl0iMf3cgGaEAE/review was changed to
+http://g.page/r/Cfl0iMf3cgGaEAE/review. `node tools/check-url-scheme.js` run
+inside the scratch copy FAILED cleanly and specifically:
+
+  FAIL  INSECURE modules/service/pages/weight-loss-clinic-fishlocks-ainsdale.html:
+  published surface carries http://g.page/r/Cfl0iMf3cgGaEAE/review.
+
+NEGATIVE CONTROL: a fresh scratch copy with only a cosmetic wording change
+on the same page ("Read our latest reviews" -> "Read our latest reviews
+today", no scheme change) ran check-url-scheme.js clean: 0 failures, 0
+warnings, confirming no cross-fire from the harness itself.
+
+Both scratch copies deleted after use. Tracked repo reconfirmed untouched
+throughout: modules/service/pages/weight-loss-clinic-fishlocks-ainsdale.html
+sha256 207ba54ab7816e21bff05808e495ea0d987f03bc45610411ba793b4824b916c9
+before and after, unchanged; git status --porcelain clean on all tracked
+paths. Full 37-checker suite re-run on the tracked repo after the scratch
+work: 0 failures, confirming the real repo was never touched.
+
+Guard coverage for item 2.1 now extends to check-url-scheme.js. Checkers
+still never-named against this item (7): check-editor-snapshot.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-uk-spelling.js, check-widget-diaries.js.
+
+LIVE (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use): fetched
+sore-throat-treatment-fishlocks-ainsdale.html, not previously sampled live
+by any prior pass on this item. Title/H1 "Sore throat treatment in Ainsdale
+- Fishlocks Chemist" correct; NHS Pharmacy First age cohort "Age 5 and
+over" correct; NAP (17 Station Road, Ainsdale, PR8 3HN / 01704 575478)
+matches branches.json exactly; callback form, collection notice and
+WhatsApp button present; no medicine, superlative or results claim. Two
+standing live-only findings reconfirmed on this further page, neither new:
+the Weebly-native legal footer still naming the business "Fishlock
+Pharmacy" (twice) and "Fishlock Chemist" (once) rather than the trading
+name "Fishlocks" - the same finding this item's own 2026-08-11 pass raised
+as Q37, which remains open and unanswered on the feedback feed as of this
+run (Rishi's only reply on Q37, 2026-09-01, asks for the question to be
+re-explained in plain English rather than answering it - treated as not a
+substantive answer, so Q37 stays open, no action taken); and
+pharmacy-fishlocks-ainsdale.html (the branch landing page) reconfirmed
+still returning a live 404, unchanged, per the standing Q35 Weebly-paste
+block.
+
+No generator, page, pack, checker or branches.json content changed. No new
+question raised (Q37 reconfirmed open rather than restated). Item 2.1 stays
+[x] (quality pass, not a state change).
+
+Files changed this run: AGENT_WORKLIST.md (this item's paragraph),
+AGENT_LOG.md (top entry), audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-23-thirtythird.txt (this file).

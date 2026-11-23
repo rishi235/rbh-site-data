@@ -1994,6 +1994,41 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       check-url-scheme.js, check-widget-diaries.js. Evidence:
       audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-22-thirtysecond.txt.
       Done 2026-11-22.
+      QUALITY PASS 2026-11-23 (thirty-third, fallback rotation pick - no
+      unblocked worklist items, quality-pass fallback per step 5): baseline
+      37-checker suite run clean (0 failures) before any work. Closed one
+      of the eight previously never-named checkers against this item:
+      check-url-scheme.js. Injection on a scratch copy only (git archive
+      HEAD, tracked repo never opened for writing) changed the Google
+      review link on weight-loss-clinic-fishlocks-ainsdale.html from
+      https:// to http:// - FAILED cleanly, naming the exact file and URL.
+      Negative control (cosmetic wording change only, no scheme change) ran
+      clean, 0 failures. Scratch copies deleted after use; tracked repo
+      reconfirmed byte-identical throughout (sha256 unchanged, git status
+      clean) and the full 37-checker suite re-run clean afterwards on the
+      tracked repo. No in-repo defect found. Guard coverage for item 2.1
+      now extends to check-url-scheme.js; 7 checkers remain never-named
+      against this item: check-editor-snapshot.js,
+      check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-uk-spelling.js, check-widget-diaries.js.
+      LIVE (Claude in Chrome, read-only, single tab, nothing clicked, typed
+      or submitted, closed after use): fetched
+      sore-throat-treatment-fishlocks-ainsdale.html, not previously sampled
+      live on this item. Title/H1, NHS Pharmacy First age cohort (5 and
+      over), NAP, callback form and WhatsApp button all correct and match
+      branches.json. Two standing live-only findings reconfirmed, neither
+      new: the Weebly-native legal footer still naming the business
+      "Fishlock Pharmacy"/"Fishlock Chemist" rather than "Fishlocks" (this
+      item's own Q37, checked against the feedback feed this run - still
+      only Rishi's 2026-09-01 "needs further explanation" reply, not a
+      substantive answer, so Q37 stays open and unactioned); and
+      pharmacy-fishlocks-ainsdale.html still returning a live 404 under the
+      standing Q35 Weebly-paste block. No generator, page, pack, checker or
+      branches.json content changed. No new question raised. Item 2.1 stays
+      [x] (quality pass, not a state change). Evidence:
+      audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-23-thirtythird.txt.
+      Done 2026-11-23.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
