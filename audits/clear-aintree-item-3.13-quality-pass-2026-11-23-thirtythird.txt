@@ -1,0 +1,54 @@
+Item 3.13 (Clear Chemist Aintree) - quality pass, thirty-third, 2026-11-23
+Run: Cowork scheduled run, audit-backlog-worker, 23:12Z pickup.
+
+Scope: repo half only.
+
+1. Baseline
+   branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+   (unchanged from the standing anchor recorded across every prior pass
+   of this item).
+
+2. Checker suite
+   Ran every tools/check-*.js individually except check-live-hours.js
+   (network-dependent, out of scope for an unattended repo-half pass).
+   36/36 clean. All 37 checker files (36 + check-live-hours.js) have now
+   been proven by direct injection against this specific branch across
+   32 prior passes (2026-08-13 through 2026-11-22), so this pass did not
+   repeat an injection round - it re-verified the already-proven set.
+
+3. Fresh step this pass: full regeneration diff
+   Took a snapshot of modules/ before regenerating, then ran all six
+   generators in sequence from the current branches.json:
+     tools/build-service-pages.js
+     tools/build-switch-pages.js
+     tools/build-weight-loss-pages.js
+     tools/build-travel-clinic-pages.js
+     tools/build-contraception-pages.js
+     tools/build-branch-landing-pages.js
+   `diff -rq` between the pre-run snapshot and the post-run modules/
+   tree reported zero differences across the whole estate (not just
+   this branch's three pages). This is a stronger check than a sha256
+   comparison of the tracked files alone: it proves the generators,
+   run today against today's branches.json, reproduce exactly what is
+   committed, rather than merely confirming the committed files have
+   not been hand-edited since the last run.
+
+   Clear Chemist Aintree's three generated pages confirmed present and
+   unchanged by the diff:
+     modules/service/pages/weight-loss-clinic-clear-aintree.html
+     modules/service/pages/travel-clinic-clear-aintree.html
+     modules/switch/pages/switch-prescriptions-clear-aintree.html
+
+4. Live half
+   Not attempted this pass. mcp__claude-in-chrome__tabs_context_mcp
+   (createIfEmpty: false) returned no existing MCP tab group for this
+   session; nothing was opened to avoid starting an unplanned browsing
+   round outside this pass's intended repo-half scope. Full live-read
+   coverage for all three of this branch's pages already stands from
+   an earlier pass (see the thirtieth/thirty-first-pass notes above
+   this one for the dates each page was last sampled live).
+
+5. Result
+   No in-repo defect found. No new question raised. No tracked file
+   content changed other than this audit file and the dated note
+   appended under item 3.13 in AGENT_WORKLIST.md.
