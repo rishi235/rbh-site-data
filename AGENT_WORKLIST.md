@@ -12734,6 +12734,24 @@ Done 2026-10-14 (twenty-third pass).
       LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
       audits/smartts-item-3.7-quality-pass-2026-11-22-twentyninth.txt.
       Done 2026-11-22.
+      Quality pass 2026-11-23 (30th-or-so pass, run 2026-11-23T20:12Z):
+      baseline re-verified - full 35-checker non-network suite (excl.
+      check-cdn-pins.js, check-live-hours.js) run directly against the
+      tracked repo: 35/35 clean; branches.json sha256 0385b7c2...27da
+      unchanged. FRESH ANGLE: check-uk-spelling.js, not previously
+      injection-tested against this item. On the tracked page
+      modules/service/pages/shingles-treatment-smartts-bootle.html,
+      injected the Americanism "organize" in place of several instances of
+      "appointment" (pattern substitution, not meaningful text, purely to
+      plant the spelling fault); caught cleanly, 10 flagged lines, exit
+      code 1. File restored by direct overwrite and sha256-reconfirmed
+      identical to the pre-injection original before moving on; git status
+      on tracked paths empty bar the one pre-existing
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris file. No
+      live-site read this pass - repo-side injection only, since this run's
+      effort was mostly spent pushing the 19:42Z run's pending commit
+      (b6fb41c), which had not yet reached origin at this run's pickup.
+      NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Done 2026-11-23.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
