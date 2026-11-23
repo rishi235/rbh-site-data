@@ -2337,9 +2337,10 @@
       "Leave it - the location note is supplementary text, not the structured address, so it carries no NAP, schema or NHS-profile risk"
     ],
     "recommended": 0,
-    "status": "open",
-    "answer": null,
-    "note": "Found by a live Chrome read during item 3.6's quality pass, after all 37 repo checkers were confirmed already proven against this item (checker-injection coverage exhausted). Cosmetic, not a NAP/schema/compliance risk, but worth bundling into the next footer paste session."
+    "status": "answered",
+    "answer": "Rishi answered via the portal, 23/11/2026, 11:21:31 (UK time): \"Fix the typo in the next Weebly session along with the standing Q39 (McCann's apostrophe-brand) and Q36 (Cherry Lane footer) items, since all three are the same class of live-only footer fix and can be done in one sitting - recommended, costs nothing extra since a Weebly session is already queued for Q39/Q36\"",
+    "note": "Found by a live Chrome read during item 3.6's quality pass, after all 37 repo checkers were confirmed already proven against this item (checker-injection coverage exhausted). Cosmetic, not a NAP/schema/compliance risk, but worth bundling into the next footer paste session.",
+    "answeredDate": "2026-11-23"
   },
   {
     "id": "Q145",
