@@ -1,0 +1,72 @@
+Item 3.10 quality pass (thirty-seventh pass), 2026-11-23, Cowork scheduled run (21:42Z)
+Branch: Riddings Pharmacy (Timperley), id riddings_timperley
+
+BASELINE
+- Full 35-checker non-network suite (tools/check-*.js, excl. check-cdn-pins.js,
+  check-live-hours.js): 35/35 exit 0, no output.
+- check-cdn-pins.js: clean, 2 WARN / 6 KNOWN, unchanged from standing baseline
+  (modules/switch/weebly.html @main vs 6a275e1 split per Q45; the second-hop
+  branches.json@main runtime fetch WARN per Q45).
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  - unchanged from every prior run logged today.
+
+ITEM SELECTION
+- Pool derivation: all completed AGENT_WORKLIST.md items, excluding the 7
+  standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8), grouped
+  by most recent dated note. Items 3.5-3.9 were already re-verified earlier
+  today (19:12Z-21:12Z runs), leaving {3.10-3.13, 4.1, 4.4-4.15, 5.1-5.3, 6.2}
+  all last verified 2026-11-22. Lowest-numbered tiebreak: 3.10.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked, typed or
+submitted, tab closed after use)
+- Per the 2026-11-22 note under item 3.10, live-read coverage stood at 6 of 12
+  generated pages, with impetigo, insect-bite, shingles, sinusitis,
+  sore-throat and uti-treatment still live-unread. Read
+  sore-throat-treatment-riddings-timperley.html live on
+  riddingspharmacy.co.uk in full via get_page_text: title, H1 ("Sore throat
+  treatment in Timperley"), hero, eligibility (age 5 and over), the four
+  "when to get different help" cohorts, the three-step how-it-works block and
+  the FAQ headings all match the generator's static copy. NAP block: address
+  "38 Riddings Road, Timperley, Altrincham, WA15 6BP", phone 0161 973 2951,
+  hours Monday-Friday 9:00am-6:00pm / Saturday and Sunday Closed - all match
+  branches.json exactly (openingHours.specification and closedDays). No
+  medicine named, no superlative, no efficacy or results claim, no stock
+  guarantee - consistent with every other page on this branch sampled to
+  date.
+- Read the page's JSON-LD separately via javascript_tool (get_page_text
+  strips script tags): live carries TWO application/ld+json blocks. Block A
+  matches this repo's own per-page schema exactly - type Pharmacy, name
+  "Riddings Pharmacy" (correct; Riddings is one of the ten branches where
+  brandLabel equals branchName, so no item-3.12/Q18 name-divergence risk
+  applies here), own page url, full PostalAddress including addressRegion
+  "Greater Manchester", telephone matching. Block B is the Weebly-injected
+  sitewide block: same correct name and telephone, url pointing at the site
+  HOMEPAGE rather than this page, no addressRegion, carries email and
+  openingHoursSpecification (truncated in the read but headed correctly).
+  This is the already-fully-swept standing Q99 two-block pattern (run 417,
+  2026-09-27), not a new finding - recorded here only because this is the
+  first time it has been specifically confirmed on this particular page for
+  this branch.
+- Footer carries two GPhC-shaped numbers on one page: "Riddings Pharmacy
+  (GPHC no. 1029520)" (premises registration) and "Superintendent Pharmacist:
+  Dr S K Kochhar (GPhC 2039034)" (his personal registration). These are two
+  different categories of number, not a mismatch - noted only so a future
+  pass does not re-flag it as a drift finding.
+
+REPO HALF
+- modules/service/pages/sore-throat-treatment-riddings-timperley.html
+  generates exactly one JSON-LD block (Pharmacy, "Riddings Pharmacy", own
+  url, addressRegion Greater Manchester present), matching check-jsonld.js's
+  one-block rule.
+- data-branch="Riddings Pharmacy", data-service="Sore throat treatment",
+  data-wa="447521775631" all correct against branches.json.
+- H1 "Sore throat treatment in Timperley" matches seo-pattern.js's composed
+  form for this branch/condition.
+
+RESULT
+- NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Live-read coverage for
+  this branch now extends to 7 of 12 generated pages (up from 6); impetigo,
+  insect-bite, shingles, sinusitis and uti-treatment remain live-unread for a
+  future pass.
+- git status --porcelain -- modules core branches.json gbp-packs tools
+  compliance: empty (no tracked file touched by this pass's reads).

@@ -18069,6 +18069,26 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       Evidence in audits/riddings-item-3.10-quality-pass-2026-11-22-
       thirtysixth.txt. Done 2026-11-22
 
+      Quality pass 2026-11-23 (thirty-seventh run, 21:42Z scheduled run):
+      baseline unchanged - 35/35 checkers clean, check-cdn-pins.js clean (2
+      WARN/6 KNOWN), branches.json sha256 0385b7c2...27da unchanged. Read
+      sore-throat-treatment-riddings-timperley.html live in full (Claude in
+      Chrome, read-only) - the first of the five pages this branch still had
+      unread as of the previous pass. NAP, hours, eligibility cohorts and
+      FAQ headings all match branches.json and the generator's static copy
+      exactly; no medicine named, no superlative or results claim, no stock
+      guarantee. JSON-LD carries the standing Q99 two-block pattern (Block A
+      correct and page-specific, Block B Weebly-injected and homepage-urled)
+      - already fully swept 2026-09-27, reconfirmed here on a page not
+      previously sampled, not a new finding. Repo's own generated page
+      carries exactly one correct JSON-LD block, matching check-jsonld.js.
+      NO IN-REPO DEFECT FOUND; NO NEW QUESTION RAISED. Live-read coverage now
+      extends to 7 of 12 generated pages (up from 6); impetigo, insect-bite,
+      shingles, sinusitis and uti-treatment remain live-unread for a future
+      pass. git status --porcelain -- modules core branches.json gbp-packs
+      tools compliance empty throughout. Evidence in audits/riddings-item-
+      3.10-quality-pass-2026-11-23-thirtyseventh.txt. Done 2026-11-23.
+
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
