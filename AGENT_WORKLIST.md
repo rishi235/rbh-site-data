@@ -40130,6 +40130,24 @@ appended to the line. Do not move them; the status page reads them in place.
       page, pack, checker or branches.json content changed. Full detail:
       audits/hirshmans-item-1.2-check-seo-sheets-injection-2026-11-22.txt.
       Done 2026-11-22
+      Twenty-eighth quality pass 2026-11-23 (Cowork scheduled run). REPO HALF:
+      branches.json canonical for hirshmans_ainsdale unchanged (streetAddress
+      '56-62 Sherwood House, Station Road', locality Ainsdale, PR8 3HW, phone
+      01704 577376, nhsEmail pharmacy.FW378@nhs.net, odsCode FW378). Full 35-checker
+      suite (excl. check-cdn-pins.js, check-live-hours.js) run directly: 35/35 clean.
+      Swept 376 tracked html/md/json files for 'Sherwood House' (272 hits) and '64
+      Station Road' (2 hits, both the known, already-logged Fishlocks-Ainsdale-old-page
+      note in WEEBLY_FURNITURE_CHECKLIST.md and compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md,
+      not this branch); no broken variant found on any Hirshmans surface. No PR8 3HN
+      (Fishlocks Ainsdale's postcode) contamination on any of the 12 Hirshmans pages;
+      24/24 PR8 3HW hits correct. LIVE HALF via Claude in Chrome (read-only, single
+      tab, nothing clicked or typed, closed after use): read contact-us.html at
+      hirshmanspharmacy.co.uk. Address reads correctly in all three on-page blocks
+      (two contact sections plus footer strip), '56-62 Sherwood House, Station Road,
+      Ainsdale, PR8 3HW'. Phone (01704 577376), email (pharmacy.FW378@nhs.net) and
+      opening hours (Mon-Fri 8:30am-1pm/2pm-6pm, Sat 9am-1pm/2pm-5:30pm, Sun closed)
+      all match branches.json exactly. No in-repo or live defect found, no new
+      question raised. Done 2026-11-23
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
