@@ -8,7 +8,7 @@ WORKLIST TICK (step 7): item 4.3 stays `[x]` (quality pass that proved a previou
 
 QUESTIONS (step 8): no new question raised this run. QUESTIONS.json unchanged: 148 total, 10 open (Q37, Q139-Q147).
 
-COMMIT/PUSH (step 9): [TO BE COMPLETED]
+COMMIT/PUSH (step 9): committed locally (ec1da43c) in the bash sandbox checkout after clearing a fresh .git/index.lock (created during this run's own git plumbing, bash sandbox EPERM-on-unlink mount quirk) via rename rather than delete, the established workaround - joins the existing pile of similarly-renamed debris already recorded against Q146, now 421 index.lock.debris-* files, not actioned further this run as out of scope for a single worklist item. git add/commit succeeded with three benign "unable to unlink tmp_obj" warnings and one for .git/HEAD.lock, none fatal. git push from the bash sandbox failed with the standing Q142 symptom ("could not read Username for 'https://github.com'"). Used the documented stopgap: mcp__Windows-MCP__PowerShell against the native checkout at C:\dev\rbh-site-data, confirmed to be the same working tree as the bash sandbox mount (its HEAD already showed ec1da43c before pushing). git push succeeded (b1ec530..ec1da43c agents/audit-backlog -> agents/audit-backlog); re-fetched and confirmed origin/agents/audit-backlog equals local HEAD (ec1da43c) both. PUBLISH (step 10): ran node tools/build-audit-status.js via the same Windows-MCP session; published reports/digital/Digital_Audit_Status.html (48/49 done, 98%) successfully. LOCK (step 11): .agent-lock to be released via the bash sandbox at run end (rename-tolerant handling if a direct unlink is blocked, matching step 1's handling).
 
 ---
 
