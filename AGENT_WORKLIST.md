@@ -3499,6 +3499,31 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       check-widget-diaries.js. QUESTIONS.json unchanged, still no new question
       raised. Full detail in audits/cherry-lane-walton-item-2.3-app-membership-
       2026-11-22.txt.]
+      Quality pass 2026-11-23 (Cowork scheduled run): all three remaining
+      worklist lines (5.8/Q16, 6.4/Q60, 6.5/Q60) confirmed [BLOCKED] by direct
+      grep, so the fallback applied. Rotation pool re-derived (41 items
+      excluding the 7 standing out-of-rotation items and the 3 blocked
+      lines); this item came out among the stalest, lowest-numbered among the
+      tie, so 2.3 wins the tiebreak. Baseline: full 35-checker suite (excl.
+      check-cdn-pins.js, check-live-hours.js, both network-dependent) re-run
+      directly against the tracked repo: 35/35 clean, unchanged. Live half:
+      Claude in Chrome, read-only, single tab, nothing clicked or typed,
+      closed after use - read index.html and contact-us.html, the two pages
+      the 2026-08-11 second pass reported as hand-fixed for the standing Q36
+      footer typo. Both have reverted: index.html's footer again reads
+      pharmacy.FA226@mhs.net, and contact-us.html now carries BOTH the
+      correct address (pharmacy.FA226@nhs.net, in the page's own "Contact
+      Us" block near the top) and the wrong one (pharmacy.FA226@mhs.net, in a
+      separate "Click below to make an appointment at any store" block lower
+      on the same page) at once - the page renders two independently-edited
+      address blocks rather than one shared footer element, so fixing one did
+      not fix the other even on the same page. Tenth and eleventh confirmed
+      page/occasion carrying the typo. Opening hours read live on both pages
+      match branches.json exactly (Mon-Fri 9am-6:30pm, Sat 9am-5pm, Sun
+      closed). Logged as an update to Q36 in QUESTIONS.json; no new question
+      raised, since Q36 already covers this and recommends the same Weebly
+      sweep. No in-repo defect found; no generator, page, sheet,
+      branches.json or checker content changed.
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
