@@ -1,0 +1,78 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree) - quality pass twenty-eighth, 2026-11-24
+Cowork scheduled run (audit-backlog-worker), repo half + fresh-angle injection + live half.
+
+SELECTION: pool-wide stalest-item ranking excluding the established one-off
+exclusion list (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8 - recorded 2026-08-30 as not
+part of the rotation pool). Within the rotation pool, items last touched
+2026-11-23 were stalest (3.12, 3.13, 4.1, 4.3, 5.4, 5.5, 6.1, 6.6, all tied);
+lowest item number, 3.12, picked per the standing tie-break convention.
+
+REPO HALF. branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+matching the standing anchor, unchanged. Full 35-checker non-network suite run
+individually (node tools/check-*.js, excluding check-cdn-pins.js and
+check-live-hours.js): 35/35 exit 0. check-cdn-pins.js run separately against
+origin/main baseline: clean, same 2 WARN/6 KNOWN as every prior baseline
+(Q45's switch-template/service.js @main split, the three emar/core asset refs
+with no composed expected ref). All six generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt from
+branches.json; git status --porcelain modules core empty afterwards (bar the
+pre-existing untracked modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+debris file, unrelated, not touched).
+
+FRESH ANGLE: tools/check-page-coverage.js, one of the nine checkers never
+previously proven by direct injection against this item (remaining list per
+the 2026-11-22/twenty-seventh pass: check-address-region, check-editor-snapshot,
+check-fragment-targets, check-gbp-pharmacy-first, check-page-coverage,
+check-pharmacy-first-cost, check-service-links, check-url-scheme,
+check-widget-diaries). Proved against a disposable git-archive scratch copy
+under /tmp (outside the connected mount and outside the tracked repo; the
+tracked repo was never opened for writing):
+  (1) INJECTION: moved earache-treatment-tiffenbergs-aintree.html out of
+      modules/service/pages/ on the scratch copy only (file removed from
+      disk, BUILD list in the generator untouched) - CAUGHT cleanly:
+      "PAGE_MISSING: Pharmacy First: modules/service/pages/earache-treatment-
+      tiffenbergs-aintree.html is earned by tiffenbergs_longmoor but is not
+      on disk." Exit 1.
+  (2) NEGATIVE CONTROL: appended a single trailing blank line to
+      sore-throat-treatment-tiffenbergs-aintree.html on the same scratch
+      copy (cosmetic, no content removed, earache file restored first so the
+      two tests did not overlap) - stayed clean, exit 0, "177 pages
+      accounted for".
+  Both files restored by copy and the scratch directory deleted afterwards
+  (/tmp is outside the connected mount, so normal rm worked there). Tracked
+  repo untouched throughout; git status/sha256 confirmed unchanged before and
+  after. Guard coverage for item 3.12 now extends to 26 of 36 checkers (eight
+  remain: check-address-region, check-editor-snapshot, check-fragment-targets,
+  check-gbp-pharmacy-first, check-pharmacy-first-cost, check-service-links,
+  check-url-scheme, check-widget-diaries).
+
+NO IN-REPO DEFECT FOUND on either the baseline suite or the fresh-angle
+injection.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use): read shingles-treatment-tiffenbergs-aintree.html,
+not covered by any prior pass (six of twelve pages were live-unread as of the
+2026-11-23 pass: earache and impetigo were read 2026-11-21/22, leaving
+shingles, sinusitis, sore throat and UTI; this pass reads shingles, leaving
+three). Verified field for field against branches.json (tiffenbergs_longmoor):
+title "Shingles treatment in Aintree - Tiffenbergs Chemist" matches the
+pattern; address "388 Longmoor Lane, Liverpool, L9 9DB" matches streetAddress/
+addressLocality/postalCode exactly; phone "0151 525 3462" matches; opening
+hours "Monday-Friday 9:00am-6:00pm (closed 1-2pm), Saturday/Sunday Closed"
+matches the two-session specification (09:00-13:00 and 14:00-18:00 Mon-Fri,
+closedDays Saturday/Sunday) exactly, lunch closure included; eligibility
+wording (18 and over, new rash seen ideally within 3 days, eye involvement and
+pregnancy/immunosuppression routed to urgent/GP care, under-18s to GP) matches
+the generator's static Pharmacy First copy; no medicine or brand name
+mentioned; no superlative or results claim; no stock guarantee; superintendent
+pharmacist detail (Dr S K Kochhar, GPhC 2039034) present and correct.
+
+STANDING, RECONFIRMED NOT NEW: the footer and contact-card email reads
+"tiffenbergs@rbhealth.co.uk" (plural) against branches.json's
+"Tiffenberg@rbhealth.co.uk" (singular) - this is the already-answered Q56
+finding (Rishi confirmed the singular mailbox is correct on 2026-09-29; the
+live pages remain unfixed pending a Weebly repaste session), reconfirmed
+present and unchanged on this page, not re-raised as new.
+
+NO NEW IN-REPO DEFECT, NO NEW LIVE DEFECT, NO NEW QUESTION RAISED.
