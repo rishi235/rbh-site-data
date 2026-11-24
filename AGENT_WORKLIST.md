@@ -19792,6 +19792,16 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       future pass. No live-site read this pass. Evidence: audits/gordon-
       short-crosby-item-3.11-quality-pass-2026-11-23-thirtythird.txt.
       Done 2026-11-23.
+      Quality pass 2026-11-24 (Cowork scheduled run, 19:17Z), narrow scope by
+      deliberate choice - see this run's AGENT_LOG.md entry for why. branches.json
+      sha256 0385b7c2...27da unchanged (confirmed directly). All 35 non-network
+      checkers run directly against the tracked repo: 35/35 exit 0, no change
+      from baseline. check-cdn-pins.js run separately: clean, same 2 WARN/6 KNOWN
+      as every prior baseline, none new. No live-site read this pass (this run's
+      time went on an infrastructure finding instead - a crashed prior run's
+      stale lock and a stuck git index lock, written up at the top of
+      AGENT_LOG.md rather than repeated here). NO IN-REPO DEFECT FOUND, NO NEW
+      QUESTION RAISED. Done 2026-11-24.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.
