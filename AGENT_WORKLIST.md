@@ -14476,6 +14476,16 @@ Done 2026-10-14 (twenty-third pass).
       FOUND. Evidence:
       audits/sk-chemists-item-3.8-weight-loss-jsonld-live-2026-11-23.txt.
       Done 2026-11-23.
+      Quality pass 2026-11-24 (Cowork scheduled run, repo-half only, no
+      browser this pass). Rotation pool at pickup was the 2026-11-23 tie
+      (3.8-3.13, 4.1-4.3, 5.4, 5.5, 6.1, 6.6); lowest-numbered picked. All 35
+      non-network checkers exit 0; check-cdn-pins.js separately clean, same
+      2 WARN/6 KNOWN as every prior run, none new. No generator, page, pack
+      or branches.json touched. This branch's live-side findings (pfLink
+      pre-5.3/Q34, switch pre-Q7/5.1 mojibake, weight-loss page's two-block
+      JSON-LD) were not re-checked this pass and should not be assumed
+      changed. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Done
+      2026-11-24.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
