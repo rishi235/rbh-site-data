@@ -45279,6 +45279,55 @@ audits/item-5.1-seo-pattern-injection-2026-11-24-thirtysecond.txt.
       Files changed: gbp-packs/coleman-leigh-walton.md,
       gbp-packs/smartts-bootle.md, AGENT_WORKLIST.md (this paragraph),
       AGENT_LOG.md.
+      QUALITY PASS 2026-11-24 (fallback rotation pick, stalest completed
+      item tied with 6.3 at 2026-11-22, lowest-numbered tiebreak). FRESH
+      ANGLE: tools/check-branch-links.js's own header comment records its
+      pfLink same-host sister-swap rule as "proved by injection" using
+      fishlocks_ainsdale/fishlocks_eccleston - a pair that is NOT one of
+      this item's eleven Post A branches. Across 2026-09-01's and
+      2026-09-14's repoints of five branch pairs/singles in this item
+      (both McCanns, both Scorah, Hirshmans, Riddings, SK, Tiffenbergs),
+      and the 2026-11-22 pass confirming all eleven, nobody had proved
+      the rule against item 5.3's OWN shared-host data by direct
+      injection - only against the unrelated Fishlocks pair the rule was
+      originally written with. Built a scratch copy via `git archive
+      HEAD | tar -x` into .scratch_tmp/scratch_53/ (tracked repo never
+      opened for writing); branches.json sha256 confirmed identical to
+      the standing anchor (0385b7c2...27da) before editing. Baseline:
+      check-branch-links.js clean (1 pre-existing WARN, Clear Chemist
+      Aintree's missing nhsReviewUrl, already tracked). INJECTION ONE:
+      swapped scorah_bramhall.pfLink to scorah_hazel's own
+      pharmacy-first-scorah-hazel-grove.html (same host,
+      scorah-chemists.co.uk) - CAUGHT, first attempt, exit 1, naming both
+      branches correctly and the shared host. Restored from the tracked
+      repo's own branches.json (`git show HEAD:branches.json`), sha256
+      reconfirmed identical. INJECTION TWO (negative-control pair,
+      confirms the rule generalises beyond Scorah): swapped
+      mccanns_aigburth.pfLink to mccanns_sandringham's own
+      pharmacy-first-mccanns-sandringham.html (same host,
+      mccannspharmacy.co.uk) - CAUGHT, first attempt, exit 1, same shape
+      of failure. Restored the same way, sha256 reconfirmed identical
+      again. Both of item 5.3's shared-host pairs are now proven by
+      direct injection; the rule's only working proof previously sat
+      outside this item entirely. Full 35-checker suite (excluding
+      check-cdn-pins.js and check-live-hours.js) re-run on the restored
+      scratch copy: 35/35 exit 0. Tracked repo confirmed untouched
+      throughout: `git status --porcelain` on modules/core/tools/
+      gbp-packs/compliance/branches.json showed only the pre-existing
+      untracked pharmacy-first-mccanns-sandringham.html.goldenbak debris
+      (unrelated, logged by prior passes); branches.json sha256 unchanged
+      end to end. NO IN-REPO DEFECT FOUND; this item's own data is now
+      directly exercised against the rule that protects it, closing the
+      one proof gap the checker's own header comment had left open since
+      2026-08-12. NO NEW QUESTION RAISED. LIVE HALF: not attempted this
+      pass (no browser tooling invoked); the standing outstanding
+      sub-states for this item (Smartts Bootle live hours/email
+      mismatch, flagged on its pack, live-only, no repo file carries the
+      string) stand unclaimed and unchanged, no new live claim made.
+      Scratch directory could not be deleted afterwards (the bash
+      mount's persistent unlink/EPERM quirk, Q142/Q146 - same standing
+      behaviour every recent pass has hit); left in .scratch_tmp/, which
+      is gitignored, so it reaches no tracked file or commit.
 - [x] 5.4 Q9 add a signpost paragraph and a button to the new
       Pharmacy First page at the top of the old Cherry Lane Pharmacy First
       page, keeping the existing video and booking widget underneath.
