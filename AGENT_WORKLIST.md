@@ -16318,6 +16318,30 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       tools empty throughout. Evidence in audits/coleman-leighs-item-3.9-
       quality-pass-2026-11-23-thirtysecond.txt.
       Done 2026-11-23.
+      Quality pass 2026-11-24 (Cowork scheduled run, 16:43Z). Picked as the
+      oldest-dated item in the live rotation pool (worklist's 3 remaining
+      unchecked lines - 5.8/Q16, 6.4/Q60, 6.5/Q60 - all still [BLOCKED];
+      every other completed item already re-verified today or carries one of
+      the three standing malformed-date substrings). MINIMAL BASELINE ONLY,
+      no fresh injection or new live sample this pass: branches.json sha256
+      0385b7c2...27da unchanged; all 35 non-network checkers run directly
+      against the tracked repo, 35/35 exit 0; check-cdn-pins.js clean, same 2
+      WARN/6 KNOWN as every prior baseline (Q45 switch-template split, the
+      three emar/core asset refs with no generator to compose an expected
+      pin from, the @main branches.json runtime-fetch warning); check-live-
+      hours.js ran successfully this pass (network reachable) and wrote
+      audits/live-hours-check-2026-11-24.json for all 14 branches, no parse
+      failure. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. QUESTIONS.json
+      unchanged: 148 of 149 answered, the one exception (Q148) being this
+      run's own bash-sandbox git-push-credential gap, not a portal decision.
+      Not repeated this pass, consistent with every run since 2026-11-23: a
+      fresh scheduled-tasks pause attempt (Rishi's answered Q147 asked for
+      reduced cadence; every attempt to self-action it has been auto-declined
+      as a mutation an unattended run cannot approve) or a further live-page
+      sample for this branch, since neither would add information beyond
+      what the thirty-second pass already recorded. git status --porcelain
+      -- modules core branches.json gbp-packs tools empty throughout.
+      Done 2026-11-24.
 
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
