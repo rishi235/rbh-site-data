@@ -38201,6 +38201,53 @@ directly rather than re-deriving the same facts by hand.
       DEFECT FOUND. NO NEW QUESTION RAISED. Evidence:
       audits/gordon-short-item-4.14-jsonld-injection-2026-11-22.txt. Done
       2026-11-22.
+      Quality pass 2026-11-24 (unattended scheduled run): full 35-checker
+      suite re-run, 35/35 exit 0; branches.json sha256 unchanged
+      (0385b7c2...27da). FRESH ANGLE: re-derived from checker source (not a
+      literal-string grep, which gives false positives - see below) the full
+      list of checkers that genuinely read gbp-packs/*.md: all ten
+      (check-app-membership, check-brand-spelling, check-em-dashes,
+      check-gbp-packs, check-gbp-pharmacy-first, check-pharmacy-first-cost,
+      check-pharmacy-first-eligibility, check-postcodes, check-uk-spelling,
+      check-url-scheme) have already been proven by direct injection against
+      this exact pack across prior passes, so no further injection was run.
+      METHODOLOGY NOTE: check-nap.js was first considered a candidate
+      because a repo-wide grep for the string "gbp-packs" matched it; reading
+      its source showed the only match is a comment, and injecting a wrong
+      phone into this pack on a scratch copy confirmed check-nap.js still
+      exits 0 - it never reads gbp-packs/ at all (its PAGE_DIRS cover only
+      modules/service, switch and branch pages plus three named paste
+      blocks). Not a defect - check-gbp-packs.js is the correct, already-
+      proven owner of pack phone numbers - but logged so a future pass does
+      not repeat the same false premise. Scratch copy restored by byte copy,
+      sha256-reconfirmed identical, tracked repo never opened for writing.
+      LIVE HALF (Claude in Chrome, read-only, two tabs, nothing clicked,
+      typed or submitted, closed after use): gordonshortchemist.co.uk
+      re-read in full - address, phone and all four opening-hours sessions
+      (including both lunch closures) match branches.json exactly; no
+      locked-door fault on this branch. Live email appears as lowercase
+      "shorts@rbhealth.co.uk" against branches.json's "Shorts@rbhealth.co.uk"
+      - same estate-wide case-variance pattern already logged elsewhere, not
+      new. SEPARATELY, followed the pack's own googleReviewUrl to the actual
+      Google Business Profile listing for the FIRST TIME this item's full
+      pass history has ever opened it (every earlier pass checked only the
+      URL string, not the listing itself). Address, phone and website all
+      match. FINDING: the listing's business NAME reads "Gordon Short
+      Chemist - Travel Vaccination and Simple Weight Loss Clinic" instead of
+      the correct "Gordon Short Chemist" - the identical policy-breaching
+      pattern already raised and answered as Q145 (Fishlocks Chemist,
+      Eccleston) and independently reconfirmed elsewhere in this file on
+      Hirshmans Pharmacy, McCanns Pharmacy (Sandringham), Smartts Chemist and
+      S K Chemist; Gordon Short Chemist, Crosby is now a further confirmed
+      instance. No repo checker can ever reach a live GBP listing's name
+      field, so this is logged as additional evidence under the
+      already-answered Q145 rather than a new question - Q145's answer
+      (supervised sign-off before any live edit) already covers the decision
+      this finding needs. NOT ACTIONED (outside this worker's remit; no
+      autonomous window open this run in any case). NO IN-REPO DEFECT FOUND.
+      NO NEW QUESTION RAISED; QUESTIONS.json unchanged, 0 of 148 open.
+      Evidence: audits/gordon-short-item-4.14-live-gbp-name-2026-11-24.txt.
+      Done 2026-11-24.
 - [x] 4.15 Tiffenbergs Chemist Aintree pack. Done 2026-08-04. Leads with
       Aintree per seoTown; lunch-closure hours flagged for GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

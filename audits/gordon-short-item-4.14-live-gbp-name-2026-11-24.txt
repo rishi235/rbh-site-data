@@ -1,0 +1,108 @@
+Item 4.14 (Gordon Short Chemist, Crosby GBP pack) - quality pass, 2026-11-24
+
+SCOPE: quality-pass fallback run (all 3 remaining AGENT_WORKLIST.md lines
+confirmed [BLOCKED]: 5.8/Q16, 6.4/Q60, 6.5/Q60). Rotation pool re-derived from
+AGENT_WORKLIST.md's own dated section headers (max valid date per item,
+excluding the 7 standing out-of-rotation items and the 3 blocked items):
+stalest tied pool {4.14, 4.15, 5.1, 5.2, 5.3, 6.2, 6.3} at 2026-11-22 (item
+4.13 dropped out, having been taken by the immediately prior run today).
+Lowest-numbered tiebreak: 4.14.
+
+BASELINE: full non-network checker suite (all tools/check-*.js excluding
+check-cdn-pins.js and check-live-hours.js) run individually on the tracked
+repo: 35/35 exit 0. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+every prior anchor quoted across this item's history.
+
+FRESH-ANGLE CHECK (repo side): re-derived, from the checker SOURCE rather
+than from a grep for the literal string "gbp-packs" (which produced a false
+positive, see below), the full list of checkers that genuinely read
+gbp-packs/*.md (by grep for the actual PACK_DIR/path.join(ROOT,"gbp-packs")
+assignment): check-app-membership.js, check-brand-spelling.js,
+check-em-dashes.js, check-gbp-packs.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-cost.js, check-pharmacy-first-eligibility.js,
+check-postcodes.js, check-uk-spelling.js, check-url-scheme.js - ten in total.
+Cross-checked against this item's own history: all ten have already been
+proven by direct injection against this exact pack across prior passes (the
+five check-postcodes.js live-branch rules alone across three earlier passes,
+plus check-gbp-packs.js's body-image/EFFICACY_FAIL/OUTCOME_PROMISE rules).
+No further injection round was run this pass against any of these ten, since
+repeating an already-proven injection adds no new information.
+
+METHODOLOGY NOTE (worth carrying forward, same shape as the CLAUDE.md lesson
+"when a checker passes, ask which files it read"): check-nap.js was initially
+considered a candidate fresh angle, because a repo-wide `grep -l "gbp-packs"
+tools/check-*.js` listed it. Reading check-nap.js's own source showed its
+only match is a comment at line 757 ("...and gbp-packs/ ... all 177 generated
+pages...") - it never opens the gbp-packs directory. Confirmed empirically:
+on a git-archive scratch copy (/tmp/scratch_414, never the tracked repo),
+gbp-packs/gordon-short-crosby.md's own phone line was changed from the
+correct "0151 924 3449" to a different branch's number, "0151 226 2051", and
+check-nap.js was re-run - it still exited 0, because its PAGE_DIRS array
+(modules/service/pages, modules/switch/pages, modules/branch/pages) and its
+paste-block list (modules/service/weebly-paste, modules/switch/weebly.html,
+modules/emar/weebly) never include gbp-packs at all. This is not a checker
+defect: check-gbp-packs.js is the correct, already-proven owner of pack phone
+numbers. It is a correction to this pass's own working method, logged so a
+future pass does not waste an injection round on the same false premise. The
+scratch copy was restored by byte copy and sha256-reconfirmed identical
+(36b001619c22641c077ae241b4947f72c48240f391b38e69995344d634b53ffa) before
+being deleted; the tracked repo's gbp-packs/gordon-short-crosby.md was never
+opened for writing.
+
+LIVE HALF (Claude in Chrome, read-only throughout; two tabs, nothing
+clicked, typed or submitted; closed after use):
+
+(1) https://www.gordonshortchemist.co.uk/ re-read in full. Address "159
+College Road, Great Crosby, Liverpool L23 3AT" matches streetAddress/
+addressLocality/postalCode. Phone "0151 924 3449" matches. Opening hours
+block states all four sessions correctly, including both lunch closures:
+"Monday 9:00am - 6:00pm (closed 1-2pm)" through Friday, "Saturday 9:00am -
+5:00pm (closed 1-2pm)", "Sunday Closed" - an exact match for branches.json's
+specification (Mon-Fri 09:00-13:00 and 14:00-18:00, Sat 09:00-13:00 and
+14:00-17:00, Sunday in closedDays). This branch's live site does NOT have the
+single-range locked-door fault found elsewhere in the estate (e.g. Smartts
+Bootle, Q55) - its lunch closure is correctly shown on both weekdays and
+Saturday. Footer superintendent/company details (Dr S K Kochhar, GPhC
+2039034, RB Healthcare Ltd, Company No 06223421) read as standard estate
+furniture, consistent with other branches' footers. Email appears twice on
+this page as lowercase "shorts@rbhealth.co.uk", against branches.json's
+"Shorts@rbhealth.co.uk" (capital S) - the same estate-wide email-case
+variance already logged on other branches (e.g. Smartts' "Smartts@" case
+mismatch, item 4.10 quality pass note) rather than a new defect; not
+escalated separately.
+
+(2) https://g.page/r/CZcVDM6emi6OEAE/review followed to the live Google
+Business Profile listing for Gordon Short Chemist, Crosby, for the FIRST TIME
+across this item's full pass history (every earlier pass checked the
+googleReviewUrl value for an exact string match against branches.json and
+the pack, but none had previously opened the actual listing). Address "159
+College Rd, Crosby, Liverpool L23 3AT", phone "0151 924 3449" and website
+"gordonshortchemist.co.uk" all match branches.json exactly. "Closed · Opens 9
+am" reads as consistent with the Tuesday hours shown.
+
+FINDING (not new in kind, reconfirming an already-answered question on a
+branch not previously checked): the listing's business NAME field reads
+"Gordon Short Chemist - Travel Vaccination and Simple Weight Loss Clinic"
+rather than the correct "Gordon Short Chemist" that branches.json and the
+pack's own profile-basics line both state. This is the identical
+policy-breaching pattern raised as Q145 (Fishlocks Chemist, Eccleston,
+2026-11-22, answered 2026-11-23: "ask the superintendent pharmacist / whoever
+is reviewing the SWL pause to sign off on the exact replacement name before
+anyone edits the live profile") and independently reconfirmed, per this
+item's own worklist text, on at least Hirshmans Pharmacy (Ainsdale), McCanns
+Pharmacy (Sandringham), Smartts Chemist (Bootle) and S K Chemist (Bootle) -
+Gordon Short Chemist, Crosby is now a sixth confirmed instance. No repo
+checker reads a live GBP listing's name field (nothing in this repo
+generates or validates it), so this remains outside what any tools/check-*.js
+file could ever catch; it is logged here as evidence, not as a new question,
+since Q145's answer already names the decision this finding needs and
+applying it branch-by-branch (rather than reopening the decision each time a
+new branch is read) is the efficient path. NOT ACTIONED: editing a live
+Google Business Profile is outside this worker's remit even during an
+autonomous window (no such window was open this run in any case), and in any
+event Q145's own answer requires supervised sign-off first.
+
+RESULT: NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED (this finding is
+additional confirming evidence under the already-answered Q145, not a fresh
+decision point). QUESTIONS.json unchanged, still 0 of 148 open.
