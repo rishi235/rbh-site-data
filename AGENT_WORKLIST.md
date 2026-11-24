@@ -26226,6 +26226,91 @@ Quality pass 2026-11-22 (twenty-fifth, unattended scheduled run): BASELINE,
       pattern. No new in-repo or live defect found, no new question raised;
       QUESTIONS.json unchanged at 147 total, 9 open. Files changed:
       AGENT_WORKLIST.md (this paragraph), AGENT_LOG.md (this run's entry).
+QUALITY PASS 2026-11-24 (unattended scheduled run, first run of this new
+      day, twenty-sixth pass on this item): BASELINE, tracked repo: all 36
+      non-network checkers (every tools/check-*.js except check-live-hours.js)
+      run individually, 36/36 clean; branches.json sha256 unchanged
+      (0385b7c2...27da) from every prior pass on record. ITEM SELECTION:
+      since this was the first run of 2026-11-24, no item had yet been
+      touched today; the "last dated note" header inside every item's own
+      section was extracted programmatically for the full non-out-of-
+      rotation, non-blocked pool (out-of-rotation: 1.1, 1.4, 2.2, 5.6, 5.7,
+      6.7, 6.8; blocked: 5.8/Q16, 6.4/Q60, 6.5/Q60). Seventeen items were
+      tied as the stalest, all last touched 2026-11-22 with no 2026-11-23
+      touch recorded anywhere in their own section text: 4.4-4.15, 5.1-5.3
+      and 6.2. Lowest-numbered tiebreak, matching this item's own established
+      practice: 4.4 (Scorah Chemists Bramhall pack).
+      FRESH ANGLE: of the 35 non-network checkers, 20 were already proven by
+      direct injection against this specific branch (scorah_bramhall) across
+      the first twenty-five passes, the most recent addition being
+      check-booking-routes.js on the 2026-11-22 pass. check-branch-identity.js
+      had never been injection-tested against this branch specifically,
+      despite CLAUDE.md naming the Scorah pair explicitly as one of the three
+      shared-brand, shared-domain cases this checker exists to guard (Scorah
+      Bramhall and Scorah Hazel Grove share brandLabel "Scorah Chemists" and
+      website scorah-chemists.co.uk). Picked it as the highest-value unproven
+      angle for this item.
+      Proved by injection on a disposable scratch copy, built via
+      `git archive HEAD | tar -x` into the outputs scratchpad mount (the
+      sandbox's own /sessions mount again had no writable /tmp this run -
+      same standing condition recorded on 2026-08-30 and repeated since;
+      worked around the same way, in the outputs mount, with the tracked
+      repo never opened for writing). Scratch branches.json sha256 matched
+      the tracked repo exactly before any edit. Target page:
+      modules/service/pages/travel-clinic-scorah-bramhall.html (data-branch
+      "Scorah Chemists Bramhall", JSON-LD name "Scorah Chemists Bramhall").
+      Four cases, each restored and sha256-reconfirmed byte-identical to the
+      original before the next: (1) DATA-BRANCH - changed data-branch to the
+      sister branch's full name, "Scorah Chemists Hazel Grove" - CAUGHT first
+      attempt, both the per-page rule (enquiry filed against the wrong
+      pharmacy) and the estate-wide rule (one branch declaring two different
+      data-branch values across its own pages); (2) JSON-LD NAME - changed
+      JSON-LD name the same way - CAUGHT first attempt, the per-page rule,
+      the estate-wide one-branch-two-names rule, and the two-branches-one-
+      host rule (Google handed two Pharmacy records with one name and two
+      addresses); (3) BARE BRANDLABEL - changed JSON-LD name from the full
+      branchName down to the bare shared brandLabel "Scorah Chemists" -
+      CAUGHT first attempt, the exact fault this checker's "bare brandLabel
+      names two shops" rule exists for; (4) CONTROL - a benign body-paragraph
+      whitespace edit to the booking heading, touching no data-branch,
+      data-service or JSON-LD markup - passed clean on check-branch-
+      identity.js, confirming the three catches were genuine rule hits and
+      not noise. All four fired or passed on the intended rule, first
+      attempt. Final sha256 of the target file reconfirmed identical to
+      baseline after all four cases; full 35-checker non-network suite
+      re-run clean on the scratch copy after restore (one apparent failure,
+      check-cdn-pins.js, is explained below and is not a defect).
+      NOTE ON check-cdn-pins.js IN A git-archive SCRATCH COPY: the
+      post-restore full-suite re-run flagged 6 failures in check-cdn-pins.js,
+      all "ref does not resolve in git". This is an artifact of the scratch
+      method, not a finding: `git archive HEAD | tar -x` produces a plain
+      file tree with no .git directory, so any checker that resolves a pin
+      ref against the local git object store (not a network call) fails
+      every ref lookup inside that directory regardless of content. The
+      tracked repo's own baseline run, earlier in this same pass, included
+      check-cdn-pins.js and was clean (36/36, see BASELINE above). Logged
+      here so a future pass does not mistake this for a drift between
+      scratch and tracked copies; worth carrying forward into this item's
+      own method notes the way the zero-free-space workaround already is.
+      Scratch directory and its baseline/case logs deleted from the outputs
+      mount after use; tracked repo confirmed untouched throughout and after
+      (`git status --porcelain -- branches.json tools modules gbp-packs`
+      showed only a single pre-existing, unrelated untracked debris file,
+      modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+      not anything touched this pass). No checker logic, generator, page,
+      pack or branches.json content changed in the tracked repo. Guard
+      coverage for item 4.4 now 21 of 35 checkers proven by injection
+      against this specific branch (up from 20).
+      ANSWER PICKUP cross-check (this run): QUESTIONS.json confirmed 148
+      total, 0 open - no answer pickup attempted per procedure, correctly.
+      LIVE HALF: not attempted this pass - this run's time budget went to
+      the fresh repo-side injection angle above; live-read coverage for this
+      branch and the standing Q43 live-copy gap (Bramhall's Weebly contact
+      block reading Cheshire against branches.json's Greater Manchester, plus
+      the truncated house number) stand unchanged from the 2026-11-22 pass.
+      No new in-repo or live defect found, no new question raised;
+      QUESTIONS.json unchanged at 148 total, 0 open. Files changed:
+      AGENT_WORKLIST.md (this paragraph), AGENT_LOG.md (this run's entry).
 - [x] 4.5 Scorah Chemists Hazel Grove pack. Done 2026-08-04. gbp-packs/
       scorah-hazel-grove.md. Facts from branches.json; same service set as
       Bramhall (BP checks, contraception, PF, weight loss, travel). Paster
