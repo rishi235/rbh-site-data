@@ -29440,6 +29440,54 @@ directly rather than re-deriving the same facts by hand.
       written (injection and restore both logged here in full, same
       convention as several prior passes with no distinct finding). Done
       2026-11-22.
+      QUALITY PASS 2026-11-24 (Cowork scheduled run, 01:42Z, seventeenth
+      pass): baseline confirmed first (branches.json sha256
+      0385b7c2...27da unchanged, matching every prior anchor; full 35-
+      checker non-network suite run directly against the tracked repo,
+      clean). FRESH ANGLE: check-pharmacy-first-safety-net.js, never
+      previously tried by injection against this item (estate-wide runs
+      only). Scratch copy via `git archive HEAD` to a disposable /tmp
+      directory (tracked repo never opened for writing). INJECTION:
+      reworded the eye-rash eligibleNo point on
+      shingles-treatment-mccanns-sandringham.html to drop every onward
+      NHS route ("urgent attention, please seek help as soon as possible
+      today" in place of "urgent help, contact your GP or NHS 111 the
+      same day") - caught cleanly, first attempt, one FAIL naming the
+      exact file and the expected verbatim text (rule 6). Restored,
+      sha256-reconfirmed identical (c488df07...a7baf6a66) before
+      the negative control. NEGATIVE CONTROL: a cosmetic HTML comment
+      after the "When to get different help" heading stayed clean (exit
+      0). Full non-network suite re-run on the restored scratch copy: all
+      35 clean. Tracked repo reconfirmed untouched throughout
+      (branches.json, the pack and all four files checked by hash
+      sha256-unchanged; `git status --porcelain` on the specific files
+      touched showed nothing). NO IN-REPO DEFECT FOUND. LIVE HALF (Claude
+      in Chrome, read-only, one tab, nothing clicked or typed, closed
+      after use): fetched shingles-treatment-mccanns-sandringham.html on
+      mccannspharmacy.co.uk for the first time in this item's pass
+      history (prior passes checked the pharmacy-first overview page, not
+      this condition page). Address, phone (0151 727 3076), the eye-rash
+      and under-18 safety-net points and the pregnancy/immune-system line
+      all match branches.json and the repo's generated page exactly. The
+      page's title and H1 still read "Shingles treatment in Sandringham"
+      live, not "Shingles treatment in St Michael's" as the repo and
+      paste sheet correctly carry since item 5.7 - this is the same
+      standing queued 5.7/Q15 repaste already recorded against every
+      other McCanns Sandringham page in this item's history, reconfirmed
+      present and unchanged on a page not previously named, not logged as
+      a new question. The shared footer's "Sandrigham" typo (standing
+      Q144, already open) was also reconfirmed present and unchanged.
+      Answer pickup (step 3): QUESTIONS.json read directly (148 entries,
+      0 open) rather than via portal fetch, since no open question exists
+      to answer. Guard coverage for item 4.7 now also extends to
+      check-pharmacy-first-safety-net.js; check-pharmacy-first-symptoms.js,
+      check-editor-snapshot.js and check-weebly-furniture-freshness.js
+      (estate-wide only, not by injection against this specific branch)
+      remain untried against this item for a future pass. No new
+      question. Evidence: AGENT_LOG.md this run; no separate audit file
+      written (injection and restore both logged here in full, same
+      convention as several prior passes with no distinct finding). Done
+      2026-11-24.
 - [x] 4.8 Fishlocks Chemist Eccleston pack. Done 2026-08-04. Strictly
       Eccleston facts; profile website set to the new branch landing page.
       Quality pass 2026-08-10: no defect found in the pack. Verified fact by
