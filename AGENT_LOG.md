@@ -8,9 +8,9 @@ OBSERVATION CARRIED FORWARD, NOT ACTIONED: as in every recent run's note, the wo
 
 FILES CHANGED: tools/check-address-region.js (one-line logic fix plus an explanatory comment - a real, if minor, checker defect corrected), AGENT_WORKLIST.md (item 4.9 quality-pass note), AGENT_LOG.md (this entry). branches.json and gbp-packs/clear-aintree.md untouched. Item 4.9 stays [x] (quality pass; the fix is to the checker, not a worklist state change).
 
-COMMIT/PUSH (step 9) AND PUBLISH (step 10): see below once completed this run.
+COMMIT/PUSH (step 9) AND PUBLISH (step 10): bash-sandbox git add/commit blocked by a .git/index.lock (created ~02:43:54Z, only ~5 minutes old at the time, well under the 1-hour staleness threshold; confirmed via ps that no git process was actually running). The bash mount's own unlink on this file returned "Operation not permitted" - the same documented ghost-lock mount quirk prior runs have hit (the file exists on disk but the sandbox cannot remove it, while git itself refuses to write through it for add/commit, unlike read-only commands such as status which worked fine throughout). Per the established Q142 stopgap, switched to mcp__Windows-MCP__PowerShell against the native checkout at C:\Dev\rbh-site-data, which shares the same working tree and had the identical lock file; PowerShell's Remove-Item deleted it without issue (normal Windows-side permissions, unlike the sandbox mount), confirmed first that no git process was running before removing it. git add + commit then succeeded cleanly: commit 44e3502 ("Item 4.9 quality pass (30th): fix check-address-region.js..."), 3 files changed (AGENT_LOG.md, AGENT_WORKLIST.md, tools/check-address-region.js). git push origin agents/audit-backlog succeeded (PowerShell's stderr-capture of git's normal progress output looked like an error at a glance but `git rev-parse HEAD` vs `git rev-parse origin/agents/audit-backlog` after a fresh fetch both resolved to 44e3502, confirming the push landed cleanly). node tools/build-audit-status.js then published reports/digital/Digital_Audit_Status.html via the native checkout's already-authenticated credentials: "Published ... (47/48 done, 98%)".
 
-LOCK (step 11): .agent-lock to be released at run end.
+LOCK (step 11): .agent-lock released at run end (see below).
 
 ---
 
