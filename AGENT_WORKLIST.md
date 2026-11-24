@@ -27232,6 +27232,37 @@ Quality pass 2026-11-22 (twenty-ninth, unattended scheduled run): FRESH
       uk-spelling-injection-2026-11-22.txt.
       Done 2026-11-22.
 
+Quality pass 2026-11-24 (thirtieth, unattended scheduled run): FRESH ANGLE,
+      tools/check-em-dashes.js, confirmed never previously named against this
+      item across 29 prior passes despite its own PACK_DIR constant reading
+      gbp-packs/ directly. BASELINE: branches.json sha256
+      0385b7c2...27da (standing anchor, unchanged), the pack's own sha256
+      a9f6deb4...e105d84 (unchanged), full 35-checker non-network suite clean
+      on the tracked repo (35/35 exit 0), git status --porcelain on modules
+      core branches.json gbp-packs tools compliance empty bar one
+      pre-existing unrelated debris file. INJECTION, against a git-archive
+      HEAD scratch copy under /tmp (the bash mount's own working directory
+      reported "No space left on device" at pickup; tracked repo never
+      opened for writing): two positive cases on the business description's
+      "Our sister branch is in Bramhall." sentence - a literal U+2014 em
+      dash, and the &mdash; HTML entity form - both CAUGHT cleanly, each
+      naming the file, line 29 and the exact character class. NEGATIVE
+      CONTROL: an unrelated ASCII-hyphen wording tweak to the closing
+      sentence stayed clean, confirming no cross-fire. Scratch copy restored
+      by byte copy after each case, sha256-reconfirmed identical to the
+      pre-injection hash every time; full 35-checker suite re-run clean on
+      the scratch copy afterwards; scratch directory deleted. Tracked repo
+      reconfirmed unchanged throughout. NO IN-REPO DEFECT FOUND. Guard
+      coverage for item 4.5 now extends to check-em-dashes.js by direct
+      injection. LIVE HALF: not attempted this pass (unattended run); live
+      state stands as last recorded 2026-11-22 (shared-footer "Scorah
+      Chemist" singular drift and the Bramhall contact block's "Cheshire
+      SK7 3LQ" vs branches.json's Greater Manchester, both standing, neither
+      re-raised). No generator, page, pack, checker or branches.json content
+      changed. No new question. Evidence: audits/scorah-hazel-grove-item-4.5-
+      em-dashes-injection-2026-11-24.txt.
+      Done 2026-11-24.
+
 - [x] 4.6 McCanns Chemist Aigburth pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and found correct on address, postcode, phone, hours

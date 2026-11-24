@@ -1,0 +1,69 @@
+Item 4.5 (Scorah Chemists Hazel Grove, GBP pack) - quality pass (thirtieth),
+2026-11-24T00:46Z, unattended scheduled run (audit-backlog-worker).
+
+FRESH ANGLE: tools/check-em-dashes.js, never previously proven by direct
+injection against gbp-packs/scorah-hazel-grove.md across 29 prior passes on
+this item (grepped the full item-4.5 section of AGENT_WORKLIST.md for
+"check-em-dashes" - zero hits before this pass, despite the checker's own
+PACK_DIR constant confirming it reads gbp-packs/ directly for exactly this
+rule).
+
+BASELINE (before any work):
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da (standing anchor, unchanged)
+- gbp-packs/scorah-hazel-grove.md sha256: a9f6deb42dccbde8e510e5977151d954341067b92498edfd2d24a9651e105d84 (standing anchor, unchanged)
+- Full 35-checker non-network suite (every tools/check-*.js except
+  check-cdn-pins.js and check-live-hours.js, both network-dependent) run
+  individually on the tracked repo: 35/35 exit 0.
+- git status --porcelain on branches.json tools modules compliance gbp-packs
+  core: clean bar one pre-existing unrelated untracked file
+  (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak),
+  not touched by this pass.
+
+METHOD: scratch copy via `git archive HEAD | tar -x` into a disposable /tmp
+directory (the bash mount's own working directory, /sessions/..., reported
+"No space left on device" at pickup - worked around by using /tmp instead,
+which had free space; the tracked repo was never opened for writing at any
+point). Scratch copy's branches.json and pack sha256 both confirmed to match
+the tracked anchors immediately after extraction.
+
+INJECTION CASE 1 (literal em dash, U+2014): in the business description,
+changed "Our sister branch is in Bramhall. The team is here..." to "Our
+sister branch is in Bramhall — a short drive away. The team is here...".
+Result: CAUGHT. Exit code non-zero in substance (FAILURES (1) reported),
+naming the exact file, line 29, the character class ("in GBP pack (non-ASCII
+U+2014)") and the exact offending sentence. Restored by byte copy from
+`git show HEAD:gbp-packs/scorah-hazel-grove.md` (not `git checkout`);
+sha256 reconfirmed identical to the pre-injection hash.
+
+INJECTION CASE 2 (HTML entity form, &mdash;): same sentence, using
+"Bramhall &mdash; close by." instead. Result: CAUGHT, naming the file, line
+29 and the character class ("em dash (HTML entity), which would paste
+literally)"), confirming the checker catches both the literal character and
+the escaped entity form, consistent with CLAUDE.md's description of this
+rule ("no em or en dash reaches public copy ... literal or HTML entity").
+Restored by byte copy; sha256 reconfirmed identical.
+
+NEGATIVE CONTROL: an unrelated, cosmetic wording change to the same
+sentence - "always happy to help." to "always happy to help - just ask."
+(an ordinary ASCII hyphen, not an en or em dash) - ran clean (exit 0,
+"no em or en dashes in public copy"), confirming the checker does not
+false-positive on an ordinary hyphen and that only the two deliberately
+injected dash characters triggered it.
+
+Restored by byte copy after every case; sha256 reconfirmed identical to the
+pre-injection hash each time. Scratch copy's own full 35-checker suite
+re-run clean after the last restore (35/35 exit 0). Scratch directory then
+deleted.
+
+TRACKED REPO: confirmed untouched throughout - branches.json and the pack's
+own sha256 both unchanged at the end, git status --porcelain on the same
+paths unchanged (same single pre-existing debris file, nothing new).
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Guard coverage for item 4.5
+now extends to check-em-dashes.js by direct injection.
+
+LIVE HALF: not attempted this pass (unattended run, no browser tab group
+requested); live state stands as last recorded on the 2026-11-22 pass (the
+shared footer's "Scorah Chemist" singular drift and the Bramhall contact
+block's "Cheshire SK7 3LQ" vs branches.json's Greater Manchester, both
+standing, neither re-raised as new).
