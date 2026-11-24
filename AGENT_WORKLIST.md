@@ -11615,6 +11615,44 @@ audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.
       raised - a queued item landing live is progress on 5.7/Q15, not a fresh
       finding. Evidence in
       audits/mccanns-item-3.6-drift-recheck-2026-11-23.txt.
+      Quality pass 2026-11-24 (thirty-second, unattended scheduled run).
+      Rotation-pool pick: stalest pool at 2026-11-23 was {3.6-3.13, 4.1-4.3,
+      5.4, 5.5, 6.1, 6.6} (3.1 and 6.3 excluded, both carry a known
+      malformed "2026-12-28" date substring, not a genuine date; items
+      already touched earlier today excluded too); 3.6 wins the
+      lowest-item-number tiebreak. Checker coverage already exhausted (all
+      37 tools/check-*.js proven by direct injection as of the 29th pass),
+      so this pass re-verified the baseline (branches.json sha256
+      0385b7c2...27da unchanged; 35/35 non-network checkers exit 0;
+      check-cdn-pins.js clean, same 2 WARN/6 KNOWN, none new) and put its
+      effort into fresh live-read coverage. LIVE HALF (Claude in Chrome,
+      read-only, one tab per page, nothing clicked or typed, closed after
+      use): read pharmacy-first-mccanns-aigburth.html and
+      switch-prescriptions-mccanns-aigburth.html in full, neither sampled
+      by any of the 31 prior passes. Both match branches.json and their
+      generators' current output exactly (address, phone, hours, hero,
+      seven-conditions block on the Pharmacy First page; hero-proof text,
+      form and WhatsApp/callback controls on the switch page). GENUINE
+      POSITIVE CONFIRMATION: the switch page's hero-proof reads live as
+      the Q49-hedged string ("We contact your GP where it is needed. We
+      handle what we can. We will tell you if anything else is needed."),
+      byte-identical to tools/build-switch-pages.js and to the generated
+      page - the Q49 fix (answered 2026-09-01) is confirmed live for this
+      branch. Both pages' shared Weebly contact-card footer reconfirms the
+      standing "Sandrigham" typo (Q144) and "McCann's Pharmacy" apostrophe
+      branding (Q39) on the Sandringham block - neither new, neither
+      re-raised; confirmed this wording is hand-typed furniture outside
+      this repo, since branches.json's mccanns_sandringham.streetAddress
+      ("1b Aigburth Road") contains no "Sandringham Medical Centre" text at
+      all. NO IN-REPO DEFECT FOUND; no generator, page, pack, checker or
+      branches.json content changed. Answer pickup: QUESTIONS.json held 1
+      open question (Q148, the standing git-push-credential gap); portal
+      re-checked via Claude in Chrome (read-only, single tab, nothing
+      clicked/typed, closed after use) - newest entry still Q52
+      (2026-09-01), no answer for Q148. Left open, untouched, not
+      re-raised. No "Standing authorisation - autonomous window" section
+      present at pickup, step 4 did not apply. No new question raised.
+      Evidence in audits/mccanns-item-3.6-live-read-2026-11-24.txt.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
