@@ -4,7 +4,7 @@ QUALITY PASS ON 3.12 (Tiffenbergs Chemist, Aintree), twenty-eighth pass. REPO HA
 
 GIT MECHANICS: ordinary git worked throughout this run once the stuck lock files were renamed out of the way (see LOCK above), so the GIT_INDEX_FILE workaround several recent runs needed was not required this time; plain `git add`/`git commit` were used.
 
-PUSH (step 9) and PUBLISH (step 10) to follow as separate log lines below, per the standing convention. STEP 11 (release lock) follows those.
+PUSH (step 9): commit c3c2d57a added to the stack on agents/audit-backlog, now 27 commits ahead of origin. `GIT_TERMINAL_PROMPT=0 git push origin agents/audit-backlog` failed identically to every attempt today: "could not read Username for 'https://github.com': terminal prompts disabled" - Q148 reconfirmed, not re-raised; commit stands local-only. STEP 10: `node tools/build-audit-status.js` run anyway as instructed: "Publish skipped: no credential found in the origin remote URL" - same root cause, gracefully skipped rather than erroring, consistent with every prior firing. STEP 11 (release lock) follows.
 
 ---
 
