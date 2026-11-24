@@ -35516,6 +35516,47 @@ directly rather than re-deriving the same facts by hand.
       unchanged, not re-logged as new. NO NEW QUESTION RAISED. Evidence:
       audits/coleman-leigh-walton-item-4.12-quality-pass-2026-11-22-branch-identity.txt.
       Done 2026-11-22.
+      Twenty-eighth quality pass 2026-11-24 (unattended scheduled run):
+      all three open worklist items confirmed [BLOCKED] (5.8/Q16, 6.4/Q60,
+      6.5/Q60); QUESTIONS.json read directly, 0 of 148 open, no portal
+      pickup needed; no autonomous-window section present in AGENT_LOG.md.
+      Stalest tied pool at 2026-11-22 (4.11 excluded, completed earlier
+      today): {4.12, 4.13, 4.14, 4.15, 5.1, 5.2, 5.3, 6.2, 6.3}; 4.12 won
+      the lowest-item-number tiebreak. FRESH ANGLE: tools/check-seo-
+      pattern.js, never named against this item across 27 prior passes,
+      despite this branch sharing seoTown "Walton" with Cherry Lane on a
+      different host - exactly the catchment overlap the cross-town rule
+      exists to police. Baseline: branches.json sha256 unchanged
+      (0385b7c2...27da); full 35-checker suite 35/35 on the tracked repo;
+      check-seo-pattern.js alone clean, 177 pages, 0 failures. INJECTION
+      (scratch copy only, git archive HEAD to a fresh /tmp directory,
+      tracked repo never opened for writing): added "also serving
+      Aigburth" to the H1 of shingles-treatment-coleman-leigh-walton.html
+      - FAILED cleanly on both the pattern-equality rule and the
+      cross-town absence rule, naming the file, the intruding town
+      (Aigburth) and the branch it belongs to (mccanns_aigburth). Restored,
+      sha256 reconfirmed identical. NEGATIVE CONTROL: adding ", Liverpool"
+      (in this branch's own serviceAreaList) to the earache page's H1
+      still failed, but only on the separate pattern-equality rule, not
+      the cross-town rule, confirming the two rules are independent and
+      the first injection genuinely exercised the cross-town check.
+      Restored, sha256 reconfirmed identical. Full 35-checker suite
+      re-run clean on the scratch copy after both restores; diff against
+      the tracked repo's modules/ showed only the pre-existing untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris.
+      branches.json sha256 unchanged throughout. NO IN-REPO DEFECT FOUND;
+      check-seo-pattern.js is now proven by direct injection against item
+      4.12's own pages, on both its rules, a gap the 27 prior passes had
+      left open. LIVE HALF (Claude in Chrome, read-only, one tab, nothing
+      clicked or typed, closed after use): re-fetched pharmacy-first-
+      coleman-leigh-walton.html on colemanandleighspharmacy.co.uk -
+      address, phone, hours (including the lunch closure) and all seven
+      Pharmacy First conditions with correct NHS age ranges all match
+      branches.json; the standing missing-s "Coleman & Leigh Pharmacy"
+      banner/footer spelling and the unspaced phone "0151 5253522" were
+      reconfirmed present and unchanged, not re-logged as new. NO NEW
+      QUESTION RAISED. Evidence: audits/coleman-leigh-walton-item-4.12-
+      quality-pass-2026-11-24-seo-pattern.txt. Done 2026-11-24.
 - [x] 4.13 Riddings Pharmacy Timperley pack. Done 2026-08-04.
       Quality pass 2026-08-10: the pack verified fact by fact against
       branches.json and rule by rule against TEMPLATE.md, and nothing in it

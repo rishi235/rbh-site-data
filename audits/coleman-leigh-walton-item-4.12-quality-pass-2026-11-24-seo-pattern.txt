@@ -1,0 +1,110 @@
+Item 4.12 (Coleman and Leighs Pharmacy, Walton pack) - 28th quality pass
+Run: 2026-11-24 (unattended scheduled run, audit-backlog-worker)
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (unchanged from every prior anchor).
+- Full 35-checker non-network suite (all tools/check-*.js excluding
+  check-cdn-pins.js and check-live-hours.js) run individually on the
+  tracked repo before any work: 35/35 exit 0.
+- check-seo-pattern.js alone on the tracked repo: 177 pages checked,
+  0 untyped, 0 failures.
+
+ITEM SELECTION
+Three open worklist items confirmed still [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60). QUESTIONS.json read directly: 0 of 148 entries open, so no
+portal answer pickup was needed this run. No "Standing authorisation -
+autonomous window" section present at the top of AGENT_LOG.md, so no
+autonomous decisions were available or taken this run.
+
+Last-verified dates re-derived programmatically from AGENT_WORKLIST.md's
+own dated section headers (max valid YYYY-MM-DD per item's own text
+block, ignoring incidental dates such as bank-holiday examples quoted
+inside an item's prose - confirmed by hand for item 6.3, whose true last
+pass date is 2026-11-22 despite a quoted 2026-12-28 bank-holiday example
+appearing earlier in its own block). Excluded the 7 standing
+out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and the 3
+blocked items. Item 4.11 was completed by the immediately prior run
+today (2026-11-24) and dropped out of the stale pool. Remaining stalest
+tied pool, all last verified 2026-08-11 (and twenty-plus further passes dated
+2026-11-22, confirmed per-item): {4.12, 4.13, 4.14, 4.15, 5.1, 5.2, 5.3,
+6.2, 6.3}, all last touched 2026-11-22. Lowest-numbered tiebreak: 4.12.
+
+FRESH ANGLE
+tools/check-seo-pattern.js had never been named by filename against item
+4.12 across its 27 prior passes, despite being the checker that enforces
+the H1/title pattern and the cross-town presence/absence rule CLAUDE.md
+documents at length (notably relevant here: Coleman and Leighs Walton and
+Cherry Lane Walton both carry seoTown "Walton", on two different
+website hosts, so this item sits inside exactly the kind of catchment
+overlap the cross-town rule exists to police).
+
+INJECTION (scratch copy only; git archive HEAD piped to tar -x into a
+fresh mktemp directory under /tmp; tracked repo never opened for
+writing)
+1. Baseline on the scratch copy: node tools/check-seo-pattern.js -> 177
+   pages checked, 0 failures (sha256 of branches.json and of the target
+   page both matched the tracked repo before injection).
+2. Injection: edited the H1 on
+   modules/service/pages/shingles-treatment-coleman-leigh-walton.html
+   from
+     "Shingles treatment in Walton - Coleman and Leighs Pharmacy"
+   to
+     "Shingles treatment in Walton, also serving Aigburth - Coleman and Leighs Pharmacy"
+   (Aigburth is mccanns_aigburth's seoTown and is not in
+   colemanleigh_liverpool's serviceAreaList of Walton, Liverpool,
+   Sefton).
+   Result: FAILED cleanly, two lines, both naming the exact file:
+     "h1 'Shingles treatment in Walton, also serving Aigburth - Coleman
+     and Leighs Pharmacy' != 'Shingles treatment in Walton - Coleman and
+     Leighs Pharmacy'"
+     "h1 names 'Aigburth', the seoTown of mccanns_aigburth, and
+     'Aigburth' is not in this branch's serviceAreaList"
+   177 pages checked, 2 failures, real process exit code 1 (confirmed
+   separately from a piped echo, which had captured tail's exit code
+   rather than node's).
+3. Restored the file (sha256 reconfirmed identical to the tracked repo:
+   770a981dd31eeb0bdf22cbb380ecb04da1be7541df52d30860ead1cf201ebb57).
+   Re-check: clean, 0 failures.
+4. NEGATIVE CONTROL: edited the H1 on
+   modules/service/pages/earache-treatment-coleman-leigh-walton.html to
+   add ", Liverpool" (a town in Coleman's own serviceAreaList, so the
+   cross-town absence rule alone would excuse it) after "Walton". This
+   still FAILED, but only on the separate, stricter per-page
+   pattern-equality rule (the composed H1 is a fixed string; any
+   deviation fails that rule regardless of which town is added), not on
+   the cross-town rule - confirming the two rules are independent and
+   that the pattern-equality rule is not what the cross-town injection
+   above was exercising. Restored; sha256 reconfirmed identical
+   (68c9d456ec622540c4cad37981f1f553703d016c6389e11df7deea7b5dc32775).
+
+Full 35-checker suite re-run on the scratch copy after both restores:
+35/35 exit 0. `diff -rq` between the scratch copy's modules/ and the
+tracked repo's modules/ showed only the pre-existing untracked
+pharmacy-first-mccanns-sandringham.html.goldenbak debris file (known,
+unrelated). branches.json sha256 unchanged throughout
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). No
+generator, page or branches.json content changed in the tracked repo.
+
+NO IN-REPO DEFECT FOUND. check-seo-pattern.js is now proven by direct
+injection against item 4.12's own generated pages, on both the H1
+pattern-equality rule and the cross-town absence rule, a gap the 27
+prior passes had left open.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked,
+typed or submitted, closed immediately after use)
+Re-fetched pharmacy-first-coleman-leigh-walton.html on
+colemanandleighspharmacy.co.uk. Address (241 Walton Village, Liverpool,
+L4 6TH), phone (0151 525 3522 in the body), hours (Mon-Fri 9:00am-6:00pm
+with the 1-2pm lunch closure, Sat/Sun closed) and all seven Pharmacy
+First conditions with correct NHS age ranges all match branches.json.
+The two standing live-only findings already on record were reconfirmed
+present and unchanged, not re-logged as new: the top banner and the
+page footer still read "Coleman & Leigh Pharmacy" (missing-s spelling),
+and the footer/address-block phone still reads unspaced as
+"0151 5253522" in two places. No new live defect found. No new question
+raised.
+
+RESULT: no in-repo defect, no new live defect, no new question. Item
+4.12 remains verified clean on its 28th pass, with check-seo-pattern.js
+coverage now also proven against it.
