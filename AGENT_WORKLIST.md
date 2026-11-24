@@ -36905,6 +36905,37 @@ directly rather than re-deriving the same facts by hand.
       Evidence:
       audits/riddings-item-4.13-whatsapp-route-injection-2026-11-22.txt.
       Done 2026-11-22.
+
+      Thirtieth quality pass 2026-11-24: fresh angle tools/check-seo-pattern.js,
+      never previously tried against this item across 29 prior passes (19 of 37
+      checkers now proven by direct injection, up from 18). Baseline: branches.json
+      sha256 unchanged, full 35-checker non-network suite clean, check-seo-pattern.js
+      baseline clean on a disposable scratch copy (177 pages, 0 failures, "OK
+      Riddings Pharmacy - 12 pages"). Injected a cross-town H1 fault into
+      shingles-treatment-riddings-timperley.html in the scratch copy only ("also
+      serving Bootle", Bootle being smartts_bootle/skchemists_bootle's seoTown and
+      not in riddings_timperley's own serviceAreaList) - caught cleanly, both the
+      h1 pattern-equality rule and the cross-town absence rule fired, naming the
+      exact page and the intruding town. Negative control (adding Altrincham, a
+      town already in this branch's own serviceAreaList) still failed the
+      pattern-equality rule alone, confirming the two rules are independent.
+      Restored by byte copy from a pre-edit backup, sha256-reconfirmed identical
+      to the tracked file (2b9bc7dd4da42e73b1c940e746404c3cd4282316e20d8ddf3ace792223402b1c).
+      Full 35-checker suite re-run clean on the scratch copy after restore.
+      Tracked repo confirmed untouched throughout (git status --porcelain showed
+      only the pre-existing untracked pharmacy-first-mccanns-sandringham.html.goldenbak
+      debris). Scratch copy deleted after use. NO IN-REPO DEFECT FOUND; proof,
+      not a fix. LIVE HALF (Claude in Chrome, read-only, single tab, nothing
+      clicked, typed or submitted, closed after use): re-read
+      shingles-treatment-riddings-timperley.html live - title and H1 both clean
+      ("Shingles treatment in Timperley"), no foreign town present, address,
+      phone and hours all match branches.json. Re-confirmed, not new: the
+      footer's "Timperley, Cheshire" against branches.json's addressRegion of
+      Greater Manchester, the standing finding tied to Q43 (answered, unsure).
+      Answer pickup (step 3): QUESTIONS.json read directly, 0 of 148 open, no
+      portal fetch needed. No new question raised. Evidence:
+      audits/riddings-item-4.13-seo-pattern-injection-2026-11-24.txt.
+      Done 2026-11-24.
 - [x] 4.14 Gordon Short Chemist Crosby pack. Done 2026-08-04. Split
       lunch-closure hours flagged for correct GBP entry.
       Quality pass 2026-08-10: the pack verified fact by fact against

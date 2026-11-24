@@ -1,0 +1,91 @@
+Item 4.13 (Riddings Pharmacy, Timperley) - thirtieth quality pass, 2026-11-24
+Fresh angle: tools/check-seo-pattern.js, never previously proven by direct
+injection against this item across 29 prior passes (18 of 37 checkers proven
+before this pass).
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(matches every prior anchor for this item)
+Full 35-checker non-network suite (all tools/check-*.js excluding
+check-cdn-pins.js and check-live-hours.js) run individually on the tracked
+repo via the native checkout (C:\Dev\rbh-site-data): 35/35 exit 0.
+tools/check-seo-pattern.js baseline on a disposable scratch copy (git archive
+HEAD into %TEMP%\rbh-scratch-413b, outside the tracked working tree,
+branches.json sha256 reconfirmed identical to the tracked anchor before use):
+177 pages checked, 0 untyped, 0 failures, "OK Riddings Pharmacy - 12 pages".
+
+METHOD
+------
+Scratch copy built via `git archive HEAD` + `tar -xf`, never the tracked
+repo. All edits made only to the scratch copy's
+modules\service\pages\shingles-treatment-riddings-timperley.html, restored by
+direct byte copy from a .bak taken before the first edit, sha256-reconfirmed
+identical to the tracked file after restore.
+
+INJECTION (cross-town + pattern-equality)
+------------------------------------------
+H1 changed from "Shingles treatment in Timperley" to "Shingles treatment in
+Timperley, also serving Bootle" (Bootle is the seoTown of smartts_bootle and
+skchemists_bootle, a different brand on a different host, and is not in
+riddings_timperley's own serviceAreaList of Timperley, Altrincham, Trafford).
+
+RESULT: CAUGHT, first attempt. 2 failures reported:
+  1. h1 pattern-equality rule: "'Shingles treatment in Timperley, also
+     serving Bootle' != 'Shingles treatment in Timperley'"
+  2. cross-town absence rule: "h1 names 'Bootle', the seoTown of
+     smartts_bootle and skchemists_bootle, and 'Bootle' is not in this
+     branch's serviceAreaList"
+Exit code 1 (confirmed directly from $LASTEXITCODE, not a piped proxy).
+
+NEGATIVE CONTROL
+----------------
+Restored the file to the original H1 first (sha256-reconfirmed identical to
+the tracked repo's own file: 2b9bc7dd4da42e73b1c940e746404c3cd4282316e20d8ddf3ace792223402b1c
+on both copies), then changed the H1 to "Shingles treatment in Timperley,
+Altrincham" - Altrincham IS in riddings_timperley's own serviceAreaList.
+
+RESULT: still fails the pattern-equality rule (the H1 must equal the composed
+string exactly, so any deviation fails that leg), but the cross-town rule
+does NOT fire (1 mismatch reported, not 2), confirming the two rules are
+independent and that the first injection genuinely exercised the cross-town
+check rather than any-deviation matching. This mirrors the same proof
+structure used against item 4.12's pack on this same checker earlier today.
+
+RESTORE AND RE-VERIFY
+----------------------
+File restored from the pre-edit .bak, sha256 2b9bc7dd4da42e73b1c940e746404c3cd4282316e20d8ddf3ace792223402b1c
+confirmed identical between the scratch copy and the tracked repo's own
+file. Full 35-checker non-network suite re-run on the scratch copy after
+restore: 35/35 exit 0. Tracked repo confirmed untouched throughout
+(`git status --porcelain -- gbp-packs tools branches.json modules core`
+showed only the pre-existing untracked
+modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+debris, unrelated to this item). Scratch directory deleted after use.
+
+NO IN-REPO DEFECT FOUND. This pass is proof of existing coverage, not a fix.
+Guard coverage for item 4.13 now 19 of 37 checkers proven by direct
+injection (up from 18); check-cdn-pins.js and check-live-hours.js remain
+excluded as network-dependent, not proven or disproven by this pass.
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, single tab, nothing clicked, typed or submitted,
+tab closed immediately after use.
+https://www.riddingspharmacy.co.uk/shingles-treatment-riddings-timperley.html
+re-read in full: title "Shingles treatment in Timperley - Riddings Pharmacy",
+H1 "Shingles treatment in Timperley" - clean, matches branches.json exactly,
+no foreign town present (the live page reflects the uninjected, correct
+state this pass's injection targeted). Address (38 Riddings Road, Timperley,
+Altrincham, WA15 6BP), phone (0161 973 2951) and opening hours (Mon-Fri
+9:00am-6:00pm, Sat/Sun closed) all match branches.json. Re-confirmed, not
+new: the footer line reading "Timperley / Cheshire" against branches.json's
+addressRegion of Greater Manchester - the standing finding already tied to
+Q43 (answered 2026-09-01, "Unsure... need advise"), not re-raised as a new
+question.
+
+ANSWER PICKUP (step 3): QUESTIONS.json read directly before this pass: 0 of
+148 entries have status "open" - no portal fetch needed.
+
+No branches.json field, generated page, pack or checker content changed this
+pass. No new question raised.
