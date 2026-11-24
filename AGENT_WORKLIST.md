@@ -22591,6 +22591,25 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       live state for this branch was therefore not re-sampled rather than
       found stale. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED.
       Done 2026-11-23
+      Quality pass 2026-11-24 (Cowork scheduled run, 22:12Z pickup,
+      thirty-fourth), picked as lowest-numbered item in the rotation pool's
+      remaining 2026-11-23 tied-oldest set once item 3.12 was re-dated by
+      the immediately prior run. REPO HALF: branches.json sha256 unchanged
+      (0385b7c2...27da); full 35-checker non-network suite 35/35 clean;
+      check-cdn-pins.js clean (2 WARN/6 KNOWN, all previously logged).
+      Fresh step: re-ran all six page generators from branches.json against
+      a pre-run snapshot of modules/ and core/, `diff -rq` reporting zero
+      differences across the whole generated-pages tree (all 37 checkers
+      already proven by injection against this branch, per the thirty-third
+      pass, so no further injection round was run). LIVE HALF (Claude in
+      Chrome, read-only): re-fetched switch-prescriptions-clear-aintree.html
+      - still a live 404 on Clear Chemist's own branded template (Q29
+      unchanged), phone number on the 404 template still 0151 203 6535
+      matching branches.json (Q28 fix still holding). Portal feed read,
+      newest entry still Q52 (2026-09-01); no answer to Q148 or Q149. NO
+      IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
+      audits/clear-aintree-item-3.13-quality-pass-2026-11-24-thirtyfourth.txt.
+      Done 2026-11-24 (thirty-fourth pass).
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section
