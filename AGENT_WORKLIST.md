@@ -4790,6 +4790,76 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       not a state change). QUESTIONS.json: 148 total, 0 open (reconfirmed
       via Node; portal answer-pickup correctly skipped per step 3, since
       nothing is open to fetch). Done 2026-11-23.
+
+      QUALITY PASS (32nd, Cowork scheduled run, 2026-11-24): the only 3
+      unchecked worklist lines (5.8/Q16, 6.4/Q60, 6.5/Q60) remain [BLOCKED];
+      pool of completed items re-derived directly from each item's own
+      dated text (excluding the 7 standing out-of-rotation items and the
+      6.3 "2026-12-28" malformed-date false read already recorded by prior
+      passes); tied-oldest pool at 2026-11-23 held 3.1, 3.2, 3.4-3.13,
+      4.1-4.3, 5.4, 5.5, 6.1, 6.6; lowest-numbered tiebreak gives 3.1
+      again. FRESH ANGLE: tools/check-branch-identity.js, never previously
+      named against item 3.1 in any of the 31 prior passes, chosen as the
+      natural complement to the 30th/31st passes' findings on
+      check-address-region.js and check-brand-spelling.js - all three guard
+      fields outside seo-pattern.js's own pick() output, so together they
+      map how much of item 3.1's surface the pattern checker itself does
+      not and cannot see. Baseline: full 35-checker non-network suite
+      clean on the tracked repo (excl. check-cdn-pins.js, check-live-
+      hours.js); branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. Scratch copy via `git archive HEAD | tar -x`, confirmed
+      byte-identical first; built under the repo's own .scratch_tmp/ (git-
+      ignored) rather than /sessions or /tmp, both reporting 0 bytes/no
+      write permission this run, the same recurring capacity condition
+      prior passes have logged. FIRST INJECTION ATTEMPT under-tested the
+      angle: renaming fishlocks_ainsdale's branchName to "Fishlocks Chemist
+      Southport" still started with its brandLabel "Fishlocks Chemist", so
+      check-branch-identity's own DATA rule (rule 7) stayed clean (exit 0)
+      - not a defect, just a mutation that happened not to break the rule
+      it was aimed at. REDONE with branchName set to "Southport Chemist"
+      (no longer starting with brandLabel), all eight build-*.js
+      generators re-run on the scratch copy: check-branch-identity.js
+      CAUGHT it immediately, rule 7, exit 1, naming the branch and both
+      strings verbatim. check-seo-pattern.js - item 3.1's own checker - ran
+      CLEAN on the same mutated, fully-regenerated tree (exit 0, all 12
+      brand groups OK, 177 pages, 0 failures): it composes titles and H1s
+      from tools/seo-pattern.js's own pick(), which reads seoTown and
+      brandLabel, never branchName, so a branchName divergence that keeps
+      brandLabel intact is invisible to it by design. NOT A DEFECT: this is
+      the third consecutive pass to demonstrate the same architecture point
+      from a different field - county validity (30th pass,
+      check-address-region.js), trading-name spelling (31st pass,
+      check-brand-spelling.js), and now branch-vs-brand identity
+      (check-branch-identity.js) all sit entirely outside check-seo-
+      pattern.js's self-consistency scope, exactly as CLAUDE.md's own
+      "which pharmacy does a page say it is" section describes. NEGATIVE
+      CONTROL: a second scratch copy with only fishlocks_ainsdale.phone
+      changed, regenerated the same way, stayed clean on both
+      check-branch-identity.js and check-seo-pattern.js (exit 0 on both),
+      confirming the first injection's catch was specific to the branchName
+      field and not an artefact of regenerating from an edited
+      branches.json per se. Both scratch copies restored by discarding
+      (renamed rather than deleted, the established workaround for this
+      mount's unlink restriction); tracked repo re-confirmed untouched
+      throughout (branches.json sha256 unchanged throughout, `git status
+      --porcelain -- modules core branches.json gbp-packs tools compliance`
+      empty bar the one pre-existing `.goldenbak` debris file this run did
+      not touch). Full 35-checker suite re-run directly on the tracked
+      repo afterwards: 35/35 exit 0. LIVE HALF NOT ATTEMPTED this pass: the
+      finding is a repo-architecture point with no live page, generator or
+      branches.json change to verify, and the 30th/31st passes already
+      sampled fresh live pages for this item within the last two days with
+      no new finding. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Item
+      3.1 stays `[x]` (quality pass, not a state change). QUESTIONS.json:
+      149 total, 1 open (Q148, the standing git-push-credential question
+      from earlier today's runs; untouched this pass, portal re-checked at
+      pickup with nothing new since 2026-09-01's Q52). Guard coverage for
+      item 3.1 now spans check-seo-pattern.js, check-address-region.js,
+      check-brand-spelling.js and check-branch-identity.js across its 32
+      passes; most checkers remain untried against this specific item
+      (see tools/check-*.js for the full list), the same standing position
+      every recent pass on a mature item has recorded. Done 2026-11-24.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
