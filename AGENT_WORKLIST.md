@@ -3560,6 +3560,56 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       sweep. No in-repo defect found; no generator, page, sheet,
       branches.json or checker content changed.
 
+      [Quality pass, 2026-11-24 (Cowork scheduled run, 10:12Z pickup): fresh
+      angle tools/check-weight-loss-copy.js, one of 12 checkers never
+      previously proven by injection against this item. Baseline: full
+      35-checker non-network suite run directly against the tracked repo,
+      35/35 exit 0; branches.json sha256 unchanged. Scratch copy via
+      `git archive HEAD | tar -x` into the outputs mount (/sessions root
+      100% full again at pickup, the recurring capacity quirk); tracked repo
+      never opened for writing. Injection 1 (a medicine name, "Mounjaro",
+      into Cherry Lane's weight-loss-clinic page) - caught cleanly, first
+      attempt. Injection 2 (an efficacy claim, "clinically proven to deliver
+      fast results") - NOT caught, exit 0: tools/claim-patterns.js's
+      "delivers results" and "proven results" entries were fixed two-word
+      phrases with no gap tolerance (the "guaranteed...results" entry a few
+      lines below them was already widened for this exact reason on
+      2026-09-07; these two had not been). REAL DEFECT, IN THE CHECKER,
+      FIXED DIRECTLY: both widened to the same 30-character either-direction
+      gap pattern, "deliver" widened to its four inflected forms. Swept
+      every surface the consuming checkers read for "proven" (zero hits) and
+      "deliver" (only legitimate branch-landing "collection and delivery"
+      copy, none near "results"; the one live claim this repo already
+      tracks, Smartts Bootle's switch-tile "delivers results", was already
+      an exact match under the old phrase and is already in
+      check-service-links.js's own KNOWN_CLAIM against Q16/item 5.8, so the
+      widening changes nothing about that already-decided, still-blocked
+      item). Re-verified on the scratch copy: injection now caught; restored
+      and re-checked clean. Full 35-checker suite re-run on the tracked repo
+      after the fix: 35/35 exit 0; branches.json sha256 unchanged;
+      check-service-links.js's KNOWN_CLAIM count unchanged;
+      check-seo-keywords.js and check-gbp-packs.js (the other two consumers
+      of claim-patterns.js) both clean/unchanged. `git status --porcelain`
+      on modules/, core/, branches.json, gbp-packs/, compliance/: only
+      tools/claim-patterns.js changed, plus the pre-existing untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris (unrelated).
+      No new question raised - a checker-pattern widening with no live page,
+      generator or branches.json change, same class and judgement as the
+      DAY_RE "Weds" fix made directly in tools/check-live-hours.js earlier
+      today (item 6.3's twenty-third pass). This fix protects every
+      branch's generated weight loss page, every GBP pack and every Meta
+      Keywords line in the estate against the same two gaps, not only Cherry
+      Lane's. 11 checkers remain never-named against this item:
+      check-editor-snapshot.js, check-fragment-targets.js,
+      check-gbp-pharmacy-first.js, check-live-hours.js,
+      check-opening-hours.js, check-pharmacy-first-cost.js,
+      check-pharmacy-first-safety-net.js, check-seo-keywords.js,
+      check-service-links.js, check-weebly-furniture-freshness.js,
+      check-widget-diaries.js. Live half not attempted this pass (fix is
+      checker-only; Q36 re-confirmed by the immediately preceding pass, not
+      re-raised). Full detail in audits/cherry-lane-walton-item-2.3-weight-
+      loss-copy-2026-11-24.txt. Done 2026-11-24.]
+
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
 For each brand: put town plus service words into every page title, meta

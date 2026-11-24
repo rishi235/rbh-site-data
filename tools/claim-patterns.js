@@ -24,8 +24,32 @@
   Each entry is [regexp, plain-English reason].
 */
 const CLAIM_PATTERNS = [
-  [/delivers results/i, "promises results"],
-  [/proven results/i, "promises results"],
+  // Widened on the item 2.3 quality pass (Cherry Lane Pharmacy, Walton),
+  // 2026-11-24. The two fixed two-word phrases below only ever matched
+  // "delivers results" or "proven results" back to back, so the plainest way
+  // of inserting a word or two between the verb and the noun walked straight
+  // through: injected into Cherry Lane's own generated
+  // weight-loss-clinic-cherry-lane-walton.html, "clinically proven to deliver
+  // fast results" passed ALL 35 non-network checkers, including this file's
+  // own two consumers (check-weight-loss-copy.js and check-service-links.js).
+  // Same class of gap the 2026-08-30 "guaranteed...results" widening above
+  // already records for the guarantee rule; this is the "deliver"/"proven"
+  // fixed-phrase rules' turn. Both widened to the same 30-character
+  // either-direction gap already used for "guaranteed...results", and
+  // "deliver" is widened to its five forms (deliver/delivers/delivered/
+  // delivering) so a future tense or person change cannot repeat the same
+  // gap. Proved safe before shipping: swept every checked surface
+  // (modules/, gbp-packs/, the two DRAFT-*.html files) for "proven" (zero
+  // hits anywhere) and for "deliver" (only legitimate "collection and
+  // delivery" service copy on six branch landing pages, none of it within
+  // reach of "results", and the one live efficacy claim this repo already
+  // knows about - Smartts Bootle's switch-page tile, "delivers results" -
+  // which was already an exact match under the old fixed phrase and is
+  // already carried in KNOWN_CLAIM against Q16, so widening the gap changes
+  // nothing about it). Full 35-checker suite re-run clean afterwards bar the
+  // standing Q16 KNOWN entries.
+  [/\bdeliver(?:s|ed|ing)?\b[^.\n]{0,30}?\bresults\b|\bresults\b[^.\n]{0,30}?\bdeliver(?:s|ed|ing)?\b/i, "promises results"],
+  [/\bproven\b[^.\n]{0,30}?\bresults\b|\bresults\b[^.\n]{0,30}?\bproven\b/i, "promises results"],
   [/guaranteed\b[^.\n]{0,30}?\bresults\b|results\b[^.\n]{0,30}?\bguaranteed\b/i, "guarantees results"],
   // Widened on the item 3.13 quality pass (eleventh, Clear Chemist Aintree),
   // 2026-09-07. The fixed two-word phrase above only ever matched "guaranteed
