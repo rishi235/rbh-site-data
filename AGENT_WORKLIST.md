@@ -25880,6 +25880,54 @@ run - see this run's AGENT_LOG.md entry.
       at pickup (148 total, 10 open). Evidence:
       audits/hirshmans-ainsdale-item-4.3-pharmacy-first-blocks-injection-
       2026-11-23-twentyfifth.txt. Done 2026-11-23
+      Quality pass 2026-11-24 (twenty-sixth pass, unattended Cowork
+      scheduled run, audit-backlog-worker): 4.3 was the lowest-numbered
+      item in the rotation pool remaining after this same run's earlier
+      pickup had already taken 3.12, 3.13 and 4.1. BASELINE: branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. Full 35-checker suite (excl. check-cdn-pins.js,
+      check-live-hours.js) run directly against the tracked repo: 35/35
+      clean. All six generators rebuilt from branches.json against a
+      pre-run sha256 snapshot of all 193 .html/.md files under modules/
+      and core/: zero differences after regeneration. FRESH ANGLE:
+      check-postcodes.js had been proven by injection against this
+      branch's generated PAGE (pharmacy-first-hirshmans-ainsdale.html, item
+      1.2, 2026-09-16) but never against the PACK file
+      gbp-packs/hirshmans-ainsdale.md itself, a different file the same
+      checker also reads. INJECTION (isolated `git archive HEAD` scratch
+      extraction under the outputs scratchpad, tracked repo never opened
+      for writing): replaced the pack's real postcode PR8 3HW with a
+      fabricated, postcode-shaped, non-branch value ZZ95 4ZZ in both lines
+      that carry it - CAUGHT first attempt, "postcode ZZ95 4ZZ is in no
+      branches.json entry". NEGATIVE CONTROL: restored the postcode, then
+      made a harmless edit untouched by postcode wording (photo shot
+      list's step-free access line, lengthened) - ran clean, 0 failures,
+      same 3 pre-existing UNOWNED warnings, confirming genuine
+      discrimination. Scratch directory and backup deleted in full
+      afterwards (ordinary rm -rf succeeded outside the connected mount).
+      Tracked repo confirmed untouched throughout: sha256 of
+      gbp-packs/hirshmans-ainsdale.md and branches.json both unchanged,
+      git status --porcelain -- gbp-packs branches.json tools empty
+      (aside from the pre-existing stuck .git/index.lock, cleared via the
+      standing rename-not-delete workaround, unrelated to this item). NO
+      IN-REPO DEFECT - the pack's postcode is correct and genuinely caught
+      when it is not, now proven by injection against this specific pack
+      file for the first time. Guard coverage for item 4.3: of the ~14
+      checkers that genuinely read gbp-packs/*.md content, 12 are now
+      proven by injection specifically against this pack (up from 11);
+      check-url-scheme.js and check-weight-loss-copy.js remain untested
+      against this specific pack file and are flagged for a future pass
+      rather than silently left. No generator, page, pack, checker or
+      branches.json content changed. ANSWER PICKUP: portal feed fetched
+      via Claude in Chrome (read-only, single tab, nothing clicked/typed/
+      submitted, closed after use); newest entry still Q52 (2026-09-01);
+      separately confirmed locally that Q16 and Q60 (blocking items 5.8,
+      6.4, 6.5) are already status "answered" in QUESTIONS.json but remain
+      [BLOCKED] pending further applied work. No new question raised;
+      QUESTIONS.json unchanged at pickup and after (150 total, 2 open -
+      Q148 infrastructure, Q149 live-only cost-claim wording). Evidence:
+      audits/hirshmans-ainsdale-item-4.3-postcode-pack-injection-
+      2026-11-24-twentysixth.txt. Done 2026-11-24
 - [x] 4.4 Scorah Chemists Bramhall pack. Done 2026-08-04. gbp-packs/
       scorah-bramhall.md. Facts from branches.json; services drawn from the
       branch widget set (BP checks, contraception, PF, weight loss, travel).
