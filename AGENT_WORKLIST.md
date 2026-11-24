@@ -2517,6 +2517,43 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       "done" looks like for this item. Evidence: live reads only, no file
       written (tabs opened and closed read-only this run; sitemap and page
       text captured in this paragraph).
+      Quality pass 2026-11-24 (twelfth, Cowork scheduled run, 21:12Z pickup):
+      picked as the true least-recently-verified completed item, re-derived
+      the same way run 342 did - this item's own eleventh pass (2026-10-20)
+      was the stalest in the pool once this morning's run had already
+      bumped item 1.1 (the other item tied oldest at that date) to today.
+      BASELINE: all 35 non-network checkers (check-cdn-pins.js and
+      check-live-hours.js excluded) run individually against the real
+      tracked tree: 35/35 exit 0, no rebuild needed, git status --porcelain
+      modules core branches.json tools empty throughout bar one harmless
+      untracked debris file left by an earlier injection pass
+      (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+      untracked, not this item's concern, left alone). LIVE HALF (Claude in
+      Chrome, read-only, one tab, nothing clicked, typed or submitted):
+      www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html and
+      /pharmacy-fishlocks-eccleston.html both still 404, unchanged since
+      every pass since 2026-08-14 - Q35's core finding stands. The site's
+      sitemap.xml has moved again (all 40 URLs now lastmod
+      2026-11-17T13:16:30+00:00, up from the 2026-10-15 date the eleventh
+      pass found), confirming at least one more publish since then; neither
+      of this item's two generated filenames is in it. NEW FINDING: a
+      second live-only, repo-untracked page has appeared in this latest
+      publish - pharmacy-first-service-eccleston-ainsdale.html, a hand-built
+      combined Pharmacy First page for both branches (the blood-pressure
+      page from the eleventh pass is the same shape, same publish family).
+      Read in full: NAP, hours and the seven Pharmacy First conditions and
+      cohorts all check out field for field against branches.json, same
+      clean result as the blood-pressure page. But its cost claim does not
+      carry both halves tools/check-pharmacy-first-cost.js RULE 3 requires
+      of every generated Pharmacy First page - it states treatment is "at no
+      cost" and never states the NHS prescription-charge caveat for
+      non-exempt patients. This is outside the repo entirely so no checker
+      reads it and nothing in-repo can be fixed; raised as Q149 rather than
+      folded into Q35, since it is a different kind of gap (a cost-claim
+      wording gap on a live-only page, not a publishing gap on a generated
+      one) and touches NHS cost accuracy rather than NAP. Does not block
+      this item's own completion criterion. Evidence: live reads only, no
+      file written other than QUESTIONS.json (Q149) and this entry.
 - [x] 2.3 Cherry Lane Pharmacy (Walton): page-set build item. Header text
       recovered 2026-10-20 (run 342) - see recovery note below.
       [Recovery note, run 342, 2026-10-20, found during the item 2.2 quality

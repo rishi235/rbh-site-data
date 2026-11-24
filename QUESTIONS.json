@@ -2407,5 +2407,21 @@
     "status": "open",
     "answer": null,
     "note": "Not blocking any patient-facing or regulatory content - this is purely a session/credential infrastructure question. The work itself (item 2.1's thirty-fourth quality pass, check-editor-snapshot.js coverage proof via injection, no defect found) is complete and correct regardless of push status; only its arrival on origin/agents/audit-backlog is delayed. If a later run with working push credentials picks up this branch, commit 0e360d1 should already be present locally and will push on that run's own step 9 with no extra action needed, unless the local working copy itself is reset between sessions, in which case the commit is lost and the worklist/log entries would need re-doing from the evidence file (still on disk in this working copy) or from this question's own description."
+  },
+  {
+    "id": "Q149",
+    "date": "2026-11-24",
+    "item": "2.2",
+    "question": "During the item 2.2 twelfth quality pass, a live-only page this repo does not generate was read for the first time: www.fishlockpharmacy.co.uk/pharmacy-first-service-eccleston-ainsdale.html, a hand-built page covering both Fishlocks branches' Pharmacy First service (first appeared in the site's sitemap on or after 2026-10-15, same publish event the 2026-10-20 pass flagged for the blood-pressure page). Its NAP, hours and the seven Pharmacy First conditions/cohorts all check out clean against branches.json. But its cost claim does not carry both halves the repo's own rule requires: it states 'NHS-Funded Treatment: Receive treatment at no cost for seven common conditions' and nowhere on the page is the NHS prescription-charge caveat (non-exempt patients still pay the usual charge if medicine is supplied) that tools/check-pharmacy-first-cost.js RULE 3 requires on every generated Pharmacy First page and that CLAUDE.md records as the reason the checker exists. This page sits outside the repo entirely, so no checker here reads it and nothing in-repo can be fixed; the gap is in a live Weebly page and only a repaste or edit during a supervised Weebly session can close it. Not raised as blocking item 2.2 (which is about the two generated branch landing pages, still both 404 as before - unchanged), and not actioned autonomously because it is a live patient-facing claim about NHS cost, which this worker is barred from deciding alone even in an authorised window.",
+    "options": [
+      "Add the prescription-charge caveat sentence to this one live page during the next supervised Weebly session, alongside the already-queued Q35 repaste and the item 5.3/Q32 Gordon Short repaste - lowest effort, fixes the specific page found",
+      "Before the next Weebly session, do a short manual sweep of all branch domains for other hand-built, repo-untracked Pharmacy First or NHS-service pages (the blood-pressure page and this one both appeared the same way) and fix the cost claim on all of them in one pass, since this is the second one found by accident rather than by design",
+      "Leave as is for now: the claim is arguably still broadly true (NHS-funded, no consultation fee) and the omission is a readability simplification rather than a false statement - lowest effort, accepts some residual wording risk",
+      "Extend check-pharmacy-first-cost.js's own EXTRA_PASTE/EXTRA_HTML-style list (the pattern check-em-dashes.js and check-cdn-pins.js already use for hand-pasted public copy) to also read this file the next time it is fetched for inspection, so a regression here is caught automatically rather than found by chance on a future quality pass - highest effort, but this repo cannot write to a live Weebly page even if it reads one"
+    ],
+    "recommended": 0,
+    "status": "open",
+    "answer": null,
+    "note": "Does not block item 2.2's own completion criterion (publishing the two generated branch landing pages, Q35). Found by the same mechanism as the 2026-10-20 pass's blood-pressure-page finding: a live sitemap re-read turned up a page this repo does not own. No in-repo defect, no file changed, no page clicked, typed or submitted."
   }
 ]
