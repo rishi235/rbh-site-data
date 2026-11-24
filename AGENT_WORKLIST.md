@@ -28189,6 +28189,45 @@ Quality pass 2026-11-24 (thirtieth, unattended scheduled run): FRESH ANGLE,
       page, pack, checker or branches.json content changed. No new question
       raised. Evidence:
       audits/mccanns-aigburth-item-4.6-em-dashes-2026-11-22.txt.
+      Quality pass 2026-11-24 (scheduled run, 01:12Z): BASELINE unchanged,
+      branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      and the pack's own sha256 fdb1429d9701399ab9c2139db858a826d72efb5fe6307520476d0a4ba3c36693
+      both match every prior pass. Full 35-checker non-network suite run
+      individually, 35/35 clean. FRESH ANGLE: tried tools/check-nap.js
+      against this pack for the first time (not previously in this item's
+      own injection list), on the theory it might be a sixteenth checker
+      reading gbp-packs/. Isolated git-archive HEAD scratch copy under /tmp
+      (the scratchpad mount itself not tested this pass; /tmp had room).
+      Swapped the pack's phone to Scorah Chemists Bramhall's number:
+      check-nap.js ran clean, exit 0, "0 mismatch(es)" - it does NOT read
+      gbp-packs/*.md at all (its own output names only "177 pages and 4
+      paste block(s)"); the earlier comment in its source mentioning
+      gbp-packs/cherry-lane-walton.md is historical prose about item 1.4,
+      not a scope statement. So this was not a useful injection target:
+      recorded here so a future pass does not retry it expecting coverage
+      that was never there. Phone coverage for this pack in fact sits with
+      check-gbp-packs.js, confirmed on the same injected copy: FAIL "phone
+      0161 439 3744 belongs to Scorah Chemists Bramhall, not McCanns
+      Chemist Aigburth" plus FAIL "branch phone 0151 727 3185 does not
+      appear anywhere in the pack", both caught on the first attempt.
+      NEGATIVE CONTROL: pack restored and sha256-reconfirmed, then a
+      same-length word swap ("serves Aigburth" to "covers Aigburth", no
+      character-count drift) ran clean, 0 failures, confirming no
+      cross-fire (a first attempt at a negative control, "the team
+      provides" to "the team also provides", correctly failed on an
+      unrelated declared-length mismatch rather than a false positive -
+      noted and redone same-length rather than treated as a finding).
+      Scratch copy restored and sha256-reconfirmed identical, scratch
+      directory deleted. Tracked repo confirmed untouched throughout:
+      git status --porcelain on branches.json/tools/modules/gbp-packs/
+      compliance/core showed only the one pre-existing unrelated debris
+      file (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak),
+      not anything touched this pass. NO IN-REPO DEFECT FOUND, NO NEW
+      QUESTION RAISED. LIVE HALF not run this pass (repo half only); the
+      2026-08-14 live verdicts stand unrevised. Guard coverage for item 4.6
+      is unchanged at 15 of the checkers proven by injection against this
+      specific pack (check-nap.js does not apply and is not added to that
+      count).
 - [x] 4.7 McCanns Chemist Sandringham pack. Done 2026-08-04. Carries the
       NOTE FOR PASTING that its description replaces the faulty live
       Hirshmans-copied text naming two POMs (Q4) in full.
