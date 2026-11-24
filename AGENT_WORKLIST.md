@@ -44953,6 +44953,44 @@ audits/item-5.1-seo-pattern-injection-2026-11-24-thirtysecond.txt.
       5.2 now extends to check-opening-hours.js. Evidence:
       audits/opening-hours-item-5.2-quality-pass-2026-11-22-twentyeighth.txt.
       Done 2026-11-22 (twenty-eighth pass).
+      Quality pass 2026-11-24 (twenty-ninth, unattended scheduled run,
+      rotation-pool pick, tied with 5.3 and 6.2 at 2026-11-22 and won the
+      lowest-item-number tiebreak). BASELINE confirmed first: branches.json
+      sha256 0385b7c2...27da (standing anchor, unchanged), full 35-checker
+      suite (excl. check-cdn-pins.js/check-live-hours.js) 35/35 exit 0 on
+      the tracked repo, git status --porcelain on modules/core/branches.json/
+      gbp-packs/tools/compliance empty bar the pre-existing untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris.
+      FRESH ANGLE: grepped this item's full 28-pass history for every
+      tools/check-*.js filename; 13 had never been named against item 5.2.
+      check-service-links.js selected as genuinely in scope: its PAGE_DIRS
+      includes modules/branch/pages, where this item's six landing pages
+      live, and each carries six relative condition-card links to this
+      branch's own service tiles - exactly its RULE 2/3 territory.
+      INJECTION (scratch copy only, via git archive HEAD | tar -x into the
+      connected outputs mount, the session's own /sessions root being 100%
+      full this pass; tracked repo never opened for writing): changed
+      pharmacy-mccanns-sandringham.html's Weight Loss Clinic condition-card
+      link to a filename this repo does not generate for this branch -
+      caught cleanly, first attempt, exit 1, one FAIL naming the exact file,
+      the stale target and that this repo does not generate it. Restored by
+      hand; sha256 reconfirmed identical to the pre-edit value
+      (ea1b4b571f...232aa6). NEGATIVE CONTROL: a single trailing space added
+      after a different condition-card's href value (no word or path
+      changed) stayed clean, confirming the rule is selective. Restored,
+      sha256 reconfirmed identical again. Full 35-checker suite re-run on
+      the scratch copy after both restores: 35/35 exit 0; tracked repo
+      confirmed untouched throughout (git status --porcelain unchanged,
+      branches.json sha256 unchanged, the page's own tracked-repo sha256
+      matching the pre-edit/restored value exactly). Scratch directory
+      deleted. NO IN-REPO DEFECT FOUND; check-service-links.js is now proven
+      by direct injection against item 5.2's own generated pages, a gap the
+      prior 28 passes had left open. LIVE HALF: not attempted this pass (no
+      browser tooling invoked); Q35 (all six landing URLs still a Weebly 404,
+      unchanged since 2026-08-10) stands unclaimed, not re-claimed as new.
+      NO NEW QUESTION RAISED. Evidence:
+      audits/mccanns-sandringham-item-5.2-service-links-injection-2026-11-24-twentyninth.txt.
+      Done 2026-11-24 (twenty-ninth pass).
 - [x] 5.3 Q8 repoint the 11 Post A Pharmacy First links in the GBP
       packs, and paste those pages to Weebly in the same run.
       Done 2026-11-16/17 in a supervised session: all 11 generated Pharmacy

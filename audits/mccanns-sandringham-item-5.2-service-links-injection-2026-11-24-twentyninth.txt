@@ -1,0 +1,80 @@
+Item 5.2 - quality pass (twenty-ninth), 2026-11-24, unattended scheduled run
+=============================================================================
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+(standing anchor, unchanged from every prior pass)
+Full 35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js):
+35/35 exit 0 on the tracked repo, run individually.
+git status --porcelain on modules/core/branches.json/gbp-packs/tools/compliance:
+only the pre-existing untracked modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+debris, unrelated to this item.
+
+FRESH ANGLE
+-----------
+Grepped this item's full 28-pass history in AGENT_WORKLIST.md for every
+tools/check-*.js filename mentioned. 13 of the 37 checkers had never been
+named against item 5.2. Of those, check-service-links.js was selected as the
+one genuinely in scope: its PAGE_DIRS constant includes modules/branch/pages,
+which is exactly where this item's six landing pages live, and those pages
+each carry six relative condition-card links to this branch's own service
+tiles - precisely RULE 2/3's territory (a relative link to our own domain
+that resolves to a page this repo does not generate).
+
+INJECTION (scratch copy only; tracked repo never opened for writing)
+----------------------------------------------------------------------
+Scratch copy built via `git archive HEAD | tar -x` into a temp dir under the
+connected outputs mount (the session's own /sessions root was reported 100%
+full, 0 bytes free, so the scratch copy was built on the outputs mount
+instead - same standing capacity quirk prior passes have hit, worked around
+without touching the tracked repo).
+
+Pre-edit sha256 of modules/branch/pages/pharmacy-mccanns-sandringham.html:
+ea1b4b571fb84811d45e37a437c68d2c708373530100c5c4b58b046453232aa6
+
+Changed the Weight Loss Clinic condition-card link from
+href="weight-loss-clinic-mccanns-sandringham.html" to
+href="weight-loss-clinic-mccanns-sandringham-old.html" (a filename this repo
+does not generate for this branch).
+
+Result: CAUGHT, first attempt, exit 1, 1 failure:
+  FAIL [stale target] modules/branch/pages/pharmacy-mccanns-sandringham.html:
+  links to www.mccannspharmacy.co.uk/weight-loss-clinic-mccanns-sandringham-old.html,
+  which this repo does not generate
+
+RESTORE: edit reversed by hand; sha256 reconfirmed identical to the pre-edit
+value (ea1b4b571fb84811d45e37a437c68d2c708373530100c5c4b58b046453232aa6).
+Re-check: check-service-links.js clean again (6 pre-existing KNOWN issues,
+all unrelated to item 5.2's four branches, same as baseline).
+
+NEGATIVE CONTROL
+-----------------
+On the same restored file, added a single trailing space after the
+Contraception condition-card's href attribute value (cosmetic only, no word
+or path changed). check-service-links.js stayed clean. Restored; sha256
+reconfirmed identical to the pre-edit value again, same hash as above.
+
+VERIFICATION
+------------
+Full 35-checker suite re-run on the scratch copy after both restores:
+35/35 exit 0.
+Tracked repo confirmed untouched throughout this pass: branches.json sha256
+unchanged (0385b7c2...27da); git status --porcelain on modules, core,
+branches.json, gbp-packs, tools and compliance showed only the pre-existing
+untracked .goldenbak debris; pharmacy-mccanns-sandringham.html's own sha256
+in the tracked repo matches the pre-edit/restored value exactly
+(ea1b4b571f...232aa6).
+Scratch directory deleted after use.
+
+RESULT
+------
+NO IN-REPO DEFECT FOUND. check-service-links.js is now proven by direct
+injection against item 5.2's own generated pages (its landing-page targets),
+a gap the prior 28 passes had left open. Guard coverage for item 5.2 now
+extends to check-service-links.js. NO NEW QUESTION RAISED.
+
+LIVE HALF: not attempted this pass (no browser tooling invoked this run).
+Standing live finding for this item (Q35: all six landing URLs return a
+Weebly 404, unchanged since 2026-08-10) stands unclaimed and unchanged; no
+new live claim made.
