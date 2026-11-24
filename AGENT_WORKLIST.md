@@ -8912,6 +8912,43 @@ repeating that sweep one day later with no generator, page or
 branches.json change would add no new information, so this run's time was
 kept to the repo-side baseline. NO IN-REPO DEFECT FOUND, NO NEW QUESTION
 RAISED. Item 3.4 stays [x] (quality pass, not a state change).
+
+Quality pass 2026-11-24 (11:42Z run, deliberately minimal): REPO HALF ONLY.
+branches.json sha256 confirmed unchanged
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da). Full
+35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js)
+run directly against the tracked repo: 35/35 exit 0, no new warnings, no
+change from the 2026-11-23 pass. Checked which checkers have ever been named
+against this item across its full history: all 35 non-excluded checkers
+(37 total minus check-cdn-pins.js and check-live-hours.js, both excluded
+from this suite for other reasons already on file) have already been named
+here at least once - there is no never-exercised checker left to point a
+fresh injection at, so none was attempted rather than manufacturing a
+contrived test for its own sake. No live browser sweep this run: the
+2026-11-22 pass already read all 12 generated pages live and the
+2026-11-23 pass judged a repeat sweep one day later to add nothing; one more
+day on, with no generator, page or branches.json change in between, the same
+judgement holds. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.4
+stays [x] (quality pass, not a state change).
+
+FLAG (repeated from several preceding runs today, not acted on - outside this
+run's authority): Rishi's own answer to Q147 (23/11/2026, portal) said to
+pause or reduce the schedule's frequency until the open questions were
+answered, then resume. That condition is effectively met - QUESTIONS.json
+now holds 148 answered of 149, the single open one (Q148, git push credential
+missing from this bash sandbox) being an infrastructure gap, not a portal
+decision pending Rishi. The worklist remains functionally exhausted (47 of
+50 items done once sub-items are counted individually; the only unchecked
+lines are 5.8/Q16, 6.4/Q60 and 6.5/Q60, all permanently [BLOCKED] on a live
+Weebly session this worker cannot perform), so every run continues to fall
+through to the quality-pass fallback against an estate that has now had this
+particular item (3.4) verified clean roughly a dozen times with no new
+finding since 2026-08-14. This worker has no mechanism to pause or re-scope
+its own schedule and did not attempt to. Q148 also recurred again this run
+(git push failed with the same "could not read Username for
+'https://github.com'" error, no credential present in this bash sandbox);
+not re-raised as a new question, its own body already covers this exact
+recurrence.
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
