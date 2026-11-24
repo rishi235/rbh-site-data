@@ -1,0 +1,49 @@
+PASS  DAY_RE matches 'Mon' as a bare token (Monday)
+PASS  DAY_RE matches 'Mon' inside a realistic hours line (Monday)
+PASS  DAY_RE matches 'Monday' as a bare token (Monday)
+PASS  DAY_RE matches 'Monday' inside a realistic hours line (Monday)
+PASS  DAY_RE matches 'Tue' as a bare token (Tuesday)
+PASS  DAY_RE matches 'Tue' inside a realistic hours line (Tuesday)
+PASS  DAY_RE matches 'Tues' as a bare token (Tuesday)
+PASS  DAY_RE matches 'Tues' inside a realistic hours line (Tuesday)
+PASS  DAY_RE matches 'Tuesday' as a bare token (Tuesday)
+PASS  DAY_RE matches 'Tuesday' inside a realistic hours line (Tuesday)
+PASS  DAY_RE matches 'Wed' as a bare token (Wednesday)
+PASS  DAY_RE matches 'Wed' inside a realistic hours line (Wednesday)
+PASS  DAY_RE matches 'Weds' as a bare token (Wednesday)
+PASS  DAY_RE matches 'Weds' inside a realistic hours line (Wednesday)
+PASS  DAY_RE matches 'Wednesday' as a bare token (Wednesday)
+PASS  DAY_RE matches 'Wednesday' inside a realistic hours line (Wednesday)
+PASS  DAY_RE matches 'Thu' as a bare token (Thursday)
+PASS  DAY_RE matches 'Thu' inside a realistic hours line (Thursday)
+PASS  DAY_RE matches 'Thur' as a bare token (Thursday)
+PASS  DAY_RE matches 'Thur' inside a realistic hours line (Thursday)
+PASS  DAY_RE matches 'Thurs' as a bare token (Thursday)
+PASS  DAY_RE matches 'Thurs' inside a realistic hours line (Thursday)
+PASS  DAY_RE matches 'Thursday' as a bare token (Thursday)
+PASS  DAY_RE matches 'Thursday' inside a realistic hours line (Thursday)
+PASS  DAY_RE matches 'Fri' as a bare token (Friday)
+PASS  DAY_RE matches 'Fri' inside a realistic hours line (Friday)
+PASS  DAY_RE matches 'Friday' as a bare token (Friday)
+PASS  DAY_RE matches 'Friday' inside a realistic hours line (Friday)
+PASS  DAY_RE matches 'Sat' as a bare token (Saturday)
+PASS  DAY_RE matches 'Sat' inside a realistic hours line (Saturday)
+PASS  DAY_RE matches 'Saturday' as a bare token (Saturday)
+PASS  DAY_RE matches 'Saturday' inside a realistic hours line (Saturday)
+PASS  DAY_RE matches 'Sun' as a bare token (Sunday)
+PASS  DAY_RE matches 'Sun' inside a realistic hours line (Sunday)
+PASS  DAY_RE matches 'Sunday' as a bare token (Sunday)
+PASS  DAY_RE matches 'Sunday' inside a realistic hours line (Sunday)
+PASS  DAY_RE does not match 'Monthly' (false positive guard)
+PASS  DAY_RE does not match 'Friendly' (false positive guard)
+PASS  DAY_RE does not match 'Satisfaction' (false positive guard)
+PASS  DAY_RE positive control: 'Sunday roast' should match
+PASS  daySnippets() builds a snippet around a 'Weds' line exactly as it does for 'Wed'
+PASS  htmlToText() converts <br> to a newline
+PASS  htmlToText() converts <br/> (self-closed) to a newline
+PASS  htmlToText() ends a block element with a newline
+PASS  htmlToText() decodes &amp; / &nbsp; / &rsquo; / &mdash;
+PASS  htmlToText() strips <script> and <style> content entirely (not just the tags)
+PASS  full pipeline: a live page using 'Weds' instead of 'Wed' still yields a snippet
+
+47 checks, 0 failing.

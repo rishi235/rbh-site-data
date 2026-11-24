@@ -53,7 +53,17 @@ var data = JSON.parse(fs.readFileSync(path.join(ROOT, "branches.json"), "utf8"))
 var UA = "RBH-internal-hours-check/1.0 (rbh-site-data tools; read-only audit)";
 var TIMEOUT_MS = 20000;
 var DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-var DAY_RE = /\b(mon(day)?|tue(s|sday)?|wed(nesday)?|thu(r|rs|rsday)?|fri(day)?|sat(urday)?|sun(day)?)\b/i;
+// "wed(s|nesday)?" (not just "wed(nesday)?"): item 6.3's twenty-third
+// quality pass (2026-11-24) found "Weds" - a common British abbreviation
+// for Wednesday, distinct from "Wed" - did not match this regex at all, so
+// a live page writing hours as "Weds: 9am-6pm" would be silently invisible
+// to daySnippets() below: no snippet group built, no line for a human
+// reader to compare against branches.json, while the tool still exits 0
+// ("survey tool, not a gate"). Proved by injection in
+// audits/verify-dayre-weds-6.3-2026-11-24-twentythird.js, on a scratch
+// copy only; the tracked estate was never opened for writing during the
+// test. See that file for the full before/after harness.
+var DAY_RE = /\b(mon(day)?|tue(s|sday)?|wed(s|nesday)?|thu(r|rs|rsday)?|fri(day)?|sat(urday)?|sun(day)?)\b/i;
 var PAGE_HINT_RE = /(contact|opening|hours|find|about|visit)/i;
 
 // Item 6.7: how close a bank holiday has to be to this run before the report

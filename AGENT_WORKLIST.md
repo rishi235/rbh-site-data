@@ -49089,6 +49089,118 @@ data field changed this run. No new question.
       Evidence: audits/verify-6.3-2026-11-22-twentysecond.js,
       audits/verify-6.3-2026-11-22-twentysecond.json,
       audits/live-hours-check-2026-11-22.json. Done 2026-11-22.
+      Quality pass (twenty-third), 2026-11-24 (unattended scheduled run,
+      Cowork, audit-backlog-worker). ROTATION: both unchecked worklist
+      lines confirmed [BLOCKED] (6.4/Q60, 6.5/Q60, 5.8/Q16 is the third),
+      unchanged, so fell through to the quality-pass fallback. 32 of the
+      day's prior stalest-pool items had already been touched today
+      (1.2, 1.3, 2.3, 3.1-3.13, 4.1, 4.4-4.15, 5.1, 5.2, 5.3, 6.2); of the
+      four left untouched today and not out-of-rotation (2.1, 6.1, 6.3,
+      6.6), 6.3's own last genuine pass date (2026-11-22, the twenty-second
+      pass above) was the oldest, so it was picked.
+      BASELINE: all 35 non-network, non-cdn-pins checkers clean (35/35 exit
+      0) before any change; branches.json sha256 unchanged from the
+      standing hash (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      FRESH ANGLE: the twentieth pass's own header comment names
+      "daySnippets/htmlToText" as grepped and found untested across its
+      own prior 19 passes, but the twentieth pass itself then went on to
+      test extractLocs()/PAGE_HINT_RE/the URL cap instead, and every pass
+      since has tested other surface (NEAR_DAYS boundary, human()/
+      expectedRows(), the GBP hoursDays rule). Across all 22 prior passes,
+      "htmlToText" and "daySnippets" each appear exactly once in this
+      item's own text, and both hits are that one naming comment, not a
+      test harness. ONE REAL DEFECT FOUND AND FIXED, in the checker, not
+      in any page or any live content. DAY_RE (the regex daySnippets() uses
+      to decide a line is "about" a weekday at all, so a window of
+      surrounding lines gets kept) is /\b(mon(day)?|tue(s|sday)?|
+      wed(nesday)?|thu(r|rs|rsday)?|fri(day)?|sat(urday)?|sun(day)?)\b/i.
+      Every other weekday has a bare-abbreviation branch (tue(s|...),
+      thu(r|rs|...)) but Wednesday's only accepts "wed" or the full word
+      "wednesday" - not "Weds", a common British short form, distinct from
+      "Wed", that a Weebly hours card could plausibly use. PROVED BY
+      INJECTION, verbatim-copied functions only, no live network call, no
+      tracked file opened for writing during the test: a standalone node
+      harness (audits/verify-dayre-weds-6.3-2026-11-24-twentythird.js)
+      ran 47 checks against DAY_RE, daySnippets() and htmlToText() copied
+      verbatim from the file as read this run. Pre-fix: 3 failures - DAY_RE
+      itself does not match the bare token "Weds" or "Weds: 9.00am -
+      6.00pm", and daySnippets() on an isolated "Weds: ..." line (no other
+      day-shaped line nearby) produces zero snippet groups where "Wed: ..."
+      in the same position produces one - meaning a real live page's
+      Wednesday line could be silently invisible to this survey tool,
+      with no line for a human reader ever to compare against
+      branches.json, while the tool still exits 0 ("survey tool, not a
+      gate" by its own header). Four negative controls (Monthly, Friendly,
+      Satisfaction, a positive "Sunday roast" sanity check) all behaved
+      correctly before and after, confirming the fix is selective and adds
+      no false positive. FIX: wed(nesday)? -> wed(s|nesday)?, the identical
+      shape every other weekday in the same regex already uses for its own
+      bare-abbreviation form. Re-ran the 47-check harness post-fix: 0
+      failing. Also covered in the same pass, since neither had ever had a
+      dedicated harness either: htmlToText()'s <br>/<br/> to newline
+      conversion, block-element (p/div/li/tr/h1-6) closing-tag newlines,
+      &amp;/&nbsp;/&rsquo;/&mdash; entity decoding, and full removal of
+      <script>/<style> body text (not just their tags) - all five passed
+      cleanly both before and after the DAY_RE fix, since none of those
+      five touch the regex. APPLIED TO THE TRACKED REPO: tools/check-live-
+      hours.js's DAY_RE updated with a dated comment explaining the gap and
+      pointing at the evidence file; the evidence harness itself copied
+      into audits/verify-dayre-weds-6.3-2026-11-24-twentythird.js (one
+      edit made after first copying it in: the harness's own synthetic
+      test address originally included a placeholder postcode-shaped
+      string, "AB1 2CD", which correctly tripped check-postcodes.js's
+      UNKNOWN rule on its first run against the tracked repo - removed,
+      since the test needs no postcode at all, not added to
+      NARRATIVE_POSTCODES, as the string was never a fact this item needed
+      to assert). Full 35-checker suite re-run individually against the
+      tracked repo after the fix: 35/35 exit 0, including check-postcodes.js
+      clean (0 failures, same 3 pre-existing unrelated UNOWNED warnings as
+      always). branches.json sha256 unchanged throughout. `git status
+      --porcelain modules core tools gbp-packs compliance branches.json`
+      showed only tools/check-live-hours.js changed, plus the pre-existing
+      untracked pharmacy-first-mccanns-sandringham.html.goldenbak debris,
+      unrelated to this item.
+      LIVE HALF: tools/check-live-hours.js re-run fresh over real network
+      egress (read-only GETs only, same conduct as every prior pass),
+      all 14 trading branches read, audits/live-hours-check-2026-11-24.json
+      written. Checked specifically for "Weds" anywhere in today's fresh
+      snippets: zero hits across all 14 branches, so the DAY_RE gap this
+      pass closes is a no-op on today's live estate and closes it only for
+      the next edit anybody makes to any of these sites - same shape as
+      several prior CLAUDE.md-recorded findings. Spot-read smartts_bootle
+      and gordonshorts_crosby (control) in full against branches.json:
+      Smartts' homepage and contact page both still publish straight-
+      through "Weekdays / 09:00 - 18:00" and "Monday 9:00am - 6:00pm"
+      (etc.) with no lunch closure shown anywhere, unchanged since
+      2026-08-11, now confirmed on all twenty-three passes; Gordon Short
+      (control) correctly shows "(closed 1pm -2pm Lunch...)" on both its
+      pages. No bank holiday within 14 days of this run (report's own
+      bankHolidays.nearThisRun is empty). Q55 (answered 2026-09-02, option
+      1, edit the live Smartts pages) stands as answered-but-not-yet-
+      actioned, live Weebly edit outside this worker's write scope, not
+      re-raised. The other 11 branches' fresh snippets were written to the
+      dated JSON but not individually re-read line by line this pass, since
+      the twenty-second pass already read all 14 in full three days ago and
+      this pass's own focus was the checker's extraction logic, not a full
+      re-verification sweep; no change is claimed for those 11 beyond the
+      earlier reconfirmation.
+      ANSWER PICKUP (step 3, this run): QUESTIONS.json read directly: 0 of
+      148 entries have status "open" (unchanged), so no portal fetch was
+      attempted this pass.
+      No new live defect, no new in-repo defect raised as a question (the
+      DAY_RE gap was a genuine defect, fixed directly, not merely logged).
+      Evidence: audits/verify-dayre-weds-6.3-2026-11-24-twentythird.js,
+      audits/verify-dayre-weds-6.3-2026-11-24-twentythird-output.txt,
+      audits/live-hours-check-2026-11-24.json. FORWARD NOTE: collectHost()'s
+      per-host page fetch chain (urls.length < 8 cap, PAGE_HINT_RE sitemap
+      filter) is already proven by the twentieth pass; htmlToText()'s own
+      entity/block handling is now proven; still untested across all 23
+      passes: the hostPages per-host CACHE itself (the `if (hostPages[host])
+      return Promise.resolve();` short-circuit that shares one fetch across
+      both branches of a shared-domain pair) has been exercised only
+      implicitly by every live run reusing cached pages correctly, never by
+      a dedicated unit test proving the short-circuit itself fires and does
+      not re-fetch. Done 2026-11-24.
 
 - [ ] [BLOCKED] Q60 6.4 (low priority, cosmetic) McCanns nav button styling: on
       mccannspharmacy.co.uk (shared Aigburth/Sandringham site, Weebly), the
