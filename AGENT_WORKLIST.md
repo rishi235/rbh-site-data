@@ -367,6 +367,25 @@ passes. No generator, page, pack, checker or branches.json content
 changed in the tracked repo. Scratch clone deleted at the end of this
 run. Full outcome logged in AGENT_LOG.md.
 
+Quality pass 2026-11-24 (Cowork scheduled run, ~20:12Z pickup, fallback
+rotation pick - lowest-numbered item with no 2026-11-24 entry yet, the two
+unblocked worklist items with a slot available having already been touched
+earlier today by a prior firing). Full 35-checker suite (excl.
+check-cdn-pins.js/check-live-hours.js, network-dependent) re-run directly
+against the tracked repo: 35/35 clean, same shape of output as every recent
+pass (known WARN/KNOWN entries unchanged: Q15 townSlug/seoTown mismatch,
+Q64 post-town vs addressLocality on three GBP packs, Q61 impetigo safety
+net, Q111 emar personal inbox, Q20 inert data-wa on 14 pages, Q45/Q13 CDN
+pin and destination split, 3 UNOWNED postcode files, 129 insecure-URL
+warnings outside narrative surfaces). check-nap.js (this item's own
+checker) specifically: 177 pages, 0 mismatches, all four NAP surfaces
+present and checked, no change since the 2026-08-12 pass. No repo-only
+injection test run this pass (budget spent on step 1/2 infrastructure
+housekeeping, logged in AGENT_LOG.md); the last injection test against
+this checker (2026-08-04 pass logged above) remains the most recent proof
+it still catches a real mismatch. No live-site read this pass. No in-repo
+defect found, no new question raised. Done 2026-11-24.
+
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
       list gaps in AGENT_LOG.md, then fix what can be fixed in-repo. Done 2026-08-04.
