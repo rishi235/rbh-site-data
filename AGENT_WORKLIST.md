@@ -23720,6 +23720,38 @@ Pharmacy First wording to the NHS service description.
   stays `[x]` (quality pass, not a state change). See
   audits/fishlocks-ainsdale-item-4.1-uk-spelling-2026-11-23.txt.
   Done 2026-11-23
+  Quality pass 2026-11-24T22:43Z (Cowork scheduled run, picked as lowest
+  item number in the remaining 2026-11-23 tied-oldest rotation pool
+  {4.1, 4.3, 5.4, 5.5, 6.1, 6.6} once 3.12 and 3.13 had already been taken
+  off it this same day). REPO HALF: full 37-checker non-network suite run
+  fresh this pass (37/37 clean, matching the 35+cdn-pins figure quoted by
+  recent passes once check-pharmacy-first-safety-net.js and
+  check-pharmacy-first-symptoms.js are counted); check-cdn-pins.js clean
+  (2 WARN/6 KNOWN, all previously logged under Q45, none new);
+  branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+  unchanged from the last several passes. gbp-packs/fishlocks-ainsdale.md
+  re-read fact by fact against the fishlocks_ainsdale branches.json entry:
+  name, address, PR8 3HN, phone 01704 575478, hours (Mon-Fri 8:45-18:00,
+  Sat/Sun closed), review link all still match. NO IN-REPO DEFECT FOUND.
+  LIVE HALF (Claude in Chrome, read-only, single tab, nothing
+  clicked/typed/submitted, tab closed after use): re-fetched
+  https://www.fishlockpharmacy.co.uk/pharmacy-fishlocks-ainsdale.html -
+  still a live 404, matching every prior pass since this was first found
+  (Q35, answered but not yet applied; this is a live Weebly publish gap,
+  not an in-repo defect). No new question raised.
+  INFRASTRUCTURE NOTE (not part of the item, logged because it is getting
+  worse): this sandbox's `modules/` tree now carries at least six full-tree
+  scratch/quarantine copies left over from prior runs' diff-and-restore
+  verification steps (.quarantine/verify-4.7-1794977363/,
+  .scratch_tmp/item31scratch.RELEASED-*/, item31scratch2.RELEASED-*/,
+  scratch_31_item31.RELEASED-*/, scratch_35_pass/, scratch_415/,
+  scratch_415_1795362341/, scratch_53/), none of them deletable on this
+  mount (`rm`/`unlink` return EPERM, the same standing quirk as the lock
+  files). None of this run's own temp copies were left behind; this note
+  only records what earlier runs could not clean up. Flagged for Rishi
+  alongside the Q148 push-credential gap rather than fixed here, since
+  deleting them is exactly the operation this mount refuses.
+  Done 2026-11-24
 - [x] 4.2 Cherry Lane pack. Done 2026-08-04 (Cowork session). gbp-packs/
       cherry-lane-walton.md. Posts B, C and D flagged: check those pages are
       live before posting - Cherry Lane build (2.3) is still pending.
