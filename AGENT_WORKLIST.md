@@ -13052,6 +13052,22 @@ Done 2026-10-14 (twenty-third pass).
       remains the one page on this branch never sampled live; left for a future pass.
       NO IN-REPO DEFECT FOUND, NO NEW LIVE DEFECT FOUND, NO NEW QUESTION RAISED.
       Evidence: audits/smartts-item-3.7-quality-pass-2026-11-24.txt. Done 2026-11-24.
+      Quality pass 2026-11-24 (Cowork scheduled run, 17:14Z pickup): branches.json
+      sha256 unchanged (0385b7c2...27da); full 35-checker non-network suite 35/35
+      clean, check-cdn-pins.js separately clean (same 2 WARN/6 KNOWN, nothing new).
+      FRESH ANGLE, LAST REMAINING ONE FOR THIS ITEM: read
+      insect-bite-treatment-smartts-bootle.html live (Claude in Chrome, read-only,
+      single tab, closed after) - the one page on this branch never sampled across
+      the item's full history. Address (42 Fernhill Road, Bootle, L20 9HH), phone
+      (0151 922 4984), email and eligibility wording (age 1 and over, free NHS
+      service) all match branches.json and the Pharmacy First standard; no
+      medicine/superlative/results claim. STANDING, NOT NEW: displayed hours show
+      one continuous Mon-Fri 9-6 range although branches.json's specification
+      carries a lunch split (09:00-13:00, 14:00-18:00) - the same Q99 (answered)
+      display gap reconfirmed on this final page. All twelve of this branch's
+      generated pages have now been sampled live at least once across the item's
+      history; no untested page remains for this item. NO IN-REPO DEFECT FOUND,
+      NO NEW LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Done 2026-11-24.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
