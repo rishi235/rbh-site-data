@@ -10075,6 +10075,40 @@ check-weebly-furniture-freshness.js) for a future pass. NO NEW QUESTION
 RAISED. Item 3.5 stays `[x]` (quality pass, not a state change). Done
 2026-11-23.
 
+Quality pass 2026-11-24 (thirty-first): fresh angle tools/check-service-links.js
+(RULE 2, efficacy/results claim), never named against item 3.5 across the prior
+30 passes. Baseline: branches.json sha256 0385b7c2...27da unchanged; full
+35-checker suite (excl. check-cdn-pins.js, check-live-hours.js) 35/35 exit 0 on
+the live repo. Scratch copy via `git archive HEAD`, sha256-matched to the live
+repo before any injection; tracked repo never opened for writing. One injection
+on modules/service/pages/shingles-treatment-hirshmans-ainsdale.html: appended
+"Our treatment delivers results fast." to the hero-proof line - CAUGHT first
+attempt, RULE 2 (promises results), exact page, line and text named. Restored
+by byte copy from the pre-injection backup, sha256-reconfirmed identical
+(37e057d3...8811) before re-checking: clean, matching the pre-injection
+baseline (6 standing KNOWN items, same as the live repo). Note recorded for
+future passes: check-service-links.js resolves REPO from its own __dirname, so
+it must be run as the copy inside the scratch tree, not the tracked repo's own
+copy pointed at a scratch path - it has no --root flag. Live repo's own
+branches.json and the shingles page confirmed byte-unchanged throughout
+(`git status --porcelain` on modules/, core/, tools/, branches.json, gbp-packs/,
+compliance/ empty bar the pre-existing McCanns Sandringham .goldenbak debris,
+unrelated). Full 35-checker suite re-run on the tracked repo afterwards: 35/35
+exit 0. NO IN-REPO DEFECT FOUND: check-service-links.js already correctly
+protects this branch's pages against the efficacy-claim class it exists to
+catch. No live half this pass: checker-only finding, no branches.json or
+generator change, and the 2026-11-22 pass already sampled a fresh live page
+within the last two days with nothing changed since. QUESTIONS.json checked at
+pickup: 1 of 149 open (Q148, the standing git-push-credential infrastructure
+gap - not a portal decision for this item, left untouched). 7 checkers remain
+never explicitly injection-tested against this item (check-em-dashes.js,
+check-fragment-targets.js, check-gbp-pharmacy-first.js, check-page-coverage.js,
+check-uk-spelling.js, check-url-scheme.js,
+check-weebly-furniture-freshness.js) for a future pass. NO NEW QUESTION RAISED.
+Item 3.5 stays `[x]` (quality pass, not a state change). Full detail in
+audits/hirshmans-ainsdale-item-3.5-quality-pass-2026-11-24-thirtyfirst.txt.
+Done 2026-11-24.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
