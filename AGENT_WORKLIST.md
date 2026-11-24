@@ -32860,6 +32860,55 @@ directly rather than re-deriving the same facts by hand.
       IN-REPO DEFECT FOUND, NO COPY EDITED, NO NEW QUESTION RAISED. Evidence:
       audits/smartts-bootle-item-4.10-quality-pass-2026-11-22-twentyseventh.txt.
       Done 2026-11-22.
+      Twenty-eighth quality pass 2026-11-24 (unattended scheduled run,
+      Sonnet 5): baseline unchanged - branches.json sha256 0385b7c2...27da,
+      pack sha256 ddb68512...cee86 (git diff HEAD on the pack is empty, so
+      this is the committed content; a stale 2f498321...138e63 value quoted
+      in the 27th pass's own note does not match it, but since git diff
+      against HEAD shows zero lines changed this is not real drift, just a
+      wrong hash transcribed into a prior note, most likely during a cross-
+      session hash comparison - logged so a future pass does not chase it as
+      a finding); full 35-checker non-network suite 35/35 clean. Per the 24th
+      pass, every checker reading gbp-packs/*.md is already proven by
+      injection against this pack, so no further checker-injection round was
+      attempted. FRESH ANGLE: of this branch's 12 generated pages, live-read
+      coverage before this pass stood at 5 of 12 (pharmacy-first, sinusitis,
+      travel-clinic, weight-loss-clinic, switch-prescriptions); the other 7
+      (contraception, earache, impetigo, insect-bite, shingles, sore-throat,
+      uti-treatment) had never been read live across 27 prior passes. LIVE
+      HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed
+      or submitted, closed after use): read sore-throat-treatment-smartts-
+      bootle.html live in full on smarttschemist.co.uk - address, phone,
+      eligibility (age 5+), three-step process, FAQ headings, callback form
+      and contact card all match branches.json and the generator's static
+      copy exactly; no medicine named, no superlative or results claim, no
+      stock guarantee. STANDING FINDING RECONFIRMED, NOT NEW: the shared
+      "Opening hours" sidebar widget still shows one continuous Mon-Fri 9-6
+      range with no lunch closure against branches.json's split-hours
+      specification (Q55), now reconfirmed on an eighth page for this
+      branch. The "AI Information" sidebar widget's "Liverpool" extra
+      address line (logged, not escalated, on the 27th pass) is present here
+      too, same estate-wide convention. JSON-LD checked separately via
+      javascript_tool (stripped from get_page_text): the standing Q99
+      two-block pattern is present - Block A is this repo's own correct
+      per-page schema (own url, addressRegion Merseyside, no email field);
+      Block B is the Weebly-injected sitewide block, url pointing at the
+      homepage, no addressRegion, and it carries the email field with the
+      capitalised "Smartts@rbhealth.co.uk" form, matching branches.json's own
+      email field value exactly (not a page-generation defect - the
+      capitalisation originates in the data, already flagged by the item 5.3
+      quality pass as the "Smartts email case mismatch" note, not newly
+      found here). Both blocks agree with each other and with branches.json
+      on name and phone, so no item-3.12/Q18 name-drift risk on this branch
+      (brandLabel equals branchName for Smartts). Repo side confirmed clean
+      separately: modules/service/pages/sore-throat-treatment-smartts-
+      bootle.html generates exactly one correct JSON-LD block matching
+      check-jsonld.js's rules, with data-branch, data-service and the H1 all
+      also correct. NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED.
+      Live-read coverage for this branch now extends to 6 of 12 generated
+      pages (up from 5); contraception, earache, impetigo, insect-bite,
+      shingles and uti-treatment remain live-unread for a future pass.
+      Done 2026-11-24.
 - [x] 4.11 SK Chemists Bootle pack. Done 2026-08-04. Wording deliberately
       distinct from Smartts so the two Bootle profiles do not duplicate.
       Quality pass 2026-08-10: the pack verified fact by fact against
