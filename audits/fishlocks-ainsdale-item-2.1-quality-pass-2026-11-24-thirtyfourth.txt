@@ -1,0 +1,74 @@
+Item 2.1 (Fishlocks Chemist Ainsdale) - quality pass, thirty-fourth, 2026-11-24
+Scheduled run audit-backlog-worker, 09:42Z pickup. Fallback rotation pick
+(no unblocked worklist items; only 5.8/Q16, 6.4/Q60, 6.5/Q60 remain unchecked,
+all [BLOCKED]). Stalest-tied pool at 2026-11-23 after excluding the 7 standing
+out-of-rotation items and the 3 blocked items: 2.1, 2.3, 3.1-3.13 (ex. 3.3,
+not a worklist item), 4.1-4.3, 5.4, 5.5, 6.1, 6.6. Lowest-numbered tiebreak:
+2.1.
+
+BASELINE: branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+unchanged from the standing anchor. Full 35-checker non-network suite
+(all tools/check-*.js excluding check-cdn-pins.js and check-live-hours.js)
+run directly on the tracked repo before any work: 35/35 exit 0.
+
+FRESH ANGLE: check-editor-snapshot.js had never been named against item 2.1
+across all 33 prior passes (the thirty-third pass's own note names it as one
+of 7 checkers still unexercised for this item, alongside
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-uk-spelling.js and check-widget-diaries.js). This checker compares
+tools/branches-editor.html's embedded `const DATA` snapshot field-by-field
+against the live branches.json, so it does cover this branch's own record
+(fishlocks_ainsdale) even though its scope is repo-wide rather than
+page-specific.
+
+Scratch copy made via `git archive HEAD | tar -x` into the outputs mount
+(the /sessions root was again reported 100% full at the start of this run,
+same recurring capacity quirk prior passes have logged; the tracked repo
+was never opened for writing as a result). Baseline on the scratch copy:
+clean, exit 0, 16 branches both sides, lastUpdated 2026-11-17 both sides.
+
+INJECTION: changed only the scratch copy's branches.json, setting
+fishlocks_ainsdale.phone from "01704 575478" to "01704 999999" (editor
+snapshot left untouched) - CAUGHT, first attempt, exit 1, one DRIFT line
+naming the exact branch id, field and both values
+("fishlocks_ainsdale.phone: snapshot \"01704 575478\", branches.json
+\"01704 999999\"").
+
+RESTORE: branches.json restored on the scratch copy via a second
+`git archive HEAD -- branches.json | tar -x` from the tracked repo (byte
+restore, not a hand edit). Re-check: clean, exit 0.
+
+NEGATIVE CONTROL: appended a cosmetic HTML comment to the end of
+tools/branches-editor.html on the scratch copy, no branches.json change -
+ran clean, exit 0, confirming the checker does not false-positive on an
+unrelated edit after the DATA block.
+
+Scratch copy deleted after use. Tracked repo reconfirmed untouched
+throughout: branches.json sha256 unchanged; `git status --porcelain` on
+modules/core/tools/gbp-packs/compliance/branches.json showed no change
+(the pre-existing untracked
+modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+debris file is unrelated to this pass). Full 35-checker suite re-run on
+the tracked repo after the scratch work: 35/35 exit 0.
+
+NO IN-REPO DEFECT FOUND. Guard coverage for item 2.1 now extends to
+check-editor-snapshot.js; 6 checkers remain never-named against this item:
+check-fragment-targets.js, check-gbp-pharmacy-first.js,
+check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+check-uk-spelling.js, check-widget-diaries.js.
+
+LIVE HALF: not attempted this pass. The thirty-third pass (2026-11-23)
+already sampled a 14th live page for this branch the day before, and the
+two standing live-only findings (Q37, the Weebly-native legal footer still
+naming the business "Fishlock Pharmacy"/"Fishlock Chemist"; and the Q35
+pharmacy-fishlocks-ainsdale.html live 404) are unchanged open items with no
+new evidence to add; a further live re-read was judged to carry negligible
+marginal value against this run's time budget, consistent with the same
+judgement made on item 1.3 earlier in today's rotation.
+
+QUESTIONS.json: unchanged, 0 of 148 open. No new question raised (a
+checker-coverage proof with no defect found does not need Rishi's
+decision).
+
+Item 2.1 stays [x] (quality pass, not a state change).

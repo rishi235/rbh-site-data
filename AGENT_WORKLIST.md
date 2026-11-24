@@ -2029,6 +2029,41 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       [x] (quality pass, not a state change). Evidence:
       audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-23-thirtythird.txt.
       Done 2026-11-23.
+      QUALITY PASS 2026-11-24 (thirty-fourth, fallback rotation pick - no
+      unblocked worklist items, quality-pass fallback per step 5): baseline
+      35-checker suite run clean (0 failures) before any work, branches.json
+      sha256 unchanged. Closed another of the seven previously never-named
+      checkers against this item: check-editor-snapshot.js. Injection on a
+      scratch copy only (git archive HEAD into the outputs mount, tracked
+      repo never opened for writing - the /sessions root was again reported
+      100% full at pickup, same recurring capacity quirk prior passes have
+      logged) changed only the scratch copy's branches.json, setting
+      fishlocks_ainsdale.phone from "01704 575478" to "01704 999999" with the
+      editor's embedded snapshot left untouched - FAILED cleanly, one DRIFT
+      line naming the exact branch id, field and both values. Restored by a
+      second git-archive byte copy of branches.json alone; re-check clean.
+      Negative control (cosmetic HTML comment appended to
+      tools/branches-editor.html, no branches.json change) ran clean, 0
+      failures. Scratch copy deleted after use; tracked repo reconfirmed
+      byte-identical throughout (sha256 unchanged, git status clean except
+      the pre-existing untracked .goldenbak debris, unrelated) and the full
+      35-checker suite re-run clean afterwards on the tracked repo. No
+      in-repo defect found. Guard coverage for item 2.1 now extends to
+      check-editor-snapshot.js; 6 checkers remain never-named against this
+      item: check-fragment-targets.js, check-gbp-pharmacy-first.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-uk-spelling.js, check-widget-diaries.js.
+      LIVE: not attempted this pass - the thirty-third pass (2026-11-23)
+      already sampled a 14th live page the day before and the two standing
+      live-only findings (Q37 legal-footer brand name; Q35 landing-page 404)
+      are unchanged with nothing new to add, judged not worth a further live
+      read against this run's time budget. No generator, page, pack, checker
+      content or branches.json content changed (check-editor-snapshot.js
+      itself was read only, not edited). QUESTIONS.json unchanged, still 0
+      of 148 open. No new question raised. Item 2.1 stays [x] (quality
+      pass, not a state change). Evidence:
+      audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-24-thirtyfourth.txt.
+      Done 2026-11-24.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
