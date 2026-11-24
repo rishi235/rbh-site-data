@@ -13036,6 +13036,22 @@ Done 2026-10-14 (twenty-third pass).
       effort was mostly spent pushing the 19:42Z run's pending commit
       (b6fb41c), which had not yet reached origin at this run's pickup.
       NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Done 2026-11-23.
+      Quality pass 2026-11-24 (Cowork scheduled run, 13:14Z pickup): branches.json
+      sha256 unchanged (0385b7c2...27da); full 35-checker non-network suite 35/35
+      clean, check-cdn-pins.js separately clean (same 2 WARN/6 KNOWN, nothing new).
+      All 37 checkers in the repo confirmed already named against this item at least
+      once across its prior passes, so this pass's fresh contribution was live-page
+      coverage: of 12 generated pages for this branch, earache-treatment-smartts-
+      bootle.html had never been sampled live across the item's history - read it
+      (Claude in Chrome, read-only). Address, phone, email and eligibility wording
+      (ages 1-17) all match branches.json and the Pharmacy First standard, no
+      medicine/superlative/results claim. STANDING, NOT NEW: visible hours show one
+      continuous Mon-Fri 9-6 range although branches.json's specification carries a
+      lunch split (09:00-13:00, 14:00-18:00) - the same Q99 (answered) display gap
+      reconfirmed on this further page. insect-bite-treatment-smartts-bootle.html
+      remains the one page on this branch never sampled live; left for a future pass.
+      NO IN-REPO DEFECT FOUND, NO NEW LIVE DEFECT FOUND, NO NEW QUESTION RAISED.
+      Evidence: audits/smartts-item-3.7-quality-pass-2026-11-24.txt. Done 2026-11-24.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era

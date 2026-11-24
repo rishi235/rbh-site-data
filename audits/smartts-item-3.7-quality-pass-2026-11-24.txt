@@ -1,0 +1,43 @@
+Item 3.7 (Smartts Chemist, Bootle) - quality pass, 2026-11-24 (Cowork scheduled run, 13:14Z pickup)
+
+REPO HALF
+- branches.json sha256 confirmed unchanged: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+- Full non-network checker suite run directly against the tracked repo (agents/audit-backlog,
+  HEAD at pickup): 35/35 exit 0 (all tools/check-*.js except check-cdn-pins.js and
+  check-live-hours.js, the two excluded by established convention).
+- check-cdn-pins.js run separately (network): exit 0, clean, 2 WARN + 6 KNOWN, identical in
+  substance to every prior run today - no new drift. The 2 WARN are the standing branches.json
+  @main runtime-fetch second hop (Q45); the 6 KNOWN are the switch/emar paste-template pin
+  divergences already tracked against Q45 and Q13. Nothing new.
+
+FRESH ANGLE
+All 37 checkers in the repo had already been named against item 3.7 at least once across its
+prior ~30 passes (confirmed by grepping the item's own dated text for every tools/check-*.js
+filename before starting - zero never-mentioned). So this pass's fresh contribution is live-page
+coverage rather than a new checker angle: of this branch's 12 generated pages, two had never been
+sampled live across the item's full history - earache-treatment-smartts-bootle.html and
+insect-bite-treatment-smartts-bootle.html. Read earache-treatment-smartts-bootle.html live
+(Claude in Chrome, read-only, single tab, nothing clicked or typed, closed immediately after).
+
+LIVE HALF - earache-treatment-smartts-bootle.html
+- Address, phone, email all match branches.json exactly: 42 Fernhill Road, Bootle, L20 9HH,
+  0151 922 4984, Smartts@rbhealth.co.uk.
+- Eligibility wording (ages 1 to 17, free NHS service, under-1s to GP, adults not covered,
+  red-flag advice to call 999/111) matches the NHS Pharmacy First earache pathway and carries no
+  medicine name, no superlative and no results claim - clean against check-service-links.js's
+  rules and against the Pharmacy First wording standard.
+- Superintendent pharmacist detail, company number and "Owned and operated by RB Healthcare Ltd"
+  footer line all correct.
+- STANDING, NOT NEW: the visible contact card and footer both show one continuous range
+  ("Monday 9:00am - 6:00pm" etc.) although branches.json's own openingHours.specification for
+  smartts_bootle carries a lunch split (09:00-13:00, 14:00-18:00). This is the same live-only
+  display gap already logged against this branch under Q99 (answered) on earlier passes of items
+  3.7 and 3.8 - reconfirmed unchanged on this further page, not a new finding, not re-raised.
+
+insect-bite-treatment-smartts-bootle.html was not read live this pass (time budget); it remains
+the one page on this branch never sampled live across the item's history and is a natural pick
+for a future pass.
+
+NO IN-REPO DEFECT FOUND. NO NEW LIVE DEFECT FOUND. NO NEW QUESTION RAISED.
+QUESTIONS.json unchanged: 148 of 149 answered, Q148 (bash-sandbox git-push credential gap, see
+AGENT_LOG.md) still open and not a portal-style decision.
