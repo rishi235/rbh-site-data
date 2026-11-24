@@ -31767,6 +31767,80 @@ directly rather than re-deriving the same facts by hand.
       phone still reads 0151 203 6535 with no 8365 anywhere (Q28 fix still
       holding). No new question raised. Evidence: audits/clear-aintree-
       seo-keywords-4.9-twentyninth-2026-11-22.txt. Done 2026-11-22
+      Thirtieth quality pass, 2026-11-24 (unattended scheduled run,
+      audit-backlog-worker): fresh angle, proving tools/check-address-
+      region.js against clearchemist_aintree's own branches.json record
+      for the first time in thirty passes - confirmed by a direct grep of
+      this item's full history (0 matches for "check-address-region"
+      anywhere in it), despite the checker reading exactly this branch's
+      addressRegion, seoTown and serviceAreaList fields every time it
+      runs. BASELINE: branches.json sha256 0385b7c2...27da (standing
+      anchor, unchanged), the pack's own sha256 3350d54c...2dd2a7d
+      (unchanged), full 35-checker non-network suite clean on the tracked
+      repo (35/35 exit 0) before any work. Scratch copy via git archive
+      HEAD into /tmp (the mounted rbh-site-data working copy itself was
+      at 100% disk use this run - df showed 0 bytes free on /sessions -
+      so /tmp, which had headroom, was used throughout and the tracked
+      repo was never opened for writing during testing).
+      THREE INJECTIONS against the scratch copy's branches.json, each
+      restored and sha256-reconfirmed before the next: (1) addressRegion
+      changed from "Merseyside" to "Sefton" (a real local authority
+      borough, not a county) - CAUGHT, exact expected FAIL naming the
+      branch and the four permitted counties. (2) serviceAreaList
+      reordered so "Fazakerley" leads and "Aintree" (the branch's own
+      seoTown) drops to second place, still present - correctly produced
+      only a WARN (not a FAIL), because no other live branch owns
+      "Fazakerley" as its seoTown, exactly as the lead-entry rule's own
+      documented design intends for an unowned reordering. (3) "Aintree"
+      removed from serviceAreaList entirely, leaving "Fazakerley" first -
+      this is where a genuine, if minor, checker defect surfaced: the
+      correct FAIL fired ("seoTown Aintree does not appear in its own
+      serviceAreaList"), but the lead-entry block ALSO fired, producing a
+      WARN reading '"Aintree" is in serviceAreaList but not first' - a
+      statement that is flatly false in this state, since Aintree is not
+      in the list at all. The lead-entry block only ever checked
+      areas[0] !== town, never whether town appeared anywhere in areas
+      first, so the two rules could contradict each other in the same
+      run whenever a branch's seoTown was missing from its own list AND
+      the entry that happened to be first belonged to no other branch.
+      FIX APPLIED (checker only, not branches.json): gated the lead-entry
+      block on areas.indexOf(town) !== -1 as well as areas[0] !== town,
+      so it only fires when the seoTown is genuinely present but out of
+      first place - the one case it was designed for - and stays silent
+      when the absence FAIL above already covers the branch. Re-ran all
+      three injections against the patched checker: (1) and (2) unchanged
+      (still FAIL and WARN respectively, same text); (3) now correctly
+      shows only the accurate FAIL, the contradictory WARN gone. NEGATIVE
+      CONTROL: a cosmetic comment-only edit to the checker's own header
+      ran clean, confirming the fix does not touch unrelated behaviour.
+      PROVEN NOT TO CHANGE LIVE BEHAVIOUR: ran the patched checker against
+      the real, unmodified branches.json before and after the fix - output
+      byte-identical both times (the same 2 warnings: the standing Q15
+      mccanns_sandringham townSlug KNOWN exception, and the pre-existing
+      cherrylane_liverpool "Liverpool leads, Walton second" ordering
+      warning), because no live trading branch today has its seoTown
+      missing from its own serviceAreaList in the first place - this is a
+      message-accuracy fix for a state the estate has never actually been
+      in, not a behaviour change on today's data. Full 35-checker suite
+      re-run on the patched scratch copy: 35/35 exit 0. Applied the
+      identical one-line gate plus an explanatory comment to the tracked
+      checker at tools/check-address-region.js; branches.json and
+      gbp-packs/clear-aintree.md both untouched and sha256-reconfirmed
+      identical to the standing anchors; full 35-checker suite re-run on
+      the tracked repo after the fix: 35/35 exit 0, and
+      check-address-region.js's own output on the tracked repo is
+      unchanged from its pre-fix run. LIVE HALF NOT ATTEMPTED: Claude in
+      Chrome's Browser pane required a site-access grant for
+      clearchemist.co.uk that an unattended run has no one present to
+      approve (request_access returned "the person hasn't allowed the
+      browser pane to use https://clearchemist.co.uk yet"); Q28 (phone),
+      Q21's concrete case (WhatsApp) and Q29 (the three 404 post targets)
+      all stand as last reconfirmed live on 2026-11-22's twenty-ninth
+      pass, unaffected by this pass's repo-only scope. No new question
+      raised. Evidence of the injection/fix work is this note; no
+      separate audits/ file was written this pass, since the fix itself
+      (and its before/after real-data comparison above) is the record.
+      Done 2026-11-24
 - [x] 4.10 Smartts Chemist Bootle pack. Done 2026-08-04. Medical cannabis
       framed as free eligibility consultation only, no claims.
       Quality pass 2026-08-10: every fact verified against branches.json and

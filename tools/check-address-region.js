@@ -314,8 +314,22 @@ data.branches.forEach(function (b) {
   // only one guaranteed to survive the 165-character trim, so it must not be
   // a town another branch owns. Ordering that merely puts the branch's own
   // seoTown second stays a warning.
+  //
+  // Gated on areas.indexOf(town) !== -1 since the item 4.9 twenty-ninth
+  // quality pass, 2026-11-24. Without that gate, a branch whose seoTown is
+  // missing from serviceAreaList ENTIRELY (already a FAIL above, or a KNOWN
+  // warning) could also trip this block, which asserts unconditionally that
+  // "seoTown X is in serviceAreaList but not first" - a message that is
+  // simply false when X is not in the list at all. Proved by injection:
+  // removing clearchemist_aintree's own seoTown "Aintree" from its
+  // serviceAreaList (while leaving an unowned town first) produced both the
+  // correct FAIL for the absence AND this now-contradictory WARN in the same
+  // run. No live branch triggers the gate today (every trading branch's
+  // seoTown is at least present in its own list), so this is a message-
+  // accuracy fix, not a behaviour change on real data - confirmed
+  // byte-identical output on the real branches.json before and after.
   var firstRaw = (b.serviceAreaList || [])[0];
-  if (firstRaw && areas[0] !== town) {
+  if (firstRaw && areas.indexOf(town) !== -1 && areas[0] !== town) {
     var owners = (townOwners[areas[0]] || []).filter(function (o) { return o.id !== b.id; });
     var leadKnown = owners.length ? grantedFor(b.id + "::areaLead", b) : null;
 
