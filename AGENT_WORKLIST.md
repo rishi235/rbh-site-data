@@ -41102,6 +41102,60 @@ appended to the line. Do not move them; the status page reads them in place.
       opening hours (Mon-Fri 8:30am-1pm/2pm-6pm, Sat 9am-1pm/2pm-5:30pm, Sun closed)
       all match branches.json exactly. No in-repo or live defect found, no new
       question raised. Done 2026-11-23
+      Quality pass 2026-11-24 (Cowork scheduled run, audit-backlog-worker,
+      started 08:42Z). Picked as the genuinely stalest unblocked item: a
+      direct parse of every top-level item block's own dated text (not the
+      prior run's own self-reported "touched today" claim in AGENT_LOG.md,
+      which this pass found to be wrong for 1.2, 1.3, 2.1, 2.3, 3.1-3.13,
+      4.1-4.3, 5.4, 5.5, 6.1 and 6.6 - all of these still read "Done
+      2026-11-23" in their own text despite being named as "touched today"
+      by the immediately prior 08:12Z run) put a tied-oldest pool of 23
+      items at 2026-11-23; 1.2 wins the lowest-numbered tiebreak. PRE-WORK
+      BASELINE DEFECT FOUND AND FIXED FIRST (repo-wide, not scoped to this
+      item): the standing full 35-checker suite was not clean at pickup.
+      tools/check-postcodes.js failed with 2 UNKNOWN hits for the
+      placeholder postcode "AB1 2CD" in AGENT_LOG.md and AGENT_WORKLIST.md,
+      left behind by the immediately prior 08:12Z run's own write-up (a
+      test-fixture placeholder it had deliberately removed from the actual
+      harness but still quoted in prose). This is the thirty-first time this
+      exact self-referential gap has recurred (L23 6TX through WA14 6BP
+      before it, all recorded in NARRATIVE_POSTCODES's own history) and the
+      CH1 2AB instance sat unfixed for 24+ runs before being closed, so it
+      was fixed immediately here rather than deferred: "AB1 2CD" registered
+      in NARRATIVE_POSTCODES with the standard reason-and-provenance entry;
+      re-ran check-postcodes.js clean (0 failures, 3 pre-existing unrelated
+      UNOWNED warnings unchanged). Full 35-checker suite re-run after the
+      fix: 35/35 clean. branches.json sha256 unchanged throughout
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da).
+      FRESH ANGLE ON ITEM 1.2 ITSELF: tools/check-service-links.js had never
+      been named against this item across all prior passes, despite
+      covering modules/service/pages where Hirshmans Ainsdale's 12
+      generated pages live. Scratch copy via `git archive HEAD | tar -x`
+      into the connected outputs mount (the bash sandbox's own /sessions
+      root was reported 100% full again this run, the same recurring
+      capacity quirk several prior runs have hit, confirmed by a failed sed
+      write before switching); tracked repo never opened for writing as a
+      result. Baseline on the scratch copy clean (exit 0). INJECTION:
+      changed pharmacy-first-hirshmans-ainsdale.html's own UTI condition-card
+      link from uti-treatment-hirshmans-ainsdale.html to a filename this
+      repo does not generate (uti-treatment-hirshmans-doesnotexist.html) -
+      CAUGHT, first attempt, exit 1, one FAIL naming the exact stale target
+      and the correct branch domain. Restored by byte copy; sha256
+      reconfirmed identical to the pre-edit file
+      (fad08010c576d668b6d73163199fc0287b08a9086b918f36d9c93a86f9cd9468);
+      re-check clean, exit 0. Tracked repo confirmed untouched throughout:
+      `git status --porcelain` on modules/core/branches.json/gbp-packs/tools
+      /compliance showed only tools/check-postcodes.js (the deliberate fix
+      above) and the pre-existing untracked
+      pharmacy-first-mccanns-sandringham.html.goldenbak debris, unrelated.
+      NO IN-REPO DEFECT FOUND on item 1.2 itself; check-service-links.js is
+      now proven by direct injection against this item's own pages, closing
+      a coverage gap open since the item was first logged. LIVE HALF: not
+      attempted this pass (no browser tooling invoked this run); standing
+      live findings for this item (the Weebly furniture notes already on
+      record above) stand unclaimed and unchanged, no new live claim made.
+      NO NEW QUESTION RAISED. Item 1.2 stays `[x]` (quality pass, not a
+      state change). QUESTIONS.json: 148 total, 0 open. Done 2026-11-24.
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
