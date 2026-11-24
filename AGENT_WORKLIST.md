@@ -18438,6 +18438,36 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       pass. git status --porcelain -- modules core branches.json gbp-packs
       tools compliance empty throughout. Evidence in audits/riddings-item-
       3.10-quality-pass-2026-11-23-thirtyseventh.txt. Done 2026-11-23.
+      Quality pass 2026-11-24 (Cowork scheduled run, 17:44Z pickup): baseline
+      unchanged - branches.json sha256 0385b7c2...27da unchanged; all 35
+      non-network checkers run directly against the tracked repo exit 0;
+      check-cdn-pins.js run separately, clean, same 2 WARN/6 KNOWN as every
+      prior baseline (Q45's two switch-template ref splits, the three
+      emar/core asset refs with nothing to compose an expected pin from, the
+      @main branches.json runtime-fetch warning), none new. Read
+      impetigo-treatment-riddings-timperley.html live in full (Claude in
+      Chrome, read-only, single tab, closed after use) - the next of the
+      five pages this branch still had unread as of the 2026-11-23 pass.
+      Address (38 Riddings Road, Timperley, Altrincham, WA15 6BP), phone
+      (0161 973 2951) and opening hours (Mon-Fri 9:00am-6:00pm, Sat/Sun
+      closed) all match branches.json exactly - this branch's own
+      specification carries no lunch split, so unlike Smartts/McCanns there
+      is no Q99-type display gap to reconfirm here. Pharmacy First
+      eligibility wording ("Anyone aged 1 and over", localised non-bullous
+      impetigo, under-1s and bullous/recurrent/immunosuppressed cases
+      routed elsewhere) matches the generator's static copy. No medicine
+      named, no superlative or results claim, no stock guarantee. Footer
+      contact block email reads lowercase "riddings@rbhealth.co.uk" against
+      branches.json's "Riddings@rbhealth.co.uk" - local-part case differs
+      but this is the generator's own standard footer casing on every page
+      in the estate, not a page-specific defect, and check-nap.js already
+      matches email case-insensitively; not raised as a new finding.
+      NO IN-REPO DEFECT FOUND; NO NEW LIVE DEFECT FOUND; NO NEW QUESTION
+      RAISED. Live-read coverage now extends to 8 of 12 generated pages (up
+      from 7); insect-bite, shingles, sinusitis and uti-treatment remain
+      live-unread for a future pass. git status --porcelain -- modules core
+      branches.json gbp-packs tools compliance empty throughout (beyond
+      this run's own two changed files). Done 2026-11-24.
 
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
