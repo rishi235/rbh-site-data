@@ -1,0 +1,140 @@
+Item 4.15 (Tiffenbergs Chemist, Aintree pack) - twenty-seventh quality pass
+Run: Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-24T05:12Z (lock)
+
+BASELINE
+--------
+branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (matches the standing anchor from every run earlier today)
+Full 35-checker non-network suite (excludes check-cdn-pins.js, check-live-hours.js),
+run individually against the tracked repo: 35/35 exit 0.
+
+ITEM SELECTION
+--------------
+Re-derived last-verified dates from AGENT_WORKLIST.md's own dated section headers
+(max genuine pass date per item, excluding quoted example dates inside prose, e.g.
+item 6.3's 2026-12-25/2026-12-28 bank-holiday examples are not pass dates).
+Excluded the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8),
+the 3 blocked items (5.8, 6.4, 6.5), and items touched earlier today by prior runs
+(4.10, 4.11, 4.12, 4.13, 4.14). Stalest tied pool at 2026-11-22: {4.15, 5.1, 5.2,
+5.3, 6.2, 6.3}. Lowest-numbered tiebreak: 4.15 (Tiffenbergs Chemist Aintree pack),
+last touched 2026-11-22 (twenty-sixth pass).
+
+FRESH ANGLE: check-jsonld.js
+-----------------------------
+Never previously named against item 4.15 across 26 prior passes (confirmed by
+grepping the item's full worklist text block for the checker's filename). All
+10 genuinely GBP-pack-reading checkers were already proven by injection against
+this pack by the twenty-third pass (2026-11-07), and check-map-embeds.js
+(run509, 2026-11-18) and check-branch-identity.js (2026-11-22) were proven
+against this branch's generated pages, but check-jsonld.js - the checker that
+reads the one part of a generated page written for a machine rather than a
+person - had never been exercised against this branch specifically.
+
+Scratch copy made via `git archive HEAD` into .scratch_tmp/scratch_415/ (the
+gitignored scratch location established by the 2026-11-22 pass on this same
+item). Baseline on the scratch copy: 35/35 non-network checkers clean, matching
+the tracked repo.
+
+Target page: modules/service/pages/earache-treatment-tiffenbergs-aintree.html
+(one of this branch's 12 generated pages: 10 service-family pages, 1 switch
+page, confirmed by `find modules -iname "*tiffenbergs*aintree*" -name "*.html"`).
+
+Round 1 - @type divergence (the exact historical defect class this checker was
+built to catch, recorded in CLAUDE.md under "The JSON-LD block, and the
+address no text search can read" - weight-loss pages once declared
+MedicalBusiness instead of Pharmacy):
+  sha256 before edit: e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030
+  Changed "@type": "Pharmacy" to "@type": "MedicalBusiness" inside the page's
+  own JSON-LD block only (no visible copy touched).
+  RESULT: CAUGHT, first attempt.
+    FAIL  modules/service/pages/earache-treatment-tiffenbergs-aintree.html:
+    "@type" is "MedicalBusiness" but every branch page must declare "Pharmacy".
+  Summary line confirmed the count: "@type declared: MedicalBusiness x1,
+  Pharmacy x176" against the expected "Pharmacy x177" baseline.
+  Restored from the pre-edit copy; sha256 reconfirmed identical
+  (e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030) before the
+  next round.
+
+Round 2 - url field divergence (a separate rule: url must equal the branch
+website plus the page's own filename):
+  Changed "url" from ".../earache-treatment-tiffenbergs-aintree.html" to
+  ".../sore-throat-treatment-tiffenbergs-aintree.html" inside the JSON-LD block
+  only.
+  RESULT: CAUGHT, first attempt.
+    FAIL  modules/service/pages/earache-treatment-tiffenbergs-aintree.html:
+    "url" is ".../sore-throat-treatment-tiffenbergs-aintree.html" but the
+    branch website and this filename give
+    ".../earache-treatment-tiffenbergs-aintree.html"
+  Restored; sha256 reconfirmed identical again. check-jsonld.js re-run clean:
+  "@type declared: Pharmacy x177" ... "check-jsonld: clean, every JSON-LD block
+  and map address agrees with branches.json."
+
+RESTORE AND RE-VERIFICATION
+----------------------------
+Full 35-checker non-network suite re-run on the scratch copy after both
+restores: 35/35 exit 0.
+Tracked repo confirmed untouched throughout: `git status --porcelain` on
+modules, branches.json and tools showed only the pre-existing untracked
+pharmacy-first-mccanns-sandringham.html.goldenbak debris (same "not this run's
+concern" class every recent run has logged, unrelated to this item).
+The live tracked-repo copy of the target file was independently sha256-checked
+against the restored scratch copy: both e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030,
+confirming the tracked repo was never opened for writing during this test.
+
+Guard coverage for item 4.15 (GBP-pack-reading checkers: 10/10 proven;
+page-level checkers now also proven: check-map-embeds.js, check-branch-identity.js,
+check-jsonld.js - three of this branch's own generated-page checkers now
+exercised by direct injection, a gap the prior 26 passes had left open for the
+JSON-LD block specifically).
+
+LIVE HALF
+---------
+Claude in Chrome, read-only, single tab, nothing clicked/typed/submitted,
+closed immediately after use.
+
+Read travel-clinic-tiffenbergs-aintree.html live for the first time across all
+27 passes on this item (prior live reads of this branch covered
+pharmacy-first-tiffenbergs-aintree.html and weight-loss-clinic-tiffenbergs-aintree.html
+only). Findings:
+  - NAP matches branches.json: 388 Longmoor Lane, Liverpool, L9 9DB; phone
+    0151 525 3462; split weekday hours (9am-6pm, closed 1-2pm), Sat/Sun closed.
+  - Travel clinic copy rules (CLAUDE.md "The paid service, and the three
+    instructions nothing enforced") all satisfied: stated private and paid in
+    the hero ("This is a private, paid service, not an NHS-funded
+    appointment..."); NHS funding exception hedged ("though some individual
+    vaccines may be available on the NHS depending on your circumstances, the
+    pharmacist will advise"); no vaccine stock guaranteed ("subject to
+    availability and clinical suitability" appears twice); no vaccine or
+    antimalarial named by brand; one 6-to-8-week booking window stated
+    consistently; the four safety cohorts present (pregnant/breastfeeding,
+    medical conditions/immunosuppression/medication, travelling within 1-2
+    weeks, children/infants); trust bar/local-team line carries the branch's
+    own catchment (Aintree); yellow fever named (branches.json still has no
+    yellowFeverCentre field for any branch, the standing Q48 silence, not
+    re-logged as new).
+  - STANDING FINDING RECONFIRMED, NOT NEW: footer and contact block still
+    publish "tiffenbergs@rbhealth.co.uk" (plural, lowercase) against
+    branches.json's "Tiffenberg@rbhealth.co.uk" (singular, capital T) -
+    confirmed directly this pass by reading the branches.json record
+    (tiffenbergs_longmoor.email = "Tiffenberg@rbhealth.co.uk"). This is the
+    Q56 divergence, answered 2026-09-29 (singular is correct), live-side fix
+    still pending a Weebly repaste. Not actioned here, outside this worker's
+    remit (live-only, no repo file carries this string).
+
+ANSWER PICKUP (step 3)
+-----------------------
+QUESTIONS.json read directly: 0 of 148 entries have status "open". No portal
+fetch attempted (nothing to pick up).
+
+AUTONOMOUS WINDOW (step 4)
+----------------------------
+Checked the top of AGENT_LOG.md before acting: no "Standing authorisation -
+autonomous window" section present. Normal rules applied throughout; no
+autonomous decisions taken.
+
+NET RESULT
+----------
+No in-repo defect found. No new question raised. check-jsonld.js now proven by
+direct injection against item 4.15's own generated pages on two independent
+rules (@type, url). Live coverage for this branch extended to 3 of 12 pages
+read in full (pharmacy-first, weight-loss-clinic, travel-clinic).

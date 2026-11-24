@@ -39111,6 +39111,49 @@ appended to the line. Do not move them; the status page reads them in place.
       still Q52 (2026-09-01); no answer for Q37 or Q139-Q145, all eight
       remain open. NO NEW QUESTION RAISED. Evidence:
       audits/tiffenbergs-aintree-item-4.15-twentysixth-2026-11-22.txt.
+      Quality pass 2026-11-24 (twenty-seventh re-verification, Cowork
+      scheduled run): baseline confirmed (branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged; full 35-checker non-network suite 35/35 clean). Fresh
+      angle: tools/check-jsonld.js, never previously named against this
+      item across 26 prior passes, despite 10/10 GBP-pack-reading checkers
+      and two page-level checkers (check-map-embeds.js, check-branch-
+      identity.js) already proven here. Scratch copy via `git archive
+      HEAD` into .scratch_tmp/scratch_415/. Two rounds against
+      earache-treatment-tiffenbergs-aintree.html's own JSON-LD block, each
+      on a fresh pre-edit sha256 (e536edb3d11b0882be1d9021d166fa8c606b5610a0aa38ccdb1ab8fce8cfd030):
+      (1) changed "@type" from "Pharmacy" to "MedicalBusiness" - CAUGHT,
+      first attempt, exact pattern CLAUDE.md records as the historical
+      weight-loss-page defect; (2) changed "url" to another page's
+      filename - CAUGHT, first attempt, naming both the wrong and correct
+      URL. Both restored by byte copy, sha256-reconfirmed identical to the
+      pre-edit file and to the tracked repo's own copy of the same file.
+      Full 35-checker suite re-run on the scratch copy after both
+      restores: 35/35 exit 0. Tracked repo confirmed untouched throughout
+      (`git status --porcelain` on modules, branches.json and tools showed
+      only the pre-existing untracked pharmacy-first-mccanns-sandringham.html.goldenbak
+      debris). check-jsonld.js is now proven by direct injection against
+      this branch's own generated pages on two independent rules. LIVE
+      HALF (Claude in Chrome, read-only, single tab, nothing
+      clicked/typed/submitted, closed after use): read
+      travel-clinic-tiffenbergs-aintree.html live for the first time
+      across 27 passes (prior reads covered only the Pharmacy First and
+      weight-loss-clinic pages) - NAP and split hours match branches.json;
+      all three standing travel-clinic copy instructions satisfied
+      (private/paid stated in the hero, NHS exceptions hedged, no stock
+      guaranteed, no vaccine named by brand, one consistent 6-to-8-week
+      window, all four safety cohorts present, trust bar carries this
+      branch's own Aintree catchment, yellow fever named against the
+      still-unset Q48 field). STANDING FINDING RECONFIRMED, NOT NEW: live
+      footer/contact still publish "tiffenbergs@rbhealth.co.uk"
+      (plural/lowercase) against branches.json's "Tiffenberg@rbhealth.co.uk"
+      (singular/capital), directly re-confirmed this pass by reading the
+      branches.json record itself - the Q56 divergence, answered
+      2026-09-29, live-side fix still pending a Weebly repaste. Answer
+      pickup (step 3): QUESTIONS.json read directly, 0 of 148 open, no
+      portal fetch attempted. NO IN-REPO DEFECT FOUND. NO NEW QUESTION
+      RAISED. Evidence:
+      audits/tiffenbergs-aintree-item-4.15-jsonld-injection-2026-11-24.txt.
 - [x] 1.3 Sweep all pages for the McCanns Sandringham postcode error
       (CH49 1SX appearing anywhere; correct is L17 4JP). Done 2026-08-04.
       Repo, repo history and live site all clean; correct L17 4JP throughout.
