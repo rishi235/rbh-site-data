@@ -43320,6 +43320,33 @@ and check-seo-lengths are the closest fit (same paste-sheet family) and the
 likeliest next fresh angle. Evidence:
 audits/item-5.1-seo-keywords-injection-2026-11-22-thirtyfirst.txt.
 
+Quality pass 2026-11-24 (thirty-second). Took the thirty-first pass's own forward
+note: tools/check-seo-pattern.js, never previously exercised against this item's
+15 switch pages. Scratch copy only (git archive HEAD into /tmp; tracked repo never
+opened for writing). Baseline clean, 177 pages, 0 failures. Injected "and Aigburth"
+into switch-prescriptions-cherry-lane-walton.html's H1 (Aigburth being
+mccanns_aigburth's seoTown, absent from this branch's serviceAreaList) - caught
+immediately, exit 1, 3 failures: the h1 pattern-equality rule, the cross-town rule
+on the H1, and the cross-town rule on the page's own build-comment SEO-description
+line (which shares the identical templated sentence with the H1 on this page
+family, so one edit tripped both legs, not a double injection). Restored by
+byte-copy, sha256-reconfirmed identical to the pre-edit file; re-check clean.
+Negative control (trailing whitespace only, no word changed, on a different
+branch's H1) stayed clean, confirming the rule is selective. Tracked repo's
+branches.json sha256 unchanged throughout
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da); git status on
+modules/tools/core/branches.json/gbp-packs/compliance showed only the
+pre-existing unrelated .goldenbak debris, before and after. Full non-network
+suite re-run directly against the tracked repo: all clean. RESULT: no in-repo
+defect, the real switch pages' titles, H1s and descriptions are correct and
+unchanged; check-seo-pattern.js's coverage of this item is now proven by direct
+injection (32 of 37 checkers now proven against item 5.1). No new QUESTIONS.json
+entry. LIVE HALF: not attempted this pass; standing live findings (Q39, item
+5.5/Q13/Q45, Q36) stand unclaimed and unchanged. FORWARD NOTE: check-seo-sheets
+and check-seo-lengths, same paste-sheet family, remain the closest-fit candidates
+for the next pass. Evidence:
+audits/item-5.1-seo-pattern-injection-2026-11-24-thirtysecond.txt.
+
 - [x] 5.2 Q11 build branch landing pages for McCanns Aigburth, McCanns
       Sandringham, Scorah Bramhall and Scorah Hazel Grove by adding them to
       the BUILD list in tools/build-branch-landing-pages.js, same pattern as

@@ -1,0 +1,53 @@
+Item 5.1 quality pass (thirty-second), 2026-11-24.
+
+FRESH ANGLE: tools/check-seo-pattern.js, named as the likeliest next angle in the
+thirty-first pass's own forward note (same paste-sheet family as the already-proven
+check-seo-keywords.js), never previously exercised by injection against this item's
+15 switch pages across 31 prior passes.
+
+METHOD: disposable scratch copy only (git archive HEAD into /tmp/scratch_51); the
+tracked repo was never opened for writing.
+
+BASELINE: node tools/check-seo-pattern.js on the scratch copy: 177 pages checked,
+0 failures.
+
+INJECTION: switch-prescriptions-cherry-lane-walton.html, H1 changed from
+"...in Walton in under 30 seconds" to "...in Walton and Aigburth in under 30
+seconds" (Aigburth being mccanns_aigburth's seoTown, not in cherry_lane_walton's
+own serviceAreaList). Caught immediately: 3 failures reported, exit 1.
+  - h1 pattern-equality rule: actual H1 != composed expected H1
+  - cross-town rule (H1): names Aigburth, mccanns_aigburth's seoTown, absent from
+    this branch's serviceAreaList
+  - cross-town rule (description): the generated page's own build-comment "Weebly
+    page SEO description" line shares the identical templated sentence with the H1
+    on switch pages, so the same edit also tripped the description leg of the
+    cross-town rule - not a double-edit, a consequence of the two strings sharing
+    one source template on this page family.
+
+RESTORE: byte-copy from the pre-edit backup; sha256 reconfirmed identical to the
+pre-injection file. Re-run: 0 failures.
+
+NEGATIVE CONTROL: trailing whitespace appended to a different page's H1
+(switch-prescriptions-smartts-bootle.html), no word changed: 0 failures, confirming
+the rule is selective to content rather than any edit. Restored by byte-copy from
+the tracked repo's own live file; sha256 confirmed identical.
+
+VERIFICATION: tracked repo's branches.json sha256 unchanged throughout
+(0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da); git status
+--porcelain on modules/tools/core/branches.json/gbp-packs/compliance showed only
+the pre-existing untracked pharmacy-first-mccanns-sandringham.html.goldenbak
+debris, unrelated to this item, both before and after. Full non-network suite
+(35 of 37 check-*.js, excluding check-cdn-pins.js and check-live-hours.js) re-run
+directly against the tracked repo after the pass: all clean.
+
+RESULT: no in-repo defect; the real switch pages' titles, H1s and descriptions are
+correct and unchanged. check-seo-pattern.js's coverage of this item's page family
+is now proven by direct injection on both its h1-equality and cross-town rules, a
+gap 31 prior passes had left open (checkers now proven against item 5.1: 32 of 37;
+check-seo-sheets.js and check-seo-lengths.js, same paste-sheet family, remain the
+closest-fit candidates for a future pass, per the standing forward note).
+
+No new QUESTIONS.json entry. Live side not attempted this pass (no browser
+tooling invoked); the standing live findings already logged for this item (Q39
+Weebly furniture sweep, item 5.5/Q13/Q45 CDN-pin block, Q36 mailbox typo) stand
+unclaimed and unchanged, no new live claim made here.
