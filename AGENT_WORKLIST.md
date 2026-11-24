@@ -41936,6 +41936,63 @@ appended to the line. Do not move them; the status page reads them in place.
       three re-read pages, zero new question. Blocks nothing. Evidence:
       audits/brand-spelling-item-1.1-quality-pass-2026-10-20-eleventh.txt.
       Done 2026-10-20.
+      Quality pass 2026-11-24 (twelfth, Cowork scheduled run): stalest
+      completed item in the whole worklist at pickup, last touched
+      2026-10-20 (35 days), tied with item 2.2 on the same date but
+      lower-numbered, so picked over it. Derived by the same method as the
+      2026-10-20 pass: scanning every completed item's own section for its
+      most recent inline date rather than using a fixed rotation tier.
+      REPO HALF: branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da,
+      matching every other run's standing anchor today, unchanged. All 35
+      non-network checker scripts (tools/check-*.js, excluding check-cdn-
+      pins.js and check-live-hours.js) exit 0, check-brand-spelling.js
+      included, confirming the repo was clean going in.
+      LIVE HALF, the point of this pass (last live read 2026-10-20, 35
+      days): re-read the same three pages every pass since 2026-08-29 has
+      read, via Claude in Chrome, read-only, nothing clicked or submitted.
+      (1) gordonshortchemist.co.uk's travel clinic page
+      (travel-clinic-gordon-short-crosby.html): UNCHANGED. Title "Travel
+      Clinic at Gordon Shorts Chemist, Crosby", H1 "Travel Clinic at Gordon
+      Shorts Chemist in Crosby", and the "Contact Gordon Shorts Chemist"
+      heading all still carry the pre-1.1 spelling; the site-wide footer on
+      the same page still correctly reads "Gordon Short Chemist". Same
+      self-contradicting page the 2026-08-29 pass first recorded, still
+      waiting on the Q32/item 5.3 repaste (itself [BLOCKED]).
+      (2) THE SAME SITE'S PHARMACY FIRST PAGE HAS MOVED. Every pass from
+      2026-08-10 to 2026-10-20 recorded this page as "Pharmacy First at
+      Gordon Shorts Chemist, Crosby" (pre-1.1 spelling, same fault as the
+      travel clinic page). It no longer does: title is now "Pharmacy First
+      at Gordon Short Chemist, Crosby", the H1 is "Pharmacy First at Gordon
+      Short Chemist in Crosby", and the "Contact Gordon Short Chemist"
+      heading is also correct - all three read-outs that were wrong on
+      every prior pass are now right. This is a genuine, dated change to a
+      live page, not a re-confirmation: the branch has evidently been
+      repasted with the corrected generated copy since the 2026-10-20
+      check, closing one half of the two-page Gordon Short repaste this
+      item has tracked since 2026-08-04/2026-08-10, while the travel clinic
+      page on the same site remains the old paste. Blocks nothing, no
+      action needed in-repo (the repo's own generated copy for this page
+      was already correct; this is the live side catching up to it).
+      (3) colemanandleighspharmacy.co.uk's insect-bite page
+      (insect-bite-treatment-coleman-leigh-walton.html): UNCHANGED. Title
+      and contact card still "Coleman & Leigh Pharmacy" (ampersand,
+      singular Leigh), H1 still carries no brand at all
+      ("Infected insect bite treatment in Walton", the repo's own generated
+      H1 for this file does carry the brand per Q44), footer still
+      correctly "Coleman and Leighs Pharmacy - Walton". Unchanged since the
+      4.12/2026-09-16/2026-10-20 findings.
+      Not re-read this pass (scope control, same as every pass since
+      2026-08-31): the Hirshmans Pharmacy shop-type-word variant (Q70),
+      already open, non-blocking, no reason to expect movement given it sits
+      outside this branch's own repaste queue.
+      NET RESULT: zero new in-repo defect, zero drift in the checker. One
+      genuine piece of live movement found (Gordon Short Pharmacy First page
+      now correctly spelled), one standing fault reconfirmed unchanged
+      (Gordon Short travel clinic page), one standing fault reconfirmed
+      unchanged (Coleman and Leighs insect-bite page). No new question
+      raised; this narrows rather than widens Q32/item 5.3's outstanding
+      repaste list by one page. Done 2026-11-24.
 
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
