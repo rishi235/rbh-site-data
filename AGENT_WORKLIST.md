@@ -7211,6 +7211,26 @@ Quality pass 2026-09-16 (nineteenth): no in-repo defect. All unchecked
       change). Evidence in
       audits/fishlocks-ainsdale-eccleston-item-3.3-travel-clinic-copy-2026-11-22.txt.
       Done 2026-11-22.
+      Quality pass 2026-11-24T11:14Z (unattended scheduled run): lightweight
+      baseline verification only, not a new injection-testing pass -
+      branches.json sha256 confirmed unchanged
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da);
+      full 35-checker non-network suite (all tools/check-*.js excluding
+      check-cdn-pins.js and check-live-hours.js) run directly against the
+      tracked repo: 35/35 exit 0, no warnings surfaced beyond the
+      standing pre-existing ones already on record. No page, generator,
+      pack or branches.json field touched. QUESTIONS.json unchanged, 1 of
+      149 still open (Q148, the recurring git-push-credential gap - see
+      AGENT_LOG.md). NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Kept
+      deliberately short this run: with 148 of 149 questions answered and
+      only 3 permanently-[BLOCKED] items left unticked, Rishi's own answer
+      to Q147 (23/11/2026, portal) asked for this schedule to be paused or
+      reduced until the open questions are cleared - this worker has no
+      authority to act on the schedule itself (see Q131), so this run
+      limited itself to a genuine but minimal re-verification rather than
+      adding another multi-hour injection saga to an already-exhausted
+      item rotation. See this run's own AGENT_LOG.md entry for the
+      fuller flag to Rishi.
 - [x] 3.4 Cherry Lane Pharmacy (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
 Quality pass 2026-08-12 (third): clean on both halves, no defect. All 12
