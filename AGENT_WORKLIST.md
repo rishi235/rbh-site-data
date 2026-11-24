@@ -24519,6 +24519,41 @@ Pharmacy First wording to the NHS service description.
       Q139-Q147). Evidence:
       audits/cherry-lane-item-4.2-jsonld-injection-2026-11-23.txt. Done
       2026-11-23
+Quality pass 2026-11-24 (Cowork scheduled run, minimal baseline-only): worklist
+is 47/50 complete; the remaining 3 (5.8/Q16, 6.4/Q60, 6.5/Q60) are all
+[BLOCKED] on a human Weebly session or a live-site decision, so no
+non-blocked item was available to pick from the normal rotation. ANSWER
+PICKUP attempted first via Claude in Chrome (read-only) against
+https://data.rbhealth.co.uk/api/feedback: page loaded past Cloudflare Access
+without a login redirect this run and returned the full feedback history, but
+the newest entry is Q52 (2026-09-01) - nothing newer, so no new answers to
+apply. Full 37-checker non-network-sensitive suite run against the tracked
+repo (all 37 scripts in tools/check-*.js, via `node <script>`, no scratch
+copy, no injection this pass): 37/37 pass, matching their standing KNOWN
+warnings only (check-address-region.js 2 warnings, check-branch-links.js 1,
+check-cdn-pins.js 2 warnings + 6 known issues awaiting a decision,
+check-postcodes.js 3 warnings, check-service-links.js 6 known issues,
+check-switch-copy.js 3 accepted breaches pinned to Q49/Q50/Q51,
+check-whatsapp-route.js 1 known exception, check-nap.js 1 warning) - no new
+failure, no regression. QUESTIONS.json re-confirmed at 149 total, 1 open
+(Q148 only - infrastructure, not a decision awaiting Rishi). No in-repo
+defect found, no fresh injection angle attempted this pass (deliberately
+minimal given the suite was proven clean against this same baseline within
+the last 24 hours across items 3.1-3.8, 4.4 and others), no new question
+raised, no file in modules/, tools/, gbp-packs/ or branches.json changed.
+Files changed this pass: AGENT_WORKLIST.md (this paragraph), AGENT_LOG.md
+(this run's entry).
+CADENCE NOTE (carried forward, not a new finding): this is at least the
+seventh consecutive run in the last 24 hours to find the worklist fully
+exhausted bar the same 3 blocked items and to re-confirm the same clean
+37-checker baseline. Q147 (schedule pause/reduce) was answered by Rishi via
+the portal on 2026-11-23 recommending exactly this be stopped, but a prior
+run's attempt to action it by calling the scheduled-tasks tool directly was
+auto-declined because an unattended run cannot supply the live approval a
+schedule mutation needs - a structural block, not something retrying will
+fix. Flagging again rather than re-attempting the same call. Q148 (git push
+credential missing in this bash sandbox) also reconfirmed unchanged this
+run - see this run's AGENT_LOG.md entry.
 - [x] 4.3 Hirshmans pack. Done 2026-08-04 (Cowork session). gbp-packs/
       hirshmans-ainsdale.md. Includes note to check the live Hirshmans GBP
       description for POM medicine names when pasting (see Q4).
