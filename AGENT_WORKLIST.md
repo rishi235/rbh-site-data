@@ -34216,6 +34216,50 @@ directly rather than re-deriving the same facts by hand.
       branches.json content changed. Evidence:
       audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-22-
       twentyninth.txt. Done 2026-11-22
+      Thirtieth quality pass 2026-11-24 (Cowork scheduled run, 03:44Z):
+      baseline unchanged, branches.json sha256 0385b7c2...27da matches
+      every prior anchor; pack sha256 637aed98...22da unchanged from the
+      standing record. Full 35-checker non-network suite clean, both in
+      the tracked repo and on a fresh git-archive scratch copy under a
+      native Windows temp directory (the Cowork bash mount reported 0
+      bytes free at pickup, so all testing this pass ran via
+      mcp__Windows-MCP__PowerShell against C:\Dev\rbh-site-data and its
+      own temp folder instead, which had ample headroom). FRESH ANGLE:
+      tools/check-page-coverage.js, never named against this item across
+      all 29 prior passes despite the pack covering a branch
+      (skchemists_bootle) that earns pages in five of the six page
+      families this checker covers. INJECTION: skchemists_bootle's entry
+      removed from the BUILD list in tools/build-service-pages.js on the
+      scratch copy only - caught cleanly, first attempt, exit 1, naming
+      the branch and the generator by file path (NOT_BUILT: "branch
+      skchemists_bootle earns pages... but is not in the BUILD list...").
+      RESTORE: scratch copy's build-service-pages.js re-extracted from
+      HEAD via git archive, sha256-confirmed identical to the tracked
+      file; check-page-coverage.js clean again (177 pages accounted for).
+      NEGATIVE CONTROL: a trailing cosmetic comment appended to the same
+      generator file stayed clean. Full 35-checker suite re-run on the
+      restored scratch copy: 35/35 exit 0. Tracked repo confirmed
+      untouched throughout (git status --porcelain on branches.json, the
+      pack, build-service-pages.js and check-page-coverage.js all blank).
+      RESULT: no in-repo defect found; check-page-coverage.js is now
+      proven by direct injection against this branch specifically, a gap
+      the pack-level and generated-page-level exhaustion claims from
+      earlier passes did not cover. LIVE HALF (Claude in Chrome,
+      read-only, one tab, nothing clicked or typed, closed after use):
+      skchemist.co.uk homepage re-read in full - address, phone, hours
+      (Monday to Friday 9:00am to 6:00pm, Saturday and Sunday closed) and
+      the sk@rbhealth.co.uk / SK@rbhealth.co.uk case variance all match
+      branches.json and every prior pass, unchanged. The legacy
+      /weight-loss-clinic-bootle.html page named by Q58 (2026-08-12, the
+      stricter-advertising-regime finding) now returns a clean 404
+      instead of live content - reads as the page having since been
+      removed in a Weebly session outside this repo's reach, not
+      something this pass can take credit for or verify further (no
+      sitemap or nav-link check attempted, scope kept to the specific URL
+      Q58 named). No new question raised; no generator, page, pack,
+      checker or branches.json content changed. Evidence in
+      audits/sk-chemists-bootle-item-4.11-quality-pass-2026-11-24-
+      thirtieth.txt. Done 2026-11-24
 - [x] 4.12 Coleman and Leighs Pharmacy Walton pack. Done 2026-08-04.
       Confirmed trading name used throughout; paste note to correct the
       live GBP name and any old spellings. Quality pass 2026-08-10: the

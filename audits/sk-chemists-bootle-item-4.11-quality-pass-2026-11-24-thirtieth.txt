@@ -1,0 +1,89 @@
+Item 4.11 - SK Chemists Bootle GBP pack - thirtieth quality pass
+Run: Cowork scheduled audit-backlog-worker, 2026-11-24T03:44Z
+
+BASELINE
+- branches.json sha256: 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+  (unchanged, matches the standing anchor used by every prior pass)
+- gbp-packs/sk-chemists-bootle.md sha256: 637aed98bee4c1826ded6263ae60ad20962742a35dc1b735ac2144e8a6f222da
+  (unchanged)
+- Full 35-checker non-network suite (every tools/check-*.js except
+  check-cdn-pins.js and check-live-hours.js): 35/35 exit 0, run twice -
+  once against the tracked repo at C:\Dev\rbh-site-data, once against a
+  fresh git-archive scratch copy.
+
+ENVIRONMENT NOTE
+The Cowork bash sandbox mount (/sessions) reported 0 bytes free at pickup
+and its .git\index.lock could not be unlinked (EPERM), the same standing
+condition recorded by prior runs (Q142/Q146). All testing this pass ran
+via mcp__Windows-MCP__PowerShell against the native checkout at
+C:\Dev\rbh-site-data and a scratch copy under %TEMP%\audit-4.11-scratch,
+which had ample headroom (296 GB free on C:). git archive -o <file> then
+tar.exe -xf was used to build the scratch copy; piping git archive
+directly into tar.exe's stdin produced an empty extraction on this host
+and was abandoned in favour of writing the archive to a file first.
+
+FRESH ANGLE
+tools/check-page-coverage.js had never been named against item 4.11
+across all 29 prior passes, despite SK Chemists Bootle (skchemists_bootle)
+earning pages in five of the six page families this checker covers
+(Pharmacy First, contraception, travel clinic, weight loss, switch).
+
+INJECTION
+On the scratch copy only: removed the "skchemists_bootle" entry from the
+BUILD list in tools/build-service-pages.js (the Pharmacy First generator).
+
+  node tools/check-page-coverage.js
+  ->  Pharmacy First   earns 14 branches, list holds 13
+  ->  FAILURES (1):
+        NOT_BUILT: Pharmacy First: branch skchemists_bootle earns pages
+        (widgets.pharmacyFirst is set) but is not in the BUILD list of
+        tools/build-service-pages.js. No page will ever be generated for
+        it and no other checker will notice.
+  ->  exit 1
+
+Caught cleanly on the first attempt, naming the exact branch and the
+exact generator file.
+
+RESTORE
+tools/build-service-pages.js on the scratch copy re-extracted from HEAD
+via `git archive -o <file> HEAD -- tools/build-service-pages.js`, then
+sha256-confirmed identical to the tracked copy at
+C:\Dev\rbh-site-data\tools\build-service-pages.js. check-page-coverage.js
+re-run: clean again, 177 pages accounted for.
+
+NEGATIVE CONTROL
+A cosmetic trailing comment appended to tools/build-service-pages.js
+(no functional change) left check-page-coverage.js clean, confirming the
+rule does not cross-fire on unrelated edits.
+
+FULL SUITE RE-RUN
+All 35 non-network checkers re-run against the restored scratch copy:
+35/35 exit 0.
+
+TRACKED REPO CONFIRMATION
+git status --porcelain on branches.json, gbp-packs/sk-chemists-bootle.md,
+tools/build-service-pages.js and tools/check-page-coverage.js: all blank
+throughout. No tracked file was touched by this pass's testing.
+
+LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked or
+typed, closed after use)
+- https://www.skchemist.co.uk/ re-read in full: address (516 Stanley
+  Road, Bootle, Liverpool, L20 5DW), phone (0151 944 1013), hours
+  (Monday to Friday 9:00am to 6:00pm, Saturday and Sunday closed) and the
+  sk@rbhealth.co.uk / SK@rbhealth.co.uk case variance all match
+  branches.json and every prior pass's record, unchanged.
+- https://www.skchemist.co.uk/weight-loss-clinic-bootle.html (the legacy
+  page named in Q58, 2026-08-12, as the stricter-advertising-regime
+  finding) now returns a clean 404 rather than live content. This reads
+  as the page having since been removed in a Weebly session outside this
+  repo's reach; not something this pass can take credit for, verify
+  further, or escalate, since it is an improvement, not a defect. No
+  sitemap or nav-link check was attempted this pass - scope kept to the
+  specific URL Q58 named.
+
+RESULT
+No in-repo defect found. tools/check-page-coverage.js is now proven by
+direct injection against this branch specifically, closing a gap the
+pack-level and generated-page-level exhaustion claims from earlier passes
+did not cover. No new question raised. No generator, page, pack, checker
+or branches.json content changed.
