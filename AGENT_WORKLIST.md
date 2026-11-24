@@ -47752,6 +47752,78 @@ data field changed this run. No new question.
       a future 6.2 pass should look at RULE 2/RULE 3 (the claim and POM-
       name scanners) or at a genuinely different mechanism rather than a
       fifth normalisation variant on RULE 1, unless a real one surfaces.
+      Twenty-fifth quality pass, 2026-11-24 (unattended scheduled run),
+      following the twenty-fourth pass's own forward note to RULE 2/RULE 3
+      rather than a fifth RULE 1 normalisation variant. ONE REAL DEFECT
+      FOUND AND FIXED, in the checker, not in any page. The seventeenth
+      pass (2026-09-17) fixed RULE 2's blind spot for a claim phrase
+      wrapped across two strictly ADJACENT physical lines, but never
+      tested a claim split by a BLANK (whitespace-only) line sitting
+      between the two halves - a different, equally realistic shape in
+      this file family, since HTML collapses a blank line to a single
+      space on render exactly as it collapses an ordinary line wrap, so a
+      paster leaving a blank line mid-paragraph for their own readability
+      changes nothing a patient sees. check-weight-loss-copy.js and
+      check-gbp-packs.js were checked first and are NOT vulnerable to this
+      shape: the former runs CLAIM_PATTERNS against visible(), which
+      whitespace-collapses an entire page (blank lines included) into one
+      string before any pattern runs; the latter's paragraphsOf() already
+      treats a blank line as an ordinary continuation break within one
+      logical paragraph. check-service-links.js's RULE 2 had not been
+      extended the same way. PROVED BY INJECTION on a scratch copy (git
+      archive HEAD to /tmp, tracked repo never opened for writing): the
+      seventeenth pass's own proof phrase, "Our weight loss service
+      genuinely delivers" / blank line / "results you can see for
+      yourself.", added to the same file
+      (modules/service/weebly-paste/cherry-lane-old-weight-loss-
+      replacement.html) that carries the seventeenth pass's original
+      adjacent-line proof - the pre-fix checker (seventeenth pass's fix,
+      otherwise unchanged) exited 0, "clean", no mention of the injected
+      claim: the adjacent-pair bridge tested (delivers-line, blank-line)
+      and (blank-line, results-line), and neither pair contains both
+      halves once a blank line sits between them. FIX: the line-wrap loop
+      no longer walks strictly adjacent indices (i, i+1). It first
+      collects every NON-BLANK line's index in order, then pairs each one
+      with the NEXT non-blank line in that list, however many blank lines
+      separate them in the file - a direct generalisation of the
+      seventeenth pass's bridge (j = i + 1 reproduces the old behaviour
+      exactly when there is no blank line between two non-blank lines),
+      not a new mechanism. Re-run against the blank-line injection: FAIL
+      "claim (line wrap)", naming both correct (non-adjacent) line numbers
+      and the joined text. Re-run as a control against the restored file
+      (sha256 9195c3dd...8d42, reconfirmed identical to the tracked repo's
+      own copy via `git show HEAD:...`, since a scratch copy made by `git
+      archive` is not itself a git repository and cannot be restored with
+      `git checkout`) and against the full corpus RULE 2 already reads
+      (177 generated pages, six EXTRA_FILES - including modules/emar/weebly,
+      which alone carries 25 real blank lines of the six and is therefore
+      the file a blanket-widening risk would show up on first, two
+      EXTRA_JS_COPY_FILES): identical clean output to the pre-fix checker,
+      6 known issues, same counts throughout (177 pages, 6 EXTRA_FILES, 2
+      EXTRA_JS_COPY_FILES, 1,000 links, 423 estate links) - no new false
+      positive anywhere in the real estate, including the one file that
+      actually has blank lines in it. Applied to the tracked repo: full
+      35-checker suite (excluding check-cdn-pins.js and check-live-
+      hours.js, both network-dependent) re-run individually, 35/35 exit 0;
+      branches.json sha256 (0385b7c2...27da) unchanged; `git status
+      --porcelain modules core tools gbp-packs compliance branches.json`
+      showed only tools/check-service-links.js changed, plus the
+      pre-existing untracked pharmacy-first-mccanns-sandringham.html.goldenbak
+      debris, unrelated to this item. RULE 3 is unaffected, for the same
+      single-word reasoning the seventeenth pass gives (a bare medicine
+      name cannot be split at a blank line any more than at an ordinary
+      line wrap, since the break only ever falls at a space between
+      words). LIVE HALF: not attempted this pass (no browser tooling
+      invoked); standing live findings for this item (Q53/Q54, answered
+      29/09/2026) stand unclaimed and unchanged, no new live claim made.
+      NO NEW QUESTION RAISED. Evidence:
+      audits/check-service-links-item-6.2-quality-pass-2026-11-24-blank-
+      line-claim.txt. FORWARD NOTE: RULE 2's line-wrap mechanism now covers
+      strictly-adjacent and blank-line-separated splits; a future 6.2 pass
+      could look at whether RULE 1's host-normalisation family (now
+      believed exhausted) still holds, or revisit RULE 3 for a comparable
+      non-adjacent-split shape specific to medicine names, though none is
+      believed to exist given names are single words.
 - [x] 6.3 Opening hours vs branches.json, shared-domain and multi-branch
       sites: Smartts' live site (homepage sidebar and footer) reads Mon-Fri
       9am-6pm against branches.json's NHS-sourced 09:00-13:00 and

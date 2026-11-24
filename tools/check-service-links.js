@@ -241,6 +241,59 @@
   between words, never inside one, so a bare name cannot be split by this
   fault the way a two-or-more-word claim phrase can.
 
+  LINE-WRAP ACROSS A BLANK LINE, added on the item 6.2 quality pass
+  (twenty-fifth), 2026-11-24. The seventeenth pass's fix above bridges
+  strictly ADJACENT physical lines (i, i+1). It does not bridge a claim split
+  by a BLANK (whitespace-only) line sitting between the two halves, which is
+  a different, realistic shape in this exact file family: HTML collapses any
+  run of whitespace - including a blank line - to a single space when
+  rendered, so a paster leaving a blank line in the middle of a <p> for their
+  own editing readability changes nothing about what a patient sees, and is
+  no less plausible than the adjacent-line wrap the seventeenth pass already
+  found live in this same file's lines 8-9. check-gbp-packs.js's own
+  paragraphsOf() already treats a blank line as nothing more than a
+  continuation break within one logical paragraph for exactly this reason;
+  this checker's line-wrap bridge had not been extended the same way.
+
+  Proved by injection: the same claim phrase from the seventeenth pass,
+  "Our weight loss service genuinely delivers\n\n     results you can see
+  for yourself.", with one BLANK line between the two halves rather than an
+  immediately adjacent one, added to the same file
+  (modules/service/weebly-paste/cherry-lane-old-weight-loss-replacement.html).
+  The pre-fix checker (seventeenth pass's own fix, unchanged) exited 0,
+  "clean", no mention of the injected claim: the adjacent-pair bridge tests
+  (delivers-line, blank-line) and (blank-line, results-line), and neither
+  pair contains both halves of the phrase once the blank line sits between
+  them. check-weight-loss-copy.js's own RULE 9 was checked separately and is
+  not vulnerable to this shape at all: it runs CLAIM_PATTERNS against
+  visible(), which collapses an entire page's whitespace - blank lines
+  included - to one string before any pattern is tested, so a page-level
+  split is invisible to it only in the sense that it is already fully
+  joined. check-gbp-packs.js was checked the same way and is not vulnerable
+  either, for the same paragraphsOf() reason given above.
+
+  FIX: the per-line-pair loop no longer walks strictly adjacent indices (i,
+  i+1). It first collects the indices of every NON-BLANK line in order, then
+  pairs each one with the NEXT non-blank line in that list, however many
+  blank lines sit between them in the file. A line that itself carries
+  content is never skipped over - only runs of pure whitespace are bridged -
+  so this is a direct generalisation of the seventeenth pass's bridge
+  (j = i + 1 when there is no blank line between two non-blank lines,
+  exactly reproducing the old behaviour) rather than a new mechanism.
+  Whitespace collapse and the "neither line already matched on its own"
+  guard are unchanged. Re-run against the blank-line injection: FAIL "claim
+  (line wrap)", naming both the correct (non-adjacent) line numbers and the
+  joined text. Re-run as a control against the restored, byte-identical
+  file, and against the full corpus RULE 2 already reads (177 generated
+  pages, six EXTRA_FILES including modules/emar/weebly, which alone carries
+  25 blank lines among the six and is therefore the real-world case a
+  blanket-widening risk would show up on first, two EXTRA_JS_COPY_FILES):
+  identical clean output to the pre-fix checker, 6 known issues, same counts
+  throughout (177 pages, 6 EXTRA_FILES, 2 EXTRA_JS_COPY_FILES, 1,000 links,
+  423 estate links) - no new false positive anywhere in the real estate,
+  including the one file with real blank lines in it. RULE 3 is unaffected,
+  for the same single-word reasoning the seventeenth pass gives.
+
   Run:  node tools/check-service-links.js
 */
 const fs = require("fs");
@@ -661,20 +714,23 @@ function scanCopy(file, visible) {
   // the live example) would otherwise put more than one space between the
   // two halves of a fixed two-word phrase like "delivers results" and the
   // pattern would not match.
-  for (let i = 0; i < lines.length - 1; i++) {
-    if (claimHitLine.has(i) || claimHitLine.has(i + 1)) continue;
-    const joined = (lines[i] + " " + lines[i + 1]).replace(/\s+/g, " ");
+  const nonBlank = [];
+  lines.forEach(function (line, i) { if (line.trim() !== "") nonBlank.push(i); });
+  for (let k = 0; k < nonBlank.length - 1; k++) {
+    const i = nonBlank[k], j = nonBlank[k + 1];
+    if (claimHitLine.has(i) || claimHitLine.has(j)) continue;
+    const joined = (lines[i] + " " + lines[j]).replace(/\s+/g, " ");
     const pair = CLAIM_PATTERNS.find(function (p) { return p[0].test(joined); });
     if (!pair) continue;
-    const claimKey = Object.keys(KNOWN_CLAIM).find(function (k) {
-      const parts = k.split("::");
+    const claimKey = Object.keys(KNOWN_CLAIM).find(function (k2) {
+      const parts = k2.split("::");
       return parts[0] === rel(file) && joined.indexOf(parts[1]) !== -1;
     });
     if (claimKey) { knownClaimHits[claimKey] = (knownClaimHits[claimKey] || 0) + 1; continue; }
     failures.push({
       file: rel(file),
       rule: "claim (line wrap)",
-      text: "lines " + (i + 1) + "-" + (i + 2) + " (" + pair[1] + "): " + joined.trim().slice(0, 160)
+      text: "lines " + (i + 1) + "-" + (j + 1) + " (" + pair[1] + "): " + joined.trim().slice(0, 160)
     });
   }
 
