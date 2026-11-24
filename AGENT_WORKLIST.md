@@ -30546,6 +30546,38 @@ directly rather than re-deriving the same facts by hand.
       pass, not a state change). Evidence:
       audits/fishlocks-eccleston-item-4.8-quality-pass-2026-11-22-live-gbp
       -name.txt.
+      Quality pass 2026-11-24 (Cowork scheduled run, audit-backlog-worker,
+      29th pass): rotation pool re-derived from this file's own dated
+      section text (excluding the 7 standing out-of-rotation items and the
+      3 blocked worklist lines), stalest tied at 2026-11-22: {4.8-4.15,
+      5.1-5.3, 6.2, 6.3}; 4.8 wins the lowest-item-number tiebreak.
+      BASELINE: branches.json sha256 0385b7c2...27da and the pack's own
+      sha256 5f2206db...001efa both unchanged, matching every prior pass's
+      anchor; git log confirms neither file, nor tools/check-gbp-packs.js,
+      has changed since the 2026-11-22 pass. Full 35-checker non-network
+      suite (excl. check-cdn-pins.js/check-live-hours.js) run individually:
+      35/35 exit 0. No untried checker-injection angle remains against this
+      pack (per the 2026-11-20 pass's own note), so none was attempted.
+      FOLLOW-UP ON Q37/Q145: both are now "answered" in QUESTIONS.json
+      (23/11/2026, portal) rather than "open" as they were at the last two
+      passes - Q37 (Weebly furniture brand-spelling drift) is to be fixed
+      in a supervised session; Q145 (live GBP listing name) is to go to the
+      superintendent pharmacist / SWL reviewer before any edit, given the
+      Google policy-suspension risk and the SWL pause. Neither answer asks
+      this worker to act (both require a human supervised session, outside
+      browser-read-only scope), so no repo change follows from either.
+      LIVE HALF (Claude in Chrome, read-only, one tab, nothing clicked,
+      typed or submitted, closed after use): re-fetched the live GBP
+      listing via the pack's own googleReviewUrl to check whether Q145 had
+      already been actioned. It has not: the listing name is still
+      "Fishlock Pharmacy - Travel Vaccination and Simple Weight Loss
+      Clinic", unchanged since the 2026-11-22 finding. Address ("Unit 3,
+      The Carrington Centre, New Mill St, Eccleston, Chorley PR7 5SZ") and
+      phone (01257 451251) both still match branches.json exactly. No new
+      finding; this is a reconfirmation that the standing finding is still
+      live and still awaiting the supervised fix, not a new defect. NO
+      IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Item 4.8 stays `[x]`
+      (quality pass, not a state change).
 - [x] 4.9 Clear Chemist Aintree pack. Done 2026-08-04. No opening hours in
       branches.json so the pack says do not paste hours until confirmed
       and added; no Pharmacy First at Clear (no pfLink or widget), so
