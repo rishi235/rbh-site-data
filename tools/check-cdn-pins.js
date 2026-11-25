@@ -24,8 +24,11 @@
   When either drifts, the repo is green, every other checker is green, and
   live is quietly serving old code. That is not a hypothetical: this checker
   was written after finding that the switch pages' pinned switch.js still
-  sends switch requests to rishi@rbhealth.co.uk, four commits' worth of fixes
-  after main changed it to helpdesk@rbhealth.co.uk.
+  sent switch requests to rishi@rbhealth.co.uk, four commits' worth of fixes
+  after main changed it to helpdesk@rbhealth.co.uk (Q13). FIXED 2026-11-17:
+  the switch generator's own pin moved to 5c7fa63, which already carries the
+  helpdesk@ destination, so this specific finding is closed - kept here as
+  the worked example the checker exists to catch, not as a live defect.
 
   What it checks
   --------------
@@ -48,12 +51,13 @@
     FAIL  a public paste file pins a ref its own module's generator does not
           declare. modules/switch/weebly.html is pasted into a Weebly embed on
           every branch running a switch page this repo does not generate, and
-          it pins switch.css at @main while build-switch-pages.js pins the
-          immutable 6a275e1. Two refs for one module's stylesheet, one on the
-          generated pages and one on the pasted embed. The two are byte-
-          identical today, so this is latent, not live-visible - which is
-          exactly how it survived. It also carries ?v=, which the README
-          records as ignored by jsDelivr on a ref.
+          it pins switch.css at @main while build-switch-pages.js pins an
+          immutable commit (5c7fa63 since the 2026-11-17 Q13 fix; it was
+          6a275e1 when this was first found). Two refs for one module's
+          stylesheet, one on the generated pages and one on the pasted embed.
+          The two are byte-identical today, so this is latent, not
+          live-visible - which is exactly how it survived. It also carries
+          ?v=, which the README records as ignored by jsDelivr on a ref.
 
     WARN  a runtime DATA fetch. This is the one that matters. Both
           modules/service/service.js and core/site-data.js fetch
@@ -89,19 +93,20 @@ var TOOLS = __dirname;
 // ---------------------------------------------------------------------------
 // Known, accepted drift. Each entry needs a reason and the question that
 // covers it, so this list can never quietly become a place to hide defects.
-// Remove the entry the moment the underlying fix lands.
+// Remove the entry the moment the underlying fix lands - and since this is
+// checked below (same convention as KNOWN_PIN_REF's own stale-entry rule,
+// added on item 5.5's quality pass, 2026-11-25, after finding KNOWN_DRIFT had
+// never had one), a forgotten entry now fails the run instead of sitting
+// silently dead. The one entry this list held - Q13, ref "6a275e1" for
+// modules/switch/switch.js, recording that the pinned switch.js still sent
+// requests to rishi@rbhealth.co.uk after main moved to helpdesk@rbhealth.co.uk
+// - was removed here because the fix landed 2026-11-17 (switch generator PIN
+// moved to 5c7fa63, which already carries the helpdesk@ destination): no row
+// has pinned ref "6a275e1" since, so the entry could never fire again and the
+// list had been carrying a dead exception for over a week with nothing to
+// say so.
 // ---------------------------------------------------------------------------
-var KNOWN_DRIFT = [
-  {
-    ref: "6a275e1",
-    file: "modules/switch/switch.js",
-    question: "Q13",
-    since: "2026-08-09",
-    reason: "Pinned commit still carries DESTINATION rishi@rbhealth.co.uk; main " +
-            "says helpdesk@rbhealth.co.uk. Fixing it needs a new pin plus a Weebly " +
-            "repaste of all 15 switch pages, which an unattended run cannot do."
-  }
-];
+var KNOWN_DRIFT = [];
 
 // ---------------------------------------------------------------------------
 // Files that carry a jsDelivr pin and are NOT generated pages, so the page
@@ -177,14 +182,17 @@ var KNOWN_PIN_REF = [
     ref: "main",
     question: "Q45",
     since: "2026-08-11",
-    reason: "This one is not cosmetic and it sharpens Q13. The pasted embed loads " +
-            "switch.js from @main, whose DESTINATION is helpdesk@rbhealth.co.uk. The " +
-            "15 GENERATED switch pages load it from @6a275e1, whose DESTINATION is " +
-            "rishi@rbhealth.co.uk. So the same module is running two destinations in " +
-            "public at once, split by whether a branch got the paste or the generated " +
-            "page, and the paste half is the half that is already correct. Q13 fixes " +
-            "the generated half; this entry records that the split existed and was " +
-            "read by nothing until 2026-08-11."
+    reason: "Originally raised because the pasted embed loaded switch.js from @main " +
+            "(DESTINATION helpdesk@rbhealth.co.uk) while the 15 GENERATED switch pages " +
+            "loaded it from the then-pinned @6a275e1 (DESTINATION rishi@rbhealth.co.uk) " +
+            "- two destinations live at once for one module. Q13's fix, landed " +
+            "2026-11-17, moved the generator's own pin to 5c7fa63 (helpdesk@ there too), " +
+            "so both destinations now agree; this entry UPDATED the same day (item 5.5 " +
+            "quality pass, 2026-11-25) once the reason text was found still describing " +
+            "the pre-fix state. What remains open under Q45 is narrower and purely " +
+            "cosmetic: the paste template pins @main (a moving target) while the " +
+            "generator pins an immutable commit (5c7fa63 today); which ref the template " +
+            "should carry is still Rishi's call."
   }
 ];
 
@@ -297,6 +305,7 @@ var missingExtras = [];
 var extraPaste = readExtras(EXTRA_PASTE, "paste", missingExtras);
 var extraRuntime = readExtras(EXTRA_RUNTIME, "runtime", missingExtras);
 var knownPinHits = {};
+var knownDriftHits = {};
 missingExtras.forEach(function (m) { failures.push(m); });
 
 console.log("check-cdn-pins");
@@ -353,6 +362,7 @@ Object.keys(seen).forEach(function (k) {
   if (pinned.out !== current.out) {
     var hit = KNOWN_DRIFT.filter(function (d) { return d.ref === r.ref && d.file === r.file; })[0];
     if (hit) {
+      knownDriftHits[hit.ref + "::" + hit.file] = true;
       known.push(r.file + " @" + r.ref + " differs from " + MAIN + " (" + hit.question +
         ", raised " + hit.since + "): " + hit.reason);
     } else {
@@ -492,6 +502,17 @@ KNOWN_PIN_REF.forEach(function (k) {
   if (!knownPinHits[k.file + "::" + k.asset]) {
     failures.push("stale KNOWN_PIN_REF entry: " + k.file + " no longer pins " + k.asset +
       " at '" + k.ref + "' (" + k.question + ") - remove the entry");
+  }
+});
+
+// Same rule for KNOWN_DRIFT, added on item 5.5's quality pass, 2026-11-25,
+// after finding this list had never had it: an entry that no longer fires
+// means the fix landed, and it must go rather than sit as a dead exception
+// nobody is told to remove.
+KNOWN_DRIFT.forEach(function (d) {
+  if (!knownDriftHits[d.ref + "::" + d.file]) {
+    failures.push("stale KNOWN_DRIFT entry: " + d.file + " @" + d.ref +
+      " no longer differs from " + MAIN + " (" + d.question + ") - remove the entry");
   }
 });
 

@@ -46274,6 +46274,52 @@ audits/item-5.1-seo-pattern-injection-2026-11-24-thirtysecond.txt.
       2026-11-17 fix is confirmed live on both the immutable and the mutable
       CDN refs, not merely matched in git. No generator, page, pack or
       branches.json content changed, so no regeneration was needed.
+      QUALITY PASS 2026-11-25 (Cowork scheduled run, twentieth pass on this
+      item). Tied at last-touch 2026-11-23 with 6.1 and 6.6; lowest item
+      number wins the tiebreak. FRESH ANGLE: every prior pass on this item
+      re-checked whether the Q13 FIX still holds (it does); none had checked
+      whether the CHECKER ITSELF - tools/check-cdn-pins.js, the one this item
+      exists to keep honest - still correctly describes that fix. It did not.
+      Its KNOWN_DRIFT list still carried the original Q13 entry (ref
+      "6a275e1", file modules/switch/switch.js, "Pinned commit still carries
+      DESTINATION rishi@rbhealth.co.uk") as if the bug were still open. It is
+      not: confirmed via grep that no tracked file under modules/ or core/
+      references "6a275e1" any more (all 15 switch pages were regenerated
+      onto pin 5c7fa63 on 2026-11-17), so that KNOWN_DRIFT row could never
+      match again. Unlike this file's own KNOWN_PIN_REF list, which already
+      fails the run when one of its entries stops firing (the same convention
+      named throughout CLAUDE.md for every other checker's KNOWN list),
+      KNOWN_DRIFT had no equivalent check, so a dead exception describing a
+      fixed bug as live could sit there indefinitely with nothing to say so.
+      A second, smaller instance of the same fault: the live KNOWN_PIN_REF
+      entry for modules/switch/weebly.html's switch.js pin (Q45, still
+      genuinely open - the paste template pins @main while the generator
+      pins an immutable commit) carried reason text that also still named
+      "6a275e1" and "rishi@rbhealth.co.uk" as the generated pages' current
+      state, which stopped being true the same day.
+      FIXED this pass: added a KNOWN_DRIFT staleness check mirroring
+      KNOWN_PIN_REF's own (an entry that never fires now FAILS the run,
+      naming the dead ref/file/question so it gets removed rather than
+      rediscovered); removed the dead Q13 KNOWN_DRIFT entry; rewrote the
+      Q45 KNOWN_PIN_REF reason text to state the current pin (5c7fa63) and
+      destination (helpdesk@) and to describe what is actually still open
+      under Q45 (only the cosmetic @main-vs-commit-pin choice, not a
+      destination split); updated the file's header comment, which also
+      quoted the pre-fix state as if current, to say the Q13 finding is
+      closed and kept only as the worked example. VERIFIED, not just edited:
+      ran the checker clean (exit 0, same 2 warnings/6 known as before, no
+      new or lost findings); negative-tested the new staleness rule by
+      injecting a throwaway dead KNOWN_DRIFT entry (ref "deadbeef", question
+      "QTEST") on the live tracked file, confirmed it correctly FAILS the
+      run naming the dead entry, then restored the file from a pre-edit copy
+      and reconfirmed byte-identical via diff and sha256 before moving on.
+      Full 37-checker suite (excluding check-live-hours.js, network) re-run
+      afterwards: 37/37 clean. branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged (matches the standing anchor); no generator, page, pack or
+      data file touched, so no regeneration needed. NO LIVE-SIDE CHECK this
+      pass (tools-only fix, nothing public changed). NO NEW QUESTION RAISED;
+      Q13 and Q45 both already answered/tracked, nothing here reopens either.
 - [x] 5.6 Q14 shorten the one over-length page title in the estate: the
       Coleman and Leighs infected insect bite title ran to 70 characters
       against Google's 65, so the brand was the part being truncated away.
