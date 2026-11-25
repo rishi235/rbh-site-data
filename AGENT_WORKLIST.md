@@ -50328,6 +50328,38 @@ data field changed this run. No new question.
       Google session; the 2026-11-17 supervised read already covers the live
       half and nothing has changed on the repo side that would call it into
       question). No new question raised.
+
+      Quality pass 2026-11-25 (run rotation-pool handoff from the 03:13Z
+      item 6.1 pass): REPO HALF, full 35-checker non-network suite re-run
+      fresh, 35/35 clean (including check-url-scheme.js, the checker this
+      item's own fault wrote); check-cdn-pins.js run separately, clean with
+      the same 2 warnings/6 known entries as every prior pass (none new,
+      none stale) - the modules/switch/weebly.html KNOWN entry text updated
+      earlier this cycle (item 5.5 pass) still accurately describes Q13 as
+      fixed and Q45 as the narrower open cosmetic question. branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged, matching the standing anchor. LIVE HALF: re-read the
+      canonical tag on all three branches this item tracks, via Claude in
+      Chrome (read-only, single tab, nothing clicked or typed, closed after
+      use) - Cherry Lane, Riddings and McCanns homepages all still return
+      `link[rel="canonical"]`: NONE (only `og:url` present, matching their
+      own URL), unchanged from the 2026-08-13 finding. The http-to-https
+      redirect was not re-tested this pass (already confirmed working on
+      2026-08-13 and nothing on the repo or Weebly side suggests it has
+      regressed; re-testing it every pass adds no new information). NO
+      IN-REPO OR LIVE DEFECT FOUND. The item remains blocked on two Weebly-
+      side actions neither an unattended run can perform: adding a
+      self-referencing canonical tag (Weebly SEO settings/header code,
+      per-branch) and re-reading the nine corrected GBP website fields
+      once Rishi has accepted Google's pending-edit notice (requires his
+      signed-in Google session - not retried this pass, no change expected
+      without that step). NO NEW QUESTION RAISED; QUESTIONS.json unchanged,
+      150 total, 2 open (Q148 infrastructure, Q149 live-only cost-claim
+      wording). Rotation pool for the next run: {6.6} again, since no other
+      completed item has gone longer without a fresh look and this one's
+      Weebly-side blockers are unchanged - the next run may prefer to pick
+      a different least-recently-verified completed item instead if one is
+      found to be more overdue.
 - [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
