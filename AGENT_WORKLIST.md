@@ -47201,6 +47201,30 @@ data field changed this run. No new question.
       under 29 entries with no repeats), robots.txt names exactly one Sitemap:
       line pointing at that same file. No in-repo or live defect found. Repo-side
       facts (no sitemap generator here, Weebly owns sitemap.xml) unchanged.
+      RECONFIRMED 2026-11-25 (Cowork scheduled run, quality-pass rotation; rotation
+      pool handed down from the 2026-11-25T02:13Z run was {6.1, 6.6}, lowest item
+      number picked per the standing tie-break convention). Extended domain
+      coverage with the stronger EXACT-MATCH method (not eyeball) this time, on 4
+      more of the 13 estate domains not yet exact-counted by either this item or
+      6.6: Cherry Lane, Riddings, McCanns, SK Chemists. Fetched sitemap.xml and
+      robots.txt live via Claude in Chrome (read-only, single tab, nothing clicked
+      or typed, closed after use), then ran an exact Set-based duplicate count in
+      Node rather than eyeballing: Cherry Lane 28 URLs/28 unique, Riddings 30/30,
+      McCanns 43/43, SK Chemists 30/30 - zero duplicate &lt;loc&gt; entries on all
+      four. robots.txt on all four names exactly one Sitemap: line, pointing at
+      that domain's own sitemap.xml, no second sitemap URL. Exact-match coverage
+      now stands at 5 of 13 domains (Scorah plus these four); the remaining 8
+      (Clear, Coleman and Leighs, Fishlocks both branches, Gordon Short Crosby,
+      Hirshmans, head office, Smartts, Tiffenbergs) have only the broader
+      2026-11-17 check or, for three of them, the visual 2026-11-23 check - a
+      future pass can extend exact-match coverage to those. Repo half: full
+      35-checker non-network suite (excl. check-cdn-pins.js, check-live-hours.js)
+      run fresh, 35/35 clean; check-cdn-pins.js separately clean, 2 warnings/6
+      known entries, all previously logged (none new, none stale); branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged, matching the standing anchor. No generator, page, pack or data
+      field touched, so no regeneration needed and none done. NO IN-REPO OR LIVE
+      DEFECT FOUND. NO NEW QUESTION RAISED. Rotation pool for the next run: {6.6}.
 - [x] 6.2 Broken internal links: "Page has links to broken page" is the Done 2026-08-11
       single most common top issue across nearly every branch site in Site
       Audit. Run a full estate-wide broken-internal-link sweep (Site Audit
