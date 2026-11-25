@@ -46148,6 +46148,50 @@ audits/item-5.1-seo-pattern-injection-2026-11-24-thirtysecond.txt.
       fix (top block only) was what was pasted, not this stale draft file.
       git status confirmed no tracked file changed by this verification. No
       new question raised.
+      QUALITY PASS 2026-11-25 (Cowork scheduled run, nineteenth): rotation
+      pool after 3.12/3.13/4.1/4.3 were taken on 2026-11-24 was {5.4, 5.5,
+      6.1, 6.6}; lowest number, 5.4, picked per the standing tie-break
+      convention. REPO HALF: full 35-checker non-network suite run directly
+      via `node tools/check-*.js` (excl. check-cdn-pins.js and
+      check-live-hours.js): 34/35 clean at baseline, check-postcodes.js
+      FAILING with 3 UNKNOWN failures naming AGENT_LOG.md, AGENT_WORKLIST.md
+      and audits/hirshmans-ainsdale-item-4.3-postcode-pack-injection-
+      2026-11-24-twentysixth.txt, all quoting ZZ95 4ZZ - the fabricated
+      postcode the immediately preceding item 4.3 pass (23:12Z) injected to
+      prove check-postcodes.js against gbp-packs/hirshmans-ainsdale.md, which
+      that pass's own write-up correctly recorded as restored and the
+      tracked repo as untouched, but which was committed without being added
+      to NARRATIVE_POSTCODES - the same standing gap this list has closed
+      thirty times before (most recently AB1 2CD, 2026-11-24). FIXED this
+      run: added a ZZ95 4ZZ entry to tools/check-postcodes.js's
+      NARRATIVE_POSTCODES, re-ran check-postcodes.js, now 0 failures, 3
+      warnings (the same pre-existing UNOWNED gbp-packs/TEMPLATE.md and
+      modules/branch/pages/{INDEX,SEO}.md warnings every baseline carries).
+      Caught and fixed the very next run, not left open the 24+ runs CH1
+      2AB was. branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged, matching the standing anchor. `git status --porcelain
+      modules core branches.json tools` showed only this run's own
+      tools/check-postcodes.js edit plus the pre-existing untracked
+      modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+      debris file (not this item's scope, not touched). LIVE HALF (built-in
+      browser, read-only, one tab, nothing clicked/typed/submitted, closed
+      after use): re-fetched both pages fresh.
+      https://www.cherrylanepharmacy.co.uk/pharmacy-first-service-walton.html
+      still carries the signpost paragraph and the "See the full Pharmacy
+      First page and walk-in details" button, href confirmed
+      /pharmacy-first-cherry-lane-walton.html, and the original "You can self
+      refer into Pharmacy First - you do not need a Dr's referral - book
+      below" video/booking wording underneath is unchanged - matches the
+      2026-11-16 fix exactly. Followed the link through:
+      https://www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html
+      resolves live, correctly built (all seven Pharmacy First conditions,
+      booking card, video section, correct NAP: 202 Cherry Lane, Liverpool,
+      L4 8SG, 0151 226 2051). No regression on either page. Footer still
+      shows the known Q36 typo (pharmacy.FA226@mhs.net, should be @nhs.net)
+      on both pages - not new, unchanged. NO IN-REPO DEFECT remaining after
+      the NARRATIVE_POSTCODES fix above. NO NEW QUESTION RAISED. Rotation
+      pool for the next run: {5.5, 6.1, 6.6}.
 - [x] 5.5 Q13 fast-forward service-module-phase1 to main so the 318
       live page references stop serving code this repo no longer says, and
       re-pin the 15 switch pages to a current commit at the next Weebly paste
