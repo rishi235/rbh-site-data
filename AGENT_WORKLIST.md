@@ -2083,6 +2083,57 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       pass, not a state change). Evidence:
       audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-24-thirtyfourth.txt.
       Done 2026-11-24.
+      QUALITY PASS 2026-11-25 (thirty-fifth, fallback rotation pick - all
+      worklist items either checked or [BLOCKED] (5.8/Q16, 6.4/Q60, 6.5/Q60,
+      confirmed by direct grep), so step 5's quality-pass fallback applied.
+      Rotation pool re-derived from this file's own dated entries, excluding
+      the standing out-of-rotation set (1.1, 1.4, 2.2, 5.6, 5.7, 6.7, 6.8) and
+      the 3 blocked lines: every pool item last touched 2026-11-24 except 3.2
+      and 6.6, both already done earlier today (2026-11-25) by the prior
+      firing this run picked up after. Among the tied-oldest (2026-11-24)
+      items, picked 2.1 as the first in document order, a defensible,
+      deterministic tiebreak recorded here since nothing in branches.json or
+      the log distinguishes them further by time of day. Baseline: branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged, matching the standing anchor; full 35-checker non-network
+      suite re-run fresh, 35/35 clean; check-cdn-pins.js run separately,
+      clean, same 2 warnings/6 known entries as every prior pass (one KNOWN
+      reason string was updated by item 5.5's own pass earlier today, noted
+      there, not here). Closed another of the six previously never-named
+      checkers against this item: check-fragment-targets.js. Injection on a
+      scratch copy only (git archive HEAD into the outputs mount, tracked
+      repo never opened for writing) changed
+      modules/service/pages/earache-treatment-fishlocks-ainsdale.html's
+      booking-card id from id="book" to id="booking", leaving the
+      href="#book" call-to-action link untouched - FAILED cleanly, two lines:
+      rule TARGET (href="#book" resolves nowhere) and rule CTA (the page now
+      carries no resolving fragment link at all, since it had only the one).
+      Restored by copying back the pre-injection byte (sha256-reconfirmed
+      c1ba5cea1ba7d80837646ed17e7fcd9cb8dcccd20b16fec966f45b31c640f25b);
+      negative control (cosmetic HTML comment prepended, no id or href
+      touched) re-ran clean, 0 failures, confirming no false positive from
+      the comment alone. Scratch copy removed after use; tracked repo
+      reconfirmed untouched throughout (git status --porcelain showed only
+      the pre-existing untracked
+      modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak
+      debris, unrelated; branches.json sha256 unchanged) and the full
+      35-checker suite re-run clean afterwards on the tracked repo. No
+      in-repo or generated-page defect found. Guard coverage for item 2.1 now
+      extends to check-fragment-targets.js; 5 checkers remain never-named
+      against this item: check-gbp-pharmacy-first.js,
+      check-pharmacy-first-safety-net.js, check-pharmacy-first-symptoms.js,
+      check-uk-spelling.js, check-widget-diaries.js. LIVE: not attempted this
+      pass - the thirty-third pass (2026-11-23) sampled a 14th live page and
+      the standing live-only findings (Q37 legal-footer brand name; Q35
+      landing-page 404) are unchanged with nothing new to add; judged not
+      worth a further live read against this run's time budget, same
+      judgement the thirty-fourth pass made. No generator, page, pack,
+      checker content or branches.json content changed (check-fragment-
+      targets.js itself was read only, not edited). QUESTIONS.json unchanged,
+      150 total, 2 open (Q148, Q149). No new question raised. Item 2.1 stays
+      [x] (quality pass, not a state change). Evidence:
+      audits/fishlocks-ainsdale-item-2.1-quality-pass-2026-11-25-thirtyfifth.txt.
+      Done 2026-11-25.
 - [x] 2.2 Fishlocks shared-domain split: branch-specific landing pages so
       Ainsdale and Eccleston each have their own local target page. Done 2026-08-04.
       New tools/build-branch-landing-pages.js generates modules/branch/pages/
