@@ -6133,6 +6133,33 @@ Done 2026-11-22
       pick: with 1.2, 1.3 and 3.1 taken off today's rotation already, 3.2
       was the lowest-numbered item left in the stalest-tied pool (all last
       verified 2026-11-22).
+      Quality pass 2026-11-25 (scheduled run, 04:44Z pickup): BASELINE
+      confirmed unchanged - full 35-checker non-network suite 35/35 exit 0;
+      check-cdn-pins.js run separately, clean, same 2 warnings/6 known
+      entries as every prior pass; branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged. LIVE HALF (Claude in Chrome, read-only, single tab, nothing
+      clicked or typed, closed after use): read
+      weight-loss-clinic-scorah-hazel-grove.html, the one Scorah page not
+      previously sampled by name under this item and the most
+      compliance-sensitive of the twenty-six. Hero, bullets, eligibility
+      section, three-step explainer and FAQ headings all read as a Regime 2
+      inner page per compliance/WEIGHT_LOSS_LIVE_PAGE_ASSESSMENT.md: no
+      medicine named by brand, no outcome or results claim, no stand-alone
+      "buy now" path, consultation framed throughout as an assessment that
+      may or may not lead to a prescription, price (from GBP 39.99) stated
+      once as an indicative consultation fee, not headlined as a discount.
+      Matches the standing finding that the generated pages stay clean
+      because they name no medicine at all. The page's footer repeats both
+      standing Q43 live-Weebly-furniture findings already on file for this
+      branch pair (not new): Bramhall's county given as "Cheshire" against
+      branches.json's Greater Manchester, and the separate bottom-of-page
+      trust strip truncating Bramhall's house number to "61 North Park
+      Road" (missing "-63") while the contact-card footer above it on the
+      same page shows the correct "61-63". One more page confirming the
+      pattern is site-wide Weebly furniture, not page-specific or new. NO
+      IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. QUESTIONS.json
+      unchanged, 150 total, 2 open (Q148, Q149).
       2026-08-04. 26 pages (incl. the two landing pages), 0 mismatches.
       Quality pass 2026-08-11: all 26 Fishlocks pages re-read (12 Ainsdale,
       12 Eccleston, 2 landing) and clean. Every title, description and H1
