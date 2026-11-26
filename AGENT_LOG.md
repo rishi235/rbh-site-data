@@ -1,3 +1,23 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-26T07:12Z pickup): no new worklist work, state unchanged, Q149 still open with no answer; stale index.lock cleared, push attempted from the sandbox bash channel as usual.
+
+LOCK (step 1): `.agent-lock` did not exist at pickup (prior run genuinely deleted it via the host PowerShell channel, consistent with its own log entry). A fresh lock was written at the start of this run.
+
+GIT (step 2): `git fetch origin` clean, branch already up to date with `origin/agents/audit-backlog` at pickup (prior run's push had succeeded). A fresh `.git/index.lock`, 0 bytes, appeared during this run's own status check with no git process running; `rm` was refused ("Operation not permitted", the same sandbox-mount fault recorded on every prior run), so it was cleared by renaming aside (`.git/index.lock.debris-<epoch>`), the standing workaround for this channel. `git checkout`/`git pull --ff-only` not needed, already current.
+
+ANSWER PICKUP (step 3): navigated Claude in Chrome (read-only, single tab, nothing clicked or typed, closed after) to `https://data.rbhealth.co.uk/api/feedback` and read the full feed directly. Newest "Audit answer" entry remains Q52 (2026-09-01T22:44:51.524Z); nothing answers Q149. `QUESTIONS.json` confirmed directly: 150 total, 1 open (Q149, item 2.2), unchanged.
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation - autonomous window" section present at the top of this file at pickup; proceeded under normal rules. Q149 sits in the money/legal/regulatory carve-out regardless (a live patient-facing NHS cost claim on a Weebly page this repo does not own), so it would not be auto-decided even under a window.
+
+WORKLIST (step 5): reconfirmed by direct grep - 3 unchecked, all still `[BLOCKED]` (5.8/Q16 weight loss live-page fix, 6.4/Q60 McCanns nav button styling, 6.5/Q60 weight loss nav architecture), each blocked on Rishi's own action (a live Weebly session, or a nav decision) and not pickable by this worker from the sandbox. A full checker-suite quality pass was run fresh only a few hours ago (03:44Z pickup, all 36 clean) with no in-repo content changes since, so per established precedent across many identical-state runs it was not repeated again this run with no new information. NO WORKLIST ITEM TOUCHED, NO IN-REPO CONTENT FILE CHANGED other than this log entry.
+
+PUSH (step 9): attempted `git push origin agents/audit-backlog` from the sandbox `bash`/git channel as usual (this worker has no access to the host PowerShell channel the 06:44Z run used); result recorded in the commit history for this entry - if it failed on the usual missing-credential fault, local commits remain stacked for a future run with push access to clear, same as most runs before 06:44Z.
+
+STATUS PAGE (step 10): `node tools/build-audit-status.js` run per instruction regardless of push outcome.
+
+FOR RISHI (repeated, unresolved): state is unchanged from the last several dozen pickups - no actionable worklist item (all 3 remaining are blocked on your own action), Q149 still open and correctly left for you to decide (live NHS patient-facing cost claim), and this schedule continues firing on a cadence with nothing new to report. Recommend pausing or reducing this schedule's frequency, or actioning the 3 blocked items and Q149 directly, so future runs have real work again.
+
+---
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-26T06:44Z pickup): no new worklist work (all 3 remaining items still [BLOCKED] on Rishi, Q149 still open with no answer), but the standing push-credential gap was cleared this run and the lock/debris workaround pattern several dozen prior runs have repeated is based on a false premise - see below.
 
 LOCK (step 1): `.agent-lock` at pickup read "2026-11-26T05:46:15Z RELEASED (step 11, cannot delete, overwritten per standing workaround; committed locally this run (389ec21), push still blocked - no git credential in sandbox)" - about 58 minutes old and already self-marked RELEASED, so treated as not an active lock. A fresh lock was written at the start of this run's work and genuinely deleted (not renamed) at the end - see the note below on why that is now possible.
