@@ -47242,6 +47242,50 @@ data field changed this run. No new question.
       ("Support that delivers results" -> "Pharmacist-led consultations and
       ongoing support").
 
+      QUALITY-PASS RE-VERIFICATION, 2026-11-26 (scheduled audit-backlog-worker
+      run, 21:12Z pickup): no pickable worklist item this run (the other two
+      remaining items, 6.4 and 6.5, are also [BLOCKED]), so rather than repeat
+      the full 36-checker non-network suite re-run done exactly one hour
+      earlier (20:12Z pickup, all clean, no regression), did a live spot-check
+      of the SK Chemists Bootle sub-finding under this item (Q58), since it is
+      the one open item in this whole audit with the least recent live
+      re-confirmation on file (last checked 2026-08-30, the 4.11 pack's sixth
+      pass) against items like 2.1/3.2/3.4/3.6 etc. which have each had 25-35+
+      re-verifications since. Read-only via Claude in Chrome, three tabs
+      (homepage, legacy weight-loss-clinic.html, sitemap.xml), nothing
+      clicked, typed or submitted, all closed after use.
+      FINDING: unchanged and still live. skchemist.co.uk's sitemap.xml now
+      shows a lastmod of 2026-11-17T13:21:58+00:00 across every URL (the site
+      has been fully republished since the 2026-08-30 note, which recorded
+      2026-08-14), so this is a confirmation across at least one further
+      Weebly publish cycle, not a stale repeat of the same read. Despite that
+      republish, both weight-loss-clinic.html (legacy) and
+      weight-loss-clinic-sk-chemists-bootle.html (the compliant generated
+      replacement) remain in the sitemap, and the homepage top nav, the
+      mobile nav and a homepage tile still link to both, three occurrences of
+      each, confirmed by reading the live DOM's anchor elements directly
+      (document.querySelectorAll('a[href]')), not by text search. The legacy
+      page itself is unchanged: it names Mounjaro, Wegovy and Orlistat by
+      brand, carries the heading "Real Results with Mounjaro" and the
+      sentence "Mounjaro is one of the most effective weight loss treatments
+      available", an interactive slider promising "You could lose up to:
+      26kg (22.5% of your body weight)" against a visitor-entered start
+      weight, and leads on price ("From £39.99 including your consultation").
+      This is material because Rishi answered Q58 on 2026-09-29 (portal,
+      15:35:18 UK time) recommending exactly this branch be split out and
+      fixed first, precisely because the fix is unlinking the legacy page
+      from the top nav and the homepage (no wording decision needed, unlike
+      the other six branches waiting on PR #2 above) - and roughly two months
+      later, on this evidence, that unlink has not yet happened. No in-repo
+      fix exists for this: the nav and the page are both live-only Weebly
+      content no generator in this repo owns, so this is not something an
+      unattended run can action (editing Weebly is outside every hard rule
+      this worker operates under), and item 5.8 correctly stays [BLOCKED].
+      No new question raised - Q58 already covers this exactly and is already
+      answered - but worth surfacing plainly: the approved, low-cost,
+      no-wording-decision-needed fix for the clearest Regime 1 breach in the
+      whole estate is still sitting unapplied on the live site.
+
 ## Phase 6 - Findings from the 2026-08-11 Ahrefs sweep
 
 - [x] 6.1 Q52 Sitemap duplication: Ahrefs Site Audit flags "Page in multiple
