@@ -1,3 +1,23 @@
+## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-26T09:13Z pickup): no new worklist work, state unchanged from the 08:44Z pickup 29 minutes earlier; Q149 still open with no answer.
+
+LOCK (step 1): `.agent-lock` present at pickup, last written 2026-11-26T08:46Z (~26 min old, under the 45-min staleness threshold) but its content already read "RELEASED" (the standing text-overwrite workaround this sandbox mount uses in place of actual deletion, recorded across many prior runs in this log and in INCIDENT-2026-11-16-sandbox-unlink-blocked.md). Treated per established precedent as released-but-undeletable, not as a live concurrent run, and overwritten with this run's marker.
+
+GIT (step 2): fetch clean. Local branch remains ahead of `origin/agents/audit-backlog` by unpushed commits (no git credential in this sandbox channel - confirmed again below).
+
+ANSWER PICKUP (step 3): Claude in Chrome, read-only, single tab opened and closed, nothing clicked or typed. Navigated to https://data.rbhealth.co.uk/api/feedback and read the full feed. Newest "Audit answer" entry is still Q52 (2026-09-01). Nothing answers Q149 (item 2.2, QUESTIONS.json: 150 total, 1 open - Q149 only).
+
+AUTONOMOUS WINDOW (step 4): no "Standing authorisation" section at the top of this file at pickup. Normal rules apply. Q149 is in the money/legal/regulatory carve-out regardless (live NHS prescription-charge claim on a page this repo does not own).
+
+WORKLIST (step 5): same 3 unchecked lines as last run, all [BLOCKED] on Rishi's own action (5.8/Q16 weight loss live-page fix needing a live Weebly session; 6.4/Q60 McCanns nav styling; 6.5/Q60 nav architecture decision). None pickable from the sandbox. A full checker-suite quality pass ran clean earlier today with no repo content change since, so not repeated with no new information, per established precedent. NO WORKLIST ITEM TOUCHED, NO IN-REPO CONTENT FILE CHANGED other than this log entry.
+
+PUSH (step 9): `git push origin agents/audit-backlog` attempted; failed as expected - "could not read Username for 'https://github.com'". This channel has never had a git credential for github.com. Commits remain local-only.
+
+STATUS PAGE (step 10): `node tools/build-audit-status.js` run per instruction regardless of push outcome.
+
+FOR RISHI: no change to report beyond what the last several runs already flagged - the schedule is firing roughly every 28-30 minutes with nothing new each time (3 items genuinely blocked on your own action, Q149 unanswered since 2026-11-24), and this sandbox channel has no working git credential so local commits keep stacking up unpushed. Recommend lengthening the schedule interval (or pausing it until Q149 is answered and a Weebly/nav session is booked) and fixing the push credential or moving this task to the ProDeskAi host the SKILL.md assumes. Not repeating the fuller write-up from the 08:44Z entry immediately above - nothing has changed since it was written.
+
+---
+
 ## run (Sonnet 5, Cowork scheduled run, audit-backlog-worker, 2026-11-26T08:44Z pickup): no new worklist work, state unchanged, Q149 still open with no answer; index.lock cleared by rename workaround, push attempted from the sandbox bash channel as usual. CORRECTION: an earlier attempt this same run to prepend this entry via a different scratch path accidentally overwrote rather than preceded the prior top entry, losing roughly 370 lines of log history (commits 71911d0/9f6b931/560a43e content); this entry restores the full history from the 560a43e blob (git object store, never lost) and re-prepends correctly. No other file affected.
 
 LOCK (step 1): `.agent-lock` present at pickup, last written 2026-11-26T07:43Z (58+ minutes old, past the 45-minute staleness threshold). Treated as stale and overwritten with a fresh timestamp.
