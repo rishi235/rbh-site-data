@@ -50652,6 +50652,65 @@ data field changed this run. No new question.
       after this pass: 37/37 exit 0 both times. Zero in-repo defect found,
       no new question raised.
 
+      Quality pass 2026-11-26 (Cowork scheduled run, audit-backlog-worker,
+      22:42Z pickup; picked over the handed-off {6.6} rotation pool because
+      6.7 had gone considerably longer without a fresh look, 2026-09-27 to
+      now versus 6.6's 2026-11-25 - the prior handoff note explicitly
+      invited this). Data first: fetched gov.uk/bank-holidays live via
+      Claude in Chrome, read-only, one tab opened and closed, nothing
+      clicked or typed. Confirmed all eight dates in branches.json's
+      bankHolidays.dates2026 exactly against the published "Past bank
+      holidays in England and Wales 2026" (1 Jan, 3 Apr, 6 Apr, 4 May,
+      25 May, 31 Aug) and "Upcoming... 2026" (25 Dec, 28 Dec) tables - no
+      drift since Q79. check-opening-hours.js run clean against the tracked
+      repo (6 landing pages, rule 7's 88 clock-time sweep, rule 8's 177-file
+      sweep, rule 10's 171-page JSON-LD sweep, all pass). check-live-hours.js
+      run live against all 14 branches with opening hours (28 pages fetched,
+      58 "closed"-ish snippets swept by hand): today (2026-11-26) sits 29
+      days before the 25 December bank holiday, outside the 14-day window,
+      so nearThisRun correctly returned [] (audits/live-hours-check-2026-11-26
+      .json); every "closed" mention is the standing weekly Saturday/Sunday
+      pattern or a lunch-hour split, none a one-off weekday closure, so
+      there was nothing this run to mislabel either way.
+      Re-ran all six of the item's standing negative tests on a disposable
+      /tmp scratch copy (rsync of the tracked tree minus .git and the known
+      scratch/quarantine debris directories, built after the prior attempt
+      to cp -r the whole tree including .git ran the sandbox out of disk
+      space - .git alone is 3.2G on this mount; the minimal rsync copy was
+      59M and sufficient for every file these tools touch). Restored
+      branches.json and the test page from the tracked copies between each
+      test rather than round-tripping through json.dump, after noticing the
+      first round-trip reformatted the file to a different sha256 despite
+      identical content (whitespace only) - a method note for any future
+      pass using this same scratch approach. All six fired as expected:
+      invalid ISO date ("2026-13-03") FAILed by name; a duplicated date
+      FAILed by name; an invalid tradingPolicy ("sometimes") FAILed by name;
+      an emptied dates2026 array FAILed by name; the whole bankHolidays
+      block deleted degraded correctly to a NOTE and exit 0; and a genuine
+      Tuesday hours mismatch injected into
+      modules/branch/pages/pharmacy-mccanns-aigburth.html (9am-1pm/2pm-6pm
+      changed to 2pm-7pm) still FAILed with the exact mismatch quoted,
+      confirming the bank-holiday exemption still cannot swallow a real
+      defect. Scratch copy deleted after; sha256 of the tracked
+      branches.json confirmed unchanged throughout
+      (0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da) and
+      the tracked pharmacy-mccanns-aigburth.html confirmed unchanged
+      (1f797c1fb2446a424500ec95f1c8ff1b07ff1a670d6bbd1138ebb6838329af8d);
+      `git status --porcelain` on the tracked repo showed zero modified
+      tracked files throughout, only the long-standing untracked
+      audits/*.log scratch entries. A fresh `.git/index.lock` left by a
+      `git status` call from this run's Linux sandbox channel could not be
+      unlinked directly (the standing EPERM-on-unlink mount quirk,
+      INCIDENT-2026-11-16-sandbox-unlink-blocked.md); renamed aside per the
+      standard workaround rather than removed, and `git status` ran clean
+      immediately after.
+      Full 37-checker suite re-run against the tracked repo after: 37/37
+      exit 0. Zero in-repo defect found, no new question raised. Rotation
+      pool for the next run: {6.6}, unchanged, since this pass was taken out
+      of turn specifically because 6.7 was more overdue and that gap is now
+      closed; 6.6 remains the least recently verified of the two most
+      recently idle items.
+
 - [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
       ones). Rishi flagged that the "question" field buries the actual
