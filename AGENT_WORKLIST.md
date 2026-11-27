@@ -50666,6 +50666,44 @@ remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
       (1.1, 1.4, 5.6, 6.6, 6.7, 6.8 - 2.2 and 5.7 remain the documented
       one-offs excluded from rotation) for whichever has gone longest
       without its own dated pass, rather than defaulting to 6.6 again.
+
+      Quality pass 2026-11-27 (17:42Z pickup). Followed the handoff above:
+      scanned every genuine rotation-pool item (1.1, 1.4, 5.6, 6.6, 6.7, 6.8)
+      by its own last dated entry rather than trusting a carried-forward
+      claim - found 1.1, 1.4, 5.6, 6.7 and 6.8 all already carry a
+      2026-11-27 entry from earlier pickups today, and 6.6's own last dated
+      pass is still 2026-11-26, making it the sole genuine oldest. Picked
+      6.6 again, correctly this time by measurement rather than default.
+      REPO HALF: full 35-checker non-network suite re-run fresh (all of
+      tools/check-*.js except check-cdn-pins.js and check-live-hours.js,
+      run separately) - 35/35 exit 0 clean. check-cdn-pins.js re-run
+      separately: clean, same 2 warnings / 6 known entries as every prior
+      pass (none new, none stale). branches.json field-read confirmed all
+      16 `website` values still https (this item does not rely on a sha256
+      anchor across the 6.7 pass's own branches.json edit, since that
+      commit, fd5db13, is expected and unrelated to this item). `git
+      status --porcelain` showed zero modified tracked files before this
+      pass began. LIVE HALF: re-read the canonical tag on all three
+      branches this item tracks, via Claude in Chrome (read-only, single
+      tab, nothing clicked or typed, closed after use) - Cherry Lane,
+      Riddings and McCanns homepages all still return
+      `link[rel="canonical"]`: null (only `og:url` present, matching each
+      page's own URL), unchanged from 2026-08-13, 2026-11-25 and 2026-11-26.
+      The http-to-https redirect and the nine corrected GBP website fields
+      were not re-tested this pass, same reasoning as the two prior passes
+      (redirect already confirmed working on 2026-08-13 with no sign of
+      regression; the GBP re-read needs Rishi's own signed-in Google
+      session, which this unattended run does not have). NO IN-REPO OR LIVE
+      DEFECT FOUND. The item remains blocked on the same two Weebly-side
+      actions: a self-referencing canonical tag (Weebly SEO settings/header
+      code, per-branch) and the GBP pending-edit re-read (needs Rishi
+      signed in). NO NEW QUESTION RAISED; QUESTIONS.json unchanged, 150
+      total, 1 open (Q149 - checked live via the portal feedback feed this
+      same pickup, still no answer posted since 2026-09-01). Rotation pool
+      for the next run: 1.1, 1.4, 5.6, 6.6, 6.7 and 6.8 all now carry a
+      2026-11-27 entry, so the next run should re-derive the pool from
+      scratch by each item's own last dated line rather than assuming any
+      one of them is still oldest.
 - [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
