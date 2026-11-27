@@ -50482,6 +50482,42 @@ data field changed this run. No new question.
       Weebly-side blockers are unchanged - the next run may prefer to pick
       a different least-recently-verified completed item instead if one is
       found to be more overdue.
+
+      Quality pass 2026-11-26 (23:42Z pickup, rotation-pool handoff from the
+      22:42Z item 6.7 pass, which named {6.6} as the next pick). REPO HALF:
+      full 36-checker non-network suite re-run fresh (all of tools/check-*.js
+      except check-live-hours.js, which needs the browser and is covered
+      separately below) - 36/36 exit 0 clean, including check-url-scheme.js,
+      the checker this item's own fault wrote, and check-cdn-pins.js, clean
+      with the same 2 warnings / 6 known entries as every prior pass (none
+      new, none stale). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      unchanged, matching the standing anchor; `git status --porcelain`
+      showed zero modified tracked files before this pass began (only the
+      long-standing untracked audits/*.log scratch entries). LIVE HALF:
+      re-read the canonical tag on all three branches this item tracks, via
+      Claude in Chrome (read-only, single tab, nothing clicked or typed,
+      closed after use) - Cherry Lane, Riddings and McCanns homepages all
+      still return `link[rel="canonical"]`: NONE (only `og:url` present,
+      matching each page's own URL), unchanged from the 2026-08-13 finding
+      and the 2026-11-25 pass. The http-to-https redirect was not re-tested
+      this pass, same reasoning as 2026-11-25 (already confirmed working on
+      2026-08-13, nothing suggests regression, re-testing every pass adds no
+      new information). The nine corrected GBP website fields were not
+      re-read either - that needs Rishi's own signed-in Google session,
+      which this unattended run does not have. NO IN-REPO OR LIVE DEFECT
+      FOUND. The item remains blocked on the same two Weebly-side actions:
+      a self-referencing canonical tag (Weebly SEO settings/header code,
+      per-branch) and the GBP pending-edit re-read (needs Rishi signed in).
+      NO NEW QUESTION RAISED; QUESTIONS.json unchanged, 150 total, 1 open
+      (Q149, item 2.2, live-only Fishlocks Pharmacy First page missing the
+      prescription-charge caveat - still unanswered on the portal as of this
+      pickup). Rotation pool for the next run: since 6.6 and 6.7 have now
+      both had a fresh look within the last 24 hours and neither found
+      anything new, the next run should scan all genuine rotation-pool items
+      (1.1, 1.4, 5.6, 6.6, 6.7, 6.8 - 2.2 and 5.7 remain the documented
+      one-offs excluded from rotation) for whichever has gone longest
+      without its own dated pass, rather than defaulting to 6.6 again.
 - [x] 6.7 Bank holiday awareness in the hours checkers: branches.json now
       carries a bankHolidays block (added 2026-08-27, Q79 answered) with
       gov.uk's 2026 England and Wales dates and tradingPolicy: "closed",
