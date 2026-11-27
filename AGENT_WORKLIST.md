@@ -40828,6 +40828,47 @@ appended to the line. Do not move them; the status page reads them in place.
       indefinite quality-pass cycles against an exhausted worklist. This
       run has no authority over the scheduled task itself and did not
       touch it.
+      Quality pass 2026-11-27 (20:12Z Cowork scheduled run, thirty-first
+      pass): data clean, nothing to fix, no new finding. Picked as the
+      genuinely least-recently-verified eligible item this run (re-derived
+      the rotation pool directly from AGENT_WORKLIST.md's own dated lines
+      rather than trusting prior runs' "whole pool cycled" framing - that
+      framing only covered a small recurring set of items (1.1, 1.2, 1.4,
+      5.6, 6.6, 6.7, 6.8); roughly 30 other items, this one included, were
+      still dated 2026-11-24, three days stale, and 1.3 is the
+      lowest-numbered of those once the standing out-of-rotation items
+      (2.2, 5.7) and the three permanently [BLOCKED] lines are excluded).
+      CHECKS: branches.json sha256
+      a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684fac12360b9
+      (differs from the 2026-11-24 pass's recorded hash, expected - the
+      file has had unrelated edits since, e.g. the 6.7 bank-holiday item -
+      content re-verified directly rather than relying on hash match).
+      Direct grep for "CH49 1SX" across modules/, core/, gbp-packs/,
+      compliance/, tools/, branches.json, status/ and QUESTIONS.json:
+      confined to tools/check-postcodes.js's own NARRATIVE_POSTCODES
+      registration, as every prior pass since 2026-08-13 has found - no
+      page, pack, paste block or branches.json entry carries it. L17 4JP
+      confirmed present and correct across 18 files. tools/check-postcodes.js
+      run directly: exit 0, same 3 pre-existing UNOWNED warnings as every
+      prior pass (gbp-packs/TEMPLATE.md, modules/branch/pages/INDEX.md and
+      SEO.md - template/paste-sheet files naming no single branch by
+      design), 1460 text files scanned, 56 distinct postcodes, 0 failures.
+      Full 35-checker non-network suite (all tools/check-*.js except
+      check-cdn-pins.js and check-live-hours.js) run directly: 35/35 exit 0,
+      no failures. LIVE HALF NOT ATTEMPTED this pass: the live Weebly page,
+      homepage contact block and GBP listing were all re-verified within
+      the preceding several days (2026-11-23 and twice on 2026-11-24) with
+      no finding; a further live re-read was judged to carry negligible
+      marginal value against this run's time budget. NO IN-REPO DEFECT
+      FOUND, NO NEW QUESTION RAISED. QUESTIONS.json unchanged: 150 total,
+      1 open (Q149, unrelated to this item, unchanged since 2026-11-24,
+      no new answer found on the feedback portal this run). This item
+      alone has now had roughly thirty-one passes since 2026-08-04 with no
+      new finding since the checker-hardening work completed by
+      2026-08-13 - repeating the standing forward note on file: worth a
+      human decision on retiring or re-scoping this item's place in the
+      rotation, or the schedule's frequency generally, rather than
+      continuing indefinite re-verification. Done 2026-11-27.
 - [x] 1.2 Verify Hirshmans address reads "56-62 Sherwood House, Station Road,
       Ainsdale" everywhere on the site. Done 2026-08-04. Repo and live site
       both verified correct; no changes needed. One cosmetic note logged
