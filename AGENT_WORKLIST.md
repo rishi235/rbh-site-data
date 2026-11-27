@@ -5034,6 +5034,33 @@ Evidence in audits/seo-pattern-plain-crosstown-3.1-twentysecond-2026-09-18.txt.
       passes; most checkers remain untried against this specific item
       (see tools/check-*.js for the full list), the same standing position
       every recent pass on a mature item has recorded. Done 2026-11-24.
+Quality pass 2026-11-27 (thirty-third, 21:42Z pickup): clean, no defect found.
+      Rotation pool re-derived directly from AGENT_WORKLIST.md's own dated
+      lines (standing out-of-rotation items 2.2 and 5.7 and the three
+      permanently [BLOCKED] lines 5.8/Q16, 6.4/Q60, 6.5/Q60 excluded): 30
+      items tied oldest at 2026-11-24, item 3.1 lowest-numbered, picked per
+      the standing tie-break convention. Full 35-checker non-network suite
+      (every tools/check-*.js except check-cdn-pins.js and
+      check-live-hours.js) run directly: 35/35 exit 0. All eight
+      tools/build-*.js generators re-run directly against the tracked
+      branches.json: all exit 0, `git status --porcelain` against
+      modules/ and core/ empty (zero diff, byte-identical regeneration),
+      confirming tools/seo-pattern.js's pick() and the title/H1 composers
+      still match current generator output with no unintended churn. Live
+      spot-check via Claude in Chrome (read-only, one tab, nothing clicked
+      or typed, closed after use): the paste sheet entry for Fishlocks
+      Chemist Ainsdale's earache page (modules/service/pages/SEO.md,
+      permalink earache-treatment-fishlocks-ainsdale) states Page Title
+      "Earache treatment in Ainsdale - Fishlocks Chemist"; the live page at
+      www.fishlockpharmacy.co.uk/earache-treatment-fishlocks-ainsdale.html
+      serves that exact title and an H1 of "Earache treatment for children
+      in Ainsdale", matching the generated page and tools/seo-pattern.js's
+      composed pattern for a family A page. NO IN-REPO OR LIVE DEFECT
+      FOUND, NO NEW QUESTION RAISED. QUESTIONS.json unchanged: 150 total,
+      1 open (Q149, unrelated to this item, unanswered on the portal since
+      2026-11-24 - confirmed again this pickup via the feedback API, newest
+      "Audit answer" entry still Q52 from 2026-09-01). Item 3.1 stays `[x]`
+      (quality pass, not a state change). Done 2026-11-27.
 - [x] 3.2 Scorah Chemists (Bramhall and Hazel Grove): put the town and
       service words into every page title, description and heading,
       regenerate, check the result. Done 2026-08-04. check-seo-pattern:
