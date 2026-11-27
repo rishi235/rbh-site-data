@@ -51127,3 +51127,65 @@ remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
       Rotation pool for the next run: 1.1 and 1.4 (both last touched
       2026-11-24) are now the oldest of the pool, with 6.8 freshly
       re-verified today.
+
+      Quality pass 2026-11-27T13:42Z (item 1.1, Cowork scheduled run,
+      audit-backlog-worker; picked as one of the two items tied oldest in
+      the rotation pool, {1.1, 1.4} both last touched 2026-11-24, per the
+      2026-11-27T12:12Z run's own handoff note; 1.1 taken over 1.4 by the
+      standing lower-number tie-break this item's own history already
+      used once before, 2026-11-15). REPO HALF: full 35-checker
+      non-network suite (excl. check-cdn-pins.js, check-live-hours.js) run
+      fresh directly against the tracked repo, 35/35 exit 0 clean,
+      including check-brand-spelling.js itself (this item's own checker:
+      1 hardcoded fallback record in core/site-data.js checked, 203
+      generated pages/sheets checked for the Q14 shortened-brand rule, 0
+      near-miss spellings found) and check-seo-pattern.js (177 pages, 0
+      untyped, 0 failures - the other checker this item's canonical names
+      feed into). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      confirmed unchanged against the standing anchor before and after.
+      `git status --porcelain` showed zero modified tracked files at
+      pickup (only the long-standing untracked audits/*.log scratch
+      debris and one pre-existing .goldenbak file).
+
+      Independent hand sweep run alongside the checker rather than trusting
+      it alone (this item's own stated discipline: ask which files a
+      checker reads, then verify by a different method). `grep -rnoE` for
+      every near-miss form the checker derives (bare "Fishlock" without a
+      trailing s, "Fishlock's", "Gordon Shorts", "Gordon Short's",
+      "Coleman & Leigh" with the ampersand, "Coleman&Leigh", "Coleman and
+      Leigh's") across modules/, core/, gbp-packs/ and tools/ found three
+      categories of hit, all already accounted for and none a defect: (1)
+      the two GBP packs (gordon-short-crosby.md,
+      coleman-leigh-walton.md) that deliberately quote what the live,
+      not-yet-repasted pages currently say, the same documented exception
+      this item has carried since 2026-08-11; (2) tools/check-brand-
+      spelling.js's and tools/check-postcodes.js's own source code, where
+      the near-miss strings are the detection patterns themselves, not
+      output; (3) tools/build-weebly-furniture-checklist.js, where the
+      strings appear inside the Fishlocks Ainsdale/Eccleston and Coleman
+      and Leighs Walton checklist entries describing wrong text found on
+      the LIVE pages for a future Weebly session to fix (confirmed by
+      reading each entry in full - every one explicitly says "should be"
+      the canonical form, so the file is correctly recording a live
+      defect, not reproducing one as output). Zero unexplained hits.
+      `build-switch-pages.js`'s CONFIG table confirmed still reading
+      `brand: b.brandLabel` (the Q19 rewire), not a hardcoded string
+      table, so there is no fourth hardcoded copy to drift.
+
+      LIVE HALF: not attempted this pass (no browser tooling budget spent
+      here this run; the scheduled worker's separate answer-pickup step
+      already used the one Chrome tab this run needed, for Q149, which
+      remains open and unanswered - see AGENT_LOG.md). Standing live
+      findings for this item (Gordon Short's Pharmacy First and travel
+      clinic pages, and Coleman and Leighs' homepage, all still carrying
+      pre-rename spellings, per the paste-age findings on record since
+      2026-08-10/2026-10-20) stand unclaimed and unchanged; no new live
+      claim made, none contradicted.
+
+      NO IN-REPO OR LIVE DEFECT FOUND. NO NEW QUESTION RAISED. Item 1.1
+      stays [x] (quality pass, not a state change). QUESTIONS.json: 150
+      total, 1 open (Q149, unchanged, item 2.2, awaiting Rishi's decision
+      on the portal). Rotation pool for the next run: 1.4 is now the sole
+      oldest item (last touched 2026-11-24, unchanged since 1.1 was just
+      re-verified today), with 6.6 and 6.7 next behind it at 2026-11-26/27.
