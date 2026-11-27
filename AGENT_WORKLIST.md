@@ -41930,6 +41930,66 @@ appended to the line. Do not move them; the status page reads them in place.
       record above) stand unclaimed and unchanged, no new live claim made.
       NO NEW QUESTION RAISED. Item 1.2 stays `[x]` (quality pass, not a
       state change). QUESTIONS.json: 148 total, 0 open. Done 2026-11-24.
+      Twenty-ninth quality pass 2026-11-27 (Cowork scheduled run,
+      audit-backlog-worker, 18:42Z pickup). Picked as the genuinely stalest
+      unblocked item: re-derived the rotation pool directly from this file's
+      own dated text with a full parse (not a trusted handoff), excluding
+      the 7 standing out-of-rotation items (1.1, 1.4, 2.2, 5.6, 5.7, 6.7,
+      6.8) and the 3 [BLOCKED] lines (5.8, 6.4, 6.5), and restricting to
+      calendar-valid dates no later than today. 33 items tied oldest at
+      2026-11-24; 1.2 wins the lowest-numbered tiebreak.
+      PROCESS FINDING along the way, noted but not acted on beyond this
+      note: two more contaminated test-fixture date strings polluting a
+      naive max-date scan were found, neither previously listed alongside
+      the known "2026-12-28"/"2026-13-03" pair - item 6.3 also quotes
+      "2026-02-30" (not a real calendar date, February has at most 29 days)
+      and "2026-12-25", and item 6.7 also quotes "2027-13-40" (no 13th
+      month, no 40th day). All four sit inside quoted test-fixture examples
+      in those items' own text, not genuine last-touched dates. This run's
+      own parse filtered them by calendar validity rather than by a
+      hardcoded list, so the fix is in the method, not a list to maintain;
+      recorded here in case a future run's naive string-max scan trips on
+      the same thing again.
+      FRESH ANGLE ON ITEM 1.2 ITSELF: tools/check-travel-clinic-copy.js had
+      never been proven by injection against this branch's own travel
+      clinic page (28 prior passes named 9 other checkers; this one was
+      untested). Isolated git-archive scratch copy
+      (outputs/scratch_1.2_run, tracked clone never opened for writing);
+      branches.json sha256 a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c
+      27c03684fac12360b9 and travel-clinic-hirshmans-ainsdale.html sha256
+      ceae216134bd9db28aa20f45652fc3503fe8a358564c4e0323d1852b58599587 both
+      confirmed matching the tracked repo before any change. Baseline clean
+      (OK, 1 accepted KNOWN breach, yellow fever/Q48, unchanged). First
+      injection attempt caught and corrected before relying on it: a sed
+      replace targeting "</body>" silently did nothing, because this page is
+      a Weebly embed fragment with no body tag at all - diff showed zero
+      changes and the checker's clean result from that attempt was
+      meaningless, not a pass. Re-injected correctly into the FAQ block:
+      added "All travel vaccines are guaranteed in stock for your
+      appointment." - CAUGHT, two rules fired (RULE 6 stock, matched twice
+      in the same sentence by two separate stock patterns; and the separate
+      outcome rule for "guarantee" wording), both naming the file and
+      quoting the exact injected text. Restored by byte copy, sha256
+      reconfirmed identical on both files. Negative control (an unrelated
+      keywords-array addition to hirshmans_ainsdale in branches.json, a
+      field this checker does not read) ran clean, confirming the catches
+      were genuine and selective. Full 35-checker suite (excl.
+      check-cdn-pins.js, check-live-hours.js) re-run clean on the restored
+      scratch copy afterwards. Tracked repo confirmed untouched throughout
+      (git status --porcelain -- branches.json tools modules core gbp-packs
+      compliance showed nothing beyond pre-existing untracked debris). NO
+      IN-REPO DEFECT FOUND. Guard coverage for item 1.2 now extends to 10
+      checkers named with a direct injection test against this specific
+      branch (up from 9).
+      LIVE HALF (Claude in Chrome, one tab, read-only, nothing clicked or
+      typed, closed after use): read
+      https://www.hirshmanspharmacy.co.uk/travel-clinic-hirshmans-ainsdale.html.
+      No stock guarantee, no unhedged outcome claim, "subject to
+      availability and clinical suitability" present, NHS funding correctly
+      hedged ("some individual vaccines may be available on the NHS
+      depending on your circumstances, the pharmacist will advise"),
+      address, phone and opening hours all match branches.json exactly. No
+      in-repo or live defect found, no new question raised. Done 2026-11-27.
 - [x] 1.1 Standardise brand-name spelling across all site data and pages
       (Fishlock vs Fishlocks, Coleman & Leigh vs Leighs, Gordon Short vs
       Shorts). Done 2026-08-04, commit 1ec8f7b. Canonical form fixed to
