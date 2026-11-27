@@ -42277,6 +42277,76 @@ appended to the line. Do not move them; the status page reads them in place.
       raised; this narrows rather than widens Q32/item 5.3's outstanding
       repaste list by one page. Done 2026-11-24.
 
+      Quality pass 2026-11-27T13:42Z (item 1.1, Cowork scheduled run,
+      audit-backlog-worker; picked as one of the two items tied oldest in
+      the rotation pool, {1.1, 1.4} both last touched 2026-11-24, per the
+      2026-11-27T12:12Z run's own handoff note; 1.1 taken over 1.4 by the
+      standing lower-number tie-break this item's own history already
+      used once before, 2026-11-15). REPO HALF: full 35-checker
+      non-network suite (excl. check-cdn-pins.js, check-live-hours.js) run
+      fresh directly against the tracked repo, 35/35 exit 0 clean,
+      including check-brand-spelling.js itself (this item's own checker:
+      1 hardcoded fallback record in core/site-data.js checked, 203
+      generated pages/sheets checked for the Q14 shortened-brand rule, 0
+      near-miss spellings found) and check-seo-pattern.js (177 pages, 0
+      untyped, 0 failures - the other checker this item's canonical names
+      feed into). branches.json sha256
+      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      confirmed unchanged against the standing anchor before and after.
+      `git status --porcelain` showed zero modified tracked files at
+      pickup (only the long-standing untracked audits/*.log scratch
+      debris and one pre-existing .goldenbak file).
+
+      Independent hand sweep run alongside the checker rather than trusting
+      it alone (this item's own stated discipline: ask which files a
+      checker reads, then verify by a different method). `grep -rnoE` for
+      every near-miss form the checker derives (bare "Fishlock" without a
+      trailing s, "Fishlock's", "Gordon Shorts", "Gordon Short's",
+      "Coleman & Leigh" with the ampersand, "Coleman&Leigh", "Coleman and
+      Leigh's") across modules/, core/, gbp-packs/ and tools/ found three
+      categories of hit, all already accounted for and none a defect: (1)
+      the two GBP packs (gordon-short-crosby.md,
+      coleman-leigh-walton.md) that deliberately quote what the live,
+      not-yet-repasted pages currently say, the same documented exception
+      this item has carried since 2026-08-11; (2) tools/check-brand-
+      spelling.js's and tools/check-postcodes.js's own source code, where
+      the near-miss strings are the detection patterns themselves, not
+      output; (3) tools/build-weebly-furniture-checklist.js, where the
+      strings appear inside the Fishlocks Ainsdale/Eccleston and Coleman
+      and Leighs Walton checklist entries describing wrong text found on
+      the LIVE pages for a future Weebly session to fix (confirmed by
+      reading each entry in full - every one explicitly says "should be"
+      the canonical form, so the file is correctly recording a live
+      defect, not reproducing one as output). Zero unexplained hits.
+      `build-switch-pages.js`'s CONFIG table confirmed still reading
+      `brand: b.brandLabel` (the Q19 rewire), not a hardcoded string
+      table, so there is no fourth hardcoded copy to drift.
+
+      LIVE HALF: not attempted this pass (no browser tooling budget spent
+      here this run; the scheduled worker's separate answer-pickup step
+      already used the one Chrome tab this run needed, for Q149, which
+      remains open and unanswered - see AGENT_LOG.md). Standing live
+      findings for this item (Gordon Short's Pharmacy First and travel
+      clinic pages, and Coleman and Leighs' homepage, all still carrying
+      pre-rename spellings, per the paste-age findings on record since
+      2026-08-10/2026-10-20) stand unclaimed and unchanged; no new live
+      claim made, none contradicted.
+
+      NO IN-REPO OR LIVE DEFECT FOUND. NO NEW QUESTION RAISED. Item 1.1
+      stays [x] (quality pass, not a state change). QUESTIONS.json: 150
+      total, 1 open (Q149, unchanged, item 2.2, awaiting Rishi's decision
+      on the portal). Rotation pool for the next run: 1.4 is now the sole
+      oldest item (last touched 2026-11-24, unchanged since 1.1 was just
+      re-verified today), with 6.6 and 6.7 next behind it at 2026-11-26/27.
+
+      Housekeeping note 2026-11-27T16:12Z: the paragraph above (the
+      2026-11-27T13:42Z quality pass) was originally committed (1341d77)
+      appended to the end of the file instead of here, landing inside
+      item 6.8's own block purely because item 6.8 happens to be the last
+      item in the file. Moved to its correct place this run with its
+      wording unchanged; see item 6.8's own section for the note left
+      behind there. No content in the paragraph itself was altered.
+
 ## Phase 5 - Work authorised by Rishi's answers
 Not part of the original audit backlog. These are the four decisions Rishi
 answered that carried real work, tracked here so the status page shows what is
@@ -51169,64 +51239,23 @@ remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
       2026-11-24) are now the oldest of the pool, with 6.8 freshly
       re-verified today.
 
-      Quality pass 2026-11-27T13:42Z (item 1.1, Cowork scheduled run,
-      audit-backlog-worker; picked as one of the two items tied oldest in
-      the rotation pool, {1.1, 1.4} both last touched 2026-11-24, per the
-      2026-11-27T12:12Z run's own handoff note; 1.1 taken over 1.4 by the
-      standing lower-number tie-break this item's own history already
-      used once before, 2026-11-15). REPO HALF: full 35-checker
-      non-network suite (excl. check-cdn-pins.js, check-live-hours.js) run
-      fresh directly against the tracked repo, 35/35 exit 0 clean,
-      including check-brand-spelling.js itself (this item's own checker:
-      1 hardcoded fallback record in core/site-data.js checked, 203
-      generated pages/sheets checked for the Q14 shortened-brand rule, 0
-      near-miss spellings found) and check-seo-pattern.js (177 pages, 0
-      untyped, 0 failures - the other checker this item's canonical names
-      feed into). branches.json sha256
-      0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
-      confirmed unchanged against the standing anchor before and after.
-      `git status --porcelain` showed zero modified tracked files at
-      pickup (only the long-standing untracked audits/*.log scratch
-      debris and one pre-existing .goldenbak file).
-
-      Independent hand sweep run alongside the checker rather than trusting
-      it alone (this item's own stated discipline: ask which files a
-      checker reads, then verify by a different method). `grep -rnoE` for
-      every near-miss form the checker derives (bare "Fishlock" without a
-      trailing s, "Fishlock's", "Gordon Shorts", "Gordon Short's",
-      "Coleman & Leigh" with the ampersand, "Coleman&Leigh", "Coleman and
-      Leigh's") across modules/, core/, gbp-packs/ and tools/ found three
-      categories of hit, all already accounted for and none a defect: (1)
-      the two GBP packs (gordon-short-crosby.md,
-      coleman-leigh-walton.md) that deliberately quote what the live,
-      not-yet-repasted pages currently say, the same documented exception
-      this item has carried since 2026-08-11; (2) tools/check-brand-
-      spelling.js's and tools/check-postcodes.js's own source code, where
-      the near-miss strings are the detection patterns themselves, not
-      output; (3) tools/build-weebly-furniture-checklist.js, where the
-      strings appear inside the Fishlocks Ainsdale/Eccleston and Coleman
-      and Leighs Walton checklist entries describing wrong text found on
-      the LIVE pages for a future Weebly session to fix (confirmed by
-      reading each entry in full - every one explicitly says "should be"
-      the canonical form, so the file is correctly recording a live
-      defect, not reproducing one as output). Zero unexplained hits.
-      `build-switch-pages.js`'s CONFIG table confirmed still reading
-      `brand: b.brandLabel` (the Q19 rewire), not a hardcoded string
-      table, so there is no fourth hardcoded copy to drift.
-
-      LIVE HALF: not attempted this pass (no browser tooling budget spent
-      here this run; the scheduled worker's separate answer-pickup step
-      already used the one Chrome tab this run needed, for Q149, which
-      remains open and unanswered - see AGENT_LOG.md). Standing live
-      findings for this item (Gordon Short's Pharmacy First and travel
-      clinic pages, and Coleman and Leighs' homepage, all still carrying
-      pre-rename spellings, per the paste-age findings on record since
-      2026-08-10/2026-10-20) stand unclaimed and unchanged; no new live
-      claim made, none contradicted.
-
-      NO IN-REPO OR LIVE DEFECT FOUND. NO NEW QUESTION RAISED. Item 1.1
-      stays [x] (quality pass, not a state change). QUESTIONS.json: 150
-      total, 1 open (Q149, unchanged, item 2.2, awaiting Rishi's decision
-      on the portal). Rotation pool for the next run: 1.4 is now the sole
-      oldest item (last touched 2026-11-24, unchanged since 1.1 was just
-      re-verified today), with 6.6 and 6.7 next behind it at 2026-11-26/27.
+      Quality pass 2026-11-27T16:12Z (item misfiling defect found and
+      fixed, Cowork scheduled run, audit-backlog-worker): while picking
+      the next rotation-pool item, found that the 2026-11-27T13:42Z item
+      1.1 quality-pass addendum (committed 1341d77) had been appended to
+      the end of the file rather than inserted into item 1.1's own
+      bullet section above - because item 6.8 is the last item in the
+      file, every entry appended "at the end" lands inside item 6.8's own
+      block regardless of which item it is actually about, so that
+      addendum sat here, under this item's own "Questions for Rishi"
+      sub-section, misattributing a brand-spelling re-verification to the
+      QUESTIONS.json-integrity item. Moved the full, unedited text of
+      that addendum to its correct location under item 1.1 below (see
+      there for its content); nothing in its wording was changed, only
+      its position. This item's own record is otherwise unaffected: the
+      12:12Z Q149-wording/duplicate-Q136-id entry immediately above
+      genuinely is this item's own work and stays here. No other misfiled
+      entry found elsewhere in this file on inspection of the tail
+      section. Logged as a process-integrity finding in AGENT_LOG.md
+      rather than a new QUESTIONS.json question, since it is a mechanical
+      housekeeping fix with no decision for Rishi to make.
