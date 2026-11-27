@@ -3757,6 +3757,32 @@ audits/verify-2.1-2026-09-07-fourteenth-output.txt.
       checker-only; Q36 re-confirmed by the immediately preceding pass, not
       re-raised). Full detail in audits/cherry-lane-walton-item-2.3-weight-
       loss-copy-2026-11-24.txt. Done 2026-11-24.]
+      [Thirty-fourth quality pass, 2026-11-27 (Cowork scheduled run,
+      audit-backlog-worker, 20:43Z pickup): repo half re-verified from
+      scratch - all six generators (build-branch-landing-pages,
+      build-contraception-pages, build-service-pages, build-switch-pages,
+      build-travel-clinic-pages, build-weight-loss-pages) rerun, zero diff
+      against the checked-out tree bar one pre-existing untracked debris
+      file (pharmacy-first-mccanns-sandringham.html.goldenbak, unrelated to
+      this branch). Full 35-checker non-network suite (every tools/check-*.js
+      except check-cdn-pins.js and check-live-hours.js) run directly: 35/35
+      exit 0. branches.json entry for cherrylane_liverpool read field by
+      field: all 12 widget ids present, serviceAreaList correct (Liverpool,
+      Walton, Everton), seoTown Walton, nhsEmail pharmacy.FA226@nhs.net,
+      opening hours Mon-Fri 9am-6:30pm/Sat 9am-5pm/Sun closed - all
+      unchanged and correct. Live: re-fetched the sitemap (28 URLs, same
+      shape as every prior pass - all 12 generated pages present plus the
+      legacy weight-loss-clinic-walton.html signpost stub Q5 kept live) and
+      contact-us.html. Q36 (the Weebly-native footer mailbox typo)
+      re-confirmed exactly as the 2026-11-23 update left it: contact-us.html
+      still renders two independently-edited address blocks on one page -
+      the correct pharmacy.FA226@nhs.net near the top "Contact Us" block and
+      the bouncing pharmacy.FA226@mhs.net lower down in the "Click below to
+      make an appointment at any store" block. No change since 2026-11-23;
+      this is the same live Weebly furniture fault, now a twelfth confirmed
+      page/occasion, still waiting on Rishi's own Weebly sweep per Q36's
+      answer - no repo action is possible against it. NO IN-REPO DEFECT
+      FOUND, NO NEW QUESTION RAISED. Done 2026-11-27.]
 
 ## Phase 3 - Town and service words in titles and headings (all pages)
 The core position fix from the audit. Work brand by brand, one item per run.
