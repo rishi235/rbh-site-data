@@ -386,6 +386,47 @@ this checker (2026-08-04 pass logged above) remains the most recent proof
 it still catches a real mismatch. No live-site read this pass. No in-repo
 defect found, no new question raised. Done 2026-11-24.
 
+Quality pass 2026-11-27 (Cowork scheduled run, ~14:42Z pickup, fallback
+rotation pick - item 1.4 was the sole oldest item in the rotation pool
+handed down by the previous (13:42Z) run, {1.1, 1.4} having tied oldest at
+2026-11-24 before that run touched 1.1 today). Full 35-checker suite (excl.
+check-cdn-pins.js/check-live-hours.js, network-dependent) re-run directly
+against the tracked repo: 35/35 clean. check-nap.js (this item's own
+checker): 177 pages, 4 paste block(s), 0 mismatches, 1 warning (Q111 emar
+personal inbox, unchanged), no change since the 2026-08-12 pass.
+branches.json sha256 `0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da`
+confirmed unchanged against the standing anchor. `git status --porcelain`
+clean beyond the pre-existing untracked
+`modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak`
+debris.
+Ran a fresh injection test, since the last one (2026-10-20, Gordon Short
+Crosby) was over a month stale. A full local clone for isolation hit "No
+space left on device" twice (once in /tmp, which has only ~2.3G free
+against a 3.2G .git; once partway through a retry into the mounted
+outputs folder, abandoned after a 120s tool timeout and deleted rather
+than left half-written) - the clone approach is not reliably available
+from this session's sandbox mount and should not be assumed free for a
+future pass. Fell back to the direct-on-tracked-repo method instead: a
+different branch/page than the 2026-10-20 test, McCanns Chemist
+Aigburth's pharmacy-first page (modules/service/pages/pharmacy-first-mccanns-aigburth.html,
+phone 0151 727 3185 in branches.json), was backed up to /tmp first, then
+had its phone number replaced with 0151 727 9999 in all three on-page
+locations (tel: href, visible contact-line text, JSON-LD telephone).
+CAUGHT: check-nap.js exited 1 with 10 mismatches across all four NAP
+surfaces (tel link, visible phone, JSON-LD telephone, and the estate-wide
+"not any branch's number" sweep, the last one firing on both the digits
+and spaced forms). Restored from the /tmp backup; sha256 of the restored
+file and `git diff --stat` both confirmed byte-identical to the
+pre-injection tracked copy; full 35-checker suite re-run afterwards,
+35/35 clean again, `git status --porcelain` showing only the same
+pre-existing `.goldenbak` stray. Backup file deleted from /tmp afterwards.
+LIVE HALF: one live spot-check, Claude in Chrome, read-only, one tab
+opened and closed. www.mccannspharmacy.co.uk (the same branch pair just
+injection-tested in the repo) still publishes 0151 727 3185 for Aigburth
+and 0151 727 3076 for Sandringham, both matching branches.json exactly,
+address and GPhC/company detail also consistent with prior reads. No new
+defect found, no new question raised. Done 2026-11-27.
+
 ## Phase 2 - Pilot pair (agreed sequence: one strong, one weak)
 - [x] 2.1 Fishlocks Ainsdale: audit its pages against the Build Pack v2 spec;
       list gaps in AGENT_LOG.md, then fix what can be fixed in-repo. Done 2026-08-04.
