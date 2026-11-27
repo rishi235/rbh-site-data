@@ -46705,6 +46705,43 @@ Weebly repaste (title, description, H1, all sourced from
 modules/service/pages/SEO.md and the regenerated page) remains exactly as
 wide as the ninth pass left it. No repo defect found, no page, generator or
 data field changed this run. No new question.
+Quality pass 2026-11-27 (eleventh pass, unattended, Cowork scheduled run,
+audit-backlog-worker; picked as least recently verified of the rotation pool
+named by the immediately preceding run {1.1, 1.4, 5.6, 6.6, 6.7, 6.8}, last
+touched 2026-10-21, over a month older than any of the other five). REPO
+HALF: clean for the eleventh pass running. All six generators
+(build-branch-landing-pages, build-contraception-pages, build-service-pages,
+build-switch-pages, build-travel-clinic-pages, build-weight-loss-pages)
+rebuilt; sha256 of all 217 tracked files under modules/ and core/ unchanged
+before and after (byte-identical), confirmed by full-tree sha256 diff, not
+spot check. All 36 non-network checkers (every tools/check-*.js except
+check-live-hours.js, which this item does not use) exit 0. check-seo-lengths
+reports 177 paste-sheet entries, titles 36 to 65 characters, descriptions 129
+to 164, 0 shared H1s, KNOWN empty. check-seo-pattern reports 177 pages
+checked, 0 untyped, 0 failures. branches.json sha256
+0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da, matching
+the standing anchor exactly. LIVE HALF: Claude in Chrome reachable this run,
+one tab, read-only (document.title, meta description and h1 textContent via
+javascript_tool), closed after use. Tab title still "Infected insect bite
+treatment in Walton - Coleman & Leigh Pharmacy", 67 characters, ampersand,
+singular "Leigh" - unchanged from every prior read since 2026-08-10/11, still
+not the repo's rescued 61-character "...- Coleman and Leighs" form. Meta
+description still reads "Coleman & Leigh Pharmacy" against the repo's
+"Coleman and Leighs Pharmacy". On-page H1 still "Infected insect bite
+treatment in Walton" with no brand at all, confirmed still diverging from the
+freshly regenerated repo page, which (post-Q44, applied 2026-09-15) reads
+"Infected insect bite treatment in Walton - Coleman and Leighs Pharmacy" -
+checked directly against the regenerated file this run, not by memory. No
+narrowing of the gap since the ninth pass widened it: the single outstanding
+Weebly repaste (title, description and H1 together, all sourced from
+modules/service/pages/SEO.md and the regenerated page) remains exactly as
+wide as the ninth and tenth passes left it, now unconfirmed-changed across
+eleven live reads spanning 2026-08-10 to 2026-11-27. No repo defect found, no
+page, generator or data field changed this run, no new question (Q14 already
+describes this exactly and already recommends the repaste). Rotation pool for
+the next run: of {1.1, 1.4, 5.6, 6.6, 6.7, 6.8}, 5.6 is now the most recently
+verified (today); 6.8 (last touched 2026-11-23) is the oldest of the
+remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
 - [x] 5.7 Q15 move the McCanns Sandringham local word from "Sandringham" to
       "St Michael's". Sandringham is the only seoTown in the estate that is
       not a place in its own branch's serviceAreaList, so 12 pages aim at a
