@@ -10373,6 +10373,41 @@ Item 3.5 stays `[x]` (quality pass, not a state change). Full detail in
 audits/hirshmans-ainsdale-item-3.5-quality-pass-2026-11-24-thirtyfirst.txt.
 Done 2026-11-24.
 
+Quality pass 2026-11-27 (thirty-second, Cowork scheduled run, 23:43Z pickup):
+picked via the standing rotation convention (lowest-numbered item among those
+tied oldest, 2026-11-24, excluding out-of-rotation items 2.2 and 5.7 and the
+three [BLOCKED] lines 5.8/6.4/6.5 - all three still blocked on Rishi's own
+action, unchanged). Full 35-checker non-network suite (all tools/check-*.js
+except check-cdn-pins.js and check-live-hours.js, which need network) run
+directly: 35/35 exit 0, no new warnings. All seven generators
+(tools/build-*.js, excluding build-audit-status.js) re-run directly:
+all exit 0, `git status --porcelain` against modules/, core/,
+WEEBLY_FURNITURE_CHECKLIST.md and gbp-packs/ empty except one pre-existing
+unrelated untracked debris file from a prior run
+(modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+left alone, same as noted by recent passes on other items) - zero-diff,
+byte-identical regeneration confirmed. branches.json entry for
+hirshmans_ainsdale read field by field directly: seoTown Ainsdale present in
+its own serviceAreaList, nhsEmail pharmacy.FW378@nhs.net matches the
+odsCode pattern, nhsReviewUrl ends /leave-a-review, googleReviewUrl matches
+the g.page/r/.../review pattern, website is a bare host, pfLink sits on the
+branch's own host and ends .html, opening hours carry the two-session
+lunch split on both Mon-Fri and Saturday as expected for a branch that
+closes for lunch - all correct and unchanged since the last pass. Live
+spot-check via Claude in Chrome (read-only, one tab, nothing clicked or
+typed, closed after use): the live Pharmacy First overview page at
+www.hirshmanspharmacy.co.uk/pharmacy-first-hirshmans-ainsdale.html serves
+title "Pharmacy First at Hirshmans Chemist, Ainsdale" (matches
+modules/service/pages/SEO.md exactly) and H1 "Pharmacy First at Hirshmans
+Chemist in Ainsdale" (matches the generated page exactly); all seven
+Pharmacy First conditions and their NHS age cohorts render correctly; phone
+01704 577376, address and postcode PR8 3HW all match branches.json; footer
+opening hours "Mon-Fri 8:30am-1pm, 2pm-6pm, Sat 9am-1pm, 2pm-5:30pm, Sun
+closed" match the specification exactly; footer mailbox
+pharmacy.FW378@nhs.net is correct with no Q36-style typo on this branch.
+NO IN-REPO OR LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.5 stays
+`[x]` (quality pass, not a state change). Done 2026-11-27.
+
 
 - [x] 3.6 McCanns Chemist (Aigburth and Sandringham): same treatment. Done
       2026-08-04. 24 pages, 0 mismatches.
