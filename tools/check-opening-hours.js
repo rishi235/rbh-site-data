@@ -327,15 +327,25 @@ console.log("check-opening-hours");
 // snippets against these dates, so a mistyped date or an unlabelled list
 // here would mislabel a genuine defect as a holiday, or a holiday as a
 // defect, at the exact moment the label matters.
+//
+// Quality pass 2026-11-27: this rule and check-live-hours.js both used to
+// read bh.dates2026 literally, so the label would have silently stopped
+// working the moment a bank holiday fell outside that one year - the first
+// case being New Year's Day 2027, a few weeks after this pass. Both files
+// now read every bh.dates<YYYY> array present, so a future dates2028 block
+// needs no code change here, only the data. See AGENT_WORKLIST.md item 6.7's
+// 2026-11-27 quality-pass addendum for how dates2027 was sourced.
 (function () {
   var bh = data.bankHolidays;
   if (!bh) {
     notes.push("bank holidays: branches.json carries no bankHolidays block, so a live Closed day near a public holiday cannot be cross-checked (Q79).");
     return;
   }
-  var dates = bh.dates2026 || [];
+  var yearKeys = Object.keys(bh).filter(function (k) { return /^dates\d{4}$/.test(k); });
+  var dates = [];
+  yearKeys.forEach(function (key) { dates = dates.concat(bh[key] || []); });
   if (!dates.length) {
-    fail("bankHolidays: block is present but dates2026 is missing or empty. Either carry the gov.uk dates or remove the block");
+    fail("bankHolidays: block is present but no dates<YYYY> array (e.g. dates2026) is present or non-empty. Either carry the gov.uk dates or remove the block");
   }
   var seen = {};
   dates.forEach(function (d) {
@@ -345,14 +355,14 @@ console.log("check-opening-hours");
       ok = !isNaN(dt.getTime()) && dt.toISOString().slice(0, 10) === d;
     }
     if (!ok) fail('bankHolidays: "' + d + '" is not a real ISO yyyy-mm-dd date. check-live-hours.js labels live snippets against this list, so a bad date mislabels a real defect as a holiday');
-    if (seen[d]) fail('bankHolidays: "' + d + '" is listed twice');
+    if (seen[d]) fail('bankHolidays: "' + d + '" is listed twice (across all dates<YYYY> arrays combined)');
     seen[d] = 1;
   });
   var POLICIES = ["closed", "reduced", "normal"];
   if (POLICIES.indexOf(bh.tradingPolicy) === -1) {
     fail('bankHolidays: tradingPolicy is ' + JSON.stringify(bh.tradingPolicy) + ' but must be "closed", "reduced" or "normal". An unlabelled date list invites the same false read the block exists to prevent (Q79)');
   }
-  notes.push("bank holidays (item 6.7): " + dates.length + " date(s) in bankHolidays.dates2026, tradingPolicy \"" + bh.tradingPolicy + "\". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.");
+  notes.push("bank holidays (item 6.7): " + dates.length + " date(s) across " + yearKeys.length + " year block(s) (" + yearKeys.join(", ") + "), tradingPolicy \"" + bh.tradingPolicy + "\". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.");
 })();
 
 // Rule 9. A missing openingHours block is not nothing to check, it is the

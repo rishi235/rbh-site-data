@@ -50895,6 +50895,85 @@ remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
       closed; 6.6 remains the least recently verified of the two most
       recently idle items.
 
+      Quality pass 2026-11-27 (16:42Z pickup, audit-backlog-worker). Pool
+      derived fresh from AGENT_WORKLIST.md's own inline dates rather than
+      trusted from the 16:12Z run's handoff note, which claimed "1.4 last
+      touched 2026-11-24" - directly checked and found wrong: 1.4 carries a
+      2026-11-27 entry from the 14:42Z run earlier today. Of the genuine
+      pool {1.1, 1.4, 5.6, 6.6, 6.7, 6.8}, 1.1/1.4/5.6/6.8 all carry a
+      2026-11-27 date already; 6.6 and 6.7 are both still dated 2026-11-26,
+      tied oldest. Picked 6.7 (lower item number, standing tie-break).
+
+      REPO BASELINE: full 36-checker non-network suite (all of tools/check-
+      *.js except check-cdn-pins.js, which was also run separately and found
+      clean - 2 warnings, 6 known issues, all unchanged from every prior
+      pass) run fresh before touching anything: 36/36 exit 0. branches.json
+      sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da
+      confirmed unchanged against the standing anchor; `git status
+      --porcelain` showed zero modified tracked files beyond the long-
+      standing untracked `audits/*.log` scratch debris and one pre-existing
+      `.goldenbak` file.
+
+      GENUINE DEFECT FOUND (not a repeat of "no defect found"): both
+      check-live-hours.js and check-opening-hours.js read `bh.dates2026`
+      literally, by name, rather than any year-agnostic pattern. branches.json
+      carries no dates2027. The first bank holiday this would have silently
+      mislabelled is New Year's Day 2027, five weeks after this pickup -
+      exactly the false-positive class this item was built on 2026-08-29 to
+      prevent (a live "Closed" GMB snippet misread as a standing-hours
+      defect, the original 2026-08-27 McCanns Aigburth incident). Neither
+      checker would have failed on this gap arriving; they would simply have
+      stopped labelling and gone quiet, the same "a checker that passes
+      noiselessly" shape this repo's CLAUDE.md names repeatedly.
+
+      FIX: both checkers now collect dates from every `bh.dates<YYYY>` key
+      present (regex `/^dates\d{4}$/`) instead of the literal `dates2026`,
+      so a future dates2028 (etc.) block needs no code change, only data.
+      check-opening-hours.js's three validation rules (real ISO date, no
+      duplicate, labelled tradingPolicy) now run across the merged set from
+      all year blocks. Negative-tested before trusting it: injected
+      dates2027 with a malformed date ("2027-13-40") into a throwaway copy
+      of the in-memory data - check-opening-hours.js caught it immediately
+      (FAIL, correct message); restored and confirmed sha256 unchanged.
+      Confirmed the merge itself works (added a second, valid dates2027 key
+      and saw the NOTE line report "2 year block(s)") before finalising.
+
+      DATA: added dates2027 to branches.json, sourced directly from
+      https://www.gov.uk/bank-holidays via Claude in Chrome (read-only, one
+      tab, nothing clicked or typed, closed after) rather than estimated -
+      an earlier web_fetch attempt could only reach a primary-source royal
+      proclamation PDF confirming 3 of the 8 dates (1 Jan, 3 May, 28 Dec),
+      leaving a genuine ambiguity over whether Christmas Day 2027 (a
+      Saturday) gets its own substitute day; the live gov.uk page settled it
+      exactly: yes, 27 December 2027 is a separate "Christmas Day
+      (substitute day)" alongside 28 December's "Boxing Day (substitute
+      day)". Full confirmed list: 1 Jan, 26 Mar (Good Friday), 29 Mar
+      (Easter Monday), 3 May, 31 May, 30 Aug, 27 Dec, 28 Dec. tradingPolicy
+      "closed" was carried forward as the standing estate-wide policy (Q79,
+      2026-08-27) rather than re-asked, since Q79's answer was not stated as
+      year-bound. Bumped branches.json's lastUpdated to 2026-11-27.
+
+      KNOCK-ON: bumping lastUpdated surfaced two downstream artefacts this
+      run would otherwise have missed - check-editor-snapshot.js and
+      check-weebly-furniture-freshness.js both failed immediately after the
+      branches.json edit (correctly: this is exactly the drift both exist to
+      catch). Fixed both: replaced the embedded `const DATA = {...};` block
+      in tools/branches-editor.html with the current branches.json verbatim,
+      and re-ran tools/build-weebly-furniture-checklist.js to regenerate
+      WEEBLY_FURNITURE_CHECKLIST.md. Full 36-checker suite re-run clean
+      after both fixes (36/36), plus check-cdn-pins.js separately (clean,
+      same 2 warnings/6 known issues as before - this edit touches no
+      CDN-pinned asset). NO NEW QUESTION RAISED: this was mechanical data
+      entry from a verified primary source plus a structural checker fix,
+      not a judgement call for Rishi. QUESTIONS.json unchanged, 150 total, 1
+      open (Q149, still awaiting Rishi on the portal).
+
+      Files changed this pass: tools/check-live-hours.js,
+      tools/check-opening-hours.js, branches.json, tools/branches-editor.html,
+      WEEBLY_FURNITURE_CHECKLIST.md. Rotation pool for the next run: 6.6 is
+      now the sole oldest item (last touched 2026-11-25/26); 6.7 just had a
+      genuine fresh-angle pass with a real fix, not merely a re-verification.
+
 - [x] 6.8 Plain-English decision line on the rest of the open backlog: Done 2026-08-29
       QUESTIONS.json holds 55 open items (Q17 to Q78, excluding answered
       ones). Rishi flagged that the "question" field buries the actual

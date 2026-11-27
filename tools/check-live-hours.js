@@ -220,9 +220,18 @@ chain.then(function () {
   var runDay = new Date(report.date + "T00:00:00Z");
   var nearDates = [];
   if (bh) {
-    (bh.dates2026 || []).forEach(function (d) {
-      var diff = Math.abs((new Date(d + "T00:00:00Z") - runDay) / 86400000);
-      if (diff <= NEAR_DAYS) nearDates.push(d);
+    // Item 6.7 quality pass, 2026-11-27: this used to read bh.dates2026 only,
+    // so the label would silently stop working on 1 January 2027 (the first
+    // bank holiday not in that list) and the exact false positive this item
+    // exists to prevent (a live Closed day misread as a standing-hours
+    // defect) would recur. Reads every bh.dates<YYYY> array it finds instead,
+    // so a future dates2027/dates2028/etc. block is picked up with no code
+    // change here. See check-opening-hours.js for the matching read.
+    Object.keys(bh).filter(function (k) { return /^dates\d{4}$/.test(k); }).forEach(function (key) {
+      (bh[key] || []).forEach(function (d) {
+        var diff = Math.abs((new Date(d + "T00:00:00Z") - runDay) / 86400000);
+        if (diff <= NEAR_DAYS) nearDates.push(d);
+      });
     });
   }
   report.bankHolidays = bh ? {
