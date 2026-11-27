@@ -51065,3 +51065,65 @@ remaining five, with 1.1 and 1.4 tied next at 2026-11-24.
       now answered, and Q147's own pause/reduce-cadence condition is met
       but nothing in this worklist's authority can act on the schedule
       itself.
+
+      Quality pass 2026-11-27T12:12Z (item 6.8, Cowork scheduled run,
+      audit-backlog-worker; picked as the oldest item in the rotation pool
+      handed down by the 2026-11-27T11:42Z run, {6.8} last touched
+      2026-11-23 against {1.1, 1.4} tied next at 2026-11-24). Re-ran this
+      item's own standing structural check against the live state of
+      QUESTIONS.json rather than assuming the last pass's all-clear still
+      held, same approach as every prior pass on this item. Two findings,
+      both fixed in place this run:
+
+      1. Q149 (opened 2026-11-24, item 2.2) had drifted out of compliance
+      with the "Decision needed:" opening rule this item exists to enforce
+      - the same recurring drift shape already on record for Q83 and the
+      later batches of ten, six and eight. Read it in full, including its
+      four options, recommendation and note, and prepended one
+      plain-English sentence stating the choice (fold the live Fishlocks
+      prescription-charge-caveat gap into the next supervised Weebly
+      session) and the recommendation, with the complete original question
+      text preserved verbatim straight after. No option, note or technical
+      detail was shortened, softened or dropped.
+
+      2. A genuine duplicate id was found for the first time on this item's
+      own watch: two entirely unrelated, independently-dated entries both
+      carried "Q136" (2026-11-06, the stray-lock-branch git fetch failure;
+      and 2026-11-15, the run450 refs/remotes/origin/ corruption), both
+      status "answered". This is a data-integrity defect in QUESTIONS.json
+      itself, not a wording gap, and sat outside every structural check this
+      item has run before (which checked required fields, option counts,
+      recommended-index bounds, status values and empty-answer-on-answered,
+      but never checked id uniqueness against a live count). Fixed as
+      mechanical housekeeping, per the Q134 "housekeeping is never a
+      question" precedent rather than raising a new question: renumbered
+      the later (2026-11-15) entry to Q150 (the next id after the existing
+      max of Q149), leaving the 2026-11-06 entry as Q136 unchanged. Checked
+      first that no other file depends on the pair both being named Q136 -
+      AGENT_WORKLIST.md itself has exactly one incidental mention ("...
+      through Q136)...", a running total in an unrelated item's narrative,
+      not a cross-reference that breaks) and AGENT_LOG.md's 139 mentions are
+      historical narrative text, read by nobody programmatically, so safe
+      to leave as-is rather than rewritten.
+
+      Applied via a verified byte-for-byte round-trip (dumping the unchanged
+      parsed JSON back out reproduced the original file exactly before any
+      edit was made, confirming json.dumps(indent=2, ensure_ascii=False)
+      matches this file's existing formatting with zero diff), then edited
+      only the two affected entries' "id"/"question" fields. `git diff
+      --stat` confirmed a 2-insertion/2-deletion change to QUESTIONS.json
+      alone, nothing else touched. Re-verified after: 150 total entries (no
+      count change), 0 duplicate ids, 1 open question (Q149) correctly
+      opening with "Decision needed:", and the five other structural rules
+      (required fields, option count 2-4, recommended index in range,
+      status value valid, no empty answer on an answered entry) all clean
+      across every entry. check-em-dashes.js (234 files scanned, 0 em/en
+      dashes in public copy), check-postcodes.js (1459 files scanned, 0
+      failures, same 3 pre-existing UNOWNED warnings on gbp-packs/TEMPLATE.md
+      and modules/branch/pages/{INDEX,SEO}.md as every recent pass) and
+      check-url-scheme.js (222 published files, 0 failures, 0 warnings), the
+      three checkers that read QUESTIONS.json, all still pass. No page,
+      generator or data field changed; only QUESTIONS.json was edited.
+      Rotation pool for the next run: 1.1 and 1.4 (both last touched
+      2026-11-24) are now the oldest of the pool, with 6.8 freshly
+      re-verified today.
