@@ -9177,6 +9177,42 @@ its own schedule and did not attempt to. Q148 also recurred again this run
 'https://github.com'" error, no credential present in this bash sandbox);
 not re-raised as a new question, its own body already covers this exact
 recurrence.
+Quality pass 2026-11-27 (22:42Z run, Cowork scheduled run): REPO HALF CLEAN,
+LIVE HALF CLEAN, NO DEFECT, NO NEW QUESTION. branches.json sha256 is now
+a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684fac12360b9, changed
+from the 2026-11-24 pass's recorded hash - expected and not a fault: commit
+fd5db13 (item 6.7 quality pass, bank holiday dates2027 addition) touched the
+file after that pass, confirmed by `git log --since=2026-11-24 -- branches.json`
+showing exactly that one commit. Full 35-checker non-network suite (excl.
+check-cdn-pins.js, check-live-hours.js) run directly: 35/35 exit 0, no new
+warnings. All seven generators (tools/build-*.js) re-run directly: all exit
+0, `git status --porcelain` against modules/, core/ and
+WEEBLY_FURNITURE_CHECKLIST.md empty - zero-diff, byte-identical regeneration
+(one pre-existing untracked debris file,
+modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+dated 2026-11-22, unrelated to this item and left alone). ANSWER PICKUP:
+read the full portal feedback feed directly (Claude in Chrome, read-only,
+one tab, nothing clicked or typed, closed after use) - newest "Audit answer"
+entry remains Q52 (2026-09-01), nothing answering Q149; unchanged. LIVE
+SPOT-CHECK (first since the 2026-11-22 sweep, five days on): Cherry Lane's
+own Pharmacy First page fetched live at
+www.cherrylanepharmacy.co.uk/pharmacy-first-cherry-lane-walton.html - title
+"Pharmacy First at Cherry Lane Pharmacy, Walton" and H1 "Pharmacy First at
+Cherry Lane Pharmacy in Walton" both match the generator/paste-sheet exactly;
+all seven conditions and their NHS cohorts render correctly; own phone 0151
+226 2051 throughout; postal address "202 Cherry Lane, Liverpool, L4 8SG" with
+no foreign town. The only live fault remains the known Q36 footer mailbox
+typo (pharmacy.FA226@mhs.net in the Weebly global footer furniture block),
+re-confirmed exactly as every prior pass has recorded it, with no in-repo fix
+available. NO IN-REPO OR LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Item 3.4
+stays [x] (quality pass, not a state change).
+
+FLAG (repeated again, not acted on - outside this run's authority): same
+standing flag as the 2026-11-24 entry above. QUESTIONS.json: 150 total, 1
+open (Q149, unchanged since 2026-11-24). The 3 remaining worklist lines
+(5.8/Q16, 6.4/Q60, 6.5/Q60) are still [BLOCKED] on Rishi's own action. git
+push from this Cowork sandbox channel is expected to fail again this run
+with no credential found (see AGENT_LOG.md for this run's confirmation).
 - [x] 3.5 Hirshmans Chemist (Ainsdale): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14 (fifth), Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Hirshmans pages re-read from source and clean.
