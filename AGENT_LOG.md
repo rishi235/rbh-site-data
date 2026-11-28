@@ -12,6 +12,12 @@ WORK (item 3.12, Tiffenbergs Chemist, Aintree/Longmoor, twenty-ninth quality pas
 
 FILES CHANGED: `AGENT_WORKLIST.md` (item 3.12 gained a twenty-ninth quality-pass paragraph, pure addition), `audits/tiffenbergs-item-3.12-quality-pass-2026-11-28-twentyninth.txt` (new evidence file), `audits/check-*.js.log` (36 files, refreshed baseline logs), `AGENT_LOG.md` (this entry). No other tracked file touched; item stays `[x]` (quality pass, no state change).
 
+COMMIT/PUSH (step 9): `git add` + `git commit` via the bash mount hit the standing `.git/index.lock`/object tmp-file EPERM pattern (object tmp files and `.git/HEAD.lock` left over from the commit's own internal locking); cleared `index.lock` and `HEAD.lock` with `Remove-Item -Force` via the native PowerShell tool each time, same standing workaround. Commit `bcf43f7` succeeded (4 files, 167 insertions). `git push origin agents/audit-backlog` via the bash mount failed outright ("could not read Username for 'https://github.com'" - no cached credential on that route this run); pushed instead via the native PowerShell tool's own git, which does have working credentials - succeeded (`5cd22ab..bcf43f7`). Confirmed both directions afterwards: `git rev-list --count origin/agents/audit-backlog..HEAD` = 0 and the reverse = 0, local HEAD exactly matches origin.
+
+PUBLISH (step 10): ran `node tools/build-audit-status.js` via the native PowerShell tool; published cleanly - "reports/digital/Digital_Audit_Status.html (47/48 done, 98%)".
+
+LOCK (step 11): releasing by overwriting `.agent-lock` in place via the Write tool (native path), per the standing convention - direct `rm`/unlink remains blocked in this sandbox mount.
+
 FOR RISHI: Q149 (item 2.2) is still the only open question, unanswered on the portal since 2026-11-24. The 3 remaining worklist items (5.8/Q16, 6.4/Q60, 6.5/Q60) are still blocked on your own action or a decision already asked for. Chrome was reachable this run for the live-site read, but the portal feedback endpoint itself redirected to a Cloudflare Access sign-in page rather than returning data - worth checking that the Cloudflare Access session for data.rbhealth.co.uk is still valid in that Chrome profile if portal answer pickup matters for the next run.
 
 ---
