@@ -12,9 +12,9 @@ WORK (item 3.11, Gordon Short Chemist, Crosby, thirty-fourth quality pass): full
 
 FILES CHANGED: `AGENT_WORKLIST.md` (item 3.11 gained a thirty-fourth quality-pass paragraph, pure addition), `audits/gordon-short-crosby-item-3.11-quality-pass-2026-11-28-thirtyfourth.txt` (new evidence file), `audits/check-*.js.log` (37 files, overwritten baseline logs), `AGENT_LOG.md` (this entry). No other tracked file touched; item stays `[x]` (quality pass, no state change).
 
-COMMIT/PUSH (step 9): git add the changed/new files, commit, `git push origin agents/audit-backlog` - see result appended below this entry.
+COMMIT/PUSH (step 9): `git add` via the bash mount hit a fresh `.git/index.lock` (created by the add attempt itself, 0 bytes, EPERM on `rm` via the bash mount as usual). Removed it with `Remove-Item -Force` via the native PowerShell tool, then staged, committed (`fe45738`, 40 files, worklist/log/evidence file plus 36 refreshed `audits/check-*.js.log` baseline logs) and pushed via the same native PowerShell route: `git push origin agents/audit-backlog` succeeded (`fbf7940..fe45738`), confirmed by `git rev-list --count origin/agents/audit-backlog..HEAD` = 0 afterwards. No unpushed-commit backlog left behind.
 
-PUBLISH (step 10): ran `node tools/build-audit-status.js` to republish the portal progress page.
+PUBLISH (step 10): ran `node tools/build-audit-status.js` via PowerShell; published cleanly - "reports/digital/Digital_Audit_Status.html (47/48 done, 98%)".
 
 LOCK (step 11): releasing by overwriting `.agent-lock` in place via the Write tool (native path), per the standing convention - direct `rm`/unlink remains blocked in this sandbox mount.
 
