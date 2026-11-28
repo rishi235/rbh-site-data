@@ -11952,6 +11952,51 @@ audits/mccanns-aigburth-item-3.6-pharmacy-first-safety-net-injection-2026-11-19.
       re-raised. No "Standing authorisation - autonomous window" section
       present at pickup, step 4 did not apply. No new question raised.
       Evidence in audits/mccanns-item-3.6-live-read-2026-11-24.txt.
+Quality pass 2026-11-28 (Cowork scheduled run, 02:12Z pickup). No pickable
+worklist item (all 3 remaining lines still [BLOCKED]: 5.8/Q16, 6.4/Q60,
+6.5/Q60, each blocked on Rishi's own action), so took the quality-pass
+fallback. Rotation pool re-derived directly from AGENT_WORKLIST.md's own
+dated lines (numeric sort, out-of-rotation items 2.2/5.7 excluded): 3.7, 3.8
+and 3.9 had already been picked by the three immediately preceding runs
+today (00:12Z, 00:42Z, 01:42Z), so the next lowest-numbered item still
+dated 2026-11-24 was 3.6 itself, picked per the standing tie-break
+convention. Full 37-checker suite run clean (37/37 exit 0; same count and
+same handful of standing WARN/NOTE lines as every recent pass - Q45 CDN
+data-hop, Q64 GBP post-town, Q61 impetigo safety net, Q111 eMAR inbox, Q20
+inert data-wa, Q16 Smartts weight loss claim, none new). All seven
+generators rebuilt; sha256 of every modules/**/*mccanns* file (29 files)
+compared before and after regeneration - byte-identical, zero diff.
+Live half: one read-only GET via Claude in Chrome (single tab, nothing
+clicked or typed, closed after use) of
+sore-throat-treatment-mccanns-aigburth.html - title and H1 match the
+generator pattern, phone 0151 727 3185 and address 112 Aigburth Road,
+Liverpool, L17 7BP both match branches.json, the lunch-split opening hours
+render correctly (matches check-opening-hours' split-day list). The shared
+contact-card footer again shows the standing "Sandrigham" typo (Q144) and
+"McCann's Pharmacy" apostrophe branding (Q39) on the Sandringham block -
+neither new, both already open/answered-pending-paste, not re-raised.
+NO IN-REPO DEFECT FOUND. Answer pickup (step 3): portal re-checked via
+Claude in Chrome (read-only, single tab, nothing clicked/typed, closed
+after use) - newest entry still Q52 (2026-09-01); QUESTIONS.json's one open
+question, Q149 (item 2.2, open since 2026-11-24), has no matching "AUDIT
+ANSWER Q149" entry on the portal. Left open, untouched, not re-raised. No
+"Standing authorisation - autonomous window" section present at pickup
+(checked AGENT_LOG.md head directly), step 4 did not apply. No new
+question raised. git push to origin/agents/audit-backlog attempted after
+commit and failed with no credential found in this Cowork sandbox channel,
+matching the standing finding repeated across many prior runs; this run's
+commit sits local, unpushed, stacked on the prior unpushed commits.
+FOR RISHI (repeating the standing recommendation on file across many prior
+runs, since it remains true and outside this worker's authority to action):
+Q149 is still the only open question, unanswered on the portal since
+2026-11-24, and the 3 remaining worklist lines are still blocked on your
+own action (a supervised Weebly session) or a decision already asked for.
+git push from this Cowork sandbox channel remains blocked with no
+credential found anywhere, so this run's commit joins a growing stack of
+unpushed local commits. The rotation pool of quality-pass items is fully
+saturated with nothing new being found - worth reducing this schedule's
+firing frequency or pausing it until Q149 is answered, a Weebly session
+clears the remaining blockers, or the push credential is fixed.
 - [x] 3.7 Smartts Chemist (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-13. Done 2026-08-14.
 Quality pass 2026-08-11: all 12 Smartts pages re-read from source and clean.
