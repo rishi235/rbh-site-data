@@ -14829,6 +14829,39 @@ Done 2026-10-14 (twenty-third pass).
       JSON-LD) were not re-checked this pass and should not be assumed
       changed. NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Done
       2026-11-24.
+      Quality pass 2026-11-28 (Cowork scheduled run, 00:42Z pickup). Rotation
+      pool at pickup: the 2026-11-24 tie (3.8-3.13, 4.1-4.11 and others,
+      excluding the two standing out-of-rotation items 2.2/5.7 and the three
+      [BLOCKED] lines 5.8/Q16, 6.4/Q60, 6.5/Q60); item 3.8 is lowest-numbered,
+      picked per the standing tie-break. 36 non-network checkers run directly,
+      36/36 exit 0 (check-live-hours.js excluded, network-dependent, same
+      convention as every prior pass). All seven generators re-run directly,
+      all exit 0; `git status --porcelain` against modules/, core/, gbp-packs/
+      and WEEBLY_FURNITURE_CHECKLIST.md empty except the same pre-existing
+      unrelated untracked debris file already on record
+      (modules/service/pages/pharmacy-first-mccanns-sandringham.html.goldenbak,
+      dated 2026-11-22, left alone) - zero-diff, byte-identical regeneration.
+      branches.json's `skchemists_bootle` entry read field by field directly:
+      nhsEmail/odsCode pairing (pharmacy.FH575@nhs.net / FH575) correct,
+      nhsReviewUrl ends /leave-a-review with the right slug and ODS, website
+      a bare host with no path, serviceAreaList, widgets and the single
+      continuous Mon-Fri 09:00-18:00 session (no lunch split for this branch)
+      all unchanged and correct. Live spot-check via Claude in Chrome
+      (read-only, one tab, nothing clicked or typed, closed after use) of
+      pharmacy-first-sk-chemists-bootle.html: all seven Pharmacy First
+      conditions and cohorts render correctly; phone (0151 944 1013), address
+      (516 Stanley Road, Bootle, L20 5DW) and hours (Mon-Fri 9am-6pm, Sat/Sun
+      closed) all match branches.json; core page title "Pharmacy First at SK
+      Chemists, Bootle" matches modules/service/pages/SEO.md's Page Title
+      exactly, with only the already-documented Weebly site-title suffix
+      ("- SK CHEMIST") appended live, the same standing gap recorded on the
+      2026-08-12 pass (awaiting the queued 5.3/5.4 repaste). This branch's
+      other already-documented live-only gaps (pfLink pre-5.3/Q34, switch
+      pre-Q7/5.1 mojibake, weight-loss page's two-block JSON-LD) were not
+      re-checked this pass and should not be assumed changed. NO IN-REPO OR
+      LIVE DEFECT FOUND, NO NEW QUESTION RAISED. QUESTIONS.json unchanged:
+      150 total, 1 open (Q149, item 2.2, unrelated to this item). Done
+      2026-11-28.
 - [x] 3.9 Coleman and Leighs Pharmacy (Liverpool): same treatment. Q1
       (trading name) was answered, so not blocked. Done 2026-08-04.
       12 pages, 0 mismatches.
