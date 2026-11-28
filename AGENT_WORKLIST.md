@@ -21563,6 +21563,36 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       QUESTION. Evidence:
       audits/tiffenbergs-item-3.12-quality-pass-2026-11-24-twentyeighth.txt.
       Done 2026-11-24 (twenty-eighth pass).
+      Quality pass twenty-ninth, 2026-11-28 (Cowork scheduled run). REPO HALF:
+      branches.json sha256 unchanged; full 36-checker non-network suite clean;
+      all six generators rebuilt, git status on modules/core empty afterwards
+      bar the pre-existing harmless .goldenbak debris file. FRESH ANGLE:
+      tools/check-address-region.js, never previously proven by injection
+      against this item (guard coverage stood at 26 of 36). Proven on a
+      disposable scratch copy (tracked repo never opened for writing):
+      tiffenbergs_longmoor's addressRegion changed from "Merseyside" to
+      "Sefton" (a borough, not a county) - caught, FAIL naming the branch and
+      the field. Negative control (shortCode edited, a field this checker
+      ignores) stayed clean. Guard coverage now 27 of 36 (remaining:
+      check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+      check-pharmacy-first-cost, check-service-links, check-url-scheme,
+      check-widget-diaries). NO IN-REPO DEFECT FOUND. ANSWER PICKUP: portal
+      fetch redirected to the Cloudflare Access sign-in page; per instruction,
+      did not log in, logged unavailable, Q149 left open. LIVE HALF (Claude in
+      Chrome reachable this run, read-only, single tab, closed after use):
+      read sinusitis-treatment-tiffenbergs-aintree.html, the first of this
+      item's three pages ("sinusitis, sore throat, UTI") left live-unread by
+      the 28th pass. Title, H1, address, phone, opening hours (including the
+      1-2pm lunch closure, confirmed both in visible text and in JSON-LD),
+      and the "Age 12 and over" eligibility cohort all match branches.json
+      exactly; no medicine named, no superlative or results claim. JSON-LD
+      two-block Q99-type pattern reconfirmed, nothing new. Q56 (footer
+      "tiffenbergs@" plural vs branches.json's "Tiffenberg@" singular)
+      reconfirmed present and unchanged, not re-raised. Sore throat and UTI
+      remain live-unread for a future pass. NO NEW DEFECT, NO NEW QUESTION.
+      Evidence:
+      audits/tiffenbergs-item-3.12-quality-pass-2026-11-28-twentyninth.txt.
+      Done 2026-11-28 (twenty-ninth pass).
 - [x] 3.13 Clear Chemist (Liverpool): same treatment. Done 2026-08-04.
       Quality pass 2026-11-17 (run506), repo half only: full 35-checker suite clean, branches.json sha256 0385b7c2b2bca55d559903f718ad992fec40804a1f3ab1a1db8bac2ffdd527da unchanged. Fresh angle: check-weebly-furniture-freshness.js, never previously named against this item, proven by direct injection into clearchemist_aintree's phone field (caught, restored, negative control on shortCode clean). Guard coverage for 3.13 now covers all 35 non-network checkers. No in-repo defect. See audits/clear-aintree-item-3.13-quality-pass-2026-11-17.txt.
       Quality pass 2026-11-19 (run539, twenty-ninth), repo half only (live half not repeated - item 4.9 re-read clearchemist.co.uk/contact-us just one day earlier, nothing would be added): full 36-checker suite (excludes only check-live-hours.js, network-dependent) clean except the standing CH1 2AB postcode baseline; branches.json sha256 unchanged. Fresh angle: tools/check-cdn-pins.js, run individually clean against this repo before but never proven by direct injection against Clear Chemist Aintree's own pages across 28 prior passes - this session's full (non-shallow) clone let the checker's git-ref resolution actually run. Injected a mismatched/unresolvable ref (@deadbeef1234) into switch-prescriptions-clear-aintree.html's own switch.js pin - caught on both independent rules (pin-matches-generator, ref-resolves-in-git) first attempt. Restored, sha256-reconfirmed identical. Negative control (clearchemist_aintree.shortCode edited, a field this checker ignores) ran clean. Guard coverage for 3.13 now extends to all 36 non-network checkers. No in-repo defect. Step 3 answer pickup: portal feed read, newest entry still Q52 (2026-09-01), no Q139 answer. See audits/clear-aintree-item-3.13-cdn-pins-quality-pass-2026-11-19-twentyninth.txt.

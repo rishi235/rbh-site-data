@@ -1,0 +1,118 @@
+Item 3.12 (Tiffenbergs Chemist, Aintree/Longmoor) - twenty-ninth quality pass
+Cowork scheduled run (audit-backlog-worker), 2026-11-28T14:28Z pickup
+
+ITEM SELECTION
+Three remaining unchecked AGENT_WORKLIST.md lines (5.8/Q16, 6.4/Q60, 6.5/Q60) all
+confirmed still [BLOCKED], so no pickable item - quality-pass fallback taken.
+Per-item last-verified dates parsed directly from each item's own
+AGENT_WORKLIST.md block (max valid YYYY-MM-DD inside it; the recurring
+out-of-range artefacts 2026-12-28 and 2026-12-25 excluded as already documented
+non-genuine). Excluding the two standing out-of-rotation items (2.2 open on
+Q149, 5.7) and the five items already picked by today's preceding runs
+(3.7, 3.8, 3.9, 3.10, 3.11, all dated 2026-11-28), the oldest tied group
+(2026-11-24) was: 3.12, 3.13, 4.1-4.15, 5.1-5.3, 6.2, 6.3. Picked 3.12, the
+lowest-numbered item in the tied set, per the standing tie-break convention.
+
+REPO HALF
+branches.json sha256 a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684fac12360b9,
+unchanged throughout this pass (confirmed before and after every step).
+Full 36-checker non-network suite (all of tools/check-*.js except
+check-live-hours.js, which is network-dependent) run individually against the
+tracked repo: 0 failures. All six page generators (build-service-pages,
+build-switch-pages, build-weight-loss-pages, build-travel-clinic-pages,
+build-contraception-pages, build-branch-landing-pages) rebuilt; git status on
+modules/ and core/ empty afterwards bar the pre-existing harmless untracked
+pharmacy-first-mccanns-sandringham.html.goldenbak debris file already on record
+from prior passes. No in-repo defect.
+
+FRESH ANGLE: tools/check-address-region.js, never previously proven by direct
+injection against this item across 28 prior passes (guard coverage stood at
+26 of 36 before this pass; remaining untried were check-address-region,
+check-editor-snapshot, check-fragment-targets, check-gbp-pharmacy-first,
+check-pharmacy-first-cost, check-service-links, check-url-scheme,
+check-widget-diaries).
+
+Proven on a disposable /tmp/scratch312 scratch copy (git archive HEAD, tracked
+repo never opened for writing):
+- Baseline: node tools/check-address-region.js against the untouched scratch
+  copy, rc=0 (matches tracked-repo baseline).
+- Injection: tiffenbergs_longmoor's addressRegion changed from "Merseyside"
+  (a valid county) to "Sefton" (a Merseyside borough, not a county) via a
+  targeted Python JSON edit touching only that one field on that one branch
+  record. Re-run: rc=1, FAIL "tiffenbergs_longmoor: addressRegion is 'Sefton',
+  which is not one of the counties this group trades in (Merseyside, Greater
+  Manchester, Lancashire, Cheshire). addressRegion must be the county, not a
+  borough, district or town." Caught on the first and only rule this checker
+  applies to the field.
+- Scratch copy discarded, fresh clone taken, negative control: same branch's
+  shortCode field (not read by this checker) changed to "ZZZ". Re-run: rc=0,
+  no mention of tiffenbergs_longmoor - confirms the checker does not over-fire
+  on an unrelated field change.
+- Tracked repo's branches.json sha256 reconfirmed identical
+  (a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684fac12360b9) before,
+  between and after both scratch-copy edits. Tracked repo never opened for
+  writing at any point.
+
+Guard coverage for item 3.12 now extends to 27 of 36 non-network checkers.
+Remaining untried: check-editor-snapshot, check-fragment-targets,
+check-gbp-pharmacy-first, check-pharmacy-first-cost, check-service-links,
+check-url-scheme, check-widget-diaries.
+
+NO IN-REPO DEFECT FOUND.
+
+ANSWER PICKUP (step 3)
+Attempted the portal fetch via Claude in Chrome (read-only, single tab):
+navigate to https://data.rbhealth.co.uk/api/feedback redirected straight to
+the Cloudflare Access sign-in page (rbhealth.cloudflareaccess.com), confirmed
+by get_page_text returning no article content. Per the task's own instruction,
+did not attempt to log in and did not try any other route. Logged as
+unavailable and moved on. Q149 (item 2.2) left open, untouched, not re-raised.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, tab closed immediately after use)
+Chrome was reachable this run (unlike several recent passes). Read
+sinusitis-treatment-tiffenbergs-aintree.html live on tiffenbergschemist.co.uk -
+the first of this item's three pages ("sinusitis, sore throat and UTI") named
+as still live-unread by the 2026-11-24 (28th) pass.
+
+Verified against branches.json's tiffenbergs_longmoor record:
+- Title/H1: "Sinusitis treatment in Aintree - Tiffenbergs Chemist" / "Sinusitis
+  treatment in Aintree" - matches the standing pattern.
+- Address: "388 Longmoor Lane, Liverpool, L9 9DB" / footer and contact card
+  both match streetAddress/addressLocality/postalCode exactly.
+- Phone: "0151 525 3462" matches branches.json phone exactly, both as
+  displayed text and in JSON-LD telephone.
+- Opening hours: Monday-Friday 9:00am-6:00pm with the 1-2pm lunch closure
+  shown as two sessions, Saturday/Sunday Closed - matches the
+  openingHours.specification exactly, both in visible text and in the JSON-LD
+  openingHoursSpecification blocks (read separately via javascript_tool, since
+  get_page_text strips script tags).
+- Eligibility cohort: "Age 12 and over" matches the generator's static
+  Pharmacy First sinusitis copy; under-12s directed to GP, red flags (severe
+  headache, eye swelling, confusion) directed to 999/111 - no deviation.
+- No medicine named, no superlative or results claim, no stock guarantee.
+
+JSON-LD two-block pattern reconfirmed, same standing shape as every prior
+Tiffenbergs page read (Q99-type, not new): Block A is this repo's own correct
+per-page schema (@type Pharmacy, url at the page's own filename, addressRegion
+"Merseyside", no email field). Block B is the Weebly-injected sitewide block
+(@type Pharmacy, url at the homepage, email "tiffenbergs@rbhealth.co.uk", no
+addressRegion, carries openingHoursSpecification). Nothing about the pattern's
+shape is new on this page.
+
+Q56 reconfirmed present and unchanged: the footer and contact-card email both
+read "tiffenbergs@rbhealth.co.uk" (lowercase, plural with trailing s) against
+branches.json's "Tiffenberg@rbhealth.co.uk" (capital T, singular). Not
+re-raised, same standing finding as every prior pass.
+
+Live coverage for this item: sinusitis-treatment-tiffenbergs-aintree.html now
+read for the first time. Sore throat and UTI remain the next pages named as
+unread by the prior pass, left for a future pass.
+
+NO NEW DEFECT, NO NEW QUESTION.
+
+FILES CHANGED THIS PASS
+AGENT_WORKLIST.md (item 3.12 gains this twenty-ninth quality-pass paragraph,
+pure addition), this evidence file (new), audits/check-*.js.log (36 files,
+refreshed baseline logs), AGENT_LOG.md (run entry). No other tracked file
+touched; item stays [x] (quality pass, no state change).
