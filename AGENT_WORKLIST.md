@@ -16718,6 +16718,50 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       what the thirty-second pass already recorded. git status --porcelain
       -- modules core branches.json gbp-packs tools empty throughout.
       Done 2026-11-24.
+      Quality pass 2026-11-28 (Cowork scheduled run, 01:42Z pickup). Picked
+      per the standing tie-break convention: worklist's 3 remaining unchecked
+      lines (5.8/Q16, 6.4/Q60, 6.5/Q60) all still [BLOCKED], and among the
+      completed items, 3.9 tied for oldest last-verified date (2026-11-24)
+      with 3.10, 3.11, 3.12, 3.13 and 4.1, lowest item number wins. REPO
+      HALF: branches.json sha256 confirmed changed since the 2026-11-24
+      baseline (now a547c26f...), checked directly against
+      `git log --since=2026-11-24 -- branches.json` and confirmed as the one
+      legitimate intervening commit (fd5db13, item 6.7 bank-holiday
+      dates2027 addition), not drift. All 36 non-network checkers
+      (tools/check-*.js, excluding check-live-hours.js which needs live
+      network time this pass did not extend) run directly: 36/36 exit 0.
+      All 8 tools/build-*.js generators re-run directly: all exit 0;
+      build-audit-status.js printed its standing graceful skip ("no
+      credential found in the origin remote URL"). git status --porcelain
+      against modules/, core/, branches.json, gbp-packs/ and tools/ empty
+      except the same pre-existing unrelated untracked debris file already
+      on record (modules/service/pages/pharmacy-first-mccanns-sandringham.
+      html.goldenbak, dated 2026-11-22, left alone) - zero-diff,
+      byte-identical regeneration. branches.json's colemanleigh_liverpool
+      entry read field by field directly: nhsEmail/odsCode pairing
+      (pharmacy.FWK18@nhs.net / FWK18), nhsReviewUrl, website,
+      serviceAreaList, widgets and the two-session lunch-split opening
+      hours (09:00-13:00, 14:00-18:00 Mon-Fri) all correct and unchanged.
+      LIVE (read-only, Claude in Chrome, one tab, nothing clicked or typed,
+      closed after use): fetched pharmacy-first-coleman-leigh-walton.html.
+      Title "Pharmacy First at Coleman and Leighs Pharmacy, Walton" matches
+      the generator/pattern; all seven Pharmacy First conditions and age
+      cohorts render correctly; contact-card phone (0151 525 3522), address
+      (241 Walton Village, Liverpool, L4 6TH) and opening hours (including
+      the 1-2pm lunch closure, correctly split) all match branches.json
+      exactly. STANDING, NOT NEW, both reconfirmed exactly as recorded on
+      the 2026-08-12 pass: (1) the stale-paste mojibake close glyph ("├ù")
+      in the top switch banner, and (2) the footer trading-name variant
+      "Coleman & Leigh Pharmacy" against the Q1-settled form "Coleman and
+      Leighs Pharmacy" used everywhere else on the page - both are
+      live-only Weebly paste artefacts this repo cannot fix directly and
+      both remain on the existing Weebly-sweep queue (Q39/Q36). NO IN-REPO
+      OR NEW LIVE DEFECT FOUND, NO NEW QUESTION RAISED. QUESTIONS.json
+      unchanged: 150 total, 1 open (Q149, item 2.2, unrelated to this item,
+      portal re-checked this run and still shows no answer newer than Q52
+      on 2026-09-01). Evidence logs in
+      /outputs/audit-3.9-20261128/ (checker and build logs).
+      Done 2026-11-28.
 
 - [x] 3.10 Riddings Pharmacy (Timperley): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
