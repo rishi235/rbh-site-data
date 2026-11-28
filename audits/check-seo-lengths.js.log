@@ -1,0 +1,7 @@
+check-seo-lengths
+  177 paste-sheet entries across 6 sheets
+  titles       36 to 65 characters (limit 65)
+  descriptions 129 to 164 characters (window 80 to 165)
+  177 page H1s read, 0 sharing an H1 with a page at another pharmacy
+
+check-seo-lengths: clean, every title and description fits and is unique.

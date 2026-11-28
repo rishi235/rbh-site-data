@@ -1,0 +1,6 @@
+check-uk-spelling
+  167 US spelling(s) held against their UK forms, floor 120
+  198 page/paste/banner file(s), 28 pack/sheet file(s), 4 live script(s), 3 stylesheet(s), 1 data file(s)
+  copy read: markup 559450 chars, markdown 263081, script strings 5999, stylesheet content 2, data strings 9637
+
+check-uk-spelling: clean, the public copy is written in UK English.

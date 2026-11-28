@@ -1,0 +1,7 @@
+check-widget-diaries: 79 widget id(s) across 16 live branches, 73 distinct
+  3 multi-site brand(s): scorahs, mccanns, fishlocks
+  shared brand diaries : travelClinic, weightLoss
+  per-site diaries     : bloodPressure, contraception, pharmacyFirst
+  6 id(s) shared between sister sites, 0 permitted across brands
+
+check-widget-diaries: clean, every diary id belongs to exactly the branch and service that should hold it.

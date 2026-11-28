@@ -1,0 +1,33 @@
+check-brand-spelling
+  16 trading branch(es), 13 distinct trading name(s) pinned
+  226 file(s) of public copy scanned for near-miss spellings and 7 known misspelling(s), banners included
+  7 live module code file(s) under modules/ and core/ scanned for the same, comments blanked - this is the copy a browser writes into the page at run time
+
+  NOTE  gbp-packs/coleman-leigh-walton.md:28 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:161 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:162 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:172 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/coleman-leigh-walton.md:176 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:134 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:140 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:168 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/gordon-short-crosby.md:184 records "Gordon Shorts Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:38 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/hirshmans-ainsdale.md:128 records "Hirshmans Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  gbp-packs/mccanns-sandringham.md:226 records "McCanns Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:33 records "Scorah Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:55 records "Scorah Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:74 records "McCann's Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:74 records "McCann's Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:95 records "McCann's Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:95 records "McCann's Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:116 records "Fishlock Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:117 records "Fishlock Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:139 records "Fishlock Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:139 records "Fishlocks Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:140 records "Fishlock Chemist" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  WEEBLY_FURNITURE_CHECKLIST.md:238 records "Coleman & Leigh Pharmacy" inside quotation marks, read as a note of what a live page says rather than as this file claiming it
+  NOTE  0 hardcoded brand string(s) found in build-switch-pages.js CONFIG (expect 0, post-Q19), brand read from branches.json: true
+  NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
+  NOTE  203 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 12 shortenable trading name(s): Scorah, McCanns, Fishlocks, Clear, Smartts, Hirshmans, SK, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane, Tiffenbergs
+check-brand-spelling: clean, every trading name is spelled the one way, 24 quoted reading(s) of a live page read as evidence.

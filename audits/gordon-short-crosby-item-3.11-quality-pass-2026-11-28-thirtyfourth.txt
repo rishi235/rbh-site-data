@@ -1,0 +1,102 @@
+item 3.11 quality pass, Gordon Short Chemist (Crosby), thirty-fourth pass
+run: 2026-11-28, Cowork scheduled run (audit-backlog-worker)
+
+BASELINE
+- Full 37-file tools/check-*.js suite run directly against the tracked repo:
+  37/37 exit 0. Per-checker logs written to audits/check-*.js.log (overwritten
+  this run).
+- branches.json sha256: a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684
+  fac12360b9 (lastUpdated 2026-11-27 per WEEBLY_FURNITURE_CHECKLIST.md's own
+  Gordon Short table, consistent with the many branches edited by other items
+  since the last 3.11 pass on 2026-11-24).
+
+FRESH ANGLE
+Thirty-three prior passes on this item had exercised 33 of 37 repo checkers
+against Gordon Short Chemist specifically (per the thirty-third pass's own
+tally). The four never named against this item were:
+  tools/check-editor-snapshot.js
+  tools/check-fragment-targets.js
+  tools/check-uk-spelling.js
+  tools/check-weebly-furniture-freshness.js
+All four are estate-wide checkers (they read branches-editor.html,
+WEEBLY_FURNITURE_CHECKLIST.md and every generated page/pack respectively,
+rather than taking a branch argument), so "never named against this item"
+means never proven to catch a defect specifically on Gordon Short's own
+files. This pass closed that gap with one injection per checker.
+
+METHOD
+Scratch copy via `git archive HEAD | tar -x` into /tmp/scratch311 (a plain
+git-archive tar, not a git clone - the tracked repo's .git was never opened
+for writing). Confirmed /tmp had sufficient free space first (2.3G avail)
+rather than assuming, after a prior pass's note that /sessions reported 0
+bytes free on one occasion. Baseline run of the four target checkers on the
+untouched scratch copy: 4/4 exit 0, matching the tracked-repo baseline.
+
+One injection at a time, each run, read, then restored and sha256-reconfirmed
+against the original file before the next injection:
+
+1. check-fragment-targets.js: modules/service/pages/earache-treatment-
+   gordon-short-crosby.html's primary call-to-action changed from
+   href="#book" to href="#booking" (the booking card's id stayed "book").
+   CAUGHT cleanly: FAIL TARGET (link resolves nowhere) and FAIL CTA (page now
+   has no resolving fragment link at all, so rule 1's broken-link scan has
+   nothing to compare against and would have missed it alone - this is
+   exactly the shape the CTA rule exists to catch).
+
+2. check-uk-spelling.js: gbp-packs/gordon-short-crosby.md line 31 changed
+   from "Vaccination centre" to "Vaccination center". CAUGHT cleanly: FAIL at
+   the correct file and line, "UK English is centre".
+
+3. check-weebly-furniture-freshness.js: branches.json's gordonshorts_crosby
+   record had its phone changed from "0151 924 3449" to "0151 924 9999" (the
+   checklist file left untouched, simulating branches.json moving on after
+   the checklist's table was generated). CAUGHT cleanly: FAIL naming
+   WEEBLY_FURNITURE_CHECKLIST.md as stale specifically against "Gordon Short
+   Chemist (gordonshorts_crosby)'s table".
+
+4. check-editor-snapshot.js: branches.json's gordonshorts_crosby record had
+   its email changed from "Shorts@rbhealth.co.uk" to
+   "ShortsTEST@rbhealth.co.uk" (branches-editor.html's embedded DATA snapshot
+   left untouched). CAUGHT cleanly: DRIFT gordonshorts_crosby.email, showing
+   both the snapshot value and the branches.json value.
+
+All four files restored byte-identical after their own injection (sha256
+reconfirmed against the pre-injection copy before moving to the next test):
+  tools/branches-editor.html            5e9b91ce...dedb85b0  unchanged
+  branches.json                         a547c26f...12360b9   unchanged (both injections)
+  gbp-packs/gordon-short-crosby.md      36b00161...4ac8ab50  unchanged
+  earache-treatment-gordon-short-crosby.html  f498cd30...8bf9f03d  unchanged
+
+Full 37-checker suite re-run on the scratch copy after all four restores:
+36/37 exit 0. The one exception, check-cdn-pins.js, failed with six
+"ref does not resolve in git" errors - this is a known property of a plain
+`git archive` extraction (no .git directory present in the scratch copy, so
+the checker's git-ref resolution has nothing to query), not a real finding.
+It is unrelated to any of the four injections (none touched a CDN pin, a
+generator PIN constant, or any of the files check-cdn-pins.js reads) and the
+same checker had already run clean (exit 0) against the TRACKED repo in this
+run's own baseline above, which is the only copy that matters. Noted here so
+a future pass does not treat "git archive" scratch copies as safe to run
+check-cdn-pins.js against - they are not, for a reason that has nothing to
+do with repo content.
+
+Tracked repo reconfirmed untouched throughout: `git status --porcelain`
+after the scratch work showed no modified tracked files (the pre-existing
+untracked audits/*.log, audits/*.json and .scratch_tmp/.quarantine debris
+from earlier passes aside, none of which this run touched). Scratch
+directory /tmp/scratch311 deleted at the end of the run.
+
+LIVE SITE
+Not read this pass. The Claude in Chrome browser tools were unreachable at
+the start of this run ("Claude in Chrome is not connected" on
+tabs_context_mcp), the same tool this task's step 3 also needed for the
+QUESTIONS.json answer-pickup fetch (also unavailable this run, logged
+separately in AGENT_LOG.md). No live page for this branch was opened. This
+run's time went entirely on the four-checker gap identified above instead.
+
+RESULT
+Guard coverage for item 3.11 now extends to all 37 of 37 repo checkers
+having been specifically proven, by injection, to catch a defect on Gordon
+Short Chemist's own files or data. NO IN-REPO DEFECT FOUND. NO NEW QUESTION
+RAISED. QUESTIONS.json unchanged by this pass (still 150 total, 1 open,
+Q149, untouched - see AGENT_LOG.md for the answer-pickup attempt).

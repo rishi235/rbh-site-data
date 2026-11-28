@@ -1,0 +1,10 @@
+check-opening-hours
+  6 landing page(s) checked against 16 trading branches
+  rule 7 swept 88 clock time(s) on those pages, all of which must sit inside the hours card
+  rule 8 swept 177 switch/service-family/pasted-copy file(s) with no hours card, for any clock time at all
+  rule 10 checked 171 switch/service-family page(s) JSON-LD opening hours against branches.json
+  NOTE  bank holidays (item 6.7): 16 date(s) across 2 year block(s) (dates2026, dates2027), tradingPolicy "closed". One-off closures: the weekly card and JSON-LD are correct to omit them and no rule here compares them to openingHours.
+  NOTE  opening hours (rule 9): clearchemist_aintree carries an odsCode but no openingHours block. Documented exception: real trading NHS pharmacy (odsCode FD553) with no openingHours block; hours are not yet known and must be confirmed with the branch before they are added, not guessed. Tracked in gbp-packs/clear-aintree.md and enforced there by check-gbp-packs.js's own branch-without-hours rule, not a fresh question for this file to raise
+  NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
+
+check-opening-hours: clean, every visible and structured opening time matches branches.json.

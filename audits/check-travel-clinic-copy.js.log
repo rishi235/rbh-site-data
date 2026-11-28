@@ -1,0 +1,8 @@
+check-travel-clinic-copy
+  15 travel clinic page(s) read against tools/build-travel-clinic-pages.js
+  61 line(s) of service copy pinned, 5 FAQ pair(s), 51 medicine name(s) barred
+  15 page(s) advertise yellow fever, 0 branch(es) declare yellowFeverCentre
+  book-ahead window: 6 to 8 weeks, the same on all 15 page(s)
+  1 accepted breach(es), each with a reason in KNOWN:
+    yellowfever::no branch declares yellowFeverCentre
+  OK - no failures

@@ -1,0 +1,8 @@
+check-weight-loss-copy
+  15 weight loss page(s) read against tools/build-weight-loss-pages.js
+  21 line(s) of service copy pinned, 7 FAQ pair(s), 6 screening statement(s)
+  21 medicine name(s) barred from tools/pom-names.js, 18 claim pattern(s) from tools/claim-patterns.js
+  consultation fee: "from £39.99", the same on all 15 page(s)
+  6 branch landing page(s) read as Regime 1, 6 of them advertising the clinic and held to no medicine name, no POM class reference, no purchase wording, no results, rate-of-loss or body-part claim, no offer, and the consultation floor
+  2 Weebly paste block(s) read as Regime 1, 1 of them weight loss copy and held to the same prohibitions plus a live route into the weight loss page
+  OK - no failures

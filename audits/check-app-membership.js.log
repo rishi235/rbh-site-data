@@ -1,0 +1,8 @@
+check-app-membership
+  4 app member(s) of 16 branch(es): fishlocks_ainsdale, fishlocks_eccleston, clearchemist_aintree, smartts_bootle
+  canonical name: "RB Healthcare Pharmacy app" (read from build-switch-pages.js)
+  2 store URL(s) declared in one generator, hardcoded nowhere else
+  21 page(s) in the two families that render hasApp, 6 carrying the app
+  15 GBP pack(s) read for app claims in the copy pasted to the public profile
+
+check-app-membership: clean, every app card and app sentence matches hasApp, 0 known exception(s).

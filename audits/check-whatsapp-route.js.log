@@ -1,0 +1,7 @@
+check-whatsapp-route
+  16 branch(es) declaring whatsapp in branches.json, 3 runtime default(s), 171 of 177 generated page(s) carry data-wa
+  agreed number: 447521775631  (declared per branch in branches.json, held in no generator constant)
+  KNOWN modules/emar/emar.js = 447988911911: Not a defect and not in scope for the public site. emar.js drives the Borough Care eMAR screens run out of Scorah Bramhall, which is a separate function from the branch service pages and answers on its own line. It is listed here so the divergence is visible and stays deliberate: if the public number ever changes, this entry is the reminder that the eMAR number is a separate decision, not a copy that was missed.
+  NOTE  14 page(s) carry data-wa with no WhatsApp button and no callback form, so the attribute is inert and the page can be booked but not contacted: 14 Pharmacy First overview (Q20)
+
+check-whatsapp-route: clean, every page's WhatsApp route reaches its own branch's number, 1 known exception(s).

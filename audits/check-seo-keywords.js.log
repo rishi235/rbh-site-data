@@ -1,0 +1,5 @@
+check-seo-keywords: 177 Meta Keywords line(s) across 11 paste sheet(s), against 15 live branches
+  presence and absence over 11 live seoTowns, 12 brand names, and each branch's own outward code
+  1 branch(es) hold a townSlug that is no longer their seoTown, so a retired town word is guarded there too
+
+check-seo-keywords: clean, every Meta Keywords line matches its own branch.

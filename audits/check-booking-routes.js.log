@@ -1,0 +1,7 @@
+check-booking-routes
+  156 page(s) with a booking mount, 156 routed to a branch
+  service.js routes 11 service slug(s); 3 may not fall back to the Pharmacy First diary
+  7 Pharmacy First condition(s) read from the overview pages
+  6 widget id(s) shared between sister branches (one diary per pair, expected)
+
+check-booking-routes: clean, every booking mount routes to the right branch and the right diary.

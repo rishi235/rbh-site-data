@@ -1,0 +1,4 @@
+check-branch-links
+  16 branch record(s) read from branches.json
+  WARN  clearchemist_aintree.nhsReviewUrl: trading branch with an ODS code but no NHS review link, so nothing can point patients at its NHS reviews.
+check-branch-links: clean, every link field in branches.json resolves to the branch that owns it (1 warning(s), 0 known issue(s) awaiting a decision).

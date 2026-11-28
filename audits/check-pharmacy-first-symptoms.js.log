@@ -1,0 +1,6 @@
+check-pharmacy-first-symptoms
+  7 ready pathways read from tools/build-service-pages.js
+  98 condition pages checked against their own symptoms list
+  82 medicine names read from tools/pom-names.js for rule 8
+
+check-pharmacy-first-symptoms: clean, every condition page describes its own pathway, no other pathway's, and no escalation advice or medicine is hiding in the descriptive block.

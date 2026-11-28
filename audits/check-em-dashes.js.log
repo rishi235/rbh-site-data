@@ -1,0 +1,6 @@
+check-em-dashes: 177 generated pages, 6 non-generated copy file(s), 7 live module code file(s), 15 switch banner(s) held to ASCII only, 16 GBP pack(s) held to ASCII only plus no dash entities, 1 Weebly furniture checklist file(s) held to the same rule, 11 paste sheet(s) discovered, 1 run-time data file(s) (234 files scanned)
+  200 dash(es) inside build or code comments - not public, not a failure
+  591 dash(es) in paste sheet section headings and prose - structure, not pasted values
+  1 dash(es) in run-time data maintenance notes - rendered by nothing, not a failure
+
+check-em-dashes: clean, no em or en dashes in public copy, literal or HTML entity.

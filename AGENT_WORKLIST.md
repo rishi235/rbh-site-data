@@ -20281,6 +20281,35 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       stale lock and a stuck git index lock, written up at the top of
       AGENT_LOG.md rather than repeated here). NO IN-REPO DEFECT FOUND, NO NEW
       QUESTION RAISED. Done 2026-11-24.
+      Quality pass 2026-11-28 (thirty-fourth, Cowork scheduled run). BASELINE:
+      full 37-checker suite run directly against the tracked repo, 37/37 exit
+      0. FRESH ANGLE: the four checkers never previously named against this
+      item (check-editor-snapshot.js, check-fragment-targets.js,
+      check-uk-spelling.js, check-weebly-furniture-freshness.js) - one
+      injection each, in a git-archive scratch copy, tracked repo never
+      opened for writing: href="#book" retargeted to "#booking" on earache-
+      treatment-gordon-short-crosby.html (CAUGHT, fragment-targets rules
+      TARGET and CTA); "Vaccination centre" changed to "center" in
+      gbp-packs/gordon-short-crosby.md (CAUGHT, uk-spelling); the branch's
+      phone changed in branches.json with WEEBLY_FURNITURE_CHECKLIST.md left
+      stale (CAUGHT, weebly-furniture-freshness, named this branch's table
+      specifically); the branch's email changed in branches.json with
+      branches-editor.html's embedded snapshot left stale (CAUGHT, editor-
+      snapshot, DRIFT on gordonshorts_crosby.email). All four files restored
+      byte-identical and sha256-reconfirmed before the next injection. Full
+      37-checker suite re-run on the scratch copy afterwards: 36/37 exit 0,
+      the one exception (check-cdn-pins.js) being a known artefact of a plain
+      git-archive extraction having no .git directory to resolve refs
+      against, unrelated to any injection and already clean on the tracked
+      repo in this run's own baseline. Tracked repo reconfirmed untouched
+      throughout (git status --porcelain clean of tracked files; all four
+      target files sha256-matched their originals). Guard coverage for item
+      3.11 now extends to all 37 of 37 repo checkers, each specifically
+      proven by injection to catch a defect on this branch's own files or
+      data. No live-site read this pass (Claude in Chrome unreachable at run
+      start - see AGENT_LOG.md). NO IN-REPO DEFECT FOUND, NO NEW QUESTION
+      RAISED. Evidence: audits/gordon-short-crosby-item-3.11-quality-pass-
+      2026-11-28-thirtyfourth.txt. Done 2026-11-28.
 
 - [x] 3.12 Tiffenbergs Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches. Quality pass 2026-08-14.

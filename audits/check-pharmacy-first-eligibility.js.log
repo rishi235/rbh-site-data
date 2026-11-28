@@ -1,0 +1,8 @@
+check-pharmacy-first-eligibility
+  7 pinned conditions read from tools/build-service-pages.js
+  98 condition pages checked against them
+  14 Pharmacy First overview pages checked tile by tile (rule 12)
+  15 GBP packs checked against the pinned cohorts and the 7 pathways
+  6 branch landing pages checked against the pinned cohorts (rule 9)
+
+check-pharmacy-first-eligibility: clean, every page states the NHS cohort and no other age.
