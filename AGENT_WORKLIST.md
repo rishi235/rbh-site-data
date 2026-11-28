@@ -13367,6 +13367,34 @@ Done 2026-10-14 (twenty-third pass).
       generated pages have now been sampled live at least once across the item's
       history; no untested page remains for this item. NO IN-REPO DEFECT FOUND,
       NO NEW LIVE DEFECT FOUND, NO NEW QUESTION RAISED. Done 2026-11-24.
+      Quality pass 2026-11-28 (Cowork scheduled run, 00:12Z pickup): re-derived the
+      rotation pool directly from this file's own `- [x] N.N` headers and the latest
+      calendar-valid date inside each section (numeric, not lexicographic, item-number
+      sort), excluding the three [BLOCKED] lines (5.8/Q16, 6.4/Q60, 6.5/Q60) and the
+      two standing out-of-rotation items (2.2, 5.7); item 3.7 was the lowest-numbered
+      among those tied oldest (2026-11-24). Full 35-checker non-network suite run
+      directly: 35/35 clean, no new warning. All seven generators (tools/build-*.js)
+      re-run directly: all exit 0, `git status --porcelain` against modules/, core/,
+      WEEBLY_FURNITURE_CHECKLIST.md and gbp-packs/ empty except one pre-existing
+      unrelated untracked debris file dated 2026-11-22 (not produced by this run's
+      regeneration, left alone) - zero-diff, byte-identical regeneration confirmed.
+      branches.json's smartts_bootle entry read field by field directly: seoTown,
+      addressLocality, nhsEmail/odsCode pairing, nhsReviewUrl, googleReviewUrl,
+      website, pfLink, serviceAreaList and the two-session lunch-split opening hours
+      all correct and unchanged from the last pass. Live spot-check via Claude in
+      Chrome (read-only, one tab, nothing clicked or typed, closed after use) of
+      pharmacy-first-smartts-bootle.html: title "Pharmacy First at Smartts Chemist,
+      Bootle" and H1 "Pharmacy First at Smartts Chemist in Bootle" both match the
+      generator and SEO.md exactly; address, phone and email in the contact card
+      match branches.json; all seven Pharmacy First conditions and cohorts render
+      correctly. STANDING, NOT NEW: the footer and visible opening-hours block still
+      show one continuous "Open Mon-Fri 9am-6pm" range, omitting the branches.json
+      lunch split (09:00-13:00, 14:00-18:00) - the same Q99 (answered) display gap
+      reconfirmed again on this page; fixing it live needs a Weebly session and is
+      out of this repo's reach. NO IN-REPO DEFECT FOUND, NO NEW LIVE DEFECT FOUND, NO
+      NEW QUESTION RAISED. QUESTIONS.json unchanged: 150 total, 1 open (Q149, item
+      2.2, unrelated to this item; checked via the portal feedback API this run,
+      still no answer posted, newest "Audit answer" entry remains Q52). Done 2026-11-28.
 - [x] 3.8 SK Chemists (Bootle): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-12 (hundred-and-eighth run, second machine-era
