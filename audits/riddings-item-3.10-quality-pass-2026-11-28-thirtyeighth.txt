@@ -1,0 +1,78 @@
+Item 3.10 quality pass (thirty-eighth), Cowork scheduled run, 2026-11-28T02:42Z pickup.
+
+BASELINE: branches.json sha256
+a547c26f66fc2e8e766c0a161f5382d71366e47bb27b4c27c03684fac12360b9
+(current working value; differs from older log-recorded baselines because the
+file has legitimately moved since, e.g. Wilmslow disposal, McCanns postcode
+fix, etc. - not a regression).
+
+Full 37-file tools/check-*.js suite run directly against the tracked repo:
+37/37 exit 0, no failure. Logs under audits/check-*.js.log (this run).
+
+ZERO GENERATOR DIFF: in an isolated git-archive scratch copy (/tmp/scratch310,
+tracked repo never opened for writing), ran all six build scripts
+(build-branch-landing-pages, build-service-pages, build-switch-pages,
+build-contraception-pages, build-travel-clinic-pages, build-weight-loss-pages)
+against the tracked branches.json. sha256 of all 13 riddings_timperley files
+(12 service/landing pages + 1 switch banner) identical before and after
+regeneration. git status --porcelain on the tracked repo: no modified tracked
+files, only the long-standing untracked audits/*.log scratch entries.
+
+LIVE HALF (Claude in Chrome, read-only, single tab, nothing clicked, typed or
+submitted, closed after use): read shingles-treatment-riddings-timperley.html
+live in full on riddingspharmacy.co.uk - the next of the four pages this
+branch still had unread as of the 2026-11-24 (thirty-seventh... actually
+previous) pass (insect-bite, shingles, sinusitis, uti-treatment remained
+live-unread).
+
+Title/H1: "Shingles treatment in Timperley - Riddings Pharmacy" - matches
+generator pattern. Phone 0161 973 2951 and address "38 Riddings Road,
+Timperley, Altrincham, WA15 6BP" both match branches.json's riddings_timperley
+record exactly. Opening hours Mon-Fri 9:00am-6:00pm, Sat/Sun closed - matches
+branches.json's specification (no lunch split for this branch, so no Q99-type
+display gap applies). Eligibility cohort "Age 18 and over" for shingles
+matches the generator's static Pharmacy First copy (adults 18+, new rash,
+ideally within 3 days; under-18s routed to GP; eye involvement or
+immunosuppression routed to urgent/GP care). No medicine named, no
+superlative or results claim, no stock guarantee (not applicable to this
+Pharmacy First page in any case).
+
+JSON-LD (read via javascript_tool, not visible in get_page_text which strips
+script tags): two blocks present, matching the standing Q99 pattern exactly -
+Block A is this repo's own correct per-page schema (name "Riddings Pharmacy",
+url resolving to this exact page, telephone and full PostalAddress including
+addressRegion "Greater Manchester" all matching branches.json; Riddings is one
+of the ten branches where brandLabel equals branchName, so no item-3.12/Q18
+name risk here). Block B is the Weebly-injected sitewide block (url pointing
+at the homepage, no addressRegion, openingHoursSpecification present but
+generic). Nothing about the pattern's shape is new; this reconfirms it on a
+page not previously sampled for this branch rather than adding fresh
+information to Q99.
+
+STANDING LIVE-ONLY FINDING RECONFIRMED, NOT NEW: the page's "Contact Us"
+sidebar still gives the county as "Cheshire" against branches.json's "Greater
+Manchester" (open question Q43, answer "Unsure... need advise"), seen before
+on this branch's other pages (pharmacy-first, contraception, sore-throat,
+impetigo).
+
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Live-read coverage for this
+branch now extends to 9 of 12 generated pages (up from 8); insect-bite,
+sinusitis and uti-treatment remain live-unread for a future pass.
+
+Repo side confirmed clean: modules/service/pages/shingles-treatment-riddings-
+timperley.html generates exactly one correct JSON-LD block, matching
+check-jsonld.js's rule, with data-branch, data-service, data-wa and the H1
+all also correct.
+
+QUESTIONS PICKUP: QUESTIONS.json holds exactly 1 open question (Q149, item
+2.2, open since 2026-11-24). Fetched https://data.rbhealth.co.uk/api/feedback
+via Claude in Chrome (read-only, single tab, nothing clicked or typed, closed
+after use) - newest entry is still the Q52 answer (2026-09-01); no "AUDIT
+ANSWER Q149" entry present. Q149 left open, untouched, not re-raised.
+
+No "Standing authorisation - autonomous window" section found at the top of
+AGENT_LOG.md; normal rules applied throughout.
+
+git status --porcelain -- modules core branches.json gbp-packs tools
+compliance empty throughout bar the pre-existing untracked audits/*.log and
+audits/*.json debris already present at pickup.

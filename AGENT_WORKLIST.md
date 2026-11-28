@@ -18918,6 +18918,36 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       branches.json gbp-packs tools compliance empty throughout (beyond
       this run's own two changed files). Done 2026-11-24.
 
+      Quality pass 2026-11-28 (thirty-eighth run, Cowork scheduled run,
+      02:42Z pickup): baseline unchanged - all 37 tools/check-*.js files
+      run directly against the tracked repo, 37/37 exit 0. Zero generator
+      diff confirmed in an isolated git-archive scratch copy: all six
+      build scripts regenerated against the tracked branches.json, sha256
+      of all 13 riddings_timperley files identical before and after.
+      LIVE HALF (Claude in Chrome, read-only, single tab, closed after
+      use): read shingles-treatment-riddings-timperley.html live in full -
+      the next of the four pages this branch still had unread as of the
+      2026-11-24 pass. Title/H1 "Shingles treatment in Timperley - Riddings
+      Pharmacy", phone 0161 973 2951, address "38 Riddings Road, Timperley,
+      Altrincham, WA15 6BP" and hours (Mon-Fri 9-6, Sat/Sun closed) all
+      match branches.json exactly; eligibility cohort "Age 18 and over"
+      matches the generator's static Pharmacy First copy; no medicine
+      named, no superlative or results claim, no stock guarantee. JSON-LD
+      read via javascript_tool: standing Q99 two-block pattern reconfirmed
+      (Block A this repo's correct page-specific schema, Block B the
+      Weebly-injected sitewide block) - not new. STANDING LIVE-ONLY FINDING
+      RECONFIRMED, NOT NEW: the Contact Us sidebar still gives "Cheshire"
+      against branches.json's "Greater Manchester" (open Q43). NO IN-REPO
+      DEFECT FOUND; NO NEW QUESTION RAISED. Live-read coverage now extends
+      to 9 of 12 generated pages (up from 8); insect-bite, sinusitis and
+      uti-treatment remain live-unread for a future pass. QUESTIONS.json:
+      1 open question (Q149, item 2.2); feedback portal checked fresh, no
+      new answer present, left open, not re-raised. git status --porcelain
+      -- modules core branches.json gbp-packs tools compliance empty
+      throughout bar the pre-existing untracked audits/*.log and
+      audits/*.json debris. Evidence in audits/riddings-item-3.10-quality-
+      pass-2026-11-28-thirtyeighth.txt. Done 2026-11-28.
+
 - [x] 3.11 Gordon Short Chemist (Liverpool): same treatment. Done 2026-08-04.
       12 pages, 0 mismatches.
       Quality pass 2026-08-11 (sixty-ninth run). All 12 pages re-read from
