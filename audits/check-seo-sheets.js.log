@@ -1,6 +1,7 @@
-check-seo-sheets
+﻿check-seo-sheets
   177 SEO-sheet entries and 163 INDEX-sheet entries across 11 discovered sheets
   177 generated pages compared
   163 pages also compared against an INDEX sheet, 14 with no INDEX row (the contraception family has no INDEX sheet)
 
 check-seo-sheets: clean, every page and its paste sheet agree.
+

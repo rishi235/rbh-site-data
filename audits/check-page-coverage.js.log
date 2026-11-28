@@ -1,4 +1,4 @@
-check-page-coverage
+﻿check-page-coverage
   branches.json: 16 branches, 16 trading, 0 disposed
   conditions:    7 built
   Pharmacy First   earns 14 branches, list holds 14
@@ -10,3 +10,4 @@ check-page-coverage
   expected page set: 177 pages across 3 folders
 
 check-page-coverage: clean, 177 pages accounted for
+

@@ -1,4 +1,4 @@
-check-brand-spelling
+﻿check-brand-spelling
   16 trading branch(es), 13 distinct trading name(s) pinned
   226 file(s) of public copy scanned for near-miss spellings and 7 known misspelling(s), banners included
   7 live module code file(s) under modules/ and core/ scanned for the same, comments blanked - this is the copy a browser writes into the page at run time
@@ -31,3 +31,4 @@ check-brand-spelling
   NOTE  1 hardcoded FALLBACK branch record(s) in core/site-data.js checked against the canonical trading names
   NOTE  203 generated page(s) and paste sheet(s) checked for the Q14 shortened brand outside a title, 658 title line(s) allowed it, 12 shortenable trading name(s): Scorah, McCanns, Fishlocks, Clear, Smartts, Hirshmans, SK, Coleman and Leighs, Riddings, Gordon Short, Cherry Lane, Tiffenbergs
 check-brand-spelling: clean, every trading name is spelled the one way, 24 quoted reading(s) of a live page read as evidence.
+

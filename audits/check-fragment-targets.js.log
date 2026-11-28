@@ -1,7 +1,8 @@
-
+﻿
 check-fragment-targets
   177 generated page(s) read, 1536 id(s) declared
   186 same-page fragment link(s) resolved against them, 187 JS-driven href="#" button(s) exempted
   0 held under KNOWN
 
 check-fragment-targets: clean, every fragment link lands on an element that exists.
+

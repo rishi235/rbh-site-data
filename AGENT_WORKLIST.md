@@ -23092,6 +23092,31 @@ Quality pass (thirty-first), 2026-11-22 (Cowork scheduled run). REPO HALF:
       IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
       audits/clear-aintree-item-3.13-quality-pass-2026-11-24-thirtyfourth.txt.
       Done 2026-11-24 (thirty-fourth pass).
+      Quality pass 2026-11-28 (Cowork scheduled run, ~15:24Z pickup,
+      thirty-fifth, hybrid Cowork sandbox + native Windows PowerShell
+      channel), picked as lowest-numbered item in the 2026-11-24 tied-oldest
+      set once 3.6, 3.9, 3.10, 3.11 and 3.12 had each been picked by one of
+      today's five prior runs. REPO HALF: branches.json sha256
+      A547C26F66FC2E8E766C0A161F5382D71366E47BB27B4C27C03684FAC12360B9
+      (differs from the thirty-fourth pass's recorded hash - expected, the
+      file has had legitimate edits over the intervening four days and
+      roughly 445 runs); full 35-checker non-network suite 35/35 clean.
+      Fresh step this pass: regenerated all 216 files across all six page
+      generators from a file-copy snapshot of modules/ (not git-based, so it
+      also catches untracked drift) and compared every file by SHA-256
+      before and after - 216/216 identical, 0 missing, 0 new. Guard coverage
+      stays at 37/37 (completed the thirty-third pass, nothing since has
+      regressed, so no further injection round was run). LIVE HALF (Claude
+      in Chrome reachable this run, read-only, single tab, closed after
+      use): re-fetched switch-prescriptions-clear-aintree.html - still a
+      live 404 on Clear Chemist's own branded template (Q29 unchanged),
+      phone number on the 404 template still 0151 203 6535 matching
+      branches.json (Q28 fix still holding, now three months). Portal feed
+      read as part of this run's shared step-3 answer pickup, newest entry
+      still Q52 (2026-09-01); no answer to Q149 (the estate's only open
+      question). NO IN-REPO DEFECT FOUND, NO NEW QUESTION RAISED. Evidence:
+      audits/clear-aintree-item-3.13-quality-pass-2026-11-28-thirtyfifth.txt.
+      Done 2026-11-28 (thirty-fifth pass).
 ## Phase 4 - GBP content packs (drafts only; agents cannot edit GBP)
 One pack per branch, saved to gbp-packs/<branch-slug>.md on this branch.
 Each pack: business description, extra categories to add, services section

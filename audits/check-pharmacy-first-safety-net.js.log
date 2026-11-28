@@ -1,6 +1,7 @@
-check-pharmacy-first-safety-net
+﻿check-pharmacy-first-safety-net
   7 ready conditions read from tools/build-service-pages.js
   98 condition pages checked against their own safety net
   WARN impetigo: safety net names no urgent route. The impetigo safety net names a GP twice but no urgent route. Whether NHS impetigo copy should carry a red flag is a clinical call on live patient-facing copy, so it is raised, not decided. (Q61)
 
 check-pharmacy-first-safety-net: clean, every condition page states its own escalation advice and no other pathway's.
+

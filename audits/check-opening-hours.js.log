@@ -1,4 +1,4 @@
-check-opening-hours
+﻿check-opening-hours
   6 landing page(s) checked against 16 trading branches
   rule 7 swept 88 clock time(s) on those pages, all of which must sit inside the hours card
   rule 8 swept 177 switch/service-family/pasted-copy file(s) with no hours card, for any clock time at all
@@ -8,3 +8,4 @@ check-opening-hours
   NOTE  branches with a split day (lunch closure), the case that caused the defect: mccanns_aigburth, mccanns_sandringham, smartts_bootle, hirshmans_ainsdale, colemanleigh_liverpool, gordonshorts_crosby, tiffenbergs_longmoor
 
 check-opening-hours: clean, every visible and structured opening time matches branches.json.
+

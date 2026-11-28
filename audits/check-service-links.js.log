@@ -1,4 +1,4 @@
-check-service-links
+﻿check-service-links
   177 generated page(s), 6 non-generated public-copy file(s), 2 JS copy source(s), 1000 link(s), 423 of them to our own 13 branch domains
   KNOWN www.smarttschemist.co.uk/blood-testing.html (1 reference(s)): Q16: live-only service page. Blood tests are not a branches.json widget, so no generator owns this page.
   KNOWN www.smarttschemist.co.uk/vaccinations.html (2 reference(s)): Q16: live-only service page, used by both the Vaccinations tile and the Travel Clinic tile. The repo does generate travel-clinic-smartts-bootle.html, so the Travel Clinic tile has a generated page to point at.
@@ -8,3 +8,4 @@ check-service-links
   KNOWN CLAIM Support that delivers results. in modules/switch/pages/switch-prescriptions-smartts-bootle.html: Q16: the Weight Loss Clinic tile on the Smartts switch page promises an outcome, which the house rule on weight loss copy does not allow. It is hardcoded in the CONFIG block of tools/build-switch-pages.js and is the only claim of its kind in the estate. Not rewritten autonomously because it is patient-facing regulatory copy, which is Rishi's call; the replacement wording is offered in Q16.
 
 check-service-links: clean, 6 known issue(s) awaiting a decision.
+

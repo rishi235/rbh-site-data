@@ -1,5 +1,6 @@
-check-editor-snapshot
+﻿check-editor-snapshot
   embedded snapshot: 16 branches, lastUpdated 2026-11-27
   branches.json:     16 branches, lastUpdated 2026-11-27
 
 check-editor-snapshot: clean, the editor's snapshot matches branches.json.
+

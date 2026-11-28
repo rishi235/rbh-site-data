@@ -1,4 +1,4 @@
-check-gbp-packs: 15 packs, 15 live branches in branches.json
+﻿check-gbp-packs: 15 packs, 15 live branches in branches.json
 
 12 warning(s) - human judgement, not automatic failures:
   WARN  cherry-lane-walton.md: known exception (Q72): 6 private-clinic qualifier(s) missing - weightLossPaid, weightLossSuitability, weightLossSupervised, travelSuitability, servicesWeightLossSupervised, servicesTravelSuitability. the pack carries the older Post C and Post D drafting, which states neither that the weight loss clinic is a private, paid service that is not right for everyone and runs as a supervised plan, nor that travel vaccinations are subject to availability and clinical suitability. The other 12 packs state all of it. Whether these three are brought onto the same wording is the decision Q72 asks; all three move together.
@@ -15,3 +15,4 @@ check-gbp-packs: 15 packs, 15 live branches in branches.json
   WARN  scorah-hazel-grove.md: KNOWN the "- Address:" line reads "87 Macclesfield Road, Hazel Grove, Stockport SK7 6BG", so the post town between the street and the postcode is "Hazel Grove Stockport", but branches.json holds addressLocality as "Hazel Grove". A pack is pasted into Google Business Profile, so one shop would publish two different address strings, one to Google and one on every page this repo generates. Q64: the pack's address carries the Royal Mail post town for the postcode (SOUTHPORT for PR8, CHORLEY for PR7, STOCKPORT for SK7) while branches.json holds only the dependent locality, so the two are not in step. Which of the two is the estate standard is the decision Q64 asks, and all five move together once it is answered. Nothing is edited until then, because addressLocality feeds schema.org PostalAddress on all 177 generated pages.
 
 0 failures.
+

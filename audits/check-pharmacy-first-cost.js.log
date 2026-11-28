@@ -1,6 +1,7 @@
-check-pharmacy-first-cost
+﻿check-pharmacy-first-cost
   112 Pharmacy First page(s) checked for the free claim, the prescription-charge caveat, cost qualifiers and prices
   16 GBP pack(s) checked for cost qualifiers, prices and the free claim
   6 branch landing page(s) checked, 6 of them advertising Pharmacy First and held to the free claim, cost qualifiers and prices
 
 check-pharmacy-first-cost: clean, every page and pack states the free NHS claim, keeps the prescription-charge caveat, and prices nothing.
+

@@ -1,5 +1,6 @@
-check-weebly-furniture-freshness
+﻿check-weebly-furniture-freshness
   16 branch(es) in branches.json (lastUpdated 2026-11-27)
   WEEBLY_FURNITURE_CHECKLIST.md: 325 line(s) checked-in, 325 line(s) a fresh regeneration would produce
 
 check-weebly-furniture-freshness: clean, WEEBLY_FURNITURE_CHECKLIST.md is byte-identical to what tools/build-weebly-furniture-checklist.js would produce from the current branches.json.
+

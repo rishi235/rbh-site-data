@@ -1,7 +1,8 @@
-check-contraception-copy
+﻿check-contraception-copy
   14 contraception page(s) read against tools/build-contraception-pages.js
   26 line(s) of service copy pinned, 5 FAQ pair(s)
   presence rules read crawlable text only (scripts and comments stripped, Build Pack v2 section 5.1); absence rules read the whole page
   1 accepted breach(es), each with a reason in KNOWN:
     safeguarding::no under-16 step on any page
   OK - no failures
+

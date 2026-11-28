@@ -1,6 +1,7 @@
-check-map-embeds
+﻿check-map-embeds
   16 trading branch(es), 16 map address(es) read from branches.json
   177 generated page(s), 177 map embed(s), 6 directions button(s)
   6 generator(s) checked for how the query is composed
 
 check-map-embeds: clean, every map and directions link matches its branch address, 0 known exception(s).
+

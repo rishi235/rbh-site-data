@@ -1,0 +1,74 @@
+Item 3.13 - Clear Chemist (Aintree) - Quality pass, 2026-11-28 (thirty-fifth)
+Run: Cowork scheduled run, audit-backlog-worker, ~15:24Z pickup (hybrid Cowork
+sandbox + native Windows PowerShell channel, per the standing workaround
+recorded in INCIDENT-2026-11-16-sandbox-unlink-blocked.md)
+
+SELECTION
+Three worklist lines remain unchecked, all still [BLOCKED] (5.8/Q16, 6.4/Q60,
+6.5/Q60) - confirmed by direct grep of AGENT_WORKLIST.md's own "- [ ]" lines.
+No pickable item, so took the quality-pass fallback. Reconstructed today's
+prior picks from AGENT_LOG.md's "## run" headers matching 2026-11-28: 3.12,
+3.11, 3.10, 3.6, 3.9 (five runs already completed today before this one).
+Excluding the two standing out-of-rotation items (2.2, 5.7) and today's five
+picks, the oldest tied group by last-quality-pass date inside each item's own
+AGENT_WORKLIST.md section is 2026-11-24: 3.13, 4.1-4.15, 5.1-5.3, 6.2, 6.3.
+Picked 3.13 (Clear Chemist, Aintree), the lowest-numbered item in that group,
+per the standing tie-break convention. Item 3.13's own section already
+records guard coverage at 37/37 checkers (completed on the thirty-third
+pass, reconfirmed on the thirty-fourth), so this pass is a baseline
+reconfirmation plus a live re-sample, not a new injection round.
+
+REPO HALF
+branches.json sha256 (whole file, this run): A547C26F66FC2E8E766C0A161F5382D71366E47BB27B4C27C03684FAC12360B9
+(differs from the thirty-fourth pass's recorded "0385b7c2...27da" - expected,
+since the file has had legitimate edits across the four days and roughly 445
+runs between 2026-11-24 and today; not itself a finding).
+
+Ran all 35 non-network checkers in tools\ (excludes check-live-hours.js,
+which needs a live fetch and is covered separately below) directly against
+the tracked repo. All 35 exited 0 (clean). Full output saved to
+audits\check-*.js.log (one file per checker, overwritten this run) and a
+one-line-per-checker summary to
+audits\_run-summary-3.13-2026-11-28.txt.
+
+Regenerated all 216 files across the six page-generator outputs
+(build-service-pages.js, build-switch-pages.js, build-weight-loss-pages.js,
+build-travel-clinic-pages.js, build-contraception-pages.js,
+build-branch-landing-pages.js) from the current branches.json, against a
+pre-run snapshot of modules\ taken via file copy (not git, so this catches
+drift from anything, not only tracked changes). Compared every file by
+SHA-256 before and after: 216 files before, 216 files after, 0 differences,
+0 missing, 0 new. Confirms every generated page in the estate - the three
+Clear Chemist Aintree pages included - is byte-identical to what the
+generators produce today, not merely unchanged since the last commit.
+
+No further injection round run: all 37 checkers were already proven by
+injection against this specific branch on the thirty-third pass
+(2026-11-23), and nothing in the intervening ten days' worth of runs has
+reported a regression against this item, so guard coverage stands at 37/37
+with no gap to close this pass.
+
+LIVE HALF (Claude in Chrome, read-only; single tab opened, nothing clicked
+or typed, closed immediately after use)
+Chrome was reachable this run (unlike several recent passes logged
+elsewhere in this item's history). Re-fetched
+https://www.clearchemist.co.uk/switch-prescriptions-clear-aintree.html:
+still resolves to Clear Chemist's own branded 404 template ("Whoops, our
+mistake...") rather than a generated switch page - Q29 unchanged, matching
+the decision on record (leave the three pages generated-but-unpublished
+until the store is next worked on). The 404 template's own contact line
+reads "0151 203 6535", which matches branches.json's clearchemist_aintree
+record (`phone: "0151 203 6535"`) exactly - the Q28 phone-number fix from
+2026-08-30 is still holding over three months later.
+
+Also re-checked the portal feedback endpoint (https://data.rbhealth.co.uk/api/feedback)
+as part of this run's step-3 answer pickup (shared across the whole run, not
+repeated per item): Cloudflare Access session held, JSON returned cleanly,
+newest entry still "AUDIT ANSWER Q52" (2026-09-01) - no answer posted yet for
+the one open question, Q149 (item 2.2, open since 2026-11-24). Left open,
+untouched, not re-raised.
+
+RESULT
+NO IN-REPO DEFECT FOUND. NO NEW QUESTION RAISED. Guard coverage for item 3.13
+unchanged at 37/37 (already complete). Item stays [x] (quality pass, no
+state change) with a new paragraph appended to its AGENT_WORKLIST.md section.

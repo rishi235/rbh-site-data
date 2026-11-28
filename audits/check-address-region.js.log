@@ -1,7 +1,8 @@
-check-address-region
+﻿check-address-region
   16 trading branches checked against 4 permitted counties, their seoTown against their own serviceAreaList, and the lead entry of that list against every other branch's seoTown
   1 accepted exception(s) checked against the values each one was granted for, so an exception cannot widen to cover a value nobody approved
   WARN  KNOWN mccanns_sandringham: townSlug "sandringham" is not the slug of seoTown "St Michael's" (would be "st-michaels"). Q15: townSlug is deliberately held at 'sandringham' while seoTown reads 'St Michael's'. Rishi's answer moved the local word in the copy but kept the permalinks, so no live URL breaks and no redirects are needed. The title and the URL naming different places is the accepted cost.
   WARN  cherrylane_liverpool: seoTown "Walton" is in serviceAreaList but not first ("Liverpool" is). No branch owns "Liverpool" as its seoTown, so this is an ordering judgement rather than a fault, but the first entry is the one the copy leads with.
 
 check-address-region: clean, every addressRegion is a county (2 warning(s)).
+

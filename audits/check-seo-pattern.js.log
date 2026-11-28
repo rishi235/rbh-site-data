@@ -1,4 +1,4 @@
-OK   Cherry Lane Pharmacy - 12 pages
+﻿OK   Cherry Lane Pharmacy - 12 pages
 OK   Clear Chemist - 3 pages
 OK   Coleman and Leighs Pharmacy - 12 pages
 OK   Fishlocks Chemist - 26 pages
@@ -20,3 +20,4 @@ data-source rule: 15 branches had seo-pattern pick() checked against branches.js
        and the region leg against seoRegion/addressRegion, 8 with addressLocality differing from seoTown, 1 with seoRegion differing from addressRegion.
 cross-town rule: 177 pages read against 11 live seoTowns (Bramhall, Hazel Grove, Aigburth, St Michael's, Ainsdale, Eccleston, Aintree, Bootle, Walton, Timperley, Crosby), serviceAreaList excusing the branch's own catchment.
 177 pages checked, 0 untyped (0 excused by KNOWN_NON_PAGE), 0 failures.
+

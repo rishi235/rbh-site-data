@@ -1,7 +1,8 @@
-check-jsonld
+﻿check-jsonld
   177 generated page(s) checked against 16 trading branches
   177 map iframe address(es) decoded and compared
   @type declared: Pharmacy x177
   name checked per family: branch:branchName x6, service:branchName x156, switch:branchName x15
 
 check-jsonld: clean, every JSON-LD block and map address agrees with branches.json.
+

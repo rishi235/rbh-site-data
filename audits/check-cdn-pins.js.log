@@ -1,4 +1,4 @@
-check-cdn-pins
+﻿check-cdn-pins
   baseline: origin/main
   348 pin reference(s) across 177 generated page(s), 2 distinct ref(s): 5c7fa63, service-module-phase1
   plus 12 reference(s) in 9 non-generated file(s): 6 public paste, 3 runtime asset(s)
@@ -12,3 +12,4 @@ check-cdn-pins
   WARN  core/site-data.js fetches branches.json from @main at RUN TIME, and that copy differs from agents/audit-backlog, which is the branch every checker here validates. Live resolves branch data - widget ids, phones, addresses, hours - from @main. Until this branch reaches main, a page can render data this repo has already corrected while every check stays green. Second hop in the booking chain (Q45).
 
 check-cdn-pins: clean, 2 warning(s), 6 known issue(s) awaiting a decision.
+
